@@ -1,0 +1,289 @@
+%{{{ [vim] 
+% vim:foldmarker=%{{{,%}}}
+% vim:foldmethod=marker
+% vim:foldcolumn=4
+%}}}
+%% thatexmath.tex
+%% author: Thanos Tsouanas <thanos@tsouanas.org>
+
+\message{[ThaTeX-math]}
+
+%%{{{ amstex & friends 
+\let\knuthcases=\cases
+\let\knuthproclaim=\proclaim
+\let\knuthfootnote=\footnote
+\let\knuthS=\S
+\let\footnotebeforeamstex=\footnote
+\input amstex
+\let\footnote=\footnotebeforeamstex
+\let\footnotebeforeamstex\relax
+% euler fonts
+\loadmsam % ams fonts
+\loadmsbm % ams fonts
+\loadbold % math bold fonts
+%\loadeufm % fraktur medium-weight 
+%\loadeufb % fraktur bold
+%\loadeusm % script medium-weight
+%\loadeusb % script bold
+%\loadeurm % cursive roman medium-weight
+%\loadeurb % cursive roman bold
+\let\AMSproclaim=\proclaim
+\let\proclaim\relax
+\input stmary  % does this load amssym?
+\input ofs
+\input amsfn
+
+% ofs
+\def\fomenc{AMS}
+\setsimplemath
+
+% load the rsfs(o) fonts
+\font\tenscr=rsfso10
+\font\sevenscr=rsfso7
+\font\fivescr=rsfso5
+\skewchar\tenscr='177 \skewchar\sevenscr='177 \skewchar\fivescr='177
+\newfam\scrfam \textfont\scrfam=\tenscr \scriptfont\scrfam=\sevenscr \scriptscriptfont\scrfam=\fivescr
+\def\scr#1{{\fam\scrfam#1}}
+
+% load the ams msbm fonts
+% use bbold10, bbold7, bbold5 for an alternative font
+% that supports more characters (and digits!)
+\font\tenbbb=msbm10
+\font\sevenbbb=msbm7
+\font\fivebbb=msbm5
+\skewchar\tenbbb='177 \skewchar\sevenbbb='177 \skewchar\fivebbb='177
+\newfam\bbbfam \textfont\bbbfam=\tenbbb \scriptfont\bbbfam=\sevenbbb \scriptfont\bbbfam=\fivebbb
+\def\bbb#1{{\fam\bbbfam#1}}
+
+% load the eufm fonts
+\font\teneuf=eufm10
+\font\seveneuf=eufm7
+\font\fiveeuf=eufm5
+\newfam\euffam \textfont\euffam=\teneuf \scriptfont\euffam=\seveneuf \scriptfont\euffam=\fiveeuf
+\def\euf#1{{\fam\euffam#1}}
+
+%%}}}
+
+% funky symbols
+\def\woohoo{\mathord{\ddot\smile}}
+\def\boohoo{\mathord{\ddot\frown}}
+
+% standard sets
+\def\nats{{\bbb N}}
+\def\rats{{\bbb Q}}
+\def\ints{{\bbb Z}}
+\def\reals{{\bbb R}}
+\def\complex{{\bbb C}}
+\def\bools{{\bbb B}}
+
+% mathfonts
+\def\mathit#1{\hbox{\it#1}}
+\def\mathrm#1{\hbox{\rm#1}}
+\def\mathsf#1{\hbox{\sf#1}}
+\def\mathtt#1{\hbox{\tt#1}}
+\def\txt#1{\text{\tt #1}}
+\def\namedpred#1{\mathop{\rm #1}\nolimits}
+\def\namedfun#1{\operatorname{#1}\nolimits}
+\def\namedop#1{\operatorname{#1}}
+\def\cal{\Cal}
+
+% elementary math
+\def\abs#1{\left|#1\right|}
+\def\sizeof#1{\left|#1\right|}
+\def\frac#1#2{{#1\over#2}}
+\def\ntimes{\mathbin{\cdot}}
+\def\stimes{\,}
+\def\floor#1{\left\lfloor#1\right\rfloor}
+\def\ceil#1{\left\lceil#1\right\rceil}
+\def\cancel#1{\tikz[baseline] \node [strike out,draw,anchor=text,inner sep=0pt,color=black!33,text=black]{$#1$};}
+
+% matrices
+\def\matrixp#1{\pmatrix#1\endpmatrix}
+
+% misc symbols
+\let\knuthphi=\phi
+\let\phi=\varphi
+
+% combinatorics
+\def\arrange#1{Arr(#1)}
+\def\perm#1#2{P(#1,#2)}
+\def\comb#1#2{C(#1,#2)}
+\def\binom#1#2{{{#1} \choose {#2}}}
+\def\becomes{\mathrel{\rightsquigarrow}}
+\def\transto{\mathrel{\rightsquigarrow}}
+\def\transfrom{\mathrel{\leftsquigarrow}}
+\def\bitrans{\leftrightsquigarrow}
+\def\permf#1{\matrixp{#1}}
+\def\permc#1{{\def\quad{\ \,}\permf{#1}}}
+
+% layout/text tools
+\definecolor{explanationcolor}{cmyk}{0,0,0,.666}
+\def\explanationstyle#1{{\color{explanationcolor} #1}}
+\def\mathby#1{\text{\explanationstyle{(#1)}}}
+\definecolor{hintstatuscolor}{cmyk}{0,0,0,.666}
+\def\hintstatusstyle#1{{\sixrm\color{hintstatuscolor} (#1)}}
+\def\explanation#1{\text{\explanationstyle{(#1)}}}
+\def\qqby#1{&\qquad&\mathby{#1}}
+\def\toverbrace#1#2{\overbrace{#1}^{\text{#2}}}
+\def\tunderbrace#1#2{\underbrace{#1}_{\text{#2}}}
+
+% generic TeX symbol machinery
+\def\smartnot{\mathpalette\NoT}
+\def\NoT#1#2{\mathrel{\ooalign{\hfil$#1{#2}$\hfil\cr\hfil$#1/$\hfil}}}
+
+% generic tools
+\def\ensuremath#1{\ifmmode#1\else$#1$\fi}
+%\def\eqvdots{\mathmakebox[\widthof{${}={}$}][c]{\vdots}}
+\def\eqvdots{\ \ \vdots}
+\def\eqtype{\mathrel{\,\,\kern-.05em:\,}}
+
+% number theory
+\def\divides{\mathrel{\mid}}
+\def\divideseqwidth{\;\mathrel{\mid}\;}
+\let\knuthcong=\cong
+\let\knuthncong=\ncong
+\def\cong{\equiv}
+\undefine\ncong
+\def\ncong{\mathrel{\not\equiv}}
+\def\congmod#1#2{#1\quad(\mod {#1})}
+\def\modulo#1{\left(\mod{#1}\right)}
+\def\ndivides{\mathrel{\nmid}}
+\def\gengcd#1{\mathopen{\text{\rm gcd}(}#1\mathclose{)}}
+\def\genlcm#1{\mathopen{\text{\rm lcm}(}#1\mathclose{)}}
+\def\gcd#1#2{\left(#1,#2\right)}
+\def\lcm#1#2{\left[#1,#2\right]}
+\def\totsym{\varphi}
+\def\tot#1{\mathopen{\totsym}\left({#1}\right)\mathclose{}}
+
+% logic metalang
+%\def\iffdf{\mathrel{\overset\triangle\iff}}
+\def\defiff{\mathrel{{\buildrel{\text{\sixss def}} \over {\iff}}}}
+\def\impliesbecause#1{\mathrel{{\buildrel{\text{\explanationstyle{\sixrm #1}}} \over {\implies}}}}
+\def\pseudodefiff{\mathrel{{\buildrel{\text{\sixss ``def''}} \over {\iff}}}}
+\def\askiff{\mathrel{{\buildrel{\text{?}} \over {\iff}}}}
+\def\letiff{\mathrel{\;:\Longleftrightarrow \;}}
+\def\defeq{\mathrel{{\buildrel{\text{\sixss def}} \over {=}}}}
+\def\pseudodefeq{\mathrel{{\buildrel{\text{\sixss ``def''}} \over {=}}}}
+\def\askeq{\mathrel{{\buildrel{\text?} \over {=}}}}
+\def\eqass{\mathrel{=:}}
+\def\asseq{\mathrel{:=}}
+\let\leteq=\asseq
+\let\eqlet=\eqass
+\def\mland{\mathbin{\;\&\;}}
+\def\mlor{\mathbin{\;\text{\rm or}\;}}
+\def\nimplies{\smartnot\implies}
+\def\lrdir{``$\Rightarrow$''}
+\def\rldir{``$\Leftarrow$''}
+\def\bidir{``$\Leftrightarrow$''}
+\def\ttherefore{$\therefore$~~}
+
+% logic formulae
+\def\univ{U}
+\def\limplies{\mathbin{\rightarrow}}
+\def\lforall#1#2{\left(\/\forall #1\right)\!\left[\thinspace#2\thinspace\right]}
+\def\lexists#1#2{\left(\/\exists #1\right)\!\left[\thinspace#2\thinspace\right]}
+
+% booleans
+\def\True{\mathsf{True}}
+\def\False{\mathsf{False}}
+
+% sets, relations, and functions
+\def\intersection{\cap}
+\let\inters=\intersection
+\def\Intersection{\bigcap}
+\let\Inters=\Intersection
+\def\union{\cup}
+\def\Union{\bigcup}
+\def\symdiff{\mathbin{\triangle}}
+\def\surjto{\rightarrow\mathrel{\kern-.8em}\rightarrow}
+\def\injto{\rightarrowtail}
+\def\bijto{\injto\mathrel{\kern-.8em}\rightarrow}
+\def\decorateover#1#2{\mathrel{{\buildrel{#1} \over {#2}}}}
+\def\transcl#1{\decorateover{+}{#1}}
+\def\rtranscl#1{\decorateover{*}{#1}}
+\def\symcl#1{\decorateover{\leftrightarrow}{#1}}
+\def\refcl#1{\decorateover{=}{#1}}
+\def\set#1{\left\{#1\right\}}
+\def\tup#1{\left<#1\right>}
+\def\paren#1{{\left({#1}\right)}}
+\def\bracket#1{{\left[\shave{#1}\right]}}
+\def\st{\;\mathord{\pmb{\mid}}\;}
+\def\setst#1#2{\set{#1 \ \st\  #2}}
+\def\setlst#1#2{\set{#1 \ \;\middle|\;\  #2}} % sufficiently long such that
+\def\emph#1{{\it #1}}
+\def\from{:}
+\def\sset#1#2{\langle{#1}\mathrel{;}{#2}\rangle}
+\def\ssetfont{\cal}
+\def\finsubseteq{\subseteq_{\text{\sixss fin}}}
+\def\finsubset{\subset_{\text{\sixss fin}}}
+\def\seq#1{\left\langle#1\right\rangle}
+\def\pset#1{{\wp}#1}
+\def\psetfin#1{{\wp_{\text{\rm f}}}#1}
+\let\powerset=\pset
+\def\card#1{\abs{#1}}
+\def\id{\mathrm{id}}
+\def\idof#1{\mathord{\id}_{#1}}
+\def\idone#1{\mathord{1_{#1}}}
+%\def\cod{\mathop{\rm cod}\nolimits}
+%\def\coim{\mathop{\rm coim}\nolimits}
+\def\coim{\namedop{coim}}
+\def\dom{\namedop{dom}}
+\def\cod{\namedop{cod}}
+\def\compose{\circ}
+\def\fcompose{\circ}
+\def\rcompose{\circ}
+\let\rcom=\rcompose
+\let\fcom=\fcompose
+\let\com=\compose
+\def\trel#1{<<#1>>}
+\def\eqclass#1#2{[\mathord{#1}\mathord{/}\mathord{#2}]}
+\def\eqclassimp#1{[#1]}
+\def\quotset#1#2{\mathord{#1}\mathord{/}\mathord{#2}}
+\def\graph{\namedop{Graph}}
+\def\img#1#2{#1[#2]}
+\def\preimg#1#2{#1^{-1}[#2]}
+\let\rel=\mathrel
+\let\of=\compose
+\let\following=\compose
+
+% set theory
+\def\continuum{\euf{c}}
+\def\finord#1{\overline{#1}}
+\def\eqc{\mathrel{=_{\namedop{c}}}}
+\def\neqc{\mathrel{\not\eqc}}
+\def\leqc{\mathrel{\leq_{\namedop{c}}}}
+\def\geqc{\mathrel{\geq_{\namedop{c}}}}
+\def\gtc{\mathrel{>_{\namedop{c}}}}
+\def\ltc{\mathrel{<_{\namedop{c}}}}
+
+% group theory
+\def\gord#1{\mathord{\it o}\paren{#1}}
+\def\tord#1{\mathrm{ord}\paren{#1}}
+\def\bord#1{\abs{#1}}
+\def\ginv#1{{#1}^{-1}}
+\def\pginv#1{\paren{#1}^{-1}}
+\makeatletter
+\def\pmodr#1{\allowbreak \ifinner \mkern 8mu\else \mkern 18mu\fi ({\fam \z@ mod_{R}}\,\,#1)}
+\def\pmodl#1{\allowbreak \ifinner \mkern 8mu\else \mkern 18mu\fi ({\fam \z@ mod_{L}}\,\,#1)}
+\makeatother
+\let\groupord=\gord
+\def\subgroup{\leq}
+\def\nsubgroup{\nleq}
+\let\subgrp=\subgroup
+\let\nsubgrp=\nsubgroup
+\def\generate#1{\left\langle#1\right\rangle}
+
+% placeholder hole 
+\definecolor{holecolor}{cmyk}{.25,.05,.05,0}
+\def\hole{\ensuremath{\colorbox{holecolor}{$\phantom{x}$}}}
+\def\thole{\thinspace\vrule height 0.4pt depth 0pt width 1em\thinspace}
+\def\holed#1{\ensuremath{\colorbox{holecolor}{$#1$}}}
+
+% algorithm styling
+\def\algorithmstyle#1{\text{{\scshape #1}}}
+
+% numerical
+\def\digit#1{\text{\sf #1}}
+
+% complex numbers
+\def\modulus#1{\left|#1\right|}

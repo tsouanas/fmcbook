@@ -1,0 +1,772 @@
+%%{{{ [vim] 
+%% vim:foldmarker=%{{{,%}}}
+%% vim:foldmethod=marker
+%% vim:foldcolumn=6
+%%}}}
+%% fmcmac.tex
+%% author: Thanos Tsouanas <thanos@tsouanas.org>
+
+\input thatex
+\input thatexmath
+\input fmcwords
+\input fmcfonts
+\input fmcfriends
+\input fmcconf
+
+% FMCBOOK
+
+%%{{{ general-style 
+
+%%{{{ page layout 
+
+% top-level strings
+%%%% A4:     210mm x 297mm
+%%%% A5:     148mm x 210mm
+%%%% letter: 8.5in x 11in
+
+%\paperheight=297mm
+%\paperwidth=210mm
+
+% margins (THESE ARE NOT REGISTERS, see eplain)
+\topmargin=26mm
+\bottommargin=28mm
+\leftmargin=34mm
+\rightmargin=34mm
+
+\normalbaselineskip=12pt \sizexi\rm
+
+%\hsize=210mm
+%\vsize=297mm
+%\advance\hsize by -3in
+%\advance\vsize by -3in
+
+%%}}} 
+
+%%{{{ draft / release versions
+\ifdraft
+\overfullrule=2cm
+\else\overfullrule=0pt
+\fi
+%%}}}
+
+%%}}}
+
+%%{{{ Symbols 
+\def\activitysymbol{{\manual\char'170}}
+\def\examplesymbol{{$\bullet$}}
+%%}}}
+
+%%{{{ indices 
+%\defineindex i % this is already defined by eplain
+\defineindex n % friends
+\def\idxpmdefpage#1{{\bf #1}}
+%\def\idxpminfopage#1{{\it #1}}
+\indexproofingfalse % default is false anyway
+\hookaction{beginindex}{\doublecolumns}
+\def\indexfonts{\sizex}
+%%}}}
+
+%%{{{ biblio 
+\def\printcitestart{\bgroup[\ninessdc}
+\def\printcitefinish{]\egroup}
+\def\printcitenote#1{\ninerm:~{\relax#1}}
+\def\printbetweencitations#1{{\ninesl,}~}
+%%}}}
+
+%%{{{ rosters 
+\let\listmarkerspace=\enspace
+\listleftindent=.5\parindent
+\def\numberedprintmarker#1{\llap{(#1) \listmarkerspace}}
+%%}}}
+
+%%{{{ text structures 
+
+% top-level counters
+\newcount\chapterno
+\newcount\appendixno
+\newcount\sectionno
+\newcount\noteno
+\newcount\exerciseno
+\newcount\codeitno
+\newcount\problemno
+\newcount\hintno
+\newcount\maxhintno
+\newcount\symbolno
+
+% \WriteReport counters
+\newcount\exercisetotal
+\newcount\problemtotal
+\newcount\chaptertotal
+\exercisetotal=0
+\problemtotal=0
+\chaptertotal=0
+
+%%{{{ chapter 
+\newskip\chaptertitleskip
+\newskip\chapteroidtitleskip
+\chaptertitleskip=8ex
+\chapteroidtitleskip=6ex
+
+% styles
+\def\chapterwordstyle#1{\twelverm\toupper{#1}}
+\def\chaptertitlestyle#1{\twelverm\toupper{#1}}
+\def\chapteroidtitlestyle#1{\fourteenbf\vphantom{ÂÇ}#1}
+
+\def\chapter#1. #2\par{%
+\global\advance\chapterno by 1%
+\global\advance\chaptertotal by 1\relax%
+\titlepage%
+\topmarker={\chaptername~\number\chapterno}%
+\toptitle={#1}%
+\noteno=0%
+\exerciseno=0%
+\codeitno=0%
+\problemno=0%
+{%
+\def\chaptertag{\number\chapterno}%
+\def\label##1{\definexref{##1}{\chaptertag}{chapter}\xrdef{p:##1}}%
+#2%
+\hldestizepage%
+\writenumberedtocentry{chapter}{#1}{\number\chapterno}%
+\vglue 4ex%
+\centerline{\chapterwordstyle{\chaptername}~\Romannumeralof{\the\chapterno}}%
+\vglue 4ex%
+\centerline{\chaptertitlestyle{#1}}\par%
+\vglue\chaptertitleskip%
+}%
+}
+
+\def\endchapter{%
+\vfill$$\woohoo$$\eject%
+}
+
+\def\appendix#1. #2\par{%
+\global\advance\appendixno by 1%
+\titlepage%
+\topmarker={\appendixname~\Alphabetnumeral{\appendixno}}%
+\toptitle={#1}%
+\noteno=0%
+\exerciseno=0%
+\codeitno=0%
+\problemno=0%
+{%
+\def\appendixtag{\number\appendixno}%
+\def\label##1{\definexref{##1}{\appendixtag}{appendix}\xrdef{p:##1}}%
+#2%
+\hldestizepage%
+\writenumberedtocentry{appendix}{#1}{\number\appendixno}%
+\hbox{}\vskip 4ex
+\centerline{\chapterwordstyle{\appendixname}~\Alphabetnumeral{\appendixno}}
+\vskip 4ex
+\centerline{\chaptertitlestyle{#1}}\par
+\vskip\chaptertitleskip
+\noindent
+}
+}
+
+\def\endappendix{%
+\vfill\eject%
+}
+
+\def\chapteroid#1. #2\par{%
+\titlepage%
+\oddpage%
+\toptitle={#1}%
+\topmarker={#1}%
+\noteno=0%
+\exerciseno=0%
+\codeitno=0%
+\problemno=0%
+{%
+\def\label##1{\xrdef{p:##1}}%
+#2%
+\hldestizepage%
+\writetocentry{chapteroid}{#1}{}%
+\hbox{}\vskip 4ex
+\centerline{\chapteroidtitlestyle{#1}}\par
+\vskip.5ex\hrule 
+\vskip\chapteroidtitleskip
+\noindent
+}
+}
+
+\def\endchapteroid{%
+\vfill$$\woohoo$$%
+\makenextpageodd%
+}
+
+%%}}}
+
+%%{{{ section 
+\newskip\sectiontitleskip
+\sectiontitleskip=.333\chaptertitleskip
+\def\section#1. #2\par{%
+\global\advance\sectionno by 1%
+{%
+\def\sectiontag{\knuthS\the\sectionno}%
+\def\label##1{\definexref{##1}{\sectiontag}{section}\xrdef{p:##1}}%
+\writenumberedtocentry{section}{#1}{\the\sectionno}%
+\centerline{\twelvebf{\sectiontag.~}#1}%
+\hldestizepage%
+\bgroup%
+\noindent%
+#2%
+}%
+}
+
+\def\endsection{%
+\egroup%
+\par\vskip 8ex\relax\goodbreak
+}
+%%}}}
+
+%%{{{ sectionoids 
+
+% generic 
+\def\sectionoidwrapper#1#2{%
+{%
+#2%
+\immediate\writetocentry{sectionoid}{#1}{}%
+\medbreak\noindent{\centerline{\fourteenbf#1}\hldestizepage\vskip\sectiontitleskip\par\nopagebreak\noindent}%
+}%
+}
+
+\def\sectionoid#1. #2\par{%
+{%
+\sectionoidwrapper{#1}{#2}%
+}%
+}
+
+\def\endsectionoid{%
+\vskip 4ex\relax\goodbreak
+}
+
+\def\problems#1. #2\par{%
+\sectionoidwrapper{\ifEqStr{#1}{}\problemsname\else#1\fi}{#2}%
+}
+
+\def\endproblems{%
+\endsectionoid
+}
+
+\def\further#1. #2\par{%
+\sectionoidwrapper{\ifEqStr{#1}{}\furthername\else#1\fi}{#2}%
+}
+
+\def\endfurther{%
+\endsectionoid
+}
+
+\def\history#1. #2\par{%
+\sectionoidwrapper{\ifEqStr{#1}{}\historyname\else#1\fi}{#2}%
+}
+
+\def\endhistory{%
+\endsectionoid
+}
+
+
+\def\hintsection#1. #2\par{%
+\def\hintsectiontitle{\hintsname\ \##1}
+\sectionoidwrapper{\hintsname\ \##1}{#2}
+}
+
+\def\endhintsection{%
+\endsectionoid
+\goodbreak
+}
+
+
+%%}}}
+
+%%}}}
+
+%%{{{ math structure 
+
+%%{{{ xrefs 
+\def\eqconstruct#1{\the\chapterno{.}#1}
+%%}}}
+
+%%{{{ needed symbols 
+\def\qedsymbol{\vrule width .3em height 1.8ex depth .1ex\relax}
+\def\qecsymbol{\vrule width .3em height 1.8ex depth .1ex\relax}
+\def\qessymbol{\boxit{0pt}{\phantom{\qedsymbol}}}
+\def\qexsymbol{\ensuremath{\bullet}}
+\def\qepsymbol{\ensuremath{\fatsemi}}
+\def\mistakesymbol{\ensuremath{\lightning}}
+\def\qedword{{\scshape οεδ}}
+\def\qecword{{\scshape οεπ}}
+\def\qesword{{\scshape οες}}
+%%}}}
+
+%%{{{ proclamations 
+
+\def\moveqedup{\unskip\vskip-12pt}
+\def\notemixin{
+\def\notecounter{\noteno}%
+\def\notecounterinc{\global\advance\notecounter by 1\relax}%
+\def\notecounterdec{\global\advance\notecounter by -1\relax}%
+\def\notetagdecorate##1{##1}
+\def\notetag{\notetagdecorate{\the\chapterno.\the\notecounter}}%
+\def\notename{}%
+\def\noterefclass{}%
+\def\noteheadahook{}%
+\def\noteheadzhook{}%
+\def\notehead{\medbreak\noindent\bgroup\bf\noteheadahook\notetag.~\ifEmpty\notename\else\notename.\enspace\fi\noteheadzhook\egroup}%
+\def\notebodyahook{\bgroup}%
+\def\notebodyzhook{\egroup\par\medbreak}%
+\def\notebodytext{}%
+\def\notebody{\notebodyahook\notebodytext\notebodyzhook}%
+}
+
+\def\note#1. #2\par{%
+{%
+\notemixin%
+% overrides:
+\notecounterinc%
+\def\notename{#1}%
+\def\notebodytext{%
+\def\label####1{\definexref{####1}{\notetag}{note}}%
+#2
+}%
+\def\notekind{note}%
+% print it:
+%\notehead%
+\medbreak%
+\noindent%
+\noteheadahook%
+{\bf\notetag.\enspace%
+\ifEmpty\notename\else\notename.\enspace\fi}%
+\noteheadzhook%
+\notebody%
+}%
+}
+
+\def\proclaim#1. #2\par{
+{%
+\notemixin%
+% overrides:
+\notecounterinc%
+\ifnull#1\\%
+\def\notename{}%
+\else%
+\def\notename{#1}%
+\fi%
+\def\notebodytext{\sl#2}%
+\notehead%
+\notebody%
+\par%
+}%
+}
+
+\def\gennote#1#2#3#4{
+{%
+\notemixin%
+% overrides:
+\def\notekind{#1}
+\notecounterinc%
+\ifnull#2\\%
+\edef\notename{\csname#1name\endcsname}%
+\else%
+\edef\notename{\csname#1name\endcsname~(#2)}%
+\fi%
+\def\notebodytext{%
+\def\label####1{\definexref{####1}{\notetag}{#1}}%
+\innernewif\ifhideproof%
+\hideprooffalse%
+%%%%
+% sketch
+\long\def\sketch####1. ####2\qes{%
+\hideprooftrue%
+\medskip
+\par\noindent%
+\llap{\activitysymbol\enspace}%
+\ifEqStr{####1}{}%
+\argumentationheadstyle{\sketchname}. %
+\else%
+\argumentationheadstyle{####1}. %
+\fi%
+\bgroup\rm%
+####2%
+\ifhmode\unskip\nobreak\fi\hfill\quad\qessymbol
+%\hfill\qessymbol\hss%
+\egroup%
+\par%
+}%
+%%%%
+% wrongproof 
+\long\def\wrongproof####1. ####2\mistaqed{%
+\hideprooftrue%
+\par\noindent%
+\bgroup\rm%
+\ifEqStr{####1}{}%
+\argumentationheadstyle{\llap{\activitysymbol\enspace}\proofname}. %
+\else%
+\argumentationheadstyle{\llap{\activitysymbol\enspace}####1}. %
+\fi%
+####2%
+{\hfill\mistakesymbol}%
+\egroup%
+\par%
+}%
+%%%%
+% proof 
+\long\def\proof####1. ####2\qed{%
+\ifEqStr{####1}{}%
+\def\proofhead{\proofname. }%
+\else%
+\def\proofhead{####1}%
+\fi%
+\ifhideproof%
+\immediate\writefullproof{\number\chapterno}{\notetag}{{\unexpanded{\scshape} \proofhead}\unexpanded{####2}\unexpanded{\hfill\qedsymbol}}%
+\else%
+\par\noindent%
+\bgroup\rm%
+%
+\argumentationheadstyle{\proofhead}%
+####2%
+{\hfill\qedsymbol}%
+\egroup%
+\par%
+\fi%
+}%
+%%%%
+#3%
+}%
+\def\noteheadahook{#4}%
+\notehead%
+\notebody%
+}%
+\medbreak
+}
+
+\def\genproclaim#1#2#3{%
+\gennote{#1}{#2}{\sl#3}{}%
+}
+
+\def\theorem#1. #2\par{\genproclaim{theorem}{#1}{#2}}
+\def\lemma#1. #2\par{\genproclaim{lemma}{#1}{#2}}
+\def\proposition#1. #2\par{\genproclaim{proposition}{#1}{#2}}
+\def\property#1. #2\par{\genproclaim{property}{#1}{#2}}
+\def\corollary#1. #2\par{\genproclaim{corollary}{#1}{#2}}
+\def\conjecture#1. #2\par{\genproclaim{conjecture}{#1}{#2}}
+\def\question#1. #2\par{\genproclaim{question}{#1}{#2}}
+\def\axiom#1. #2\par{\genproclaim{axiom}{#1}{#2}}
+\def\principle#1. #2\par{\genproclaim{principle}{#1}{#2}}
+\def\criterion#1. #2\par{\genproclaim{criterion}{#1}{#2}}
+\def\algorithm#1. #2\par{\gennote{algorithm}{#1}{#2}{}}
+\def\program#1. #2\par{\gennote{program}{#1}{#2}{}}
+\def\remark#1. #2\par{\gennote{remark}{#1}{#2}{}}
+\def\beware#1. #2\par{\gennote{beware}{#1}{#2}{}}
+\def\warning#1. #2\par{\gennote{warning}{#1}{#2}{}}
+\def\definition#1. #2\par{\gennote{definition}{#1}{#2}{}}
+\def\blah#1. #2\par{\medskip#2\medskip}
+
+\def\algospec INPUT: #1 OUTPUT: #2\endspec{%
+\halign{%
+\hfil##&##\hfil\cr
+\casestyle{\algoinputname:}  & #1\cr
+\casestyle{\algooutputname:} & #2\cr
+}
+}
+
+\definecolor{declarecolor}{cmyk}{1,0,0,0.5}
+\def\dstyle#1{{\sl #1}}
+\def\dsym#1{#1}%
+\def\dterm#1{%
+\dstyle{#1}%
+}
+
+%%{{{ Indexing commands 
+\def\sdefined#1#2{%
+\global\advance\symbolno by 1\relax%
+\definexref{symbol\number\symbolno}{\notetag}{\notekind}%
+\immediate\writesymbol%
+{\number\chapterno}%1
+{\notetag}%2
+{\notekind}%3
+{\number\pageno}%4
+{symbol\number\symbolno}%5
+{\unexpanded{\ensuremath{#1}}}%6
+{\unexpanded{#2}}%7
+}
+\def\tdefined#1{%
+\sidx[pagemarkup=idxpmdefpage]{#1}%
+}
+\def\ii{\sidx}
+\def\iisee{\sidx[see]}
+\def\iiseealso{\sidx[seealso]}
+\def\nameindex#1#2{%
+\sndxname{#1}{#2}%
+}
+%%}}}
+
+%%}}}
+
+%%{{{ HINTS, SOLUTIONS, AND FULLPROOFS 
+\newskip\hintskip
+\newskip\solutionskip
+\newskip\fullproofskip
+\hintskip=1\baselineskip\relax
+\solutionskip=2\hintskip\relax
+\fullproofskip=\solutionskip\relax
+
+\newwrite\hintsfile
+\newwrite\solutionsfile
+\newwrite\fullproofsfile
+\newwrite\symbolsfile
+\immediate\openout\hintsfile=\jobname.hints
+\immediate\openout\solutionsfile=\jobname.solutions
+\immediate\openout\fullproofsfile=\jobname.proofs
+\immediate\openout\symbolsfile=\jobname.symbols
+
+\def\writesymbol#1#2#3#4#5#6#7{%
+% #1: chapterno
+% #2: notetag (3.2)
+% #3: notekind (definition)
+% #4: pageno
+% #5: symbolno
+% #6: symbol
+% #7: pronunciation
+\write\symbolsfile{%
+\expandafter\string\csname symbolentry\endcsname
+    {#1}
+    {#2}
+    {#3}
+    {#4}
+    {#5}
+    {#6}
+    {#7}
+}
+}
+\def\writehint#1#2#3#4#5#6{%
+% #1: group (exercise or problem)
+% #2: chapterno
+% #3: tag (x4.2)
+% #4: label (exercise_4.2)
+% #5: count (4)
+% #6: hint text
+\write\hintsfile{%
+\expandafter\string\csname hintentry\endcsname
+    {#1}
+    {#2}
+    {#3}
+    {#4}
+    {#5}
+    {#6}
+}
+}
+
+\def\writesolution#1#2#3#4{%
+% #1: group (exercise or problem)
+% #2: chapterno
+% #3: tag (x4.2)
+% #4: solution text
+\write\solutionsfile{%
+\expandafter\string\csname solutionentry\endcsname
+    {#1}
+    {#2}
+    {#3}
+    {#4}
+}
+}
+
+\def\writefullproof#1#2#3{%
+% #1: chapterno
+% #2: tag (Θ4.2, Λ3.2, etc.)
+% #3: proof text
+\write\fullproofsfile{%
+\expandafter\string\csname fullproofentry\endcsname
+    {#1}
+    {#2}
+    {#3}
+}
+}
+
+
+%%}}}
+
+%%{{{ exercise 
+\long\def\exercise#1. #2\par#3\endexercise{%
+% #1: title
+% #2: body
+% #3: hints and solution
+\global\advance\exerciseno by 1\relax%
+\global\advance\exercisetotal by 1\relax%
+\hintno=0
+\def\exercisetag{x\the\chapterno.\the\exerciseno}%
+\def\exerciselabel{x\the\chapterno.\the\exerciseno}%
+\smallbreak\noindent%
+\llap{\activitysymbol\enspace}%
+\leftline{\eightbf \toupper{\exercisename}~{\ninebf \exercisetag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}\break
+\bgroup
+\def\label##1{\definexref{##1}{\exercisetag}{exercise}}%
+% hints
+\def\printhintstatus{%
+\hbox{}\hfill\hbox{}%
+\ifnum\hintno>0
+\hintstatusstyle{%
+\ifprint
+\number\hintno
+\else
+\count1=0
+\loop
+\advance\count1 by 1
+\xref{\exerciselabel_hint_\number\count1}%
+\thinspace%
+\ifnum\count1<\hintno
+\repeat
+\fi % /ifprint
+}
+\else
+\hintstatusstyle{0}
+\fi
+}
+\def\hint##1\par{%
+\advance\hintno by 1\relax%
+\ifnum\hintno>\maxhintno%
+\global\advance\maxhintno by 1\relax%
+\fi
+\ifnum\hintno=1% first time there is a hint
+\expandafter\label{\exercisetag}%
+\fi
+\immediate\writehint{exercise}{\number\chapterno}{\exercisetag}{\exerciselabel}{\number\hintno}{\unexpanded{##1}}%
+}
+% solution
+\def\solution##1\par{%
+\immediate\writesolution{exercise}{\number\chapterno}{\exercisetag}{\unexpanded{##1}}%
+}%
+#2% output body
+#3% process hints
+\printhintstatus%
+\par\egroup\medbreak
+}
+%%}}}
+
+%%{{{ example 
+\long\def\example#1. #2\endexample{%
+\global\advance\noteno by 1\relax%
+\def\exampletag{\the\chapterno.\the\noteno}%
+\smallbreak\noindent%
+\llap{\examplesymbol\enspace}%
+\leftline{\eightbf \toupper{\examplename}~{\ninebf \exampletag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}\break
+\bgroup
+\def\label##1{\definexref{##1}{\exampletag}{example}}%
+% solution
+\def\solution##1\par{%
+\noindent%
+%\ifEqStr{##1}{}%
+%\argumentationheadstyle{\solutionname}. %
+%\else%
+%\argumentationheadstyle{##1}%
+%\fi%
+\argumentationheadstyle{\solutionname}. %
+{##1}
+}%
+#2%
+\hfill$\qexsymbol$\par\egroup\medbreak
+}
+%%}}}
+
+%%{{{ codeit 
+\long\def\codeit#1. #2\endcodeit{%
+\global\advance\codeitno by 1\relax%
+\hintno=0
+\def\codeittag{c\the\chapterno.\the\codeitno}%
+\smallbreak\noindent%
+\llap{\activitysymbol\enspace}%
+\leftline{\eightbf \toupper{\codeitname}~{\ninebf \codeittag}\ifnull#1\\\else~{\ninebf (\;{\ninett #1}\;)}\fi.}\break
+\bgroup
+\def\label##1{%
+\definexref{##1}{\codeittag}{codeit}%
+}%
+% hints
+\def\hint##1\par{%
+\advance\hintno by 1\relax%
+\ifnum\hintno>\maxhintno%
+\global\advance\maxhintno by 1\relax%
+\fi
+\immediate\writehint{codeit}{\number\chapterno}{\codeittag}{\codeitlabel}{\number\hintno}{\unexpanded{##1}}%
+}
+#2
+\par\egroup\medbreak
+}
+%%}}}
+
+%%{{{ problem 
+\long\def\problem#1. #2\par#3\endproblem{%
+% #1: title
+% #2: body
+% #3: hints and solution
+\global\advance\problemno by 1\relax%
+\global\advance\problemtotal by 1\relax%
+\hintno=0
+\def\problemtag{Π\the\chapterno.\the\problemno}%
+\def\problemlabel{Pi\the\chapterno.\the\problemno}%
+\medbreak\noindent%
+\llap{\activitysymbol\enspace}%
+\leftline{\eightbf \toupper{\problemname}~{\ninebf \problemtag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}\break
+\bgroup
+\def\label##1{\definexref{##1}{\problemtag}{problem}}%
+% hints
+\def\printhintstatus{%
+\hbox{}\hfill\hbox{}%
+\ifnum\hintno>0
+\hintstatusstyle{%
+\ifprint
+\number\hintno
+\else
+\count1=0
+\loop
+\advance\count1 by 1
+\xref{\problemlabel_hint_\number\count1}%
+\thinspace%
+\ifnum\count1<\hintno
+\repeat
+\fi % /ifprint
+}
+\else
+\hintstatusstyle{0}
+\fi
+}
+\def\hint##1\par{
+\advance\hintno by 1\relax
+\ifnum\hintno>\maxhintno%
+\global\advance\maxhintno by 1\relax%
+\fi
+\ifnum\hintno=1% add a label upon first hint
+\expandafter\label{\problemlabel}%
+\fi
+\immediate\writehint{problem}{\number\chapterno}{\problemtag}{\problemlabel}{\number\hintno}{\unexpanded{##1}}
+}
+% solution
+\def\solution##1\par{%
+\immediate\writesolution{problem}{\number\chapterno}{\problemtag}{\unexpanded{##1}}%
+}%
+#2%
+#3%
+\printhintstatus%
+\par\egroup%
+}
+%%}}}
+
+%%{{{ argumentations 
+
+\def\argumentationheadstyle#1{{\scshape #1}}
+\def\casestyle#1{{\noindent\scshape #1}}
+\def\proofstyle#1{{\noindent\scshape #1}}
+\def\mistake{\hfill\mistakesymbol}%
+
+%%}}}
+
+%%{{{ report 
+
+\newwrite\reportfile
+\def\Report{\immediate\openout\reportfile=\jobname.report}
+\def\WriteReport#1#2{\write\reportfile{#1:#2}}
+\def\EndReport{\closeout\reportfile}
+
+%%}}}
+
+%%}}}
+

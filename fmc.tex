@@ -1,0 +1,355 @@
+%{{{ [vim] 
+% vim:foldmarker=%{{{,%}}}
+% vim:foldmethod=marker
+% vim:foldcolumn=8
+%}}}
+%% fmc.tex
+%% author: Thanos Tsouanas <thanos@tsouanas.org>
+
+\input fmcmac
+
+%%{{{ Frontmatter 
+
+%%{{{ Front cover 
+{
+\titlepagetrue
+\nodecorspage
+{\hrule width \hsize height 1pt depth 1pt }
+\vskip 4pt
+\line{\noindent\twelvett \ifprint Printed edition\else Electronic edition\fi\hfil \ifdraft WORK IN PROGRESS: DRAFT\fi}
+\line{\twelvett \url{http://www.tsouanas.org/fmc/}\hfil
+\twelvett
+\safereadfile{lasttmp}
+}
+\vskip 2ex
+\vfil\vfil
+{
+{\noindent\centerline{\twentyfourbf Matemática Fundacional}}
+\vskip 2ex
+{\hrule width \hsize height 1pt\relax}
+\vskip 2ex
+{\noindent\centerline{\twentytt para Computação}}
+}
+\vskip 2ex
+\vfil
+\leftline{\largest\larger Thanos {\scshape Tsouanas}}
+\vskip 2pt
+{\it
+\leftline{Universidade Federal do Rio Grande do Norte}
+}
+\vskip 1ex
+\vfil
+\centerline{\bf\today/}
+\centerline{\oldstyle{\the\time}~minute\ifnum\time=1\else s\fi~past midnight,}
+\centerline{Rio Grande do Norte, Brasil}
+\vfil\vfil
+{\twelvessdc
+\centerline{Instituto Metrópole Digital}
+\centerline{Universidade Federal do Rio Grande do Norte}
+}
+\vskip 4pt
+{\hrule width \hsize height 1pt depth 1pt }
+\eject
+}
+%%}}}
+
+%%{{{ meta info 
+{
+\titlepagetrue
+\leftline{\twelverm Please report any errors by email:
+{\twelvett {thanos$\@$tsouanas.org}}}
+\vfil
+\centerline{Escrito em português \strikeout{do Brasil} do Θάνος.}
+\vfil
+\vfil
+\vfil
+\centerline{Typeset in \TeX\ with the \ThaTeX~package;}
+\centerline{built with the \XeTeX~engine.}
+\eject
+}
+%%}}}
+
+\ignore{
+
+%%{{{ dedication 
+{
+\hbox{}\vfil
+\centerline{{\fourteenit To someone.}}
+\vfil\vfil\vfil\vfil
+\eject
+}
+%%}}}
+
+}
+
+%%{{{ short toc 
+{
+\oddpage\titlepagetrue
+\baselineskip=18pt
+%\def\tocchapterentry#1#2#3{{\line{\llap{{#2}.~}#1\dotfill#3}}}
+\def\tocchapterentry#1#2#3{{\line{\llap{{#2}.~}#1\dotfill\hlprintpage{#3}}}}
+\def\tocappendixentry#1#2#3{{\line{\llap{{\Alphabetnumeral#2}.~}#1\dotfill\hlprintpage{#3}}}}
+\def\tocchapteroidentry#1#2{{\line{#1\dotfill\hlprintpage{#2}}}}
+\def\tocsectionentry#1#2#3{}
+\def\tocsectionoidentry#1#2{}
+{\larger\bf
+\parindent=0pt
+\baselineskip=16pt
+\centerline{\fourteenrm\toupper{\shorttocname}}
+\vskip\chapteroidtitleskip
+\readtocfile
+}
+\vfil
+\eject
+}
+%%}}}
+
+%%{{{ long toc 
+{
+\oddpage
+\titlepagetrue
+\nodecorspage
+\def\tocchapterentry#1#2#3{{\bf\vskip 2ex\line{\llap{{#2}.~}#1\enspace\hrulefill\enspace\hlprintpage{#3}}}\vskip 1ex}
+\def\tocappendixentry#1#2#3{{\bf\vskip 2ex\line{\llap{{\Alphabetnumeral#2}.~}#1\enspace\hrulefill\enspace\hlprintpage{#3}}}\vskip 1ex}
+\def\tocchapteroidentry#1#2{{\bf\vskip 2ex\line{#1\enspace\hrulefill\enspace\hlprintpage{#2}}}\vskip 1ex}
+\def\tocsectionentry#1#2#3{{\line{{\qquad} \llap{\S#2.~}{#1}{\dotfill}{\hlprintpage{#3}}\qquad\qquad}}}
+\def\tocsectionoidentry#1#2{{\line{{\qquad} {#1}{\dotfill}{\hlprintpage{#2}}\qquad\qquad}}}
+{
+\parindent=0pt
+\centerline{\fourteenrm\toupper{\tocname}}
+\vskip\chaptertitleskip
+\readtocfile
+}
+\vfil
+\eject
+}
+%%}}}
+
+\ignore{
+
+%%{{{ list of algorithms 
+\chapteroid \loaname.
+
+\endchapteroid
+%%}}}
+
+%%{{{ list of code 
+\chapteroid \locname.
+
+\endchapteroid
+%%}}}
+
+}
+
+%%{{{ Preface & acknowledgements 
+\chapteroid \prefacename.
+
+\sectionoid Para o leitor.
+
+Cada prova de teorema é marcada com um ``\thinspace\qedsymbol\thinspace'',
+conhecido como ``Halmos\Halmos[tombstone]~(tombstone)'';
+os resolvidos exemplos no texto terminam com ``\thinspace\qexsymbol\thinspace''.
+Para te motivar tentar provar os teoremas antes de estudar suas provas,
+muitas vezes eu apresento apenas um rascunho de prova,
+cujo fim eu marco com um ``\thinspace\qessymbol\thinspace''.
+Nesses casos, as provas completas aparecem no apendice.
+Eu marco com ``\thinspace\activitysymbol\thinspace'' os itens do texto que
+precisam ser resolvidos.
+
+Para muitos dos exercícios e problemas eu tenho dicas para te ajudar chegar
+numa resolução.  Tente resolver sem procurar dicas.
+Se não conseguir, procure uma primeira dica no apêndice ``Dicas \#1'',
+e volte a tentar.
+Se ainda parece difícil, procure segunda dica no ``Dicas \#2'',
+etc., etc.
+Finalmente, no apêndice tem resoluções completas.
+
+\emph{Cuidado! Nunca leia matemática passivamente!}
+Umas das provas tem falhas e/ou erros
+(nesses casos o ``\thinspace\qedsymbol\thinspace''
+vira-se ``\thinspace\mistakesymbol\thinspace'').
+Os problemas e exercísios pedem identificar os erros,
+e caso que os teoremas são realmente prováveis suas provas
+inteiras e corretas também aparecem no apêndice.
+
+\endsectionoid
+
+\endchapteroid
+%%}}}
+
+%%}}}
+
+\input fmcmain
+
+%%{{{ Appendix 
+
+%%{{{ APPENDICES page 
+{
+\partpage
+\hbox{}\vfil
+\twentyfourbf
+\centerline{\appendicesname}
+\titlepagetrue
+\vfil
+\vfil
+\eject
+}
+%%}}}
+
+%%{{{ Proofs 
+\appendix \proofsname.
+
+{%
+\immediate\closeout\fullproofsfile
+\innernewcount\curchapterno
+
+\def\fullproofentry#1#2#3{%
+\ifnum#1>\curchapterno
+\curchapterno=#1
+\centerline{\fourteenbf\chaptername~#1}\vskip\fullproofskip
+\fi
+\noindent{\bf #2.}
+#3
+\goodbreak\vskip\fullproofskip
+}
+
+\safereadfile{proofs}
+}
+
+\endappendix
+%%}}}
+
+%%{{{ Hints 
+\appendix \hintsname.
+
+{%
+\immediate\closeout\hintsfile
+\input repeat
+\repeat \for{i} \from{1} \to{\maxhintno} \do{
+\expandafter\hintsection \number\i.
+\hldestizepage%
+
+\def\hintentry#1#2#3#4#5#6{%
+\ifnum\number\i=#5
+\noindent{\llap{\bf \refn{#4}.~}}%
+{\scshape\hintname~\oldstyle{#5}:}
+\definexref{#4_hint_#5}{#5}{hint}%
+#6
+%
+\goodbreak
+\vskip\hintskip
+\fi
+\goodbreak
+}
+
+\safereadfile{hints}
+
+\endhintsection
+}% end repeat
+}
+
+\endappendix
+%%}}}
+
+%%{{{ Solutions 
+\appendix \solutionsname.
+
+{%
+\immediate\closeout\solutionsfile
+\innernewcount\curchapterno
+
+\def\solutionentry#1#2#3#4{%
+\ifnum#2>\curchapterno
+\curchapterno=#2
+\centerline{\fourteenbf\chaptername~#2}\vskip\solutionskip
+\fi
+\noindent\llap{\bf #3.\enspace}%
+#4
+\vskip\solutionskip
+}
+
+\safereadfile{solutions}
+}
+
+\endappendix
+%%}}}
+
+%%{{{ Program code 
+\appendix Código de programas.
+
+\safereadfile{programs}
+
+\endappendix
+%%}}}
+
+%%}}}
+
+%%{{{ Backmatter 
+
+%%{{{ Referências 
+\chapteroid \referencesname.
+
+\bibliographystyle{alpha}
+\bibliography{fmcrefs}
+
+\endchapteroid
+%%}}}
+
+%%{{{ Symbol definitions 
+\chapteroid Definições de símbolos.
+
+{%
+\immediate\closeout\symbolsfile
+\multiply\baselineskip by 2
+
+\def\symbolentry#1#2#3#4#5#6#7{%
+\line{\llap{#6}\quad\hbox{#7}\quad\dotfill{}\enspace{{\ref{#5},}\rlap{\enspace{\bf #4}}}}%
+}
+
+%\def\symbolentry#1#2#3#4#5#6#7{%
+%{#6} & \hbox{#7}\dotfill & {\ref{#5}} & \rlap{\bf #4}\cr
+%}
+
+%\halign to \hsize{
+%\hfil# & #\hfil  & #\hfil     & \hfil#\cr
+\safereadfile{symbols}
+%}
+}
+
+\endchapteroid
+%%}}}
+
+%%{{{ Indice de nómes 
+\chapteroid \nameindexname.
+
+\readindexfile n
+
+\endchapteroid
+%%}}}
+
+%%{{{ Indice de termos 
+\chapteroid \indexname.
+
+\readindexfile i
+
+\endchapteroid
+%%}}}
+
+%%{{{ Back cover
+
+%%}}}
+
+%%}}}
+
+%%{{{ \Report 
+\Report
+\WriteReport{exercises}{\the\exercisetotal}
+\WriteReport{problems}{\the\problemtotal}
+\WriteReport{chapters}{\the\chaptertotal}
+\WriteReport{sections}{\the\sectionno}
+\WriteReport{pages}{\the\pageno}
+\EndReport
+%%}}}
+
+\bye
+

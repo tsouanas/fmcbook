@@ -1,0 +1,217 @@
+%{{{ [vim] 
+% vim:foldmarker=%{{{,%}}}
+% vim:foldmethod=marker
+% vim:foldcolumn=4
+%}}}
+%% thatex.tex
+%% author: Thanos Tsouanas <thanos@tsouanas.org>
+
+\message{[ThaTeX]}
+
+%%{{{ \inputs 
+% eplain
+\let\noarrow=t
+\input eplain
+\let\noarrow\relax
+
+\input xkeyval % must be loaded before the following LaTeX packages
+
+% LaTeX packages
+\beginpackages
+\usepackage{url}
+\usepackage[dvipsnames]{color}
+\usepackage{graphicx}
+\endpackages
+
+% protect colors from tiks/pgfmath 
+\let\eplaincolor\color
+\let\eplaindefinecolor\definecolor
+\input tikz % includes pgffor and pgfkeys
+\input pgfplots
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{shapes,snakes}
+\let\color\eplaincolor
+\let\definecolor\eplaindefinecolor
+%%}}}
+
+%%{{{ ThaTeX hyperlinks 
+% Hyperlinks woohoo!
+\enablehyperlinks [dvipdfm]
+%\definecolor{urlcolor}{rgb}{.7,.2,.2}
+\hlopts{bwidth=0}
+\hlopts{colormodel=cmyk,color={.4,1,.6,.1}}
+\hlopts[url]{colormodel=cmyk,color={1,.4,.6,.1}}
+\hlopts[hrefext]{colormodel=cmyk,color={1,.4,.6,.1}}
+\hlopts[eq]{colormodel=cmyk,color={1,1,0,.1}}
+\def\UrlFont{\twelvett}
+%\hlopts[page]{colormodel=cmyk,color={1,.2,.1,.5}}
+\def\hlprintpage#1{\hlstart{name}{}{TOCPG#1}#1\hlend}
+\def\hldestizepage{\hldest{fit}{}{TOCPG\the\pageno}}
+%%}}}
+
+%%{{{ ThaTeX sidekick 
+\def\ThaTeX{\hbox{$\Theta$\kern-.1333em\lower.5ex\hbox{${\acute\alpha}$}\kern-.21em\TeX}}
+\def\ifEqStr#1#2{\def\stra{#1}\def\strb{#2}\ifx\stra\strb} % XXX: this pollutes the namespace
+\def\ifEmpty#1{\ifx\empty#1}
+\def\ifnull#1\\{\expandafter\ifx\csname empty#1\endcsname\empty}
+\def\blank{\hbox{}}
+\def\toupper#1{\uppercase\expandafter{#1}}
+\def\tolower#1{\lowercase\expandafter{#1}}
+\def\twodigitfmt#1{\ifnum #1<10 0\fi#1}
+\long\def\ignore#1{}
+\def\boxit#1#2{\hbox{\vrule\vtop{\vbox{\hrule\kern#1\hbox{\kern#1#2\kern#1}}\kern#1\hrule}\vrule\relax}}
+\def\frameit#1#2#3{\hbox{\vrule width #1\vtop{\vbox{\hrule height #1\kern#2\hbox{\kern#2#3\kern#2}}\kern#2\hrule height #1}\vrule width #2\relax}}
+\def\frameit#1#2#3{\hbox{\vrule width #1\vtop{\vbox{\hrule height #1\kern#2\hbox{\kern#2#3\kern#2}}\kern#2\hrule height #1}\vrule width #2\relax}}
+\let\footnote=\numberedfootnote
+\def\qqquad{\hskip 3em\relax}
+\def\qqqquad{\hskip 4em\relax}
+%%}}}
+
+%%{{{ ThaTeX numerals 
+%\def\asciinumeral#1 offset #2{\advance#1 by #2\relax\char#1\advance#1 by -#2}
+\def\asciinumeral#1 offset #2{{\innernewcount\tmp\tmp=#1\relax\advance\tmp by #2\relax\char\tmp}}
+\def\Alphabetnumeral#1{\asciinumeral#1 offset {64}}
+\def\alphabetnumeral#1{\asciinumeral#1 offset {96}}
+%\def\Romannumeral#1{\toupper{\romannumeral#1}}
+\def\Romannumeralof#1{\uppercase\expandafter{\romannumeral#1\relax}}
+%%}}}
+
+%%{{{ ThaTeX abbrev macros 
+\def\today#1{\the\year#1\relax\the\month\relax#1\the\day\relax}
+\def\humantime{
+\innernewcount\hours
+\innernewcount\minutes
+\hours=\time
+\divide\hours by 60
+\minutes=\hours
+\multiply\minutes by 60
+\advance\minutes by -\time
+\multiply\minutes by -1
+\twodigitfmt{\the\hours}:\twodigitfmt{\the\minutes}
+}
+
+\let\numfootnote=\numberedfootnote\relax
+\everyfootnote={\ninerm}
+
+%%}}}
+
+%%{{{ ThaTeX lists
+\let\beginol=\orderedlist
+\let\endol=\endorderedlist
+\let\beginul=\unorderedlist
+\let\endul=\endunorderedlist
+\def\beginil{\begingroup\abovelistskip} % begin plain \item-list
+\def\endil{\endgroup\belowlistskip}
+\def\endilnoskip{\endgroup}
+%%}}}
+
+%%{{{ ThaTeX draft 
+\definecolor{todocolor}{rgb}{.75,.66,.2}
+\def\TODO{\noindent {\bf\color{todocolor}TODO}}
+%%}}}
+
+%%{{{ ThaTeX text 
+\def\emph#1{{\it #1}}
+\def\strikeout#1{$\tikz[baseline] \node [strike out,draw,anchor=text,inner sep=0pt,text=black]{$\text{#1}$};$}
+%%}}}
+
+%%{{{ ThaTeX aux files
+\def\safereadfile#1{
+\testfileexistence{#1}%
+\iffileexists%
+\input \jobname.#1%
+\fi%
+}
+%%}}}
+
+%%{{{ ThaTeX ifs 
+
+% versions of book:
+\newif\ifprint\printfalse  % printed
+\newif\ifdraft\drafttrue
+
+%%}}}
+
+%%{{{ ThaTeX titles and page decorations
+
+\newif\iftitlepage          \titlepagefalse
+\newtoks\titlepagehead      \titlepagehead={\hfil}
+\newtoks\titlepagefoot      \titlepagefoot={\hfil\twelverm---~{\oldstyle{\number\pageno}}~---\hfil}
+\newtoks\toptitle           \toptitle={\hfil}
+\newtoks\topmarker          \topmarker={\hfil}
+\newtoks\oddpagehead        \oddpagehead={\hfil}
+\newtoks\evenpagehead       \evenpagehead={\hfil}
+\newtoks\evenpagefoot       \evenpagefoot={\hfil}
+\newtoks\oddpagefoot        \oddpagefoot={\hfil}
+
+% defaults
+\oddpagehead={\nineit\the\toptitle\hfil\rlap{\enspace\ninebf\number\pageno}}
+\evenpagehead={\llap{\ninebf\number\pageno\enspace}\hfil\nineit\the\topmarker}
+\evenpagefoot={\hfil}
+\oddpagefoot={\hfil}
+
+\headline={%
+\iftitlepage\the\titlepagehead
+\else\ifodd\pageno\the\oddpagehead
+\else\the\evenpagehead\fi\fi
+}
+
+\footline={%
+\iftitlepage\the\titlepagefoot
+\global\titlepagefalse
+\else\ifodd\pageno\the\oddpagefoot
+\else\the\evenpagefoot\fi\fi
+}
+
+\def\nohead{\headline={}}
+\def\nofoot{\footline={}}
+
+\def\nodecorspage{\nohead\nofoot}
+\def\blankpage{{\nodecorspage\null\eject}}
+\def\oddpage{\ifodd\pageno\else\blankpage\fi}
+\def\makenextpageodd{\ifodd\pageno\eject\null\blankpage\fi}
+\def\partpage{\oddpage\nodecorspage}
+\def\titlepage{\titlepagetrue}
+
+%%}}}
+
+%%{{{ ThaTeX inserts 
+
+%%{{{ amscaptions: code taken form amsppt.sty
+\makeatletter
+\def\first@#1#2\end{#1}
+\def\true@{TT}
+\def\false@{TF}
+\def\empty@{}
+\begingroup  \catcode`\-=3
+\long\gdef\notempty#1{%
+  \expandafter\ifx\first@#1-\end-\empty@ \false@\else \true@\fi}
+\endgroup
+\def\captionfont{}
+\def\topcaption#1#2\endcaption{%
+  {\dimen@\hsize \advance\dimen@-\captionwidth@
+   \rm\raggedcenter@ \advance\leftskip.5\dimen@ \rightskip\leftskip
+  {\captionfont#1}%
+  \if\notempty{#2}\if\notempty{#1}.\enspace\fi\ignorespaces#2\fi
+  \endgraf}\nobreak\bigskip}
+\def\botcaption#1#2\endcaption{%
+  \nobreak\bigskip
+  \setboxz@h{\captionfont#1\if\notempty{#2}\if\notempty{#1}.\enspace\fi
+    \rm\ignorespaces#2\fi}%
+  {\dimen@\hsize \advance\dimen@-\captionwidth@
+   \leftskip.5\dimen@ \rightskip\leftskip
+   \noindent \ifdim\wdz@>\captionwidth@
+   \else\hfil\fi
+  {\captionfont#1}%
+  \if\notempty{#2}\if\notempty{#1}.\enspace\fi\rm\ignorespaces#2\fi\endgraf}}
+\makeatother
+%%}}}
+
+\let\amstopinsert=\topinsert
+\let\amsmidinsert=\midinsert
+\let\amsendinsert=\endinsert
+\def\topinsert{\amstopinsert\noindent}
+\def\midinsert{\goodbreak\amsmidinsert\noindent}
+
+%%}}}
+
