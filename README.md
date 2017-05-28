@@ -1,17 +1,24 @@
+# FMCBOOK
+
+## Instructions
+
 To compile:
 
-    make
+>    make
 
 To clean up most of the auxiliar files:
 
-    make clean
+>    make clean
 
 To clean all auxiliar and built files:
 
-    make cleanall
+>    make cleanall
 
 To upload to the official website (if you have access):
 
-    make upload
+>    make upload
 
+## License
+
+See LICENSE file, although some files come with a separate (additional) license.
 
