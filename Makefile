@@ -1,4 +1,4 @@
-default: build 
+default: build
 
 screenconf:
 	echo "% fmc.conf created by Makefile" > fmcconf.tex
@@ -43,21 +43,15 @@ build:
 
 upload:
 	cp fmc.pdf fmc-`cat fmc.lasttag`.pdf
-	scp fmc-`cat fmc.lasttag`.pdf fmc-p-`cat fmc.lasttag`.pdf fmc.{lasttag,last,pages,webtoc} necroulis:fmc/
+	scp fmc-`cat fmc.lasttag`.pdf fmc.{lasttag,last,pages,webtoc} tsouanas.org:fmc/
 	ssh necroulis "cd fmc && sh lastonly.sh"
 	rm -f fmc-`cat fmc.lasttag`.pdf
-	rm -f fmc-p-`cat fmc.lasttag`.pdf
 
 clean:
 	rm -f fmc.aux
-	rm -f fmc.bbl
-	rm -f fmc.blg
-	rm -f fmc.idx
-	rm -f fmc.ilg
-	rm -f fmc.ind
 	rm -f fmc.log
-	rm -f fmc.ndx
-	rm -f fmc.nnd
+	rm -f fmc.{bbl,blg}
+	rm -f fmc.{idx,ilg,ind,ndx,nnd}
 	rm -f fmc.pgf
 	rm -f fmc.toc
 	rm -f fmc.hints
