@@ -43,7 +43,7 @@ build:
 
 upload:
 	cp fmc.pdf fmc-`cat fmc.lasttag`.pdf
-	scp fmc-`cat fmc.lasttag`.pdf fmc.{lasttag,last,pages,webtoc} tsouanas.org:fmc/
+	scp fmc-`cat fmc.lasttag`.pdf fmc.{lasttag,last,pages,webtoc} tsouanas.org:fmcbook/
 	ssh necroulis "cd fmc && sh lastonly.sh"
 	rm -f fmc-`cat fmc.lasttag`.pdf
 
