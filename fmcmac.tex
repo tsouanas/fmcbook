@@ -543,7 +543,7 @@
 % #1: group (exercise or problem)
 % #2: chapterno
 % #3: tag (x4.2)
-% #4: label (exercise_4.2)
+% #4: label (exercise_x4.2)
 % #5: count (4)
 % #6: hint text
 \write\hintsfile{%
@@ -557,17 +557,19 @@
 }
 }
 
-\def\writesolution#1#2#3#4{%
+\def\writesolution#1#2#3#4#5{%
 % #1: group (exercise or problem)
 % #2: chapterno
 % #3: tag (x4.2)
-% #4: solution text
+% #4: label (exercise_x4.2)
+% #5: solution text
 \write\solutionsfile{%
 \expandafter\string\csname solutionentry\endcsname
     {#1}
     {#2}
     {#3}
     {#4}
+    {#5}
 }
 }
 
@@ -594,23 +596,26 @@
 \global\advance\exerciseno by 1\relax%
 \global\advance\exercisetotal by 1\relax%
 \hintno=0
+{% exercise-scope
 \def\exercisetag{x\the\chapterno.\the\exerciseno}%
 \def\exerciselabel{x\the\chapterno.\the\exerciseno}%
+\def\label##1{\definexref{##1}{\exercisetag}{exercise}}%
 \smallbreak\noindent%
 \llap{\activitysymbol\enspace}%
-\leftline{\eightbf \toupper{\exercisename}~{\ninebf \exercisetag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}\break
-\bgroup
-\def\label##1{\definexref{##1}{\exercisetag}{exercise}}%
+\leftline{\eightbf \toupper{\exercisename}~{\ninebf \exercisetag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}%
+\expandafter\label{\exerciselabel}%
+\break
+\bgroup%
 % hints
 \def\printhintstatus{%
-\hbox{}\hfill\hbox{}%
-\ifnum\hintno>0
+\eolfill%
+\ifnum\hintno>0%
 \hintstatusstyle{%
 \ifprint
 \number\hintno
-\else
+\else%
 \count1=0
-\loop
+\loop%
 \advance\count1 by 1
 \xref{\exerciselabel_hint_\number\count1}%
 \thinspace%
@@ -627,31 +632,34 @@
 \ifnum\hintno>\maxhintno%
 \global\advance\maxhintno by 1\relax%
 \fi
-\ifnum\hintno=1% first time there is a hint
-\expandafter\label{\exercisetag}%
-\fi
 \immediate\writehint{exercise}{\number\chapterno}{\exercisetag}{\exerciselabel}{\number\hintno}{\unexpanded{##1}}%
 }
 % solution
 \def\solution##1\par{%
-\immediate\writesolution{exercise}{\number\chapterno}{\exercisetag}{\unexpanded{##1}}%
+\immediate\writesolution{exercise}{\number\chapterno}{\exercisetag}{\exerciselabel}{\unexpanded{##1}}%
 }%
 #2% output body
 #3% process hints
 \printhintstatus%
 \par\egroup\medbreak
+}% /exercise-scope
 }
 %%}}}
 
 %%{{{ example 
 \long\def\example#1. #2\endexample{%
 \global\advance\noteno by 1\relax%
+{% example-scope 
 \def\exampletag{\the\chapterno.\the\noteno}%
+\def\examplelabel{eg\the\chapterno.\the\noteno}%
+\def\label##1{\definexref{##1}{\exampletag}{example}}%
 \smallbreak\noindent%
 \llap{\examplesymbol\enspace}%
-\leftline{\eightbf \toupper{\examplename}~{\ninebf \exampletag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}\break
-\bgroup
-\def\label##1{\definexref{##1}{\exampletag}{example}}%
+\leftline{\eightbf \toupper{\examplename}~{\ninebf \exampletag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}%
+\expandafter\label{\examplelabel}%
+\break
+\bgroup%
+\def\label##1{\definexref{##1}{\exampletag}{example}}% label for example body 
 % solution
 \def\solution##1\par{%
 \noindent%
@@ -664,7 +672,8 @@
 {##1}
 }%
 #2%
-\hfill$\qexsymbol$\par\egroup\medbreak
+\eolfill$\qexsymbol$\par\egroup\medbreak
+}% /example-scope
 }
 %%}}}
 
@@ -701,19 +710,22 @@
 \global\advance\problemno by 1\relax%
 \global\advance\problemtotal by 1\relax%
 \hintno=0
+{% problem-scope
 \def\problemtag{Π\the\chapterno.\the\problemno}%
 \def\problemlabel{Pi\the\chapterno.\the\problemno}%
+\def\label##1{\definexref{##1}{\problemtag}{problem}}%
 \medbreak\noindent%
 \llap{\activitysymbol\enspace}%
-\leftline{\eightbf \toupper{\problemname}~{\ninebf \problemtag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}\break
-\bgroup
-\def\label##1{\definexref{##1}{\problemtag}{problem}}%
+\leftline{\eightbf \toupper{\problemname}~{\ninebf \problemtag}\ifnull#1\\\else~{\ninebf (#1)}\fi.}%
+\expandafter\label{\problemlabel}%
+\break
+\bgroup%
 % hints
 \def\printhintstatus{%
-\hbox{}\hfill\hbox{}%
-\ifnum\hintno>0
+\eolfill%
+\ifnum\hintno>0%
 \hintstatusstyle{%
-\ifprint
+\ifprint%
 \number\hintno
 \else
 \count1=0
@@ -734,19 +746,17 @@
 \ifnum\hintno>\maxhintno%
 \global\advance\maxhintno by 1\relax%
 \fi
-\ifnum\hintno=1% add a label upon first hint
-\expandafter\label{\problemlabel}%
-\fi
 \immediate\writehint{problem}{\number\chapterno}{\problemtag}{\problemlabel}{\number\hintno}{\unexpanded{##1}}
 }
 % solution
 \def\solution##1\par{%
-\immediate\writesolution{problem}{\number\chapterno}{\problemtag}{\unexpanded{##1}}%
+\immediate\writesolution{problem}{\number\chapterno}{\problemtag}{\problemlabel}{\unexpanded{##1}}%
 }%
 #2%
 #3%
 \printhintstatus%
 \par\egroup%
+}% /exercise-scope
 }
 %%}}}
 
