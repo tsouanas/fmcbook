@@ -6,252 +6,42 @@
 %% fmc.tex
 %% author: Thanos Tsouanas <thanos@tsouanas.org>
 
-\input fmcmac
+% ThaTeX
+\input thatex
+\input thatexmath
+\input thatexfonts
+\input thatexbook
+\input thatexbook-br
 
-%%{{{ Frontmatter 
+% fmcbook
+\input fmcfriends
+\input fmcconf
 
-% Cover and firstpages
-\input content/first
+% Frontmatter 
+\input fmcfirst
+\printshorttoc
+\printlongtoc
+\input fmcpreface
+\input fmcack
 
-%%{{{ short toc 
-{
-\oddpage\titlepagetrue
-\baselineskip=18pt
-%\def\tocchapterentry#1#2#3{{\line{\llap{{#2}.~}#1\dotfill#3}}}
-\def\tocchapterentry#1#2#3{{\line{\llap{{#2}.~}#1\dotfill\hlprintpage{#3}}}}
-\def\tocappendixentry#1#2#3{{\line{\llap{{\Alphabetnumeral#2}.~}#1\dotfill\hlprintpage{#3}}}}
-\def\tocchapteroidentry#1#2{{\line{#1\dotfill\hlprintpage{#2}}}}
-\def\tocsectionentry#1#2#3{}
-\def\tocsectionoidentry#1#2{}
-{\larger\bf
-\parindent=0pt
-\baselineskip=16pt
-\centerline{\fourteenrm\toupper{\shorttocname}}
-\vskip\chapteroidtitleskip
-\readtocfile
-}
-\vfil
-\eject
-}
-%%}}}
+% Mainmatter
+\input fmcmain
 
-%%{{{ long toc 
-{
-\oddpage
-\titlepagetrue
-\nodecorspage
-\def\tocchapterentry#1#2#3{{\bf\vskip 2ex\line{\llap{{#2}.~}#1\enspace\hrulefill\enspace\hlprintpage{#3}}}\vskip 1ex}
-\def\tocappendixentry#1#2#3{{\bf\vskip 2ex\line{\llap{{\Alphabetnumeral#2}.~}#1\enspace\hrulefill\enspace\hlprintpage{#3}}}\vskip 1ex}
-\def\tocchapteroidentry#1#2{{\bf\vskip 2ex\line{#1\enspace\hrulefill\enspace\hlprintpage{#2}}}\vskip 1ex}
-\def\tocsectionentry#1#2#3{{\line{{\qquad} \llap{\S#2.~}{#1}{\dotfill}{\hlprintpage{#3}}\qquad\qquad}}}
-\def\tocsectionoidentry#1#2{{\line{{\qquad} {#1}{\dotfill}{\hlprintpage{#2}}\qquad\qquad}}}
-{
-\parindent=0pt
-\centerline{\fourteenrm\toupper{\tocname}}
-\vskip\chaptertitleskip
-\readtocfile
-}
-\vfil
-\eject
-}
-%%}}}
+% Appendices
+\printpartpage{\appendicesname}
+\printproofsappendix
+\printhintsappendix
+\printsolutionsappendix
+\printcodeappendix
 
-\ignore{
-%%{{{ list of algorithms 
-\chapteroid \loaname.
+% Backmatter
+\printreferenceswith{fmcrefs}
+\printsymbolglossary
+\printindexofnames
+\printindexofterms
+\input fmclast
 
-\endchapteroid
-%%}}}
-
-%%{{{ list of code 
-\chapteroid \locname.
-
-\endchapteroid
-%%}}}
-}
-
-% Preface
-\input content/preface
-
-% Acknowledgements
-\input content/ack
-
-%%}}}
-
-%%{{{ Mainmatter 
-
-\input content/main
-
-%%{{{ Appendix 
-
-%%{{{ APPENDICES page 
-{
-\partpage
-\hbox{}\vfil
-\twentyfourbf
-\centerline{\appendicesname}
-\titlepagetrue
-\vfil
-\vfil
-\eject
-}
-%%}}}
-
-%%{{{ Proofs 
-\appendix \proofsname.
-
-{%
-\immediate\closeout\fullproofsfile
-\innernewcount\curchapterno
-
-\def\fullproofentry#1#2#3{%
-\ifnum#1>\curchapterno
-\curchapterno=#1
-\centerline{\fourteenbf\chaptername~#1}\vskip\fullproofskip
-\fi
-\noindent{\bf #2.}
-#3
-\goodbreak\vskip\fullproofskip
-}
-
-\safereadfile{proofs}
-}
-
-\endappendix
-%%}}}
-
-%%{{{ Hints 
-\appendix \hintsname.
-
-{%
-\immediate\closeout\hintsfile
-\input repeat
-\repeat \for{i} \from{1} \to{\maxhintno} \do{
-\expandafter\hintsection \number\i.
-\hldestizepage%
-
-\def\hintentry#1#2#3#4#5#6{%
-\ifnum\number\i=#5
-\noindent{\llap{\bf \refn{#4}.~}}%
-{\scshape\hintname~\oldstyle{#5}:}
-\definexref{#4_hint_#5}{#5}{hint}%
-#6
-%
-\goodbreak
-\vskip\hintskip
-\fi
-\goodbreak
-}
-
-\safereadfile{hints}
-
-\endhintsection
-}% end repeat
-}
-
-\endappendix
-%%}}}
-
-%%{{{ Solutions 
-\appendix \solutionsname.
-
-{%
-\immediate\closeout\solutionsfile
-\innernewcount\curchapterno
-
-\def\solutionentry#1#2#3#4#5{%
-\ifnum#2>\curchapterno
-\curchapterno=#2
-\centerline{\fourteenbf\chaptername~#2}\vskip\solutionskip
-\fi
-\noindent\llap{\bf \refn{#4}.\enspace}%
-#5
-\vskip\solutionskip
-}
-
-\safereadfile{solutions}
-}
-
-\endappendix
-%%}}}
-
-%%{{{ Program code 
-\appendix Código de programas.
-
-\safereadfile{programs}
-
-\endappendix
-%%}}}
-
-%%}}}
-
-%%}}}
-
-%%{{{ Backmatter
-
-%%{{{ Referências 
-\chapteroid \referencesname.
-
-\bibliographystyle{alpha}
-\bibliography{fmcrefs}
-
-\endchapteroid
-%%}}}
-
-%%{{{ Symbol definitions 
-\chapteroid Definições de símbolos.
-
-{%
-\immediate\closeout\symbolsfile
-\multiply\baselineskip by 2
-
-\def\symbolentry#1#2#3#4#5#6#7{%
-\line{\llap{#6}\quad\hbox{#7}\quad\dotfill{}\enspace{{\ref{#5},}\rlap{\enspace{\bf #4}}}}%
-}
-
-%\def\symbolentry#1#2#3#4#5#6#7{%
-%{#6} & \hbox{#7}\dotfill & {\ref{#5}} & \rlap{\bf #4}\cr
-%}
-
-%\halign to \hsize{
-%\hfil# & #\hfil  & #\hfil     & \hfil#\cr
-\safereadfile{symbols}
-%}
-}
-
-\endchapteroid
-%%}}}
-
-%%{{{ Indice de nómes 
-\chapteroid \nameindexname.
-
-\readindexfile n
-
-\endchapteroid
-%%}}}
-
-%%{{{ Indice de termos 
-\chapteroid \indexname.
-
-\readindexfile i
-
-\endchapteroid
-%%}}}
-
-% Back cover and lastpages 
-\input content/last
-
-%%}}}
-
-%%{{{ \Report 
-\Report
-\WriteReport{exercises}{\the\exercisetotal}
-\WriteReport{problems}{\the\problemtotal}
-\WriteReport{chapters}{\the\chaptertotal}
-\WriteReport{sections}{\the\sectionno}
-\WriteReport{pages}{\the\pageno}
-\EndReport
-%%}}}
+\makereport
 
 \bye
 

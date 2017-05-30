@@ -27,7 +27,7 @@ both:
 	  && xetex fmc && mv fmc.lasttmp fmc.last \
 	  && pdftk fmc.pdf dump_data |grep NumberOfPages | egrep -o '[0-9]+' > fmc.pages \
 	  && echo -n `sed 's/[^0-9]//g' fmc.last` > fmc.lasttag \
-	  && grep '\\chapter\ ' fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
+	  && grep '\\chapter\ ' content/main.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
 
 build:
 	echo -n `date +"%Y-%m-%d, %H:%M %Z"` > fmc.lasttmp
@@ -39,7 +39,7 @@ build:
 	  && xetex fmc && mv fmc.lasttmp fmc.last \
 	  && pdftk fmc.pdf dump_data |grep NumberOfPages | egrep -o '[0-9]+' > fmc.pages \
 	  && echo -n `sed 's/[^0-9]//g' fmc.last` > fmc.lasttag \
-	  && grep '\\chapter\ ' fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
+	  && grep '\\chapter\ ' content/main.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
 
 upload:
 	cp fmc.pdf fmc-`cat fmc.lasttag`.pdf
@@ -62,7 +62,7 @@ clean:
 
 cleanall: clean
 	rm -f fmc.pdf
-	rm -f fmc.{last,lasttag,pages,webtoc}
+	rm -f fmc.{last,lasttag,lasttmp,pages,webtoc}
 	echo "% fmc.conf reset by Makefile" > fmcconf.tex
 	echo "\\printfalse" >> fmcconf.tex
 
