@@ -10,77 +10,8 @@
 
 %%{{{ Frontmatter 
 
-%%{{{ Front cover 
-{
-\titlepagetrue
-\nodecorspage
-{\hrule width \hsize height 1pt depth 1pt }
-\vskip 4pt
-\line{\noindent\twelvett \ifprint Printed edition\else Electronic edition\fi\hfil \ifdraft WORK IN PROGRESS: DRAFT\fi}
-\line{\twelvett \url{http://www.tsouanas.org/fmc/}\hfil
-\twelvett
-\safereadfile{lasttmp}
-}
-\vskip 2ex
-\vfil\vfil
-{
-{\noindent\centerline{\twentyfourbf Matemática Fundacional}}
-\vskip 2ex
-{\hrule width \hsize height 1pt\relax}
-\vskip 2ex
-{\noindent\centerline{\twentytt para Computação}}
-}
-\vskip 2ex
-\vfil
-\leftline{\largest\larger Thanos {\scshape Tsouanas}}
-\vskip 2pt
-{\it
-\leftline{Universidade Federal do Rio Grande do Norte}
-}
-\vskip 1ex
-\vfil
-\centerline{\bf\today/}
-\centerline{\oldstyle{\the\time}~minute\ifnum\time=1\else s\fi~past midnight,}
-\centerline{Rio Grande do Norte, Brasil}
-\vfil\vfil
-{\twelvessdc
-\centerline{Instituto Metrópole Digital}
-\centerline{Universidade Federal do Rio Grande do Norte}
-}
-\vskip 4pt
-{\hrule width \hsize height 1pt depth 1pt }
-\eject
-}
-%%}}}
-
-%%{{{ meta info 
-{
-\titlepagetrue
-\leftline{\twelverm Please report any errors by email:
-{\twelvett {thanos$\@$tsouanas.org}}}
-\vfil
-\centerline{Escrito em português \strikeout{do Brasil} do Θάνος.}
-\vfil
-\vfil
-\vfil
-\centerline{Typeset in \TeX\ with the \ThaTeX~package;}
-\centerline{built with the \XeTeX~engine.}
-\eject
-}
-%%}}}
-
-\ignore{
-
-%%{{{ dedication 
-{
-\hbox{}\vfil
-\centerline{{\fourteenit To someone.}}
-\vfil\vfil\vfil\vfil
-\eject
-}
-%%}}}
-
-}
+% Cover and firstpages
+\input content/fmcfirst
 
 %%{{{ short toc 
 {
@@ -126,7 +57,6 @@
 %%}}}
 
 \ignore{
-
 %%{{{ list of algorithms 
 \chapteroid \loaname.
 
@@ -138,48 +68,19 @@
 
 \endchapteroid
 %%}}}
-
 }
 
-%%{{{ Preface & acknowledgements 
-\chapteroid \prefacename.
+% Preface
+\input content/fmcpreface
 
-\sectionoid Para o leitor.
-
-Cada prova de teorema é marcada com um ``\thinspace\qedsymbol\thinspace'',
-conhecido como ``Halmos\Halmos[tombstone]~(tombstone)'';
-os resolvidos exemplos no texto terminam com ``\thinspace\qexsymbol\thinspace''.
-Para te motivar tentar provar os teoremas antes de estudar suas provas,
-muitas vezes eu apresento apenas um rascunho de prova,
-cujo fim eu marco com um ``\thinspace\qessymbol\thinspace''.
-Nesses casos, as provas completas aparecem no apendice.
-Eu marco com ``\thinspace\activitysymbol\thinspace'' os itens do texto que
-precisam ser resolvidos.
-
-Para muitos dos exercícios e problemas eu tenho dicas para te ajudar chegar
-numa resolução.  Tente resolver sem procurar dicas.
-Se não conseguir, procure uma primeira dica no apêndice ``Dicas \#1'',
-e volte a tentar.
-Se ainda parece difícil, procure segunda dica no ``Dicas \#2'',
-etc., etc.
-Finalmente, no apêndice tem resoluções completas.
-
-\emph{Cuidado! Nunca leia matemática passivamente!}
-Umas das provas tem falhas e/ou erros
-(nesses casos o ``\thinspace\qedsymbol\thinspace''
-vira-se ``\thinspace\mistakesymbol\thinspace'').
-Os problemas e exercísios pedem identificar os erros,
-e caso que os teoremas são realmente prováveis suas provas
-inteiras e corretas também aparecem no apêndice.
-
-\endsectionoid
-
-\endchapteroid
-%%}}}
+% Acknowledgements
+\input content/fmcack
 
 %%}}}
 
-\input fmcmain
+%%{{{ Mainmatter 
+
+\input content/fmcmain
 
 %%{{{ Appendix 
 
@@ -284,7 +185,9 @@ inteiras e corretas também aparecem no apêndice.
 
 %%}}}
 
-%%{{{ Backmatter 
+%%}}}
+
+%%{{{ Backmatter
 
 %%{{{ Referências 
 \chapteroid \referencesname.
@@ -335,9 +238,8 @@ inteiras e corretas também aparecem no apêndice.
 \endchapteroid
 %%}}}
 
-%%{{{ Back cover
-
-%%}}}
+% Back cover and lastpages 
+\input content/fmclast
 
 %%}}}
 
