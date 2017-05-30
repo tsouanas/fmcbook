@@ -6,6 +6,8 @@
 
 ## Instructions
 
+You will need [ThaTeX].
+
 To compile:
 
     make
@@ -26,3 +28,4 @@ To upload to the official website (if you have access):
 
 See LICENSE file, although some files come with a separate (additional) license.
 
+[ThaTeX]: http://github.com/tsouanas/thatex
