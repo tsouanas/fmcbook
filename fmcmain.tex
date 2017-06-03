@@ -10850,7 +10850,7 @@ $$
 %%}}}
 
 \blah.
-Então descobrimos que em geral, nem $HK=KH$ nem $HK\subgroup G$, nem $KH\subgroup G$ são garantidos.
+Então descobrimos que, em geral, nem $HK=KH$, nem $HK\subgroup G$, nem $KH\subgroup G$ são garantidos.
 Pode acontecer que $HK \subgroup G$ mas $KH \not\subgroup G$?  E o que a igualdade $HK=KH$ tem
 a ver com a ``subgrupidade'' dos $HK$ e $KH$?  Vamos responder em todas essas perguntas com
 o teorema seguinte:
@@ -10945,17 +10945,264 @@ Mostre que $\cal Z_n$ é um grupo e ache sua ordem.
 %%{{{ Normal subgroups 
 \section Subgrupos normais.
 
+%%{{{ Notation 
+\note Notação.
+Observe que definimos os $aH$, $Ha$, e $HK$, num grupo $G$
+para \emph{subgrupos} $H,K\subgroup G$.
+Mas não usamos nenhuma propriedade de subgrupo mesmo.
+Podemos realmente estender essa notação para arbitrarios
+\emph{subconjuntos} de $G$, e, por que não,
+até usar notação como a seguinte abominágem:
+$$
+g_1ABg_2B\ginv{g_3}Ag_1CB
+\defeq
+\set{
+g_1abg_2b'\ginv{g_3}a'g_1cb''
+\st
+a, a' \in A,\ 
+b, b', b'' \in B,\ 
+c \in C
+}
+$$
+dados $g_1,g_2,g_3\in G$ e $A,B,C\subseteq G$.
+Observe primeiramente que \emph{precisamos} usar variáveis diferentes
+para cada instância de elemento de $A$, etc.
+Observe também que todos esses objetos que escrevemos juxtaposicionando
+elementos e subconjuntos de $G$ são subconjuntos de $G$ se usamos
+pelo menos um subconjunto de $G$ na expressão:
+$$
+\xalignat2
+g_1abg_5ab' &\in G
+&
+g_1aBg_5ab' &\subseteq G.
+\endxalignat
+$$
+Finalmente, \emph{confira} que graças à associatividade da operação do grupo $G$,
+não precisamos botar parenteses:
+$$
+g_1ABg_2B\ginv{g_3}Ag_1CB
+=
+g_1A(Bg_2B)\ginv{g_3}(Ag_1CB)
+=
+(g_1A)(Bg_2)(B\ginv{g_3})(Ag_1)(CB)
+= \dotsb
+$$
+etc.
+%%}}}
+
+%%{{{ x: calculate_left_and_right_cosets_of_H_K_N 
+\exercise.
+\label{calculate_left_and_right_cosets_of_H_K_N}%
+Calcule todos os left e right cosets dos
+$$
+\align
+H &\leteq \set{ \id, \phi }\\
+K &\leteq \set{ \id, \psi\phi }\\
+N &\leteq \set{ \id, \phi, \psi^2 }
+\endalign
+$$
+Quantos right-cosets diferentes cada um deles tem?
+Quantos left?  Explique sua resposta.
+Os conjuntos de todos os right-cosets de $H$ é igual
+com o conjunto de todos os left-cosets de $H$?
+Similarmente para os $K$ e $N$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: conjugate_of_group_element 
+\definition Conjugado.
+\label{conjugate_of_group_element}%
+\tdefined{conjugado}{de elemento de grupo}%
+Seja $G$ grupo e $a\in G$.
+Para qualquer $g\in G$, o $ga\ginv g$ é chamado
+um \dterm{conjugado} de $a$.
+%%}}}
+
+%%{{{ df: normal_subgroup 
+\definition Subgrupo normal.
+\label{normal_subgroup}%
+\tdefined{subgrupo}[normal]%
+\sdefined{\holed N \normal \holed G}{\holed N é um subgrupo normal de \holed G}%
+\iisee{normal}{subgrupo normal}%
+Seja $G$ grupo e $N\subgroup G$.
+O $N$ é um \dterm{subgrupo normal} de $G$
+sse $N$ é fechado sobre os conjugados.
+Em símbolos,
+$$
+N \normal G
+\defiff
+\paren{\forall n\in N}
+\lforall{g\in G}
+{ gn\ginv g \in N }.
+$$
+%%}}}
+
+\blah.
+Seguem umas definições alternativas.
+
+%%{{{ lemma: normal_subgroup_altdef_gN_eq_Ng 
+\lemma.
+\label{normal_subgroup_altdef_gN_eq_Ng}%
+\ii{subgrupo!normal}%
+Sejam $G$ grupo, e $N\subgroup G$.
+$$
+N\normal G
+\iff
+\lforall{g\in G}
+{gN = Ng}.
+$$
+%%}}}
+
+%%{{{ lemma: normal_subgroup_altdef_gNginvg_eq_N 
+\lemma.
+\label{normal_subgroup_altdef_gNginvg_eq_N}%
+\ii{subgrupo!normal}%
+Sejam $G$ grupo, e $N\subgroup G$.
+$$
+N\normal G
+\iff
+\lforall{g\in G}
+{gN\ginv g = N}.
+$$
+%%}}}
+
+%%{{{ Cuidado: g n g^{-1} \neq n 
+\note Cuidado.
+Se tivemos $N \normal G$ temos sim que $gn\ginv g \in N$,
+mas isso \emph{não garanta} que $gn\ginv g = n$ não!
+Sabemos que para todo $n\in N$, temos $gn\ginv g = n'$ \emph{para algum}
+$n' \in N$, mas nada nos permite concluir que esse $n'$ é nosso $n$.
+%%}}}
+
+%%{{{ x: gnginvg_neq_n 
+\exercise.
+\label{gnginvg_neq_n}%
+Ache um exemplo que mostra que não necessariamente
+$gn\ginv g = n$ mesmo $n\in N \normal G$.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Symmetries 
+\section Simetrias.
+\label{symmetries}%
+
+\note As simetrias dum triângulo equilátero.
+\label{Dih3}%
+
+\note Um primeiro exemplo de isomorfismo.
+\label{Dih3_isom_S3}%
+
+\note As simetrias dum quadrado.
+\label{Dih4}%
+
+\note Diagramas Hasse.
+\label{hasse_diagrams_first_encounter}%
+
+
+\definition Os grupos dihedrais.
+\label{Dihn}%
+\tdefined{grupo}[dihedral]%
+\iisee{dihedral}{grupo dihedral}%
+
+\exercise.
+Qual a $\gord{\dih n}$?
+
+\endexercise
+
+\exercise Simetrias de rectângulo.
+Ache todas as simetrias de rectângulo e estude seu grupo.
+
+\endexercise
+
 \endsection
 %%}}}
 
 %%{{{ Morphisms 
 \section Morfismos.
 
+\note Abusos notacionais.
+
+\note Diferentes estruturas para grupos.
+$$
+\align
+\phi(xy)      &= \phi(x) \phi(y) \tag{i}   \\
+\phi(e_A)     &= e_B             \tag{ii}  \\
+\phi(\ginv x) &= \pginv{\phi(x)} \tag{iii} 
+\endalign
+$$
+Então, dependendo na estrutura que escolhemos para nossa definição
+de grupo, precisamos definir ``morfismo'' em forma diferente:
+No caso de estrutura $\sset A {\ast_A}$ o morfismo deve satisfazer
+o~(i); no caso de $\sset A {e_A, \ast_A}$, os~(i)--(ii), e no caso
+de $\sset A {e_A, \ginv{\phantom{\cdot}}, \ast_A}$ todos os~(i)--(iii).
+Parece então que chegamos no primeiro ponto onde a estrutura
+escolhida na definição de grupo será crucial.
+Felizmente, como nos vamos provar logo após, as leis de grupo
+são suficientes para garantir que qualquer função $\phi$ que
+satisfaz apenas o~(i)~em cima, obrigatoriamente satisfaz
+os~(ii)~e~(iii) também!
+Então vamos botar em nossa definição apenas o~(i) mesmo:
+
+\definition Homomorfismo.
+\tdefined{homomorfismo}%
+Sejam $A$ e $B$ grupos.
+A função $\phi : A \to B$ é um \dterm{homomorfismo} de $A$ para $B$
+sse
+$$
+\text{para todo $x,y\in A$},
+\qquad
+\phi(xy) = \phi(x) \phi(y).
+$$
+
+\lemma.
+\label{in_groups_respecting_products_means_morphism}%
+Sejam grupos $\cal A = \sset A {\ast_A}$ e $\cal B = \sset B {\ast_B}$,
+e homomorfismo $\phi : \cal A \to \cal B$.
+Então:
+$$
+\align
+\phi(e_A)     &= e_B             \tag{i}  \\
+\phi(\ginv x) &= \pginv{\phi(x)} \tag{ii} 
+\endalign
+$$
+\sketch.
+Para o~(i), calculamos $\phi(e_A) = \phi(e_A) \phi(e_A)$
+para concluir que $e_B = \phi(e_A)$;
+para o~(ii), mostramos que o $\phi(\ginv x)$ satisfaz a
+propriedade caraterística de ser inverso de $\phi(x)$:
+$$
+\phi(\ginv x) \phi(x) = e_B.
+$$
+\qes
+
 \endsection
 %%}}}
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ prob: aut_G_is_a_group 
+\problem.
+\label{aut_G_is_a_group}%
+Mostre que dado um grupo $G$, o conjunto de todos os seus automorfismos
+$$
+\aut G
+\defeq
+\set{
+\phi : G\bijto G
+\st
+\text{$\phi$ é um automorfismo}
+}
+$$
+com operação $\compose$ é um grupo.
+
+\endproblem
+%%}}}
 
 \endproblems
 %%}}}
