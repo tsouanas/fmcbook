@@ -11569,20 +11569,9 @@ Sobre lógica matemática:
 \chapter Teoria axiomática de conjuntos.
 \label{axiomatic_set_theory}%
 
-%%{{{ Problems in paradise 
-\section Problemas no paraíso.
+%%{{{ Problems in Cantor's paradise: Russell's paradox 
+\section Problemas no paraíso de Cantor: o paradoxo de Russell.
 
-\endsection
-%%}}}
-
-%%{{{ Naïve set theory and Russell's paradox 
-\section Teoria ingênua de conjuntos e o paradoxo de Russell.
-
-\endsection
-%%}}}
-
-%%{{{ Zermelo's solution 
-\section A solução de Zermelo.
 \endsection
 %%}}}
 
@@ -11592,10 +11581,131 @@ Sobre lógica matemática:
 \endsection
 %%}}}
 
-% TODO List axioms gradually, defining/proving more and more
+%%{{{ Zermelo's solution 
+\section A solução de Zermelo.
+\endsection
+%%}}}
 
-%%{{{ The Zermelo–Fraenkel–Skolem axioms 
+%%{{{ The axioms of Zermelo–Fraenkel–Skolem 
 \section Os axiomas de Zermelo--Fraenkel--Skolem.
+
+%%{{{ ax: Extensionality 
+\axiom Extensionalidade.
+\tdefined{axioma}[Extensionality]%
+\label{extensionality}%
+Todo conjunto é determinado por seus membros.
+$$
+\forall a \forall b
+\paren{
+a = b
+\liff
+\forall x
+\paren{
+x \in a
+\liff
+x \in b
+}
+}
+\tag{ZF1}
+$$
+%%}}}
+
+%%{{{ ax: Emptyset 
+\axiom Emptyset.
+\tdefined{axioma}[Emptyset]%
+\label{emptyset}%
+Existe conjunto sem membros.
+$$
+\exists s \forall x
+\paren{
+x \notin s
+}
+\tag{ZF2}
+$$
+%%}}}
+
+%%{{{ ax: Pairset 
+\axiom Pairset.
+\tdefined{axioma}[Pairset]%
+\label{pairset}%
+Dado um par de conjuntos, existe conjunto que consite em exatamente os conjuntos do par.
+$$
+\forall a
+\forall b
+\exists p
+\paren{
+w\in p
+\liff
+w = a
+\lor
+w = b
+}
+\tag{ZF3}
+$$
+%%}}}
+
+%%{{{ ax: Separation 
+\axiom Separation.
+\tdefined{axioma}[Separation (scheme)]%
+\label{separation}%
+{\rm Para toda propriedade $\phi$, o seguinte:}
+para todo conjunto, a colecção de todos os seus membros que têm a propriedade $\phi$ é um conjunto.
+$$
+\forall a
+\exists s
+\forall x
+\paren{
+x\in s
+\liff
+x\in a 
+\land
+\phi(x)
+}
+\tag{ZF4}
+$$
+%%}}}
+
+%%{{{ ax: Powerset 
+\axiom Powerset.
+\tdefined{axioma}[Powerset]%
+\label{powerset}%
+Para cada conjunto a colecção de todos os seus subconjuntos é um conjunto.
+$$
+\forall a
+\exists p
+\forall w
+\paren{
+w\in p
+\liff
+w \subseteq a
+}
+\tag{ZF5}
+$$
+%%}}}
+
+%%{{{ ax: Unionset 
+\axiom Unionset.
+\tdefined{axioma}[Unionset]%
+\label{unionset}%
+Para cada conjunto, sua união (a colecção de todos os membros dos seus membros) é um conjunto.
+$$
+\forall a
+\exists u
+\forall w
+\paren{
+w\in u
+\liff
+\exists x
+\paren{
+w \in x
+\land
+x \in a
+}
+}
+\tag{ZF6}
+$$
+%%}}}
+
 \endsection
 %%}}}
 
