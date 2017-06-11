@@ -11673,7 +11673,7 @@ Traduza as frases seguintes para a FOL da teoria de conjuntos.
 %%}}}
 
 %%{{{ Merely saying something doesn't make it true 
-\note Apenas escrever algo não o vira verdade.
+\note Apenas escrever algo não o torna verdade.
 O fato que podemos expressar uma afirmação numa linguagem não quis dizer
 que essa afirmação é válida.  Isso não é nada profundo: em português
 também podemos escrever a frase ``a lua não é feita de queijo'', mas isso
@@ -11710,9 +11710,15 @@ x \in a
 x \in b
 }
 }
-\taglabel{ZF1}{extensionality}
+\taglabel{ZF1}{ax_extensionality}
 $$
 %%}}}
+
+\note.
+Qual o efeito disso em nosso mundo?
+Ainda nem podemos garantir a existência de nada,
+mas pelo menos sabemos dizer se duas coisas são iguais ou não.
+Vamos logo garantir a existência dum conjunto familiar:
 
 %%{{{ ax: Emptyset 
 \axiom Emptyset.
@@ -11724,9 +11730,52 @@ $$
 \paren{
 x \notin s
 }
-\taglabel{ZF2}{emptyset}
+\taglabel{ZF2}{ax_emptyset}
 $$
 %%}}}
+
+\note.
+E já nosso mundo mudou completamente:
+ganhamos nossa primeira peça, uma coisa para brincar:
+\emph{um conjunto sem membros!}
+E já estamos em posição de provar nosso primeiro teorema,
+seguido pela nossa primeira definição:
+
+%%{{{ thm: uniqueness_of_emptyset 
+\theorem Unicidade do conjunto vazio.
+\ii{unicidade!do $\emptyset$}%
+\label{uniqueness_of_emptyset}%
+O conjunto sem membros garantido pelo axioma~\ref{ax_emptyset} é único.
+\proof.
+Assume que $e, o$ são conjuntos ambós satisfazendo a propriedade:
+$$
+\forall x\paren{x \notin e}
+\qqqquad
+\forall x\paren{x \notin o}.
+$$
+Então a equivaléncia
+$$
+x\in e \iff x \in o
+$$
+é válida para todo $x$, pois ambos lados são falsos.
+Logo, pelo axioma~\ref{ax_extensionality}, $e=o$.
+\qed
+%%}}}
+
+%%{{{ df: emptyset_def 
+\definition Conjunto vazio.
+\label{emptyset_def}%
+\tdefined{conjunto}[vazio]%
+\sdefined {\emptyset} {o conjunto vazio}%
+Denotamos com $\emptyset$ o \dterm{conjunto vazio} com a propriedade caraterística
+$$
+\forall x\paren{x\notin \emptyset}.
+$$
+%%}}}
+
+\blah.
+\noindent\dots e agora parece que não podemos fazer muita coisa mais.
+Precisamos novos axiomas.
 
 %%{{{ ax: Pairset 
 \axiom Pairset.
@@ -11736,10 +11785,10 @@ Dado um par de conjuntos, existe conjunto que consite em exatamente os conjuntos
 $$
 \forall a
 \forall b
-\exists p
+\exists s
 \forall x
 \paren{
-x\in p
+x\in s
 \liff
 \paren{
 x = a
@@ -11747,16 +11796,39 @@ x = a
 x = b
 }
 }
-\taglabel{ZF3}{ZF_pairset}
+\taglabel{ZF3}{ax_pairset}
 $$
 %%}}}
 
-%%{{{ ax: Separation 
-\axiom Separation.
-\tdefined{axioma}[Separation (scheme)]%
-\label{separation}%
-{\rm Para toda propriedade $\phi$, o seguinte:}
-para todo conjunto, a colecção de todos os seus membros que têm a propriedade $\phi$ é um conjunto.
+%%{{{ Pairset's effects 
+\note.
+Como isso muda nosso mundo?
+Quais novas peças ganhamos em nosso xadrez?
+Para ganhar a existência de algo usando o Pairset
+precisamos dá-lo dois objetos,
+pois começa com dois quantificadores universais ($\forall$) antes de chegar no seu primeiro existencial ($\exists$):
+``$\forall a\forall b \exists s\dots$''.
+Quais objetos vamos escolher para dá-lo?
+Nosso mundo está tão pobre que é fácil responder nessa pergunta:
+\emph{vamos usar como $a$ e como $b$ a única peça que temos: o $\emptyset$}.
+Ganhamos então que:
+$$
+\exists s \forall x\paren { x \in s \liff \paren{ x = \emptyset \lor x = \emptyset }}
+$$
+ou seja, $\exists s \forall x \paren { x \in s \liff x = \emptyset }$,
+ou seja, existe o conjunto
+$$
+\set { x \st x = \emptyset }
+$$
+que acostumamos a denotá-lo por $\set \emptyset$.
+Uma nova peça!  E teoremas?
+%%}}}
+
+%%{{{ thm: singletons_thm 
+\theorem Singletons.
+\label{singletons_thm}%
+Dado conjunto $a$, existe um único conjunto cujo membro único é o $a$.
+Formalmente,
 $$
 \forall a
 \exists s
@@ -11764,14 +11836,165 @@ $$
 \paren{
 x\in s
 \liff
+x = a
+}
+$$
+\proof.
+Bote $a\asseq a$ e $b\asseq a$ no~\ref{ax_pairset}:
+$$
+\exists s
+\forall x
 \paren{
-x\in a 
+x \in s
+\liff
+w = x
+}.
+$$
+O conjunto cuja existência é garantida tem como membro único o $a$,
+e graças ao~\ref{ax_extensionality}, ele é o único conjunto com essa propriedade.
+\qed
+%%}}}
+
+%%{{{ df: singleton 
+\definition Singleton.
+Dado qualquer conjunto $a$, o conjunto cujo único membro é o $a$
+é chamado o \dterm{singleton} de $a$, e denotado por $\set a$.
+Definimos assim o operador $\set{\dhole}$.
+%%}}}
+
+%%{{{ x: infinitely_many_sets 
+\exercise.
+Ache uma infinidade de peças novas usando apenas os axiomas \ref{ax_extensionality}, \ref{ax_emptyset}, e \ref{ax_pairset}.
+
+\hint
+Agora temos duas opções para cada $\forall$ do Pairset: $\emptyset$, $\set\powerset$.
+
+\endexercise
+%%}}}
+
+\blah.
+Mesmo que nosso mundo mudou drasticamente---sim, ganhamos uma infinidade de
+objetos---ele ainda tá bem limitado.
+
+%%{{{ x: infinitely_many_singletons 
+\exercise.
+Mostre como construir uma infinidade de singletons e uma infinidade de doubletons.
+
+\hint
+No exercício anterior construimos uns conjuntos com cardinalidade até 2.
+Tente construir conjunto com cardinalidade 3.
+
+\hint
+Não tem como.  Por que?
+
+\solution
+A construção dum conjunto com cardinalidade finita $n$ só pode ter sido garantida
+ou pelo Emptyset, se $n=0$ (nesse caso o conjunto construido é o próprio $\emptyset$),
+ou pelo Pairset, se $n>0$.  Mas o Pairset so construe
+conjuntos de cardinalidade $1$ ou $2$, dependendo se o aplicamos em conjuntos
+iguais ou não (respectivamente).
+Para concluir: nossos axiomas não são suficientemente poderosos para garantir
+a existência de conjuntos com cardinalidades maiores que $2$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: only_sets_with_up_to_two_elements 
+\exercise.
+\label{only_sets_with_up_to_two_elements}%
+Podemos garantir a existência de conjuntos com qualquer cardinalidade finita que desejamos?
+
+\hint
+No exercício anterior construimos uns conjuntos com cardinalidade até 2.
+Tente construir conjunto com cardinalidade 3.
+
+\hint
+Não tem como.  Por que?
+
+\solution
+A construção dum conjunto com cardinalidade finita $n$ só pode ter sido garantida
+ou pelo Emptyset, se $n=0$ (nesse caso o conjunto construido é o próprio $\emptyset$),
+ou pelo Pairset, se $n>0$.  Mas o Pairset so construe
+conjuntos de cardinalidade $1$ ou $2$, dependendo se o aplicamos em conjuntos
+iguais ou não (respectivamente).
+Para concluir: nossos axiomas não são suficientemente poderosos para garantir
+a existência de conjuntos com cardinalidades maiores que $2$.
+
+\endexercise
+%%}}}
+
+\note.
+O proximo axioma não vai nos permitir---por enquanto---definir novos conjuntos.
+Mas é a versão ``bug-free'' do princípio da comprehensão geral.
+Com isso, o paradoxo de Russell se vira teorema!
+
+%%{{{ ax: Separation 
+\axiom Separation (esquema).
+\tdefined{axioma}[Separation (scheme)]%
+\label{separation}%
+{\rm Para toda propriedade $\phi$, o seguinte:}
+para todo conjunto, a colecção de todos os seus membros que têm a propriedade $\phi$ é um conjunto.
+$$
+\forall w
+\exists s
+\forall x
+\paren{
+x\in s
+\liff
+\paren{
+x\in w 
 \land
 \phi(x)
 }
 }
-\taglabel{ZF4}{ZF_separation}
+\taglabel{ZF4}{ax_separation}
 $$
+%%}}}
+
+%%{{{ x: how many axioms? 
+\exercise.
+Quantos axiomas temos listado até esse momento?
+
+\hint
+Não são 4.
+
+\hint
+Não é um número finito de axiomas!
+
+\endexercise
+%%}}}
+
+\note Axiomas vs{.}~esquemas axiomáticos.
+
+%%{{{ x: separation_yields_no_new_sets_yet 
+\exercise.
+\label{separation_yields_no_new_sets_yet}%
+Mostre que os conjuntos garantidos pelos~\ref{ax_extensionality}--\ref{ax_pairset}
+são os mesmos com os conjuntos garantidos pelos~\ref{ax_extensionality}--\ref{ax_separation}.
+
+\hint
+Usando o~\ref{ax_separation}, criamos subconjunto de um conjunto dado.
+
+\hint
+Quais são todas as cardinalidades possíveis para o conjunto em qual
+usamos o~\ref{ax_separation}?
+
+\endexercise
+%%}}}
+
+%%{{{ thm: russells_paradox_to_theorem
+\theorem.
+\label{russells_paradox_to_theorem}%
+Dado qualquer conjunto existe algo que não pertence nele.
+Ainda mais, pelo menos um dos seus subconjuntos não pertence nele.
+\sketch.
+Tome um conjunto $A$.
+Usamos a mesma ideia do paradoxo de Russell\Russell{de paradoxo para teorema},
+só que essa vez não consideramos \emph{todos} os conjuntos que não
+pertencem neles mesmo, mas apenas aqueles que pertencem ao $A$.
+Concluimos que $r(A) \notin A$ pois o caso $r(A) \in A$ chega 
+no mesmo absurdo de Russell.
+\qes
 %%}}}
 
 %%{{{ ax: Powerset 
@@ -11781,16 +12004,21 @@ $$
 Para cada conjunto a colecção de todos os seus subconjuntos é um conjunto.
 $$
 \forall a
-\exists p
+\exists s
 \forall x
 \paren{
-x\in p
+x\in s
 \liff
 x \subseteq a
 }
-\taglabel{ZF5}{powerset}
+\taglabel{ZF5}{ax_powerset}
 $$
 %%}}}
+
+\exercise.
+Podemos construir conjunto com cardinalidade arbitrariamente grande?
+
+\endexercise
 
 %%{{{ ax: Unionset 
 \axiom Unionset.
@@ -11811,7 +12039,7 @@ x \in w
 w \in a
 }
 }
-\taglabel{ZF6}{unionset}
+\taglabel{ZF6}{ax_unionset}
 $$
 %%}}}
 
