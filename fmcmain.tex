@@ -11582,6 +11582,7 @@ Sobre lógica matemática:
 
 %%{{{ Russell's paradox 
 \note O paradoxo de Russell (1902).
+\label{russells_paradox}%
 Russell\Russell[paradoxo]~observou que o conjunto
 $$
 V \defeq \set{ x \st \text{$x$ é conjunto} }
@@ -11622,6 +11623,27 @@ Mas aqui não começamos supondo algo aleatoriamente.
 Qual vai ser nossa conclusão agora?
 Parece que chegamos num absurdo apenas com lógica sem supor nada ``extra''.
 Será que lógica ou matemática é quebrada?
+%%}}}
+
+%%{{{ General Comprehension Principle.
+\note Princípio da comprehensão geral.
+\label{general_comprehension_principle}%
+\proclaimstyle
+Seja $P(\dhole)$ uma condição definitiva.
+Existe um conjunto
+$$
+\set { x \st P(x) }
+$$
+cujos membros são exatamente todos os objetos $x$
+que satisfazem a condição: $P(x)$.
+%%}}}
+
+%%{{{ cor: The general comprehension principle is invalid 
+\corollary Russell.
+O princípio da comprehensão geral não é válido.
+\proof.
+Supondo que é, chegamos no absurdo que achamos no~\refn{russells_paradox}.
+\qed
 %%}}}
 
 \endsection
@@ -11775,13 +11797,14 @@ $$
 
 \blah.
 \noindent\dots e agora parece que não podemos fazer muita coisa mais.
-Precisamos novos axiomas.
+Precisamos novos axiomas:
 
 %%{{{ ax: Pairset 
 \axiom Pairset.
 \tdefined{axioma}[Pairset]%
 \label{pairset}%
-Dado um par de conjuntos, existe conjunto que consite em exatamente os conjuntos do par.
+Dado um par de conjuntos, existe conjunto que consiste
+em exatamente os conjuntos do par.
 $$
 \forall a
 \forall b
@@ -11796,16 +11819,17 @@ x = a
 x = b
 }
 }
-\taglabel{Pairset}{ax_pairset}
+\taglabel{ZF3}{ax_pairset}
 $$
 %%}}}
 
 %%{{{ df: doubleton 
 \definition Doubleton.
 \tdefined {doubleton}%
+\sdefined {\set{\holed a, \holed b}} {o conjunto doubleton de $\holed a$ e $\holed b$}%
 Dados $a$ e $b$ quaisquer, o conjunto que consiste nos $a$ e $b$
 é chamado o \dterm{doubleton} de $a$ e $b$, e denotado por $\set {a, b}$.
-Definimos assim o operador $\set{\holed\dhole, \holed\dhole}$.
+Definimos assim o operador $\set{\dhole, \dhole}$.
 %%}}}
 
 %%{{{ Pairset's effects 
@@ -11815,7 +11839,7 @@ Quais novas peças ganhamos em nosso xadrez?
 Para ganhar a existência de algo usando o Pairset
 precisamos dá-lo dois objetos,
 pois começa com dois quantificadores universais ($\forall$) antes de chegar no seu primeiro existencial ($\exists$):
-``$\forall a\forall b \exists s\dots$''.
+``$\forall a\forall b \exists \dots$''.
 Quais objetos vamos escolher para dá-lo?
 Nosso mundo está tão pobre que é fácil responder nessa pergunta:
 \emph{vamos usar como $a$ e como $b$ a única peça que temos: o $\emptyset$}.
@@ -11845,17 +11869,18 @@ $$
 x\in s
 \liff
 x = a
-}
+}.
 $$
 \proof.
 Bote $a\asseq a$ e $b\asseq a$ no~\ref{ax_pairset}:
 $$
+\phantom{\forall a}
 \exists s
 \forall x
 \paren{
 x \in s
 \liff
-w = x
+x = a
 }.
 $$
 O conjunto cuja existência é garantida tem como membro único o $a$,
@@ -11865,6 +11890,7 @@ e graças ao~\ref{ax_extensionality}, ele é o único conjunto com essa propried
 
 %%{{{ df: singleton 
 \definition Singleton.
+\sdefined {\set{\holed a}} {o conjunto singleton de $\holed a$, com membro único o $\holed a$}%
 Dado qualquer conjunto $a$, o conjunto cujo único membro é o $a$
 é chamado o \dterm{singleton} de $a$, e denotado por $\set a$.
 Definimos assim o operador $\set{\dhole}$.
@@ -11932,7 +11958,7 @@ a existência de conjuntos com cardinalidades maiores que $2$.
 %%}}}
 
 \note.
-O proximo axioma não vai nos permitir---por enquanto---definir novos conjuntos.
+O próximo axioma não vai nos permitir---por enquanto---definir novos conjuntos.
 Mas é a versão ``bug-free'' do princípio da comprehensão geral.
 Com isso, o paradoxo de Russell se vira teorema!
 
@@ -11969,10 +11995,32 @@ Não são 4.
 \hint
 Não é um número finito de axiomas!
 
+\solution
+Veja a discução no~\refn{axioms_vs_axiomatic_schemes}.
+
 \endexercise
 %%}}}
 
+%%{{{ Axioms vs. axiomatic schemes 
 \note Axiomas vs{.}~esquemas axiomáticos.
+\label{axioms_vs_axiomatic_schemes}%
+Usamos o termo ``esquema axiomático'', pois para cada fórmula $\phi(\dhole)$, ganhamos um novo axioma pelo~\ref{ax_separation}.
+Para enfatizar isso podemos até o citar como~\ref{ax_separation}$_{\phi}$.
+Antes de o usar então precisamos primeiramente escolher nossa fórmula $\phi$, assim passando do \emph{esquema}~\ref{ax_separation}
+para o \emph{axioma}~\ref{ax_separation}$_{\phi}$.
+Agora como o axioma começa com ``$\forall w \exists \dots$'',
+precisamos escolher em qual conjunto $w$ nos vamos o aplicar,
+para ganhar finalmente um novo conjunto.
+%%}}}
+
+%%{{{ df: set_builder_separation 
+\definition.
+Denotamos com
+$$
+\setst {x \in W} {\phi(x)}
+$$
+o conjunto único (pelo~\ref{ax_extensionality}) garantido pelo~\ref{ax_separation} quando o aplicamos com uma fórmula $\phi(x)$ para um conjunto $W$.
+%%}}}
 
 %%{{{ x: separation_yields_no_new_sets_yet 
 \exercise.
@@ -11989,6 +12037,50 @@ usamos o~\ref{ax_separation}?
 
 \endexercise
 %%}}}
+
+%%{{{ How to use the Separation 
+\note Como usar o~\ref{ax_separation}.
+Queremos mostrar que uma certa classe $C$ de objetos realmente é um conjunto.
+Para conseguir isso com o~\ref{ax_separation},
+precisamos construir (pelos axiomas!) um \emph{conjunto}
+$W$ que contenha todos os objetos da nossa classe $C$.
+Em geral o $W$ vai ter mais elementos, um certo ``lixo'', que precisamos nos livrar.
+E é exatamente com o~\ref{ax_separation} que jogamos fora esse lixo,
+usando uma apropriada fórmula $\phi$ como ``tessoura'' para cortar o $W$ e ficar só com o $C$,
+garantido agora de ser conjunto.
+\endgraf
+Vamos ver uns exemplos desse uso,
+enriquecendo nosso mundo com uns operadores conhecidos.
+%%}}}
+
+%%{{{ eg: define inters 
+\example.
+Defina o operador $\dhole\inters\dhole$.
+
+\solution
+Precisamos achar um conjunto $W$ sufi
+
+\endexample
+%%}}}
+
+%%{{{ x: define setminus 
+\exercise.
+Defina o operador $\dhole\setminus\dhole$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: define union 
+\exercise.
+Defina o operador $\dhole\inters\dhole$.
+
+\endexercise
+%%}}}
+
+\exercise.
+Defina o operador $\dhole\inters\dhole$.
+
+\endexercise
 
 %%{{{ thm: russells_paradox_to_theorem
 \theorem.
@@ -12083,6 +12175,27 @@ Provamos por indução no $n$.  Já temos provado o resultado para os valores
 $n=0,1,2.$
 \qes
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Classes vs. Sets
+\section Classes vs{.}~Conjuntos.
+
+\note O que é uma classe?.
+Sem dúvida, a notação $\set{ x \st \text{\thole}}$
+que temos usado até agora é natural e útil demais.
+Denota a colecção de todos os objetos $x$ que satisfazem
+a condição (ou ``passam o filtro'') que escrevemos no \thole.
+Dada uma condição definitiva $P$ então consideramos a colecção
+$$
+\set {x \st P(x) }
+$$
+de todos os objetos que a satisfazem.
+Provavelmente vocé já percebeu que eu evitei usar a palavra
+\emph{conjunto}, pois queremos reservas essa palavra para
+certos objetos cuja existência 
+
 
 \endsection
 %%}}}
