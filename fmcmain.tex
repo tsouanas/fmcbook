@@ -8993,7 +8993,7 @@ $$
 }
 =\id
 $$
-e voltamos para a propria $\id$!
+e voltamos para a própria $\id$!
 Uma outra permutação no $S_3$ é a
 $$
 \psi\leteq\permf{
@@ -11625,10 +11625,9 @@ Parece que chegamos num absurdo apenas com lógica sem supor nada ``extra''.
 Será que lógica ou matemática é quebrada?
 %%}}}
 
-%%{{{ General Comprehension Principle.
-\note Princípio da comprehensão geral.
+%%{{{ General Comprehension Principle 
+\principle Comprehensão geral.
 \label{general_comprehension_principle}%
-\proclaimstyle
 Seja $P(\dhole)$ uma condição definitiva.
 Existe um conjunto
 $$
@@ -11709,6 +11708,55 @@ mundo de conjuntos e ainda mais: é falsa em cada mundo possível, com qualquer
 interpretação de $\in$!
 %%}}}
 
+%%{{{ A useful pattern 
+\note Um padrão útil.
+Muitas vezes queremos dizer que
+existe um certo conjunto \emph{determinado por uma propriedade
+caraterística}, ou seja, um conjunto $s$ que consiste em exatamente
+os membros que satisfazem um certo critério.
+\endgraf
+\emph{Como podemos dizer isso na FOL da teoria de conjuntos?}
+Fácil!  Assim:
+$$
+\phantom{
+\forall a
+\forall b
+\forall c
+\dotsb
+}
+{\color{alert}
+\exists s
+\forall x
+\bigparen{
+x\in s \liff
+{}
+{\color{normal}
+\tunderbrace{
+\text{\vphantom|\xlthole}
+}{critério}
+}}}.
+$$
+Na maioria das vezes queremos afirmar a existência dum certo conjunto
+dados conjuntos $a,b,c,\dotsc$.
+Nesse caso usamos apenas o
+$$
+\forall a
+\forall b
+\forall c
+\dotsb
+{\color{alert}
+\exists s
+\forall x
+\bigparen{
+x\in s \liff
+{}
+{\color{normal}
+\text{\xlthole}
+}}}.
+$$
+Esse padrão vai aparecer em muitos dos axiomas em baixo.
+%%}}}
+
 \endsection
 %%}}}
 
@@ -11756,7 +11804,7 @@ x \notin s
 $$
 %%}}}
 
-\note.
+\blah.
 E já nosso mundo mudou completamente:
 ganhamos nossa primeira peça, uma coisa para brincar:
 \emph{um conjunto sem membros!}
@@ -11810,7 +11858,7 @@ $$
 \forall b
 \exists s
 \forall x
-\paren{
+\bigparen{
 x\in s
 \liff
 \paren{
@@ -11845,9 +11893,9 @@ Nosso mundo está tão pobre que é fácil responder nessa pergunta:
 \emph{vamos usar como $a$ e como $b$ a única peça que temos: o $\emptyset$}.
 Ganhamos então que:
 $$
-\exists s \forall x\paren { x \in s \liff \paren{ x = \emptyset \lor x = \emptyset }}
+\exists s \forall x\bigparen { x \in s \liff \paren{ x = \emptyset \lor x = \emptyset }}
 $$
-ou seja, $\exists s \forall x \paren { x \in s \liff x = \emptyset }$,
+ou seja, $\exists s \forall x \bigparen { x \in s \liff x = \emptyset }$,
 ou seja, existe o conjunto
 $$
 \set { x \st x = \emptyset }
@@ -11865,25 +11913,25 @@ $$
 \forall a
 \exists s
 \forall x
-\paren{
+\bigparen{
 x\in s
 \liff
 x = a
 }.
 $$
 \proof.
-Bote $a\asseq a$ e $b\asseq a$ no~\ref{ax_pairset}:
+Bote $a\asseq a$ e $b\asseq a$ no Pairset~(\ref{ax_pairset}):
 $$
 \phantom{\forall a}
 \exists s
 \forall x
-\paren{
+\bigparen{
 x \in s
 \liff
 x = a
 }.
 $$
-O conjunto cuja existência é garantida tem como membro único o $a$,
+O conjunto cuja existência está sendo afirmada tem como membro único o $a$,
 e graças ao~\ref{ax_extensionality}, ele é o único conjunto com essa propriedade.
 \qed
 %%}}}
@@ -11915,20 +11963,33 @@ objetos---ele ainda tá bem limitado.
 Mostre como construir uma infinidade de singletons e uma infinidade de doubletons.
 
 \hint
-No exercício anterior construimos uns conjuntos com cardinalidade até 2.
-Tente construir conjunto com cardinalidade 3.
+\ref{ax_emptyset}~\&~\ref{singletons_thm}.
 
 \hint
-Não tem como.  Por que?
+Comece com o $\emptyset$ e aplique iterativamente o operador $\set{\dhole}$.
 
 \solution
-A construção dum conjunto com cardinalidade finita $n$ só pode ter sido garantida
-ou pelo Emptyset, se $n=0$ (nesse caso o conjunto construido é o próprio $\emptyset$),
-ou pelo Pairset, se $n>0$.  Mas o Pairset so construe
-conjuntos de cardinalidade $1$ ou $2$, dependendo se o aplicamos em conjuntos
-iguais ou não (respectivamente).
-Para concluir: nossos axiomas não são suficientemente poderosos para garantir
-a existência de conjuntos com cardinalidades maiores que $2$.
+Graças ao Emptyset~(\ref{ax_emptyset}) temos o $\emptyset$.
+Aplicamos iterativamente o operador $\set{\dhole}$ e assim construimos
+a seqüência infinita de singletons
+$$
+\emptyset,
+\set{\emptyset},
+\set{\set{\emptyset}},
+\set{\set{\set{\emptyset}}},
+\set{\set{\set{\set{\emptyset}}}},
+\dotsc
+$$
+Para os doubletons, uma abordagem seria aplicar o $\set{\emptyset,\dhole}$
+em todos os membros da seqüência em cima começando com o segundo.
+Construimos assim a seqüência seguinte de doubletons:
+$$
+\set{\emptyset, \set{\emptyset}},
+\set{\emptyset, \set{\set{\emptyset}}},
+\set{\emptyset, \set{\set{\set{\emptyset}}}},
+\set{\emptyset, \set{\set{\set{\set{\emptyset}}}}},
+\dotsc
+$$
 
 \endexercise
 %%}}}
@@ -11963,16 +12024,17 @@ Mas é a versão ``bug-free'' do princípio da comprehensão geral.
 Com isso, o paradoxo de Russell se vira teorema!
 
 %%{{{ ax: Separation 
-\axiom Separation (esquema).
+\note Esquema axiomático (Separation).
 \tdefined{axioma}[Separation (scheme)]%
 \label{separation}%
+\proclaimstyle
 {\rm Para toda propriedade $\phi$, o seguinte:}
 para todo conjunto, a colecção de todos os seus membros que têm a propriedade $\phi$ é um conjunto.
 $$
 \forall w
 \exists s
 \forall x
-\paren{
+\bigparen{
 x\in s
 \liff
 \paren{
@@ -11987,7 +12049,7 @@ $$
 
 %%{{{ x: how many axioms? 
 \exercise.
-Quantos axiomas temos listado até esse momento?
+Quantos axiomas temos listado até este momento?
 
 \hint
 Não são 4.
@@ -12048,7 +12110,6 @@ Em geral o $W$ vai ter mais elementos, um certo ``lixo'', que precisamos nos liv
 E é exatamente com o~\ref{ax_separation} que jogamos fora esse lixo,
 usando uma apropriada fórmula $\phi$ como ``tessoura'' para cortar o $W$ e ficar só com o $C$,
 garantido agora de ser conjunto.
-\endgraf
 Vamos ver uns exemplos desse uso,
 enriquecendo nosso mundo com uns operadores conhecidos.
 %%}}}
@@ -12058,43 +12119,119 @@ enriquecendo nosso mundo com uns operadores conhecidos.
 Defina o operador $\dhole\inters\dhole$.
 
 \solution
-Precisamos achar um conjunto $W$ sufi
+Dados conjuntos $a$ e $b$,
+precisamos achar um conjunto $W$ que contenha todos os membros
+da interseção desejada.  Assim vamos conseguir definir o $a \inters b$
+usando o~\ref{ax_separation} com filtro a fórmula
+$$
+\phi(x)\asseq {x \in a \land x \in b}
+$$
+Observe que todos os elementos da $a \inters b$ são elementos tanto de $a$,
+quanto de $b$.
+Temos então duas opções.  Vamos escolher a primeira e construir o
+$$
+\setst {x \in a} {x \in a \land x \in b}
+$$
+Observamos que com essa escolha nem precisamos a parte ``$x \in a$'' em nosso filtro.
+Chegamos assim em duas soluções para nosso problema:
+$$
+\setst {x \in a} {x \in b}
+\qqqquad
+\setst {x \in b} {x \in a}
+$$
 
 \endexample
+%%}}}
+
+%%{{{ df: inters 
+\definition Interseção binária.
+\label{inters_constructed}%
+Sejam conjuntos $a,b$.
+Usando o~\ref{ax_separation} definimos
+$$
+a\inters b \defeq \setst {x\in a} {x\in b}.
+$$
 %%}}}
 
 %%{{{ x: define setminus 
 \exercise.
 Defina o operador $\dhole\setminus\dhole$.
 
+\hint
+Começa considerando dados conjuntos $a$ e $b$.
+Procure um \emph{conjunto} que contenha todos os membros
+da classe $a\setminus a$ que tu queres construir como conjunto.
+Cuidado: nesse caso não temos as duas opções que tivemos
+na~\ref{inters_constructed}.
+
+\solution
+Usando o~\ref{ax_separation} definimos:
+$$
+a\setminus b\defeq \setst {x \in a} {x \notin b}.
+$$
+
 \endexercise
 %%}}}
 
-%%{{{ x: define union 
+%%{{{ x: cannot_define_union_yet 
 \exercise.
-Defina o operador $\dhole\inters\dhole$.
+\label{cannot_define_union_yet}%
+Tente definir os operadores $\dhole\union\dhole$ e $\dhole\symdiff\dhole$.
+
+\hint
+Dados conjuntos $a$ e $b$,
+precisas achar um \emph{conjunto} $W$
+que contenha todos os membros de $a\union b$,
+para depois filtarar apenas os certos usando
+como filtro a fórmula
+$$
+\phi(x) \asseq
+x \in a \lor x \in b
+$$
+para a operação $\dhole\union\dhole$;
+e similarmente para a $\dhole\symdiff\dhole$ só que
+para essa o filtro vai ser a fórmula
+$$
+\phi(x)\asseq
+\paren{x \in a \land x \notin b}
+\lor
+\paren{x \notin a \land x \in b}.
+$$
+
+\hint
+Não tem como!
+
+\solution
+Não tem como!
+Os axiomas que temos por enquanto não são suficientemente poderosos para
+definir nenhuma dessas operações!
 
 \endexercise
 %%}}}
 
-\exercise.
-Defina o operador $\dhole\inters\dhole$.
-
-\endexercise
-
-%%{{{ thm: russells_paradox_to_theorem
+%%{{{ thm: russells_paradox_to_theorem 
 \theorem.
 \label{russells_paradox_to_theorem}%
 Dado qualquer conjunto existe algo que não pertence nele.
 Ainda mais, pelo menos um dos seus subconjuntos não pertence nele.
 \sketch.
 Tome um conjunto $A$.
-Usamos a mesma ideia do paradoxo de Russell\Russell{de paradoxo para teorema},
+Usamos a mesma ideia do paradoxo de Russell\Russell[de paradoxo para teorema],
 só que essa vez não consideramos \emph{todos} os conjuntos que não
 pertencem neles mesmo, mas apenas aqueles que pertencem ao $A$.
-Concluimos que $r(A) \notin A$ pois o caso $r(A) \in A$ chega 
+Concluimos que $\russell A \notin A$ pois o caso $\russell A \in A$ chega 
 no mesmo absurdo de Russell.
 \qes
+%%}}}
+
+%%{{{ Univ is not a set 
+\corollary.
+\label{Univ_is_not_a_set}%
+O universo $\Univ$ não é um conjunto.
+\proof.
+Se $\Univ$ fosse um conjunto, aplicando o teorema teriamos um conjunto $\russell \Univ$
+com $\russell\Univ \notin \Univ$, absurdo pela definição do $\Univ$.
+\qed
 %%}}}
 
 %%{{{ ax: Powerset 
@@ -12115,10 +12252,31 @@ x \subseteq a
 $$
 %%}}}
 
+%%{{{ df: pset 
+\definition.
+\tdefined{powerset}%
+\sdefined {\pset {\holed a}} {o conjunto de partes (powerset) de $\holed a$}
+\iisee{conjunto!de partes}{powerset}%
+\iisee{conjunto!potência}{powerset}%
+Dado conjunto $a$, escrevemos
+$\pset a$
+para o conjunto garantido pelo Powerset~(\ref{ax_powerset}),
+que é único graças ao~Extensionality(\ref{ax_extensionality}).
+Definimos assim o operador $\pset\dhole$.
+%%}}}
+
 %%{{{ x: arbitrarily_large_finite_sets 
 \exercise.
 \label{arbitrarily_large_finite_sets}
 Usando os~\ref{ax_extensionality}+\ref{ax_emptyset}+\ref{ax_pairset}+\ref{ax_powerset}, podemos construir conjunto com cardinalidade finita, arbitrariamente grande?
+
+\solution
+Sim.
+Seja $n\in\nats$.
+Precisamos construir um conjunto $A$ com $\card A \geq n$.
+Se $n=0$, graças ao Emptyset~(\ref{ax_emptyset}) tomamos $A\asseq\emptyset$.
+Se $n>0$, iteramos o operador $\pset\dhole$ até chegar num conjunto
+cuja cardinalidade supera o $n$.
 
 \endexercise
 %%}}}
@@ -12126,13 +12284,31 @@ Usando os~\ref{ax_extensionality}+\ref{ax_emptyset}+\ref{ax_pairset}+\ref{ax_pow
 %%{{{ x: still_missing_some_finite_cardinalities 
 \exercise.
 \label{still_missing_some_finite_cardinalities}
-Usando os~\ref{ax_extensionality}+\ref{ax_emptyset}+\ref{ax_pairset}+\ref{ax_powerset}, podemos construir conjunto com qualquer cardinalidade finita?
+Usando os~\ref{ax_extensionality}+\ref{ax_emptyset}+\ref{ax_pairset}+\ref{ax_powerset}, podemos construir conjunto com cardinalidade finita qualquer?
+
+\hint
+Não.  Por que?
+
+\hint
+Como vimos no~\ref{only_sets_with_up_to_two_elements},
+usando os \ref{ax_extensionality}+\ref{ax_emptyset}+\ref{ax_pairset}
+podemos consturir apenas conjuntos com cardinalidades $0$, $1$, e $2$.
+Se aplicar o Powerset~(\ref{ax_powerset}) num conjunto $A$ com cardinalidade
+finita $n$, qual será a cardinalidade do $\pset A$?
+
+\solution
+Não.
+Por exemplo, não temos como construir conjunto com cardinalidade $3$,
+pois uma tal construção deveria ``terminar'' com uma aplicação do Powerset
+(o Emptyset construe conjuntos com cardinalidade $0$, e o Pairset com $1$ ou $2$).
+Mas aplicando o Powerset para conjunto com cardinalidade finita $n$,
+construimos conjunto com cardinalidade $2^n$, e $3$ não é uma potência de $2$.
 
 \endexercise
 %%}}}
 
-%%{{{ 
-\blah.
+%%{{{ Games 
+\note Jogos.
 Como descobrimos no~\ref{still_missing_some_finite_cardinalities}
 não existe estrategia\ii{estratégia}[vencedora] vencedora num jogo
 onde nosso oponente joga primeiro escolhendo um número $n\in\nats$,
@@ -12140,6 +12316,37 @@ e nosso objetivo é construir pelos axiomas um conjunto
 com cardinalidade $n$.
 Se ele escolher $n=0$ ou uma potência de $2$, temos como ganhar,
 mas caso contrário, não.
+\endgraf
+No outro lado, num jogo onde  nosso objetivo é construir pelos axiomas um
+conjunto com cardinalidade \emph{pelo menos} $n$, como vimos
+no~\ref{arbitrarily_large_finite_sets} temos uma estratégia vencedora sim:
+comece com uma aplicação do Emptyset~(\ref{ax_emptyset})
+para ganhar o $\emptyset$ e aplique iterativamente o
+Powerset~(\ref{ax_powerset}) construindo assim conjuntos de
+cardinalidades $0$ (do próprio $\emptyset$),
+$1$, $2$, $2^2$, $2^3$, etc., até chegar num conjunto com cardinalidade
+maior-ou-igual ao $n$ escolhido por nosso oponente.
+%%}}}
+
+%%{{{ x: how many iterations of powerset do we need to win? 
+\exercise.
+Quantas iterações precisamos para conseguir conjunto com cardinalidade $n\in\nats$?
+
+\endexercise
+%%}}}
+
+%%{{{ x: all_finite_cardinalities 
+\exercise.
+\label{all_finite_cardinalities}
+Usando os~\ref{ax_extensionality}+\ref{ax_emptyset}+\ref{ax_separation}+\ref{ax_powerset}, podemos construir conjunto com cardinalidade finita qualquer?
+
+\hint
+Dado $n\in\nats$ construa primeiramente um conjunto com cardinalidade
+maior-ou-igual, e aplica o Separation~(\ref{ax_separation}) para
+ficar com apenas $n$ elementos.
+Formalmente, use indução!
+
+\endexercise
 %%}}}
 
 %%{{{ ax: Unionset 
@@ -12149,10 +12356,10 @@ mas caso contrário, não.
 Para cada conjunto, sua união (a colecção de todos os membros dos seus membros) é um conjunto.
 $$
 \forall a
-\exists u
+\exists s
 \forall x
-\paren{
-x\in u
+\bigparen{
+x\in s
 \liff
 \exists w
 \paren{
@@ -12165,14 +12372,97 @@ w \in a
 $$
 %%}}}
 
+%%{{{ df: unionset 
+\definition.
+\tdefined{unionset}%
+\sdefined {\Union {\holed a}} {a união de $\holed a$ (operação unitária)}
+Dado conjunto $a$, escrevemos
+$\Union a$
+para o conjunto garantido pelo Unionset~(\ref{ax_unionset}),
+que é único graças ao~Extensionality~(\ref{ax_extensionality}).
+Definimos assim o operador da \dterm{união arbitrária} $\Union\dhole$.
+%%}}}
+
+%%{{{ x: union_and_symdiff_constructed 
+\exercise.
+\label{union_and_symdiff_constructed}%
+Defina os operadores binários $\union$ e $\symdiff$.
+
+\hint
+(Sobre o operador $\union$.)
+Combine os operadores $\Union\dhole$ e $\set{\dhole,\dhole}$!
+
+\hint
+(Sobre o operador $\symdiff$.)
+Suponha $a,b$ conjuntos.  Temos
+$a\symdiff b\subseteq a\union b$.
+
+\solution
+Sejam conjuntos $a,b$.
+Definimos:
+$$
+\align
+a \union b   &\defeq \Union\set{a,b}\\
+a \symdiff b &\defeq \setst {x \in a\union b} {x \notin a\inters b}
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: complement_impossible
+\exercise.
+\label{complement_impossible}%
+Como podemos definir o operador unitário $\complement{\cdot}$ de \emph{complemento},
+tal que $\complement a$ é o conjunto de todos os objetos que não pertencem ao $a$?
+
+\hint
+De jeito nenhum!  Por que?
+
+\solution
+Não podemos.
+Dado conjunto $a$, se seu complemento $\complement a$ também fosse conjunto,
+poderiamos aplicar o $\union$ para construir o $a\union\complement a$.
+Mas pela definição dos $\union$ e $\complement a$, temos agora
+$$
+x\in a\union \complement a
+\iff
+x\in a \lor x \notin a
+$$
+ou seja, todos os objetos $x$ satisfazem a condição na direita!
+Em outras palavras $a \union \complement a$ seria o próprio universo $\Univ$
+que sabemos que não é um conjunto.
+
+\endexercise
+%%}}}
+
+%%{{{ x: Inters_constructed 
+\exercise.
+\label{Inters_constructed}%
+Defina o operador unitário $\Inters$,
+aplicável em qualquer conjunto não vazio.
+Precisamos o Unionset~(\ref{ax_unionset})?
+
+\solution
+Dado conjunto $A\neq\emptyset$, definimos
+$$
+\Inters A
+\defeq
+\setst {x \in \Union A} {\lforall {a \in A} {x \in a}}.
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ thm: finite_set_constructor 
 \theorem.
 \label{finite_set_constructor}%
 Dados $a_1, a_2, \dotsc, a_n$ (onde $n\in\nats$) existe conjunto único
 cujos membros são exatamente os $a_1$, $a_2$, \dots, $a_n$.
 \sketch.
-Provamos por indução no $n$.  Já temos provado o resultado para os valores
-$n=0,1,2.$
+Provamos por indução no $n$.
+Já temos provado o resultado para os valores $n=0,1,2.$
+Usamos o operador $\union$ para o passo indutivo.
 \qes
 %%}}}
 
@@ -12182,20 +12472,88 @@ $n=0,1,2.$
 %%{{{ Classes vs. Sets
 \section Classes vs{.}~Conjuntos.
 
+%%{{{ What is a class? 
 \note O que é uma classe?.
-Sem dúvida, a notação $\set{ x \st \text{\thole}}$
-que temos usado até agora é natural e útil demais.
-Denota a colecção de todos os objetos $x$ que satisfazem
-a condição (ou ``passam o filtro'') que escrevemos no \thole.
+Sem dúvida, a notação $\set{ x \st \text{\lthole} }$
+que temos usado até agora é natural e útil.
+Ela denota a colecção de todos os objetos $x$ que satisfazem
+a condição (ou ``passam o filtro'') que escrevemos no \lthole.
 Dada uma condição definitiva $P$ então consideramos a colecção
 $$
-\set {x \st P(x) }
+\set {x \st P(x)}
 $$
 de todos os objetos que a satisfazem.
 Provavelmente vocé já percebeu que eu evitei usar a palavra
-\emph{conjunto}, pois queremos reservas essa palavra para
-certos objetos cuja existência 
+\emph{conjunto}, pois reservamos essa palavra para
+apenas os conjuntos-objetos do nosso universo.
+%%}}}
 
+%%{{{ df: class 
+\definition Classe.
+\tdefined{classe}%
+Dada uma condição definitiva $P(\dhole)$ definimos a \dterm{classe}
+$$
+\set {x \st P(x)}
+$$
+como um sinónimo da própria condição $P$!
+Chamamos a classe $P$ \dterm{própria} sse não existe \emph{conjunto}
+$S$ que satisfaz a propriedade:
+$$
+x \in S \iff P(x).
+$$
+%%}}}
+
+%%{{{ Abuso notacional 
+\note Abuso notacional.
+É muito comum abusar o símbolo $\in$, escrevendo
+$$
+x \in C
+$$
+mesmo quando $C$ é uma classe própria!
+Nesse caso consideramos o ``$x \in C$'' apenas como uma
+abreviação do $C(x)$.
+Em outras palavras, esse $\in$ não é um símbolo de relação da nossa FOL de
+teoria de conjuntos, mas sim uma abreviação em nossa \emph{metalinguagem},
+no mesmo jeito que $\iff$ também não é, mas o $\liff$ é.
+Para enfatisar essa diferença vamos usar um símbolo diferente:
+%%}}}
+
+%%{{{ df: metain 
+\definition.
+\label{metain}%
+\sdefined{\holed x\metain\holed C}{o objeto \holed x está na classe \holed C}%
+Usamos o símbolo $\metain$ na metalinguagem como ``pertence''
+quando possivelmente o lado direito é uma classe própria.%
+\footnote{Seguimos aqui o exemplo dos símbolos de equivalência na metalinguágem
+($\Longleftrightarrow$) e na linguagem-objeto de lógica ($\leftrightarrow$).}
+Com essa notação:
+$$
+x\metain P
+\defiff
+\knuthcases{
+P(x)    & se $P$ é uma classe própria\cr
+x\in P  & se $P$ é um conjunto.
+}
+$$
+%%}}}
+
+%%{{{ eg: sets and proper classes 
+\example.
+Dados conjuntos $a$ e $b$,
+das classes
+$$
+\munderbrace{\setst x {x = a}} {\set a}
+\qqquad
+\munderbrace{\setst x {x \in a \land x\in b}} {a\inters b}
+\qqquad
+\munderbrace{\setst x {x \neq x}} {\emptyset}
+\qqquad
+\setst x {x = x}
+$$
+apenas a última é própria.
+As outras são conjuntos mesmo!
+\endexample
+%%}}}
 
 \endsection
 %%}}}
