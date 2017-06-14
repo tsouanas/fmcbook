@@ -29,7 +29,7 @@ both:
 	  && echo -n `sed 's/[^0-9]//g' fmc.last` > fmc.lasttag \
 	  && grep '\\chapter\ ' fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
 
-build:
+build: clean
 	echo -n `date +"%Y-%m-%d, %H:%M %Z"` > fmc.lasttmp
 	xetex fmc \
 	  && bibtex fmc \
