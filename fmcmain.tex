@@ -7253,8 +7253,8 @@ Como não definir funções: erros comuns
 \endsection
 %%}}}
 
-%%{{{ The λ-notation 
-\section A notação $\lambda$.
+%%{{{ λ-notation and the mapsto arrow 
+\section A notação $\lambda$ e a setinha $\mapsto$.
 
 \endsection
 %%}}}
@@ -11689,10 +11689,10 @@ Traduza as frases seguintes para a FOL da teoria de conjuntos.
 
 %%{{{ Merely saying something doesn't make it true 
 \note Apenas escrever algo não o torna verdade.
-O fato que podemos expressar uma afirmação numa linguagem não quis dizer
+O fato que podemos expressar uma afirmação numa linguagem não quer dizer
 que essa afirmação é válida.  Isso não é nada profundo: em português
 também podemos escrever a frase ``a lua não é feita de queijo'', mas isso
-não quis dizer que realmente não é---todos sabemos que é, certo?
+não quer dizer que realmente não é---todos sabemos que é, certo?
 Infelizmente existe um hábito de confudir as duas noções e usar
 como ``prova de validade'' o fato que apenas algo foi escrito, ou dito.%
 \footnote{Veja por exemplo argumentações de várias igrejas de várias religiões.}
@@ -11748,7 +11748,7 @@ x\in s \liff
 \text{\xlthole}
 }}}.
 $$
-Esse padrão vai aparecer em muitos dos axiomas em baixo.
+Esse padrão vai aparecer em muitos dos axiomas abaixo.
 %%}}}
 
 \endsection
@@ -11811,7 +11811,7 @@ seguido pela nossa primeira definição:
 \label{uniqueness_of_emptyset}%
 O conjunto sem membros garantido pelo axioma~\axref{emptyset} é único.
 \proof.
-Assume que $e, o$ são conjuntos ambós satisfazendo a propriedade:
+Suponha que $e, o$ são conjuntos ambós satisfazendo a propriedade:
 $$
 \forall x\paren{x \notin e}
 \qqqquad
@@ -12015,7 +12015,7 @@ a existência de conjuntos com cardinalidades maiores que $2$.
 \note.
 O próximo axioma não vai nos permitir---por enquanto---definir novos conjuntos.
 Mas é a versão ``bug-free'' do princípio da comprehensão geral.
-Com isso, o paradoxo de Russell se vira teorema!
+Com isso, o paradoxo de Russell se torna teorema!
 
 %%{{{ ax: Separation 
 \note Esquema axiomático (Separation).
@@ -12102,7 +12102,7 @@ precisamos construir (pelos axiomas!) um \emph{conjunto}
 $W$ que contenha todos os objetos da nossa classe $C$.
 Em geral o $W$ vai ter mais elementos, um certo ``lixo'', que precisamos nos livrar.
 E é exatamente com o~\axref{separation} que jogamos fora esse lixo,
-usando uma apropriada fórmula $\phi$ como ``tessoura'' para cortar o $W$ e ficar só com o $C$,
+usando uma apropriada fórmula $\phi$ como ``tesoura'' para cortar o $W$ e ficar só com o $C$,
 garantido agora de ser conjunto.
 Vamos ver uns exemplos desse uso,
 enriquecendo nosso mundo com uns operadores conhecidos.
@@ -12463,8 +12463,8 @@ Usamos o operador $\union$ para o passo indutivo.
 \endsection
 %%}}}
 
-%%{{{ Classes vs. Sets
-\section Classes vs{.}~Conjuntos.
+%%{{{ Classes vs. Sets (I) 
+\section Classes vs{.}~Conjuntos (I).
 
 %%{{{ What is a class? 
 \note O que é uma classe?.
@@ -12549,11 +12549,6 @@ As outras são conjuntos mesmo!
 \endexample
 %%}}}
 
-%%{{{ Operations vs. Functions
-\note Operações vs{.}~Funções.
-
-%%}}}
-
 \endsection
 %%}}}
 
@@ -12618,11 +12613,28 @@ O que precisamos para construir um objeto desse tipo?
 Quando identificamos dois objetos desse tipo e os consideramos iguais?
 Como podemos usar os objetos desse tipo?
 Qual é a ``interface'' deles?
+Talvez ajuda pensar que nossa tarefa é similhante de um ``vendedor
+de implementações matemáticas''.
+Nossos ``clientes'' são os próprios matemáticos que desejam usar certos
+tipos de objetos matemáticos, e nos seus pedidos eles estão esclarecendo
+quais são as propriedades que eles precisam.
+Nosso trabalho então será:
+\emph{implementar} essa especificação, ou seja,
+\emph{representar fielmente} esses tipos e conceitos como conjuntos.
+Para conseguir isto:
+(1) \emph{definimos} os conceitos e objetos como conjuntos;
+(2) \emph{provamos} que nossa implementação realmente atende as especificações.
+Muitas vezes vamos até oferecer uma \emph{garantia de unicidade}
+para mostrar para nosso cliente-matemático que ele não precisa
+procurar outras implementações alternativas da nossa concorrência,
+pois \emph{essencialmente} nem tem.
+%%}}}
+
+\blah.
 Nosso próximo trabalho será representar as tuplas,
 e por isso vamos analizar em muito detalhe essa especificação.
 Depois relaxamos um pouco deixando uns detalhes tediosos como
 ``óbvios''.
-%%}}}
 
 \endsection
 %%}}}
@@ -12827,7 +12839,27 @@ que é conjunto graças ao Separation~(\axref{separation}).
 %%{{{ Constructing the functions 
 \section Construindo as funções.
 
+%%{{{ x: eqc_formally_defined
+\exercise.
+\label{eqc_formally_defined}%
+Defina o predicado $\eqc$.  Sejam $a,b$ conjuntos.
+$$
+a \eqc b \defiff (a \bijto b) \neq \emptyset.
+$$
+
+\endexercise
+%%}}}
+
 \endsection
+%%}}}
+
+%%{{{ Classes vs. Sets (II) 
+\note Classes vs{.}~Conjuntos (II).
+\tdefined{operador}%
+\tdefined{class-função}%
+\tdefined{predicado}%
+\tdefined{class-relação}%
+
 %%}}}
 
 %%{{{ Cardinal arithmetic 
@@ -12839,11 +12871,95 @@ que é conjunto graças ao Separation~(\axref{separation}).
 %%{{{ Infinite sets 
 \section Conjuntos infinitos.
 
+%%{{{ No infinite sets but Infinite(-) predicate 
+\note.
+Com todos os nossos axiomas até agora, mesmo tendo conseguido
+representar tanta matemática fielmente dentro da teoria de conjuntos,
+ainda \emph{não é garantida} a existência de nenhum conjunto infinito.
+Mesmo assim, a noção de ``ser infinito'' pode sim ser expressada
+em nossa dicionário, num jeito genial graças ao \Dedekind{},
+que deu a primeira definição de infinito que não presupõe
+a definição dos números naturais.
+%%}}}
+
+\spoiler.%
+
+%%{{{ df: Dedekind-infinite 
+\definition Dedekind-infinito.
+\tdefined{Dedekind-infinito}
+\sdefined {\Infinite(\holed a)} {o conjunto $a$ é Dedekind-infinito}
+Chamamos um conjunto $A$ \Dedekind[infinito]\dterm{Dedekind-infinito} sse
+ele pode ser ``injetado'' para um subconjunto proprio dele, ou seja,
+sse existem $X\subsetneq A$ e $f : A \bijto X$.
+Definimos então o predicado
+$$
+\Infinite(a) \defiff \exists x
+\paren{
+x\subsetneq a \land (a \eqc x)
+}.
+$$
+%%}}}
+
+%%{{{ Set successor 
+\note Conjunto-sucessor.
+\ii{conjunto-sucessor}
+%%}}}
+
+%%{{{ df: setsucc 
+\definition Zermelo, von Neumann.
+\tdefined {conjunto-sucessor}%
+\sdefined {\setsucc {\holed x}} {o conjunto-sucessór de $x$}%
+Definimos
+\vonNeumann[conjunto-sucessor]%
+\Zermelo[conjunto-sucessor]%
+o \dterm{conjunto-sucessor} dum conjunto $x$ ser o
+$$
+\align
+\setsucc x &\defeq \set x           \tag{Zermelo}\\
+\setsucc x &\defeq x \union \set x. \tag{von Neumann}
+\endalign
+$$
+%%}}}
+
+%%{{{ ax: Infinity 
+\axiom Infinity.
+\tdefined{axioma}[Infinity]%
+\label{infinity}%
+Existe um conjunto que tem o $\emptyset$ como membro e é fechado pela
+operação $(x \mapsto \setsucc x)$.
+$$
+\exists s
+\bigparen{
+\emptyset \in s
+\land
+\forall x
+\paren{
+x \in s
+\limplies
+\setsucc x \in s
+}
+}
+\axtaglabel{ZF7}{infinity}
+$$
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Constructing the natural numbers 
 \section Construindo os números naturais.
+
+\endsection
+%%}}}
+
+%%{{{ More axioms 
+\section Mais axiomas.
+
+\endsection
+%%}}}
+
+%%{{{ Axioms of choice 
+\section Axiomas de escolha.
 
 \endsection
 %%}}}
