@@ -12018,11 +12018,10 @@ Mas é a versão ``bug-free'' do princípio da comprehensão geral.
 Com isso, o paradoxo de Russell se torna teorema!
 
 %%{{{ ax: Separation 
-\note Esquema axiomático (Separation).
+\axiom Separation (scheme).
 \tdefined{axioma}[Separation (scheme)]%
 \label{separation}%
-\proclaimstyle
-{\rm Para toda propriedade $\phi$, o seguinte:}
+{\rm Para cada propriedade $\phi(\dhole)$, o seguinte:}
 para todo conjunto, a colecção de todos os seus membros que têm a propriedade $\phi$ é um conjunto.
 $$
 \forall w
@@ -12060,7 +12059,8 @@ Veja a discução no~\refn{axioms_vs_axiomatic_schemes}.
 %%{{{ Axioms vs. axiomatic schemes 
 \note Axiomas vs{.}~esquemas axiomáticos.
 \label{axioms_vs_axiomatic_schemes}%
-Usamos o termo ``esquema axiomático'', pois para cada fórmula $\phi(\dhole)$, ganhamos um novo axioma pelo~\axref{separation}.
+Usamos o termo ``esquema axiomático'', pois para cada fórmula $\phi(\dhole)$,
+ganhamos um novo axioma pelo~\axref{separation}.
 Para enfatizar isso podemos até o citar como~\axref{separation}$_{\phi}$.
 Antes de o usar então precisamos primeiramente escolher nossa fórmula $\phi$, assim passando do \emph{esquema}~\axref{separation}
 para o \emph{axioma}~\axref{separation}$_{\phi}$.
@@ -12854,12 +12854,44 @@ $$
 %%}}}
 
 %%{{{ Classes vs. Sets (II) 
-\note Classes vs{.}~Conjuntos (II).
-\tdefined{operador}%
-\tdefined{class-função}%
+\section Classes vs{.}~Conjuntos (II).
+
+\note Relações e funções ``grandes demais''.
 \tdefined{predicado}%
 \tdefined{class-relação}%
 
+%%{{{ df: functionlike 
+\definition.
+\label{functionlike}%
+Uma fórmula $\Phi(x,y)$ é \dterm{function-like}, sse:
+$$
+\forall x
+\unique y
+\Phi(x,y)
+\qquad
+\text{ou seja,}
+\qquad
+\forall x
+\exists y
+\bigparen{
+\Phi(x,y)
+\land
+\forall y'
+\paren{\Phi(x,y') \limplies y = y'}}.
+$$
+Nesse caso, também usamos os termo \dterm{função-classe}, \dterm{operador},
+e a notação comum
+$$
+\Phi(x) = y
+\qqquad\text{como sinónimo de}\qqquad
+\Phi(x,y).
+$$
+Seguindo essa linha denotamos por $\Phi(x)$ o único objeto $y$ tal que
+$\Phi(x,y)$.
+Assim o $\Phi(x)$ denota um \emph{objeto}, mas o $\Phi(x,y)$ uma \emph{afirmação}.
+%%}}}
+
+\endsection
 %%}}}
 
 %%{{{ Cardinal arithmetic 
@@ -12956,18 +12988,18 @@ $$
 \tdefined{sistema Peano}%
 \tdefined{princípio da indução}%
 \label{Peano_system}%
-Um \dterm{sistema Peano}\Peano[sistema]~é um conjunto estruturado $\cal N = \sset N {0,S}$ tal que:
+Um \dterm{sistema Peano}\Peano[sistema]~é um conjunto estruturado $\cal N = \sset N {0,S}$ que satisfaz as leis:
 $$
 \alignat2
-&\text{Zero é um número natural:}&\qquad&0 \in N                                   \tag{P1}\\
+&\text{Zero é um número natural:}&\qquad&0 \in N                             \tag{P1}\\
 &\text{O sucessor é uma operação unitária nos naturais:}&&S \eqtype N \to N  \tag{P2}\\
 &\text{Naturais diferentes tem sucessóres diferentes:}&&S \eqtype N \injto N \tag{P3}\\
 &\text{Zero não é o sucessor de nenhum natural:}&&0 \notin \img S N          \tag{P4}\\
 &\text{Os naturais satisfazem o princípio da indução:}                       \tag{P5}
 \endalignat
 $$
-\dterm{Princípio da indução.}
-\emph{Para todo $X\subseteq N$,}
+\dterm{Princípio da indução}\/:
+\emph{para todo $X\subseteq N$,}
 $$
 \align
 \bigparen{
@@ -12978,9 +13010,9 @@ $$
 n \in X \limplies Sn \in X
 }
 } \limplies X = N.
-\tag{P5}
 \endalign
 $$
+As leis (P1)--(P5) são conhecidas como \Peano[axiomas]\dterm{Axiomas~Peano}.
 Observe que graças às (P3) e (P4) temos
 $$
 \gather
@@ -12997,11 +13029,57 @@ para todos os $n,m\in N$.
 %%{{{ More axioms 
 \section Mais axiomas.
 
+%%{{{ ax: replacement 
+\axiom Replacement (scheme).
+\tdefined{axioma}[Replacement (scheme)]%
+\label{replacement}%
+{\rm Para cada função-classe $\Phi(\dhole)$, o seguinte:}
+Para todo conjunto $a$, a classe
+$
+\classimg \Phi a \defeq \class {\Phi(x)} {x \in a}
+$
+é um conjunto.
+$$
+\forall d
+\exists c
+\forall y
+\bigparen{
+    y \in c
+    \liff
+    \lexists {x \in d} {\Phi(x) = y}
+}
+\axtaglabel{ZF8}{replacement}
+$$
+%%}}}
+
+%%{{{ ax: foundation 
+\axiom Foundation.
+\tdefined{axioma}[Foundation]%
+\label{foundation}%
+Todo conjunto não vazio tem membro disjunto com ele mesmo.
+$$
+\paren{\forall a\neq\emptyset}
+\lexists {d \in a} {d\inter a = \emptyset}
+\axtaglabel{ZF9}{foundation}
+$$
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Axioms of choice 
 \section Axiomas de escolha.
+
+%%{{{ ax: choice_ac 
+\axiom Choice (AC).
+\tdefined{axioma}[Choice (AC)]
+\label{choice_ac}%
+Seja $\scr F$ família de conjuntos não vazios.
+Então existe função
+$\varepsilon : \scr F \to \Union \scr F$,
+tal que para todo $A\in\scr F$,
+$\varepsilon(A) \in A$.
+%%}}}
 
 \endsection
 %%}}}
@@ -13074,6 +13152,28 @@ Podemos provar a mesma coisa no sistema
 
 \hint
 Para o (1), veja o (2); para o (2), veja o (1)!
+
+\endproblem
+%%}}}
+
+%%{{{ consax_problem 
+\problem.
+\label{consax_problem}%
+Considere o axioma seguinte:
+$$
+\forall h
+\forall t
+\exists s
+\forall x
+\bigparen{
+x \in s
+\liff
+x = h
+\lor
+x \in t
+}.
+\axtaglabel{CONS}{consax}
+$$
 
 \endproblem
 %%}}}
