@@ -11874,8 +11874,8 @@ Dados $a$ e $b$ quaisquer, o conjunto que consiste nos $a$ e $b$
 Definimos assim o operador $\set{\dhole, \dhole}$.
 %%}}}
 
-%%{{{ Pairset's effects 
-\note.
+%%{{{ Effects 
+\note Efeitos.
 Como isso muda nosso mundo?
 Quais novas peças ganhamos em nosso xadrez?
 Para ganhar a existência de algo usando o Pairset
@@ -12552,8 +12552,8 @@ As outras são conjuntos mesmo!
 \endsection
 %%}}}
 
-%%{{{ Faithfully representing mathematics 
-\section Representando matemática fielmente.
+%%{{{ Foundations of mathematics 
+\section Fundações de matemática.
 
 %%{{{ A low-level language for mathematics 
 \note Uma linguagem ``low-level'' para matemática.
@@ -12951,6 +12951,9 @@ $$
 \setsucc x &\defeq x \union \set x. \tag{von Neumann}
 \endalign
 $$
+Como não existe ambiguidade, omitimos parenteses escrevendo por exemplo
+$\setsucc{\setsucc{\setsucc x}}$ ao inves de
+$\setsucc{(\setsucc{(\setsucc x)})}$.
 %%}}}
 
 %%{{{ ax: Infinity 
@@ -12973,6 +12976,75 @@ x \in s
 }
 \axtaglabel{ZF7}{infinity}
 $$
+%%}}}
+
+%%{{{ x: infinity_axiom_guarantees_natlike_object 
+\exercise.
+Verdade ou falso?
+Com o axioma Infinity~(\axref{infinity}) é garantida a existéncia \emph{do} conjunto
+$$
+\set {
+\emptyset,
+\setsucc\emptyset,
+\setsucc{\setsucc{\emptyset}},
+\setsucc{\setsucc{\setsucc{\emptyset}}},
+\dotsc
+}.
+$$
+(Escrevemos ``do'' ao inves de ``dum'' pois o axioma
+Extensionality~(\axref{extensionality}) garanta que se existe, existe único.)
+
+\hint
+\emph{Não é} uma conseqüência imediata do~Infinity~(\axref{infinity}).
+Por que não?
+
+\endexercise
+%%}}}
+
+%%{{{ df: wrong_definition_of_I 
+\definition.
+\label{wrong_definition_of_I}%
+Seja $I$ o conjunto cuja existência é garantida pelo axioma Infinity~(\axref{infinity}).
+Ou seja, o conjunto que satisfaz a condição:
+$$
+\emptyset \in I \land \forall x \paren{x \in I \limplies \setsucc x \in I}.
+$$
+\mistake
+%%}}}
+
+%%{{{ x: def_of_I_used_definite_articile 
+\exercise.
+\label{def_of_I_used_definite_articile}%
+Qual o problema com a \ref{wrong_definition_of_I}?
+
+\hint
+O artigo.
+
+\solution
+Para definir $I$ como \emph{o} conjunto que satisfaz tal propriedade
+precisamos: \emph{existência \& unicidade}.
+Existéncia é o que~\axref{infinity} garanta;
+mas não temos---e nem podemos provar---unicidade.
+Então precisamos definir o $I$ como \emph{um} conjunto
+que satisfaz aquela condição.
+
+\endexercise
+%%}}}
+
+%%{{{ Effects and side-effects 
+\note Efeitos e efeitos colaterais.
+O axioma Infinity~(\axref{infinity}) é o segundo dos nossos axiomas
+que garanta diretamente a existência dum certo objeto;
+o primeiro foi o Emptyset~(\axref{emptyset}).%
+\footnote{Pois todos os outros começam com quantificadores universais.}
+Assim que aceitamos o Emptyset, nos definimos o símbolo $\emptyset$
+para ser \emph{o} conjunto vazio.
+Para poder fazer isso precisamos \emph{provar} a unicidade
+do conjunto vazio~(\ref{uniqueness_of_emptyset}).
+Mas a condição que aparece no~\axref{infinity} não é
+suficientemente forte para ganhar unicidade pelo~\axref{extensionality}!
+Possivelmente (e realmente, como nos vamos ver) nosso mundo tem muitos
+conjuntos com essa propriedade!
 %%}}}
 
 \endsection
