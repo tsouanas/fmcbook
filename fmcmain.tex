@@ -12512,17 +12512,17 @@ no mesmo jeito que $\iff$ também não é, mas o $\liff$ é.
 Para enfatisar essa diferença vamos usar um símbolo diferente:
 %%}}}
 
-%%{{{ df: metain 
+%%{{{ df: inclass 
 \definition.
-\label{metain}%
-\sdefined{\holed x\metain\holed C}{o objeto \holed x está na classe \holed C}%
-Usamos o símbolo $\metain$ na metalinguagem como ``pertence''
+\label{inclass}%
+\sdefined{\holed x\inclass\holed C}{o objeto \holed x está na classe \holed C}%
+Usamos o símbolo $\inclass$ na metalinguagem como ``pertence''
 quando possivelmente o lado direito é uma classe própria.%
 \footnote{Seguimos aqui o exemplo dos símbolos de equivalência na metalinguágem
 ($\Longleftrightarrow$) e na linguagem-objeto de lógica ($\leftrightarrow$).}
 Com essa notação:
 $$
-x\metain P
+x\inclass P
 \defiff
 \knuthcases{
 P(x)    & se $P$ é uma classe própria\cr
@@ -13207,8 +13207,51 @@ $$
 para todos os $n,m\in N$.
 %%}}}
 
-%%{{{ Getting rid of noise (I) 
-\note Jogando fora o lixo (I).
+%%{{{ Defining a Peano system 
+\note Definindo um sistema Peano.
+Então o que precisamos implementar é um conjunto estruturado
+$\cal N = \sset N {0, S}$.
+Isso é fácil: nosso $\cal N$ vai ser uma tripla $\tup {N, 0, S}$,
+onde seus membros $N$, $0$, e $S$ são tais objetos que as leis
+(P1)--(P5) são satisfeitas.
+Sabemos que o $N$ precisa ser infinito, então temos que o procurar
+entre os conjuntos infinitos da nossa teoria.
+Uma primeira ideia seria botar $N \defeq I$, mas essa não parece
+uma ideia boa---será difícil ``vender'' uma implementação com lixo!
+O que realmente queremos botar como $N$ é o $I_*$
+(que não consiguimos ainda defini-lo).
+Mas vamos supor que o $I_*$ realmente é um conjunto;
+ele vai representar os números naturais,
+mas quais serão nossos $0$ e $S$?
+Pela especificação dos naturais, $0$ tem que ser um dos membros do $I_*$,
+e bem naturalmente escolhemos o $\emptyset$ como o zero.
+E o $S$?  Obviamente queremos botar $S = \lam x {\setsucc x}$,
+mas para realmente definir o $S$ como função, lembramos que em nosso
+dicionário ``função'' é um certo tipo de conjunto de pares.
+Botamos então
+$$
+S \pseudodefeq \class {\tup{n,m}} { m = \setsucc n }
+$$
+e agora só basta achar um conjunto que tem todos esses pares como
+membros.  Fácil:
+$$
+S \defeq \set {\tup{n,m}\in N\times N} { m = \setsucc n }.
+$$
+Resumindo, temos:
+$$
+\align
+\cal N &\defeq \tup{N, 0, S}\\
+\text{onde:}\qqqquad
+N &\defeq I_*\\
+0 &\defeq \emptyset\\
+S &\defeq \set {\tup{n,m}\in N\times N} { m = \setsucc n }.
+\endalign
+$$
+Então falta só definir esse $I_*$.
+%%}}}
+
+%%{{{ Getting rid of noise 
+\note Jogando fora o lixo.
 Queremos definir o $I_*$ como conjunto; construí-lo pelos axiomas.
 Uma primeira tentativa seria começar com o proprio $I$,
 e usar o Separation~(\axref{separation}) para filtrar
@@ -13257,6 +13300,51 @@ Por que $\scr I \neq \emptyset$?
 
 \solution
 Pois $I\in\scr I$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: P1 zero_is_a_nat 
+\exercise P1.
+\label{zero_is_a_nat}%
+Prove que $S$ é uma função.
+
+\endexercise
+%%}}}
+
+%%{{{ x: P2 succ_is_a_function 
+\exercise P2.
+\label{succ_is_a_function}%
+Prove que $S$ é uma função.
+
+\endexercise
+%%}}}
+
+%%{{{ x: P3 succ_is_injective 
+\exercise P3.
+\label{succ_is_injective}%
+Prove que $S : N \injto N$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: P4 zero_is_not_a_succ 
+\exercise P4.
+\label{zero_is_not_a_succ}%
+Prove que $0\notin \img S N$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: P5 nat_has_induction 
+\exercise P5.
+\label{nat_has_induction}%
+Seja $X\subseteq N$ tal que:
+\beginil
+\item{(1)} $0 \in X$;
+\item{(2)} para todo $k\in N$, se $k\in X$ então $Sk \in X$.
+\endil
+Prove que $X=N$.
 
 \endexercise
 %%}}}
