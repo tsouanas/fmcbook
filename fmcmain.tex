@@ -13047,11 +13047,122 @@ Possivelmente (e realmente, como nos vamos ver) nosso mundo tem muitos
 conjuntos com essa propriedade!
 %%}}}
 
+%%{{{ x: def_of_I_used_definite_articile 
+\exercise.
+\label{infinitely_many_infinite_sets}%
+Mostre que já é garantida uma infinidade de conjuntos infinitos.
+
+\hint
+Olha para os subconjuntos de $I$.
+
+\solution
+Tome
+$$
+\align
+I_0 &\asseq I\\
+I_1 &\asseq I \setminus \set{ \emptyset }\\
+I_2 &\asseq I \setminus \set{ \emptyset, \setsucc\emptyset }\\
+I_3 &\asseq I \setminus \set{ \emptyset, \setsucc\emptyset, \setsucc\emptyset }\\
+    &\eqvdots
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ How does this infinite set look like? 
+\note Como parece esse conjunto infinito?.
+Bem; sabemos que $I$ é infinito e tal, mas quais são os elementos dele?
+É tentador pensar que $I$ é o conjunto
+$$
+I_* \defeq \set { \emptyset, \setsucc\emptyset, \setsucc{\setsucc\emptyset}, \setsucc{\setsucc{\setsucc{\emptyset}}},\dotsc}.
+$$
+No final das contas, vendo o~\axref{infinity},
+\emph{o que mais poderia estar no $I$?}
+Nada.  Certo?
+Não.  Bem o oposto!
+\emph{Absolutamente tudo} pode pertencer nesse $I$, pois a única informação
+que temos sobre ele não tira nenhum objeto como possível membro dele!
+Realmente, os únicos elementos \emph{garantidos} no $I$ são aqueles que escrevemos
+em cima como membros do $I_*$, mas o $I$ pode ter mais: pode ter ``lixo'', como esse:
+$$
+I_{\spadesuit,\heartsuit} \defeq \set {
+\emptyset,
+\spadesuit,
+\heartsuit,
+\setsucc\emptyset,
+\setsucc{\setsucc\emptyset},
+\setsucc{\setsucc{\setsucc{\emptyset}}},
+\dotsc
+}.
+$$
+Aqui os $\spadesuit$ e $\heartsuit$ denotam dois objetos do nosso universo,
+talvez nem são conjuntos, talvez denotam os próprios símbolos
+``$\spadesuit$'' e ``$\heartsuit$'', talvez somos nos, eu e tu, etc.
+Para a gente, é o lixo.%
+\footnote{Sem ofensa.}
+\endgraf
+Na verdade, esse último conjunto não pode ser o nosso $I$, pois ele não
+satisfaz a condição do~(\axref{infinity}) pois
+$$
+\spadesuit \in I
+\qquad\text{mas}\qquad
+\setsucc\spadesuit \notin I.
+$$
+Podemos então entender melhor nosso $I$.
+Ele é um superconjunto do $I_*$---isto é garantido pelo~(\axref{infinity}) mesmo.
+O que mais ele tem?  Não sabemos dizer, mas sabemos que \emph{se tem} outros objetos,
+ele obrigatoriamente tem uma infinidade de conjuntos para cada um deles:
+$$
+\set {
+\emptyset,
+\spadesuit,
+\heartsuit,
+\setsucc{\emptyset},
+\setsucc{\spadesuit},
+\setsucc{\heartsuit},
+\setsucc{\setsucc\emptyset},
+\setsucc{\setsucc{\spadesuit}},
+\setsucc{\setsucc{\heartsuit}},
+\setsucc{\setsucc{\setsucc{\emptyset}}},
+\setsucc{\setsucc{\setsucc{\spadesuit}}},
+\setsucc{\setsucc{\setsucc{\heartsuit}}},
+\dotsc
+}.
+$$
+Vamos revisar esse $I$ então.
+Sabemos que ele parece assim:
+$$
+I = \set {
+\emptyset,
+\vdots,
+\setsucc{\emptyset},
+\vdots,
+\setsucc{\setsucc{\emptyset}},
+\vdots,
+\setsucc{\setsucc{\setsucc{\emptyset}}},
+\vdots,
+\setsucc{\setsucc{\setsucc{\setsucc{\emptyset}}}},
+\vdots,
+\dotsc
+}
+$$
+onde os $\vdots$ representam o lixo.
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Constructing the natural numbers 
 \section Construindo os números naturais.
+
+%%{{{ Specification 
+\note Especificação.
+Primeiramente precisamos esclarecer o que precisamos implementar.
+Qual é o ``pedido'' do cliente que queremos atender?
+Quais são as leis (suficientes e necessárias) que os números naturais devem
+respeitar?
+%%}}}
 
 \spoiler.%
 
@@ -13091,6 +13202,60 @@ Sn \neq 0
 \endgather
 $$
 para todos os $n,m\in N$.
+%%}}}
+
+%%{{{ Getting rid of noise (I) 
+\note Jogando fora o lixo (I).
+Queremos definir o $I_*$ como conjunto; construí-lo pelos axiomas.
+Uma primeira tentativa seria começar com o proprio $I$,
+e usar o Separation~(\axref{separation}) para filtrar
+seus elementos, separando os quais queremos do lixo,
+assim botando
+$$
+I_* = \setst {x\in I} {\phi(x)}.
+$$
+para algum certo filtro $\phi(\dhole)$.
+Qual fórmula vamos usar?
+%%}}}
+
+\spoiler.%
+
+%%{{{ A top-down approach 
+\note Uma abordagem top-down.
+Não podemos descrever um filtro em nossa linguagem de lógica
+(FOL de teoria de conjuntos)!  (Lembra-se, uma fórmula não pode
+ter tamanho infinito.)
+Precisamos então alguma outra ideia para nos livrar tos elementos ``extra'' do $I$.
+\endgraf
+\emph{Vamos definir o conjunto $I_*$ com a abordagem top-down!}
+Sabemos que nosso $I_*$ desejado é um subconjunto de $I$.
+Então vamos começar com a colecção de todos os subconjuntos de $I$
+que satisfazem a condição do Infinity:
+$$
+\scr I
+\defeq
+\setst {i \in \pset I} {\emptyset \in i \land \forall x\paren{x\in i \limplies \setsucc x \in i}
+}.
+$$
+Queremos agora selecionar o ``menor'' elemento dessa família $\scr I$.
+Menor no sentido de ``aquele que está contido em todos''.
+Nosso $I_*$ é o $\subseteq$-menor elemento do $\scr I$!
+Para defini-lo basta pegar a intersecção da família $\scr I$,
+algo que podemos fazer pois $\scr I \neq \emptyset$~(\ref{why_is_scrI_nonempty}):
+$$
+I_* \defeq \Inters {\scr I}.
+$$
+%%}}}
+
+%%{{{ x: why_is_scrI_nonempty 
+\exercise.
+\label{why_is_scrI_nonempty}%
+Por que $\scr I \neq \emptyset$?
+
+\solution
+Pois $I\in\scr I$.
+
+\endexercise
 %%}}}
 
 \endsection
