@@ -13075,7 +13075,7 @@ $$
 Bem; sabemos que $I$ é infinito e tal, mas quais são os elementos dele?
 É tentador pensar que $I$ é o conjunto
 $$
-I_* \defeq \set { \emptyset, \setsucc\emptyset, \setsucc{\setsucc\emptyset}, \setsucc{\setsucc{\setsucc{\emptyset}}},\dotsc}.
+I_* \pseudodefeq \set { \emptyset, \setsucc\emptyset, \setsucc{\setsucc\emptyset}, \setsucc{\setsucc{\setsucc{\emptyset}}},\dotsc}.
 $$
 No final das contas, vendo o~\axref{infinity},
 \emph{o que mais poderia estar no $I$?}
@@ -13086,7 +13086,7 @@ que temos sobre ele não tira nenhum objeto como possível membro dele!
 Realmente, os únicos elementos \emph{garantidos} no $I$ são aqueles que escrevemos
 em cima como membros do $I_*$, mas o $I$ pode ter mais: pode ter ``lixo'', como esse:
 $$
-I_{\spadesuit,\heartsuit} \defeq \set {
+I_{\spadesuit,\heartsuit} \pseudodefeq \set {
 \emptyset,
 \spadesuit,
 \heartsuit,
@@ -13131,23 +13131,26 @@ $$
 }.
 $$
 Vamos revisar esse $I$ então.
+{\def\noise{\mathord{\;\vdots\;}}
 Sabemos que ele parece assim:
 $$
 I = \set {
 \emptyset,
-\vdots,
+\noise,
 \setsucc{\emptyset},
-\vdots,
+\noise,
 \setsucc{\setsucc{\emptyset}},
-\vdots,
+\noise,
 \setsucc{\setsucc{\setsucc{\emptyset}}},
-\vdots,
+\noise,
 \setsucc{\setsucc{\setsucc{\setsucc{\emptyset}}}},
-\vdots,
+\noise,
 \dotsc
 }
 $$
-onde os $\vdots$ representam o lixo.
+onde os $\noise$ representam o lixo,
+e nosso próximo trabalho será achar um jeito para nos livrar desse lixo!
+}
 %%}}}
 
 \endsection
@@ -13226,7 +13229,6 @@ Não podemos descrever um filtro em nossa linguagem de lógica
 (FOL de teoria de conjuntos)!  (Lembra-se, uma fórmula não pode
 ter tamanho infinito.)
 Precisamos então alguma outra ideia para nos livrar tos elementos ``extra'' do $I$.
-\endgraf
 \emph{Vamos definir o conjunto $I_*$ com a abordagem top-down!}
 Sabemos que nosso $I_*$ desejado é um subconjunto de $I$.
 Então vamos começar com a colecção de todos os subconjuntos de $I$
@@ -13239,9 +13241,10 @@ $$
 $$
 Queremos agora selecionar o ``menor'' elemento dessa família $\scr I$.
 Menor no sentido de ``aquele que está contido em todos''.
-Nosso $I_*$ é o $\subseteq$-menor elemento do $\scr I$!
-Para defini-lo basta pegar a intersecção da família $\scr I$,
-algo que podemos fazer pois $\scr I \neq \emptyset$~(\ref{why_is_scrI_nonempty}):
+Sim, nosso $I_*$ é o $\subseteq$-menor elemento do $\scr I$!
+Para defini-lo basta tomar a intersecção da família $\scr I$,
+que podemos pois
+$\scr I \neq \emptyset$~(\ref{why_is_scrI_nonempty}):
 $$
 I_* \defeq \Inters {\scr I}.
 $$
