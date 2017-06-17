@@ -4676,11 +4676,14 @@ Os $n$ objetos são todos distintos?
 Podemos repitir o mesmo objeto na nossa escolha?
 
 \definition.
-\label{comb_perm_arrange}%
+\label{comb_perm_totperm}%
+\sdefined {\totperm {\holed n}} {o número de permutações (totais) de \holed n objetos}%
+\sdefined {\perm {\holed n} {\holed r}} {número de $\holed r$-permutações de \holed n objetos}%
+\sdefined {\comb {\holed n} {\holed r}} {número de $\holed r$-combinações de \holed n objetos}%
 Usamos os símbolos:
 $$
 \align
-\arrange n &:\quad\text{o número de permutações totais de $n$ objetos}\\
+\totperm n &:\quad\text{o número de permutações totais de $n$ objetos}\\
 \perm n r  &:\quad\text{o número de $r$-permutações de $n$ objetos}\\
 \comb n r  &:\quad\text{o número de $r$-combinações de $n$ objetos}
 \endalign
@@ -4690,26 +4693,26 @@ Onde entendemos que:
 \li os $n$ objetos são distíntos;
 \li não podemos os repetir.
 \endol
+Observe que as permutações totais são apenas casos especiais de $r$-permutações.
+Na literatura encontramos $r$-permutações também com o nome \dterm{arranjos},
+mas nos vamos evitar esse termo aqui para evitar confusão.
 
-\proposition Permutações totais (arranjos).
+\proposition Permutações totais.
 \label{total_permutations}
 \tdefined{permutação}[total]
-\sdefined {\arrange {\holed n}} {permutações totais de \holed n objetos}
-\iisee{arranjo}{permutação total}
+\iisee{arranjo}{permutação}
 $$
-\arrange n = {n!}.
+\totperm n = {n!}.
 $$
 
 \proposition Permutações.
 \tdefined{permutação}
-\sdefined {\perm {\holed n} {\holed r}} {permutações de tamanho \holed r, de \holed n objetos}
 $$
 \perm n r = \frac {n!} {(n-r)!}.
 $$
 
 \proposition Combinações.
 \tdefined{combinação}
-\sdefined {\comb {\holed n} {\holed r}} {combinações de tamanho \holed r, de \holed n objetos}
 $$
 \comb n r = \frac {n!} {(n-r)!\stimes r!}.
 $$
@@ -5006,17 +5009,17 @@ Em quantas configurações diferentes eles podem sentar se\dots:
 $C$, $D$, e $E$, são uma pessoa---vamos a chamar de $CDE$---e as
 $6$ pessoas $A,B,CDE,F,G,H$ querem jantar numa mesa de bar com 6 banquinhos.
 Cada solução desse problema corresponde em tantas configurações quantas as $3$ pessoas
-$C$, $D$, $E$ podem sentar numa ordem, ou seja $\arrange 3$ configurações.
+$C$, $D$, $E$ podem sentar numa ordem, ou seja $\totperm 3$ configurações.
 A resposta final:
 $$
-\arrange 6 \ntimes \arrange 3 = 6!\stimes3! = 6!\stimes 6
+\totperm 6 \ntimes \totperm 3 = 6!\stimes3! = 6!\stimes 6
 $$
 \endgraf
 (2) Contamos o complementar:
 todas as maneiras onde $F$ e $G$ sentam juntos ($7!\ntimes 2$),
 e o tiramos de todas as maneiras sem restrição ($8!$):
 $$
-\arrange 8 - \arrange 7 \ntimes \arrange 2
+\totperm 8 - \totperm 7 \ntimes \totperm 2
 = 8! - 7!\ntimes 2! = 7!(8 - 2)
 = 7!\stimes 6
 $$
@@ -5025,7 +5028,7 @@ Disso, precisamos subtrair as configurações onde $F$ e $G$ também sentam junt
 para satisfazer as duas restrições, consideramos as $5$ ``pessoas''
 $A,B,CDE,FG,H$, quais podem sentar numa mesa de bar de tamanho $5$ de
 $$
-\arrange 5 \stimes \arrange 3 \stimes \arrange 2
+\totperm 5 \stimes \totperm 3 \stimes \totperm 2
 = 5! \stimes 3! \stimes 2!
 = 5! \stimes 6 \stimes 2
 = 6! \stimes 2
@@ -8866,7 +8869,7 @@ Lembramos%
 \footnote{Se não lembramos, veja a~\ref{total_permutations} e a~\refn{permutations_and_combinations} em geral!}
 que são
 $$
-\card{S_3} = \arrange 3 = 3! = 3\ntimes 2\ntimes 1 = 6.
+\card{S_3} = \totperm 3 = 3! = 3\ntimes 2\ntimes 1 = 6.
 $$
 Nosso primeiro objetivo é achar todos esses $6$ membros de $S_3$.
 \endgraf
