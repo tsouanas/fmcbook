@@ -7386,15 +7386,8 @@ Currificação.
 \endsection
 %%}}}
 
-%%{{{ Operations on sets 
-\section Operações em conjuntos.
-
-Composição como operação associativa.
-
-\definition Conjunto fechado sobre operação.
-Seja $A$ conjunto e $f\from A^n\to A$ uma função com aridade $n\in\nats$.
-O conjunto $A$ é \dterm{fechado sobre $f$} sse
-$f(\vec a) \in A$ para todo $\vec a\in A^n$.
+%%{{{ Partial functions 
+\section Funções parciais.
 
 \endsection
 %%}}}
@@ -11574,9 +11567,9 @@ Sobre lógica matemática:
 \chapter Teoria axiomática de conjuntos.
 \label{axiomatic_set_theory}%
 
-{\def\Nats{{N}}
-\def\Zero{{0}}
-\def\Succ{{S}}%
+{\def\Nats{{\mathord{\mathbf N}}}
+\def\Zero{{\mathsf 0}}
+\def\Succ{{\mathsf S}}%
 
 %%{{{ Problems in Cantor's paradise: Russell's paradox 
 \section Problemas no paraíso de Cantor: o paradoxo de Russell.
@@ -12266,6 +12259,32 @@ que é único graças ao~Extensionality(\axref{extensionality}).
 Definimos assim o operador $\pset\dhole$.
 %%}}}
 
+%%{{{ x: powersingleton 
+\exercise.
+\label{powersingleton}%
+Seja $a$ conjunto.  Mostre que a classe
+$$
+\class { \set x } { x \in a }
+$$
+de todos os singletons de elementos de $a$ é conjunto.
+
+\solution
+Queremos mostrar que dado conjunto $a$, a classe
+$$
+\class { \set x } { x \in a }
+$$
+é conjunto.
+Basta só achar um conjunto $W$ tal que todos os $\set x \in W$.
+Botamos apenas o $W\asseq\pset a$ que sabemos que é conjunto
+pelo~Powerset~(\axref{powerset}), assim ganhando o conjunto
+$$
+\setst { z\in \pset a } { \lexists {x \in a} {z = \set x} }.
+$$
+pelo~Separation~(\axref{separation}).
+
+\endexercise
+%%}}}
+
 %%{{{ x: arbitrarily_large_finite_sets 
 \exercise.
 \label{arbitrarily_large_finite_sets}
@@ -12857,11 +12876,18 @@ $$
 \endexercise
 %%}}}
 
-\endsection
-%%}}}
+%%{{{ x: parto_formally_defined
+\exercise.
+\label{parto_formally_defined}%
+Defina o termo ``função parcial'' na teoria de conjuntos
+e mostre que, se $a,b$ são conjuntos, o
+$$
+(a \parto b) \defiff \class f { f : a \parto b }
+$$
+também é.
 
-%%{{{ Partial functions 
-\section Funções parciais.
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -13460,16 +13486,106 @@ $
 $
 é um conjunto.
 $$
-\forall d
-\exists c
+\forall a
+\exists b
 \forall y
 \bigparen{
-    y \in c
+    y \in b
     \liff
-    \lexists {x \in d} {\Phi(x) = y}
+    \lexists {x \in a} {\Phi(x) = y}
 }
 \axtaglabel{ZF8}{replacement}
 $$
+%%}}}
+
+%%{{{ x: powersingleton_without_powerset
+\exercise.
+\label{powersingleton_without_powerset}%
+Resolve o~\ref{powersingleton} sem usar o~Powerset~(\axref{powerset}).
+
+\hint
+Qual operador $\Phi(\dhole)$ tu podes definir para o aplicar no $a$?
+
+\solution
+Definimos o operador $\Phi(\dhole)$ assim:
+$$
+\Phi(x) \defeq \set x.
+$$
+Facilmente, pelo Replacement~(\axref{replacement}) aplicado no $a$ com
+esse $\Phi$ temos que
+$\classimg \Phi a$
+é um conjunto: o conjunto que procuramos!
+
+\endexercise
+%%}}}
+
+%%{{{ A mortal game 
+\note Um jogo mortal.
+Teu oponente escolha um conjunto (e ele não participa mais no jogo):
+esse é o ``conjunto da mesa''.
+Em cada rodada do jogo tu tem que escolher um dos membros do conjunto da mesa,
+e ele se vira o novo conjunto da mesa.
+O objetivo é simples: \emph{continuar jogando pra sempre}.
+(Imagine que se o jogo acabar, tu morre---e que tu queres viver---ou algo desse tipo.)
+Então uma partida onde o oponente escolheu o conjunto
+$
+\set{ \emptyset, \fsset{\emptyset}, \fsset{\emptyset, \fsset{\emptyset}}}
+$
+seria a seguinte
+(sublinhamos as escolhas do jogador onde possível):
+$$
+\matrix
+\format
+\c\quad & \c & \c \\
+\text{Rodada} & \text{Conjunto} & \text{Movimento}\\
+1 & \bigset{ \emptyset, \ \fsset{\emptyset}, \ \underline{\fsset{\emptyset, \fsset{\emptyset}}}, \ \fsset{ \emptyset, \fsset{\emptyset}, \fsset{\emptyset, \fsset{\emptyset}} } } & \fsset{\emptyset, \fsset{\emptyset}}\\
+2 & \bigset{\emptyset, \underline{\fsset{\emptyset}}} & \fsset{\emptyset} \\
+3 & \bigset{\underline{\emptyset}} & \emptyset\\
+4 & \emptyset & \boohoo
+\endmatrix
+$$
+Talvez esse jogador não foi o mais esperto, mas facilmente confirmamos
+que qualquer possível estratégia dele é condenada com morte certa depois
+dum finito número de rodadas.
+\emph{E se o proprio jogador começa escolhendo qual é o conjunto da mesa inicial?}
+Qual conjunto tu escolheria?
+Pode \emph{imaginar} algum conjunto que seria uma boa opção que porderia garantir
+vitória?
+%%}}}
+
+\spoiler.%
+
+%%{{{ x: how_to_win_the_wf_game 
+\exercise.
+\label{how_to_win_the_wf_game}%
+Considere os conjuntos da mesa seguintes:
+\beginil
+\item{(1)} o conjunto $x$, onde
+$$
+x = \bigset{ \emptyset, \ \Nats, \ \set{ \emptyset, \set{\set{\emptyset}}}, \ x };
+$$
+\item{(2)} o conjunto $a$, onde
+$$
+\xalignat3
+a &= \bigset{ \emptyset, \ b } &
+b &= \bigset{ \set{\emptyset}, \ c } &
+c &= \bigset{ \set{\emptyset}, \ \set{ \set{a}, \set{\set{\set{\emptyset}}}}}.
+\endxalignat
+$$
+\endil
+\noindent
+Como tu jogaria nesses jogos?
+
+\endexercise
+%%}}}
+
+%%{{{ Can we win? 
+\note Podemos ganhar?.
+Talvez.  Nossos axiomas não garantam a existência de nenhum conjunto
+que nos permitaria ganhar; no outro lado, nem garantam a ausência de
+conjuntos como os $x,a,b,c$ do~\ref{how_to_win_the_wf_game}.
+O axioma seguinte resolve essa questão, afirmando que qualquer partida
+desse jogo seria realmente mortal.
 %%}}}
 
 %%{{{ ax: foundation 
@@ -13482,6 +13598,35 @@ $$
 \lexists {z \in a} {z\inter a = \emptyset}
 \axtaglabel{ZF9}{foundation}
 $$
+%%}}}
+
+\blah.
+Vamos agora pesquisar umas conseqüências desse axioma:
+
+%%{{{ x: x_notin_x 
+\exercise.
+\label{x_notin_x}%
+Prove diretamente que para todo conjunto $x$, $x\notin x$.
+Quais axiomas tu precisou?
+
+\endexercise
+%%}}}
+
+%%{{{ cor: univ_not_in_univ
+\corollary.
+\label{unit_not_in_univ}
+$\Univ\notin\Univ$, ou seja, $\Univ$ não é um conjunto.
+%%}}}
+
+%%{{{ x: no_infinite_in_descending_chain_of_sets 
+\exercise.
+\label{no_infinite_in_descending_chain_of_sets}%
+Não existe seqüência infinita de conjuntos
+$$
+x_0 \ni x_1 \ni x_2 \ni x_3 \ni \dotsb
+$$
+
+\endexercise
 %%}}}
 
 \endsection
