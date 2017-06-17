@@ -11571,6 +11571,10 @@ Sobre lógica matemática:
 \chapter Teoria axiomática de conjuntos.
 \label{axiomatic_set_theory}%
 
+{\def\Nats{{N}}
+\def\Zero{{0}}
+\def\Succ{{S}}%
+
 %%{{{ Problems in Cantor's paradise: Russell's paradox 
 \section Problemas no paraíso de Cantor: o paradoxo de Russell.
 
@@ -12853,6 +12857,12 @@ $$
 \endsection
 %%}}}
 
+%%{{{ Partial functions 
+\section Funções parciais.
+
+\endsection
+%%}}}
+
 %%{{{ Classes vs. Sets (II) 
 \section Classes vs{.}~Conjuntos (II).
 
@@ -13175,77 +13185,67 @@ respeitar?
 \tdefined{princípio da indução}%
 \label{Peano_system}%
 Um \dterm{sistema Peano}\Peano[sistema]~é um conjunto estruturado
-$\cal N = \sset N {0,S}$ que satisfaz as leis:
+$\cal N = \sset \Nats {\Zero,\Succ}$ que satisfaz as leis:
 $$
 \alignat2
-&\text{Zero é um número natural:}&\qquad&0 \in N                             \tag{P1}\\
-&\text{O sucessor é uma operação unitária nos naturais:}&&S \eqtype N \to N  \tag{P2}\\
-&\text{Naturais diferentes tem sucessóres diferentes:}&&S \eqtype N \injto N \tag{P3}\\
-&\text{Zero não é o sucessor de nenhum natural:}&&0 \notin \img S N          \tag{P4}\\
+&\text{Zero é um número natural:}&\qquad&\Zero \in \Nats                             \tag{P1}\\
+&\text{O sucessor é uma operação unitária nos naturais:}&&\Succ \eqtype \Nats \to \Nats  \tag{P2}\\
+&\text{Naturais diferentes tem sucessóres diferentes:}&&\Succ \eqtype \Nats \injto \Nats \tag{P3}\\
+&\text{Zero não é o sucessor de nenhum natural:}&&\Zero \notin \img \Succ \Nats          \tag{P4}\\
 &\text{Os naturais satisfazem o princípio da indução:}                       \tag{P5}
 \endalignat
 $$
 \dterm{Princípio da indução}\/:
-\emph{para todo $X\subseteq N$,}
+\emph{para todo $X\subseteq \Nats$,}
 $$
 \bigparen{
-0\in X
+\Zero\in X
 \land
 \forall n
 \paren{
-n \in X \limplies Sn \in X
+n \in X \limplies \Succ n \in X
 }
-} \limplies X = N.
+} \limplies X = \Nats.
 $$
 Observe que graças às (P3) e (P4) temos
 $$
 \gather
-Sn = Sm \implies n = m \\
-Sn \neq 0
+\Succ n = \Succ m \implies n = m \\
+\Succ n \neq \Zero
 \endgather
 $$
-para todos os $n,m\in N$.
+para todos os $n,m\in \Nats$.
 %%}}}
 
 %%{{{ Defining a Peano system 
 \note Definindo um sistema Peano.
 Então o que precisamos implementar é um conjunto estruturado
-$\cal N = \sset N {0, S}$.
-Isso é fácil: nosso $\cal N$ vai ser uma tripla $\tup {N, 0, S}$,
-onde seus membros $N$, $0$, e $S$ são tais objetos que as leis
+$\cal N = \sset \Nats {\Zero, \Succ}$.
+Isso é fácil: nosso $\cal N$ vai ser uma tripla $\tup {\Nats, \Zero, \Succ}$,
+onde seus membros $\Nats$, $\Zero$, e $\Succ$ são tais objetos que as leis
 (P1)--(P5) são satisfeitas.
-Sabemos que o $N$ precisa ser infinito, então temos que o procurar
+Sabemos que o $\Nats$ precisa ser infinito, então temos que o procurar
 entre os conjuntos infinitos da nossa teoria.
-Uma primeira ideia seria botar $N \defeq I$, mas essa não parece
+Uma primeira ideia seria botar $\Nats \defeq I$, mas essa não parece
 uma ideia boa---será difícil ``vender'' uma implementação com lixo!
-O que realmente queremos botar como $N$ é o $I_*$
+O que realmente queremos botar como $\Nats$ é o $I_*$
 (que não consiguimos ainda defini-lo).
 Mas vamos supor que o $I_*$ realmente é um conjunto;
 ele vai representar os números naturais,
-mas quais serão nossos $0$ e $S$?
-Pela especificação dos naturais, $0$ tem que ser um dos membros do $I_*$,
+mas quais serão nossos $\Zero$ e $\Succ$?
+Pela especificação dos naturais, $\Zero$ tem que ser um dos membros do $I_*$,
 e bem naturalmente escolhemos o $\emptyset$ como o zero.
-E o $S$?  Obviamente queremos botar $S = \lam x {\setsucc x}$,
-mas para realmente definir o $S$ como função, lembramos que em nosso
+E o $\Succ$?  Obviamente queremos botar $\Succ = \lam x {\setsucc x}$,
+mas para realmente definir o $\Succ$ como função, lembramos que em nosso
 dicionário ``função'' é um certo tipo de conjunto de pares.
 Botamos então
 $$
-S \pseudodefeq \class {\tup{n,m}} { m = \setsucc n }
+\Succ \pseudodefeq \class {\tup{n,m}} { m = \setsucc n }
 $$
 e agora só basta achar um conjunto que tem todos esses pares como
 membros.  Fácil:
 $$
-S \defeq \set {\tup{n,m}\in N\times N} { m = \setsucc n }.
-$$
-Resumindo, temos:
-$$
-\align
-\cal N &\defeq \tup{N, 0, S}\\
-\text{onde:}\qqqquad
-N &\defeq I_*\\
-0 &\defeq \emptyset\\
-S &\defeq \set {\tup{n,m}\in N\times N} { m = \setsucc n }.
-\endalign
+\Succ \defeq \set {\tup{n,m}\in \Nats\times \Nats} { m = \setsucc n }.
 $$
 Então falta só definir esse $I_*$.
 %%}}}
@@ -13304,10 +13304,36 @@ Pois $I\in\scr I$.
 \endexercise
 %%}}}
 
+%%{{{ thm: existence_of_nats 
+\theorem Existência dos naturais.
+\label{existence_of_nats}%
+Existe pelo menos um sistema Peano $\cal N = \sset \Nats {\Zero, \Succ}$.
+\sketch.
+Definimos:
+$$
+\align
+\cal N &\defeq \tup{\Nats, \Zero, \Succ}\\
+\text{onde:}\qqqquad
+\Nats &\defeq \Inter \setst {i \in \pset I} {}\\
+\Zero &\defeq \emptyset\\
+\Succ &\defeq \set {\tup{n,m}\in \Nats\times\Nats} { m = \setsucc n }.
+\endalign
+$$
+Temos já justificado que cada objeto que aparece nessa definição
+é conjunto pelos axiomas.  Basta só verificar que as (P1)--(P5)
+são satisfeitas.
+\qes
+\proof.
+A única coisa que deixamos para completar a prova foi
+verificar os (P1)--(P5), que é feito nos
+exercícios \refn{zero_is_a_nat}--\refn{nat_has_induction}.
+\qed
+%%}}}
+
 %%{{{ x: P1 zero_is_a_nat 
 \exercise P1.
 \label{zero_is_a_nat}%
-Prove que $0\in N$.
+Prove que $\Zero\in\Nats$.
 
 \endexercise
 %%}}}
@@ -13315,7 +13341,7 @@ Prove que $0\in N$.
 %%{{{ x: P2 succ_is_a_function 
 \exercise P2.
 \label{succ_is_a_function}%
-Prove que $S$ é uma função.
+Prove que $\Succ$ é uma função.
 
 \endexercise
 %%}}}
@@ -13323,7 +13349,7 @@ Prove que $S$ é uma função.
 %%{{{ x: P3 succ_is_injective 
 \exercise P3.
 \label{succ_is_injective}%
-Prove que $S : N \injto N$.
+Prove que $\Succ : \Nats \injto \Nats$.
 
 \endexercise
 %%}}}
@@ -13331,7 +13357,7 @@ Prove que $S : N \injto N$.
 %%{{{ x: P4 zero_is_not_a_succ 
 \exercise P4.
 \label{zero_is_not_a_succ}%
-Prove que $0\notin \img S N$.
+Prove que $\Zero\notin \img \Succ \Nats$.
 
 \endexercise
 %%}}}
@@ -13339,15 +13365,80 @@ Prove que $0\notin \img S N$.
 %%{{{ x: P5 nat_has_induction 
 \exercise P5.
 \label{nat_has_induction}%
-Seja $X\subseteq N$ tal que:
+Seja $X\subseteq \Nats$ tal que:
 \beginil
-\item{(1)} $0 \in X$;
-\item{(2)} para todo $k\in N$, se $k\in X$ então $Sk \in X$.
+\item{(1)} $\Zero \in X$;
+\item{(2)} para todo $k\in \Nats$, se $k\in X$ então $\Succ k \in X$.
 \endil
-Prove que $X=N$.
+Prove que $X=\Nats$.
 
 \endexercise
 %%}}}
+
+%%{{{ thm: uniqueness_of_nats 
+\theorem Unicidade dos naturais.
+\label{uniqueness_of_nats}%
+Se $\cal N_1 = \sset {\Nats_1} {\Zero_1, \Succ_1}$
+ e $\cal N_2 = \sset {\Nats_2} {\Zero_2, \Succ_2}$
+são sistemas Peano, então são isomorfos: $\cal N_1 \iso \cal N_2$.
+\wrongproof.
+Precisamos definir um homomorfismo
+$\phi : \cal N_1 \iso \cal N_2$.
+Definimos a função $\phi : \Nats_1 \to \Nats_2$ usando recursão:
+$$
+\align
+\phi(\Zero_1) &= \Zero_2\\
+\phi(\Succ_1n) &= \Succ_2\phi(n).
+\endalign
+$$
+Pela sua definição, a $\phi$ é um homomorfismo.
+Basta só verificar que a $\phi$ é bijetora,
+algo que tu vai fazer agora nos exercícios
+\refn{homomorphism_of_nats_is_mono}~\&~\refn{homomorphism_of_nats_is_epi}.
+\mistaqed
+%%}}}
+
+%%{{{ x: homomorphism_of_nats_is_mono
+\exercise.
+\label{homomorphism_of_nats_is_mono}
+Prove que a $\phi : \Nats_1 \to \Nats_2$ definida
+no~\ref{uniqueness_of_nats} é um monomorfismo.
+
+\endexercise
+%%}}}
+
+%%{{{ x: homomorphism_of_nats_is_epi 
+\exercise.
+\label{homomorphism_of_nats_is_epi}
+Prove que a $\phi : \Nats_1 \to \Nats_2$ definida
+no~\ref{uniqueness_of_nats} é um epimorfismo.
+
+\endexercise
+%%}}}
+
+%%{{{ x: we_do_not_have_recursion_yet
+\exercise.
+\label{we_do_not_have_recursion_yet}%
+Qual o erro na prova do~\label{uniqueness_of_nats}?
+
+\hint
+O que é uma função em nosso dicionário,
+e quem garanta 
+
+\solution
+Não temos provado que dando equações recursivas como na
+prova desse teorema podemos realmente definir uma função.
+Fazemos isso no~\ref{recursion_theorem}, assim
+realmente botando o $\qedsymbol$ no~\ref{uniqueness_of_nats}.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Recursion theorems 
+\section Teoremas de recursão.
 
 \endsection
 %%}}}
@@ -13521,6 +13612,8 @@ $$
 
 \endfurther
 %%}}}
+
+}
 
 \endchapter
 %%}}}
