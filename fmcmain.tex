@@ -12887,24 +12887,24 @@ que é conjunto graças ao Separation~(\axref{separation}).
 
 %%{{{ Being agnostic 
 \note Sendo agnósticos.
-\ii{agnóstico}%
-\tdefined{$F$-agnóstico}%
-Acabamos de encontrar \emph{um} operador de par ordenado, do Kuratowski\Kuratowski{}.
+\tdefined{agnóstico}%
+Acabamos de encontrar \emph{um} operador de par ordenado,
+do Kuratowski\Kuratowski{}.
 Ele não é o único possível, mas para continuar com nossa teoria,
 precisamos apenas mostrar que existe um.
 Vamos usar o símbolo $\tup{\dhole,\dhole}$ sem esclarecer se realmente é
 a implementação de Kuratowski que usamos, ou alguma outra implementação.
 Tomando cuidado, sobre esse operador nos permitimos usar
 \emph{apenas as propriedades da sua especificação e nada mais}:
-as \ref{spec_tup1}~\&~\ref{spec_tup2} do \ref{tup_specification}.
-Falamos então que estamos sendo \dterm{$\tup{}$-agnósticos}.
+as \ref{spec_tup1}~\&~\ref{spec_tup2} do \refn{tup_specification}.
+Falamos então que estamos sendo $\tup{\,}$-\dterm{agnósticos}.
 Por exemplo, não podemos afirmar que $\set {x} \in \tup {x,y}$.
-Sim, isso é valido com a implementação de Kuratowski, mas não é
-uma conseqüência da especificação de par ordenado.
+Sim, isso é valido com a implementação de Kuratowski, mas é uma
+\emph{coincidência} e não uma \emph{conseqüência} da especificação
+de par ordenado.
 Talvez outra implementação não tem essa propriedade,
 como tu vai descobrir agora provando que o $\tup{\dhole,\dhole}$
-definido pelo Wiener\Wiener{}~uns anos \emph{antes} da definição
-de Kuratowski.
+do~Wiener\Wiener{} também é uma implementação de par ordenado.
 %%}}}
 
 %%{{{ x: wiener_pair
@@ -12916,7 +12916,8 @@ $$
 \tup{x,y} \defeq \bigset{ \set{ \emptyset, \set{x} }, \set{ \set{ y } } }
 $$
 é uma implementação de par ordenado, ou seja,
-satisfaz as~\ref{spec_tup1}~\&~\ref{spec_tup2}.
+satisfaz as~\ref{spec_tup1}~\&~\ref{spec_tup2}.%
+\footnote{Wiener definiu essa operação uns anos \emph{antes} da definição de Kuratowski.}
 
 \endexercise
 %%}}}
@@ -12991,6 +12992,90 @@ $$
 (a \parto b) \defiff \class f { f : a \parto b }
 $$
 também é.
+
+\endexercise
+%%}}}
+
+%%{{{ df: parfun_compatibility 
+\definition Compatibilidade.
+\label{parfun_compatibility}%
+\tdefined{função}[parcial!conflito]%
+\tdefined{função}[parcial!compatibilidade]%
+Sejam $A,B$ conjuntos e $\scr F$ uma família de funções parciais de $A$ para $B$:
+$\scr F \subseteq (A\parto B)$.
+Chamamos a $\scr F$ \dterm{compatível} sse $\Union {\scr F} \in (A\parto B)$.
+Digamos que $\scr F$ tem \dterm{conflito} no $a\in A$ sse
+existem $y,y'\in B$ com $y\neq y'$ e $\tup{a,y}, tup{a,y'}\in \scr F$;
+equivalentemente
+$$
+\card{ \set{ \tup{a,y} \st y\in B } } > 1.
+$$
+%%}}}
+
+%%{{{ df: approximation 
+\definition Aproximação.
+\label{parfun_approx}%
+\tdefined{função}[parcial!aproximação]%
+Seja $F : A \to B$.
+Chamamos qualquer $f\subseteq F$ uma aproximação (parcial) da $F$.
+Ela é \dterm{própria} se $f\subsetneq F$.
+%%}}}
+
+%%{{{ x: fun_approxes_is_set
+\exercise.
+\label{fun_approxes_is_set}%
+Seja $F : A \to B$.
+Prove que a classe
+$$
+\class f { \text{$f$ é uma aproximação da $F$} }
+$$
+é um conjunto.
+
+\solution
+Usando o Separation~(\axref{separation}) escrevemos
+$$
+\set {f \in (A\parto B)} {f \subseteq F}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: fun_with_approxes
+{%
+\def\Approxes{{\scr F}}
+\def\FinApproxes{\Approxes_{\text{\rm f}}}
+\exercise.
+\label{fun_with_approxes}%
+Seja $F : A \to B$.
+(i) Prove que:
+$$
+F = \Union \Approxes
+$$
+onde $\scr F$ é o conjunto de todas as aproximações da $F$.
+(ii) É verdade também que
+$$
+F = \Union \FinApproxes
+$$
+onde $\FinApproxes$ é o conjunto de todas as aproximações finitas da $F$?
+
+\solution
+{%
+\def\Approxes{{\scr F}}
+\def\FinApproxes{\Approxes_{\text{\rm f}}}
+(i)
+Tome $\tup{x,y} \in F$.
+Para concluir que $\tup{x,y} \in \Union \Approxes$
+precisamos achar uma aproximação $f\in\Approxes$ tal que $\tup{x,y} \in f$.
+Aqui uma: a aproximação $\set{\tup{x,y}} \subseteq F$.
+Conversamente, tome $\tup{x,y}$ in $\Union\Approxes$.
+Pela definição de $\Union$ então temos que $\tup{x,y}\in f$ para alguma aproximação
+$f\in\Approxes$.  Pela definição de aproximação agora, $f\subseteq F$, ou seja:
+$\tup{x,y}\in f \subseteq F$.
+\endgraf
+(ii) Sim.  A direção $\Union \FinApproxes \subseteq F$ é trivial graças ao (i),
+e a direção oposta também provamos no (i) pois a aproximação $\set{\tup{x,y}}$
+que escolhemos nessa direção é realmente finita.
+}
 
 \endexercise
 %%}}}
@@ -13323,11 +13408,11 @@ Um \dterm{sistema Peano}\Peano[sistema]~é um conjunto estruturado
 $\cal N = \sset \Nats {\Zero,\Succ}$ que satisfaz as leis:
 $$
 \alignat2
-&\text{Zero é um número natural:}&\qquad&\Zero \in \Nats                             \tag{P1}\\
+&\text{Zero é um número natural:}&\qquad&\Zero \in \Nats                                 \tag{P1}\\
 &\text{O sucessor é uma operação unitária nos naturais:}&&\Succ \eqtype \Nats \to \Nats  \tag{P2}\\
 &\text{Naturais diferentes tem sucessóres diferentes:}&&\Succ \eqtype \Nats \injto \Nats \tag{P3}\\
 &\text{Zero não é o sucessor de nenhum natural:}&&\Zero \notin \img \Succ \Nats          \tag{P4}\\
-&\text{Os naturais satisfazem o princípio da indução:}                       \tag{P5}
+&\text{Os naturais satisfazem o princípio da indução:}                                   \tag{P5}
 \endalignat
 $$
 \dterm{Princípio da indução}\/:
@@ -13505,6 +13590,7 @@ Seja $X\subseteq \Nats$ tal que:
 \item{(1)} $\Zero \in X$;
 \item{(2)} para todo $k\in \Nats$, se $k\in X$ então $\Succ k \in X$.
 \endil
+\noindent
 Prove que $X=\Nats$.
 
 \endexercise
@@ -13574,6 +13660,143 @@ realmente botando o $\qedsymbol$ no~\ref{uniqueness_of_nats}.
 
 %%{{{ Recursion theorems 
 \section Teoremas de recursão.
+
+%%{{{ thm: recursion_theorem 
+\theorem Recursão.
+\ii{teorema}[de recursão]%
+\label{recursion_theorem}%
+Sejam $\cal N = \sset \Nats {\Zero, \Succ}$ um sistema Peano,
+$A$ conjunto,
+$a \in A$,
+e $h: A \to A$.
+Então existe única função $F : \Nats \to A$ que satisfaz as equações:
+$$
+\align
+F(\Zero)    &= a \tag{1}\\
+F(\Succ n)  &= h(F(n)), \quad\text{para todo $n\in\Nats$}\tag{2}
+\endalign
+$$
+\sketch.
+Nosso plano é
+\beginil
+\item{(i)} construir o objeto $F$ como conjunto;
+\item{(ii)} mostrar que $F : \Nats \to A$;
+\item{(iii)} mostrar que $F$ satisfaz as (1)--(2);
+\item{(iv)} unicidade.
+\endil
+\endgraf
+(i)
+Vamos construir o $F$ \emph{bottom-up}, juntando suas \dterm{aproximações finitas}\/:
+funções parciais $f : \Nats\parto E$ onde a ideia é que elas ``concordam'' com a $F$
+onde elas estão definidas.
+Nem vamos considerar todas elas, mas para nossa conveniência queremos apenas aquelas
+cujo domínio é algum $\finord n$.
+Por exemplo, as primeiras aproximações seriam as seguintes:
+$$
+\align
+f_0 &= \emptyset\\
+f_1 &= \bigset{ \tup{0,a} }\\
+f_2 &= \bigset{ \tup{0,a}, \tup{1,h(a)} }\\
+f_3 &= \bigset{ \tup{0,a}, \tup{1,h(a)}, \tup{2,h(h(a))} },\\
+    &\eqvdots
+\endalign
+$$
+Definimos o conjunto $\scr A$ de todas as aproximações aceitáveis:
+$$
+\scr A \defeq \setst {f \in (\Nats\parto E)} {\text{$f$ é aproximação aceitável}}
+$$
+onde falta descrever com uma fórmula nossa ideia de ``ser aproximação aceitável''
+(\ref{acceptable_approximation}).
+Agora podemos já definir o $F$:
+$$
+F \defeq \Union {\scr A}.
+$$
+\endgraf
+(ii)
+Precisamos mostrar a compatibilidade da $\scr F$ e a totalidade da $F$,
+ou seja: que não existem conflitos\ii{função!parcial!conflito}
+(em outras palavras: que a família de funções parciais
+$\scr A$ é compatível\ii{função!parcial!compatibilidade});
+e que $\dom F = \Nats$.
+Esses são os exercícios~\ref{compatibility_of_scrF}~\&~\ref{totality_of_F}
+respectivamente.
+\endgraf
+(iii)
+Precisamos verificar a corretude da $F$, que ela atende sua especificação.
+Essa parte deve seguir da definição de ``aproximação aceitável''.
+Confirmamos isso no~\ref{correctness_of_F}.
+\endgraf
+(iv)
+Para a unicidade da $F$, precisamos mostrar que se $G : \Nats \to A$ tal que
+satisfaz as (1)--(2), então $F = G$.  Isso é o~\ref{uniqueness_of_F}, e com
+ele terminamos nossa prova.
+\qes
+\proof.
+A prova completa segue do seu esboço junto com os exercícios:
+\refn{acceptable_approximation},
+\refn{compatibility_of_scrF}
+\refn{totality_of_F},
+\refn{correctness_of_F}, e
+\refn{uniqueness_of_F}.
+\qed
+%%}}}
+
+%%{{{ x: acceptable_approximation 
+\exercise.
+\label{acceptable_approximation}
+No contexto do~\ref{recursion_theorem} defina formalmente a afirmação ``$f$ é uma aproximação aceitável''.
+
+\endexercise
+%%}}}
+
+%%{{{ x: compatibility_of_scrF 
+\exercise Compatibilidade.
+\label{compatibility_of_scrF}%
+No contexto do~\ref{recursion_theorem} mostre que $\scr F$ é compatível.
+
+\endexercise
+%%}}}
+
+%%{{{ x: totality_of_F 
+\exercise Totalidade da $F$.
+\label{totality_of_F}%
+No contexto do~\ref{recursion_theorem} mostre que $\dom F = \Nats$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: correctness_of_F 
+\exercise Corretude da $F$.
+\label{correctness_of_F}%
+No contexto do~\ref{recursion_theorem} mostre que $F$ atende sua especificação,
+ou seja:
+$$
+\align
+F(\Zero)    &= a \tag{1}\\
+F(\Succ n)  &= h(F(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: uniqueness_of_F 
+\exercise Unicidade da $F$.
+\label{uniqueness_of_F}%
+No contexto do~\ref{recursion_theorem} prove a unicidade da $F$, ou seja:
+se $G : \Nats \to A$ tal que
+$$
+\align
+G(\Zero)    &= a \tag{1}\\
+G(\Succ n)  &= h(G(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
+\endalign
+$$
+então $F = G$.
+Em outras palavras, as duas equações (1)--(2)
+\emph{determinam} a função no $\Nats$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
