@@ -12527,6 +12527,8 @@ apenas os conjuntos-objetos do nosso universo.
 %%{{{ df: class 
 \definition Classe.
 \tdefined{classe}%
+\tdefined{classe}[própria]%
+\iisee{própria}[classe]{classe própria}%
 Dada uma condição definitiva $P(\dhole)$ definimos a \dterm{classe}
 $$
 \class x {P(x)}
@@ -13599,8 +13601,8 @@ Prove que $X=\Nats$.
 %%{{{ thm: uniqueness_of_nats 
 \theorem Unicidade dos naturais.
 \label{uniqueness_of_nats}%
-Se $\cal N_1 = \sset {\Nats_1} {\Zero_1, \Succ_1}$
- e $\cal N_2 = \sset {\Nats_2} {\Zero_2, \Succ_2}$
+Se  $\cal N_1 = \sset {\Nats_1} {\Zero_1, \Succ_1}$
+e   $\cal N_2 = \sset {\Nats_2} {\Zero_2, \Succ_2}$
 são sistemas Peano, então são isomorfos: $\cal N_1 \iso \cal N_2$.
 \wrongproof.
 Precisamos definir um homomorfismo
@@ -13800,6 +13802,52 @@ Em outras palavras, as duas equações (1)--(2)
 
 \endsection
 %%}}}
+
+%%{{{ Consequences of recursion 
+\section Conseqüências de recursão.
+
+\endsection
+%%}}}
+
+\problems.
+
+\problem.
+Para qualquer sistema de naturais $\cal N = \sset \Nats {\Zero, \Succ}$,
+definimos a operação de adição,
+$$
+\align
+    n + 0 &= n          \tag{a1}\\
+    n + Sm &= S(n+m)    \tag{a2}
+\endalign
+$$
+e a relação de ordem:
+$$
+    n \leq m \defiff (\exists k)[n + k = m].
+$$
+Sejam dois sistemas de naturais
+$\cal N_1 = \sset {\Nats_1} {\Zero_1, \Succ_1}$ e 
+$\cal N_2 = \sset {\Nats_2} {\Zero_2, \Succ_2}$, e
+suas operações de adição $+_1$ e $+_2$, e suas relações de ordem $\leq_1$ e $\leq_2$.
+Seja $\phi\from\Nats_1\bijto\Nats_2$ o isomorfismo definido pelas
+$$
+\align
+    \phi(0_1)  &= 0_2           \\
+    \phi(S_1n) &= S_2(\phi(n)).
+\endalign
+$$
+Prove que $\phi$ respeita a adição, ou seja:
+$\phi(n +_1 m) = \phi(n) +_2 \phi(m)$.
+Mostre que $\phi$ \emph{respeita a ordem} também, ou seja:
+$$
+n\leq_1 m \iff \phi(n)\leq_2 \phi(m).
+$$
+
+\hint
+Prove as duas direções da ``$\Longleftrightarrow$'' separadamente.
+
+\endproblem
+
+\endproblems
 
 %%{{{ More axioms 
 \section Mais axiomas.
@@ -14032,10 +14080,17 @@ como uma implementação de par ordenado.
 \tdefined{axioma}[Choice (AC)]
 \label{choice_ac}%
 Seja $\scr F$ família de conjuntos não vazios.
+$$
+\align
+\text{
 Então existe função
 $\varepsilon : \scr F \to \Union \scr F$,
 tal que para todo $A\in\scr F$,
 $\varepsilon(A) \in A$.
+}
+\axtaglabel{AC}{choice}
+\endalign
+$$
 %%}}}
 
 \endsection
@@ -14056,10 +14111,43 @@ $\varepsilon(A) \in A$.
 %%{{{ Problems 
 \problems.
 
+%%{{{ someset_problem 
+\problem Someset is the new Emptyset.
+\label{someset_problem}%
+Considere o axioma seguinte:
+\endgraf
+\noindent
+{\bf Someset.}
+{\proclaimstyle Existe algo.}
+$$
+\exists s \paren{ s = s }
+\axtaglabel{ZF2*}{someset}
+$$
+Mostre que no sistema axiomático
+\axref{extensionality}%
++\axref{someset}%
++\axref{pairset}%
++\axref{separation}%
++\axref{powerset}%
++\axref{unionset},
+existe o $\emptyset$.%
+\footnote{Dependendo do uso e do contexto, podemos considerar como parte da lógica
+que o universo não é vazio, ou seja, existe algo.  Nesse caso nem precisamos
+o Someset~(\axref{someset}), pois seria implícito.}
+
+\endproblem
+%%}}}
+
 %%{{{ triset_problem 
 \problem Triset is the new Pairset.
 \label{triset_problem}%
 Considere o axioma seguinte:
+\endgraf\noindent
+{\bf Triset.}
+{\proclaimstyle
+Dados tres objetos distintos existe conjunto com exatamente
+esses membros.
+}
 $$
 \forall a
 \forall b
@@ -14072,7 +14160,7 @@ a\neq b \land b \neq c \land c \neq a
 \exists s
 \forall x
 \bigparen{x\in s \liff x = a \lor x = b \lor x = c}
-}.
+}
 \axtaglabel{ZF3*}{triset}
 $$
 %\beginil
@@ -14135,12 +14223,107 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ replacement_replaces_separation 
+%%{{{ one_class_set_the_other_proper_problem
 \problem.
+\label{one_class_set_the_other_proper_problem}%
+Sejam $a,b$ conjuntos.
+Mostre pelos axiomas que:
+\item{(i)}  a classe $\set{ \set{x,\set y} \st x \in a \land y \in b}$ é conjunto;
+\item{(ii)} a classe $\set{ \set{x,y} \st \text{$x,y$ conjuntos com $x\neq y$}}$ é propria.
+
+\hint
+Absurdo.
+
+\endproblem
+%%}}}
+
+%%{{{ replacement_replaces_separation 
+\problem Replacement is the new Separation---or is it?.
 \label{replacement_replaces_separation}%
 Podemos tirar o Separation scheme~(\axref{separation})
 dos nossos axiomas ``sem perder nada'', se temos o
 Replacement scheme~(\axref{replacement})?
+
+\endproblem
+%%}}}
+
+%%{{{ two_sets_and_one_proper_class_problem 
+\problem.
+\label{two_sets_and_one_proper_class_problem}%
+Sejam $a,b$ conjuntos.
+Mostre pelos axiomas que as classes
+$$
+\align
+    C &= \set{
+          \set{x, \set{x,y}}
+          \st
+          x \in a
+          \land
+          y \in b
+    }\\
+    D &= \set{
+          \set{x,y}
+          \st
+          \paren{
+              x \in a
+              \lor
+              x \in \Union a
+          }
+          \land
+          \paren{y \in b \lor y \subseteq b}
+    }\\
+\intertext{são conjuntos, mas não a classe}
+    Z &= \set{
+        {\Inter\Inter z}
+            \st z \neq \emptyset \land \Inter z \neq \emptyset
+    }.
+\endalign
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ three_classes_are_sets_problem 
+\problem.
+\label{three_classes_are_sets_problem}%
+Seja $a$ conjunto.
+\emph{Sem usar} o Separation~(\axref{separation}),
+mostre pelo resto dos axiomas que as classes seguintes são conjuntos:
+$$
+\xalignat3
+    E &= \setlst {\set{x, \Union x,\pset x}} {x\in a} ;&
+    F &= \setlst x {x\subsetneq a}                    ;&
+    G &= \setst  x {x\neq\emptyset \land x = \Inter x}.
+\endxalignat
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ choice_rel_problem 
+\problem.
+\label{choice_rel_problem}%
+Mostre que o Choice~\axref{choice} é equivalente com o seguinte axioma:
+\endgraf
+\noindent
+{\bf Choice (Rel).}
+{\proclaimstyle
+Se uma relação $R \in \relspace A B$ tem a propriedade de totalidade,
+então existe função $f : A\to B$ com $x \mathrel{R} f(x)$ para todo $x\in A$.
+}
+$$
+\align
+\paren{R \in \relspace A B}
+\land
+\dom R = A
+\limplies
+\bigparen{
+\paren{\exists f : A \to B }
+\lforall {x\in A} {x \mathrel R f(x)}
+}
+\axtaglabel{ACRel}{choice_rel}
+\endalign
+$$
 
 \endproblem
 %%}}}
