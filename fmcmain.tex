@@ -365,8 +365,224 @@ Calcule o valor $L_{12}$.
 \endsection
 %%}}}
 
-%%{{{ The set of naturals, formally 
-\section O conjunto dos naturais formalmente.
+%%{{{ The set of natural numbers formally 
+\section O conjunto dos números naturais formalmente.
+\label{nats_formally}%
+
+%%{{{ df: nats_plus_recursive_def 
+\definition Adição.
+Definimos a operação $+$ no $\nats$ pelas:
+$$
+\align
+n + 0   &= n      \tag{a1}\\
+n + S m &= S(n+m) \tag{a2}
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: three_plus_two_formally 
+\example.
+\label{three_plus_two_formally}%
+Calcule a soma $SSS0 + SS0$.
+
+\solution
+Temos a expressão
+$$
+SSS0 + SS0.
+$$
+Qual equação aplica?
+Com certeza não podemos aplicar a primeira, pois nossa expressão
+não tem a forma $n + 0$.
+Por que?  O primeiro termo na nossa expressão, o $SSS0$, não é um problema
+pois ele pode ``casar'' com o $n$ da (a1).  Mas nosso segundo termo, o $SS0$,
+não pode casar com o $0$, então a (a1) não é aplicável.
+A segunda equação é sim, pois nossos termos podem casar assim
+com as variáveis da (a2):
+$$
+\alignat2
+{\munderbrace{SSS0}n} + {S\munderbrace{S0}m}\\
+\intertext{Tomando $n\asseq SSS0$ e $m\asseq S0$ substituimos nossa expressão por seu
+igual seguindo a (a2):}
+{\munderbrace{SSS0}n} + {S\munderbrace{S0}m}
+&= S\bigparen{ {\munderbrace{SSS0}n} + {\munderbrace{S0}m} }  \qqby{por (a2)}\\
+\intertext{Depois um passo de cálculo então chegamos na expressão
+$S(SSS0 + S0)$.
+Como nenhuma equação tem a forma $S(\text{\thole}) = \text{\lthole}$,
+olhamos ``dentro'' da nossa expressão para achar nas suas subexpressões
+possíveis ``casamentos'' com nossas equações.
+Focamos então na subexpressão sublinhada
+$S(\underline{SSS0 + S0})$:
+vamos tentar substituí-la por algo igual.
+Novamente a primeira equação não é aplicavel
+por causa do novo segundo termo ($S0$), mas a (a2) é:}
+S\bigparen{{\munderbrace{SSS0}n} + {S\munderbrace{0}m}}\\
+\intertext{Tomando agora $n\asseq SSS0$ e $m\asseq 0$ substituimos de novo
+seguindo a (a2):}
+S\toverbrace{\bigparen{{\munderbrace{SSS0}n} + {S\munderbrace{0}m}}}{isso}
+&= S\toverbrace{S\bigparen{ {\munderbrace{SSS0}n} + {\munderbrace{0}m} }}{por isso}  \qqby{por (a2)}\\
+\intertext{Agora focamos na subexpressão $SS(\underline{SSS0 + 0})$ e podemos finalmente
+aplicar a primeira equação:}
+SS\bigparen{{\munderbrace{SSS0}n} + 0}\\
+\intertext{então tomando $n\asseq SSS0$ substituimos}
+SS\toverbrace{\bigparen{{\munderbrace{SSS0}n} + 0}}{isso}
+&= SS\toverbrace{ {\munderbrace{SSS0}n} }{por isso}  \qqby{por (a1)}
+\endalignat
+$$
+Finalmente chegamos no resultado: no termo $SSSSS0$.
+Nunca mais vamos escrever tudo isso com tanto detalhe!
+Esse cálculo que acabamos de fazer, escrevemos curtamente nessa forma:
+$$
+\alignat2
+SSS0 + SS0
+&= S(SSS0 + S0) \qqby {por (a2)}\\
+&= SS(SSS0 + 0) \qqby {por (a2)}\\
+&= SSSSS0       \qqby {por (a)}
+\endalignat
+$$
+escrevendo apenas em cada linha o que foi usado.
+
+\endexample
+%%}}}
+
+%%{{{ x: zero_plus_four_formally 
+\exercise.
+\label{zero_plus_four_formally}%
+Calcule a soma dos $0 + SSSS0$.
+
+\endexercise
+%%}}}
+
+%%{{{ Evaluation strategy 
+\note Estratégias de evaluação.
+\tdefined{estratégia}[de evaluação]%
+Vamos dizer que queremos calcular começando com uma expressão mais complexa,
+como por exemplo a
+$$
+0 + \bigparen{0 + S\bigparen{(SS0 + 0) + 0}}.
+$$
+Como procedimos?
+A expressão enteira não pode ser substituida pois nenhuma das (a1)--(a2) tem
+essa forma, mas aparecem várias subexpressões em quais podemos \emph{focar}
+para nosso próximo passo de cálculo:
+$$
+\align
+0 + \underline{\bigparen{0 + S\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com (a2)}\\
+0 + \bigparen{0 + S\underline{\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com (a1)}\\
+0 + \bigparen{0 + S\bigparen{\underline{(SS0 + 0)} + 0}},&\quad\text{casando com (a1)}.
+\endalign
+$$
+Podemos seguir uma \dterm{estratégia de evaluação} específica, por exemplo,
+focando sempre na expressão que aparece primeira à esquerda; ou podemos
+escolher cada vez onde focar aleatoriamente; etc.
+No~\ref{three_plus_two_plus_one} tu vai ter que escolher onde focar
+várias vezes.
+%%}}}
+
+%%{{{ x: three_plus_two_plus_one 
+\exercise.
+\label{three_plus_two_plus_one}%
+Calcule os valor das expressões $SSS0 + (SS0 + S0)$ e $(SSS0 + SS0) + S0$.
+
+\solution
+Um caminho para calcular a primeira é o seguinte:
+$$
+\alignat2
+SSS0 + \underline{(SS0 + S0)}
+&= SSS0 + S\underline{(SS0 + 0)} \qqby{por (a2)}\\
+&= \underline{SSS0 + SSS0}       \qqby{por (a1)}\\
+&= S\underline{(SSS0 + SS0)}     \qqby{por (a2)}\\
+&= SS\underline{(SSS0 + S0)}     \qqby{por (a2)}\\
+&= SSS\underline{(SSS0 + 0)}     \qqby{por (a2)}\\
+&= SSSSSS0                       \qqby{por (a1)}\\
+\intertext{e um caminho para calcular a segunda é o:}
+\underline{(SSS0 + SS0) + S0}
+&= S(\underline{(SSS0 + SS0)} + 0)  \qqby{por (a2)}\\
+&= S(S\underline{(SSS0 + S0)} + 0)  \qqby{por (a2)}\\
+&= S\underline{(SS(SSS0 + 0) + 0)}  \qqby{por (a2)}\\
+&= SSS\underline{(SSS0 + 0)}        \qqby{por (a1)}\\
+&= SSSSSS0                          \qqby{por (a1)}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: nats_ntimes_recursive_def 
+\exercise.
+\label{nats_ntimes_recursive_def}%
+Define a multiplicação no $\nats$.
+
+\hint
+Precisa de novo duas equações.
+
+\hint
+$$
+\align
+n \ntimes 0  &= \text{\lthole}\\
+n \ntimes Sm &= \text{\lthole}
+\endalign
+$$
+
+\hint
+Na segunda equação, no seu lado direito, tu tem acesso no valor
+$n \ntimes m$, pois é ``mais simples'' do que o $n \ntimes Sm$.
+Isso é o poder da recursão: podes considerar o problema que tu
+tá tentando resolver (definir a multplicação), como resolvido
+para as ``entradas mais simples''.
+
+\endexercise
+%%}}}
+
+%%{{{ x: nats_exp_recursive_def 
+\exercise.
+\label{nats_exp_recursive_def}%
+Define a exponencação no $\nats$.
+
+\endexercise
+%%}}}
+
+%%{{{ nats_leq_recursive_def 
+\definition Ordem.
+Com que temos definido podemos já definir recursivamente
+uma \emph{relação} no $\nats$.  A relação de ordem $\leq$:
+$$
+\align
+0  \leq m  &\iff \True      \tag{LE1}\\
+Sn \leq 0  &\iff \False     \tag{LE2}\\
+Sn \leq Sm &\iff n \leq m   \tag{LE3}
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: two_leq_four_but_four_notleq_two 
+\example.
+\label{two_leq_four_but_four_notleq_two}%
+Ache se $SS0 \leq SSSS0$ e se $SSSS0 \leq SS0$.
+
+\solution
+Calculamos:
+$$
+\alignat2
+SS0 \leq SSSS0
+&\iff S0 \leq SSS0  \qqby{por (LE3)}\\
+&\iff 0  \leq SS0   \qqby{por (LE3)}\\
+&\iff \True         \qqby{por (LE1)}
+\endalignat
+$$
+ou seja, realmente $SS0 \leq SSSS0$.
+No outro lado, calculamos
+$$
+\alignat2
+SSSS0 \leq SS0
+&\iff SSS0 \leq S0  \qqby{por (LE3)}\\
+&\iff SS0  \leq 0   \qqby{por (LE3)}\\
+&\iff \False        \qqby{por (LE2)}
+\endalignat
+$$
+ou seja, $SSSS0 \not\leq SS0$.
+
+\endexample
+%%}}}
 
 \endsection
 %%}}}
