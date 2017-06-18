@@ -11644,7 +11644,19 @@ Supondo que é, chegamos no absurdo que achamos no~\refn{russells_paradox}.
 
 %%{{{ Russell's and Zermelo's solutions 
 \section As soluções de Russell e de Zermelo.
-\Zermelo{}\Fraenkel{}\Skolem{}
+
+\note Teoria de tipos (Russell).
+\Russell[teoria de tipos]{}
+
+\note Teoria axiomática de conjuntos (Zermelo).
+\Zermelo[teoria axiomática de conjuntos]{}
+
+\note Créditos.
+A teoria axiomática de conjuntos que estudamos nesse capítulo é conhecida
+como ``Zermelo\Zermelo{}--\Fraenkel{}Fraenkel set theory''.
+Mesmo assim, mais foram envolvidos na sua evolução, sua definição, e seu
+amadurecimento, como os \Mirimanoff{}Mirimanoff, \Skolem{}Skolem,
+e \vonNeumann{}von~Neumann, entre outros.
 
 \endsection
 %%}}}
@@ -11754,8 +11766,8 @@ Esse padrão vai aparecer em muitos dos axiomas abaixo.
 \endsection
 %%}}}
 
-%%{{{ The first axioms of Zermelo–Fraenkel–Skolem 
-\section Os primeiros axiomas de Zermelo--Fraenkel--Skolem.
+%%{{{ The first axioms of Zermelo 
+\section Os primeiros axiomas de Zermelo.
 
 %%{{{ ax: Extensionality 
 \axiom Extensionalidade.
@@ -12670,6 +12682,7 @@ Depois relaxamos um pouco deixando uns detalhes tediosos como
 
 %%{{{ Specification 
 \note Especificação.
+\label{tup_specification}%
 Vamos começar com o trabalho de implementar tuplas de tamanho 2,
 ou seja \emph{pares ordenados}.
 Precisamos então definir \emph{um} operador
@@ -12746,6 +12759,27 @@ que nos permite substituir iguais por iguais em qualquer expressão.
 
 \endexercise
 %%}}}
+
+%%{{{ x: first_attempt_pair 
+\exercise.
+\label{first_attempt_pair}%
+Prove que a operação
+$$
+\tup{x,y} \defeq \set{x,y}
+$$
+satisfaz uma das \ref{spec_tup1}~\&~\ref{spec_tup2}
+mas não a outra, então essa
+\emph{não} é uma implementação de par ordenado
+
+\endexercise
+%%}}}
+
+\blah.
+Nossa primeira tentativa não deu certo.
+Mesmo assim é realmente possível implementar pares ordenados
+como conjuntos!  Como?
+
+\spoiler.%
 
 %%{{{ df: kuratowski_pair 
 \definition par de Kuratowski.
@@ -12847,6 +12881,74 @@ que é conjunto graças ao Separation~(\axref{separation}).
 \qed
 %%}}}
 
+%%{{{ Being agnostic 
+\note Sendo agnósticos.
+\ii{agnóstico}%
+\tdefined{$F$-agnóstico}%
+Acabamos de encontrar \emph{um} operador de par ordenado, do Kuratowski\Kuratowski{}.
+Ele não é o único possível, mas para continuar com nossa teoria,
+precisamos apenas mostrar que existe um.
+Vamos usar o símbolo $\tup{\dhole,\dhole}$ sem esclarecer se realmente é
+a implementação de Kuratowski que usamos, ou alguma outra implementação.
+Tomando cuidado, sobre esse operador nos permitimos usar
+\emph{apenas as propriedades da sua especificação e nada mais}:
+as \ref{spec_tup1}~\&~\ref{spec_tup2} do \ref{tup_specification}.
+Falamos então que estamos sendo \dterm{$\tup{}$-agnósticos}.
+Por exemplo, não podemos afirmar que $\set {x} \in \tup {x,y}$.
+Sim, isso é valido com a implementação de Kuratowski, mas não é
+uma conseqüência da especificação de par ordenado.
+Talvez outra implementação não tem essa propriedade,
+como tu vai descobrir agora provando que o $\tup{\dhole,\dhole}$
+definido pelo Wiener\Wiener{}~uns anos \emph{antes} da definição
+de Kuratowski.
+%%}}}
+
+%%{{{ x: wiener_pair
+\exercise par de Wiener.
+\label{wiener_pair}%
+\Wiener[par]%
+A operação $\tup{\dhole,\dhole}$ definida pela
+$$
+\tup{x,y} \defeq \bigset{ \set{ \emptyset, \set{x} }, \set{ \set{ y } } }
+$$
+é uma implementação de par ordenado, ou seja,
+satisfaz as~\ref{spec_tup1}~\&~\ref{spec_tup2}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: another_pair 
+\exercise.
+\label{another_pair}%
+Considere $0$ e $1$ dois objetos distintos (algo que nossos axiomas garantam).
+Por exemplo, tome $0\defeq\emptyset$ e $1\defeq\set\emptyset$.
+Prove que a operação
+$$
+\tup{x,y} \defeq \bigset{ \set{0, x}, \set{1, y} }
+$$
+também é uma implementação de par ordenado.
+
+\hint
+Calcule os $\tup {0,0}$, $\tup {0,1}$, $\tup {1,0}$, $\tup {1,1}$.
+
+\hint
+Separe em casos: $x=y$ ou não.
+
+\endexercise
+%%}}}
+
+%%{{{ x: bad_pair 
+\exercise.
+\label{bad_pair}%
+Prove que não podemos usar a operação
+$$
+\tup{x,y} \defeq \bigset{ x, \set{x, y} }
+$$
+como uma implementação de par ordenado.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -12939,8 +13041,8 @@ Assim o $\Phi(x)$ denota um \emph{objeto}, mas o $\Phi(x,y)$ uma \emph{afirmaç�
 \endsection
 %%}}}
 
-%%{{{ Infinite sets 
-\section Conjuntos infinitos.
+%%{{{ The axiom of infinity 
+\section O axioma da infinidade.
 
 %%{{{ No infinite sets but Infinite(-) predicate 
 \note.
@@ -13475,6 +13577,31 @@ realmente botando o $\qedsymbol$ no~\ref{uniqueness_of_nats}.
 %%{{{ More axioms 
 \section Mais axiomas.
 
+%%{{{ Credits 
+\note Créditos.
+Todos os axiomas que temos visto até agora são essencialmente os axiomas
+de Zermelo\Zermelo{}, e falta apenas um dos seus axiomas originais
+(o axioma da escolha que encontramos na~\ref{axioms_of_choice}).
+Sobre o axioma Separation~(\axref{separation}), Zermelo usou o termo
+``propriedade definitiva'', que temos usado também sobre o ``filtro'',
+mas foram \Fraenkel{}~e~\Skolem{} que consideraram definir isso
+como uma fórmula da linguagem da FOL com $=$ e $\in$.
+%%}}}
+
+%%{{{ A letter from Fraenkel to Zermelo 
+\note Uma carta de Fraenkel para Zermelo.
+\Fraenkel{}Fraenkel percebeu (e comunicou no 1921 para Zermelo) que
+com os seus axiomas não é possível provar a existência duns certos
+conjuntos interessantes, como por exemplo o
+$$
+\bigset{
+\Nats, \pset\Nats, \pset\pset\Nats, \pset\pset\pset\Nats, \dotsc
+}.
+$$
+Sim, podemos construir cada um dos seus elementos, mas não a
+colecção deles como conjunto!
+%%}}}
+
 %%{{{ ax: replacement 
 \axiom Replacement (schema).
 \tdefined{axioma}[Replacement (schema)]%
@@ -13601,7 +13728,8 @@ $$
 %%}}}
 
 \blah.
-Vamos agora pesquisar umas conseqüências desse axioma:
+Vamos agora pesquisar umas conseqüências desse axioma, também conhecido como
+\dterm{Regularity}\iisee{axioma}[Regularity]{Foundation}.
 
 %%{{{ x: x_notin_x 
 \exercise.
@@ -13609,22 +13737,54 @@ Vamos agora pesquisar umas conseqüências desse axioma:
 Prove diretamente que para todo conjunto $x$, $x\notin x$.
 Quais axiomas tu precisou?
 
+\hint
+Seja $x$ conjunto.
+Não podemos aplicar o~\refn{foundation} diretamente no $x$,
+pois talvez $x = \emptyset$.
+Uma abordagem seria separar casos.
+Ao inves disso, aplique o~\refn{foundation} no conjunto $\set x$.
+
 \endexercise
 %%}}}
 
-%%{{{ cor: univ_not_in_univ
+%%{{{ cor: univ_not_in_univ 
 \corollary.
 \label{unit_not_in_univ}
 $\Univ\notin\Univ$, ou seja, $\Univ$ não é um conjunto.
 %%}}}
 
+%%{{{ x: x_y_cannot_belong_to_each_other 
+\exercise.
+\label{x_y_cannot_belong_to_each_other}%
+Prove que é impossível para dois conjuntos $x,y$ ter
+$x \in y$ e também $y \in x$.
+
+\endexercise
+%%}}}
+
 %%{{{ x: no_infinite_in_descending_chain_of_sets 
 \exercise.
 \label{no_infinite_in_descending_chain_of_sets}%
-Não existe seqüência infinita de conjuntos
+Prove que não existe seqüência infinita de conjuntos
 $$
 x_0 \ni x_1 \ni x_2 \ni x_3 \ni \dotsb
 $$
+e mostre que assim ganhamos os
+exercícios~\refn{x_notin_x}~\&~\refn{x_y_cannot_belong_to_each_other}
+como corolários.
+
+\endexercise
+%%}}}
+
+%%{{{ x: bad_pair_becomes_good_pair 
+\exercise.
+\label{bad_pair_becomes_good_pair}%
+Prove que com o axioma Foundation podemos sim usar a operação
+do~\ref{bad_pair}
+$$
+\tup{x,y} \defeq \bigset{ x, \set{x, y} }
+$$
+como uma implementação de par ordenado.
 
 \endexercise
 %%}}}
@@ -13634,6 +13794,7 @@ $$
 
 %%{{{ Axioms of choice 
 \section Axiomas de escolha.
+\label{axioms_of_choice}%
 
 %%{{{ ax: choice_ac 
 \axiom Choice (AC).
@@ -13739,6 +13900,16 @@ x \in t
 }.
 \axtaglabel{CONS}{consax}
 $$
+
+\endproblem
+%%}}}
+
+%%{{{ replacement_replaces_separation 
+\problem.
+\label{replacement_replaces_separation}%
+Podemos tirar o Separation scheme~(\axref{separation})
+dos nossos axiomas ``sem perder nada'', se temos o
+Replacement scheme~(\axref{replacement})?
 
 \endproblem
 %%}}}
