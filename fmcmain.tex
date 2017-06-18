@@ -14117,21 +14117,27 @@ Em outras palavras, as duas equações (1)--(2)
 %%{{{ Consequences of recursion 
 \section Conseqüências de recursão.
 
+\note Operações.
+Na~\refn{nats_formally} definimos recursivamente operações nos naturais.
+Graças o~\ref{recursion_theorem}, ganhamos todas essas operações em qualquer
+sistema Peano.
+
 \endsection
 %%}}}
 
-\problems.
+%%{{{ Problem intermission 
+\problems Intervalo de problemas.
 
-\problem.
+%%{{{ common context for problems 
 Para qualquer sistema de naturais $\cal N = \sset \Nats {\Zero, \Succ}$,
-definimos a operação de adição,
+definimos as operações de adição e de multiplicação
 $$
-\align
-    n + 0 &= n          \tag{a1}\\
-    n + Sm &= S(n+m)    \tag{a2}
-\endalign
+\xxalignat5
+&\text{(a1)}  & n + \Zero   &= n          &&& n \ntimes \Zero   &= \Zero                &&\text{(m1)}\\
+&\text{(a2)}  & n + \Succ m &= \Succ(n+m) &&& n \ntimes \Succ m &= \Succ (n \ntimes m)  &&\text{(m2)}
+\endxxalignat
 $$
-e a relação de ordem:
+e a relação de ordem no $\Nats$
 $$
     n \leq m \defiff (\exists k)[n + k = m].
 $$
@@ -14142,12 +14148,21 @@ suas operações de adição $+_1$ e $+_2$, e suas relações de ordem $\leq_1$ 
 Seja $\phi\from\Nats_1\bijto\Nats_2$ o isomorfismo definido pelas
 $$
 \align
-    \phi(0_1)  &= 0_2           \\
-    \phi(S_1n) &= S_2(\phi(n)).
+    \phi(\Zero_1)   &= \Zero_2           \\
+    \phi(\Succ_1 n) &= \Succ_2(\phi(n)).
 \endalign
 $$
-Prove que $\phi$ respeita a adição, ou seja:
-$\phi(n +_1 m) = \phi(n) +_2 \phi(m)$.
+%%}}}
+
+%%{{{ prob: any_peano_morphism_respects_the_order 
+\problem.
+Prove que $\phi$ respeita a adição e a multiplicação, ou seja:
+$$
+\align
+\phi(n +_1 m)       &= \phi(n) +_2 \phi(m)\\
+\phi(n \ntimes_1 m) &= \phi(n) \ntimes_2 \phi(m).
+\endalign
+$$
 Mostre que $\phi$ \emph{respeita a ordem} também, ou seja:
 $$
 n\leq_1 m \iff \phi(n)\leq_2 \phi(m).
@@ -14157,8 +14172,10 @@ $$
 Prove as duas direções da ``$\Longleftrightarrow$'' separadamente.
 
 \endproblem
+%%}}}
 
 \endproblems
+%%}}}
 
 %%{{{ More axioms 
 \section Mais axiomas.
@@ -14167,10 +14184,10 @@ Prove as duas direções da ``$\Longleftrightarrow$'' separadamente.
 \note Créditos.
 Todos os axiomas que temos visto até agora são essencialmente os axiomas
 de Zermelo\Zermelo{}, e falta apenas um dos seus axiomas originais
-(o axioma da escolha que encontramos na~\ref{axioms_of_choice}).
+(o axioma da escolha que encontramos na~\refn{axioms_of_choice}).
 Sobre o axioma Separation~(\axref{separation}), Zermelo usou o termo
 ``propriedade definitiva'', que temos usado também sobre o ``filtro'',
-mas foram \Fraenkel{}~e~\Skolem{} que consideraram definir isso
+mas foram \Fraenkel{}Fraenkel~e~\Skolem{}Skolem que consideraram definir isso
 como uma fórmula da linguagem da FOL com $=$ e $\in$.
 %%}}}
 
