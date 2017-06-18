@@ -11703,8 +11703,8 @@ Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Lambda calculus and combinatory logic 
-\chapter Lambda calculus e lógica combinatória.
+%%{{{ chapter: Lambda calculus 
+\chapter Lambda calculus.
 
 %%{{{ The untyped lambda calculus 
 \section O $\lambda$-calculus não-tipado.
@@ -11730,14 +11730,80 @@ Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
 \endsection
 %%}}}
 
-%%{{{ Combinatory logic 
-\section Lógica combinatória.
+%%{{{ Functional programming revisited 
+\section Programação funcional revisitado.
 
 \endsection
 %%}}}
 
-%%{{{ Functional programming 
-\section Programação funcional.
+%%{{{ Problems 
+\problems.
+
+%%{{{ prob: what_does_this_lambda_term_with_minus_do 
+\problem.
+\label{what_does_this_lambda_term_with_minus_do}
+Suponha que já temos definido um $\lambda$-term $\Lmac{minus}$,
+que comporta corretamente, no sentido que:
+$$
+\align
+\Lmac{minus}\ {\Lnum n}\ {\Lnum m}
+&\Lfinto \knuthcases{
+  \Lnum {n - m},   &se $n \geq m$\\
+  \Lnum {0},       &se $n < m$.
+}
+\endalign
+$$
+Explique o comportamento do termo
+$$
+\Lmac f  \asseq  \Llam n {n\ (\Lmac{minus}\ {\Lnum 1})\ {\Lnum 0}}
+$$
+quando for aplicado para um numeral de \Church[numeral]{}Church $\Lnum k$:
+qual é a função $f : \nats\to\nats$ que o termo $\Lmac f$ computa?
+
+\hint
+Cuidado com \Curry[currificação]{}Curry.
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{hindleyseldinlambdacl},
+\cite{barendregtlambda}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Combinatory logic 
+\chapter Lógica combinatória.
+
+%%{{{ Our first combinators 
+\section Nossos primeiros combinadores.
+
+%%{{{ x: some_equiv_to_I 
+\exercise.
+\label{some_equiv_to_I}%
+Mostre que o combinador
+$\C S\ \C K\ (\C W\ (\C I\ \C B))$ comporta como o $\C I$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: another_equiv_to_I 
+\exercise.
+\label{another_equiv_to_I}%
+Mostre que o combinator
+$\C C\ (\C W\ \C K)\ \C K\ \C W$ comporta como o $\C I$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -11751,11 +11817,9 @@ Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
 %%{{{ Further reading 
 \further.
 
-\cite{hindleyseldinlambdacl},
-\cite{barendregtlambda}.
-
 \cite{mockingbird},
-\cite{bimbocl}.
+\cite{bimbocl},
+\cite{hindleyseldinlambdacl}.
 
 \endfurther
 %%}}}
