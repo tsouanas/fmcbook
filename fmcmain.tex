@@ -12839,6 +12839,117 @@ Usamos o operador $\union$ para o passo indutivo.
 \endsection
 %%}}}
 
+%%{{{ Construction trees 
+\section Arvores de construção.
+
+%%{{{ Tree explanation 
+\note.
+Queremos provar que $\set{ \emptyset, \set{\emptyset, \set{\emptyset}}}$
+é um conjunto.
+Escrevemos:
+{Pelo Emptyset~(\axref{emptyset}), $\emptyset$ é um conjunto.
+Pelo Pairset~(\axref{pairset}) aplicado com $a,b\asseq\emptyset$ temos
+que $\set{\emptyset,\emptyset}$ também é conjunto.
+Mas, pelo Extensionality~(\axref{extensionality}),
+$\set{\emptyset,\emptyset}=\set{\emptyset}$.
+Agora, novamente pelo Pairset~(\axref{pairset}) essa vez
+aplicado com $a\asseq\emptyset$ e $b\asseq\set{\emptyset}$
+temos que $\set{\emptyset, \set{\emptyset}}$ é um conjunto.
+Aplicando uma última vez o Pairset~(\axref{pairset}) com
+$a\asseq\emptyset$ e $b\asseq \set{\emptyset, \set{\emptyset}}$,
+conseguimos construir o conjunto
+$\set{ \emptyset, \set{\emptyset, \set{\emptyset}}}$.
+}
+Podemos representar essa construção em forma de árvore:
+$$
+\def\fCenter{}
+\centerAlignProof
+\AxiomC{}
+\RightLabel{\axref{emptyset}}
+\UnaryInf$\fCenter\emptyset$
+\AxiomC{}
+\RightLabel{\axref{emptyset}}
+\UnaryInf$\fCenter\emptyset$
+\AxiomC{}
+\RightLabel{\axref{emptyset}}
+\UnaryInf$\fCenter\emptyset$
+\AxiomC{}
+\RightLabel{\axref{emptyset}}
+\UnaryInf$\fCenter\emptyset$
+\doubleLine
+\RightLabel{\axref{pairset}}
+\BinaryInf$\fCenter\set{\emptyset}$
+\RightLabel{\axref{pairset}}
+\BinaryInf$\fCenter\set{\emptyset, \set{\emptyset}}$
+\RightLabel{\axref{pairset}}
+\BinaryInf$\fCenter\set{\emptyset, \set{\emptyset, \set{\emptyset}}}$
+\DisplayProof{}
+$$
+onde a dupla linha indica que pulamos alguns passos implícitios,
+como o uso de Extensionality~(\axref{extensionality}) nesse caso.
+Usamos agora essa construção para construir um conjunto de cardinalidade $3$:
+$$
+\centerAlignProof
+\AxiomC{}
+\RightLabel{\axref{emptyset}}
+\UnaryInfC{$\emptyset$}
+\AxiomC{}
+\RightLabel{\axref{emptyset}}
+\UnaryInfC{$\emptyset$}
+\AxiomC{}
+\RightLabel{\axref{emptyset}}
+\UnaryInfC{$\emptyset$}
+\AxiomC{}
+\RightLabel{\axref{emptyset}}
+\UnaryInfC{$\emptyset$}
+\doubleLine
+\RightLabel{\axref{pairset}}
+\BinaryInfC{$\set{\emptyset}$}
+\RightLabel{\axref{pairset}}
+\BinaryInfC{$\set{\emptyset, \set{\emptyset}}$}
+\RightLabel{\axref{pairset}}
+\BinaryInfC{$\set{\emptyset, \set{\emptyset, \set{\emptyset}}}$}
+\RightLabel{\axref{powerset}}
+\UnaryInfC{$\set{\emptyset, \set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}}, \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}$}
+\RightLabel{\axref{separation},\ $\phi(x)\asseq \exists w(w\in x)$}
+\UnaryInfC{$\set{\set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}}, \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}$}
+\DisplayProof{}
+$$
+%%}}}
+
+%%{{{ eg: tree_with_open_leaves
+\example.
+\label{tree_with_open_leaves}%
+Seja $a,b$ conjuntos.
+Mostre que $\set{b, \set{\emptyset, \set{a}}}$ é conjunto.
+
+\solution
+$$
+\centerAlignProof
+\AxiomC{$b$}
+\AxiomC{}
+\RightLabel{Empty}
+\UnaryInfC{$\emptyset$}
+\AxiomC{$a$}
+\doubleLine
+\RightLabel{Singleton}
+\UnaryInfC{$\set{a}$}
+\RightLabel{Pair}
+\BinaryInfC{$\set{\emptyset, \set{a}}$}
+\RightLabel{Pair}
+\BinaryInfC{$\set{b, \set{\emptyset, \set{a}}}$}
+\DisplayProof{}
+$$
+Onde deixamos as ``folhas'' da árvore $a,b$ ``sem fechar'', pois
+correspondem realmente em nossas hipotéses: os conjuntos $a,b$ são dados!
+Observe também que ``Singleton'' se-refere no~\ref{singleton_thm}.
+
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Classes vs. Sets (I) 
 \section Classes vs{.}~Conjuntos (I).
 
