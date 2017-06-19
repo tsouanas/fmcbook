@@ -436,7 +436,7 @@ $$
 SSS0 + SS0
 &= S(SSS0 + S0) \qqby {por (a2)}\\
 &= SS(SSS0 + 0) \qqby {por (a2)}\\
-&= SSSSS0       \qqby {por (a)}
+&= SSSSS0       \qqby {por (a1)}
 \endalignat
 $$
 escrevendo apenas em cada linha o que foi usado.
@@ -12247,9 +12247,9 @@ que acostumamos a denotá-lo por $\set \emptyset$.
 Uma nova peça!  E teoremas?
 %%}}}
 
-%%{{{ thm: singletons_thm 
-\theorem Singletons.
-\label{singletons_thm}%
+%%{{{ thm: singleton_thm 
+\theorem Singleton.
+\label{singleton_thm}%
 Dado conjunto $a$, existe um único conjunto cujo membro único é o $a$.
 Formalmente,
 $$
@@ -12280,7 +12280,8 @@ e graças ao~\axref{extensionality}, ele é o único conjunto com essa proprieda
 %%}}}
 
 %%{{{ df: singleton 
-\definition Singleton.
+\definition.
+\label{singleton}%
 \sdefined {\set{\holed a}} {o conjunto singleton de $\holed a$, com membro único o $\holed a$}%
 Dado qualquer conjunto $a$, o conjunto cujo único membro é o $a$
 é chamado o \dterm{singleton} de $a$, e denotado por $\set a$.
@@ -12306,7 +12307,7 @@ objetos---ele ainda tá bem limitado.
 Mostre como construir uma infinidade de singletons e uma infinidade de doubletons.
 
 \hint
-\axref{emptyset}~\&~\ref{singletons_thm}.
+\axref{emptyset}~\&~\ref{singleton_thm}.
 
 \hint
 Comece com o $\emptyset$ e aplique iterativamente o operador $\set{\dhole}$.
@@ -13483,7 +13484,7 @@ a definição dos números naturais.  Como?
 \definition Dedekind-infinito.
 \tdefined{Dedekind-infinito}
 \sdefined {\Infinite(\holed a)} {o conjunto $a$ é Dedekind-infinito}
-Chamamos um conjunto $A$ \Dedekind[infinito]\dterm{Dedekind-infinito} sse
+Seja $A$ conjunto.  Chamamos o $A$ \Dedekind[infinito]\dterm{Dedekind-infinito} sse
 ele pode ser ``injetado'' para um subconjunto proprio dele, ou seja,
 sse existem $X\subsetneq A$ e $f : A \bijto X$.
 Definimos então o predicado
@@ -14004,7 +14005,7 @@ Então existe única função $F : \Nats \to A$ que satisfaz as equações:
 $$
 \align
 F(\Zero)    &= a \tag{1}\\
-F(\Succ n)  &= h(F(n)), \quad\text{para todo $n\in\Nats$}\tag{2}
+F(\Succ n)  &= h(F(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
 \endalign
 $$
 \sketch.
@@ -14017,10 +14018,10 @@ Nosso plano é
 \endil
 \endgraf
 (i)
-Vamos construir o $F$ \emph{bottom-up}, juntando suas \dterm{aproximações finitas}\/:
+Vamos construir o $F$ \emph{bottom-up}, juntando umas das suas aproximações finitas:
 funções parciais $f : \Nats\parto E$ onde a ideia é que elas ``concordam'' com a $F$
-onde elas estão definidas.
-Nem vamos considerar todas elas, mas para nossa conveniência queremos apenas aquelas
+desejada onde elas estão definidas.
+Nem vamos considerar todas elas: para nossa conveniência queremos apenas aquelas
 cujo domínio é algum $\finord n$.
 Por exemplo, as primeiras aproximações seriam as seguintes:
 $$
@@ -14038,6 +14039,7 @@ $$
 $$
 onde falta descrever com uma fórmula nossa ideia de ``ser aproximação aceitável''
 (\ref{acceptable_approximation}).
+(Das aproximações em cima a $f_0$ não é aceitável.)
 Agora podemos já definir o $F$:
 $$
 F \defeq \Union {\scr A}.
