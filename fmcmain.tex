@@ -14539,6 +14539,60 @@ como uma implementação de par ordenado.
 \section Axiomas de escolha.
 \label{axioms_of_choice}%
 
+\blah.
+Finalmente encontramos aqui o último axioma de Zermelo,
+o mais infame, seu \emph{axioma de escolha}.
+Mas, primeiramente, umas definições.
+
+%%{{{ df: choice_set
+\definition Conjunto-escolha.
+\label{choice_set}%
+\tdefined{conjunto-escolha}%
+Seja $\scr A$ uma familia de conjuntos.
+Chamamos o $E$ um \dterm{conjunto-escolha} da $\scr A$ sse
+(1) $E \subseteq \union \scr A$, e
+(2) para todo $A \in \scr A$, a intersecção $E \inter A$ é um singleton.
+%%}}}
+
+%%{{{ eg: choice_sets
+\example.
+\label{choice_sets}%
+Aqui umas famílias de conjuntos e um exemplo de conjunto-escolha para cada uma:
+$$
+\xalignat2
+\scr A_1 &= \set{ [0,2], [1,4], [3,5] }
+&&{\set{ 0, \,5/2, \,5 }}\\
+\scr A_2 &= \set{ \set{a,b}, \set{b,c}, \set{d} }
+&&{\set{a,c,d}}\\
+\scr A_3 &= \set{ \set{a,b}, \set{b,c}, \set{c,a} }
+&&\text{não tem conjunto-escolha}\\
+\scr A_4 &= \set{ \emptyset, \set{\emptyset}, \set{\set{\emptyset}}, \set{\set{\set{\emptyset}}}, \set{\set{\set{\set{\emptyset}}}}, \dots }
+&&\text{não tem conjunto-escolha}\\
+\scr A_5 &= \set{            \set{\emptyset}, \set{\set{\emptyset}}, \set{\set{\set{\emptyset}}}, \set{\set{\set{\set{\emptyset}}}}, \dots }
+&&\scr A_4\\
+\scr A_6 &= \set{ \finord 1, \finord 2, \finord 3, \dotsc }
+&&\text{não tem conjunto-escolha}
+\endxalignat
+$$
+
+\endexample
+%%}}}
+
+%%{{{ df: choice_function 
+\definition Função-escolha.
+\label{choice_function}%
+\tdefined{função-escolha}[de conjunto]%
+\tdefined{função-escolha}[de família]%
+Seja $A$ conjunto.
+Chamamos a $\varepsilon : \pset A \setminus \set{\emptyset} \to A$
+uma \dterm{função-escolha do conjunto} $A$ sse $\varepsilon(X) \in X$ para todo $X\in\dom\varepsilon$.
+\endgraf
+Seja $\scr A$ família de conjuntos.
+Chamamos a $\varepsilon : \scr A \to \union \scr A$ uma
+\dterm{função-escolha da família de conjuntos} $\scr A$ sse
+$\varepsilon(A) \in A$ para todo $A\in \scr A$.
+%%}}}
+
 %%{{{ ax: choice_ac 
 \axiom Choice (AC).
 \tdefined{axioma}[Choice (AC)]
@@ -14604,11 +14658,44 @@ $$
 %%{{{ Controversial consequences 
 \section Conseqüências controversiais.
 
+%%{{{ thm: banach_tarski 
+\theorem Banach--Tarski.
+\label{banach_tarski}%
+\Banach{}\Tarski{}%
+\ii{teorema}[Banach--Tarski]%
+Podemos decompor a bola sólida unitária
+$$
+B = \set{\tup{x,y,z} \in \reals^3 \st x^2 + y^2 + z^2 \leq 1}
+$$
+em $5$ subconjuntos
+$S_1, S_2, S_3, S_4, S_5 \subseteq S$,
+rodar e transladar eles, criando duas cópias sólidas de $B$.
+%%}}}
+
+%%{{{ thm: wellordering_thm 
+\theorem Bem-ordenação (Zermelo).
+\label{wellordering_thm}%
+\ii{teorema}[da bem-ordenação]
+Todo conjunto $A$ pode ser bem ordenado.
+%%}}}
+
+%%{{{ thm: cardinal_comparability_thm
+\theorem Comparabilidade de cardinais.
+\label{cardinal_comparability_thm}%
+Para todos conjuntos $A,B$, temos $A\eqc B$ ou $B \eqc A$.
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Other set theories 
 \section Outras teorias de conjuntos.
+
+\endsection
+%%}}}
+
+%%{{{ Other foundations 
+\section Outras fundações.
 
 \endsection
 %%}}}
