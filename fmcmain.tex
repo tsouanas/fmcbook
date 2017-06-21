@@ -15027,10 +15027,128 @@ $$
 
 %%{{{ Concept, notation, properties 
 \section Conceito, notação, propriedades.
-%TODO (Conceito)
-%TODO (Diagramas Hasse)
-%TODO (Ordens parciais, totais, densas, bem-fundadas)
-%TODO (Elementos notáveis: majorantes, máximos, supremos)
+
+\note Conceito.
+
+%%{{{ df: poset 
+\definition poset.
+\label{poset}%
+\tdefined{poset}%
+Chamamos o conjunto estruturado $\cal P = \sset P \leq$
+um \dterm{poset} (ou conjunto parcialmente ordenado),
+sse $\leq$ é uma relação de ordem parcial:
+$$
+\gather
+x \leq x\\
+x \leq y \mland y \leq z \implies x \leq z\\
+x \leq y \mland y \leq x \implies x = y
+\endgather
+$$
+%%}}}
+
+\blah.
+Nas definições seguintes nosso contexto é um poset $\sset P \leq$.
+
+%%{{{ df: incomparable 
+\definition.
+\label{incomparable}%
+\tdefined{incomparável}%
+Se $x \nleq y$ e $y \nleq x$ chamamos $x$ e $y$ \dterm{incomparáveis}.
+Denotamos assim:
+$$
+x \incomp y \defiff x \nleq y \mland y \nleq x.
+$$
+%%}}}
+
+%%{{{ df: chain_antichain 
+\definition.
+\label{chain_antichain}%
+\tdefined{cadeia}%
+\tdefined{anticadeia}%
+Seja $X\subseteq P$.
+Chamamos o $X$ uma \dterm{cadeia} sse todos os seus elementos são comparáveis.
+No caso oposto, onde todos são comparáveis apenas com eles mesmo,
+chamamos o $X$ \dterm{anticadeia}.  Simbolicamente:
+$$
+\align
+\text{cadeia:}\quad&       x, y \in X  \implies  x \leq y \mlor y\leq x;\\
+\text{anticadeia:}\quad&   x, y \in X  \mland x \leq y \implies x = y.
+\endalign
+$$
+%%}}}
+
+%%{{{ df: covby 
+\definition.
+\label{covby}%
+\tdefined{cobertura}%
+\sdefined {\holed x \covby \holed y} {}%
+Se $x\leq y$ e não existe nenhum $z$ estritamente entre os $x$ e $y$
+falamos que $y$ cobre o $x$.  Simbolicamente:
+$$
+x\covby y \defiff x \leq y \mland \lnot\exists z (x < z < y).
+$$
+%%}}}
+
+%%{{{ Diagramas Hasse 
+\note Diagramas Hasse.
+\Hasse{}
+%%}}}
+
+%%{{{ df: min_max 
+\definition.
+\label{min_max}%
+\tdefined{mínimo}%
+\tdefined{máximo}%
+\sdefined{\bot} {o bottom (o mínimo elemento dum poset)}%
+\sdefined{\top} {o top (o máximo elemento dum poset)}%
+\emph{Dualmente} chamamos o $x$ \dterm{máximo} de $P$ sse $y\leq x$ para todo $y\in P$.
+Denotamos o mínimo de $P$, se existe, por $\min P$ ou $\bot$ (\dterm{bottom}),
+e seu máximo, se existe, por $\max P$ ou $\top$ (\dterm{top}).\mistake
+%%}}}
+
+%%{{{ x: uniqueness_of_min_max 
+\exercise.
+\label{uniqueness_of_min_max}%
+Qual o erro na definição em cima?
+Ache-o e corrija-o.
+
+\endexercise
+%%}}}
+
+%%{{{ df: minimal_maximal 
+\definition.
+\label{minimal_maximal}
+\tdefined{minimal}%
+\tdefined{maximal}%
+Chamamos o $x$ um elemento \dterm{minimal} de $P$
+sse nenhum elemento está embaixo dele, e, \emph{dualmente}
+chamamos o $x$ \dterm{maximal} de $P$ sse nenhum elemento
+está em cima dele.  Simbolicamente:
+$$
+\align
+\text{$x$ minimal}&\defiff  \lforall {y \in P} {y \leq x \implies x = y};\\
+\text{$x$ maximal}&\defiff  \lforall {y \in P} {x \leq y \implies x = y}.
+\endalign
+$$
+%%}}}
+
+%%{{{ df: downset_upset 
+\definition.
+\label{downset_upset}%
+\tdefined{downset}%
+\tdefined{upset}%
+Chamamos o $A\subseteq P$ um \dterm{down-set} de $A$
+sse o $A$ é ``fechado para baixo'', e \emph{dualmente},
+o chamamos \dterm{up-set} sse ele é ``fechado para cima''.
+Formalmente,
+$$
+\align
+\text{$A$ down-set} &\defiff {a \in A \mland x \leq a \implies x\in A};\\
+\text{$A$ up-set}   &\defiff {a \in A \mland a \leq x \implies x\in A}.
+\endalign
+$$
+%%}}}
+
 \endsection
 %%}}}
 
@@ -15039,12 +15157,6 @@ $$
 %TODO (Construções de conjutos ordenados)
 %TODO (Dualidade)
 %TODO (Ordens canônicas, ordens lexicográficas)
-\endsection
-%%}}}
-
-%%{{{ Down-sets and up-sets 
-\section Down-sets e up-sets.
-
 \endsection
 %%}}}
 
