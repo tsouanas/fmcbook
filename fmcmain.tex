@@ -12991,6 +12991,73 @@ Observe também que ``Singleton'' se-refere no~\ref{singleton_thm}.
 \endexample
 %%}}}
 
+%%{{{ x: tree_construction_practice 
+\exercise.
+\label{tree_construction_practice}%
+Sejam $a,b,c,d$ conjuntos.
+Mostre pelos axiomas que os seguintes também são:
+$$
+\align
+A &= \set{a,b,c,d}\\
+B &= \set{a,b, \set{c,d}}\\
+C &= \set{x \st x \subseteq a\union b\union c\union d \mland \text{$x$ tem exatamente 2 membros}}
+\endalign
+$$
+
+\solution
+Como $a,b$ são conjuntos, pelo Pairset o $\set{a,b}$ também é.
+Similarmente o $\set{c,d}$ é conjunto, e aplicando mais uma vez o Pairset neles
+temos que o $\set{\set{a,b},\set{c,d}}$ é conjunto.
+Agora aplicando o Union nele o ganhamos o $A$.
+
+\bigskip
+
+Aqui uma construção do $B$ pelos axiomas, em forma de árvore:
+$$
+\centerAlignProof
+\AxiomC{$a$}
+\AxiomC{$b$}
+\RightLabel{ZF3}
+\BinaryInfC{$\set{a,b}$}
+\AxiomC{$c$}
+\AxiomC{$d$}
+\RightLabel{ZF3}
+\BinaryInfC{$\set{c,d}$}
+\RightLabel{ZF3}
+\doubleLine
+\UnaryInfC{$\set{\set{c,d}}$}
+\RightLabel{ZF3}
+\BinaryInfC{$\set{\set{a,b},\set{\set{c,d}}}$}
+\RightLabel{ZF6}
+\UnaryInfC{$\set{a,b,\set{c,d}}$}
+\DisplayProof{}
+$$
+
+\bigskip
+
+\noindent Para o $C$, usamos o Separation~(\axref{separation})
+no $\pset \paren{\Union A}$, que é conjunto graças aos Union (\axref{union})
+\& Powerset (\axref{powerset}):
+$$
+\centerAlignProof
+\AxiomC{$A$}
+\RightLabel{ZF6}
+\UnaryInfC{$\Union A$}
+\RightLabel{ZF5}
+\UnaryInfC{$\pset\Union A$}
+\RightLabel{ZF4}
+\UnaryInfC{$C$}
+\DisplayProof{}
+$$
+onde na aplicação de ZF4 usamos a fórmula
+$
+\exists u \exists v
+\paren{ u \neq v \land \forall w(w \in x \liff w = u \lor w = v ) }
+$.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -14898,7 +14965,36 @@ Absurdo.
 \label{replacement_replaces_separation}%
 Podemos tirar o Separation scheme~(\axref{separation})
 dos nossos axiomas ``sem perder nada'', se temos o
-Replacement scheme~(\axref{replacement})?
+Replacement scheme~(\axref{replacement}) no lugar dele?
+
+\hint
+Tente achar uma class-function $\Phi$ tal que aplicada
+nos elementos dum conjunto $A$, vai ``identificar'' todos
+aqueles que \emph{não} tem a propriedade $\phi(\dhole)$,
+mas mesmo assim sendo injetora quando restrita naqueles
+que satisfazem a.
+
+\hint
+Alem de tudo isso, os ``originais'' $a\in A$ tem que ser
+recuperáveis pelas suas imagens atraves da $\Phi$.
+
+\solution
+Seja $A$ conjunto e $\phi(x)$ fórmula.
+Definimos a class-function
+$$
+    \Phi(x) =
+    \knuthcases{
+        \set{x},    &se $\phi(x)$\cr
+        \emptyset   &se não.
+    }
+$$
+Agora aplicamos o Replacement com essa class-function no conjunto $A$,
+ganhando assim como conjunto o $\classimg\Phi A$, cujos elementos são exatamente os
+\emph{singletons} $\set{a}$ de todos os $a\in A$ que satisfazem a $\phi(a)$,
+e o $\emptyset$.
+Usando o ZF6 chegamos no $\Union \classimg\Phi A$ que realmente é o desejado
+conjunto
+$\set { a \in A \st \phi(a) }$.
 
 \endproblem
 %%}}}
@@ -14978,8 +15074,129 @@ R \in \relspace A B
 \paren{\exists f : A \to B }
 \lforall {x\in A} {x \mathrel R f(x)}
 }
-\axtaglabel{AC$_{\text{Rel}}$}{choice_rel}
+\axtaglabel{ACrel}{acrel}
 $$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: multiset_formally_defined 
+\problem Multisets.
+\label{multiset_formally_defined}%
+Alguem te deu a seguinte especificação de multiset
+e tu queres implementá-la dentro da teoria de conjuntos.
+(Veja também \ref{multisets} no \ref{sets}.)
+\endgraf
+\noindent
+{\bf ``Definição''.}
+Um \dterm{multiset} (ou \dterm{bag}) $M$ é como um conjunto
+onde um elemento pode pertencer no $M$ mais que
+uma vez (mas não uma infinidade de vezes).
+Ou seja, a ordem não importa (como nos conjuntos),
+mas a ``multiplicidade'' importa sim.
+\endgraf
+Queremos tres operações em multisets, exemplificadas assim:
+$$
+\align
+    \bag{ x, y, y, z, z, z, w } \bagunion
+    \bag{ x, y, z, z, u, v, v } &=
+    \bag{ x, y, y, z, z, z, u, v, v, w }\\
+    \bag{ x, y, y, z, z, z, w } \baginter
+    \bag{ x, y, z, z, u, v, v } &=
+    \bag{ x, y, z, z }\\
+    \bag{ x, y, y, z, z, z, w } \bagplus
+    \bag{ x, y, z, z, u, v, v } &=
+    \bag{ x, x, y, y, y, z, z, z, z, z, u, v, v, w }
+\endalign
+$$
+Também queremos um predicado de ``pertencer'' $\inbag$
+e uma relação de ``submultiset'' $\subbag$ tais que:
+$$
+\xalignat2
+x&{}\inbag \bag{ x, y, y, z, z, z, w }           &\bag{ x, y, z, z }&{}\subbag    \bag{ x, x, y, y, z, z }            \\
+z&{}\inbag \bag{ x, y, y, z, z, z, w }           &\bag{ x, y, z, z }&{}\notsubbag \bag{ x, x, y, y, z }               \\
+u&{}\notinbag \bag{ x, y, y, z, z, z, w }        &\bag{ x, y, z, z }&{}\subbag    \bag{ x, y, z, z }                  \\
+x&{}\notinbag \emptybag \quad\text{para todo $x$}&M                 &{}\subbag    M \quad\text{para todo multiset $M$}\\
+ &                                               &\emptybag         &{}\subbag    M \quad\text{para todo multiset $M$}. 
+\endxalignat
+$$
+(MS1) Para os multisets $A$ e $B$ temos $A = B$ sse eles tem os mesmos membro
+com as mesmas multiplicidades.
+Por exemplo,
+$$
+\bag{x, y, z, z, y} = \bag{x, y, y, z, z} \neq \bag{x,y,z}.
+$$
+(MS2) Para cada conjunto $A$, a classe
+$$
+\setst M {\text{$M$ é multiset e $\forall x(x \inbag M \limplies x \in A)$}}
+$$
+de todos os multisets formados por membros de $A$ é um conjunto.
+\item{(i)}
+Defina formalmente (em teoria de conjuntos) o termo ``multiset'' e mostre
+(como exemplos) como são representados os multisets seguintes:
+$$
+\emptybag
+\qqqquad
+\bag{0, 1, 2, 2, 1}
+\qqqquad
+\bag{1, 2, 2, 3, 3, 3, 4, 4, 4, 4, \dotsc }.
+$$
+\item{(ii)}
+Defina as operações de multisets ($\bagunion, \baginter, \bagplus$)
+e os predicados ($\inbag$, $\subbag$).
+\item{(iii)}
+Prove pelos axiomas ZF que tua definição satisfaz as (MS1)--(MS2).
+
+\hint
+Para representar a multiplicidade, use uma função com codomínio o $\nats_{>0}$.
+
+\solution
+(i)
+Um \dterm{multiset} é uma tupla $\cal M = \tup{ M ; f }$
+onde $M$ é um conjunto e $f : M \to \nats_{>0}$.
+$$
+\align
+\emptybag                       &= \tup{ \emptyset ; \emptyset }\\
+\bag{0, 1, 2, 2, 1}             &= \tup{ \set{0,1,2} ; f }\\
+\bag{1, 2, 2, 3, 3, 3, \dotsc}  &= \tup{ \nats_{>0} ; \idof {\nats_{>0}} }\\
+\endalign
+$$
+onde $f : \set{0,1,2} \to \nats_{>0}$ é a função definida pela
+$$
+f(n) = \knuthcases{
+    1,  &se $n = 0$\cr
+    2,  &se $n = 1$\cr
+    2,  &se $n = 2$.
+}
+$$
+\endgraf
+(ii)
+$$
+\align
+\tup{A;\alpha} \bagunion \tup{B;\beta}&\defeq\tup{A\union B \;;\; \lambda x. \max\set{\alpha(x),\beta(x)}}\\
+\tup{A;\alpha} \baginter \tup{B;\beta}&\defeq\tup{A\inter B \;;\; \lambda x. \max\set{\alpha(x),\beta(x)}}\\
+\tup{A;\alpha} \bagplus  \tup{B;\beta}&\defeq\tup{A\union B \;;\; \lambda x. (\alpha(x) + \beta(x))}\\
+x \inbag \tup{A;\alpha} &\defiff x \in A\\
+\tup{A;\alpha} \subbag \tup{B;\beta} &\defiff A\subseteq B \mland (\forall x \in A)[ \alpha(x) \leq \beta(x)]
+\endalign
+$$
+\endgraf
+(iii)
+Seja $A$ conjunto.
+O arbitrário multiset $\cal M$ com membros de $A$ tem a forma
+$\cal M = \tup{X , f}$ para algum $X\subseteq A$ e $f : X \to\nats_{>0}$.
+Então $\cal M \in \pset A \times (A \parto \nats_{>0})$ e construimos o conjunto
+de todos os multisets com membros de $A$ usando o ZF4:
+$$
+\namedop{Multisets}(A) \defeq
+    \set{
+        \cal M\in \pset A \times (A \parto \nats_{>0})
+        \st
+        \text{$\cal M$ é um multiset}.
+    }
+$$
+Para mostrar que o $\pset A \times (A \parto \nats\setminus\set{0})$ é um conjunto,
+precisamos os operadores $\pset$, $\times$, $\parto$, $\setminus$, e o próprio $\nats$, que já temos construido pelos ZF1--ZF7.
 
 \endproblem
 %%}}}
