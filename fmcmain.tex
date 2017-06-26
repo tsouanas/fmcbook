@@ -15465,6 +15465,97 @@ $$
 %%{{{ Problems 
 \problems.
 
+%%{{{ prob: posets_of_divisors 
+\problem.
+\label{posets_of_divisors}%
+Para $n\in\nats$, definimos o poset
+${\cal D}_n \defeq \sset {D_n} {\divides}$
+onde $D_n \defeq \set{ d \in \nats \st d \divides n }$.
+\item{(i)}
+Desenha o diagrama Hasse de ${\cal D}_{30}$.
+\item{(ii)}
+Ache conjunto $A$ tal que ${\cal D}_{30} \iso \sset {\pset A} {\subseteq}$,
+\item{(iii)}
+Existe conjunto $B$ tal que ${\cal D}_0 \iso \sset {\pset B} {\subseteq}$?
+Se sim, ache o $B$ e defina um isomorfismo
+$\phi : D_0 \to {\pset B}$.
+Se não, prove que é impossível.
+e defina um isomorfismo $\phi : D_{30} \to \pset A$.
+
+\solution%%{{{
+\noindent (i)
+Primeiramente calculamos:
+$$
+D_{30} = \set{1, 2, 3, 5, 6, 10, 15, 30}.
+$$
+\tikzpicture
+\node (max) at (0,4)  {$30$};
+\node (a)   at (-2,2) {$6$};
+\node (b)   at (0,2)  {$10$};
+\node (c)   at (2,2)  {$15$};
+\node (d)   at (-2,0) {$2$};
+\node (e)   at (0,0)  {$3$};
+\node (f)   at (2,0)  {$5$};
+\node (min) at (0,-2) {$1$};
+\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
+(e) -- (min) -- (f) -- (c) -- (max)
+(d) -- (b);
+\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
+\endtikzpicture
+\endgraf
+\noindent (ii)
+Tome o $A = \set{2,3,5}$ e defina a função $\phi : \pset A \to D_{30}$
+pelas equações:
+$$
+\align
+\phi(30) &= A\\
+\phi(15) &= \set{3,5}\\
+\phi(10) &= \set{2,5}\\
+\phi(6)  &= \set{2,3}\\
+\phi(2)  &= \set{2}\\
+\phi(3)  &= \set{3}\\
+\phi(5)  &= \set{5}\\
+\phi(1)  &= \emptyset
+\endalign
+$$
+Seu diagrama Hasse parece assim:
+\tikzpicture
+\node (max) at (0,4)  {$\set{2,3,5}$};
+\node (a)   at (-2,2) {$\set{2,3}$};
+\node (b)   at (0,2)  {$\set{2,5}$};
+\node (c)   at (2,2)  {$\set{3,5}$};
+\node (d)   at (-2,0) {$\set 2$};
+\node (e)   at (0,0)  {$\set 3$};
+\node (f)   at (2,0)  {$\set 5$};
+\node (min) at (0,-2) {$\emptyset$};
+\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
+(e) -- (min) -- (f) -- (c) -- (max)
+(d) -- (b);
+\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
+\endtikzpicture
+\noindent
+Obs: qualquer conjunto $A$ com $|A|=3$ serve!
+Uma avantagem desse é que podemos bem elegantemente definir a bijeção
+inversa, mandando cada subconjunto de $\set{2,3,5}$ para seu produtório!
+\endgraf
+\noindent (iii)
+Não existe, pois $D_0 = \nats$ (contável)
+e logo não pode ser equinúmero com o powerset de nenhum conjunto $B$.
+\endgraf
+\noindent (iv)
+Verdade, a função $\phi : D_0 \to \set{D_n \st n\in \nats}$ definida pela
+$$
+\phi(n) = D_n
+$$
+é um isomorfismo, pois:
+$$
+n \divides m \iff D_n \subseteq D_m.
+$$
+%%}}}
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
