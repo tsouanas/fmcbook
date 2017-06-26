@@ -15611,6 +15611,61 @@ a \meet (b \join a) &= a
 $$
 %%}}}
 
+%%{{{ x: abs_and_com_imply_idem
+\exercise.
+\label{abs_and_com_imply_idem}%
+Num lattice $L$, prove que podemos inferir as leis da idempotência pelas outras.
+
+\hint
+$a\join(a\meet(a\join a))$.
+
+\solution
+Seja $a \in L$.
+Calculamos
+$$
+\alignat2
+a \join ( (a\join a) \meet a )
+&= a \join a                        \qqby{$\meet$-abs.}\\
+\intertext{e também}
+a \join ( (a\join a) \meet a)
+&=  ( (a\join a) \meet a) \join a   \qqby{$\join$-com.}\\
+&=  ( a \meet (a\join a) ) \join a  \qqby{$\meet$-com.}\\
+&=  a                               \qqby{$\join$-abs.}
+\endalignat
+$$
+Logo $a\join a = a$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: two_equiv_ways_to_define_an_order_on_an_algebraic_lattice 
+\exercise.
+\label{two_equiv_ways_to_define_an_order_on_an_algebraic_lattice}%
+Seja $\cal L = \sset L {\join,\meet}$ um láttice pela~\ref{lattice_as_algebra}.
+Prove que:
+$$
+a\join b = b \iff a\meet b = a.
+$$
+
+\solution
+\lrdir:
+Suponha $b = a \join b$.
+Calculamos
+$$
+\alignat2
+a \meet b
+&= a \meet (a \join b) \qqby{hipótese}\\
+&= (a \join b) \meet a \qqby{$\meet$-com.}\\
+&= a.                  \qqby{$\meet$-abs.}
+\endalignat
+$$
+\endgraf\noindent
+\rldir:
+Similar.
+
+\endexercise
+%%}}}
+
 %%{{{ df: semilattice 
 \definition.
 \label{semilattice}%
@@ -15625,7 +15680,14 @@ sse a operação $\diamond$ é associativa, comutativa, e idempotente.
 %%{{{ x: from_semilattice_to_lattice
 \exercise.
 \label{from_semilattice_to_lattice}%
+\tdefined{lattice}%
 Defina o conceito ``lattice'' usando o conceito ``semilattice''.
+
+\solution
+O conjunto estruturado $\cal L = \sset L {\join,\meet}$ é um
+\dterm{lattice} sse os conjuntos estruturados
+$\sset L {\join}$ e $\sset L {\meet}$ são semilattices,
+e as leis de absorção são satisfeitas.
 
 \endexercise
 %%}}}
@@ -15654,13 +15716,19 @@ Defina o conceito ``lattice'' usando o conceito ``semilattice''.
 %%{{{ Problems 
 \problems.
 
+%%{{{ prob: banach_decomposition_theorem 
 \problem Teorema de decomposição de Banach.
+\label{banach_decomposition_theorem}%
 
 \endproblem
+%%}}}
 
+%%{{{ prob: schroder_bernstein_lattice_proof 
 \problem Teorema de Schröder--Bernstein.
+\label{schroder_bernstein_lattice_proof}%
 
 \endproblem
+%%}}}
 
 \endproblems
 %%}}}
