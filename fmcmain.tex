@@ -15208,6 +15208,155 @@ precisamos os operadores $\pset$, $\times$, $\parto$, $\setminus$, e o próprio 
 \endproblem
 %%}}}
 
+%%{{{ df: terminating_game 
+\definition Jogo terminante.
+\label{terminating_game}%
+\tdefined{jogo}[terminante]%
+Consideramos jogos entre 2 jogadores.
+Chamamos um jogo \dterm{terminante} sse não tem partidas infinitas.
+Ou seja, seguindo suas regras cada partida termina depois um finíto número de turnos.
+%%}}}
+
+%%{{{ df: hypergame 
+\definition Hypergame (Zwicker).
+\label{hypergame}%
+\tdefined{hypergame}%
+\Zwicker[hypergame]{}%
+Considere o jogo seguinte $\cal H$, chamado \dterm{hypergame}:
+O $\cal H$ começa com o {\scshape Player~I} que escolha um jogo terminante $G$.
+O {\scshape Player~II} começa jogar o jogo $G$ contra o {\scshape Player~I}.
+Quem ganha nesse jogo $G$ é o vencedor do jogo $\cal H$.
+%%}}}
+
+%%{{{ eg: hypergame_plays 
+\example.
+\label{hypergame_plays}%
+Por exemplo, sendo um bom jogador de ``jogo da velha'' e um pessimo jogador
+de xadrez, se eu for o {\scshape Player~I} num hypergame, meu primeiro
+movimento seria escolher o jogo terminante ``jogo da velha'' para jogar.
+Meu oponente, se for o {\scshape Player~I} duma partida de hypergame,
+seu primeiro movimento seria escolher o jogo terminante ``xadrez''.
+Depois desse movimento eu viro o {\scshape Player~I} no xadrez.
+Quem vai ganhar nesse xadrez, vai ser o vencidor dessa partida de hypergame.
+
+\endexample
+%%}}}
+
+%%{{{ hypergame_paradox 
+\note O paradoxo de hypergame.
+\label{hypergame_paradox}%
+{\def\P{\text{\tt P}}
+\def\O{\text{\tt O}}
+Zwicker\Zwicker[hypergame]{} percebeu o seguinte paradoxo, se perguntando
+se o próprio Hypergame é um jogo terminante ou não.
+Claramente tem que ser, pois a primeira regra do jogo obriga o {\scshape Player~I}
+escolher um jogo terminante.  Logo, depois de $n\in\nats$ turnos, esse jogo
+termina, e junto com ele termina a partida do hypergame (em $n+1$ turnos).
+Então hypergame é terminante.
+Logo, numa partida de hypergame, o {\scshape Player~I} pode escolher o próprio
+hypergame.  Assim começamos uma sub-partida de hypergame, onde o
+{\scshape Player~II} toma o papel de {\scshape Player~I}.
+Se ele escolher, por exemplo, ``jogo de velha'', a partida parece assim:
+$$
+\def\drawTTTboard{%
+\draw (-1, 3)     -- (-1,-3);
+\draw ( 1, 3)     -- ( 1,-3);
+\draw (-3, 1)     -- ( 3, 1);
+\draw (-3,-1)     -- ( 3,-1);
+}
+\align
+\P:\quad& \hbox{Escholho ``Hypergame''}\\
+\O:\quad& \hbox{Escholho ``Jogo de velha''}\\
+\P:\quad&
+\gathered
+\tikzpicture[scale=0.15]
+\drawTTTboard
+\draw (-0.7,-0.7) -- (0.7, 0.7);
+\draw (-0.7, 0.7) -- (0.7,-0.7);
+\endtikzpicture
+\endgathered\\
+\phantom{\P}\vdots\quad&\vdots\\
+\O:\quad&
+\gathered
+\tikzpicture[scale=0.15]
+\drawTTTboard
+\draw (-0.7,-0.7) -- ( 0.7, 0.7);
+\draw (-0.7, 0.7) -- ( 0.7,-0.7);
+\draw (-2.7,-0.7) -- (-1.3, 0.7);
+\draw (-2.7, 0.7) -- (-1.3,-0.7);
+\draw (2,2)  circle (0.7);
+\draw (0,-2) circle (0.7);
+\endtikzpicture
+\endgathered\\
+\P:\quad&
+\gathered
+\tikzpicture[scale=0.15]
+\drawTTTboard
+% X-moves
+\draw (-0.7,-0.7) -- ( 0.7, 0.7);
+\draw (-0.7, 0.7) -- ( 0.7,-0.7);
+\draw (-2.7,-0.7) -- (-1.3, 0.7);
+\draw (-2.7, 0.7) -- (-1.3,-0.7);
+\draw ( 1.3,-0.7) -- ( 2.7, 0.7);
+\draw ( 1.3, 0.7) -- ( 2.7,-0.7);
+% O-moves
+\draw (2,2)  circle (0.7);
+\draw (0,-2) circle (0.7);
+% draw winning line
+\draw (-2.7, 0.0) -- ( 2.7, 0.0);
+\endtikzpicture
+\endgathered\\
+\endalign
+$$
+Onde denotamos os dois jogadores com $\P$ e $\O$ (de ``Player'' e ``Opponent'').
+Mas, agora a partida seguinte é possível:
+$$
+\align
+\P:\quad& \hbox{Escholho ``Hypergame''}\\
+\O:\quad& \hbox{Escholho ``Hypergame''}\\
+\P:\quad& \hbox{Escholho ``Hypergame''}\\
+\O:\quad& \hbox{Escholho ``Hypergame''}\\
+\phantom{\P}\vdots\quad&\vdots
+\endalign
+$$
+e achamos uma partida infinita do hypergame!
+Logo o hypergame não é terminante.
+}
+%%}}}
+
+%%{{{ prob: from_hypergame_to_cantors_theorem 
+\problem.
+\label{from_hypergame_to_cantors_theorem}%
+Seja conjunto $A$ e suponha que existe injecção $\phi : A \injto \pset A$.
+Para todo $x\in A$, denota com $S_x$ o $\phi(x)$, ou seja, $S_x$
+é o subconjunto de $A$ associado com o $x$.
+Seja $a\in A$.  Chame um \dterm{caminho} de $a$ qualquer seqüência
+finita ou infinita $\set{a_i}_i$ de elementos de $A$ que satisfaz:
+$$
+\align
+a_0     &= a\\
+a_{n+1} &\in S_{a_n}.
+\endalign
+$$
+Finalmente, chame um $a\in A$ \dterm{terminante} se todos os caminhos
+de $a$ são finítos.  Use o paradoxo do Hypergame para provar que
+a $\phi$ não pode ser sobrejetora, achando assim uma nova prova
+do teorema de Cantor~\refn{cantor_theorem}.
+
+\hint
+Seja $T \subseteq A$ o conjunto de todos os terminantes elementos de $A$.
+Queremos provar que $T\notin \img \phi A$, ou seja, que para todo $x\in A$,
+$S_x \neq T$, provando assim que $\phi$ não é bijetora.
+
+\hint
+Suponha para chegar num absurdo que $T=S_a$ para algum $a\in A$.
+
+\hint
+$T = \emptyset$?
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
