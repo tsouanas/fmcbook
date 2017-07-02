@@ -15060,6 +15060,57 @@ $\set { a \in A \st \phi(a) }$.
 \endproblem
 %%}}}
 
+%%{{{ replacement_replaces_pairset 
+\problem Replacement is the new Pairset---or is it?.
+\label{replacement_replaces_pairset}%
+Podemos tirar o Pairset~(\axref{pairset}) dos
+nossos axiomas ``sem perder nada'', se temos o
+Replacement scheme~(\axref{replacement}) no lugar dele?
+
+\hint
+Podemos sim.
+Dados \emph{objetos} $a,b$, mostre que existe o conjunto
+$\set{a,b}$ que consiste em exatamente esses objetos.
+
+\hint
+Tente achar uma class-function $\Phi$ tal que aplicada
+nos elementos dum conjunto suficientemente grande,
+vai ter como imagem o desejado $\set{a,b}$.
+
+\solution
+Sejam $a,b$ objetos.
+Considere a class-function
+$$
+\Phi (x) \asseq 
+\knuthcases{
+    a, &se $x=\emptyset$\cr
+    b, &se $x\neq\emptyset$.
+}
+$$
+Agora precisamos apenas construir um conjunto $S$ tal que:
+$\emptyset \in S$, e $|S| \geq 2$.
+Pelo Emptyset, temos o $\emptyset$.
+Pelo Powerset aplicado no $\emptyset$ ganhamos o $\set{\emptyset}$, e aplicando mais uma vez o Powerset chegamos no $\set{\emptyset, \set{\emptyset}}$.
+Usando o Replacement com a $\Phi(x)$ nesse conjunto, construimos o desejado $\set{a,b}$.
+\endgraf
+Em forma de arvore:
+$$
+\centerAlignProof
+\AxiomC{}
+\RightLabel{Empty}
+\UnaryInfC{$\emptyset$}
+\RightLabel{Power}
+\UnaryInfC{$\set{\emptyset}$}
+\RightLabel{Power}
+\UnaryInfC{$\set{\emptyset, \set{\emptyset}}$}
+\RightLabel{Repl; $\Phi$}
+\UnaryInfC{$\set{a, b}$}
+\DisplayProof{}
+$$
+
+\endproblem
+%%}}}
+
 %%{{{ two_sets_and_one_proper_class_problem 
 \problem.
 \label{two_sets_and_one_proper_class_problem}%
