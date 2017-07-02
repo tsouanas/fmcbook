@@ -16007,6 +16007,116 @@ e as leis de absorção são satisfeitas.
 %%{{{ Problems 
 \problems.
 
+%%{{{ df: cofinito_em_nats 
+\definition.
+\label{cofinito_em_nats}%
+\tdefined{cofinito}%
+Chamamos um $A\subseteq \nats$ \dterm{cofinito} sse seu complemento $\nats\setminus A$ é finito.
+%%}}}
+
+%%{{{ prob: family_of_cofinite_lattice 
+\problem.
+\label{family_of_cofinite_lattice}%
+\tdefined{reticulado}[de conjuntos]%
+Mostre que as famílias
+$$
+\align
+\scr L_1 &\eqass \set{ A \subseteq \nats \st \text{$A$ é cofinito} }\\
+\scr L_2 &\eqass \set{ A \subseteq \nats \st \text{$A$ é finito ou cofinito} }
+\endalign
+$$
+são \dterm{reticulados de conjuntos}, ou seja,
+reticulados com relação de ordem $\subseteq$.
+
+\solution
+\proofstyle{Sobre o $\scr L_1$.}
+Sejam $A, B \in \scr L_1$.
+Pela definição então $\nats\setminus A$ e $\nats\setminus B$ são finitos.
+Vou mostrar que $A\union B$ e $A\inter B$ são cofinitos, e logo pertencem no $\scr L_1$ também.
+Calculamos 
+$$
+\align
+\nats\setminus(A\union B) &=\paren{\nats\setminus A} \inter \paren{\nats\setminus B}\\
+\nats\setminus(A\inter B) &=\paren{\nats\setminus A} \union \paren{\nats\setminus B},
+\endalign
+$$
+logo os dois conjuntos no lado esquerdo são finitos como intersecção e união de
+finitos respectivamente.
+\endgraf
+\proofstyle{Sobre o $\scr L_2$.}
+Sejam $A, B \in L_2$.
+Sepramos em casos:
+\endgraf
+\casestyle{Caso ambos finitos:}
+Facilmente $A\union B$ e $A \inter B$ são finitos também,
+como intersecção e união de conjuntos finitos.
+Logo ambos pertencem no $\scr L_2$.
+\endgraf
+\casestyle{Caso ambos cofinitos:}
+Provamos isso na demonstração sobre o $\scr L_1$.
+\endgraf
+\casestyle{Caso contrário:}
+Temos um dos $A,B$ finito e o outro cofinito.
+Sem perda de generalidade, suponha que $A$ finito, $B$ cofinito.
+O $A\inter B$ é trivialmente finito como intersecção de finito com qualquer conjunto.
+Logo $A\inter B \in \scr L_2$.
+O $A\union B$ é cofinito, pois
+$$
+\nats\setminus(A \union B) = \paren{\nats\setminus A} \inter \paren{\nats\setminus B}
+$$
+que é finito para o mesmo motivo (intersecção com o $\nats\setminus B$ que é finito).
+Logo $A\union B \in \scr L_2$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: family_of_cofinite_not_complete_lattice 
+\problem.
+\label{family_of_cofinite_not_complete_lattice}%
+Mostre que nenhum dos $\scr L_1,\scr L_2$ do~\ref{family_of_cofinite_lattice}
+é completo.
+
+\hint
+Seja $A_n \eqass \nats\setminus\set{0,2,\dotsc, 2n - 2}$ o $\nats$ sem os
+primeiros $n$ números pares.
+Mostre que:
+\emph{se $B \subseteq A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
+
+\solution
+Vamos provar primeiramente a afirmação seguinte:
+\emph{se $B \subseteq A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
+\endgraf
+\proofstyle{Prova da afirmação:}
+Suponha que para todo $n\in\nats$, $B \subseteq A_n$.
+Logo
+$$
+\align
+    B &\subseteq \Inter_{i=0}^\infty A_i\\
+\intertext{e complementando os dois lado,}
+\nats\setminus B
+    &\supseteq \nats\setminus\Inter_{i=0}^\infty A_i\\
+    &= \Union_{i=0}^\infty(\nats\setminus A_i)\\
+    &= \Union_{i=0}^\infty(\set{0,2,\dotsc, 2n-2})\\
+    &= 2\nats.
+\endalign
+$$
+Como $2\nats$ é infinito, o $B$ não é cofinito.
+\endgraf
+Agora voltamos a provar que nenhum dos $\scr L_1, \scr L_2$ é completo.
+Considere o conjunto
+$$
+\cal S \eqass \set { A_0, A_1, A_2, \dotsc }
+$$
+Observe que
+$\cal S \subseteq \scr L_1, \scr L_2$
+pois todos os seus elementos são claramente cofinitos.
+Mesmo assim, o $\Inter \cal S$ não é cofinito
+$\Inter \cal S$ é o conjunto de todos os ímpares)
+e logo não pertence em nenhum dos $\scr L_1, L_2$.
+
+\endproblem
+%%}}}
+
 %%{{{ prob: banach_decomposition_theorem 
 \problem Teorema de decomposição de Banach.
 \label{banach_decomposition_theorem}%
