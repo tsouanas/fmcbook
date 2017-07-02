@@ -10952,6 +10952,18 @@ $$%%}}}
 \endexercise
 %%}}}
 
+%%{{{ df: index_of_subgroup 
+\definition Índice.
+\label{index_of_subgroup}%
+\tdefined{grupo}[índice de subgrupo]%
+\sdefined {\groupind {\holed G} {\holed H}} {o índice do subgrupo \holed H no grupo \holed G}%
+Sejam $G$ grupo e $H\subgroup G$.
+O \dterm{índice} de $H$ no $G$ é o número de right-cosets de $H$ no $G$.
+Denotamos-lo com os símbolos $\groupind G H$ ou $\altgroupind G H$.
+%%}}}
+
+% TODO: mention that there's a correspondence between left and right cosets 
+
 %%{{{ thm: Lagrange 
 \theorem Lagrange.
 \Lagrange[teorema]%
@@ -11117,10 +11129,11 @@ $$
 %%}}}
 
 \blah.
-Então descobrimos que, em geral, nem $HK=KH$, nem $HK\subgroup G$, nem $KH\subgroup G$ são garantidos.
-Pode acontecer que $HK \subgroup G$ mas $KH \not\subgroup G$?  E o que a igualdade $HK=KH$ tem
-a ver com a ``subgrupidade'' dos $HK$ e $KH$?  Vamos responder em todas essas perguntas com
-o teorema seguinte:
+Então descobrimos que, em geral, nem $HK=KH$, nem $HK\subgroup G$,
+nem $KH\subgroup G$ são garantidos.
+Pode acontecer que $HK \subgroup G$ mas $KH \not\subgroup G$?
+E o que a igualdade $HK=KH$ tem a ver com a ``subgrupidade'' dos $HK$ e $KH$?
+Vamos responder em todas essas perguntas com o teorema seguinte:
 
 %%{{{ thm: HK = KH <=> HK subgrp G
 \theorem.
@@ -11177,6 +11190,24 @@ garantará que $x \in HK$ também.
 Realmente, $\ginv x = \pginv{kh} = \ginv h \ginv k \in HK$.
 \qed
 %%}}}
+%%}}}
+
+%%{{{ x: cosets_of_subgroup_of_index_2 
+\exercise.
+\label{cosets_of_subgroup_of_index_2}
+Se $H\subgroup G$ de indice $2$, então $H \normal G$.
+
+\solution
+Suponha $H\subgroup G$ com 
+Precisamos mostrar que $aH = Ha$ para todo $a\in G$.
+Como o índice de $H$ é 2, só tem 2 cosets, logo, fora do proprio $H$, seu
+complemento $G\setminus H$ tem que ser um coset.
+Agora para qualquer $aH$ com $a \notin H$, temos
+$$
+aH = G\setminus H = Ha.
+$$
+
+\endexercise
 %%}}}
 
 \endsection
@@ -11554,6 +11585,30 @@ $$
 }
 $$
 com operação $\compose$ é um grupo.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: inter_of_subgroup_and_normal_is_normal_in_subgroup 
+\problem.
+\label{inter_of_subgroup_and_normal_is_normal_in_subgroup}%
+Se $H\subgroup G$ e $N\normal G$, então $H\inter N \normal H$.
+
+\solution
+Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
+(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
+e~\refn{subgroup_is_an_order}).
+Basta mostrar que $H \inter N \normal H$,
+ou seja, que $H\inter N$ é fechado pelos conjugados.
+Tome $x \in H\inter N$ e $h\in H$.
+Temos:
+$$
+\alignat2
+h x \ginv h &\in H  \qqby{$H \subgroup G$}\\
+h x \ginv h &\in N  \qqby{$N \normal G$}
+\endalignat
+$$
+Logo $hx\ginv h \in H\inter N$.
 
 \endproblem
 %%}}}
