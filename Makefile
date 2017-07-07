@@ -8,27 +8,6 @@ printconf:
 	echo "% fmc.conf created by Makefile" > fmcconf.tex
 	echo "\\printtrue"  >> fmcconf.tex
 
-both:
-	echo -n `date +"%Y-%m-%d, %H:%M %Z"` > fmc.lasttmp
-	make printconf
-	xetex fmc \
-	  && bibtex fmc \
-	  && xetex fmc \
-	  && makeindex -o fmc.ind fmc.idx \
-	  && makeindex -o fmc.nnd fmc.ndx \
-	  && xetex fmc \
-	  && cp fmc.pdf fmc-print.pdf
-	make screenconf
-	xetex fmc \
-	  && bibtex fmc \
-	  && xetex fmc \
-	  && makeindex -o fmc.ind fmc.idx \
-	  && makeindex -o fmc.nnd fmc.ndx \
-	  && xetex fmc && mv fmc.lasttmp fmc.last \
-	  && pdftk fmc.pdf dump_data |grep NumberOfPages | egrep -o '[0-9]+' > fmc.pages \
-	  && echo -n `sed 's/[^0-9]//g' fmc.last` > fmc.lasttag \
-	  && grep '\\chapter\ ' content/br/fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
-
 build: clean
 	echo -n `date +"%Y-%m-%d, %H:%M %Z"` > fmc.lasttmp
 	xetex fmc \
@@ -65,4 +44,5 @@ cleanall: clean
 	rm -f fmc.{last,lasttag,lasttmp,pages,webtoc}
 	echo "% fmc.conf reset by Makefile" > fmcconf.tex
 	echo "\\printfalse" >> fmcconf.tex
+	echo "\\def\\LANG{br}" >> fmcconf.tex
 
