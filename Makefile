@@ -27,7 +27,7 @@ both:
 	  && xetex fmc && mv fmc.lasttmp fmc.last \
 	  && pdftk fmc.pdf dump_data |grep NumberOfPages | egrep -o '[0-9]+' > fmc.pages \
 	  && echo -n `sed 's/[^0-9]//g' fmc.last` > fmc.lasttag \
-	  && grep '\\chapter\ ' fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
+	  && grep '\\chapter\ ' content/br/fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
 
 build: clean
 	echo -n `date +"%Y-%m-%d, %H:%M %Z"` > fmc.lasttmp
@@ -39,7 +39,7 @@ build: clean
 	  && xetex fmc && mv fmc.lasttmp fmc.last \
 	  && pdftk fmc.pdf dump_data |grep NumberOfPages | egrep -o '[0-9]+' > fmc.pages \
 	  && echo -n `sed 's/[^0-9]//g' fmc.last` > fmc.lasttag \
-	  && grep '\\chapter\ ' fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
+	  && grep '\\chapter\ ' content/br/fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
 
 upload:
 	cp fmc.pdf fmc-`cat fmc.lasttag`.pdf
