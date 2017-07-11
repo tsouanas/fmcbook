@@ -9,22 +9,10 @@ printconf:
 	echo "\\printtrue"  >> fmcconf.tex
 
 build: clean
-	echo -n `date +"%Y-%m-%d, %H:%M %Z"` > fmc.lasttmp
-	xetex fmc \
-	  && bibtex fmc \
-	  && xetex fmc \
-	  && makeindex -o fmc.ind fmc.idx \
-	  && makeindex -o fmc.nnd fmc.ndx \
-	  && xetex fmc && mv fmc.lasttmp fmc.last \
-	  && pdftk fmc.pdf dump_data |grep NumberOfPages | egrep -o '[0-9]+' > fmc.pages \
-	  && echo -n `sed 's/[^0-9]//g' fmc.last` > fmc.lasttag \
-	  && grep '\\tocchapterentry\ ' fmc.toc | sed 's/^.tocchapterentry {/<li>/' | sed 's/}{[0-9]*}{[0-9]*}$$//' > fmc.webtoc
+	sh mkbuild.sh
 
 upload:
-	cp fmc.pdf fmc-`cat fmc.lasttag`.pdf
-	scp fmc-`cat fmc.lasttag`.pdf fmc.{lasttag,last,pages,webtoc} tsouanas.org:fmcbook/
-	ssh necroulis "cd fmcbook && sh lastonly.sh"
-	rm -f fmc-`cat fmc.lasttag`.pdf
+	sh mkupload.sh
 
 clean:
 	rm -f fmc.aux
@@ -40,9 +28,8 @@ clean:
 	rm -f fmc.report
 
 cleanall: clean
-	rm -f fmc.pdf
-	rm -f fmc.{last,lasttag,lasttmp,pages,webtoc}
-	echo "% fmc.conf reset by Makefile" > fmcconf.tex
-	echo "\\printfalse" >> fmcconf.tex
-	echo "\\def\\LANG{br}" >> fmcconf.tex
+	rm -f fmc.lang
+	rm -f fmc*.pdf
+	rm -f fmc*.{last,lasttag,pages,webtoc}
+	cp fmcconf.tex.default fmcconf.tex
 
