@@ -18,7 +18,7 @@ build: clean
 	  && xetex fmc && mv fmc.lasttmp fmc.last \
 	  && pdftk fmc.pdf dump_data |grep NumberOfPages | egrep -o '[0-9]+' > fmc.pages \
 	  && echo -n `sed 's/[^0-9]//g' fmc.last` > fmc.lasttag \
-	  && grep '\\chapter\ ' content/br/fmcmain.tex | sed 's/^.chapter /<li>/' | sed 's/\.$'//' > fmc.webtoc
+	  && grep '\\tocchapterentry\ ' fmc.toc | sed 's/^.tocchapterentry {/<li>/' | sed 's/}{[0-9]*}{[0-9]*}$//' > fmc.webtoc
 
 upload:
 	cp fmc.pdf fmc-`cat fmc.lasttag`.pdf
