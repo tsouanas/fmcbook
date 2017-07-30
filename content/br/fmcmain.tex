@@ -8,8 +8,28 @@
 %% Copyright (c) 2016, 2017 Thanos Tsouanas <thanos@tsouanas.org>
 %% All rights reserved.
 
-%%{{{ chapter: Introduction and prerequisites 
-\chapter Introdução e prerequisitos.
+%%{{{ chapter: Introduction 
+\chapter Introdução.
+
+%%{{{ Axioms, definitions, theorems, proofs 
+\section Axiomas, definições, teoremas, provas.
+
+\endsection
+%%}}}
+
+%%{{{ Sets and functions 
+\section Conjuntos e funções.
+
+\endsection
+%%}}}
+
+%%{{{ Sorts of numbers 
+\section Tipos de números.
+% cyclic definitions
+% from reals to nats
+% from nats to reals
+\endsection
+%%}}}
 
 %%{{{ Problems 
 \problems.
@@ -45,38 +65,438 @@ Sobre álgebra linear:
 \endchapter
 %%}}}
 
-%%{{{ chapter: The language of mathematics 
-\chapter A linguagem de matemática.
-
-%%{{{ Axioms, definitions, theorems, proofs 
-\section Axiomas, definições, teoremas, provas.
-
-\endsection
-%%}}}
-
-%%{{{ Notation: syntax and semantics 
-\section Notação: sintaxe e semântica.
-
-\endsection
-%%}}}
-
-%%{{{ Sets and functions 
-\section Conjuntos e funções.
-
-\endsection
-%%}}}
+%%{{{ chapter: Languages 
+\chapter Linguagens.
 
 %%{{{ Numbers, numerals, digits 
 \section Números, numerais, dígitos.
 % dígito aka "algarismo"
+
+\note.
+\tdefined{número}%
+\tdefined{numeral}%
+\tdefined{dígito}%
+\iisee{algarismo}{dígito}%
+Aceitamos por enquanto como dado o conceito dos números que usamos
+para contar:
+$$
+0, 1, 2, 3, \dots, 247, 248, 249, \dots
+$$
+Usando então apenas um \emph{alfabeto} composto de 10 símbolos
+$$
+\digit 0\ 
+\digit 1\ 
+\digit 2\ 
+\digit 3\ 
+\digit 4\ 
+\digit 5\ 
+\digit 6\ 
+\digit 7\ 
+\digit 8\ 
+\digit 9
+$$
+e seguindo as regras bem-conhecidas do sistema decimal conseguimos
+denotar qualquer um dos números, mesmo que tem uma infinidade deles!
+
+\blah.
+Chamamos esses símbolos \dterm{dígitos} (ou \dterm{algarismos}),
+e as palavras (ou ``strings'') que formamos justapondo esses dígitos que
+representam os números, \dterm{numerais}.
+Sem contexto, lendo o ``10'' existe já uma ambigüidade:
+é o numeral $\numeral {10}$ ou o número dês?
+Para apreciar essa diferença ainda mais, note que o numeral $\numeral {10}$,
+pode representar outro número em outro contexto, por exemplo, no sistema
+binário, o numeral $\numeral {10}$ representa o número dois.
+E a ambigüidade pode ser ainda maior lendo ``1'':
+é o numeral $\numeral {1}$; o número um; ou o dígito $\digit 1$?
+Quando o contexto é suficiente para entender, não precisamos mudar a fonte
+como acabei de fazer aqui, nem escrever explicitamente o que é.
+Note que existem numerais bem diferentes para denotar esses números:
+o numeral (romano) {XXVIII}
+e o numeral (grego) $\kappa \eta$ denotam o mesmo número: $28$.
+
+\blah.
+Temos então umas pequenas linguágens que nos permitem descrever \emph{números}.
+Não fatos sobre números.
+Não operações que involvem números.
+Números.
+Quais números?
+Todos os números \emph{naturais}, cuja totalidade simbolizamos com $\nats$.
+
 \endsection
 %%}}}
 
-%%{{{ Sorts of numbers 
-\section Tipos de números.
-% cyclic definitions
-% from reals to nats
-% from nats to reals
+%%{{{ Arithmetic expressions: syntax vs.~semantics 
+\section Expressões aritméticas: sintaxe vs.~semântica.
+
+%%{{{ A first example expression 
+\note.
+Considere agora a expressão
+$$
+1 + 5 \ntimes 2
+$$
+que involve os numerais $1$, $5$, e $2$,
+e os símbolos de funções $+$ (adição) e $\ntimes$ (multiplicação).
+O que ela representa?
+A multiplicação de $1+5$ com $2$, ou a adição de $1$ com $5\ntimes 2$?
+A segunda opção, graças a uma convenção que temos%
+---e que você provavelmente já encontrou na vida.
+Digamos que a $\ntimes$ ``pega mais forte'' do que a $+$,
+então precisamos ``a~aplicar'' primeiro.
+Mais formalmente, a $\ntimes$ tem uma \dterm{precedência} mais alta que a da $+$.
+Quando não temos convenções como essa, usamos parenteses para tirar a ambigüidade
+e deixar claro como parsear uma expressão.
+Então temos
+$$
+(1 + 5) \ntimes 2 \neq 1 + 5 \ntimes 2 = 1 + (5 \ntimes 2).
+$$
+%%}}}
+
+%%{{{ One more example; syntax-vs-semantics 
+\note.
+E a expressão
+$$
+1+5+2
+$$
+representa o que?
+Não seja tentado dizer ``tanto faz'', pois mesmo que as duas
+possíveis interpretações
+$$
+(1+5) + 2
+\qqqquad \text{e} \qqqquad
+1 + (5+2)
+$$
+\emph{denotam valores} iguais,
+elas expressam algo diferente:
+$$
+\align
+(1 + 5) + 2&: \quad\text{adicione o $1+5$ com o $2$};\\
+1 + (5 + 2)&: \quad\text{adicione o $1$ com o $5+2$}.
+\endalign
+$$
+Então\dots
+$$
+(1 + 5) + 2 \askeq 1 + (5 + 2)
+$$
+Como \emph{expressões} (a \emph{sintaxe}) são diferentes;
+como \emph{valores} (a \emph{semântica}) são iguais,
+pois denotam o mesmo objeto: o número $6$.
+Normalmente em matemática ligamos sobre as denotações das expressões,
+e logo escrevemos igualdades como
+$$
+(1 + 5) + 2 = 6 + 2 = 8 = 1 + 7 = 1 + (5 + 2).
+$$
+Ou seja, o símbolo `$=$' em geral denota \dterm{igualdade semântica}:
+$A=B$ significa que os dois lados, $A$ e $B$, denotam o mesmo objeto.
+Querendo representar \dterm{igualdade sintáctica}, as vezes usamos
+outros símbolos.  Vamos usar $\syneq$ agora, de modo que:
+$$
+\align
+1 + 2 = 3
+&\qqquad\text{mas}\qqquad
+1 + 2 \synneq 3;\\
+(1 + 5) + 2 = 1 + (5 + 2)
+&\qqquad\text{mas}\qqquad
+(1 + 5) + 2 \synneq 1 + (5 + 2);
+\quad\text{etc.}
+\endalign
+$$
+
+Voltando à expressão $1 + 5 + 2$, precisamos mais uma convenção
+para atribuir uma associatividade esquerda ou direita.
+Vamos concordar que $a + b + c$ representa a expressão
+$((a + b) + c)$, ou seja, atribuimos em $+$ uma
+\emph{associatividade esquerda}.
+
+Mas $+$ não é uma operação associativa?
+Sim, e isso quis dizer que como valores,
+$$
+((a + b) + c) = (a + (b + c)).
+$$
+Mas como expressões, são diferentes, e logo sem essa convenção,
+$a + b + c$ não representaria nenhuma expressão de aritmética!
+
+\exercise.
+Sejam $a,b,c$ números naturais.
+Usando $=$ para igualdade semântica e $\syneq$ para igualdade
+sintática, decida para cada uma das afirmações seguintes
+se é verdadeira ou falsa:
+\doublecolumns
+\beginol
+\li $a + b + c                \syneq  a + (b + c)$
+\li $a + b + c                \syneq  (a + b) + c$
+\li $a + b + c                =       a + (b + c)$
+\li $a + b + c                =       (a + b) + c$
+\li $2 \ntimes 0 + 3          =       0 + 3$
+\li $2 \ntimes 0 + 3          \syneq  0 + 3$
+\li $(2 \ntimes 0) + 3 + 0    =       1 + 1 + 1$
+\li $2 \ntimes 0 + 3          \syneq  1 + 1 + 1$
+\li $2 \ntimes 0 + 3          \syneq  2 \ntimes (0 + 3)$
+\li $2 \ntimes 0 + 3          =       2 \ntimes (0 + 3)$
+\li $2 \ntimes 0 + 3          \syneq  (2 \ntimes 0) + 3$
+\li $1 + 2                    \syneq  2 + 1$
+\endol
+\singlecolumn
+
+\solution
+Temos:
+\beginol
+\li $a + b + c                \synneq a + (b + c)$
+\li $a + b + c                \syneq  (a + b) + c$
+\li $a + b + c                =       a + (b + c)$
+\li $a + b + c                =       (a + b) + c$
+\li $2 \ntimes 0 + 3          =       0 + 3$
+\li $2 \ntimes 0 + 3          \synneq 0 + 3$
+\li $(2 \ntimes 0) + 3 + 0    =       1 + 1 + 1$
+\li $2 \ntimes 0 + 3          \synneq 1 + 1 + 1$
+\li $2 \ntimes 0 + 3          \synneq 2 \ntimes (0 + 3)$
+\li $2 \ntimes 0 + 3          \neq    2 \ntimes (0 + 3)$
+\li $2 \ntimes 0 + 3          \syneq  (2 \ntimes 0) + 3$
+\li $1 + 2                    \synneq 2 + 1$
+\endol
+
+\endexercise
+
+\exercise.
+Verdade ou falso?:
+$$
+A \syneq B \implies A = B
+$$
+
+\endexercise
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Derivation trees 
+\section Arvores de derivação.
+
+\blah.
+Lendo uma expressão ``linear'' como a
+``$1 + 5 \ntimes 2$''
+nos a \dterm{parseamos} para revelar sua estrutura,
+freqüentemente representada numa forma bidimensional, como uma
+\dterm{árvore sintáctica}.
+Temos então as árvores:
+$$
+1 + (5 \ntimes 2)
+\quad\leadsto\quad
+\gathered
+\tikzpicture[scale=0.8]
+\node [circle,draw] (z) {$+$}
+  child {node [circle,draw] (a) {$1$}}
+  child {node [circle,draw] (b) {$\vphantom+\ntimes$}
+    child {node [circle,draw] (b1) {$5$}}
+    child {node [circle,draw] (b2) {$2$}}
+  };
+\endtikzpicture
+\endgathered
+\qqqquad
+(1 + 5) \ntimes 2
+\quad\leadsto\quad
+\gathered
+\tikzpicture[scale=0.8]
+\node [circle,draw] (z) {$\vphantom+\ntimes$}
+  child {node [circle,draw] (a) {$+$}
+    child {node [circle,draw] (a1) {$1$}}
+    child {node [circle,draw] (a2) {$5$}}
+  }
+  child {node [circle,draw] (b) {$2$}};
+\endtikzpicture
+\endgathered
+$$
+Não vamos usar mais esse tipo de árvore sintáctica nessas notas.
+Em vez, vamos ficar usando \dterm{árvores de derivação} como essas:
+$$
+\def\fCenter{}
+\xalignat2
+&\centerAlignProof
+\AxiomC{1}
+\AxiomC{5}
+\AxiomC{2}
+\RightLabel{$\ntimes$}
+\BinaryInf$\fCenter (5 \ntimes 2)$
+\RightLabel{$+$}
+\BinaryInf$\fCenter 1 + (5 \ntimes 2)$
+\DisplayProof{}
+&
+&\centerAlignProof
+\AxiomC{1}
+\AxiomC{5}
+\RightLabel{$+$}
+\BinaryInf$\fCenter (1 + 5)$
+\AxiomC{2}
+\RightLabel{$\ntimes$}
+\BinaryInf$\fCenter (1 + 5) \ntimes 2$
+\DisplayProof{}
+\endxalignat
+$$
+
+Sendo esse nosso primeiro contato com árvores sintácticas, vamos explicar
+em detalhe como as escrevemos.  Começamos então com a expressão (linear)
+que queremos parsear:
+$$
+(1 + 5) \ntimes 2.
+$$
+Graças à sua parêntese, o ``conectivo principal'' (o mais ``externo'')
+é o $\ntimes$.  Isso quis dizer que, no final das contas, essa expressão
+representa uma multiplicação de duas coisas.
+Exatamente por isso, reduzimos essa expressão em duas novas, escrevendo
+uma linha em cima dela, onde temos agora dois lugares para botar essas
+duas coisas.  No lado da linha, escrevemos sua ``justificativa''
+$$
+\def\fCenter{}
+\centerAlignProof
+\AxiomC{$\hole$}
+\AxiomC{$\hole$}
+\RightLabel{$\holed \ntimes$}
+\BinaryInf$\fCenter (1 + 5) \ntimes 2$
+\DisplayProof{}
+$$
+e nos dois buracos que aparecem botamos as expressões que aparecem
+nos lados desse $\ntimes$:
+$$
+\def\fCenter{}
+\centerAlignProof
+\AxiomC{$\holed {(1 + 5)}$}
+\AxiomC{$\holed {\vphantom(2}$}
+\RightLabel{$\ntimes$}
+\BinaryInf$\fCenter (1 + 5) \ntimes 2$
+\DisplayProof{}
+$$
+Agora $2$ já é uma expressão \dterm{atómica} (ou seja, inquebrável),
+mas a $(1 + 5)$ não é então repetimos o mesmo processo nela:
+$$
+\def\fCenter{}
+\centerAlignProof
+\AxiomC{$\holed 1$}
+\AxiomC{$\holed 5$}
+\RightLabel{$\holed +$}
+\BinaryInf$\fCenter (1 + 5)$
+\AxiomC{${\vphantom(2}$}
+\RightLabel{$\ntimes$}
+\BinaryInf$\fCenter (1 + 5) \ntimes 2$
+\DisplayProof{}
+$$
+Chegamos finalmente na árvore
+$$
+\def\fCenter{}
+\centerAlignProof
+\AxiomC{$1$}
+\AxiomC{$5$}
+\RightLabel{$+$}
+\BinaryInf$\fCenter (1 + 5)$
+\AxiomC{${\vphantom(2}$}
+\RightLabel{$\ntimes$}
+\BinaryInf$\fCenter (1 + 5) \ntimes 2$
+\DisplayProof{}
+$$
+que mostra como a expressão aritmética $(1 + 5) \ntimes 2$ na sua \dterm{raiz}
+(ou \dterm{root}) é composta por os numeráis $1$, $5$, e $2$
+(que são as \dterm{folhas} (ou \dterm{leaves}) dessa árvore.
+
+\endsection
+%%}}}
+
+%%{{{ BNF notation 
+\section A notação BNF.
+\tdefined{BNF}%
+\iisee{Backus--Naur form}{BNF}%
+
+%%{{{ A first try 
+\note Uma primeira tentativa.
+\label{BNF_a_first_try}%
+Vamos começar diretamente com um exemplo de uso da
+notação~\dterm{BNF}
+(Backus\Backus{}--Naur\Naur{} form),
+para descrever uma linguagem de expressões aritméticas:
+$$
+\align
+\bnf{ArExp} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
+\bnf{ArExp} &\bnfeq (\bnf{ArExp} + \bnf{ArExp})                \tag{2}
+\endalign
+$$
+O que tudo isso significa?
+A primeira linha, é uma regra dizendo: uma expressão aritmética pode ser um dos
+$0$, $1$, $2$, $3$, \dots.
+A segunda linha é mais interessante: uma expressão aritmética pode começar
+com o símbolo `(',
+depois ter uma expressão aritmética,
+depois o símbolo `+',
+depois mais uma expressão aritmética,
+e finalmente o símbolo `)'.
+A ideia é que o que aparece com ângulos é algo que precisa ser substituido,
+com uma das opções que aparecem no lado direito de alguma regra que começa com ele.
+
+Começando com o $\bnf{ArExp}$ ficamos substituindo até não aparece mais nada em ângulos.
+E olhe, neste momento, temos criado uma expressão aritmética.
+%%}}}
+
+%%{{{ eg: BNF_first_example 
+\example.
+Use as regras (1)--(2) em cima para criar uma expressão aritmética.
+Comece usando a regra (2).
+$$
+\align
+\bnf{ArExp}
+&\leadstoby {(2)} (\bnf{ArExp} + \bnf{ArExp})\\
+&\leadstoby {(1)} (\bnf{ArExp} + 3)\\
+&\leadstoby {(2)} ((\bnf{ArExp} + \bnf{ArExp}) + 3)\\
+&\leadstoby {(1)} ((128 + \bnf{ArExp}) + 3)\\
+&\leadstoby {(1)} ((128 + 0) + 3)
+\endalign
+$$
+
+\endexample
+%%}}}
+
+%%{{{ eg: BNF_direct_example 
+\example.
+Use as regras (1)--(2) para criar uma expressão aritmética.
+$$
+\align
+\bnf{ArExp}
+&\leadstoby {(1)} 17
+\endalign
+$$
+
+\endexample
+%%}}}
+
+%%{{{ eg: BNF_example_with_goal 
+\example.
+Mostre como usar as regras (1)--(2) para chegar na expressão aritmética
+$((1 + (2 + 2)) + 3)$.
+$$
+\align
+\bnf{ArExp}
+&\leadstoby {(2)} (\bnf{ArExp} + \bnf{ArExp})\\
+&\leadstoby {(1)} (\bnf{ArExp} + 3)\\
+&\leadstoby {(2)} ((\bnf{ArExp} + \bnf{ArExp}) + 3)\\
+&\leadstoby {(2)} ((\bnf{ArExp} + (\bnf{ArExp} + \bnf{ArExp})) + 3)\\
+&\leadstoby {(1)} ((1 + (\bnf{ArExp} + \bnf{ArExp})) + 3)\\
+&\leadstoby {(1)} ((1 + (2 + \bnf{ArExp})) + 3)\\
+&\leadstoby {(1)} ((1 + (2 + 2)) + 3)
+\endalign
+$$
+
+\endexample
+%%}}}
+
+%%{{{ A second try 
+\note Uma segunda tentativa.
+Vamos agora criticar nossa gramática do \refn{BNF_a_first_try}.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Metalanguages 
+\section Metalinguagens.
+
 \endsection
 %%}}}
 
@@ -84,6 +504,15 @@ Sobre álgebra linear:
 \problems.
 
 \endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite[Cap.~4]{alicebook}.
+\cite[Cap.~2]{curryfoundations}.
+
+\endfurther
 %%}}}
 
 \endchapter
@@ -196,8 +625,8 @@ Sobre álgebra linear:
 \endchapter
 %%}}}
 
-%%{{{ chapter: Direct proofs 
-\chapter Provas diretas.
+%%{{{ chapter: Proof strategies 
+\chapter Estratégias de provas.
 
 %%{{{ Proofs as games 
 \section Provas como jogos.
@@ -4484,7 +4913,7 @@ $$
 }
 $$
 Podemos já eliminar a primeira porque $2^{800}$ é par.
-Finalmente, o último dígito de $2^{800}$ é o \digit6.
+Finalmente, o último dígito de $2^{800}$ é o $\digit6$.
 \endexample
 
 \exercise.
@@ -9511,7 +9940,7 @@ $$
 \sdefined {\gord {\holed G}} {a ordem do grupo $\holed G$}%
 O número de elementos de um grupo $G$ é sua \dterm{ordem}.
 Denotamos a ordem de $G$ com:
-$\gord G$, $\tord G$, ou até $\bord G$ quando não existe ambiguidade.
+$\gord G$, $\tord G$, ou até $\bord G$ quando não existe ambigüidade.
 Se o carrier set do grupo é infinito, escrevemos
 $\gord G = \infty$.
 %%}}}
@@ -13793,7 +14222,7 @@ $$
 \setsucc x &\defeq x \union \set x. \tag{von Neumann}
 \endalign
 $$
-Como não existe ambiguidade, omitimos parenteses escrevendo por exemplo
+Como não existe ambigüidade, omitimos parenteses escrevendo por exemplo
 $\setsucc{\setsucc{\setsucc x}}$ ao inves de
 $\setsucc{(\setsucc{(\setsucc x)})}$.
 %%}}}
