@@ -193,7 +193,7 @@ Para apreciar essa diferença ainda mais, note que o numeral $\numeral {10}$,
 pode representar outro número em outro contexto, por exemplo, no sistema
 binário, o numeral $\numeral {10}$ representa o número dois.
 E a ambigüidade pode ser ainda maior lendo ``1'':
-é o numeral $\numeral {1}$; o número um; ou o dígito $\digit 1$?
+é o numeral $\numeral {1}$; o número um; ou o dígito~$\digit 1$?
 Quando o contexto é suficiente para entender, não precisamos mudar a fonte
 como acabei de fazer aqui, nem escrever explicitamente o que é.
 Note que existem numerais bem diferentes para denotar esses números:
@@ -331,6 +331,7 @@ se é verdadeira ou falsa:
 
 \solution
 Temos:
+\doublecolumns
 \beginol
 \li $a + b + c                \synneq a + (b + c)$
 \li $a + b + c                \syneq  (a + b) + c$
@@ -345,6 +346,7 @@ Temos:
 \li $2 \ntimes 0 + 3          \syneq  (2 \ntimes 0) + 3$
 \li $1 + 2                    \synneq 2 + 1$
 \endol
+\singlecolumn
 
 \endexercise
 
@@ -437,7 +439,7 @@ que queremos parsear:
 $$
 (1 + 5) \ntimes 2.
 $$
-Graças à sua parêntese, o ``conectivo principal'' (o mais ``externo'')
+Graças à sua parêntese, o ``operador principal'' (o mais ``externo'')
 é o $\ntimes$.  Isso quis dizer que, no final das contas, essa expressão
 representa uma multiplicação de duas coisas.
 Exatamente por isso, reduzimos essa expressão em duas novas, escrevendo
@@ -497,9 +499,11 @@ que mostra como a expressão aritmética $(1 + 5) \ntimes 2$ na sua \dterm{raiz}
 \endsection
 %%}}}
 
-%%{{{ BNF notation 
-\section A notação BNF.
+%%{{{ Grammars and BNF notation 
+\section Gramáticas e a notação BNF.
+\label{BNF_notation}%
 \tdefined{BNF}%
+\tdefined{gramática}%
 \iisee{Backus--Naur form}{BNF}%
 
 %%{{{ A first try 
@@ -508,15 +512,26 @@ que mostra como a expressão aritmética $(1 + 5) \ntimes 2$ na sua \dterm{raiz}
 Vamos começar diretamente com um exemplo de uso da
 notação~\dterm{BNF}
 (Backus\Backus{}--Naur\Naur{} form),
-para descrever uma linguagem de expressões aritméticas:
+para descrever uma linguagem de expressões aritméticas, usando
+a \dterm{gramática} seguinte:
+%%}}}
+
+%%{{{ g: ArExp_grammar_1 
+\grammar ArExp (1).
+\label{ArExp_grammar_1}%
 $$
 \align
 \bnf{ArExp} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
 \bnf{ArExp} &\bnfeq (\bnf{ArExp} + \bnf{ArExp})                \tag{2}
 \endalign
 $$
+%%}}}
+
+%%{{{ Explanation 
+\blah.
 O que tudo isso significa?
-A primeira linha, é uma regra dizendo: uma expressão aritmética pode ser um dos
+A primeira linha, é uma regra dizendo:
+uma expressão aritmética pode ser um dos
 $0$, $1$, $2$, $3$, \dots.
 A segunda linha é mais interessante: uma expressão aritmética pode começar
 com o símbolo `(',
@@ -528,12 +543,13 @@ A ideia é que o que aparece com ângulos é algo que precisa ser substituido,
 com uma das opções que aparecem no lado direito de alguma regra que começa com ele.
 
 Começando com o $\bnf{ArExp}$ ficamos substituindo até não aparece mais nada em ângulos.
-E olhe, neste momento, temos criado uma expressão aritmética.
+Et voilà: neste momento temos criado uma expressão aritmética.
 %%}}}
 
 %%{{{ eg: BNF_first_example 
 \example.
-Use as regras (1)--(2) em cima para criar uma expressão aritmética.
+Use as regras (1)--(2) da~\ref{ArExp_grammar_1} em cima para criar uma expressão
+aritmética.
 Comece usando a regra (2).
 $$
 \align
@@ -551,7 +567,7 @@ $$
 
 %%{{{ eg: BNF_direct_example 
 \example.
-Use as regras (1)--(2) para criar uma expressão aritmética.
+Use a mesma gramática (agora sem restrição) para criar uma expressão aritmética.
 $$
 \align
 \bnf{ArExp}
@@ -562,10 +578,13 @@ $$
 \endexample
 %%}}}
 
-%%{{{ eg: BNF_example_with_goal 
-\example.
-Mostre como usar as regras (1)--(2) para chegar na expressão aritmética
+%%{{{ x: BNF_with_goal 
+\exercise.
+Mostre como usar a~\ref{ArExp_grammar_1} para gerar a expressão aritmética
 $((1 + (2 + 2)) + 3)$.
+
+\solution
+Uma solução é a seguinte:
 $$
 \align
 \bnf{ArExp}
@@ -579,20 +598,93 @@ $$
 \endalign
 $$
 
-\endexample
+\endexercise
+%%}}}
+
+%%{{{ Q: problems_of_first_BNF
+\question.
+\label{problems_of_first_BNF}%
+Quais são uns defeitos dessa primeira tentativa?
+O que podemos fazer para a melhorar?
+\spoiler.
+%%}}}
+
+%%{{{ A: problems_of_first_BNF_answer 
+\note Resposta.
+\label{problems_of_first_BNF_answer}%
+Umas deficiências são:
+
+\beginol
+\li A linguagem gerada por essa gramática não é suficiente para representar expressões que involvem outras operações, como $-$, $\ntimes$, $\div$, etc.
+\li A regra (1) tem uma infinitade de casos (graças aos `$\dotsb$').
+\li As regras e os nomes escolhidos não refletam bem nossa ideia.
+\endol
+%%}}}
+
+%%{{{ ex: solve_first_problem_of_ArExp 
+\exercise.
+\label{solve_first_problem_of_ArExp}%
+Apenas alterando a segunda regra da~\ref{ArExp_grammar_1}, resolva a primeira deficiência.
+
+\hint
+Falta só adicionar 3 mais casos na segunda regra, imitando para os outros operadores o caso do $+$.
+
+\solution
+Temos:
+$$
+\align
+\bnf{ArExp} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
+\bnf{ArExp}
+&\bnfeq (\bnf{ArExp} + \bnf{ArExp})\tag{2}\\
+&\bnfOR (\bnf{ArExp} - \bnf{ArExp})\\
+&\bnfOR (\bnf{ArExp} \ntimes \bnf{ArExp})\\
+&\bnfOR (\bnf{ArExp} \div \bnf{ArExp})
+\endalign
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ A second try 
 \note Uma segunda tentativa.
-Vamos agora criticar nossa gramática do \refn{BNF_a_first_try}.
-
+A solução que encontramos no~\ref{solve_first_problem_of_ArExp}
+não é a coisa mais elegante do mundo.
+Tem muita repetição que podemos evitar, definindo uma nova regra em nossa gramática:
 %%}}}
 
-\endsection
+%%{{{ g: ArExp_grammar_2 
+\grammar ArExp (2).
+\label{ArExp_grammar_2}%
+$$
+\align
+\bnf{ArExp} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
+\bnf{ArExp} &\bnfeq (\bnf{ArExp} \bnf{BinOp} \bnf{ArExp})\tag{2}\\
+\bnf{BinOp} &\bnfeq + \bnfor - \bnfor \ntimes \bnfor \div\tag{3}
+\endalign
+$$
 %%}}}
 
-%%{{{ Abbreviations 
-\section Abreviações.
+\blah.
+Ainda a gramática não refleta bem nossa ideia.
+Podemos a melhorar, com mais regras e com nomes melhores
+que deixam mais claras nossas intenções:
+
+%%{{{ g: ArExp_grammar_3 
+\grammar ArExp (3).
+\label{ArExp_grammar_3}%
+$$
+\align
+\bnf{ArExp} &\bnfeq \bnf{Num} \bnfor \bnf{OpExp} \tag{0}\\
+\bnf{Num}   &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
+\bnf{OpExp} &\bnfeq (\bnf{ArExp} \bnf{BinOp} \bnf{ArExp})\tag{2}\\
+\bnf{BinOp} &\bnfeq + \bnfor - \bnfor \ntimes \bnfor \div\tag{3}
+\endalign
+$$
+%%}}}
+
+\blah.
+Falta achar um jeito para remover esses ``$\dotsb$'' ainda,
+mas vamos deixar isso para depois (\ref{remove_dots_from_ArExp_grammar}).
 
 \endsection
 %%}}}
@@ -600,11 +692,100 @@ Vamos agora criticar nossa gramática do \refn{BNF_a_first_try}.
 %%{{{ Metalanguages 
 \section Metalinguagens.
 
+\note.
+Já encontramos o conceito de linguagem como um objeto de estudo.
+Logo vamos estudar bem mais linguagens, de lógica matemática,
+estudar linguágens de programação, etc.
+É preciso entender que enquanto estudando uma linguagem,
+esse próprio estudo acontece também usando uma (outra) linguagem.
+Usamos por exemplo português, provando propriedades, dando definições,
+afirmando relações, etc., de outras linguagens, como da aritmética,
+de lógica matemática, de linguagens de programação, etc.
+
+\note.
+Imagine que você trabalha como programador e teu chefe lhe pediu
+fazer uma mudança no código de um programa escrito na linguagem de
+programação C.
+Ele disse:
+<<Cada variável $\alpha$ de tipo $\tau$ que aparece no código fonte tem que ser renomeada
+para $\alpha\code{\_of\_}\tau$.>>
+<<Por exemplo,>> ele continuou abrindo o programa no seu editor,
+<<essa variável aqui $\code{i}$ que é de tipo $\code{int}$,
+precisa ser renomeada para $\code{i\_of\_int}$;
+e essa $\code{count}$ também para $\code{count\_of\_int}$;
+e essa $\code{mean}$ de $\code{float}$, para $\code{mean\_of\_float}$,
+etc.>>
+
+Nesse pedido---obviamente sem noção, algo muito comum em pedidos de chefes
+de programadores---aparecem duas ``espécies'' de variáveis diferentes:
+as $\alpha$ e $\tau$ são variáveis de uma espécie;
+as $\code{i}$, $\code{i\_of\_int}$,
+$\code{count}$, $\code{count\_of\_int}$,
+$\code{mean}$, e $\code{mean\_of\_float}$
+de outra.
+Chamamos a $\alpha$ e $\tau$ \dterm{metavariável},
+pois elas pertencem na \dterm{metalinguagem},
+e não na \dterm{linguagem-objeto},
+que nesse caso é a linguagem de programação C.
+
+\endsection
+%%}}}
+
+%%{{{ Abbreviations 
+\section Abreviações.
+
+%%{{{ x: ArExp_outer_parentheses_missing
+\exercise.
+\label{ArExp_outer_parentheses_missing}%
+Tente gerar a expressão
+$$
+(1 + 5) \ntimes 2
+$$
+usando a~\ref{ArExp_grammar_2}.
+
+\solution
+Não tem como!
+
+\endexercise
+%%}}}
+
+%%{{{ Convention 
+\note Convenção.
+\tdefined{abreviação}%
+Seguindo nossa~\ref{ArExp_grammar_2}, cada vez que escrevemos um operador binário
+começamos e terminamos com `$($' e `$)$' respectivamente.
+Logo, ``$1 + 2$'' nem é uma expressão gerada por essa gramática!
+Mas como é tedioso botar as parenteses mais externas, temos a convenção
+de as omitir.
+Logo, consideramos a ``$1 + 2$'' como uma \dterm{abreviação} da expressão aritmética ``$(1 + 2)$''.
+Então qual é o primeiro caráter da $1 + 2$?  É sim o `$($'!
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ binary_numerals_grammar_problem
+\problem.
+\label{binary_numerals_grammar_problem}%
+Usando BNF, defina uma gramática para a linguagem de todos os
+numerais que representam os naturais no sistema decimal.
+Embuta-la na gramática das expressões aritméticas
+para eliminar os ``$\dotsb$''.
+
+\endproblem
+%%}}}
+
+%%{{{ remove_dots_from_ArExp_grammar 
+\problem.
+\label{remove_dots_from_ArExp_grammar}%
+Com base a~\ref{ArExp_grammar_3} defina uma gramática que gera a mesma linguagem,
+sem usar ``$\dotsb$''.
+
+\endproblem
+%%}}}
 
 \endproblems
 %%}}}
