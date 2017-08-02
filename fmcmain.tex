@@ -601,6 +601,8 @@ $$
 \endexercise
 %%}}}
 
+% doesn't have to be the same expression for the same <name> 
+
 %%{{{ Q: problems_of_first_BNF
 \question.
 \label{problems_of_first_BNF}%
@@ -621,7 +623,7 @@ Umas deficiências são:
 \endol
 %%}}}
 
-%%{{{ ex: solve_first_problem_of_ArExp 
+%%{{{ x: solve_first_problem_of_ArExp 
 \exercise.
 \label{solve_first_problem_of_ArExp}%
 Apenas alterando a segunda regra da~\ref{ArExp_grammar_1}, resolva a primeira deficiência.
@@ -712,16 +714,23 @@ Pode usar sua linguagem como numerais para os naturais?
 \section Metalinguagens.
 
 \note.
+\tdefined{metalinguagem}%
+\tdefined{linguagem-objeto}%
 Já encontramos o conceito de linguagem como um objeto de estudo.
 Logo vamos estudar bem mais linguagens, de lógica matemática,
 estudar linguágens de programação, etc.
 É preciso entender que enquanto estudando uma linguagem,
 esse próprio estudo acontece também usando uma (outra) linguagem.
-Usamos por exemplo português, provando propriedades, dando definições,
-afirmando relações, etc., de outras linguagens, como da aritmética,
-de lógica matemática, de linguagens de programação, etc.
+Aqui usamos por exemplo português, provando propriedades, dando definições,
+afirmando relações, etc., de outras linguagens que estudamos,
+como da aritmética, de lógica matemática, de linguagens de programação, etc.
+Para enfatisar essa diferença e para tirar certas ambigüidades,
+chamamos \dterm{linguagem-objeto} a linguagem que estudamos,
+e \dterm{metalinguagem} a linguagem que usamos para falar
+sobre a linguagem-objeto.
 
 \note.
+\tdefined{metavariável}%
 Imagine que você trabalha como programador e teu chefe lhe pediu
 fazer uma mudança no código de um programa escrito na linguagem de
 programação C.
@@ -734,7 +743,7 @@ precisa ser renomeada para $\code{i\_of\_int}$;
 e essa $\code{count}$ também para $\code{count\_of\_int}$;
 e essa $\code{mean}$ de $\code{float}$, para $\code{mean\_of\_float}$,
 etc.>>
-
+\endgraf
 Nesse pedido---obviamente sem noção, algo muito comum em pedidos de chefes
 de programadores---aparecem duas ``espécies'' de variáveis diferentes:
 as $\alpha$ e $\tau$ são variáveis de uma espécie;
@@ -743,9 +752,9 @@ $\code{count}$, $\code{count\_of\_int}$,
 $\code{mean}$, e $\code{mean\_of\_float}$
 de outra.
 Chamamos a $\alpha$ e $\tau$ \dterm{metavariável},
-pois elas pertencem na \dterm{metalinguagem},
-e não na \dterm{linguagem-objeto},
-que nesse caso é a linguagem de programação C.
+pois elas pertencem na metalinguagem,
+e não na linguagem-objeto,
+que nesse exemplo é a linguagem de programação C.
 
 \endsection
 %%}}}
@@ -753,7 +762,7 @@ que nesse caso é a linguagem de programação C.
 %%{{{ Abbreviations and syntactic sugar 
 \section Abreviações e açúcar sintáctico.
 
-%%{{{ x: ArExp_outer_parentheses_missing
+%%{{{ x: ArExp_outer_parentheses_missing 
 \exercise.
 \label{ArExp_outer_parentheses_missing}%
 Tente gerar a expressão
@@ -777,16 +786,53 @@ Logo, ``$1 + 2$'' nem é uma expressão gerada por essa gramática!
 Mas como é tedioso botar as parenteses mais externas, temos a convenção
 de as omitir.
 Logo, consideramos a ``$1 + 2$'' como uma \dterm{abreviação} da expressão aritmética ``$(1 + 2)$''.
-Então qual é o primeiro caráter da $1 + 2$?  É sim o `$($'!
+Então qual é o primeiro caráter da $1 + 2$?  É sim o `$($',
+pois consideramos o $1+2$ apenas como um nome que usamos na
+metalinguagem para denotar a expressão aritmética $(1+2)$,
+que pertence na linguagem-objeto.
 %%}}}
 
-%%{{{ beware: abbr_not_always_shorter
+%%{{{ beware: abbr_not_always_shorter 
 \beware.
 \label{abbr_not_always_shorter}%
 Não se iluda com a palavra ``abreviação'' que usamos aqui:
 uma expressão pode ser mais curta do que uma das suas abreviações!
 Nosso motivo não é preguiça de escrever expressões mais longas,
 mas sim ajudar nossos olhos humanos a parsear.
+%%}}}
+
+%%{{{ Syntactic sugar 
+\note Açúcar sintáctico.
+\tdefined{açúcar sintáctico}%
+Querendo enriquecer uma linguagem com um novo conceito, uma nova operação,
+etc., parece que precisamos aumentar sua sintaxe para adicionar certos
+símbolos e formas para corresponder nessas novas ideias.
+Mas isso não é sempre necessário.
+Por exemplo, suponha que trabalhamos com a linguagem da~\ref{ArExp_grammar_3},
+e queremos a usar com sua interpretação canônica, onde suas expressões aritméticas
+geradas denotam realmente as operações que conhecemos desde pequenos.
+Agora, queremos adicionar uma operação unária $S$, escrita na forma prefixa,
+onde a ideia é que $Sn$ denota o sucessor de $n$ (o próximo inteiro).
+Nesse caso, em vez de realmente alterar a sintaxe da nossa linguagem,
+definimos como \dterm{açúcar sintáctico} o uso de $S$ tal que, para qualquer
+expressão aritmética $\alpha$, o $S\alpha$ denota a expressão $(\alpha + 1)$.
+Por exemplo, $S4$ é apenas uma abreviação para o $(4 + 1)$,
+e $SS4$ só pode denotar o $((4 + 1) + 1)$.%
+\footnote{Percebeu que esse $\alpha$ aqui é uma metavariável?}
+Açúcar sintáctico é muito usado em linguagens de programação,
+para adular os programadores (que ganham assim um mecanismo
+``doce'' para usar nos seus programas) sem mexer e complicar
+a linguagem de verdade.
+%%}}}
+
+%%{{{ x: for_while_sugar 
+\exercise.
+\label{for_while_sugar}%
+Mostre como um $\code{while}$ loop pode ser implementado como
+açúcar sintáctico numa linguagem que tem $\code{for}$ loops,
+e vice versa.
+
+\endexercise
 %%}}}
 
 \endsection
@@ -814,6 +860,37 @@ sem usar ``$\dotsb$''.
 
 \hint
 Já resolveu o~\ref{decimal_numerals_BNF_problem}?
+
+\endproblem
+%%}}}
+
+%%{{{ ArExp_fact_grammar 
+\problem.
+\label{ArExp_with_factorial}%
+Aumenta tua gramática do~\ref{remove_dots_from_ArExp_grammar} para
+gerar expressões aritméticas que usam o operador unitário (e postfixo)
+do factorial, que denotamos com $!$, escrevendo por exemplo
+$8!$ para o factorial de $8$.
+Note que não usamos parenteses para aplicar o factorial:
+$$
+((2 + 3!)! \ntimes 0!!)
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ ArExp_fact_vars_grammar 
+\problem.
+\label{ArExp_fact_vars_grammar}%
+Aumenta tua gramática do~\ref{ArExp_with_factorial} para
+gerar expressões aritméticas que usam as variáveis
+$$
+x,y,z,
+x',y',z',
+x'',y'',z'',
+x''',y''',z''',
+\dotsc
+$$
 
 \endproblem
 %%}}}
