@@ -961,6 +961,43 @@ Considere as seguinte proposições:
 %%{{{ Its syntax 
 \section Sua sintaxe.
 
+\note Dados.
+Um conjunto de símbolos
+$$
+\zolvars = \set{ P_0, P_1, P_2, \dotsc }
+$$
+chamados \dterm{variáveis proposicionais}.
+
+%%{{{ df: propositional_formula 
+\definition Fórmula.
+\label{propositional_formula}%
+\tdefined{fórmula}[proposicional]
+\beginul
+\li Se $P$ é uma variável proposicional, então $P$ é uma fórmula.
+\li Se $A$ é uma fórmula, então $\lnot A$ é uma fórmula.
+\li Se $A,B$ são fórmulas, então:
+\item{-} $(A \limplies B)$ é uma fórmula;
+\item{-} $(A \lor B)$ é uma fórmula;
+\item{-} $(A \land B)$ é uma fórmula.
+\endul
+Nada mais é uma fórmula.
+Uma fórmula que consiste em apenas uma variável proposicional é chamada
+\dterm{fórmula atómica}.
+%%}}}
+
+%%{{{ g: zolang_grammar 
+\grammar.
+\label{zolang_grammar}%
+Escrevemos
+$$
+\align
+F &\bnfeq A \bnfor \lnot F \bnfor (F \limplies F) \bnfor (F \land F) \bnfor (F \lor F)\\
+\intertext{onde $A$ denota as fórmulas atómicas da $\zolang$, ou seja as variáveis proposicionais:}
+A &\bnfeq P_0 \bnfor P_1 \bnfor P_2 \bnfor \dotsb
+\endalign
+$$
+%%}}}
+
 \endsection
 %%}}}
 
@@ -970,14 +1007,42 @@ Considere as seguinte proposições:
 \endsection
 %%}}}
 
-%%{{{ Its expressibility 
-\section Sua expressibilidade.
+%%{{{ Syntactic sugar 
+\section Açúcar sintáctico.
+
+%%{{{ Notation: limplied_liff_abbr 
+\note Notação.
+\label{limplied_liff_abbr}%
+Se $A,B$ são fórmulas, usamos as seguintes abreviações:
+$$
+\align
+(A \liff B)     &\abbreq ((A \limplies B) \land (B \limplies A))\\
+(A \limplied B) &\abbreq (B \limplies A)
+\endalign
+$$
+%%}}}
+
+%%{{{ x: second_character_of_limplied_abbr 
+\exercise.
+\label{second_character_of_limplied_abbr}%
+Qual é o segundo caráter da expressão $(A \limplied B)$?
+
+\hint
+Lembre-se que aqui $A,B$ são apenas \emph{metavariáveis}
+que denotam algumas fórmulas, sobre quais não sabemos nada mais
+fora do fato que são fórmulas (bem formadas).
+
+\solution
+O primeiro caráter da fórmula $B$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ Syntactic sugar 
-\section Açúcar sintáctico.
+%%{{{ Its limitations 
+\section Suas limitações.
 
 \endsection
 %%}}}
@@ -1005,6 +1070,151 @@ Considere as seguinte proposições:
 %%{{{ Its syntax 
 \section Sua sintaxe.
 
+%%{{{ givens_for_a_FOL 
+\note Dados.
+Um conjunto infinito de símbolos de variáveis
+$$
+\folvars  = \set{x_0, x_1, x_2, x_3, \dotsc}.
+$$
+Conjuntos de símbolos de constantes, de funções, e de predicados:
+$$
+\folcons, \folfuns, \folpreds.
+$$
+Uma função $\folarity : \folfuns \union \folpreds \to \nats$ de aridade,
+que atribua para cada símbolo nesses conjuntos sua aridade.
+\endgraf
+Alternativamente, podemos grupear os símbolos de funções por aridade, e similarmente o símbolos de predicados, escrevendo assim
+$\folfuns_n$, para o conjunto de símbolos de funções de aridade $n$, e similarmente $\folpreds_n$ para os símbolos de predicados.
+Assim as duas afirmações são equivalentes:
+$$
+f \in \folfuns \mland \folarity(f) = n
+\iff
+f \in \folfuns_n.
+$$
+Note também que podemos considerar funções de aridade $0$ como constantes,
+e assim nem precisamos um conjunto especial para esses símbolos.
+%%}}}
+
+%%{{{ eg: full_FOL_example 
+\example.
+Tomando
+$$
+\align
+\folcons  &= \set{c_0, c_1, c_2, c_3, \dotsc}\\
+\folfuns  &= \set{f_0, f_1, f_2, f_3, \dotsc}\\
+\folpreds &= \set{P_0, P_1, P_2, P_3, \dotsc}
+\endalign
+$$
+e especificando uma função de aridade $\folarity$ criamos uma FOL.
+Alternativamente tomamos
+$$
+\xalignat2
+\folcons =
+\folfuns_0   &= \set{f^0_0, f^0_1, f^0_2, f^0_3, \dotsc} & \folpreds_0  &= \set{P^0_0, P^0_1, P^0_2, P^0_3, \dotsc}\\
+\folfuns_1   &= \set{f^1_0, f^1_1, f^1_2, f^1_3, \dotsc} & \folpreds_1  &= \set{P^1_0, P^1_1, P^1_2, P^1_3, \dotsc}\\
+\folfuns_2   &= \set{f^2_0, f^2_1, f^2_2, f^2_3, \dotsc} & \folpreds_2  &= \set{P^2_0, P^2_1, P^2_2, P^2_3, \dotsc}\\
+             &\eqvdots                                   &              &\eqvdots                                    
+\endxalignat
+$$
+onde temos denotado a aridade de cada símbolo como um ``exponente''.
+
+\endexample
+%%}}}
+
+%%{{{ df: FOL_term 
+\definition Termo.
+\label{FOL_term}%
+\tdefined{FOL}[termo]%
+\beginul
+\li Se $x \in \folvars$ então $x$ é um termo.
+\li Se $c \in \folcons$ então $c$ é um termo.
+\li Se $f \in \folfuns_n$ e $t_1,\dotsc,t_n$ são termos, então $f(t_1,\dotsc,t_n)$ é um termo.
+\endul
+\noindent Nada mais é um termo.
+Denotamos o conjunto de termos com $\folterms$.
+Resumindo esquematicamente a definição, temos:
+$$
+\align
+x \in \folvars &\implies x \in \folterms\\
+c \in \folcons &\implies c \in \folterms\\
+\left.
+\aligned
+f &\in \folfuns_n\\
+t_1,\dotsc,t_n &\in \folterms
+\endaligned
+\right\}
+&\implies f(t_1,\dotsc,t_n) \in \folterms\\
+\endalign
+$$
+%%}}}
+
+%%{{{ df: FOL_atomic_formula 
+\definition Fórmula atômica.
+\label{FOL_atomic_formula}%
+\tdefined{FOL}[fórmula atômica]%
+\beginul
+\li Se $P \in \folpreds_n$ e $t_1,\dotsc,t_n$ são termos, então $P(t_1,\dotsc,t_n)$ é uma \dterm{fórmula atómica}.
+\endul
+%%}}}
+
+%%{{{ df: FOL_formula 
+\definition Fórmula.
+\label{FOL_formula}%
+\tdefined{FOL}[fôrmula]%
+\beginul
+\li Se $A$ é uma fórmula atómica, então $A$ é uma fórmula.
+\li Se $A$ é uma fórmula, então $\lnot A$ é uma fórmula.
+\li Se $A,B$ são fórmulas, então:
+\item{-} $(A \limplies B)$ é uma fórmula;
+\item{-} $(A \lor B)$ é uma fórmula;
+\item{-} $(A \land B)$ é uma fórmula.
+\li Se $A$ é uma fórmula e $x$ é uma variável, então:
+\item{-} $\forall x A$ é uma fórmula;
+\item{-} $\exists x A$ é uma fórmula.
+\endul
+%%}}}
+
+%%{{{ Practical abuse of BNF for FOL 
+\grammar FOL.
+\label{FOL_grammar}%
+Seguindo uma prática comum, escrevemos apenas
+$$
+\align
+F &\bnfeq
+\mathit{A}
+\bnfor (\lnot F)
+\bnfor (F \limplies F)
+\bnfor (F \land F)
+\bnfor (F \lor F)
+\bnfor \forall v F
+\bnfor \exists v F
+\endalign
+$$
+onde $A$ denota fórmulas atômicas e $v$ denota qualquer variável da nossa FOL.
+%%}}}
+
+%%{{{ x: BNF_for_FOL 
+\exercise.
+\label{BNF_for_FOL}%
+Supondo que $\bnf{At}$ pode ser substituito por qualquer fórmula atômica duma FOL (e por nada mais),
+defina umas gramáticas em BNF para gerar a linguagem das suas fórmulas bem formadas.
+
+\solution
+Aqui uma solução:
+$$
+\align
+\bnf{F}     &\bnfeq \bnf{At} \bnfor (\lnot \bnf{F}) \bnfor (\bnf{F} \bnf{Bin} \bnf{F}) \bnfor \bnf{Q}\bnf{Var}\bnf{F}\\
+\bnf{Bin}   &\bnfeq \lor \bnfor \land \bnfor \limplies\\
+\bnf{Q}     &\bnfeq \forall \bnfor \exists\\
+\bnf{Var}   &\bnfeq x_0 \bnfor x_1 \bnfor x_2 \bnfor \dotsb\\
+\intertext{Como já encontramos, um fácil jeito para evitar os ``$\dotsb$'' seria usar:}
+\bnf{Var}   &\bnfeq x \bnfor \bnf{Var}'
+\endalign
+$$
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -1027,14 +1237,42 @@ Considere as seguinte proposições:
 \endsection
 %%}}}
 
-%%{{{ Its expressibility 
-\section Sua expressibilidade.
+%%{{{ Syntactic sugar 
+\section Açúcar sintáctico.
+
+%%{{{ x: exists_x_in_A_Px_sugar 
+\exercise.
+Ache uma fórmula de FOL equivalente da $\lexists {x \in A} {P(x)}$.
+
+\solution
+$$
+\lexists {x \in A} {P(x)}
+\iff
+\lexists x \paren{ x\in A \land P(x) }
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: forall_x_in_A_Px_sugar 
+\exercise.
+Ache uma fórmula de FOL equivalente da $\lforall {x \in A} {P(x)}$.
+
+\solution
+$$
+\lforall {x \in A} {P(x)}
+\iff
+\forall x \paren{ x\in A \limplies P(x) }
+$$
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ Syntactic sugar 
-\section Açúcar sintáctico.
+%%{{{ Its limitations 
+\section Suas limitações.
 
 \endsection
 %%}}}
@@ -8174,38 +8412,137 @@ Veja o~\cite{nivencount}.
 \chapter Conjuntos.
 \label{sets}%
 
+%%{{{ blah: sets like assembly 
+\blah.
+Nesse capítulo estudamos um ``tipo'' de objeto, o tipo de \emph{conjuntos}.
+Como nos vamos apreciar no~\ref{axiomatic_set_theory},
+os conjuntos e sua linguagem têm um papel importante para a fundação
+de matemática.
+Podemos traduzir todas as definições e relações matemáticas nessa
+linguagem.  Nesse sentido, parece como uma ``assembly'', uma linguagem
+``low-level'' onde podemos ``compilar'' toda a matemática, em tal modo
+que cada definição, cada afirmação, cada teorema que provamos, no final das
+contas, podem ser traduzidos para definições, afirmações, teoremas e provas,
+que envolvem apenas conjuntos e a relação primitiva de \emph{pertencer}.
+E \emph{nada} mais!
+%%}}}
+
 %%{{{ Concept, notation, equality 
 \section Conceito, notação, igualdade.
 \tdefined{conjunto}%
 
+%%{{{ Q: What does it mean to be a set? 
+\question.
+O que significa ser conjunto?
+%%}}}
+
+%%{{{ pseudodf: set 
+\pseudodefinition.
+\label{set_pseudodefinition}%
+Um \dterm{conjunto} $A$ é a colecção numa totalidade
+de certos objetos que chamamos de \dterm{elementos} de $A$.
+%%}}}
+
+%%{{{ x: set_pseudodefined 
+\exercise.
+Qual é o problema com a definição em cima?
+
+\endexercise
+%%}}}
+
 Noções primitivas: ser conjunto, pertencer ($\in$)
 
-Multiconjuntos e seqüências.
+%%{{{ Convention: family, colection, agglomerate, and fonts 
+\note Convenção.
+\tdefined{família}%
+\tdefined{colecção}%
+\tdefined{aglomerado}%
+Usamos os termos \dterm{família}, \dterm{colecção}, \dterm{aglomerado}, etc.\ como
+sinónimos da palavra ``conjunto''.
+Mesmo assim, seguindo uma prática comum, quando temos conjuntos de conjuntos
+dizemos ``família de conjuntos'', e depois ``colecção de famílias'', etc.
+Com o mesmo motivo (de facilitar nossos olhos ou ouvidos humanos), as vezes
+mudamos a font que usamos para denotar esses conjuntos.
+Por exemplo, usando $A,B,C$ para denotar certos conjuntos,
+usamos $\scr A, \scr B, \scr C$ para denotar famílias deles,
+etc.
+%%}}}
 
-Conjuntos como ``black boxes''
+%%{{{ Notation 
+\note Notação.
+A notação mais simples para denotar um conjunto é usar ``chaves''
+$\{$ e $\}$ e listar todos os seus elementos entre as chaves.
+Por exemplo:
+$$
+\align
+A &=\set {0,1}\\
+B &=\set {\nats, \ints, \rats, \reals}\\
+C &=\set {2}\\
+D &=\set {2,3,5,7}\\
+E &=\set {2,3,\set{5,7}, \set{\set{2}}}
+\endalign
+$$
+Todos os conjuntos que acabamos de escrever aqui são \emph{finitos},
+seus elementos são conhecidos.
+\endgraf
+Uma notação diferente e bem útil é chamada
+\dterm{set comprehension} ou notação \dterm{set-builder},
+onde escrevemos
+$$
+\setst x {\text{\thole$x$\thole}}
+$$
+para denotar o conjunto de todos os $x$ tais que \thole$x$\thole.
+Entendemos que no lado direito escrevemos uma \emph{condição definitiva},
+e não algo ambíguo ou algo.
+Concordamos então escrever algo que podemos (se precisarmos e se quisermos)
+descrever usando uma fórmula de FOL $\phi(x)$ onde possivelmente aparece
+a variável $x$ livre.
+Chegamos então na forma
+$$
+\setst x {\phi(x)}.
+$$
+%%}}}
+
+%%{{{ Black boxes 
+\note Black boxes.
+\label{blackbox_set}%
 \tdefined{conjunto}[como black box]%
+Conjuntos como ``black boxes''
+%%}}}
 
 Igualdade entre conjuntos: $A = B$
 
-Set comprehension (Set-builder notation)
-
 Diagramas de Venn e suas limitações
 
-Homogenicidade de conjuntos
-
-Sinónimos de ``conjunto'': família, colecção, etc.
-
-O conjunto vazio $\emptyset$: definição e suas propriedades
-
-O conjunto-universo $\univ$.
-
-Como usar um fato do tipo $D\neq \emptyset$ em nossas provas: ``Seja $d\in D$.''
+%%{{{ Homogeneity and heterogeneity 
+\note Homogeneidade e heterogeneidade.
+\tdefined{homogeneidade}%
+\tdefined{heterogeneidade}
+%%}}}
 
 \endsection
 %%}}}
 
 %%{{{ Intension vs. Extension 
 \section Intensão vs{.}~extensão.
+
+\endsection
+%%}}}
+
+%%{{{ Defining sets 
+\section Definindo conjuntos.
+
+\endsection
+%%}}}
+
+%%{{{ The empty set and the universe 
+\section O conjunto vazio e o universo.
+
+O conjunto vazio $\emptyset$: definição e suas propriedades
+
+O conjunto-universo $\univ$.
+
+Como usar um fato do tipo $D\neq \emptyset$ em nossas provas: ``Seja $d\in D$.''
 
 \endsection
 %%}}}
@@ -8315,6 +8652,14 @@ Cardinalidade de conjuntos finitos e propriedades.
 
 %%{{{ Cartesian products 
 \section Produtos cartesianos.
+
+\endsection
+%%}}}
+
+%%{{{ Sequences 
+\section Seqüências.
+
+\note Seqüências como black boxes.
 
 \endsection
 %%}}}
