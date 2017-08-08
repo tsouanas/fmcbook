@@ -37,6 +37,12 @@
 \endsection
 %%}}}
 
+%%{{{ Sets, functions, relations 
+\section Conjuntos, funções, relações.
+
+\endsection
+%%}}}
+
 %%{{{ Problems 
 \problems.
 
@@ -190,15 +196,16 @@ representam os números, \dterm{numerais}.
 Sem contexto, lendo o ``10'' existe já uma ambigüidade:
 é o numeral $\numeral {10}$ ou o número dês?
 Para apreciar essa diferença ainda mais, note que o numeral $\numeral {10}$,
-pode representar outro número em outro contexto, por exemplo, no sistema
-binário, o numeral $\numeral {10}$ representa o número dois.
+pode representar outro número em outro contexto.
+Por exemplo, no sistema binário, o numeral $\numeral {10}$
+representa o número dois.
 E a ambigüidade pode ser ainda maior lendo ``1'':
 é o numeral $\numeral {1}$; o número um; ou o dígito~$\digit 1$?
 Quando o contexto é suficiente para entender, não precisamos mudar a fonte
 como acabei de fazer aqui, nem escrever explicitamente o que é.
 Note que existem numerais bem diferentes para denotar esses números:
-o numeral (romano) {XXVIII}
-e o numeral (grego) $\kappa \eta$ denotam o mesmo número: $28$.
+o numeral (romano) {XII}
+e o numeral (grego) $\iota \beta$ denotam o mesmo número: $12$.
 
 \blah.
 Temos então umas pequenas linguágens que nos permitem descrever \emph{números}.
@@ -895,6 +902,28 @@ $$
 \endproblem
 %%}}}
 
+%%{{{ g: NatList_grammar 
+\grammar.
+\label{NatList_grammar}%
+$$
+\align
+\bnf{L} &\bnfeq [\,] \bnfor (\bnf{Nat} :: \bnf{L})\\
+\intertext{onde $\bnf{Nat}$ é o}
+\bnf{Nat} &\bnfeq 0 \bnfor S\bnf{Nat}
+\endalign
+$$
+da~\ref{Nat_grammar}.
+%%}}}
+
+%%{{{ NatList_grammar_problem 
+\problem.
+\label{NatList_grammar_problem}%
+Escreva umas expressões geradas por a~\ref{NatList_grammar} e ache um possível
+uso dessa gramática: o que podemos representar com essa linguagem?
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -1259,6 +1288,42 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ x: nats_exp_recursive_def 
+\exercise.
+\label{nats_double_def}%
+Define (recursivamente) a função $d : \Nat \to \Nat$ que dobra sua entrada.
+Verifique que o dobro de $3$ é $6$.
+
+\hint
+Pensando fora do $\Nat$:
+como podemos calcular o valor de $2(n+1)$, se sabemos como dobrar
+qualquer número menor de $n+1$?
+
+\hint
+$2(n+1) = 2n + 1$.
+
+\solution
+Definimos:
+$$
+\align
+d( 0 )  &= 0        \tag{D1}\\
+d( Sn ) &= SSd(n).  \tag{D2}
+\endalign
+$$
+Calculamos:
+$$
+\alignat2
+d( SSS0 )
+&= SSd(SS0)    \qqby{por (D2)}\\
+&= SSSSd(S0)   \qqby{por (D2)}\\
+&= SSSSSSd(0)  \qqby{por (D2)}\\
+&= SSSSSS0.    \qqby{por (D1)}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ x: nats_ntimes_recursive_def 
 \exercise.
 \label{nats_ntimes_recursive_def}%
@@ -1345,8 +1410,86 @@ ou seja, $SSSS0 \not\leq SS0$.
 \endsection
 %%}}}
 
+%%{{{ Recursing over formulas 
+\section Recursando nas fórmulas.
+
+%%{{{ eg: bincon_count 
+\example.
+\label{bincon_count}%
+Defina uma função $f : \zolang \to \nats$ que calcula o número
+de conectivos binários que aparecem na sua entrada.
+Use-lá para calcular os conectívos binários da expressão
+$$
+\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
+$$
+
+\solution
+Seguindo a definição de $\zolang$, cada um dos seus elementos
+é formado por uma de certas regras.  Basta escrever então como
+calcular o número desejado para cada um desses casos:
+$$
+\alignat2
+f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
+f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
+f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
+f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
+f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
+\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
+f((A \heartsuit B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartsuit \in \set{\limplies,\land,\lor}$)}
+\endalignat
+$$
+Aplicando nossa função na fórmula dada calculamos:
+$$
+\alignat2
+f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
+&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \qqby{por BC$_{\lnot}$}\\
+&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \qqby{por BC$_{\limplies}$}\\
+&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \qqby{por BC$_{P}$}\\
+&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \qqby{por BC$_{\land}$}\\
+&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \qqby{por BC$_{P}$}\\
+&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \qqby{por BC$_{\lnot}$}\\
+&= 0 + 1 + ( 0 + 1 + 0 )                        \qqby{por BC$_{P}$}\\
+&= 2
+\endalignat
+$$
+
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Problems 
 \problems.
+
+%%{{{ prob: quot_rem_eq_prob 
+\problem.
+\label{quot_rem_eq_prob}
+Considere as funções $q$, $r$, e $t$ definidas recursivamente:
+$$
+\xalignat3
+q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
+q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
+q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
+q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
+q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
+\endxalignat
+$$
+O que cada função calcula?
+
+\hint
+Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
+
+\solution
+\item{($q$:)}
+    $q(n) = \bigg\lfloor{\dfrac n 3}\bigg\rfloor$.
+\item{($r$:)}
+    O $r(n)$ é o resto da divisão do $n$ por $3$.
+\item{($t$:)}
+    A $t$ decida se suas entradas são iguais ou não.
+
+\endproblem
+%%}}}
 
 \problem.
 \label{products_in_disguise}
@@ -1392,7 +1535,8 @@ $$
 
 \problem.
 Tentando resolver o~\ref{products_in_disguise},
-Victor definiu corretamente a $t$ e depois a usou
+% STUDENT: Victor
+um aluno definiu corretamente a $t$ e depois a usou
 na sua definição de $T$, assim:
 $$
 T(m,n) = {t(m+n)}/{t(m)}.
@@ -1425,87 +1569,6 @@ o contradomínio da $h$ fosse o $\nats\setminus\set0$.
 
 %%{{{ Further reading 
 \further.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Functional programming 
-\chapter Programação funcional.
-
-%%{{{ Problems 
-\problems.
-
-%%{{{ prob: quot_rem_eq_prob 
-\problem.
-\label{quot_rem_eq_prob}
-Considere as funções $q$, $r$, e $t$ definidas recursivamente:
-$$
-\xalignat3
-q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
-q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
-q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
-q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
-q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
-\endxalignat
-$$
-O que cada função calcula?
-
-\hint
-Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
-
-\solution
-\item{($q$:)}
-    $q(n) = \bigg\lfloor{\dfrac n 3}\bigg\rfloor$.
-\item{($r$:)}
-    O $r(n)$ é o resto da divisão do $n$ por $3$.
-\item{($t$:)}
-    A $t$ decida se suas entradas são iguais ou não.
-
-\endproblem
-%%}}}
-
-{%
-\def\drunk{\namedfun{drunk}}
-\def\countdown{\namedfun{countdown}}
-\def\take{\namedfun{take}}
-\problem.
-Defina as funções com equações (recursivas):
-$$
-\xalignat3
-\drunk      &\eqtype [\nats]  \to [\nats] &
-\countdown  &\eqtype \nats    \to [\nats] &
-\take       &\eqtype \nats    \to [\nats] \to [\nats].\\
-\endxalignat
-$$
-Exemplos de uso:
-$$
-\align
-\drunk\ [2,8]           &= [2,2,8,8]        \\
-\drunk\ [1,9,8,3]       &= [1,1,9,9,8,8,3,3]\\
-\countdown\ 3           &= [3,2,1,0]        \\
-\countdown\ 1           &= [1,0]            \\
-\take\ 3\ [2,3,5,7,11]  &= [2,3,5]          \\
-\take\ 8\ [0,1,2,4]     &= [0,1,2,4]
-\endalign
-$$
-
-\endproblem
-}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{huttonhaskell},
-\cite{lyah};
-\cite{birdthinking},
-\cite{thompsonhaskell};
-\cite{birdfphaskell}.
 
 \endfurther
 %%}}}
@@ -2135,6 +2198,60 @@ Mais informações sobre indução e indução forte,
 veja o~\cite[Cap.~6]{velleman}.
 Sobre o princípio da boa ordem e indução,
 veja o~\cite[\S\S1.4--1.5]{babybm}
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Functional programming 
+\chapter Programação funcional.
+
+%%{{{ Problems 
+\problems.
+
+%%{{{ prob: drunk_countdown_take 
+{%
+\def\drunk{\namedfun{drunk}}
+\def\countdown{\namedfun{countdown}}
+\def\take{\namedfun{take}}
+\problem.
+Defina as funções com equações (recursivas):
+$$
+\xalignat3
+\drunk      &\eqtype [\nats]  \to [\nats] &
+\countdown  &\eqtype \nats    \to [\nats] &
+\take       &\eqtype \nats    \to [\nats] \to [\nats].\\
+\endxalignat
+$$
+Exemplos de uso:
+$$
+\align
+\drunk\ [2,8]           &= [2,2,8,8]        \\
+\drunk\ [1,9,8,3]       &= [1,1,9,9,8,8,3,3]\\
+\countdown\ 3           &= [3,2,1,0]        \\
+\countdown\ 1           &= [1,0]            \\
+\take\ 3\ [2,3,5,7,11]  &= [2,3,5]          \\
+\take\ 8\ [0,1,2,4]     &= [0,1,2,4]
+\endalign
+$$
+
+\endproblem
+}
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{huttonhaskell},
+\cite{lyah};
+\cite{birdthinking},
+\cite{thompsonhaskell};
+\cite{birdfphaskell}.
 
 \endfurther
 %%}}}
@@ -9016,13 +9133,6 @@ $\quotset{\reals}{\rtranscl{\leftrightarrow}}$.
 \endsection
 %%}}}
 
-%%{{{ Logic programming 
-\section Programação lógica.
-\label{logic_programming}%
-
-\endsection
-%%}}}
-
 %%{{{ Problems 
 \problems.
 
@@ -9248,15 +9358,33 @@ De novo: muitos livros seguem essa abordagem, então o leitor é conselhado
 tomar o cuidado necessário enquanto estudando esses assuntos.
 Nos vamos ver relações como conjuntos apenas no~\ref{axiomatic_set_theory}.
 
-Sobre programação lógica:
+\endfurther
+%%}}}
+
+}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Logic programming 
+\chapter Programação lógica.
+\label{logic_programming}%
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
 \cite{lpbook},
 \cite{artofprolog},
 \cite{holpbook}.
 
 \endfurther
 %%}}}
-
-}
 
 \endchapter
 %%}}}
@@ -12481,8 +12609,8 @@ Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Structural induction and recursion 
-\chapter Indução e recursão estrutural.
+%%{{{ chapter: Structural recursion and induction 
+\chapter Recursão e indução estrutural.
 
 %%{{{ Problems 
 \problems.
@@ -12495,24 +12623,6 @@ Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
 
 \cite{aczelinductive},
 \cite{ynminduction}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Algebraic data types 
-\chapter Tipos de dados algébricos.
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
 
 \endfurther
 %%}}}
