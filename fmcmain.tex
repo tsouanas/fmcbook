@@ -8412,8 +8412,8 @@ Veja o~\cite{nivencount}.
 \chapter Conjuntos.
 \label{sets}%
 
-%%{{{ blah: sets like assembly 
-\blah.
+%%{{{ chapintro: sets like assembly 
+\chapintro
 Nesse capítulo estudamos um ``tipo'' de objeto, o tipo de \emph{conjuntos}.
 Como nos vamos apreciar no~\ref{axiomatic_set_theory},
 os conjuntos e sua linguagem têm um papel importante para a fundação
@@ -8450,7 +8450,22 @@ Qual é o problema com a definição em cima?
 \endexercise
 %%}}}
 
-Noções primitivas: ser conjunto, pertencer ($\in$)
+%%{{{ Primitive notions 
+\note Noções primitivas.
+\ii{noção primitiva}%
+Aceitamos apenas duas \emph{noções primitivas}\/:
+$$
+\gathered
+\text{ser conjunto}\\
+\Set(\dhole)
+\endgathered
+\qqqquad
+\gathered
+\text{pertencer}\\
+\dhole\in\dhole
+\endgathered
+$$
+%%}}}
 
 %%{{{ Convention: family, colection, agglomerate, and fonts 
 \note Convenção.
@@ -8470,37 +8485,82 @@ etc.
 
 %%{{{ Notation 
 \note Notação.
-A notação mais simples para denotar um conjunto é usar ``chaves''
-$\{$ e $\}$ e listar todos os seus elementos entre as chaves.
+A notação mais simples para denotar um conjunto é usar
+``chaves''~$\{$~e~$\}$~e listar todos os seus elementos entre as chaves.
 Por exemplo:
 $$
+\xalignat2
+A &=\set {0,1}                          &E &=\set {2,3,\set{5,7}, \set{\set{2}}}\\
+B &=\set {\nats, \ints, \rats, \reals}  &F &=\set {\mathrm{Thanos}}\\
+C &=\set {2}                            &G &=\set {1,2,4,8,16,31,A,B,\nats}\\
+D &=\set {2,3,5,7}                      &H &=\set {\mathrm{Thanos}, \mathrm{Natal}, \set{E,\set{F,G}}}
+\endxalignat
+$$
+%%}}}
+
+%%{{{ Dealing with more complicated sets 
+\blah.
+Todos os conjuntos que acabamos de escrever aqui são \emph{finitos},
+seus elementos são conhecidos, e ainda mais são poucos e conseguimos os listar todos.
+Nenhuma dessas três propriedades é garantida!
+Se não temos a última fica impráctico listar todos elementos,
+e quando não temos uma das duas primeiras, é plenamente impossível.
+Considere por exemplo os conjuntos seguintes:
+$$
 \align
-A &=\set {0,1}\\
-B &=\set {\nats, \ints, \rats, \reals}\\
-C &=\set {2}\\
-D &=\set {2,3,5,7}\\
-E &=\set {2,3,\set{5,7}, \set{\set{2}}}
+X &= \text{o conjunto de todos os números reais entre 0 e 1}\\
+Y &= \text{o conjunto dos assassinos do Richard \Montague{}Montague}\\
+Z &= \text{o conjunto de todos os números naturais menores que $2^{256!}$}.
 \endalign
 $$
-Todos os conjuntos que acabamos de escrever aqui são \emph{finitos},
-seus elementos são conhecidos.
-\endgraf
+%%}}}
+
+%%{{{ Set comprehension 
+\note Set comprehension.
+\tdefined{set comprehension}%
+\iisee{set-builder}{set comprehension}%
 Uma notação diferente e bem útil é chamada
 \dterm{set comprehension} ou notação \dterm{set-builder},
 onde escrevemos
 $$
 \setst x {\text{\thole$x$\thole}}
 $$
-para denotar o conjunto de todos os $x$ tais que \thole$x$\thole.
+para denotar o conjunto de todos os objetos $x$ tais que \thole$x$\thole.
 Entendemos que no lado direito escrevemos uma \emph{condição definitiva},
-e não algo ambíguo ou algo.
-Concordamos então escrever algo que podemos (se precisarmos e se quisermos)
+e não algo ambíguo ou algo subjetivo.  Por exemplo, não podemos escrever 
+algo do tipo
+$$
+\setst p { \text{$p$ é uma pessoa linda} }.
+$$
+Mas como podemos formalizar o que é uma condição definitiva?
+Bem, concordamos escrever apenas algo que podemos (se precisarmos e se quisermos)
 descrever usando uma fórmula de FOL $\phi(x)$ onde possivelmente aparece
-a variável $x$ livre.
+a variável $x$ livre e todos os símbolos da FOL tem interpretações bem definidas.
 Chegamos então na forma
 $$
 \setst x {\phi(x)}.
 $$
+%%}}}
+
+%%{{{ Diagramas de Venn 
+\note Diagramas de Venn.
+Suas limitações
+%%}}}
+
+%%{{{ Homogeneity and heterogeneity 
+\note Homogeneidade e heterogeneidade.
+\tdefined{homogeneidade}%
+\tdefined{heterogeneidade}
+%%}}}
+
+%%{{{ What we need to specify for each new type 
+\note.
+Cada vez que introduzimos um novo tipo de objetos,
+devemos especificar:
+\beginol
+\li Qual é o ``interface'' desses objetos?
+\li Quando dois objetos desse tipo são \emph{iguais}?
+\endol
 %%}}}
 
 %%{{{ Black boxes 
@@ -8510,14 +8570,13 @@ $$
 Conjuntos como ``black boxes''
 %%}}}
 
-Igualdade entre conjuntos: $A = B$
-
-Diagramas de Venn e suas limitações
-
-%%{{{ Homogeneity and heterogeneity 
-\note Homogeneidade e heterogeneidade.
-\tdefined{homogeneidade}%
-\tdefined{heterogeneidade}
+%%{{{ df: set_equality 
+\definition Igualdade de conjuntos.
+\label{set_equality}%
+Definimos
+$$
+A = B \defiff \forall x \paren{ x\in A \liff x\in B }.
+$$
 %%}}}
 
 \endsection
@@ -8525,6 +8584,17 @@ Diagramas de Venn e suas limitações
 
 %%{{{ Intension vs. Extension 
 \section Intensão vs{.}~extensão.
+
+\note.
+Considere os conjuntos seguintes:
+$$
+\align
+P &= \setst d {\text{$d$ é um divisor primo de $2^{256!}$}}\\
+Q &= \setst p {\text{$p$ é primo e par}}\\
+R &= \setst x {\text{$x$ é raiz real do polinómio $x^3 - 8$}}\\
+S &= \set {2}
+\endalign
+$$
 
 \endsection
 %%}}}
