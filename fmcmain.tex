@@ -8605,24 +8605,294 @@ $$
 \endsection
 %%}}}
 
-%%{{{ The empty set and the universe 
-\section O conjunto vazio e o universo.
+%%{{{ Relations between sets and how to define them 
+\section Relações entre conjuntos e como as definir.
 
-O conjunto vazio $\emptyset$: definição e suas propriedades
+%%{{{ df: subconjunto 
+\definition.
+\label{subconjunto}%
+\tdefined{subconjunto}%
+\tdefined{subconjunto}[próprio]%
+\sdefined{\holed A \subseteq \holed B} {$\holed A$ é um subconjunto de $\holed B$}%
+O conjunto $A$ é um \dterm{subconjunto} de $B$ sse todos os membros de
+$A$ pertencem em $B$.
+Em símbolos:
+$$
+\align
+A \subseteq B
+&\defiff
+\lforall {x\in A} {x\in B}\\
+&\abbriff
+\forall x \paren{ x \in A \limplies x \in B }
+\endalign
+$$
+Se $B$ tem elementos que não pertencem no $A$, chamamos o $B$
+\dterm{subconjunto próprio} de $A$, e escrevemos $A \subsetneq B$.
+%%}}}
 
-O conjunto-universo $\univ$.
+%%{{{ x: eq_implies_subseteq 
+\exercise.
+\label{eq_implies_subseteq}%
+$A = B \implies A \subseteq B$.
 
-Como usar um fato do tipo $D\neq \emptyset$ em nossas provas: ``Seja $d\in D$.''
+\endexercise
+%%}}}
+
+%%{{{ x: define_subsetneq 
+\exercise.
+\label{define_subsetneq}%
+Defina com uma fórmula o $A\subsetneq B$.
+
+\hint
+Já definimos o $\subseteq$, então podemos o usar!
+
+\solution
+$$
+A \subsetneq B
+\defiff
+A \subseteq B \land A \neq B
+$$
+Lembre-se que $A \neq B \abbreq \lnot(A = B)$.
+
+\endexercise
+%%}}}
+
+%%{{{ notation of subsets 
+\beware.
+O uso dos símbolos $\subseteq$, $\subset$, e $\subsetneq$ não é muito padronizado:
+encontramos textos onde usam $\subseteq$ e $\subset$ para ``subconjunto''
+e ``subconjunto próprio'' respectivamente; outros usam $\subset$ e $\subsetneq$.
+Assim o símbolo $\subset$ é usado com dois significados diferentes.
+Por isso usamos $\subseteq$ e $\subsetneq$ aqui, evitando completamente
+o uso do ambíguo $\subset$.
+%%}}}
+
+%%{{{ notation: supset_sugar 
+\note Notação.
+\label{supset_sugar}%
+\ii{açúcar sintáctico}%
+Seguindo uma prática comum que involve símbolos ``direcionais'' de relações
+binárias como os $\rightarrow$, $\leq$, $\subseteq$, etc., introduzimos as
+seguines abreviações como açúcar sintáctico:
+$$
+\xalignat2
+A \supseteq B  & \abbreq B \subseteq A &
+A \supsetneq B & \abbreq B \subsetneq A
+\endxalignat
+$$
+%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ Relations between sets and how to define them 
-\section Relações entre conjuntos e como as definir.
+%%{{{ The empty set and the universe 
+\section O conjunto vazio e o universo.
 
-As relações binárias: $=$, $\subseteq$, $\supseteq$, $\subsetneq$, $\supsetneq$.
+%%{{{ df: empty 
+\definition Vazio.
+\label{empty}%
+\tdefined{vazio}%
+Um conjunto é \dterm{vazio} sse ele não contem nenhum elemento.
+Formalmente, definimos o predicado unário
+$$
+\Empty(A) \defiff \forall x (x \notin A).
+$$
+%%}}}
 
-Aviso sobre ambiguidade na notação de $\subset$ na literatura.
+%%{{{ df: singleton 
+\definition Singleton.
+\label{singleton}%
+Um conjunto é \dterm{singleton} (ou \dterm{unitário}) sse ele contem
+apenas um elemento.
+%%}}}
+
+%%{{{ x: define_singleton_formally 
+\exercise.
+\label{define_singleton_formally}%
+Defina formalmete o predicado unário $\Singleton(A)$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: emptyset 
+\definition.
+\sdefined {\emptyset} {o conjunto vazio}
+\label{emptyset}%
+Denotamos o conjunto vazio por $\emptyset$.
+\mistake
+%%}}}
+
+%%{{{ x: what_is_wrong_with_the_emptyset_definition 
+\exercise.
+\label{what_is_wrong_with_the_emptyset_definition}%
+Na~\ref{emptyset} roubamos!
+Resolva o crime.
+
+\hint
+``o''
+
+\solution
+Como não provamos a unicidade de vazio não podemos usar o artigo
+definido ``o'', e conseqüentemente, não podemos usar um símbolo
+para \emph{o} denotar.  Seria mal-definido.
+
+\endexercise
+%%}}}
+
+%%{{{ Parallelism with Singleton(-) to emphasize error 
+\note.
+Para apreciar ainda mais a gravidade do erro:
+se apenas a definição de $\Empty(\dhole)$ fosse suficiente
+para introduzir a notação $\emptyset$ para denotar ``o conjunto vazio'',
+poderiamos também escolher um símbolo para denotar ``o conjunto unitário'':
+$$
+\align
+\text{$\Empty(\dhole)$ definido}
+&\quad\leadsto\quad \text{<<Denotamos o conjunto vazio por $\emptyset$.>>}\\
+\text{$\Singleton(\dhole)$ definido}
+&\quad\leadsto\quad \text{<<Denotamos o conjunto unitário por $\cancel{1}$.>>}
+\endalign
+$$
+Qual de todos---quantos são?---os conjuntos unitários seria o $\cancel{1}$?
+Essa ambiguidade não é permitida em matemática.
+%%}}}
+
+%%{{{ x: how_many_singletons 
+\exercise.
+\label{how_many_singletons}%
+Quantos são mesmo?
+
+\solution
+Infinitos!  Pois, para cada objeto $x$ já temos um singleton $\set{x}$.
+E agora o singleton dele $\set{\set{x}}$, e dele, e dele, \dots
+
+\endexercise
+%%}}}
+
+%%{{{ x: naive_uniqueness_of_emptyset 
+\exercise Unicidade de vazio.
+\label{naive_uniqueness_of_emptyset}%
+Supondo que existe pelo menos um conjunto vazio, mostre sua unicidade.
+Em outras palavras, prove que:
+$$
+\text{\emph{se $A,B$ são vazios, então $A = B$.}}
+$$
+Não use reductio ad absurdum.
+
+\hint
+Suponha que $A,B$ são vazios.
+Qual é teu alvo agora?
+
+\hint
+Teu alvo é mostrar que $A = B$.
+Para fazer isso é necessário lembrar a definição de $=$ nos conjuntos (\refn{set_equality}).
+
+\solution
+Suponha que $A,B$ são vazios.
+Preciso mostrar $A=B$, ou seja, que $\forall x( x\in A \liff x \in B )$.
+Seja $x$ um objeto arbitrário.
+Pela definição de vazio, as duas afirmações $x \in A$ e $x \in B$ são
+falsas, e logo a equivalência $(x\in A \liff x\in B)$ verdadeira,
+que foi o que queremos provar.
+
+\endexercise
+%%}}}
+
+%%{{{ x: naive_uniqueness_of_emptyset_absurdum 
+\exercise.
+\label{naive_uniqueness_of_emptyset_absurdum}%
+Ache uma prova diferente, essa vez usando reductio ad absurdum.
+
+\hint
+Suponha que $A,B$ são vazios.
+Queremos mostrar que $A = B$.
+Então suponha o contrario ($A \neq B$) pera chegar num absurdo.
+
+\hint
+Qual é teu alvo agora?
+Achar um absurdo qualquer!
+Como podemos usar o fato de $A \neq B$?
+Lembre-se que $A \neq B$ é apenas uma abreviação para $\lnot(A = B)$.
+
+\solution
+Suponha que $A,B$ são vazios.
+Queremos provar que $A = B$.
+Para chegar num absurdo, suponha que $A \neq B$.
+Logo, pela definição de igualdade, temos
+que existe $x$ tal que:
+$x \in A$ mas $x \notin B$; ou $x \in B$ mas $x \notin A$.
+As duas alternativas chegam num absurdo:
+a primeira pois $A$ é vazio e logo $x \notin A$, e similarmente
+a segunda pois $B$ é vazio e logo $x \notin B$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: universal 
+\definition Universal.
+\tdefined{universal}[conjunto]%
+\iiseealso{universo}{universal}%
+\label{universal}%
+Um conjunto é \dterm{universal} sse todos os objetos pertencem nele.
+Formalmente,
+$$
+\Universal(A) \defiff \forall x(x \in A).
+$$
+%%}}}
+
+%%{{{ x: naive_uniqueness_of_universet 
+\exercise.
+\label{naive_uniqueness_of_universet}
+Supondo que existe um conjunto universal, mostre sua unicidade.
+
+\endexercise
+%%}}}
+
+%%{{{ df: universet 
+\definition.
+\label{universet}%
+\sdefined {\universet} {o conjunto universal}%
+Denotamos o conjunto universal por $\universet$.
+%%}}}
+
+%%{{{ Q: How do we use a fact that a set is nonempty? 
+\question.
+Como podemos usar um fato do tipo $D\neq \emptyset$ em nossas provas?
+O que ganhamos realmente?
+%%}}}
+\spoiler.
+
+%%{{{ A: we can pick an element from it! 
+\note Resposta.
+Ganhamos o direito de escrever ``Seja $d\in D$.''
+Em outras palavras: de tomar um elemento de $D$;
+de declarar uma variável (não usada) para denotar um elemento de $D$.
+%%}}}
+
+%%{{{ warning: letting_in_empty_like_division_by_0 
+\warning.
+\label{letting_in_empty_like_division_by_0}%
+Quando temos um conjunto $A$, escrever ``seja $x \in A$''
+seria errado se não sabemos que $A \neq \emptyset$.
+É um erro parecido quando dividimos uma expressão de aritmética
+por $x$, ou apenas escrever uma expressão como a $a/x$,
+sem saber que $x\neq 0$.
+Como em aritmética precisamos separar em casos
+(caso $x = 0$ e caso $x\neq 0$) e os tratar em formas diferentes,
+precisamos fazer a mesma coisa trabalhando com conjuntos:
+caso $A \neq \emptyset$, achamos uma prova onde podemos
+realmente declarar uma variável não-usada para declarar
+um elemento de $A$;
+caso $A = \emptyset$, achamos uma prova
+diferente---e na maioria das vezes essa caso vai ser trivial
+para provar.
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Some simple proofs 
+\section Umas provas simples.
 
 %%{{{ x: yes_no_depends_emptyset_arbitraryset 
 \exercise.
@@ -8631,36 +8901,38 @@ Seja $A$ um conjunto.
 Responda para cada uma das afirmações em baixo com
 {``sim''},
 {``não''}, ou
-{``depende''}.
+{``depende''}:
 $$
-\align
-\emptyset &\in       \emptyset \\
-\emptyset &\subseteq \emptyset \\
-\emptyset &\in       A         \\
-\emptyset &\subseteq A         \\
-A         &\in       \emptyset \\
-A         &\subseteq \emptyset \\
-A         &\in       A         \\
-A         &\subseteq A         
-\endalign
+\xalignat8
+\emptyset &\in       \emptyset;&
+\emptyset &\in       A        ;&
+\emptyset &\subseteq \emptyset;&
+\emptyset &\subseteq A        ;&
+A         &\in       \emptyset;&
+A         &\in       A        ;&
+A         &\subseteq \emptyset;&
+A         &\subseteq A        . 
+\endxalignat
 $$
 
 \endexercise
 %%}}}
 
-%%{{{ blah: claiming yes/no/depends without proof isn't much 
-\blah.
+%%{{{ beware: claiming yes/no/depends without proof isn't much 
+\beware.
 Nossa intuição muitas vezes nos engana, e por isso apenas responder no jeito
 que o~\ref{yes_no_depends_emptyset_arbitraryset} pediu não vale muita coisa.
 Precisamos provar todas essas respostas.  Para cada uma das oito afirmações
 então, precisamos dizer:
-\item{``sim''} e \emph{provar} a afirmação;
-\item{``não''} e \emph{refutar} a afirmação;
-\item{``depende''} e \emph{mostrar} pelo menos dois casos:
+\beginul
+\li {``sim''} e \emph{provar} a afirmação;
+\li {``não''} e \emph{refutar} a afirmação;
+\li {``depende''} e \emph{mostrar} pelo menos dois casos:
 um onde a afirmação é verdadeira, e outro onde ela é falsa.
 Idealmente nesse último caso queremos determinar quando a afirmação é verdadeira,
 achando condições \emph{suficientes} e/ou \emph{necessárias}.
-\endgraf\noindent
+\endul
+\noindent
 Vamos fazer tudo isso agora.
 %%}}}
 
@@ -8733,7 +9005,6 @@ Caso especial da~\ref{A_subseteq_A} tomando $A\asseq \emptyset$,
 pois $\emptyset$ é um conjunto.
 \qed
 %%}}}
-
 \endsection
 %%}}}
 
