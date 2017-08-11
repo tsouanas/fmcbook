@@ -8421,9 +8421,10 @@ de matemática.
 Podemos traduzir todas as definições e relações matemáticas nessa
 linguagem.  Nesse sentido, parece como uma ``assembly'', uma linguagem
 ``low-level'' onde podemos ``compilar'' toda a matemática, em tal modo
-que cada definição, cada afirmação, cada teorema que provamos, no final das
-contas, podem ser traduzidos para definições, afirmações, teoremas e provas,
-que envolvem apenas conjuntos e a relação primitiva de \emph{pertencer}.
+que cada definição, cada afirmação, cada teorema que provamos,
+no final das contas, todos podem ser traduzidos para definições,
+afirmações, teoremas e provas, que envolvem apenas conjuntos
+e a relação primitiva de \emph{pertencer}.
 E \emph{nada} mais!
 %%}}}
 
@@ -8436,16 +8437,26 @@ E \emph{nada} mais!
 O que significa ser conjunto?
 %%}}}
 
+\Cantor{}Cantor deu a seguinte resposta:
+
 %%{{{ pseudodf: set 
 \pseudodefinition.
 \label{set_pseudodefinition}%
+\tdefined{conjunto}[definição intuitiva]
 Um \dterm{conjunto} $A$ é a colecção numa totalidade
-de certos objetos que chamamos de \dterm{elementos} de $A$.
+de certos objetos distintos da nossa intuição que chamamos de \dterm{elementos} de $A$.
 %%}}}
 
 %%{{{ x: set_pseudodefined 
 \exercise.
 Qual é o problema com a definição em cima?
+
+\solution
+O que é uma ``colecção''?  Cuidado: para responder nessa pergunta
+tu não podes usar a palavra ``conjunto'', pois assim teria uma
+definição circular.
+Em outras palavras, definimos a palavra ``conjunto'' em termos da palavra
+``colecção'', que no final das contas, é algo sinónimo.
 
 \endexercise
 %%}}}
@@ -8483,8 +8494,14 @@ usamos $\scr A, \scr B, \scr C$ para denotar famílias deles,
 etc.
 %%}}}
 
-%%{{{ Notation 
-\note Notação.
+%%{{{ df: set_notation 
+\definition Notação de conjuntos.
+\label{set_notation}%
+\tdefined{conjunto}[notação]%
+\tdefined{conjunto}[homogêneo]%
+\tdefined{conjunto}[heterogêneo]%
+\tdefined{homogeneidade}%
+\tdefined{heterogeneidade}%
 A notação mais simples para denotar um conjunto é usar
 ``chaves'' (os símbolos~`$\{$'~e~`$\}$') e listar todos os seus elementos dentro.
 Por exemplo:
@@ -8496,6 +8513,10 @@ C &=\set {2}                            &G &=\set {1,2,4,8,16,31,A,B,\nats}\\
 D &=\set {2,3,5,7}                      &H &=\set {\mathrm{Thanos}, \mathrm{Natal}, \set{E,\set{F,G}}}
 \endxalignat
 $$
+Chamamos os conjuntos cujos elementos são ``do mesmo tipo'' \dterm{homogêneos},
+e os outros \dterm{heterogêneos}.
+Deixamos ambíguo o que significa ``do mesmo tipo'', mas, naturalmente, consideramos
+os $A, B, C, D, F$ homogêneos e os $E, G, H$ heterogêneos.
 %%}}}
 
 %%{{{ Dealing with more complicated sets 
@@ -8516,8 +8537,12 @@ $$
 %%}}}
 
 %%{{{ Set comprehension 
-\note Set comprehension.
+\definition Set comprehension.
+\label{set_comprehension}%
+\label{definite_condition}%
 \tdefined{set comprehension}%
+\tdefined{condição definitiva}%
+\sdefined {\setst {\holed x} {\text{\thole}}} {o conjunto de todos os $\holed x$ tais que \thole.}%
 \iisee{set-builder}{set comprehension}%
 Uma notação diferente e bem útil é chamada
 \dterm{set comprehension} ou notação \dterm{set-builder},
@@ -8525,8 +8550,8 @@ onde escrevemos
 $$
 \setst x {\text{\thole$x$\thole}}
 $$
-para denotar o conjunto de todos os objetos $x$ tais que \thole$x$\thole.
-Entendemos que no lado direito escrevemos uma \emph{condição definitiva},
+para denotar <<o conjunto de todos os objetos $x$ tais que \thole$x$\thole>>.
+Entendemos que no lado direito escrevemos uma \dterm{condição definitiva},
 e não algo ambíguo ou algo subjetivo.  Por exemplo, não podemos escrever 
 algo do tipo
 $$
@@ -8540,44 +8565,146 @@ Chegamos então na forma
 $$
 \setst x {\phi(x)}.
 $$
+A notação set-builder é bem mais poderosa do que acabamos de mostrar,
+pois nos permite utilisar \emph{termos} mais complexos na sua parte esquerda,
+e não apenas uma variável.
+Por exemplo
+$$
+\setst {p^q + x} {\text{$p,q$ primos, $x\in[0,1)$}}
+$$
+seria o conjunto de todos os números reais que podem ser escritos na forma
+$p^q + x$ para alguns primos $p$ e $q$ e algum real $x$ com $0 \leq x < 1$.
+\endgraf
+Finalmente, note que na literatura aparece também o símbolo `\,$:$\,'
+em vez do `$\st$' que usamos aqui.
+%%}}}
+
+%%{{{ x: rich_set_builder_sugar 
+\exercise.
+Mostre como a notação ``mais rica'' de
+$$
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
+$$
+pode ser considerada como açúcar sintáctico se temos já a notação de
+comprehensão que permite apénas uma variável no lado esquerdo.
+Aqui considere que o $t(x_1,\dotsc, x_n)$ é um termo que pode ser
+bem complexo, formado por outros termos complexos, etc., e onde
+possivelmente aparecem as variáveis $x_1,\dotsc,x_n$.
+
+\hint
+Precisa descrever (definir) o conjunto
+$$
+\align
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)} &\\
+\intertext{com uma notação que já temos:}
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
+&\defeq
+\dots?
+\endalign
+$$
+
+\hint
+$$
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
+\defeq
+\setst x {\text{\thole?\thole}}
+$$
+
+\solution
+$$
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
+\defeq
+\setst x { \exists x_1\dotsb\exists x_n \paren{ x = t(x_1,\dotsc,x_n) \land \phi(x_1,\dotsc,x_n)}}
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ Diagramas de Venn 
 \note Diagramas de Venn.
-Suas limitações
-%%}}}
-
-%%{{{ Homogeneity and heterogeneity 
-\note Homogeneidade e heterogeneidade.
-\tdefined{homogeneidade}%
-\tdefined{heterogeneidade}
+Suas limitações.
 %%}}}
 
 %%{{{ What we need to specify for each new type 
-\note.
+\note Tipos.
 Cada vez que introduzimos um novo tipo de objetos,
 devemos especificar:
 \beginol
-\li Qual é o ``interface'' desses objetos?
 \li Quando dois objetos desse tipo são \emph{iguais}?
+\li Qual é o ``interface'' desses objetos?
 \endol
 %%}}}
 
 %%{{{ Black boxes 
 \note Black boxes.
 \label{blackbox_set}%
+\tdefined{black box}%
+\tdefined{white box}%
+\iiseealso{white box}{black box}%
+\iiseealso{black box}{white box}%
 \tdefined{conjunto}[como black box]%
-Conjuntos como ``black boxes''
+\tdefined{black box}[de conjunto]%
+O conceito de \dterm{black box} é muito útil para descrever certos tipos diferentes.
+A ideia é que queremos descrever o que realmente determina um objeto desse tipo,
+e \emph{esconder} os detalhes ``de implementação'', apresentado apenas seu ``interface''.
+Podemos então pensar que um conjunto $A$ é um black box que tem apenas uma
+entrada onde podemos botar qualquer objeto $x$ desejamos, e tem como única
+``saida'' uma luz que pode piscar ``sim'' ou ``não'' (correspondende nos casos
+$x\in A$ e $x\notin A$ respectivamente).
+\endgraf
+Usamos o termo \emph{black} box para enfatisar que não temos como ``olhar dentro''
+desse aparelho, dessa caixa, e ver o que acontece assim que botar uma entrada;
+nossa única informação será a luz da caixa que vai piscar ``sim'', ou ``não''.
+Quando temos acesso nos ``internals'' da caixa a gente chama de \dterm{white box}
+ou \dterm{transparent box}; mas não vamos precisar o uso desse conceito nesse texto.
+\endgraf
+A única \emph{estrutura interna} de um conjunto é a capabilidade de
+\emph{decidir se dois elementos $x,y$ do conjunto são iguais ou não}.
 %%}}}
 
-%%{{{ df: set_equality 
-\definition Igualdade de conjuntos.
-\label{set_equality}%
-Definimos
-$$
-A = B \defiff \forall x \paren{ x\in A \liff x\in B }.
-$$
+\question.
+Quando dois conjuntos são iguais?
+\spoiler.
+
+%%{{{ pseudodf: set_eq_pseudodefinition 
+\pseudodefinition.
+\label{set_eq_pseudodefinition}%
+Consideramos dois conjuntos $A,B$ iguais sse não tem como diferenciar
+eles como black boxes.  Em outras palavras, para cada objeto $x$
+que vamos dar como entrada para cada um deles, eles vão concordar:
+ou os dois vão piscar ``sim'', ou os dois vão piscar ``não''.
 %%}}}
+
+%%{{{ defining_sets 
+\note Definindo conjuntos.
+Para determinar então um conjunto $A$, precisamos dizer exatamente
+quando um objeto arbitrario $x$ pertence nele.
+As notações que viermos até agora realmente deixam isso claro;
+mas um outro jeito muito útil para \emph{definir} um certo conjunto $A$,
+seria apenas preencher o
+$$
+x \in A  \defiff  \text{\xlthole}.
+$$
+com alguma \ii{condição definitiva}condição definitiva
+(veja~\ref{definite_condition}).
+\endgraf
+Concluimos que as duas formas seguintes de definir um conjunto $A$,
+são completamente equivalentes:
+$$
+\xalignat2
+x &\in A \defiff \text{\lthole}
+&
+A &\defeq \setst x {\text{\lthole}}.
+\endxalignat
+$$
+As duas afirmações tem exatamente o mesmo efeito:
+definir o mesmo conjunto $A$.
+Qual das duas usamos, será mais questão de gosto ou de contexto.
+%%}}}
+
+\blah.
+Logo vamos formalizar a~\ref{set_eq_pseudodefinition}.
+Mas antes disso, vamos discutir sobre dois conceitos de igualdade diferentes.
 
 \endsection
 %%}}}
@@ -8599,14 +8726,17 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Defining sets 
-\section Definindo conjuntos.
-
-\endsection
-%%}}}
-
 %%{{{ Relations between sets and how to define them 
 \section Relações entre conjuntos e como as definir.
+
+%%{{{ df: set_eq 
+\definition Igualdade de conjuntos.
+\label{set_eq}%
+Definimos
+$$
+A = B \defiff \forall x \paren{ x\in A \liff x\in B }.
+$$
+%%}}}
 
 %%{{{ df: subconjunto 
 \definition.
@@ -8634,6 +8764,14 @@ Se $B$ tem elementos que não pertencem no $A$, chamamos o $B$
 \exercise.
 \label{eq_implies_subseteq}%
 $A = B \implies A \subseteq B$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: eq_using_subsets 
+\exercise.
+\label{eq_using_subsets}%
+$A = B \iff A \subseteq B \land B \subseteq A$
 
 \endexercise
 %%}}}
@@ -8783,7 +8921,7 @@ Qual é teu alvo agora?
 
 \hint
 Teu alvo é mostrar que $A = B$.
-Para fazer isso é necessário lembrar a definição de $=$ nos conjuntos (\refn{set_equality}).
+Para fazer isso é necessário lembrar a definição de $=$ nos conjuntos (\refn{set_eq}).
 
 \solution
 Suponha que $A,B$ são vazios.
@@ -8860,8 +8998,8 @@ O que ganhamos realmente?
 %%}}}
 \spoiler.
 
-%%{{{ A: we can pick an element from it! 
-\note Resposta.
+%%{{{ A: We can pick an element from it! 
+\blah Resposta.
 Ganhamos o direito de escrever ``Seja $d\in D$.''
 Em outras palavras: de tomar um elemento de $D$;
 de declarar uma variável (não usada) para denotar um elemento de $D$.
@@ -9054,6 +9192,14 @@ $$
 
 \blah.
 Falta só uma mais afirmação para examinar: $A \in A$?
+
+%%{{{ x: can_you_find_an_irregular_set 
+\exercise.
+\label{can_you_find_an_irregular_set}%
+Consegue mostrar algum conjunto $A$ com a propriedade que ele pertence nele mesmo ($A \in A$)?
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
