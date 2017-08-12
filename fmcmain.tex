@@ -8465,15 +8465,16 @@ O que significa ser conjunto?
 \label{set_pseudodefinition}%
 \tdefined{conjunto}[definição intuitiva]
 Um \dterm{conjunto} $A$ é a colecção numa totalidade
-de certos objetos distintos da nossa intuição que chamamos de \dterm{elementos} de $A$.
+de certos objetos (definidos e separados) da nossa intuição ou mente, que chamamos de \dterm{elementos} de $A$.
 %%}}}
 
 %%{{{ x: set_pseudodefined 
 \exercise.
-Qual é o problema com a definição em cima?
+Qual é o problema principal com a definição em cima?
 
 \solution
-O que é uma ``colecção''?  Cuidado: para responder nessa pergunta
+O que é uma ``colecção (numa totalidade)''?
+Cuidado: para responder nessa pergunta
 tu não podes usar a palavra ``conjunto'', pois assim teria uma
 definição circular.
 Em outras palavras, definimos a palavra ``conjunto'' em termos da palavra
@@ -8574,16 +8575,18 @@ $$
 para denotar <<o conjunto de todos os objetos $x$ tais que \thole$x$\thole>>.
 \footnote{Na literatura aparece também o símbolo~`\,$:$\,'~em vez
 do~`$\st$'~que usamos aqui.}
-Entendemos que no lado direito escrevemos uma \dterm{condição definitiva},
+Entendemos que no lado direito escrevemos o \dterm{filtro},
+uma \emph{condição definitiva},
 e não algo ambíguo ou algo subjetivo.  Por exemplo, não podemos escrever 
 algo do tipo
 $$
 \setst p { \text{$p$ é uma pessoa linda} }.
 $$
-Mas como podemos formalizar o que é uma condição definitiva?
+Mas como podemos formalizar o que é uma \dterm{condição definitiva}?
 Bem, concordamos escrever apenas algo que podemos (se precisarmos e se quisermos)
 descrever usando uma fórmula de FOL $\phi(x)$ onde possivelmente aparece
-a variável $x$ livre e todos os símbolos da FOL tem interpretações bem definidas.
+a variável $x$ livre e todos os símbolos da FOL tem interpretações bem definidas.%
+\footnote{Pouco mais sobre isso no~\ref{fol_filter_by_fraenkel_and_skolem}.}
 Chegamos então na forma
 $$
 \setst x {\phi(x)}.
@@ -8604,6 +8607,32 @@ $$
 \defeq
 \setst {x} {x \in A \mland \text{\thole$x$\thole}}.
 $$
+%%}}}
+
+%%{{{ x: div_mul_pow_of_12_and_m_setbuilder_practice 
+\exercise.
+\label{div_mul_pow_of_12_and_m_setbuilder_practice}%
+Usando a notação set-builder defina os conjuntos
+$D_{12}$, $M_{12}$, e $P_{12}$
+de todos os divisores, todos os múltiplos, e todas as potências de $12$.
+Generalize para um inteiro $m$.
+Identifique quais variáveis que aparecem na tua resposta são livres e quais são ligadas.
+
+\solution
+$$
+\xalignat2
+D_{12} &\defeq \setst {n \in \ints} {n \divides 12}  &
+D_m    &\defeq \setst {n \in \ints} {n \divides m}   \\
+M_{12} &\defeq \setst {12n}  {n \in \ints}           &
+M_m    &\defeq \setst {mn}   {n \in \ints}           \\
+P_{12} &\defeq \setst {12^n} {n \in \nats}           &
+P_m    &\defeq \setst {m^n}  {n \in \nats}
+\endxalignat
+$$
+Onde aparece a variável `$m$', ela está livre, e
+onde aparece a variável `$n$', ela está ligada.
+
+\endexercise
 %%}}}
 
 %%{{{ x: set_builder_map_size_limit 
@@ -8788,8 +8817,10 @@ Mas antes disso, vamos discutir sobre dois conceitos de igualdade diferentes.
 %%{{{ Intension vs. Extension 
 \section Intensão vs{.}~extensão.
 
-\note.
-Considere os conjuntos seguintes:
+%%{{{ Q: what_are_the_extensions_of_these_four_sets} 
+\question.
+\label{what_are_the_extensions_of_these_four_sets}%
+Quais são os elemembros de cada um dos conjuntos seguintes?:
 $$
 \align
 P &= \setst d {\text{$d$ é um divisor primo de $2^{256!}$}}\\
@@ -8798,6 +8829,86 @@ R &= \setst x {\text{$x$ é raiz real do polinómio $x^3 - 8$}}\\
 S &= \set {2}
 \endalign
 $$
+%%}}}
+
+%%{{{ A: thinking a bit, they're all the same set 
+\note Resposta.
+\emph{Pensando um pouco} percebemos que esses quatro conjuntos
+consistem em exatamente os mesmos membros, viz.~o número $2$ e nada mais.
+Lembrando na ideia de black box, realmente não temos como diferenciar
+entre esses black boxes.
+Começando com o $S$, é direto que ele responda ``sim'' apenas no número $2$
+e ``não'' em todos os outros objetos.
+Continuando com os $P,Q,R$, realmente temos que o único objeto que satisfaz
+seus fíltro é o número $2$.
+%%}}}
+
+%%{{{ Intension description 
+\note.
+\label{intension_description}%
+\tdefined{extensão}%
+\tdefined{intensão}%
+\tdefined{igualdade}[extensional]%
+\tdefined{igualdade}[intensional]%
+Como comporta o $S$?
+Recebendo sua entrada $a$, ele a compara com o $2$ para ver se $a=2$ ou não,
+e responde ``sim'' ou ``não'' (respectivamente) imediatamente.
+E o $R$?
+Recebendo sua entrada $a$, ele verifica se $a$ é uma raiz do $x^3 - 8$.
+Substituindo então o $x$ por $a$, elevando o $a$ ao $3$ e subtraindo $8$,
+se o resultado for $0$ responda ``sim''; caso contrario, ``não''.
+E o $Q$?
+Recebendo sua entrada $a$, ele verifica se $a$ é primo, e se $a$ e par.
+Se as duas coisa acontecem, ele responda ``sim''; caso contrario, ``não''.
+E o $P$?
+Recebendo sua entrada $a$, ele verifica se $a\divides 2^{256!}$ e se $a$ é
+um número primo.
+Se as duas coisa acontecem, ele responda ``sim''; caso contrario, ``não''.
+\endgraf
+Acabamos de descrever a \dterm{intensão} de cada conjunto, tanto aqui
+quanto na~\ref{what_are_the_extensions_of_these_four_sets}.
+Mas, sendo black boxes, dados esses conjuntos $P,Q,R,S$,
+não conseguimos os diferenciar, pois a única interação que sua interface
+permite é botar objetos $a$ como entradas, e ver se pertencem ou não.
+Falamos então que \dterm{extensionalmente} os quatro conjuntos
+são iguais, mas \dterm{intensionalmente}, não.
+Usamos os termos \dterm{igualdade extensional} e \dterm{igualdade intensional}.
+E para abusar a ideia de black box:
+provavelmente o black box $Q$ demora mais para responder, ou fica mais quente,
+ou faz mais barulho, etc., do que o $S$.
+\endgraf
+Quando definimos um conjunto simplesmente listando todos os seus membros,
+estamos escrevendo sua \dterm{extensão}.  E nesse caso, a intensão é a mesma.
+Quando usamos a notação builder com um fílter, estamos mostrando a \dterm{intensão}
+do conjunto.  Nesse caso as duas noções podem ser tão diferentes, que nem
+sabemos como achar sua extensão!
+%%}}}
+
+%%{{{ eg: number_theory_conjectures_set_intension 
+\example.
+\label{number_theory_conjectures_set_intension}%
+Revise a~\ref{open_problems_in_number_theory} e considere os conjuntos
+$$
+\align
+T &\defeq
+\setst { p } {\text{$p$ e $p+2$ são prímos}}\\
+L &\defeq
+\setst { n } {\text{não existe primo entre $n^2$ e $(n+1)^2$}}\\
+G &\defeq
+\setst { p + q } {\text{$p$ e $q$ são primos}}\\
+C &\defeq
+\setst { n \in \nats } { \text{a seqüência Collatz começando com $n$ nunca pega o valor $1$} }.
+\endalign
+$$
+Sobre os $T$ e $G$ não sabemos se são finitos ou não!
+E, sobre os $L$ e $C$ nem sabemos se eles têm elementos ou não,
+ou seja não sabemos nem se $L=\emptyset$ nem se $C=\emptyset$!
+\endexample
+%%}}}
+
+\blah.
+Fechando essa secção lembramos que em conjuntos (e em matemática em geral)
+usamos igualdade `$=$' como igualdade extensional.
 
 \endsection
 %%}}}
@@ -16567,6 +16678,7 @@ Prove as duas direções da ``$\Longleftrightarrow$'' separadamente.
 
 %%{{{ Credits 
 \note Créditos.
+\label{fol_filter_by_fraenkel_and_skolem}
 Todos os axiomas que temos visto até agora são essencialmente os axiomas
 de Zermelo\Zermelo{}, e falta apenas um dos seus axiomas originais
 (o axioma da escolha que encontramos na~\refn{axioms_of_choice}).
