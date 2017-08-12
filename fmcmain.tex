@@ -8555,6 +8555,8 @@ $$
 \setst x {\text{\thole$x$\thole}}
 $$
 para denotar <<o conjunto de todos os objetos $x$ tais que \thole$x$\thole>>.
+\footnote{Na literatura aparece também o símbolo~`\,$:$\,'~em vez
+do~`$\st$'~que usamos aqui.}
 Entendemos que no lado direito escrevemos uma \dterm{condição definitiva},
 e não algo ambíguo ou algo subjetivo.  Por exemplo, não podemos escrever 
 algo do tipo
@@ -8574,13 +8576,66 @@ pois nos permite utilisar \emph{termos} mais complexos na sua parte esquerda,
 e não apenas uma variável.
 Por exemplo
 $$
-\setst {p^q + x} {\text{$p,q$ primos, $x\in[0,1)$}}
+\setst {p^n + x} {\text{$p$ é primo, $n$ é ímpar, e $x\in[0,1)$}}
 $$
 seria o conjunto de todos os números reais que podem ser escritos na forma
-$p^q + x$ para alguns primos $p$ e $q$ e algum real $x$ com $0 \leq x < 1$.
+$p^n + x$ para algum primo $p$, algum ímpar $n$, e algum real $x$ com $0 \leq x < 1$.
 \endgraf
-Finalmente, note que na literatura aparece também o símbolo `\,$:$\,'
-em vez do `$\st$' que usamos aqui.
+Finalmente, mais uma extensão dessa notação é que usamos
+$$
+\setst {x \in A} {\text{\thole$x$\thole}}
+\defeq
+\setst {x} {x \in A \mland \text{\thole$x$\thole}}.
+$$
+%%}}}
+
+%%{{{ x: set_builder_map_size_limit 
+\exercise.
+\label{set_builder_map_size_limit}%
+Seja $T = \set{u,v}$ um conjunto com dois elementos $u,v$.
+Definimos um conjunto $A$ pela
+$$
+A \defeq \setst {f(n,m)} {n,m \in T}
+$$
+Quantos elementos tem o $A$?
+
+\hint
+Primeiramente calcule a extensão do $A$:
+$$
+A = \set{ \dots?\dots }.
+$$
+
+\solution
+Calculando a extensão de $A$ achamos:
+$$
+A = \set{ f(u,u), f(u,v), f(v,u), f(v,v) }.
+$$
+Então o $A$ tem \emph{no máximo} $4$ elementos---mas pode acontecer que tem menos (veja~\ref{set_builder_map_exercise}).
+
+\endexercise
+%%}}}
+
+%%{{{ x: set_builder_map_exercise 
+\exercise.
+\label{set_builder_map_exercise}%
+Escreve a extensão do conjunto
+$$
+B \defeq \setst {n^2 + m^2} {n,m \in \set{1,3}}.
+$$
+
+\solution
+Calculamos:
+$$
+\align
+B
+&= \setst {n^2 + m^2} {n,m \in \set{1,3}}\\
+&= \set{ 1^2 + 1^2, 1^2 + 3^2, 3^2 + 1^2, 3^2 + 3^2 }\\
+&= \set{ 2, 10, 10, 18 }\\
+&= \set{ 2, 10, 18 }.
+\endalign
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ x: rich_set_builder_sugar 
@@ -8589,7 +8644,7 @@ Mostre como a notação ``mais rica'' de
 $$
 \setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
 $$
-pode ser considerada como açúcar sintáctico se temos já a notação de
+pode ser definida como açúcar sintáctico se temos já a notação de
 comprehensão que permite apénas uma variável no lado esquerdo.
 Aqui considere que o $t(x_1,\dotsc, x_n)$ é um termo que pode ser
 bem complexo, formado por outros termos complexos, etc., e onde
@@ -9196,12 +9251,13 @@ $$
 %%}}}
 
 \blah.
-Falta só uma mais afirmação para examinar: $A \in A$?
+Agora falta apenas uma afirmação para examinar: $A \in A$?
 
 %%{{{ x: can_you_find_an_irregular_set 
 \exercise.
 \label{can_you_find_an_irregular_set}%
-Consegue mostrar algum conjunto $A$ com a propriedade que ele pertence nele mesmo ($A \in A$)?
+Consegues mostrar algum conjunto com a propriedade que ele pertence nele mesmo?
+Ou seja, podes achar um conjunto $A$ tal que $A\in A$?
 
 \endexercise
 %%}}}
@@ -9212,17 +9268,139 @@ Consegue mostrar algum conjunto $A$ com a propriedade que ele pertence nele mesm
 %%{{{ Operations on sets and how to define them 
 \section Operações entre conjuntos e como as definir.
 
-Operações entre conjuntos e dois jeitos de as definir
+%%{{{ Operações 
+\note Operações.
+Lembramos que uma operação num tipo de objetos
+mapeia certos objetos desse tipo (suas entradas)
+para \emph{exatamente um} objeto desse tipo (sua saida).
+%%}}}
 
-As operações binárias: $\inters$, $\union$, $\setminus$.
+%%{{{ Definindo operações 
+\note Definindo operações.
+Então como podemos \emph{definir uma operação} nos conjuntos?
+O que precisamos deixar claro?
+Como a saida (ou o ``resultado'') duma operação, no final das contas,
+é um conjunto, basta determinar esse conjunto para quaisquer entradas aceitáveis pela operação.
+E como determinamos um conjunto?
+Para começar, podemos usar um dos jeitos que já encontramos para definir um conjunto $A$:
+$$
+\xalignat2
+A       &\defeq \setst x {\text{\thole$x$\thole}} &
+x \in A &\defiff \text{\thole$x$\thole}.
+\endxalignat
+$$
+Bora definir umas operações conhecidas para aquecer.
+%%}}}
 
-A operação unária de complemento: $^{\sim}$
+%%{{{ df: union_def 
+\definition.
+\label{union_def}%
+\tdefined{união}%
+\sdefined {\holed A \union \holed B} {a união dos $A$ e $B$}%
+Sejam $A,B$ conjuntos.  Definimos
+$$
+A \union B \defeq \setst x {\text{$x \in A$ ou $x\in B$}}
+$$
+Alternativamente, podemos definir a mesma operação na seguinte forma equivalente:
+$$
+x \in A \union B \defiff \text{$x \in A$ ou $x\in B $}.
+$$
+Chamamos o $A \union B$ a \dterm{união} dos $A$ e $B$.
+%%}}}
+
+%%{{{ df: inter_def 
+\definition.
+\label{inter_def}%
+\tdefined{intersecção}%
+\sdefined {\holed A \inter \holed B} {a intersecção dos $A$ e $B$}%
+Sejam $A,B$ conjuntos.  Definimos
+$$
+x \in A \inter B \defiff x \in A \mland x\in B.
+$$
+Chamamos o $A\inter B$ a \dterm{intersecção} dos $A$ e $B$.
+%%}}}
+
+%%{{{ x: inter_altdef
+\exercise.
+\label{inter_altdef}%
+Defina a operação $\inter$ usando a notação set-builder.
+
+\solution
+Qualquer uma das definições seguintes serve:
+$$
+\align
+A \inter B &\defeq \set {x} {x \in A \mland x\in B}\\
+A \inter B &\defeq \set {x\in A} {x\in B}\\
+A \inter B &\defeq \set {x\in B} {x\in A}
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ beware: type_errors 
+\beware Type errors.
+\label{type_errors}%
+Não confuda o uso dos $\defeq$ e $\defiff$ (nem dos $=$ e $\iff$).
+Usamos $=$ para denotar \emph{igualdade} entre dois \emph{objetos},
+e usamos $\iff$ para denotar que as \emph{afirmações} que
+aparecem nos dois lados são \emph{equivalentes}.
+No mesmo jeito que não podemos escrever
+$$
+\xalignat3
+2 + 3 &\iff 5 &&\text{nem} & x \leq y &\;=\; x + 1 \leq y + 1\\
+\intertext{não podemos escrevemos também}
+A \setminus B &\iff A \inter \compl B &&\text{nem} & A \subsetneq B &\;=\; A \subseteq B \land A \neq B.\\
+\intertext{O que queriamos escrever nesses casos seria:}
+2 + 3 &= 5                           &&& x \leq y &\iff x+1 \leq y + 1\\
+A \setminus B &= A \inter \compl B &&& A \subsetneq B &\iff A \subseteq B \land A \neq B.
+\endxalignat
+$$
+%%}}}
+
+\blah.
+Continuamos com mais operações, incluindo nossa primeira operação unária.
+
+%%{{{ df: complement_def 
+\definition.
+\label{complement_def}%
+\tdefined{complemento}%
+\sdefined {\compl{\holed A}} {o complemento de $A$}%
+Seja $A$ conjunto.  Definimos
+$$
+\compl A \defeq \setst x {x\notin A}
+$$
+Chamamos o $\compl A$ o \dterm{complemento} de $A$.
+%%}}}
+
+%%{{{ df: setminus_def 
+\definition.
+\label{setminus_def}%
+\tdefined{complemento}[relativo]%
+\sdefined {\holed A \setminus \holed B} {o complemento relativo de $B$ no $A$}%
+Sejam $A,B$ conjuntos.
+$$
+A \setminus B
+\defeq
+\setst { x\in A } {x \notin B}
+$$
+Chamamos o conjunto $A\setminus B$ o \dterm{complemento relativo} de $B$ no $A$,
+e pronunciamos o $A\setminus B$ como <<$A$ \emph{menos} $B$>> ou <<$A$ \emph{fora} $B$>>.
+%%}}}
+
+%%{{{ x: setminus_practice 
+\exercise.
+Calcule (a extensão d)os conjuntos:
+$$
+\align
+\set{0,1,2} \setminus \nats
+\endalign
+$$
+
+\endexercise
+%%}}}
 
 Diferença simétrica ($\symdiff$)
-
-Produto cartesiano ($\times$)
-
-$A^n$: definição ``direta'' e recursiva
 
 Powerset ($\powerset$)
 
@@ -9232,21 +9410,47 @@ As operações unárias de união e intersecção.
 
 Generalizando as operações de união e intersecção: as operações unárias $\Inters$, $\Union$.
 
+Os operadores binários $\union$ e $\inters$ como açúcar sintáctico
+(definido pelos operadores unários $\Union$ e $\Inters$ respeitivamente).
+
 Aplicando (e iterando) as $\powerset$, $\Inters$, e $\Union$ no $\emptyset$.
 
 Intuição sobre os $\Inters$, $\Union$, $\powerset$, e as $\{$, e $\}$.
 
 $\Inters$ e $\Union$ com subscripts (mais notações)
 
-Uma diferença importantíssima entre os operadores $\sum{}$ e $\Union$ e seus indices:
-um somatório infinito não é nem associativo nem comutativo!
+Produto cartesiano ($\times$)
 
-Riemann's rearrangement theorem.
+$A^n$: definição ``direta'' e recursiva
+
+\warning.
+Uma diferença importantíssima entre os operadores $\sum{}$ e $\Union$ e seus indices:
+um ``somatório infinito'' não é nem associativo nem comutativo!
+O seguinte teorema de \Riemann{}Riemann é bastante impressionante!
+
+\theorem Riemann's rearrangement.
+Se uma serie infinita $\sum a_i$ de reais é \emph{condicionalmente convergente},%
+\footnote{Uma série $\sum a_i$ é \dterm{condicionalmente convergente}
+se ela é convergente, mas a $\sum |a_i|$ não é.}
+então podemos apenas permutando seus termos criar uma nova serie infinita que
+converga em \emph{qualquer} $x\in[-\infty,\infty]$ que desejamos.
+\sketch.
+Separe as metas: (i) mostrar como criar uma série que converge num dado número $\ell$;
+(ii) mostrar como criar uma série divergente.
+\endgraf
+Observe que como $\sum a_i$ é condicionalmente convergente, ela contem uma infinidade
+de termos positivos, e uma infinidade de termos negativos.
+Para o (i), fixe um $\ell\in\reals$.
+Fique tomando termos positivos da serie $a_i$ até seu somatório supera o $\ell$.
+Agora fique tomando termos negativos da $a_i$ até seu somatório cai embaixo do $\ell$.
+Agora fique tomando termos positivos até superar o $\ell$, etc.~etc.
+Continuando assim conseguimos construir uma serie feita por termos da $\sum a_i$ que converge no $\ell$.
+\qes
+\proof.
+Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
+\qed
 
 Intervalos de reais, suas intersecções e uniões arbitrárias 
-
-Os operadores binários $\union$ e $\inters$ como açúcar sintáctico
-(definido pelos operadores unários $\Union$ e $\Inters$ respeitivamente).
 
 \endsection
 %%}}}
