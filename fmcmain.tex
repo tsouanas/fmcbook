@@ -9523,49 +9523,403 @@ e pronunciamos o $A\setminus B$ como <<$A$ \emph{menos} $B$>> ou <<$A$ \emph{for
 
 %%{{{ x: setminus_practice 
 \exercise.
-\TODO Calcule (a extensão d)os conjuntos:
+\label{setminus_practice}%
+Calcule (a extensão d)os conjuntos:
+\doublecolumns
+\beginol
+\li $\set{0,1,2,3,4} \setminus \set{4,1}$
+\li $\set{0,1,2,3,4} \setminus \set{7,6,5,4,3}$
+\li $\set{0,1,2} \setminus \nats$
+\li $\nats \setminus \set{0,1,2}$
+\li $\nats \setminus \ints$
+\li $\set{\set{0,1}, \set{1,2}, \set{0,2}} \setminus \set{0,1}$
+\li $\set{\set{0,1}, \set{1,2}, \set{0,2}} \setminus \set{0,1,2}$
+\li $\set{\set{0,1}, \set{1,2}, \set{0,2}} \setminus \set{\set{0,1,2}}$
+\li $\set{\set{0,1}, \set{1,2}, \set{0,2}} \setminus \set{\set{1,2}}$
+\li $\set{\set{0,1}, \set{1,2}} \setminus \set{\set{1}}$
+\li $\set{7,\emptyset} \setminus \emptyset$
+\li $\set{7,\emptyset} \setminus \set{\emptyset}$
+\li $\reals \setminus 0$
+\li $\reals \setminus \set{0}$
+\li $\set{1,\set{1}, \set{\set{1}}, \set{\set{\set{1}}}} \setminus 1$
+\li $\set{1,\set{1}, \set{\set{1}}, \set{\set{\set{1}}}} \setminus \set{\set{1}}$
+\endol
+\singlecolumn
 
-%$$
-%\align
-%\set{0,1,2} \setminus \nats
-%\endalign
-%$$
+\hint
+Não siga tua intuição; siga fielmente a definição!
+
+\solution
+\beginol
+\li $\set{0,1,2,3,4} \setminus \set{4,1} = \set{0,2,3}$
+\li $\set{0,1,2,3,4} \setminus \set{7,6,5,4,3} = \set{0,1,2}$
+\li $\set{0,1,2} \setminus \nats = \emptyset$
+\li $\nats \setminus \set{0,1,2} = \set{3,4,5,6,\dotsc} = \setst {n \in \nats} {n \geq 3}$
+\li $\nats \setminus \ints = \emptyset$
+\li $\set{\set{0,1}, \set{1,2}, \set{0,2}} \setminus \set{0,1} = \set{\set{0,1}, \set{1,2}, \set{0,2}}$
+\li $\set{\set{0,1}, \set{1,2}, \set{0,2}} \setminus \set{0,1,2} = \set{\set{0,1}, \set{1,2}, \set{0,2}}$
+\li $\set{\set{0,1}, \set{1,2}, \set{0,2}} \setminus \set{\set{0,1,2}} = \set{\set{0,1}, \set{1,2}, \set{0,2}}$
+\li $\set{\set{0,1}, \set{1,2}, \set{0,2}} \setminus \set{\set{1,2}} = \set{\set{0,1}, \set{0,2}}$
+\li $\set{\set{0,1}, \set{1,2}} \setminus \set{\set{1}} = \set{\set{0,1}, \set{1,2}}$
+\li $\set{7,\emptyset} \setminus \emptyset = \set{7,\emptyset}$
+\li $\set{7,\emptyset} \setminus \set{\emptyset} = \set{7}$
+\li $\reals \setminus 0 = \reals$
+\li $\reals \setminus \set{0} = (-\infty,0)\union(0,+\infty)$
+\li $\set{1,\set{1}, \set{\set{1}}, \set{\set{\set{1}}}} \setminus 1 = \set{1,\set{1}, \set{\set{1}}, \set{\set{\set{1}}}}$
+\li $\set{1,\set{1}, \set{\set{1}}, \set{\set{\set{1}}}} \setminus \set{\set{\set{1}}} = \set{1,\set{1}, \set{\set{\set{1}}}}$
+\endol
 
 \endexercise
 %%}}}
 
-\TODO Diferença simétrica ($\symdiff$)
+%%{{{ x: setminus_equalities_practice 
+\exercise.
+\label{setminus_equalities_practice}%
+Sejam $A,B$ conjuntos.
+Para cada uma das afirmações em baixo: prove se é verdadeira;
+refuta se é falsa; mostre um exemplo e um contraexemplo
+se depende nos $A,B$ (e tente determinar exatamente quando é verdadeira).
+$$
+\xalignat3
+(1)  \quad& \emptyset \setminus \emptyset = \emptyset       &
+(5)  \quad& A \setminus A = A                               &
+(9)  \quad& A \setminus B = B                               \\
+(2)  \quad& A \setminus \emptyset         = A               &
+(6)  \quad& A \setminus A = \emptyset                       &
+(10) \quad& A \setminus B                   = B \setminus A \\
+(3)  \quad& \emptyset \setminus A         = \emptyset       &
+(7)  \quad& A \setminus B = \emptyset                       &
+(11) \quad& A \setminus \set{B}             = A             \\
+(4)  \quad& \set{\emptyset} \setminus A   = \emptyset       &
+(8)  \quad& A \setminus B = A                               &
+(12) \quad& \set{A,B} \setminus (A\union B) = \emptyset     
+\endxalignat
+$$
 
-\TODO Powerset ($\powerset$)
+\endexercise
+%%}}}
 
-\TODO Uniões disjuntas, famílias.
+%%{{{ df: symdiff_def 
+\definition.
+\label{symdiff_def}%
+\tdefined{diferença simétrica}%
+\sdefined {\holed A \symdiff \holed B} {a diferença simétrica dos $A$ e $B$}%
+Sejam $A,B$ conjunto.  Definimos
+$$
+x \in A \symdiff B \defiff \text{$x$ pertence em exatamente um dos $A,B$}.
+$$
+Chamamos o $A \symdiff B$ a \dterm{diferença simétrica} dos $A$ e $B$.
+%%}}}
 
-\TODO As operações unárias de união e intersecção.
+%%{{{ eg: symdiff_example 
+\example.
+\label{symdiff_example}%
+Calculamos os conjuntos:
+\beginul
+\li $\set{0,1,2,3} \symdiff \set{1,2,4,8} = \set{0,3,4,8}$
+\li $\set{\set{0,1}, \set{1,2}} \symdiff \set{0,1,2} = \set{ \set{0,1}, \set{1,2}, 0, 1, 2 }$
+\li $\set{\set{0,1}, \set{1,2}} \symdiff \set{\set{0,1},\set{0,2}} = \set{ \set{0,2}, \set{1,2} }$
+\li $(-2,1) \symdiff (-1,2) = (-2,-1] \union [1,2)$
+\endul
+\endexample
+%%}}}
 
-\TODO Generalizando as operações de união e intersecção: as operações unárias $\Inters$, $\Union$.
+%%{{{ x: what_is_A_symdiff_A_and_A_symdiff_emptyset 
+\exercise.
+\label{what_is_A_symdiff_A_and_A_symdiff_emptyset}%
+Dado $A$ conjunto, calcule os conjuntos $A\symdiff A$ e $A \symdiff \emptyset$.
 
-\TODO Os operadores binários $\union$ e $\inters$ como açúcar sintáctico
-(definido pelos operadores unários $\Union$ e $\Inters$ respeitivamente).
+\endexercise
+%%}}}
 
-\TODO Aplicando (e iterando) as $\powerset$, $\Inters$, e $\Union$ no $\emptyset$.
+\endsection
+%%}}}
 
-\TODO Intuição sobre os $\Inters$, $\Union$, $\powerset$, e as $\{$, e $\}$.
+%%{{{ Proving equalities and inclusions 
+\section Provando igualdades e inclusões.
 
-\TODO $\Inters$ e $\Union$ com subscripts (mais notações)
+%%{{{ prop: set_de_morgan 
+\proposition.
+\label{set_de_morgan}%
+Para todos os conjuntos $A,B,C$,
+$$
+C \setminus (A \union B)
+=
+(C \setminus A) \inter (C \setminus B).
+$$
+\proof.
+Sejam $A,B,C$ conjuntos.  Temos:
+$$
+\alignat2
+x \in C \setminus (A \union B)
+&\iff x \in C \land \lnot (x \in A \union B)                        \qqby{def.~$\setminus$}\\
+&\iff x \in C \land \lnot (x \in A \lor x \in B)                    \qqby{def.~$\union$}\\
+&\iff x \in C \land (x \notin A \land x \notin B)                   \qqby{De Morgan}\\
+&\iff (x \in C \land x \notin A) \land (x \in C \land x \notin B)   \qqby{lógica}\\
+&\iff (x \in C \setminus A) \land (x \in C \setminus B)             \qqby{def.~$\setminus$}\\
+&\iff x \in (C \setminus A) \inter (C \setminus B)                  \qqby{def.~$\inter$}
+\endalignat
+$$
+Logo
+$
+C \setminus (A \union B)
+=
+(C \setminus A) \inter (C \setminus B)
+$
+pela definição de igualdade de conjuntos.
+\qed
+%%}}}
 
-\TODO Produto cartesiano ($\times$)
+%%{{{ prop: symdiff_altdef1 
+\proposition.
+Sejam $A,B$ conjuntos.  Logo,
+$$
+A \symdiff B
+=
+(A \setminus B) \union (B \setminus A)
+$$
+\sketch.
+Antes de começar, traduzimos os dois lados:
+<<em exatamente um dos dois>> na esquerda,
+<no primeiro mas não no segundo ou no segundo mas não no primeiro>> na direita.
+Faz sentido que os dois conjuntos são iguais, pois as duas frases são equivalentes!
+Mas para provar formalmente a afirmação, mostramos as duas direções
+$$
+\xalignat3
+A \symdiff B &\subseteq (A \setminus B) \union (B \setminus A) &&\mland&
+A \symdiff B &\supseteq (A \setminus B) \union (B \setminus A)
+\endxalignat
+$$
+separadamente, usando as definições de $\subseteq$ e $\supseteq$.
+\qes
+%%}}}
 
-\TODO $A^n$: definição ``direta'' e recursiva
+%%{{{ prop: symdiff_altdef2 
+\proposition.
+Sejam $A,B$ conjuntos.  Logo,
+$$
+A \symdiff B
+=
+(A \union B) \setminus (A \inter B).
+$$
+\sketch.
+Novamente, começamos pensando nos dois lados e suas intensões:
+<<em exatamente um dos dois>> na esquerda;
+<em pelo menos um dos dois, mas não nos dois>> na direita.
+As duas frases são equivalentes, mas vamos mostrar formalmente
+a igualdade desses conjuntos, mostrando novamente as
+``$\subseteq$'' e ``$\supseteq$'' separadamente.
+\qes
+%%}}}
 
+\note.
+Na~\ref{symdiff_def} eu dei uma definição elementária, usando a set-builder
+notação para determinar o conjunto $A\symdiff B$.
+De fato, seria até melhor \emph{definir} a operação $\symdiff$ usando uma das
+duas expressões em cima.
+
+\endsection
+%%}}}
+
+%%{{{ Cardinality 
+\section Cardinalidade.
+
+\TODO Cardinalidade de conjuntos finitos e propriedades.
+
+\endsection
+%%}}}
+
+%%{{{ Powerset 
+\section Powerset.
+
+%%{{{ df: powerset_def 
+\definition.
+\label{powerset_def}%
+\tdefined{powerset}%
+\iisee{conjunto}[de partes]{powerset}%
+\sdefined {\pset{\holed A}} {o powerset de $\holed A$ (conjunto de partes)}%
+Seja $A$ conjunto.
+Chamamos o \dterm{powerset} (ou \dterm{conjunto de partes}, ou
+\dterm{conjunto potência}) de $A$,
+denotado por $\pset A$, é o conjunto de todos os subconjuntos de $A$.
+Formalmente:
+$$
+X \in \pset A \defiff X \subseteq A.
+$$
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Families and sequences of sets 
+\section Famílias e seqüências de conjuntos.
+
+\TODO Família de conjuntos indexada por algum conjunto $I$: $\set{A_i \st i\in I}$.
+
+\TODO Exemplos: Os conjuntos $A_p$ e $F_p$ de todos os ancestrais e todos os filhos de $p$, respeitivamente.
+
+\TODO Traduzindo afirmações da linguagem natural para relações entre conjuntos e vice-versa.
+
+\TODO Seqüências de conjuntos.
+
+\TODO Conjuntos disjuntos e família de conjuntos disjuntos dois-a-dois (``pairwise disjoint''): definição com e sem índices.
+
+\endsection
+%%}}}
+
+%%{{{ Big union; big intersections 
+\section União grande; intersecção grande.
+
+\blah.
+Generalizamos agora as operações binárias de união e intersecção para suas versões arbitrárias, as operações unitárias $\Union\dhole$ e $\Inter\dhole$.
+Antes de dar uma definição, mostramos uns exemplos.
+Esses operadores são mais interessantes e úteis quando são aplicados em
+conjunto cujos membros são conjuntos também, pois---coloquiamente
+falando---eles correspondem na união e na intersecção dos seus membros.
+
+%%{{{ eg: Union_Inter_example 
+\example.
+\label{Union_Inter_example}%
+Aplicamos as operações $\Union$ e $\Inter$ nos conjuntos seguintes:
+$$
+\align
+\Union \set{ \set{1,2,4,8}, \set{0,2,4,6}, \set{2,10} } &= \set{0,1,2,4,6,8,10}\\
+\Inter \set{ \set{1,2,4,8}, \set{0,2,4,6}, \set{2,10} } &= \set{2}\\
+\Union \set{ \nats, \ints, \rats, \reals }              &= \reals\\
+\Inter \set{ \nats, \ints, \rats, \reals }              &= \nats\\
+\Union \set{ 2, 3, \set{4,5}, \set{4,6} }               &= \set{4,5,6}\\
+\Inter \set{ 2, 3, \set{4,5}, \set{4,6} }               &= \emptyset
+\endalign
+$$
+
+\endexample
+%%}}}
+
+%%{{{ df: Union_def 
+\definition.
+\label{Union_def}%
+\label{Inter_def}%
+\tdefined{união}[grande]%
+\tdefined{intersecção}[grande]%
+\sdefined {\Union \holed {\scr A}} {a união de $\holed{\scr A}$}%
+\sdefined {\Inter \holed {\scr A}} {a intersecção de $\holed{\scr A}$}%
+Seja $\scr A$ um conjunto.
+$$
+\align
+x \in \Union \scr A
+&\defiff
+\lexists {A \in \scr A} {x \in A}\\
+x \in \Inter \scr A
+&\defiff
+\lforall {A \in \scr A} {x \in A}.
+\endalign
+$$
+Chamamos o $\Union\scr A$ a \dterm{união} de $\scr A$, e o $\Inter\scr A$
+a \dterm{intersecção} de $\scr A$.
+%%}}}
+
+%%{{{ x: union_and_inter_from_Union_and_Inter_sugar 
+\exercise.
+\label{union_and_inter_from_Union_and_Inter_sugar}%
+Defina os operadores binários $\union$ e $\inter$ como açúcar sintáctico
+definido pelos operadores unários $\Union$ e $\Inter$ respeitivamente.
+
+\solution
+Sejam $A,B$ conjuntos.
+Botamos
+$$
+\xalignat2
+A \union B &\defeq \Union\set{A,B} &
+A \inter B &\defeq \Inter\set{A,B}.
+\endxalignat
+$$
+
+\endexercise
+%%}}}
+
+\TODO Aplicando (e iterando) as $\powerset$, $\Inter$, e $\Union$ no $\emptyset$.
+
+\TODO Intuição sobre os $\Inter$, $\Union$, $\powerset$, e as $\{$, e $\}$.
+
+\TODO $\Inter$ e $\Union$ com subscripts (mais notações)
+
+\TODO Uniões disjuntas, famílias disjuntas.
+
+%%{{{ prop: set_de_morgan_gen 
+\proposition.
+\label{set_de_morgan_gen}%
+Para todo conjunto $C$ e cada seqüência de conjuntos
+$\set{ A_n }_n$,
+$$
+C \setminus {\Union_{n=0}^\infty A_n}
+=
+\Inter_{n=0}^{\infty} (C \setminus A_n).
+$$
+\proof.
+Sejam $C$ conjunto e $\set{ A_n }_n$ seqüência de conjuntos.
+Calculamos
+$$
+\alignat2
+x \in C \setminus \Union_{n=0}^{\infty}A_n
+&\iff x \in C \land \lnot \biggparen{x \in \Union_{n=0}^{\infty}A_n}   \qqby{def.~$\setminus$}\\
+&\iff x \in C \land \lnot (\exists n\in\nats)[x \in A_n]  \qqby{def.~$\Union_{n=0}^{\infty}$}\\
+&\iff x \in C \land (\forall n\in\nats)[x \notin A_n]     \qqby{De Morgan}\\
+&\iff (\forall n\in\nats)[x \in C \land x \notin A_n]     \qqby{lógica}\\
+&\iff (\forall n\in\nats)[x \in C \setminus A_n]          \qqby{def.~$\setminus$}\\
+&\iff x \in \Inter_{n=0}^{\infty}(C \setminus A_n).       \qqby{def.~$\Inter_{n=0}^{\infty}$}
+\endalignat
+$$
+\qed
+%%}}}
+
+\blah.
+Observe a semelhança entre essa prova e a prova da~\ref{set_de_morgan}:
+até nas justificativas de cada passo!
+Realmente, a~\ref{set_de_morgan_gen} é uma generalização da~\refn{set_de_morgan},
+algo que tu provarás no exercício seguinte:
+
+%%{{{ x: set_de_morgan_gen_indeed 
+\exercise.
+\label{set_de_morgan_gen_indeed}%
+O que precisamos fazer para ganhar a~\ref{set_de_morgan} como um corolário
+da~\refn{set_de_morgan_gen}?
+
+\hint
+Quais são os dados que precisamos ter per aplicar a~\ref{set_de_morgan_gen}?
+
+\solution
+Dados conjuntos $A,B,C$, precisamos mostrar que:
+$$
+C \setminus (A \union B)
+=
+(C \setminus A) \inter (C \setminus B).
+$$
+Seja $\set{A_n}_n$ a seqüência $A,B,B,B,\dotsb$, (ou seja, a seqüência definida pelas:
+$A_0 = A$; e $A_i = B$ para $i > 0$).
+Pela~\ref{set_de_morgan_gen} temos então:
+$$
+C \setminus \munderbrace{\Union_{n=0}^\infty A_n} {A \union B}
+=
+\munderbrace{\Inter_{n=0}^{\infty} (C \setminus A_n)} {(C\setminus A) \inter (C\setminus B)}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ warning: big_setops_vs_sum 
 \warning.
+\label{big_setops_vs_sum}%
 Uma diferença importantíssima entre os operadores $\sum{}$ e $\Union$ e seus indices:
 um ``somatório infinito'' não é nem associativo nem comutativo!
 O seguinte teorema de \Riemann{}Riemann é bastante impressionante!
+%%}}}
 
+%%{{{ thm: riemann_rearrangement 
 \theorem Riemann's rearrangement.
+\label{riemann_rearrangement}%
 Se uma serie infinita $\sum a_i$ de reais é \emph{condicionalmente convergente},%
 \footnote{Uma série $\sum a_i$ é \dterm{condicionalmente convergente}
-se ela é convergente, mas a $\sum |a_i|$ não é.}
+sse ela é convergente, mas a $\sum |a_i|$ não é.}
 então podemos apenas permutando seus termos criar uma nova serie infinita que
 converga em \emph{qualquer} $x\in[-\infty,\infty]$ que desejamos.
 \sketch.
@@ -9583,43 +9937,9 @@ Continuando assim conseguimos construir uma serie feita por termos da $\sum a_i$
 \proof.
 Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
 \qed
+%%}}}
 
 \TODO Intervalos de reais, suas intersecções e uniões arbitrárias.
-
-\endsection
-%%}}}
-
-%%{{{ Proving equalities and inclusions 
-\section Provando igualdades e inclusões.
-
-\TODO Um teorema de igualdade de conjuntos:
-Suponha que $A,B\neq\emptyset$.
-$A \times B = B\times A \iff A = B$.
-Prova direta, e prova pelo absurdo.
-
-\endsection
-%%}}}
-
-%%{{{ Cardinality 
-\section Cardinalidade.
-
-\TODO Cardinalidade de conjuntos finitos e propriedades.
-
-\endsection
-%%}}}
-
-%%{{{ Families and sequences of sets 
-\section Famílias e seqüências de conjuntos.
-
-\TODO Família de conjuntos indexada por algum conjunto $I$: $\set{A_i \st i\in I}$.
-
-\TODO Exemplos: Os conjuntos $A_p$ e $F_p$ de todos os ancestrais e todos os filhos de $p$, respeitivamente.
-
-\TODO Traduzindo afirmações da linguagem natural para relações entre conjuntos e vice-versa.
-
-\TODO Seqüências de conjuntos.
-
-\TODO Conjuntos disjuntos e família de conjuntos disjuntos dois-a-dois (``pairwise disjoint''): definição com e sem índices.
 
 \endsection
 %%}}}
@@ -9645,6 +9965,15 @@ Prova direta, e prova pelo absurdo.
 %%{{{ Cartesian products 
 \section Produtos cartesianos.
 
+\TODO Produto cartesiano ($\times$)
+
+\TODO $A^n$: definição ``direta'' e recursiva
+
+\TODO Um teorema de igualdade de conjuntos:
+Suponha que $A,B\neq\emptyset$.
+$A \times B = B\times A \iff A = B$.
+Prova direta, e prova pelo absurdo.
+
 \endsection
 %%}}}
 
@@ -9658,6 +9987,105 @@ Prova direta, e prova pelo absurdo.
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ arbitrary_finite_symdiff 
+\problem.
+\label{arbitrary_finite_symdiff}%
+Sejam $n\in\nats$ com $n\geq 2$ e $n$ conjuntos
+$A_1, A_2, \dotsc, A_n$.
+Seja
+$$
+A \asseq A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n.
+$$
+Observe que como a operação $\symdiff$ é associativa e comutativa,
+o $A$ é bem definido.
+Prove que:
+$$
+A = \set{ a \st \text{$a$ pertence numa quantidade ímpar de $A_i$'s}}.
+$$
+
+\hint
+Indução.
+
+\solution
+Provamos por indução que para todo inteiro $n \geq 2$,
+$$
+A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n
+= \set{ a \st \text{$a$ pertence numa quantidade ímpar de $A_i$'s}}.
+$$
+\casestyle{Base ($n=2$):}
+$x \in A_1 \symdiff A_2 \iff \text{$x$ pertence numa quantidade ímpar dos $A_1,A_2$}$ (óbvio).
+\endgraf
+Seja $k\in\nats$ tal que 
+$$
+A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k
+= \set{ a \st \text{$a$ pertence numa quantidade ímpar de $A_i$'s}}.\tag{H.I.}
+$$
+Precisamos mostrar que:
+$$
+A_1 \symdiff \dotsb \symdiff A_{k+1}
+= \set{ a \st \text{$a$ pertence numa quantidade ímpar dos $A_1,\dotsc,A_{k+1}$'s}}.
+$$
+\endgraf
+(``$\subseteq$''):
+Suponha que $x\in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_{k+1}$,
+ou seja, $x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
+Pela definição de $\symdiff$, temos dois casos:
+\endgraf
+\casestyle{Caso 1:}
+$x \in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\notin A_{k+1}$.\CR
+Pela H.I., $x$ pertence numa quantidade ímpar dos $A_1,\dotsc,A_k$, e não no $A_{k+1}$, então numa quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
+\endgraf
+\casestyle{Caso 2:}
+$x \notin A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\in A_{k+1}$.\CR
+Pela H.I., $x$ pertence numa quantidade par dos $A_1,\dotsc,A_k$ e no
+$A_{k+1}$, então numa quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
+\endgraf
+\bigskip
+\endgraf
+(``$\supseteq$''):
+Suponha que $x$ pertence numa quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
+Separamos em dois casos:
+\endgraf
+\casestyle{Caso 1:} $x \in A_{k+1}$.\CR
+Logo $x$ pertence numa quantidade par dos $A_1,\dotsc,A_k$
+e logo
+$x\notin A_1\symdiff\dotsb\symdiff A_k$ (pela H.I.). 
+Ou seja,
+$x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
+\endgraf
+\casestyle{Caso 2:} $x \notin A_{k+1}$.\CR
+Nesse caso $x$ pertence numa quantidade ímpar dos $A_1,\dotsc,A_k$
+e pela H.I.~temos que $x\in A_1\symdiff\dotsb\symdiff A_k$.
+De novo,
+$x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
+
+\endproblem
+%%}}}
+
+%%{{{ arbitrary_finite_symdiff_gen 
+\problem.
+\label{arbitrary_finite_symdiff_gen}%
+O que devemos mudar (e como) no~\ref{arbitrary_finite_symdiff} e sua resolução,
+se apagar o ``$n \geq 2$''?
+
+\hint
+O que significa $A_1\symdiff\dotsb\symdiff A_n$ nesse caso?
+Por que?
+
+\solution
+Precisamos verificar que a expressão $A_1\symdiff\dotsb\symdiff A_n$ faz
+sentido no caso que $n=0$, ou seja, definir razoavelmente a diferença simétrica
+de uma seqüência vazia de conjuntos.
+Formalmente verificamos que
+$\emptyset\symdiff C = C = C\symdiff\emptyset$ para qualquer conjunto $C$:
+$\emptyset$ é o elemento neutro da operação $\symdiff$, e logo o valor próprio
+da expressão em cima.
+\endgraf
+Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pertence numa quantidade ímpar dos (zero) $A_i$'s, que é óbvio.
+
+\endproblem
+%%}}}
 
 \endproblems
 %%}}}
@@ -14908,7 +15336,7 @@ $$
 %%{{{ df: pset 
 \definition.
 \tdefined{powerset}%
-\sdefined {\pset {\holed a}} {o conjunto de partes (powerset) de $\holed a$}
+\sdefined {\pset {\holed a}} {o conjunto de partes (powerset) de $\holed a$}%
 \iisee{conjunto!de partes}{powerset}%
 \iisee{conjunto!potência}{powerset}%
 Dado conjunto $a$, escrevemos
