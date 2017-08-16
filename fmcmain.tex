@@ -9774,12 +9774,14 @@ $$
 %%{{{ Big union; big intersections 
 \section União grande; intersecção grande.
 
+%%{{{ intro 
 \blah.
 Generalizamos agora as operações binárias de união e intersecção para suas versões arbitrárias, as operações unitárias $\Union\dhole$ e $\Inter\dhole$.
 Antes de dar uma definição, mostramos uns exemplos.
 Esses operadores são mais interessantes e úteis quando são aplicados em
 conjunto cujos membros são conjuntos também, pois---coloquiamente
 falando---eles correspondem na união e na intersecção dos seus membros.
+%%}}}
 
 %%{{{ eg: Union_Inter_example 
 \example.
@@ -9841,13 +9843,102 @@ $$
 \endexercise
 %%}}}
 
-\TODO Aplicando (e iterando) as $\powerset$, $\Inter$, e $\Union$ no $\emptyset$.
+%%{{{ x: iterate_pset_and_Union_on_emptyset 
+\exercise.
+\label{iterate_pset_and_Union_on_emptyset}%
+Calcule os conjuntos:
+$$
+\pset\emptyset,
+\qquad \pset\pset\emptyset,
+\qquad \pset\pset\pset\emptyset,
+\qquad \Union \emptyset,
+\qquad \Union\Union \emptyset.
+$$
 
-\TODO Intuição sobre os $\Inter$, $\Union$, $\powerset$, e as $\{$, e $\}$.
+\solution
+Calculamos pelas definições de $\pset$ e $\Union$:
+$$
+\align
+\pset\emptyset &= \set { \emptyset }\\
+\pset\pset\emptyset &= \set { \emptyset, \set{\emptyset} }\\
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: Inter_emptyset 
+\exercise.
+\label{Inter_emptyset}%
+Calcule o $\Inter\emptyset$.
+
+\hint
+Siga a definição e nada mais!
+
+\endexercise
+%%}}}
+
+%%{{{ note: intuition_about_Inter_Union_powerset_and_set_braces 
+\note.
+\label{intuition_about_Inter_Union_powerset_and_set_braces}
+Bem, bem, bem informalmente podemos dizer que: a operação $\Union$ tire o nivel
+mais externo de chaves; a $\Inter$ também mas jogando fora bem mais elementos
+(aqueles que não pertencem em todos os membros do seu argumento); e o $\pset$
+bote todas as chaves em todas as combinações possíveis para ``o nivel mais
+próximo''.
+%%}}}
+
+%%{{{ Q: how_would_you_define_Union_of_sequence 
+\question.
+\label{how_would_you_define_Union_of_sequence}%
+Imagina que temos, para cada $n\in\nats$, um conjunto $A_n$.%
+\footnote{Isso é chamado uma \dterm{seqüência} de conjuntos.
+Mais sobre isso:~\ref{sequences}.}
+Como tu definiria os conjuntos
+$\Union_{n=0}^{\infty} A_n$
+e 
+$\Inter_{n=0}^{\infty} A_n$
+?
+%%}}}
+\spoiler.
+
+%%{{{ df: Union_Inter_of_sequence 
+\definition.
+\label{Union_Inter_of_sequence}%
+Definimos os operadores unários
+$\Union_{n=0}^{\infty}$ e
+$\Inter_{n=0}^{\infty}$ assim:
+suponha que $A_n$ é um conjunto para cada $n\in\nats$; definimos
+$$
+\align
+\Union_{n=0}^{\infty} A_n &= \lexists {n \in \nats} {x \in A_n}\\
+\Inter_{n=0}^{\infty} A_n &= \lforall {n \in \nats} {x \in A_n}.
+\endalign
+$$
+%%}}}
+
+%%{{{ Union_Inter_of_sequences_as_sugar 
+\exercise.
+\label{Union_Inter_of_sequences_as_sugar}%
+Na~\ref{Union_Inter_of_sequence} definimos \emph{elementariamente}
+as operações $\Union_{n=0}^{\infty}$ e $\Inter_{n=0}^{\infty}$.
+Defina-las usando as operações de $\Union$ e $\Inter$.
+
+\solution
+Seja $A_n$ uma seqüência de conjuntos.
+Defina
+$$
+\Union_{n=0}^{\infty} \defeq \Union\setst {A_n} {n\in\nats}
+\qqqquad
+\mland
+\qqqquad
+\Inter_{n=0}^{\infty} \defeq \Inter\setst {A_n} {n\in\nats}.
+$$
+
+\endexercise
+%%}}}
 
 \TODO $\Inter$ e $\Union$ com subscripts (mais notações)
-
-\TODO Uniões disjuntas, famílias disjuntas.
 
 %%{{{ prop: set_de_morgan_gen 
 \proposition.
@@ -9952,16 +10043,6 @@ Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
 \endsection
 %%}}}
 
-%%{{{ Multisets 
-\section Multisets.
-\label{multisets}%
-\iisee{bag}{multiset}%
-
-\note Multisets como black boxes.
-
-\endsection
-%%}}}
-
 %%{{{ Tuples 
 \section Tuplas.
 
@@ -9987,8 +10068,25 @@ Prova direta, e prova pelo absurdo.
 
 %%{{{ Sequences 
 \section Seqüências.
+\label{sequences}%
 
 \note Seqüências como black boxes.
+
+\endsection
+%%}}}
+
+%%{{{ Indexed families 
+\section Famílias indexadas.
+
+\endsection
+%%}}}
+
+%%{{{ Multisets 
+\section Multisets.
+\label{multisets}%
+\iisee{bag}{multiset}%
+
+\note Multisets como black boxes.
 
 \endsection
 %%}}}
@@ -10100,6 +10198,9 @@ Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pert
 
 %%{{{ Further reading 
 \further.
+
+Podes achar boas explicações, dicas, muitos exemplos resovidos,
+e exercícios e problemas para resolver no \cite[\S1.3~\&\S2.4]{velleman}.
 
 \endfurther
 %%}}}
