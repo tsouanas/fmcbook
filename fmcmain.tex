@@ -7402,6 +7402,7 @@ e e use o princípio da adição para contar quantos são todos.
 
 %%{{{ The inclusion--exclusion principle 
 \section O princípio da inclusão--exclusão.
+\label{inclusion_exclusion_principle}%
 
 \exercise.
 42 passangeiros estão viajando num avião.
@@ -9761,8 +9762,8 @@ a igualdade desses conjuntos, mostrando novamente as
 %%}}}
 
 \note.
-Na~\ref{symdiff_def} eu dei uma definição elementária, usando a set-builder
-notação para determinar o conjunto $A\symdiff B$.
+No~\refn{symdiff_def} eu dei uma definição elementária, usando a
+notação set-builder para determinar o conjunto $A\symdiff B$.
 De fato, seria até melhor \emph{definir} a operação $\symdiff$ usando uma das
 duas expressões em cima.
 
@@ -9772,7 +9773,63 @@ duas expressões em cima.
 %%{{{ Cardinality 
 \section Cardinalidade.
 
-\TODO Cardinalidade de conjuntos finitos e propriedades.
+%%{{{ df: naive_cardinality 
+\definition.
+\label{naive_cardinality}%
+\tdefined{cardinalidade}[ingenuamente]%
+\sdefined {\card {\holed A}} {a cardinalidade de $\holed A$}%
+Seja $A$ um conjunto.
+A \dterm{cardinalidade} de $A$ é a quantidade de elementos de $A$.
+Denotamos-la por $\card A$:
+$$
+\card A \defeq \knuthcases{
+    n,      & se $A$ é finito com exatamente $n$ membros distintos\cr
+    \infty, & se $A$ é infinito.
+}
+$$
+%%}}}
+
+\blah.
+Nos capítulos~\refn{cantors_paradise} e~\refn{axiomatic_set_theory}
+vamos \emph{refinar} essa notação pois como \Cantor{}Cantor percebeu,
+o segundo caso na~\ref{naive_cardinality} é \emph{bem}, \emph{bem}, \emph{bem}
+mais rico do que aparece!
+
+%%{{{ prop: cardinality_of_union_of_finite_sets 
+\property.
+\label{cardinality_of_union_of_finite_sets}%
+Sejam $A,B$ conjuntos finitos.
+Logo
+$$
+\card{A\union B} \leq \card A + \card B.
+$$
+\sketch.
+Pelo princípio da inclusão--exclusão
+(\refn{inclusion_exclusion_principle})
+temos
+$$
+\card{A\union B} = \card A + \card B - \card{A \inter B}
+$$
+e como uma cardinalidade não pode ser negativa, segue disegualdade desejada.
+\qes
+%%}}}
+
+%%{{{ x: cardinality_of_union_of_disjoint_finite_sets 
+\exercise.
+\label{cardinality_of_union_of_disjoint_finite_sets}%
+Determine quando temos $=$ na desigualdade da~\ref{cardinality_of_union_of_finite_sets}.
+
+\solution
+Exatamente quando $A,B$ são disjuntos.
+Em símbolos,
+$$
+\card{A\union B} = \card A + \card B
+\iff
+A \inter B = \emptyset.
+$$
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -11443,6 +11500,7 @@ Nos vamos ver relações como conjuntos apenas no~\ref{axiomatic_set_theory}.
 
 %%{{{ chapter: Cantor's paradise 
 \chapter O paraíso de Cantor.
+\label{cantors_paradise}%
 
 %%{{{ A bit of historical context 
 \section Um pouco de contexto histórico.
