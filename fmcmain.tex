@@ -6878,6 +6878,7 @@ correspondará com uma maneira diferente para formar o $x^3y^4$.
 
 %%{{{ Number of subsets 
 \section Número de subconjuntos. 
+\label{number_of_subsets}%
 
 \question.
 Quantos subconjuntos dum conjunto finito existem?
@@ -8807,6 +8808,36 @@ definir o mesmo conjunto $A$.
 Qual das duas usamos, será mais questão de gosto ou de contexto.
 %%}}}
 
+%%{{{ note: order_and_multiplicity 
+\note Ordem e multiplicidade.
+\label{order_and_multiplicity}%
+\ii{conjunto}[ordem de membros]%
+\ii{conjunto}[multiplicidade]%
+Considere os conjuntos seguintes:
+$$
+\xalignat3
+A&=\set{2,3},&
+B&=\set{3,2},&
+C&=\set{3,2,2,2,3}
+\endxalignat
+$$
+Observe que $A = B = C$.
+Ou seja, esses não são três conjuntos, mas apenas \emph{um} conjunto
+denotado em três jeitos diferentes.
+O ``dispositivo'' conjunto não sabe nem de \dterm{ordem}
+nem de \dterm{multiplicidade} dos seus membros.
+Não podemos perguntar a um conjunto
+<<qual é teu \emph{primeiro} elemento?>>, nem 
+<<quantas vezes o tal elemento pertence em ti?>>.
+Lembre o conjunto como black box!
+Seu único interface aceita qualquer objeto,
+e responda apenas com um pleno ``sim'' ou ``não''.
+Logo encontramos outros tipos de ``recipientes'',
+onde as informações de ordem e de multiplicidade são preservadas:
+multisets~(\refn{multisets}), tuplas~(\refn{tuples}), e seqüências~(\refn{sequence}).
+Bem depois vamos estudar \emph{conjuntos ordenados} (\ref{posets}).
+%%}}}
+
 \blah.
 Logo vamos formalizar a~\ref{set_eq_pseudodefinition}.
 Mas antes disso, vamos discutir sobre dois conceitos de igualdade diferentes.
@@ -8948,8 +8979,8 @@ A \subseteq B
 \forall x \paren{ x \in A \limplies x \in B }
 \endalign
 $$
-Se $B$ tem elementos que não pertencem no $A$, chamamos o $B$
-\dterm{subconjunto próprio} de $A$, e escrevemos $A \subsetneq B$.
+Se $B$ tem elementos que não pertencem no $A$, chamamos o $A$
+\dterm{subconjunto próprio} de $B$, e escrevemos $A \subsetneq B$.
 %%}}}
 
 %%{{{ x: eq_implies_subseteq 
@@ -9471,6 +9502,19 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ df: disjoint_sets 
+\definition.
+\label{disjoint_sets}%
+\tdefined{disjuntos}%
+Sejam $A,B$ conjuntos.
+Chamamos os $A$ e $B$ \dterm{disjuntos}
+sse não tem nenhum elemento em comum.
+Em símbolos,
+$$
+\text{$A,B$ disjuntos} \defiff A \inter B = \emptyset.
+$$
+%%}}}
+
 %%{{{ beware: type_errors 
 \beware Type errors.
 \label{type_errors}%
@@ -9752,21 +9796,77 @@ X \in \pset A \defiff X \subseteq A.
 $$
 %%}}}
 
+%%{{{ x: cardinality_of_poweset_of_finite_set 
+\exercise.
+\label{cardinality_of_poweset_of_finite_set}%
+Seja $A$ conjunto finito.  Qual a cardinalidade do $\pset A$?
+
+\solution
+Já resolvemos isso na~\ref{number_of_subsets}!
+Concluimos que:
+$$
+\card{\pset A} = 2^{\card A}.
+$$
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
-%%{{{ Families and sequences of sets 
-\section Famílias e seqüências de conjuntos.
+%%{{{ Ordered pair and tuples 
+\section Par ordenado e tuplas.
+
+\note Par ordenado como black box.
+
+\blah.
+Naturalmente, podemos generalizar a ideia de par ordenado, cujo tamanho é $2$, para um conceito
+correspondente de tamanho $n$, onde $n$ é qualquer número natural.  Oi tuplas!
+
+\note Tuplas como black boxes.
+
+\endsection
+%%}}}
+
+%%{{{ Cartesian products 
+\section Produtos cartesianos.
+
+\TODO Produto cartesiano ($\times$)
+
+\TODO $A^n$: definição ``direta'' e recursiva
+
+\TODO Um teorema de igualdade de conjuntos:
+Suponha que $A,B\neq\emptyset$.
+$A \times B = B\times A \iff A = B$.
+Prova direta, e prova pelo absurdo.
+
+\endsection
+%%}}}
+
+%%{{{ Sequences 
+\section Seqüências.
+\label{sequences}%
+
+\note Seqüências como black boxes.
+
+\TODO Seqüências de conjuntos.
+
+\endsection
+%%}}}
+
+%%{{{ Indexed families 
+\section Famílias indexadas.
 
 \TODO Família de conjuntos indexada por algum conjunto $I$: $\set{A_i \st i\in I}$.
 
 \TODO Exemplos: Os conjuntos $A_p$ e $F_p$ de todos os ancestrais e todos os filhos de $p$, respeitivamente.
 
-\TODO Traduzindo afirmações da linguagem natural para relações entre conjuntos e vice-versa.
-
-\TODO Seqüências de conjuntos.
-
-\TODO Conjuntos disjuntos e família de conjuntos disjuntos dois-a-dois (``pairwise disjoint''): definição com e sem índices.
+\definition Produto cartesiano (família).
+Seja $\setst {A_i} {i\in \cal I}$ uma família de conjuntos
+indexada por um conjunto de índices $\cal I$.
+$$
+\Prod_{i\in \cal I}\defeq
+$$
 
 \endsection
 %%}}}
@@ -10005,6 +10105,8 @@ $$
 \endexercise
 %%}}}
 
+\TODO Conjuntos disjuntos e família de conjuntos disjuntos dois-a-dois (``pairwise disjoint''): definição com e sem índices.
+
 %%{{{ warning: big_setops_vs_sum 
 \warning.
 \label{big_setops_vs_sum}%
@@ -10043,40 +10145,10 @@ Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
 \endsection
 %%}}}
 
-%%{{{ Tuples 
-\section Tuplas.
+%%{{{ Translating propositions from and to set relations 
+\section Traduzindo proposições de e para relações de conjuntos.
 
-\note Tuplas como black boxes.
-
-\endsection
-%%}}}
-
-%%{{{ Cartesian products 
-\section Produtos cartesianos.
-
-\TODO Produto cartesiano ($\times$)
-
-\TODO $A^n$: definição ``direta'' e recursiva
-
-\TODO Um teorema de igualdade de conjuntos:
-Suponha que $A,B\neq\emptyset$.
-$A \times B = B\times A \iff A = B$.
-Prova direta, e prova pelo absurdo.
-
-\endsection
-%%}}}
-
-%%{{{ Sequences 
-\section Seqüências.
-\label{sequences}%
-
-\note Seqüências como black boxes.
-
-\endsection
-%%}}}
-
-%%{{{ Indexed families 
-\section Famílias indexadas.
+\TODO Traduzindo afirmações da linguagem natural para relações entre conjuntos e vice-versa.
 
 \endsection
 %%}}}
