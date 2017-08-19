@@ -8776,7 +8776,7 @@ Quando dois conjuntos são iguais?
 %%{{{ pseudodf: set_eq_pseudodefinition 
 \pseudodefinition.
 \label{set_eq_pseudodefinition}%
-Consideramos dois conjuntos $A,B$ iguais sse não tem como diferenciar
+Consideramos dois conjuntos $A,B$ \dterm{iguais} sse não tem como diferenciar
 eles como black boxes.  Em outras palavras, para cada objeto $x$
 que vamos dar como entrada para cada um deles, eles vão concordar:
 ou os dois vão piscar ``sim'', ou os dois vão piscar ``não''.
@@ -8835,7 +8835,7 @@ Seu único interface aceita qualquer objeto,
 e responda apenas com um pleno ``sim'' ou ``não''.
 Logo encontramos outros tipos de ``recipientes'',
 onde as informações de ordem e de multiplicidade são preservadas:
-multisets~(\refn{multisets}), tuplas~(\refn{tuples}), e seqüências~(\refn{sequence}).
+multisets~(\refn{multisets}), tuplas~(\refn{tuples}), e seqüências~(\refn{sequences}).
 Bem depois vamos estudar \emph{conjuntos ordenados} (\ref{posets}).
 %%}}}
 
@@ -9694,7 +9694,7 @@ C \setminus (A \union B) &= (C \setminus A) \inter (C \setminus B)\\
 C \setminus (A \inter B) &= (C \setminus A) \union (C \setminus B).
 \endalign
 $$
-\proof.
+\proof Prova (usando fórmulas).
 Sejam $A,B,C$ conjuntos.  Temos:
 $$
 \alignat2
@@ -9717,6 +9717,25 @@ pela definição de igualdade de conjuntos.
 A prova da outra igualdade é similar:
 trocamos apenas os $\union$ com os $\inter$, e os $\lor$ com os $\land$!
 \qed
+%%}}}
+
+%%{{{ x: set_de_morgan_natural_language 
+\exercise.
+Escreva uma prova em linguagem natural da~\ref{set_de_morgan}.
+
+\solution
+Mostramos as duas inclusões separadamente:
+\endgraf
+\lrdirset:
+Tome $x \in C \setminus (A \union B)$.
+Daí $x \in C$ e $x \notin (A \union B)$, ou seja $x\notin A$ e $x \notin B$.
+Como $x \in C$ e $x\notin A$, temos $x\in C\setminus A$, e,
+similarmente $x\in C\setminus B$.
+Logo chegamos no desejado $x\in (C\setminus A) \inter (C\setminus B)$.
+\endgraf
+A inclusão inversa \rldirset\ é similar.
+
+\endexercise
 %%}}}
 
 %%{{{ prop: symdiff_altdef1 
@@ -9871,8 +9890,9 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Ordered pair and tuples 
-\section Par ordenado e tuplas.
+%%{{{ Tuples 
+\section Tuplas.
+\label{tuples}%
 
 \note Par ordenado como black box.
 
@@ -10145,11 +10165,11 @@ Para todo conjunto $C$ e cada seqüência de conjuntos
 $\set{ A_n }_n$,
 $$
 \align
-C \setminus {\Union_{n=0}^\infty A_n} &= \Inter_{n=0}^{\infty} (C \setminus A_n)\\
-C \setminus {\Inter_{n=0}^\infty A_n} &= \Union_{n=0}^{\infty} (C \setminus A_n).
+C \setminus {\Union_{n=0}^\infty A_n} &= \Inter_{n=0}^{\infty} \paren{C \setminus A_n}\\
+C \setminus {\Inter_{n=0}^\infty A_n} &= \Union_{n=0}^{\infty} \paren{C \setminus A_n}.
 \endalign
 $$
-\proof.
+\proof Prova (usando fórmulas).
 Sejam $C$ conjunto e $\set{ A_n }_n$ seqüência de conjuntos.
 Calculamos
 $$
@@ -10198,6 +10218,24 @@ C \setminus \munderbrace{\Union_{n=0}^\infty A_n} {A \union B}
 =
 \munderbrace{\Inter_{n=0}^{\infty} (C \setminus A_n)} {(C\setminus A) \inter (C\setminus B)}.
 $$
+
+\endexercise
+%%}}}
+
+%%{{{ x: set_de_morgan_gen_natural_language 
+\exercise.
+Escreva uma prova em linguagem natural da~\ref{set_de_morgan_gen}.
+
+\solution
+Mostramos as duas inclusões separadamente:
+\endgraf
+\lrdirset:
+Tome $x \in C \setminus \Union_{n=0}^{\infty}A_n$,
+ou seja, $x \in A_k$ para algum $k\in \nats$,
+e logo $x \notin C \setminus A_k$ e daí
+$x \notin \Inter_n \paren{C \setminus A_n}$.
+\endgraf
+A inclusão inversa \rldirset\ é similar.
 
 \endexercise
 %%}}}
@@ -18523,6 +18561,7 @@ $T = \emptyset$?
 
 %%{{{ chapter: Ordered sets 
 \chapter Conjuntos ordenados.
+\label{posets}%
 
 %%{{{ Concept, notation, properties 
 \section Conceito, notação, propriedades.
