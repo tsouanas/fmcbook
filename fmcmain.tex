@@ -9940,7 +9940,7 @@ Prova direta, e prova pelo absurdo.
 
 \TODO De tupla para família de conjuntos indexada por algum conjunto $\cal I$: $\family {A_i} {i\in \cal I}$.
 
-%%{{{ eg: anscestors and children 
+%%{{{ eg: anscestors_and_children 
 \example.
 \label{ancestors_and_children}%
 Seja $\cal P$ o conjunto de todas as pessoas do mundo.
@@ -10283,7 +10283,44 @@ A inclusão inversa \rldirset\ é similar.
 \endexercise
 %%}}}
 
-\TODO Conjuntos disjuntos e família de conjuntos disjuntos dois-a-dois (``pairwise disjoint''): definição com e sem índices.
+%%{{{ df: pairwise_disjoint 
+\definition.
+\label{pairwise_disjoint}%
+Seja $\scr A$ uma família de conjuntos.
+Chamamos seus membros \dterm{disjuntos dois-a-dois} sse nenhum deles
+tem elementos em comum com nenhum outro deles.
+Em símbolos:
+$$
+\align
+\text{os conjuntos da $\scr A$ são disjuntos dois-a-dois}
+&\defiff
+\lforall {A,B \in \scr A} {A \neq B \limplies A\inter B = \emptyset }.
+\intertext{Similarmente para famílias indexadas:}
+\text{os conjuntos da $\famil A i {\cal I}$ são disjuntos dois-a-dois}
+&\defiff
+\lforall {i,j \in \cal I} {i\neq j \limplies A_i \inter A_j = \emptyset}.
+\intertext{E logo para seqüências também:}
+\text{os conjuntos da $\sequence A n$ são disjuntos dois-a-dois}
+&\defiff
+\lforall {i,j \in \nats} {i\neq j \limplies A_i \inter A_j = \emptyset}.
+\endalign
+$$
+%%}}}
+
+%%{{{ x: disjoint_not_pairwise_disjoint 
+\exercise.
+\label{disjoint_not_pairwise_disjoint}%
+Ache uma família de conjuntos $\scr A$ com $\Inter \scr A = \emptyset$
+mas cujos membros não são disjuntos dois-a-dois.
+
+\solution
+Tome
+$$
+\scr A \asseq \set{ \set{0,1}, \set{1,2}, \set{7} }.
+$$
+
+\endexercise
+%%}}}
 
 %%{{{ warning: big_setops_vs_sum 
 \warning.
@@ -10318,15 +10355,40 @@ Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
 \qed
 %%}}}
 
-\TODO Intervalos de reais, suas intersecções e uniões arbitrárias.
-
 \endsection
 %%}}}
 
 %%{{{ Translating propositions from and to set relations 
 \section Traduzindo proposições de e para relações de conjuntos.
 
-\TODO Traduzindo afirmações da linguagem natural para relações entre conjuntos e vice-versa.
+\blah.
+Lembra os exemplos~\refn{ancestors_and_children},~\refn{airports_direct_flights},
+e~\refn{books_and_authors}?
+Bom.  Vamos praticar nossa fluência em cojuntos usando esses exemplos agora.
+
+%%{{{ x: ancestors_and_children_translations 
+\exercise.
+\label{ancestors_and_children_translations}%
+Para toda pessoa $p\in\cal P$ defina $A_p$ e $C_p$ como
+no~\ref{ancestors_and_children}.
+Suponha que $p,q,r$ denotam pessoas.  Traduza os de linguagem de conjuntos para
+linguagem natural e vice versa as afirmações e os objetos seguintes.
+\beginol
+\li $p$ e $q$ são irmãos.
+\li $C_p \neq \emptyset$.
+\li $p$ é filho único.
+\li $p$ e $q$ são parentes.
+\li $p$ e $q$ são primos de primeiro grau.
+\li $r$ é filho dos $p$ e $q$.
+\li $C_p \inter C_q \neq \emptyset$.
+\li $A_p \subseteq A_q$.
+\li $C_p \subsetneq C_q$.
+\endol
+
+\endexercise
+%%}}}
+
+\TODO More exercises.
 
 \endsection
 %%}}}
@@ -10340,8 +10402,8 @@ Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
 Para $n=1,2,3,\dotsc$ defina os intervalos de reais
 $$
 \xalignat2
-F_n &= \ival[ {-1+\frac1n,1-\frac1n} ] &
-G_n &= \ival( {-1-\frac1n,1+\frac1n} ).
+F_n &= \ival[ {-1+\frac1n \,,\; 1-\frac1n} ] &
+G_n &= \ival( {-1-\frac1n \,,\; 1+\frac1n} ).
 \endxalignat
 $$
 Calcule os conjuntos $\Union_n F_n$ e $\Inter_n G_n$.
