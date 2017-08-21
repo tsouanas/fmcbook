@@ -9683,9 +9683,25 @@ Dado $A$ conjunto, calcule os conjuntos $A\symdiff A$ e $A \symdiff \emptyset$.
 %%{{{ Proving equalities and inclusions 
 \section Provando igualdades e inclusões.
 
+%%{{{ x: simple_inclusion_practice 
 \exercise.
+Prove ou refuta a afirmação:
+$$
+\text{\emph{para todos os conjuntos $A,B,C$,
+se $A \subseteq B$ e $A \subseteq C$, então $A \subseteq B \inter C$}.}
+$$
+
+\solution
+Vou provar a afirmação.
+\endgraf
+Suponha que $A \subseteq B$ e $A \subseteq C$.
+Tome um $a \in A$.  Precisamos mostrar que $a \in B \inter C$.
+Como $a \in A$ e $A \subseteq B$, temos $a \in B$;
+e como $a \in A$ e $A \subseteq C$, temos $a \in C$.
+Logo $a \in B\inter C$, pela definição de $B\inter C$.
 
 \endexercise
+%%}}}
 
 %%{{{ prop: set_de_morgan 
 \proposition.
@@ -9777,7 +9793,7 @@ $$
 \sketch.
 Novamente, começamos pensando nos dois lados e suas intensões:
 <<em exatamente um dos dois>> na esquerda;
-<em pelo menos um dos dois, mas não nos dois>> na direita.
+<<em pelo menos um dos dois, mas não nos dois>> na direita.
 As duas frases são equivalentes, mas vamos mostrar formalmente
 a igualdade desses conjuntos, mostrando novamente as
 ``$\subseteq$'' e ``$\supseteq$'' separadamente.
@@ -9912,14 +9928,74 @@ correspondente de tamanho $n$, onde $n$ é qualquer número natural.  Oi tuplas!
 %%{{{ Cartesian products 
 \section Produtos cartesianos.
 
-\TODO Produto cartesiano ($\times$)
+%%{{{ df: cartesian_product 
+\definition.
+\label{cartesian_product}%
+Sejam $A,B$ conjuntos.
+$$
+A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}
+$$
+%%}}}
 
-\TODO $A^n$: definição ``direta'' e recursiva
-
-\TODO Um teorema de igualdade de conjuntos:
+%%{{{ x: when_cartesian_commutes 
+\exercise.
+\label{when_cartesian_commutes}%
 Suponha que $A,B\neq\emptyset$.
+Escreva uma prova direta (sem usar reductio ad absurdum) do
 $A \times B = B\times A \iff A = B$.
-Prova direta, e prova pelo absurdo.
+
+\hint
+Uma direção é trivial---por que?
+
+\hint
+Como usamos os fatos $A\neq\emptyset$ e $B\neq\emptyset$?
+
+\endexercise
+%%}}}
+
+%%{{{ x: when_cartesian_commutes_absurdum 
+\exercise.
+Prove usando reductio ad absurdum a direção não-trivial
+do~\ref{when_cartesian_commutes}.
+
+\endexercise
+%}}}
+
+%%{{{ pseudodf: set_exp 
+\pseudodefinition.
+Sejam $A$ conjunto e $n\in\nats$ com $n\geq 2$.
+$$
+A^n \pseudodefeq \setstt {\tup{a_1,\dotsc,a_n}} {$a_i \in A$ para todo $2\leq i\leq n$}.
+$$
+%%}}}
+
+%%{{{ messy quantifier 
+\note.
+Na definição em cima aparece a frase ``para todo $2\leq i\leq n$''.
+Qual é a variável ligada com esse ``para todo''?
+Bem, $2$ é um constante, e $n$ já foi declarado, então entendemos que a
+frase corresponde na quantificação:
+$$
+\lforall {i\in\nats} {2\leq i \leq n \limplies a_i \in A}.
+$$
+%%}}}
+
+%%{{{ df: set_exp_first_recursive_definition 
+\definition.
+\label{set_exp_first_recursive_definition}%
+Seja $A$ conjunto.
+Para $n\in\nats$ com $n\geq 2$ definimos os conjuntos:
+$$
+\align
+A^2     &= A\times A\\
+A^{n+1} &= A^n \times A.
+\endalign
+$$
+%%}}}
+
+\TODO As duas definições são equivalentes?.
+
+\TODO O produto cartesiano é associativo?.
 
 \endsection
 %%}}}
