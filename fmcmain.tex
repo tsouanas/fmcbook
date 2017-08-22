@@ -10702,29 +10702,92 @@ e exercícios e problemas para resolver no \cite[\S1.3~\&\S2.4]{velleman}.
 %%{{{ chapter: Functions 
 \chapter Funções.
 
+%%{{{ intro 
+\chapintro
+Nesse capítulo estudamos mais um \emph{tipo} importantíssimo em
+matemática: a \emph{função}.
+Nosso objetivo aqui é familiarizar-nos com funções,
+entender como podemos as definir, as usar, as combinar para criar novas,
+operar nelas, etc.
+\endgraf
+Bem depois, no~\ref{axiomatic_set_theory}, vamos nos preocupar com
+a questão de \emph{como implementar} esse tipo, \emph{como fundamentar}
+esse conceito---mas esqueça isso por enquanto.
+Primeiramente precisamos entender bem o que é uma função e como se comporta.
+%%}}}
+
 %%{{{ Concept, notation, equality 
 \section Conceito, notação, igualdade.
 
-\TODO Conceito, notação, ``definição''
+\TODO Conceito.
 
-\TODO Domínios, codomínio.
+%%{{{ df: function_pseudodefinition 
+\pseudodefinition Função.
+\label{function_pseudodefinition}%
+\tdefined{função}[definição intuitiva]%
+\tdefined{domínio}%
+\tdefined{codomínio}%
+Sejam $A,B$ conjuntos.
+Chamamos a $f$ uma \dterm{função de $A$ para $B$}, sse
+para todo $x \in A$, o símbolo $f(x)$ é definido e $f(x)\in B$.
+O \dterm{domínio} da $f$ é o conjunto $A$,
+e seu \dterm{codomínio} é o conjunto $B$.
+%%}}}
+
+%%{{{ df: function_notation 
+\definition.
+\label{function_notation}%
+Escrevemos
+$$
+f : A \to B
+$$
+para dizer que $f$ é uma função de $A$ para $B$.
+Sinonimamente escrevemos também $A \toarrow f B$.
+definimos também as operações $\dom\dhole$ e $\cod\dhole$
+que retornam o domínio e o codomínio do seu argumento.
+Resumindo:
+$$
+f : A \to B
+\;\defiff\;
+\text{$f$ é uma função}\;\mland\;
+\dom f = A\;\mland\;
+\cod f = B.
+$$
+Escrevemos também $f\,x$ em vez de $f(x)$,
+e em certos casos (mais raros) até $x\,f$.
+%%}}}
 
 \TODO Aridade.
 
 \TODO Função como ``black box''.
 
-\TODO Sinônimos de ``função''.
+%%{{{ Synonyms 
+\note Sinônimos.
+Lembra que usamos várias palavras como sinônimos de ``conjunto''?
+(Quais?)
+Pois é, para funções a situação é parecida.  Dependendo do contexto
+e da ênfase, todas as palavras seguintes podem ser usadas como
+sinônimos de ``função'':
+mapeamento (map),
+operação,
+operador,
+procedimento,
+etc.
+%%}}}
 
-\TODO Igualdade: f = g 
-
-\TODO Quaisquer duas das:
-$\dom f = \dom g$;
-para todo $x \in \dom f$, $f(x) = g(x)$;
-para todo $x \in \dom g$, $f(x) = g(x)$.
+%%{{{ df: f_eq_g 
+\definition Igualdade.
+\label{f_eq_g}%
+Sejam $f,g$ funções.
+Digamos que $f=g$ sse \emph{quaisquer duas} das afirmações seguintes são válidas:
+\beginol
+\li $\dom f = \dom g$;
+\li para todo $x \in \dom f$, $f(x) = g(x)$;
+\li para todo $x \in \dom g$, $f(x) = g(x)$.
+\endol
+%%}}}
 
 \TODO Diagramas internos e externos.
-
-\TODO Endomapas e fixpoints.
 
 \endsection
 %%}}}
@@ -10732,29 +10795,107 @@ para todo $x \in \dom g$, $f(x) = g(x)$.
 %%{{{ Intension vs. Extension 
 \section Intensão vs{.}~extensão.
 
+%%{{{ df: function_graph 
 \definition.
+\label{function_graph}%
 \tdefined{função!gráfico}%
 \sdefined{\graph{\holed f}} {o gráfico da função $\holed f$}%
 Dado função $f : X\to Y$, o \dterm{gráfico da $f$}, é o conjunto
 $$
 \graph f \defeq \setst {(x,f(x))} {x \in X}.
 $$
+%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ Defining functions 
-\section Definindo funções.
+%%{{{ How to define and how not to define functions 
+\section Como definir e como não definir funções.
 
-\TODO Como definir funções e notação relevante
+\question.
+\emph{O que precisamos fazer para definir corretamente uma função?}
 
-\TODO Como não definir funções: erros comuns
+\note Definição por casos (branching).
+As vezes os valores $f(x)$ duma função $f$ não seguem o mesmo ``padrão'',
+a mesma ``regra'' para todos os $x\in\dom f$.
+
+%%{{{ eg: branching 
+\example.
+Seja $f : \reals \to \reals$ definida pela
+$$
+f(x)
+=
+\knuthcases{
+x^2,    & se $x\in\rats$\cr
+0,      & se $x = \sqrt p$ para algum primo $p$\cr
+2x + 1  & caso contrário.
+}
+$$
+
+\endexample
+%%}}}
 
 \endsection
 %%}}}
 
 %%{{{ λ-notation and the mapsto arrow 
 \section A notação $\lambda$ e a setinha $\mapsto$.
+
+\endsection
+%%}}}
+
+%%{{{ Constructing functions 
+\section Construindo funções.
+
+\TODO Identidade, constante, caraterística
+
+\TODO Função inversa.
+
+\TODO Iteração de função: $f^n$ (idéia e definição recursiva)
+
+\TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$)
+
+\TODO Aplicação parcial como black box.
+
+\TODO Eta conversion.
+
+\TODO Endomapas e fixpoints.
+
+\TODO Aplicação como operação.
+
+\TODO Conjuntos de funções
+
+\TODO (Co)domínio vazio: função vazia
+
+\TODO Composição como operação: comparação com multiplicação nos inteiros.
+
+\TODO Composição como black box.
+
+\TODO Restrição: definição e propriedades
+
+\TODO União: hipoteses necessárias para definir
+
+\TODO Produto: definição, idéia, black box
+
+\TODO Embedding.
+
+\TODO Operações point-wise.
+
+\endsection
+%%}}}
+
+%%{{{ Composition laws 
+\section Leis da composição.
+
+\TODO O lei da composição: $h\of(g\of f) = (h\of g)\of f$; prova e intuição
+
+\endsection
+%%}}}
+
+%%{{{ Commutative diagrams 
+\section Diagramas comutativos.
+
+\TODO Como expressar o lei da identidade usando apenas a comutatividade de um diagrama.
 
 \endsection
 %%}}}
@@ -10805,60 +10946,6 @@ Caso que alguma das igualdades não é válida em geral, que mais seria suficien
 \TODO Função inversa.
 
 \TODO Notação mal definida ou\dots?
-
-\endsection
-%%}}}
-
-%%{{{ Constructing functions 
-\section Construindo funções.
-
-\TODO Identidade, constante, caraterística
-
-\TODO Função inversa.
-
-\TODO Iteração de função: $f^n$ (idéia e definição recursiva)
-
-\TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$)
-
-\TODO Aplicação parcial como black box.
-
-\TODO Eta conversion.
-
-\TODO Aplicação como operação.
-
-\TODO Conjuntos de funções
-
-\TODO (Co)domínio vazio: função vazia
-
-\TODO Composição como operação: comparação com multiplicação nos inteiros.
-
-\TODO Composição como black box.
-
-\TODO Restrição: definição e propriedades
-
-\TODO União: hipoteses necessárias para definir
-
-\TODO Produto: definição, idéia, black box
-
-\TODO Embedding.
-
-\TODO Operações point-wise.
-
-\endsection
-%%}}}
-
-%%{{{ Composition laws 
-\section Leis da composição.
-
-\TODO O lei da composição: $h\of(g\of f) = (h\of g)\of f$; prova e intuição
-
-\endsection
-%%}}}
-
-%%{{{ Commutative diagrams 
-\section Diagramas comutativos.
-
-\TODO Como expressar o lei da identidade usando apenas a comutatividade de um diagrama.
 
 \endsection
 %%}}}
