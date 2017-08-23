@@ -10841,7 +10841,7 @@ $$
 \question.
 \emph{O que precisamos fazer para definir corretamente uma função?}
 
-\note Definição por expressão.
+\TODO Definição por expressão.
 
 \note Definição por casos (branching).
 As vezes os valores $f(x)$ duma função $f$ não seguem o mesmo ``padrão'',
@@ -10863,13 +10863,16 @@ $$
 \endexample
 %%}}}
 
+%%{{{ beware: function_definition_by_cases_mistakes 
 \beware.
-Cade vez que definimos uma função por casos, precisamos verificar que:
+\label{function_definition_by_cases_mistakes}%
+Cada vez que definimos uma função por casos, precisamos verificar que:
 \beginol
 \li contamos para todos os casos possíveis da entrada;
 \li não existe sobreposição inconsistente em nossos casos.
 \endol
 Seguem uns exemplos que demonstram esses erros.
+%%}}}
 
 \example.
 Definimos a função $f : \nats \to \nats$, pela
@@ -10945,10 +10948,68 @@ Ela merece uma secção própria!
 \endsection
 %%}}}
 
-%%{{{ Composition laws 
-\section Leis da composição.
+%%{{{ Recursive functions 
+\section Funções recursivas.
 
-\TODO O lei da composição: $h\of(g\of f) = (h\of g)\of f$; prova e intuição
+\TODO Funções recursivas; recursão mutual.
+
+\endsection
+%%}}}
+
+%%{{{ Function laws 
+\section Leis de funções.
+
+\TODO Intuição com tarefas: comutatividade não, associatividade sim.
+
+%%{{{ thm: associativity_of_function_composition 
+\theorem.
+\label{associativity_of_function_composition}%
+Sejam
+$$
+A \toarrow f B \toarrow g C \toarrow h D.
+$$
+Então
+$$
+h \of (g \of f) = (h \of g) \of f.
+$$
+\sketch.
+Mostramos que as duas funções são iguais seguindo a definição
+de igualdade~\refn{f_eq_g}:
+mostrando que elas tem o mesmo domínio $A$,
+e que comportam igualmente para o arbitrário $a \in A$.
+Pegamos cada lado da igualdade e aplicando a definição de $\of$
+chegamos no mesmo valor.
+\qes
+\proof.
+Primeiramente vamos verificar que as duas funções tem o mesmo domínio:
+$$
+\alignat2
+\dom\paren{ h \of (g \of f) }
+&= \dom (g \of f)               \qqby {def.~$\of$} \\
+&= \dom f                       \qqby {def.~$\of$} \\
+&= A                            \qqby {hipótese}
+\intertext{e do lado direito}
+\dom\paren{ (h \of g) \of f }
+&= \dom f                       \qqby {def.~$\of$} \\
+&= A                            \qqby {hipótese}
+\endalignat
+$$
+Agora precisamos mostrar que as duas funções comportam no mesmo jeito
+para todos os elementos no $A$.
+Suponha $a\in A$ então, e calcule:
+$$
+\alignat2
+\paren{h \of (g \of f)}(a)
+&= h\paren{\paren{g \of f}(a)}  \qqby{def.~$\of$}\\
+&= h\paren{g \paren{f(a)}}      \qqby{def.~$\of$}
+\intertext{e o lado direito:}
+\paren{(h \of g) \of f}(a)
+&= \paren{h \of g}\paren{f(a)}  \qqby{def.~$\of$}\\
+&= h\paren{g \paren{f(a)}}      \qqby{def.~$\of$}
+\endalignat
+$$
+\qed
+%%}}}
 
 \endsection
 %%}}}
@@ -10988,9 +11049,23 @@ Prove:
 %%{{{ Images and pre-images 
 \section Imagens e pre-imagens.
 
-\TODO Imagem.
+\TODO Imagem: sketch.
 
-\TODO Pre-imagem.
+\TODO Pre-imagem: sketch.
+
+\question.
+Como podemos definir formalmente os conjuntos indicados nos desenhos em cima?
+\spoiler.
+
+\definition.
+Seja $f : A \to B$, e sejam subconjuntos $X\subseteq A$ e $Y\subseteq B$.
+Definimos:
+$$
+\align
+\img f X    &\defeq \setst {f(x)} {x \in X}\\
+\preimg f Y &\defeq \setst {a \in A} {f(a) \in Y}
+\endalign
+$$
 
 \exercise.
 Sejam conjuntos $A$ e $B$, $f : A\to B$, e $X\subseteq A$ e $Y\subseteq B$.
@@ -11020,19 +11095,11 @@ Caso que alguma das igualdades não é válida em geral, que mais seria suficien
 \label{function_space}
 Sejam $A,B$ conjuntos.
 O \dterm{espaço de funções} de $A$ para $B$ é o conjunto de todas as funções de
-$A$ para $B$.  Denotamos-lo tanto por $(A \to B)$ quanto por $B^A$:
+$A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
 $$
 (A \to B) \defeq B^A \defeq \setst f {f: A \to B}.
 $$
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Recursive functions 
-\section Funções recursivas.
-
-\TODO Funções recursivas; recursão mutual.
 
 \endsection
 %%}}}
@@ -11050,14 +11117,14 @@ $$
 %%{{{ Currying 
 \section Currificação.
 
-\TODO Currificação.
+
 
 \endsection
 %%}}}
 
 %%{{{ Partial functions 
 \section Funções parciais.
-\label{partial_functions}
+\label{partial_functions}%
 
 \blah.
 A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente} definida no $A$,
@@ -11068,7 +11135,9 @@ não termina com uma saida---não importa o porquê.
 Definimos então o conceito de \emph{funções parciais}, que são exatamente isso:
 funções que para certas entradas aceitáveis delas, possivelmente \emph{divergem}.
 
+%%{{{ df: partial_function 
 \definition.
+\label{partial_function}%
 Sejam $A,B$ conjuntos.
 Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse
 para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.
@@ -11077,6 +11146,12 @@ $$
 \dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
 $$
 e \dterm{codomínio} o $B$ mesmo.
+Escrevemos $f : A \parto B$ para ``$f$ é uma função parcial de $A$ para $B$''.
+Naturalmente denotamos o conjunto de todas as funções parciais de $A$ para $B$ por
+$$
+(A \parto B) \defeq \setst f {f : A \parto B}.
+$$
+%%}}}
 
 \endsection
 %%}}}
