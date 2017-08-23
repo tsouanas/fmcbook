@@ -10702,6 +10702,7 @@ e exercícios e problemas para resolver no \cite[\S1.3~\&\S2.4]{velleman}.
 
 %%{{{ chapter: Functions 
 \chapter Funções.
+\label{functions}%
 
 %%{{{ intro 
 \chapintro
@@ -10722,15 +10723,21 @@ Primeiramente precisamos entender bem o que é uma função e como se comporta.
 
 \TODO Conceito.
 
+\TODO Examples.
+
 %%{{{ df: function_pseudodefinition 
 \pseudodefinition Função.
 \label{function_pseudodefinition}%
+\iiseealso{domínio}{função, domínio}%
+\iiseealso{codomínio}{função, codomínio}%
 \tdefined{função}[definição intuitiva]%
-\tdefined{domínio}%
-\tdefined{codomínio}%
+\tdefined{função}[domínio]%
+\tdefined{função}[codomínio]%
+\tdefined{função}[valor]%
 Sejam $A,B$ conjuntos.
 Chamamos a $f$ uma \dterm{função de $A$ para $B$}, sse
 para todo $x \in A$, o símbolo $f(x)$ é definido e $f(x)\in B$.
+O $f(x)$ é o \dterm{valor} da $f$ no $x$.
 O \dterm{domínio} da $f$ é o conjunto $A$,
 e seu \dterm{codomínio} é o conjunto $B$.
 %%}}}
@@ -10738,11 +10745,15 @@ e seu \dterm{codomínio} é o conjunto $B$.
 %%{{{ df: function_notation 
 \definition.
 \label{function_notation}%
+\sdefined {\holed f : \holed A \to \holed B} {$f$ é uma função de $A$ para $B$}%
+\sdefined {\holed A \toarrow {\holed f} \holed B} {$f$ é uma função de $A$ para $B$}%
+\sdefined {\dom {\holed f}} {o domínio da função $f$}%
+\sdefined {\cod {\holed f}} {o codomínio da função $f$}%
 Escrevemos
 $$
 f : A \to B
 \qqqquad\text{e sinonimamente}\qqqquad
-A \toarrow f B.
+A \toarrow f B
 $$
 para dizer que $f$ é uma função de $A$ para $B$.
 Definimos também as operações $\dom$ e $\cod$
@@ -10759,7 +10770,20 @@ Escrevemos também $f\,x$ em vez de $f(x)$,
 e em certos casos (mais raros) até $x\,f$.
 %%}}}
 
-\TODO Aridade.
+\note Determinismo.
+Na~\ref{function_pseudodefinition} aparece a frase ``o símbolo $f(x)$ é definido''.
+Com isso entendemos que não existe ambigüidade, ou seja, para uma entrada $x$,
+a $f$ não pode ter mais que uma saida.
+E graças a outra frase, ``para todo $x\in A$'', sabemos que tem
+\emph{exatamente uma} saida.  Esta saida é o que denotamos por $f(x)$.
+
+\note Aridade e tuplas.
+\ii{aridade}%
+No jeito que ``definimos'' o que é uma função, ela só pode depender
+em apenas um objeto, apenas uma entrada.
+Isso parece bastante limitante, pois estamos já acostumados com funções com
+aridades diferentes.%
+\footnote{Lembra-se que \dterm{aridade} é a quantidade de argumentos-entradas.}
 
 \TODO Função como ``black box''.
 
@@ -10817,6 +10841,8 @@ $$
 \question.
 \emph{O que precisamos fazer para definir corretamente uma função?}
 
+\note Definição por expressão.
+
 \note Definição por casos (branching).
 As vezes os valores $f(x)$ duma função $f$ não seguem o mesmo ``padrão'',
 a mesma ``regra'' para todos os $x\in\dom f$.
@@ -10834,9 +10860,41 @@ x^2,    & se $x\in\rats$\cr
 2x + 1  & caso contrário.
 }
 $$
-
 \endexample
 %%}}}
+
+\beware.
+Cade vez que definimos uma função por casos, precisamos verificar que:
+\beginol
+\li contamos para todos os casos possíveis da entrada;
+\li não existe sobreposição inconsistente em nossos casos.
+\endol
+Seguem uns exemplos que demonstram esses erros.
+
+\example.
+Definimos a função $f : \nats \to \nats$, pela
+$$
+f(n) = \knuthcases{
+0 & \text{se $n$ pode ser escrito como $3k$ para algum $k\in\nats$}\cr
+1 & \text{se $n$ pode ser escrito como $3k+1$ para algum $k\in\nats$}\cr
+}
+$$
+\endexample
+
+\example.
+Definimos a função $g : \nats \to \nats$, pela
+$$
+g(n) = \knuthcases{
+0 & \text{se $n$ é primo}\cr
+1 & \text{se $n$ é par}\cr
+12 & \text{caso contrário}
+}
+$$
+\endexample
+
+\blah.
+Deixamos a notação mais interessante para definir funções última.
+Ela merece uma secção própria!
 
 \endsection
 %%}}}
@@ -10962,12 +11020,18 @@ Caso que alguma das igualdades não é válida em geral, que mais seria suficien
 \endsection
 %%}}}
 
-%%{{{ Higher-order functions and currification 
-\section Funções de ordem superior e currificação.
+%%{{{ Higher-order functions 
+\section Funções de ordem superior.
 
 \TODO Funções de ordem superior.
 
 \TODO Exemplos: composição, derivação, integração, somatório, produtório, etc.
+
+\endsection
+%%}}}
+
+%%{{{ Currying 
+\section Currificação.
 
 \TODO Currificação.
 
