@@ -10740,6 +10740,8 @@ para todo $x \in A$, o símbolo $f(x)$ é definido e $f(x)\in B$.
 O $f(x)$ é o \dterm{valor} da $f$ no $x$.
 O \dterm{domínio} da $f$ é o conjunto $A$,
 e seu \dterm{codomínio} é o conjunto $B$.
+Consideramos então que a função $f$ associa \emph{para todo} elemento $a \in A$,
+\emph{exatamente um} elemento $f(a) \in B$.
 %%}}}
 
 %%{{{ df: function_notation 
@@ -10761,7 +10763,7 @@ que retornam o domínio e o codomínio do seu argumento.
 Resumindo:
 $$
 f : A \to B
-\;\defiff\;
+\quad\defiff\quad
 \text{$f$ é uma função}\;\mland\;
 \dom f = A\;\mland\;
 \cod f = B.
@@ -10772,20 +10774,31 @@ e em certos casos (mais raros) até $x\,f$.
 
 \note.
 Escrevemos ``sejam $f,g : A \to B$'' e entendemos como:
-``sejam funções $f$ e $g$ de $A$ para $B$, e se não temos já declarados
-os conjuntos $A,B$, a mesma frase entendemos com um implicito
+``sejam funções $f$ e $g$ de $A$ para $B$'', e (abusando) se não temos já
+declarados os conjuntos $A,B$, a mesma frase entendemos com um implicito
 ``sejam conjuntos $A,B$ e funções \dots''.
 Do mesmo jeito, a frase
-``sejam $A \toarrow f B \toarrow g C$'' pode se equivalente com a:
-``Sejam conjuntos $A,B,C$, e funções $f:A\to B$ e $g:B\to C$.''
+$$
+\text{<<{Sejam $A \toarrow f B \toarrow g C$.}>>}
+$$
+pode se equivalente com a:
+$$
+\text{<<{Sejam conjuntos $A,B,C$, e funções $f:A\to B$ e $g:B\to C$.}>>}
+$$
 Espero que dá para apreciar a laconicidade dessa notação.
 
-\note Determinismo.
+\note Condições.
 Na~\ref{function_pseudodefinition} aparece a frase ``o símbolo $f(x)$ é definido''.
 Com isso entendemos que não existe ambigüidade, ou seja, para uma entrada $x$,
 a $f$ não pode ter mais que uma saida.
 E graças a outra frase, ``para todo $x\in A$'', sabemos que tem
 \emph{exatamente uma} saida.  Esta saida é o que denotamos por $f(x)$.
+Resumindo:
+\beginil
+\item{(FTOT)} A função é definida em todo o seu domínio (totalidade);
+\item{(FDET)} Se $f(x)$ é definido, exite único $y$ no $\cod f$ com $y = f(x)$ (determinicidade).
+\endil
+
 
 \note Aridade e tuplas.
 \ii{aridade}%
@@ -10823,8 +10836,6 @@ Digamos que $f=g$ sse \emph{quaisquer duas} das afirmações seguintes são vál
 \endol
 %%}}}
 
-\TODO Diagramas internos e externos.
-
 \endsection
 %%}}}
 
@@ -10852,6 +10863,36 @@ $$
 \emph{O que precisamos fazer para definir corretamente uma função?}
 
 \TODO Definição por expressão.
+
+\example.
+Seja $f : \reals \to \reals$ definida pela
+$$
+f(x) = x^2 + x + 1, \qquad \text{para todo $x\in \reals$}.
+$$
+\endexample
+
+\example.
+\label{mother_and_child_function_and_wannabe}%
+Seja $\cal P$ o conjunto de todas as pessoas.
+Queremos definir as funções $m,c : \cal P \to \cal P$ pelas equações
+$$
+\align
+m(p) &= \text{a mãe de $p$}\\
+c(p) &= \text{a prole de $p$}
+\endalign
+$$
+(onde ``mãe'' significa ``mãe biológica'').
+\endexample
+
+%%{{{ x: mother_and_child_function_and_wannabe 
+\exercise.
+Ache o problema no~\ref{mother_and_child_function_and_wannabe} em cima.
+
+\hint
+Lembe-se as condição 
+
+\endexercise
+%%}}}
 
 \note Definição por casos (branching).
 As vezes os valores $f(x)$ duma função $f$ não seguem o mesmo ``padrão'',
@@ -10898,22 +10939,22 @@ $$
 Definimos a função $g : \nats \to \nats$, pela
 $$
 g(n) = \knuthcases{
-0, & se $n$ é primo;\cr
-1, & se $n$ é par;\cr
+0,  & se $n$ é primo;\cr
+1,  & se $n$ é par;\cr
 12, & caso contrário.
 }
 $$
 \endexample
 
 \blah.
-Deixamos a notação mais interessante para definir funções última.
-Ela merece uma secção própria!
+Deixamos a notação mais interessante para definir funções para depois.
+Ela merece uma secção própria (\refn{lambda_notation})!
 
 \endsection
 %%}}}
 
-%%{{{ λ-notation and the mapsto arrow 
-\section A notação $\lambda$ e a setinha $\mapsto$.
+%%{{{ Internal and external diagrams 
+\section Diagramas internos e externos.
 
 \endsection
 %%}}}
@@ -10923,21 +10964,13 @@ Ela merece uma secção própria!
 
 \TODO Identidade, constante, caraterística
 
-\TODO Função inversa.
-
 \TODO Iteração de função: $f^n$ (idéia e definição recursiva)
 
 \TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$)
 
 \TODO Aplicação parcial como black box.
 
-\TODO Eta conversion.
-
 \TODO Endomapas e fixpoints.
-
-\TODO Aplicação como operação.
-
-\TODO Conjuntos de funções
 
 \TODO (Co)domínio vazio: função vazia
 
@@ -10954,6 +10987,33 @@ Ela merece uma secção própria!
 \TODO Embedding.
 
 \TODO Operações point-wise.
+
+\endsection
+%%}}}
+
+%%{{{ Commutative diagrams 
+\section Diagramas comutativos.
+
+\TODO Como expressar o lei da identidade usando apenas a comutatividade de um diagrama.
+
+\endsection
+%%}}}
+
+%%{{{ λ-notation and the mapsto arrow 
+\section A notação $\lambda$ e a setinha $\mapsto$.
+\label{lambda_notation}%
+
+%%{{{ x: eta_conversion_first_encounter 
+\exercise.
+\label{eta_conversion_first_encounter}%
+Sejam $f : A \to B$.
+Qual nome tu daria para a função $\lam x {f\, x}$?
+
+\solution.
+$f$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -11023,13 +11083,84 @@ $$
 \qed
 %%}}}
 
+%%{{{ x: associativity_of_function_composition 
+\exercise.
+\label{non_commutativity_of_function_composition}%
+Existem funções $f,g$ tais que $f\of g$ e $g\of f$ são ambas definidas,
+mas mesmo assim
+$$
+f\of g \neq g\of f.
+$$
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
-%%{{{ Commutative diagrams 
-\section Diagramas comutativos.
+%%{{{ Function spaces 
+\section Espaços de funções.
 
-\TODO Como expressar o lei da identidade usando apenas a comutatividade de um diagrama.
+%%{{{ df: function_space 
+\definition.
+\label{function_space}
+Sejam $A,B$ conjuntos.
+O \dterm{espaço de funções} de $A$ para $B$ é o conjunto de todas as funções de
+$A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
+$$
+(A \to B) \defeq B^A \defeq \setst f {f: A \to B}.
+$$
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Higher-order functions 
+\section Funções de ordem superior.
+
+\TODO Funções de ordem superior.
+
+\TODO Exemplos: composição, derivação, integração, somatório, produtório, etc.
+
+\endsection
+%%}}}
+
+%%{{{ Currying 
+\section Currificação.
+
+\endsection
+%%}}}
+
+%%{{{ Partial functions 
+\section Funções parciais.
+\label{partial_functions}%
+
+\blah.
+A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente} definida no $A$,
+não nos permite considerer naturalmente situações onde um certo programa, por exemplo,
+retorna valores para certas entradas aceitáveis, e para as outras não: talvez
+ele fica num \emph{loop infinito}, ele faz a maquina explodir, ou simplesmente
+não termina com uma saida---não importa o porquê.
+Definimos então o conceito de \emph{funções parciais}, que são exatamente isso:
+funções que para certas entradas aceitáveis delas, possivelmente \emph{divergem}.
+
+%%{{{ df: partial_function 
+\definition.
+\label{partial_function}%
+Sejam $A,B$ conjuntos.
+Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse
+para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.
+Nesse caso, chamamos \dterm{domínio} o conjunto
+$$
+\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
+$$
+e \dterm{codomínio} o $B$ mesmo.
+Escrevemos $f : A \parto B$ para ``$f$ é uma função parcial de $A$ para $B$''.
+Naturalmente denotamos o conjunto de todas as funções parciais de $A$ para $B$ por
+$$
+(A \parto B) \defeq \setst f {f : A \parto B}.
+$$
+%%}}}
 
 \endsection
 %%}}}
@@ -11045,7 +11176,7 @@ $$
 
 \TODO Usando propriedades da $(g \of f)$ para deduzir propriedades das $f$ e $g$ 
 
-\exercise Composição respeita -jetividade.
+\exercise Composição respeita ``-jetividade''.
 \label{composition_respects_jections}%
 Sejam $f : A\to B$ e $g : B \to C$.
 Prove:
@@ -11054,6 +11185,8 @@ Prove:
 \item{(3)} Se $f$ e $g$ são bijetoras, então $g\fcom f$ também é.
 
 \endexercise
+
+\TODO Mais uma construção: função inversa.
 
 \endsection
 %%}}}
@@ -11099,77 +11232,10 @@ Caso que alguma das igualdades não é válida em geral, que mais seria suficien
 \endsection
 %%}}}
 
-%%{{{ Function spaces 
-\section Espaços de funções.
-
-%%{{{ df: function_space 
-\definition.
-\label{function_space}
-Sejam $A,B$ conjuntos.
-O \dterm{espaço de funções} de $A$ para $B$ é o conjunto de todas as funções de
-$A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
-$$
-(A \to B) \defeq B^A \defeq \setst f {f: A \to B}.
-$$
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Higher-order functions 
-\section Funções de ordem superior.
-
-\TODO Funções de ordem superior.
-
-\TODO Exemplos: composição, derivação, integração, somatório, produtório, etc.
-
-\endsection
-%%}}}
-
-%%{{{ Currying 
-\section Currificação.
-
-
-
-\endsection
-%%}}}
-
-%%{{{ Partial functions 
-\section Funções parciais.
-\label{partial_functions}%
-
-\blah.
-A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente} definida no $A$,
-não nos permite considerer naturalmente situações onde um certo programa, por exemplo,
-retorna valores para certas entradas aceitáveis, e para as outras não: talvez
-ele fica num \emph{loop infinito}, ele faz a maquina explodir, ou simplesmente
-não termina com uma saida---não importa o porquê.
-Definimos então o conceito de \emph{funções parciais}, que são exatamente isso:
-funções que para certas entradas aceitáveis delas, possivelmente \emph{divergem}.
-
-%%{{{ df: partial_function 
-\definition.
-\label{partial_function}%
-Sejam $A,B$ conjuntos.
-Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse
-para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.
-Nesse caso, chamamos \dterm{domínio} o conjunto
-$$
-\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
-$$
-e \dterm{codomínio} o $B$ mesmo.
-Escrevemos $f : A \parto B$ para ``$f$ é uma função parcial de $A$ para $B$''.
-Naturalmente denotamos o conjunto de todas as funções parciais de $A$ para $B$ por
-$$
-(A \parto B) \defeq \setst f {f : A \parto B}.
-$$
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Problems 
 \problems.
+
+\TODO Aplicação como operação.
 
 \endproblems
 %%}}}
