@@ -10851,7 +10851,7 @@ E graças a outra frase, ``para todo $x\in A$'', sabemos que tem
 Resumindo:
 \beginil
 \item{(FTOT)} A função é definida em todo o seu domínio (totalidade);
-\item{(FDET)} Se $f(x)$ é definido, exite único $y$ no $\cod f$ com $y = f(x)$ (determinicidade).
+\item{(FDET)} Se $f(x)$ é definido, exite único $y\in\cod f$ com $y = f(x)$ (determinicidade).
 \endil
 
 \note Aridade e tuplas.
@@ -11007,6 +11007,16 @@ Ela merece uma secção própria (\refn{lambda_notation})!
 \endsection
 %%}}}
 
+%%{{{ Recursive functions 
+\section Funções recursivas.
+
+\TODO Funções recursivas.
+
+\TODO Recursão mutual.
+
+\endsection
+%%}}}
+
 %%{{{ Internal and external diagrams 
 \section Diagramas internos e externos.
 
@@ -11018,21 +11028,23 @@ Ela merece uma secção própria (\refn{lambda_notation})!
 %%{{{ Constructing functions 
 \section Construindo funções.
 
-\TODO Identidade, constante, caraterística
+\TODO Identidade.
 
-\TODO Iteração de função: $f^n$ (idéia e definição recursiva)
+\TODO Caraterística.
 
-\TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$)
+\TODO Constante.
+
+\TODO Iteração de função: $f^n$ (idéia e definição recursiva).
+
+\TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$).
 
 \TODO Aplicação parcial como black box.
 
-\TODO (Co)domínio vazio: função vazia
+\TODO Restrição: definição e propriedades.
 
-\TODO Restrição: definição e propriedades
+\TODO União: hipoteses necessárias para definir.
 
-\TODO União: hipoteses necessárias para definir
-
-\TODO Produto: definição, idéia, black box
+\TODO Produto: definição, idéia, black box.
 
 \TODO Embedding.
 
@@ -11041,45 +11053,16 @@ Ela merece uma secção própria (\refn{lambda_notation})!
 \endsection
 %%}}}
 
-%%{{{ Commutative diagrams 
-\section Diagramas comutativos.
+%%{{{ Empty (co)domains 
+\section (Co)domínios vazios.
 
-\TODO Como expressar o lei da identidade usando apenas a comutatividade de um diagrama.
-
-\endsection
-%%}}}
-
-%%{{{ λ-notation and the mapsto arrow 
-\section A notação $\lambda$ e a setinha $\mapsto$.
-\label{lambda_notation}%
-
-%%{{{ x: eta_conversion_first_encounter 
-\exercise.
-\label{eta_conversion_first_encounter}%
-Sejam $f : A \to B$.
-Qual nome tu daria para a função $\lam x {f\, x}$?
-
-\solution.
-$f$.
-
-\endexercise
-%%}}}
+\TODO Função vazia.
 
 \endsection
 %%}}}
 
-%%{{{ Recursive functions 
-\section Funções recursivas.
-
-\TODO Funções recursivas.
-
-\TODO Recursão mutual.
-
-\endsection
-%%}}}
-
-%%{{{ Function laws 
-\section Leis de funções.
+%%{{{ Composition laws 
+\section Leis de composição.
 
 \TODO Intuição com tarefas: comutatividade não, associatividade sim.
 
@@ -11181,6 +11164,33 @@ $$
 \endsection
 %%}}}
 
+%%{{{ Commutative diagrams 
+\section Diagramas comutativos.
+
+\TODO Como expressar o lei da identidade usando apenas a comutatividade de um diagrama.
+
+\endsection
+%%}}}
+
+%%{{{ λ-notation and the mapsto arrow 
+\section A notação $\lambda$ e a setinha $\mapsto$.
+\label{lambda_notation}%
+
+%%{{{ x: eta_conversion_first_encounter 
+\exercise.
+\label{eta_conversion_first_encounter}%
+Sejam $f : A \to B$.
+Qual nome tu daria para a função $\lam x {f\, x}$?
+
+\solution.
+$f$.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Function spaces 
 \section Espaços de funções.
 
@@ -11201,7 +11211,65 @@ $$
 %%{{{ Higher-order functions 
 \section Funções de ordem superior.
 
-\TODO Funções de ordem superior.
+%%{{{ Holes again 
+\note Buracos de novo.
+{\DefFun{double}\DefFun{triple}\DefFun{square}%
+Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
+botando \emph{buracos}, criando assim funções de várias aridades.
+Além de buracos, trabalhamos com \emph{$\lambda$-abstraição} que nos
+permitiu dar nomes para esses buracos, identificar certos buracos, etc.
+Considere novamente uma expressão como a:
+$$
+\double(1 + 5\root3\of2)^{2a} + \square(5)
+$$
+onde $\double : \reals\to\reals$, $\square : \reals\to\reals$, e $a\in \reals$.
+Botando uns buracos, criamos, por exemplo as funções:
+$$
+\alignat2
+f_1&=\double(1 + 5\root3\of2)^{\bhole a} + \square(5)            &&\eqtype \reals \to \reals\\
+f_2&=\double(\bhole + 5\root3\of{\bhole})^{2a} + \square(\bhole) &&\eqtype \reals^3 \to \reals\\
+f_3&=\double(\bhole + \bhole\root3\of2)^{2\bhole} + \square(5)   &&\eqtype \reals^3 \to \reals\\
+f_4&=\double(\bhole + \bhole)^{\bhole} + \square(5)              &&\eqtype \reals^3 \to \reals\\
+f_5&=\bhole + \square(\bhole)                                    &&\eqtype \reals^2 \to \reals\\
+f_6&=\lam x {\double(1 + 5\root3\of2)^{2x} + \square(5)}         &&\eqtype \reals \to \reals\\
+f_7&=\lam {x,y} {\double(x + y\root3\of2)^{2a} + \square(y)}     &&\eqtype \reals^2 \to \reals.
+\endalignat
+$$
+}
+%%}}}
+
+%%{{{ x: verify_abstractions_of_expression 
+\exercise.
+\label{verify_abstractions_of_expression}%
+Para quais entradas cada uma dessas funções retorna o valor da expressão inicial?
+
+\hint
+Respeite as aridades!
+
+\solution
+{\DefFun{double}\DefFun{triple}\DefFun{square}%
+Temos
+$$
+\align
+f_1&(2)\\
+f_2&(1,2,5)\\
+f_3&(1,5,a)\\
+f_4&(1,5,2a)\\
+f_5&(\double(1 + 5\root3\of2)^{2a}, 5)\\
+f_6&(a)\\
+f_7&(1, 5).
+\endalign
+$$
+}
+
+\endexercise
+%%}}}
+
+%%{{{ Higher-order holes 
+\note Buracos de ordem superior.
+%%}}}
+
+\TODO Com buracos de ordem superior, venham funções de ordem superior.
 
 \TODO Exemplos: composição, derivação, integração, somatório, produtório, etc.
 
