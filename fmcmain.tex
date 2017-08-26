@@ -11182,7 +11182,7 @@ $$
 Sejam $f : A \to B$.
 Qual nome tu daria para a função $\lam x {f\, x}$?
 
-\solution.
+\solution
 $f$.
 
 \endexercise
@@ -11220,19 +11220,19 @@ Além de buracos, trabalhamos com \emph{$\lambda$-abstraição} que nos
 permitiu dar nomes para esses buracos, identificar certos buracos, etc.
 Considere novamente uma expressão como a:
 $$
-\double(1 + 5\root3\of2)^{2a} + \square(5)
+\double(1 + 5\cbrt2)^{2a} + \square(5)
 $$
 onde $\double : \reals\to\reals$, $\square : \reals\to\reals$, e $a\in \reals$.
 Botando uns buracos, criamos, por exemplo as funções:
 $$
 \alignat2
-f_1&=\double(1 + 5\root3\of2)^{\bhole a} + \square(5)            &&\eqtype \reals \to \reals\\
-f_2&=\double(\bhole + 5\root3\of{\bhole})^{2a} + \square(\bhole) &&\eqtype \reals^3 \to \reals\\
-f_3&=\double(\bhole + \bhole\root3\of2)^{2\bhole} + \square(5)   &&\eqtype \reals^3 \to \reals\\
-f_4&=\double(\bhole + \bhole)^{\bhole} + \square(5)              &&\eqtype \reals^3 \to \reals\\
-f_5&=\bhole + \square(\bhole)                                    &&\eqtype \reals^2 \to \reals\\
-f_6&=\lam x {\double(1 + 5\root3\of2)^{2x} + \square(5)}         &&\eqtype \reals \to \reals\\
-f_7&=\lam {x,y} {\double(x + y\root3\of2)^{2a} + \square(y)}     &&\eqtype \reals^2 \to \reals.
+f_1&=\double(1 + 5\cbrt2)^{\bhole a} + \square(5)            &&\eqtype \reals   \to \reals\\
+f_2&=\double(\bhole + 5\cbrt{\bhole})^{2a} + \square(\bhole) &&\eqtype \reals^3 \to \reals\\
+f_3&=\double(\bhole + \bhole\cbrt2)^{2\bhole} + \square(5)   &&\eqtype \reals^3 \to \reals\\
+f_4&=\double(\bhole + \bhole)^{\bhole} + \square(5)          &&\eqtype \reals^3 \to \reals\\
+f_5&=\bhole + \square(\bhole)                                &&\eqtype \reals^2 \to \reals\\
+f_6&=\lam x {\double(1 + 5\cbrt2)^{2x} + \square(5)}         &&\eqtype \reals   \to \reals\\
+f_7&=\lam {x,y} {\double(1 + y\cbrt x)^{2a} + \square(y)}    &&\eqtype \reals^2 \to \reals.
 \endalignat
 $$
 }
@@ -11255,9 +11255,9 @@ f_1&(2)\\
 f_2&(1,2,5)\\
 f_3&(1,5,a)\\
 f_4&(1,5,2a)\\
-f_5&(\double(1 + 5\root3\of2)^{2a}, 5)\\
+f_5&(\double(1 + 5\cbrt2)^{2a}, 5)\\
 f_6&(a)\\
-f_7&(1, 5).
+f_7&(2, 5).
 \endalign
 $$
 }
@@ -11267,11 +11267,149 @@ $$
 
 %%{{{ Higher-order holes 
 \note Buracos de ordem superior.
+{\DefFun{double}\DefFun{triple}\DefFun{square}%
+Em todos os exemplos em cima, botamos os buracos para substituir
+apenas termos cujos valores seriam números (reais).
+Expressões tanto como as $2$, $1$, $5$, e $a$,
+quanto como as $5\cbrt2$, $2a$, e $double(1 + 5\cbrt2)^{2a}$,
+denotam, no final das contas, números reais.
+Que tal botar um buraco assim:
+$$
+\double(1 + 5\cbrt2)^{2a} + \bhole(5)
+$$
+O que substituimos aqui?  O próprio $\square$!  Por que não?
+E o que tipo de objetos podemos botar nesse buraco?
+Um real, não serve: a expressão
+$$
+\double(1 + 5\cbrt2)^{2a} + 7(5)
+$$
+não faz sentido: ela é \dterm{mal-tipada}.
+O $7$ não pode receber um argumento como se fosse uma função, pois não é.
+Que tipo de coisa então caiba nesse buraco?
+Funções!
+E não funções quaisquer, mas precisam ter um tipo compatível,
+com a aridade certa, etc.
+Esses buracos são ``de ordem superior''.
+E com buracos de ordem superior, vêm funções de ordem superior.
+}
+
 %%}}}
 
-\TODO Com buracos de ordem superior, venham funções de ordem superior.
+%%{{{ pseudodf: higher_order_function 
+\pseudodefinition.
+\label{higher_order_function}%
+\tdefined{função}[de ordem superior]%
+Dizemos que uma função $f : A \to B$ é de \dterm{ordem superior}
+se ela recebe ou retorna funções.
+%%}}}
+
+%%{{{ x: type_higher_order_holed_expressions 
+\exercise.
+\label{type_higher_order_holed_expressions}%
+{\DefFun{double}\DefFun{triple}\DefFun{square}%
+Escreva os tipos das funções seguintes:
+$$
+\align
+F_1 &= \double(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \square(5)\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_4 &= \double(\bhole(1,5\cbrt2)^{2a} + \square(5)\\
+F_5 &= \double(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
+F_6 &= \lam {r,t,u} {\double(1 + r(u,\cbrt2))^{r(t,a)} + \square(u)}
+\endalign
+$$
+}
+
+\solution
+{\DefFun{double}\DefFun{triple}\DefFun{square}%
+Temos
+$$
+\alignat2
+F_1 &= \double(1 + 5\cbrt2)^{2a} + \bhole(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \square(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                           &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
+F_4 &= \double(\bhole(1,5\cbrt2)^{2a} + \square(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
+F_5 &= \double(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)                &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
+F_6 &= \lam {r,t,u} {\double(1 + r(u,\cbrt2))^{r(t,a)} + \square(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
+\endalignat
+$$
+}
+
+\endexercise
+%%}}}
+
+%%{{{ Returning functions 
+\note Retornando funções.
+Até agora encontramos exemplos onde funções recebem como argumentos outras funções,
+mas aindo não conhecemos alguma função que \emph{retorna função}.
+Ou sera que conhecemos?
+Seguem uns exemplos de operadores de ordem superior que você talves já
+encontrou e até usou na tua vida.
+%%}}}
 
 \TODO Exemplos: composição, derivação, integração, somatório, produtório, etc.
+
+%%{{{ Defining higher-order functions 
+\note Definindo funções de ordem superior.
+Considere a função $F : \reals \to (\reals \to \reals)$ definda pela
+$$
+F(w) = \text{aquela função $f : \reals \to \reals$ que quando recebe um $x$, retorna $w + x$}.
+$$
+%%}}}
+
+%%{{{ Q: what type of thing is F(25)? 
+\question.
+Que tipo de coisa é o $F(25)$?
+%%}}}
+\spoiler.
+
+%%{{{ Answer 
+\note.
+Antes de responder nessa pergunta, vamos responder numa outra, ainda mais específica:
+o que \emph{é} o $F(25)$?
+Ou seja:
+$$
+F(25) = \dots?\dots
+$$
+Não precisamos pensar nada profundo!
+Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
+$$
+F(25) = \text{aquela função $f : \reals \to \reals$ que quando recebe um $x\in\reals$, retorna o número $25 + x$}.
+$$
+Ou seja,
+$$
+F(25) : \reals\to\reals.
+$$
+Sendo função, podemos a chamar com um argumento do certo tipo, por exemplo como o $3\in\reals$, e a evaluar:
+$$
+\paren{F(25)}(3) = 28.
+$$
+%%}}}
+
+%%{{{ x: where_did_28_come_from 
+\exercise.
+\label{where_did_28_come_from}%
+De onde chegou esse $28$?
+
+\solution
+Seguindo a definição da $F(25)$ ela é a função que recebendo um valor (agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
+$25 + 3 = 28$.
+
+\endexercise
+%%}}}
+
+%%{{{ With lambdas 
+\note Com lambdas.
+Observe que na definição de $F(w)$, apareceu a frase ``aquela função $f$\dots''.
+Baptizamos então temporariamente essa função com um nome (``$f$'') à toa:
+apenas para referir a ela e a retornar.
+Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
+e (logo) mais legível:
+$$
+F(w) = \lam x {w + x} \quad \eqtype \reals \to \reals
+$$
+Não no lado direito aparece uma \emph{função anônima}.
+%%}}}
 
 \endsection
 %%}}}
