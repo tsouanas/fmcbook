@@ -11222,29 +11222,27 @@ $$
 
 %%{{{ Holes again 
 \note Buracos de novo.
-{\DefFun{double}\DefFun{triple}\DefFun{square}%
 Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
 botando \emph{buracos}, criando assim funções de várias aridades.
 Além de buracos, trabalhamos com \emph{$\lambda$-abstraição} que nos
 permitiu dar nomes para esses buracos, identificar certos buracos, etc.
 Considere novamente uma expressão como a:
 $$
-\double(1 + 5\cbrt2)^{2a} + \square(5)
+\cos(1 + 5\cbrt2)^{2a} + \sin(5)
 $$
-onde $\double : \reals\to\reals$, $\square : \reals\to\reals$, e $a\in \reals$.
+onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
 Botando uns buracos, criamos, por exemplo as funções:
 $$
 \alignat2
-f_1&=\double(1 + 5\cbrt2)^{\bhole a} + \square(5)            &&\eqtype \reals   \to \reals\\
-f_2&=\double(\bhole + 5\cbrt{\bhole})^{2a} + \square(\bhole) &&\eqtype \reals^3 \to \reals\\
-f_3&=\double(\bhole + \bhole\cbrt2)^{2\bhole} + \square(5)   &&\eqtype \reals^3 \to \reals\\
-f_4&=\double(\bhole + \bhole)^{\bhole} + \square(5)          &&\eqtype \reals^3 \to \reals\\
-f_5&=\bhole + \square(\bhole)                                &&\eqtype \reals^2 \to \reals\\
-f_6&=\lam x {\double(1 + 5\cbrt2)^{2x} + \square(5)}         &&\eqtype \reals   \to \reals\\
-f_7&=\lam {x,y} {\double(1 + y\cbrt x)^{2a} + \square(y)}    &&\eqtype \reals^2 \to \reals.
+f_1&=\cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
+f_2&=\cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
+f_3&=\cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
+f_4&=\cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
+f_5&=\bhole + \sin(\bhole)                                &&\eqtype \reals^2 \to \reals\\
+f_6&=\lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
+f_7&=\lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
 \endalignat
 $$
-}
 %%}}}
 
 %%{{{ x: verify_abstractions_of_expression 
@@ -11256,7 +11254,6 @@ Para quais entradas cada uma dessas funções retorna o valor da expressão inic
 Respeite as aridades!
 
 \solution
-{\DefFun{double}\DefFun{triple}\DefFun{square}%
 Temos
 $$
 \align
@@ -11264,33 +11261,31 @@ f_1&(2)\\
 f_2&(1,2,5)\\
 f_3&(1,5,a)\\
 f_4&(1,5,2a)\\
-f_5&(\double(1 + 5\cbrt2)^{2a}, 5)\\
+f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
 f_6&(a)\\
 f_7&(2, 5).
 \endalign
 $$
-}
 
 \endexercise
 %%}}}
 
 %%{{{ Higher-order holes 
 \note Buracos de ordem superior.
-{\DefFun{double}\DefFun{triple}\DefFun{square}%
 Em todos os exemplos em cima, botamos os buracos para substituir
 apenas termos cujos valores seriam números (reais).
 Expressões tanto como as $2$, $1$, $5$, e $a$,
-quanto como as $5\cbrt2$, $2a$, e $double(1 + 5\cbrt2)^{2a}$,
+quanto como as $5\cbrt2$, $2a$, e $cos(1 + 5\cbrt2)^{2a}$,
 denotam, no final das contas, números reais.
 Que tal botar um buraco assim:
 $$
-\double(1 + 5\cbrt2)^{2a} + \bhole(5)
+\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
 $$
-O que substituimos aqui?  O próprio $\square$!  Por que não?
+O que substituimos aqui?  O próprio $\sin$!  Por que não?
 E o que tipo de objetos podemos botar nesse buraco?
 Um real, não serve: a expressão
 $$
-\double(1 + 5\cbrt2)^{2a} + 7(5)
+\cos(1 + 5\cbrt2)^{2a} + 7(5)
 $$
 não faz sentido: ela é \dterm{mal-tipada}.
 O $7$ não pode receber um argumento como se fosse uma função, pois não é.
@@ -11300,7 +11295,6 @@ E não funções quaisquer, mas precisam ter um tipo compatível,
 com a aridade certa, etc.
 Esses buracos são ``de ordem superior''.
 E com buracos de ordem superior, vêm funções de ordem superior.
-}
 
 %%}}}
 
@@ -11315,34 +11309,30 @@ se ela recebe ou retorna funções.
 %%{{{ x: type_higher_order_holed_expressions 
 \exercise.
 \label{type_higher_order_holed_expressions}%
-{\DefFun{double}\DefFun{triple}\DefFun{square}%
 Escreva os tipos das funções seguintes:
 $$
 \align
-F_1 &= \double(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \square(5)\\
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
 F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_4 &= \double(\bhole(1,5\cbrt2)^{2a} + \square(5)\\
-F_5 &= \double(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
-F_6 &= \lam {r,t,u} {\double(1 + r(u,\cbrt2))^{r(t,a)} + \square(u)}
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
 \endalign
 $$
-}
 
 \solution
-{\DefFun{double}\DefFun{triple}\DefFun{square}%
 Temos
 $$
 \alignat2
-F_1 &= \double(1 + 5\cbrt2)^{2a} + \bhole(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \square(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
 F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                           &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
-F_4 &= \double(\bhole(1,5\cbrt2)^{2a} + \square(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
-F_5 &= \double(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)                &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
-F_6 &= \lam {r,t,u} {\double(1 + r(u,\cbrt2))^{r(t,a)} + \square(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)                &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
 \endalignat
 $$
-}
 
 \endexercise
 %%}}}
@@ -11427,13 +11417,14 @@ Não no lado direito aparece uma \emph{função anônima}.
 
 \section Currificação.
 
-\blah.
-Imagine que alguém definiu uma função $f : \ints^2\to\ints$
+\note Ha-ha! Minha linguagem é melhor que a tua.
+Imagine que um amigo definiu uma função $f : \ints^2\to\ints$
 trabalhando numa linguagem de programação que não permite
 definições de funções de ordem superior.
-Queremos programar numa outra linguagem que
-permite sim funções de ordem superior, mas não funções
-de aridade maior que $1$.
+Queremos escrever um programa equivalente ao programa do nosso amigo
+numa outra linguagem que permite sim definir funções de ordem superior
+mas não funções de aridade maior que $1$.
+Mesmo assim nossas funções podem \emph{chamar} a função $f$ do nosso amigo nos seus corpos.
 
 \TODO Como emular.
 
