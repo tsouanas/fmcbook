@@ -11045,9 +11045,92 @@ Ela merece uma secção própria (\refn{lambda_notation})!
 
 \TODO Identidade.
 
+%%{{{ x: id_compose_practice
+\exercise.
+\label{id_compose_practice}%
+Sejam $A,B$ conjuntos diferentes, e $f : A \to B$.
+Para cada uma das igualdades em baixo,
+decida se ela é válida ou não, justificando tua resposta.
+$$
+\xalignat4
+(1)\quad f &= {f \compose \id_A} &
+(2)\quad f &= {f \compose \id_B} &
+(3)\quad f &= {\id_A \compose f} &
+(4)\quad f &= {\id_B \compose f}.
+\endxalignat
+$$
+
+\solution
+\noindent (1)
+Válida: a composição é definida, e se $a\in A$ então:
+$$
+\alignat2
+(f \compose \id_A)(a)
+&= f(\id_A(a))        \qqby{def.~$\compose$}\\
+&= f(a)               \qqby{def.~$\id_A$}
+\endalignat
+$$
+\endgraf
+\noindent (2) e (3): as composições não são definidas
+\endgraf
+\noindent (4) Similar com (1): a composição é definida e se $a \in A$ então:
+$$
+\alignat2
+(\id_B \compose f)(a)
+&= \mathrm{id}_B(f(a)) \qqby{def.~$\compose$}\\
+&= f(a)                \qqby{def.~$\id_B$}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
 \TODO Caraterística.
 
 \TODO Constante.
+
+%%{{{ x: gof_constant_does_not_imply 
+\exercise.
+\label{gof_constant_does_not_imply}%
+Prove ou refuta a afirmação seguinte:
+\emph{se $(g\compose f)$ é constante, então pelo menos uma das $f,g$ também é}.
+
+\hint
+Tente achar contraexemplo desenhando diagramas internos.
+
+\solution
+Falso.
+Um contraexemplo é o seguinte:
+$$
+\tikzpicture
+\draw (0,0) ellipse (1cm and 2cm);
+\draw (3,0) ellipse (1cm and 2cm);
+\draw (6,0) ellipse (1cm and 2cm);
+\draw (0,0)  node {$\bullet$};
+\draw (0,-1) node {$\bullet$};
+\draw (3,1)  node {$\bullet$};
+\draw (3,0)  node {$\bullet$};
+\draw (3,-1) node {$\bullet$};
+\draw (6,1)  node {$\bullet$};
+\draw (6,-1) node {$\bullet$};
+\draw[|->] (0.2,0) -- (2.8,-0.9);
+\draw[|->] (0.2,-.9) -- (2.8,0);
+\draw[|->] (3.2,0) -- (5.8,-0.9);
+\draw[|->] (3.2,-1) -- (5.8,-1);
+\draw[|->] (3.2,1) -- (5.8,1);
+\draw[->]  (0.5,2.5) -- (2.5,2.5);
+\draw[->]  (3.5,2.5) -- (5.5,2.5);
+\draw (0,2.5) node {$A$};
+\draw (3,2.5) node {$B$};
+\draw (6,2.5) node {$C$};
+\draw (1.5,2.20) node {$f$};
+\draw (4.5,2.20) node {$g$};
+\endtikzpicture
+$$
+
+\endexercise
+%%}}}
+
 
 \TODO Iteração de função: $f^n$ (idéia e definição recursiva).
 
@@ -11537,8 +11620,7 @@ $$
 
 \TODO Quantas funções entre dois conjuntos tais que\dots?
 
-\TODO Usando propriedades da $(g \of f)$ para deduzir propriedades das $f$ e $g$ 
-
+%%{{{ x: composition_respects_jections 
 \exercise Composição respeita ``-jetividade''.
 \label{composition_respects_jections}%
 Sejam $f : A\to B$ e $g : B \to C$.
@@ -11548,6 +11630,72 @@ Prove:
 \item{(3)} Se $f$ e $g$ são bijetoras, então $g\fcom f$ também é.
 
 \endexercise
+%%}}}
+
+%%{{{ x: converse_to_gof_bij_conclusions 
+\exercise.
+Se $g\compose f$ é bijetora, o que podemos concluir sobre as $f,g$?  Justifique.
+
+\endexercise
+%%}}}
+
+%%{{{ x: converse_to_gof_bij_conclusions 
+\exercise.
+Se $f$ é injetora e $g$ sobrejetora, a $g\compose f$ é necessariamente bijetora?
+
+\solution
+Não.
+Aqui um contraexemplo:
+$$
+\tikzpicture
+\draw (0,0) ellipse (-.75cm and 1.25cm);
+\draw (3,0) ellipse (-.75cm and 1.25cm);
+\draw (6,0) ellipse (-.75cm and 1.25cm);
+\draw (0,-.5) node {$\bullet$};
+\draw (3,.5)  node {$\bullet$};
+\draw (3,-.5) node {$\bullet$};
+\draw (6,.5)  node {$\bullet$};
+\draw (6,-.5) node {$\bullet$};
+\draw[|->] (0.2,-.5) -- (2.8,-.5);
+\draw[|->] (3.2,-.5) -- (5.8,-.5);
+\draw[|->] (3.2,.5) -- (5.8,.5);
+\draw[->]  (0.5,1.5) -- (2.5,1.5);
+\draw[->]  (3.5,1.5) -- (5.5,1.5);
+\draw (0,1.5) node {$A$};
+\draw (3,1.5) node {$B$};
+\draw (6,1.5) node {$C$};
+\draw (1.5,1.20) node {$f$};
+\draw (4.5,1.20) node {$g$};
+\endtikzpicture
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: x_mapsto_singleton_x_properties 
+\exercise.
+Sejam $A\neq\emptyset$ um conjunto e $f : A \to \pset A$ definida pela equação
+$$
+f(a) = \set a.
+$$
+\beginol
+\li A $f$ é injetora?
+\li A $f$ é sobrejetora?
+\endol
+
+\solution
+\noindent (1) Sim: se $x,y\in A$, então
+$$
+x\neq y
+    \implies \set x \neq \set y
+    \implies f(x) \neq f(y).
+$$
+\endgraf
+\noindent (2) Não: para todo $a\in A$ temos
+$f(a) = \set a \neq \emptyset \in \pset A$.
+
+\endexercise
+%%}}}
 
 \TODO Mais uma construção: função inversa.
 
@@ -11575,7 +11723,11 @@ $$
 \endalign
 $$
 
+\TODO Contra com função inversa: notação mal definida ou\dots?
+
+%%{{{ x: composition_with_inverse 
 \exercise.
+\label{composition_with_inverse}%
 Sejam conjuntos $A$ e $B$, $f : A\to B$, e $X\subseteq A$ e $Y\subseteq B$.
 Compare os conjuntos:
 $$
@@ -11585,10 +11737,10 @@ Y &\askeq f\big[f^{-1}[Y]\big]
 \endalign
 $$
 Caso que alguma das igualdades não é válida em geral, que mais seria suficiente supor para a garantir?
+E é alguma das duas inclusões ({\lrdirset} ou {\rldirset}) válida?
 
 \endexercise
-
-\TODO Contra com função inversa: notação mal definida ou\dots?
+%%}}}
 
 \endsection
 %%}}}
