@@ -10835,6 +10835,7 @@ Escrevemos também $f\,x$ em vez de $f(x)$,
 e em certos casos (mais raros) até $x\,f$.
 %%}}}
 
+%%{{{ f : A -> B  and  A --f--> B  notations 
 \note.
 Escrevemos ``sejam $f,g : A \to B$'' e entendemos como:
 ``sejam funções $f$ e $g$ de $A$ para $B$'', e (abusando) se não temos já
@@ -10849,18 +10850,24 @@ $$
 \text{<<{Sejam conjuntos $A,B,C$, e funções $f:A\to B$ e $g:B\to C$.}>>}
 $$
 Espero que dá para apreciar a laconicidade dessa notação.
+%%}}}
 
+%%{{{ Conditions: functionhood_conditions 
 \note Condições.
-Na~\ref{function_pseudodefinition} aparece a frase ``o símbolo $f(x)$ é definido''.
+\label{functionhood_conditions}%
+Na~\ref{function_pseudodefinition} aparece a frase
+``o símbolo $f(x)$ é definido''.
 Com isso entendemos que não existe ambigüidade, ou seja, para uma entrada $x$,
 a $f$ não pode ter mais que uma saida.
 E graças a outra frase, ``para todo $x\in A$'', sabemos que tem
 \emph{exatamente uma} saida.  Esta saida é o que denotamos por $f(x)$.
 Resumindo:
 \beginil
-\item{(FTOT)} A função é definida em todo o seu domínio (totalidade);
-\item{(FDET)} Se $f(x)$ é definido, exite único $y\in\cod f$ com $y = f(x)$ (determinicidade).
+\item{(1)} Se $f(x)$ é definido, exite único $y\in\cod f$ com $y = f(x)$ (determinicidade);
+\item{(2)} Para todo $x\in\dom f$, $f(x)$ é definido (totalidade).
 \endil
+Quando o (2) acontece dizemos que \emph{a função é definida em todo o seu domínio}.
+%%}}}
 
 \note Aridade e tuplas.
 \ii{aridade}%
@@ -11426,7 +11433,27 @@ numa outra linguagem que permite sim definir funções de ordem superior
 mas não funções de aridade maior que $1$.
 Mesmo assim nossas funções podem \emph{chamar} a função $f$ do nosso amigo nos seus corpos.
 
-\TODO Como emular.
+\question.
+Como fazer isso?
+\spoiler.
+
+\blah.
+Aqui uma resposta, escrita em Python.
+
+\sourcecode currying.py;
+
+\TODO Explicar o que acontece.
+
+\exercise.
+Resolva o problema converso:
+começando com a função ``currificada'' de ordem superior $F$,
+defina sua versão ``decurrificada'' $f$ (de aridade 2).
+
+\solution
+Dados a $F : \ints\to(\ints\to\ints)$,
+é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
+
+\endexercise
 
 \endsection
 %%}}}
@@ -11448,8 +11475,10 @@ funções que para certas entradas aceitáveis delas, possivelmente \emph{diverg
 \definition.
 \label{partial_function}%
 Sejam $A,B$ conjuntos.
-Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse
-para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.
+Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse:
+$$
+\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
+$$
 Nesse caso, chamamos \dterm{domínio} o conjunto
 $$
 \dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
@@ -11468,7 +11497,41 @@ $$
 %%{{{ Injections, Surjections, Bijections 
 \section Funções injetoras, sobrejetoras, e bijetoras.
 
-\TODO Injetora, Sobrejetora, Bijetora
+\TODO Ideia e sketches.
+
+\question.
+Como tu definiria os conceitos de função injetiva e sobrejetiva?
+\spoiler.
+
+%%{{{ df: starjective_function 
+\definition.
+\label{starjective_function}%
+\tdefined{função}[injetora]%
+\tdefined{função}[sobrejetora]%
+\tdefined{função}[bijetora]%
+\sdefined {\holed f : \holed A \injto \holed B} {$\holed f : \holed A\to \holed B$ é injetora}%
+\sdefined {\holed f : \holed A \surto \holed B} {$\holed f : \holed A\to \holed B$ é sobrejetora}%
+\sdefined {\holed f : \holed A \bijto \holed B} {$\holed f : \holed A\to \holed B$ é bijetora}%
+Seja $f : A \to B$.
+Chamamos a $f$ \dterm{injetora} (ou \dterm{injetiva}) sse
+$$
+\text{para todo $x,y \in A$, se $x\neq y$ então $f(x) \neq f(y)$}.
+$$
+Chamamos a $f$ \dterm{sobrejetora} (ou \dterm{sobrejetiva}) sse
+$$
+\text{para todo $b \in B$, existe $a\in A$ tal que $f(a) = b$}.
+$$
+Chamamos a $f$ \dterm{bijetora} (ou \dterm{bijetiva}, ou \dterm{correspondência}), sse
+$f$ é injetora e sobrejetora.
+Usamos as notações
+$$
+\align
+f : A \injto B &\defiff \text{$f:A\to B$ é injetora}\\
+f : A \surto B &\defiff \text{$f:A\to B$ é sobrejetora}\\
+f : A \bijto B &\defiff \text{$f:A\to B$ é bijetora}
+\endalign
+$$
+%%}}}
 
 \TODO Exemplos e não-exemplos.
 
@@ -11525,9 +11588,7 @@ Caso que alguma das igualdades não é válida em geral, que mais seria suficien
 
 \endexercise
 
-\TODO Função inversa.
-
-\TODO Notação mal definida ou\dots?
+\TODO Contra com função inversa: notação mal definida ou\dots?
 
 \endsection
 %%}}}
