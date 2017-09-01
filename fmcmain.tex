@@ -11706,9 +11706,65 @@ $f(a) = \set a \neq \emptyset \in \pset A$.
 %%{{{ Images and pre-images 
 \section Imagens e pre-imagens.
 
-\TODO Imagem: sketch.
+%%{{{ Sketches of image and preimage 
+\note Dois conjuntos importantes.
+Sejam $A,B$ conjuntos e $f:A \to B$.
+$$
+\tikzpicture[node distance=0mm]
+\tikzi imgpreimgbase;
+\endtikzpicture
+$$
+Vamos associar, com qualquer subconjunto $X$ de $A$, um certo subconjunto de $B$, que vamos o chamar a \emph{imagem} de $X$ através da $f$.
+Similarmente, com qualquer subconjunto $Y$ de $B$, vamos associar um certo subconjunto de $A$, que vamos o chamar a \emph{preimagem} de $Y$ através da $f$.
+Bem informalmente, parece que estamos ``elevando'' a função $f$ do nível ``membros'' para para o nível ``subconjuntos''.
+Vamos ver como.
+Considere um $X\subseteq A$, como por exemplo no desenho em baixo,
+e veja qual é o subconjunto $\img f X$ de $B$ que vamos associar com o $X$:
+$$
+\tikzpicture[scale=0.75,node distance=0mm]
+\draw [fill=blue!25] (0,0) ellipse (0.9cm and 1.6cm);
+\tikzi imgpreimgbase;
+\node [color=blue] (subset-X) at (-0.7,-1.6) {$X$};
+\endtikzpicture
+\quad
+\leadsto
+\quad
+\tikzpicture[scale=0.75,node distance=0mm]
+\draw [fill=blue!25] (0,0) ellipse (0.9cm and 1.6cm);
+\draw [fill=red!25] (4.9,-0.45) ellipse (0.7cm and 2cm);
+\tikzi imgpreimgbase;
+\node [color=blue] (subset-X) at (-0.7,-1.6) {$X$};
+\node [color=red] (subset-fX) at (5.9,-2.05) {$\img f X$};
+\endtikzpicture
+$$
+Na direção oposta, comece por exemplo com esse $Y\subseteq B$
+e observe qual é o subconjunto $\pre f Y$ de $A$ que queremos associar com o $Y$:
+$$
+\gathered
+\tikzpicture[scale=0.75,node distance=0mm]
+\draw [fill=blue!25] (4.9,1.45) ellipse (1.1cm and 1.2cm);
+\tikzi imgpreimgbase;
+\node [color=blue] (subset-Y) at (5.85,0.4) {$Y$};
+\endtikzpicture
+\endgathered
+\quad
+\leadsto
+\quad
+\gathered
+\tikzpicture[scale=0.75,node distance=0mm]
+\draw [fill=blue!25] (4.9,1.45) ellipse (1.1cm and 1.2cm);
+\draw [fill=red!25]  (0,1.5) ellipse (0.8cm and 2.0cm);
+\tikzi imgpreimgbase;
+\node [color=blue] (subset-Y)     at (5.85,0.4) {$Y$};
+\node [color=red]  (subset-fpreY) at (-0.8,-0.6) {$\pre f Y$};
+\endtikzpicture
+\endgathered
+$$
+%%}}}
 
-\TODO Pre-imagem: sketch.
+\note.
+Observe que na discussão em cima não supusemos \emph{nada mais} além da
+existência de uma função $f$ dum conjunto $A$ para um conjunto $B$.
 
 \question.
 Como podemos definir formalmente os conjuntos indicados nos desenhos em cima?
@@ -11719,12 +11775,22 @@ Seja $f : A \to B$, e sejam subconjuntos $X\subseteq A$ e $Y\subseteq B$.
 Definimos:
 $$
 \align
-\img f X    &\defeq \setst {f(x)} {x \in X}\\
-\preimg f Y &\defeq \setst {a \in A} {f(a) \in Y}
+\img f X &\defeq \setst {f(x)} {x \in X}\\
+\pre f Y &\defeq \setst {a \in A} {f(a) \in Y}
 \endalign
 $$
 
-\TODO Contra com função inversa: notação mal definida ou\dots?
+\exercise.
+Qual o tipo da $\img f {\dhole}$?
+
+\endexercise
+
+\exercise.
+Qual o tipo da $\pre f {\dhole}$?
+
+\endexercise
+
+\TODO Conflito com função inversa: notação mal definida ou\dots?
 
 %%{{{ x: composition_with_inverse 
 \exercise.
