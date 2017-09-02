@@ -10791,8 +10791,8 @@ Primeiramente precisamos entender bem o que é uma função e como se comporta.
 %%{{{ df: function_pseudodefinition 
 \pseudodefinition Função.
 \label{function_pseudodefinition}%
-\iiseealso{domínio}{função, domínio}%
-\iiseealso{codomínio}{função, codomínio}%
+\iisee{domínio}{função, domínio}%
+\iisee{codomínio}{função, codomínio}%
 \tdefined{função}[definição intuitiva]%
 \tdefined{função}[domínio]%
 \tdefined{função}[codomínio]%
@@ -11036,7 +11036,60 @@ Ela merece uma secção própria (\refn{lambda_notation})!
 %%{{{ Internal and external diagrams 
 \section Diagramas internos e externos.
 
-\TODO endomapping.
+\TODO Mostre internos e externos diagramas.
+
+%%{{{ df: endomapping 
+\definition Endomapa.
+\label{endomapping}%
+\tdefined{endomapa}%
+Uma função $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
+%%}}}
+
+\TODO Mostre internos diagramas especiais de endomapas.
+
+\endsection
+%%}}}
+
+%%{{{ Composition 
+\section Composição.
+
+%%{{{ df: fcompose 
+\definition.
+\label{fcompose}%
+\tdefined{função}{composição}%
+Sejam
+$A \toarrow f B \toarrow g C$.
+Definimos a função $g\of f : A\to C$ pela
+$$
+\paren{g\of f}(x) = g\paren{f(x)}.
+$$
+Chamamos a $g\of f$ a \dterm{composição} da $g$ \emph{seguindo} a $f$
+(ou ``da $g$ com $f$'', ou ``da $g$ de $f$'').
+%%}}}
+
+%%{{{ beware: 
+\beware.
+\label{gof_not_fog}%
+Escrevemos $g\of f$ e não $f\of g$ para a composição na~\ref{fcompose}!
+%%}}}
+
+%%{{{ x: when_is_fog_defined 
+\exercise.
+\label{when_is_fog_defined}%
+Sejam $A \toarrow f B \toarrow g C$.
+Qual função é a $f \of g$?
+
+\solution
+Nem é definida a $f \of g$ no caso geral!
+Para ser definida, é necessário e suficiente ter
+$A = C$.
+
+\endexercise
+%%}}}
+
+\TODO Mais um jeito de definir função: seja $f = g \of h$.
+
+\TODO pointless vs pointfull.
 
 \endsection
 %%}}}
@@ -11090,6 +11143,47 @@ $$
 
 \TODO Constante.
 
+%%{{{ x: constant_implies_idempotent 
+\exercise.
+\label{constant_implies_idempotent}%
+Seja $f : A \to A$.
+Prove ou refuta a implicação:
+$$
+\text{$f$ constante}
+\implies
+\text{$f$ idempotente}
+$$
+
+\solution
+Vamos provar a implicação.
+Suponha que $f:A\to A$ é constante.
+Seja $c\in A$ tal que para todo $x\in A$, $f(x) = c$\fact1.
+Queremos mostrar que $f\of f = f$, ou seja, que para todo $a\in A$,
+$$(f\of f)(a) = f(a)$$
+(definição de igualdade de funções~\refn{f_eq_g}).
+Calculamos no lado esquerdo:
+$$
+\alignat2
+(f\of f)(a)
+&= f\paren{f(a)}    \qqby{def.~$\fcom$}\\
+&= f(c)             \qqby{pelo \byfact1, com $x \asseq a$}\\
+&= c                \qqby{pelo \byfact1, com $x \asseq c$}
+\intertext{e no lado direito:}
+f(a)
+&= c                \qqby{pelo \byfact1, com $x \asseq a$}.
+\intertext{Logo, $f \of f = f$ como desejamos.
+\endgraf
+Alternativamente, podemos nos livrar dum passo no calculo do lado esquerdo assim:
+}
+(f\of f)(a)
+&= f\paren{f(a)}    \qqby{def.~$\fcom$}\\
+&= c.               \qqby{pelo \byfact1, com $x \asseq f(a)$}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ x: gof_constant_does_not_imply 
 \exercise.
 \label{gof_constant_does_not_imply}%
@@ -11132,18 +11226,15 @@ $$
 \endexercise
 %%}}}
 
-
 \TODO Iteração de função: $f^n$ (idéia e definição recursiva).
 
 \TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$).
 
 \TODO Aplicação parcial como black box.
 
-\TODO Restrição: definição e propriedades.
+\TODO Restrição: definição e propriedades, notações alternativas.
 
 \TODO União: hipoteses necessárias para definir.
-
-\TODO Produto: definição, idéia, black box.
 
 \TODO Embedding.
 
@@ -11155,9 +11246,56 @@ $$
 %%{{{ Empty (co)domains 
 \section (Co)domínios vazios.
 
-\TODO Função vazia.
+%%{{{ x: f_from_A_to_emptyset 
+\exercise.
+\label{f_from_A_to_emptyset}%
+Seja $f : A \to \emptyset$.
+O que podemos concluir sobre o $A$?
+
+\hint
+O que significa ser função?
+
+\solution
+$A=\emptyset$, pois, caso contrario, pegando um $a\in A$,
+chegamos na contradição $f(a) \in \emptyset$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: f_from_emptyset_to_A 
+\exercise.
+\label{f_from_emptyset_to_A}%
+Seja $f : \emptyset \to A$.
+O que podemos concluir sobre o $A$?
+Quantas funções têm esse tipo?
+
+\endexercise
+%%}}}
+
+%%{{{ df: emptyfun 
+\definition Função vazia.
+\label{emptyfun}%
+\tdefined{função}[vazia]%
+\iisee{vazia!função}{função, vazia}%
+Uma função $f$ com $\dom f = \emptyset$ é chamada \dterm{função vazia}.
+%%}}}
+
+%%{{{ x: uniqueness_of_emptyfun 
+\exercise.
+\label{uniqueness_of_emptyfun}%
+<<Uma>> ou <<a>>?
+
+\solution
+<<A>> mesmo!
+Tome $f,g$ funções vazias.
+Logo $f : \emptyset \to A$ e $g : \emptyset \to B$ para alguns conjuntos $A,B$.
+Vacuamente temos que para todo $x\in \emptyset$, $f(x) = g(x)$.
+
+\endexercise
+%%}}}
 
 \endsection
+
 %%}}}
 
 %%{{{ Composition laws 
@@ -11252,12 +11390,33 @@ para toda função $f : A \to B$.
 %%{{{ df: idempotent_function 
 \definition Idempotente.
 \label{idempotent_function}%
-\tdefined{imdempotente}[elemento]
+\tdefined{função}[idempotente]%
+\iisee{idempotente!função}{função idempotente}%
 Seja $f : A \to A$ um endomapping.
 Chamamos a $f$ \dterm{idempotente} sse
 $$
 f \of f = f.
 $$
+%%}}}
+
+%%{{{ x: how_many_idempotents_on_AtoA_for_A_triset 
+\exercise.
+\label{how_many_idempotents_on_AtoA_for_A_triset}%
+Seja $A$ conjunto com $\card A = 3$.
+Quantas funções idempotentes podemos definir no $A$?
+
+\hint
+Use um diagrama interno para endomapas.
+
+\hint
+Observe que em geral, aparecem certos ``redemoinhos''
+num diagrama interno de endomapa quando ela é idempotente.
+
+\hint
+Separe as funções idempotêntes dependendo na quantidade
+de ``redemoinhos'' que aparecem nos seus diagramas.
+
+\endexercise
 %%}}}
 
 \endsection
@@ -11295,7 +11454,8 @@ $f$.
 
 %%{{{ df: function_space 
 \definition.
-\label{function_space}
+\tdefined{espaço de funções}%
+\label{function_space}%
 Sejam $A,B$ conjuntos.
 O \dterm{espaço de funções} de $A$ para $B$ é o conjunto de todas as funções de
 $A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
@@ -11542,42 +11702,6 @@ Dados a $F : \ints\to(\ints\to\ints)$,
 \endsection
 %%}}}
 
-%%{{{ Partial functions 
-\section Funções parciais.
-\label{partial_functions}%
-
-\blah.
-A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente} definida no $A$,
-não nos permite considerer naturalmente situações onde um certo programa, por exemplo,
-retorna valores para certas entradas aceitáveis, e para as outras não: talvez
-ele fica num \emph{loop infinito}, ele faz a maquina explodir, ou simplesmente
-não termina com uma saida---não importa o porquê.
-Definimos então o conceito de \emph{funções parciais}, que são exatamente isso:
-funções que para certas entradas aceitáveis delas, possivelmente \emph{divergem}.
-
-%%{{{ df: partial_function 
-\definition.
-\label{partial_function}%
-Sejam $A,B$ conjuntos.
-Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse:
-$$
-\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
-$$
-Nesse caso, chamamos \dterm{domínio} o conjunto
-$$
-\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
-$$
-e \dterm{codomínio} o $B$ mesmo.
-Escrevemos $f : A \parto B$ para ``$f$ é uma função parcial de $A$ para $B$''.
-Naturalmente denotamos o conjunto de todas as funções parciais de $A$ para $B$ por
-$$
-(A \parto B) \defeq \setst f {f : A \parto B}.
-$$
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Injections, Surjections, Bijections 
 \section Funções injetoras, sobrejetoras, e bijetoras.
 
@@ -11706,8 +11830,8 @@ $f(a) = \set a \neq \emptyset \in \pset A$.
 %%{{{ Images and pre-images 
 \section Imagens e pre-imagens.
 
-%%{{{ Sketches of image and preimage 
-\note Dois conjuntos importantes.
+%%{{{ Two important subsets 
+\note Dois subconjuntos importantes.
 Sejam $A,B$ conjuntos e $f:A \to B$.
 $$
 \tikzpicture[node distance=0mm]
@@ -11718,7 +11842,13 @@ Vamos associar, com qualquer subconjunto $X$ de $A$, um certo subconjunto de $B$
 Similarmente, com qualquer subconjunto $Y$ de $B$, vamos associar um certo subconjunto de $A$, que vamos o chamar a \emph{preimagem} de $Y$ através da $f$.
 Bem informalmente, parece que estamos ``elevando'' a função $f$ do nível ``membros'' para para o nível ``subconjuntos''.
 Vamos ver como.
-Considere um $X\subseteq A$, como por exemplo no desenho em baixo,
+%%}}}
+
+%%{{{ eg: sketches of image and preimage 
+\example.
+Nas figuras seguintes mostramos com azul o subconjunto com que começamos,
+e com vermelho o subconjunto que associamos com ele.
+Considere o $X\subseteq A$ como aparece no desenho em baixo,
 e veja qual é o subconjunto $\img f X$ de $B$ que vamos associar com o $X$:
 $$
 \gathered
@@ -11748,7 +11878,7 @@ $$
 \tikzpicture[scale=0.75,node distance=0mm]
 \draw [fill=blue!25] (4.9,1.45) ellipse (1.1cm and 1.2cm);
 \tikzi imgpreimgbase;
-\node [color=blue] (subset-Y) at (5.85,0.4) {$Y$};
+\node [color=blue] (subset-Y) at (5.95,0.4) {$Y$};
 \endtikzpicture
 \endgathered
 \quad
@@ -11759,11 +11889,12 @@ $$
 \draw [fill=blue!25] (4.9,1.45) ellipse (1.1cm and 1.2cm);
 \draw [fill=red!25]  (0,1.5) ellipse (0.8cm and 2.0cm);
 \tikzi imgpreimgbase;
-\node [color=blue] (subset-Y)     at (5.85,0.4) {$Y$};
-\node [color=red]  (subset-fpreY) at (-0.8,-0.6) {$\pre f Y$};
+\node [color=blue] (subset-Y)     at (5.95,0.4)  {$Y$};
+\node [color=red]  (subset-fpreY) at (-0.9,-0.6) {$\pre f Y$};
 \endtikzpicture
 \endgathered
 $$
+\endexample
 %%}}}
 
 \note.
@@ -11774,7 +11905,13 @@ existência de uma função $f$ dum conjunto $A$ para um conjunto $B$.
 Como podemos definir formalmente os conjuntos indicados nos desenhos em cima?
 \spoiler.
 
+%%{{{ df: img_and_pre 
 \definition.
+\label{img_and_pre}%
+\tdefined{função}{imagem}%
+\tdefined{função}{preimagem}%
+\sdefined {\img {\holed f} {\holed X}} {a imagem de $X$ através da $f$}%
+\sdefined {\pre {\holed f} {\holed Y}} {a preimagem de $Y$ através da $f$}%
 Seja $f : A \to B$, e sejam subconjuntos $X\subseteq A$ e $Y\subseteq B$.
 Definimos:
 $$
@@ -11783,18 +11920,101 @@ $$
 \pre f Y &\defeq \setst {a \in A} {f(a) \in Y}
 \endalign
 $$
+%%}}}
 
+%%{{{ x: type_of_img_f_hole 
 \exercise.
+\label{type_of_img_f_hole}%
 Qual o tipo da $\img f {\dhole}$?
 
 \endexercise
+%%}}}
 
+%%{{{ x: type_of_pre_f_hole 
 \exercise.
+\label{type_of_pre_f_hole}%
 Qual o tipo da $\pre f {\dhole}$?
 
 \endexercise
+%%}}}
 
-\TODO Conflito com função inversa: notação mal definida ou\dots?
+%%{{{ x: erroneous_definition_of_pre 
+\exercise.
+\label{erroneous_definition_of_pre}%
+Podemos definir a preimagem de $Y$ atravez de $f$ assim?:
+$$
+\pre f Y \defeq \setst {\finv f (y)} {y \in Y}
+$$
+
+\solution.
+Não!
+O símbolo $\finv f (y)$ nem é definido no caso geral, pois
+o definimos \emph{apenas para funções bijetoras}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: when_erroneous_definition_of_pre_is_valid 
+\exercise.
+\label{when_erroneous_definition_of_pre_is_valid}%
+Seja $f: A \bijto B$.
+Mostre que:
+$$
+\pre f Y = \setst {\finv f (y)} {y \in Y}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: pre_notation_problem 
+\exercise.
+\label{pre_notation_problem}%
+Qual o problema com a~\ref{img_and_pre}?
+
+\hint
+Quando $f$ \emph{não} é bijetora, nenhum.
+
+\hint
+Se $f$ é bijetora, o símbolo $\pre f Y$ pode ter duas interpretações diferentes.
+
+\solution
+Se $f$ é bijetora, o símbolo $\pre f Y$ pode ter duas interpretações diferentes:
+$$
+\pre f Y \askeq
+\knuthcases{
+\pre {{\color{alert} f}} Y
+=& a preimagem de $Y$ através da função $f:A\to B$\cr
+& \cr
+\img {{\color{alert} {(\finv f)}}} Y
+=& a imagem de $Y$ através da função $\finv f:B\to A$
+}
+$$
+onde usamos cores e parentese para enfatisar o ``parsing'' diferente
+de cada interpretação.
+Observe que a segunda alternativa não é possível quando $f$ não é bijetora,
+pois a função $\finv f$ nem é definida nesse caso!
+
+\endexercise
+%%}}}
+
+%%{{{ x: correctness_of_pre_notation 
+\exercise.
+\label{correctness_of_pre_notation}
+Depois de resolver o~\ref{pre_notation_problem}, justifique a corretude
+da~\ref{img_and_pre}:
+explique o que precisas provar, e prove!
+
+\hint
+Precisamos provar que no caso que $f:A\bijto B$ as duas interpretações do
+símbolo $\pre f Y$ \emph{denotam o mesmo objeto}.
+
+\hint
+Temporariamente mude tua notação para ajudar teus olhos distinguir entre as duas interpretações melhor.
+Use, por exemplo, $f_{-1}$ para denotar a função inversa da $f$, ou, alternativamente, bota parenteses
+$(f^{-1})$ para enfatisar que estás denotando a função inversa da $f$.
+
+\endexercise
+%%}}}
 
 %%{{{ x: composition_with_inverse 
 \exercise.
@@ -11816,6 +12036,52 @@ E é alguma das duas inclusões ({\lrdirset} ou {\rldirset}) válida?
 \endsection
 %%}}}
 
+%%{{{ Partial functions 
+\section Funções parciais.
+\label{partial_functions}%
+
+\blah.
+A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente} definida no $A$,
+não nos permite considerer naturalmente situações onde um certo programa, por exemplo,
+retorna valores para certas entradas aceitáveis, e para as outras não: talvez
+ele fica num \emph{loop infinito}, ele faz a maquina explodir, ou simplesmente
+não termina com uma saida---não importa o porquê.
+Definimos então o conceito de \emph{funções parciais}, que são exatamente isso:
+funções que para certas entradas aceitáveis delas, possivelmente \emph{divergem}.
+
+%%{{{ df: partial_function 
+\definition.
+\label{partial_function}%
+Sejam $A,B$ conjuntos.
+Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse:
+$$
+\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
+$$
+Nesse caso, chamamos \dterm{domínio} o conjunto
+$$
+\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
+$$
+e \dterm{codomínio} o $B$ mesmo.
+Escrevemos $f : A \parto B$ para ``$f$ é uma função parcial de $A$ para $B$''.
+Naturalmente denotamos o conjunto de todas as funções parciais de $A$ para $B$ por
+$$
+(A \parto B) \defeq \setst f {f : A \parto B}.
+$$
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Product of family of sets 
+\section Produto de família de conjuntos.
+
+\TODO Definição, idéia, exercícios.
+
+\TODO CD of tuples, cartesian product, functions, generalized.
+
+\endsection
+%%}}}
+
 %%{{{ Fixpoints 
 \section Fixpoints.
 
@@ -11826,6 +12092,46 @@ E é alguma das duas inclusões ({\lrdirset} ou {\rldirset}) válida?
 \problems.
 
 \TODO Aplicação como operação.
+
+%%{{{ how_many_idempotents_on_AtoA_for_A_finite 
+\problem.
+\label{how_many_idempotents_on_AtoA_for_A_finite}%
+Generalize o~\ref{how_many_idempotents_on_AtoA_for_A_triset} para
+um arbitrário conjunto finito $A$.
+
+\hint
+Seja $n = \card A$.
+
+\endproblem
+%%}}}
+
+%%{{{ type_of_restriction_op_with_hole 
+\problem.
+\label{type_of_restriction_op_with_hole}%
+Sejam $f : A\to B$ e $X\subseteq A$.
+Ache o tipo dos:
+$$
+\align
+f\resto X       &\eqtype \dots?\dots\\
+f\resto \dhole  &\eqtype \dots?\dots\\
+(\dhole\resto X)\resto(A \to B)
+                &\eqtype \dots?\dots
+\endalign
+$$
+
+\solution
+Temos
+$$
+\align
+f\resto X       &\eqtype X \to B\\
+f\resto \dhole  &\eqtype \pset A \to \Union_{X\in\pset A}(X\to B)\\
+(\dhole\resto X)\resto (A \to B)
+                &\eqtype \paren{(A \to B) \to (X \to B)}
+\endalign
+$$
+
+\endproblem
+%%}}}
 
 \endproblems
 %%}}}
@@ -11838,6 +12144,9 @@ como casos especiais de relações (veja~\ref{relations}),
 algo que não fazemos nesse texto.
 Muitos livros seguem essa abordagem, então o leitor é conselhado
 tomar o cuidado necessário enquanto estudando esses assuntos.
+
+Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
+\emph{Não pula seus exercícios e problemas!}
 
 \endfurther
 %%}}}
