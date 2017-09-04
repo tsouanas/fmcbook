@@ -10874,9 +10874,10 @@ Quando o (1) acontece dizemos que \emph{a função é definida em todo o seu dom
 \ii{aridade}%
 No jeito que ``definimos'' o que é uma função, ela só pode depender
 em apenas um objeto, apenas uma entrada.
-Isso parece bastante limitante, pois estamos já acostumados com funções com
-aridades diferentes.%
-\footnote{Lembra-se que \dterm{aridade} é a quantidade de argumentos-entradas.}
+Isso parece bastante limitante, pois estamos já acostumados
+com funções com aridades diferentes.%
+\footnote{Lembra-se que \dterm{aridade} é a quantidade de
+argumentos-entradas.}
 
 \TODO Função como ``black box''.
 
@@ -11094,8 +11095,8 @@ $A = C$.
 \endsection
 %%}}}
 
-%%{{{ Constructing functions 
-\section Construindo funções.
+%%{{{ Constructions and operations on functions 
+\section Construções e operações em funções.
 
 \TODO Identidade.
 
@@ -12161,13 +12162,71 @@ Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
 \chapter Relações.
 \label{relations}%
 
-{
+{%
 \def\R{\rel R}
 \def\S{\rel S}
 \def\T{\rel T}
 
 %%{{{ Concept, notation, equality 
 \section Conceito, notação, igualdade.
+
+\TODO Relação como ``black box''.
+
+%%{{{ df: R_eq_S_bin_on_single_set_case 
+\definition Igualdade.
+\label{R_eq_S_bin_on_single_set_case}%
+Sejam $R,S$ relações binárias num conjunto $A$.
+Definimos
+$$
+R=S
+\defiff
+\text {para todos $x,y \in A$, teemos:\ \ $x \R y \iff x \S y$}.
+$$
+%%}}}
+
+\blah.
+Principalmente vamos trabalhar com relações binárias definidas num conjunto só,
+então a definição de igualdade~\refn{R_eq_S_bin_on_single_set_case} que
+acabamos de ver nos serve bem.  No~\ref{R_eq_S_bin_on_different_sets_case}
+e no~\ref{R_eq_S} tu vai extender essa definição para os casos mais gerais.
+
+%%{{{ x: R_eq_S_bin_on_different_sets_case 
+\exercise Igualdade.
+\label{R_eq_S_bin_on_different_sets_case}%
+Como tu extenderia a~\ref{R_eq_S_bin_on_single_set_case} para o caso onde as
+$R,S$ não são relações num conjunto só?
+Ou seja, tendo relações binárias~$R,S$, a~$R$ de~$A$ para~$B$, e a~$S$ de~$C$
+para~$D$, como tu definaria a igualdade~$R=S$ nesse caso?
+
+\solution
+{%
+\def\R{\rel R}
+\def\S{\rel S}
+Digamos que $R=S$ sse para todo $x\in A\union C$, e todo $y \in B\union D$, temos $x \R y \iff x \S y$.
+}
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Intension vs. Extension 
+\section Intensão vs{.}~extensão.
+
+%%{{{ df: relation_graph 
+\definition.
+\label{relation_graph}%
+\tdefined{relação!gráfico}%
+\iisee{gráfico}{relação, gráfico}%
+\iisee{gráfico}{função, gráfico}%
+\sdefined{\graph{\holed R}} {o gráfico da relação $\holed R$}%
+Dado relação $R$ de $A$ para $B$, o \dterm{gráfico da $R$},
+é o conjunto
+$$
+\graph R \defeq \setst {(x,y)} {x \R y}.
+$$
+%%}}}
 
 \endsection
 %%}}}
@@ -12184,6 +12243,7 @@ Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
 Aqui aumentamos nossa terminologia, identificando certas propriedades
 interessantes que uma relação binária $\R$ no $X$ pode ter.
 
+%%{{{ Reflection 
 \note Reflexão.
 \label{reflexion_terminology}
 \tdefined{relação!reflexiva}
@@ -12203,7 +12263,9 @@ $$
 \endalignat
 $$
 onde os quantificadores quantificam sobre o $X$.
+%%}}}
 
+%%{{{ eg 
 \example.
 As relações $=$, $\leq$, $\geq$, nos números e $=$, $\subseteq$, $\supseteq$ nos conjuntos são todas reflexivas.
 Também reflexivas são as relações
@@ -12215,7 +12277,9 @@ Típicos exemplos de irreflexivas são as $\neq$, $<$, $>$, $\subsetneq$, $\sups
 \trel{\thole\ e \thole\ nunca estiveram em distância de 2 metros entre si},
 etc.
 \endexample
+%%}}}
 
+%%{{{ Symmetry 
 \note Simetria.
 \label{symmetry_terminology}
 \tdefined{relação!simétrica}
@@ -12226,7 +12290,9 @@ Novamente, certos casos notáveis aparecem:
 (i) $\R$ pode comportar sempre no mesmo jeito independente da ordem dos seus argumentos; nesse caso a chamamos \dterm{simétrica}.
 (ii) O $\R$-relacionamento dum objeto $x$ com outro $y$ atravez da $\R$ pode garantir que o $y$ não esta $\R$-relacionado com o $x$; a chamamos \dterm{asimmétrica}.
 (iii) O único caso onde a $\R$ relaciona os mesmos argumentos com as duas possíveis órdens, é quando os dois argumentos são iguais; chamamos a $\R$ \dterm{antisimmétrica}.
+%%}}}
 
+%%{{{ eg 
 \example.
 Simétricas: $=$, $\neq$, composicionalidade de funções, \trel{\thole\ e \thole\ são irmãos}, \trel{\thole\ e \thole\ são cidades do mesmo país}, etc.
 \endgraf\noindent
@@ -12234,15 +12300,21 @@ Asimétricas: $<$, $\subsetneq$, $>$, $\supsetneq$, \trel{\thole\ deve dinheiro 
 \endgraf\noindent
 Antisimétricas: $\leq$, $\subseteq$, $\geq$, $\supseteq$, $=$, \trel{a palavra \thole\ aparece, mas não depois da palavra \thole\ no dicionário}, etc.
 \endexample
+%%}}}
 
+%%{{{ x: not_symmetric_notequiv_asymmetric 
 \exercise.
+\label{not_symmetric_notequiv_asymmetric}%
 Verifique que ``não simétrica'' não significa nem ``assimétrica''
 nem ``antissimétrica'', escrevendo todas as fórmulas envolvidas e suas negações,
 como no~\refn{reflexion_terminology}.
 
 \endexercise
+%%}}}
 
+%%{{{ x: check_reflexion_and_symmetry 
 \exercise.
+\label{check_reflexion_and_symmetry}%
 Decida a ``reflexão'' e a ``simetria'' das relações seguintes:
 $$
 \align
@@ -12253,8 +12325,11 @@ T(A, B) &\letiff A\symdiff B \neq \emptyset.
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ x: asymmetric_implies_irreflexive 
 \exercise.
+\label{asymmetric_implies_irreflexive}%
 Mostre que:
 $$
 \R \text{assimétrica} \implies \R \text{irreflexiva}.
@@ -12268,12 +12343,15 @@ Mostramos o contrapositivo.
 Suponha que $R$ não é irreflexiva.
 Então existe $s$ com $R(s,s)$,
 e logo é impossível que a $R$ seja assimétrica,
-pois achamos $x$ e $y$ ($x=y=s$) que satisfazem ambas
+pois achamos $x$ e $y$ ($x,y\asseq s$) que satisfazem ambas
 $R(x,y)$ e $R(y,x)$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: asymetric_implies_antisymmetric 
 \exercise.
+\label{asymetric_implies_antisymmetric}%
 Uma das duas direções abaixo é válida:
 $$
 \R \text{assimétrica} \askiff \R \text{antissimétrica}.
@@ -12301,6 +12379,7 @@ Para refutar a \rldir, considere o contraexemplo da antissimétrica $\leq$
 no $\nats$, que não é assimétrica, pois é reflexiva.
 
 \endexercise
+%%}}}
 
 \note Totalidade.
 
@@ -12318,6 +12397,7 @@ no $\nats$, que não é assimétrica, pois é reflexiva.
 
 \TODO Right-euclidean
 
+%%{{{ Glossary 
 \note Glossário.
 Resumimos aqui as propriedades que encontramos.
 Seja $X$ conjunto e $\R$ uma relação binária nele.
@@ -12335,10 +12415,12 @@ $$
 &x \R z  \mland  y \R z \implies x \R y &\qqqquad&\text{\rm(left-euclidean)}\\
 &x \R y  \mlor   y \R x                 &\qqqquad&\text{\rm(total)}\\
 \text{exatamente uma das:}\quad
-&x \R y\, ; \  y \R x\, ; \  x = y      &\qqqquad&\text{\rm(tricotômica)}\\
+&x \R y\, ; \ \  y \R x\, ; \ \  x = y  &\qqqquad&\text{\rm(tricotômica)}\\
 \endalignat
 $$
+%%}}}
 
+%%{{{ prop: wrong_property_of_sym_and_trans_implies_refl 
 \proposition.
 \label{wrong_property_of_sym_and_trans_implies_refl}
 Seja $X\neq\emptyset$ e $\sim$ uma relação no $X$.
@@ -12348,11 +12430,14 @@ Como ela é simétrica, de $x\sim y$ concluimos que $y\sim x$ também.
 E agora usando a transitividade, de $x\sim y$ e $y\sim x$, concluimos a $x\sim x$,
 que mostra que $\sim$ é reflexiva também.
 \mistaqed
+%%}}}
 
+%%{{{ x: find the error and prove that the proposition is false 
 \exercise.
 Ache o erro na prova em cima e \emph{prove} que a proposição é falsa!
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -12639,10 +12724,8 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Operations 
-\section Operações.
-
-\TODO Operações em relações.
+%%{{{ Constructions and operations on relations 
+\section Construções e operações em relações.
 
 \TODO Relação inversa.
 
@@ -12770,6 +12853,43 @@ $\quotset{\reals}{\rtranscl{\leftrightarrow}}$.
 %%{{{ Order relations 
 \section Relações de ordem.
 
+%%{{{ df: order_relation 
+\definition Ordem.
+\label{order_relation}%
+Seja $R$ uma relação binária num conjunto $A$.
+Chamamos a $R$ \dterm{ordem parcial} sse ela é reflexiva, transitiva, e antisimétrica.
+Se ela também é total, chamamos-la \dterm{ordem total}.
+%%}}}
+
+%%{{{ beware: total-partial default, relations vs functions 
+\beware.
+Quando usamos apenas o termo \emph{ordem}, entendemos como \emph{ordem parcial}.
+Observe que esta convenção é a oposta que seguimos nas funções, onde \emph{função} quis dizer \emph{função total}.
+%%}}}
+
+\TODO Examples.
+
+%%{{{ divides_is_not_an_order_on_ints 
+\exercise.
+\label{divides_is_not_an_order_on_ints}%
+A relação $\divides$ nos inteiros é uma relação de ordem?
+
+\hint
+O que podemos concluir se $a\divides b$ e $b\divides a$?
+
+\endexercise
+%%}}}
+
+%%{{{ df: preorder_relation 
+\definition Preordem.
+\label{preorder_relation}%
+Uma relação binária $R$ num conjunto $A$ é chamada \dterm{preordem} sse ela é reflexiva e transitiva.
+%%}}}
+
+\TODO Ordens estritas.
+
+\TODO De fraca para estrita, ida e volta.
+
 \endsection
 %%}}}
 
@@ -12817,6 +12937,7 @@ $$
 %%{{{ Problems 
 \problems.
 
+%%{{{ prob 
 \problem.
 Define no $\ints\times(\ints\setminus\set0)$ a relação
 $$
@@ -12828,7 +12949,9 @@ Mostre que $\approx$ é uma relação de equivalência
 e descreva suas classes de equivalência.
 
 \endproblem
+%%}}}
 
+%%{{{ prob 
 \problem.
 Define no $\rats$ a relação
 $$
@@ -12837,7 +12960,9 @@ $$
 Prove que $\sim$ é uma relação de equivalência e descreva as classes do $\quotset {\rats} {\sim}$.
 
 \endproblem
+%%}}}
 
+%%{{{ prob 
 \problem.
 Define no $\reals$ a relação
 $$
@@ -12846,7 +12971,9 @@ $$
 Prove que $\sim$ é uma relação de equivalência e descreva as classes do $\quotset {\reals} {\sim}$.
 
 \endproblem
+%%}}}
 
+%%{{{ prob 
 \problem.
 Define no $(\nats\to\nats)$ as relações seguintes:
 $$
@@ -12859,7 +12986,18 @@ Para cada uma das relações em cima, decida se ela é relação de equivalênci
 e se é, descreva seu conjunto quociente.
 
 \endproblem
+%%}}}
 
+%%{{{ R_eq_S 
+\problem Igualdade.
+\label{R_eq_S}%
+Defina a igualdade para o caso mais geral onde as relações $R$ e $S$ são relações de aridade qualquer,
+em conjuntos quaisquer.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: how_many_partitions 
 \problem Números Bell.
 \label{how_many_partitions}
 Seja $A$ conjunto finito.
@@ -12980,9 +13118,10 @@ B_{n+1}
 \endalign
 $$
 \tdefined{Bell numbers}
-Essa seqüência de números é conhecida como números \Bell[números]{}Bell.
+Essa seqüência de números é conhecida como números~\Bell[números]{}Bell.
 
 \endproblem
+%%}}}
 
 \ignore{
 
@@ -12997,6 +13136,7 @@ descreva o $(\nats\to\reals)/\sim$.
 
 }
 
+%%{{{ prob 
 \problem.
 Sejam conjunto $A$ com $\card A=1$, e $n\in\nats$ com $n\leq 2$.
 No $A^n$ defina:
@@ -13026,6 +13166,7 @@ como contraexemplo, pois temos
 $a \sim b$ e $b \sim c$ mas $a\not\sim c$.
 
 \endproblem
+%%}}}
 
 \endproblems
 %%}}}
