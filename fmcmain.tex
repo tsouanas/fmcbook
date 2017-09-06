@@ -9818,7 +9818,7 @@ Faz sentido que os dois conjuntos são iguais, pois as duas frases são equivale
 Mas para provar formalmente a afirmação, mostramos as duas direções
 $$
 \xalignat3
-A \symdiff B &\subseteq (A \setminus B) \union (B \setminus A) &&\mland&
+A \symdiff B &\subseteq (A \setminus B) \union (B \setminus A) && \mland &
 A \symdiff B &\supseteq (A \setminus B) \union (B \setminus A)
 \endxalignat
 $$
@@ -11068,10 +11068,17 @@ Chamamos a $g\of f$ a \dterm{composição} da $g$ \emph{seguindo} a $f$
 (ou ``da $g$ com $f$'', ou ``da $g$ de $f$'').
 %%}}}
 
-%%{{{ beware: 
+%%{{{ beware: gof_not_fog 
 \beware.
 \label{gof_not_fog}%
 Escrevemos $g\of f$ e não $f\of g$ para a composição na~\ref{fcompose}!
+Então quando temos $A\toarrow f B\toarrow g C$, a composição é
+$g\of f : A \to C$, que parece o oposto da ordem das setinhas.
+Definimos a notação alternativa
+$$
+f;g = g\of f,
+$$
+mas vamos principalmente usar a $g\of f$ mesmo.
 %%}}}
 
 %%{{{ x: when_is_fog_defined 
@@ -12495,6 +12502,24 @@ Chamamos $\sim$ uma \dterm{relação de equivalência} sse ela é
 reflexiva, simétrica, e transitiva.
 %%}}}
 
+%%{{{ eg: equivalent_relations_on_euclidean_plane 
+\example.
+\label{equivalent_relations_on_euclidean_plane}
+No $\reals^2$ considere as relações:
+$$
+\align
+\tup{x,y} \sim_1 \tup{x',y'}
+&\iff x = x'\\
+\tup{x,y} \sim_2 \tup{x',y'}
+&\iff y = y'\\
+\tup{x,y} \sim_{\text N} \tup{x',y'}
+&\iff \norm{ \tup{x,y} } = \norm{ \tup{x',y'} }
+\endalign
+$$
+Facilmente todas são relações de equivalência.
+\endexample
+%%}}}
+
 %%{{{ eg: equivalent_relations_on_euclidean_space 
 \example.
 \label{equivalent_relations_on_euclidean_space}
@@ -12667,9 +12692,10 @@ Quantas partições de $A$ existem?
 \endexercise
 %%}}}
 
-%%{{{ df: equivalent_class 
+%%{{{ df: equivalent_class and quotset 
 \definition.
 \label{equivalent_class}%
+\label{quotset}%
 \tdefined{classe de equivalência}%
 \tdefined{conjunto}[quociente]%
 \sdefined {\eqclass {\holed a} {\holed R}} {classe de equivalência do $\holed a$ atravez da $\holed R$}%
@@ -12690,6 +12716,51 @@ $$
 $$
 %%}}}
 
+%%{{{ eg: some_eqclasses_geometrically_and_algebrically
+\example.
+\label{some_eqclasses_geometrically_and_algebrically}%
+Vamos descrever geometricamente as classes de equivalência das
+relações do~\ref{equivalent_relations_on_euclidean_plane} no $R^2$,
+ou seja, determinar os conjuntos quocientes correspondentes.
+Lembramos as relações:
+$$
+\align
+\tup{x,y} \sim_1 \tup{x',y'}
+&\iff x = x'\\
+\tup{x,y} \sim_2 \tup{x',y'}
+&\iff y = y'\\
+\tup{x,y} \sim_{\text N} \tup{x',y'}
+&\iff \norm{ \tup{x,y} } = \norm{ \tup{x',y'} }
+\endalign
+$$
+\endexample
+%%}}}
+
+\TODO Terminar o exemplo em cima e o exercício em baixo com gráficos.
+
+%%{{{ x: more_eqclasses_geometrically_and_algebrically
+\exercise.
+\label{more_eqclasses_geometrically_and_algebrically}%
+Descreva geometricamente e algebricamente os conjuntos quocientes
+das relações de equivalência
+do~\ref{equivalent_relations_on_euclidean_space}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: more_eqclasses_geometrically_and_algebrically
+\exercise.
+\label{guaranteed_eqrels}%
+Seja $A$ um conjunto qualquer.
+Quais relações de equivalência podes já definir nele, sem saber
+absolutamente nada sobre seus elementos?
+
+\solution
+A identidade $=$, a trivial $\True$, e a vazia $\False$.
+
+\endexercise
+%%}}}
+
 %%{{{ x: equivalent_statements_to_x_equiv_y 
 \exercise.
 Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $x,y\in X$.
@@ -12697,14 +12768,6 @@ O.s.s.e.:
 \item{(i)} $x\sim y$
 \item{(ii)} $\eqclassimp x = \eqclassimp y$
 \item{(iii)} $\eqclassimp x \inter \eqclassimp y \neq \emptyset$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: some equivalence classes geometrically and algebrically
-\exercise.
-Descreva geometricamente e algebricamente as classes de equivalência das $\sim_1$
-e $\sim_2$ do~\ref{equivalent_relations_on_euclidean_space}.
 
 \endexercise
 %%}}}
@@ -12730,21 +12793,36 @@ Qual é a partição dos inteiros correspondente?
 \tdefined{coimagem}
 \sdefined {\ker {\holed f}} {kernel da \holed f}
 \sdefined {\coim {\holed f}} {coimagem da \holed f}
-\def\frel##1{\approx_{##1}}
 Seja $f : X \to Y$ e defina a relação binária $\frel f$ no $X$ pela
 $$
 x_1 \frel f x_2 \defiff f(x_1)=f(x_2).
 $$
-Chamamos a $\frel f$ o \dterm{kernel} da $f$, e seu conjunto quociente a \dterm{coimagem} da $f$.
+Chamamos a $\frel f$ o \dterm{kernel} da $f$, e seu conjunto quociente
+a \dterm{coimagem} da $f$.
 Usamos também os símbolos $\ker f$ e $\coim f$ respectivamente.
 %%}}}
 
 %%{{{ x: frel_is_an_eqrel 
 \exercise.
-\def\frel#1{\approx_{#1}}
+\label{frel_is_an_eqrel}%
 Com os dados da~\ref{kernel_coimage}
 mostre que $\frel f$ é uma relação de equivalência e descreva os elementos da coimagem.
 O que podemos dizer se $f$ é injetora?  Se ela é sobrejetora?
+
+\endexercise
+%%}}}
+
+%%{{{ x: immediate applications 
+\exercise.
+Mostre que todas as relações dos
+exemplos~\refn{equivalent_relations_on_euclidean_plane}
+e~\refn{equivalent_relations_on_euclidean_space}
+são casos especiais do~\ref{frel_is_an_eqrel}
+(e logo são relações de equivalência ``gratuitamente'').
+
+\hint
+Para cada uma delas, precisa definir completamente a
+$f : A \to B$ (esclarecendo também quais são os $A,B$).
 
 \endexercise
 %%}}}
@@ -12795,10 +12873,49 @@ $$
 %%{{{ Constructions and operations on relations 
 \section Construções e operações em relações.
 
-\TODO Relação inversa.
+%%{{{ df: rinv 
+\definition.
+\label{rinv}%
+Seja $R$ uma relação de $A$ para $B$.
+Definimos a relação $\rinv R$ pela:
+$$
+x \rinv R y \defiff y \rel R x.
+$$
+%%}}}
 
-\TODO Composição.
+%%{{{ df: rcompose 
+\definition.
+\label{rcompose}%
+\tdefined{relação}{composição}%
+\iisee{composição!de relação}{relação, composição}%
+Sejam conjuntos $A,B,C$ e as relações $R$ de $A$ para $B$
+e $S$ de $B$ para $C$.
+Definimos a relação $R\rcom S$ de $A$ para $C$ pela
+$$
+a\rel{(R \rcom S)}c
+\defiff
+\text{existe $y \in B$ tal que $a \rel R y$ \& $y \rel S c$}.
+$$
+Chamamos a $R \rcom S$ a \dterm{composição} da $R$ \emph{com} a $S$.
+%%}}}
 
+%%{{{ beware: RoS_not_SoR 
+\beware.
+\label{RoS_not_SoR}%
+Não existe um consensus para a ordem de escrever esses $R,S$
+na~\ref{rcompose}.  Tome cuidado então enquanto lendo a notação
+$R \rcom S$, pois nosso $R \rcom S$ pode ser escrito como $S \rcom R$
+por outros autores, e vice versa.
+Quando a composição é denotada por $;$ a ordem concorda com nossa:
+$$
+a\rel{(R ; S)}c
+\defiff
+\text{existe $y \in B$ tal que $a \rel R y$ \& $y \rel S c$}.
+$$
+Veja também o~\ref{gof_not_fog}.
+%%}}}
+
+%%{{{ prop: associativity_of_rcom 
 \property.
 \label{associativity_of_rcom}%
 Sejam as relações binárias:
@@ -12835,6 +12952,7 @@ a \rel{((R\rcom S)\rcom T)} d
 \endalignat
 $$
 \qed
+%%}}}
 
 %%{{{ x: associativity_of_rcom_nat_lang 
 \exercise.
@@ -12858,8 +12976,63 @@ A direção \rldir\ é similar.
 \endexercise
 %%}}}
 
-
+%%{{{ x: id_of_rcom 
 \exercise.
+\label{id_of_rcom}%
+Considere a $\rcom$ como uma operação nas relações binárias num conjunto $A$.
+Ela tem \dterm{identidade}?  Ou seja, existe alguma relação binária $E$ no $A$,
+tal que
+$$
+\text{para toda relação $R$ no $A$,}\quad
+E \rcom R = R = R \rcom E\,?
+$$
+Se sim, defina essa relação $E$ e prove que realmente é.
+Se não, prove que não existe.
+
+\hint
+Dois candidatos prováveis para considerar seriam a igualdade e a relação trivial $\True$ satisfeita por todos os pares de elementos de $A$:
+$$
+\text{ou}
+\knuthcases{
+x \rel E y \defiff \True\cr
+x \rel E y \defiff x = y
+}
+$$
+
+\solution
+Existe sim: a $E$ é a igualdade $=$.
+Vamos mostrar que para todos $a,b \in A$
+$$
+a \rel R b \iff a \rel{(E \rcom R)} b.
+$$
+Tratamos cada direção separadamente.
+\endgraf
+\lrdir.
+Suponha que $a \rel B b$.
+Precisamos mostrar que
+existe $w\in A$ tal que $a \rel E w$ e $w \rel R b$.
+Tome $w \asseq a$.  Realmente temos $a \rel E a$ (pois $E$ é a igualdade),
+e $a \rel R b$ que é nossa hipótese.
+\endgraf
+\rldir.
+Suponha que $a \rel {(E \rcom R)} b$.
+Logo, existe $w\in A$ tal que $a \rel E w$\fact1 e $w \rel R b$\fact2.
+Mas, como $E$ é a igualdade, o único $w$ que satisfaz a~\reffact1 é o proprio~$a$.
+Ou seja, $w = a$.
+Substituindo na~\byfact2, ganhamos o desejado $a \rel R b$.
+\endgraf
+A outra equivalência,
+$$
+a \rel R b \iff a \rel{(R \rcom E)} b,
+$$
+é similar.
+
+\endexercise
+%%}}}
+
+%%{{{ x: R_exp_n 
+\exercise.
+\label{R_exp_n}%
 Define formalmente a ``exponenciação'' $R^n$ duma dada relação binária $R$
 num conjunto, informalmente definida por:
 $$
@@ -12873,7 +13046,7 @@ Questão: o que precisa achar para tua definição servir para o caso $n=0$ tamb
 
 \hint
 Resposta: precisa achar o elemento neutro da operação $\rcompose$.
-Qual é?
+Já fez o~\ref{id_of_rcom}, né?
 
 \solution
 Definimos:
@@ -12885,6 +13058,7 @@ x\mathrel{\paren{R^{n+1}}}y &\defiff x\mathrel{\paren{R\rcompose {R^n}}}y
 $$
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
