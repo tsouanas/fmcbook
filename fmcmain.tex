@@ -4718,11 +4718,11 @@ Para todos os $a,b\in\ints$,
 temos:
 $$
 \xxalignat 2
-(1)\quad&a \cong a \pmod m                             &&\text{\rm(reflexividade)}\\
+(1)\quad&a \cong a \pmod m                             &&\textrm{(reflexividade)}\\
 (2)\quad&a \cong b \pmod m \mland b \cong c \pmod m
 \implies
-a \cong c \pmod m                                      &&\text{\rm(transitividade)}\\
-(3)\quad&a \cong b \pmod m \implies b \cong a \pmod  m &&\text{\rm(simetria)}.
+a \cong c \pmod m                                      &&\textrm{(transitividade)}\\
+(3)\quad&a \cong b \pmod m \implies b \cong a \pmod  m &&\textrm{(simetria)}.
 \endxxalignat
 $$
 \sketch.
@@ -12169,11 +12169,6 @@ Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
 \chapter Relações.
 \label{relations}%
 
-{%
-\def\R{\rel R}
-\def\S{\rel S}
-\def\T{\rel T}
-
 %%{{{ Concept, notation, equality 
 \section Conceito, notação, igualdade.
 
@@ -12197,7 +12192,7 @@ Definimos
 $$
 R=S
 \defiff
-\text {para todos $x,y \in A$, teemos:\ \ $x \R y \iff x \S y$}.
+\text {para todos $x,y \in A$, teemos:\ \ $x \rel R y \iff x \rel S y$}.
 $$
 %%}}}
 
@@ -12216,11 +12211,7 @@ Ou seja, tendo relações binárias~$R,S$, a~$R$ de~$A$ para~$B$, e a~$S$ de~$C$
 para~$D$, como tu definaria a igualdade~$R=S$ nesse caso?
 
 \solution
-{%
-\def\R{\rel R}
-\def\S{\rel S}
-Digamos que $R=S$ sse para todo $x\in A\union C$, e todo $y \in B\union D$, temos $x \R y \iff x \S y$.
-}
+Digamos que $R=S$ sse para todo $x\in A\union C$, e todo $y \in B\union D$, temos $x \rel R y \iff x \rel S y$.
 
 \endexercise
 %%}}}
@@ -12243,7 +12234,7 @@ Digamos que $R=S$ sse para todo $x\in A\union C$, e todo $y \in B\union D$, temo
 Dado relação $R$ de $A$ para $B$, o \dterm{gráfico da $R$}
 é o conjunto
 $$
-\graph R \defeq \setst {(x,y)} {x \R y},
+\graph R \defeq \setst {(x,y)} {x \rel R y},
 $$
 também conhecido como \dterm{truth set} da $R$.
 %%}}}
@@ -12261,7 +12252,7 @@ também conhecido como \dterm{truth set} da $R$.
 \section Propriedades de relações.
 
 Aqui aumentamos nossa terminologia, identificando certas propriedades
-interessantes que uma relação binária $\R$ no $X$ pode ter.
+interessantes que uma relação binária $R$ no $X$ pode ter.
 
 %%{{{ Reflection 
 \note Reflexão.
@@ -12270,16 +12261,16 @@ interessantes que uma relação binária $\R$ no $X$ pode ter.
 \tdefined{relação!irreflexiva}
 Olhamos como cada elemento do $X$ relaciona com ele mesmo.
 Dois casos notáveis aparecem:
-(i) pode ser que para todo $x$ temos $x\R x$;
-(ii) pode ser que para nenhum $x$ temos $x\R x$.
-No primeiro caso, chamamos $\R$ \dterm{reflexiva}; no segundo, \dterm{irreflexiva}.
+(i) pode ser que para todo $x$ temos $x\rel R x$;
+(ii) pode ser que para nenhum $x$ temos $x\rel R x$.
+No primeiro caso, chamamos $R$ \dterm{reflexiva}; no segundo, \dterm{irreflexiva}.
 Observe que ``irreflexiva'' não significa ``não reflexiva'', etc:
 $$
 \alignat 2
-\text{$\R$ é reflexiva}      &\iff \phantom\lnot\forall x R(x,x)        &&\iff \lnot\exists x \lnot R(x,x)\\
-\text{$\R$ não é reflexiva}  &\iff \lnot\forall x R(x,x)                &&\iff \phantom\lnot\exists x \lnot R(x,x)\\
-\text{$\R$ é irreflexiva}    &\iff \phantom\lnot\forall x \lnot R(x,x)  &&\iff \lnot\exists x R(x,x)\\
-\text{$\R$ não é irreflexiva}&\iff \lnot\forall x \lnot R(x,x)          &&\iff \phantom\lnot\exists x R(x,x)
+\text{$R$ é reflexiva}      &\iff \phantom\lnot\forall x R(x,x)        &&\iff \lnot\exists x \lnot R(x,x)\\
+\text{$R$ não é reflexiva}  &\iff \lnot\forall x R(x,x)                &&\iff \phantom\lnot\exists x \lnot R(x,x)\\
+\text{$R$ é irreflexiva}    &\iff \phantom\lnot\forall x \lnot R(x,x)  &&\iff \lnot\exists x R(x,x)\\
+\text{$R$ não é irreflexiva}&\iff \lnot\forall x \lnot R(x,x)          &&\iff \phantom\lnot\exists x R(x,x)
 \endalignat
 $$
 onde os quantificadores quantificam sobre o $X$.
@@ -12305,11 +12296,11 @@ etc.
 \tdefined{relação!simétrica}
 \tdefined{relação!assimétrica}
 \tdefined{relação!antissimétrica}
-Agora examinamos a relação $\R$ com respeito à ordem dos seus argumentos.
+Agora examinamos a relação $R$ com respeito à ordem dos seus argumentos.
 Novamente, certos casos notáveis aparecem:
-(i) $\R$ pode comportar sempre no mesmo jeito independente da ordem dos seus argumentos; nesse caso a chamamos \dterm{simétrica}.
-(ii) O $\R$-relacionamento dum objeto $x$ com outro $y$ atravez da $\R$ pode garantir que o $y$ não esta $\R$-relacionado com o $x$; a chamamos \dterm{asimmétrica}.
-(iii) O único caso onde a $\R$ relaciona os mesmos argumentos com as duas possíveis órdens, é quando os dois argumentos são iguais; chamamos a $\R$ \dterm{antisimmétrica}.
+(i) $R$ pode comportar sempre no mesmo jeito independente da ordem dos seus argumentos; nesse caso a chamamos \dterm{simétrica}.
+(ii) O $R$-relacionamento dum objeto $x$ com outro $y$ pode garantir que o $y$ não esta $R$-relacionado com o $x$; a chamamos \dterm{asimmétrica}.
+(iii) O único caso onde a $R$ relaciona os mesmos argumentos com as duas possíveis órdens, é quando os dois argumentos são iguais; chamamos a $R$ \dterm{antisimmétrica}.
 %%}}}
 
 %%{{{ eg 
@@ -12420,22 +12411,22 @@ no $\nats$, que não é assimétrica, pois é reflexiva.
 %%{{{ Glossary 
 \note Glossário.
 Resumimos aqui as propriedades que encontramos.
-Seja $X$ conjunto e $\R$ uma relação binária nele.
+Seja $X$ conjunto e $R$ uma relação binária nele.
 Definimos as seguintes propriedades:
 $$
 \alignat 2
-&x \R x                                 &\qqqquad&\text{\rm(reflexiva)}\\
-&x \not\R x                             &\qqqquad&\text{\rm(irreflexiva)}\\
-&x \R y  \implies  y \R x               &\qqqquad&\text{\rm(simétrica)}\\
-&x \R y  \implies  y \not\R x           &\qqqquad&\text{\rm(assimétrica)}\\
-&x \R y  \mland y \R x \implies x = y   &\qqqquad&\text{\rm(antissimétria)}\\
-&x \R y  \mland  y \R z \implies x \R z &\qqqquad&\text{\rm(transitiva)}\\
-&x \R y  \mland  y \R z \implies z \R x &\qqqquad&\text{\rm(circular)}\\
-&x \R y  \mland  x \R z \implies y \R z &\qqqquad&\text{\rm(right-euclidean)}\\
-&x \R z  \mland  y \R z \implies x \R y &\qqqquad&\text{\rm(left-euclidean)}\\
-&x \R y  \mlor   y \R x                 &\qqqquad&\text{\rm(total)}\\
+&x \rel R x                                         &\qqqquad&\textrm{(reflexiva)}\\
+&x \not\rel R x                                     &\qqqquad&\textrm{(irreflexiva)}\\
+&x \rel R y  \implies  y \rel R x                   &\qqqquad&\textrm{(simétrica)}\\
+&x \rel R y  \implies  y \not\rel R x               &\qqqquad&\textrm{(assimétrica)}\\
+&x \rel R y  \mland y \rel R x \implies x = y       &\qqqquad&\textrm{(antissimétria)}\\
+&x \rel R y  \mland  y \rel R z \implies x \rel R z &\qqqquad&\textrm{(transitiva)}\\
+&x \rel R y  \mland  y \rel R z \implies z \rel R x &\qqqquad&\textrm{(circular)}\\
+&x \rel R y  \mland  x \rel R z \implies y \rel R z &\qqqquad&\textrm{(right-euclidean)}\\
+&x \rel R z  \mland  y \rel R z \implies x \rel R y &\qqqquad&\textrm{(left-euclidean)}\\
+&x \rel R y  \mlor   y \rel R x                     &\qqqquad&\textrm{(total)}\\
 \text{exatamente uma das:}\quad
-&x \R y\, ; \ \  y \R x\, ; \ \  x = y  &\qqqquad&\text{\rm(tricotômica)}\\
+&x \rel R y\, ; \ \  y \rel R x\, ; \ \  x = y      &\qqqquad&\textrm{(tricotômica)}\\
 \endalignat
 $$
 %%}}}
@@ -13423,8 +13414,6 @@ Nos vamos ver relações como conjuntos apenas no~\ref{axiomatic_set_theory}.
 
 \endfurther
 %%}}}
-
-}
 
 \endchapter
 %%}}}
@@ -14917,8 +14906,8 @@ H \subgroup G
 \iff
 \left\{
 \alignedat3
-\text{\rm(1)} &\quad & a, b \in H   &\implies a\ast b \in H &\qquad&\text{\rm($H$ é $\ast$-fechado)}\\
-\text{\rm(2)}&\quad & a \in H      &\implies a^{-1}  \in H &\qquad&\text{\rm($H$ é $^{-1}$-fechado)}
+\textrm{(1)} &\quad & a, b \in H   &\implies a\ast b \in H &\qquad&\textrm{($H$ é $\ast$-fechado)}\\
+\textrm{(2)} &\quad & a \in H      &\implies a^{-1}  \in H &\qquad&\textrm{($H$ é $^{-1}$-fechado)}
 \endalignedat
 \right.
 $$
@@ -14957,8 +14946,8 @@ Em símbolos:
 $$
 \left.
 \alignedat3
-\text{\rm(0)} &\quad & &\emptyset \neq H \finsubseteq G\\
-\text{\rm(1)} &\quad & & a, b \in H  \implies a\ast b \in H\quad
+\textrm{(0)} &\quad & &\emptyset \neq H \finsubseteq G\\
+\textrm{(1)} &\quad & & a, b \in H  \implies a\ast b \in H\quad
 \endalignedat
 \right\}
 \implies
@@ -15770,7 +15759,7 @@ O \dterm{índice} de $H$ no $G$ é o número de right-cosets de $H$ no $G$.
 Denotamos-lo com os símbolos $\groupind G H$ ou $\altgroupind G H$.
 %%}}}
 
-% TODO: mention that there's a correspondence between left and right cosets 
+\TODO Mention that there is a correspondence between left and right cosets.
 
 %%{{{ thm: Lagrange 
 \theorem Lagrange.
@@ -18399,7 +18388,7 @@ $$
 
 %%{{{ x: fun_with_approxes 
 \def\Approxes{{\scr F}}
-\def\FinApproxes{\Approxes_{\text{\rm f}}}
+\def\FinApproxes{\Approxes_{\textrm{f}}}
 \exercise.
 \label{fun_with_approxes}%
 Seja $F : A \to B$.
@@ -18417,7 +18406,7 @@ onde $\FinApproxes$ é o conjunto de todas as aproximações finitas da $F$?
 \solution
 {%
 \def\Approxes{{\scr F}}
-\def\FinApproxes{\Approxes_{\text{\rm f}}}
+\def\FinApproxes{\Approxes_{\textrm{f}}}
 (i)
 Tome $\tup{x,y} \in F$.
 Para concluir que $\tup{x,y} \in \Union \Approxes$
