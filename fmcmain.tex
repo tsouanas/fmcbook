@@ -12358,30 +12358,49 @@ $x\longrightarrow y$ sse $x \rel R y$.
 
 \TODO Terminar o exemplo seguinte.
 
-%%{{{ eg: first_internal_diagram_for_rel 
+%%{{{ eg: first_internal_diagrams_for_rel 
 \example.
-\label{first_internal_diagram_for_rel}%
+\label{first_internal_diagrams_for_rel}%
 Seja $A = \set{1, 2, 3, 4, 5, 6, 7, 8}$
 Desenhamos:
 $$
-\tikzpicture[>=stealth]
-\draw [rounded corners=20mm] (-2.7,-2.7)--(-2.7,2.7)--(2.7,2.7)--(2.7,-2.7)--cycle;
-\draw (-2.5,2.5) node {$A$};
-\draw (0,-3.0) node {$R$};
-\node (elem-1)  at (-0.7 , 1.9 ) {$1$};
-\node (elem-2)  at (-2.0 , 1.0 ) {$2$};
-\node (elem-3)  at (-1.2 , 0.0 ) {$3$};
-\node (elem-4)  at (-1.5 ,-1.5 ) {$4$};
-\node (elem-4h) at (-1.8 ,-1.2 ) {};
-\node (elem-5)  at ( 0.1 , 0.5 ) {$5$};
-\node (elem-6)  at ( 1.1 , 1.6 ) {$6$};
-\node (elem-7)  at ( 0.4 ,-1.7 ) {$7$};
-\node (elem-8)  at ( 1.6 ,-0.8 ) {$8$};
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiaginvestbase;
 \draw[->] (elem-1) to [bend left=20]  (elem-2);
 \draw[->] (elem-2) to [bend left=20]  (elem-1);
 \draw[->] (elem-8) to                 (elem-6);
 \draw[->] (elem-5) to                 (elem-7);
 \draw[->] (elem-5) to                 (elem-8);
+\node (elem-4h) at (-1.5 ,-1.3 ) {};
+\draw[->] (elem-4h) arc (10:290:0.25);
+\node (elem-5h) at ( 0.1 , 0.7 ) {};
+\draw[->] (elem-5h) arc (10:290:0.25);
+\draw (0,-3.0) node {$R$};
+\endtikzpicture
+\quad
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiaginvestbase;
+\draw[->] (elem-1) to                 (elem-2);
+\draw[->] (elem-8) to                 (elem-6);
+\draw[->] (elem-7) to                 (elem-5);
+\draw[->] (elem-5) to                 (elem-8);
+\draw[->] (elem-6) to                 (elem-5);
+\draw (0,-3.0) node {$S$};
+\endtikzpicture
+\quad
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiaginvestbase;
+\draw[->] (elem-1) to [bend left=20]  (elem-2);
+\draw[->] (elem-2) to [bend left=20]  (elem-1);
+\draw[->] (elem-5) to [bend left=20]  (elem-8);
+\draw[->] (elem-8) to [bend left=20]  (elem-5);
+\draw[->] (elem-3) to [bend left=20]  (elem-4);
+\draw[->] (elem-4) to [bend left=20]  (elem-3);
+\draw[->] (elem-7) to [bend left=10]  (elem-6);
+\draw[->] (elem-6) to [bend left=10]  (elem-7);
+\node (elem-5h) at ( 0.1 , 0.7 ) {};
+\draw[->] (elem-5h) arc (10:290:0.25);
+\draw (0,-3.0) node {$T$};
 \endtikzpicture
 $$
 \endexample
@@ -12565,8 +12584,9 @@ no $\nats$, que não é assimétrica, pois é reflexiva.
 
 \TODO Right-euclidean
 
-%%{{{ Glossary 
+%%{{{ Glossary: relations_glossary 
 \note Glossário.
+\label{relations_glossary}%
 Resumimos aqui as propriedades que encontramos.
 Seja $X$ conjunto e $R$ uma relação binária nele.
 Definimos as seguintes propriedades:
@@ -12586,6 +12606,28 @@ $$
 &x \rel R y\, ; \ \  y \rel R x\, ; \ \  x = y      &\qqqquad&\textrm{(tricotômica)}\\
 \endalignat
 $$
+%%}}}
+
+%%{{{ x: investigate_rel_properties_of_three_diags 
+\exercise.
+\label{investigate_rel_properties_of_three_diags}%
+Para cada uma das relações $R,S,T$ do~\ref{first_internal_diagrams_for_rel} decida
+se ela têm ou não, cada uma das propriedades do glossário do\ref{relations_glossary}.
+
+\solution
+\beginil
+\item{(reflexivitade)}
+$R$ não é reflexiva (pois, por exemplo não temos $R(6,6)$);
+$R$ não é irreflexiva (pois, por exemplo temos $R(5,5)$.
+\item{(simetria)}
+$R$ não é simétrica (pois, por exemplo temos $R(5,7)$ mas não $R(7,5)$;
+$R$ não é assimétrica (pois, por exemplo temos $R(1,2)$ 
+\item{(transições)}
+$R$ não é transitiva (pois, por exemplo temos $R(5,8)$ e $R(8,6)$ e mesmo assim não temos $R(5,6)$);
+$R$ não é circular (pois, por exemplo temos $R(5,8)$ e $R(8,6)$ e mesmo assim não temos $R(6,5)$);
+\endil
+
+\endexercise
 %%}}}
 
 %%{{{ prop: wrong_property_of_sym_and_trans_implies_refl 
@@ -12729,7 +12771,7 @@ propriedade para focar.  Essa vez vamos dividir os elementos do $A$ em
 \dterm{classes}, tais que cada membro do $A$ pertencerá em
 \emph{exatamente uma delas}, e cada uma delas terá pelo menos um membro do $A$.
 E nem vamos justificar essa separação, explicando o como ou o porquê.
-Essa colecção de classes vamos definir agora.
+Esse tipo de colecção de classes vamos definir agora.
 %%}}}
 
 %%{{{ df: partition 
@@ -12793,12 +12835,15 @@ diferentes, algo contra da nossa idéia de ``partição''.
 \endexercise
 %%}}}
 
+%%{{{ Two sides of the same coin 
 \note Dois lados da mesma moeda.
 Os dois conceitos de ``relação de equivalência'' e ``partição'',
 parecem diferentes mas realmente são apenas duas formas diferentes de
 expressar a mesma idéia.
 Cada relação de equivalência determina uma partição;
-e vice-versa: cada partição determina uma relação de equivalência:
+e vice-versa: cada partição determina uma relação de equivalência.
+Bora provar isso.
+%%}}}
 
 %%{{{ x: from_eqrel_to_partition 
 \exercise.
@@ -13447,8 +13492,14 @@ O que podemos concluir se $a\divides b$ e $b\divides a$?
 %%{{{ df: preorder_relation 
 \definition Preordem.
 \label{preorder_relation}%
-Uma relação binária $R$ num conjunto $A$ é chamada \dterm{preordem} sse ela é reflexiva e transitiva.
+\tdefined{preordem}%
+\iisee{quasiordem}{preordem}%
+Uma relação binária $R$ num conjunto $A$ é chamada \dterm{preordem} (ou \dterm{quasiordem}) sse ela é reflexiva e transitiva.
 %%}}}
+
+\blah.
+No~\ref{why_called_preorder} tu vai justificar o nome ``preordem'',
+mostrando que cada preordem $R$ fornece uma ordem $R'$.
 
 \TODO Ordens estritas.
 
@@ -13561,11 +13612,30 @@ em conjuntos quaisquer.
 \endproblem
 %%}}}
 
+%%{{{ why_called_preorder 
+\problem Por que preordem?.
+\label{why_called_preorder}%
+Justifique o nome ``preordem'': mostre como começando com uma preordem
+$R$ num conjunto $A$, podemos construir uma relação $R'$ consultando a $R$.
+Pode provar essa afirmação em vários jeitos, mas o objetivo é achar
+a ordem $R'$ mais natural e a mais \emph{justa}, seguindo a preordem $R$.
+
+\hint
+A ordem $R'$ não vai ser uma ordem no $A$, pois não podemos
+decidir como ``resolver conflitos'' do tipo $R(a,b)$ e $R(b,a)$.
+Não podemos arbitrariamente escolher um dos $a,b$ como ``menor'',
+botando assim por exemplo $R'(a,b)$ e $\lnot R'(b,a)$.
+Isso não seria justo!
+Então, em qual conjunto $A'$ faz sentido definir nossa ordem $R'$?
+
+\endproblem
+%%}}}
+
 %%{{{ prob: how_many_partitions 
 \problem Números Bell.
 \label{how_many_partitions}
 Seja $A$ conjunto finito.
-Quantas partições de $A$ podemos definir?
+Quantas partições de $A$ existem?
 
 \hint
 Conte ``manualmente'' os casos com $\card A = 0, 1, 2, 3$.
@@ -13692,7 +13762,11 @@ Essa seqüência de números é conhecida como números~\Bell[números]{}Bell.
 \label{same_limits_eqrel}%
 No $(\nats\to\reals)$ defina a relação
 $$
-a\sim b \defiff \text{$\lim_{n\to\pinfty} a_n = \lim_{n\to\pinfty} b_n$\quad\text{ou}\quad\text{nenhum dos dois limites é definido.}}
+a\sim b
+\defiff
+\lim\nolimits_n a_n = \lim\nolimits_n b_n
+\mlor
+\text{nenhum dos dois limites é definido.}
 $$
 descreva o $\quotset {(\nats\to\reals)} {\sim}$.
 
