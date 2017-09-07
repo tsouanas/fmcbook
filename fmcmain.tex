@@ -12954,14 +12954,154 @@ x \rinv R y \defiff y \rel R x.
 $$
 %%}}}
 
+\endsection
+%%}}}
+
+%%{{{ Composition 
+\section Composição.
+
+\blah.
+Todas as relações que consideramos nessa secção serão binárias.
+
+\TODO Motivação.
+
+%%{{{ eg: persons_books_words 
+\example.
+\label{persons_books_words}%
+\DefPred{Author}%
+\DefPred{Read}%
+\DefPred{Contains}%
+Sejam os conjuntos $\cal P$ de pessoas, $\cal B$ de livros, e $\cal W$ de palavras.
+Considere as relações:
+$$
+\align
+\Author(x,y)    &\defiff \text{$x$ é um escritor do livro $y$}\\
+\Read(x,y)      &\defiff \text{$x$ leu o livro $y$}\\
+\Contains(x,y)  &\defiff \text{a palavra $y$ aparece no livro $x$}
+\endalign
+$$
+Observe que $\Author$ e $\Read$ são relações de $\cal P$ para $\cal B$,
+e $\Contains$ de $\cal B$ para $\cal W$.
+O que seria a relação $\Author\rcom\Read$, o que a $\Author\rcom\Contains$,
+e o que a $\Read\rcom\Contains$?
+Antes de defini-las, vamos primeiramente pensar se faz sentido compor essas
+relações.
+Como a $\Author$ é uma relação de $\cal P$ para $\cal B$,
+e a $\Read$ de $\cal P$ para $\cal B$ também,
+podemos realmente as combinar:
+Similarmente, a $\Author$ é compatível com a $\Contains$.
+são compatíveis (gráças ao $\cal B$ ``no meio'').
+No outro lado, não faz podemos compor a $\Author$ com a $\Read$!
+Bem, então $\Author\rcom\Contains$ e $\Read\rcom\Contains$ são ambas
+relações de $\cal P$ para $\cal W$.
+Mas quais?
+Lembre que para definir uma relação, precisamos determinar
+completamente quando dois arbitrários $x,y$ são relacionados pela
+relação.
+Precisamos então completar as:
+$$
+\align
+x \relp{\Author\rcom\Contains} y &\defiff \text{\dots?\dots}\\
+x \relp{\Read\rcom\Contains}   y &\defiff \text{\dots?\dots}
+\endalign
+$$
+mas como?
+\spoiler.
+Bem, botamos:
+$$
+\align
+x \relp{\Author\rcom\Contains} y &\defiff \text{a pessoa $x$ escreveu algum livro que contem a palavra $y$}\\
+x \relp{\Read\rcom\Contains}   y &\defiff \text{a pessoa $x$ leu algum livro que contem a palavra $y$}
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ x: comparison_of_statements_about_reading_books 
+\exercise.
+\DefPred{Author}%
+\DefPred{Read}%
+\label{comparison_of_statements_about_reading_books}%
+A relação $R$ de $\cal P$ para $\cal W$ definida pela
+$$
+R(x,y) \defiff \text{a pessoa $x$ leu a palavra $y$ num livro}
+$$
+é a mesma relação com a $\Author\rcom\Read$?
+Em outras palavras:
+$$
+R \askeq \Author\rcom\Read
+$$
+
+\hint
+As afirmações:
+$$
+\gather
+\text{a pessoa $x$ leu a palavra $y$ num livro}\\
+\text{a pessoa $x$ leu um livro onde a palavra $y$ aparece}
+\endgather
+$$
+estão afirmando a mesma coisa?
+
+\endexercise
+%%}}}
+
+\blah.
+Vamos ver mais um exemplo, essa vez usando apenas um conjunto---e
+logo todas as relações são gratuitamente compatíveis para composição.
+
+%%{{{ x: grandparents_grandchildren_siblings_and_couples_with_children 
+\exercise.
+\label{grandparents_grandchildren_siblings_and_couples_with_children}%
+\DefPred{Parent}%
+\DefPred{Child}%
+Seja $\cal P$ o conjunto de todas as pessoas, e considere as relações
+$$
+\align
+\Parent(x,y) &\defiff \text{$x$ é a mãe ou o pai de $y$}\\
+\Child(x,y)  &\defiff \text{$x$ é filho ou filha de $y$}.
+\endalign
+$$
+Como tu definaria as relações seguintes?:
+$$
+\Parent\rcom\Parent
+\qqquad
+\Child\rcom\Child
+\qqquad
+\Parent\rcom\Child
+\qqquad
+\Child\rcom\Parent
+$$
+
+\solution
+{%
+\DefPred{Parent}%
+\DefPred{Child}%
+Temos:
+$$
+\align
+x \relp{\Parent\rcom\Parent} y &\defiff \text{$x$ é um avô ou uma avó de $y$}\\
+x \relp{\Child\rcom\Child}   y &\defiff \text{$x$ é um neto ou uma neta de $y$}\\
+x \relp{\Parent\rcom\Child}  y &\defiff \text{$x$ e $y$ são irmã(o)s ou a mesma pessoa}\\
+x \relp{\Child\rcom\Parent}  y &\defiff \text{$x$ e $y$ tem um filho ou uma filha juntos}
+\endalign
+$$
+}
+
+\endexercise
+%%}}}
+
+\question.
+Como podemos definir a composição de relações?
+\spoiler.
+
 %%{{{ df: rcompose 
 \definition.
 \label{rcompose}%
-\tdefined{relação}{composição}%
+\tdefined{relação}[composição]%
 \iisee{composição!de relações}{relação, composição}%
-Sejam conjuntos $A,B,C$ e as relações $R$ de $A$ para $B$
-e $S$ de $B$ para $C$.
-Definimos a relação $R\rcom S$ de $A$ para $C$ pela
+Sejam conjuntos $A,B,C$ e as relações~$R$ de~$A$ para~$B$
+e~$S$ de~$B$ para~$C$.
+Definimos a relação~$R\rcom S$ de~$A$ para~$C$ pela
 $$
 a\rel{(R \rcom S)}c
 \defiff
@@ -13138,6 +13278,8 @@ $$
 \section Fechos.
 
 \TODO Intuição com diagramas.
+
+\TODO Definição errada de fecho simétrico.
 
 \TODO Definições formais.
 
