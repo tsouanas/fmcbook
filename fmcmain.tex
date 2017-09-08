@@ -12686,7 +12686,7 @@ $$
 \exercise.
 \label{investigate_rel_properties_of_three_diags}%
 Para cada uma das relações $R,S,T$ do~\refn{first_internal_diagrams_for_rel} decida
-se ela têm ou não, cada uma das propriedades do glossário do\ref{relations_glossary}.
+se ela têm ou não, cada uma das propriedades do glossário no~\refn{relations_glossary}.
 
 \hint
 Cuidado: nas propriedades que acabam ser implicações, as variáveis que aparecem
@@ -13424,7 +13424,7 @@ $$
 \endexercise
 %%}}}
 
-\note Iterações.
+\TODO Interações.
 
 \TODO De composição e identidade para iteração.
 
@@ -13474,7 +13474,7 @@ $$
 \tdefined{fecho!de relação}%
 Seja $R$ uma relação binária num conjunto $A$,
 e fixe uma propriedade \emph{razoável}
-daquelas que aparecem no~\ref{relations_glossary}.
+daquelas que aparecem no~glossário~\refn{relations_glossary}.
 Definimos o fecho da $R$ pela propriedade para ser a relação que criamos se
 botar num jeito \emph{justo} todas as \emph{necessárias}
 setinhas no diagrama da $R$ até ela virar uma relação com a propriedade
@@ -13489,65 +13489,86 @@ desejada.
 
 \TODO Explique o ``necessárias''.
 
-\TODO Definição errada de fecho simétrico.
-
-\TODO Definições formais.
-
-%%{{{ df: rst_closures
-\definition Fechos.
-\label{rst_closures}%
+%%{{{ df: rclosure 
+\definition Fecho reflexivo.
+\label{rclosure}%
 \tdefined{fecho!reflexivo}%
-\tdefined{fecho!simétrico}%
-\tdefined{fecho!transitivo}%
+\sdefined {\rclosure {\holed R}} {o fecho reflexivo da \holed R}%
+\sdefined {\rcl {\holed R}} {o fecho reflexivo da \holed R}%
 Seja $R$ relação num conjunto $A$.
-Definimos as relações:
+Definimos a relação $\rclosure R$ pela
+$$
+x \rclosure R y \defiff x \rel R y \mlor x = y
+$$
+Chamamos a $\rclosure R$ o \dterm{fecho reflexivo} da $R$.
+Também usamos a notação $\rel {R^=}$.
+%%}}}
+
+%%{{{ x: wrong_sclosure_definition 
+\exercise.
+Alguém definiu o fecho simétrico assim.
+\emph{Seja $R$ relação binária num conjunto $A$.
+Seu fecho simétrico é a relação $\sclosure R$ definida pela}
+$$
+x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R y.
+$$
+Ache o erro na definição e mostre que a definição realmente é errada.
+
+\endexercise
+%%}}}
+
+%%{{{ df: sclosure 
+\definition Fecho simétrico.
+\label{sclosure}%
+\tdefined{fecho!simétrico}%
+\sdefined {\sclosure {\holed R}} {o fecho simétrico da \holed R}%
+\sdefined {\scl {\holed R}} {o fecho simétrico da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos a relação $\sclosure R$ pela
+Chamamos a $\sclosure R$ o \dterm{fecho simétrico} da $R$.
+Também usamos a notação $\rel {R^\leftrightarrow}$.
+%%}}}
+
+%%{{{ x: wrong_tclosure_definition 
+\exercise.
+Alguém definiu o fecho transitivo assim.
+\emph{Seja $R$ relação binária num conjunto $A$.
+Seu fecho transitivo é a relação $\tclosure R$ definida pela}
+$$
+x \tclosure R y \pseudodefiff \text{existe $w\in A$ tal que $x \rel R w \mland w \rel R y$}.
+$$
+Mas isso não é o fecho transitivo da $R$.  O que é mesmo?
+
+\solution
+A relação definida é a $R^2$, ou seja, a $R \rcom R$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: tclosure and rtclosure 
+\definition Fecho transitivo.
+\label{tclosure}%
+\label{rtclosure}%
+\tdefined{fecho!transitivo}%
+\tdefined{fecho!reflexivo-transitivo}%
+\sdefined {\tclosure {\holed R}} {o fecho transitivo da \holed R}%
+\sdefined {\tcl {\holed R}} {o fecho transitivo da \holed R}%
+\sdefined {\rtclosure {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
+\sdefined {\rtcl {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos as relações $\tclosure R$ e $\rtclosure R$ pelas
 $$
 \xalignat2
-x \rclosure R y &\defiff x \rel R y \mlor x = y
-&&\text{(\dterm{fecho reflexivo} da $R$)}\\
-x \sclosure R y &\defiff x \rel R y \mlor y \rel R x
-&&\text{(\dterm{fecho simétrico} da $R$)}\\
-x \tclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats_{>0}$}
+x \tclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats_{>0}$}.
 &&\text{(\dterm{fecho transitivo} da $R$)}\\
 x \rel {R^*} y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats$}
 &&\text{(\dterm{fecho reflexivo-transitivo} da $R$)}\\
 \endxalignat
 $$
-%%}}}
-
-%%{{{ x: cyclic_and_euclidean_closures 
-\exercise Fecho cíclico, fechos euclideanos.
-\label{cyclic_and_euclidean_closures}%
-Defina os fechos: cíclico, left-euclideano, right-euclideano.
-
-\endexercise
-%%}}}
-
-%%{{{ x: isPred 
-\exercise.
-\label{isPred}
-Considere a relação $\to$ no $\nats$, definida pela:
-$$
-x\to y \defiff x + 1 = y.
-$$
-Descreva as relações seguintes:
-\item{$\transcl{\to}$}: seu fecho transitivo;
-\item{$\rtranscl{\to}$}: seu fecho reflexivo transitivo;
-\item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo transitivo simétrico.
-\endgraf\noindent
-Descreva o conjunto quociente $\quotset{\nats}{\rtranscl{\leftrightarrow}}$.
-
-\endexercise
-%%}}}
-
-%%{{{ x 
-\exercise.
-Considere a relação $\to$ definida pela mesma equação como
-no~\ref{isPred}, mas essa vez no conjunto $\reals$.
-Descreva os mesmos fechos e o
-$\quotset{\reals}{\rtranscl{\leftrightarrow}}$.
-
-\endexercise
+Chamamos a $\tclosure R$ o \dterm{fecho transitivo} da $R$,
+e a $\rtclosure R$ o \dterm{fecho reflexivo-transitivo} da $R$.
+Também usamos as notações $\tcl R$ para o $\tclosure R$
+e $\rtcl R$ para o $\rtclosure R$.
 %%}}}
 
 %%{{{ x: order_of_closures_matters 
@@ -13568,6 +13589,37 @@ Use diagramas internos.
 \hint
 Tente achar um contraexemplo para o (ii).
 Qual a dificuldade de achar contraexemplo para o (i)?
+
+\endexercise
+%%}}}
+
+\blah.
+Deixamos as definições de outros fechos para os problemas.
+
+%%{{{ x: isPred 
+\exercise.
+\label{isPred}
+Considere a relação $\to$ no $\nats$, definida pela:
+$$
+x\to y \defiff x + 1 = y.
+$$
+Descreva as relações seguintes:
+\item{$\transcl{\to}$}: seu fecho transitivo;
+\item{$\rtranscl{\to}$}: seu fecho reflexivo transitivo;
+\item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo transitivo simétrico.
+\endgraf\noindent
+Descreva o conjunto quociente $\quotset{\nats}{\rtranscl{\leftrightarrow}}$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: isPred_in_reals 
+\exercise.
+\label{isPred_in_reals}%
+Considere a relação $\to$ definida pela mesma equação como
+no~\ref{isPred}, mas essa vez no conjunto $\reals$.
+Descreva os mesmos fechos e o
+$\quotset{\reals}{\rtranscl{\leftrightarrow}}$.
 
 \endexercise
 %%}}}
@@ -13918,6 +13970,21 @@ c &\leteq \tup{ t,t,\dots,t,u,u,\dotsc,u }
 $$
 como contraexemplo, pois temos
 $a \sim b$ e $b \sim c$ mas $a\not\sim c$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: cyclic_and_euclidean_closures 
+\problem Fecho cíclico, fechos euclideanos.
+\label{cyclic_and_euclidean_closures}%
+\tdefined{fecho!cíclico}%
+\tdefined{fecho!left-euclideano}%
+\tdefined{fecho!right-euclideano}%
+\sdefined {\ccl {\holed R}} {o fecho cíclico da \holed R}%
+\sdefined {\recl {\holed R}} {o fecho right-euclideano da \holed R}%
+\sdefined {\lecl {\holed R}} {o fecho left-euclideano da \holed R}%
+Seja $R$ uma relação num conjunto $A$.
+Defina seus fechos: cíclico~($\ccl R$), left-euclideano~($\lecl R$), right-euclideano~($\recl R$).
 
 \endproblem
 %%}}}
@@ -18830,7 +18897,7 @@ como uma implementação de par ordenado.
 %%{{{ Constructing the relations 
 \section Construindo as relações.
 
-\TODO Fechos: top-down e bottom-up revisitados.
+\TODO Fechos: top-down revisitado.
 
 \endsection
 %%}}}
@@ -20981,9 +21048,9 @@ $$
 \definition.
 \label{covby}%
 \tdefined{cobertura}%
-\sdefined {\holed x \covby \holed y} {}%
+\sdefined {\holed x \covby \holed y} {o $x$ é coberto por o $y$}%
 Se $x\leq y$ e não existe nenhum $z$ estritamente entre os $x$ e $y$
-falamos que $y$ cobre o $x$.  Simbolicamente:
+falamos que $y$ \dterm{cobre} o $x$.  Simbolicamente:
 $$
 x\covby y \defiff x \leq y \mland \lnot\exists z (x < z < y).
 $$
