@@ -11836,6 +11836,7 @@ $f(a) = \set a \neq \emptyset \in \pset A$.
 
 %%{{{ Images and pre-images 
 \section Imagens e pre-imagens.
+\label{Images_and_preimages}%
 
 %%{{{ Two important subsets 
 \note Dois subconjuntos importantes.
@@ -12379,17 +12380,54 @@ também conhecido como \dterm{truth set} da $R$.
 %%{{{ Internal diagrams 
 \section Diagramas internos.
 
-\TODO Mostre diagramas internos de relações $R : A \relto B$.
+%%{{{ Relation as a generalization of function 
+\note Relação como uma generalização de função.
+Um jeito de olhar para uma relação é como uma ``função'', sem as restrições
+de totalidade e de determinicidade que encontramos no~\refn{functionhood_conditions}.
+Então: lembra dos conjuntos $A,B$ que encontramos na~\ref{Images_and_preimages}?
+Aqui são duas relações $R,Q$ de $A$ para $B$, determinadas por seus
+diagramas internos:
+$$
+\tikzpicture[node distance=0mm,scale=0.8]
+\tikzi imgpreimgpointsetsbase;
+\draw[-{Latex[length=6pt,open]}]  (0.5,4.5) -- (4.5,4.5);
+\node (arrow-R) at (2.5,4) {$R$};
+\draw[->] (elem-b) -- (elem-1);
+\draw[->] (elem-b) -- (elem-2);
+\draw[->] (elem-c) -- (elem-2);
+\draw[->] (elem-e) -- (elem-5);
+\draw[->] (elem-e) -- (elem-6);
+\draw[->] (elem-e) -- (elem-5);
+\draw[->] (elem-e) -- (elem-2);
+\endtikzpicture
+\qquad
+\tikzpicture[node distance=0mm,scale=0.8]
+\tikzi imgpreimgpointsetsbase;
+\draw[-{Latex[length=6pt,open]}]  (0.5,4.5) -- (4.5,4.5);
+\node (arrow-Q) at (2.5,4) {$Q$};
+\draw[->] (elem-a) -- (elem-1);
+\draw[->] (elem-b) -- (elem-1);
+\draw[->] (elem-c) -- (elem-1);
+\draw[->] (elem-d) -- (elem-3);
+\draw[->] (elem-d) -- (elem-4);
+\draw[->] (elem-d) -- (elem-5);
+\draw[->] (elem-d) -- (elem-6);
+\draw[->] (elem-f) -- (elem-6);
+\endtikzpicture
+$$
+%%}}}
 
 \blah.
 A situação sobre relações binárias definidas num conjunto $A$
 é mais divertida.
 
+%%{{{ Relation as a directed graph 
 \note Relação como grafo direcionado.
 Seja $A$ um conjunto e $R$ uma relação binária nele.
 Podemos representar a $R$ como um \emph{grafo direcionado},
 onde, para todos $x,y\in A$, desenhamos uma setinha
 $x\longrightarrow y$ sse $x \rel R y$.
+%%}}}
 
 \TODO Terminar o exemplo seguinte.
 
@@ -13209,7 +13247,7 @@ $$
 \Child(x,y)  &\defiff \text{$x$ é filho ou filha de $y$}.
 \endalign
 $$
-Como tu definaria as relações seguintes?:
+Como tu definaria diretamente as relações seguintes?:
 $$
 \Parent\rcom\Parent
 \qqquad
@@ -13425,7 +13463,21 @@ $$
 %%{{{ Closures 
 \section Fechos.
 
+\TODO Lembre o que é conjunto fechado pela operação.
+
 \TODO Intuição com diagramas.
+
+\pseudodefinition.
+Seja $R$ uma relação binária num conjunto $A$,
+e fixe uma propriedade \emph{razoável}
+daquelas que aparecem no~\ref{relations_glossary}.
+Definimos o fecho da $R$ pela propriedade para ser a relações onde botamos todas as
+\emph{necessárias} setinhas no diagrama da $R$ até ela virar uma relação com a
+propriedade desejada.
+
+\TODO Examples for fecho reflexivo, simétrico, transitivo.
+
+\TODO Por que não falamos de fecho total, asimétrico, etc.
 
 \TODO Definição errada de fecho simétrico.
 
@@ -18738,6 +18790,8 @@ como uma implementação de par ordenado.
 
 %%{{{ Constructing the relations 
 \section Construindo as relações.
+
+\TODO Fechos: top-down e bottom-up revisitados.
 
 \endsection
 %%}}}
