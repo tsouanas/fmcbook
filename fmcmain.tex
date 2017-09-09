@@ -14024,537 +14024,6 @@ Nos vamos ver relações como conjuntos apenas no~\ref{Axiomatic_set_theory}.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Cantor's paradise 
-\chapter O paraíso de Cantor.
-\label{Cantors_paradise}%
-
-%%{{{ A bit of historical context 
-\section Um pouco de contexto histórico.
-
-\TODO
-\Cantor{}Cantor;
-\Liouville{}Liouville;
-\Hermite{}Hermite;
-\Fourier{}Fourier;
-\vonLindemann{}von~Lindemann;
-\Weierstrass{}Weierstrass.
-
-\endsection
-%%}}}
-
-%%{{{ What is counting? 
-\section O que é contar?.
-
-\definition.
-\sdefined {\finord {\holed n}} {o conjunto $\set {0,\dotsc,n-1}$}
-\label{finord}
-Como usamos bastante o conjunto $\set{0,1,\dotsc,n-1}$,
-vale a pena introduzir uma notação para o denotar:
-$$
-\finord n \pseudodefeq \set{0,\dotsc,n-1}.
-$$
-
-\exercise.
-Defina o $\finord n$ usando a notação ``set-builder''.
-
-\hint
-Começa com o $\nats$ e filtre seus elementos usando suas relações de ordem.
-
-\solution
-Definimos
-$$
-\finord n \defeq \setst {i \in \nats} { 0 \leq i < n }.
-$$
-
-\endexercise
-
-\exercise.
-Defina o operador $\finord{\hole} : \nats \to \pset\nats$ recursivamente.
-
-\hint
-Cuidado com as operações e os ``tipos'' dos seus argumentos.
-
-\solution
-Qualquer uma das definições abaixo serve:
-$$
-\xalignat 2
-\finord 0 &\defeq \emptyset                                     & \finord 0    &\defeq \emptyset\\
-\finord n &\defeq \finord {n-1} \union \set{n-1}\qquad(n > 0)   & \finord {Sn} &\defeq \finord n \union \set n
-\endxalignat
-$$
-
-\endexercise
-
-\endsection
-%%}}}
-
-%%{{{ Equinumerosity 
-\section Equinumerosidade.
-
-\definition Eqüinúmeros.
-\tdefined {eqüinúmeros}
-\sdefined {\holed A \eqc \holed B} {os $A$ e $B$ são equinúmeros}
-Chamamos os conjuntos $A$ e $B$ \dterm{eqüinúmeros} sse
-existe bijeção $f : A \bijto B$.
-Escrevemos:
-$$
-A \eqc B \defiff \lexists f {f : A \bijto B}.
-$$
-
-\exercise.
-Prove que a relação $\eqc$ é uma relação de equivalência.
-
-\endexercise
-
-Continuamos em definir mais relações para comparar os tamanhos de conjuntos:
-
-\definition.
-\sdefined {\holed A \leqc \holed B} {o $A$ é menor-ou-igual em cardinalidade que o $B$}
-\sdefined {\holed A \ltc \holed B}  {o $A$ é menor em cardinalidade que o $B$}
-Sejam $A$ e $B$ conjuntos.
-Definimos
-$$
-\align
-A \leqc B &\defiff \lexists {B_0\subseteq B} {A \eqc B_0}\\
-A \ltc B  &\defiff A\leqc B \mland A\neqc B
-\endalign
-$$
-Seguindo nossa prática comum, usamos também $A\gtc B$ como sinónimo de $B\ltc A$,
-$A \not\geqc B$ para significar que não é o caso que $B \leqc A$, etc.
-
-\exercise.
-Prove ou disprove a afirmação que podemos usar a seguinde definição como alternativa:
-$$
-A \ltc B \askiff \lexists {B_0\subsetneq B} {A \eqc B_0}.
-$$
-
-\hint
-$\nats\ltc\ints$?
-
-\endexercise
-
-\proposition.
-A $\eqc$ é:
-$$
-\align
-\text{reflexiva:}\quad& A \eqc A;\\
-\text{transitiva:}\quad& A \eqc B \mland B \eqc C \implies A \eqc C;\\
-\text{simétrica:}\quad& A \eqc B \implies B \eqc A.
-\endalign
-$$
-\sketch.
-Usamos as bijeções seguintes: identidade, composição, inversa.
-\qes
-
-\proposition.
-A $\leqc$ é:
-$$
-\align
-\text{reflexiva:}              \quad &A \leqc A;\\
-\text{transitiva:}             \quad &A \leqc B \mland B \leqc C \implies A \leqc C;\\
-\text{não antisimétrica:}      \quad &A \leqc B \mland B \leqc A \nimplies A = B;\\
-\text{``equiantissimétrica'':} \quad &A \leqc B \mland B \leqc A \implies A \eqc B.
-\endalign
-$$
-\sketch.
-Para as duas primeiras usamos a identidade e a composição respectivamente.
-Para a próxima tomando $A\asseq \nats$ e $B\asseq \ints$ serve.
-A última é realmente difícil para provar:
-é um corolário direto
-do teorema Schröder--Bernstein (\ref{schroder_bernstein}).
-\qes
-
-\exercise.
-Quais das operações $\Union$, $\Inter$, $\powerset$, $\to$, e $\times$ respeitam as cardinalidades?
-
-\endexercise
-
-\endsection
-%%}}}
-
-%%{{{ What is cardinality? 
-\section O que é cardinalidade?.
-
-\note A dupla abstração de Cantor.
-
-\endsection
-%%}}}
-
-%%{{{ Guessing games 
-\section Jogos de adivinhar.
-
-\exercise.
-Para cada um dos conjuntos seguintes, decida se é contável ou não.
-$$
-\align
-I &= \setst {x\in\reals}   {\text{$x$ é irracional}}\\
-A &= \setst {x\in\reals}   {\text{$x$ é algébrico}}\\
-T &= \setst {x\in\reals}   {\text{$x$ é transcendental}}\\
-C &= \setst {z\in\complex} {\modulus z = 1}\\
-L &= \set {\text{os programas sintaticamente corretos numa linguagem de programação}}\\
-G &= \graph(f), \quad \text{onde $f : \reals\to\reals$ definida pela $f(x) = x^2$}\\
-D &= (\nats \to \set{0,2})\\
-S &= (\nats \to \nats)\\
-P &= (\nats \bijto \nats)\\
-Z &= \setst {f\in(\nats\to\nats)} {(\exists n_0\in\nats)(\forall n>n_0)\left[\,f(n)=0\,\right]} 
-\endalign
-$$
-
-\endexercise
-
-\remark.
-Para corresponder numa bijeção mesmo, o jogo tem que ser modificado, para
-proibir repetições do mesmo palpite.
-Observamos que se o jogador tem uma estratégia para ganhar num jogo que 
-permite repetições de palpites, ele já pode a adaptar, para ganhar no 
-jogo com a restrição: ele apenas segue a estratégia do jogo ``livre''
-e quando aparecem palpites que ele já adivinhou, ele pula para o próximo,
-até chegar num palpite que ele não tentou ainda, para o tentar. 
-Por exemplo, para enumerar os racionais sabendo uma enumeração dos pares
-de inteiros, copiamos a estrategia do $\ints^2$, pulando pares que ou não 
-correspondem em racionais (como o $(0,0)$ por exemplo), ou que são iguais 
-com palpites anteriores (como o $(2,4)$ que pulamos por causa do (1,2)).
-
-\codeit EnumPairs.
-\label{program_enumpairs}
-Implemente uma estratégia para ganhar no jogo sem repetições com
-conjunto-segredos o $\nats^2$.  Ou seja, escreva um programa que imprime (pra
-sempre) os palpites do jogador na sua ordem. 
-\endcodeit
-
-\codeit EnumRatsReps.
-\label{program_enumrats}
-Modifique o EnumPairs para o caso com conjunto-segredos
-o conjunto de racionais não-negativos, mas permitindo repetições. 
-Represente cada palpite como fracção,
-imprimindo por exemplo o racional $\frac 1 3$ como o string
-``{\tt 1/3}''.
-\endcodeit
-
-\codeit EnumRats.
-\label{program_enumratsnoreps}
-Modifique o EnumRats para o caso que o jogo proibe
-repetições (mas para o mesmo conjunto $\rats_{\geq0}$). 
-\endcodeit
-
-\exercise Jogador amnésico.
-Ache uma estratégia para ganhar no jogo com conjunto-segredos o 
-conjunto dos racionais não-negativos, se o jogador tem memória que o 
-permite lembrar apenas seu último palpite!
-
-\endexercise
-
-\exercise.
-\label{nextPair}
-Defina uma função 
-$\namedop{nextPair} : \nats^2 \to \nats^2$
-tal que para cada entrada $(n,m)$ ela retorna o próximo palpite do jogador 
-que acabou de tentar o $(n,m)$, no jogo com conjunto-segredos o $\nats^2$. 
-Considera que sua estratégia começa com o palpite $(0,0)$. 
-Assim, a enumeração representada por a estratégia do jogador seria a: 
-$$
-    (0,0), f(0,0), f^2(0,0), f^3(0,0), \dotsc,
-$$
-ou seja, a seqüência $\set{ f^n (0,0) }_{n}$.
-
-\endexercise
-
-\codeit NextPair.
-Implemente função do~\ref{nextPair}.
-\endcodeit
-
-\codeit RatApprox.
-\label{program_ratapprox}
-Usando uma implementação de enumeração $\set{q_n}_n$ do $\rats$
-(com ou sem repetições), implemente uma função
-$a : \reals\times\reals \to \nats$ que, dados $x\in\reals$ e $\varepsilon>0$
-retorna o primeiro $n\in\nats$ com a propriedade $\abs{q_n - x} < \varepsilon$:
-$$
-a(x,\varepsilon) = \min\setst{n\in\nats}{\abs{q_n-x}<\varepsilon}.
-$$
-\endgraf
-Se tua linguagem de programação suporta funções de ordem superior,
-considere que seu primeiro argumento deve ser a própria enumeração $q$:
-$$
-\align
-\namedfun{ratApprox} &\eqtype (\nats\to\rats) \to \reals \to \reals \to \nats\\
-\namedfun{ratApprox}\ q\ x\ \varepsilon &= \min\setst{n\in\nats}{\abs{q_n-x}<\varepsilon}
-\endalign 
-$$
-Alternativamente, pode representar uma enumeração de racionais
-como uma lista (infinita) de racionais.  Considere retornar o
-primeiro racional suficientemente próximo alem de apenas seu
-indice.  Improvise e teste sua função, vendo quanto ``demora''
-uma enumeração para chegar suficientemente perto de um número
-pre-determinado, sendo racional ou não.
-Por exemplo, use $x=\sqrt 2$ ou $e$ ou $\pi$,
-e
-$\varepsilon=1, 1/2, 1/4, \dotsc$.
-Assim, para qualquer real $x$, tu pode
-\emph{construir}---mesmo não muito ``eficientemente''---uma
-seqüência de racionais que converge em $x$, apenas aplicando a função
-$\lambda \varepsilon. \namedfun{ratApprox}\ q\ x\ \varepsilon$
-em argumentos que formam qualquer seqüência que convirja no zero!
-\endcodeit
-
-\endsection
-%%}}}
-
-%%{{{ Finite and infinite; countable and uncountable 
-\section Finitos e infinitos; contáveis e incontáveis.
-
-\definition.
-\label{finite_set}
-\label{infinite_set}
-\tdefined{finito}
-\tdefined{infinito}
-O conjunto $A$ é \dterm{finito} sse existe $n\in\nats$ tal que $\finord n \eqc A$.
-O conjunto $A$ é \dterm{infinito} sse $A$ não é finito.
-
-\definition.
-\label{countable_set}
-\label{uncountable_set}
-\tdefined{contável}[conjunto]
-\tdefined{incontável}[conjunto]
-O conjunto $A$ é \dterm{contável} sse $A$ é finito ou $\nats\eqc A$.
-Usamos os termos \dterm{enumerável} e \dterm{denumerável} como sinónimos
-de contável.
-O conjunto $A$ é \dterm{incontável} sse $A$ não é contável.
-
-\definition.
-\label{enumeração}
-\tdefined{enumeração}
-Uma \dterm{enumeração} dum conjunto $A$ é qualquer surjecção
-$\pi : \nats\surjto A$.
-Assim temos:
-$$
-A = \img \pi {\nats} = \set{\pi(0), \pi(1), \pi(2), \dotsc}
-$$
-
-\proposition.
-Seja $A$ conjunto.
-O.s.s.e.:
-\item{\rm (1)}   $A$ é contável
-\item{\rm (2)}  $A \leqc \nats$
-\item{\rm (3)} $A=\emptyset$ ou $A$ possui enumeração.
-\sketch.
-As direcões $(1)\Rightarrow(2)\Rightarrow(3)$ são conseqüências fáceis
-das definições.  Para ``fechar o round-robin'' ($(3)\Rightarrow(1)$),
-precisamos definir uma \emph{bijecção} $f : \nats\bijto A$, dados uma
-\emph{surjecção} $\pi:\nats\surjto A$.  Usamos recursão e o princípio
-da boa ordem.
-\qes
-
-\endsection
-%%}}}
-
-%%{{{ Cantor's first diagonal argument 
-\section O primeiro argumento diagonal de Cantor.
-
-\endsection
-%%}}}
-
-%%{{{ Cantor's segundo diagonal argument 
-\section O segundo argumento diagonal de Cantor.
-
-\exercise.
-Por que não podemos usar o mesmo argumento para concluir que o $\setst{q \in \rats}{0\leq q\leq 1}$ também é incontável?
-
-\hint
-Como tu vai provar que o número construido pela método de Cantor realmente é um elemento de $\rats\inter[0,1]$?
-
-\endexercise
-
-\endsection
-%%}}}
-
-%%{{{ Some important applications 
-\section Umas aplicações importantes da teoria de Cantor.
-
-\note Os números racionais.
-
-\note Os números irracionais.
-
-\note Os números algebricos.
-
-\note Os números transcendentais.
-
-\endsection
-%%}}}
-
-%%{{{ Cantor set 
-\section O conjunto de Cantor.
-
-\endsection
-%%}}}
-
-%%{{{ Looking for bijections 
-\section Procurando bijeções.
-
-\endsection
-%%}}}
-
-%%{{{ The Schröder--Bernstein theorem 
-\section O teorema Schröder--Bernstein.
-
-\note Abordagem amorosa.
-
-\theorem Schröder--Bernstein.
-\Schroder{}\Bernstein{}%
-\label{schroder_bernstein}%
-\ii{teorema}[Schröder--Bernstein]%
-Sejam conjuntos $A$ e $B$ e funções injetoras
-$f : A \injto B$ e $g : B \injto A$.
-Então existe bijeção $\phi : A \bijto B$.
-
-\endsection
-%%}}}
-
-%%{{{ Looking for injections 
-\section Procurando injeções.
-
-\endsection
-%%}}}
-
-%%{{{ Encodings 
-\section Codificações.
-
-\endsection
-%%}}}
-
-%%{{{ The different infinities so far 
-\section As diferentes infinidades até agora.
-
-\endsection
-%%}}}
-
-%%{{{ Cantor's theorem and its consequences 
-\section O teorema de Cantor e suas conseqüências.
-
-\theorem Cantor.
-\Cantor[teorema]%
-\ii{teorema}[Cantor]%
-\label{cantor_theorem}%
-Seja $A$ conjunto.
-Então $A\ltc \pset A$.
-
-\corollary.
-Existe uma infinidade (contável) de cardinalidades infinitas:
-$$
-\nats
-\ltc \pset\nats
-\ltc \pset\pset\nats
-\ltc \pset\pset\pset\nats
-\ltc \pset\pset\pset\pset\nats
-\ltc \dotsc
-$$
-
-\definition.
-\sdefined{\aleph_0}{a cardinalidade do $\nats$}%
-\sdefined{\continuum}{a cardinalidade do $\pset\nats$ e do $\reals$}%
-\tdefined{aleph 0}%
-\tdefined{continuum}%
-Denotamos a cardinalidade de $\nats$ por $\aleph_0$ (\dterm{aleph 0}),
-e a cardinalidade de $\pset\nats\eqc\reals$ por $\continuum$.
-Chamamos o $\continuum$ o \dterm{continuum}.
-
-\corollary.
-Não existe cardinalidade máxima: para qualquer conjunto $M$, o conjunto $\pset M$ tem cardinalidade maior.
-
-\note.
-Considere os conjuntos
-$$
-\emptyset
-\ltc \pset\emptyset
-\ltc \pset\pset\emptyset
-\ltc \pset\pset\pset\emptyset
-\ltc \pset\pset\pset\pset\emptyset
-\ltc \dotsb
-$$
-Observe que cada conjunto nessa seqüência (infinita) de conjuntos é finito.
-Mas, quais são suas cardinalidades?
-Calculamos:
-$$
-\align
-\card{\emptyset}                     &= 0\\
-\card{\pset\emptyset}                &= 1\\
-\card{\pset\pset\emptyset}           &= 2\\
-\card{\pset\pset\pset\emptyset}      &= 4\\
-\card{\pset\pset\pset\pset\emptyset} &= 8\\
-                                     &\eqvdots\\
-\endalign
-$$
-Observamos que a seqüência dessas cardinalidades ``tem burácos''.
-Por exemplo, nenhum desses conjuntos tem cardinalidade $3$,
-mesmo que realmente tem conjuntos com essa cardinalidade
-(por exemplo o $\finord 3=\set{0,1,2}$).
-Ou seja, existe conjunto $C$ com
-$$
-\pset\pset\emptyset\ltc C\ltc \pset\pset\pset\emptyset.
-$$
-Similarmente achamos conjuntos ``estritamente entre'' os conjuntos que aparecem
-depois nessa seqüência.
-
-Será que tem conjuntos ``estritamente entre'' alguns dos conjuntos infinitos
-da seqüência anterior?
-
-Será que tem algum conjunto incomparável com todos eles?
-
-Será que tem algum conjunto com cardinalidade maior que qualquer uma das
-cardinalidades deles?
-
-\endsection
-%%}}}
-
-%%{{{ Cardinal comparability 
-\section Comparabilidade de cardinais.
-
-\endsection
-%%}}}
-
-%%{{{ The continuum hypothesis 
-\section Hipótese do continuum.
-
-\endsection
-%%}}}
-
-%%{{{ Ordinal vs. cardinal numbers 
-\section Números ordinais vs.~cardinais.
-\endsection
-%%}}}
-
-%%{{{ A taste of measure theory 
-\section Um toque de teoria de medida.
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-% Cantor's letter to Dedekind and Dedekind's reply 
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-Sobre a teoria de conjuntos de Cantor:
-\cite{kleeneIM},
-\cite{ynmnst}.
-
-Sobre teoria da medida:
-\cite{bartlemeasure},
-\cite{halmosmeasure},
-\cite{taylorintegration}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
 %%{{{ chapter: Group theory 
 \chapter Teoria de grupos.
 
@@ -17136,6 +16605,537 @@ são os~\cite{rosegroups} e~\cite{rotmangroups}.
 \cite{carothersreal}.
 
 ``Baby Rudin''~\cite{babyrudin}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Cantor's paradise 
+\chapter O paraíso de Cantor.
+\label{Cantors_paradise}%
+
+%%{{{ A bit of historical context 
+\section Um pouco de contexto histórico.
+
+\TODO
+\Cantor{}Cantor;
+\Liouville{}Liouville;
+\Hermite{}Hermite;
+\Fourier{}Fourier;
+\vonLindemann{}von~Lindemann;
+\Weierstrass{}Weierstrass.
+
+\endsection
+%%}}}
+
+%%{{{ What is counting? 
+\section O que é contar?.
+
+\definition.
+\sdefined {\finord {\holed n}} {o conjunto $\set {0,\dotsc,n-1}$}
+\label{finord}
+Como usamos bastante o conjunto $\set{0,1,\dotsc,n-1}$,
+vale a pena introduzir uma notação para o denotar:
+$$
+\finord n \pseudodefeq \set{0,\dotsc,n-1}.
+$$
+
+\exercise.
+Defina o $\finord n$ usando a notação ``set-builder''.
+
+\hint
+Começa com o $\nats$ e filtre seus elementos usando suas relações de ordem.
+
+\solution
+Definimos
+$$
+\finord n \defeq \setst {i \in \nats} { 0 \leq i < n }.
+$$
+
+\endexercise
+
+\exercise.
+Defina o operador $\finord{\hole} : \nats \to \pset\nats$ recursivamente.
+
+\hint
+Cuidado com as operações e os ``tipos'' dos seus argumentos.
+
+\solution
+Qualquer uma das definições abaixo serve:
+$$
+\xalignat 2
+\finord 0 &\defeq \emptyset                                     & \finord 0    &\defeq \emptyset\\
+\finord n &\defeq \finord {n-1} \union \set{n-1}\qquad(n > 0)   & \finord {Sn} &\defeq \finord n \union \set n
+\endxalignat
+$$
+
+\endexercise
+
+\endsection
+%%}}}
+
+%%{{{ Equinumerosity 
+\section Equinumerosidade.
+
+\definition Eqüinúmeros.
+\tdefined {eqüinúmeros}
+\sdefined {\holed A \eqc \holed B} {os $A$ e $B$ são equinúmeros}
+Chamamos os conjuntos $A$ e $B$ \dterm{eqüinúmeros} sse
+existe bijeção $f : A \bijto B$.
+Escrevemos:
+$$
+A \eqc B \defiff \lexists f {f : A \bijto B}.
+$$
+
+\exercise.
+Prove que a relação $\eqc$ é uma relação de equivalência.
+
+\endexercise
+
+Continuamos em definir mais relações para comparar os tamanhos de conjuntos:
+
+\definition.
+\sdefined {\holed A \leqc \holed B} {o $A$ é menor-ou-igual em cardinalidade que o $B$}
+\sdefined {\holed A \ltc \holed B}  {o $A$ é menor em cardinalidade que o $B$}
+Sejam $A$ e $B$ conjuntos.
+Definimos
+$$
+\align
+A \leqc B &\defiff \lexists {B_0\subseteq B} {A \eqc B_0}\\
+A \ltc B  &\defiff A\leqc B \mland A\neqc B
+\endalign
+$$
+Seguindo nossa prática comum, usamos também $A\gtc B$ como sinónimo de $B\ltc A$,
+$A \not\geqc B$ para significar que não é o caso que $B \leqc A$, etc.
+
+\exercise.
+Prove ou disprove a afirmação que podemos usar a seguinde definição como alternativa:
+$$
+A \ltc B \askiff \lexists {B_0\subsetneq B} {A \eqc B_0}.
+$$
+
+\hint
+$\nats\ltc\ints$?
+
+\endexercise
+
+\proposition.
+A $\eqc$ é:
+$$
+\align
+\text{reflexiva:}\quad& A \eqc A;\\
+\text{transitiva:}\quad& A \eqc B \mland B \eqc C \implies A \eqc C;\\
+\text{simétrica:}\quad& A \eqc B \implies B \eqc A.
+\endalign
+$$
+\sketch.
+Usamos as bijeções seguintes: identidade, composição, inversa.
+\qes
+
+\proposition.
+A $\leqc$ é:
+$$
+\align
+\text{reflexiva:}              \quad &A \leqc A;\\
+\text{transitiva:}             \quad &A \leqc B \mland B \leqc C \implies A \leqc C;\\
+\text{não antisimétrica:}      \quad &A \leqc B \mland B \leqc A \nimplies A = B;\\
+\text{``equiantissimétrica'':} \quad &A \leqc B \mland B \leqc A \implies A \eqc B.
+\endalign
+$$
+\sketch.
+Para as duas primeiras usamos a identidade e a composição respectivamente.
+Para a próxima tomando $A\asseq \nats$ e $B\asseq \ints$ serve.
+A última é realmente difícil para provar:
+é um corolário direto
+do teorema Schröder--Bernstein (\ref{schroder_bernstein}).
+\qes
+
+\exercise.
+Quais das operações $\Union$, $\Inter$, $\powerset$, $\to$, e $\times$ respeitam as cardinalidades?
+
+\endexercise
+
+\endsection
+%%}}}
+
+%%{{{ What is cardinality? 
+\section O que é cardinalidade?.
+
+\note A dupla abstração de Cantor.
+
+\endsection
+%%}}}
+
+%%{{{ Guessing games 
+\section Jogos de adivinhar.
+
+\exercise.
+Para cada um dos conjuntos seguintes, decida se é contável ou não.
+$$
+\align
+I &= \setst {x\in\reals}   {\text{$x$ é irracional}}\\
+A &= \setst {x\in\reals}   {\text{$x$ é algébrico}}\\
+T &= \setst {x\in\reals}   {\text{$x$ é transcendental}}\\
+C &= \setst {z\in\complex} {\modulus z = 1}\\
+L &= \set {\text{os programas sintaticamente corretos numa linguagem de programação}}\\
+G &= \graph(f), \quad \text{onde $f : \reals\to\reals$ definida pela $f(x) = x^2$}\\
+D &= (\nats \to \set{0,2})\\
+S &= (\nats \to \nats)\\
+P &= (\nats \bijto \nats)\\
+Z &= \setst {f\in(\nats\to\nats)} {(\exists n_0\in\nats)(\forall n>n_0)\left[\,f(n)=0\,\right]} 
+\endalign
+$$
+
+\endexercise
+
+\remark.
+Para corresponder numa bijeção mesmo, o jogo tem que ser modificado, para
+proibir repetições do mesmo palpite.
+Observamos que se o jogador tem uma estratégia para ganhar num jogo que 
+permite repetições de palpites, ele já pode a adaptar, para ganhar no 
+jogo com a restrição: ele apenas segue a estratégia do jogo ``livre''
+e quando aparecem palpites que ele já adivinhou, ele pula para o próximo,
+até chegar num palpite que ele não tentou ainda, para o tentar. 
+Por exemplo, para enumerar os racionais sabendo uma enumeração dos pares
+de inteiros, copiamos a estrategia do $\ints^2$, pulando pares que ou não 
+correspondem em racionais (como o $(0,0)$ por exemplo), ou que são iguais 
+com palpites anteriores (como o $(2,4)$ que pulamos por causa do (1,2)).
+
+\codeit EnumPairs.
+\label{program_enumpairs}
+Implemente uma estratégia para ganhar no jogo sem repetições com
+conjunto-segredos o $\nats^2$.  Ou seja, escreva um programa que imprime (pra
+sempre) os palpites do jogador na sua ordem. 
+\endcodeit
+
+\codeit EnumRatsReps.
+\label{program_enumrats}
+Modifique o EnumPairs para o caso com conjunto-segredos
+o conjunto de racionais não-negativos, mas permitindo repetições. 
+Represente cada palpite como fracção,
+imprimindo por exemplo o racional $\frac 1 3$ como o string
+``{\tt 1/3}''.
+\endcodeit
+
+\codeit EnumRats.
+\label{program_enumratsnoreps}
+Modifique o EnumRats para o caso que o jogo proibe
+repetições (mas para o mesmo conjunto $\rats_{\geq0}$). 
+\endcodeit
+
+\exercise Jogador amnésico.
+Ache uma estratégia para ganhar no jogo com conjunto-segredos o 
+conjunto dos racionais não-negativos, se o jogador tem memória que o 
+permite lembrar apenas seu último palpite!
+
+\endexercise
+
+\exercise.
+\label{nextPair}
+Defina uma função 
+$\namedop{nextPair} : \nats^2 \to \nats^2$
+tal que para cada entrada $(n,m)$ ela retorna o próximo palpite do jogador 
+que acabou de tentar o $(n,m)$, no jogo com conjunto-segredos o $\nats^2$. 
+Considera que sua estratégia começa com o palpite $(0,0)$. 
+Assim, a enumeração representada por a estratégia do jogador seria a: 
+$$
+    (0,0), f(0,0), f^2(0,0), f^3(0,0), \dotsc,
+$$
+ou seja, a seqüência $\set{ f^n (0,0) }_{n}$.
+
+\endexercise
+
+\codeit NextPair.
+Implemente função do~\ref{nextPair}.
+\endcodeit
+
+\codeit RatApprox.
+\label{program_ratapprox}
+Usando uma implementação de enumeração $\set{q_n}_n$ do $\rats$
+(com ou sem repetições), implemente uma função
+$a : \reals\times\reals \to \nats$ que, dados $x\in\reals$ e $\varepsilon>0$
+retorna o primeiro $n\in\nats$ com a propriedade $\abs{q_n - x} < \varepsilon$:
+$$
+a(x,\varepsilon) = \min\setst{n\in\nats}{\abs{q_n-x}<\varepsilon}.
+$$
+\endgraf
+Se tua linguagem de programação suporta funções de ordem superior,
+considere que seu primeiro argumento deve ser a própria enumeração $q$:
+$$
+\align
+\namedfun{ratApprox} &\eqtype (\nats\to\rats) \to \reals \to \reals \to \nats\\
+\namedfun{ratApprox}\ q\ x\ \varepsilon &= \min\setst{n\in\nats}{\abs{q_n-x}<\varepsilon}
+\endalign 
+$$
+Alternativamente, pode representar uma enumeração de racionais
+como uma lista (infinita) de racionais.  Considere retornar o
+primeiro racional suficientemente próximo alem de apenas seu
+indice.  Improvise e teste sua função, vendo quanto ``demora''
+uma enumeração para chegar suficientemente perto de um número
+pre-determinado, sendo racional ou não.
+Por exemplo, use $x=\sqrt 2$ ou $e$ ou $\pi$,
+e
+$\varepsilon=1, 1/2, 1/4, \dotsc$.
+Assim, para qualquer real $x$, tu pode
+\emph{construir}---mesmo não muito ``eficientemente''---uma
+seqüência de racionais que converge em $x$, apenas aplicando a função
+$\lambda \varepsilon. \namedfun{ratApprox}\ q\ x\ \varepsilon$
+em argumentos que formam qualquer seqüência que convirja no zero!
+\endcodeit
+
+\endsection
+%%}}}
+
+%%{{{ Finite and infinite; countable and uncountable 
+\section Finitos e infinitos; contáveis e incontáveis.
+
+\definition.
+\label{finite_set}
+\label{infinite_set}
+\tdefined{finito}
+\tdefined{infinito}
+O conjunto $A$ é \dterm{finito} sse existe $n\in\nats$ tal que $\finord n \eqc A$.
+O conjunto $A$ é \dterm{infinito} sse $A$ não é finito.
+
+\definition.
+\label{countable_set}
+\label{uncountable_set}
+\tdefined{contável}[conjunto]
+\tdefined{incontável}[conjunto]
+O conjunto $A$ é \dterm{contável} sse $A$ é finito ou $\nats\eqc A$.
+Usamos os termos \dterm{enumerável} e \dterm{denumerável} como sinónimos
+de contável.
+O conjunto $A$ é \dterm{incontável} sse $A$ não é contável.
+
+\definition.
+\label{enumeração}
+\tdefined{enumeração}
+Uma \dterm{enumeração} dum conjunto $A$ é qualquer surjecção
+$\pi : \nats\surjto A$.
+Assim temos:
+$$
+A = \img \pi {\nats} = \set{\pi(0), \pi(1), \pi(2), \dotsc}
+$$
+
+\proposition.
+Seja $A$ conjunto.
+O.s.s.e.:
+\item{\rm (1)}   $A$ é contável
+\item{\rm (2)}  $A \leqc \nats$
+\item{\rm (3)} $A=\emptyset$ ou $A$ possui enumeração.
+\sketch.
+As direcões $(1)\Rightarrow(2)\Rightarrow(3)$ são conseqüências fáceis
+das definições.  Para ``fechar o round-robin'' ($(3)\Rightarrow(1)$),
+precisamos definir uma \emph{bijecção} $f : \nats\bijto A$, dados uma
+\emph{surjecção} $\pi:\nats\surjto A$.  Usamos recursão e o princípio
+da boa ordem.
+\qes
+
+\endsection
+%%}}}
+
+%%{{{ Cantor's first diagonal argument 
+\section O primeiro argumento diagonal de Cantor.
+
+\endsection
+%%}}}
+
+%%{{{ Cantor's segundo diagonal argument 
+\section O segundo argumento diagonal de Cantor.
+
+\exercise.
+Por que não podemos usar o mesmo argumento para concluir que o $\setst{q \in \rats}{0\leq q\leq 1}$ também é incontável?
+
+\hint
+Como tu vai provar que o número construido pela método de Cantor realmente é um elemento de $\rats\inter[0,1]$?
+
+\endexercise
+
+\endsection
+%%}}}
+
+%%{{{ Some important applications 
+\section Umas aplicações importantes da teoria de Cantor.
+
+\note Os números racionais.
+
+\note Os números irracionais.
+
+\note Os números algebricos.
+
+\note Os números transcendentais.
+
+\endsection
+%%}}}
+
+%%{{{ Cantor set 
+\section O conjunto de Cantor.
+
+\endsection
+%%}}}
+
+%%{{{ Looking for bijections 
+\section Procurando bijeções.
+
+\endsection
+%%}}}
+
+%%{{{ The Schröder--Bernstein theorem 
+\section O teorema Schröder--Bernstein.
+
+\note Abordagem amorosa.
+
+\theorem Schröder--Bernstein.
+\Schroder{}\Bernstein{}%
+\label{schroder_bernstein}%
+\ii{teorema}[Schröder--Bernstein]%
+Sejam conjuntos $A$ e $B$ e funções injetoras
+$f : A \injto B$ e $g : B \injto A$.
+Então existe bijeção $\phi : A \bijto B$.
+
+\endsection
+%%}}}
+
+%%{{{ Looking for injections 
+\section Procurando injeções.
+
+\endsection
+%%}}}
+
+%%{{{ Encodings 
+\section Codificações.
+
+\endsection
+%%}}}
+
+%%{{{ The different infinities so far 
+\section As diferentes infinidades até agora.
+
+\endsection
+%%}}}
+
+%%{{{ Cantor's theorem and its consequences 
+\section O teorema de Cantor e suas conseqüências.
+
+\theorem Cantor.
+\Cantor[teorema]%
+\ii{teorema}[Cantor]%
+\label{cantor_theorem}%
+Seja $A$ conjunto.
+Então $A\ltc \pset A$.
+
+\corollary.
+Existe uma infinidade (contável) de cardinalidades infinitas:
+$$
+\nats
+\ltc \pset\nats
+\ltc \pset\pset\nats
+\ltc \pset\pset\pset\nats
+\ltc \pset\pset\pset\pset\nats
+\ltc \dotsc
+$$
+
+\definition.
+\sdefined{\aleph_0}{a cardinalidade do $\nats$}%
+\sdefined{\continuum}{a cardinalidade do $\pset\nats$ e do $\reals$}%
+\tdefined{aleph 0}%
+\tdefined{continuum}%
+Denotamos a cardinalidade de $\nats$ por $\aleph_0$ (\dterm{aleph 0}),
+e a cardinalidade de $\pset\nats\eqc\reals$ por $\continuum$.
+Chamamos o $\continuum$ o \dterm{continuum}.
+
+\corollary.
+Não existe cardinalidade máxima: para qualquer conjunto $M$, o conjunto $\pset M$ tem cardinalidade maior.
+
+\note.
+Considere os conjuntos
+$$
+\emptyset
+\ltc \pset\emptyset
+\ltc \pset\pset\emptyset
+\ltc \pset\pset\pset\emptyset
+\ltc \pset\pset\pset\pset\emptyset
+\ltc \dotsb
+$$
+Observe que cada conjunto nessa seqüência (infinita) de conjuntos é finito.
+Mas, quais são suas cardinalidades?
+Calculamos:
+$$
+\align
+\card{\emptyset}                     &= 0\\
+\card{\pset\emptyset}                &= 1\\
+\card{\pset\pset\emptyset}           &= 2\\
+\card{\pset\pset\pset\emptyset}      &= 4\\
+\card{\pset\pset\pset\pset\emptyset} &= 8\\
+                                     &\eqvdots\\
+\endalign
+$$
+Observamos que a seqüência dessas cardinalidades ``tem burácos''.
+Por exemplo, nenhum desses conjuntos tem cardinalidade $3$,
+mesmo que realmente tem conjuntos com essa cardinalidade
+(por exemplo o $\finord 3=\set{0,1,2}$).
+Ou seja, existe conjunto $C$ com
+$$
+\pset\pset\emptyset\ltc C\ltc \pset\pset\pset\emptyset.
+$$
+Similarmente achamos conjuntos ``estritamente entre'' os conjuntos que aparecem
+depois nessa seqüência.
+
+Será que tem conjuntos ``estritamente entre'' alguns dos conjuntos infinitos
+da seqüência anterior?
+
+Será que tem algum conjunto incomparável com todos eles?
+
+Será que tem algum conjunto com cardinalidade maior que qualquer uma das
+cardinalidades deles?
+
+\endsection
+%%}}}
+
+%%{{{ Cardinal comparability 
+\section Comparabilidade de cardinais.
+
+\endsection
+%%}}}
+
+%%{{{ The continuum hypothesis 
+\section Hipótese do continuum.
+
+\endsection
+%%}}}
+
+%%{{{ Ordinal vs. cardinal numbers 
+\section Números ordinais vs.~cardinais.
+\endsection
+%%}}}
+
+%%{{{ A taste of measure theory 
+\section Um toque de teoria de medida.
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+% Cantor's letter to Dedekind and Dedekind's reply 
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+Sobre a teoria de conjuntos de Cantor:
+\cite{kleeneIM},
+\cite{ynmnst}.
+
+Sobre teoria da medida:
+\cite{bartlemeasure},
+\cite{halmosmeasure},
+\cite{taylorintegration}.
 
 \endfurther
 %%}}}
