@@ -12086,6 +12086,78 @@ E é alguma das duas inclusões ({\lrdirset} ou {\rldirset}) válida?
 \endexercise
 %%}}}
 
+%%{{{ x: img_and_pre_of_emptyset 
+\exercise.
+\label{img_and_pre_of_emptyset}%
+Seja $f : A \to B$.
+Calcule os conjuntos
+$$
+\img f \emptyset
+\qqqquad
+\pre f \emptyset.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: operations_respected_by_img 
+\exercise Operações respeitadas por $\img f A$.
+\label{operations_respected_by_img}%
+Sejam $f : X \to Y$, $A,B\subseteq X$.
+Mostre que:
+$$
+\align
+\img f {A\union B} &=       \img f A \union \img f B\\
+\img f {A\inter B} &\askeq  \img f A \inter \img f B\\
+\img f {A\minus B} &\askeq  \img f A \minus \img f B
+\endalign
+$$
+onde nas $\askeq$ prove que a igualdade em geral não é válida,
+mas uma das~\lrdirset~e~\rldirset, é.
+
+\endexercise
+%%}}}
+
+%%{{{ x: operations_respected_by_img_of_inj 
+\exercise Operações respeitadas por $\img f A$ para $f$ injetora.
+\label{operations_respected_by_img_of_inj}%
+Sejam $f : X \injto Y$ injetora, e $A,B\subseteq X$.
+Mostre que:
+$$
+\align
+\img f {A\inter B} &= \img f A \inter \img f B\\
+\img f {A\minus B} &= \img f A \minus \img f B.
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+\blah.
+A preimagem comporta bem melhor que a imagem: ela respeita
+todas essas operações mesmo quando $f$ não é injetora,
+algo que tu provarás agora.
+
+%%{{{ x: operations_respected_by_pre 
+\exercise.
+\label{operations_respected_by_pre}%
+Sejam $f : X \to Y$, $A,B\subseteq Y$.
+Mostre que:
+$$
+\align
+\img f {A\union B} &= \img f A \union \img f B\\
+\img f {A\inter B} &= \img f A \inter \img f B\\
+\img f {A\minus B} &= \img f A \minus \img f B
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+\blah.
+Essas propriedades generalizam naturalmente:
+veja~\ref{big_operations_respected_by_img_and_pre}.
+
 \endsection
 %%}}}
 
@@ -12217,6 +12289,30 @@ Já temos duas funções $f,g : A \set T$:
 a $f = \lam x u$ e a $g = \lam x v$.
 Elas são realmente distintas,
 pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
+
+\endproblem
+%%}}}
+
+%%{{{ big_operations_respected_by_img_and_pre 
+\problem.
+\label{big_operations_respected_by_img_and_pre}%
+Sejam $f : A \to B$, e duas famílias de conjuntos indexadas:
+$\famil A i {\cal I}$ feita por subconjuntos de $A$, e
+$\famil B j {\cal J}$ feita por subconjuntos de $B$.
+Ou seja, para todo $i\in \cal I$, e todo $j \in \cal J$,
+temos $A_i \subseteq A$ e $B_j \subseteq B$.
+Mostre que:
+$$
+\align
+\img f {\Union_{i \in \cal I} A_i} &=      \Union_{i \in \cal I} \img f {A_i}\\
+\img f {\Inter_{i \in \cal I} A_i} &\askeq \Inter_{i \in \cal I} \img f {A_i}\\
+\pre f {\Inter_{j \in \cal J} B_j} &=      \Union_{j \in \cal J} \pre f {B_j}\\
+\pre f {\Inter_{j \in \cal J} B_j} &=      \Inter_{j \in \cal J} \pre f {B_j}
+\endalign
+$$
+onde na $\askeq$ prove que a igualdade em geral não é válida,
+mas uma das~\lrdirset~e~\rldirset, é, e supondo que $f$ é injetora,
+prove a outra também.
 
 \endproblem
 %%}}}
