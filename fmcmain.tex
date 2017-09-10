@@ -10740,7 +10740,7 @@ Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pert
 \further.
 
 Podes achar boas explicações, dicas, muitos exemplos resovidos,
-e exercícios e problemas para resolver no \cite[\S1.3~\&\S2.4]{velleman}.
+e exercícios e problemas para resolver no \cite[\S1.3~\&~\S2.4]{velleman}.
 
 \endfurther
 %%}}}
@@ -10920,17 +10920,24 @@ $$
 
 \TODO Definição por expressão.
 
+%%{{{ eg 
 \example.
 Seja $f : \reals \to \reals$ definida pela
 $$
 f(x) = x^2 + x + 1, \qquad \text{para todo $x\in \reals$}.
 $$
 \endexample
+%%}}}
 
+\TODO Descrição definitiva.
+
+\TODO riota.
+
+%%{{{ eg: mother_and_child_function_and_wannabe 
 \example.
 \label{mother_and_child_function_and_wannabe}%
 Seja $\cal P$ o conjunto de todas as pessoas.
-Queremos definir as funções $m,c : \cal P \to \cal P$ pelas equações
+\emph{Queremos} definir as funções $m,c : \cal P \to \cal P$ pelas equações
 $$
 \align
 m(p) &= \text{a mãe de $p$}\\
@@ -10938,14 +10945,16 @@ c(p) &= \text{a prole de $p$}
 \endalign
 $$
 (onde ``mãe'' significa ``mãe biológica'').
+Mas\dots
 \endexample
+%%}}}
 
 %%{{{ x: mother_and_child_function_and_wannabe 
 \exercise.
 Ache o problema no~\ref{mother_and_child_function_and_wannabe} em cima.
 
 \hint
-Lembe-se as condição 
+Lembe-se as condições no~\refn{functionhood_conditions}.
 
 \endexercise
 %%}}}
@@ -10981,6 +10990,7 @@ Cada vez que definimos uma função por casos, precisamos verificar que:
 Seguem uns exemplos que demonstram esses erros.
 %%}}}
 
+%%{{{ eg 
 \example.
 Definimos a função $f : \nats \to \nats$, pela
 $$
@@ -10990,7 +11000,9 @@ k, & se $n$ pode ser escrito como $3k+1$ para algum $k\in\nats$.\cr
 }
 $$
 \endexample
+%%}}}
 
+%%{{{ eg 
 \example.
 Definimos a função $g : \nats \to \nats$, pela
 $$
@@ -11001,6 +11013,7 @@ g(n) = \knuthcases{
 }
 $$
 \endexample
+%%}}}
 
 \blah.
 Deixamos a notação mais interessante para definir funções para depois.
@@ -11431,6 +11444,12 @@ de ``redemoinhos'' que aparecem nos seus diagramas.
 \section A notação $\lambda$ e a setinha barrada $\mapsto$.
 \label{Lambda_notation}%
 
+\TODO De palavras para a notação lambda.
+
+\TODO Função anônima.
+
+\TODO Convenções.
+
 %%{{{ x: eta_conversion_first_encounter 
 \exercise.
 \label{eta_conversion_first_encounter}%
@@ -11646,6 +11665,7 @@ $25 + 3 = 28$.
 
 %%{{{ With lambdas 
 \note Com lambdas.
+\ii{função!anônima}%
 Observe que na definição de $F(w)$, apareceu a frase ``aquela função $f$\dots''.
 Assim baptizamos temporariamente essa função com um nome (``$f$'') à toa:
 apenas para referir a ela e a retornar.
@@ -11654,7 +11674,7 @@ e (logo) mais legível:
 $$
 F(w) = \lam x {w + x} \quad \eqtype \reals \to \reals
 $$
-Não no lado direito aparece uma \emph{função anônima}.
+Observe que no lado direito aparece uma função anônima.
 %%}}}
 
 \endsection
@@ -11818,7 +11838,43 @@ $f(a) = \set a \neq \emptyset \in \pset A$.
 \endexercise
 %%}}}
 
-\TODO Mais uma construção: função inversa.
+%%{{{ df: finverse 
+\definition Função inversa.
+\label{finverse}%
+\tdefined{função}[inversa]%
+\sdefined {\finv {\holed f}} {a função inversa da $f$}%
+Seja função bijetora $f : A \bijto B$.
+Definimos a função $\finv f : B \to A$ pela
+$$
+\finv f (y) \defeq \text{aquele $x\in A$ tal que $f(x) = y$}.
+$$
+Chamamos a $\finv f$ a \dterm{função inversa} da $f$.
+%%}}}
+
+%%{{{ x: justify_finverse 
+\exercise.
+\label{justify_finverse}%
+Justifique a definição em cima.
+O que precisas provar?
+
+\solution
+Pelo menos um tal $x\in A$ existe, pois a $f$ é sobrejetora.
+E como $f$ é injetora, existe no máximo um.
+Provamos assim a unicidade, algo que nos permite
+\emph{definir a função} no jeito que definimos
+na~\ref{finverse}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_is_bij 
+\exercise.
+\label{finv_is_bij}%
+Prove que quando a função inversa $\finv f$ é definida,
+ela é bijetiva.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -12178,7 +12234,7 @@ Muitos livros seguem essa abordagem, então o leitor é conselhado
 tomar o cuidado necessário enquanto estudando esses assuntos.
 
 Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
-\emph{Não pula seus exercícios e problemas!}
+\emph{Não pule seus exercícios e problemas!}
 
 \endfurther
 %%}}}
@@ -13120,9 +13176,9 @@ $$
 %%{{{ Constructions and operations on relations 
 \section Construções e operações em relações.
 
-%%{{{ df: rinv 
+%%{{{ df: rinverse 
 \definition.
-\label{rinv}%
+\label{rinverse}%
 Seja $R$ uma relação de $A$ para $B$.
 Definimos a relação $\rinv R$ pela:
 $$
