@@ -12568,7 +12568,7 @@ também conhecido como \dterm{truth set} da $R$.
 
 %%{{{ Relation as a generalization of function 
 \note Relação como uma generalização de função.
-Um jeito de olhar para uma relação é como uma ``função'', sem as restrições
+Um jeito de olhar para uma relação é como uma ``função'' sem as restrições
 de totalidade e de determinicidade que encontramos no~\refn{functionhood_conditions}.
 Então: lembra dos conjuntos $A,B$ que encontramos na~\ref{Images_and_preimages}?
 Aqui são duas relações $R,Q$ de $A$ para $B$, determinadas por seus
@@ -13983,6 +13983,74 @@ f \rel{\buildrel{{}_{\forall\exists}} \over \leq} g &\defiff (\forall n\in\nats)
 \endalign
 $$
 Para cada uma das relações em cima, decida se ela tem ou não cada uma das propriedades de uma ordem total.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: simz_sime_simo_simi 
+\problem.
+\label{simz_sime_simo_simi}%
+\def\simz{\rel{\stackrel{{}_{\mathrm z}}=}}%
+\def\sime{\rel{\stackrel{{}_{\mathrm e}}=}}%
+\def\simo{\rel{\stackrel{{}_{\mathrm o}}=}}%
+\def\simi{\rel{\stackrel{\infty}=}}%
+Defina as relações seguintes no $(\nats\to\nats)$ assim:
+$$
+\align
+f\simz g&\defiff f(0)    = g(0)\\
+f\sime g&\defiff f(2n)   = g(2n)  \ \text{para todo $n\in\nats$}\\
+f\simo g&\defiff f(2k+1) = g(2k+1)\ \text{para todo $k\in\nats$}\\
+f\simi g&\defiff f(n)    = g(n)   \ \text{para uma infinidade de $n\in\nats$.}
+\endalign
+$$
+\beginil
+\item{(i)}
+Para cada uma da $\simz,\sime,\simo,\simi$, decida se é uma relação de
+equivalência ou não.
+\item{(ii)}
+Prove ou refuta a afirmação seguinte:
+\emph{a relação $(\sime\rcom\simo)$ é a relação trivial $\mathsf{True}$.}
+\endil
+
+\hint
+\def\simi{\rel{\stackrel{\infty}=}}%
+Ache um contraexemplo para a $\simi$.  As outras, são.
+
+\solution
+\def\simz{\rel{\stackrel{{}_{\mathrm z}}=}}%
+\def\sime{\rel{\stackrel{{}_{\mathrm e}}=}}%
+\def\simo{\rel{\stackrel{{}_{\mathrm o}}=}}%
+\def\simi{\rel{\stackrel{\infty}=}}%
+(i)
+A $\simi$ não é.  Considere o seguinte contraexemplo.
+Sejam as $\alpha, \beta, \gamma : \nats\to\nats$ (como seqüências):
+$$
+\align
+\alpha &= \tup{0,1,0,1,0,1,\dotsc}\\
+\beta  &= \tup{0,2,0,2,0,2,\dotsc}\\
+\gamma &= \tup{1,2,1,2,1,2,\dotsc}
+\endalign
+$$
+Trivialmente, $\alpha\simi\beta$ e $\beta\simi\gamma$ mas $\alpha\not\simi\gamma$.
+\endgraf\noindent
+(ii)
+Correto.
+Sejam $f, g \in (\nats\to\nats)$.
+Vamos mostrar que $f(\sime\rcom\simo)g$.
+Pela definição da $\rcom$ temos:
+$$
+f \rel{(\sime\rcom\simo)} g
+\iff \text{existe $h \in (\nats\to\nats)$ tal que $f \sime h$ e $h\simo g$}.
+$$
+A função $h : \nats\to\nats$ definida pela
+$$
+h(n) = \knuthcases{
+f(n), &se $n$ par\cr
+g(n), &se $n$ ímpar
+}
+$$
+satisfaz as $f \sime h\simo g$ pela sua construção.
+Logo, $f \rel{(\sime\rcom\simo)} g$.
 
 \endproblem
 %%}}}
