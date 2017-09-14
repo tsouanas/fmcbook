@@ -11894,6 +11894,49 @@ ela é bijetiva.
 \endexercise
 %%}}}
 
+%%{{{ x: double_or_reverse_string_inj_or_surj 
+\exercise.
+\label{double_or_reverse_string_inj_or_surj}%
+Seja~$S$ o conjunto de todos os strings \emph{não vazios}
+dum alfabeto $\Sigma$, com $\card{\Sigma} \geq 2$.
+Considere a função
+$f : S \times \set{0,1} \to S$ definida pela:
+$$
+f(w,i) =
+\knuthcases{
+ww, &se $i = 0$\cr
+w', &se $i = 1$
+}
+$$
+onde $w'$ é o string reverso de $w$,
+e onde denotamos a concatenação de strings por juxtaposição.
+\beginil
+\item{(i)} A $f$ é injetora?
+\item{(ii)} A $f$ é sobrejetora?
+\endil
+
+\hint
+Quais são o domínio e o codomínio da $f$?
+
+\solution
+(i) Não, $f$ não é injetora.
+Tome uma letra do alfabeto $a\in\Sigma$ e observe que
+$$
+f(a, 0) = aa = f(aa,1).
+$$
+Como $(a,0) \neq (aa,1)$, a $f$ não é injetora.
+\endgraf
+(ii)
+Sim, $f$ é sobrejetora.
+Tome um aletorio string $w\in S$, e seja $w'$ o string reverso de $w$.
+Temos
+$$
+f(w',1) = (w')' = w.
+$$
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -12090,16 +12133,75 @@ $(f^{-1})$ para enfatisar que estás denotando a função inversa da $f$.
 %%{{{ x: composition_with_inverse 
 \exercise.
 \label{composition_with_inverse}%
-Sejam conjuntos $A$ e $B$, $f : A\to B$, e $X\subseteq A$ e $Y\subseteq B$.
+Sejam conjuntos $X$ e $Y$, $f : X\to Y$, e $A\subseteq X$ e $B\subseteq Y$.
 Compare os conjuntos:
 $$
 \align
-X &\askeq f^{-1}\big[f[X]\big]\\
-Y &\askeq f\big[f^{-1}[Y]\big]
+A &\askeq \pre f {\img f A}\\
+B &\askeq \img f {\pre f B}.
 \endalign
 $$
-Caso que alguma das igualdades não é válida em geral, que mais seria suficiente supor para a garantir?
-E é alguma das duas inclusões ({\lrdirset} ou {\rldirset}) válida?
+
+\solution
+Mostramos dois contraexemplos, um para cada afirmação.
+$$
+\tikzpicture
+\draw (0,0) ellipse (1cm and 15mm);
+\draw (3,0) ellipse (1cm and 12mm);
+\draw (0,0.666) ellipse (5mm and 5mm);
+\draw (-0.6,0.1) node {$A$};
+\draw (0,0.666)  node {$1\,\bullet$};
+\draw (0,-0.666) node {$2\,\bullet$};
+\draw (3,0)  node {$\bullet\,3$};
+\draw[|->] (0.3,0.6) -- (2.7,0.1);
+\draw[|->] (0.3,-0.6) -- (2.7,-0.1);
+\draw (0,2.0) node {$X$};
+\draw (3,2.0) node {$Y$};
+\draw (1.5,1.70) node {$f$};
+\draw[->]  (0.5,2.0) -- (2.5,2.0);
+\endtikzpicture
+\qqqquad
+\tikzpicture
+\draw (0,0) ellipse (1cm and 12mm);
+\draw (3,0) ellipse (1cm and 15mm);
+\draw (3,0) ellipse (8mm and 10mm);
+\draw (2.4,0.1) node {$B$};
+\draw (3,0.666)  node {$\bullet\,2$};
+\draw (3,-0.666) node {$\bullet\,3$};
+\draw (0,0)  node {$1\,\bullet$};
+\draw[|->] (0.35,0.05) -- (2.7,0.6);
+\draw (0,2.0) node {$X$};
+\draw (3,2.0) node {$Y$};
+\draw (1.5,1.70) node {$f$};
+\draw[->]  (0.5,2.0) -- (2.5,2.0);
+\endtikzpicture
+$$
+No primeiro contraexemplo temos:
+$A=\set{1}$;
+$\img f A = \set {3}$; e
+$\pre f {\set 3} = \set {1,2}$.
+Logo
+$$
+A = \set{ 1 } \neq \set {1, 2} = \pre f {\img f A}.
+$$
+No segundo contraexemplo temos:
+$B = \set{2,3}$;
+$\pre f B = \set {1}$; e
+$\img f {\set 1} = \set {2}$.
+Logo
+$$
+B = \set{ 2,3 } \neq \set {2} = \img f {\pre f B}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: composition_with_inverse_conditions 
+\exercise.
+\label{composition_with_inverses}%
+Caso que alguma das igualdades não é válida em geral, que mais seria necessário e suficiente supor sobre a $f$ para a garantir
+cada uma das igualdades do~\ref{composition_with_inverse}?
+No caso geral, é alguma das duas inclusões ({\lrdirset} ou {\rldirset}) de cada $\askeq$ válida?
 
 \endexercise
 %%}}}
@@ -13210,10 +13312,31 @@ A identidade $=$, a trivial $\True$, e a vazia $\False$.
 %%{{{ x: equivalent_statements_to_x_equiv_y 
 \exercise.
 Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $x,y\in X$.
-O.s.s.e.:
+Mostre que as afirmações seguintes são equivalentes:
 \item{(i)} $x\sim y$
 \item{(ii)} $\eqclassimp x = \eqclassimp y$
 \item{(iii)} $\eqclassimp x \inter \eqclassimp y \neq \emptyset$.
+
+\solution
+Vamos provar o ``(i)\bidir(iii)''.
+\endgraf
+\lrdir.
+Suponha que $a \sim b$.
+Precisamos achar um elemento que pertence nos dois conjuntos
+$\eqclassimp a$ e $\eqclassimp b$.
+Tome o proprio $a$.
+Temos $a\in \eqclassimp a$ pois $a \sim a$ (pela reflexividade da $\sim$).
+Tambem temos $a \in \eqclassimp b$, pois $a \sim b$ (hipótese).
+Logo $a \in \eqclassimp a \inter \eqclassimp b\neq\emptyset$.
+\endgraf
+\rldir.
+Suponha que $\eqclassimp a\inter\eqclassimp b \neq \emptyset$
+e tome $w \in \eqclassimp a\inter\eqclassimp b$.
+Logo $w \in \eqclassimp a$ e $w \in \eqclassimp b$,
+ou seja $w \sim a$ e $w \sim b$ pela definição de classe de equivalência.
+Pela simetría da $\sim$ temos $a \sim w$.
+Agora como $a\sim w$ e $w \sim b$, pela transitividade da $\sim$ ganhamos
+o desejado $a \sim b$.
 
 \endexercise
 %%}}}
@@ -13285,12 +13408,18 @@ A $\approx_\epsilon$ é uma relação de equivalência?
 \hint
 Primeiramente resolve o mesmo problema mas para a relação:
 $$
-x \sim_\epsilon y \defiff |x-y| < \epsilon.
+x \sim_\epsilon y \defiff |x-y| < \epsilon
 $$
+onde $\epsilon > 0$.
 
 \hint
 Reflexividade e simetria das $\sim_\epsilon$ e $\approx_\epsilon$ são imediatas.
 Sobre a transitividade, um desenho na linha real ajudaria.
+
+\hint
+Como contraexemplo, tome os reais $0$, $\epsilon/2$, e $\epsilon$ e
+observe que $0 \sim_\epsilon \epsilon/2$ e $\epsilon/2 \sim_\epsilon \epsilon$
+mas mesmo assim não temos $0\sim_\epsilon \epsilon$.
 
 \hint
 Como podes usar a não-transitividade da $\sim_\epsilon$
@@ -13558,6 +13687,21 @@ A direção \rldir\ é similar.
 \endexercise
 %%}}}
 
+%%{{{ x: only_if_incest 
+\exercise.
+\label{only_if_incest}%
+\DefPred{Parent}%
+\DefPred{Child}%
+Prove ou refuta:
+$$
+\Child\rcom\Child
+\askeq
+\Parent\rcom\Child.
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ x: id_of_rcom 
 \exercise.
 \label{id_of_rcom}%
@@ -13653,6 +13797,34 @@ onde escrevemos $\Eq$ para a relação de igualdade $=$.
 
 \endexercise
 %%}}}
+
+%%{{{ x: operation_with_inverse_does_not_yield_identity 
+\exercise.
+\label{operation_with_inverse_does_not_yield_identity}%
+Prove ou refuta:
+\emph{para toda relação binária $R$ num conjunto $A$, $R \rcom \rinv R = \Eq = \rinv R \rcom R$}.
+
+\hint
+\ref{grandparents_grandchildren_siblings_and_couples_with_children}.
+
+\hint
+\ref{only_if_incest}
+
+\hint
+\DefPred{Parent}%
+\DefPred{Child}%
+Temos $\Parent = \rinv \Child$ (e logo $\Child = \rinv \Parent$ também).
+
+\solution
+\DefPred{Parent}%
+\DefPred{Child}%
+Não, como o contraexemplo do~\ref{only_if_incest} mostra,
+pois $\Parent = \rinv \Child$ e $\Child = \rinv \Parent$.
+
+\endexercise
+%%}}}
+
+\TODO Quais propriedades ``familiares'' tem a inversa nas relações?.
 
 \endsection
 %%}}}
@@ -14057,6 +14229,22 @@ Logo, $f \rel{(\sime\rcom\simo)} g$.
 
 \endproblem
 %%}}}
+
+\ignore{
+%%{{{ prob: simh_simv 
+\problem.
+\def\simh{\sim_{\mathrm h}}
+\def\simv{\sim_{\mathrm v}}
+Defina as relações $\simh$ e $\simv$ no $(\ints\to\ints)$:
+$$
+\align
+f \simh g &\iffdef (\exists u\in\ints)(\forall x \in\ints)[f(x) = g(x+u) ]\\
+f \simv g &\iffdef (\exists v\in\ints)(\forall x \in\ints)[f(x) = g(x)+v ]
+\endalign
+$$
+\endproblem
+%%}}}
+}
 
 %%{{{ R_eq_S 
 \problem Igualdade.
@@ -17413,6 +17601,23 @@ cardinalidades deles?
 \problems.
 
 \TODO Cantor's letter to Dedekind and Dedekind's reply.
+
+%%{{{ prob: sime_simo_eqclass_card 
+\problem.
+\label{sime_simo_eqclass_card}%
+\def\sime{\rel{\stackrel{{}_{\mathrm e}}=}}%
+\def\simo{\rel{\stackrel{{}_{\mathrm o}}=}}%
+Seja~$f:\nats\to\nats$ e as $\sime$ e $\simo$ como no~\ref{simz_sime_simo_simi}:
+$$
+\align
+f\sime g&\defiff f(2n)   = g(2n)  \ \text{para todo $n\in\nats$}\\
+f\simo g&\defiff f(2k+1) = g(2k+1)\ \text{para todo $k\in\nats$}\\
+\endalign
+$$
+Qual é a cardinalidade do $\eqclass f {\sime} \inter \eqclass f {\simo}$?
+
+\endproblem
+%%}}}
 
 \endproblems
 %%}}}
