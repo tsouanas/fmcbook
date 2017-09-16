@@ -13119,6 +13119,14 @@ Deixe para responder junto com o~\ref{how_many_partitions_on_3}.
 \endexercise
 %%}}}
 
+%%{{{ remark: conventions_for_internal_diagrams_of_rel 
+\remark Convenções para diagramas internos.
+\label{conventions_for_internal_diagrams_of_rel}%
+
+%%}}}
+
+\TODO Elaborar.
+
 %%{{{ Partition 
 \note Partição.
 Voltamos de novo para nosso conjunto $A$, mas essa vez sem uma predeterminada
@@ -13165,7 +13173,7 @@ $$
 %%{{{ x: pairwise_necessary_for_partition 
 \exercise.
 \label{pairwise_necessary_for_partition}%
-Podemos trocar o (ii) da~\ref{partition} por
+Podemos trocar o~(ii) da~\ref{partition} por
 $$
 \text{(ii$'$)}\quad\Inter \scr A = \emptyset\  ?
 $$
@@ -13198,6 +13206,86 @@ expressar a mesma idéia.
 Cada relação de equivalência determina uma partição;
 e vice-versa: cada partição determina uma relação de equivalência.
 Bora provar isso.
+%%}}}
+
+%%{{{ x: wrong_partition_of_eqrel_def 
+\exercise Cuidado!.
+\label{wrong_partition_of_eqrel_def}%
+Tentando resolver esse problema, começando com uma relação de equivalência $R$,
+um aluno tentou definir a partição $\scr A_{R}$ assim:
+$$
+\align
+C \in \scr A_{R}
+\defiff
+&C \subseteq A\\
+&\mland  C \neq \emptyset\\
+&\mland  \lforall {c,d \in C} {c \rel R d}.
+\endalign
+$$
+Qual o erro na definição do aluno?
+O que faltou escreverer para virar uma definição correta?
+
+\hint
+Considere o conjunto $A$ com a relação de equivalência $R$ como no diagrama
+interno seguinte:%
+\footnote{Lembra-se que como já declaramos a~$R$ de ser uma relação de
+equivalência, não precisamos botar todas as setinhas, apenas as necessárias
+para ``gerar'' a~$R$.
+Veja~\ref{conventions_for_internal_diagrams_of_rel}.}
+$$
+\tikzpicture
+\tikzi eqrel2partitionbase;
+\draw (elem-1) -- (elem-2) -- (elem-3) -- (elem-4);
+\draw (elem-5) -- (elem-6);
+\endtikzpicture
+$$
+Seguindo fielmente sua definição, qual é o conjunto $\scr A_{R}$?
+
+\hint
+\emph{Não} é o conjunto dos seguintes subconjuntos de $A$:
+$$
+\tikzpicture
+\tikzi eqrel2partitionbase;
+\tikzi eqrel2partitiondesired;
+\endtikzpicture
+$$
+Ache um $C\subseteq A$ tal que $C \in \scr A_{R}$ mas \emph{não deveria}.
+
+\hint
+A definição do aluno garanta que todos os elementos numa classe realmente
+relacionam entre si através da $R$;
+mas não garanta que cada classe $C$ é feita por \emph{todos} os elementos
+de~$A$ que relacionam com os membros da $C$ mesmo.
+Por exemplo, ela \emph{corretamente exclue} conjuntos como $\set{2,5}$;
+mas ela \emph{incorretamente inclue} conjuntos como o $\set{2,3}$.
+$$
+\tikzpicture
+\draw [rounded corners=3mm, fill=blue!20] (-1.6,0.4)--(-1.6,1.4)--(-0.3,1.4)--(-0.3,0.4)--cycle;
+\tikzi eqrel2partitiondesired;
+\tikzi eqrel2partitionbase;
+\endtikzpicture
+\qqqquad
+\tikzpicture
+\draw [rounded corners=2mm, fill=red!20] (-1.5,1.4)--(-1.5,-1.0)--(-0.9,-1.0)--(-0.9,1.4)--cycle;
+\tikzi eqrel2partitiondesired;
+\tikzi eqrel2partitionbase;
+\endtikzpicture
+$$
+
+\solution
+Seguindo as dicas, faltou escrever a ultima linha:
+$$
+\align
+C \in \scr A_{R}
+\defiff
+&C \subseteq A\\
+&\mland  C \neq \emptyset\\
+&\mland  \lforall {c,d \in C} {c \rel R d}\\
+&\mland  \paren{\forall a \in A} \lforall {c \in C} {a \rel R c \implies a \in C}.
+\endalign
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ x: from_eqrel_to_partition 
