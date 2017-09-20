@@ -5754,6 +5754,75 @@ Então $41^{75} \bmod 3 = 2$.
 \endsection
 %%}}}
 
+%%{{{ Cryptography 
+\section Criptografía.
+
+%%{{{ The idea of cryptography 
+\TODO A idéia da criptografia.
+%%}}}
+
+%%{{{ Public-key cryptography 
+\TODO Criptografia ``public-key''.
+%%}}}
+
+%%{{{ RSA encryption and decryption 
+\TODO RSA criptografia e descriptografia.
+
+%%{{{ thm 
+\theorem.
+Sejam $e, M\in\ints$ com $\gcd e {\tot M} = 1$,
+e seja $d$ um inverso de $e$ módulo~$\tot M$: $ed \cong 1 \pmod {\tot M}$.
+Para cada $m$ com $\gcd m M = 1$,
+$$
+\paren{m^e}^d \cong m \pmod M.
+$$
+\proof.
+Observe primeiramente que:
+$$
+\alignat 2
+ed \cong 1 \pmod {\tot M}
+&\iff \tot M \divides ed - 1                    \qqby{\ref{congruence}}\\
+&\iff \lexists {k\in\ints} {k\tot M = ed - 1}.  \qqby{\ref{divides}}
+\endalignat
+$$
+Seja $k\in\ints$ então um tal $k$, e agora resolvendo por $ed$:
+$$
+ed = k\tot M + 1.
+\eqdef{rsa_ed_equality}
+$$
+Calculamos:
+$$
+\alignat 2
+\paren{m^e}^d
+&= m^{ed}                   \\
+&= m^{k\tot M + 1}          \qqby{por~\eqref{rsa_ed_equality}}\\
+&= m^{k\tot M} m            \qqby{def.~de exponenciação}\\
+&= \paren{m^k}^{\tot M} m   \\
+&\cong m  \pmod M,          \qqby{por teorema de Euler~\refn{euler_congruence_theorem}}
+\endalignat
+$$
+onde no último pásso precisamos a hipótese que $m$ e $\tot M$ são coprimos
+e logo, $m^k$ e $\tot M$ também são: $\gcd m {\tot M} = \gcd {m^k} {\tot M} = 1$.
+\qed
+%%}}}
+
+%%{{{ x 
+\exercise.
+O que acontece se $m$ e $\tot M$ não são coprimos?
+
+\endexercise
+%%}}}
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Digital signatures 
+\section Assinaturas digitais.
+
+\endsection
+%%}}}
+
 %%{{{ Problems 
 \problems.
 
@@ -5840,89 +5909,6 @@ Veja o~\cite[\S1.9]{babybm}.
 
 \cite{nivennumbers},
 \cite{hardywright}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Cryptography 
-\chapter Criptografía.
-
-%%{{{ The idea of cryptography 
-\section A idéia da criptografia.
-
-\endsection
-%%}}}
-
-%%{{{ Public-key cryptography 
-\section Criptografia ``public-key''.
-
-\endsection
-%%}}}
-
-%%{{{ RSA encryption and decryption 
-\section RSA criptografia e descriptografia.
-
-\theorem.
-Sejam $e, M\in\ints$ com $\gcd e {\tot M} = 1$,
-e seja $d$ um inverso de $e$ módulo~$\tot M$: $ed \cong 1 \pmod {\tot M}$.
-Para cada $m$ com $\gcd m M = 1$,
-$$
-\paren{m^e}^d \cong m \pmod M.
-$$
-\proof.
-Observe primeiramente que:
-$$
-\alignat 2
-ed \cong 1 \pmod {\tot M}
-&\iff \tot M \divides ed - 1                    \qqby{\ref{congruence}}\\
-&\iff \lexists {k\in\ints} {k\tot M = ed - 1}.  \qqby{\ref{divides}}
-\endalignat
-$$
-Seja $k\in\ints$ então um tal $k$, e agora resolvendo por $ed$:
-$$
-ed = k\tot M + 1.
-\eqdef{rsa_ed_equality}
-$$
-Calculamos:
-$$
-\alignat 2
-\paren{m^e}^d
-&= m^{ed}                   \\
-&= m^{k\tot M + 1}          \qqby{por~\eqref{rsa_ed_equality}}\\
-&= m^{k\tot M} m            \qqby{def.~de exponenciação}\\
-&= \paren{m^k}^{\tot M} m   \\
-&\cong m  \pmod M,          \qqby{por teorema de Euler~\refn{euler_congruence_theorem}}
-\endalignat
-$$
-onde no último pásso precisamos a hipótese que $m$ e $\tot M$ são coprimos
-e logo, $m^k$ e $\tot M$ também são: $\gcd m {\tot M} = \gcd {m^k} {\tot M} = 1$.
-\qed
-
-\exercise.
-O que acontece se $m$ e $\tot M$ não são coprimos?
-
-\endexercise
-
-\endsection
-%%}}}
-
-%%{{{ Digital signatures 
-\section Assinaturas digitais.
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
 
 \endfurther
 %%}}}
