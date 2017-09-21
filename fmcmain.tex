@@ -15314,10 +15314,10 @@ Seja $\ssetfont G = \sset G {e, \ast}$ um conjunto \emph{finito}
 estruturado que satisfaz:
 $$
 \align
-\paren{\forall a,b\in G}                        &\bracket{a\ast b \in G}                    \tag{G0} \\
-\paren{\forall a,b,c\in G}                      &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1} \\
-\paren{\forall a \in G}                         &\bracket{a\ast e = a}                      \tag{GCR} \\
-\paren{\forall a\in G} \paren{\exists y\in G}   &\bracket{a \ast y = e}                    \tag{GCL}
+\paren{\forall a,b\in G}    &\bracket{a\ast b \in G}                    \tag{G0} \\
+\paren{\forall a,b,c\in G}  &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1} \\
+\paren{\forall a,x,y\in G}  &\bracket{a\ast x = a\ast y \implies x=y}   \tag{GCL}\\
+\paren{\forall a,x,y\in G}  &\bracket{x\ast a = y\ast a \implies x=y}   \tag{GCR}
 \endalign
 $$
 Então $\ssetfont G$ é um grupo.
@@ -15388,7 +15388,7 @@ $$
 \paren{\forall a,b\in G}                        &\bracket{a\ast b \in G}                    \tag{G0}  \\
 \paren{\forall a,b,c\in G}                      &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1}  \\
 \paren{\forall a \in G}                         &\bracket{a\ast e = a}                      \tag{G2R} \\
-\paren{\forall a\in G} \paren{\exists a'\in G}  &\bracket{a \ast a' = e}                    \tag{G3R} \\
+\paren{\forall a\in G} \paren{\exists y\in G}   &\bracket{a \ast y = e}                     \tag{G3R} \\
 \intertext{Mostre que $\ssetfont G$ é um grupo.
 Comece verificando que mesmo se conseguir provar as}
 \paren{\forall a \in G}                         &\bracket{e\ast a = a}                      \tag{G2L} \\
@@ -15524,10 +15524,10 @@ $\gord a$, $\tord a$, ou $\bord a$, com os mesmos cuidados.
 Logo:
 $$
 \gord a =
-\cases
-\min\set{ n\in\nats_{>0} \st a^n = e }, &\text{se existe}\\
-\infty                                  &\text{se não}.
-\endcases
+\knuthcases{
+\min\set{ n\in\nats_{>0} \st a^n = e }, & se existe\cr
+\infty,                                 & se não.
+}
 $$
 %%}}}
 
@@ -15591,7 +15591,7 @@ a^0, a^1, \dotsc, a^{n-1}
 $$
 e usando a definição de $\gord a$ provamos:
 \endgraf\noindent
-\casestyle{Existência:} os $a^0,\dotsc,a^{n-1}$ são distintas dois a dois.
+\casestyle{Existência:} os $a^0,\dotsc,a^{n-1}$ são distintos dois a dois.
 \endgraf\noindent
 \casestyle{Unicidade:} para todo $m\in\ints$ o $a^m$ é um dos $a^0,\dotsc,a^{n-1}$.
 \qes
