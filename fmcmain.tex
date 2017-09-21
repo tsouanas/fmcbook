@@ -11306,9 +11306,9 @@ Vacuamente temos que para todo $x\in \emptyset$, $f(x) = g(x)$.
 
 \TODO Intuição com tarefas: comutatividade não, associatividade sim.
 
-%%{{{ thm: associativity_of_function_composition 
+%%{{{ thm: associativity_of_fcom 
 \theorem.
-\label{associativity_of_function_composition}%
+\label{associativity_of_fcom}%
 Sejam
 $$
 A \toarrow f B \toarrow g C \toarrow h D.
@@ -11356,9 +11356,9 @@ $$
 \qed
 %%}}}
 
-%%{{{ x: non_commutativity_of_function_composition 
+%%{{{ x: non_commutativity_of_fcom 
 \exercise.
-\label{non_commutativity_of_function_composition}%
+\label{non_commutativity_of_fcom}%
 Existem funções $f,g$ tais que $f\of g$ e $g\of f$ são ambas definidas,
 mas mesmo assim
 $$
@@ -14654,7 +14654,7 @@ $$
 Nosso primeiro objetivo é achar todos esses $6$ membros de $S_3$.
 \endgraf
 Primeiramente, a identidade $\idof {S_3} \in S_3$ pois é bijetora.
-Para continuar, introduzimos aqui uma notação bem prática para
+Para continuar, introduzimos aqui uma notação bem práctica para
 trabalhar com permutações:
 %%}}}
 
@@ -14712,7 +14712,7 @@ Entendemos o ciclo $\permc{1 & 2 & 3}$ como
 $1 \mapsto 2 \mapsto 3 \mapsto 1$.
 %%}}}
 
-%%{{{ x 
+%%{{{ x: verify cycle notation 
 \exercise.
 Verifique que as duas permutações que escrevemos usando ciclos
 realmente correspondem nas permutações anteriores.
@@ -14843,25 +14843,41 @@ $$
 $$
 Achamos todos os membros de $S_3 = \set{\id, \phi, \psi, \psi^2, \phi\com\psi,\psi\com\phi}$:
 $$
-\alignat2
-\id &= \permc {1}           &\psi^2 &= \permc {1 & 3 & 2}  \\
-\phi &= \permc {1 & 2}      &\phi\com\psi &= \permc {2 & 3}\\
-\psi &= \permc {1 & 2 & 3}  \qquad\qquad&\psi\com\phi &= \permc {1 & 3}  
-\endalignat
+\xalignat3
+\id  &= \permc {1}         &\psi         &= \permc {1 & 2 & 3}  & \phi\com\psi &= \permc {2 & 3}\\
+\phi &= \permc {1 & 2}     &\psi^2       &= \permc {1 & 3 & 2}  & \psi\com\phi &= \permc {1 & 3}.
+\endxalignat
 $$
 %%}}}
 
+%%{{{ x: calculate psi 
 \exercise.
-Calcule a $\psi\com\psi^2$ e justifique que
-ela é igual à $\psi^2\com\psi$.
+Calcule a $\psi\com\psi^2$ e justifique que ela é igual à $\psi^2\com\psi$.
+
+\solution
+Calculamos:
+$$
+\align
+1 &\mapstoarrow {\psi^2} 3 \mapstoarrow \psi 1\\
+2 &\mapstoarrow {\psi^2} 1 \mapstoarrow \psi 2\\
+3 &\mapstoarrow {\psi^2} 2 \mapstoarrow \psi 3
+\endalign
+$$
+ou seja, $\psi\com\psi^2 = \id$.
+A igualdade é imediata pela associatividade da $\fcom$.
+(E ambas são iguais à $\psi^3$.)
 
 \endexercise
+%%}}}
 
+%%{{{ x: calculate phi psi^2 and psi^2 phi 
 \exercise.
 Calcule as $\phi\com\psi^2$ e $\psi^2\com\phi$.
 
 \endexercise
+%%}}}
 
+%%{{{ Abstracting 
 \note Abstraindo.
 Temos um conjunto cujos elementos podemos ``combinar'' através duma operação binária.
 As seguintes propriedades são satisfeitas nesse caso:
@@ -14881,6 +14897,7 @@ Cada elemento do conjunto possui inverso no conjunto.
 Conjuntos onde é definida uma operação que satisfaz essas propriedades
 aparecem com freqüência, e vamos ver que são suficientes para construir
 uma teoria rica baseada neles.
+%%}}}
 
 \endsection
 %%}}}
