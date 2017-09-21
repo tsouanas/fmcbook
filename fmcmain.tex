@@ -11766,13 +11766,13 @@ f : A \bijto B &\defiff \text{$f:A\to B$ é bijetora}
 $$
 %%}}}
 
-\TODO Exemplos e não-exemplos.
+\TODO Exemplos e nãœxemplos.
 
 \TODO Quantas funções entre dois conjuntos tais que\dots?
 
-%%{{{ x: composition_respects_jections 
+%%{{{ x: fcom_respects_jections 
 \exercise Composição respeita ``-jetividade''.
-\label{composition_respects_jections}%
+\label{fcom_respects_jections}%
 Sejam $f : A\to B$ e $g : B \to C$.
 Prove:
 \item{(1)} Se $f$ e $g$ são injetoras, então $g\fcom f$ também é;
@@ -14769,7 +14769,7 @@ $$
 \endxalignat
 $$
 Sabendo
-que a composição de bijeções é bijeção (\ref{composition_respects_jections}),
+que a composição de bijeções é bijeção (\ref{fcom_respects_jections}),
 tentamos a
 $$
 \phi^2 = \phi\com\phi
@@ -14849,6 +14849,8 @@ $$
 \endxalignat
 $$
 %%}}}
+
+\TODO Preciso calcular o último número?
 
 %%{{{ x: calculate psi 
 \exercise.
@@ -15052,13 +15054,80 @@ Como assim \emph{o} inverso?
 \endexercise
 %%}}}
 
-%%{{{ x: S3_is_a_non_abelian_group 
-\exercise.
+%%{{{ eg: S3_is_a_non_abelian_group 
+\example.
 \label{S3_is_a_non_abelian_group}%
 Verifique que $S_3$ é um grupo.
 Ele é abeliano?
 
+\solution
+Precisamos verificar as leis de grupo.
+\endgraf
+{(G0).}
+Para provar que $S_3$ é fechado pela $\fcom$, precisamos verificar
+que para todo $a,b\in S_3$, $a \fcom b \in S_3$.
+Pela definição do $S_3$, isso segue pelo~\ref{fcom_respects_jections}~(3).
+\endgraf
+{(G1).}
+Ja provamos a associatividade da $\fcom$ na~\ref{associativity_of_fcom}.
+\endgraf
+{(G2).}
+Facilmente verificamos que a $\idof {\set{1,2,3}}$ é a identidade do
+$\sset {S_3} {\fcom}$, pela sua definição.
+\endgraf
+{(G3).}
+Cada bijeção tem uma função-inversa, que satisfaz as equações dessa lei
+pela definição de função-inversa.
+(Veja~\ref{finverse} e~\ref{finv_is_bij}.
+\endgraf
+O $S_3$ \emph{não} é abeliano, pois a (GA) não tem como.
+\endgraf
+{(GA).}
+Basta mostrar pelo menos um contraexemplo, ou seja, duas permutações
+$a,b$ do $S_3$ tais que $a\fcom b \neq b\fcom a$.
+Agora preciso saber o que significa igualdade entre \emph{funções}
+(\ref{f_eq_g}).
+Escolho os $\phi,\psi$.
+Já calculamos as $\phi\fcom\psi$ e $\psi\fcom\phi$ e são diferentes.
+\endgraf
+Logo, $S_3$ é um grupo não abeliano.
+\endexample
+%%}}}
+
+%%{{{ x: why_phipsi_neq_psiphi 
+\exercise.
+\label{why_phipsi_neq_psiphi}%
+Por quê $\phi\fcom\psi \neq \psi\fcom\phi$?
+
+\solution
+Pois elas discordam em pelo menos um valor: tome o $1$.
+Agora
+$$
+(\phi\fcom\psi)(1)
+= \phi(\psi(1))
+= \phi(2)
+= 1
+\neq
+3
+= \psi(2)
+= \psi(\phi(1))
+= (\psi\fcom\phi)(1).
+$$
+Logo $\phi\fcom\psi \neq \psi\fcom\phi$.
+
 \endexercise
+%%}}}
+
+%%{{{ And why 1 neq 3? 
+\note E por que $1\neq 3$?.
+Na resolução do~\ref{why_phipsi_neq_psiphi} nosso argumento reduziu
+o que queriamos provar à afirmação $1 \neq 3$.
+\emph{E por quê $1 \neq 3$?}
+Bem, precisamos saber o que significa igualdade no $\nats$!
+Mas podemos já considerar o $1 \neq 3$ como um fato conhecido sobre os números
+naturais.  Depois, no~\ref{Axiomatic_set_theory}, vamos \emph{fundamentar}
+o~$\nats$ na teoria de conjuntos, e logo vamos ter como realmente provar essa
+afirmação para nosso $\nats$, por exemplo.
 %%}}}
 
 %%{{{ x: find_all_inverses_on_S3 
