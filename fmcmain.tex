@@ -11240,8 +11240,6 @@ $$
 
 \TODO Embedding.
 
-\TODO Operações point-wise.
-
 \endsection
 %%}}}
 
@@ -11473,6 +11471,22 @@ $A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
 $$
 (A \to B) \defeq B^A \defeq \setst f {f: A \to B}.
 $$
+%%}}}
+
+%%{{{ df: pointwise_operation 
+\definition Operação pointwise.
+\label{pointwise_operation}%
+\tdefined{pointwise!operação}%
+\iisee{função!pointwise operação}{pointwise, operação}%
+Sejam $A,B$ conjuntos e $\ast$ uma operação binária no $B$.
+Dadas funções $f,g : A \to B$, definimos a função
+$f \ast g : A \to B$
+pela
+$$
+(f \ast g)(x) = f(x) \ast g(x) , \qquad \text{para todo $x\in A$}.
+$$
+Chamamos a $(\dhole \ast \dhole)$ a \dterm{operação pointwise}
+da $\ast$ no $(A \to B)$.
 %%}}}
 
 \endsection
@@ -14620,6 +14634,7 @@ $A = \sset A {\dotsc}$.
 %%{{{ Permutations 
 \section Permutações.
 
+%%{{{ Introduce S_3 
 \note.
 \ii{permutação}%
 Vamos começar considerando o conjunto $S_n$ de todas as permutações
@@ -14641,8 +14656,11 @@ Nosso primeiro objetivo é achar todos esses $6$ membros de $S_3$.
 Primeiramente, a identidade $\idof {S_3} \in S_3$ pois é bijetora.
 Para continuar, introduzimos aqui uma notação bem prática para
 trabalhar com permutações:
+%%}}}
 
+%%{{{ Notation 
 \note Notação.
+\label{notation_with_cycles}%
 Denotamos a bijeção $f \in S_n$ assim:
 $$
 f = \permf{
@@ -14692,14 +14710,19 @@ $$
 respectivamente.
 Entendemos o ciclo $\permc{1 & 2 & 3}$ como
 $1 \mapsto 2 \mapsto 3 \mapsto 1$.
+%%}}}
 
+%%{{{ x 
 \exercise.
 Verifique que as duas permutações que escrevemos usando ciclos
 realmente correspondem nas permutações anteriores.
 
 \endexercise
+%%}}}
 
+%%{{{ beware: beware_notation_with_cycles 
 \beware.
+\label{beware_notation_with_cycles}
 Para usar a notação com ciclos para denotar os membros de algum
 $S_n$, precisamos esclarecer o $n$---algo que não é necessário
 com a notação completa, onde esta informação é dedutível pela
@@ -14724,7 +14747,9 @@ Olhando para as formas em cima, sabemos que a primeira
 Mais um defeito dessa notação é que não temos como denotar
 a identidade numa forma consistente, então concordamos
 a denotar pelo $\permc {1}$.
+%%}}}
 
+%%{{{ The members of S_3 
 \note Os membros de $S_3$.
 Já achamos $2$ dos $6$ elementos de $S_3$:
 $$
@@ -14824,6 +14849,7 @@ $$
 \psi &= \permc {1 & 2 & 3}  \qquad\qquad&\psi\com\phi &= \permc {1 & 3}  
 \endalignat
 $$
+%%}}}
 
 \exercise.
 Calcule a $\psi\com\psi^2$ e justifique que
@@ -14865,9 +14891,9 @@ uma teoria rica baseada neles.
 %%{{{ df: group_def_wordy 
 \definition.
 \label{group_def_wordy}%
-Um conjunto $G$ com uma operação associativa é um \dterm{grupo} sse
-ele fechado sobre a operação; possui identidade e todos os seus elementos
-possuem inversos.
+Um conjunto $G$ com uma operação binária \emph{associativa} é um \dterm{grupo}
+sse ele é \emph{fechado} sobre a operação, possui \emph{identidade},
+e cada elemento dele possui \emph{inverso}.
 %%}}}
 
 %%{{{ Multiplicative and additive groups 
@@ -14898,12 +14924,79 @@ Mas quando um conjunto já tem adição e/ou multiplicação definida
 Um conjunto $G$ com uma operação $\ast$ é um \dterm{grupo} sse:
 $$
 \gather
-a,b \in G \implies a\ast b \in G                                                \tag{G0} \\
-a\ast(b\ast c) = (a\ast b)\ast c                                                \tag{G1} \\
-\text{existe $e\in G$ tal que para todo $a\in G$, $e\ast a = a = a\ast e$}      \tag{G2} \\
-\text{para todo $a\in G$, existe $a'\in G$, tal que $a'\ast a = e = a \ast a'$} \tag{G3}
+a,b \in G \implies a\ast b \in G                                             \tag{G0} \\
+a\ast(b\ast c) = (a\ast b)\ast c                                             \tag{G1} \\
+\text{existe $e\in G$ tal que para todo $a\in G$, $e\ast a = a = a\ast e$}   \tag{G2} \\
+\text{para todo $a\in G$, existe $y\in G$, tal que $y\ast a = e = a \ast y$} \tag{G3}
 \endgather
 $$
+%%}}}
+
+%%{{{ Laws vs. axioms 
+\note Leis vs.~axiomas.
+\label{laws_vs_axioms}%
+\tdefined{lei}%
+\tdefined{leis de grupo}%
+\ii{axioma!vs.~lei}%
+As (G0)--(G3) são conhecidas como as \dterm{leis de grupos},
+ou os \dterm{axiomas de grupos}.
+Vamos evitar usar a palavra \emph{axioma} com esse sentido,
+optando para a palavra \emph{lei} mesmo, pois chamamos
+``axioma'' algo que aceitamos como verdade em noso univérso
+(mais sobre isso no~\ref{Axiomatic_set_theory}), mas nesse
+caso não estamos afirmanos a vericidade das (G0)--(G3).
+Faz apenas parte do que significa ``ser grupo''.
+Se um conjunto estruturado satisfaz todas as leis,
+bem, ele ganha o direito de ser chamado um ``grupo''.
+Se não, beleza, ele não é um grupo.
+%%}}}
+
+\blah.
+Como vímos, na mesma época o \Galois{}Galois e o \Abel{}Abel chegaram na
+ideia de grupo.  As leis que Galois identificou foram as (G0)--(G3) mesmo.
+Abel considerou mais uma e focou no que hoje em dia chamamos grupo abeliano:
+
+%%{{{ df: abelian group 
+\definition Grupo abeliano.
+\label{abelian_group}%
+\tdefined{grupo!abeliano}%
+Um grupo $\sset G {\ast}$ é \dterm{abeliano}
+(também: \dterm{comutativo})
+sse sua operação $\ast$ é comutativa:
+$$
+\alignat2
+\paren{\forall a,b\in G}    &\bracket{a\ast b = b\ast a}.                   &\tag{GA}
+\endalignat
+$$
+%%}}}
+
+%%{{{ Groups and abelian groups schematically 
+\note.
+Esquematicamente:
+$$
+\left.
+\aligned
+&\left.
+\aligned
+\text{(G0)}&\\
+\text{(G1)}&\\
+\text{(G2)}&\\
+\text{(G3)}&\\
+\endaligned
+\right\}
+\text{grupo}\\
+&\left.\text{(GA)}\right.
+\endaligned
+\right\}
+\text{grupo abeliano}
+$$
+%%}}}
+
+%%{{{ Notational abuse 
+\note Abuso notacional.
+Lembra-se o abuso notacional que introduzímos
+no~\refn{notational_abuse_stuctured_sets}:
+usamos $a,b\in\ssetfont G$, $G=\sset G {\bullet}$, etc.
 %%}}}
 
 \blah.
@@ -14921,7 +15014,7 @@ $$
 \paren{\forall a,b\in G}                      &\bracket{a\ast b \in G}                   &\tag{G0} \\
 \paren{\forall a,b,c\in G}                    &\bracket{a\ast(b\ast c) = (a\ast b)\ast c}&\tag{G1} \\
 \paren{\exists e\in G} \paren{\forall a \in G}&\bracket{e\ast a = a = a\ast e}           &\tag{G2} \\
-\paren{\forall a\in G} \paren{\exists a'\in G}&\bracket{a'\ast a = e = a \ast a'}        &\tag{G3} 
+\paren{\forall a\in G} \paren{\exists y\in G} &\bracket{y\ast a = e = a \ast y}          &\tag{G3} 
 \endalignat
 $$
 Chamamos o elemento garantido pela (G2) a \dterm{identidade} do grupo,
@@ -14930,13 +15023,33 @@ e o~$a'$ o \dterm{inverso} de~$a$.
 
 %%{{{ x: check_group_def_classic_and_group_def_struct_1 
 \exercise.
-Tá tudo certo com as definições~\refn{group_def_classic} e~\refn{group_def_struct_1}?
+Tá tudo certo com as definições~\refn{group_def_classic}
+e~\refn{group_def_struct_1}?
 
 \hint
 Quem é esse $e$ que aparece no (G3)?
 
 \hint
 Como assim \emph{o} inverso?
+
+\endexercise
+%%}}}
+
+%%{{{ x: S3_is_a_non_abelian_group 
+\exercise.
+\label{S3_is_a_non_abelian_group}%
+Verifique que $S_3$ é um grupo.
+Ele é abeliano?
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_all_inverses_on_S3 
+\exercise.
+\label{find_all_inverses_on_S3}%
+Ache o inverso de cada elemento de $S_3$.%
+\footnote{Se tu já fez isso para resolver o~\ref{S3_is_a_non_abelian_group},
+não foi necessário.  Por quê?  Veja a resolução do~\refn{S3_is_a_non_abelian_group} mesmo.}
 
 \endexercise
 %%}}}
@@ -14951,7 +15064,7 @@ $$
 \paren{\forall a,b\in G}                      &\bracket{a\ast b \in G}                   &\tag{G0} \\
 \paren{\forall a,b,c\in G}                    &\bracket{a\ast(b\ast c) = (a\ast b)\ast c}&\tag{G1} \\
 \paren{\forall a \in G}                       &\bracket{e\ast a = a = a\ast e}           &\tag{G2} \\
-\paren{\forall a\in G} \paren{\exists a'\in G}&\bracket{a'\ast a = e = a \ast a'}        &\tag{G3} 
+\paren{\forall a\in G} \paren{\exists y\in G} &\bracket{y\ast a = e = a \ast y}          &\tag{G3}
 \endalignat
 $$
 %%}}}
@@ -14968,43 +15081,22 @@ Sim!
 
 %%{{{ x: group (4) 
 \exercise Grupo (4).
-Defina ``grupo'' como um conjunto estruturado
-$\sset G {e, {}^{\prime}, \ast}$.
+Defina \dterm{grupo} como um conjunto estruturado
+$\sset G {e, {}^{-1}, \ast}$.
 Comece escrevendo as aridades da assinatura.
 
 \solution
 Um conjunto estruturado $\ssetfont G = \sset G {e, {}^{\prime}, \ast}$ é um \dterm{grupo} sse
 $$
 \alignat2
-\paren{\forall a,b\in G}    &\bracket{a\ast b \in G}                   &\tag{G0} \\
-\paren{\forall a,b,c\in G}  &\bracket{a\ast(b\ast c) = (a\ast b)\ast c}&\tag{G1} \\
-\paren{\forall a \in G}     &\bracket{e\ast a = a = a\ast e}           &\tag{G2} \\
-\paren{\forall a\in G}      &\bracket{a'\ast a = e = a \ast a'}        &\tag{G3} 
+\paren{\forall a,b\in G}    &\bracket{a\ast b \in G}                    &\tag{G0} \\
+\paren{\forall a,b,c\in G}  &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} &\tag{G1} \\
+\paren{\forall a \in G}     &\bracket{e\ast a = a = a\ast e}            &\tag{G2} \\
+\paren{\forall a\in G}      &\bracket{a^{-1}\ast a = e = a \ast a^{-1}} &\tag{G3} 
 \endalignat
 $$
 
 \endexercise
-%%}}}
-
-%%{{{ Notational abuse 
-\note Abuso notacional.
-Lembra-se o abuso notacional que introduzímos
-no~\refn{notational_abuse_stuctured_sets}:
-usamos $a,b\in\ssetfont G$, $G=\sset G {\bullet}$, etc.
-%%}}}
-
-%%{{{ df: abelian group 
-\definition Grupo abeliano.
-\label{abelian_group}%
-\tdefined{grupo!abeliano}%
-Um grupo $\sset G {\ast}$ é \dterm{abeliano}
-(também: \dterm{comutatívo})
-sse sua operação $\ast$ é comutativa:
-$$
-\alignat2
-\paren{\forall a,b\in G}    &\bracket{a\ast b = b\ast a}.                   &\tag{GA}
-\endalignat
-$$
 %%}}}
 
 %%{{{ df: order of group 
@@ -15022,29 +15114,81 @@ $\gord G = \infty$.
 \endsection
 %%}}}
 
-%%{{{ Examples 
-\section Exemplos.
+%%{{{ Examples and nonexamples 
+\section Exemplos e nãœxemplos.
 
-\example Números.
+%%{{{ eg: with numbers 
+\example Com números.
+Todos os seguintes conjuntos estruturados são grupos:
+\beginol
+\li$\sset A {0, +}$, onde $A \asseq \ints, \rats, \reals, \complex$.
+\li$\sset B {1, \ntimes}$, onde $B \asseq \rats_{\neq0}, \reals_{\neq0}$.
+\li$\sset C {1, \ntimes}$, onde $C \asseq \set{1,-1}, \set{1,i,-1,-i} \subseteq\complex$.
+\li$\sset {\setst {2^m} {m \in \ints}} {1, \ntimes}$.
+\endol
 \endexample
+%%}}}
 
+%%{{{ noneg: with numbers 
+\nonexample Com números.
+E \emph{nenhum} dos seguintes é um grupo:
+$\sset \nats {0, +}$,
+$\sset {\ints_{\neq 0}} {1, \ntimes}$,
+$\sset \reals {1, +}$.
+\endnonexample
+%%}}}
+
+%%{{{ x: why? 
+\exercise.
+Por quê?
+
+\endexercise
+%%}}}
+
+%%{{{ noneg: strings_with_concat_is_not_a_group 
+\nonexample Strings.
+\label{strings_with_concat_is_not_a_group}%
+Sejam $\Sigma\neq\emptyset$ um alfabeto finíto,
+e $S$ o conjunto de todos os strings finitos formados por símbolos do $\Sigma$.
+O $\sset S +$ onde $+$ é a \emph{concatenação} de strings \emph{não} é um grupo.
+\endnonexample
+%%}}}
+
+%%{{{ x: verify_all_group_laws_for_strings 
+\exercise.
+Para cada uma das leis~(G0)--(G3) e~(GA), decida se é
+satisfeita pelo $\sset S +$ do~\ref{strings_with_concat_is_not_a_group}.
+Se é, prove; se não é, refute!
+
+\endexercise
+%%}}}
+
+%%{{{ x: more number-based groups 
 \exercise.
 Mostre mais grupos formados de números dos
 $\nats$, $\ints$, $\rats$, $\reals$, $\complex$,
-e uma operação da sua escolha.
+e uma operação não-padrão da sua escolha.
 
 \endexercise
+%%}}}
 
+%%{{{ eg: matrix_group_examples 
 \example Matrizes.
 \label{matrix_group_examples}%
 \endexample
+%%}}}
 
+%%{{{ eg: modular_arithmetic_group_eg
 \example Aritmética modular.
+\label{modular_arithmetic_group_eg}%
+O $\finord n \defeq \set{0,\dotsc,n-1}$ com a operação $+_n$ da adição
+módulo $n$.
+Qual é o inverso de um elemento $a$ nesse caso?
+É o $n-a$, pois $a +_n (n-a) = 0 = (n-a) +_n a$.
 \endexample
+%%}}}
 
-\example Simetrias.
-\endexample
-
+%%{{{ df: symmetric_group 
 \definition.
 \label{symmetric_group}%
 \tdefined {grupo}[simétrico]%
@@ -15057,23 +15201,53 @@ S_n \pseudodefeq (\set{1,\dotsc,n}\bijto\set{1,\dotsc,n}).
 $$
 Para qualquer $n\in\nats$, chamamos o $\sset {S_n} {\fcom}$
 o \dterm{grupo simétrico} de tamanho $n$.
+%%}}}
 
+%%{{{ x: Sn_is_a_group 
 \exercise.
+\label{Sn_is_a_group}%
 Justifique a~\ref{symmetric_group}: prove que o grupo simétrico $S_n$
 realmente é um grupo.
+Ele é abeliano?
 
 \endexercise
+%%}}}
 
-\exercise Funções reais.
-
-\endexercise
-
+%%{{{ x: pset_with_setops_group 
 \exercise Conjuntos.
+\label{pset_with_setops_group}%
 Seja $A$ conjunto.
 Com quais das operações $\union$, $\inter$, $\symdiff$, $\setminus$
 o $\pset A$ é um grupo?
 
 \endexercise
+%%}}}
+
+%%{{{ x: real_functions_pointwise_plus_group 
+\exercise Funções reais: adição pointwise.
+\label{real_functions_pointwise_plus_group}%
+O $(\reals \to \reals)$ com operação a pointwise $+$, é um grupo?%
+\footnote{Qual operação é a pointwise $+$?  Veja a~\ref{pointwise_operation}.}
+Ele é abeliano?
+
+\endexercise
+%%}}}
+
+%%{{{ x: real_functions_pointwise_times_nongroup 
+\exercise Funções reais: multiplicação pointwise.
+\label{real_functions_pointwise_times_nongroup}%
+O $(\reals \to \reals) \setminus \set{ \lam x 0 }$ com operação a pointwise $\ntimes$,
+é um grupo?
+Ele é abeliano?
+
+\endexercise
+%%}}}
+
+\blah.
+Chegam os exemplos por enquanto.
+Vamos começar ver a \emph{teoria} de grupos, investigando propriedades que
+todos os grupos necessariamente têm.
+Ou seja, procuramos as \emph{conseqüências das leis} (G0)--(G3).
 
 \endsection
 %%}}}
@@ -15143,7 +15317,7 @@ $$
 \paren{\forall a,b\in G}                        &\bracket{a\ast b \in G}                    \tag{G0} \\
 \paren{\forall a,b,c\in G}                      &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1} \\
 \paren{\forall a \in G}                         &\bracket{a\ast e = a}                      \tag{GCR} \\
-\paren{\forall a\in G} \paren{\exists a'\in G}  &\bracket{a \ast a' = e}                    \tag{GCL}
+\paren{\forall a\in G} \paren{\exists y\in G}   &\bracket{a \ast y = e}                    \tag{GCL}
 \endalign
 $$
 Então $\ssetfont G$ é um grupo.
