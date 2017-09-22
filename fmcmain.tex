@@ -15067,10 +15067,12 @@ Como assim \emph{o} inverso?
 \endexercise
 %%}}}
 
+%%{{{ Galois vs Abel 
 \blah.
 Como vimos, na mesma época o \Galois{}Galois e o \Abel{}Abel chegaram na
 ideia abstrata de grupo.  As leis que Galois identificou foram as (G0)--(G3) mesmo.
 Abel considerou mais uma e focou no que hoje em dia chamamos grupo abeliano:
+%%}}}
 
 %%{{{ df: abelian group 
 \definition Grupo abeliano.
@@ -15176,7 +15178,7 @@ Logo $\phi\fcom\psi \neq \psi\fcom\phi$.
 \note E por que $1\neq 3$?.
 Na resolução do~\ref{why_phipsi_neq_psiphi} nosso argumento reduziu
 o que queriamos provar à afirmação $1 \neq 3$.
-\emph{E por quê $1 \neq 3$?}
+\emph{E por que $1 \neq 3$?}
 Bem, precisamos saber o que significa igualdade no $\nats$!
 Mas podemos já considerar o $1 \neq 3$ como um fato conhecido sobre os números
 naturais.  Depois, no~\ref{Axiomatic_set_theory}, vamos \emph{fundamentar}
@@ -15215,8 +15217,19 @@ Tá tudo certo com a~\ref{group_def_struct_2}?
 
 \solution
 Sim!
+Pois, veja~\ref{a_vs_the_identity_of_a_group}.
 
 \endexercise
+%%}}}
+
+%%{{{ remark: a_vs_the_identity_of_a_group 
+\remark.
+\label{a_vs_the_identity_of_a_group}%
+O $e$ que aparece na~(G3) não é ``\emph{a} identidade do $\cal G$''.
+É sim \emph{a} constante que aparece na estrutura do $\sset G {e,\ast}$,
+que---graças à~(G2)---é \emph{uma} identidade do $\cal G$.
+No~\ref{uniqueness_of_identity_in_group} vamos provar que cada grupo tem identidade única,
+e apartir dessa prova, vamos ganhar o direito de usar o artigo definido ``a''.
 %%}}}
 
 %%{{{ x: group (4) 
@@ -15398,15 +15411,102 @@ Ou seja, procuramos as \emph{conseqüências das leis} (G0)--(G3).
 %%{{{ lm: uniqueness_of_identity_in_group 
 \lemma Unicidade da identidade.
 \label{uniqueness_of_identity_in_group}%
-Em todo grupo $G$ existe exatamente uma identidade $e$
-que satisfaz a (G2).
+Em todo grupo $G$ existe único elemento $e$ que satisfaz a (G2).
+\proof.
+Seja $G$ grupo.
+Sabemos que $G$ tem pelo menos uma identidade graças à (G2),
+então o que precisamos mostrar é sua unicidade mesmo.
+Suponha que $e_1,e_2\in G$ tais que $e_1,e_2$ são identidades do $G$;
+em outras palavras:
+$$
+\align
+\text{para todo $a\in G$},\quad & e_1\ast a \eqlabel L a \eqlabel R a\ast e_1   \tag{1}\\
+\text{para todo $b\in G$},\quad & e_2\ast b \eqlabel L b \eqlabel R b\ast e_2.  \tag{2}
+\endalign
+$$
+Agora temos:
+$$
+\alignat2
+e_1
+&= e_1 \ast e_2  \qqby{pela (2R), com $b\asseq e_1$}\\
+&= e_2           \qqby{pela (1L), com $a\asseq e_2$}
+\endalignat
+$$
+e provamos o que queremos: $e_1 = e_2$, ou seja,
+em cada grupo existe única identidade.
+\qed
 %%}}}
+
+%%{{{ Q: What have we just won? 
+\question O que acabamos de ganhar?.
+%%}}}
+
+%%{{{ A: The right to use the definite article 
+\note Resposta.
+Ganhamos o direito de usar o artigo definido: para cada grupo~$\cal G$ falar
+\emph{da}~identidade do~$\cal G$, em vez \emph{duma}~identidade do~$\cal G$.
+Observe que dado algum $a\in \cal G$ ainda não podemos falar sobre
+\emph{o}~inverso de~$a$, mas apenas sobre \emph{um}~inverso de~$a$,
+pois por enquanto a~(G3) garanta que pelo menos um inverso existe.
+Vamos resolver isso agora.
+%%}}}
+
+%%{{{ beware: bound_variables_in_proof_of_uniqueness_of_identity_in_group 
+\beware.
+\label{bound_variables_in_proof_of_uniqueness_of_identity_in_group}%
+\ii{variável!ligada}%
+Os $a$ e $b$ que aparecem nas~(1)--(2) na prova do~\ref{uniqueness_of_identity_in_group}
+são \emph{variaveis ligadas} aos correspondentes <<para todo $\holed{\dots} \in G$>>
+e logo, ``nascem'' com essa frase e ``morrem'' no fim da mesma linha!%
+\footnote{Veja~\ref{Bound_and_free_variables} também.}
+Daí, não faz sentido afirmar logo após das~(1)--(2) algo do tipo $e = a \ast e$, pois o $a$ não foi declarado!
+Podemos escrever as duas afirmações sem usar o nome $a$:
+\emph{para cada elemento do $G$, operando com o~$e_1$ ao qualquer lado (direito ou esquerdo), o resultado é o proprio elemento}.
+E para enfatisar ainda mais a independência do~$a$ que aparece na~(1) com o~$b$ que aparece na~(2) escolhemos variáveis diferentes.
+Mas isso é \emph{desnecessário}, em geral vamos reusar variáveis ligadas quando não gera confusão---e aqui não geraria nenhuma.
+%%}}}
+
+%%{{{ x: rewrite_proof_with_same_bound_var 
+\exercise.
+\label{rewrite_proof_of_uniqueness_of_identity_in_group_with_same_bound_var}%
+O que muda na prova do~\ref{uniqueness_of_identity_in_group} se usar a mesma
+variável ligada nas afirmações~(1)--(2)?
+
+\solution
+É apenas escrever
+$$
+\align
+\text{para todo $a\in G$},\quad & e_1\ast a \eqlabel L a \eqlabel R a\ast e_1 \tag{1}\\
+\text{para todo $a\in G$},\quad & e_2\ast a \eqlabel L a \eqlabel R a\ast e_2 \tag{2}
+\endalign
+$$
+e depois
+$$
+\alignat2
+e_1
+&= e_1 \ast e_2     \qqby{pela (2R), com $a\asseq e_1$}\\
+&= e_2              \qqby{pela (1L), com $a\asseq e_2$}.
+\endalignat
+$$
+Observe que os $a$ que aparecem nas instanciações $a \asseq \dots$ são completemante independentes.
+Ou seja, nada muda mesmo!
+
+\endexercise
+%%}}}
+
+\TODO Mostrar uma prova errada e pedir achar o erro como exercício.
 
 %%{{{ lm: uniqueness_of_inverses_in_group 
 \lemma Unicidade dos inversos.
 \label{uniqueness_of_inverses_in_group}%
 Em todo grupo $G$, cada $a\in G$ tem
-exatamente um inverso $a^{-1}$ que satisfaz a (G3).
+exatamente um inverso $\ginv a$ que satisfaz a (G3).
+\sketch.
+Supondo que existe um certo $a \in G$ que possui inversos
+$y_1,y_2\in G$, mostramos que necessariamente $y_1 = y_2$.
+Ganhamos isso como corolário do~\ref{cancellation_laws_in_group}.
+(Como?)
+\qes
 %%}}}
 
 %%{{{ lm: inverse_of_inverse_in_group 
@@ -15430,11 +15530,70 @@ Seja $G$ grupo.
 Então as leis de cancelação pela esquerda e pela direita
 $$
 \alignat2
-\paren{\forall a,x,y\in G}  &\bracket{a\ast x = a\ast y \implies x=y}            &\tag{GCL} \\
-\paren{\forall a,x,y\in G}  &\bracket{x\ast a = y\ast a \implies x=y}            &\tag{GCR} \\
+\paren{\forall a,x,y\in G}  &\bracket{a\ast x = a\ast y \implies x=y}  &\tag{GCL} \\
+\paren{\forall a,x,y\in G}  &\bracket{x\ast a = y\ast a \implies x=y}  &\tag{GCR} \\
 \endalignat
 $$
-são válidas em $G$
+são válidas em $G$.
+\sketch.
+Sejam $a,x,y\in G$ tais que
+$$
+a \ast x l L y \eqlabel R a \ast y.   \tag{1}
+$$
+Queremos provar $x=y$.
+Começamos com a~(1) então, e usando umas das leis de grupo---comece com a~(G3)---chegamos no desejado $x=y$
+e provamos a~(GCL).
+A~(GCR) é similar.
+\qes
+\proof.
+Sejam $a,x,y\in G$ tais que
+$$
+a \ast x \eqlabel L y \eqlabel R a \ast y.      \tag{1}
+$$
+Pela (G2) o $a$ possui inverso no $G$;
+seja $a_0$ \emph{um} inverso de $a$, ou seja,
+$$
+a_0 \ast a \eqlabel L a  \eqlabel R a \ast a_0  \tag{2}
+$$
+Agora temos:
+$$
+\alignat2
+a_0 \ast (a \ast x) &= a_0 \ast (a \ast y)  \qqby{pela (1)}\\
+(a_0 \ast a) \ast x &= (a_0 \ast a) \ast y  \qqby{pela (G1): $\ast$ é associativa}\\
+e \ast x            &= e \ast y             \qqby{pela (2L)}\\
+x                   &= y                    \qqby{pela definição do $a_0$ como um inverso de $a$}
+\endalignat
+$$
+Provamos assim a~(GCL).
+A~(GCR) é completamente simétrica (e vamos precisar a~(2R) em vez da~(2L)).
+\qed
+%%}}}
+
+%%{{{ x: converses_of_cancellation_laws 
+\exercise.
+\label{converses_of_cancellation_laws}%
+Os conversos dos (GCL)~\&~(GCR) são válidos?
+
+\hint
+Sim; mas por quê?
+
+\hint
+Não precisamos nem saber que $G$ é um grupo nem nada sobre $\ast$, etc.
+
+\solution
+Se $x=y$ isso quis dizer que podemos substituir a vontade em cada
+\emph{expressão} que envolve $x$ e $y$, uns $x$'s por $y$'s, e vice versa.
+Nesse caso, começa com o
+$$
+a \ast x
+$$
+e troca a única instância de $x$ nessa expressão por $y$, e já chegamos no
+$$
+a \ast y
+$$
+ou seja, $a \ast x = a \ast y$.
+
+\endexercise
 %%}}}
 
 %%{{{ refute the arbitrary cancellation law 
