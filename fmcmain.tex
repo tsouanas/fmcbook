@@ -3015,6 +3015,7 @@ ou considere os dois casos possíveis dependendo dos restos da divisão de $n$ p
 \endexercise
 
 \definition Conjunto fechado sobre $+$.
+\label{closed_under_addition}%
     Seja $A$ conjunto de números que satisfaz a propriedade:
     $$
     a,b \in A \implies a+b \in A.
@@ -14621,6 +14622,30 @@ $A = \sset A {\dotsc}$.
 \endsection
 %%}}}
 
+%%{{{ Structures sets with operations 
+\section Conjuntos estruturados com operações.
+
+%%{{{ df: closed_associative_identity_inverse 
+\definition.
+\label{closed_associative_identity_inverse}%
+Sejam conjunto $A$,
+uma operação binária $\ast$ no $A$,
+e um $w \in A$.
+Dizemos que:
+$$
+\align
+\text{$A$ é $\ast$-fechado}              &\defiff \lforall {a,b \in A}   {a \ast b \in A}\\
+\text{$\ast$ é associativa}              &\defiff \lforall {a,b,c \in A} {(a \ast b) \ast c = a \ast (b \ast c)}\\
+\text{$x$ é uma $\ast$-identidade do $A$}&\defiff \lforall {a \in A}     {x \ast a = a = a \ast x}\\
+\text{$y$ é um $\ast$-inverso de $w$}    &\defiff \text{$y \ast w = e = w \ast y$, \ onde $e$ é alguma $\ast$-identidade do $A$}
+\endalign
+$$
+onde não escrevemos os ``$\ast$-'' quando são implícitos pelo contexto.
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Problems 
 \problems.
 
@@ -14898,7 +14923,7 @@ Mas, $\phi\fcom\psi$ é uma bijeção (pois $\phi,\psi$ são,
 e~\ref{fcom_respects_jections}), e logo podemos concluir neste momento que
 $(\phi\fcom\psi)(3) = 2$.
 Mesmo assim, sendo humanos, faz sentido achar esse último valor
-\emph{das duas maneiras}.
+\emph{com as duas maneiras}.
 Assim, caso que elas chegam em resultados diferentes, teriamos um aviso sobre
 um erro nos nossos cálculos anteriores!
 %%}}}
@@ -14930,8 +14955,9 @@ Calcule as $\phi\com\psi^2$ e $\psi^2\com\phi$.
 \endexercise
 %%}}}
 
-%%{{{ Abstracting 
+%%{{{ note: abstracting_the_notion_of_group 
 \note Abstraindo.
+\label{abstracting_the_notion_of_group}%
 Temos um conjunto cujos elementos podemos ``combinar'' através duma operação binária.
 As seguintes propriedades são satisfeitas nesse caso:
 \beginil
@@ -14958,34 +14984,24 @@ uma teoria rica baseada neles.
 %%{{{ What is a group? 
 \section O que é um grupo?.
 
+\blah.
+Seguindo a abstraição do~\refn{abstracting_the_notion_of_group}, chegamos numa
+primeira definição:
+
 %%{{{ df: group_def_wordy 
 \definition.
 \label{group_def_wordy}%
-Um conjunto $G$ com uma operação binária \emph{associativa} é um \dterm{grupo}
-sse ele é \emph{fechado} sobre a operação, possui \emph{identidade},
-e cada elemento dele possui \emph{inverso}.
+\tdefined{grupo}%
+Um conjunto $G$ com uma operação binária $\ast$ é um \dterm{grupo}
+sse:
+o $G$ é $\ast$-\emph{fechado};
+a $\ast$ é \emph{associativa};
+$G$ possui \emph{identidade};
+cada elemento de $G$ possui \emph{inverso}.
 %%}}}
 
-%%{{{ Multiplicative and additive groups 
-\note Grupos multiplicativos e aditivos.
-Dependendo da situação, podemos adoptar um ``jeito multiplicativo'' para a
-notação dum grupo,
-ou um ``jeito additivo'', ou ficar realmente com um jeito neutro.
-Num \dterm{grupo multiplicativo} usamos $\cdot$ para denotar a operação do grupo,
-aproveitamos a convenção de omitir o símbolo totalmente, usando apenas
-juxtaposição: $a(bc)$ significa $a\cdot(b\cdot c)$ por exemplo.
-A identidade parecerá com $e$ ou $1$, e $a^{-1}$ será o inverso de~$a$.
-Num \dterm{grupo aditivo} usamos $+$ para denotar a operação do grupo,
-a identidade parecerá com $e$ ou $0$; e $-a$ será o inverso de~$a$.
-Naturalmente usamos $\ast$, $\bullet$, etc.~para denotar operação
-de grupo, $e$ para sua identidade e $a^{-1}$ ou $a'$ para denotar o inverso de~$a$.
-É importante entender que os termos ``grupo multiplicativo'' e ``grupo aditivo''
-usados assim não carregam nenhum significado matemático mesmo: apenas mostram
-uma preferência notacional.
-Mas quando um conjunto já tem adição e/ou multiplicação definida
-(como por exemplo os inteiros), então usamos frases como
-``o grupo aditivo dos inteiros'' para referir no $\sset \ints +$.
-%%}}}
+\blah.
+Lembrando a~\ref{closed_associative_identity_inverse}, tentamos esclarecer pouco essa definição:
 
 %%{{{ df: group (0) 
 \pseudodefinition Grupo (0).
@@ -15031,6 +15047,27 @@ no~\refn{notational_abuse_stuctured_sets}:
 usamos $a,b\in\ssetfont G$, $G=\sset G {\bullet}$, etc.
 %%}}}
 
+%%{{{ Multiplicative and additive groups 
+\note Grupos multiplicativos e aditivos.
+Dependendo da situação, podemos adoptar um ``jeito multiplicativo'' para a
+notação dum grupo,
+ou um ``jeito additivo'', ou ficar realmente com um jeito neutro.
+Num \dterm{grupo multiplicativo} usamos $\cdot$ para denotar a operação do grupo,
+aproveitamos a convenção de omitir o símbolo totalmente, usando apenas
+juxtaposição: $a(bc)$ significa $a\cdot(b\cdot c)$ por exemplo.
+A identidade parecerá com $e$ ou $1$, e $a^{-1}$ será o inverso de~$a$.
+Num \dterm{grupo aditivo} usamos $+$ para denotar a operação do grupo,
+a identidade parecerá com $e$ ou $0$; e $-a$ será o inverso de~$a$.
+Naturalmente usamos $\ast$, $\bullet$, etc.~para denotar operação
+de grupo, $e$ para sua identidade e $a^{-1}$ ou $a'$ para denotar o inverso de~$a$.
+É importante entender que os termos ``grupo multiplicativo'' e ``grupo aditivo''
+usados assim não carregam nenhum significado matemático mesmo: apenas mostram
+uma preferência notacional.
+Mas quando um conjunto já tem adição e/ou multiplicação definida
+(como por exemplo os inteiros), então usamos frases como
+``o grupo aditivo dos inteiros'' para referir no $\sset \ints +$.
+%%}}}
+
 \blah.
 Para entender melhor as quatro leis de grupo, as escrevemos novamente, essa vez
 sem deixar nenhum quantificador como implicito, e começando com um
@@ -15039,8 +15076,7 @@ sem deixar nenhum quantificador como implicito, e começando com um
 %%{{{ pseudodf: group (1) 
 \pseudodefinition Grupo (1).
 \label{group_def_struct_1}%
-\tdefined{grupo}%
-Um conjunto estruturado $\ssetfont G = \sset G {\ast}$ é um grupo sse
+Um conjunto estruturado $\ssetfont G = \sset G {\ast}$ é um \dterm{grupo} sse
 $$
 \alignat2
 \paren{\forall a,b\in G}                      &\bracket{a\ast b \in G}                   &\tag{G0} \\
@@ -15429,6 +15465,13 @@ Ou seja, procuramos as \emph{conseqüências das leis} (G0)--(G3).
 \lemma Unicidade da identidade.
 \label{uniqueness_of_identity_in_group}%
 Em todo grupo $G$ existe único elemento $e$ que satisfaz a (G2).
+\sketch.
+Seja $G$ grupo.
+Sabemos que existe pelo menos uma identidade no $G$ pela (G2),
+então precisamos mostrar que existe no máximo uma (unicidade).
+Vamos supor que $e_1, e_2$ são identidades do $G$, e usando
+as leis~(G0)--(G2) mostrar que $e_1 = e_2$.
+\qes
 \proof.
 Seja $G$ grupo.
 Sabemos que $G$ tem pelo menos uma identidade graças à (G2),
@@ -15441,7 +15484,11 @@ $$
 \text{para todo $b\in G$},\quad & e_2\ast b \eqlabel L b \eqlabel R b\ast e_2.  \tag{2}
 \endalign
 $$
-Agora temos:
+Agora exatamente a mesma prova pode ser escrita em dois caminho meio
+diferentes:
+\endgraf
+\proofstyle{Caminho 1:}
+Temos
 $$
 \alignat2
 e_1
@@ -15451,8 +15498,23 @@ e_1
 $$
 e provamos o que queremos: $e_1 = e_2$, ou seja,
 em cada grupo existe única identidade.
+\endgraf
+\proofstyle{Caminho 2.}
+Temos
+$$
+\alignat2
+e_1 \ast e_2 = e_1  \qqby{pois $e_2$ é uma identidade (2R)}\\
+e_1 \ast e_2 = e_2  \qqby{pois $e_1$ é uma identidade (1L)}
+\endalignat
+$$
+e concluimos o desejado $e_1 = e_2$.
 \qed
 %%}}}
+
+\blah.
+Uma prova errada desse lema aparece
+no~\ref{bust_proof_of_uniqueness_of_identity_in_group},
+onde peço identificar seus erros.
 
 %%{{{ Q: What have we just won? 
 \question O que acabamos de ganhar?.
@@ -15487,7 +15549,7 @@ Mas isso é \emph{desnecessário}, em geral vamos reusar variáveis ligadas quan
 \exercise.
 \label{rewrite_proof_of_uniqueness_of_identity_in_group_with_same_bound_var}%
 O que muda na prova do~\ref{uniqueness_of_identity_in_group} se usar a mesma
-variável ligada nas afirmações~(1)--(2)?
+variável ligada nas afirmações~(1) e~(2)?
 
 \solution
 É apenas escrever
@@ -15510,8 +15572,6 @@ Ou seja, nada muda mesmo!
 
 \endexercise
 %%}}}
-
-\TODO Mostrar uma prova errada e pedir achar o erro como exercício.
 
 %%{{{ lm: uniqueness_of_inverses_in_group 
 \lemma Unicidade dos inversos.
@@ -17570,6 +17630,23 @@ Prove ainda mais: $\ker\phi\normal G$.
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ bust_proof_of_uniqueness_of_identity_in_group 
+\problem.
+\label{bust_proof_of_uniqueness_of_identity_in_group}%
+Considere essa suposta prova da unicidade da identidade~(\ref{uniqueness_of_identity_in_group}):
+\endgraf
+<<Seja $G$ grupo e suponha que temos identidades $e_1,e_2 \in G$.
+Seja $a\in G$.
+Como $e_1$ é identidade, temos $a \ast \ginv a = e_1$\fact1.
+Como $e_2$ é identidade, também temos $a \ast \ginv a = e_2$\fact2.
+Pelas \byfact1~e~\byfact2, como os lados esquerdos são iguais, o lados direitos também são.
+Ou seja, $e_1 = e_2$ que foi o que queremos provar.>>
+\endgraf
+Identifique todos os erros nessa tentativa de prova.
+
+\endproblem
+%}}}
 
 %%{{{ prob: aut_G_is_a_group 
 \problem.
