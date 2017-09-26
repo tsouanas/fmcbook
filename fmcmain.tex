@@ -15703,17 +15703,56 @@ A~(GCR) é completamente simétrica (e vamos precisar a~(2R) em vez da~(2L)).
 \qed
 %%}}}
 
+%%{{{ x: converses_of_cancellation_laws 
+\exercise.
+\label{converses_of_cancellation_laws}%
+Os conversos das leis de cancelação~(GCL)~\&~(GCR) são válidos?
+
+\hint
+Sim; mas por quê?
+
+\hint
+Não precisamos nem saber que $G$ é um grupo nem nada sobre $\ast$, etc.
+
+\solution
+Se $x=y$ isso quis dizer que podemos substituir a vontade em cada
+\emph{expressão} que envolve $x$ e $y$, uns $x$'s por $y$'s, e vice versa.
+Nesse caso, começa com o
+$$
+a \ast x
+$$
+e troca a única instância de $x$ nessa expressão por $y$, e já chegamos no
+$$
+a \ast y
+$$
+ou seja, $a \ast x = a \ast y$.
+
+\endexercise
+%%}}}
+
+%%{{{ refute the arbitrary cancellation law 
+\exercise.
+Refuta: para todo grupo $\sset G {e, \ast}$ e $a,x,y\in G$
+$$
+a\ast x = y\ast a \implies x=y
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ ginv_is_a_function 
 \note Inverso.
 \label{ginv_is_a_function}%
-Ganhamos então em cada grupo $G$ uma \emph{função} (unária) de inverso
+Provando finalmente a unicidade dos inversos
+(\refn{uniqueness_of_inverses_in_group}) ganhamos em cada grupo $G$ uma
+\emph{função} (unária) de inverso
 $$
 \ginvt : G \to G.
 $$
 Sua \emph{totalidade} era já garantida pela~(G3);
 e agora acabamos de ganhar sua \emph{determinicidade} com
 o~\ref{uniqueness_of_inverses_in_group}.
-Ou seja: função!
+Ou seja: \emph{função!}
 Podemos finalmente definir uma notação para denotar o inverso de qualquer $a\in G$.
 Bora!
 %%}}}
@@ -15727,6 +15766,21 @@ $$
 \ginv a \defeq \text{o único inverso de $a$ no $G$}.
 $$
 %%}}}
+
+\blah.
+Vamos agora pesquisar o que mais podemos concluir assim que tivermos um grupo~$G$.
+
+%%{{{ Q: Can we conclude something about thses ?
+\question.
+Se $a,b$ são membros de algum grupo $\sset G \ast$, podemos concluir algo sobre os\dots:?
+$$
+\align
+\ginvp{\ginv a}     &\askeq \dots?\\
+\ginvp{a \ast b}    &\askeq \dots?
+\endalign
+$$
+%%}}}
+\spoiler.
 
 %%{{{ lm: inverse_of_inverse_in_group 
 \lemma Inverso de inverso.
@@ -15755,7 +15809,43 @@ $\ginvp{\ginv a} = a$.
 \exercise.
 Desenha um diagrama cuja comutatividade é a lei que tu acabou de provar.
 
+\solution
+$$
+\cd
+A   \ar[r, "\ginvt"]\ar[dr, "\id"'] \| A \ar[d, "\ginvt"] \\
+                                    \| A
+\endcd
+$$
+
 \endexercise
+%%}}}
+
+%%{{{ remark: where did the inversion come from 
+\remark.
+É comum adivinhar erroneamente que em geral
+$\ginvp{a \ast b} = \ginv a \ast \ginv b$.
+O erro é feito pois, acostumados com um certo grupo \emph{bem especial} como o
+$\sset {\reals_{\neq0}} {\ntimes}$ onde essa lei realmente é valida,
+generalizamos para o caso geral de grupos, sem perceber algo estranho e
+esquisito que acontece nessa equação.  Repensanso em nosso exemplo-guia de
+grupos, o~$S_3$, o que significa~$a \ast b$?
+<<Faça a~$b$, depois a~$a$.>>
+E o que signfica $\ginvp{a \ast b}$ então?
+<<Desfaça a~$\paren{a \ast b}$.>>
+E se aplicar uma transformação~$b$, e depois mais uma~$a$, qual seria o jeito
+para desfazer tudo isso e voltar na configuração inicial?
+<<Desfaça a~$a$, e depois desfaça a $b$.>>
+Ou seja,~$\ginv b \ast \ginv a$.
+Isso é bem natural sim: para desfazer uma seqüência de ações, começamos
+desfazenso a última, depois a penúltima, etc., até finalmente desfazer
+a primeira.
+Sendo o inverso então, faz sentido que a ordem é a inversa também!
+E nos reais, por quê não foi a inversa?
+Foi sim!
+É apenas que o~$\sset {\reals_{\neq0}} {\ntimes}$ é um grupo abeliano;
+em outras palavras a ``ordem que acontecem os membros'' não importa.
+Mas tudo isso é apenas uma \emph{intuição correta} para adivinhar essa lei.
+Precisamos a provar.
 %%}}}
 
 %%{{{ lm: inverse_of_product_in_group 
@@ -15795,48 +15885,11 @@ Desenha um diagrama cuja comutatividade é a lei que tu acabou de provar.
 \endexercise
 %%}}}
 
-%%{{{ x: converses_of_cancellation_laws 
-\exercise.
-\label{converses_of_cancellation_laws}%
-Os conversos dos (GCL)~\&~(GCR) são válidos?
-
-\hint
-Sim; mas por quê?
-
-\hint
-Não precisamos nem saber que $G$ é um grupo nem nada sobre $\ast$, etc.
-
-\solution
-Se $x=y$ isso quis dizer que podemos substituir a vontade em cada
-\emph{expressão} que envolve $x$ e $y$, uns $x$'s por $y$'s, e vice versa.
-Nesse caso, começa com o
-$$
-a \ast x
-$$
-e troca a única instância de $x$ nessa expressão por $y$, e já chegamos no
-$$
-a \ast y
-$$
-ou seja, $a \ast x = a \ast y$.
-
-\endexercise
-%%}}}
-
-%%{{{ refute the arbitrary cancellation law 
-\exercise.
-Refuta: para todo grupo $\sset G {e, \ast}$ e $a,x,y\in G$
-$$
-a\ast x = y\ast a \implies x=y
-$$
-
-\endexercise
-%%}}}
-
 %%{{{ criterion: Cancellation-based group definition 
 \criterion Definição de grupo com cancelação.
 \label{cancellation_based_group_def}%
-Seja $\ssetfont G = \sset G {e, \ast}$ um conjunto \emph{finito}
-estruturado que satisfaz:
+Seja $\ssetfont G = \sset G \ast$ um conjunto \emph{finito} estruturado
+que satisfaz:
 $$
 \align
 \paren{\forall a,b\in G}    &\bracket{a\ast b \in G}                    \tag{G0} \\
@@ -15881,7 +15934,7 @@ $$
 \sketch.
 Aplicando o inverso de $a$ em cada equação pelo lado certo,
 achamos que as soluções necessariamente são
-$x = \ginv a \ast b$ e $y = b \ginv a$.
+$x = \ginv a \ast b$ e $y = b \ast \ginv a$.
 \qes
 \proof.
 Aplicando $(a^{-1}\ast)$ nos dois lados da primeira
@@ -16035,14 +16088,99 @@ Indução.
 \endexercise
 %%}}}
 
+%%{{{ x: sq_of_prod_not_prod_of_sq 
+\exercise.
+\label{sq_of_prod_not_prod_of_sq}%
+Mostre que, \emph{em geral}, $(a \ast b)^2 \neq a^2 \ast b^2$.
+
+\endexercise
+%%}}}
+
 \beware.
 Neste momento então, para qualquer grupo $G$ e qualquer $a\in G$,
 o símbolo $a^w$ é definido \emph{apenas} para $w \asseq -1, 0, 1, 2, \dots$.
 Vamos agora estender para os valores $w \asseq -2, -3, -4, \dots$
 num jeito razoável.
 
+%%{{{ Q: what do you think a^{-2} should mean? 
 \question.
 O que você acha que deveria ser denotado por $a^{-2}$?
+%%}}}
+\spoiler.
+
+%%{{{ A 
+\note Resposta.
+Bem, tem duas interpretações, ambas razoáveis:
+$$
+a^{-2} =
+\knuthcases{
+\paren{a^{-1}}^2  & (o quadrado do inverso do $a$)\cr
+\paren{a^2}^{-1}  & (o inverso do quadrado do $a$)
+}
+$$
+Prove que as duas interpretações são equivalentes, ou seja:
+%%}}}
+
+%%{{{ x: inv_of_square_eq_square_of_inv 
+\exercise.
+\label{inv_of_square_eq_square_of_inv}%
+Seja $G$ grupo.  Para todo $a\in G$,
+$\paren{a^{-1}}^2 = \paren{a^2}^{-1}$.
+Ou seja, o diagrama
+$$
+\cdopt{sep=2cm}
+G \ar[r, "\ginv\bhole"] \ar[d, "\bhole^2"] \| G \ar[d, "\bhole^2"]\\
+G \ar[r, "\ginv\bhole"]                    \| G
+\endcd
+$$
+comuta.
+
+\hint
+Seja $a\in G$.
+O que tu precisas mostrar, é que $\paren{a^{-1}}^2$ é o inverso do $a^2$.
+O que significa <<ser o inverso do $a^2$>>?
+
+\hint
+$
+\paren{a^{-1}}^2 \ast {a^2}
+\askeq e
+\askeq {a^2} \ast \paren{a^{-1}}^2
+$.
+
+\solution
+Calculamos:
+$$
+\alignat2
+\paren{a^{-1}}^2 \ast {a^2}
+= (\ginv a \ast \ginv a) \ast {a^2}             \qqby{def.~$\paren{a^{-1}}^2$}\\
+= (\ginv a \ast \ginv a) \ast \paren{a\ast a}   \qqby{def.~$a^2$}\\
+= \paren{(\ginv a \ast \ginv a) \ast a}\ast a   \qqby{ass.}\\
+= \paren{\ginv a \ast (\ginv a \ast a)}\ast a   \qqby{ass.}\\
+= \paren{\ginv a \ast e}\ast a                  \qqby{def.~$\ginv a$}\\
+= \ginv a \ast a                                \qqby{def.~$e$}\\
+= e
+\endalignat
+$$
+A ${a^2} \ast \paren{a^{-1}}^2 = e$ é similar.
+
+\endexercise
+%%}}}
+
+%%{{{ x: inv_of_npow_eq_npow_of_inv 
+\exercise.
+\label{inv_of_npow_eq_npow_of_inv}%
+Generalize o~\ref{inv_of_square_eq_square_of_inv} para $n\in\nats$:
+\emph{para todo grupo $G$ e todo $n\in\nats$, se $a\in G$ então
+$\paren{a^{-1}}^n = \paren{a^n}^{-1}$}.
+
+\hint
+As ``potências'' $\bhole^n$ de elementos de grupo foram definidas \emph{recursivamente}.
+
+\hint
+Indução.
+
+\endexercise
+%%}}}
 
 %%{{{ df: negexp_in_group 
 \definition.
@@ -16068,10 +16206,10 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ df: order_of_element_in_group 
-\definition Ordem de elemento em grupo.
-\label{order_of_element_in_group}%
-\tdefined{ordem!de elemento em grupo}%
+%%{{{ df: order_of_member_in_group 
+\definition Ordem de membro em grupo.
+\label{order_of_member_in_group}%
+\tdefined{ordem!de membro em grupo}%
 \sdefined {\gord {\holed a}} {a ordem do elemento $\holed a$ num grupo}%
 Seja $\sset G {e,\ast}$ grupo e $a\in G$.
 Chamamos \dterm{ordem} de $a$ o menor positivo $n\in\nats$ tal que
@@ -16213,6 +16351,12 @@ Sem perda de generalidade suponhamos $s\leq r$ e cancelamos pela direita
 o $a^s$.  Usando a definição de $\gord a$ concluimos que $r-s=0$ e logo $r=s$.
 \qes
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Operation tables 
+\section Tabelas de operações.
 
 \endsection
 %%}}}
