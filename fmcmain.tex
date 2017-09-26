@@ -15651,7 +15651,7 @@ Crucialmente, não podemos usar nada disso em nossa prova do~\refn{cancellation_
 caso contrario criamos uma loope de dependências.
 ``Forward dependencies'' são perigosos exatamente por causa disso, e nos evitamos mesmo.%
 \footnote{Aqui escolhi essa abordagem para enfatisar a importância de ficar
-alertos para identificar chances de afirmar e provar lemata separadamente,
+alertos para identificar chances de afirmar e provar lêmata separadamente,
 usando-los em nossa prova e para provar outros teoremas depois a vontade.
 Fazemos isso exatamente no mesmo jeito que um bom programador bom,
 percebe padrões nas suas funções e separa certas partes para outras funções
@@ -15673,7 +15673,7 @@ são válidas em $G$.
 \sketch.
 Sejam $a,x,y\in G$ tais que
 $$
-a \ast x \eqlabel L y \eqlabel R a \ast y.   \tag{1}
+a \ast x = a \ast y.   \tag{1}
 $$
 Queremos provar $x=y$.
 Tome a~(1) então, e usando umas das leis de grupo---comece com a~(G3)---chegue no desejado $x=y$, provando assim a~(GCL).
@@ -15682,12 +15682,12 @@ A~(GCR) é similar.
 \proof.
 Sejam $a,x,y\in G$ tais que
 $$
-a \ast x \eqlabel L y \eqlabel R a \ast y.      \tag{1}
+a \ast x = a \ast y.   \tag{1}
 $$
 Pela (G2) o $a$ possui inverso no $G$;
-seja $a_0$ \emph{um} inverso de $a$, ou seja,
+daí, seja $a_0$ \emph{um} inverso de $a$, ou seja,
 $$
-a_0 \ast a \eqlabel L a  \eqlabel R a \ast a_0  \tag{2}
+a_0 \ast a \eqlabel L e  \eqlabel R a \ast a_0.  \tag{2}
 $$
 Agora temos:
 $$
@@ -15731,7 +15731,31 @@ $$
 %%{{{ lm: inverse_of_inverse_in_group 
 \lemma Inverso de inverso.
 \label{inverse_of_inverse_in_group}%
-Em todo grupo $G$, $\paren{a^{-1}}^{-1} = a$ para todo $a\in G$.
+Em todo grupo $G$, $\ginvp {\ginv a} = a$ para todo $a\in G$.
+\sketch.
+Usamos as definições dos inversos involvidos para ganhar duas equações.
+Com elas, chegamos na afirmação desejada.
+\qes
+\proof.
+Temos
+$$
+\alignat2
+\ginvp{\ginv a} \ast \ginv a &= e   \qqby{def.~$\ginvp{\ginv a}$}\\
+a               \ast \ginv a &= e.  \qqby{def.~$\ginv a$}
+\intertext{Logo}
+\ginvp{\ginv a} \ast \ginv a &= a \ast \ginv a
+\endalignat
+$$
+e cancelando agora pela direita (GCR), chegamos na desejada
+$\ginvp{\ginv a} = a$.
+\qed
+%%}}}
+
+%%{{{ x: cd 
+\exercise.
+Desenha um diagrama cuja comutatividade é a lei que tu acabou de provar.
+
+\endexercise
 %%}}}
 
 %%{{{ lm: inverse_of_product_in_group 
@@ -15739,6 +15763,36 @@ Em todo grupo $G$, $\paren{a^{-1}}^{-1} = a$ para todo $a\in G$.
 \label{inverse_of_product_in_group}%
 Em todo grupo $G$, $\ginvp{a\ast b} = \ginv b \ast \ginv a$
 para todo $a,b\in G$.
+\sketch.
+Queremos mostrar que $\ginv b \ast \ginv a$ é o inverso do $a \ast b$.
+Mas o que <<ser o inverso do $a \ast b$>> significa?
+Precisamos verificar que o $\ginv b \ast \ginv a$ satisfaz a definição:
+$$
+\paren{\ginv b \ast \ginv a} \ast \paren{a \ast b} = e = \paren{a \ast b} \ast \paren{\ginv b \ast \ginv a}.
+$$
+Agora só basta fazer esse cálculo mesmo.
+\qes
+\proof.
+Calculamos
+$$
+\alignat2
+\paren{\ginv b \ast \ginv a} \ast \paren{a \ast b}
+&= \paren{\paren{\ginv b \ast \ginv a} \ast a} \ast b   \qqby{assoc.}\\
+&= \paren{\ginv b \ast \paren{\ginv a \ast a}} \ast b   \qqby{assoc.}\\
+&= \paren{\ginv b \ast e} \ast b                        \qqby{def.~$\ginv a$}\\
+&= \paren{\ginv b} \ast b                               \qqby{def.~$e$}\\
+&= e                                                    \qqby{def.~$\ginv b$}
+\endalignat
+$$
+A $\paren{a \ast b} \ast \paren{\ginv b \ast \ginv a} = e$ é similar.
+\qed
+%%}}}
+
+%%{{{ x: cd 
+\exercise.
+Desenha um diagrama cuja comutatividade é a lei que tu acabou de provar.
+
+\endexercise
 %%}}}
 
 %%{{{ x: converses_of_cancellation_laws 
@@ -15848,6 +15902,15 @@ $$
 \endxalignat
 $$
 \qed
+%%}}}
+
+%%{{{ remark: ab_eq_c_each_determined_by_other_two 
+\remark.
+\label{ab_eq_c_each_determined_by_other_two}%
+Isso quis dizer que dada uma equação $a \ast b = c$,
+cada um dos $a,b,c$ é determinado pelos outros dois!
+Assim, podemos \emph{definir} por exemplo o objeto $x$
+como \emph{a única solução da} $a\ast x = b$, etc.
 %%}}}
 
 %%{{{ x: onesided_group_def 
