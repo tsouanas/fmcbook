@@ -15116,11 +15116,15 @@ Como assim \emph{o} inverso?
 \endexercise
 %%}}}
 
-%%{{{ Galois vs Abel 
-\blah.
+%%{{{ Galois, Abel, Cayley.
+\note Galois, Abel, Cayley.
 Como vimos, na mesma época o \Galois{}Galois e o \Abel{}Abel chegaram na
-ideia abstrata de grupo.  As leis que Galois identificou foram as (G0)--(G3) mesmo.
-Abel considerou mais uma e focou no que hoje em dia chamamos grupo abeliano:
+ideia abstrata de grupo.  Galois mesmo escolheu a palavra ``group'' para
+esse conceito.
+A definição ``moderna'' de grupo como conjunto com operação que satisfaz
+as leis~(G0)--(G3) é de~\Cayley{}Cayley.
+Como Abel focou em grupos cuja operação é comutativa, chamamos esse tipo
+de grupos abelianos:
 %%}}}
 
 %%{{{ df: abelian group 
@@ -16355,8 +16359,212 @@ o $a^s$.  Usando a definição de $\gord a$ concluimos que $r-s=0$ e logo $r=s$.
 \endsection
 %%}}}
 
-%%{{{ Operation tables 
-\section Tabelas de operações.
+%%{{{ Cayley tables 
+\section Tabelas Cayley.
+
+%%{{{ Q: In how many ways can we define an operation to create a finite group? 
+\question.
+De quantas maneiras podemos definir uma operação binária $\ast$ num conjunto
+finito $G$, tal que $\sset G \ast$ é um grupo?
+%%}}}
+\spoiler.
+
+%%{{{ What determines an operation 
+\note O que determina uma operação.
+O que significa \emph{definir uma operação} (binária)?
+Seguindo nossa definição de igualdade (extensional) entre funções,
+precisamos deixar claro para qualquer $\tup{x,y}\in G\times G$,
+seu único valor $x \ast y \in G$.
+Vamos brincar com os casos mais simples.
+Se $\card G = 0$, não tem como virar um grupo, graças ao~(G2).
+Se $\card G = 1$, só tem uma operação possível, pois não existe
+nenhuma opção para o valor $e \ast e$: necessariamente $e \ast e = e$.
+E essa opção realmente vira-se o $\sset G \ast$ um grupo (trivial).
+%%}}}
+
+%%{{{ 234_groups 
+\note Os casos 2,3,4.
+Vamos dizer que temos um conjunto $G$ com $\card G = 4$.
+Não sabemos nada sobre seus membros, podem ser números, letras, pessoas,
+funções, conjuntos, sapos, sei-lá.
+$$
+G = \set{ \bullet, \bullet, \bullet, \bullet }
+$$
+Então faz sentido começar nossa investigação dando uns nomes para
+esses membros, por exemplo $a,b,c,d$, onde não vamos supor nada mais
+sobre eles exceto que são distintos dois a dois.
+$$
+\text{<<Sejam $G\eqass\set{a,b,c,d}$.>>}
+$$
+Sera que podemos fazer algo melhor?
+Querendo tornar o $G$ em grupo, sabemos que ele vai ter exatamente uma
+identidade, então melhor denotar com $e$ sua a identidade,
+e escolher nomes para os outros três membros do $G$:
+$$
+G = \set {e, a, b, c}.
+$$
+Similarmente, caso que $\card G = 2$ ou $3$, teremos
+$$
+G = \set {e, a}
+\qqqquad \text{ou} \qqqquad
+G = \set {e, a, b}
+$$
+respectivamente.
+%%}}}
+
+%%{{{ tables_for_234_groups 
+\note Tabelas Cayley.
+\tdefined{tabela!Cayley}%
+Temos então que ver o que podemos botar nos $\faded?$ para completar
+as \dterm{tabelas Cayley}\Cayley[tabela]{} em baixo:
+$$
+\xalignat3
+&\matrix
+\ast& e & a \\
+e   & \faded? & \faded? \\
+a   & \faded? & \faded?
+\endmatrix
+&
+&\matrix
+\ast& e & a & b \\
+e   & \faded? & \faded? & \faded? \\
+a   & \faded? & \faded? & \faded? \\
+b   & \faded? & \faded? & \faded?
+\endmatrix
+&
+&\matrix
+\ast& e & a & b & c \\
+e   & \faded? & \faded? & \faded? & \faded? \\
+a   & \faded? & \faded? & \faded? & \faded? \\
+b   & \faded? & \faded? & \faded? & \faded? \\
+c   & \faded? & \faded? & \faded? & \faded?
+\endmatrix
+\endxalignat
+$$
+Mas, não todos os $\faded?$ realmente representam uma escolha,
+pois certos deles são determinados; e cada vez que fazemos uma escolha
+para um deles, possivelmente nossas opções próximas deminuiam.
+Para começar, como $e\ast x = x = x \ast e$ para qualquer $x$ do grupo,
+a primeira linha e a primeira coluna da tabela já são determinadas:
+$$
+\xalignat3
+&\matrix
+\ast& e & a \\
+e   & e & a \\
+a   & a & \faded?
+\endmatrix
+&
+&\matrix
+\ast& e & a & b \\
+e   & e & a & b \\
+a   & a & \faded? & \faded? \\
+b   & b & \faded? & \faded?
+\endmatrix
+&
+&\matrix
+\ast& e & a & b & c \\
+e   & e & a & b & c \\
+a   & a & \faded? & \faded? & \faded? \\
+b   & b & \faded? & \faded? & \faded? \\
+c   & c & \faded? & \faded? & \faded?
+\endmatrix
+\endxalignat
+$$
+%%}}}
+
+%%{{{ Q: how can we replace the blanks? 
+\question.
+O que tu podes botar nos $\faded?$ para chegar em grupo?
+O que muda se tu queres construir um grupo abeliano?
+%%}}}
+\spoiler.
+
+%%{{{ 2 members 
+\note 2 membros.
+Vamos começar no caso mais simples, onde temos apenas um $\faded?$ para preencher.
+Em teoria temos duas opções: $e,a$.  Mas precisamos verificar se o conjunto
+realmente torna-se um grupo ou não.  Escolha $a$:
+$$
+\matrix
+\ast& e & a \\
+e   & e & a \\
+a   & a & \alert{a}
+\endmatrix
+$$
+Qual seria o inverso do $a$?
+Nenhum!
+Assim o~(G3) será violado, ou seja, não podemos escolher o $a$.
+Se escolher nossa única outra opção ($e$) temos:
+$$
+\matrix
+\ast& e & a \\
+e   & e & a \\
+a   & a & \alert{e}
+\endmatrix
+$$
+Que realmente é um grupo.
+%%}}}
+
+%%{{{ x 
+\exercise.
+Verifique!
+
+\endexercise
+
+%%}}}
+
+%%{{{ x: find_all_groups_of_order_3 
+\exercise.
+\label{find_all_groups_of_order_3}%
+Ache todas as operações possíveis que tornam o conjunto $G=\set{e,a,b}$ um grupo.
+
+\hint
+Só tem uma maneira.  Qual?  Por quê?
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_all_groups_of_order_4 
+\exercise.
+\label{find_all_groups_of_order_4}%
+Ache todas as operações possíveis que tornam o conjunto $G=\set{e,a,b,c}$ um grupo.
+
+\hint
+São apenas $2$.
+
+\endexercise
+%%}}}
+
+%%{{{ Playing ``grupoku'' 
+\note Jogando ``Grupoku''.
+\tdefined{Grupoku}%
+Investigar todas as possíveis escolhas para os~$\faded?$ parece como um jogo
+de Sudoku, só que nossa restrição não é com a soma dos números de cada linha e
+cada coluna como no Sudoku---nem poderia ser isso: nossos membros possivelmente
+nem são números---mas as leis~(G0)--(G3) que tem que ser satisfeitas.
+E caso que queremos criar um grupo abeliano, a~(GA) também.
+%%}}}
+
+%%{{{ Find the rules of grupoku 
+\exercise.
+\label{find_the_rules_of_grupoku}%
+Que restrições pode afirmar que temos nesse jogo de ``Grupoku'', graças todos os resultados
+que temos provado até agora sobre grupos?
+E se queremos um grupo abeliano, muda o quê?
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_all_groups_of_order_5 
+\exercise.
+\label{find_all_groups_of_order_5}%
+Ache todas as operações possíveis que tornam o conjunto $G=\set{e,a,b,c,d}$ um grupo.
+
+\hint
+Só tem 1.  Qual?  Por quê?
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
