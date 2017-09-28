@@ -5447,7 +5447,7 @@ para melhorar teu programa do~\ref{program_factor_naive}.
 \section O algoritmo da divisão.
 
 \lemma Divisão de Euclides.
-\label{division_of_euclid}%
+\label{euclidean_division}%
 \Euclid[lema da divisão]%
 \iisee{divisão}{Euclides}%
 Dados inteiros $a$ e $b$ com $b>0$, existem inteiros $q$ e $r$ tais que:
@@ -5876,7 +5876,7 @@ Nos dois casos, existe pelo menos um primo fora do $P$.
 \note Idéia.
 Sejam $a,b$ inteiros positivos.
 Como achamos o $\gcd a b$?
-Nos vamos aplicar o lemma da divisão~(\refn{division_of_euclid}) repetetivamente,
+Nos vamos aplicar o lemma da divisão~(\refn{euclidean_division}) repetetivamente,
 até chegar em resto $0$:
 $$
 \matrix
@@ -6962,7 +6962,7 @@ Veja o~\cite[\S\S1.6--1.8]{babybm}.
 
 \note.
 Vamos fixar um inteiro positivo $m\in\nats$.
-Graças à divisão de Euclides~(\refn{division_of_euclid}),
+Graças à divisão de Euclides~(\refn{euclidean_division}),
 qualquer inteiro $a\in\ints$ pode ser escrito na forma
 $$
 a = mk + r,
@@ -7191,7 +7191,7 @@ Explique o tipo da função $\bmod : \ints\times\nats_{>0} \to \nats$.
 \hint Qual seria o valor de $4 \bmod 0$?
 
 \solution
-Por~\ref{division_of_euclid},
+Por~\ref{euclidean_division},
 precisamos $a\in\ints$ e $b\in\nats_{>0}$ para definir a divisão
 de $a$ por $b$.
 
@@ -16602,15 +16602,15 @@ $$
 \sdefined {\gord {\holed a}} {a ordem do elemento $\holed a$ num grupo}%
 Seja $\sset G {e,\ast}$ grupo e $a\in G$.
 Chamamos \dterm{ordem} de $a$ o menor positivo $n\in\nats$ tal que
-$a^n = e$, se tal $n$ existe; se não, dizemos que o $a$ tem ordem infinita.
+$a^n = e$, se tal $n$ existe; caso contrário, dizemos que o $a$ tem ordem infinita.
 Usamos a mesma notação como no caso de ordem de grupos:
 $\gord a$, $\tord a$, ou $\bord a$, com os mesmos cuidados.
 Logo:
 $$
 \gord a =
 \knuthcases{
-\min\set{ n\in\nats_{>0} \st a^n = e }, & se existe\cr
-\infty,                                 & se não.
+\min\set{ n\in\nats_{>0} \st a^n = e }, & se $\set{ n\in\nats_{>0} \st a^n = e }\neq\emptyset$\cr
+\infty,                                 & caso contrário.
 }
 $$
 %%}}}
@@ -16670,6 +16670,15 @@ $N\neq\emptyset$ e $\gord a < \infty$.
 Sejam $G$ grupo e $a\in G$, e suponha $\gord a = n\in\nats$.
 Existem exatamente $n$ potências diferentes de $a$.
 \sketch.
+As potências de $a$ são as:
+$$
+\dotsc, a^{-2}, a^{-1}, a^0, a^1, a^2, \dotsc, a^{n-1}, a^n, a^{n+1}, a^{n+2}, \dotsc
+$$
+Queremos provar que, no final das contas, nesta lista aparecem exatemente $n$
+distintos membros de $G$.  Ou seja,
+$$
+\card{\set{ a^k \st k \in \ints }} = n.
+$$
 Consideramos os
 $$
 a^0, a^1, \dotsc, a^{n-1}
@@ -16678,8 +16687,76 @@ e usando a definição de $\gord a$ provamos:
 \endgraf\noindent
 \casestyle{Existência:} os $a^0,\dotsc,a^{n-1}$ são distintos dois a dois.
 \endgraf\noindent
-\casestyle{Unicidade:} para todo $m\in\ints$ o $a^m$ é um dos $a^0,\dotsc,a^{n-1}$.
+Ou seja: para todo $i,j\in \set{0,\dotsc,n-1}$ com $i\neq j$, temos $a^i \neq a^j$.
+\endgraf\noindent
+\casestyle{Unicidade:} para todo $M\in\ints$ o $a^M$ é um dos $a^0,\dotsc,a^{n-1}$.
+\endgraf\noindent
+Sabemos diretamente pela definição que $a^0 = e$, e que $a^n = e$, pois $\gord a = n$.
+Com pouca imaginação chegamos na ideia que a cadeia de membros
+$$
+\alignat{12}
+&\dotsc,\ && a^{-2},\ && a^{-1},\ && a^0,\ && a^1,\ && a^2,\ && \dotsc,\ && a^{n-1},\ && a^n,\ && a^{n+1},\ && a^{n+2},\ && \dotsc\\
+\intertext{é feita por uma copia de $a^0, \dotsc, a^{n-1}$ se repetindo infinitamente para as duas direções:}
+&\dotsc,\ && a^{n-2},\ && a^{n-1},\ && a^0,\ && a^1,\ && a^2,\ && \dotsc,\ && a^{n-1},\ && a^0,\ && a^1,\ && a^2,\ && \dotsc
+\endalignat
+$$
+Aplicando a divisão de \Euclid[divisão]Euclides~(\ref{euclidean_division})
+no~$M$ por~$n$, ganhamos $q,r\in\ints$ tais que:
+$$
+M = q\ntimes n + r,\qquad 0 \leq r < n.
+$$
+Só basta calcular o $a^M$ para verificar que realmente é um dos $a_0, \dotsc, a^{n-1}$.
 \qes
+\proof.
+\casestyle{Existência:}
+existem $n$ potências de $a$.
+\endgraf\noindent
+Provamos isso demonstrando que os $a^0,\dotsc,a^{n-1}$ são distintos dois a dois.
+Sejam $i,j\in \set{0,\dotsc,n-1}$ com $i\neq j$.
+\emph{Sem perda de generalidade}, suponha que $i<j$, ou seja:
+$$
+0 \leq i < j < n.
+$$
+Para chegar num absurdo, suponha que $a^i = a^j$.
+Assim temos:
+$$
+\align
+\munderbrace{aa\dotsb a} i &= \munderbrace{aa\dotsb aaa\dotsb a} j
+\intertext{E como $i<j$, quebramos o lado direito assim:}
+\munderbrace{aa\dotsb a} i &= \munderbrace{\moverbrace{aa\dotsb a} i \moverbrace{aa\dotsb a} {j-i}} j
+\intertext{Ou seja,}
+a^i &= a^i a^{j-i}
+\intertext{e multiplicando ambos lados pela esquerda por $\ginvp{a^i}$ chegamos no}
+e &= a^{j-i}.
+\endalign
+$$
+Achamos então uma potência de $a$ igual à identidade $e$: $a^{j-i} = e$.
+Como $0 < j-i < n$, isso contradiza a definição de $n$ como a ordem de $a$:
+$n = \gord a$.
+Logo $a^i \neq a^j$, que foi o que queremos provar.
+\endgraf\noindent
+\casestyle{Unicidade:}
+os $a_0,\dotsc,a_{n-1}$ são as \emph{únicas} potências de $a$.
+Ou seja, para todo $M\in\ints$ o $a^M$ é um dos $a^0,\dotsc,a^{n-1}$.
+\endgraf\noindent
+Tome $M\in \ints$.
+Aplicando a divisão de \Euclid[divisão]Euclides~(\ref{euclidean_division})
+no~$M$ por~$n$, ganhamos $q,r\in\ints$ tais que:
+$$
+M = q\ntimes n + r,\qquad 0 \leq r < n.
+$$
+Só basta calcular o $a^M$ para verificar que realmente é um dos $a_0, \dotsc, a^{n-1}$:
+$$
+a^M
+= a^{q\ntimes n + r}
+= a^{q\ntimes n} a^r
+= \paren{a^n}^q a^r
+= e^q a^r
+= e a^r
+= a^r
+$$
+e como $0\leq r < n$, provamos o que queriamos provar.
+\qed
 %%}}}
 
 %%{{{ lm: a_exp_m_is_e_iff_gord_a_divides_m 
@@ -16701,7 +16778,7 @@ $$
 \endgraf
 \lrdir:
 Para provar que $\gord a \divides m$,
-aplicamos o~\ref{division_of_euclid} da divisão de Euclides\Euclid[lema da divisão],
+aplicamos o~\ref{euclidean_division} da divisão de Euclides\Euclid[lema da divisão],
 dividindo o $m$ por $\gord a$, e ganhando assim inteiros $q$ e $r$ tais que
 $$
 m = \gord a q + r
