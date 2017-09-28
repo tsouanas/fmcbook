@@ -15229,10 +15229,12 @@ $$
 \text{(G2)}&\\
 \text{(G3)}&\\
 \endaligned
+\ \ 
 \right\}
 \text{grupo}\\
 &\ \text{(GA)}
 \endaligned
+\ \ 
 \right\}
 \text{grupo abeliano}
 $$
@@ -15849,7 +15851,68 @@ $$
 %%}}}
 
 \blah.
-Vamos agora pesquisar o que mais podemos concluir assim que tivermos um grupo~$G$.
+Tendo ganhado unicidade da identidade e dos inversos,
+vamos responder agora em duas perguntas.
+
+%%{{{ Q1: When is y the inv(a)? 
+\question 1.
+Num grupo $G$, dado $a\in G$,
+o que precisamos mostrar para provar que um certo $y\in G$ é o inverso de $a$?
+%%}}}
+
+%%{{{ wrong answer 
+\note Resposta errada.
+Basta mostrar que $a \ast y = e$
+(ou, alternativamente, que $y \ast a = e$)
+pois, \emph{graças à unicidade dos inversos},
+apenas um membro do grupo pode satisfazer essa equação,
+e logo necessariamente $y = \ginv a$.
+%%}}}
+
+%%{{{ Q2: When is u the identity? 
+\question 2.
+Num grupo $G$, o que precisamos mostrar para provar que um certo $u\in G$ é a identidade do grupo?
+%%}}}
+
+%%{{{ wrong answer 
+\note Resposta errada.
+Basta achar um $a\in G$ tal que $a \ast u = a$
+(ou, alternativamente, tal que $u \ast a = a$),
+pois, \emph{graças à unicidade da identidade},
+apenas um membro do grupo pode satisfazer essa equação,
+e logo necessariamente $u = e$.
+%%}}}
+
+%%{{{ Where's the mistake? 
+\note Cadê o erro?.
+O \emph{raciocínio} nas duas respostas é errado numa maneira parecida:
+\endgraf
+Na (1), pode ser que $y$ satisfaz a $a\ast y = e$ sem $y$ ser o inverso do $a$.
+\emph{E isso não violaria a unicidade do inverso $\ginv a$},
+pois pela definição de \emph{inverso do $a$}, ambas equações $a \ast y = e = y \ast a$
+precisam ser satisfeitas, e talvez $y \ast a \neq e$.
+\endgraf
+Na (2), pode ser que $u$ satisfaz $a \ast u = a$ para algum membro $a \in G$ sem $u$ ser a identidade do grupo.
+\emph{E isso não violaria a unicidade da identidade $e$},
+pois pela definição de \emph{identidade do $G$}, o $u$ precisa satisfazer ambas as $a \ast u = e = u \ast e$ e mesmo se satisfaria ambas isso não seria sufiziente: ele tem que as satisfazer não apenas \emph{para algum} $a\in G$ que deu certo, mas \emph{para todo} $a\in G$!
+Ou seja: o fato que achamos \emph{algum} $a \in G$ tal que $a \ast u = a (= u \ast a)$
+não quis dizer que esse $u$ merece ser chamado \emph{a identidade do $G$} ainda,
+pois talvez tem membros $c \in G$ tais que $c \ast u \neq c$ ou $u \ast c \neq c$.
+%%}}}
+
+%%{{{ warning: wrong_reasoning_nimplies_wrong_claim_group_eg 
+\warning.
+\label{wrong_reasoning_nimplies_wrong_claim_group_eg}%
+Os raciocínios em cima sendo errados não quis dizer que as afirmações também são!
+Na verdade, nos dois casos podemos realmente ganhar o que queremos:
+identidades e inversos \emph{mais baratos}, sem pagar todo o preço das definições.
+Ambos resultados seguem como corolários diretos do~\ref{solution_of_group_equations}
+que vamos provar daqui a pouco.
+%%}}}
+
+\blah.
+Por enquanto, vamos continuar pesquisando o que mais podemos concluir assim
+que tivermos um grupo~$G$, e voltaremos logo nessas duas questões.
 
 %%{{{ Q: Can we conclude something about thses ?
 \question.
@@ -16000,8 +16063,9 @@ Não.  Procure contraexemplo!
 \endexercise
 %%}}}
 
-%%{{{ lm: solutions of equations 
+%%{{{ lm: solution_of_group_equations 
 \lemma Resolução de equações.
+\label{solution_of_group_equations}%
 Seja $G$ grupo.
 Para quaisquer $a,b,x,y\in G$,
 cada uma das equações abaixo tem resolução única para $x$ e $y$:
@@ -16045,6 +16109,22 @@ Isso quis dizer que dada uma equação $a \ast b = c$,
 cada um dos $a,b,c$ é determinado pelos outros dois!
 Assim, podemos \emph{definir} por exemplo o objeto $x$
 como \emph{a única solução da} $a\ast x = b$, etc.
+%%}}}
+
+%%{{{ cor: cheaper_ginv 
+\corollary Inverso mais barato.
+\label{cheaper_ginv}%
+Seja $G$ grupo e $a,y \in G$
+tais que $a\ast y = e$ ou $y \ast a = e$.
+Logo $y = \ginv a$.
+%%}}}
+
+%%{{{ cor: cheaper_gid 
+\corollary Identidade mais barata.
+\label{cheaper_gid}%
+Seja $G$ grupo $u\in G$.
+Se para algum $a\in G$, $au = a$ ou $ua = a$, então $u$ é a identidade do grupo:
+$u = e$.
 %%}}}
 
 %%{{{ x: onesided_group_def 
@@ -16456,7 +16536,8 @@ $
 $.
 
 \solution
-Calculamos:
+Graças ao~\ref{cheaper_ginv}, basta provar que ${\ginvp a}^2 \ast a^2 = e$.
+Calculamos então:
 $$
 \alignat2
 \paren{a^{-1}}^2 \ast {a^2}
@@ -16469,7 +16550,7 @@ $$
 &= e                                             \qqby{def.~$\ginv a$}
 \endalignat
 $$
-A ${a^2} \ast \paren{a^{-1}}^2 = e$ é similar.
+Logo ${\ginvp a}^2$ é o inverso de $a^2$.
 
 \endexercise
 %%}}}
