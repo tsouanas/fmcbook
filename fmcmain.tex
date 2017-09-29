@@ -15539,7 +15539,7 @@ Ele é abeliano?
 \exercise Conjuntos.
 \label{pset_with_setops_group}%
 Seja $A$ conjunto.
-Com quais das operações $\union$, $\inter$, $\symdiff$, $\setminus$
+Com quais das operações $\union$, $\inter$, $\symdiff$, e $\setminus$,
 o $\pset A$ é um grupo?
 
 \endexercise
@@ -16480,7 +16480,11 @@ o conceito de isomorfia~(\refn{Group_morphisms}).
 %%{{{ x: find_all_groups_of_order_0_and_1 
 \exercise.
 \label{find_all_groups_of_order_0_and_1}%
-Têm grupos com ordem 1?  Com 0?
+Tem grupos com ordem 1?  Com 0?
+
+\solution
+Com ordem $1$ sim.  Cada um tem a mesma forma: seu único elemento é sua identidade.
+Com ordem $0$, não: a lei (G2) \emph{manda a existência} de um certo membro do grupo (a sua identidade).
 
 \endexercise
 %%}}}
@@ -16516,11 +16520,143 @@ a^{n+1} &= a^n \ast a
 $$
 é equivalente.
 
-\hint
-As definições envolvidas são recursivas.
+\hint%%{{{
+Como o proprio ``operador'' de exponenciar não aparece na notação comum $a^b$,
+melhor escrever temporariamente as duas definições como:
+$$
+\xalignat2
+a \uparrow_1 0 &= e &
+a \uparrow_2 0 &= e \\
+a \uparrow_1 (n+1) &= a \ast (a \uparrow_1 n) &
+a \uparrow_2 (n+1) &= (a \uparrow_2 n) \ast a
+\endxalignat
+$$
+Agora tem uma notação melhor para provar o que queremos: ${\uparrow_1} = {\uparrow_2}$.
+O que significa que duas operações (funções) são iguais?
+%%}}}
 
-\hint
-Indução.
+\hint%%{{{
+Precisamos mostrar que:
+$$
+\text{para todo $a\in G$ e todo $n\in\nats$,}\quad
+a \uparrow_1 n = a \uparrow_2 n
+$$
+ou, simbolicamente:
+$$
+\align
+\paren{\forall a \in G}
+&\lforall {n\in\nats} {a \uparrow_1 n = a \uparrow_2 n}.
+\intertext{\emph{Seja $a\in G$.}  Agora queremos provar:}
+&\lforall {n\in\nats} {a \uparrow_1 n = a \uparrow_2 n}.
+\endalign
+$$
+Como provar isso?
+%%}}}
+
+\hint%%{{{
+As definições envolvidas são recursivas.
+%%}}}
+
+\hint%%{{{
+Ou seja: indução.
+%%}}}
+
+\hint%%{{{
+Base: provar que $a \uparrow_1 0 = a \uparrow_2 = 0$.
+%%}}}
+
+\hint%%{{{
+Seja $k\in\nats$ tal que $a \uparrow_1 k = a \uparrow_2 k$ (hipótese indutiva).
+Queremos mostrar que
+$$
+a \uparrow_1 (k+1) = a \uparrow_2 (k+1).
+$$
+%%}}}
+
+\hint%%{{{
+Seguinto as dicas anteriores, provavelmente tu chegou aqui:
+$$
+\alignat2
+a \uparrow_1 (k+1)
+&= a \ast (a \uparrow_1 k)   \qqby{def.~$\uparrow_1$}\\
+&= a \ast (a \uparrow_2 k)   \qqby{HI}
+\intertext{\dots e agora?
+\emph{Se} $\ast$ fosse comutativa (ou seja, se o grupo fosse abeliano),
+a gente \emph{poderia} continuar assim:}
+&= (a \uparrow_2 k) \ast a   \qqby{comutatividade~(GA)}\\
+&= a \uparrow_2 (k+1).       \qqby{def.~$\uparrow_2$}
+\intertext{\emph{So que não!}
+Sobre o $G$ sabemos apenas que é um grupo, então não podemos contar na
+comutatividade da sua operação $\ast$.
+Voltando no passo que tivemos colado}
+a \uparrow_1 (k+1)
+&= a \ast (a \uparrow_1 k)   \qqby{def.~$\uparrow_1$}\\
+&= a \ast (a \uparrow_2 k)   \qqby{HI}
+\endalignat
+$$
+percebemos que precisamos ``abrir mais'' a expressão $(a \uparrow_2 k)$,
+aplicando a definição de $\uparrow_2$, mas não podemos, pois não sabemos se $k=0$ ou não.
+Neste momento então percebemos que saber a vericidade dessa equação apenas para o valor $n=k$ não é suficiente.
+Tu vai precisar o $n=k-1$ também.
+\endgraf
+Ou seja, tu vai precisar \emph{duas} bases ($n=0,1$),
+e supor que tem um $k \geq 2$ tal que ambos os $k-1$ e $k-2$ satisfazem a
+$a \uparrow_1 n = a \uparrow_2 n$.
+Ou seja, tu ganharás as \emph{duas} hipoteses indutivas:
+$$
+\align
+a \uparrow_1 (k-2) &= a \uparrow_2 (k-2) \tag{HI1}\\
+a \uparrow_1 (k-1) &= a \uparrow_2 (k-1) \tag{HI2}
+\endalign
+$$
+e só bastará provar que $a \uparrow_1 k = a \uparrow_2 k$.
+%%}}}
+
+\solution%%{{{
+Seja $a \in G$.  Vamos provar que para todo $n\in\nats$, $a \uparrow_1 n = a \uparrow_2 n$ por indução no $n$.
+\casestyle{Bases $n=0,1$:}
+Temos
+$$
+\alignedat2
+a \uparrow_1 0
+&= e               \qqby{def.~$\uparrow_1$} \\
+&= a \uparrow_2 0  \qqby{def.~$\uparrow_2$}
+\endalignedat
+\qqqquad
+\alignedat2
+a \uparrow_1 1
+&= a \ast (a \uparrow_1 0)  \qqby{def.~$\uparrow_1$} \\
+&= a \ast e                 \qqby{def.~$\uparrow_1$} \\
+&= a                        \qqby{def.~$e$} \\
+&= e \ast a                 \qqby{def.~$e$} \\
+&= (a \uparrow_2 0) \ast a  \qqby{def.~$\uparrow_2$} \\
+&= a \uparrow_2 1           \qqby{def.~$\uparrow_2$} \\
+\endalignedat
+$$
+Seja $k\in\nats$, tal que $k\geq 2$ e:
+$$
+\align
+a \uparrow_1 (k-2) &= a \uparrow_2 (k-2) \tag{HI1}\\
+a \uparrow_1 (k-1) &= a \uparrow_2 (k-1).\tag{HI2}
+\endalign
+$$
+Calculamos:
+$$
+\alignat2
+a \uparrow_1 k
+&= a \ast \paren{a \uparrow_1 (k-1)}                \qqby{def.~$\uparrow_1$} \\
+&= a \ast \paren{a \uparrow_2 (k-1)}                \qqby{HI2} \\
+&= a \ast \paren{\paren{a \uparrow_2 (k-2)} \ast a} \qqby{def.~$\uparrow_2$} \\
+&= a \ast \paren{\paren{a \uparrow_1 (k-2)} \ast a} \qqby{HI1} \\
+&= \paren{a \ast \paren{a \uparrow_1 (k-2)}} \ast a \qqby{associatividade~(G1)} \\
+&= \paren{a \uparrow_1 (k-1)} \ast a                \qqby{def.~$\uparrow_1$} \\
+&= \paren{a \uparrow_2 (k-1)} \ast a                \qqby{HI2} \\
+&= a \uparrow_2 k.                                  \qqby{def.~$\uparrow_2$}
+\endalignat
+$$
+Pelo principio da indução segue que para todo $n\in\nats$, $a \uparrow_1 n = a \uparrow_2 n$.
+Como $a$ foi arbitrário membro de $G$, isso termina nossa prova que ${\uparrow_1} = {\uparrow_2}$.
+%%}}}
 
 \endexercise
 %%}}}
@@ -16809,6 +16945,11 @@ e como $0\leq r < n$, provamos o que queriamos provar.
 \qed
 %%}}}
 
+\question.
+Se $a^m = e$ para algum $m\in\ints$, o que podemos concluir sobre o $m$ e a $\gord a$?
+Se $\gord a = \infty$, o que podemos concluir sobre todas as potências de $a$?
+\spoiler.
+
 %%{{{ lm: a_exp_m_is_e_iff_gord_a_divides_m 
 \lemma.
 \label{a_exp_m_is_e_iff_gord_a_divides_m}%
@@ -16857,8 +16998,8 @@ Logo $r=0$ e $\gord a \divides m$.
 %%{{{ lm: infinite_order_of_a_guarantees_all_powers_distinct 
 \lemma.
 \label{infinite_order_of_a_guarantees_all_powers_distinct}%
-Sejam $G$ grupo e $a\in G$, e suponha $\gord a = \infty$.
-Todas as potências de $a$ são diferentes.
+Sejam $G$ grupo e $a\in G$.  Se $\gord a = \infty$,
+então as potências de $a$ são distintas dois a dois.
 \sketch.
 Precisamos provar que para todo $r,s\in\ints$,
 $$
@@ -16886,6 +17027,13 @@ Um subconjunto $H\subseteq G$ é um \dterm{subgrupo} de $G$ sse
 $H$ é um grupo com a mesma operação $\ast$.
 Escrevemos $H \subgroup G$.
 Chamamos os $\set e$ e $G$ \dterm{subgrupos triviais} de $G$.
+%%}}}
+
+%%{{{ eg: Numbers 
+\example Números.
+Considere o grupo $\sset \reals {+}$.
+Observe que $\rats$ e $\ints$ são subgrupos dele, mas $\nats$ não é.
+\endexample
 %%}}}
 
 %%{{{ x: subgroup_is_an_order 
@@ -17014,13 +17162,6 @@ $$
 ou seja, $a^{-1} = a^{r-s-1} \in H$ pois $r-s-1\geq 0$ e podemos aplicar
 o~\ref{subgroup_criterion} para concluir $H\subgroup G$.
 \qed
-%%}}}
-
-%%{{{ eg: Numbers 
-\example Números.
-Considere o grupo $\sset \reals {+}$.
-Observe que $\rats$ e $\ints$ são subgrupos dele, mas $\nats$ não é.
-\endexample
 %%}}}
 
 %%{{{ x: nontrivial_subgroups_of_multiplicative_reals 
