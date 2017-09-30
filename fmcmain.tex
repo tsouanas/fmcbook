@@ -15955,7 +15955,7 @@ Desenha um diagrama cuja comutatividade é a lei que tu acabou de provar.
 
 \solution
 $$
-\cd
+\cdopt{sep=2cm}
 A   \ar[r, "\ginvt"]\ar[dr, "\id"'] \| A \ar[d, "\ginvt"] \\
                                     \| A
 \endcd
@@ -16562,7 +16562,7 @@ Ou seja: indução.
 %%}}}
 
 \hint%%{{{
-Base: provar que $a \uparrow_1 0 = a \uparrow_2 = 0$.
+\casestyle{Base:} provar que $a \uparrow_1 0 = a \uparrow_2 0$.
 %%}}}
 
 \hint%%{{{
@@ -16605,15 +16605,18 @@ $a \uparrow_1 n = a \uparrow_2 n$.
 Ou seja, tu ganharás as \emph{duas} hipoteses indutivas:
 $$
 \align
-a \uparrow_1 (k-2) &= a \uparrow_2 (k-2) \tag{HI1}\\
-a \uparrow_1 (k-1) &= a \uparrow_2 (k-1) \tag{HI2}
+a \uparrow_1 (k-1) &= a \uparrow_2 (k-1) \tag{HI1}\\
+a \uparrow_1 (k-2) &= a \uparrow_2 (k-2) \tag{HI2}
 \endalign
 $$
 e só bastará provar que $a \uparrow_1 k = a \uparrow_2 k$.
 %%}}}
 
 \solution%%{{{
-Seja $a \in G$.  Vamos provar que para todo $n\in\nats$, $a \uparrow_1 n = a \uparrow_2 n$ por indução no $n$.
+Seja $a \in G$.
+Vamos provar que para todo $n\in\nats$, $a \uparrow_1 n = a \uparrow_2 n$
+por indução no $n$.
+\endgraf\noindent
 \casestyle{Bases $n=0,1$:}
 Temos
 $$
@@ -16633,29 +16636,34 @@ a \uparrow_1 1
 &= a \uparrow_2 1           \qqby{def.~$\uparrow_2$} \\
 \endalignedat
 $$
+\noindent
+\casestyle{Passo indutivo:}
 Seja $k\in\nats$, tal que $k\geq 2$ e:
 $$
 \align
-a \uparrow_1 (k-2) &= a \uparrow_2 (k-2) \tag{HI1}\\
-a \uparrow_1 (k-1) &= a \uparrow_2 (k-1).\tag{HI2}
+a \uparrow_1 (k-1) &= a \uparrow_2 (k-1) \tag{HI1}\\
+a \uparrow_1 (k-2) &= a \uparrow_2 (k-2).\tag{HI2}
 \endalign
 $$
+Precisamos provar que $a \uparrow_1 k = a \uparrow_2 k$.
 Calculamos:
 $$
 \alignat2
 a \uparrow_1 k
 &= a \ast \paren{a \uparrow_1 (k-1)}                \qqby{def.~$\uparrow_1$} \\
-&= a \ast \paren{a \uparrow_2 (k-1)}                \qqby{HI2} \\
+&= a \ast \paren{a \uparrow_2 (k-1)}                \qqby{HI1} \\
 &= a \ast \paren{\paren{a \uparrow_2 (k-2)} \ast a} \qqby{def.~$\uparrow_2$} \\
-&= a \ast \paren{\paren{a \uparrow_1 (k-2)} \ast a} \qqby{HI1} \\
+&= a \ast \paren{\paren{a \uparrow_1 (k-2)} \ast a} \qqby{HI2} \\
 &= \paren{a \ast \paren{a \uparrow_1 (k-2)}} \ast a \qqby{associatividade~(G1)} \\
 &= \paren{a \uparrow_1 (k-1)} \ast a                \qqby{def.~$\uparrow_1$} \\
-&= \paren{a \uparrow_2 (k-1)} \ast a                \qqby{HI2} \\
+&= \paren{a \uparrow_2 (k-1)} \ast a                \qqby{HI1} \\
 &= a \uparrow_2 k.                                  \qqby{def.~$\uparrow_2$}
 \endalignat
 $$
-Pelo principio da indução segue que para todo $n\in\nats$, $a \uparrow_1 n = a \uparrow_2 n$.
-Como $a$ foi arbitrário membro de $G$, isso termina nossa prova que ${\uparrow_1} = {\uparrow_2}$.
+Pelo principio da indução segue que para todo $n\in\nats$,
+$a \uparrow_1 n = a \uparrow_2 n$.
+Como $a$ foi arbitrário membro de $G$, isso termina nossa prova que
+${\uparrow_1} = {\uparrow_2}$.
 %%}}}
 
 \endexercise
@@ -16711,23 +16719,23 @@ comuta.
 
 \hint
 Seja $a\in G$.
-O que tu precisas mostrar, é que $\paren{a^{-1}}^2$ é o inverso do $a^2$.
+O que tu precisas mostrar, é que $\paren{\ginv a}^2$ é o inverso do $a^2$.
 O que significa <<ser o inverso do $a^2$>>?
 
 \hint
 $
-\paren{a^{-1}}^2 \ast {a^2}
+\paren{\ginv a}^2 \ast {a^2}
 \askeq e
-\askeq {a^2} \ast \paren{a^{-1}}^2
+\askeq {a^2} \ast \paren{\ginv a}^2
 $.
 
 \solution
-Graças ao~\ref{cheaper_ginv}, basta provar que ${\ginvp a}^2 \ast a^2 = e$.
+Graças ao~\ref{cheaper_ginv}, basta provar que $\paren{\ginv a}^2 \ast a^2 = e$.
 Calculamos então:
 $$
 \alignat2
 \paren{a^{-1}}^2 \ast {a^2}
-&= (\ginv a \ast \ginv a) \ast {a^2}             \qqby{def.~$\paren{a^{-1}}^2$}\\
+&= (\ginv a \ast \ginv a) \ast {a^2}             \qqby{def.~$\paren{\ginv a}^2$}\\
 &= (\ginv a \ast \ginv a) \ast \paren{a\ast a}   \qqby{def.~$a^2$}\\
 &= \paren{(\ginv a \ast \ginv a) \ast a}\ast a   \qqby{ass.}\\
 &= \paren{\ginv a \ast (\ginv a \ast a)}\ast a   \qqby{ass.}\\
@@ -16736,7 +16744,7 @@ $$
 &= e                                             \qqby{def.~$\ginv a$}
 \endalignat
 $$
-Logo ${\ginvp a}^2$ é o inverso de $a^2$.
+Logo $\paren{\ginv a}^2$ é o inverso de $a^2$.
 
 \endexercise
 %%}}}
