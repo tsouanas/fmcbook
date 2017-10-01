@@ -16795,6 +16795,20 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ property: properties_of_exp_in_groups 
+\property Potências.
+\label{properties_of_exp_in_groups}%
+Sejam $G$ grupo, $a \in G$, e $m,n\in\ints$.
+Temos:
+\item{\rm (1)} $a^m \ast a^n = a^{m+n}$;
+\item{\rm (2)} $(a^m)^n = a^{m\ntimes n}$;
+\item{\rm (3)} $a^{-n} = \paren{a^n}^{-1} = \paren{a^{-1}}^n$.
+\sketch.
+Provamos primeiro para $m,n\in\nats$ por indução.
+Depois consideramos os casos de inteiros negativos.
+\qes
+%%}}}
+
 %%{{{ df: order_of_member_in_group 
 \definition Ordem de membro em grupo.
 \label{order_of_member_in_group}%
@@ -17097,8 +17111,8 @@ $\sset {\reals\setminus\set0} {\ntimes}$?
 \endexercise
 %%}}}
 
-%%{{{ lm: subgroup_criterion 
-\lemma Subgrupo critérion.
+%%{{{ criterion: subgroup_criterion 
+\criterion Subgrupo.
 \label{subgroup_criterion}%
 Se $H$ é um subconjunto não vazio do grupo $\sset G {e,\ast}$, então:
 $$
@@ -17137,8 +17151,8 @@ $$
 \qed
 %%}}}
 
-%%{{{ lm: finite_subgroup_criterion 
-\lemma Subgrupo finito critérion.
+%%{{{ criterion: finite_subgroup_criterion 
+\criterion Subgrupo finito.
 \label{finite_subgroup_criterion}%
 Se $\sset G {e, \ast}$ é um grupo e $H$ é um subconjunto finito e não vazio do $G$,
 fechado sobre a operação $\ast$, então $H$ é um subgrupo de $G$.
@@ -17392,6 +17406,38 @@ o \dterm{subgrupo de $G$ gerado por $a$}.
 Justifica a palavra ``subgrupo'' na~\ref{subgroup_generated_by_a}.
 Ou seja, prove que para qualquer grupo $G$ e qualquer $a\in G$,
 $\generate a \subgroup G$.
+
+\hint
+Use o~\ref{subgroup_criterion}.
+
+\solution
+Graças ao~\ref{subgroup_criterion},
+precisamos verificar que $\generate a$ é fechado pela operação e pelos inversos.
+\endgraf\noindent
+\casestyle{Fechado pela operação:}
+Sejam $h_1,h_2\in\generate a$.
+Logo
+$h_1 = a^{k_1}$\fact1
+e 
+$h_2 = a^{k_2}$\fact2
+para alguns $k_1,k_2\in\ints$.
+Precisamos mostrar que $h_1h_2\in\generate a$.
+Calculamos:
+$$
+\alignat2
+h_1h_2
+&= a^{k_1} a^{k_2}  \qqby{pelas~\byfact1,\byfact2}\\
+&= a^{k_1 + k_2}    \qqby{pela~\ref{properties_of_exp_in_groups}~(1)}\\
+&\in \generate a.   \qqby{def.~$\generate a$, pois $k_1+k_2\in\ints$}
+\endalignat
+$$
+\casestyle{Fechado pelos inversos:}
+Seja $h \in \generate a$,
+logo $h = a^k$ para algum $k\in\ints$.
+Pela~\ref{properties_of_exp_in_groups}~(3),
+$$
+\ginv h = \ginvp {a^k} = a^{-k} \in \generate a.
+$$
 
 \endexercise
 %%}}}
