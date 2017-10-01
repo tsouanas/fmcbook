@@ -17111,6 +17111,26 @@ $\sset {\reals\setminus\set0} {\ntimes}$?
 \endexercise
 %%}}}
 
+%%{{{ remark: ass_for_free_in_subgroup
+\remark Associatividade de graça.
+\label{ass_for_free_in_subgroup}%
+Seja $\sset G \ast$ grupo, e tome um $H\subseteq G$.
+Para ver se $H \subgroup G$, seguindo a definição,
+precisamos verificar as (G0)--(G3) no $\sset H \ast$.
+Mas a lei~(G1) da associatividade não tem como ser violada no $\sset H \ast$.
+O que significaria violar essa lei?
+$$
+\text{Teriamos $a,b,c \in H$, tais que $a\ast (b\ast c) \neq (a \ast b) \ast c$.}
+$$
+Mas como $H \subseteq G$, nos teriamos o mesmo contraexemplo para a (G1) de $G$,
+impossível pois $G$ é um grupo mesmo (e a operação é a mesma).
+Logo, jamais precisaramos verificar a~(G1) para um possível subgrupo.
+%%}}}
+
+\blah.
+E isso não é o único ``desconto'' que temos quando queremos provar
+que~$H \subgroup G$.  Vamos ver mais dois critéria agora:
+
 %%{{{ criterion: subgroup_criterion 
 \criterion Subgrupo.
 \label{subgroup_criterion}%
@@ -17498,9 +17518,9 @@ Ele é um subgrupo?
 \endexercise
 %%}}}
 
-%%{{{ df: subgroup_generated_by_A 
-\definition.
-\label{subgroup_generated_by_A}%
+%%{{{ df: subgroup_generate_A 
+\definition direta.
+\label{subgroup_generate_A_direct}%
 \tdefined{grupo}[subgrupo!gerado por subconjunto]%
 \sdefined {\generate {\holed a}} {O subgrupo gerado por o conjunto $\holed A$}%
 Sejam $\sset G \ast$ grupo e $A\subseteq G$.
@@ -17530,9 +17550,9 @@ calcule os $\generate \emptyset$ e $\generate G$.
 \endexercise
 %%}}}
 
-%%{{{ x: justify_subgroup_on_subgroup_generated_by_A 
+%%{{{ x: justify_subgroup_on_subgroup_generate_A_direct 
 \exercise.
-\label{justify_subgroup_on_subgroup_generated_by_A}%
+\label{justify_subgroup_on_subgroup_generate_A_direct}%
 Prove que $\generate A \subgroup G$ para qualquer grupo $G$ e qualquer $A\subseteq G$.
 
 \endexercise
@@ -17548,7 +17568,7 @@ $$
 \Inter
 \setst
     { H \subgroup G }
-    { W \subseteq A }.
+    { H \supseteq A }.
 $$
 \sketch.
 Provamos os ``$\subseteq$'' e ``$\supseteq$'' separadamente
@@ -17556,9 +17576,82 @@ usando a definição do operador $\Inter$.
 \qes
 %%}}}
 
-%%{{{ Top-down and bottom-up 
-\note ``Top-down'' e ``bottom-up''.
-Discussão.
+%%{{{ Top-down and bottom-up: idea 
+\note ``Top-down'' e ``bottom-up'' ideia.
+Temos então duas caracterizações do~$\generate A$:
+\endgraf
+\casestyle{Bottom-up:}
+Começamos com um conjunto~$T$ onde botamos todos os elementos que desejamos
+no subgrupo (os elementos de~$A$ nesse caso),
+e enquanto isso não forma um grupo, ficamos nos perguntando \emph{por que não}.
+A resposta sempre é que (pelo menos) uma lei de grupo ((G0)--(G3)) está sendo
+violada.
+Vendo as leis, isso sempre quis dizer que um certo elemento tá faltando:
+\beginul
+\li (G0) violada: para alguns~$s,t \in T$, o~$s\ast t \notin T$.
+\li (G1) violada é impossível: (veja~\ref{ass_for_free_in_subgroup}).
+\li (G2) violada: a identidade~$e \notin T$.
+\li (G3) violada: para algum~$t \in T$, seu inverso~$\ginv t \notin T$.
+\endul
+Então ficamos \emph{adicionando} os elementos faltantes, e repetindo a mesma
+pergunta, ate chegar num conjunto que não viola nenhuma das leis, ou seja, um
+grupo mesmo.  É o conjunto~$T$ que tem todos os elementos de~$A$ e todos os
+necessários de~$G$ para formar um grupo.
+\endgraf
+\casestyle{Top-down:}
+Começamos com a família~$\cal F$ de \emph{todos} os grupos que contenham o~$A$.
+\emph{Primeiramente verificamos que essa família não é vazia:}
+fato, pois já temos um membro dela: o proprio~$G$ já é um grupo que~$G \supseteq A$.
+Mas no~$G$ existe possível ``lixo'': membros fora do~$A$ cuja presença não
+foi justificada como necessária pelas leis de grupo.
+Precisamos filtrar esse lixo, para ficar apenas com os membros ``necessários''.
+Quais são esses membros?  São aqueles que pertencem em \emph{todos} os grupos
+dessa família~$\cal F$.  Ou seja, a intersecção~$\Inter \cal F$ é o
+desejado~$\generate A$.
+%%}}}
+
+%%{{{ prop: subgroup_generate_A_topdown 
+\proposition Definição top-down.
+\label{subgroup_generate_A_topdown}%
+Sejam $\sset G \ast$ grupo e $A \subseteq G$.
+$$
+\generate A = \Inter \setst { H \subgroup G } { H \supseteq A }.
+$$
+\sketch.
+Provamos cada direção separadamente:
+Para a \lrdirset, tome um arbitrario membro $\alpha \in \generate A$
+e um arbitrário $H \subgroup G$ tal que $H \supseteq A$, e mostre
+que $\alpha\in H$.
+Para a \rldirset, tome um $\alpha$ que pertence em todos os subgrupos de $G$ que contenham o $A$
+e mostre que ele pode ser escrito na forma desejada (da definição de~$\generate A$).
+\qes
+%%}}}
+
+%%{{{ prop: subgroup_generate_A_bottomup 
+\proposition Definição bottom-up.
+\label{subgroup_generate_A_bottomup}%
+Sejam $\sset G \ast$ grupo e $A \subseteq G$.
+Definimos a seqüência de conjuntos:
+$$
+\align
+T_1     &= A\\
+T_{n+1} &=
+\tunderbrace {\setst { s \ast t } {s,t \in T_n}} {(G0)} \union
+\tunderbrace {\set e} {(G2)} \union
+\tunderbrace {\setst {\ginv t} {t \in T_n}} {(G3)}
+\endalign
+$$
+Temos
+$$
+\generate A = \Union_{n=1}^{\infty} T_n.
+$$
+\sketch.
+Provamos cada direção separadamente:
+Para a \lrdirset, tome um arbitrario membro $\alpha \in \generate A$
+e ache um inteiro $w \geq 1$ tal que $\alpha \in T_w$.
+Para a \rldirset, basta provar que cada um dos $T_1, T_2, T_3, \dots$
+é subconjunto de $\generate A$.  Podes usar indução.
+\qes
 %%}}}
 
 \endsection
