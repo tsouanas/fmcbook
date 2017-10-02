@@ -17558,24 +17558,6 @@ Prove que $\generate A \subgroup G$ para qualquer grupo $G$ e qualquer $A\subset
 \endexercise
 %%}}}
 
-%%{{{ prop: top_down_def_subgroup 
-\proposition.
-\label{top_down_def_subgroup}%
-Sejam $G$ grupo e $A\subset G$.
-$$
-\generate A
-=
-\Inter
-\setst
-    { H \subgroup G }
-    { H \supseteq A }.
-$$
-\sketch.
-Provamos os ``$\subseteq$'' e ``$\supseteq$'' separadamente
-usando a definição do operador $\Inter$.
-\qes
-%%}}}
-
 %%{{{ Top-down and bottom-up: idea 
 \note ``Top-down'' e ``bottom-up'' ideia.
 Temos então duas caracterizações do~$\generate A$:
@@ -17593,13 +17575,15 @@ Vendo as leis, isso sempre quis dizer que um certo elemento tá faltando:
 \li (G2) violada: a identidade~$e \notin T$.
 \li (G3) violada: para algum~$t \in T$, seu inverso~$\ginv t \notin T$.
 \endul
+\noindent
 Então ficamos \emph{adicionando} os elementos faltantes, e repetindo a mesma
-pergunta, ate chegar num conjunto que não viola nenhuma das leis, ou seja, um
+pergunta, até chegar num conjunto que não viola nenhuma das leis, ou seja, um
 grupo mesmo.  É o conjunto~$T$ que tem todos os elementos de~$A$ e todos os
 necessários de~$G$ para formar um grupo.
 \endgraf
 \casestyle{Top-down:}
-Começamos com a família~$\cal F$ de \emph{todos} os grupos que contenham o~$A$.
+Começamos com a família~$\cal F$ de \emph{todos} os subgrupos de~$G$
+que contenham o~$A$.
 \emph{Primeiramente verificamos que essa família não é vazia:}
 fato, pois já temos um membro dela: o proprio~$G$ já é um grupo que~$G \supseteq A$.
 Mas no~$G$ existe possível ``lixo'': membros fora do~$A$ cuja presença não
@@ -17635,10 +17619,10 @@ Definimos a seqüência de conjuntos:
 $$
 \align
 T_1     &= A\\
-T_{n+1} &=
-\tunderbrace {\setst { s \ast t } {s,t \in T_n}} {(G0)} \union
-\tunderbrace {\set e} {(G2)} \union
-\tunderbrace {\setst {\ginv t} {t \in T_n}} {(G3)}
+T_{n+1} &= T_n
+\union \tunderbrace {\setst { s \ast t } {s,t \in T_n}} {(G0)}
+\union \tunderbrace {\set e} {(G2)}
+\union \tunderbrace {\setst {\ginv t} {t \in T_n}} {(G3)}
 \endalign
 $$
 Temos
