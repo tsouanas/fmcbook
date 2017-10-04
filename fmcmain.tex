@@ -17507,7 +17507,7 @@ para
 Ou seja, como definiria o $\generate A$ para qualquer $A \subseteq G$?
 
 Falando de \emph{generalização}, a ideia é que queremos definir o $\gen A$ num jeito
-tal que $\gen {\set a} = \gen a$.
+\emph{razoável} e tal que $\gen {\set a} = \gen a$.
 
 \spoiler.
 
@@ -17541,26 +17541,31 @@ Ele é um subgrupo?
 %%{{{ x: subgroup_generated_by_two_members 
 \exercise.
 \label{subgroup_generated_by_two_members}%
-Generalize primeiramente para o caso mais simples de <<subgrupo gerado por dois membros $a,b\in G$>>.
-Ou seja, defina o $\generate {a,b}$, para quaisquer $a,b\in G$.
+Tentando generalizar primeiramente para o caso mais simples de <<subgrupo gerado por dois membros $a,b\in G$>>,
+alguém definiu o $\gen {a,b}$ para quaisquer $a,b \in G$ assim:
+$$
+\generate {a,b} \defeq \setst {a^m b^n} {m,n \in \ints}.
+$$
+Existe um problema.  Qual?
 
 \hint
-Sejam $\sset G \ast$ um grupo, e $a,b\in G$.
-Definindo
-$$
-\generate {a,b} \defeq \setst {a^m \ast a^n} {m,n \in \ints}.
-$$
-existe um problema.  Qual?
+Se $G$ fosse abeliano, daria certo.
 
-\hint
-Se $G$ fosse abeliano, daria certo a definição da dica anterior.
+\solution
+O problema é que não podemos chamar isso \emph{subgrupo}, pois não é garantidamente fechado pela operação.
+Por exemplo,
+sabendo que $a \in \gen{a,b}$ e $a\ast b\in\gen{a,b}$, deveriamos ter
+$(ab)a \in \gen{a,b}$, mas o $(ab)a$ \emph{em geral} não pode ser escrito na
+forma $a^m b^n$.
+Uma outra observação similar que serve também é que o inverso de
+$ab \in \gen{a,b}$ é o $\ginv b \ginv a$ que também \emph{em geral} não
+pode ser escrito na forma $a^m b^n$.
 
 \endexercise
 %%}}}
 
 \blah.
-Finalmente chegamos numa idéia facilmente generalizável para o arbitrário
-$A \subseteq G$.
+Vamos finalmente definir o $\gen A$.
 
 %%{{{ df: subgroup_generate_A_direct 
 \definition direta.
@@ -17576,8 +17581,8 @@ $$
 \set{a_0^{m_0}\ast\dotsb\ast a_{k-1}^{m_{k-1}}\st
 a_i \in A,\ 
 m_i \in \ints,\ 
-k\in\nats,\ 
-i\in\finord k
+i\in\finord k,\ 
+k\in\nats
 }
 \endalign
 $$
@@ -17602,8 +17607,8 @@ Prove que $\generate A \subgroup G$ para qualquer grupo $G$ e qualquer $A\subset
 \endexercise
 %%}}}
 
-%%{{{ Top-down and bottom-up: idea 
-\note ``Top-down'' e ``bottom-up'' idéia.
+%%{{{ Top-down and bottom-up 
+\note ``Top-down'' e ``bottom-up''.
 Temos então duas caracterizações do~$\generate A$:
 \endgraf
 \casestyle{Bottom-up:}
