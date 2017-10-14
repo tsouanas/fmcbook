@@ -8067,8 +8067,8 @@ Ou o $2$ aparece nos fatores primos do $n$, ou não.
 \section Teoremas de Euler e de Fermat.
 
 \theorem Euler.
-\label{euler_congruence_theorem}
-\Euler[teorema]
+\label{euler_congruence_theorem}%
+\Euler[teorema]%
 Sejam $a,m\in\ints$ com $\gcd a m = 1$.
 Então
 $$
@@ -18200,6 +18200,12 @@ $$%%}}}
 \endexercise
 %%}}}
 
+\question.
+Por que os direitos?
+O que acontece se considerar a colecção de todos os cosets esquerdos?
+É uma partição também?
+E se sim, qual é sua relação de equivalência correspondente?
+
 %%{{{ df: index_of_subgroup 
 \definition Índice.
 \label{index_of_subgroup}%
@@ -18219,8 +18225,9 @@ Prove que o número de coclasses à esquerda de $H$ é o mesmo com o número de 
 \endexercise
 %%}}}
 
-%%{{{ thm: Lagrange 
+%%{{{ thm: lagrange_theorem 
 \theorem Lagrange.
+\label{lagrange_theorem}%
 \Lagrange[teorema]%
 \ii{teorema}[Lagrange]%
 Seja $G$ grupo finito e $H\subgroup G$.
@@ -18233,9 +18240,9 @@ e que cada um deles tem a mesma cardinalidade com o proprio $H$.
 
 %%{{{ Corollaries as exercises 
 \note Corollários.
-Graças ao teorema de Lagrange ganhamos muitos
-corollários diretamente, como tu vai verificar
-agora resolvendo os exercícios seguintes:
+Graças ao teorema de Lagrange~\refn{lagrange_theorem}
+ganhamos muitos corollários diretamente,
+como tu vai verificar agora resolvendo os exercícios seguintes:
 %%}}}
 
 %%{{{ x: subgroups_of_group_with_prime_order 
@@ -18373,11 +18380,17 @@ KH &= \set{ kh \st h\in H,\ k\in K}
 &= \set{ \id, \psi\phi, \phi, \psi^2}
 &
 &= \set{ \id, \phi, \psi\phi, \psi }\\
-\intertext{Observamos que $HK\neq KH$ e nenhum deles é subgrupo de $S_3$, pois}
+\intertext{Observamos que $HK\neq KH$, pois}
 HK&\notni {(\psi\phi)}{\phi} = \psi(\phi\phi) = \psi\phi^2 = \psi
 &KH&\notni {\psi}{\psi} = \psi^2.
 \endxalignat
 $$
+Nenhum deles é subgrupo de $S_3$.
+Por quê?
+Em invez de fazer o trabalho tedioso e verificar se cada um dos $HK,\,KH$ é um subgrupo do $S_3$,
+observamos que cada um tem $4$ elementos---verifique que são \emph{realmente} $4$.
+Mas, graças ao Lagrange~(\refn{lagrange_theorem}) $S_3$ não tem subgrupos
+de ordem $4$, pois $4$ não divide o $6$.
 %%}}}
 \endexample
 %%}}}
@@ -18470,8 +18483,9 @@ $$
 %%{{{ Number theory revisited 
 \section Teoria de números revisitada.
 
-%%{{{ x: the multiplicative group Zp 
+%%{{{ x: the_multiplicative_group_Zp 
 \exercise.
+\label{the_multiplicative_group_Zp}%
 Seja $p$ primo e defina
 $\cal Z_p = \sset {\finord p \setminus \set0} {\ntimes}$
 onde $\ntimes$ é a multiplicação módulo~$p$.
@@ -18480,14 +18494,34 @@ Mostre que $\cal Z_p$ é um grupo e ache sua ordem.
 \endexercise
 %%}}}
 
-%%{{{ x: the multiplicative group Zn 
+%%{{{ x: the_multiplicative_group_Zn 
 \exercise.
+\label{the_multiplicative_group_Zn}%
 Seja $n\in\nats$ com $n>1$ e defina
 $\cal Z_n = \sset {\set{a \in \finord n \st \gcd a n = 1}} {\ntimes}$
 onde $\ntimes$ é a multiplicação módulo~$n$.
 Mostre que $\cal Z_n$ é um grupo e ache sua ordem.
 
 \endexercise
+%%}}}
+
+\blah.
+Já estamos em posição de ganhar o teorema de congruências
+de~\Euler{}Euler~\refn{euler_congruence_theorem} como um corolário fácil
+das nossas novas ferramentas grupoteóricas.
+
+%%{{{ cor: euler_congruence_theorem_revisited 
+\corollary Teorema de Euler.
+\label{euler_congruence_theorem_revisited}%
+Sejam $a,m\in\ints$ com $\gcd a m = 1$.
+Então
+$$
+a^{\tot m} \cong 1 \pmod m.
+$$
+\sketch.
+Consequência do teorema de~\Lagrange{}Lagrange~\refn{lagrange_theorem}
+graças ao~\ref{the_multiplicative_group_Zn}.
+\qes
 %%}}}
 
 \endsection
@@ -18564,7 +18598,7 @@ Similarmente para os $K$ e $N$.
 %%{{{ df: conjugate_of_group_element 
 \definition Conjugado.
 \label{conjugate_of_group_element}%
-\tdefined{conjugado}{de elemento de grupo}%
+\tdefined{conjugado}[de elemento de grupo]%
 Seja $G$ grupo e $a\in G$.
 Para qualquer $g\in G$, o $ga\ginv g$ é chamado
 um \dterm{conjugado} de $a$.
