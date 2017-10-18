@@ -18593,6 +18593,55 @@ Para qualquer $g\in G$, o $ga\ginv g$ é chamado
 um \dterm{conjugado} de $a$.
 %%}}}
 
+%%{{{ x: is_conjugate_of_is_a_releq
+\exercise.
+\label{is_conjugate_of_is_a_releq}%
+Seja $G$ um grupo.
+A relação $\sim$ definida pela
+$$
+\align
+a \sim b
+&\defiff \text{$a$ é um conjugado de $b$}\\
+&\iff \lexists {g\in G} {a = gb\ginv g}
+\endalign
+$$
+é uma relação de equivalência.
+
+\solution
+\casestyle{Reflexividade:}
+Seja $a \in G$.
+Procuramos $g\in G$ tal que $a = ga\ginv g$.
+Como $a = e a \ginv e$, temos que realmente $a \sim a$.
+\endgraf
+\casestyle{Simetria:}
+Sejam $a,b \in G$ tais que $a \sim b$.
+Daí, seja $x\in G$ tal que $a = xb\ginv x$.
+Operando pela esquerda com $\ginv x$ e pela direita com $x$, temos:
+$$
+\ginv x a x = \ginv x x b \ginv x x = b.
+$$
+Mas $x = \ginvp {\ginv x}$, ou seja
+$b = \ginv x a \ginvp{\ginv x}$
+e logo $b \sim a$.
+\endgraf
+\casestyle{Transitividade:}
+Sejam $a,b,c \in G$ tais que $a \sim b$ e $b \sim c$.
+Daí, sejam $x,y \in G$ tais que:
+$$
+\alignat2
+a &= x b \ginv x \\
+b &= y c \ginv y.
+\intertext{Substituindo a segunda na primeira, temos}
+a &= x \paren{ y c \ginv y } \ginv x                \\
+  &= \paren{ xy } c \paren{ \ginv y \ginv x} \qqby{ass.}\\
+  &= \paren{ xy } c \ginvp{ xy }.            \qqby{inverso de produto (\refn{inverse_of_product_in_group})}
+\endalignat
+$$
+Ou seja, $a \sim c$.
+
+\endexercise
+%%}}}
+
 %%{{{ df: normal_subgroup 
 \definition Subgrupo normal.
 \label{normal_subgroup}%
@@ -18612,10 +18661,10 @@ N \normal G
 { gn\ginv g \in N }\\
 &\iff
 \paren{\forall g\in G}
+\munderbrace {
 \lforall{n\in N}
-{ gn\ginv g \in N }\\
-&\iff
-\lforall{g\in G}
+{ gn\ginv g \in N }
+} 
 { gN\ginv g \subseteq N }.
 \endalign
 $$
