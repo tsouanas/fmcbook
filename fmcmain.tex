@@ -18564,15 +18564,77 @@ $$
 etc.
 %%}}}
 
-%%{{{ x: calculate_left_and_right_cosets_of_H_K_N 
+%%{{{ eg: cosets_of_K_subgroup_S3 
+\example.
+\label{cosets_of_K_subgroup_S3}%
+Para o subgrupo $K \subgroup S_3$
+$$
+K \leteq \set{ \id, \psi\phi }
+$$
+Calcule todos os left e right cosets de $K$,
+e decida se as duas colecções são iguais.
+
+\solution
+Queremos calcular primeiramente todas as coclasses de $K$.
+Como $\gord K = 2$, e o $G$ tem $6$ membros em total,
+sabemos que o $K$ tem $3$ coclasses esquerdas, e $3$ coclasses direitas:
+$$
+\xalignat4
+\text{esquerdas:} &  & K &= \set {\id, \psi\phi }  &   \holed? K &= \set{\holed?,\holed?}  &  \holed? K &= \set{ \holed?, \holed? }   \\
+\text{direitas:}  &  & K &= \set {\id, \psi\phi }  &   K\holed?  &= \set{\holed?,\holed?}  &  K\holed?  &= \set{ \holed?, \holed? }
+\endxalignat
+$$
+Vamos escolher o primeiro representante para escrever a primeira coclasse esquerda ``própria'' de $K$.
+Temos $4$ opções, pois se escolher qualquer um dos dois membros do $K$, vamos ``cair'' na mesma coclasse $K$.
+Escolhemos o $\psi$.  Calculamos:
+$$
+\psi K = \set { \psi, \psi\psi\phi } = \set { \psi, \psi^2\phi } = \set { \psi, \phi\psi }.
+$$
+Observe que seria a mesma coclasse esquerda, se tivemos escolhido o $\phi\psi$.
+Vamos calcular a última.  Qual seria o represetante agora?
+Precisamos evitar todos os membros de $K$ e de $\psi K$.
+Vamos escolher o $\phi$, e bora calular o $\phi K$.  Ou não?
+Não precisamos fazer nenhum cálculo, pois so sobraram $2$ membros de $S_3$, então esses $2$ formam a última coclasse esquerda:
+$$
+\phi K = \set { \phi, \psi^2 }.
+$$
+Basta calcular as coclasses direitas agora.  Para a primeira, escolhemos de novo o $\psi$, já que observamos que $\psi\notin K$.  Calculamos:
+$$
+K \psi = \set { \psi, \psi\phi\psi } = \set { \psi, \phi }
+$$
+Qual seria o representante ta próxima?  Aqui não pode ser novamente o $\phi$, pois o $\phi$ apareceu no $K\psi$.
+Escolhemos um dos dois restantes então, vamos tomar o $\psi^2$, e junto com o último restante ele forma a última coclasse direita:
+$$
+K \psi^2 = \set { \psi^2, \phi\psi }.
+$$
+Finalmente achamos todas:
+$$
+\xalignat4
+\text{esquerdas:} &  & K &= \set {\id, \psi\phi }  &   \psi K &= \set{\psi, \phi\psi}  &  \phi K   &= \set{ \phi, \psi^2 }   \\
+\text{direitas:}  &  & K &= \set {\id, \psi\phi }  &   K\psi  &= \set{\phi, \psi}      &  K\psi^2  &= \set{ \psi^2, \phi\psi }.
+\endxalignat
+$$
+Para responder na pergunta, precisamos comparar as duas \emph{colecções}, ou seja a pergunta é:
+$$
+\set{ K, \psi K, \phi K }
+\askeq
+\set{ K, K\psi, K\psi^2 }
+$$
+e facilmente observamos que não são iguais, pois, por exemplo,
+$\psi K$ não é igual a nenhuma das coclasses direitas,
+algo que verificamos comparando o conjunto $\psi K$
+com cada um dos conjuntos $K, K\psi, K\psi^2$.
+\endexample
+%%}}}
+
+%%{{{ x: cosets_of_H_N_subgroup_S3 
 \exercise.
-\label{calculate_left_and_right_cosets_of_H_K_N}%
+\label{cosets_of_H_N_subgroup_S3}%
 Calcule todos os left e right cosets dos
 $$
 \xalignat3
 H &\leteq \set{ \id, \phi }&
-K &\leteq \set{ \id, \psi\phi }&
-N &\leteq \set{ \id, \phi, \psi^2 }
+N &\leteq \set{ \id, \psi, \psi^2 }
 \endxalignat
 $$
 Quantos right-cosets diferentes cada um deles tem?
@@ -18593,40 +18655,85 @@ Para qualquer $g\in G$, o $ga\ginv g$ é chamado
 um \dterm{conjugado} de $a$.
 %%}}}
 
+%%{{{ x: is_conjugate_of_is_a_releq
+\exercise.
+\label{is_conjugate_of_is_a_releq}%
+Seja $G$ um grupo.
+A relação $\sim$ definida pela
+$$
+\align
+a \sim b
+&\defiff \text{$a$ é um conjugado de $b$}\\
+&\iff \lexists {g\in G} {a = gb\ginv g}
+\endalign
+$$
+é uma relação de equivalência.
+
+\solution
+\casestyle{Reflexividade:}
+Seja $a \in G$.
+Procuramos $g\in G$ tal que $a = ga\ginv g$.
+Como $a = e a \ginv e$, temos que realmente $a \sim a$.
+\endgraf
+\casestyle{Simetria:}
+Sejam $a,b \in G$ tais que $a \sim b$.
+Daí, seja $x\in G$ tal que $a = xb\ginv x$.
+Operando pela esquerda com $\ginv x$ e pela direita com $x$, temos:
+$$
+\ginv x a x = \ginv x x b \ginv x x = b.
+$$
+Mas $x = \ginvp {\ginv x}$, ou seja
+$b = \ginv x a \ginvp{\ginv x}$
+e logo $b \sim a$.
+\endgraf
+\casestyle{Transitividade:}
+Sejam $a,b,c \in G$ tais que $a \sim b$ e $b \sim c$.
+Daí, sejam $x,y \in G$ tais que:
+$$
+\alignat2
+a &= x b \ginv x \\
+b &= y c \ginv y.
+\intertext{Substituindo a segunda na primeira, temos}
+a &= x \paren{ y c \ginv y } \ginv x                \\
+  &= \paren{ xy } c \paren{ \ginv y \ginv x} \qqby{ass.}\\
+  &= \paren{ xy } c \ginvp{ xy }.            \qqby{inverso de produto (\refn{inverse_of_product_in_group})}
+\endalignat
+$$
+Ou seja, $a \sim c$.
+
+\endexercise
+%%}}}
+
 %%{{{ df: normal_subgroup 
 \definition Subgrupo normal.
 \label{normal_subgroup}%
 \tdefined{subgrupo}[normal]%
-\sdefined{\holed N \normal \holed G}{\holed N é um subgrupo normal de \holed G}%
+\sdefined{\holed N \normal \holed G}{$\holed N$ é um subgrupo normal de $\holed G$}%
 \iisee{normal}{subgrupo normal}%
 Seja $G$ grupo e $N\subgroup G$.
 O $N$ é um \dterm{subgrupo normal} de $G$
 sse $N$ é fechado sobre os conjugados.
 Em símbolos,
 $$
+\align
 N \normal G
-\defiff
-\paren{\forall n\in N}
+&\defiff
+\paren{\forall n\in G}
 \lforall{g\in G}
-{ gn\ginv g \in N }.
+{ gn\ginv g \in N }\\
+&\iff
+\paren{\forall g\in G}
+\munderbrace {
+\lforall{n\in N}
+{ gn\ginv g \in N }
+} 
+{ gN\ginv g \subseteq N }.
+\endalign
 $$
 %%}}}
 
 \blah.
 Seguem umas definições alternativas.
-
-%%{{{ lemma: normal_subgroup_altdef_gN_eq_Ng 
-\lemma.
-\label{normal_subgroup_altdef_gN_eq_Ng}%
-\ii{subgrupo!normal}%
-Sejam $G$ grupo, e $N\subgroup G$.
-$$
-N\normal G
-\iff
-\lforall{g\in G}
-{gN = Ng}.
-$$
-%%}}}
 
 %%{{{ lemma: normal_subgroup_altdef_gNginvg_eq_N 
 \lemma.
@@ -18639,6 +18746,33 @@ N\normal G
 \lforall{g\in G}
 {gN\ginv g = N}.
 $$
+\sketch.
+A \rldir\ é trivial, pois o que precisamos provar ($N \normal G$) é obviamente uma afirmação mais fraca da nossa hipótese.
+Para a \lrdir, suponha $N \normal G$ e seja $g\in G$.  Já temos a inclusão $gN\ginv g \subseteq N$, então so basta provar
+a $N \subseteq gN\ginv g$.  Seja $n \in N$.
+Como $n \in N$ e $N$ normal, temos $\ginv g n \ginvp{\ginv g} \in N$.
+Logo
+$$
+\munderbrace {g \paren{\ginv g n \ginvp{\ginv g}} \ginv g} {=n} \in gN\ginv g.
+$$
+\qes
+%%}}}
+
+%%{{{ lemma: normal_subgroup_altdef_gN_eq_Ng 
+\lemma.
+\label{normal_subgroup_altdef_gN_eq_Ng}%
+\ii{subgrupo!normal}%
+Sejam $G$ grupo, e $N\subgroup G$.
+$$
+N\normal G
+\iff
+\lforall{g\in G}
+{gN = Ng}.
+$$
+\sketch.
+Para a \lrdir, tome $g\in G$ e $x \in gN$.
+Assim $x = gn$ para algum $n\in N$.
+\qes
 %%}}}
 
 %%{{{ beware: g n g^{-1} \neq n 
@@ -18652,8 +18786,8 @@ $n' \in N$, mas nada nos permite concluir que esse $n'$ é nosso $n$.
 %%{{{ x: gnginvg_neq_n 
 \exercise.
 \label{gnginvg_neq_n}%
-Ache um exemplo que mostra que não necessariamente
-$gn\ginv g = n$ mesmo $n\in N \normal G$.
+Ache um contraexemplo que mostra que não necessariamente
+$gn\ginv g = n$, mesmo com $n\in N \normal G$.
 
 \endexercise
 %%}}}
@@ -18675,6 +18809,83 @@ $$
 
 \endexercise
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Quotient group 
+\section O grupo quociente.
+
+\note.
+Acabamos de identificar certos subgrupos dum grupo $G$---que chamamos \dterm{normais}---com uma propriedade legal:
+a colecção de todas as suas coclasses esquerdas e a mesma com a colecção
+de todas as suas coclasses direitas.
+Começando então com um $N\normal G$, podemos falar \emph{da} partição correspodente de $G$,
+sem specificar se estamos considerando a colecção das coclasses esquerdas ou das direitas.
+Ou seja, nesse caso, as duas relações de equivalência
+$$
+\bhole \cong \bhole \pmodl N
+\qqqquad\text{e}\qqqquad
+\bhole \cong \bhole \pmodr N
+$$
+são a \emph{mesma} relação, e por isso escrevemos simplesmente
+$$
+\bhole \cong \bhole \pmod N.
+$$
+Vamos começar com um certo grupo $G$ e um subgrupo normal dele
+$N\normal G$.
+Considere a partição de todas as coclasses de $N$:
+
+E agora comece se afastar mais e mais, até não dá mais pra ver
+os pontinhos \emph{dentro} dessas classes, e até as proprias
+classes viram pontinhos:
+
+Denotamos esse conjunto por $\quotgrp G N$.
+
+\question.
+Como podemos definir uma operação interessante $\ast$
+nos elementos de $\quotgrp G N$, tal que o
+$\sset {\quotgrp G N} \ast$ vira um grupo?
+\spoiler.
+
+\definition Grupo quociente.
+\label{quotient_group}%
+\tdefined{grupo}[quociente]%
+\sdefined {\quotgrp {{\holed G}} {{\holed N}}} {o grupo quociente de $\holed G$ por $\holed N$}%
+Sejam $G$ grupo e $N \normal G$.
+O conjunto
+$$
+\setst { Na } { a \in G }
+\quad
+\bigparen{ =
+\setst { aN } { a \in G }
+}
+$$
+com operação a $\ast$ definida pela
+$$
+H \ast K \defeq HK
+$$
+é chamado o \dterm{grupo quociente} de $G$ por $N$,
+e é denotado por $\quotgrp G N$.
+
+\blah.
+Para merecer esse nome, o $\quotgrp G N$ deve ser um grupo mesmo,
+algo que vamos provar agora.
+
+\proposition.
+Sejam $G$ grupo e $N\normal G$.
+O $\quotgrp G N$ é um grupo.
+\sketch.
+Precisamos verificar as leis de grupo (G0)--(G3) para o $\quotgrp G N$.
+\endgraf
+(G0):
+\endgraf
+(G1):
+\endgraf
+(G2):
+\endgraf
+(G3):
+\qes
 
 \endsection
 %%}}}
