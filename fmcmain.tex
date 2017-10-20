@@ -18832,35 +18832,65 @@ são a \emph{mesma} relação, e por isso escrevemos simplesmente
 $$
 \bhole \cong \bhole \pmod N.
 $$
-Vamos começar com um certo grupo $G$ e um subgrupo normal dele
-$N\normal G$.
-Considere a partição de todas as coclasses de $N$:
+Vamos começar com um certo grupo $G$:
+ e um subgrupo normal dele
 $$
-\tikzpicture[>=stealth]%%{{{
+\tikzpicture%%{{{
 \tikzi quogrpbefore;
 \endtikzpicture
-\tikzpicture[>=stealth]%%{{{
+%%}}}
+$$
+Identificamos nele um subgrupo normal $N\normal G$.
+Assim que fizermos isso, todo o $G$ se-arruma
+graças à partição de todas as coclasses de $N$:
+$$
+\gathered
+\tikzpicture%%{{{
 \tikzi quogrpnormal;
 \endtikzpicture
-\tikzpicture[>=stealth]%%{{{
+%%}}}
+\endgathered
+\qquad\leadsto\qquad
+\gathered
+\tikzpicture%%{{{
 \tikzi quogrppartitioned;
 \endtikzpicture
 %%}}}
+\endgathered
 $$
 E agora comece se afastar mais e mais, até não dá mais pra ver
 os pontinhos \emph{dentro} dessas classes, e até as proprias
 classes viram pontinhos:
+$$
+\tikzpicture%%{{{
+\tikzi quogrpzoomout;
+\endtikzpicture
+%%}}}
+$$
+Denotamos esse conjunto por $\quogrp G N$:
+$$
+\quogrp G N = \setst {Ng} {g \in G}
+$$
+Observe que esse conjunto é o
+\ii{conjunto}[quociente]{}\emph{conjunto quociente} de $G$
+através da relação de congruência módulo $N$.%
+\footnote{Lembra-se que dada qualquer relação de equivalência
+num conjunto, definimos seu conjunto quociente?
+Veja a~\ref{quoset}.}
 
-Denotamos esse conjunto por $\quogrp G N$.
-
+%%{{{ Q: How can we turn the quotient set into a group? 
 \question.
 Como podemos definir uma operação interessante $\ast$
 nos elementos de $\quogrp G N$, tal que o
 $\sset {\quogrp G N} \ast$ vira um grupo?
+Qual seria sua identidade, e para cada um dos seus membros,
+qual seria o seu inverso?
+%%}}}
 \spoiler.
 
+%%{{{ df: quogrp 
 \definition Grupo quociente.
-\label{quotient_group}%
+\label{quogrp}%
 \tdefined{grupo}[quociente]%
 \sdefined {\quogrp {{\holed G}} {{\holed N}}} {o grupo quociente de $\holed G$ por $\holed N$}%
 Sejam $G$ grupo e $N \normal G$.
@@ -18878,25 +18908,40 @@ H \ast K \defeq HK
 $$
 é chamado o \dterm{grupo quociente} de $G$ por $N$,
 e é denotado por $\quogrp G N$.
+%%}}}
 
 \blah.
-Para merecer esse nome, o $\quogrp G N$ deve ser um grupo mesmo,
-algo que vamos provar agora.
+Para merecer esse nome, o $\quogrp G N$ deve ser um grupo mesmo.
+Vamos provar isso agora.
 
+%%{{{ prop: quogrp_is_a_group 
 \proposition.
+\label{quogrp_is_a_group}%
 Sejam $G$ grupo e $N\normal G$.
 O $\quogrp G N$ é um grupo.
 \sketch.
 Precisamos verificar as leis de grupo (G0)--(G3) para o $\quogrp G N$.
 \endgraf
 (G0):
+Sejam $C,D \in \quogrp G N$.  Mostramos que $CD \in \quogrp G N$, ou seja,
+escrevemos o $CD$ como $Nw$ para algum certo $w \in G$.
 \endgraf
 (G1):
+Sejam $C,D,E \in \quogrp G N$.  Mostramos que $(CD)E = C(DE)$.
 \endgraf
 (G2):
+Procuramos um membro de $\quogrp G N$ que satisfaz as leis de identidade.
+O candidato óbvio é o próprio $N$.
+Basta confirmar essa afirmação, ou seja, mostrar que para todo $C \in \quogrp G N$,
+temos $NC = C = CN$.
 \endgraf
 (G3):
+Para mostrar que cada um dos membros de $\quogrp G N$ tem um inverso,
+seja $C\in \quogrp G N$, e mostre como achar o seu inverso.
+Aqui o candidato que faz sentido considerar, seria o $N(\ginv c)$,
+onde $c$ é qualquer membro de $C$.
 \qes
+%%}}}
 
 \endsection
 %%}}}
@@ -18939,16 +18984,41 @@ Ache todas as simetrias de rectângulo e estude seu grupo.
 \section Morfismos.
 \label{Group_morphisms}%
 
-\note Abusos notacionais.
+\note Idéia.
+Queremos formalizar a ideia de <<o grupo $\dih 3$ \emph{parece com} o $S_3$>>.
+O que precisa ser satisfeito (ou mostrado) para convencer alguém que,
+no final das contas, trabalhar com um grupo $\cal A$ é \emph{essencialmente
+a mesma coisa} de trabalhar com um grupo $\cal B$?
+
+%%{{{ pseudodf: group_homomorphism 
+\pseudodefinition Homomorfismo: primeira tentativa.
+\label{group_homomorphism_first_attempt}%
+Sejam $\cal A, \cal B$ grupos.
+A função $\phi : A \to B$ é um \dterm{homomorfismo} de $\cal A$ para $\cal B$
+sse ela \emph{preserve a estrutura de $\cal A$ no $\cal B$}.
+Mas o que é a estrutura dum grupo?
+Num grupo temos a sua operação (binária), podemos pegar inversos (operação unária),
+e temos também em cada grupo um membro especial chamado identidade do grupo (constante).
+Ou seja, ``preservar a estrutura'' faz sentido significar as três coisas seguintes:
+$$
+\xalignat2
+&\text{preserve a operação:}   & \phi(x \ast_A y)    &= \phi(x) \ast_B \phi(y)   \tag{i}   \\
+&\text{preserve a identidade:} & \phi(e_A)           &= e_B                      \tag{ii}  \\
+&\text{preserve os inversos:}  & \phi(\ginvt_A (x))  &= \ginvt_B\paren{\phi(x)}. \tag{iii} 
+\endxalignat
+$$
+%%}}}
 
 %%{{{ Different structures for groups 
 \note Diferentes estruturas para grupos.
+Já viermos como definir ``grupo'' como conjunto estruturado usando três
+estruturas diferentes:
 $$
-\align
-\phi(xy)      &= \phi(x) \phi(y) \tag{i}   \\
-\phi(e_A)     &= e_B             \tag{ii}  \\
-\phi(\ginv x) &= \ginvp{\phi(x)} \tag{iii} 
-\endalign
+\xalignat3
+&\sset A {\ast_A}
+&\sset A {e_A, \ast_A}
+&\sset A {e_A, \ginvt_A, \ast_A}.
+\endxalignat
 $$
 Então, dependendo na estrutura que escolhemos para nossa definição
 de grupo, precisamos definir ``morfismo'' em forma diferente:
@@ -18968,15 +19038,34 @@ Então vamos botar em nossa definição apenas o~(i) mesmo:
 \definition Homomorfismo.
 \label{group_homomorphism}%
 \tdefined{homomorfismo}%
-Sejam $A$ e $B$ grupos.
-A função $\phi : A \to B$ é um \dterm{homomorfismo} de $A$ para $B$
+Sejam $\cal A = \sset A {\ast_A}$ e $\cal B = \sset B {\ast_B}$ grupos.
+A função $\phi : A \to B$ é um \dterm{homomorfismo} de $\cal A$ para $\cal B$
 sse
 $$
 \text{para todo $x,y\in A$},
 \qquad
-\phi(xy) = \phi(x) \phi(y).
+\phi(x \ast_A y) = \phi(x) \ast_B \phi(y).
 $$
+As vezes escrevemos $\phi : \cal A \to \cal B$ (em vez de $\phi:A\to B$)
+para enfatisar que o $\phi$ nos leva do \emph{grupo} $\cal A$ para o
+\emph{grupo} $\cal B$.
 %%}}}
+
+\note.
+Quando pelo contexto podemos inferir qual é a operação involvida, optamos para denotá-la com juxtaposição como produto mesmo.
+Por exemplo, escrevemos:
+$$
+\text{para todo $x,y\in A$},
+\quad
+\phi(xy) = \phi(x)\phi(y)
+$$
+sem ambiguidade nenhuma: o $xy$ que aparece no lado esquerdo, só pode denotar o $x \ast_A y$, pois $x,y \in A$.
+No outro lado, o $\phi(x) \phi(y)$ só pode denotar o $\phi(x) \ast_B \phi(y)$, pois $\phi(x),\phi(y) \in B$.
+A mesma coisa acontece com os inversos:
+$\phi(\ginv x)$ só pode denotar ``a imagem do inverso (no $A$) de $x$'',
+e $\ginvp{\phi(x)}$ só pode denotar ``o inverso (no $B$) de $\phi(x)$'',
+pois, no primeiro caso o $\ginv{}$ é aplicado num membro de $A$,
+e no segundo caso num membro de $B$.
 
 %%{{{ lemma: in_groups_respecting_products_means_morphism 
 \lemma.
@@ -19010,9 +19099,9 @@ $$
 \align
 \text{$\phi$ monomorfismo} &\defiff \text{$\phi$ injetora}\\
 \text{$\phi$ epimorfismo}  &\defiff \text{$\phi$ sobrejetora}\\
-\text{$\phi$ isomorfismo}  &\defiff \text{$\phi$ bijetora}\\
+\text{$\phi$ isomorfismo}  &\defiff \text{$\phi$ monomorfismo~\&~epimorfismo}\\
 \text{$\phi$ endomorfismo} &\defiff \text{$\dom\phi = \cod\phi$}\\
-\text{$\phi$ automorfismo} &\defiff \text{$\phi$ endomorfismo e isomorfismo}\\
+\text{$\phi$ automorfismo} &\defiff \text{$\phi$ endomorfismo~\&~isomorfismo}
 \endalign
 $$
 {Rascunho:}
