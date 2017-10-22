@@ -18990,8 +18990,8 @@ O que precisa ser satisfeito (ou mostrado) para convencer alguém que,
 no final das contas, trabalhar com um grupo $\cal A$ é \emph{essencialmente
 a mesma coisa} de trabalhar com um grupo $\cal B$?
 
-%%{{{ pseudodf: group_homomorphism 
-\pseudodefinition Homomorfismo: primeira tentativa.
+%%{{{ pseudodf: group_homomorphism_first_attempt 
+\pseudodefinition Homomorfismo.
 \label{group_homomorphism_first_attempt}%
 Sejam $\cal A, \cal B$ grupos.
 A função $\phi : A \to B$ é um \dterm{homomorfismo} de $\cal A$ para $\cal B$
@@ -19007,6 +19007,32 @@ $$
 &\text{preserve os inversos:}  & \phi(\ginvt_A (x))  &= \ginvt_B\paren{\phi(x)}. \tag{iii} 
 \endxalignat
 $$
+%%}}}
+
+%%{{{ note: Diagramas comutativos 
+\note Diagramas comutativos.
+A lei (iii) é equivalente à comutatividade do diagrama seguinte:
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "\phi"]\ar[d, "\ginvt_A"'] \| B\ar[d, "\ginvt_B"]\ \\
+A   \ar[r, "\phi"]                    \| B
+\endcd
+$$
+%%}}}
+
+%%{{{ x: cd for (i) 
+\exercise.
+Desenha um diagrama cuja comutatividade é a lei (i).
+
+\solution
+$$
+\cdopt{sep=2cm}
+A\times A   \ar[r, "\phi \times \phi"]\ar[d, "\ast_A"'] \| B\times B \ar[d, "\ast_B"]\ \\
+A           \ar[r, "\phi"]                              \| B
+\endcd
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ Different structures for groups 
@@ -19051,21 +19077,27 @@ para enfatisar que o $\phi$ nos leva do \emph{grupo} $\cal A$ para o
 \emph{grupo} $\cal B$.
 %%}}}
 
+%%{{{ note: safe juxtaposition 
 \note.
-Quando pelo contexto podemos inferir qual é a operação involvida, optamos para denotá-la com juxtaposição como produto mesmo.
+Quando pelo contexto podemos inferir qual é a operação involvida,
+optamos para denotá-la com juxtaposição como produto mesmo.
 Por exemplo, escrevemos:
 $$
 \text{para todo $x,y\in A$},
 \quad
 \phi(xy) = \phi(x)\phi(y)
 $$
-sem ambiguidade nenhuma: o $xy$ que aparece no lado esquerdo, só pode denotar o $x \ast_A y$, pois $x,y \in A$.
-No outro lado, o $\phi(x) \phi(y)$ só pode denotar o $\phi(x) \ast_B \phi(y)$, pois $\phi(x),\phi(y) \in B$.
+sem ambiguidade nenhuma:
+o $xy$ que aparece no lado esquerdo,
+só pode denotar o $x \ast_A y$, pois $x,y \in A$.
+,o outro lado, o $\phi(x) \phi(y)$ só pode denotar o $\phi(x) \ast_B \phi(y)$,
+pois $\phi(x),\phi(y) \in B$.
 A mesma coisa acontece com os inversos:
 $\phi(\ginv x)$ só pode denotar ``a imagem do inverso (no $A$) de $x$'',
 e $\ginvp{\phi(x)}$ só pode denotar ``o inverso (no $B$) de $\phi(x)$'',
 pois, no primeiro caso o $\ginv{}$ é aplicado num membro de $A$,
 e no segundo caso num membro de $B$.
+%%}}}
 
 %%{{{ lemma: in_groups_respecting_products_means_morphism 
 \lemma.
@@ -19236,12 +19268,19 @@ com operação $\compose$ é um grupo.
 \label{inter_of_subgroup_and_normal_is_normal_in_subgroup}%
 Se $H\subgroup G$ e $N\normal G$, então $H\inter N \normal H$.
 
+\hint
+Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
+(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
+e~\refn{subgroup_is_an_order}).
+Para mostrar que $H \inter N \normal H$,
+tente provar que $H\inter N$ é fechado pelos conjugados no $H$.
+
 \solution
 Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
 (veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
 e~\refn{subgroup_is_an_order}).
 Basta mostrar que $H \inter N \normal H$,
-ou seja, que $H\inter N$ é fechado pelos conjugados.
+ou seja, que $H\inter N$ é fechado pelos conjugados no $H$.
 Tome $x \in H\inter N$ e $h\in H$.
 Temos:
 $$
