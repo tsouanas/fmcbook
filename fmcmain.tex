@@ -15923,15 +15923,26 @@ que tivermos um grupo~$G$, e voltaremos logo nessas duas questões.
 
 %%{{{ Q: Can we conclude something about these? 
 \question.
-Se $a,b$ são membros de algum grupo $\sset G \ast$, podemos concluir algo sobre os\dots:?
+Se $a,b$ são membros de algum grupo $\sset G {e,\ast}$, podemos concluir algo sobre os\dots:?
 $$
 \align
+\ginvp{e}           &\askeq \dots?\\
 \ginvp{\ginv a}     &\askeq \dots?\\
 \ginvp{a \ast b}    &\askeq \dots?
 \endalign
 $$
 %%}}}
 \spoiler.
+
+%%{{{ prop: inverse_of_identity_in_group 
+\property.
+\label{inverse_of_identity_in_group}
+Em todo grupo $G$, $\ginv e = e$.
+\proof.
+Precisamos mostrar que $e$ é o inverso de $e$, ou seja,
+que ele satisfaz $ee = e$, algo imediato pela definição da identidade $e$.
+\qed
+%%}}}
 
 %%{{{ lm: inverse_of_inverse_in_group 
 \lemma Inverso de inverso.
@@ -17544,7 +17555,7 @@ para
 Ou seja, como definiria o $\generate A$ para qualquer $A \subseteq G$?
 %%}}}
 
-Falando de \emph{generalização}, a ideia é que queremos definir o $\gen A$ num jeito
+Falando de \emph{generalização}, a idéia é que queremos definir o $\gen A$ num jeito
 \emph{razoável} e tal que $\gen {\set a} = \gen a$.
 
 \spoiler.
@@ -18810,6 +18821,37 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ ex: inter_of_subgroup_and_normal_is_normal_in_subgroup 
+\exercise.
+\label{inter_of_subgroup_and_normal_is_normal_in_subgroup}%
+Se $H\subgroup G$ e $N\normal G$, então $H\inter N \normal H$.
+
+\hint
+Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
+(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
+e~\refn{subgroup_is_an_order}).
+Para mostrar que $H \inter N \normal H$,
+tente provar que $H\inter N$ é fechado pelos conjugados no $H$.
+
+\solution
+Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
+(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
+e~\refn{subgroup_is_an_order}).
+Basta mostrar que $H \inter N \normal H$,
+ou seja, que $H\inter N$ é fechado pelos conjugados no $H$.
+Tome $x \in H\inter N$ e $h\in H$.
+Temos:
+$$
+\alignat2
+h x \ginv h &\in H  \qqby{$H \subgroup G$}\\
+h x \ginv h &\in N  \qqby{$N \normal G$}
+\endalignat
+$$
+Logo $hx\ginv h \in H\inter N$.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -18949,33 +18991,98 @@ onde $c$ é qualquer membro de $C$.
 %%{{{ Symmetries 
 \section Simetrias.
 
+\TODO O que é uma simetria.
+
 \note As simetrias dum triângulo equilátero.
 \label{Dih3}%
+$$
+\tikzpicture
+\tikzi dih3base;
+\endtikzpicture
+$$
+$$
+\tikzpicture
+\tikzi dih3rot1;
+\endtikzpicture
+$$
+$$
+\tikzpicture
+\tikzi dih3rot2;
+\endtikzpicture
+$$
+$$
+\tikzpicture
+\tikzi dih3flip1;
+\endtikzpicture
+$$
+$$
+\tikzpicture
+\tikzi dih3flip2;
+\endtikzpicture
+$$
+$$
+\tikzpicture
+\tikzi dih3flip3;
+\endtikzpicture
+$$
+
+\TODO Complete the figure.
+
+\TODO Como definir uma operação no conjunto de simetrias do triângulo,
+tal que ele vira um grupo.
 
 \note Um primeiro exemplo de isomorfismo.
-\label{Dih3_isom_S3}%
 
-\note As simetrias dum quadrado.
-\label{Dih4}%
+%%{{{ df: dih_n 
+\definition Os grupos dihedrais.
+\label{dih_n}%
+\tdefined{grupo}[dihedral]%
+\iisee{dihedral}{grupo dihedral}
+%%}}}
+
+%%{{{ x: dih4 
+\exercise.
+\label{dih4}%
+Ache todas as simetrias num quadrado.
+
+\hint
+Todas as simetrias são 8.
+
+\endexercise
+%%}}}
+
+%%{{{ x: gord_dih_n 
+\exercise.
+\label{gord_dih_n}%
+Qual a $\gord{\dih n}$?
+
+\endexercise
+%%}}}
 
 \note Diagramas Hasse.
 \label{hasse_diagrams_first_encounter}%
 
-
-\definition Os grupos dihedrais.
-\label{Dihn}%
-\tdefined{grupo}[dihedral]%
-\iisee{dihedral}{grupo dihedral}%
-
+%%{{{ x: dih_4_isomorphic_to_what 
 \exercise.
-Qual a $\gord{\dih n}$?
+\label{dih_4_isomorphic_to_what}%
+Consegue achar um grupo diferente, que é isomórfico com o $\dih 4$?
+
+\hint
+Não pode ser o $S_4$ obviamente, por questão de tamanho!
+
+\hint
+Mas olhe dentro do $S_4$: no seus subgrupos!
 
 \endexercise
+%%}}}
 
+%%{{{ x: rectangle_symmetries 
 \exercise Simetrias de rectângulo.
+\label{rectangle_symmetries}%
 Ache todas as simetrias de rectângulo e estude seu grupo.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -18984,11 +19091,13 @@ Ache todas as simetrias de rectângulo e estude seu grupo.
 \section Morfismos.
 \label{Group_morphisms}%
 
+%%{{{ Idea 
 \note Idéia.
-Queremos formalizar a ideia de <<o grupo $\dih 3$ \emph{parece com} o $S_3$>>.
+Queremos formalizar a idéia de <<o grupo $\dih 3$ \emph{parece com} o $S_3$>>.
 O que precisa ser satisfeito (ou mostrado) para convencer alguém que,
 no final das contas, trabalhar com um grupo $\cal A$ é \emph{essencialmente
 a mesma coisa} de trabalhar com um grupo $\cal B$?
+%%}}}
 
 %%{{{ pseudodf: group_homomorphism_first_attempt 
 \pseudodefinition Homomorfismo.
@@ -18996,22 +19105,49 @@ a mesma coisa} de trabalhar com um grupo $\cal B$?
 Sejam $\cal A, \cal B$ grupos.
 A função $\phi : A \to B$ é um \dterm{homomorfismo} de $\cal A$ para $\cal B$
 sse ela \emph{preserve a estrutura de $\cal A$ no $\cal B$}.
+%%}}}
+
+%%{{{ Preserving the structure 
+\note Preservando a estrutura.
 Mas o que é a estrutura dum grupo?
 Num grupo temos a sua operação (binária), podemos pegar inversos (operação unária),
 e temos também em cada grupo um membro especial chamado identidade do grupo (constante).
-Ou seja, ``preservar a estrutura'' faz sentido significar as três coisas seguintes:
+Ou seja, \emph{preservar a estrutura} faz sentido significar as três coisas seguintes:
 $$
 \xalignat2
-&\text{preserve a operação:}   & \phi(x \ast_A y)    &= \phi(x) \ast_B \phi(y)   \tag{i}   \\
-&\text{preserve a identidade:} & \phi(e_A)           &= e_B                      \tag{ii}  \\
-&\text{preserve os inversos:}  & \phi(\ginvt_A (x))  &= \ginvt_B\paren{\phi(x)}. \tag{iii} 
+&\text{preservar a operação:}   & \phi(x \ast_A y)    &= \phi(x) \ast_B \phi(y)   \tag{i}   \\
+&\text{preservar a identidade:} & \phi(e_A)           &= e_B                      \tag{ii}  \\
+&\text{preservar os inversos:}  & \phi(\ginvt_A (x))  &= \ginvt_B\paren{\phi(x)}. \tag{iii} 
 \endxalignat
 $$
 %%}}}
 
+%%{{{ Two paths 
+\note Dois caminhos.
+Considere que temos uma \emph{função} $\phi$ de $\cal A$ para $\cal B$.
+Comece no grupo $\cal A$ (o domínio de $\phi$) e tome uns membros
+$a_1,\dots,a_n$ do seu carrier set $A$.
+Faça quaisquer coisas aí que a estrutura de grupo te permite fazer:
+tome inversos, combine eles com a operação do grupo, etc.
+Assim tu chega num certo membro $x$ do grupo $\cal A$.
+Agora use a $\phi$ nesse resultado $x$, passando assim
+para um certo membro $y$ do grupo $\cal B$.
+Alternativamente, \emph{começando com os mesmos membros}
+$a_1,\dots,a_n$ do~$\cal A$,
+use a~$\phi$~em cada um deles para passar no grupo $\cal B$,
+chegando assim nuns membros $b_1,\dots,b_n$ do~$\cal B$.
+Sendo num grupo agora, podes performar exatamente as mesmas operações, na mesma
+ordem, nos correspondentes membros que tu fez antes (no grupo $\cal A$),
+e assim tu chegarás num certo resultado $b$ no $\cal B$.
+Vamos chamar a função $\phi$ um homomorfismo exatamente quando ela garanta que
+em qualquer situação como essa, os dois caminhos de $\cal A$ para $\cal B$,
+chegam no mesmo membro, ou seja, $b = y$.
+%%}}}
+
 %%{{{ note: Diagramas comutativos 
 \note Diagramas comutativos.
-A lei (iii) é equivalente à comutatividade do diagrama seguinte:
+Essa idéia é bem melhor desenhada do que escrita, usando diagramas comutativos.
+Por exemplo, a lei (iii) é equivalente à comutatividade do diagrama seguinte:
 $$
 \cdopt{sep=2cm}
 A   \ar[r, "\phi"]\ar[d, "\ginvt_A"'] \| B\ar[d, "\ginvt_B"]\ \\
@@ -19041,9 +19177,9 @@ Já viermos como definir ``grupo'' como conjunto estruturado usando três
 estruturas diferentes:
 $$
 \xalignat3
-&\sset A {\ast_A}
-&\sset A {e_A, \ast_A}
-&\sset A {e_A, \ginvt_A, \ast_A}.
+\sset A {\ast_A} &
+&\sset A {e_A, \ast_A} &
+&\sset A {e_A, \ginvt_A, \ast_A}. &
 \endxalignat
 $$
 Então, dependendo na estrutura que escolhemos para nossa definição
@@ -19173,6 +19309,7 @@ Mostre que $\isomorphic$ é uma relação de equivalência.
 %%{{{ Kernel and Image 
 \section Kernel e Image.
 
+%%{{{ df: kernel 
 \definition Kernel.
 \label{kernel}%
 \tdefined{kernel de homomorfismo}%
@@ -19189,17 +19326,115 @@ $$
 \endalign
 $$
 e o chamamos o \dterm{kernel} do $\phi$.
+%%}}}
 
+%%{{{ x: kernel_subgroup 
 \exercise.
+\label{kernel_subgroup}%
 Sejam $G$ e $G'$ grupos e $\phi$ um homomorfismo de $G$ para $G'$.
 Prove que $\ker\phi\subgroup G$.
 
-\endexercise
+\hint
+Graças ao~\ref{subgroup_criterion}, precisas provar:
+(i)~$\ker\phi$ é~$\ast$-fechado;
+(ii)~$\ker\phi$ é~$^{-1}$-fechado.
 
+\hint
+Para o (i), tome $x,y\in\ker\phi$ e mostre que $xy\in\ker\phi$, ou seja, que $\phi(xy) = e_{G'}$.
+
+\hint
+Para o (ii), tome $x\in\ker\phi$ e mostre que $\ginv x\in\ker\phi$, ou seja, que $\phi\funparen{\ginv x} = e_{G'}$.
+
+\solution
+Graças ao~\ref{subgroup_criterion}, basta provar:
+\endgraf
+\casestyle{$\ker\phi$ é fechado pela operação:}
+Sejam $x,y\in\ker\phi$.
+Precisamos mostrar que $xy\in\ker\phi$, ou seja, que $\phi(xy) = e_{G'}$.
+Calculamos:
+$$
+\alignat2
+\phi(xy)
+&= \phi(x) \phi(y)  \qqby{$\phi$ homo (oper.)}\\
+&= e_{G'} e_{G'}    \qqby{$x,y\in\ker\phi$}\\
+&= e_{G'}           \qqby{def.~$e_{G'}$}
+\endalignat
+$$
+\endgraf
+\casestyle{$\ker\phi$ é fechado pelos inversos:}
+Seja $x\in\ker\phi$.
+Precisamos mostrar que $\ginv x\in\ker\phi$, ou seja, que $\phi\funparen{\ginv x} = e_{G'}$.
+Calculamos:
+$$
+\alignat2
+\phi\funparen{\ginv x}
+&= \ginvp{\phi(x)}  \qqby{$\phi$ homo (inv.)}\\
+&= \ginvp{e_{G'}}   \qqby{$x\in\ker\phi$}\\
+&= e_{G'}           \qqby{inverso da identidade~(\ref{inverse_of_identity_in_group})}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ prop: kernel_normal 
+\proposition.
+\label{kernel_normal}%
+$\ker\phi\normal G$.
+\sketch.
+Acabamos de provar que $\ker\phi\subgrp G$ no~\ref{kernel_subgroup}.
+Basta provar que $\ker\phi$ é fechado pelos conjugados.
+Seja $n\in\ker\phi$ e tome $g\in G$.
+Precisamos provar que o $g$-conjugado de $n$, também está no $\ker\phi$:
+$gn\ginv g \in \ker\phi$.
+Ou seja, basta verificar que realmente $\phi(gn\ginv g) = e_{G'}$.
+\qes
+\proof.
+Seja $n\in\ker\phi$ e tome $g\in G$.
+Precisamos provar que o $g$-conjugado de $n$, também está no $\ker\phi$:
+$gn\ginv g \in \ker\phi$.
+Calculamos:
+$$
+\alignat2
+\phi\funparen{gn\ginv g}
+&= \phi(g) \phi(n) \phi\funparen{\ginv g}   \qqby{$\phi$ homo}\\
+&= \phi(g) e_{G'} \phi\funparen{\ginv g}    \qqby{$n\in\ker\phi$}\\
+&= \phi(g) \phi\funparen{\ginv g}           \qqby{def.~$e_{G'}$}\\
+&= \phi(g) \ginvp{\phi(g)}                  \qqby{$\phi$ homo}\\
+&= e_{G'}                                   \qqby{def.~$\ginvp{\phi(g)}$}
+\endalignat
+$$
+Logo $gn\ginv g\in\ker\phi$ como queremos provar.
+\qed
+%%}}}
+
+%%{{{ x: kernel_normal_alt_proof 
 \exercise.
-Prove ainda mais: $\ker\phi\normal G$.
+\label{kernel_normal_alt_proof}%
+Veja a prova completa da~\ref{kernel_normal}.
+No seu cálculo, mostre como continuar num caminho diferente depois da terceira
+igualdade para chegar no mesmo resultado desejado: $e_{G'}$.
+
+\hint
+Aplicamos a propriedade que homomorfismos preservem os inversos.
+Aplique outra propriedade de homomorfismos.
+
+\solution
+Calculamos:
+$$
+\alignat2
+\phi\funparen{gn\ginv g}
+&= \phi(g) \phi(n) \phi\funparen{\ginv g}   \qqby{$\phi$ homo (oper.)}\\
+&= \phi(g) e_{G'} \phi\funparen{\ginv g}    \qqby{$n\in\ker\phi$}\\
+&= \phi(g) \phi\funparen{\ginv g}           \qqby{def.~$e_{G'}$}\\
+&= \phi(g \ginv g)                          \qqby{$\phi$ homo (oper.)}\\
+&= \phi(e_G)                                \qqby{def.~$\ginv g$}\\
+&= e_{G'}                                   \qqby{$\phi$ homo (iden.)}
+\endalignat
+$$
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -19259,37 +19494,6 @@ $$
 }
 $$
 com operação $\compose$ é um grupo.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: inter_of_subgroup_and_normal_is_normal_in_subgroup 
-\problem.
-\label{inter_of_subgroup_and_normal_is_normal_in_subgroup}%
-Se $H\subgroup G$ e $N\normal G$, então $H\inter N \normal H$.
-
-\hint
-Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
-(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
-e~\refn{subgroup_is_an_order}).
-Para mostrar que $H \inter N \normal H$,
-tente provar que $H\inter N$ é fechado pelos conjugados no $H$.
-
-\solution
-Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
-(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
-e~\refn{subgroup_is_an_order}).
-Basta mostrar que $H \inter N \normal H$,
-ou seja, que $H\inter N$ é fechado pelos conjugados no $H$.
-Tome $x \in H\inter N$ e $h\in H$.
-Temos:
-$$
-\alignat2
-h x \ginv h &\in H  \qqby{$H \subgroup G$}\\
-h x \ginv h &\in N  \qqby{$N \normal G$}
-\endalignat
-$$
-Logo $hx\ginv h \in H\inter N$.
 
 \endproblem
 %%}}}
