@@ -19248,12 +19248,14 @@ e no segundo caso num membro de $B$.
 \criterion de homomorfismo.
 \label{in_groups_respecting_products_means_morphism}%
 Sejam grupos $\cal A = \sset A {\ast_A}$ e $\cal B = \sset B {\ast_B}$,
-e homomorfismo $\phi : \cal A \to \cal B$.
-Então:
+e função $\phi : \cal A \to \cal B$ que preserva a operação, ou seja, tal que
 $$
 \align
+\phi(x \ast_A y) &= \phi(x) \ast_B \phi(y)
+\quad\text{para todo $x,y\in A$}.\\
+\intertext{Então:}
 \phi(e_A)     &= e_B             \tag{i}  \\
-\phi(\ginv x) &= \ginvp{\phi(x)} \tag{ii} 
+\phi(\ginv x) &= \ginvp{\phi(x)} \text{para todo $x\in A$}. \tag{ii} 
 \endalign
 $$
 \sketch.
@@ -19960,6 +19962,7 @@ Em qualquer anel $\cal R$, para todos $x,y\in\cal R$ temos:
 \item{\rm (iv)}  $-(x+y) = (-x) + (-y)$.
 %%}}}
 
+%%{{{ Q: How would you define subring and ring homomorphism? 
 \question.
 Como tu definaria o conceito de subanel?
 Pode definir algum critérion parecido com os critéria~\refn{subgroup_criterion}
@@ -19967,6 +19970,7 @@ ou~\refn{finite_subgroup_criterion} para decidir se algo é subanel dum dado ane
 E o homomorfismo de anel?  Como definiria isso?  E pode definir algum critérion
 parecido com o~\refn{in_groups_respecting_products_means_morphism}?
 \spoiler.
+%%}}}
 
 %%{{{ df: subring 
 \definition.
@@ -19977,7 +19981,16 @@ O $S\subseteq R$ é um \dterm{subanel} de $\cal R$ sse
 $\sset S {0_R, 1_R, +_R, \cdot_R}$ é um anel.
 %%}}}
 
-\TODO Criterion.
+%%{{{ criterion: subring_criterion 
+\criterion de subanel.
+\label{subring_criterion}%
+Sejam $R$ anel e $S \subseteq R$.
+O $S$ é um subanel de $R$ sse:
+\item{\rm (i)}  $S$ tem a identidade do $R$: $1_R \in S$;
+\item{\rm (ii)} $S$ é fechado pela adição: para todo $a,b \in S$, $a+b \in S$;
+\item{\rm (iii)}$S$ é fechado pela multiplicação: para todo $a,b \in S$, $ab \in S$;
+\item{\rm (iv)} $S$ é fechado pelos negativos: para todo $a \in S$, $-a\in S$.
+%%}}}
 
 %%{{{ df: ring_homomorphism 
 \definition.
@@ -19985,7 +19998,7 @@ $\sset S {0_R, 1_R, +_R, \cdot_R}$ é um anel.
 \tdefined{homomorfismo}[de anel]%
 Sejam $\cal R = \sset R {0_R, 1_R, +_R, \cdot_R}$ e
 $\cal S = \sset S {0_S, 1_S, +_S, \cdot_S}$ aneis.
-A função $\phi : R \to S$ é um homomorfismo sset:
+A função $\phi : R \to S$ é um homomorfismo sse:
 \item{\rm (i)}   $\phi(0_R) = 0_S$;
 \item{\rm (ii)}  $\phi(1_R) = 1_R$;
 \item{\rm (iii)} para todo $x,y\in R$, $\phi(x+_R y) = \phi(x) +_S \phi(y)$;
@@ -19993,7 +20006,24 @@ A função $\phi : R \to S$ é um homomorfismo sset:
 \item{\rm (v)}   para todo $x\in R$, $\phi(-x) = -(\phi(x))$.
 %%}}}
 
-\TODO Criterion.
+%%{{{ criterion: ring_homomorphism_criterion 
+\criterion de homomorfismo.
+\label{ring_homomorphism_criterion}%
+Se a função $\phi : \cal R \to \cal S$ satisfaz:
+$$
+\align
+\phi(1_R)           &= 1_S\\
+\phi(x +_R y)       &= \phi(x) +_S \phi(y)\quad\text{para todo $x,y\in R$}\\
+\phi(x \cdot_R y)   &= \phi(x) \cdot_S \phi(y)\quad\text{para todo $x,y \in R$}
+\endalign
+$$
+ela é um homomorfismo.
+(Ou seja, podemos apagar os itens (i) e (v) na~\ref{ring_homomorphism}.)
+\proof.
+Como $\sset R {0_R, +_R}, \sset S {0_S, +_S}$ são grupos,
+já provamos isso (\ref{in_groups_respecting_products_means_morphism}).
+\qed
+%%}}}
 
 \endsection
 %%}}}
