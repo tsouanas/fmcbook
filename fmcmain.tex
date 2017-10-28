@@ -19862,7 +19862,7 @@ $$
 Vamos estudar pouco a estrutura de \emph{anel},
 cuja definição foi dada primeiramente por \Fraenkel{}Fraenkel.
 Nossa inspiração e guia para os grupos, foram os mapeamentos e as permutações.
-Para os aneis, nossa guia são os inteiros.
+Para os anéis, nossa guia são os inteiros.
 
 %%{{{ df: ring
 \definition.
@@ -19917,7 +19917,7 @@ $$
 \note Notação.
 Dado $x\in R$, denotamos com $(-x)$ o objeto garantido pela~(RA3).
 Seguindo nossa experiência com adição e multiplicação de números,
-adoptamos as mesmas convenções para os aneis: denotamos pela juxtaposição
+adoptamos as mesmas convenções para os anéis: denotamos pela juxtaposição
 a ``multiplicação'' do anel, e consideramos que ela tem precedência contra a ``adição''.
 Note também que como não temos alguma operação binária $-$ de subtraição,
 a expressão $x-y$ num anel não é definida.
@@ -19997,7 +19997,7 @@ O $S$ é um subanel de $R$ sse:
 \label{ring_homomorphism}%
 \tdefined{homomorfismo}[de anel]%
 Sejam $\cal R = \sset R {0_R, 1_R, +_R, \cdot_R}$ e
-$\cal S = \sset S {0_S, 1_S, +_S, \cdot_S}$ aneis.
+$\cal S = \sset S {0_S, 1_S, +_S, \cdot_S}$ anéis.
 A função $\phi : R \to S$ é um homomorfismo sse:
 \item{\rm (i)}   $\phi(0_R) = 0_S$;
 \item{\rm (ii)}  $\phi(1_R) = 1_R$;
@@ -20022,6 +20022,47 @@ ela é um homomorfismo.
 \proof.
 Como $\sset R {0_R, +_R}, \sset S {0_S, +_S}$ são grupos,
 já provamos isso (\ref{in_groups_respecting_products_means_morphism}).
+\qed
+%%}}}
+
+\blah.
+Podemos já provar o equivalente do~\ref{image_subgroup} que encontramos nos
+grupos, para os anéis:
+
+%%{{{ lemma: image_subring 
+\lemma.
+\label{image_subring}%
+Seja $\phi : R \to S$ um homomorfismo de anéis.
+Sua imagem $\Img\phi$ é um subanel de $S$.
+\sketch.
+Usamos o~\ref{subring_criterion} e a definição de $\Img\phi$.
+\qes
+\proof.
+Tome $a,b\in \Img\phi$.  Logo
+$$
+\alignat2
+a &= \phi(a') &\quad&\text{para algum $a' \in R$}\\
+b &= \phi(b') &\quad&\text{para algum $b' \in R$}.
+\endalignat
+$$
+Calculamos:
+$$
+\alignat2
+1_S
+&= \phi(1_R);           \qqby{$\phi$ homo ($1$)}\\
+a + b
+&= \phi(a') + \phi(b')  \qqby{pela escolha dos $a',b'$}\\
+&= \phi(a'+b');         \qqby{$\phi$ homo ($+$)}\\
+-a
+&= -\phi(a')            \qqby{pela escolha do $a'$}\\
+&= \phi(-a');           \qqby{$\phi$ homo ($-$)}\\
+ab
+&= \phi(a')\phi(b')     \qqby{pela escolha dos $a',b'$}\\
+&= \phi(a'b').          \qqby{$\phi$ homo ($\cdot$)}
+\endalignat
+$$
+Ou seja:  $1_S, a+b, -a, ab \in \Img\phi$ e podemos usar
+o~\ref{subring_criterion}.
 \qed
 %%}}}
 
