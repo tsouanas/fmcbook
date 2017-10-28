@@ -12016,8 +12016,8 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Images and pre-images 
-\section Imagens e pre-imagens.
+%%{{{ Images and preimages 
+\section Imagens e preimagens.
 \label{Images_and_preimages}%
 
 %%{{{ Two important subsets 
@@ -14754,9 +14754,23 @@ onde não escrevemos os ``$\ast$-'' quando são implícitos pelo contexto.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Group theory 
-\chapter Teoria de grupos.
+%%{{{ chapter: Teoria dos grupos 
+\chapter Teoria dos grupos.
 \label{Group_theory}%
+
+%%{{{ History 
+\history.
+
+\TODO \Galois{}Galois, \Abel{}Abel.
+
+\endhistory
+%%}}}
+
+%%{{{ Algebraic structures 
+\section Estruturas algébricas.
+
+\endsection
+%%}}}
 
 %%{{{ Permutations 
 \section Permutações.
@@ -17277,6 +17291,31 @@ o~\ref{subgroup_criterion} para concluir $H\subgroup G$.
 \qed
 %%}}}
 
+%%{{{ criterion: subgroup_single_check_criterion 
+\criterion.
+\label{subgroup_single_check_criterion}%
+Sejam $G$ grupo e $\emptyset\neq H \subseteq G$.
+Logo:
+$$
+H\subgrp G \iff \text{para todo $a,b\in H$},\ a\ginv b\in H.
+$$
+\proof.
+\lrdir:
+Sejam $a,b\in H$.
+Como $b\in H$ e $H\subgroup G$, $\ginv b \in H$, e logo, $a\ginv b \in H$.
+\endgraf
+\rldir:
+Como $H\neq\emptyset$, tome $h\in H$.
+Pela hipótese, $h\ginv h\in H$, ou seja $e\in H$.
+Como $e,h\in H$, de novo pela hipótese temos $e\ginv h \in H$,
+ou seja $\ginv h \in H$.
+Temos então que o $H$ é fechado pelos inversos.
+Basta provar que é fechado pela operação de $G$ também:
+tomando $a,b\in H$, ganhamos $a,\ginv b\in H$,
+então pela hipótese $a\ginvp{\ginv b} \in H$, ou seja, $ab \in H$.
+\qed
+%%}}}
+
 %%{{{ x: subgroup_is_an_order 
 \exercise.
 \label{subgroup_is_an_order}%
@@ -19271,7 +19310,14 @@ $$
 
 %%{{{ df: group_morphisms 
 \definition -morfismos.
-\label{group_morphisms}
+\label{group_morphisms}%
+\tdefined{morfismo}%
+\tdefined{homomorfismo}%
+\tdefined{epimorfismo}%
+\tdefined{monomorfismo}%
+\tdefined{isomorfismo}%
+\tdefined{endomorfismo}%
+\tdefined{automorfismo}%
 Sejam grupos $\cal A$ e $\cal B$, e $\phi : \cal A \to \cal B$ um homomorfismo.
 Usamos os termos:
 $$
@@ -19298,7 +19344,7 @@ $$
 %%{{{ df: isomorphic_groups 
 \definition Grupos isomórficos.
 \label{isomorphic_groups}%
-\tdefined{grupo}[isomorphicos]%
+\tdefined{grupo}[isomórficos]%
 Sejam grupos $G$ e $G'$.
 Chamamos o $G$ \dterm{isomórfico} com o $G'$ sse
 existe isomorfismo $\phi : G \to G'$.
@@ -19499,9 +19545,12 @@ Ou seja, $a'\in\Img\phi$.
 %%{{{ thm: first_isomorphism_theorem_groups 
 \theorem Primeiro teorema de isomorfismo.
 \label{first_isomorphism_theorem_groups}%
-Sejam $\cal G, \cal G'$ grupos e $\phi : \cal G \to \cal G'$ homomorfismo.
+\iisee{grupo!teorema de isomorfismo}{teorema de isomorfismo}%
+\ii{teorema de isomorfismo}[primeiro (de grupos)]%
+\iiseealso{isomorfismo}{teorema de isomorfismo}%
+Sejam $\cal G, \cal H$ grupos e $\phi : \cal G \to \cal H$ homomorfismo.
 \item{\rm (i)} $\ker\phi\normal \cal G$;
-\item{\rm (ii)} $\Img\phi\subgrp \cal G'$;
+\item{\rm (ii)} $\Img\phi\subgrp \cal H$;
 \item{\rm (iii)} $\quogrp G {\ker\phi} \iso \Img\phi$.
 \sketch.
 Acabamos de provar as (i)~\&~(ii) nos~\refn{kernel_normal}~\&~\refn{image_subgroup}.
@@ -19515,7 +19564,7 @@ Queremos definir, para qualquer coclasse $Kx$ do $K$ pela
 $$
 \psi(Kx) = \phi(x).
 $$
-O problema é que $\psi$ não parece bem-definida, pois seu valor
+O problema é que $\psi$ não parece \emph{bem-definida}, pois seu valor
 pode depender na escolha do representante $x$ da coclasse---veja
 o~\ref{not_well_defined_function_danger} caso que o problema
 com essa definição não é claro.
@@ -19559,6 +19608,8 @@ $$
 $$
 temos uma tarefa para fazer:
 \emph{precisamos provar que seu valor $\psi(C)$ não depende na escolha de $c$}.
+Até conseguir provar isso, não podemos considerar a $\psi$ uma função
+\ii{função}[bem-definida]\emph{bem-definida}.
 Veja bem a prova do~\ref{first_isomorphism_theorem_groups}.
 %%}}}
 
@@ -19611,7 +19662,7 @@ Identifique todos os erros nessa tentativa de prova.
 \label{aut_G_is_a_group}%
 Mostre que dado um grupo $G$, o conjunto de todos os seus automorfismos
 $$
-\aut G
+\Aut G
 \defeq
 \set{
 \phi : G\bijto G
@@ -19620,6 +19671,115 @@ $$
 }
 $$
 com operação $\compose$ é um grupo.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: bij_G_subgrp_aut_G 
+\problem.
+\label{aut_G_subgrp_bij_G}%
+Sabendo que $\namedop{Bij} G \defeq \sset {(G \bijto G)} {\compose}$ é um grupo,
+mostre que
+$$
+\Aut G \subgroup \namedop{Bij} G.
+$$
+
+\hint
+Se $F$ é injetora, então $x=y \impliedby F(x) = F(y)$.
+
+\solution
+Como $\Aut G \subseteq \namedop{Bij} G$, precisamos verificar apenas que $\Aut G$ é:
+\endgraf\noindent
+\casestyle{Fechado pela operação:}
+Tome $\phi,\psi\in\Aut G$, e $x,y\in G$.  Calculamos:
+$$
+\alignat2
+(\phi\compose\psi)(x\cdot y)
+&=\phi\paren{\psi(x\cdot y)}                                    \qqby{def.~$\compose$}\\
+&=\phi\paren{\psi(x) \cdot \psi(y)}                             \qqby{$\psi$ homo}\\
+&=\phi\paren{\psi(x)} \cdot \phi\paren{\psi(y)}                 \qqby{$\phi$ homo}\\
+&=\paren{\phi\compose\psi}(x) \cdot \paren{\phi\compose\psi}(y). \qqby{def.~$\compose$}
+\endalignat
+$$
+\endgraf\noindent
+\casestyle{Fechado pelos inversos:}
+Tome $\phi\in\Aut G$.
+Precisamos verificar que a bijeção $\phi^{-1}$
+é realmente um homomorfismo.
+Ou seja, precisamos mostrar que
+$$
+\phi^{-1}(x\cdot y) = \phi^{-1}(x)\cdot \phi^{-1}(y)
+$$
+para todos os $x,y\in G$.
+Seguindo a dica, basta provar que
+$$
+\phi\paren{\phi^{-1}(x\cdot y)} = \phi\paren{\phi^{-1}(x)\cdot \phi^{-1}(y)}
+$$
+O lado esquerdo é igual ao $x\cdot y$.
+Calculamos o lado direito:
+$$
+\alignat2
+\phi\paren{\phi^{-1}(x) \cdot \phi^{-1}(y)}
+&=\phi\paren{\phi^{-1}(x)} \cdot \phi\paren{\phi^{-1}(y)}   \qqby{$\phi$ homo}\\
+&=x\cdot y.  \qqby{def.~$\phi^{-1}$}
+\endalignat
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ df: group_center 
+\definition Centro.
+\label{group_center}%
+\tdefined{grupo}[centro]%
+\sdefined{Z(\holed G)} {o centro do grupo $\holed G$}%
+Dado um grupo $G$, definimos seu \dterm{centro} $Z(G)$
+como o conjunto de todos os membros de $G$ que ``comutam'' com todos os membros de $G$:
+$$
+Z(G) \defeq \setstt {z \in G} {para todo $g\in G$, $zg = gz$}.
+$$
+%%}}}
+
+%%{{{ prob: center_G_is_a_subgroup 
+\problem.
+\label{center_G_is_a_subgroup}%
+Mostre que dado um grupo $G$, seu centro $Z(G)\subgrp G$.
+
+\solution
+Como $Z(G) \subseteq G$, precisamos apenas mostrar que:
+\endgraf\noindent
+\casestyle{Fechado pela operação:}
+Sejam $x,y\in Z(G)$.
+Para provar que $xy\in Z(G)$,
+verificamos que o $(xy)$ comuta com todos os elementos de $G$.
+Seja $g\in G$.
+Calculamos:
+$$
+\alignat2
+(xy)g
+&= x(yg)  \qqby{(G1)}\\
+&= x(gy)  \qqby{$g\in Z(G)$}\\
+&= (xg)y  \qqby{(G1)}\\
+&= (gx)y  \qqby{$g\in Z(G)$}\\
+&= g(xy). \qqby{(G1)}
+\endalignat
+$$
+\endgraf\noindent
+\casestyle{Fechado pelos inversos:}
+Seja $x\in Z(G)$.
+Para provar que $\ginv x\in Z(G)$,
+verificamos que o $\ginv x$ comuta com todos os elementos de $G$.
+Seja $g\in G$.
+Calculamos:
+$$
+\alignat2
+(\ginv x)g
+&= \ginvp{\ginv g x}       \qqby{$G$ grupo}\\
+&= \ginvp{x \ginv g}       \qqby{$x \in Z(G)$}\\
+&= \ginvp{\ginv g} \ginv x \qqby{$G$ grupo}\\
+&= g \ginv x.              \qqby{$G$ grupo}
+\endalignat
+$$
 
 \endproblem
 %%}}}
@@ -19634,7 +19794,7 @@ Para praticar com propriedades de operações vale a pena
 resolver os primeiros 15 problemas do~\cite{halmoslapb}.
 
 Livros introdutórios em álgebra abstrata tratam em geral
-a teoria de grupos mais profundamente que podemos tratar aqui.
+a teoria dos grupos mais profundamente que podemos tratar aqui.
 \cite{pinteralgebra} é um desses livros, bastante acessível,
 com exemplos de diversas áreas, mostrando várias aplicações.
 Uma \emph{excelente} introdução em vários tópicos de álgebra é
@@ -19646,7 +19806,7 @@ apresentam álgebra mais profundamente e com um cheiro
 categórico (veja~\ref{Category_theory}).
 
 Depois de se acostumar com as idéias algébricas em geral,
-dois livros focados especialmente em teoria de grupos
+dois livros focados especialmente em teoria dos grupos
 são os~\cite{rosegroups} e~\cite{rotmangroups}.
 
 \endfurther
@@ -19655,22 +19815,9 @@ são os~\cite{rosegroups} e~\cite{rotmangroups}.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Abstract algebra 
-\chapter Álgebra abstrata.
-
-%%{{{ History 
-\history.
-
-\TODO \Galois{}Galois, \Abel{}Abel.
-
-\endhistory
-%%}}}
-
-%%{{{ Algebraic structures 
-\section Estruturas algébricas.
-
-\endsection
-%%}}}
+%%{{{ chapter: Estruturas algébricas 
+\chapter Estruturas algébricas.
+\label{Algebraic_structures}%
 
 %%{{{ Monoids 
 \section Monóides.
@@ -19864,8 +20011,8 @@ cuja definição foi dada primeiramente por \Fraenkel{}Fraenkel.
 Nossa inspiração e guia para os grupos, foram os mapeamentos e as permutações.
 Para os anéis, nossa guia são os inteiros.
 
-%%{{{ df: ring
-\definition.
+%%{{{ df: ring 
+\definition Anel.
 \label{ring}%
 \tdefined{anel}%
 \tdefined{anel}[comutativo]%
@@ -19962,6 +20109,119 @@ Em qualquer anel $\cal R$, para todos $x,y\in\cal R$ temos:
 \item{\rm (iv)}  $-(x+y) = (-x) + (-y)$.
 %%}}}
 
+%%{{{ x: pset_with_setops_ring 
+\exercise.
+\label{pset_with_setops_ring}%
+Seja $X$ conjunto.
+Defina no $\pset X$ duas operações tais que $\pset X$ vira um anel.
+Identifique quas são seus $0,1$ e prove que realmente é um anel.
+
+\hint
+Lembre o~\ref{pset_with_setops_group}?
+
+\hint
+Graças ao~\ref{pset_with_setops_group}, a adição do anel deve ser a $\symdiff$.
+
+\hint
+$\sset {\pset X} {\symdiff, \inter}$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: boolean_ring 
+\definition Anel booleano.
+\label{boolean_ring}%
+\tdefined{anel}[booleano]%
+Chamamos o anel $\cal R$ um \dterm{anel booleano} sse
+sua multiplicação é \ii{idempotência}\emph{idempotente}, ou seja:
+$$
+\text{para todo $a\in \cal R$},\quad
+a^2 = a.
+$$
+%%}}}
+
+%%{{{ eg 
+\example.
+Dado conjunto $X$, o $\sset {\pset X} {\symdiff, \inter}$
+é um anel booleano.
+\endexample
+%%}}}
+
+%%{{{ x: boolean_rings_are_idempotent 
+\exercise.
+\label{boolean_rings_are_idempotent}%
+Seja $\cal R$ um anel booleano.
+Prove que:
+$$
+\
+\text{para todo $p\in \cal R$},\quad
+p = -p.
+$$
+
+\hint
+Calcule o $(p+q)^2$.
+
+\solution
+Sejam $p,q \in R$.
+Calculamos:
+$$
+\alignat2
+(p+q)^2
+&= (p+q)(p+q)           \\
+&= (p+q)p + (p+q)q      \\
+&= pp + qp + pq + qq    \\
+&= p^2 + qp + pq + q^2  \\
+&= p + qp + pq + q.     \qqby{$B$ booleano}
+\endalignat
+$$
+Mas como $B$ é booleano temos também $(p+q)^2 = p+q$.
+Ou seja
+$$
+\align
+p + q &= p + qp + pq + q\\
+\intertext{e cancelando os $p$ e $q$ ganhamos}
+0 &= qp + pq    \tag{\fact{1}}
+\endalign
+$$
+ou seja, $pq = -qp$.
+\endgraf
+Seja $a \in R$.
+Calculamos:
+$$
+\alignat2
+0
+&= aa + aa      \qqby{tome $p\asseq a$ e $q \asseq a$}\\
+&= a + a.       \qqby{$\cal R$ é booleano}
+\endalignat
+$$
+logo, $a = -a$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: boolean_rings_are_commutative 
+\exercise.
+\label{boolean_rings_are_commutative}%
+Cada anel booleano é comutativo.
+
+\hint
+Use o~\ref{boolean_rings_are_idempotent}.
+
+\solution
+Sejam $p,q \in R$.
+Queremos mostrar que $pq = qp$.
+Usando o~\ref{boolean_rings_are_idempotent} e
+a~\byfact1~da sua resolução,
+ganhamos
+$$
+pq + pq = 0 = qp + pq
+$$
+e cancelando os $pq$ na direita chegamos no $pq = qp$.
+Ou seja, o $\cal R$ é comutativo.
+
+\endexercise
+%%}}}
+
 %%{{{ Q: How would you define subring and ring homomorphism? 
 \question.
 Como tu definaria o conceito de subanel?
@@ -19973,7 +20233,7 @@ parecido com o~\refn{in_groups_respecting_products_means_morphism}?
 %%}}}
 
 %%{{{ df: subring 
-\definition.
+\definition Subanel.
 \label{subring}%
 \tdefined{subanel}%
 Seja $\cal R$ um anel.
@@ -19993,12 +20253,13 @@ O $S$ é um subanel de $R$ sse:
 %%}}}
 
 %%{{{ df: ring_homomorphism 
-\definition.
+\definition Homomorfismo.
 \label{ring_homomorphism}%
 \tdefined{homomorfismo}[de anel]%
-Sejam $\cal R = \sset R {0_R, 1_R, +_R, \cdot_R}$ e
-$\cal S = \sset S {0_S, 1_S, +_S, \cdot_S}$ anéis.
-A função $\phi : R \to S$ é um homomorfismo sse:
+Sejam os anéis
+$\cal R = \sset R {0_R, 1_R, +_R, \cdot_R}$ e
+$\cal S = \sset S {0_S, 1_S, +_S, \cdot_S}$.
+A anéis. função $\phi : R \to S$ é um homomorfismo sse:
 \item{\rm (i)}   $\phi(0_R) = 0_S$;
 \item{\rm (ii)}  $\phi(1_R) = 1_R$;
 \item{\rm (iii)} para todo $x,y\in R$, $\phi(x+_R y) = \phi(x) +_S \phi(y)$;
@@ -21025,6 +21286,7 @@ Sobre lógica matemática:
 %%{{{ Russell's paradox 
 \note O paradoxo de Russell (1902).
 \label{russells_paradox}%
+\tdefined{paradoxo}[de Russell]%
 Russell\Russell[paradoxo]~observou que o conjunto
 $$
 \Univ \defeq \set{ x \st \text{$x$ é conjunto} }
