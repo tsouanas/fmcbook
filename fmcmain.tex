@@ -14756,6 +14756,7 @@ onde não escrevemos os ``$\ast$-'' quando são implícitos pelo contexto.
 
 %%{{{ chapter: Group theory 
 \chapter Teoria de grupos.
+\label{Group_theory}%
 
 %%{{{ Permutations 
 \section Permutações.
@@ -15097,7 +15098,7 @@ cada elemento de $G$ possui $\ast$-\emph{inverso}.
 \blah.
 Lembrando a~\ref{closed_associative_identity_inverse}, tentamos esclarecer pouco essa definição:
 
-%%{{{ df: group (0) 
+%%{{{ pseudodf: group (0) 
 \pseudodefinition Grupo (0).
 \label{group_def_classic}%
 \tdefined{grupo}%
@@ -15223,8 +15224,9 @@ $$
 $$
 %%}}}
 
-%%{{{ Groups and abelian groups schematically 
+%%{{{ note: groups_and_abelian_groups_schematically 
 \note.
+\label{groups_and_abelian_groups_schematically}%
 Esquematicamente:
 $$
 \left.
@@ -15239,7 +15241,7 @@ $$
 \ \ 
 \right\}
 \text{grupo}\\
-&\ \text{(GA)}
+&\ \text{(G4)}
 \endaligned
 \ \ 
 \right\}
@@ -15273,7 +15275,7 @@ Cada bijeção tem uma função-inversa, que satisfaz as equações dessa lei
 pela definição de função-inversa.
 (Veja~\ref{finverse} e~\ref{finv_is_bij}.)
 \endgraf\noindent
-{(GA).}
+{(G4).}
 Basta mostrar pelo menos um contraexemplo, ou seja, duas permutações
 $a,b$ do $S_3$ tais que $a\fcom b \neq b\fcom a$.
 Agora preciso saber o que significa igualdade entre \emph{funções}
@@ -15459,7 +15461,7 @@ O $\sset S +$ onde $+$ é a \emph{concatenação} de strings \emph{não} é um g
 
 %%{{{ x: verify_all_group_laws_for_strings 
 \exercise.
-Para cada uma das leis~(G0)--(G3) e~(GA), decida se é
+Para cada uma das leis~(G0)--(G4), decida se é
 satisfeita pelo $\sset S +$ do~\ref{strings_with_concat_is_not_a_group}.
 Se é, prove; se não é, refute!
 
@@ -15479,7 +15481,7 @@ $$
 &&\sset {B_0} {\ntimes}.
 \endxalignat
 $$
-Para cada um deles decida se satisfaz cada uma das leis (G0)--(GA).
+Para cada um deles decida se satisfaz cada uma das leis (G0)--(G4).
 
 \endexercise
 %%}}}
@@ -16500,7 +16502,7 @@ Investigar todas as possíveis escolhas para os~$\faded?$ parece como um jogo
 de Sudoku, só que nossa restrição não é com a soma dos números de cada linha e
 cada coluna como no Sudoku---nem poderia ser isso: nossos membros possivelmente
 nem são números---mas as leis~(G0)--(G3) que tem que ser satisfeitas.
-E caso que queremos criar um grupo abeliano, a~(GA) também.
+E caso que queremos criar um grupo abeliano, a~(G4) também.
 %%}}}
 
 %%{{{ Find the rules of grupoku 
@@ -16636,7 +16638,7 @@ a \uparrow_1 (k+1)
 \intertext{\dots e agora?
 \emph{Se} $\ast$ fosse comutativa (ou seja, se o grupo fosse abeliano),
 a gente \emph{poderia} continuar assim:}
-&= (a \uparrow_2 k) \ast a   \qqby{comutatividade~(GA)}\\
+&= (a \uparrow_2 k) \ast a   \qqby{comutatividade~(G4)}\\
 &= a \uparrow_2 (k+1).       \qqby{def.~$\uparrow_2$}
 \intertext{\emph{So que não!}
 Sobre o $G$ sabemos apenas que é um grupo, então não podemos contar na
@@ -19193,20 +19195,27 @@ Felizmente, como nos vamos provar logo após, as leis de grupo
 são suficientes para garantir que qualquer função $\phi$ que
 satisfaz apenas o~(i)~em cima, obrigatoriamente satisfaz
 os~(ii)~e~(iii) também!
-Então vamos botar em nossa definição apenas o~(i) mesmo:
+Mesmo assim, vamos botar em nossa definição todos os~(i)--(iii),
+pois isso captura melhor a idéia geral de ``homomorfismo''.
+E assim que provar nossa afirmação ganhamos um critérion forte
+para decidir se alguma função é um homomorfismo.
 %%}}}
 
 %%{{{ df: group_homomorphism 
 \definition Homomorfismo.
 \label{group_homomorphism}%
 \tdefined{homomorfismo}%
-Sejam $\cal A = \sset A {\ast_A}$ e $\cal B = \sset B {\ast_B}$ grupos.
+Sejam $\cal A = \sset A {e_A, \ast_A}$ e $\cal B = \sset B {e_B, \ast_B}$ grupos.
 A função $\phi : A \to B$ é um \dterm{homomorfismo} de $\cal A$ para $\cal B$
-sse
+sse:
 $$
-\text{para todo $x,y\in A$},
-\qquad
-\phi(x \ast_A y) = \phi(x) \ast_B \phi(y).
+\align
+&\phi(e_A) = e_B\\
+\text{para todo $x,y\in A$},\quad
+&\phi(x \ast_A y) = \phi(x) \ast_B \phi(y)\\
+\text{para todo $x\in A$},\quad
+&\phi(\ginv x) = \ginvp{\phi(x)}
+\endalign
 $$
 As vezes escrevemos $\phi : \cal A \to \cal B$ (em vez de $\phi:A\to B$)
 para enfatisar que o $\phi$ nos leva do \emph{grupo} $\cal A$ para o
@@ -19235,8 +19244,8 @@ pois, no primeiro caso o $\ginv{}$ é aplicado num membro de $A$,
 e no segundo caso num membro de $B$.
 %%}}}
 
-%%{{{ lemma: in_groups_respecting_products_means_morphism 
-\lemma.
+%%{{{ criterion: in_groups_respecting_products_means_morphism 
+\criterion de homomorfismo.
 \label{in_groups_respecting_products_means_morphism}%
 Sejam grupos $\cal A = \sset A {\ast_A}$ e $\cal B = \sset B {\ast_B}$,
 e homomorfismo $\phi : \cal A \to \cal B$.
@@ -19377,41 +19386,44 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ prop: kernel_normal 
-\proposition.
+%%{{{ x: kernel_normal 
+\exercise.
 \label{kernel_normal}%
-$\ker\phi\normal G$.
-\sketch.
-Acabamos de provar que $\ker\phi\subgrp G$ no~\ref{kernel_subgroup}.
+Sejam $G$ e $G'$ grupos e $\phi$ um homomorfismo de $G$ para $G'$.
+Prove que $\ker\phi\normal G$.
+
+\hint
+Acabamos de provar que $\ker\phi\subgrp \cal G$ no~\ref{kernel_subgroup}.
 Basta provar que $\ker\phi$ é fechado pelos conjugados.
 Seja $n\in\ker\phi$ e tome $g\in G$.
 Precisamos provar que o $g$-conjugado de $n$, também está no $\ker\phi$:
 $gn\ginv g \in \ker\phi$.
-Ou seja, basta verificar que realmente $\phi(gn\ginv g) = e_{G'}$.
-\qes
-\proof.
-Seja $n\in\ker\phi$ e tome $g\in G$.
+Ou seja, basta verificar que realmente $\phi(gn\ginv g) = e_{\cal G'}$.
+
+\solution
+Seja $n\in\ker\phi$ e tome $g\in \cal G$.
 Precisamos provar que o $g$-conjugado de $n$, também está no $\ker\phi$:
 $gn\ginv g \in \ker\phi$.
 Calculamos:
 $$
 \alignat2
 \phi\funparen{gn\ginv g}
-&= \phi(g) \phi(n) \phi\funparen{\ginv g}   \qqby{$\phi$ homo}\\
-&= \phi(g) e_{G'} \phi\funparen{\ginv g}    \qqby{$n\in\ker\phi$}\\
-&= \phi(g) \phi\funparen{\ginv g}           \qqby{def.~$e_{G'}$}\\
-&= \phi(g) \ginvp{\phi(g)}                  \qqby{$\phi$ homo}\\
-&= e_{G'}                                   \qqby{def.~$\ginvp{\phi(g)}$}
+&= \phi(g) \phi(n) \phi\funparen{\ginv g}       \qqby{$\phi$ homo}\\
+&= \phi(g) e_{\cal G'} \phi\funparen{\ginv g}   \qqby{$n\in\ker\phi$}\\
+&= \phi(g) \phi\funparen{\ginv g}               \qqby{def.~$e_{\cal G'}$}\\
+&= \phi(g) \ginvp{\phi(g)}                      \qqby{$\phi$ homo}\\
+&= e_{\cal G'}                                  \qqby{def.~$\ginvp{\phi(g)}$}
 \endalignat
 $$
 Logo $gn\ginv g\in\ker\phi$ como queremos provar.
-\qed
+
+\endexercise
 %%}}}
 
 %%{{{ x: kernel_normal_alt_proof 
 \exercise.
 \label{kernel_normal_alt_proof}%
-Veja a prova completa da~\ref{kernel_normal}.
+Veja a prova completa do~\ref{kernel_normal}.
 No seu cálculo, mostre como continuar num caminho diferente depois da terceira
 igualdade para chegar no mesmo resultado desejado: $e_{G'}$.
 
@@ -19434,6 +19446,118 @@ $$
 $$
 
 \endexercise
+%%}}}
+
+%%{{{ x: image_subgroup 
+\exercise.
+\label{image_subgroup}%
+Sejam $G$ e $G'$ grupos e $\phi$ um homomorfismo de $G$ para $G'$.
+Prove que $\Img\phi\subgrp G'$.
+
+\hint
+Precisas mostrar que $\Img\phi$ é fechado pela operação e pelos conjuntos.
+
+\hint
+\casestyle{$\Img\phi$ fechado pela operação:}
+Tome $a', b' \in \Img\phi$ e ache um $x\in\cal G$ tal que que $\phi(x) = a'b'$.
+\endgraf\noindent
+\casestyle{$\Img\phi$ fechado pelos conjuntos:}
+Tome $a' \in \Img\phi$ e ache um $x\in\cal G$ tal que $\phi(x) = \ginvp{a'}$.
+
+\solution
+\casestyle{$\Img\phi$ fechado pela operação:}
+Sejam $a', b' \in \Img\phi$.
+Logo, sejam $a,b\in\cal G$ tais que $\phi a = a'$, e $\phi b = b'$.
+Calculamos:
+$$
+\alignat2
+\phi(ab)
+&= \phi(a) \phi(b)  \qqby{$\phi$ homo (oper.)}\\
+&= a' b'.           \qqby{pela escolha dos $a,b$}
+\endalignat
+$$
+Ou seja, $a'b' \in \Img\phi$.
+\endgraf\noindent
+\casestyle{$\Img\phi$ fechado pelos conjuntos:}
+Seja $a' \in \Img\phi$.
+Logo, seja $a\in\cal G$ tal que $\phi a = a'$.
+Calculamos:
+$$
+\alignat2
+\phi(\ginv a)
+&= \ginvp{\phi a}   \qqby{$\phi$ homo (inv.)}\\
+&= \ginvp{a'}.      \qqby{pela escolha do $a$}
+\endalignat
+$$
+Ou seja, $a'\in\Img\phi$.
+
+\endexercise
+%%}}}
+
+%%{{{ thm: first_isomorphism_theorem_groups 
+\theorem Primeiro teorema de isomorfismo.
+\label{first_isomorphism_theorem_groups}%
+Sejam $\cal G, \cal G'$ grupos e $\phi : \cal G \to \cal G'$ homomorfismo.
+\item{\rm (i)} $\ker\phi\normal \cal G$;
+\item{\rm (ii)} $\Img\phi\subgrp \cal G'$;
+\item{\rm (iii)} $\quogrp G {\ker\phi} \iso \Img\phi$.
+\sketch.
+Acabamos de provar as (i)~\&~(ii) nos~\refn{kernel_normal}~\&~\refn{image_subgroup}.
+Para a (iii) precisamos definir uma função
+$$
+\psi : \quogrp G {\ker\phi} \to \Img\phi
+$$
+tal que $\psi$ é um isomorfismo.
+Seja $K \asseq \ker\phi$.
+Queremos definir, para qualquer coclasse $Kx$ do $K$ pela
+$$
+\psi(Kx) = \phi(x).
+$$
+O problema é que $\psi$ não parece bem-definida, pois seu valor
+pode depender na escolha do representante $x$ da coclasse---veja
+o~\ref{not_well_defined_function_danger} caso que o problema
+com essa definição não é claro.
+Precisamos melhorar essa definição e provar que realmente defina
+uma \emph{função} $\psi$; que a $\psi$ é bijetora; que $\psi$ é
+um homomorfismo (e logo isomorfismo), ou seja que $\psi$ preserva
+a operação.
+\qes
+%%}}}
+
+%%{{{ beware: not_well_defined_function_danger 
+\beware.
+\label{not_well_defined_function_danger}%
+Caso que o perigo descrito no esboço em cima não é óbvio, vamos
+pensar como um programador querendo definir essa função $\psi$.
+Sua função, quando chamada, recebe uma coclasse, ou seja,
+um conjunto com certos elementos membros.
+Ela não sabe qual foi o nome que o chamador escolheu para essa
+coclasse.
+Imagine alguém programando uma função $\code{foo}$
+de $\code{int}$ para $\code{int}$ numa linguagem de programação.
+O programador e sua função não têm como saber o \emph{nome}
+que o chamador da função vai usar quando chamando-la.
+Em algum ponto ela pode ser chamada pelo $\code{foo(42)}$
+passando assim diretamente o \emph{literal} $\code{42}$,
+ou, depois de umas atribuições como $\code{int a = 42; int num = 42;}$,
+chamá-la $\code{foo(a)}$ ou $\code{foo(num)}$.
+Não tem como programar a função depender nesses nomes.
+Por exemplo:
+<<se for chamada com nome que começa com vogal, retorna o inteiro 0;
+caso contrário, retorna o inteiro 1>>;
+ou
+<<retorna o tamanho do nome do teu argumento>>
+(querendo retornar $\code{1}$ caso que for chamada pelo $\code{foo(a)}$,
+e $\code{3}$ caso que for chamada pelo $\code{foo(num)}$).
+\endgraf
+Mesmo se definir ela pela
+$$
+\psi(C) = \phi(c),\quad
+\text{onde $c$ é algum membro de $C$}
+$$
+temos uma tarefa para fazer:
+\emph{precisamos provar que seu valor $\psi(C)$ não depende na escolha de $c$}.
+Veja bem a prova do~\ref{first_isomorphism_theorem_groups}.
 %%}}}
 
 \endsection
@@ -19546,10 +19670,324 @@ são os~\cite{rosegroups} e~\cite{rotmangroups}.
 \endsection
 %%}}}
 
+%%{{{ Monoids 
+\section Monóides.
+\label{Monoids}%
+
+%%{{{ df: monoid 
+\definition Monóide.
+\label{monoid}%
+\tdefined{monóide}%
+Um conjunto estruturado $\cal M = \sset M {\epsilon, \cdot}$
+é um \dterm{monóide} sse:
+$$
+\alignat2
+\paren{\forall a,b\in M}    &\bracket{a\cdot b \in G}                       &\tag{G0}\\
+\paren{\forall a,b,c\in M}  &\bracket{a\cdot(b\cdot c) = (a\cdot b)\cdot c} &\tag{G1}\\
+\paren{\forall a \in M}     &\bracket{\epsilon\cdot a = a = a\cdot\epsilon} &\tag{G2}
+\endalignat
+$$
+Naturalmente, se a $\cdot$ é comutativa chamamos-lo \dterm{monóide comutativo}.
+%%}}}
+
+%%{{{ eg: nats 
+\example.
+Os naturais com adição formam um monóide.
+\endexample
+%%}}}
+
+%%{{{ eg: strings 
+\example.
+Considere um alfabeto finito $\Sigma$ e seja $S$ o conjunto de todos strings formados por letras do $\Sigma$.
+O $S$ com a operação a concatenação de strings, é um monóide.  Sua identidade é o string vazio.
+\endexample
+%%}}}
+
+\question.
+Como tu definiria o homomorfismo entre monóides?
+\spoiler.
+
+%%{{{ df: monoid_homomorphism 
+\definition Homomorfismo.
+\label{monoid_homomorphism}%
+\tdefined{homomorfismo}[de monóide]
+Sejam $\cal M = \sset M {\epsilon_M, \cdot_M}$
+e $\cal N = \sset N {\epsilon_N, \cdot_N}$ monóides.
+Uma função $\phi : M \to N$ é um \dterm{homomorfismo} sse:
+\beginol
+\li $\phi(\epsilon_M) = \epsilon_N$;
+\li para todo $x,y\in M$,\quad $\phi(x \cdot_M y) = \phi(x) \cdot_N \phi(y)$.
+\endol
+%%}}}
+
+%%{{{ x: in_monoids_preservation_of_oper_does_not_imply_preservation_of_identity 
+\exercise.
+\label{in_monoids_preservation_of_oper_does_not_imply_preservation_of_identity}%
+Podemos provar um critérion parecido com
+o~\ref{in_groups_respecting_products_means_morphism} para os monóides?
+Ou seja, se $\phi$ preserva a operação do monóide,
+ela necessariamente preserva a identidade também?
+
+\hint
+Não!
+Mas como podemos provar que não tem como provar isso?
+
+\endexercise
+%%}}}
+
+%%{{{ x: monoid_epimorphism_criterion 
+\exercise Critérion.
+\label{monoid_epimorphism_criterion}%
+Uma função sobrejetora $\phi : M \surto N$ tal que
+$$
+\text{para todo $x,y\in M$},\quad
+\phi(x \cdot_M y) = \phi(x) \cdot_N \phi(y)
+$$
+é um homomorfismo (e logo um epimorfismo).
+
+\hint
+Precisamos provar que $\phi(\epsilon_M) = \epsilon_N$.
+Como podemos ler essa igualdade em lingua (mais) natural?
+
+\hint
+Queremos: <<o $\phi(\epsilon_M)$ é a identidade do $\cal N$>>.
+O que significa <<ser a identidade dum monóide>>?
+Ou seja, o que precisamos provar sobre esse objeto, $\phi(\epsilon_M)$
+para mostrar que realmente ele é a identidade?
+
+\hint
+Precisamos provar que:
+$$
+\lforall {n \in N} {n \cdot_N \phi(\epsilon_M) = n = \phi(\epsilon_M) n}.
+$$
+Como começaria essa prova?
+
+\hint
+``Seja $n \in N$.''
+Depois dessa frase, queremos provar que
+$$
+n \cdot_N \phi(\epsilon_M) = n = \phi(\epsilon_M) n.
+$$
+
+\hint
+Já provamos no~\ref{in_monoids_preservation_of_oper_does_not_imply_preservation_of_identity} que não tem como ganhar a preservação da identidade como conseqüência da preservação da operação tendo uma função $\phi : M \to N$ qualquer.  Então com certeza precisamos usar nossa hipótese nova aqui, que a $\phi$ é sobrejetora.
+
+\hint
+Seja $n \in N$.
+Como $\phi$ é sobrejetora, tome $m \in M$ tal que $\phi(m) = n$.
+
+\solution
+Precisamos provar que $\phi(\epsilon_M) = \epsilon_N$, ou seja, que para todo $n\in N$, 
+$$
+n \cdot_N \phi(\epsilon_M) = n = \phi(\epsilon_M) \cdot_N n.
+$$
+Seja $n \in N$.
+Logo $n = \phi(m)$ para algum $m \in M$.
+Calculamos:
+$$
+\alignat2
+n\cdot_N \phi(\epsilon_M)
+&= \phi(m) \cdot_N \phi(\epsilon_M) \qqby{pela escolha do $m$}\\
+&= \phi(m \cdot_M \epsilon_M)       \qqby{$\phi$ homo (oper.)}\\
+&= \phi(m)                          \qqby{pela (G2)}\\
+&= n                                \qqby{pela escolha do $m$}
+\endalignat
+$$
+Similarmente, $n = \phi(\epsilon_M) \cdot_N n$.
+
+\endexercise
+%%}}}
+
+%%{{{ eg 
+\example.
+Considere os monóides $\cal N = \sset \nats {0, +}$ e $\cal B = \sset B {\epsilon, \concat}$,
+onde $S$ é o conjunto de todos os strings (finitos) formados por o alfabeto
+$\Sigma = \set{\digit 0,\digit 1}$, $\epsilon$ é o string vazio ``$\,$'', e~$\concat$ a concatenação.
+A $\phi : \cal N \to \cal B$ definida recursivamente pelas
+$$
+\align
+\phi(0)     &= \epsilon\\
+\phi(n+1)   &= \phi(n) \concat \digit0
+\endalign
+$$
+é um monomorfismo.
+A $\namedfun{length} : \cal B \to \cal N$ que retorna o tamanho da sua entrada é um epimorfismo.
+\endexample
+%%}}}
+
+%%{{{ noneg 
+\nonexample.
+Com o contexto do exemplo anterior, a $\psi : \cal N \to \cal B$
+definida recursivamente pelas:
+$$
+\align
+\psi(0)     &= \epsilon\\
+\psi(n+1)   &=
+\knuthcases{
+ \psi(n) \concat \digit0, & se $\psi(n)$ não termina com $\digit0$\cr
+ \psi(n) \concat \digit1, & caso contrário
+}
+\endalign
+$$
+não é um homomorfismo.
+\endnonexample
+%%}}}
+
+%%{{{ x: why? 
+\exercise.
+Por quê?
+
+\solution
+Temos:
+$$
+\psi(1+1)
+= \digit0\digit1
+\neq \digit0\digit0
+= \psi(1)\concat\psi(1).
+$$
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Rings 
 \section Aneis.
+\label{Rings}%
 
-% mention first definition by \Fraenkel{}Fraenkel
+\blah.
+Vamos estudar pouco a estrutura de \emph{anel},
+cuja definição foi dada primeiramente por \Fraenkel{}Fraenkel.
+Nossa inspiração e guia para os grupos, foram os mapeamentos e as permutações.
+Para os aneis, nossa guia são os inteiros.
+
+%%{{{ df: ring
+\definition.
+\label{ring}%
+Seja $\cal R = \sset R {0, 1, \plus, \times}$ um conjunto estruturado,
+onde $0,1$ são constantes e $\plus,\times$ são operações binárias.
+$\cal R$ é um \dterm{anel} (ou \dterm{ring}) sse
+$$
+\alignat2
+\paren{\forall a,b\in R}                      &\bracket{a\plus b \in R}                          &\tag{RA0} \\
+\paren{\forall a,b,c\in R}                    &\bracket{a\plus(b\plus c) = (a\plus b)\plus c}    &\tag{RA1} \\
+\paren{\forall a \in R}                       &\bracket{0\plus a = a = a\plus 0}                 &\tag{RA2} \\
+\paren{\forall a\in R} \paren{\exists y\in R} &\bracket{y\plus a = 0 = a \plus y}                &\tag{RA3} \\
+\paren{\forall a,b\in R}                      &\bracket{a\plus b = b \plus a}                    &\tag{RA4} \\
+\paren{\forall a,b\in R}                      &\bracket{a\times b \in R}                         &\tag{RM0} \\
+\paren{\forall a,b,c\in R}                    &\bracket{a\times(b\times c) = (a\times b)\times c}&\tag{RM1} \\
+\paren{\forall a \in R}                       &\bracket{1\times a = a = a\times 1}               &\tag{RM2} \\
+\paren{\forall a,b,c \in R}                   &\bracket{a\times (b \plus c) = (a\times b) \plus (a \times c)}  &\tag{RDL}\\
+\paren{\forall a,b,c \in R}                   &\bracket{(b \plus c)\times a = (b\times a) \plus (c \times a)}  &\tag{RDR}
+\endalignat
+$$
+Dado $x\in R$, denotamos com $(-x)$ o objeto garantido pela (RA3).
+%%}}}
+
+%%{{{ x: ring_definition_using_groups 
+\exercise.
+\label{ring_definition_using_groups}%
+Como podemos definir o que é um anel usando definições de estruturas algébricas que já conhecemos?
+
+\solution
+Seja $\cal R = \sset R {0, 1, \plus, \times}$ um conjunto estruturado,
+onde $0,1$ são constantes e $\plus,\times$ são operações binárias.
+O $\cal R$ é um \dterm{anel} sse:
+\item{(i)} $\sset R {0, \plus}$ é um grupo abeliano;
+\item{(ii)} $\sset R {1, \times}$ é um monóide;
+\item{(iii)} as seguindes leis são satisfeitas:
+$$
+\alignat2
+\paren{\forall a,b,c \in R} &\bracket{a\times (b \plus c) = (a\times b) \plus (a \times c)}  &\tag{RDL}\\
+\paren{\forall a,b,c \in R} &\bracket{(b \plus c)\times a = (b\times a) \plus (c \times a)}  &\tag{RDR}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ note: notation 
+\note Notação.
+Seguindo nossa experiência com adição e multiplicação de números,
+adoptamos as mesmas convenções para os aneis: denotamos pela juxtaposição
+a ``multiplicação'' do anel, e consideramos que ela tem precedência contra a ``adição''.
+Note também que como não temos alguma operação binária $-$ de subtraição,
+a expressão $x-y$ num anel não é definida.
+Introduzimos aqui sua definição como açúcar sintáctico:
+$$
+\align
+x - y   &\sugareq x + (-y)
+\intertext{Similarmente, se $n\in\nats$, usamos:}
+nx      &\sugareq \toverbrace{x + x + \dotsb + x} {$n$ vezes}\\
+x^n     &\sugareq \tunderbrace{x x \dotsb x} {$n$ vezes}
+\endalign
+$$
+%%}}}
+
+%%{{{ lemma: zero_annihilator_in_ring 
+\lemma.
+\label{zero_annihilator_in_ring}%
+Seja $R$ um anel.
+Então:
+$$
+\text{para todo $x\in R$,}\quad
+0x = 0 = x0.
+$$
+%%}}}
+
+%%{{{ lemma: first_consequences_of_ring_laws 
+\lemma Primeiras conseqüências.
+Seja $R$ um anel.  Logo,
+$$
+\text{para todos $a,b\in R$,}\quad
+(-a)b = -(ab) = a(-b)
+$$
+%%}}}
+
+%%{{{ corollary 
+\corollary.
+Em qualquer anel $\cal R$, para todos $x,y\in\cal R$ temos:
+\item{\rm (i)}   $(-x)(-y) = xy$;
+\item{\rm (ii)}  $(-1)x = -x$;
+\item{\rm (iii)} $(-1)(-1) = 1$;
+\item{\rm (iv)}  $-(x+y) = (-x) + (-y)$.
+%%}}}
+
+\question.
+Como tu definaria o conceito de subanel?
+Pode definir algum critérion parecido com os critéria~\refn{subgroup_criterion}
+ou~\refn{finite_subgroup_criterion} para decidir se algo é subanel dum dado anel?
+E o homomorfismo de anel?  Como definiria isso?  E pode definir algum critérion
+parecido com o~\refn{in_groups_respecting_products_means_morphism}?
+\spoiler.
+
+%%{{{ df: subring 
+\definition.
+\label{subring}%
+\tdefined{subanel}%
+Seja $\cal R$ um anel.
+O $S\subseteq R$ é um \dterm{subanel} de $\cal R$ sse
+$\sset S {0_R, 1_R, +_R, \cdot_R}$ é um anel.
+%%}}}
+
+\TODO Criterion.
+
+%%{{{ df: ring_homomorphism 
+\definition.
+\label{ring_homomorphism}%
+\tdefined{homomorfismo}[de anel]%
+Sejam $\cal R = \sset R {0_R, 1_R, +_R, \cdot_R}$ e
+$\cal S = \sset S {0_S, 1_S, +_S, \cdot_S}$ aneis.
+A função $\phi : R \to S$ é um homomorfismo sset:
+\item{\rm (i)}   $\phi(0_R) = 0_S$;
+\item{\rm (ii)}  $\phi(1_R) = 1_R$;
+\item{\rm (iii)} para todo $x,y\in R$, $\phi(x+_R y) = \phi(x) +_S \phi(y)$;
+\item{\rm (iv)}  para todo $x,y\in R$, $\phi(x\cdot_R y) = \phi(x) \cdot_S \phi(y)$;
+\item{\rm (v)}   para todo $x\in R$, $\phi(-x) = -(\phi(x))$.
+%%}}}
+
+\TODO Criterion.
 
 \endsection
 %%}}}
@@ -19562,12 +20000,6 @@ são os~\cite{rosegroups} e~\cite{rotmangroups}.
 
 %%{{{ Fields 
 \section Corpos.
-
-\endsection
-%%}}}
-
-%%{{{ Monoids 
-\section Monoides.
 
 \endsection
 %%}}}
