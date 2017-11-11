@@ -20412,10 +20412,11 @@ o~\ref{subring_criterion}.
 %%{{{ df: zerodivisors 
 \definition Divisores de zero.
 \label{zerodivisors}%
-\tdefined{divisor de zero}%
+\tdefined{zerodivisor}%
+\iisee{divisor de zero}{zerodivisor}%
 Seja $R$ um anel, e $x,y\in R$.
 Se $xy = 0_R$ e nem $x=0_R$ nem $y=0_R$, chamamos os $x,y$
-\dterm{divisores de zero} (no $R$).
+\dterm{divisores de zero} (ou \dterm{zerodivisores}) no $R$.
 %%}}}
 
 %%{{{ eg: ints_6 
@@ -20469,12 +20470,51 @@ e com um cálculo explique porque $f\ntimes g = 0 = p\ntimes q$.
 \endexercise
 %%}}}
 
-%%{{{ df: integral_domain 
-\definition Domínio integral.
+%%{{{ df: integral_domain ; cancellation_domain 
+\definition Domínio de integridade e de cancelamento.
 \label{integral_domain}%
-\tdefined{domínio integral}%
-Um \dterm{domínio integral} (ou \dterm{domínio de integridade})
-é um anel comutativo sem divisores de zero.
+\label{cancellation_domain}%
+\tdefined{domínio de integridade}%
+\tdefined{domínio de cancelamento}%
+Seja $\cal D$ um anel comutativo.
+Chamamos o $\cal D$ \dterm{domínio de integridade}
+sse ele não tem zerodivisores, ou seja, sse:
+$$
+\text{para todo $x,y \in D$,}\quad
+\text{se $xy=0$ então $x=0$ ou $y=0$}.
+\tag{NZD}
+$$
+Chamamos o $\cal D$ \dterm{domínio de cancelamento}
+sse
+$$
+\text{para todo $a,x,y \in D$,}\quad
+ax = ay \mland a \neq 0 \implies x=y.
+\tag{CL}
+$$
+%%}}}
+
+%%{{{ criterion: integral_domain_equiv_cancellation_domain 
+\criterion.
+\label{integral_domain_equiv_cancellation_domain}%
+Os termos ``domínio de integridade'' e ``domínio de cancelamento''
+são sinônimos, ou seja:
+$$
+\text{$D$ é um domínio de integridade} \iff \text{$D$ é um domínio de cancelamento}.
+$$
+\proof.
+\lrdir:
+    Sejam $a,x,y \in D$ tais que $a \neq 0$ e $ax = ay$.
+    Logo $ax - ay = 0$.
+    Logo $a(x-y) = 0$.
+    Pela hipótese (NZD) então $x-y = 0$,
+    ou seja $x = y$.
+\endgraf\noindent
+\rldir:
+    Sejam $x,y \in D$ tais que $xy = 0$ e $x \neq 0$.
+    Queremos $y = 0$.
+    Temos $xy = 0 = x0$ (pois $0 = 0x$ em todo anel).
+    Ou seja $xy = x0$, e como $x\neq 0$, usando a (CL) concluimos $y=0$.
+\qed
 %%}}}
 
 \endsection
@@ -20488,8 +20528,48 @@ Um \dterm{domínio integral} (ou \dterm{domínio de integridade})
 \definition Corpo.
 \label{field}%
 \tdefined{corpo}%
-Um \dterm{corpo} (ou \dterm{field}) é um anel comutatívo tal que todos os seus
-membros diferentes de $0$ são invertíveis.
+Seja $\cal K$ um anel comutativo.
+Chamamos o $\cal K$ um \dterm{corpo} (ou \dterm{field})
+sse todos os seus membros diferentes de $0$ são invertíveis,
+ou seja sse:
+$$
+\text{para todo $a\in K\setminus\set{0}$,
+existe $y \in K$, tal que $ay = 1 = ya$.}
+\tag{FM3}
+$$
+%%}}}
+
+%%{{{ criterion: finite_integral_domain_implies_field 
+\criterion.
+Se $D$ é um domínio de integridade finito então $D$ é um corpo.
+\proof.
+Suponha que $D$ é um domínio de integridade finito.
+Precisamos mostrar que cada $d \neq 0$ no $D$ tem inverso.
+Seja $d\in D$, $d\neq 0$.
+Procuro $d' \in D$ tal que $dd' = 1$.
+Sejam
+$$
+d_1, d_2, \dotsc, d_n
+$$
+todos os elementos distintos de $D\setminus\set{0}$.
+Considere os
+$$
+dd_1, dd_2, \dotsc, dd_n.
+$$
+Observe que:
+$$
+dd_i = dd_j \impliesbecause{(CL)} d_i = d_j \implies i = j.
+$$
+Ou seja,
+$$
+D\setminus\set{0} = \set{dd_1, dd_2, \dotsc, dd_n}.
+$$
+Ou seja, como $1\in D\setminus\set{0}$,
+$$
+1 = dd_u \quad\text{para algum $u\in\set{1,\dotsc,n}$}
+$$
+que é o que queremos provar.
+\qed
 %%}}}
 
 \endsection
