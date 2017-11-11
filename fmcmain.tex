@@ -20869,10 +20869,82 @@ Quais das operações $\Union$, $\Inter$, $\powerset$, $\to$, e $\times$ respeit
 \endsection
 %%}}}
 
-%%{{{ Guessing games 
-\section Jogos de adivinhar.
+%%{{{ Finite and infinite; countable and uncountable 
+\section Finitos e infinitos; contáveis e incontáveis.
 
+%%{{{ df: finite_set ; infinite_set 
+\definition.
+\label{finite_set}%
+\label{infinite_set}%
+\tdefined{finito}%
+\tdefined{infinito}%
+O conjunto $A$ é \dterm{finito} sse existe $n\in\nats$ tal que $\finord n \eqc A$.
+O conjunto $A$ é \dterm{infinito} sse $A$ não é finito.
+%%}}}
+
+%%{{{ df: countable_set ; uncountable_set 
+\definition.
+\label{countable_set}%
+\label{uncountable_set}%
+\tdefined{contável}[conjunto]%
+\tdefined{incontável}[conjunto]%
+O conjunto $A$ é \dterm{contável} sse $A$ é finito ou $\nats\eqc A$.
+Usamos os termos \dterm{enumerável} e \dterm{denumerável} como sinónimos
+de contável.
+O conjunto $A$ é \dterm{incontável} sse $A$ não é contável.
+%%}}}
+
+%%{{{ df: enumeration 
+\definition.
+\label{enumeração}%
+\tdefined{enumeração}%
+Uma \dterm{enumeração} dum conjunto $A$ é qualquer surjecção
+$\pi : \nats\surjto A$.
+Assim temos:
+$$
+A = \img \pi {\nats} = \set{\pi(0), \pi(1), \pi(2), \dotsc}
+$$
+%%}}}
+
+%%{{{ prop: A_is_countable_equiv_statements 
+\proposition.
+\label{A_is_countable_equiv_statements}%
+Seja $A$ conjunto.
+O.s.s.e.:
+\item{\rm (1)}   $A$ é contável
+\item{\rm (2)}  $A \leqc \nats$
+\item{\rm (3)} $A=\emptyset$ ou $A$ possui enumeração.
+\sketch.
+As direcões $(1)\Rightarrow(2)\Rightarrow(3)$ são conseqüências fáceis
+das definições.  Para ``fechar o round-robin'' ($(3)\Rightarrow(1)$),
+precisamos definir uma \emph{bijecção} $f : \nats\bijto A$, dados uma
+\emph{surjecção} $\pi:\nats\surjto A$.  Usamos recursão e o princípio
+da boa ordem.
+\qes
+%%}}}
+
+%%{{{ What do we gain? 
+\note O que ganhamos?.
+Suponha que um conjunto $A$ é contável.
+O que ganhamos realmente com essa informação?
+Como podemos usar essa hipótese?
+Já sabemos, por exemplo, que o fato ``$C \neq \emptyset$'' nos permite escrever ``Seja $c\in C$.''.
+O que o fato ``$A$ é contável'' nos permite fazer?
+Bem, podemos escrever: ``seja $a_n$ uma \emph{enumeração} de $A$'', ou, escrever:
+``Suponha $A = \set{a_0, a_1, a_2, \dotsc}$.''.
+%%}}}
+
+%%{{{ beware 
+\beware.
+É um erro comum escrever ``Suponha $A = \set{a_0, a_1, a_2, \dotsc}$.''~mesmo quando
+não sabemos que $A$ é contável.  Talvez $A$ é \emph{grande demais} para poder ser
+escrito nessa forma.  Como o $\reals$, por exemplo, que sabemos que não pode ser escrito
+como $\reals = \set{r_0, r_1, r_2, \dotsc}$, pois é um conjunto incontável!%
+%}}}
+
+%%{{{ x: countable_or_uncountable 
 \exercise.
+\label{countable_or_uncountable}%
 Para cada um dos conjuntos seguintes, decida se é contável ou não.
 $$
 \align
@@ -20890,7 +20962,21 @@ Z &= \setst {f\in(\nats\to\nats)} {(\exists n_0\in\nats)(\forall n>n_0)\left[\,f
 $$
 
 \endexercise
+%%}}}
 
+\endsection
+%%}}}
+
+%%{{{ Cantor's first diagonal argument 
+\section O primeiro argumento diagonal de Cantor.
+
+\endsection
+%%}}}
+
+%%{{{ Guessing games 
+\section Jogos de adivinhar.
+
+%%{{{ no_repetitions_implies_bijection 
 \remark.
 Para corresponder numa bijeção mesmo, o jogo tem que ser modificado, para
 proibir repetições do mesmo palpite.
@@ -20903,14 +20989,18 @@ Por exemplo, para enumerar os racionais sabendo uma enumeração dos pares
 de inteiros, copiamos a estrategia do $\ints^2$, pulando pares que ou não 
 correspondem em racionais (como o $(0,0)$ por exemplo), ou que são iguais 
 com palpites anteriores (como o $(2,4)$ que pulamos por causa do (1,2)).
+%%}}}
 
+%%{{{ codeit: EnumPairs 
 \codeit EnumPairs.
 \label{program_enumpairs}
 Implemente uma estratégia para ganhar no jogo sem repetições com
 conjunto-segredos o $\nats^2$.  Ou seja, escreva um programa que imprime (pra
 sempre) os palpites do jogador na sua ordem. 
 \endcodeit
+%%}}}
 
+%%{{{ codeit: EnumRatsReps 
 \codeit EnumRatsReps.
 \label{program_enumrats}
 Modifique o EnumPairs para o caso com conjunto-segredos
@@ -20919,20 +21009,27 @@ Represente cada palpite como fracção,
 imprimindo por exemplo o racional $\frac 1 3$ como o string
 ``{\tt 1/3}''.
 \endcodeit
+%%}}}
 
+%%{{{ codeit: EnumRats 
 \codeit EnumRats.
 \label{program_enumratsnoreps}
 Modifique o EnumRats para o caso que o jogo proibe
 repetições (mas para o mesmo conjunto $\rats_{\geq0}$). 
 \endcodeit
+%%}}}
 
+%%{{{ x: amnesiac_player 
 \exercise Jogador amnésico.
+\label{amnesiac_player}%
 Ache uma estratégia para ganhar no jogo com conjunto-segredos o 
 conjunto dos racionais não-negativos, se o jogador tem memória que o 
 permite lembrar apenas seu último palpite!
 
 \endexercise
+%%}}}
 
+%%{{{ x: nextPair 
 \exercise.
 \label{nextPair}
 Defina uma função 
@@ -20947,13 +21044,18 @@ $$
 ou seja, a seqüência $\set{ f^n (0,0) }_{n}$.
 
 \endexercise
+%%}}}
 
+%%{{{ codeit: NextPair 
 \codeit NextPair.
+\label{NextPair}%
 Implemente função do~\ref{nextPair}.
 \endcodeit
+%%}}}
 
+%%{{{ codeit: RatApprox 
 \codeit RatApprox.
-\label{program_ratapprox}
+\label{RatApprox}%
 Usando uma implementação de enumeração $\set{q_n}_n$ do $\rats$
 (com ou sem repetições), implemente uma função
 $a : \reals\times\reals \to \nats$ que, dados $x\in\reals$ e $\varepsilon>0$
@@ -20985,67 +21087,15 @@ seqüência de racionais que converge em $x$, apenas aplicando a função
 $\lambda \varepsilon. \namedfun{ratApprox}\ q\ x\ \varepsilon$
 em argumentos que formam qualquer seqüência que convirja no zero!
 \endcodeit
+%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ Finite and infinite; countable and uncountable 
-\section Finitos e infinitos; contáveis e incontáveis.
-
-\definition.
-\label{finite_set}
-\label{infinite_set}
-\tdefined{finito}
-\tdefined{infinito}
-O conjunto $A$ é \dterm{finito} sse existe $n\in\nats$ tal que $\finord n \eqc A$.
-O conjunto $A$ é \dterm{infinito} sse $A$ não é finito.
-
-\definition.
-\label{countable_set}
-\label{uncountable_set}
-\tdefined{contável}[conjunto]
-\tdefined{incontável}[conjunto]
-O conjunto $A$ é \dterm{contável} sse $A$ é finito ou $\nats\eqc A$.
-Usamos os termos \dterm{enumerável} e \dterm{denumerável} como sinónimos
-de contável.
-O conjunto $A$ é \dterm{incontável} sse $A$ não é contável.
-
-\definition.
-\label{enumeração}
-\tdefined{enumeração}
-Uma \dterm{enumeração} dum conjunto $A$ é qualquer surjecção
-$\pi : \nats\surjto A$.
-Assim temos:
-$$
-A = \img \pi {\nats} = \set{\pi(0), \pi(1), \pi(2), \dotsc}
-$$
-
-\proposition.
-Seja $A$ conjunto.
-O.s.s.e.:
-\item{\rm (1)}   $A$ é contável
-\item{\rm (2)}  $A \leqc \nats$
-\item{\rm (3)} $A=\emptyset$ ou $A$ possui enumeração.
-\sketch.
-As direcões $(1)\Rightarrow(2)\Rightarrow(3)$ são conseqüências fáceis
-das definições.  Para ``fechar o round-robin'' ($(3)\Rightarrow(1)$),
-precisamos definir uma \emph{bijecção} $f : \nats\bijto A$, dados uma
-\emph{surjecção} $\pi:\nats\surjto A$.  Usamos recursão e o princípio
-da boa ordem.
-\qes
-
-\endsection
-%%}}}
-
-%%{{{ Cantor's first diagonal argument 
-\section O primeiro argumento diagonal de Cantor.
-
-\endsection
-%%}}}
-
-%%{{{ Cantor's segundo diagonal argument 
+%%{{{ Cantor's second diagonal argument 
 \section O segundo argumento diagonal de Cantor.
 
+%%{{{ x: why_cant_we_prove_that_rats_is_uncountable 
 \exercise.
 Por que não podemos usar o mesmo argumento para concluir que o $\setst{q \in \rats}{0\leq q\leq 1}$ também é incontável?
 
@@ -21053,6 +21103,13 @@ Por que não podemos usar o mesmo argumento para concluir que o $\setst{q \in \r
 Como tu vai provar que o número construido pela método de Cantor realmente é um elemento de $\rats\inter[0,1]$?
 
 \endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Cantor set 
+\section O conjunto de Cantor.
 
 \endsection
 %%}}}
@@ -21067,12 +21124,6 @@ Como tu vai provar que o número construido pela método de Cantor realmente é 
 \note Os números algebricos.
 
 \note Os números transcendentais.
-
-\endsection
-%%}}}
-
-%%{{{ Cantor set 
-\section O conjunto de Cantor.
 
 \endsection
 %%}}}
@@ -21120,14 +21171,18 @@ Então existe bijeção $\phi : A \bijto B$.
 %%{{{ Cantor's theorem and its consequences 
 \section O teorema de Cantor e suas conseqüências.
 
+%%{{{ thm: cantor_theorem 
 \theorem Cantor.
+\label{cantor_theorem}%
 \Cantor[teorema]%
 \ii{teorema}[Cantor]%
-\label{cantor_theorem}%
 Seja $A$ conjunto.
 Então $A\ltc \pset A$.
+%%}}}
 
+%%{{{ cor: infinitely_many_infinities 
 \corollary.
+\label{infinitely_many_infinities}%
 Existe uma infinidade (contável) de cardinalidades infinitas:
 $$
 \nats
@@ -21137,8 +21192,17 @@ $$
 \ltc \pset\pset\pset\pset\nats
 \ltc \dotsc
 $$
+%%}}}
 
+%%{{{ cor: no_maximum_cardinality 
+\corollary.
+Não existe cardinalidade máxima:
+para qualquer conjunto $M$, o conjunto $\pset M$ tem cardinalidade maior.
+%%}}}
+
+%%{{{ df: aleph_and_continuum 
 \definition.
+\label{aleph_and_continuum}%
 \sdefined{\aleph_0}{a cardinalidade do $\nats$}%
 \sdefined{\continuum}{a cardinalidade do $\pset\nats$ e do $\reals$}%
 \tdefined{aleph 0}%
@@ -21146,10 +21210,9 @@ $$
 Denotamos a cardinalidade de $\nats$ por $\aleph_0$ (\dterm{aleph 0}),
 e a cardinalidade de $\pset\nats\eqc\reals$ por $\continuum$.
 Chamamos o $\continuum$ o \dterm{continuum}.
+%%}}}
 
-\corollary.
-Não existe cardinalidade máxima: para qualquer conjunto $M$, o conjunto $\pset M$ tem cardinalidade maior.
-
+%%{{{ note: holes in the chain of cardinalities of powersets 
 \note.
 Considere os conjuntos
 $$
@@ -21169,7 +21232,7 @@ $$
 \card{\pset\emptyset}                &= 1\\
 \card{\pset\pset\emptyset}           &= 2\\
 \card{\pset\pset\pset\emptyset}      &= 4\\
-\card{\pset\pset\pset\pset\emptyset} &= 8\\
+\card{\pset\pset\pset\pset\emptyset} &= 16\\
                                      &\eqvdots\\
 \endalign
 $$
@@ -21183,14 +21246,19 @@ $$
 $$
 Similarmente achamos conjuntos ``estritamente entre'' os conjuntos que aparecem
 depois nessa seqüência.
+%%}}}
 
-Será que tem conjuntos ``estritamente entre'' alguns dos conjuntos infinitos
-da seqüência anterior?
-
-Será que tem algum conjunto incomparável com todos eles?
-
-Será que tem algum conjunto com cardinalidade maior que qualquer uma das
+%%{{{ note: some questions rise 
+\note.
+Umas questões aparecem imediatamente:
+\beginul
+\li Será que tem conjuntos ``estritamente entre'' alguns dos conjuntos
+infinitos da seqüência anterior?
+\li Será que tem algum conjunto incomparável com todos eles?
+\li Será que tem algum conjunto com cardinalidade maior que qualquer uma das
 cardinalidades deles?
+\endul
+%%}}}
 
 \endsection
 %%}}}
