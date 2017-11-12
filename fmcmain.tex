@@ -21131,14 +21131,28 @@ Como tu vai provar que o número construido pela método de Cantor realmente é 
 %%{{{ Looking for bijections 
 \section Procurando bijeções.
 
+%%{{{ x: (0,1) =c (0,2) 
+\exercise.
+Mostre que:
+\beginol
+\li $(0,1) \eqc (0,2)$.
+\endol
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ The Schröder--Bernstein theorem 
 \section O teorema Schröder--Bernstein.
 
+%%{{{ note: lovely approach 
 \note Abordagem amorosa.
 
+%%}}}
+
+%%{{{ thm: schroder_bernstein 
 \theorem Schröder--Bernstein.
 \Schroder{}\Bernstein{}%
 \label{schroder_bernstein}%
@@ -21146,6 +21160,7 @@ Como tu vai provar que o número construido pela método de Cantor realmente é 
 Sejam conjuntos $A$ e $B$ e funções injetoras
 $f : A \injto B$ e $g : B \injto A$.
 Então existe bijeção $\phi : A \bijto B$.
+%%}}}
 
 \endsection
 %%}}}
@@ -21178,6 +21193,57 @@ Então existe bijeção $\phi : A \bijto B$.
 \ii{teorema}[Cantor]%
 Seja $A$ conjunto.
 Então $A\ltc \pset A$.
+\proof.
+Seguindo a definição de $\ltc$, precisamos provar duas coisas:
+\endgraf
+\proofstyle{Prova de $A\leqc \pset A$.}
+Basta achar uma função injetora de $A$ para $\pset A$.
+Definimos a $f : A \injto \pset A$ pela
+$$
+f(x) = \set x.
+$$
+Facilmente ela é injetora (\ref{the_singletonizer_is_injective}).
+\endgraf
+\proofstyle{Prova de $A\neqc \pset A$.}
+Basta provar que não existe função sobrejetora de $A$ para $\pset A$.
+Seja $\pi : A \to \pset A$.
+Queremos provar que a $\pi$ não pode ser sobrejetora, ou seja,
+mostrar um elemento $C$ do seu codomínio que não pertence na imagem da $\pi$
+(ou seja: tal que $C \notin \img \pi A$; ou, equivalentemente,
+$\pre \pi C = \emptyset$).
+Observe que para qualquer $x\in A$, temos $\pi(x)\in\pset A$,
+ou seja $\pi(x) \subseteq A$.
+Faz sentido então perguntar:
+$$
+x \in \pi(x) ?
+$$
+Chame os $x\in A$ que satisfazem $x \in \pi(x)$ \dterm{obedientes},
+e os outros \dterm{rebeldes}.
+Queremos considerar o conjunto $C$ de todos os rebeldes:
+$$
+C = \setst {x\in A} {x \notin \pi(x)}.
+$$
+Pela definição de $C$, temos $C \subseteq A$.
+Ou seja, $C \in \pset A$, que é o codomínio da $\pi$.
+Precisamos provar que para todo $w \in A$, $\pi(w) \neq C$.
+Seja $w\in A$, e suponha para chegar num absurdo suponho que $\pi(w) = C$.
+Agora nos perguntamos: $w$ é rebelde ou não?
+$$
+w \in \pi(w) = C
+\iff
+w \notin \pi(w) = C.
+$$
+Absurdo!
+\qed
+%%}}}
+
+%%{{{ x: the_singletonizer_is_injective 
+\exercise.
+\label{the_singletonizer_is_injective}%
+Prove em detalhe que a função $f$ definida na prova de~\ref{cantor_theorem}
+realmente é injetora.
+
+\endexercise
 %%}}}
 
 %%{{{ cor: infinitely_many_infinities 
@@ -21251,13 +21317,13 @@ depois nessa seqüência.
 %%{{{ note: some questions rise 
 \note.
 Umas questões aparecem imediatamente:
-\beginul
+\beginol
 \li Será que tem conjuntos ``estritamente entre'' alguns dos conjuntos
 infinitos da seqüência anterior?
 \li Será que tem algum conjunto incomparável com todos eles?
 \li Será que tem algum conjunto com cardinalidade maior que qualquer uma das
 cardinalidades deles?
-\endul
+\endol
 %%}}}
 
 \endsection
