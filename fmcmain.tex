@@ -21131,12 +21131,40 @@ Como tu vai provar que o número construido pela método de Cantor realmente é 
 %%{{{ Looking for bijections 
 \section Procurando bijeções.
 
+\note.
+Vamos ver como as transformações de esticar/encolher
+(stretch/shrink) e de deslocar (shift) nos intervalos de reais,
+sendo bijecções levam suas entradas para saidas equinúmeras.
+
 %%{{{ x: (0,1) =c (0,2) 
 \exercise.
-Mostre que:
+Mostre as seguintes equinumerosidades entre os seguintes intervalos de reais:
 \beginol
-\li $(0,1) \eqc (0,2)$.
+\li $(0,1) \eqc (0,2)$;
+\li $(0,2) \eqc (3,5)$;
+\li $[0,1) \eqc (0,1]$;
+\li $(a,b) \eqc (c,d)$;
+\li $[a,b) \eqc (c,d]$;
+\li $[a,b) \eqc (c,d]$;
+(onde $a < b$ e $c < d$);
 \endol
+
+\hint
+Tente aproveitar que composição de bijecções é bijecção, quebrando assim cada
+tarefa em tarefas menores e mais fáceis para resolver, tais que a composição
+das resoluções delas, resultará na resolução da tua tarefa inicial.
+
+\endexercise
+%%}}}
+
+%%{{{ x: (α,β) =c (0,1) 
+\exercise.
+Mostre as seguintes equinumerosidades entre os seguintes intervalos de reais,
+$$
+(\alpha,\beta) \eqc (0,1)
+$$
+onde $\alpha,\beta \in \reals\union\set{\minfty,\pinfty}$ com $\alpha < \beta$.
+e $a,b \in \reals$ e tais que os intervalos são nem vazios nem singletons.
 
 \endexercise
 %%}}}
@@ -21144,17 +21172,73 @@ Mostre que:
 \endsection
 %%}}}
 
-%%{{{ The Schröder--Bernstein theorem 
-\section O teorema Schröder--Bernstein.
+%%{{{ The Cantor--Schröder--Bernstein theorem 
+\section O teorema Cantor--Schröder--Bernstein.
 
-%%{{{ note: lovely approach 
-\note Abordagem amorosa.
+\blah.
+Esse teorema que provamos aqui é conhecido como ``\Cantor{}Cantor--\Schroder{}Shröder--\Bernstein{}''
+ou ``\Schroder{}Schröder--\Bernstein{}Bernstein'', mas vamos referir a ele nessas notas apenas com
+o nome de Bernstein, pois foi o primeiro que demonstrou sua vericidade numa forma correta.%
+\footnote{E sua prova não precisou o \emph{axioma da escolha}~(\refn{Axioms_of_choice}),
+algo que vamos apreciar mais no~\ref{Axiomatic_set_theory}.}
+Vamos começar atacando esse problema com uma abordagem amorosa,
+de \Smullyan{}Smullyan (veja~\cite{smullyanbeginners}).
 
+%%{{{ x: lovely approach 
+\exercise Abordagem amorosa.
+\label{schroder_bernstein_by_smullyan}%
+Suponha que num universo seus habitantes são divididos em dois conjuntos \emph{infinitos}:
+o conjunto $A$ de homens e $B$ de mulheres.
+Suponha também que os seguintes são fatos sobre esse universo:
+\beginol
+\li Cada homem ama exatamente uma mulher.
+\li Nenhuma mulher é amada por dois homens.
+\li Cada mulher ama exatamente um homem.
+\li Nenhum homem é amado por duas mulheres.
+\endol
+(Essas condições já deixam esse universo bem bizarro.)
+Mostre que tem como casar todos os habitantes desse universo em casamentos monogâmicos e heterosexuais,
+em tal modo que em cada casal é garantido amor (mas não necessariamente reciprocal), ou seja:
+se $a\in A$ é casado com $b\in B$, \emph{pelo menos uma} das duas condições acontece:
+$a$~ama~$b$; $b$~ama~$a$.
+
+\hint
+Escolhe uma pessoa $x \in A \union B$.  Independente se ela é homem ou mulher,
+podemos a perguntar: \emph{<<quem te ama?>>}.
+Duas possibilidades existem: ou ela é amada por algum $x_1 \in A \union B$,
+ou ninguém ama $x$.  No primeiro caso perguntamos $x_1$ a mesma pergunta,
+definindo assim o $x_2$, se $x_1$ é uma pessoa amada, etc.
+Observerve que cada $x \in A \union B$ defina assim um \dterm{caminho amoroso}
+$x, x_1, x_2, \dots$.  Esse caminho ou é infinito, ou termina num certo membro $x_n \in A\union B$.
+Vamos agora separar todas as pessoas do $A\union B$ em três grupos:
+$$
+\align
+G_A         &= \setstt {x \in A\union B} {o caminho amoroso de $x$ termina num membro de $A$}\\
+G_B         &= \setstt {x \in A\union B} {o caminho amoroso de $x$ termina num membro de $B$}\\
+G_\infty    &= \setstt {x \in A\union B} {o caminho amoroso de $x$ é infinito}
+\endalign
+$$
+Tente casar todos os membros de cada um desse grupo entre si!
+
+\endexercise
 %%}}}
 
+\blah.
+Voltando dessa versão antropomórfica do problema, observe que a condição (1)
+garanta a existência duma função $f : A \to B$, que graças à (2) é injetora.
+Similarmente, a condição (3) garanta a existência duma função $g : B \to A$,
+que graças à (4) é injetora também.
+Essas são as hipotéses do~\ref{schroder_bernstein}
+Observe também que se resolver o problema amoroso do~\ref{schroder_bernstein_by_smullyan}
+tu já forneceu uma função \emph{bijetora} $F : A \to B$, definida pela
+$$
+F(x) = \text{a pessoa casada com $x$}.
+$$
+Vamos ver isso agora sem amor.
+
 %%{{{ thm: schroder_bernstein 
-\theorem Schröder--Bernstein.
-\Schroder{}\Bernstein{}%
+\theorem Bernstein.
+\Bernstein{}%
 \label{schroder_bernstein}%
 \ii{teorema}[Schröder--Bernstein]%
 Sejam conjuntos $A$ e $B$ e funções injetoras
@@ -21168,13 +21252,23 @@ Então existe bijeção $\phi : A \bijto B$.
 %%{{{ Looking for injections 
 \section Procurando injeções.
 
-%%{{{ x: (0,1) \eqc (0,1] with Bernstein
+\blah.
+Agora é \emph{bem} mais fácil provar o seguinte
+e ganhar o corolário embaixo.
+Sem \Bernstein{}Bernstein, precisamos resolver o~\ref{change_of_ends_of_intervals_without_bernstein}.
+
+%%{{{ x: (a,b) \eqc (a,b] with Bernstein
 \exercise.
+\label{change_of_ends_of_intervals_with_bernstein}%
 Usando o teorema de Schröder--Bernstein~\refn{schroder_bernstein}
-prove que $(0,1) \eqc (0,1]$.
+prove que $(a,b) \eqc (a,b] \eqc [a,b]$.
 
 \endexercise
 %%}}}
+
+\corollary.
+Qualquer intervalo não-trivial (vazio ou singleton) de reais,
+tem a mesma cardinalidade com o próprio $\reals$.
 
 %%{{{ x: \reals \eqc \pset\nats with Bernstein
 \exercise.
@@ -21203,14 +21297,13 @@ Prove que $\nats \eqc \kstar\nats$.
 \endsection
 %%}}}
 
-%%{{{ The different infinities so far 
-\section As diferentes infinidades até agora.
-
-\endsection
-%%}}}
-
 %%{{{ Cantor's theorem and its consequences 
 \section O teorema de Cantor e suas conseqüências.
+
+\blah.
+Até agora temos encontrado apenas duas quantidades infinitas diferentes:
+aquela do $\nats$, e aquela do $\reals$.
+Essa situação está prestes a mudar drasticamente com o teorema seguinte.
 
 %%{{{ thm: cantor_theorem 
 \theorem Cantor.
@@ -21351,9 +21444,10 @@ Umas questões aparecem imediatamente:
 \beginol
 \li Será que tem conjuntos ``estritamente entre'' alguns dos conjuntos
 infinitos da seqüência anterior?
+\li Será que tem algum conjunto com cardinalidade maior que qualquer uma dessas
+cardinalidades?
 \li Será que tem algum conjunto incomparável com todos eles?
-\li Será que tem algum conjunto com cardinalidade maior que qualquer uma das
-cardinalidades deles?
+\li Até pior: tem conjuntos incomparáveis em cardinalidade?)
 \endol
 %%}}}
 
@@ -21386,7 +21480,47 @@ cardinalidades deles?
 %%{{{ Problems 
 \problems.
 
-\TODO Cantor's letter to Dedekind and Dedekind's reply.
+%%{{{ prob: a_letter_from_cantor_to_dedekind 
+\problem Uma carta de Cantor para Dedekind.
+\label{a_letter_from_cantor_to_dedekind}%
+\Cantor{}Cantor definiu a função $f : (0,1)^2 \to (0,1)$ pela
+$$
+f(a, b)
+= 0.a_1b_1a_2b_2a_3b_3\dotsc
+\qquad\text{onde}\quad
+\left\{
+\aligned
+a &\eqass 0.a_1a_2a_3\dotsc\\
+b &\eqass 0.b_1b_2b_3\dotsc
+\endaligned
+\right.
+$$
+são as expansões decimais \emph{que não terminam em 9's repetidos}.
+Afirmando que ela é bijetora, mandou sua ideia para Dedekind,
+como uma prova de $(0,1)^2 \eqc (0,1)$.
+\Dedekind{}Dedekind percebeu um erro na carta de Cantor.
+(1) Por que Cantor botou a restrição <<que não terminam em $9$'s repetidos>>?
+(2) Qual o erro de Cantor?
+
+\hint
+(1) Precisamos disso para que $f$ seja bem definida (por quê?).
+(2) A $f$ não é bijetora!  (Por quê?)
+
+\endproblem
+%%}}}
+
+%%{{{ prob: change_of_ends_of_intervals_without_bernstein 
+\problem Sem Bernstein.
+\label{change_of_ends_of_intervals_without_bernstein}%
+Mostre pela definição a equinumerosidade
+$$
+(a,b) \eqc [a,b) \eqc [a,b];
+$$
+onde $a,b \in \reals$ e tais que os intervalos não são
+nem vazios nem singletons.
+
+\endproblem
+%%}}}
 
 %%{{{ prob: sime_simo_eqclass_card 
 \problem.
