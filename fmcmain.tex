@@ -21973,7 +21973,7 @@ o $\in$, de aridade 2, cuja interpretação canônica é ``\thole\ pertence ao \
 Nosso universo aqui consiste (apenas) em conjuntos.
 %%}}}
 
-%%{{{ ex: FOL of set theory translations 
+%%{{{ ex: FOL_translations_for_sets_exercise 
 \exercise.
 \label{FOL_translations_for_sets_exercise}%
 Traduza as frases seguintes para a FOL da teoria de conjuntos.
@@ -22009,10 +22009,10 @@ não quer dizer que realmente não é---todos sabemos que é, certo?
 Infelizmente existe um hábito de confudir as duas noções e usar
 como ``prova de validade'' o fato que apenas algo foi escrito, ou dito.%
 \footnote{Veja por exemplo argumentações de várias igrejas de várias religiões.}
-A afirmação da formula que tu achou para a última frase
+A afirmação da fórmula que tu achou para a última frase
 do~\ref{FOL_translations_for_sets_exercise} por exemplo é falsa em nosso
 mundo de conjuntos e ainda mais: é falsa em cada mundo possível, com qualquer
-interpretação de $\in$!
+interpretação do símbolo $\in$!
 %%}}}
 
 %%{{{ A useful pattern 
@@ -22063,6 +22063,41 @@ x\in s \liff
 $$
 Esse padrão vai aparecer em muitos dos axiomas abaixo.
 %%}}}
+
+%%{{{ Abbreviations and syntactic sugar 
+\note Abreviações e açúcar sintáctico.
+Assim que conseguirmos descrever um conceito interessante com uma fórmula,
+faz sentido introduzir uma notação, um novo predicado.
+Por exemplo, nas (2) e (5) de~\ref{FOL_translations_for_sets_exercise},
+tu achou fórmulas que afirmam que $x$ é vazio, e que $x$ é um singleton.
+Faz sentido definir como abreviações então os predicados seguintes:
+$$
+\align
+\Empty(x)
+&\sugareq
+\lnot \exists w \paren{ w \in x }\\
+\Singleton(x)
+&\sugareq
+\exists w \bigparen{
+w \in x
+\land
+\forall u \paren{ u \in x \limplies u = w }
+}
+\intertext{e os símbolos:}
+a \subseteq b
+&\sugareq \forall x \paren{ x \in a \limplies x \in b }\\
+a \subsetneq b
+&\sugareq a \subseteq b \land a \neq b.
+\intertext{Lembre-se também nossa prática onde usamos}
+x \neq y
+&\sugareq \lnot\, x = y,\\
+x \notin y
+&\sugareq \lnot\, x \in y,
+\endalign
+$$
+etc.
+%%}}}
+
 
 \endsection
 %%}}}
@@ -22775,7 +22810,7 @@ que sabemos que não é um conjunto.
 %%{{{ x: Inter_constructed 
 \exercise.
 \label{Inter_constructed}%
-Defina o operador unitário $\Inter$,
+Defina o operador unário $\Inter$,
 aplicável em qualquer conjunto não vazio.
 Precisamos o Unionset~(\axref{unionset})?
 
@@ -22931,34 +22966,34 @@ Como $a,b$ são conjuntos, pelo Pairset o $\set{a,b}$ também é.
 Similarmente o $\set{c,d}$ é conjunto, e aplicando mais uma vez o Pairset neles
 temos que o $\set{\set{a,b},\set{c,d}}$ é conjunto.
 Agora aplicando o Union nele o ganhamos o $A$.
-
+\endgraf
 \bigskip
-
+\noindent
 Aqui uma construção do $B$ pelos axiomas, em forma de árvore:
 $$
 \centerAlignProof
 \AxiomC{$a$}
 \AxiomC{$b$}
-\RightLabel{ZF3}
+\RightLabel{Pair}
 \BinaryInfC{$\set{a,b}$}
 \AxiomC{$c$}
 \AxiomC{$d$}
-\RightLabel{ZF3}
+\RightLabel{Pair}
 \BinaryInfC{$\set{c,d}$}
-\RightLabel{ZF3}
+\RightLabel{Singleton}
 \doubleLine
 \UnaryInfC{$\set{\set{c,d}}$}
-\RightLabel{ZF3}
+\RightLabel{Pair}
 \BinaryInfC{$\set{\set{a,b},\set{\set{c,d}}}$}
-\RightLabel{ZF6}
+\RightLabel{Union}
 \UnaryInfC{$\set{a,b,\set{c,d}}$}
 \DisplayProof{}
 $$
-
+\endgraf
 \bigskip
-
-\noindent Para o $C$, usamos o Separation~(\axref{separation})
-no $\pset \paren{\Union A}$, que é conjunto graças aos Union (\axref{union})
+\noindent
+Para o $C$, usamos o Separation~(\axref{separation})
+no $\pset \paren{\Union A}$, que é conjunto graças aos Union (\axref{unionset})
 \& Powerset (\axref{powerset}):
 $$
 \centerAlignProof
@@ -23092,7 +23127,7 @@ No final das contas, tudo vai ser representado dentro da FOL da teoria de conjun
 pegando como noções primitívas \emph{apenas} os ``$\Set$'' de ``ser conjunto''
 e o ``$\in$'' de ``pertencer''.
 Já temos uma primeira biblioteca construida até agora,
-um certo ``açúcar\ii{açúcar sintáctico}\ sintáctico''.
+um certo \emph{açúcar\ii{açúcar sintáctico}\ sintáctico}.
 E cada vez que conseguimos compilar algo dentro da teoria de conjuntos,
 ganhamos não apenas o proprio algo para seus usos e suas aplicações,
 mas também algo mais para usar para nossas próximas compilações.
@@ -23123,6 +23158,13 @@ $$
 $$
 \dsize\Inter a\,.
 $$
+Observe-se então que de todos esses operadores, o $\Inter\dhole$ é
+o único operador \emph{parcial}.
+Mas isso não é nada novo como conceito:
+no final das contas, estamos usando operadores parciais o tempo todo
+trabalhando com números reais: o $\dhole / \dhole$ por exemplo
+não é definido quando seu segundo argumento é o $0$, e a mesma coisa
+sobre a operação (unária) de inverso: o $0^{-1}$ também não é definido.
 %%}}}
 
 %%{{{ From specification to implementation 
@@ -23322,9 +23364,9 @@ Sejam $A,B$ conjuntos.
 Precisamos mosrar que a classe
 $$
 A\times B = \class z {
-(\exists x \in A)
-(\exists y \in B)
-z = \tup {x,y}
+\pexists {x \in A}
+\lexists {y \in B}
+{z = \tup {x,y}}
 }
 $$
 é um conjunto.
@@ -23355,9 +23397,9 @@ Tome então $W\asseq \pset\pset\paren{A \union B}$
 e defina
 $$
 A \times B \defeq \setst { z \in \pset\pset\paren{A\union B} } {
-(\exists x \in A)
-(\exists y \in B)
-z = \tup {x,y}
+\pexists {x \in A}
+\lexists {y \in B}
+{z = \tup {x,y}}
 }
 $$
 que é conjunto graças ao Separation~(\axref{separation}).
@@ -23367,7 +23409,7 @@ que é conjunto graças ao Separation~(\axref{separation}).
 %%{{{ Being agnostic 
 \note Sendo agnósticos.
 \tdefined{agnóstico}%
-Acabamos de encontrar \emph{um} operador de par ordenado,
+Acabamos de encontrar \emph{um} operador de par ordenado:
 do Kuratowski\Kuratowski{}.
 Ele não é o único possível, mas para continuar com nossa teoria,
 precisamos apenas mostrar que existe um.
@@ -23438,6 +23480,50 @@ como uma implementação de par ordenado.
 
 %%{{{ Constructing the disjoint union 
 \section Construindo a união disjunta.
+
+%%{{{ Specification 
+\note Especificação.
+\label{disjunion_specification}%
+Queremos definir a operação binária da \emph{união\ii{união!disjunta}\ disjunta}.
+%%}}}
+
+\TODO Especificação: mention coproduct.
+
+%%{{{ df: disjoint_union 
+\definition União disjunta.
+\label{disjoint_union}%
+\tdefined{união}[disjunta]%
+\sdefined{\holed A \disjunion \holed B} {a união disjunta de $A$ com $B$}%
+Fixamos dois objetos distintos como os $\mathrm L\asseq \emptyset$ e $\mathrm R\asseq \set\emptyset$
+e definimos:
+$$
+A \disjunion B
+\defeq
+\paren{\set{\mathrm L} \times A}
+\union
+\paren{\set{\mathrm R} \times B}.
+$$
+%%}}}
+
+%%{{{ x: why_not_use_A_and_B_as_tags 
+\exercise.
+\label{why_not_use_A_and_B_as_tags}%
+Uma escolha de ``tags'' para os membros dos conjuntos $A$ e $B$ seria
+os próprios conjuntos $A$ e $B$ em vez dos $\emptyset$ e $\set\emptyset$
+que usamos.  Qual é o problema com essa idéia?
+
+\endexercise
+%%}}}
+
+%%{{{ x: generalize_disjunion_to_indexed_Disjunion 
+\exercise.
+\label{generalize_disjunion_to_indexed_Disjunion}%
+Generalize a construção de união disjunta binária para
+o operador ``grande'' de união disjunta indexada por algum conjunto
+de índices $I$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
