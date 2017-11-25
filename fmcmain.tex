@@ -23699,8 +23699,13 @@ Usamos o operador $\union$ para o passo indutivo.
 %%{{{ Construction trees 
 \section Arvores de construção.
 
-%%{{{ Tree explanation 
-\note.
+\blah.
+Um jeito bem econômico e claro para descrever uma construção
+e usando árvores.
+Os exemplos seguintes servem para explicar essa idéia.
+
+%%{{{ eg: Tree explanation 
+\example.
 Queremos provar que $\set{ \emptyset, \set{\emptyset, \set{\emptyset}}}$
 é um conjunto.
 Escrevemos:
@@ -23772,6 +23777,8 @@ $$
 \UnaryInfC{$\set{\set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}}, \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}$}
 \DisplayProof{}
 $$
+Observe que para usar o \axref{separation} precisamos especificar qual é a fórmula--filtro.
+\endexample
 %%}}}
 
 %%{{{ eg: tree_construction_with_open_leaves 
@@ -23816,6 +23823,8 @@ B &= \set{a,b, \set{c,d}}\\
 C &= \setstt x {$x \subseteq a\union b\union c\union d$\ \;\&\;\ $x$ tem exatamente 2 membros}
 \endalign
 $$
+Use a método de árvores para umas construções e outras faça escrevendo em texto mesmo.
+É bom praticar os dois jeitos.
 
 \solution
 Como $a,b$ são conjuntos, pelo Pairset o $\set{a,b}$ também é.
@@ -24047,7 +24056,7 @@ Para conseguir isto:
 Muitas vezes vamos até oferecer uma \emph{garantia de unicidade}
 para mostrar para nosso cliente-matemático que ele não precisa
 procurar outras implementações alternativas da nossa concorrência,
-pois \emph{essencialmente} nem tem.
+pois \emph{essencialmente} nem tem!
 %%}}}
 
 \blah.
@@ -24410,11 +24419,11 @@ $$
 \exercise.
 \label{parto_formally_defined}%
 Defina o termo ``função parcial'' na teoria de conjuntos
-e mostre que, se $a,b$ são conjuntos, o
+e mostre que, dados conjuntos $a,b$ o
 $$
 (a \parto b) \defiff \class f { f : a \parto b }
 $$
-também é.
+também é um conjunto.
 
 \endexercise
 %%}}}
@@ -25081,11 +25090,28 @@ realmente botando o $\qedsymbol$ no~\ref{uniqueness_of_nats}.
 %%{{{ Constructing more numbers 
 \section Construindo mais números.
 
+\blah.
+Tendo construido já os naturais,
+vamos construir seus parentes também:
+os inteiros, os racionais, os reais, e os complexos.
+
 \TODO Os números inteiros.
+\TODOthis{Mostrar a construção dos inteiros.}
 
-\TODO Os números racionais.
+\note Os números racionais.
+\TODOthis{Mostrar a construção dos racionais.}
 
-\TODO Os números reais.
+\note Os números reais (Dedekind cuts).
+\TODOthis{Mostrar a construção dos reais como Dedekind cuts.}
+Uma abordagem alternativa é mostrada no~\ref{construct_reals_as_cauchy}.
+
+%%{{{ x: construct_complex 
+\exercise.
+\label{construct_complex}%
+Mostre como representar os complexos.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -25248,6 +25274,174 @@ sistema Peano.
 %%{{{ Problem intermission 
 \problems Intervalo de problemas.
 
+%%{{{ someset_problem 
+\problem Someset is the new Emptyset.
+\label{someset_problem}%
+Considere o axioma seguinte:
+\endgraf
+\noindent
+{\bf Someset.}
+{\proclaimstyle Existe algo.}
+$$
+\exists s \paren{ s = s }
+\axtaglabel{ZF2*}{someset}
+$$
+Mostre que no sistema axiomático
+\axref{extensionality}%
++\axref{someset}%
++\axref{pairset}%
++\axref{separation}%
++\axref{powerset}%
++\axref{unionset},
+existe o $\emptyset$.%
+\footnote{Dependendo do uso e do contexto, podemos considerar como parte da lógica
+que o universo não é vazio, ou seja, existe algo.  Nesse caso nem precisamos
+o Someset~(\axref{someset}), pois seria implícito.}
+
+\endproblem
+%%}}}
+
+%%{{{ triset_problem 
+\problem Triset is the new Pairset.
+\label{triset_problem}%
+Considere o axioma seguinte:
+\endgraf\noindent
+{\bf Triset.}
+{\proclaimstyle
+Dados tres objetos distintos existe conjunto com exatamente
+esses membros.
+}
+$$
+\forall a
+\forall b
+\forall c
+\lparen{
+\bigparen{
+a\neq b \land b \neq c \land c \neq a
+}
+\limplies
+\exists s
+\forall x
+\bigparen{x\in s \liff x = a \lor x = b \lor x = c}
+}
+\axtaglabel{ZF3*}{triset}
+$$
+%\beginil
+\item{(0)}
+No sistema
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{pairset}%
++\axref{separation}%
++\axref{powerset}%
++\axref{unionset}
+construa conjunto de cardinalidade~$3$.
+\item{(1)}
+Prove que no mesmo sistema
+podemos substituir o axioma Pairset~(\axref{pairset}) pelo axioma
+Triset~(\axref{triset}) ``sem perder nada''.
+Em outras palavras, prove que no sistema
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{triset}%
++\axref{separation}%
++\axref{powerset}%
++\axref{unionset}
+\emph{para todos os $a,b$ existe o conjunto $\set{a,b}$}.
+\item{(2)}
+Podemos provar a mesma coisa no sistema
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{triset}%
++\axref{separation}%
++\axref{unionset}%
+?
+%\endil
+
+\hint
+Para o (1), veja o (2); para o (2), veja o (1)!
+
+\endproblem
+%%}}}
+
+%%{{{ consax_problem 
+\problem.
+\label{consax_problem}%
+Considere o axioma seguinte:
+$$
+\forall h
+\forall t
+\exists s
+\forall x
+\bigparen{
+x \in s
+\liff
+x = h
+\lor
+x \in t
+}.
+\axtaglabel{CONS}{consax}
+$$
+(1)
+No sistema
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{consax},
+prove o \axref{pairset} como teorema.
+\endgraf\noindent
+(2)
+Mostre que não tem como provar o \axref{consax}
+no sistema
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{pairset}.
+
+\solution
+(1)
+Dados os objetos $a,b$, queremos construir o $\set{a,b}$.
+Aplicando o \axref{consax} com $h \asseq b$ e $t \asseq \emptyset$
+ganhamos o $\set{b}$, e agora aplicando novamente o mesmo axioma
+com $h \asseq a$ e $t \asseq \set{b}$ ganhamos o desejado $\set{a,b}$.
+\endgraf\noindent
+(2)
+Observe que com os axiomas
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{consax}\ 
+conseguimos construir conjuntos de qualquer cardinalidade finita,
+mas com os
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{pairset}\ 
+conseguimos construir apenas conjuntos com cardinalidades $0$, $1$, ou $2$.
+Basta realmente construir um conjunto com cardinalidade maior que $2$ então.
+Aplique o \axref{consax} com $h,t \asseq \emptyset$ ganhando assim
+o $\set{\emptyset}$.
+Agora com $h \asseq \set\emptyset$ e $t \asseq \emptyset$ ganhando
+o $\set{\set{\emptyset}}$.
+Com $h \asseq \emptyset$ e $t \asseq \set{\set{\emptyset}}$
+ganhamos o $\set{\emptyset, \set{\emptyset}}$.
+E finalmente, com $h,t \asseq \set{\emptyset, \set{\emptyset}}$
+construimos o $\set{\emptyset, \set{\emptyset}, \set{\emptyset, \set{\emptyset}}}$,
+que tem cardinalidade $3$.
+
+\endproblem
+%%}}}
+
+%%{{{ one_class_set_the_other_proper_problem 
+\problem.
+\label{one_class_set_the_other_proper_problem}%
+Sejam $a,b$ conjuntos.
+Mostre pelos axiomas que:
+\item{(i)}  a classe $\set{ \set{x,\set y} \st x \in a \land y \in b}$ é conjunto;
+\item{(ii)} a classe $\set{ \set{x,y} \st \text{$x,y$ conjuntos com $x\neq y$}}$ é propria.
+
+\hint
+Absurdo.
+
+\endproblem
+%%}}}
+
 %%{{{ common context for problems 
 Para qualquer sistema de naturais $\cal N = \sset \Nats {\Zero, \Succ}$,
 definimos as operações de adição e de multiplicação
@@ -25290,6 +25484,14 @@ $$
 
 \hint
 Prove as duas direções da ``$\Longleftrightarrow$'' separadamente.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: construct_reals_as_cauchy 
+\problem Reais como seqüências Cauchy.
+\label{construct_reals_as_cauchy}%
+\TODOthis{Enunciar o problema.}
 
 \endproblem
 %%}}}
@@ -25718,174 +25920,6 @@ Para todos conjuntos $A,B$, temos $A\eqc B$ ou $B \eqc A$.
 
 %%{{{ Problems 
 \problems.
-
-%%{{{ someset_problem 
-\problem Someset is the new Emptyset.
-\label{someset_problem}%
-Considere o axioma seguinte:
-\endgraf
-\noindent
-{\bf Someset.}
-{\proclaimstyle Existe algo.}
-$$
-\exists s \paren{ s = s }
-\axtaglabel{ZF2*}{someset}
-$$
-Mostre que no sistema axiomático
-\axref{extensionality}%
-+\axref{someset}%
-+\axref{pairset}%
-+\axref{separation}%
-+\axref{powerset}%
-+\axref{unionset},
-existe o $\emptyset$.%
-\footnote{Dependendo do uso e do contexto, podemos considerar como parte da lógica
-que o universo não é vazio, ou seja, existe algo.  Nesse caso nem precisamos
-o Someset~(\axref{someset}), pois seria implícito.}
-
-\endproblem
-%%}}}
-
-%%{{{ triset_problem 
-\problem Triset is the new Pairset.
-\label{triset_problem}%
-Considere o axioma seguinte:
-\endgraf\noindent
-{\bf Triset.}
-{\proclaimstyle
-Dados tres objetos distintos existe conjunto com exatamente
-esses membros.
-}
-$$
-\forall a
-\forall b
-\forall c
-\lparen{
-\bigparen{
-a\neq b \land b \neq c \land c \neq a
-}
-\limplies
-\exists s
-\forall x
-\bigparen{x\in s \liff x = a \lor x = b \lor x = c}
-}
-\axtaglabel{ZF3*}{triset}
-$$
-%\beginil
-\item{(0)}
-No sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{pairset}%
-+\axref{separation}%
-+\axref{powerset}%
-+\axref{unionset}
-construa conjunto de cardinalidade~$3$.
-\item{(1)}
-Prove que no mesmo sistema
-podemos substituir o axioma Pairset~(\axref{pairset}) pelo axioma
-Triset~(\axref{triset}) ``sem perder nada''.
-Em outras palavras, prove que no sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{triset}%
-+\axref{separation}%
-+\axref{powerset}%
-+\axref{unionset}
-\emph{para todos os $a,b$ existe o conjunto $\set{a,b}$}.
-\item{(2)}
-Podemos provar a mesma coisa no sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{triset}%
-+\axref{separation}%
-+\axref{unionset}%
-?
-%\endil
-
-\hint
-Para o (1), veja o (2); para o (2), veja o (1)!
-
-\endproblem
-%%}}}
-
-%%{{{ consax_problem 
-\problem.
-\label{consax_problem}%
-Considere o axioma seguinte:
-$$
-\forall h
-\forall t
-\exists s
-\forall x
-\bigparen{
-x \in s
-\liff
-x = h
-\lor
-x \in t
-}.
-\axtaglabel{CONS}{consax}
-$$
-(1)
-No sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{consax},
-prove o \axref{pairset} como teorema.
-\endgraf\noindent
-(2)
-Mostre que não tem como provar o \axref{consax}
-no sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{pairset}.
-
-\solution
-(1)
-Dados os objetos $a,b$, queremos construir o $\set{a,b}$.
-Aplicando o \axref{consax} com $h \asseq b$ e $t \asseq \emptyset$
-ganhamos o $\set{b}$, e agora aplicando novamente o mesmo axioma
-com $h \asseq a$ e $t \asseq \set{b}$ ganhamos o desejado $\set{a,b}$.
-\endgraf\noindent
-(2)
-Observe que com os axiomas
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{consax}\ 
-conseguimos construir conjuntos de qualquer cardinalidade finita,
-mas com os
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{pairset}\ 
-conseguimos construir apenas conjuntos com cardinalidades $0$, $1$, ou $2$.
-Basta realmente construir um conjunto com cardinalidade maior que $2$ então.
-Aplique o \axref{consax} com $h,t \asseq \emptyset$ ganhando assim
-o $\set{\emptyset}$.
-Agora com $h \asseq \set\emptyset$ e $t \asseq \emptyset$ ganhando
-o $\set{\set{\emptyset}}$.
-Com $h \asseq \emptyset$ e $t \asseq \set{\set{\emptyset}}$
-ganhamos o $\set{\emptyset, \set{\emptyset}}$.
-E finalmente, com $h,t \asseq \set{\emptyset, \set{\emptyset}}$
-construimos o $\set{\emptyset, \set{\emptyset}, \set{\emptyset, \set{\emptyset}}}$,
-que tem cardinalidade $3$.
-
-\endproblem
-%%}}}
-
-%%{{{ one_class_set_the_other_proper_problem 
-\problem.
-\label{one_class_set_the_other_proper_problem}%
-Sejam $a,b$ conjuntos.
-Mostre pelos axiomas que:
-\item{(i)}  a classe $\set{ \set{x,\set y} \st x \in a \land y \in b}$ é conjunto;
-\item{(ii)} a classe $\set{ \set{x,y} \st \text{$x,y$ conjuntos com $x\neq y$}}$ é propria.
-
-\hint
-Absurdo.
-
-\endproblem
-%%}}}
 
 %%{{{ replacement_replaces_separation 
 \problem Replacement is the new Separation---or is it?.
