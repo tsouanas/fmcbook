@@ -21723,6 +21723,582 @@ Sobre teoria da medida:
 \endchapter
 %%}}}
 
+%%{{{ chapter: Posets; Lattices; Boolean algebras 
+\chapter Posets; Reticulados; Álgebras booleanas.
+\label{Posets}%
+\label{Lattices}%
+\label{Boolean_algebras}%
+
+%%{{{ Concept, notation, properties 
+\section Conceito, notação, propriedades.
+
+\note Conceito.
+
+%%{{{ df: poset 
+\definition poset.
+\label{poset}%
+\tdefined{poset}%
+Chamamos o conjunto estruturado $\cal P = \sset P \leq$
+um \dterm{poset} (ou conjunto parcialmente ordenado),
+sse $\leq$ é uma relação de ordem parcial:
+$$
+\gather
+x \leq x\\
+x \leq y \mland y \leq z \implies x \leq z\\
+x \leq y \mland y \leq x \implies x = y
+\endgather
+$$
+%%}}}
+
+\blah.
+Nas definições seguintes nosso contexto é um poset $\sset P \leq$.
+
+%%{{{ df: incomparable 
+\definition.
+\label{incomparable}%
+\tdefined{incomparável}%
+Se $x \nleq y$ e $y \nleq x$ chamamos $x$ e $y$ \dterm{incomparáveis}.
+Denotamos assim:
+$$
+x \incomp y \defiff x \nleq y \mland y \nleq x.
+$$
+%%}}}
+
+%%{{{ df: chain_antichain 
+\definition.
+\label{chain_antichain}%
+\tdefined{cadeia}%
+\tdefined{anticadeia}%
+Seja $X\subseteq P$.
+Chamamos o $X$ uma \dterm{cadeia} sse todos os seus elementos são comparáveis.
+No caso oposto, onde todos são comparáveis apenas com eles mesmo,
+chamamos o $X$ \dterm{anticadeia}.  Simbolicamente:
+$$
+\align
+\text{cadeia:}\quad&       x, y \in X  \implies  x \leq y \mlor y\leq x;\\
+\text{anticadeia:}\quad&   x, y \in X  \mland x \leq y \implies x = y.
+\endalign
+$$
+%%}}}
+
+%%{{{ df: covby 
+\definition.
+\label{covby}%
+\tdefined{cobertura}%
+\sdefined {\holed x \covby \holed y} {o $x$ é coberto por o $y$}%
+Se $x\leq y$ e não existe nenhum $z$ estritamente entre os $x$ e $y$
+falamos que $y$ \dterm{cobre} o $x$.  Simbolicamente:
+$$
+x\covby y \defiff x \leq y \mland \lnot\exists z (x < z < y).
+$$
+%%}}}
+
+%%{{{ Diagramas Hasse 
+\note Diagramas Hasse.
+\Hasse{}
+%%}}}
+
+%%{{{ df: min_max 
+\definition.
+\label{min_max}%
+\tdefined{mínimo}%
+\tdefined{máximo}%
+\sdefined{\bot} {o bottom (o mínimo elemento dum poset)}%
+\sdefined{\top} {o top (o máximo elemento dum poset)}%
+\emph{Dualmente} chamamos o $x$ \dterm{máximo} de $P$ sse $y\leq x$ para todo $y\in P$.
+Denotamos o mínimo de $P$, se existe, por $\min P$ ou $\bot$ (\dterm{bottom}),
+e seu máximo, se existe, por $\max P$ ou $\top$ (\dterm{top}).\mistake
+%%}}}
+
+%%{{{ x: uniqueness_of_min_max 
+\exercise.
+\label{uniqueness_of_min_max}%
+Qual o erro na definição acima?
+Ache-o e corrija-o.
+
+\endexercise
+%%}}}
+
+%%{{{ df: minimal_maximal 
+\definition.
+\label{minimal_maximal}
+\tdefined{minimal}%
+\tdefined{maximal}%
+Chamamos o $x$ um elemento \dterm{minimal} de $P$
+sse nenhum elemento está embaixo dele, e, \emph{dualmente}
+chamamos o $x$ \dterm{maximal} de $P$ sse nenhum elemento
+está acima dele.  Simbolicamente:
+$$
+\align
+\text{$x$ minimal}&\defiff  \lforall {y \in P} {y \leq x \implies x = y};\\
+\text{$x$ maximal}&\defiff  \lforall {y \in P} {x \leq y \implies x = y}.
+\endalign
+$$
+%%}}}
+
+%%{{{ df: downset_upset 
+\definition.
+\label{downset_upset}%
+\tdefined{downset}%
+\tdefined{upset}%
+Chamamos o $A\subseteq P$ um \dterm{down-set} de $A$
+sse o $A$ é ``fechado para baixo'', e \emph{dualmente},
+o chamamos \dterm{up-set} sse ele é ``fechado para cima''.
+Formalmente,
+$$
+\align
+\text{$A$ down-set} &\defiff {a \in A \mland x \leq a \implies x\in A};\\
+\text{$A$ up-set}   &\defiff {a \in A \mland a \leq x \implies x\in A}.
+\endalign
+$$
+Dado um poset $P$, usamos $\downs P$ para denotar o conjunto de todos os seus
+down-sets.  Simbolicamente,
+$$
+\downs P \defeq \set{ D \subseteq P \st \text{$D$ é um down-set de $P$} }.
+$$
+%%}}}
+
+%%{{{ Notational abuse 
+\note Abusos notacionais.
+Extendemos o ``tipo'' do predicado $\dhole\leq\dhole$ de elementos de $P$
+para elementos e/ou subconjuntos de $P$, definindo:
+$$
+\align
+a \leq Y &\defiff a \leq y, \quad\text{para todo $y\in Y$};\\
+X \leq b &\defiff x \leq b, \quad\text{para todo $x\in X$};\\
+X \leq Y &\defiff x \leq y, \quad\text{para todo $x\in X$ e $y\in Y$}.
+\endalign
+$$
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Operations and constructions 
+\section Operações e construções.
+
+%TODO (Construções de conjutos ordenados)
+%TODO (Dualidade)
+%TODO (Ordens canônicas, ordens lexicográficas)
+
+\endsection
+%%}}}
+
+%%{{{ Mappings 
+\section Mapeamentos.
+
+%%{{{ x: downsets_of_poset_iso_downsets_of_dual 
+\exercise.
+\label{downsets_of_poset_iso_downsets_of_dual}%
+Defina um $\varphi : \downsets P \iso \downsets { \dual P }$.
+
+\solution
+$\varphi(X) = P\setminus X$
+
+\endexercise
+%%}}}
+
+%%{{{ x: downsets_of_disjunion_iso_product_of_downsets 
+\exercise.
+\label{downsets_of_disjunion_iso_product_of_downsets}%
+Defina um
+$\psi : \downsets { P_1 \disjunion P_2 } \iso \downsets {P_1} \times \downsets {P_2}$.
+
+\solution
+$\psi(D) = \tup{ D \inter P_1, D \inter P_2 }$
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ x: posets_of_divisors 
+\exercise.
+\label{posets_of_divisors}%
+Para $n\in\nats$, definimos o poset
+${\cal D}_n \defeq \sset {D_n} {\divides}$
+onde $D_n \defeq \set{ d \in \nats \st d \divides n }$.
+\item{(i)}
+Desenha o diagrama Hasse de ${\cal D}_{30}$.
+\item{(ii)}
+Ache conjunto $A$ tal que ${\cal D}_{30} \iso \sset {\pset A} {\subseteq}$
+e defina um isomorfismo $\phi : D_{30} \to \pset A$.
+\item{(iii)}
+Existe conjunto $B$ tal que ${\cal D}_0 \iso \sset {\pset B} {\subseteq}$?
+Se sim, ache o $B$ e defina um isomorfismo
+$\phi : D_0 \to {\pset B}$;
+se não, prove que é impossível.
+
+\solution%%{{{
+\noindent (i)
+Primeiramente calculamos: $D_{30} = \set{1, 2, 3, 5, 6, 10, 15, 30}$.
+$$
+\tikzpicture
+\node (max) at (0,4)  {$30$};
+\node (a)   at (-2,2) {$6$};
+\node (b)   at (0,2)  {$10$};
+\node (c)   at (2,2)  {$15$};
+\node (d)   at (-2,0) {$2$};
+\node (e)   at (0,0)  {$3$};
+\node (f)   at (2,0)  {$5$};
+\node (min) at (0,-2) {$1$};
+\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
+(e) -- (min) -- (f) -- (c) -- (max)
+(d) -- (b);
+\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
+\endtikzpicture
+$$
+\endgraf
+\noindent (ii)
+Tome o $A = \set{2,3,5}$ e defina a função $\phi : \pset A \to D_{30}$
+pelas equações:
+$$
+\align
+\phi(30) &= A\\
+\phi(15) &= \set{3,5}\\
+\phi(10) &= \set{2,5}\\
+\phi(6)  &= \set{2,3}\\
+\phi(2)  &= \set{2}\\
+\phi(3)  &= \set{3}\\
+\phi(5)  &= \set{5}\\
+\phi(1)  &= \emptyset
+\endalign
+$$
+Seu diagrama Hasse parece assim:
+$$
+\tikzpicture
+\node (max) at (0,4)  {$\set{2,3,5}$};
+\node (a)   at (-2,2) {$\set{2,3}$};
+\node (b)   at (0,2)  {$\set{2,5}$};
+\node (c)   at (2,2)  {$\set{3,5}$};
+\node (d)   at (-2,0) {$\set 2$};
+\node (e)   at (0,0)  {$\set 3$};
+\node (f)   at (2,0)  {$\set 5$};
+\node (min) at (0,-2) {$\emptyset$};
+\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
+(e) -- (min) -- (f) -- (c) -- (max)
+(d) -- (b);
+\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
+\endtikzpicture
+$$
+\noindent
+Obs: qualquer conjunto $A$ com $|A|=3$ serve!
+Uma avantagem desse é que podemos bem elegantemente definir a bijeção
+inversa, mandando cada subconjunto de $\set{2,3,5}$ para seu produtório!
+\endgraf
+\noindent (iii)
+Não existe, pois $D_0 = \nats$ (contável)
+e logo não pode ser equinúmero com o powerset de nenhum conjunto $B$.
+\endgraf
+\noindent (iv)
+Verdade, a função $\phi : D_0 \to \set{D_n \st n\in \nats}$ definida pela
+$$
+\phi(n) = D_n
+$$
+é um isomorfismo, pois:
+$$
+n \divides m \iff D_n \subseteq D_m.
+$$
+%%}}}
+
+\endexercise
+%%}}}
+
+%%{{{ Lattices as posets 
+\section Reticulados como posets.
+
+%%{{{ df: lattice_as_poset 
+\definition.
+\label{lattice_as_poset}%
+\tdefined{lattice}[como poset]%
+\iisee{lattice}{reticulado}
+Um poset $\cal L = \sset L {\leq}$
+é um \dterm{lattice} (ou \dterm{reticulado}) sse 
+para todo $x,y \in L$, os $\sup\set{x,y}$ e $\inf\set{x,y}$
+existem.
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Lattices as algebraic structures 
+\section Reticulados como estruturas algébricas.
+
+%%{{{ df: lattice_as_algebra 
+\definition.
+\label{lattice_as_algebra}%
+\tdefined{lattice}[como algebra]%
+Seja $\cal L = \sset L {\join, \meet}$ conjunto estruturado
+onde $\join,\meet$ são operadores binários no $L$.
+Chamamos o $L$ um \dterm{lattice} (ou \dterm{reticulado}) sse
+as operações $\join,\meet$ são associativas, comutativas,
+e idempotentes, e satisfazem as leis seguintes \emph{de absorção}:
+$$
+\align
+a \join (b \meet a) &= a\\
+a \meet (b \join a) &= a
+\endalign
+$$
+%%}}}
+
+%%{{{ x: abs_and_com_imply_idem 
+\exercise.
+\label{abs_and_com_imply_idem}%
+Num lattice $L$, prove que podemos inferir as leis da idempotência pelas outras.
+
+\hint
+$a\join(a\meet(a\join a))$.
+
+\solution
+Seja $a \in L$.
+Calculamos
+$$
+\alignat2
+a \join ( (a\join a) \meet a )
+&= a \join a                        \qqby{$\meet$-abs.}\\
+\intertext{e também}
+a \join ( (a\join a) \meet a)
+&=  ( (a\join a) \meet a) \join a   \qqby{$\join$-com.}\\
+&=  ( a \meet (a\join a) ) \join a  \qqby{$\meet$-com.}\\
+&=  a                               \qqby{$\join$-abs.}
+\endalignat
+$$
+Logo $a\join a = a$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: two_equiv_ways_to_define_an_order_on_an_algebraic_lattice 
+\exercise.
+\label{two_equiv_ways_to_define_an_order_on_an_algebraic_lattice}%
+Seja $\cal L = \sset L {\join,\meet}$ um láttice pela~\ref{lattice_as_algebra}.
+Prove que:
+$$
+a\join b = b \iff a\meet b = a.
+$$
+
+\solution
+\lrdir:
+Suponha $b = a \join b$.
+Calculamos
+$$
+\alignat2
+a \meet b
+&= a \meet (a \join b) \qqby{hipótese}\\
+&= (a \join b) \meet a \qqby{$\meet$-com.}\\
+&= a.                  \qqby{$\meet$-abs.}
+\endalignat
+$$
+\endgraf\noindent
+\rldir:
+Similar.
+
+\endexercise
+%%}}}
+
+%%{{{ df: semilattice 
+\definition.
+\label{semilattice}%
+\tdefined{semilattice}%
+\iisee{semireticulado}{semilattice}%
+Seja $\cal L = \sset L {\diamond}$ conjunto estruturado
+onde $\diamond$ é um operador binário no $L$.
+Chamamos o $L$ um \dterm{semilattice} (ou \dterm{semireticulado})
+sse a operação $\diamond$ é associativa, comutativa, e idempotente.
+%%}}}
+
+%%{{{ x: from_semilattice_to_lattice 
+\exercise.
+\label{from_semilattice_to_lattice}%
+\tdefined{lattice}%
+Defina o conceito ``lattice'' usando o conceito ``semilattice''.
+
+\solution
+O conjunto estruturado $\cal L = \sset L {\join,\meet}$ é um
+\dterm{lattice} sse os conjuntos estruturados
+$\sset L {\join}$ e $\sset L {\meet}$ são semilattices,
+e as leis de absorção são satisfeitas.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Complete lattices 
+\section Reticulados completos.
+
+\endsection
+%%}}}
+
+%%{{{ Irreducible elements 
+\section Elementos irredutíveis.
+
+\endsection
+%%}}}
+
+%%{{{ The Knaster--Tarski fixpoint theorem 
+\section O teorema fixpoint de Knaster--Tarski.
+
+\endsection
+%%}}}
+
+%%{{{ Boolean algebras 
+\section Álgebras booleanas.
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+%%{{{ df: cofinito_em_nats 
+\definition.
+\label{cofinito_em_nats}%
+\tdefined{cofinito}%
+Chamamos um $A\subseteq \nats$ \dterm{cofinito} sse seu complemento $\nats\setminus A$ é finito.
+%%}}}
+
+%%{{{ prob: family_of_cofinite_lattice 
+\problem.
+\label{family_of_cofinite_lattice}%
+\tdefined{reticulado}[de conjuntos]%
+Mostre que as famílias
+$$
+\align
+\scr L_1 &\asseq \set{ A \subseteq \nats \st \text{$A$ é cofinito} }\\
+\scr L_2 &\asseq \set{ A \subseteq \nats \st \text{$A$ é finito ou cofinito} }
+\endalign
+$$
+são \dterm{reticulados de conjuntos}, ou seja,
+reticulados com relação de ordem $\subseteq$.
+
+\solution
+\proofstyle{Sobre o $\scr L_1$.}
+Sejam $A, B \in \scr L_1$.
+Pela definição então $\nats\setminus A$ e $\nats\setminus B$ são finitos.
+Vou mostrar que $A\union B$ e $A\inter B$ são cofinitos, e logo pertencem no $\scr L_1$ também.
+Calculamos 
+$$
+\align
+\nats\setminus(A\union B) &=\paren{\nats\setminus A} \inter \paren{\nats\setminus B}\\
+\nats\setminus(A\inter B) &=\paren{\nats\setminus A} \union \paren{\nats\setminus B},
+\endalign
+$$
+logo os dois conjuntos no lado esquerdo são finitos como intersecção e união de
+finitos respectivamente.
+\endgraf
+\proofstyle{Sobre o $\scr L_2$.}
+Sejam $A, B \in \scr L_2$.
+Separamos em casos:
+\endgraf
+\casestyle{Caso ambos finitos:}
+Facilmente $A\union B$ e $A \inter B$ são finitos também,
+como intersecção e união de conjuntos finitos.
+Logo ambos pertencem no $\scr L_2$.
+\endgraf
+\casestyle{Caso ambos cofinitos:}
+Provamos isso na demonstração sobre o $\scr L_1$.
+\endgraf
+\casestyle{Caso contrário:}
+Temos um dos $A,B$ finito e o outro cofinito.
+Sem perda de generalidade, suponha que $A$ finito, $B$ cofinito.
+O $A\inter B$ é trivialmente finito como intersecção de finito com qualquer conjunto.
+Logo $A\inter B \in \scr L_2$.
+O $A\union B$ é cofinito, pois
+$$
+\nats\setminus(A \union B) = \paren{\nats\setminus A} \inter \paren{\nats\setminus B}
+$$
+que é finito para o mesmo motivo (intersecção com o $\nats\setminus B$ que é finito).
+Logo $A\union B \in \scr L_2$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: family_of_cofinite_not_complete_lattice 
+\problem.
+\label{family_of_cofinite_not_complete_lattice}%
+Mostre que nenhum dos $\scr L_1,\scr L_2$ do~\ref{family_of_cofinite_lattice}
+é completo.
+
+\hint
+Seja $A_n \asseq \nats\setminus\set{0,2,\dotsc, 2n - 2}$ o $\nats$ sem os
+primeiros $n$ números pares.
+Mostre que:
+\emph{se $B \subseteq A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
+
+\solution
+Vamos provar primeiramente a afirmação seguinte:
+\emph{se $B \subseteq A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
+\endgraf
+\proofstyle{Prova da afirmação:}
+Suponha que para todo $n\in\nats$, $B \subseteq A_n$.
+Logo
+$$
+\align
+    B &\subseteq \Inter_{i=0}^\infty A_i\\
+\intertext{e complementando os dois lado,}
+\nats\setminus B
+    &\supseteq \nats\setminus\Inter_{i=0}^\infty A_i\\
+    &= \Union_{i=0}^\infty(\nats\setminus A_i)\\
+    &= \Union_{i=0}^\infty(\set{0,2,\dotsc, 2n-2})\\
+    &= 2\nats.
+\endalign
+$$
+Como $2\nats$ é infinito, o $B$ não é cofinito.
+\endgraf
+Agora voltamos a provar que nenhum dos $\scr L_1, \scr L_2$ é completo.
+Considere o conjunto
+$$
+\cal S \asseq \set { A_0, A_1, A_2, \dotsc }
+$$
+Observe que
+$\cal S \subseteq \scr L_1, \scr L_2$
+pois todos os seus elementos são claramente cofinitos.
+Mesmo assim, o $\Inter \cal S$ não é cofinito
+$\Inter \cal S$ é o conjunto de todos os ímpares)
+e logo não pertence em nenhum dos $\scr L_1, L_2$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: banach_decomposition_theorem 
+\problem Teorema de decomposição de Banach.
+\label{banach_decomposition_theorem}%
+
+\endproblem
+%%}}}
+
+%%{{{ prob: schroder_bernstein_lattice_proof 
+\problem Teorema de Schröder--Bernstein.
+\label{schroder_bernstein_lattice_proof}%
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{DaveyPriestley},
+\cite{gratzerlatticefirst},
+\cite{gratzerlatticefoundation}.
+
+\cite{ynmnst}[cap.~6].
+
+\cite{corilascar1}[cap.~2],
+\cite{bellmachover}[cap.~4],
+\cite{halmosboolean}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
 %%{{{ chapter: General topology 
 \chapter Topologia geral.
 
@@ -22013,6 +22589,118 @@ Sobre lógica matemática:
 \cite{corilascar1}~\&~\cite{corilascar2},
 \cite{shoenfieldlogic},
 \cite{bellmachover}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Computability and complexity 
+\chapter Computabilidade e complexidade.
+\label{Computability_and_complexity}%
+
+%%{{{ A surprisingly difficult question 
+\section Uma questão surpresamente difícil.
+
+\endsection
+%%}}}
+
+%%{{{ Models of computation 
+\section Modelos de computação.
+
+\endsection
+%%}}}
+
+%%{{{ Decision problems 
+\section Problemas de decisão.
+
+\endsection
+%%}}}
+
+%%{{{ The halting problem 
+\section O problema da parada.
+
+\endsection
+%%}}}
+
+%%{{{ Asymptotic notation 
+\section A notação assintótica.
+
+\endsection
+%%}}}
+
+%%{{{ Analysis of algorithms 
+\section Análise de algorítmos.
+
+\endsection
+%%}}}
+
+%%{{{ Computational complexity 
+\section Complexidade computacional.
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{cutlandcomputability},
+\cite{kleeneIM},
+\cite{rogersrecursive}.
+
+\cite{kozenac}, \cite{kozentc}.
+
+\cite{dpv},
+\cite{jonescomputability}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Theory of recursive functions 
+\chapter Teoria de funções recursivas.
+\label{Recursive_functions}%
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{kleeneIM},
+\cite{shoenfieldrecursion},
+\cite{ynmrandc},
+\cite{rogersrecursive}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Formal languages 
+\chapter Linguagens formais.
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
 
 \endfurther
 %%}}}
@@ -25506,709 +26194,6 @@ precisamos os operadores $\pset$, $\times$, $\parto$, $\setminus$, e o próprio 
 \endchapter
 %%}}}
 
-%%{{{ chapter: Computability and complexity 
-\chapter Computabilidade e complexidade.
-\label{Computability_and_complexity}%
-
-%%{{{ A surprisingly difficult question 
-\section Uma questão surpresamente difícil.
-
-\endsection
-%%}}}
-
-%%{{{ Models of computation 
-\section Modelos de computação.
-
-\endsection
-%%}}}
-
-%%{{{ Decision problems 
-\section Problemas de decisão.
-
-\endsection
-%%}}}
-
-%%{{{ The halting problem 
-\section O problema da parada.
-
-\endsection
-%%}}}
-
-%%{{{ Asymptotic notation 
-\section A notação assintótica.
-
-\endsection
-%%}}}
-
-%%{{{ Analysis of algorithms 
-\section Análise de algorítmos.
-
-\endsection
-%%}}}
-
-%%{{{ Computational complexity 
-\section Complexidade computacional.
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{cutlandcomputability},
-\cite{kleeneIM},
-\cite{rogersrecursive}.
-
-\cite{kozenac}, \cite{kozentc}.
-
-\cite{dpv},
-\cite{jonescomputability}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Theory of recursive functions 
-\chapter Teoria de funções recursivas.
-\label{Recursive_functions}%
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{kleeneIM},
-\cite{shoenfieldrecursion},
-\cite{ynmrandc},
-\cite{rogersrecursive}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Formal languages 
-\chapter Linguagens formais.
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Ordered sets 
-\chapter Conjuntos ordenados.
-\label{Posets}%
-
-%%{{{ Concept, notation, properties 
-\section Conceito, notação, propriedades.
-
-\note Conceito.
-
-%%{{{ df: poset 
-\definition poset.
-\label{poset}%
-\tdefined{poset}%
-Chamamos o conjunto estruturado $\cal P = \sset P \leq$
-um \dterm{poset} (ou conjunto parcialmente ordenado),
-sse $\leq$ é uma relação de ordem parcial:
-$$
-\gather
-x \leq x\\
-x \leq y \mland y \leq z \implies x \leq z\\
-x \leq y \mland y \leq x \implies x = y
-\endgather
-$$
-%%}}}
-
-\blah.
-Nas definições seguintes nosso contexto é um poset $\sset P \leq$.
-
-%%{{{ df: incomparable 
-\definition.
-\label{incomparable}%
-\tdefined{incomparável}%
-Se $x \nleq y$ e $y \nleq x$ chamamos $x$ e $y$ \dterm{incomparáveis}.
-Denotamos assim:
-$$
-x \incomp y \defiff x \nleq y \mland y \nleq x.
-$$
-%%}}}
-
-%%{{{ df: chain_antichain 
-\definition.
-\label{chain_antichain}%
-\tdefined{cadeia}%
-\tdefined{anticadeia}%
-Seja $X\subseteq P$.
-Chamamos o $X$ uma \dterm{cadeia} sse todos os seus elementos são comparáveis.
-No caso oposto, onde todos são comparáveis apenas com eles mesmo,
-chamamos o $X$ \dterm{anticadeia}.  Simbolicamente:
-$$
-\align
-\text{cadeia:}\quad&       x, y \in X  \implies  x \leq y \mlor y\leq x;\\
-\text{anticadeia:}\quad&   x, y \in X  \mland x \leq y \implies x = y.
-\endalign
-$$
-%%}}}
-
-%%{{{ df: covby 
-\definition.
-\label{covby}%
-\tdefined{cobertura}%
-\sdefined {\holed x \covby \holed y} {o $x$ é coberto por o $y$}%
-Se $x\leq y$ e não existe nenhum $z$ estritamente entre os $x$ e $y$
-falamos que $y$ \dterm{cobre} o $x$.  Simbolicamente:
-$$
-x\covby y \defiff x \leq y \mland \lnot\exists z (x < z < y).
-$$
-%%}}}
-
-%%{{{ Diagramas Hasse 
-\note Diagramas Hasse.
-\Hasse{}
-%%}}}
-
-%%{{{ df: min_max 
-\definition.
-\label{min_max}%
-\tdefined{mínimo}%
-\tdefined{máximo}%
-\sdefined{\bot} {o bottom (o mínimo elemento dum poset)}%
-\sdefined{\top} {o top (o máximo elemento dum poset)}%
-\emph{Dualmente} chamamos o $x$ \dterm{máximo} de $P$ sse $y\leq x$ para todo $y\in P$.
-Denotamos o mínimo de $P$, se existe, por $\min P$ ou $\bot$ (\dterm{bottom}),
-e seu máximo, se existe, por $\max P$ ou $\top$ (\dterm{top}).\mistake
-%%}}}
-
-%%{{{ x: uniqueness_of_min_max 
-\exercise.
-\label{uniqueness_of_min_max}%
-Qual o erro na definição acima?
-Ache-o e corrija-o.
-
-\endexercise
-%%}}}
-
-%%{{{ df: minimal_maximal 
-\definition.
-\label{minimal_maximal}
-\tdefined{minimal}%
-\tdefined{maximal}%
-Chamamos o $x$ um elemento \dterm{minimal} de $P$
-sse nenhum elemento está embaixo dele, e, \emph{dualmente}
-chamamos o $x$ \dterm{maximal} de $P$ sse nenhum elemento
-está acima dele.  Simbolicamente:
-$$
-\align
-\text{$x$ minimal}&\defiff  \lforall {y \in P} {y \leq x \implies x = y};\\
-\text{$x$ maximal}&\defiff  \lforall {y \in P} {x \leq y \implies x = y}.
-\endalign
-$$
-%%}}}
-
-%%{{{ df: downset_upset 
-\definition.
-\label{downset_upset}%
-\tdefined{downset}%
-\tdefined{upset}%
-Chamamos o $A\subseteq P$ um \dterm{down-set} de $A$
-sse o $A$ é ``fechado para baixo'', e \emph{dualmente},
-o chamamos \dterm{up-set} sse ele é ``fechado para cima''.
-Formalmente,
-$$
-\align
-\text{$A$ down-set} &\defiff {a \in A \mland x \leq a \implies x\in A};\\
-\text{$A$ up-set}   &\defiff {a \in A \mland a \leq x \implies x\in A}.
-\endalign
-$$
-Dado um poset $P$, usamos $\downs P$ para denotar o conjunto de todos os seus
-down-sets.  Simbolicamente,
-$$
-\downs P \defeq \set{ D \subseteq P \st \text{$D$ é um down-set de $P$} }.
-$$
-%%}}}
-
-%%{{{ Notational abuse 
-\note Abusos notacionais.
-Extendemos o ``tipo'' do predicado $\dhole\leq\dhole$ de elementos de $P$
-para elementos e/ou subconjuntos de $P$, definindo:
-$$
-\align
-a \leq Y &\defiff a \leq y, \quad\text{para todo $y\in Y$};\\
-X \leq b &\defiff x \leq b, \quad\text{para todo $x\in X$};\\
-X \leq Y &\defiff x \leq y, \quad\text{para todo $x\in X$ e $y\in Y$}.
-\endalign
-$$
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Operations and constructions 
-\section Operações e construções.
-
-%TODO (Construções de conjutos ordenados)
-%TODO (Dualidade)
-%TODO (Ordens canônicas, ordens lexicográficas)
-
-\endsection
-%%}}}
-
-%%{{{ Mappings 
-\section Mapeamentos.
-
-%%{{{ x: downsets_of_poset_iso_downsets_of_dual 
-\exercise.
-\label{downsets_of_poset_iso_downsets_of_dual}%
-Defina um $\varphi : \downsets P \iso \downsets { \dual P }$.
-
-\solution
-$\varphi(X) = P\setminus X$
-
-\endexercise
-%%}}}
-
-%%{{{ x: downsets_of_disjunion_iso_product_of_downsets 
-\exercise.
-\label{downsets_of_disjunion_iso_product_of_downsets}%
-Defina um
-$\psi : \downsets { P_1 \disjunion P_2 } \iso \downsets {P_1} \times \downsets {P_2}$.
-
-\solution
-$\psi(D) = \tup{ D \inter P_1, D \inter P_2 }$
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-%%{{{ prob: posets_of_divisors 
-\problem.
-\label{posets_of_divisors}%
-Para $n\in\nats$, definimos o poset
-${\cal D}_n \defeq \sset {D_n} {\divides}$
-onde $D_n \defeq \set{ d \in \nats \st d \divides n }$.
-\item{(i)}
-Desenha o diagrama Hasse de ${\cal D}_{30}$.
-\item{(ii)}
-Ache conjunto $A$ tal que ${\cal D}_{30} \iso \sset {\pset A} {\subseteq}$
-e defina um isomorfismo $\phi : D_{30} \to \pset A$.
-\item{(iii)}
-Existe conjunto $B$ tal que ${\cal D}_0 \iso \sset {\pset B} {\subseteq}$?
-Se sim, ache o $B$ e defina um isomorfismo
-$\phi : D_0 \to {\pset B}$;
-se não, prove que é impossível.
-
-\solution%%{{{
-\noindent (i)
-Primeiramente calculamos: $D_{30} = \set{1, 2, 3, 5, 6, 10, 15, 30}$.
-$$
-\tikzpicture
-\node (max) at (0,4)  {$30$};
-\node (a)   at (-2,2) {$6$};
-\node (b)   at (0,2)  {$10$};
-\node (c)   at (2,2)  {$15$};
-\node (d)   at (-2,0) {$2$};
-\node (e)   at (0,0)  {$3$};
-\node (f)   at (2,0)  {$5$};
-\node (min) at (0,-2) {$1$};
-\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
-(e) -- (min) -- (f) -- (c) -- (max)
-(d) -- (b);
-\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
-\endtikzpicture
-$$
-\endgraf
-\noindent (ii)
-Tome o $A = \set{2,3,5}$ e defina a função $\phi : \pset A \to D_{30}$
-pelas equações:
-$$
-\align
-\phi(30) &= A\\
-\phi(15) &= \set{3,5}\\
-\phi(10) &= \set{2,5}\\
-\phi(6)  &= \set{2,3}\\
-\phi(2)  &= \set{2}\\
-\phi(3)  &= \set{3}\\
-\phi(5)  &= \set{5}\\
-\phi(1)  &= \emptyset
-\endalign
-$$
-Seu diagrama Hasse parece assim:
-$$
-\tikzpicture
-\node (max) at (0,4)  {$\set{2,3,5}$};
-\node (a)   at (-2,2) {$\set{2,3}$};
-\node (b)   at (0,2)  {$\set{2,5}$};
-\node (c)   at (2,2)  {$\set{3,5}$};
-\node (d)   at (-2,0) {$\set 2$};
-\node (e)   at (0,0)  {$\set 3$};
-\node (f)   at (2,0)  {$\set 5$};
-\node (min) at (0,-2) {$\emptyset$};
-\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
-(e) -- (min) -- (f) -- (c) -- (max)
-(d) -- (b);
-\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
-\endtikzpicture
-$$
-\noindent
-Obs: qualquer conjunto $A$ com $|A|=3$ serve!
-Uma avantagem desse é que podemos bem elegantemente definir a bijeção
-inversa, mandando cada subconjunto de $\set{2,3,5}$ para seu produtório!
-\endgraf
-\noindent (iii)
-Não existe, pois $D_0 = \nats$ (contável)
-e logo não pode ser equinúmero com o powerset de nenhum conjunto $B$.
-\endgraf
-\noindent (iv)
-Verdade, a função $\phi : D_0 \to \set{D_n \st n\in \nats}$ definida pela
-$$
-\phi(n) = D_n
-$$
-é um isomorfismo, pois:
-$$
-n \divides m \iff D_n \subseteq D_m.
-$$
-%%}}}
-
-\endproblem
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{DaveyPriestley},
-\cite{goldreisets}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Lattices 
-\chapter Reticulados.
-
-%%{{{ Lattices as posets 
-\section Reticulados como posets.
-
-%%{{{ df: lattice_as_poset 
-\definition.
-\label{lattice_as_poset}%
-\tdefined{lattice}[como poset]%
-\iisee{lattice}{reticulado}
-Um poset $\cal L = \sset L {\leq}$
-é um \dterm{lattice} (ou \dterm{reticulado}) sse 
-para todo $x,y \in L$, os $\sup\set{x,y}$ e $\inf\set{x,y}$
-existem.
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Lattices as algebraic structures 
-\section Reticulados como estruturas algébricas.
-
-%%{{{ df: lattice_as_algebra 
-\definition.
-\label{lattice_as_algebra}%
-\tdefined{lattice}[como algebra]%
-Seja $\cal L = \sset L {\join, \meet}$ conjunto estruturado
-onde $\join,\meet$ são operadores binários no $L$.
-Chamamos o $L$ um \dterm{lattice} (ou \dterm{reticulado}) sse
-as operações $\join,\meet$ são associativas, comutativas,
-e idempotentes, e satisfazem as leis seguintes \emph{de absorção}:
-$$
-\align
-a \join (b \meet a) &= a\\
-a \meet (b \join a) &= a
-\endalign
-$$
-%%}}}
-
-%%{{{ x: abs_and_com_imply_idem 
-\exercise.
-\label{abs_and_com_imply_idem}%
-Num lattice $L$, prove que podemos inferir as leis da idempotência pelas outras.
-
-\hint
-$a\join(a\meet(a\join a))$.
-
-\solution
-Seja $a \in L$.
-Calculamos
-$$
-\alignat2
-a \join ( (a\join a) \meet a )
-&= a \join a                        \qqby{$\meet$-abs.}\\
-\intertext{e também}
-a \join ( (a\join a) \meet a)
-&=  ( (a\join a) \meet a) \join a   \qqby{$\join$-com.}\\
-&=  ( a \meet (a\join a) ) \join a  \qqby{$\meet$-com.}\\
-&=  a                               \qqby{$\join$-abs.}
-\endalignat
-$$
-Logo $a\join a = a$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: two_equiv_ways_to_define_an_order_on_an_algebraic_lattice 
-\exercise.
-\label{two_equiv_ways_to_define_an_order_on_an_algebraic_lattice}%
-Seja $\cal L = \sset L {\join,\meet}$ um láttice pela~\ref{lattice_as_algebra}.
-Prove que:
-$$
-a\join b = b \iff a\meet b = a.
-$$
-
-\solution
-\lrdir:
-Suponha $b = a \join b$.
-Calculamos
-$$
-\alignat2
-a \meet b
-&= a \meet (a \join b) \qqby{hipótese}\\
-&= (a \join b) \meet a \qqby{$\meet$-com.}\\
-&= a.                  \qqby{$\meet$-abs.}
-\endalignat
-$$
-\endgraf\noindent
-\rldir:
-Similar.
-
-\endexercise
-%%}}}
-
-%%{{{ df: semilattice 
-\definition.
-\label{semilattice}%
-\tdefined{semilattice}%
-\iisee{semireticulado}{semilattice}%
-Seja $\cal L = \sset L {\diamond}$ conjunto estruturado
-onde $\diamond$ é um operador binário no $L$.
-Chamamos o $L$ um \dterm{semilattice} (ou \dterm{semireticulado})
-sse a operação $\diamond$ é associativa, comutativa, e idempotente.
-%%}}}
-
-%%{{{ x: from_semilattice_to_lattice 
-\exercise.
-\label{from_semilattice_to_lattice}%
-\tdefined{lattice}%
-Defina o conceito ``lattice'' usando o conceito ``semilattice''.
-
-\solution
-O conjunto estruturado $\cal L = \sset L {\join,\meet}$ é um
-\dterm{lattice} sse os conjuntos estruturados
-$\sset L {\join}$ e $\sset L {\meet}$ são semilattices,
-e as leis de absorção são satisfeitas.
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Complete lattices 
-\section Reticulados completos.
-
-\endsection
-%%}}}
-
-%%{{{ Irreducible elements 
-\section Elementos irredutíveis.
-
-\endsection
-%%}}}
-
-%%{{{ The Knaster--Tarski fixpoint theorem 
-\section O teorema fixpoint de Knaster--Tarski.
-
-\endsection
-%%}}}
-
-%%{{{ Boolean algebras 
-\section Álgebras booleanas.
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-%%{{{ df: cofinito_em_nats 
-\definition.
-\label{cofinito_em_nats}%
-\tdefined{cofinito}%
-Chamamos um $A\subseteq \nats$ \dterm{cofinito} sse seu complemento $\nats\setminus A$ é finito.
-%%}}}
-
-%%{{{ prob: family_of_cofinite_lattice 
-\problem.
-\label{family_of_cofinite_lattice}%
-\tdefined{reticulado}[de conjuntos]%
-Mostre que as famílias
-$$
-\align
-\scr L_1 &\asseq \set{ A \subseteq \nats \st \text{$A$ é cofinito} }\\
-\scr L_2 &\asseq \set{ A \subseteq \nats \st \text{$A$ é finito ou cofinito} }
-\endalign
-$$
-são \dterm{reticulados de conjuntos}, ou seja,
-reticulados com relação de ordem $\subseteq$.
-
-\solution
-\proofstyle{Sobre o $\scr L_1$.}
-Sejam $A, B \in \scr L_1$.
-Pela definição então $\nats\setminus A$ e $\nats\setminus B$ são finitos.
-Vou mostrar que $A\union B$ e $A\inter B$ são cofinitos, e logo pertencem no $\scr L_1$ também.
-Calculamos 
-$$
-\align
-\nats\setminus(A\union B) &=\paren{\nats\setminus A} \inter \paren{\nats\setminus B}\\
-\nats\setminus(A\inter B) &=\paren{\nats\setminus A} \union \paren{\nats\setminus B},
-\endalign
-$$
-logo os dois conjuntos no lado esquerdo são finitos como intersecção e união de
-finitos respectivamente.
-\endgraf
-\proofstyle{Sobre o $\scr L_2$.}
-Sejam $A, B \in \scr L_2$.
-Separamos em casos:
-\endgraf
-\casestyle{Caso ambos finitos:}
-Facilmente $A\union B$ e $A \inter B$ são finitos também,
-como intersecção e união de conjuntos finitos.
-Logo ambos pertencem no $\scr L_2$.
-\endgraf
-\casestyle{Caso ambos cofinitos:}
-Provamos isso na demonstração sobre o $\scr L_1$.
-\endgraf
-\casestyle{Caso contrário:}
-Temos um dos $A,B$ finito e o outro cofinito.
-Sem perda de generalidade, suponha que $A$ finito, $B$ cofinito.
-O $A\inter B$ é trivialmente finito como intersecção de finito com qualquer conjunto.
-Logo $A\inter B \in \scr L_2$.
-O $A\union B$ é cofinito, pois
-$$
-\nats\setminus(A \union B) = \paren{\nats\setminus A} \inter \paren{\nats\setminus B}
-$$
-que é finito para o mesmo motivo (intersecção com o $\nats\setminus B$ que é finito).
-Logo $A\union B \in \scr L_2$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: family_of_cofinite_not_complete_lattice 
-\problem.
-\label{family_of_cofinite_not_complete_lattice}%
-Mostre que nenhum dos $\scr L_1,\scr L_2$ do~\ref{family_of_cofinite_lattice}
-é completo.
-
-\hint
-Seja $A_n \asseq \nats\setminus\set{0,2,\dotsc, 2n - 2}$ o $\nats$ sem os
-primeiros $n$ números pares.
-Mostre que:
-\emph{se $B \subseteq A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
-
-\solution
-Vamos provar primeiramente a afirmação seguinte:
-\emph{se $B \subseteq A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
-\endgraf
-\proofstyle{Prova da afirmação:}
-Suponha que para todo $n\in\nats$, $B \subseteq A_n$.
-Logo
-$$
-\align
-    B &\subseteq \Inter_{i=0}^\infty A_i\\
-\intertext{e complementando os dois lado,}
-\nats\setminus B
-    &\supseteq \nats\setminus\Inter_{i=0}^\infty A_i\\
-    &= \Union_{i=0}^\infty(\nats\setminus A_i)\\
-    &= \Union_{i=0}^\infty(\set{0,2,\dotsc, 2n-2})\\
-    &= 2\nats.
-\endalign
-$$
-Como $2\nats$ é infinito, o $B$ não é cofinito.
-\endgraf
-Agora voltamos a provar que nenhum dos $\scr L_1, \scr L_2$ é completo.
-Considere o conjunto
-$$
-\cal S \asseq \set { A_0, A_1, A_2, \dotsc }
-$$
-Observe que
-$\cal S \subseteq \scr L_1, \scr L_2$
-pois todos os seus elementos são claramente cofinitos.
-Mesmo assim, o $\Inter \cal S$ não é cofinito
-$\Inter \cal S$ é o conjunto de todos os ímpares)
-e logo não pertence em nenhum dos $\scr L_1, L_2$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: banach_decomposition_theorem 
-\problem Teorema de decomposição de Banach.
-\label{banach_decomposition_theorem}%
-
-\endproblem
-%%}}}
-
-%%{{{ prob: schroder_bernstein_lattice_proof 
-\problem Teorema de Schröder--Bernstein.
-\label{schroder_bernstein_lattice_proof}%
-
-\endproblem
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{DaveyPriestley},
-\cite{gratzerlatticefirst},
-\cite{gratzerlatticefoundation}.
-
-\cite{halmosboolean}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
 %%{{{ chapter: Well-orderings and transfinite induction 
 \chapter Bem-ordens e indução transfinita.
 
@@ -26423,6 +26408,39 @@ $$
 \endchapter
 %%}}}
 
+%%{{{ chapter: Category theory 
+\chapter Teoria de categorias.
+\label{Category_theory}%
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{babylawvere},
+\cite{arbibmanesarrows},
+\cite{papalawvere}.
+
+\cite{goldblatttopoi}.
+
+\cite{awodeycats},
+\cite{barrwellscatscs},
+\cite{joyofcats},
+\cite{borceuxhandbook1}.
+
+\cite{riehlcats},
+\cite{maclanecats}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
 %%{{{ chapter: Intuitionistic logic 
 \chapter Lógica intuicionista.
 \label{Intuitionistic_logic}%
@@ -26497,29 +26515,6 @@ $$
 \endchapter
 %%}}}
 
-%%{{{ chapter: Type theory 
-\chapter Teoria de tipos.
-\label{Type_theory}%
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{nederpeltgeuvers},
-\cite{piercetapl}.
-\cite{hott}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
 %%{{{ chapter: Linear logic 
 \chapter Lógica linear.
 \label{Linear_logic}%
@@ -26542,9 +26537,9 @@ $$
 \endchapter
 %%}}}
 
-%%{{{ chapter: Category theory 
-\chapter Teoria de categorias.
-\label{Category_theory}%
+%%{{{ chapter: Type theory 
+\chapter Teoria de tipos.
+\label{Type_theory}%
 
 %%{{{ Problems 
 \problems.
@@ -26555,19 +26550,9 @@ $$
 %%{{{ Further reading 
 \further.
 
-\cite{babylawvere},
-\cite{arbibmanesarrows},
-\cite{papalawvere}.
-
-\cite{goldblatttopoi}.
-
-\cite{awodeycats},
-\cite{barrwellscatscs},
-\cite{joyofcats},
-\cite{borceuxhandbook1}.
-
-\cite{riehlcats},
-\cite{maclanecats}.
+\cite{nederpeltgeuvers},
+\cite{piercetapl}.
+\cite{hott}.
 
 \endfurther
 %%}}}
