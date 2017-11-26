@@ -25864,12 +25864,173 @@ que tem cardinalidade $3$.
 \problem.
 \label{one_class_set_the_other_proper_problem}%
 Sejam $a,b$ conjuntos.
-Mostre pelos axiomas que:
+Mostre pelos axiomas \axref{extensionality}--\axref{unionset} que:
 \item{(i)}  a classe $\set{ \set{x,\set y} \st x \in a \land y \in b}$ é conjunto;
 \item{(ii)} a classe $\set{ \set{x,y} \st \text{$x,y$ conjuntos com $x\neq y$}}$ é propria.
 
 \hint
-Absurdo.
+(ii) Absurdo.
+
+\endproblem
+%%}}}
+
+%%{{{ two_sets_and_one_proper_class_problem 
+\problem.
+\label{two_sets_and_one_proper_class_problem}%
+Sejam $a,b$ conjuntos.
+Mostre pelos axiomas \axref{extensionality}--\axref{union} que as classes
+$$
+\align
+    C &= \set{
+          \set{x, \set{x,y}}
+          \st
+          x \in a
+          \land
+          y \in b
+    }\\
+    D &= \set{
+          \set{x,y}
+          \st
+          \paren{
+              x \in a
+              \lor
+              x \in \Union a
+          }
+          \land
+          \paren{y \in b \lor y \subseteq b}
+    }\\
+\intertext{são conjuntos, mas não a classe}
+    Z &= \set{
+        {\Inter\Inter z}
+            \st z \neq \emptyset \land \Inter z \neq \emptyset
+    }.
+\endalign
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: multiset_formally_defined 
+\problem Multisets.
+\label{multiset_formally_defined}%
+Alguem te deu a seguinte especificação de multiset
+e tu queres implementá-la dentro da teoria de conjuntos.
+(Veja também \ref{Multisets} no \ref{Sets}.)
+\endgraf
+\noindent
+{\bf ``Definição''.}
+Um \dterm{multiset} (ou \dterm{bag}) $M$ é como um conjunto
+onde um elemento pode pertencer no $M$ mais que
+uma vez (mas não uma infinidade de vezes).
+Ou seja, a ordem não importa (como nos conjuntos),
+mas a ``multiplicidade'' importa sim.
+\endgraf
+Queremos tres operações em multisets, exemplificadas assim:
+$$
+\align
+    \bag{ x, y, y, z, z, z, w } \bagunion
+    \bag{ x, y, z, z, u, v, v } &=
+    \bag{ x, y, y, z, z, z, u, v, v, w }\\
+    \bag{ x, y, y, z, z, z, w } \baginter
+    \bag{ x, y, z, z, u, v, v } &=
+    \bag{ x, y, z, z }\\
+    \bag{ x, y, y, z, z, z, w } \bagplus
+    \bag{ x, y, z, z, u, v, v } &=
+    \bag{ x, x, y, y, y, z, z, z, z, z, u, v, v, w }
+\endalign
+$$
+Também queremos um predicado de ``pertencer'' $\inbag$
+e uma relação de ``submultiset'' $\subbag$ tais que:
+$$
+\xalignat2
+x&{}\inbag \bag{ x, y, y, z, z, z, w }           &\bag{ x, y, z, z }&{}\subbag    \bag{ x, x, y, y, z, z }            \\
+z&{}\inbag \bag{ x, y, y, z, z, z, w }           &\bag{ x, y, z, z }&{}\notsubbag \bag{ x, x, y, y, z }               \\
+u&{}\notinbag \bag{ x, y, y, z, z, z, w }        &\bag{ x, y, z, z }&{}\subbag    \bag{ x, y, z, z }                  \\
+x&{}\notinbag \emptybag \quad\text{para todo $x$}&M                 &{}\subbag    M \quad\text{para todo multiset $M$}\\
+ &                                               &\emptybag         &{}\subbag    M \quad\text{para todo multiset $M$}. 
+\endxalignat
+$$
+(MS1) Para os multisets $A$ e $B$ temos $A = B$ sse eles tem os mesmos membro
+com as mesmas multiplicidades.
+Por exemplo,
+$$
+\bag{x, y, z, z, y} = \bag{x, y, y, z, z} \neq \bag{x,y,z}.
+$$
+(MS2) Para cada conjunto $A$, a classe
+$$
+\classt M {$M$ é multiset e $\forall x(x \inbag M \limplies x \in A)$}
+$$
+de todos os multisets formados por membros de $A$ é um conjunto.
+\item{(i)}
+Defina formalmente (em teoria de conjuntos) o termo ``multiset'' e mostre
+(como exemplos) como são representados os multisets seguintes:
+$$
+\emptybag
+\qqqquad
+\bag{0, 1, 2, 2, 1}
+\qqqquad
+\bag{1, 2, 2, 3, 3, 3, 4, 4, 4, 4, \dotsc }.
+$$
+\item{(ii)}
+Defina as operações de multisets ($\bagunion, \baginter, \bagplus$)
+e os predicados ($\inbag$, $\subbag$).
+\item{(iii)}
+Prove pelos axiomas ZF que tua definição satisfaz as (MS1)--(MS2).
+
+\hint
+Para representar a multiplicidade, use uma função com codomínio o $\nats_{>0}$.
+
+\solution
+(i)
+Um \dterm{multiset} é uma tupla $\cal M = \tup{ M ; f }$
+onde $M$ é um conjunto e $f : M \to \nats_{>0}$.
+$$
+\align
+\emptybag                       &= \tup{ \emptyset ; \emptyset }\\
+\bag{0, 1, 2, 2, 1}             &= \tup{ \set{0,1,2} ; f }\\
+\bag{1, 2, 2, 3, 3, 3, \dotsc}  &= \tup{ \nats_{>0} ; \idof {\nats_{>0}} }\\
+\endalign
+$$
+onde $f : \set{0,1,2} \to \nats_{>0}$ é a função definida pela
+$$
+f(n) = \knuthcases{
+    1,  &se $n = 0$\cr
+    2,  &se $n = 1$\cr
+    2,  &se $n = 2$.
+}
+$$
+\endgraf
+(ii)
+$$
+\align
+\tup{A;\alpha} \bagunion \tup{B;\beta}&\defeq\tup{A\union B \;;\; \lambda x. \max\set{\alpha(x),\beta(x)}}\\
+\tup{A;\alpha} \baginter \tup{B;\beta}&\defeq\tup{A\inter B \;;\; \lambda x. \max\set{\alpha(x),\beta(x)}}\\
+\tup{A;\alpha} \bagplus  \tup{B;\beta}&\defeq\tup{A\union B \;;\; \lambda x. (\alpha(x) + \beta(x))}\\
+x \inbag \tup{A;\alpha} &\defiff x \in A\\
+\tup{A;\alpha} \subbag \tup{B;\beta} &\defiff A\subseteq B \mland (\forall x \in A)[ \alpha(x) \leq \beta(x)]
+\endalign
+$$
+\endgraf
+(iii)
+A (MS1) é obviamente satisfeita graças à nossa definição de múltiset como tupla
+de conjunto e função: ganhamos assim a (MS1) pelas definições de $=$ nos três
+tipos involvidos: conjunto; tupla; função.
+Vamos verificar a (MS2).
+Seja $A$ conjunto.
+O arbitrário multiset $\cal M$ com membros de $A$ tem a forma
+$\cal M = \tup{X , f}$ para algum $X\subseteq A$ e $f : X \to\nats_{>0}$.
+Então $\cal M \in \pset A \times (A \parto \nats_{>0})$ e construimos o conjunto
+de todos os multisets com membros de $A$ usando o ZF4:
+$$
+\namedop{Multisets}(A) \defeq
+    \set{
+        \cal M\in \pset A \times (A \parto \nats_{>0})
+        \st
+        \text{$\cal M$ é um multiset}.
+    }
+$$
+Para mostrar que o $\pset A \times (A \parto \nats\setminus\set{0})$ é um conjunto,
+precisamos os operadores $\pset$, $\times$, $\parto$, $\setminus$, e o próprio $\nats$, que já temos construido pelos ZF1--ZF7.
 
 \endproblem
 %%}}}
@@ -25916,14 +26077,6 @@ $$
 
 \hint
 Prove as duas direções da ``$\Longleftrightarrow$'' separadamente.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: construct_reals_as_cauchy 
-\problem Reais como seqüências Cauchy.
-\label{construct_reals_as_cauchy}%
-\TODOthis{Enunciar o problema.}
 
 \endproblem
 %%}}}
@@ -26326,7 +26479,7 @@ Todo conjunto $A$ pode ser bem ordenado.
 %%{{{ thm: cardinal_comparability_thm 
 \theorem Comparabilidade de cardinais.
 \label{cardinal_comparability_thm}%
-Para todos conjuntos $A,B$, temos $A\eqc B$ ou $B \eqc A$.
+Para todos conjuntos $A,B$, temos $A\leqc B$ ou $B \leqc A$.
 %%}}}
 
 \endsection
@@ -26352,6 +26505,23 @@ Para todos conjuntos $A,B$, temos $A\eqc B$ ou $B \eqc A$.
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ three_classes_are_sets_problem 
+\problem.
+\label{three_classes_are_sets_problem}%
+Seja $a$ conjunto.
+\emph{Sem usar} o Separation~(\axref{separation}),
+mostre pelo resto dos axiomas que as classes seguintes são conjuntos:
+$$
+\xalignat3
+    E &= \setlst {\set{x, \Union x,\pset x}} {x\in a} ;&
+    F &= \setlst x {x\subsetneq a}                    ;&
+    G &= \setst  x {x\neq\emptyset \land x = \Inter x}.
+\endxalignat
+$$
+
+\endproblem
+%%}}}
 
 %%{{{ replacement_replaces_separation 
 \problem Replacement is the new Separation---or is it?.
@@ -26443,59 +26613,6 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ two_sets_and_one_proper_class_problem 
-\problem.
-\label{two_sets_and_one_proper_class_problem}%
-Sejam $a,b$ conjuntos.
-Mostre pelos axiomas que as classes
-$$
-\align
-    C &= \set{
-          \set{x, \set{x,y}}
-          \st
-          x \in a
-          \land
-          y \in b
-    }\\
-    D &= \set{
-          \set{x,y}
-          \st
-          \paren{
-              x \in a
-              \lor
-              x \in \Union a
-          }
-          \land
-          \paren{y \in b \lor y \subseteq b}
-    }\\
-\intertext{são conjuntos, mas não a classe}
-    Z &= \set{
-        {\Inter\Inter z}
-            \st z \neq \emptyset \land \Inter z \neq \emptyset
-    }.
-\endalign
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ three_classes_are_sets_problem 
-\problem.
-\label{three_classes_are_sets_problem}%
-Seja $a$ conjunto.
-\emph{Sem usar} o Separation~(\axref{separation}),
-mostre pelo resto dos axiomas que as classes seguintes são conjuntos:
-$$
-\xalignat3
-    E &= \setlst {\set{x, \Union x,\pset x}} {x\in a} ;&
-    F &= \setlst x {x\subsetneq a}                    ;&
-    G &= \setst  x {x\neq\emptyset \land x = \Inter x}.
-\endxalignat
-$$
-
-\endproblem
-%%}}}
-
 %%{{{ choice_rel_problem 
 \problem.
 \label{choice_rel_problem}%
@@ -26524,127 +26641,10 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ prob: multiset_formally_defined 
-\problem Multisets.
-\label{multiset_formally_defined}%
-Alguem te deu a seguinte especificação de multiset
-e tu queres implementá-la dentro da teoria de conjuntos.
-(Veja também \ref{Multisets} no \ref{Sets}.)
-\endgraf
-\noindent
-{\bf ``Definição''.}
-Um \dterm{multiset} (ou \dterm{bag}) $M$ é como um conjunto
-onde um elemento pode pertencer no $M$ mais que
-uma vez (mas não uma infinidade de vezes).
-Ou seja, a ordem não importa (como nos conjuntos),
-mas a ``multiplicidade'' importa sim.
-\endgraf
-Queremos tres operações em multisets, exemplificadas assim:
-$$
-\align
-    \bag{ x, y, y, z, z, z, w } \bagunion
-    \bag{ x, y, z, z, u, v, v } &=
-    \bag{ x, y, y, z, z, z, u, v, v, w }\\
-    \bag{ x, y, y, z, z, z, w } \baginter
-    \bag{ x, y, z, z, u, v, v } &=
-    \bag{ x, y, z, z }\\
-    \bag{ x, y, y, z, z, z, w } \bagplus
-    \bag{ x, y, z, z, u, v, v } &=
-    \bag{ x, x, y, y, y, z, z, z, z, z, u, v, v, w }
-\endalign
-$$
-Também queremos um predicado de ``pertencer'' $\inbag$
-e uma relação de ``submultiset'' $\subbag$ tais que:
-$$
-\xalignat2
-x&{}\inbag \bag{ x, y, y, z, z, z, w }           &\bag{ x, y, z, z }&{}\subbag    \bag{ x, x, y, y, z, z }            \\
-z&{}\inbag \bag{ x, y, y, z, z, z, w }           &\bag{ x, y, z, z }&{}\notsubbag \bag{ x, x, y, y, z }               \\
-u&{}\notinbag \bag{ x, y, y, z, z, z, w }        &\bag{ x, y, z, z }&{}\subbag    \bag{ x, y, z, z }                  \\
-x&{}\notinbag \emptybag \quad\text{para todo $x$}&M                 &{}\subbag    M \quad\text{para todo multiset $M$}\\
- &                                               &\emptybag         &{}\subbag    M \quad\text{para todo multiset $M$}. 
-\endxalignat
-$$
-(MS1) Para os multisets $A$ e $B$ temos $A = B$ sse eles tem os mesmos membro
-com as mesmas multiplicidades.
-Por exemplo,
-$$
-\bag{x, y, z, z, y} = \bag{x, y, y, z, z} \neq \bag{x,y,z}.
-$$
-(MS2) Para cada conjunto $A$, a classe
-$$
-\classt M {$M$ é multiset e $\forall x(x \inbag M \limplies x \in A)$}
-$$
-de todos os multisets formados por membros de $A$ é um conjunto.
-\item{(i)}
-Defina formalmente (em teoria de conjuntos) o termo ``multiset'' e mostre
-(como exemplos) como são representados os multisets seguintes:
-$$
-\emptybag
-\qqqquad
-\bag{0, 1, 2, 2, 1}
-\qqqquad
-\bag{1, 2, 2, 3, 3, 3, 4, 4, 4, 4, \dotsc }.
-$$
-\item{(ii)}
-Defina as operações de multisets ($\bagunion, \baginter, \bagplus$)
-e os predicados ($\inbag$, $\subbag$).
-\item{(iii)}
-Prove pelos axiomas ZF que tua definição satisfaz as (MS1)--(MS2).
-
-\hint
-Para representar a multiplicidade, use uma função com codomínio o $\nats_{>0}$.
-
-\solution
-(i)
-Um \dterm{multiset} é uma tupla $\cal M = \tup{ M ; f }$
-onde $M$ é um conjunto e $f : M \to \nats_{>0}$.
-$$
-\align
-\emptybag                       &= \tup{ \emptyset ; \emptyset }\\
-\bag{0, 1, 2, 2, 1}             &= \tup{ \set{0,1,2} ; f }\\
-\bag{1, 2, 2, 3, 3, 3, \dotsc}  &= \tup{ \nats_{>0} ; \idof {\nats_{>0}} }\\
-\endalign
-$$
-onde $f : \set{0,1,2} \to \nats_{>0}$ é a função definida pela
-$$
-f(n) = \knuthcases{
-    1,  &se $n = 0$\cr
-    2,  &se $n = 1$\cr
-    2,  &se $n = 2$.
-}
-$$
-\endgraf
-(ii)
-$$
-\align
-\tup{A;\alpha} \bagunion \tup{B;\beta}&\defeq\tup{A\union B \;;\; \lambda x. \max\set{\alpha(x),\beta(x)}}\\
-\tup{A;\alpha} \baginter \tup{B;\beta}&\defeq\tup{A\inter B \;;\; \lambda x. \max\set{\alpha(x),\beta(x)}}\\
-\tup{A;\alpha} \bagplus  \tup{B;\beta}&\defeq\tup{A\union B \;;\; \lambda x. (\alpha(x) + \beta(x))}\\
-x \inbag \tup{A;\alpha} &\defiff x \in A\\
-\tup{A;\alpha} \subbag \tup{B;\beta} &\defiff A\subseteq B \mland (\forall x \in A)[ \alpha(x) \leq \beta(x)]
-\endalign
-$$
-\endgraf
-(iii)
-A (MS1) é obviamente satisfeita graças à nossa definição de múltiset como tupla
-de conjunto e função: ganhamos assim a (MS1) pelas definições de $=$ nos três
-tipos involvidos: conjunto; tupla; função.
-Vamos verificar a (MS2).
-Seja $A$ conjunto.
-O arbitrário multiset $\cal M$ com membros de $A$ tem a forma
-$\cal M = \tup{X , f}$ para algum $X\subseteq A$ e $f : X \to\nats_{>0}$.
-Então $\cal M \in \pset A \times (A \parto \nats_{>0})$ e construimos o conjunto
-de todos os multisets com membros de $A$ usando o ZF4:
-$$
-\namedop{Multisets}(A) \defeq
-    \set{
-        \cal M\in \pset A \times (A \parto \nats_{>0})
-        \st
-        \text{$\cal M$ é um multiset}.
-    }
-$$
-Para mostrar que o $\pset A \times (A \parto \nats\setminus\set{0})$ é um conjunto,
-precisamos os operadores $\pset$, $\times$, $\parto$, $\setminus$, e o próprio $\nats$, que já temos construido pelos ZF1--ZF7.
+%%{{{ prob: construct_reals_as_cauchy 
+\problem Reais como seqüências Cauchy.
+\label{construct_reals_as_cauchy}%
+\TODOthis{Enunciar o problema.}
 
 \endproblem
 %%}}}
