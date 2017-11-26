@@ -11234,6 +11234,24 @@ $$
 
 \TODO Constante.
 
+%%{{{ df: ftimes 
+\definition.
+\label{ftimes}%
+\tdefined{função}[produto]%
+\sdefined {\holed f \times \holed g} {a função-produto e $f$ ``cross'' $g$}%
+Sejam funções
+$
+f : A \to B
+g : C \to D
+$
+Chamamos \dterm{função-produto da $f$ ``cross'' $g$}, que denotamos por $f \times g$
+a função $f \times g : A \times C \to B \times D$
+definida pela
+$$
+(f \times g)(x,y) = \tup{f(x), g(y)}.
+$$
+%%}}}
+
 %%{{{ x: constant_implies_idempotent 
 \exercise.
 \label{constant_implies_idempotent}%
@@ -11323,7 +11341,20 @@ $$
 
 \TODO Aplicação parcial como black box.
 
-\TODO Restrição: definição e propriedades, notações alternativas.
+%%{{{ df: fresto 
+\definition Restrição.
+\label{fresto}%
+\tdefined{função}[restrição]%
+\sdefined {\holed f \resto \holed X} {a restrição de $f$ no $X$}%
+Sejam $f : A \to B$ e $X \subseteq A$.
+A \dterm{restrição da $f$ no $X$}, denotada por
+$f \resto X$ é a função de $X$ para $B$ definida pela
+$$
+(f \resto X)(x) = f(x).
+$$
+%%}}}
+
+\TODO Restrição: propriedades e notações alternativas.
 
 \TODO União: hipoteses necessárias para definir.
 
@@ -24441,6 +24472,177 @@ de índices $I$.
 %%{{{ Constructing the relations 
 \section Construindo as relações.
 
+%%{{{ Specification 
+\note Especificação.
+O que precisamos de algum objeto $R$ que merece o nome de
+\emph{implementação de relação de $A$ para $B$}?
+Bem, primeiramente, dados $a\in A$ e $b\in B$ queremos ter
+como ``perguntar'' esse objeto $R$ se o $a$ está relacionado
+com o $b$.
+Dados quaisqueres conjuntos $c$ e $d$ queremos também que
+a classe de todas as relações de $c$ para $d$ seja um conjunto.
+Nossa definição tem que ser feita em tal jeito que facilita
+as demais definições de operações em relações, por exemplo
+a composição, os vários fechos que encontramos, etc.
+\endgraf
+Praticamente, \emph{nossa especificação é o~\ref{Relations}!}
+%%}}}
+
+%%{{{ df: relation_formal_def 
+\definition Relação.
+\label{relation_formal_def}%
+Sejam $A,B$ conjuntos.
+Qualquer subconjunto $R \subseteq A \times B$
+é uma relação de $A$ para $B$.
+Em outras palavras:
+$$
+\text{$R$ relação de $A$ para $B$}
+\defiff
+R \subseteq A \times B.
+$$
+Introduzimos as notações
+$$
+\align
+x \rel R y
+&\sugariff \tup{x,y} \in R\\
+R(x,y)
+&\sugariff \tup{x,y} \in R.
+\endalign
+$$
+Formalmente definimos o predicado
+$$
+\Relation(r,a,b)
+\sugareq
+r \subseteq (a \times b).
+$$
+%%}}}
+
+%%{{{ remark: remember the graph of a relation? 
+\remark.
+No final das contas, já tivemos definido esse conceito.
+Seu nome foi \emph{o gráfico da $R$}.  Lembra?
+Se não, veja o~\ref{relation_graph}.
+Em outras palavras, dentro da teoria de conjuntos,
+com nossa~\ref{relation_formal_def},
+\emph{identificamos as relações com seus gráficos: $R = \graph R$.}
+%%}}}
+
+%%{{{ warning: faithful representation 
+\warning.
+Enfatisamos mais uma vez que isso não quis dizer que
+uma relação \emph{é} o seu gráfico (que é um conjunto),
+mas apenas que isso é apenas um jeito de \emph{representar fielmente}
+o conceito da relação dentro da teoria de conjuntos, ou seja: ``\emph{como se
+fosse} conjunto''.
+%%}}}
+
+%%{{{ Q: must we define more terminolofy from relations? 
+\question.
+Precisamos definir as demais  oções e termos que encontramos no~\ref{Relations}?
+Por exemplo: precisamos definir os termos ``transitiva'', ``reflexiva'', etc.?
+%%}}}
+
+%%{{{ A: No! 
+\note Resposta.
+Não!
+Voltando no~\ref{Relations} podes verificar que todas as outras definições
+usou termos não-definidos.  Todas dependem apenas na noção de relação mesmo
+(que acabamos de definir formalmente na~\ref{relation_formal_def}).
+%%}}}
+
+%%{{{ eg: equality in A 
+\example.
+Seja $A$ um conjunto.
+O conjunto
+$$
+\setst {\tup{x,x}\in A^2} {x \in A}
+$$
+é uma relação, pois realmente é um subconjunto de $A\times A$.
+Qual relação é essa?
+Ela merece seu próprio nome e sua própria notação.
+\endexample
+%%}}}
+
+%%{{{ df: eqin 
+\definition.
+\label{eqin}%
+Dado conjunto $A$, a relação de \dterm{igualdade no $A$}
+é a relação
+$$
+{\eqin A} \defeq \setst {\tup{x,x}\in A^2} {x \in A}.
+$$
+Logo temos
+$$
+x \eqin A y \iff x = y \mland x,y \in A.
+$$
+%%}}}
+
+%%{{{ prop: a_relto_b_is_a_set 
+\proposition.
+\label{a_relto_b_is_a_set}%
+Dados conjuntos $a,b$, a classe
+$$
+(a \relto b)
+\defeq
+\classt R {$R$ é uma relação de $a$ para $b$}
+$$
+é um conjunto.
+\proof.
+Basta achar um conjunto onde todas as relações de $a$ para $b$
+pertencem.
+Pela definição de relação, todas pertencem no $\pset(a\times b)$.
+De fato, ainda mais é verdade:
+$$
+(a \relto b)
+=
+\pset(a\times b)
+$$
+e logo é um conjunto graças aos operadores (totais) $\pset$ e $\times$.
+\qed
+%%}}}
+
+%%{{{ eg: reflexive_and_irreflexive_formally 
+\example.
+Seja $R\subseteq A\times A$.
+Então temos
+$$
+\align
+\text{$R$ reflexive}
+&\iff {\eqin A} \subseteq R\\
+\text{$R$ irreflexive}
+&\iff {\eqin A} \inter R = \emptyset
+\endalign
+$$
+etc.
+\endexample
+%%}}}
+
+%%{{{ x: rcompose_formal_def 
+\exercise.
+\label{rcompose_formal_def}%
+Mostre que podemos definir o operador de composição de relações
+$\dhole\rcom\dhole$ em tal modo quando é aplicado em conjuntos
+$a,b$ que são relações (compatíveis), o conjunto
+$a\rcom b$ também é uma relação, e a correta:
+a composição de $a$ com $b$.
+(Lembre-se a~\ref{rcompose}.)
+
+\endexercise
+%%}}}
+
+%%{{{ x: closures_formal_def 
+\exercise.
+\label{closures_formal_def}%
+Defina formalmente e diretamente como conjuntos os fechos que encontramos
+no~\ref{Relations}:
+reflexivo (\refn{rclosure}),
+simétrico (\refn{sclosure}),
+transitivo (\refn{tclosure}).
+Tente dar a definição mais curta, elegante, e flexível possível!
+
+\endexercise
+%%}}}
+
 \TODO Fechos: top-down revisitado.
 
 \endsection
@@ -24449,26 +24651,202 @@ de índices $I$.
 %%{{{ Constructing the functions 
 \section Construindo as funções.
 
-%%{{{ x: eqc_formally_defined 
-\exercise.
+%%{{{ Specification 
+\note Especificação.
+Como nas relações, aqui também nossa especificação deve ser clara:
+\emph{traduzir todo o~\ref{Functions} na teoria de conjuntos!}
+%%}}}
+
+%%{{{ df: function_formal_def 
+\definition Função.
+\label{function_formal_def}%
+Sejam $A,B$ conjuntos.
+Uma relação $f$ de $A$ para $B$ é chamada \dterm{função de $A$ para $B$}
+sse
+$$
+\pforall {a \in A}
+\lunique {b \in B}
+{\tup{a,b} \in f}.
+$$
+Equivalentemente
+(e para ficar mais perto das Condições~\refn{functionhood_conditions}
+do~\ref{Functions}) podemos separar essa condição em duas:
+$$
+\gather
+\pforall {a \in A}
+\lexists {b \in B}
+{\tup{a,b} \in f}
+\tag{TOT}\\
+\pforall {a \in A}
+\lforall {b,b' \in B}
+{\tup{a,b},\tup{a,b'} \in f \implies b = b'}.
+\tag{DET}
+\endgather
+$$
+Escrevemos
+$$
+f(a) = b
+\defiff
+\tup{a,b} \in f
+$$
+e também usamos
+$$
+f(a)
+\defeq
+\text{aquele único $b\in B$ tal que $\tup{a,b}\in f$.}
+$$
+Lembre-se que escrevemos
+$f : A \to B$ ou $A \toarrow f B$ para dizer que
+$f$ é uma função de $A$ para $B$, etc.
+(Veja~\ref{function_notation}.)
+Formalmente definimos o predicado
+$$
+\Function(f,a,b)
+\sugareq
+\Relation(f,a,b)
+\land
+\pforall {x \in a}
+\lunique {y \in b}
+{\tup{x,y}\in f}.
+$$
+%%}}}
+
+%%{{{ prop: a_to_b_is_a_set 
+\property.
+\label{a_to_b_is_a_set}%
+Dados conjuntos $a,b$, a classe
+$$
+(a \to b)
+\defeq
+\class f {f : A \to B}
+$$
+é um conjunto.
+\proof.
+Fácil:
+$$
+(a \to b)
+=
+\setst {f \in (a \relto b)} {f : A \to B}
+$$
+que é conjunto graças ao operador $(\dhole\relto\dhole)$
+(\ref{a_relto_b_is_a_set}) e ao axioma da separação~\axref{separation}.
+\qed
+%%}}}
+
+%%{{{ We get inj surj bij for free 
+\remark.
+Como as definições de ``injetora'', ``sobrejetora'', e ``bijetora''
+do~\ref{Functions} dependem apenas da definição de ``função''
+(que acabamos de definir), já temos essas definições na teoria de conjuntos!
+Simlarmente os operadores $(\dhole\injto\dhole)$, $(\dhole\surjto\dhole)$,
+e $(\dhole\bijto\dhole)$ são facilmente definidos graças
+à~\ref{a_to_b_is_a_set}
+e o axioma da separação~\axref{separation}.
+%%}}}
+
+%%{{{ eg: eqc_formally_defined 
+\example.
 \label{eqc_formally_defined}%
-Defina o predicado $\eqc$.  Sejam $a,b$ conjuntos.
+Uma definição alternativa e formal do $\eqc$ é a seguinte:
 $$
 a \eqc b \defiff (a \bijto b) \neq \emptyset.
 $$
+\endexample
+%%}}}
+
+%%{{{ x: fcompose_resto_ftimes
+\exercise.
+Defina formalmente as operações e construções de funções que encontramos
+no~\ref{Functions}:
+composição (\refn{fcompose});
+restrição (\refn{fresto});
+produto (\refn{ftimes}).
+
+\endexercise
+%%}}}
+
+%%{{{ x: id_char_const_as_sets 
+\exercise.
+Descreva curtamente as funções identidades, caraterísticas, e constantes como
+conjuntos.
+Esses conjuntos representam outras coisas (de outros típos)?
+
+\endexercise
+%%}}}
+
+%%{{{ beware: we do note get partial functions for free! 
+\beware.
+Tem um conceito do~\ref{Functions} que \emph{não} definimos
+em termos de ``função'', e logo precisamos definí-lo formalmente
+aqui: a \emph{função parcial}.
+%%}}}
+
+%%{{{ df: partial_function 
+\definition Função parcial.
+\label{partial_function_formally_defined}%
+Uma relação $f$ de $A$ para $B$ é uma \dterm{função parcial} sse
+$$
+\pforall {a \in A}
+\lforall {b,b' \in B}
+{\tup{a,b},\tup{a,b'} \in f \implies b = b'}.
+\tag{DET}
+$$
+%%}}}
+
+%%{{{ x: a_parto_b_is_a_set 
+\exercise.
+\label{a_parto_b_is_a_set}%
+Dados conjuntos $a,b$, a classe
+$$
+(a \parto b)
+\defeq
+\class f {f : A \parto B}
+$$
+é um conjunto.
+
+\solution
+Fácil, como na prova da~\ref{a_to_b_is_a_set}:
+$$
+(a \parto b)
+=
+\setst {f \in (a \relto b)} {f : A \parto B}
+$$
+que é conjunto.
 
 \endexercise
 %%}}}
 
 %%{{{ x: parto_formally_defined 
 \exercise.
-\label{parto_formally_defined}%
-Defina o termo ``função parcial'' na teoria de conjuntos
-e mostre que, dados conjuntos $a,b$ o
-$$
-(a \parto b) \defiff \class f { f : a \parto b }
-$$
+\label{partial_function_formally_defined_as_function}%
+Ache um outro jeito para definir funções parciais como funções.
+Verifique que dados conjuntos $a,b$ a classe
+$(a \parto b)$
 também é um conjunto.
+
+\hint
+Cada função parcial $f : A \parto B$ pode ser representada
+como uma função total $f : A \parto B'$ onde $B'$ é um outro
+conjunto.
+Qual $B'$ serve?
+
+\hint
+Duas idéias razoáveis:
+\endgraf\noindent
+\proofstyle{Idéia 1:}
+Dados conjuntos $A,B$, escolha (como?) um objeto fora do $B$
+para representar a ``diverjão'', ou valor ``não-definido''.
+Lembra-se que $\russell B \notin B$, algo que
+temos graças ao \ref{russells_paradox_to_theorem}.
+Então tome $B' \asseq B \union \russell B$.
+\endgraf\noindent
+\proofstyle{Idéia 2:}
+Tome
+$$
+B'
+\asseq
+\setstt {Y \subseteq B} {$\Singleton(Y)$ ou $Y = \emptyset$}.
+$$
 
 \endexercise
 %%}}}
@@ -24559,12 +24937,19 @@ que escolhemos nessa direção é realmente finita.
 \endsection
 %%}}}
 
+%%{{{ Cardinal arithmetic 
+\section Aritmética cardinal.
+
+\endsection
+%%}}}
+
 %%{{{ Classes vs. Sets (II) 
 \section Classes vs{.}~Conjuntos (II).
 
 \note Relações e funções ``grandes demais''.
 \tdefined{predicado}%
 \tdefined{class-relação}%
+\TODOthis{Explicar.}
 
 %%{{{ df: functionlike 
 \definition.
@@ -24596,12 +24981,6 @@ Seguindo essa linha denotamos por $\Phi(x)$ o único objeto $y$ tal que
 $\Phi(x,y)$.
 Assim o $\Phi(x)$ denota um \emph{objeto}, mas o $\Phi(x,y)$ uma \emph{afirmação}.
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Cardinal arithmetic 
-\section Aritmética cardinal.
 
 \endsection
 %%}}}
