@@ -22799,9 +22799,14 @@ Sobre lógica matemática:
 \chapter Teoria axiomática de conjuntos.
 \label{Axiomatic_set_theory}%
 
-{\def\Nats{{\mathord{\mathbf N}}}
-\def\Zero{{\mathsf 0}}
+{\def\Nats{{\mathord{\mathbf N}}}%
+\def\Rats{{\mathord{\mathbf Q}}}%
+\def\Ints{{\mathord{\mathbf Z}}}%
+\def\Reals{{\mathord{\mathbf R}}}%
+\def\Complex{{\mathord{\mathbf C}}}%
+\def\Zero{{\mathsf 0}}%
 \def\Succ{{\mathsf S}}%
+\def\eqrat{\approx}%
 
 %%{{{ Problems in Cantor's paradise: Russell's paradox 
 \section Problemas no paraíso de Cantor: o paradoxo de Russell.
@@ -25519,35 +25524,6 @@ realmente botando o $\qedsymbol$ no~\ref{uniqueness_of_nats}.
 \endsection
 %%}}}
 
-%%{{{ Constructing more numbers 
-\section Construindo mais números.
-
-\blah.
-Tendo construido já os naturais,
-vamos construir seus parentes também:
-os inteiros, os racionais, os reais, e os complexos.
-
-\TODO Os números inteiros.
-\TODOthis{Mostrar a construção dos inteiros.}
-
-\note Os números racionais.
-\TODOthis{Mostrar a construção dos racionais.}
-
-\note Os números reais (Dedekind cuts).
-\TODOthis{Mostrar a construção dos reais como Dedekind cuts.}
-Uma abordagem alternativa é mostrada no~\ref{construct_reals_as_cauchy}.
-
-%%{{{ x: construct_complex 
-\exercise.
-\label{construct_complex}%
-Mostre como representar os complexos.
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Recursion theorems 
 \section Teoremas de recursão.
 
@@ -25699,6 +25675,82 @@ Em outras palavras, as duas equações (1)--(2)
 Na~\refn{Nats_formally} definimos recursivamente operações nos naturais.
 Graças o~\ref{recursion_theorem}, ganhamos todas essas operações em qualquer
 sistema Peano.
+
+\endsection
+%%}}}
+
+%%{{{ Constructing more numbers 
+\section Construindo mais números.
+
+\blah.
+Tendo construido já os naturais,
+vamos construir seus parentes também:
+os inteiros, os racionais, os reais, e os complexos.
+
+\TODO Os números inteiros.
+\TODOthis{Mostrar a construção dos inteiros.}
+
+\note Os números racionais.
+Essa construção é bem interessante---e simples!---pois usa um conceito nosso que
+deve ser familiar já: o conjunto quociente.
+Queremos identificar o racional $1/2$ com o par $\tup{1,2}$,
+mas não podemos identificar o próprio $\rats$ com o $\ints \times \ints_{\neq0}$,
+pois $\tup{1,2} \neq \tup{2,4}$ mesmo que $1/2 = 2/4$.
+Duas idéias parecem razoáveis: (1) escolher um representante específico para cada
+racional, trabalhando assim num subconjunto próprio do $\ints\times\ints_{\neq0}$;
+(2) definir a relação $\eqrat$ de \emph{equivalência} no $\ints\times\ints_{\neq0}$,
+e representar os racionais \emph{não como} membros desse conjunto,
+mas \emph{sim como} classes de equivalência, ou seja, membros do conjunto quociente
+$\quoset {\ints\times\ints_{\neq0}} {\eqrat}$.
+Vamos seguir essa segunda ideia, pois é mais símples e elegante.
+
+%%{{{ df: eqrat
+\definition Números racionais.
+Seja $Q = \ints\times\ints_{\neq0}$.
+Defina no $Q$ a relação $\eqrat$ pela
+$$
+\tup{a,b} \eqrat \tup{c,d}
+\defiff
+ad = bc.
+$$
+Sendo uma relação de equivalência (\ref{eqrat_is_an_eqrel}),
+defina
+$$
+\Rats
+\defeq
+\quoset Q {\eqrat}.
+$$
+%%}}}
+
+%%{{{ x: eqrat_is_an_eqrel 
+\exercise.
+\label{eqrat_is_an_eqrel}%
+Mostre que $\eqrat$ é uma relação de equivalência.
+
+\endexercise
+%%}}}
+
+%%{{{ x: addition_multiplication_of_Rats 
+\exercise.
+\label{addition_multiplication_of_Rats}%
+Defina formalmente a adição e multiplicação no $\Rats$.
+
+\endexercise
+%%}}}
+
+\TODOthis{Mostrar a construção dos racionais.}
+
+\note Os números reais (Dedekind cuts).
+\TODOthis{Mostrar a construção dos reais como Dedekind cuts.}
+Uma abordagem alternativa é mostrada no~\ref{construct_reals_as_cauchy}.
+
+%%{{{ x: construct_complex 
+\exercise.
+\label{construct_complex}%
+Mostre como representar os complexos.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
