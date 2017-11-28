@@ -25500,6 +25500,20 @@ no~\ref{uniqueness_of_nats} é um monomorfismo.
 Prove que a $\phi : \Nats_1 \to \Nats_2$ definida
 no~\ref{uniqueness_of_nats} é um epimorfismo.
 
+\hint
+Pela definição de sobrejetora e de imagem,
+basta provar que
+$\img \phi {\Nats_1} = \Nats_2$.
+
+\hint
+Já sabemos que $\img\phi{\Nats_1} \subseteq \Nats2$.
+Para provar a igualdade mesmo, use o princípio da indução.
+
+\hint
+Precisas provar duas coisas então:
+(1) $\Zero_2 \in \img\phi{\Nats_1}$;
+(2) para todo $n \in \Nats_2$, se $n \in \img\phi{\Nats_1}$ então $\Succ_2 n \in \img\phi{\Nats_1}$.
+
 \endexercise
 %%}}}
 
@@ -25510,7 +25524,9 @@ Qual o erro na prova do~\ref{uniqueness_of_nats}?
 
 \hint
 O que é uma função em nosso dicionário,
-e quem garanta 
+e quem garanta que escrevendo assim do nada duas equações
+sobre um certo objeto $F$, isso realmente defina
+uma função?
 
 \solution
 Não temos provado que dando equações recursivas como na
@@ -25580,7 +25596,7 @@ F \defeq \Union {\scr A}.
 $$
 \endgraf
 (ii)
-Precisamos mostrar a compatibilidade da $\scr F$ e a totalidade da $F$,
+Precisamos mostrar a compatibilidade da $\scr A$ e a totalidade da $F$,
 ou seja: que não existem conflitos\ii{função!parcial!conflito}{}
 (em outras palavras: que a família de funções parciais
 $\scr A$ é compatível\ii{função!parcial!compatibilidade});
@@ -25613,13 +25629,22 @@ A prova completa segue do seu esboço junto com os exercícios:
 \label{acceptable_approximation}
 No contexto do~\ref{recursion_theorem} defina formalmente a afirmação ``$f$ é uma aproximação aceitável''.
 
+\hint
+Podemos ``quebrar'' a afirmação nesses partes:
+\beginol
+\li $f : \Nats \parto A$
+\li $\tup{0,a} \in f$
+\li Para qualquer $n\in\Nats_{\neq0}$, se $f$ é definida no $n$, então ela também é definida no predecessor de $n$, e o valor dela no $n$ é o correto, ou seja, o valor que ganhamos aplicando a $h$ no valor do predecessor de $n$.
+\endol
+O único que precisamos formalizar agora é o último.
+
 \endexercise
 %%}}}
 
 %%{{{ x: compatibility_of_scrF 
 \exercise Compatibilidade.
 \label{compatibility_of_scrF}%
-No contexto do~\ref{recursion_theorem} mostre que $\scr F$ é compatível.
+No contexto do~\ref{recursion_theorem} mostre que $\scr A$ é compatível.
 
 \endexercise
 %%}}}
@@ -25628,6 +25653,10 @@ No contexto do~\ref{recursion_theorem} mostre que $\scr F$ é compatível.
 \exercise Totalidade da $F$.
 \label{totality_of_F}%
 No contexto do~\ref{recursion_theorem} mostre que $\dom F = \Nats$.
+
+\hint
+Verifique que $\dom F \subseteq \Nats$.
+Agora basta provar que $\dom F = \Nats$, usando o princípio da indução.
 
 \endexercise
 %%}}}
@@ -25661,6 +25690,10 @@ $$
 então $F = G$.
 Em outras palavras, as duas equações (1)--(2)
 \emph{determinam} a função no $\Nats$.
+
+\hint
+Seja $X \subseteq \Nats$ o conjunto onde $F$ e $G$ ``concordam''.
+Mostre que $X = \Nats$ usando o princípio da indução.
 
 \endexercise
 %%}}}
