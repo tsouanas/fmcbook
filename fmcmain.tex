@@ -17330,11 +17330,18 @@ para achar qual dos $a, a^2, a^3, \dotsc$ deve ser o $\ginv a$,
 provando assim que $\ginv a\in H$.
 \qes
 \proof.
-Basta demonstar o (2) para aplicar o~\ref{subgroup_criterion}.
-Tome um $a\in H$ e considere a seqüência das suas potências
-$a, a^2, a^3, \dotsc \in H$, graças à hipótese (1).
+Graças ao~\ref{subgroup_criterion}, basta mostrar que todos os membros
+de $H$ têm seu inverso dentro do $H$.
+Tome um $a\in H$ e considere a seqüência das suas potências positivas:
+$$
+\alignat2
+a, a^2, a^3, \dotsc \in H
+\qqby{graças à hipótese (1)}
+\endalignat
+$$
 Como o $H$ é finito vamos ter um elemento repetido,
-$a^r = a^s$ para alguns inteiros $r > s > 0$.
+$a^r = a^s$ para alguns distintos positivos $r,s \in \nats$.
+Sem perda de generalidade, suponha $r > s$.
 Temos
 $$
 \align
@@ -17350,13 +17357,25 @@ $$
 \intertext{Agora usamos a lei de cancelamento-direito:}
 \toverbrace{a\ast a \ast \dotsb \ast a}{$r-s$ vezes}
 &=e
-\intertext{Acabamos de provar que $e\in H$.  Observe que $r-s>0$, então temos:}
+\intertext{Ou seja, $e = a^{r-s}$ e acabamos de provar que $e\in H$.
+Observe que $r-s>0$, então temos:}
 \toverbrace{a\ast \tunderbrace{a \ast \dotsb \ast a}{$r-s-1$ vezes}}{$r-s$ vezes}
 &=e
 \endalign
 $$
-ou seja, $\ginv a = a^{r-s-1} \in H$ pois $r-s-1\geq 0$ e podemos aplicar
-o~\ref{subgroup_criterion} para concluir $H\subgroup G$.
+e agora \emph{precisamos} considerar dois casos:
+\endgraf\noindent
+\casestyle{Caso $r-s = 1$:}
+Nesse caso então temos $e = a^1 = a$,
+e logo $\ginv a = \ginv e = e = a \in H$.
+\endgraf\noindent
+\casestyle{Caso $r-s > 1$:}
+Nesse caso, temos $e = aa^{r-s-1}$, ou seja,
+achamos o inverso do $a$: é o $a^{r-s-1}$, e ele pertence no $H$, pois é potência positiva de $a$ (e $H$ é fechado pela operação).
+\endgraf
+Em ambos os casos mostramos que $\ginv a \in H$ e podemos
+aplicar o~\ref{subgroup_criterion} para concluir o desejado
+$H\subgroup G$.
 \qed
 %%}}}
 
