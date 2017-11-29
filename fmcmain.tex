@@ -1660,55 +1660,6 @@ ou seja, $SSSS0 \not\leq SS0$.
 \endsection
 %%}}}
 
-%%{{{ Recursing over formulas 
-\section Recursando nas fórmulas.
-
-%%{{{ eg: bincon_count 
-\example.
-\label{bincon_count}%
-Defina uma função $f : \zolang \to \nats$ que calcula o número
-de conectivos binários que aparecem na sua entrada.
-Use-lá para calcular os conectivos binários da expressão
-$$
-\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
-$$
-
-\solution
-Seguindo a definição de $\zolang$, cada um dos seus elementos
-é formado por uma de certas regras.  Basta escrever então como
-calcular o número desejado para cada um desses casos:
-$$
-\alignat2
-f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
-f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
-f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
-f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
-f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
-\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
-f((A \heartsuit B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartsuit \in \set{\limplies,\land,\lor}$)}
-\endalignat
-$$
-Aplicando nossa função na fórmula dada calculamos:
-$$
-\alignat2
-f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
-&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \qqby{por BC$_{\lnot}$}\\
-&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \qqby{por BC$_{\limplies}$}\\
-&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \qqby{por BC$_{P}$}\\
-&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \qqby{por BC$_{\land}$}\\
-&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \qqby{por BC$_{P}$}\\
-&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \qqby{por BC$_{\lnot}$}\\
-&= 0 + 1 + ( 0 + 1 + 0 )                        \qqby{por BC$_{P}$}\\
-&= 2
-\endalignat
-$$
-
-\endexample
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Problems 
 \problems.
 
@@ -1741,6 +1692,7 @@ Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
 \endproblem
 %%}}}
 
+%%{{{ prob: products_in_disguise 
 \problem.
 \label{products_in_disguise}
 Seja $h : \nats\to\nats$.
@@ -1782,8 +1734,11 @@ t(n) = T(0,n).
 $$
 
 \endproblem
+%%}}}
 
+%%{{{ prob: victors_mistake 
 \problem.
+\label{victors_mistake}%
 Tentando resolver o~\ref{products_in_disguise},
 % STUDENT: Victor
 um aluno definiu corretamente a $t$ e depois a usou
@@ -1813,6 +1768,7 @@ Observe que a solução seria certa se
 o contradomínio da $h$ fosse o $\nats\setminus\set0$.
 
 \endproblem
+%%}}}
 
 \endproblems
 %%}}}
@@ -22444,27 +22400,6 @@ Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Structural recursion and induction 
-\chapter Recursão e indução estrutural.
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{aczelinductive},
-\cite{ynminduction}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
 %%{{{ chapter: Lambda calculus 
 \chapter Lambda calculus.
 
@@ -22684,6 +22619,76 @@ Sobre lógica matemática:
 \cite{corilascar1}~\&~\cite{corilascar2},
 \cite{shoenfieldlogic},
 \cite{bellmachover}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Structural recursion and induction 
+\chapter Recursão e indução estrutural.
+
+%%{{{ Recursing over formulas 
+\section Recursando nas fórmulas.
+
+%%{{{ eg: bincon_count 
+\example.
+\label{bincon_count}%
+Defina uma função $f : \zolang \to \nats$ que calcula o número
+de conectivos binários que aparecem na sua entrada.
+Use-lá para calcular os conectivos binários da expressão
+$$
+\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
+$$
+
+\solution
+Seguindo a definição de $\zolang$, cada um dos seus elementos
+é formado por uma de certas regras.  Basta escrever então como
+calcular o número desejado para cada um desses casos:
+$$
+\alignat2
+f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
+f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
+f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
+f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
+f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
+\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
+f((A \heartsuit B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartsuit \in \set{\limplies,\land,\lor}$)}
+\endalignat
+$$
+Aplicando nossa função na fórmula dada calculamos:
+$$
+\alignat2
+f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
+&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \qqby{por BC$_{\lnot}$}\\
+&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \qqby{por BC$_{\limplies}$}\\
+&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \qqby{por BC$_{P}$}\\
+&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \qqby{por BC$_{\land}$}\\
+&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \qqby{por BC$_{P}$}\\
+&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \qqby{por BC$_{\lnot}$}\\
+&= 0 + 1 + ( 0 + 1 + 0 )                        \qqby{por BC$_{P}$}\\
+&= 2
+\endalignat
+$$
+
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{aczelinductive},
+\cite{ynminduction}.
 
 \endfurther
 %%}}}
