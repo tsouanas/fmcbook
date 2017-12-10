@@ -22079,7 +22079,7 @@ Sobre teoria da medida:
 %%{{{ Concept, notation, properties 
 \section Conceito, notação, propriedades.
 
-\note Conceito.
+\TODO Conceito.
 
 %%{{{ df: poset 
 \definition poset.
@@ -22196,6 +22196,88 @@ $$
 $$
 %%}}}
 
+%%{{{ df: ubs_lbs 
+\definition.
+\label{ubs_lbs}%
+\tdefined{upper bound}%
+\tdefined{lower bound}%
+\sdefined{\ubs {\holed A}} {o conjunto dos upper bounds de $\holed A$}%
+\sdefined{\lbs {\holed A}} {o conjunto dos lower bounds de $\holed A$}%
+Seja $A\subseteq P$
+O $m$ é um \dterm{upper bound} de $A$ sse $x \leq m$ para todo $x\in A$.
+Dualmente, o $m$ é um \dterm{lower bound} de $A$ sse $m \leq x$ para todo $x \in A$.
+Usamos a notação
+$$
+\align
+\ubs A &\defeq \setstt {m\in P} {$m$ é um upper bound de $A$}\\
+\lbs A &\defeq \setstt {m\in P} {$m$ é um lower bound de $A$}.
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: ubs_lbs_in_reals_example 
+\example.
+\label{ubs_lbs_in_reals_example}%
+No $\reals$, considere seu subconjunto $(1,2]$.
+Uns upper bounds dele são os reais $2, 5, \sqrt{12}, 8000$.
+No outro ladom uns lower bounds dele são os $-400, -\pi, 0, 1/2, 0.8, 1$.
+\endexample
+%%}}}
+
+%%{{{ df: lub_glb 
+\definition.
+\label{lub_glb}%
+\tdefined{greatest lower bound}%
+\tdefined{least upper bound}%
+\tdefined{supremum}%
+\tdefined{infimum}%
+\sdefined{\sup{\holed A}} {supremum de $\holed A$}%
+\sdefined{\inf{\holed A}} {infimum de $\holed A$}%
+\sdefined{\lub{\holed A}} {least upper bound de $\holed A$}%
+\sdefined{\glb{\holed A}} {greatest lower bound de $\holed A$}%
+\sdefined{\Join{\holed A}} {join de $\holed A$}%
+\sdefined{\Meet{\holed A}} {meet de $\holed A$}%
+Se os $\ubs A$ e $\lbs A$ tem elemento mínimo e máximo respectivamente,
+definimos
+$$
+\align
+\lub A &\defeq \min\ubs A\\
+\glb A &\defeq \max\lbs A.
+\endalign
+$$
+Naturalmente chamamos o $\lub A$ o \dterm{least upper bound} de $A$,
+e o $\glb A$ o \dterm{greatest lower bound} de $A$.
+Usamos \emph{muitos} sinônimos, resumidos aqui:
+$$
+\xalignat3
+\sup A &\ \text{(supremum)}   & \lub A &\ \text{(least upper bound)}    & \Join A &\ \text{(join)}\\
+\inf A &\ \text{(infimum)}    & \glb A &\ \text{(greatest lower bound)} & \Meet A &\ \text{(meet)}
+\endxalignat
+$$
+%%}}}
+
+%%{{{ eg: inf_and_sup_of_openclosed_interval 
+\example.
+\label{inf_and_sup_of_openclosed_interval}%
+O $A=(1,2]$ do~\ref{ubs_lbs_in_reals_example} tem
+$$
+\alignat2
+\inf A &= 1 &
+\sup A &= 2.
+\endalignat
+$$
+Observe que $\sup A \in A$ mas $\inf A \notin A$.
+\endexample
+%%}}}
+
+%%{{{ x: when_glb_and_lub_is_min_and_max 
+\exercise.
+\label{when_glb_and_lub_is_min_and_max}%
+O que podemos concluir quando $\glb A \in A$ e quando $\lub A \in A$?
+
+\endexercise
+%%}}}
+
 %%{{{ df: downset_upset_downs  
 \definition.
 \label{downset_upset_downs}%
@@ -22229,14 +22311,18 @@ $$
 \align
 \down a &\defeq \setst {x \in P} {x \leq a}\\
 \up a   &\defeq \setst {x \in P} {a \leq x}
-\intertext{e generalizamos essa ideia para subconjuntos $A\subseteq P$:}
+\intertext{e generalizamos essas operações de elementos $a\in P$ para subconjuntos $A\subseteq P$ assim:}
 \down A &\defeq \setstt {x \in P} {$x \leq a$ para algum $a \in A$}\\
 \up A   &\defeq \setstt {x \in P} {$a \leq x$ para algum $a \in A$}.
-\intertext{Observe que $\down x = \down{\set x}$ e $\up x = \up{\set x}$.
-Diretamente pelas definições também temos:}
-\down A &= \Union_{a\in A} {\down a}\\
-\up A &= \Union_{a\in A} {\up a}
 \endalign
+$$
+Observe que $\down x = \down{\set x}$ e $\up x = \up{\set x}$.
+Diretamente pelas definições também temos:
+$$
+\xalignat2
+\down A &= \Union_{a\in A} {\down a}&
+\up A &= \Union_{a\in A} {\up a}
+\endxalignat
 $$
 %%}}}
 
@@ -22254,11 +22340,11 @@ Prove que $\down A$ é um downset e $\up A$ um upset.
 \label{equivalent_statements_to_x_leq_y}%
 Sejam $P$ um poset, $x,y\in P$.
 Prove que as afirmações
-\beginol
-\li $x \leq y$;
-\li $\down x \subseteq \down y$;
-\li para todo downset $D$ de $P$ com $y \in D$, temos $x\in D$.
-\endol
+\beginil
+\item{(i)}   $x \leq y$;
+\item{(ii)}  $\down x \subseteq \down y$;
+\item{(iii)} para todo downset $D$ de $P$ com $y \in D$, temos $x\in D$.
+\endil
 são equivalentes.
 
 \solution
