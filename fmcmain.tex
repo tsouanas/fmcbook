@@ -22097,6 +22097,19 @@ x \leq y \mland y \leq x \implies x = y
 $$
 %%}}}
 
+%%{{{ Notational abuse 
+\note Abusos notacionais.
+Extendemos o ``tipo'' do predicado $\dhole\leq\dhole$ de elementos de $P$
+para elementos e/ou subconjuntos de $P$, definindo:
+$$
+\align
+a \leq Y &\defiff a \leq y, \quad\text{para todo $y\in Y$};\\
+X \leq b &\defiff x \leq b, \quad\text{para todo $x\in X$};\\
+X \leq Y &\defiff x \leq y, \quad\text{para todo $x\in X$ e $y\in Y$}.
+\endalign
+$$
+%%}}}
+
 \blah.
 Nas definições seguintes nosso contexto é um poset $\sset P \leq$.
 
@@ -22183,11 +22196,12 @@ $$
 $$
 %%}}}
 
-%%{{{ df: downset_upset 
+%%{{{ df: downset_upset_downs  
 \definition.
-\label{downset_upset}%
+\label{downset_upset_downs}%
 \tdefined{downset}%
 \tdefined{upset}%
+\sdefined{\downs{\holed P}} {o conjunto de downsets de $\holed P$}%
 Chamamos o $A\subseteq P$ um \dterm{down-set} de $A$
 sse o $A$ é ``fechado para baixo'', e \emph{dualmente},
 o chamamos \dterm{up-set} sse ele é ``fechado para cima''.
@@ -22205,17 +22219,65 @@ $$
 $$
 %%}}}
 
-%%{{{ Notational abuse 
-\note Abusos notacionais.
-Extendemos o ``tipo'' do predicado $\dhole\leq\dhole$ de elementos de $P$
-para elementos e/ou subconjuntos de $P$, definindo:
+%%{{{ df: down_up 
+\definition.
+\label{down_up}%
+\sdefined{\down {\holed a}} {o down de $\holed a$}%
+\sdefined{\up {\holed a}} {o up de $\holed a$}%
+Definimos para qualquer $a\in P$ os conjuntos
 $$
 \align
-a \leq Y &\defiff a \leq y, \quad\text{para todo $y\in Y$};\\
-X \leq b &\defiff x \leq b, \quad\text{para todo $x\in X$};\\
-X \leq Y &\defiff x \leq y, \quad\text{para todo $x\in X$ e $y\in Y$}.
+\down a &\defeq \setst {x \in P} {x \leq a}\\
+\up a   &\defeq \setst {x \in P} {a \leq x}
+\intertext{e generalizamos essa ideia para subconjuntos $A\subseteq P$:}
+\down A &\defeq \setstt {x \in P} {$x \leq a$ para algum $a \in A$}\\
+\up A   &\defeq \setstt {x \in P} {$a \leq x$ para algum $a \in A$}.
+\intertext{Observe que $\down x = \down{\set x}$ e $\up x = \up{\set x}$.
+Diretamente pelas definições também temos:}
+\down A &= \Union_{a\in A} {\down a}\\
+\up A &= \Union_{a\in A} {\up a}
 \endalign
 $$
+%%}}}
+
+%%{{{ x: down_is_downset_up_is_upset 
+\exercise.
+\label{down_is_downset_up_is_upset}%
+Sejam $P$ poset e $A \in P$.
+Prove que $\down A$ é um downset e $\up A$ um upset.
+
+\endexercise
+%%}}}
+
+%%{{{ x: equivalent_statements_to_x_leq_y 
+\exercise.
+\label{equivalent_statements_to_x_leq_y}%
+Sejam $P$ um poset, $x,y\in P$.
+Prove que as afirmações
+\beginol
+\li $x \leq y$;
+\li $\down x \subseteq \down y$;
+\li para todo downset $D$ de $P$ com $y \in D$, temos $x\in D$.
+\endol
+são equivalentes.
+
+\solution
+Vamos provar usando um caminho ``round-robin'':
+\proofpart{$\text{(i)}\Rightarrow\text{(ii)}$.}
+Seja $a \in \down x$.  Logo $a \leq x$, e como $x\leq y$ (hipótese),
+pela transitividade da $\leq$ temos $a \leq y$.  Logo $a\in \down y$.
+Ou seja, $\down x \subseteq \down y$.
+\proofpart{$\text{(ii)}\Rightarrow\text{(iii)}$.}
+Seja $D$ downset de $P$ com $y \in D$.
+Logo $\down y \subseteq D$.
+Pela hipótese $\down x \subseteq \down y$ e logo $\down x \subseteq D$.
+Como $x \in \down x$, então $x \in D$.
+\proofpart{$\text{(iii)}\Rightarrow\text{(i)}$.}
+Observe que $\down y$ é um downset tal que $y$ pertence nele.
+Logo $x \in \down y$ (pela hipótese).
+Logo $x \leq y$ (pela def.~de $\down y$).
+
+\endexercise
 %%}}}
 
 \endsection
