@@ -22751,55 +22751,55 @@ Então $F$ tem um fixpoint.
 \sketch.
 Sejam
 $$
-\alignat2
-H &\asseq \setst { x \in L } { Fx \leq x } &
-K &\asseq \setst { x \in L } { x \leq Fx }
-\endalignat
+\xalignat2
+D &\asseq \setst { x \in L } { x \leq Fx } &
+U &\asseq \setst { x \in L } { Fx \leq x }.
+\endxalignat
 $$
 Considere o conjunto $W \asseq \fixpoints F$.
-Observe que $W = H \inter K$.
-Vamos provar que $\Join K$ é fixpoint de $F$.
-O $\Meet H$ é similar.
-Precisamos $\Join K = F(\Join K)$.
-Vamos provar $\Join K \leq F(\Join K)$ primeiro
-e depois $F(\Join K) \leq \Join K$.
-\proofpart{$\Join K \leq F(\Join K)$:}
-Como $\Join K$ é o least upper bound de $K$,
-basta provar $F(\Join K)$ é um upper bound de $K$.
-\proofpart{$F(\Join K) \leq \Join K$:}
-Aqui como $\Join K$ é um upper bound de $K$,
-basta mostrar que $F(\Join K)$ é um membro de $K$.
-(Nessa parte podemos e vamos usar a $\Join K \leq F(\Join K)$
+Observe que $W = D \inter U$.
+Vamos provar que o $\Join D$ é um fixpoint de $F$.
+(O $\Meet U$ é similar.)
+Precisamos $\Join D = F(\Join D)$.
+Vamos provar $\Join D \leq F(\Join D)$ primeiro
+e depois $F(\Join D) \leq \Join D$.
+\proofpart{$\Join D \leq F(\Join D)$:}
+Como $\Join D$ é o least upper bound de $D$,
+basta provar $F(\Join D)$ é um upper bound de $D$.
+\proofpart{$F(\Join D) \leq \Join D$:}
+Aqui como $\Join D$ é um upper bound de $D$,
+basta mostrar que $F(\Join D)$ é um membro de $D$.
+(Nessa parte podemos e vamos usar a $\Join D \leq F(\Join D)$
 que acabamos de provar!)
 \qes
 \proof.
 Seja
-$K \asseq \setst { x \in L } { x \leq Fx }$.
-Vamos provar que $\Join K$ é um fixpoint de $F$,
-ou seja $F(\Join K) = \Join K$.
+$D \asseq \setst { x \in L } { x \leq Fx }$.
+Vamos provar que $\Join D$ é um fixpoint de $F$,
+ou seja $F(\Join D) = \Join D$.
 Quebramos a prova em duas partes:
-\proofpart{$\Join K \leq F(\Join K)$:}
-Basta mostrar que $F(\Join K)$ é um upper bound de $K$.
-Tome $k \in K$.
-Logo $k \leq Fk$\fact1~(pela definição de $K$)
-e também $k \leq \Join K$\fact2,
-pois $\Join K$ é um upper bound de $K$.
+\proofpart{$\Join D \leq F(\Join D)$:}
+Basta mostrar que $F(\Join D)$ é um upper bound de $D$.
+Tome $d \in D$.
+Logo $d \leq Fd$\fact1~(pela definição de $D$)
+e também $d \leq \Join D$\fact2,
+pois $\Join D$ é um upper bound de $D$.
 Como $F$ é monótona, da \byfact2~ganhamos
-$Fk \leq F(\Join K)$\fact3.
+$Fd \leq F(\Join D)$\fact3.
 Juntando (transitividade) as \byfact1~e~\byfact3:
 $$
-k \leq Fk \leq F(\Join K)
+d \leq Fd \leq F(\Join D)
 $$
-ou seja, $k \leq F(\Join K)$ e como $k$ foi arbitrário elemento de $K$,
-concluimos que $F(\Join K)$ é um upper bound de $K$.
-Logo $\Join K \leq F(\Join K)$.
-\proofpart{$F(\Join K) \leq \Join K$:}
-Basta provar que $F(\Join K) \in K$, pois $\Join K$ é um upper bound de $K$.
-Como já provamos que $\Join K \leq F(\Join K)$, ganhamos a
-$F(\Join K) \leq F(F(\Join K))$ (pela monotonicidade da $F$).
-Ou seja, o $F(\Join K)$ satisfaz a definição de $K$, e logo pertence nele:
-$F(\Join K) \in K$.
-Como $\Join K$ é um upper bound de $K$, temos $F(\Join K) \leq \Join K$.
+ou seja, $d \leq F(\Join D)$ e como $d$ foi arbitrário elemento de $D$,
+concluimos que $F(\Join D)$ é um upper bound de $D$.
+Logo $\Join D \leq F(\Join D)$.
+\proofpart{$F(\Join D) \leq \Join D$:}
+Basta provar que $F(\Join D) \in D$, pois $\Join D$ é um upper bound de $D$.
+Como já provamos que $\Join D \leq F(\Join D)$, ganhamos a
+$F(\Join D) \leq F(F(\Join D))$ (pela monotonicidade da $F$).
+Ou seja, o $F(\Join D)$ satisfaz a definição de $D$, e logo pertence nele:
+$F(\Join D) \in D$.
+Como $\Join D$ é um upper bound de $D$, temos $F(\Join D) \leq \Join D$.
 \qed
 %%}}}
 
@@ -22808,6 +22808,29 @@ Como $\Join K$ é um upper bound de $K$, temos $F(\Join K) \leq \Join K$.
 O teorema Knaster--Tarski fala que ainda mais é verdade:
 o $\fixpoints F\subseteq L$ é um reticulado completo
 (\ref{knaster_tarski_fixpoint_full}).
+%%}}}
+
+\TODO explicar e desenhar.
+
+%%{{{ cor: real_f_monotone_on_closed_interval_has_lfp_and_gfp 
+\corollary.
+\label{real_f_monotone_on_closed_interval_has_lfp_and_gfp}%
+Sejam $a,b\in\reals$ com $a\leq b$,
+e função $f : [a,b] \to [a,b]$ monótona.
+Logo $f$ tem um máximo e um mínimo fixpoint.
+%%}}}
+
+%%{{{ remark: we do not need f to be continuous 
+\remark.
+Observe que no~\ref{real_f_monotone_on_closed_interval_has_lfp_and_gfp}
+não precisamos da $f$ ser continua.
+%%}}}
+
+%%{{{ note: a new proof of Schröder--Bernstein 
+\note Uma nova prova de Schröder--Bernstein.
+Ganhamos também como corolário o teorema Schröder--Bernstein
+(\refn{schroder_bernstein})!
+Os detalhes estão no~\ref{schroder_bernstein_lattice_proof}.
 %%}}}
 
 \endsection
