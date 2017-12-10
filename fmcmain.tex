@@ -25416,6 +25416,232 @@ Assim o $\Phi(x)$ denota um \emph{objeto}, mas o $\Phi(x,y)$ uma \emph{afirmaç�
 \endsection
 %%}}}
 
+%%{{{ Problems intermission 
+\problems Intervalo de problemas.
+
+%%{{{ someset_problem 
+\problem Someset is the new Emptyset.
+\label{someset_problem}%
+Considere o axioma seguinte:
+\endgraf
+\noindent
+{\bf Someset.}
+{\proclaimstyle Existe algo.}
+$$
+\exists s \paren{ s = s }
+\axtaglabel{ZF2*}{someset}
+$$
+Mostre que no sistema axiomático
+\axref{extensionality}%
++\axref{someset}%
++\axref{pairset}%
++\axref{separation}%
++\axref{powerset}%
++\axref{unionset},
+existe o $\emptyset$.%
+\footnote{Dependendo do uso e do contexto, podemos considerar como parte da lógica
+que o universo não é vazio, ou seja, existe algo.  Nesse caso nem precisamos
+o Someset~(\axref{someset}), pois seria implícito.}
+
+\endproblem
+%%}}}
+
+%%{{{ triset_problem 
+\problem Triset is the new Pairset.
+\label{triset_problem}%
+Considere o axioma seguinte:
+\endgraf\noindent
+{\bf Triset.}
+{\proclaimstyle
+Dados tres objetos distintos existe conjunto com exatamente
+esses membros.
+}
+$$
+\forall a
+\forall b
+\forall c
+\lparen{
+\bigparen{
+a\neq b \land b \neq c \land c \neq a
+}
+\limplies
+\exists s
+\forall x
+\bigparen{x\in s \liff x = a \lor x = b \lor x = c}
+}
+\axtaglabel{ZF3*}{triset}
+$$
+%\beginil
+\item{(0)}
+No sistema
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{pairset}%
++\axref{separation}%
++\axref{powerset}%
++\axref{unionset}
+construa conjunto de cardinalidade~$3$.
+\item{(1)}
+Prove que no mesmo sistema
+podemos substituir o axioma Pairset~(\axref{pairset}) pelo axioma
+Triset~(\axref{triset}) ``sem perder nada''.
+Em outras palavras, prove que no sistema
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{triset}%
++\axref{separation}%
++\axref{powerset}%
++\axref{unionset}
+\emph{para todos os $a,b$ existe o conjunto $\set{a,b}$}.
+\item{(2)}
+Podemos provar a mesma coisa no sistema
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{triset}%
++\axref{separation}%
++\axref{unionset}%
+?
+%\endil
+
+\hint
+Para o (1), veja o (2); para o (2), veja o (1)!
+
+\endproblem
+%%}}}
+
+%%{{{ consax_problem 
+\problem.
+\label{consax_problem}%
+Considere o axioma seguinte:
+$$
+\forall h
+\forall t
+\exists s
+\forall x
+\bigparen{
+x \in s
+\liff
+x = h
+\lor
+x \in t
+}.
+\axtaglabel{CONS}{consax}
+$$
+(1)
+No sistema
+{\axref{extensionality}%
++\axref{emptyset}%
++\axref{consax}}
+prove o \axref{pairset} como teorema.
+\endgraf\noindent
+(2)
+Mostre que não tem como provar o \axref{consax}
+no sistema
+{\axref{extensionality}%
++\axref{emptyset}%
++\axref{pairset}}.
+\endgraf\noindent
+(3)
+No sistema
+{\axref{extensionality}%
++\axref{emptyset}%
++\axref{pairset}%
++\axref{separation}%
++\axref{powerset}%
++\axref{unionset}}
+prove o \axref{consax} como teorema.
+
+\solution
+(1)
+Dados os objetos $a,b$, queremos construir o $\set{a,b}$.
+Aplicando o \axref{consax} com $h \asseq b$ e $t \asseq \emptyset$
+ganhamos o $\set{b}$, e agora aplicando novamente o mesmo axioma
+com $h \asseq a$ e $t \asseq \set{b}$ ganhamos o desejado $\set{a,b}$.
+\endgraf\noindent
+(2)
+Observe que com os axiomas
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{consax}\ 
+conseguimos construir conjuntos de qualquer cardinalidade finita,
+mas com os
+\axref{extensionality}%
++\axref{emptyset}%
++\axref{pairset}\ 
+conseguimos construir apenas conjuntos com cardinalidades $0$, $1$, ou $2$.
+Basta realmente construir um conjunto com cardinalidade maior que $2$ então.
+Aplique o \axref{consax} com $h,t \asseq \emptyset$ ganhando assim
+o $\set{\emptyset}$.
+Agora com $h \asseq \set\emptyset$ e $t \asseq \emptyset$ ganhando
+o $\set{\set{\emptyset}}$.
+Com $h \asseq \emptyset$ e $t \asseq \set{\set{\emptyset}}$
+ganhamos o $\set{\emptyset, \set{\emptyset}}$.
+E finalmente, com $h,t \asseq \set{\emptyset, \set{\emptyset}}$
+construimos o $\set{\emptyset, \set{\emptyset}, \set{\emptyset, \set{\emptyset}}}$,
+que tem cardinalidade $3$.
+\endgraf\noindent
+(3)
+Sejam $h, t$ conjuntos.
+Pelo singleton (\ref{singleton_thm}) ganhamos o $\set h$,
+e usando a união binária (\ref{union_and_symdiff_constructed})
+nos $\set h$ e $t$ ganhamos o desejado conjunto.
+
+\endproblem
+%%}}}
+
+%%{{{ one_class_set_the_other_proper_problem 
+\problem.
+\label{one_class_set_the_other_proper_problem}%
+Sejam $a,b$ conjuntos.
+Mostre pelos axiomas \axref{extensionality}--\axref{unionset} que:
+\item{(i)}  a classe $\set{ \set{x,\set y} \st x \in a \land y \in b}$ é conjunto;
+\item{(ii)} a classe $\set{ \set{x,y} \st \text{$x,y$ conjuntos com $x\neq y$}}$ é propria.
+
+\hint
+(ii) Absurdo.
+
+\endproblem
+%%}}}
+
+%%{{{ two_sets_and_one_proper_class_problem 
+\problem.
+\label{two_sets_and_one_proper_class_problem}%
+Sejam $a,b$ conjuntos.
+Mostre pelos axiomas \axref{extensionality}--\axref{union} que as classes
+$$
+\align
+    C &= \set{
+          \set{x, \set{x,y}}
+          \st
+          x \in a
+          \land
+          y \in b
+    }\\
+    D &= \set{
+          \set{x,y}
+          \st
+          \paren{
+              x \in a
+              \lor
+              x \in \Union a
+          }
+          \land
+          \paren{y \in b \lor y \subseteq b}
+    }\\
+\intertext{são conjuntos, mas não a classe}
+    Z &= \set{
+        {\Inter\Inter z}
+            \st z \neq \emptyset \land \Inter z \neq \emptyset
+    }.
+\endalign
+$$
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ The axiom of infinity 
 \section O axioma da infinidade.
 
@@ -25932,6 +26158,25 @@ Precisas provar duas coisas então:
 (1) $\Zero_2 \in \img\phi{\Nats_1}$;
 (2) para todo $n \in \Nats_2$, se $n \in \img\phi{\Nats_1}$ então $\Succ_2 n \in \img\phi{\Nats_1}$.
 
+\solution
+Como $\img \phi {\Nats_1} \subseteq \Nats_2$,
+provamos a igualdade usando o princípio da indução~(P5).
+\proofpart{Base.}
+$\Zero_2 \in \img\phi{\Nats_1}$:
+Imediato pois $\phi(\Zero_1) = \Zero_2$.
+\proofpart{Passo indutivo.}
+Suponha $k \in \img\phi{\Nats_1}$.
+Precisamos mostrar que $\Succ_2 k \in \img\phi{\Nats_1}$.
+Pela escolha de $k$, tome $k' \in \Nats_1$ tal que
+$\phi(k') = k$.
+Calculamos:
+\alignx{
+\phi(\Succ_1 k')
+&= \Succ_2 (\phi(k')) \qqby{pela def.~$\phi$}\\
+&= \Succ_2 k          \qqby{pela escolha de $k'$}
+}
+ou seja, $\Succ_2 k \in \phi[\Nats_1]$.
+
 \endexercise
 %%}}}
 
@@ -26106,7 +26351,7 @@ G(\Succ n)  &= h(G(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
 \endalign
 $$
 então $F = G$.
-Em outras palavras, as duas equações (1)--(2)
+Em outras palavras, as equações (1)--(2)
 \emph{determinam} a função no $\Nats$.
 
 \hint
@@ -26119,13 +26364,113 @@ Mostre que $X = \Nats$ usando o princípio da indução.
 \endsection
 %%}}}
 
-%%{{{ Consequences of recursion 
-\section Conseqüências de recursão.
+%%{{{ Consequences of induction and recursion 
+\section Conseqüências de indução e recursão.
 
-\note Operações.
+\blah
 Na~\refn{Nats_formally} definimos recursivamente operações nos naturais.
 Graças o~\ref{recursion_theorem}, ganhamos todas essas operações em qualquer
-sistema Peano.
+sistema Peano.  Vamos lembrar como, e também provar que não importa
+\emph{em qual} sistema Peano calculamos: os resultados serão os
+correspondentes!
+
+\note Operações e ordem.
+Para qualquer sistema Peano $\cal N = \sset \Nats {\Zero, \Succ}$,
+definimos as operações de adição e de multiplicação
+$$
+\xxalignat5
+&\text{(a1)}  & n + \Zero   &= n          &&& n \ntimes \Zero   &= \Zero                &&\text{(m1)}\\
+&\text{(a2)}  & n + \Succ m &= \Succ(n+m) &&& n \ntimes \Succ m &= (n \ntimes m) + n    &&\text{(m2)}
+\endxxalignat
+$$
+e a relação de ordem no $\Nats$
+$$
+    n \leq m \defiff (\exists k\in\Nats)[n + k = m].
+$$
+Sejam dois sistemas Peano
+$\cal N_1 = \sset {\Nats_1} {\Zero_1, \Succ_1}$ e 
+$\cal N_2 = \sset {\Nats_2} {\Zero_2, \Succ_2}$, e
+suas operações de adição $+_1$ e $+_2$, e suas relações de ordem $\leq_1$ e $\leq_2$.
+Seja $\phi:\Nats_1\bijto\Nats_2$ o isomorfismo definido pelas
+$$
+\align
+    \phi(\Zero_1)   &= \Zero_2           \tag{$\phi$1}\\
+    \phi(\Succ_1 n) &= \Succ_2(\phi(n)). \tag{$\phi$2}
+\endalign
+$$
+%%}}}
+
+%%{{{ property: peano_morphism_respects_addition 
+\property.
+\label{peano_morphism_respects_addition}%
+A $\phi$ respeita a adição, ou seja:
+$$
+\text{para todo $n,m\in\Nats_1$},\ \ 
+\phi(n +_1 m) = \phi(n) +_2 \phi(m)
+$$
+\proof.
+Por indução no $m\in\Nats_1$:
+\proofpart{Base ($m \asseq \Zero_1$):}
+{\proclaimstyle para todo $n\in\Nats_1$, $\phi(n +_1 \Zero_1) = \phi(n) +_1 \phi(\Zero_1)$.}
+Seja $n \in \Nats_1$.
+Calculamos:
+\alignx{
+\phi(n +_1 \Zero_1)
+&= \phi(n)                    \qqby{pela (a1)$_1$}  \\
+&= \phi(n) +_2 \Zero_2        \qqby{pela (a1)$_2$}  \\
+&= \phi(n) +_2 \phi(\Zero_1)  \qqby{pela ($\phi$1)}
+}
+\proofpart{Passo indutivo:}
+Seja $k \in \Nats_1$ tal que
+$$
+\text{para todo $n \in \Nats_1$, $\phi(n +_1 k) = \phi(n) +_1 \phi(k)$.}\tag{H.I.}
+$$
+Vamos provar que
+$$
+\text{\proclaimstyle{para todo $n \in \Nats_1$, $\phi(n +_1 \Succ_1 k) = \phi(n) +_1 \phi(\Succ_1 k)$.}}
+$$
+Seja $n \in \Nats_1$.
+Calculamos:
+\alignx{
+\phi(n +_1 \Succ_1 k)
+&= \phi(\Succ_1(n +_1 k))       \qqby{pela (a1)$_2$}\\
+&= \Succ_2(\phi(n +_1 k))       \qqby{pela ($\phi$2)}\\
+&= \Succ_2(\phi(n) +_2 \phi(k)) \qqby{pela (H.I.), com $n\asseq n$}\\
+&= \phi(n) +_2 \Succ_2\phi(k)   \qqby{pela (a2)$_2$}\\
+&= \phi(n) +_2 \phi(\Succ_1 k)  \qqby{pela ($\phi$2)}
+}
+\qed
+%%}}}
+
+%%{{{ x: peano_morphism_respects_multiplication 
+\exercise.
+\label{peano_morphism_respects_multiplication}%
+Mostre que $\phi$ respeita a multiplicação, ou seja:
+$$
+\text{para todo $n,m\in\Nats_1$},\ \ 
+\phi(n \ntimes_1 m) = \phi(n) \ntimes_2 \phi(m).
+$$
+
+\hint
+Indução no $m\in\Nats_1$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: peano_morphism_respects_order 
+\exercise.
+\label{peano_morphism_respects_order}%
+Mostre que $\phi$ \emph{respeita a ordem} também, no sentido de:
+$$
+\text{para todo $n,m\in\Nats_1$},\ \ 
+n\leq_1 m \iff \phi(n)\leq_2 \phi(m).
+$$
+
+\hint
+Prove as duas direções da \bidir\ separadamente.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -26208,212 +26553,8 @@ Mostre como representar os complexos.
 \endsection
 %%}}}
 
-%%{{{ Problem intermission 
+%%{{{ Problems intermission 
 \problems Intervalo de problemas.
-
-%%{{{ someset_problem 
-\problem Someset is the new Emptyset.
-\label{someset_problem}%
-Considere o axioma seguinte:
-\endgraf
-\noindent
-{\bf Someset.}
-{\proclaimstyle Existe algo.}
-$$
-\exists s \paren{ s = s }
-\axtaglabel{ZF2*}{someset}
-$$
-Mostre que no sistema axiomático
-\axref{extensionality}%
-+\axref{someset}%
-+\axref{pairset}%
-+\axref{separation}%
-+\axref{powerset}%
-+\axref{unionset},
-existe o $\emptyset$.%
-\footnote{Dependendo do uso e do contexto, podemos considerar como parte da lógica
-que o universo não é vazio, ou seja, existe algo.  Nesse caso nem precisamos
-o Someset~(\axref{someset}), pois seria implícito.}
-
-\endproblem
-%%}}}
-
-%%{{{ triset_problem 
-\problem Triset is the new Pairset.
-\label{triset_problem}%
-Considere o axioma seguinte:
-\endgraf\noindent
-{\bf Triset.}
-{\proclaimstyle
-Dados tres objetos distintos existe conjunto com exatamente
-esses membros.
-}
-$$
-\forall a
-\forall b
-\forall c
-\lparen{
-\bigparen{
-a\neq b \land b \neq c \land c \neq a
-}
-\limplies
-\exists s
-\forall x
-\bigparen{x\in s \liff x = a \lor x = b \lor x = c}
-}
-\axtaglabel{ZF3*}{triset}
-$$
-%\beginil
-\item{(0)}
-No sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{pairset}%
-+\axref{separation}%
-+\axref{powerset}%
-+\axref{unionset}
-construa conjunto de cardinalidade~$3$.
-\item{(1)}
-Prove que no mesmo sistema
-podemos substituir o axioma Pairset~(\axref{pairset}) pelo axioma
-Triset~(\axref{triset}) ``sem perder nada''.
-Em outras palavras, prove que no sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{triset}%
-+\axref{separation}%
-+\axref{powerset}%
-+\axref{unionset}
-\emph{para todos os $a,b$ existe o conjunto $\set{a,b}$}.
-\item{(2)}
-Podemos provar a mesma coisa no sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{triset}%
-+\axref{separation}%
-+\axref{unionset}%
-?
-%\endil
-
-\hint
-Para o (1), veja o (2); para o (2), veja o (1)!
-
-\endproblem
-%%}}}
-
-%%{{{ consax_problem 
-\problem.
-\label{consax_problem}%
-Considere o axioma seguinte:
-$$
-\forall h
-\forall t
-\exists s
-\forall x
-\bigparen{
-x \in s
-\liff
-x = h
-\lor
-x \in t
-}.
-\axtaglabel{CONS}{consax}
-$$
-(1)
-No sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{consax},
-prove o \axref{pairset} como teorema.
-\endgraf\noindent
-(2)
-Mostre que não tem como provar o \axref{consax}
-no sistema
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{pairset}.
-
-\solution
-(1)
-Dados os objetos $a,b$, queremos construir o $\set{a,b}$.
-Aplicando o \axref{consax} com $h \asseq b$ e $t \asseq \emptyset$
-ganhamos o $\set{b}$, e agora aplicando novamente o mesmo axioma
-com $h \asseq a$ e $t \asseq \set{b}$ ganhamos o desejado $\set{a,b}$.
-\endgraf\noindent
-(2)
-Observe que com os axiomas
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{consax}\ 
-conseguimos construir conjuntos de qualquer cardinalidade finita,
-mas com os
-\axref{extensionality}%
-+\axref{emptyset}%
-+\axref{pairset}\ 
-conseguimos construir apenas conjuntos com cardinalidades $0$, $1$, ou $2$.
-Basta realmente construir um conjunto com cardinalidade maior que $2$ então.
-Aplique o \axref{consax} com $h,t \asseq \emptyset$ ganhando assim
-o $\set{\emptyset}$.
-Agora com $h \asseq \set\emptyset$ e $t \asseq \emptyset$ ganhando
-o $\set{\set{\emptyset}}$.
-Com $h \asseq \emptyset$ e $t \asseq \set{\set{\emptyset}}$
-ganhamos o $\set{\emptyset, \set{\emptyset}}$.
-E finalmente, com $h,t \asseq \set{\emptyset, \set{\emptyset}}$
-construimos o $\set{\emptyset, \set{\emptyset}, \set{\emptyset, \set{\emptyset}}}$,
-que tem cardinalidade $3$.
-
-\endproblem
-%%}}}
-
-%%{{{ one_class_set_the_other_proper_problem 
-\problem.
-\label{one_class_set_the_other_proper_problem}%
-Sejam $a,b$ conjuntos.
-Mostre pelos axiomas \axref{extensionality}--\axref{unionset} que:
-\item{(i)}  a classe $\set{ \set{x,\set y} \st x \in a \land y \in b}$ é conjunto;
-\item{(ii)} a classe $\set{ \set{x,y} \st \text{$x,y$ conjuntos com $x\neq y$}}$ é propria.
-
-\hint
-(ii) Absurdo.
-
-\endproblem
-%%}}}
-
-%%{{{ two_sets_and_one_proper_class_problem 
-\problem.
-\label{two_sets_and_one_proper_class_problem}%
-Sejam $a,b$ conjuntos.
-Mostre pelos axiomas \axref{extensionality}--\axref{union} que as classes
-$$
-\align
-    C &= \set{
-          \set{x, \set{x,y}}
-          \st
-          x \in a
-          \land
-          y \in b
-    }\\
-    D &= \set{
-          \set{x,y}
-          \st
-          \paren{
-              x \in a
-              \lor
-              x \in \Union a
-          }
-          \land
-          \paren{y \in b \lor y \subseteq b}
-    }\\
-\intertext{são conjuntos, mas não a classe}
-    Z &= \set{
-        {\Inter\Inter z}
-            \st z \neq \emptyset \land \Inter z \neq \emptyset
-    }.
-\endalign
-$$
-
-\endproblem
-%%}}}
 
 %%{{{ prob: multiset_formally_defined 
 \problem Multisets.
@@ -26536,59 +26677,6 @@ $$
 $$
 Para mostrar que o $\pset A \times (A \parto \nats\setminus\set{0})$ é um conjunto,
 precisamos os operadores $\pset$, $\times$, $\parto$, $\setminus$, e o próprio $\nats$, que já temos construido pelos ZF1--ZF7.
-
-\endproblem
-%%}}}
-
-%%{{{ common context for problems 
-Para qualquer sistema de naturais $\cal N = \sset \Nats {\Zero, \Succ}$,
-definimos as operações de adição e de multiplicação
-$$
-\xxalignat5
-&\text{(a1)}  & n + \Zero   &= n          &&& n \ntimes \Zero   &= \Zero                &&\text{(m1)}\\
-&\text{(a2)}  & n + \Succ m &= \Succ(n+m) &&& n \ntimes \Succ m &= \Succ (n \ntimes m)  &&\text{(m2)}
-\endxxalignat
-$$
-e a relação de ordem no $\Nats$
-$$
-    n \leq m \defiff (\exists k)[n + k = m].
-$$
-Sejam dois sistemas de naturais
-$\cal N_1 = \sset {\Nats_1} {\Zero_1, \Succ_1}$ e 
-$\cal N_2 = \sset {\Nats_2} {\Zero_2, \Succ_2}$, e
-suas operações de adição $+_1$ e $+_2$, e suas relações de ordem $\leq_1$ e $\leq_2$.
-Seja $\phi:\Nats_1\bijto\Nats_2$ o isomorfismo definido pelas
-$$
-\align
-    \phi(\Zero_1)   &= \Zero_2           \\
-    \phi(\Succ_1 n) &= \Succ_2(\phi(n)).
-\endalign
-$$
-%%}}}
-
-%%{{{ prob: any_peano_morphism_respects_the_ops 
-\problem.
-Prove que $\phi$ respeita a adição e a multiplicação, ou seja:
-$$
-\align
-\phi(n +_1 m)       &= \phi(n) +_2 \phi(m)\\
-\phi(n \ntimes_1 m) &= \phi(n) \ntimes_2 \phi(m).
-\endalign
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ prob: any_peano_morphism_respects_the_order 
-\problem.
-\label{any_peano_morphism_respects_the_order}%
-Mostre que $\phi$ \emph{respeita a ordem} também, no sentido de:
-$$
-n\leq_1 m \iff \phi(n)\leq_2 \phi(m).
-$$
-
-\hint
-Prove as duas direções da ``$\Longleftrightarrow$'' separadamente.
 
 \endproblem
 %%}}}
