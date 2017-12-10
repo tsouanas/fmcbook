@@ -22409,13 +22409,65 @@ Logo $x \leq y$ (pela def.~de $\down y$).
 %%{{{ Mappings 
 \section Mapeamentos.
 
+%%{{{ df: monotone_embedding_isomorphism 
+\definition.
+\label{monotone_embedding_isomorphism}%
+\tdefined{monótona}%
+\tdefined{order-embedding}%
+\tdefined{order-isomorfismo}%
+\tdefined{isomorfismo}[de ordem]%
+Sejam $\sset P {\leq_P}$ e $\sset Q {\leq_Q}$ posets
+e $\phi : P \to Q$.
+Definimos
+$$
+\align
+\text{$\phi$ monótona}
+&\defiff x\leq_P y \implies \phi(x) \leq_Q \phi(y)\\
+\text{$\phi$ order-embedding}
+&\defiff \text{$\phi$ injetora} \mland x\leq_P y \iff \phi(x) \leq_Q \phi(y)\\
+\text{$\phi$ order-isomorfismo}
+&\defiff \text{$\phi$ bijetora} \mland x\leq_P y \iff \phi(x) \leq_Q \phi(y)
+\endalign
+$$
+%%}}}
+
+%%{{{ criterion: order_embedding_criterion 
+\criterion.
+\label{order_embedding_criterion}%
+Se $\phi : P \to Q$ tal que
+$$
+x \leq_P y \iff \phi(x) \leq_Q \phi(y)
+$$
+então $\phi$ é um order-embedding.
+Segue que se $\phi$ é sobrejetora, ela é um order-isomorfismo.
+\proof.
+Basta provar que $\phi$ é injetora.
+Tome $x,y \in P$.
+Temos
+\alignx{
+\phi(x) = \phi(y)
+&\implies \phi(x) \leq_Q \phi(y) \mland \phi(y) \leq_Q \phi(x)  \qqby{\ref{converse_of_antisymmetry}}\\
+&\implies x \leq_P y \mland y \leq_P x                          \qqby{pela hipótese}\\
+&\implies x = y.                                                \qqby{transitividade}
+}
+\qed
+%%}}}
+
+%%{{{ x: converse_of_antisymmetry 
+\exercise Converso de antisimetria.
+\label{converse_of_antisymmetry}%
+Justifique o primeiro passo (a primeira implicação) na prova do~\ref{order_embedding_criterion}.
+
+\endexercise
+%%}}}
+
 %%{{{ x: downsets_of_poset_iso_downsets_of_dual 
 \exercise.
 \label{downsets_of_poset_iso_downsets_of_dual}%
-Defina um $\varphi : \downsets P \iso \downsets { \dual P }$.
+Defina um $\phi : \downsets P \iso \downsets { \dual P }$.
 
 \solution
-$\varphi(X) = P\setminus X$
+$\phi(X) = P\setminus X$
 
 \endexercise
 %%}}}
@@ -22430,9 +22482,6 @@ $\psi : \downsets { P_1 \disjunion P_2 } \iso \downsets {P_1} \times \downsets {
 $\psi(D) = \tup{ D \inter P_1, D \inter P_2 }$
 
 \endexercise
-%%}}}
-
-\endsection
 %%}}}
 
 %%{{{ x: posets_of_divisors 
@@ -22525,6 +22574,9 @@ $$
 %%}}}
 
 \endexercise
+%%}}}
+
+\endsection
 %%}}}
 
 %%{{{ Lattices as posets 
@@ -22660,8 +22712,103 @@ e as leis de absorção são satisfeitas.
 \endsection
 %%}}}
 
-%%{{{ The Knaster--Tarski fixpoint theorem 
-\section O teorema fixpoint de Knaster--Tarski.
+%%{{{ Fixpoints 
+\section Fixpoints.
+
+%%{{{ df: fixpoint 
+\definition fixpoint.
+\tdefined{fixpoint}%
+\tdefined{fixpoint}[least]%
+\tdefined{fixpoint}[greatest]%
+\sdefined{\fixpoints {\holed f}} {o conjunto dos fixpoints de $\holed f$}%
+\sdefined{\lfp {\holed F}} {o least fixpoint de $\holed f$}%
+\sdefined{\gfp {\holed F}} {o greatest fixpoint de $\holed f$}%
+Seja $f : X \to X$.
+Chamamos o $x_0\in X$ um \dterm{fixpoint} de $f$ sse
+$f(x_0) = x_0$.
+Usamos a notação
+$$
+\fixpoints f
+\defeq
+\setstt { x \in \dom f } {$x$ é um fixpoint de $f$}
+$$
+e se $X$ é um poset e $\fixpoints F$ tem mínimo e máximo botamos
+$$
+\alignat2
+\lfp f &\defeq \min(\fixpoints f)&\quad&\text{(o \dterm{least fixpoint} de $f$)}\\
+\gfp f &\defeq \max(\fixpoints f)&\quad&\text{(o \dterm{greatest fixpoint} de $f$)}.
+\endalignat
+$$
+%%}}}
+
+%%{{{ thm: knaster_tarski_fixpoint 
+\theorem Knaster--Tarski.
+\label{knaster_tarski_fixpoint}%
+\Knaster{}\Tarski{}%
+\ii{teorema}[Knaster--Tarski fixpoint]%
+Seja $L$ reticulado completo e $F : L \to L$ monótona.
+Então $F$ tem um fixpoint.
+\sketch.
+Sejam
+$$
+\alignat2
+H &\asseq \setst { x \in L } { Fx \leq x } &
+K &\asseq \setst { x \in L } { x \leq Fx }
+\endalignat
+$$
+Considere o conjunto $W \asseq \fixpoints F$.
+Observe que $W = H \inter K$.
+Vamos provar que $\Join K$ é fixpoint de $F$.
+O $\Meet H$ é similar.
+Precisamos $\Join K = F(\Join K)$.
+Vamos provar $\Join K \leq F(\Join K)$ primeiro
+e depois $F(\Join K) \leq \Join K$.
+\proofpart{$\Join K \leq F(\Join K)$:}
+Como $\Join K$ é o least upper bound de $K$,
+basta provar $F(\Join K)$ é um upper bound de $K$.
+\proofpart{$F(\Join K) \leq \Join K$:}
+Aqui como $\Join K$ é um upper bound de $K$,
+basta mostrar que $F(\Join K)$ é um membro de $K$.
+(Nessa parte podemos e vamos usar a $\Join K \leq F(\Join K)$
+que acabamos de provar!)
+\qes
+\proof.
+Seja
+$K \asseq \setst { x \in L } { x \leq Fx }$.
+Vamos provar que $\Join K$ é um fixpoint de $F$,
+ou seja $F(\Join K) = \Join K$.
+Quebramos a prova em duas partes:
+\proofpart{$\Join K \leq F(\Join K)$:}
+Basta mostrar que $F(\Join K)$ é um upper bound de $K$.
+Tome $k \in K$.
+Logo $k \leq Fk$\fact1~(pela definição de $K$)
+e também $k \leq \Join K$\fact2,
+pois $\Join K$ é um upper bound de $K$.
+Como $F$ é monótona, da \byfact2~ganhamos
+$Fk \leq F(\Join K)$\fact3.
+Juntando (transitividade) as \byfact1~e~\byfact3:
+$$
+k \leq Fk \leq F(\Join K)
+$$
+ou seja, $k \leq F(\Join K)$ e como $k$ foi arbitrário elemento de $K$,
+concluimos que $F(\Join K)$ é um upper bound de $K$.
+Logo $\Join K \leq F(\Join K)$.
+\proofpart{$F(\Join K) \leq \Join K$:}
+Basta provar que $F(\Join K) \in K$, pois $\Join K$ é um upper bound de $K$.
+Como já provamos que $\Join K \leq F(\Join K)$, ganhamos a
+$F(\Join K) \leq F(F(\Join K))$ (pela monotonicidade da $F$).
+Ou seja, o $F(\Join K)$ satisfaz a definição de $K$, e logo pertence nele:
+$F(\Join K) \in K$.
+Como $\Join K$ é um upper bound de $K$, temos $F(\Join K) \leq \Join K$.
+\qed
+%%}}}
+
+%%{{{ remark: the full Knaster--Tarski theorem 
+\remark.
+O teorema Knaster--Tarski fala que ainda mais é verdade:
+o $\fixpoints F\subseteq L$ é um reticulado completo
+(\ref{knaster_tarski_fixpoint_full}).
+%%}}}
 
 \endsection
 %%}}}
@@ -22781,6 +22928,15 @@ pois todos os seus elementos são claramente cofinitos.
 Mesmo assim, o $\Inter \cal S$ não é cofinito
 $\Inter \cal S$ é o conjunto de todos os ímpares)
 e logo não pertence em nenhum dos $\scr L_1, L_2$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: knaster_tarski_fixpoint_full 
+\problem Teorema Knaster--Tarski completo.
+\label{knaster_tarski_fixpoint_full}%
+No contexto do~\ref{knaster_tarski_fixpoint}, prove que
+o subconjunto $\fixpoints F \subseteq L$ é um reticulado completo.
 
 \endproblem
 %%}}}
