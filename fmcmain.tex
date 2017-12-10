@@ -22974,6 +22974,39 @@ o subconjunto $\fixpoints F \subseteq L$ é um reticulado completo.
 %%{{{ prob: schroder_bernstein_lattice_proof 
 \problem Teorema de Schröder--Bernstein.
 \label{schroder_bernstein_lattice_proof}%
+Sejam $f : A \injto B$ e $g : B \injto A$ funções injetoras.
+Usando o teorema fixpoint de Knaster--Tarski~\refn{knaster_tarski_fixpoint}
+prove que existe função bijetora $h : A \bijto B$.
+
+\hint
+O $\sset{\pset A}{\subseteq}$ é um reticulado completo.
+
+\hint
+Considere a função $F : \pset A \to \pset A$ definida pela
+$$
+F(X) = A \setminus \paren{ \img g {B \setminus {\img f X}} }.
+$$
+Mostre que ela é monótona.
+
+\hint
+Pelo teorema Knaster--Tarski~\refn{knaster_tarski_fixpoint}
+a $F$ tem um fixpoint $C \subseteq A$, e
+$$
+C = F(C)
+\iff
+C = A \setminus \paren{ \img g {B \setminus {\img f C}} }
+\iff
+A \setminus C = \img g {B \setminus {\img f C}}.
+$$
+
+\hint
+Defina a desejada $h : A \bijto B$ por casos:
+$$
+h(x) = \knuthcases{
+\dots, & se $x \in C$ \cr
+\dots, & se $x \in A\setminus C$.
+}
+$$
 
 \endproblem
 %%}}}
