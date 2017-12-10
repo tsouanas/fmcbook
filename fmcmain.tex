@@ -22163,11 +22163,13 @@ $$
 \label{min_max}%
 \tdefined{mínimo}%
 \tdefined{máximo}%
-\sdefined{\bot} {o bottom (o mínimo elemento dum poset)}%
-\sdefined{\top} {o top (o máximo elemento dum poset)}%
-\emph{Dualmente} chamamos o $x$ \dterm{máximo} de $P$ sse $y\leq x$ para todo $y\in P$.
-Denotamos o mínimo de $P$, se existe, por $\min P$ ou $\bot$ (\dterm{bottom}),
-e seu máximo, se existe, por $\max P$ ou $\top$ (\dterm{top}).\mistake
+\sdefined{\min {\holed A}} {o mínimo de $\holed A$}%
+\sdefined{\max {\holed A}} {o máximo de $\holed A$}%
+Seja $A\subseteq P$.
+Chamamos o $m$ o \dterm{mínimo} de $A$ sse $m\leq a$ para todo $a\in A$.
+\emph{Dualmente} chamamos o $m\in A$ o \dterm{máximo} de $A$ sse $a\leq m$ para todo $a\in A$.
+Denotamos o mínimo de $A$, se existe, por $\min A$ e seu máximo, se existe, por $\max A$.
+\mistake
 %%}}}
 
 %%{{{ x: uniqueness_of_min_max 
@@ -22177,6 +22179,36 @@ Qual o erro na definição acima?
 Ache-o e corrija-o.
 
 \endexercise
+%%}}}
+
+%%{{{ df: bottom_top 
+\definition.
+\label{bottom_top}%
+\label{zero_one_in_poset}%
+\label{zero_one}%
+\label{bounded_poset}%
+\tdefined{bottom}%
+\tdefined{top}%
+\tdefined{zero}[dum poset]%
+\tdefined{one}[dum poset]%
+\tdefined{bounded}[por cima]%
+\tdefined{bounded}[por baixo]%
+\sdefined{\bot_{\holed P}} {o bottom (o mínimo elemento dum poset)}%
+\sdefined{\top_{\holed P}} {o top (o máximo elemento dum poset)}%
+\sdefined{0_{\holed P}} {o zero (o máximo elemento dum poset)}%
+\sdefined{1_{\holed P}} {o um (o máximo elemento dum poset)}%
+Se o próprio $P\subseteq P$ possui elemento
+mínimo, chamamos-lo o \dterm{bottom} de $P$,
+e se possui
+máximo, chamamos-lo o \dterm{top} de $P$.
+Usamos as notações $\bot_P$ e $\top_P$ respectivamente,
+esquecendo o $_P$ quando é implícito pelo contexto.
+Sinônimos de bottom e top são os \dterm{zero} e \dterm{um} respectivamente,
+usando as notações $0_P$ e $1_P$.
+Se um poset possui bottom, ele é chamado \dterm{bounded por baixo},
+e se ele possui top, ele é chamado \dterm{bounded por cima}.
+Caso que seja bounded por cima e por baixo, chamamos-lo apenas
+\dterm{bounded}.
 %%}}}
 
 %%{{{ df: minimal_maximal 
@@ -22260,12 +22292,7 @@ $$
 \example.
 \label{inf_and_sup_of_openclosed_interval}%
 O $A=(1,2]$ do~\ref{ubs_lbs_in_reals_example} tem
-$$
-\alignat2
-\inf A &= 1 &
-\sup A &= 2.
-\endalignat
-$$
+$\inf A = 1$ e $\sup A = 2$.
 Observe que $\sup A \in A$ mas $\inf A \notin A$.
 \endexample
 %%}}}
@@ -22284,20 +22311,20 @@ O que podemos concluir quando $\glb A \in A$ e quando $\lub A \in A$?
 \tdefined{downset}%
 \tdefined{upset}%
 \sdefined{\downs{\holed P}} {o conjunto de downsets de $\holed P$}%
-Chamamos o $A\subseteq P$ um \dterm{down-set} de $A$
+Chamamos o $A\subseteq P$ um \dterm{downset} de $A$
 sse o $A$ é ``fechado para baixo'', e \emph{dualmente},
-o chamamos \dterm{up-set} sse ele é ``fechado para cima''.
+o chamamos \dterm{upset} sse ele é ``fechado para cima''.
 Formalmente,
 $$
 \align
-\text{$A$ down-set} &\defiff {a \in A \mland x \leq a \implies x\in A};\\
-\text{$A$ up-set}   &\defiff {a \in A \mland a \leq x \implies x\in A}.
+\text{$A$ downset} &\defiff {a \in A \mland x \leq a \implies x\in A};\\
+\text{$A$ upset}   &\defiff {a \in A \mland a \leq x \implies x\in A}.
 \endalign
 $$
 Dado um poset $P$, usamos $\downs P$ para denotar o conjunto de todos os seus
-down-sets.  Simbolicamente,
+downsets.  Simbolicamente,
 $$
-\downs P \defeq \set{ D \subseteq P \st \text{$D$ é um down-set de $P$} }.
+\downs P \defeq \set{ D \subseteq P \st \text{$D$ é um downset de $P$} }.
 $$
 %%}}}
 
