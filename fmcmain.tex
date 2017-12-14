@@ -24589,27 +24589,26 @@ $\set{ \emptyset, \set{\emptyset, \set{\emptyset}}}$.
 }
 Podemos representar essa construção em forma de árvore:
 $$
-\def\fCenter{}
 \centerAlignProof
 \AxiomC{}
 \RightLabel{\axref{emptyset}}
-\UnaryInf$\fCenter\emptyset$
+\UnaryInfC{$\emptyset$}
 \AxiomC{}
 \RightLabel{\axref{emptyset}}
-\UnaryInf$\fCenter\emptyset$
+\UnaryInfC{$\emptyset$}
 \AxiomC{}
 \RightLabel{\axref{emptyset}}
-\UnaryInf$\fCenter\emptyset$
+\UnaryInfC{$\emptyset$}
 \AxiomC{}
 \RightLabel{\axref{emptyset}}
-\UnaryInf$\fCenter\emptyset$
+\UnaryInfC{$\emptyset$}
 \doubleLine
 \RightLabel{\axref{pairset}}
-\BinaryInf$\fCenter\set{\emptyset}$
+\BinaryInfC{$\set{\emptyset}$}
 \RightLabel{\axref{pairset}}
-\BinaryInf$\fCenter\set{\emptyset, \set{\emptyset}}$
+\BinaryInfC{$\set{\emptyset, \set{\emptyset}}$}
 \RightLabel{\axref{pairset}}
-\BinaryInf$\fCenter\set{\emptyset, \set{\emptyset, \set{\emptyset}}}$
+\BinaryInfC{$\set{\emptyset, \set{\emptyset, \set{\emptyset}}}$}
 \DisplayProof{}
 $$
 onde a dupla linha indica que pulamos alguns passos implícitios,
@@ -25047,6 +25046,15 @@ $$
 $$
 %%}}}
 
+%%{{{ x: kurpair_satisfies_tup0 
+\exercise.
+\label{kurpair_satisfies_tup0}%
+Mostre pelos axiomas que o operador $\tup{\dhole, \dhole}$ de Kuratowski
+é bem definido, ou seja: dados objetos $x,y$, o $\tup{x,y}$ é conjunto.
+
+\endexercise
+%%}}}
+
 %%{{{ prop: kurpair_satisfies_tup1 
 \proposition.
 \label{kurpair_satisfies_tup1}%
@@ -25162,7 +25170,7 @@ do~Wiener\Wiener{} também é uma implementação de par ordenado.
 \exercise par de Wiener.
 \label{wiener_pair}%
 \Wiener[par]%
-A operação $\tup{\dhole,\dhole}$ definida pela
+Mostre pelos axiomas que a operação $\tup{\dhole,\dhole}$ definida pela
 $$
 \tup{x,y} \defeq \bigset{ \set{ \emptyset, \set{x} }, \set{ \set{ y } } }
 $$
@@ -25170,6 +25178,69 @@ $$
 (ou seja, dados $x,y$ o $\tup{x,y}$ é um conjunto sim)
 que satisfaz as~\ref{spec_tup1}~\&~\ref{spec_tup2}.%
 \footnote{Wiener definiu essa operação uns anos \emph{antes} da definição de Kuratowski.}
+
+\hint
+Trabalhe como fizemos para o par ordenado de Kuratowski
+no~\ref{kurpair_satisfies_tup0} e nas
+proposições~\refn{kurpair_satisfies_tup1}--\refn{kurpair_satisfies_tup2}.
+
+\solution
+Primeiramente verificamos que dados objetos $x,y$, o $\tup{x,y}$
+realmente é um conjunto:
+$$
+\centerAlignProof
+\AxiomC{}
+\RightLabel{Empty}
+\UnaryInfC{$\emptyset$}
+\AxiomC{$x$}
+\RightLabel{Singleton}
+\doubleLine
+\UnaryInfC{$\set{x}$}
+\RightLabel{Pair}
+\BinaryInfC{$\set{\emptyset, \set{x}}$}
+\AxiomC{$y$}
+\RightLabel{Singleton}
+\doubleLine
+\UnaryInfC{$\set{y}$}
+\RightLabel{Singleton}
+\doubleLine
+\UnaryInfC{$\set{\set{y}}$}
+\RightLabel{Pair}
+\BinaryInfC{$\set{\set{\emptyset,\set{x}}, \set{\set{y}}}$}
+\DisplayProof{}
+$$
+\proofpart{\ref{spec_tup2}:}
+Sejam $A,B$ conjuntos.
+Queremos mosrar que a classe
+$$
+A\times B = \class {\tup{x,y}} {
+x\in A
+\mland
+y\in B
+}
+$$
+é um conjunto.
+Como na prova da~\ref{kurpair_satisfies_tup2},
+Basta achar um conjunto $W$ que contem o arbitrário $\tup{a,b}\in A\times B$,
+pois depois aplicamos o Separation~(\axref{separation}) com a mesma
+fórmula da~\ref{kurpair_satisfies_tup2} para ganhar o $A\times B$.
+Um conjunto que serve como $W$ é o $\pset\pset\pset(A\union B)$,
+como verificamos aqui, escrevendo a derivação em forma de árvore:
+$$
+\centerAlignProof
+\AxiomC{}
+\UnaryInfC{$\emptyset\in\pset(A\union B)$}
+\AxiomC{$a \in A$}
+\UnaryInfC{$a \in A\union B$}
+\UnaryInfC{$\set{a} \in \psetp{A\union B}$}
+\BinaryInfC{$\set{\emptyset,\set{a}} \in \pset\psetp{A\union B}$}
+\AxiomC{$b \in B$}
+\UnaryInfC{$b \in A\union B$}
+\UnaryInfC{$\set{b} \in \psetp{A\union B}$}
+\UnaryInfC{$\set{\set{b}} \in \pset\psetp{A\union B}$}
+\BinaryInfC{$\set{\set{\emptyset,\set{a}}, \set{\set{b}}}\in\pset\pset\psetp{A\union B}$}
+\DisplayProof
+$$
 
 \endexercise
 %%}}}
@@ -25868,9 +25939,9 @@ Para o (1), veja o (2); para o (2), veja o (1)!
 \endproblem
 %%}}}
 
-%%{{{ consax_problem 
+%%{{{ conset_problem 
 \problem.
-\label{consax_problem}%
+\label{conset_problem}%
 Considere o axioma seguinte:
 $$
 \forall h
@@ -25884,17 +25955,17 @@ x = h
 \lor
 x \in t
 }.
-\axtaglabel{CONS}{consax}
+\axtaglabel{CONS}{conset}
 $$
 (1)
 No sistema
 {\axref{extensionality}%
 +\axref{emptyset}%
-+\axref{consax}}
++\axref{conset}}
 prove o \axref{pairset} como teorema.
 \endgraf\noindent
 (2)
-Mostre que não tem como provar o \axref{consax}
+Mostre que não tem como provar o \axref{conset}
 no sistema
 {\axref{extensionality}%
 +\axref{emptyset}%
@@ -25908,12 +25979,12 @@ No sistema
 +\axref{separation}%
 +\axref{powerset}%
 +\axref{unionset}}
-prove o \axref{consax} como teorema.
+prove o \axref{conset} como teorema.
 
 \solution
 (1)
 Dados os objetos $a,b$, queremos construir o $\set{a,b}$.
-Aplicando o \axref{consax} com $h \asseq b$ e $t \asseq \emptyset$
+Aplicando o \axref{conset} com $h \asseq b$ e $t \asseq \emptyset$
 ganhamos o $\set{b}$, e agora aplicando novamente o mesmo axioma
 com $h \asseq a$ e $t \asseq \set{b}$ ganhamos o desejado $\set{a,b}$.
 \endgraf\noindent
@@ -25921,7 +25992,7 @@ com $h \asseq a$ e $t \asseq \set{b}$ ganhamos o desejado $\set{a,b}$.
 Observe que com os axiomas
 \axref{extensionality}%
 +\axref{emptyset}%
-+\axref{consax}\ 
++\axref{conset}\ 
 conseguimos construir conjuntos de qualquer cardinalidade finita,
 mas com os
 \axref{extensionality}%
@@ -25929,7 +26000,7 @@ mas com os
 +\axref{pairset}\ 
 conseguimos construir apenas conjuntos com cardinalidades $0$, $1$, ou $2$.
 Basta realmente construir um conjunto com cardinalidade maior que $2$ então.
-Aplique o \axref{consax} com $h,t \asseq \emptyset$ ganhando assim
+Aplique o \axref{conset} com $h,t \asseq \emptyset$ ganhando assim
 o $\set{\emptyset}$.
 Agora com $h \asseq \set\emptyset$ e $t \asseq \emptyset$ ganhando
 o $\set{\set{\emptyset}}$.
