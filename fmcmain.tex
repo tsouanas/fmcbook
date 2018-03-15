@@ -8851,140 +8851,7 @@ $$
 A notação set-builder é bem mais poderosa do que acabamos de mostrar,
 pois nos permite utilisar \emph{termos} mais complexos na sua parte esquerda,
 e não apenas uma variável.
-Por exemplo
-$$
-\setst {p^n + x} {\text{$p$ é primo, $n$ é ímpar, e $x\in[0,1)$}}
-$$
-seria o conjunto de todos os números reais que podem ser escritos na forma
-$p^n + x$ para algum primo $p$, algum ímpar $n$, e algum real $x$ com $0 \leq x < 1$.
-\endgraf
-Finalmente, mais uma extensão dessa notação é que usamos
-$$
-\setst {x \in A} {\text{\thole$x$\thole}}
-\defeq
-\setst {x} {x \in A \mland \text{\thole$x$\thole}}.
-$$
-%%}}}
-
-%%{{{ x: div_mul_pow_of_12_and_m_setbuilder_practice 
-\exercise.
-\label{div_mul_pow_of_12_and_m_setbuilder_practice}%
-Usando a notação set-builder defina os conjuntos
-$D_{12}$, $M_{12}$, e $P_{12}$
-de todos os divisores, todos os múltiplos, e todas as potências de $12$.
-Generalize para um inteiro $m$.
-Identifique quais variáveis que aparecem na tua resposta são livres e quais são ligadas.
-
-\solution
-$$
-\xalignat2
-D_{12} &\defeq \setst {n \in \ints} {n \divides 12}  &
-D_m    &\defeq \setst {n \in \ints} {n \divides m}   \\
-M_{12} &\defeq \setst {12n}  {n \in \ints}           &
-M_m    &\defeq \setst {mn}   {n \in \ints}           \\
-P_{12} &\defeq \setst {12^n} {n \in \nats}           &
-P_m    &\defeq \setst {m^n}  {n \in \nats}
-\endxalignat
-$$
-Onde aparece a variável `$m$', ela está livre, e
-onde aparece a variável `$n$', ela está ligada.
-
-\endexercise
-%%}}}
-
-%%{{{ x: set_builder_map_size_limit 
-\exercise.
-\label{set_builder_map_size_limit}%
-Seja $T = \set{u,v}$ um conjunto com dois elementos $u,v$.
-Definimos um conjunto $A$ pela
-$$
-A \defeq \setst {f(n,m)} {n,m \in T}
-$$
-Quantos elementos tem o $A$?
-
-\hint
-Primeiramente calcule a extensão do $A$:
-$$
-A = \set{ \dots?\dots }.
-$$
-
-\solution
-Calculando a extensão de $A$ achamos:
-$$
-A = \set{ f(u,u), f(u,v), f(v,u), f(v,v) }.
-$$
-Então o $A$ tem \emph{no máximo} $4$ elementos---mas pode acontecer que tem menos (veja~\ref{set_builder_map_exercise}).
-
-\endexercise
-%%}}}
-
-%%{{{ x: set_builder_map_exercise 
-\exercise.
-\label{set_builder_map_exercise}%
-Escreve a extensão do conjunto
-$$
-B \defeq \setst {n^2 + m^2} {n,m \in \set{1,3}}.
-$$
-
-\solution
-Calculamos:
-$$
-\align
-B
-&= \setst {n^2 + m^2} {n,m \in \set{1,3}}\\
-&= \set{ 1^2 + 1^2, 1^2 + 3^2, 3^2 + 1^2, 3^2 + 3^2 }\\
-&= \set{ 2, 10, 10, 18 }\\
-&= \set{ 2, 10, 18 }.
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: rich_set_builder_sugar 
-\exercise.
-Mostre como a notação ``mais rica'' de
-$$
-\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
-$$
-pode ser definida como açúcar sintáctico se temos já a notação de
-comprehensão que permite apénas uma variável no lado esquerdo.
-Aqui considere que o $t(x_1,\dotsc, x_n)$ é um termo que pode ser
-bem complexo, formado por outros termos complexos, etc., e onde
-possivelmente aparecem as variáveis $x_1,\dotsc,x_n$.
-
-\hint
-Precisa descrever (definir) o conjunto
-$$
-\align
-\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)} &\\
-\intertext{com uma notação que já temos:}
-\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
-&\defeq
-\dots?
-\endalign
-$$
-
-\hint
-$$
-\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
-\defeq
-\setst x {\text{\thole?\thole}}
-$$
-
-\solution
-$
-\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
-\defeq
-\setst x { \exists x_1\dotsb\exists x_n \paren{ x = t(x_1,\dotsc,x_n) \land \phi(x_1,\dotsc,x_n)}}.
-$
-
-\endexercise
-%%}}}
-
-%%{{{ Diagramas de Venn 
-\note Diagramas de Venn.
-Suas limitações.
+Vamos investigar isso e mais variações logo na~\ref{full_setbuilder}.
 %%}}}
 
 %%{{{ What we need to specify for each new type 
@@ -9035,6 +8902,10 @@ Consideramos dois conjuntos $A,B$ \dterm{iguais} sse não tem como diferenciar
 eles como black boxes.  Em outras palavras, para cada objeto $x$
 que vamos dar como entrada para cada um deles, eles vão concordar:
 ou os dois vão piscar ``sim'', ou os dois vão piscar ``não''.
+O ``slogan'' aqui é:
+$$
+\text{\emph{um conjunto é determinado por seus membros}}.
+$$
 %%}}}
 
 %%{{{ defining_sets 
@@ -9183,13 +9054,13 @@ Revise a~\ref{Open_problems_in_number_theory} e considere os conjuntos
 $$
 \align
 T &\defeq
-\setstt { p } {$p$ e $p+2$ são prímos}\\
+\setstt p {$p$ e $p+2$ são prímos}\\
 L &\defeq
-\setstt { n \in \nats_{>0} } {não existe primo entre $n^2$ e $(n+1)^2$}\\
+\setstt n {$n \in \nats_{>0}$ e não existe primo entre $n^2$ e $(n+1)^2$}\\
 G &\defeq
-\setstt { n \in \nats_{>1} } {$2n=p+q$ para alguns primos $p,q$}\\
+\setstt n {$n \in \nats_{>1}$ e $2n=p+q$ para alguns primos $p,q$}\\
 C &\defeq
-\setstt { n \in \nats_{>0} } {a seqüência Collatz começando com $n$ nunca pega o valor $1$}.
+\setstt n {$n \in \nats_{>0}$ e a seqüência Collatz começando com $n$ nunca pega o valor $1$}.
 \endalign
 $$
 Sobre o $T$ não sabemos se são finitos ou não!
@@ -9251,7 +9122,7 @@ $A = B \implies A \subseteq B$.
 %%{{{ x: eq_using_subsets 
 \exercise.
 \label{eq_using_subsets}%
-$A = B \iff A \subseteq B \land B \subseteq A$
+$A = B \iff A \subseteq B \mland B \subseteq A$
 
 \endexercise
 %%}}}
@@ -9302,8 +9173,8 @@ $$
 \endsection
 %%}}}
 
-%%{{{ The empty set and the universal set 
-\section O conjunto vazio e o conjunto universal.
+%%{{{ Empty, universal, singletons 
+\section Vazio, universal, singletons.
 
 %%{{{ df: empty 
 \definition Vazio.
@@ -9717,6 +9588,203 @@ Ou seja, podes achar um conjunto $A$ tal que $A\in A$?
 \endsection
 %%}}}
 
+%%{{{ More set-builder 
+\section Mais set-builder.
+\label{full_setbuilder}%
+
+Já encontramos a versão mais simples de set comprehension
+(ou notação set-builder) que nos permite escrever
+$$
+\setstt { x } { \thole$x$\thole }
+$$
+onde $x$ é uma variável, e $\text{\thole$x$\thole}$
+uma afirmação onde pode aparecer essa variável $x$.
+Essa notação é bem mais flexível que isso.
+Por exemplo
+$$
+\setst {p^n + x} {\text{$p$ é primo, $n$ é ímpar, e $x\in[0,1)$}}
+$$
+seria o conjunto de todos os números reais que podem ser escritos na forma
+$p^n + x$ para algum primo $p$, algum ímpar $n$, e algum real $x$ com $0 \leq x < 1$.
+\endgraf
+Finalmente, mais uma extensão dessa notação é que usamos
+$$
+\setstt {x \in A} {\thole$x$\thole}
+\defeq
+\setst {x} {x \in A \mland \text{\thole$x$\thole}}.
+$$
+
+%%{{{ x: why_treat_x_in_A_sugar_separately 
+\exercise.
+\label{why_treat_x_in_A_sugar_separately}%
+Por quê a notação
+$$
+\setst {x \in A} {\text{\thole$x$\thole}}
+$$
+não é apenas um caso especial da notação que nos permite escrever
+termos na parte esquerda de set-builder?
+
+\hint
+O ``$x \in A$'' é um termo?
+
+\solution
+Pois o ``$x \in A$'' não é um termo, mas uma proposição (afirmação).
+
+\endexercise
+%%}}}
+
+%%{{{ x: div_mul_pow_of_12_and_m_setbuilder_practice 
+\exercise.
+\label{div_mul_pow_of_12_and_m_setbuilder_practice}%
+Usando a notação set-builder defina os conjuntos
+$D_{12}$, $M_{12}$, e $P_{12}$
+de todos os divisores, todos os múltiplos, e todas as potências de $12$.
+Generalize para um inteiro $m$.
+Identifique quais variáveis que aparecem na tua resposta são livres e quais são ligadas.
+
+\solution
+$$
+\xalignat2
+D_{12} &\defeq \setst {n \in \ints} {n \divides 12}  &
+D_m    &\defeq \setst {n \in \ints} {n \divides m}   \\
+M_{12} &\defeq \setst {12n}  {n \in \ints}           &
+M_m    &\defeq \setst {mn}   {n \in \ints}           \\
+P_{12} &\defeq \setst {12^n} {n \in \nats}           &
+P_m    &\defeq \setst {m^n}  {n \in \nats}
+\endxalignat
+$$
+Onde aparece a variável `$m$', ela está livre, e
+onde aparece a variável `$n$', ela está ligada.
+
+\endexercise
+%%}}}
+
+%%{{{ x: set_builder_map_size_limit 
+\exercise.
+\label{set_builder_map_size_limit}%
+Seja $T = \set{u,v}$ um conjunto com dois elementos $u,v$.
+Definimos um conjunto $A$ pela
+$$
+A \defeq \setst {f(n,m)} {n,m \in T}
+$$
+Quantos elementos tem o $A$?
+
+\hint
+Primeiramente calcule a extensão do $A$:
+$$
+A = \set{ \dots?\dots }.
+$$
+
+\solution
+Calculando a extensão de $A$ achamos:
+$$
+A = \set{ f(u,u), f(u,v), f(v,u), f(v,v) }.
+$$
+Então o $A$ tem \emph{no máximo} $4$ elementos---mas pode acontecer que tem menos (veja~\ref{set_builder_map_exercise}).
+
+\endexercise
+%%}}}
+
+%%{{{ x: set_builder_map_exercise 
+\exercise.
+\label{set_builder_map_exercise}%
+Escreve a extensão do conjunto
+$$
+B \defeq \setst {n^2 + m^2} {n,m \in \set{1,3}}.
+$$
+
+\solution
+Calculamos:
+$$
+\align
+B
+&= \setst {n^2 + m^2} {n,m \in \set{1,3}}\\
+&= \set{ 1^2 + 1^2, 1^2 + 3^2, 3^2 + 1^2, 3^2 + 3^2 }\\
+&= \set{ 2, 10, 10, 18 }\\
+&= \set{ 2, 10, 18 }.
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: rich_set_builder_sugar 
+\exercise.
+Mostre como a notação ``mais rica'' de
+$$
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
+$$
+pode ser definida como açúcar sintáctico se temos já a notação de
+comprehensão que permite apénas uma variável no lado esquerdo.
+Aqui considere que o $t(x_1,\dotsc, x_n)$ é um termo que pode ser
+bem complexo, formado por outros termos complexos, etc., e onde
+possivelmente aparecem as variáveis $x_1,\dotsc,x_n$.
+
+\hint
+Precisa descrever (definir) o conjunto
+$$
+\align
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)} &\\
+\intertext{com uma notação que já temos:}
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
+&\defeq
+\dots?
+\endalign
+$$
+
+\hint
+$$
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
+\defeq
+\setst x {\text{\thole?\thole}}
+$$
+
+\solution
+$
+\setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
+\defeq
+\setst x { \exists x_1\dotsb\exists x_n \paren{ x = t(x_1,\dotsc,x_n) \land \phi(x_1,\dotsc,x_n)}}.
+$
+
+\endexercise
+%%}}}
+
+%%{{{ beware: variable-binding in set-builder 
+\beware.
+As variáveis que aparecem na parte esquerda de set-builder,
+são ligadores que ligam com as correspondentes variáveis livres
+que aparecem na afirmação na parte direita (filtro).
+Então cuidado com o uso dessas variáveis pois é fácil escrever
+algo que mesmo que realmente determina um conjunto,
+não é o conjunto desejado!
+%%}}}
+
+%%{{{ x: variable_binding_in_setbuilder_exercise 
+\exercise.
+\label{variable_binding_in_setbuilder_exercise}%
+Para cada um dos conjuntos em baixo,
+decida se sua definição realmente é correta.
+Caso que sim, determina a extensão do conjunto definido.
+Caso que não, explique qual é o problema com a definição.
+Em todas elas, considere que nosso universo é o $\reals$.
+$$
+\align
+A &= \setstt x { $\sqrt{x^2 + 2} \mland x \in \reals$ }\\
+B &= \setstt x { $\sqrt{x^2 + 2}$ para algum $x\in \reals$ }\\
+C &= \setstt t { $\sqrt{x^2 + 2} = t$ para algum $x\in \reals$ }\\
+D &= \setstt x { $\sqrt{x^2 + 2} = x$ para algum $x\in \reals$ }\\
+E &= \setstt x { $\sqrt{x^2 + 2} = x$ para todo $x\in \reals$ }\\
+F &= \setstt x { $\sqrt{t^2 + 2} = x$ para todo $t\in \reals$ }\\
+G &= \setstt x { $\sqrt{t^2 + 2} = x$ para algum $t\in \reals$ }.
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Operations on sets and how to define them 
 \section Operações entre conjuntos e como as definir.
 
@@ -9822,6 +9890,8 @@ A \setminus B &= A \inter \compl B &&& A \subsetneq B &\iff A \subseteq B \land 
 \endxalignat
 $$
 %%}}}
+
+\TODO Diagramas de Venn e suas limitações.
 
 \blah.
 Continuamos com mais operações, incluindo nossa primeira operação unária.
@@ -9964,8 +10034,8 @@ Dado $A$ conjunto, calcule os conjuntos $A\symdiff A$ e $A \symdiff \emptyset$.
 \endexercise
 %%}}}
 
-%%{{{ What symdiff really is 
-\note.
+%%{{{ An intuition about symmetric difference 
+\note Uma intuição sobre a diferença simétrica.
 Pensando pouco nas definições de
 $$
 A \symdiff B
@@ -10225,169 +10295,13 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Tuples 
-\section Tuplas.
-\label{Tuples}%
-
-\TODO Par ordenado como black box.
-
-\blah.
-Naturalmente, podemos generalizar a idéia de par ordenado, cujo tamanho é $2$, para um conceito
-correspondente de tamanho $n$, onde $n$ é qualquer número natural.  Oi, tuplas!
-
-\TODO Tuplas como black boxes.
-
-\endsection
-%%}}}
-
-%%{{{ Cartesian products 
-\section Produtos cartesianos.
-
-%%{{{ df: cartesian_product 
-\definition.
-\label{cartesian_product}%
-Sejam $A,B$ conjuntos.
-$$
-A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}
-$$
-%%}}}
-
-%%{{{ x: when_cartesian_commutes 
-\exercise.
-\label{when_cartesian_commutes}%
-Suponha que $A,B\neq\emptyset$.
-Escreva uma prova direta (sem usar reductio ad absurdum) do
-$A \times B = B\times A \iff A = B$.
-
-\hint
-Uma direção é trivial---por quê?
-
-\hint
-Como usamos os fatos $A\neq\emptyset$ e $B\neq\emptyset$?
-
-\endexercise
-%%}}}
-
-%%{{{ x: when_cartesian_commutes_absurdum 
-\exercise.
-Prove usando reductio ad absurdum a direção não-trivial
-do~\ref{when_cartesian_commutes}.
-
-\endexercise
-%}}}
-
-%%{{{ pseudodf: set_exp 
-\pseudodefinition.
-Sejam $A$ conjunto e $n\in\nats$ com $n\geq 2$.
-$$
-A^n \pseudodefeq \setstt {\tup{a_1,\dotsc,a_n}} {$a_i \in A$ para todo $2\leq i\leq n$}.
-$$
-%%}}}
-
-%%{{{ messy quantifier 
-\note.
-Na definição acima aparece a frase ``para todo $2\leq i\leq n$''.
-Qual é a variável ligada com esse ``para todo''?
-Bem, $2$ é um constante, e $n$ já foi declarado, então entendemos que a
-frase corresponde na quantificação:
-$$
-\lforall {i\in\nats} {2\leq i \leq n \limplies a_i \in A}.
-$$
-%%}}}
-
-%%{{{ df: set_exp_first_recursive_definition 
-\definition.
-\label{set_exp_first_recursive_definition}%
-Seja $A$ conjunto.
-Para $n\in\nats$ com $n\geq 2$ definimos os conjuntos:
-$$
-\align
-A^2     &= A\times A\\
-A^{n+1} &= A^n \times A.
-\endalign
-$$
-%%}}}
-
-\TODO As duas definições são equivalentes?
-
-\TODO O produto cartesiano é associativo?
-
-\endsection
-%%}}}
-
-%%{{{ Sequences 
-\section Seqüências.
-\label{Sequences}%
-
-\TODO Seqüências como black boxes.
-
-\TODO Seqüências de conjuntos.
-
-\endsection
-%%}}}
-
-%%{{{ Indexed families 
-\section Famílias indexadas.
-
-\TODO De tupla para família de conjuntos indexada por algum conjunto $\cal I$: $\family {A_i} {i\in \cal I}$.
-
-%%{{{ eg: anscestors_and_children 
-\example.
-\label{ancestors_and_children}%
-Seja $\cal P$ o conjunto de todas as pessoas do mundo.
-Definimos para cada pessoa $p\in \cal P$, os conjuntos $A_p$ e $C_p$ de todos
-os ancestrais e todos os filhos de $p$, respeitivamente.
-\endexample
-%%}}}
-
-%%{{{ eg: airports_direct_flights 
-\example.
-\label{airports_direct_flights}%
-Seja $\cal A$ o conjunto de todos os aeroportos.
-Para cada aeroporto $a\in\cal A$, seja
-$$
-D_a \defeq \setst { b \in \cal A } { \text{existe vôo direto de $a$ para $b$} }.
-$$
-\endexample
-%%}}}
-
-%%{{{ eg: books_and_authors 
-\example.
-\label{books_and_authors}%
-Seja $\cal B$ o conjunto de todos os livros.
-Para cada livro $b\in\cal B$, sejam
-$$
-\align
-A_b &\defeq \setstt a {$a$ é um autor do livro $b$}\\
-W_b &\defeq \setstt w {$w$ é uma palavra que aparece no texto do livro $b$}.
-\endalign
-$$
-\endexample
-%%}}}
-
-%%{{{ df: cartesian_product_of_indexed_family_of_sets 
-\definition Produto cartesiano (família).
-\label{cartesian_product_of_indexed_family_of_sets}%
-Seja $\family {A_i} {i\in \cal I}$ uma família de conjuntos
-indexada por um conjunto de índices $\cal I$.
-$$
-\Prod_{i\in \cal I}\defeq
-\setstt {\family {a_i} {i\in\cal I}} {$a_i\in A_i$ para todo $i\in\cal I$}.
-$$
-%%}}}
-
-\blah.
-Assim que ganhar pouca experiência com funções, vamos dar uma definição mais simples de produto cartesiano (\ref{Cartesian_product_of_indexed_family_of_sets_revisited}).
-
-\endsection
-%%}}}
-
 %%{{{ Big union; big intersections 
 \section União grande; intersecção grande.
 
 %%{{{ intro 
 \blah.
-Generalizamos agora as operações binárias de união e intersecção para suas versões arbitrárias, as operações unitárias $\Union\dhole$ e $\Inter\dhole$.
+Generalizamos agora as operações binárias de união e intersecção para suas
+versões arbitrárias, as operações unitárias $\Union\dhole$ e $\Inter\dhole$.
 Antes de dar uma definição, mostramos uns exemplos.
 Esses operadores são mais interessantes e úteis quando são aplicados em
 conjunto cujos membros são conjuntos também, pois---coloquiamente
@@ -10750,6 +10664,382 @@ Continuando assim conseguimos construir uma serie feita por termos da $\sum a_i$
 Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
 \qed
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Tuples 
+\section Tuplas.
+\label{Tuples}%
+
+\TODO Par ordenado como black box.
+
+\blah.
+Naturalmente, podemos generalizar a idéia de par ordenado, cujo tamanho é $2$, para um conceito
+correspondente de tamanho $n$, onde $n$ é qualquer número natural.  Oi, tuplas!
+
+\TODO Tuplas como black boxes.
+
+\endsection
+%%}}}
+
+%%{{{ Cartesian products 
+\section Produtos cartesianos.
+
+%%{{{ df: cartesian_product 
+\definition.
+\label{cartesian_product}%
+Sejam $A,B$ conjuntos.
+$$
+A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}
+$$
+%%}}}
+
+%%{{{ x: when_cartesian_commutes 
+\exercise.
+\label{when_cartesian_commutes}%
+Suponha que $A,B\neq\emptyset$.
+Escreva uma prova direta (sem usar reductio ad absurdum) do
+$A \times B = B\times A \iff A = B$.
+
+\hint
+Uma direção é trivial---por quê?
+
+\hint
+Como usamos os fatos $A\neq\emptyset$ e $B\neq\emptyset$?
+
+\endexercise
+%%}}}
+
+%%{{{ x: when_cartesian_commutes_absurdum 
+\exercise.
+Prove usando reductio ad absurdum a direção não-trivial
+do~\ref{when_cartesian_commutes}.
+
+\endexercise
+%}}}
+
+%%{{{ pseudodf: set_exp 
+\pseudodefinition.
+Sejam $A$ conjunto e $n\in\nats$ com $n\geq 2$.
+$$
+A^n \pseudodefeq \setstt {\tup{a_1,\dotsc,a_n}} {$a_i \in A$ para todo $2\leq i\leq n$}.
+$$
+%%}}}
+
+%%{{{ messy quantifier 
+\note.
+Na definição acima aparece a frase ``para todo $2\leq i\leq n$''.
+Qual é a variável ligada com esse ``para todo''?
+Bem, $2$ é um constante, e $n$ já foi declarado, então entendemos que a
+frase corresponde na quantificação:
+$$
+\lforall {i\in\nats} {2\leq i \leq n \limplies a_i \in A}.
+$$
+%%}}}
+
+%%{{{ df: set_exp_first_recursive_definition 
+\definition.
+\label{set_exp_first_recursive_definition}%
+Seja $A$ conjunto.
+Para $n\in\nats$ com $n\geq 2$ definimos os conjuntos:
+$$
+\align
+A^2     &= A\times A\\
+A^{n+1} &= A^n \times A.
+\endalign
+$$
+%%}}}
+
+\TODO As duas definições são equivalentes?
+
+\TODO O produto cartesiano é associativo?
+
+\endsection
+%%}}}
+
+%%{{{ Sequences and indexed families
+\section Seqüências.
+\label{Sequences}%
+
+\TODO Seqüências como black boxes.
+
+\TODO Seqüências de conjuntos.
+
+\TODO De tupla para família de conjuntos indexada por algum conjunto $\cal I$: $\family {A_i} {i\in \cal I}$.
+
+%%{{{ eg: anscestors_and_children 
+\example.
+\label{ancestors_and_children}%
+Seja $\cal P$ o conjunto de todas as pessoas do mundo.
+Definimos para cada pessoa $p\in \cal P$, os conjuntos $A_p$ e $C_p$ de todos
+os ancestrais e todos os filhos de $p$, respeitivamente.
+\endexample
+%%}}}
+
+%%{{{ eg: airports_direct_flights 
+\example.
+\label{airports_direct_flights}%
+Seja $\cal A$ o conjunto de todos os aeroportos.
+Para cada aeroporto $a\in\cal A$, seja
+$$
+D_a \defeq \setst { b \in \cal A } { \text{existe vôo direto de $a$ para $b$} }.
+$$
+\endexample
+%%}}}
+
+%%{{{ eg: books_and_authors 
+\example.
+\label{books_and_authors}%
+Seja $\cal B$ o conjunto de todos os livros.
+Para cada livro $b\in\cal B$, sejam
+$$
+\align
+A_b &\defeq \setstt a {$a$ é um autor do livro $b$}\\
+W_b &\defeq \setstt w {$w$ é uma palavra que aparece no texto do livro $b$}.
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ Q: how_would_you_define_Union_of_sequence 
+\question.
+\label{how_would_you_define_Union_of_sequence}%
+Imagina que temos, para cada $n\in\nats$, um conjunto $A_n$.%
+\footnote{Isso é chamado uma \dterm{seqüência} de conjuntos.
+Mais sobre isso:~\ref{Sequences}.}
+Como tu definirias os conjuntos
+$\Union_{n=0}^{\infty} A_n$
+e 
+$\Inter_{n=0}^{\infty} A_n$
+?
+%%}}}
+\spoiler.
+
+%%{{{ df: Union_Inter_of_sequence 
+\definition.
+\label{Union_Inter_of_sequence}%
+Definimos os operadores unários
+$\Union_{n=0}^{\infty}$ e
+$\Inter_{n=0}^{\infty}$ assim:
+suponha que $A_n$ é um conjunto para cada $n\in\nats$; definimos
+$$
+\xalignat2
+\Union_{n=0}^{\infty} A_n &\defeq \lexists {n \in \nats} {x \in A_n}&
+\Inter_{n=0}^{\infty} A_n &\defeq \lforall {n \in \nats} {x \in A_n}.
+\endxalignat
+$$
+%%}}}
+
+%%{{{ Union_Inter_of_sequences_as_sugar 
+\exercise.
+\label{Union_Inter_of_sequences_as_sugar}%
+Na~\ref{Union_Inter_of_sequence} definimos \emph{elementariamente}
+as operações $\Union_{n=0}^{\infty}$ e $\Inter_{n=0}^{\infty}$.
+Defina-las usando as operações de $\Union$ e $\Inter$.
+
+\solution
+Seja $A_n$ uma seqüência de conjuntos.
+Defina
+$$
+\Union_{n=0}^{\infty} \defeq \Union\setst {A_n} {n\in\nats}
+\qqqquad
+\mland
+\qqqquad
+\Inter_{n=0}^{\infty} \defeq \Inter\setst {A_n} {n\in\nats}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ df: Union_Inter_of_family 
+\definition.
+\label{Union_Inter_of_family}%
+Definimos os operadores unários
+$\Union_{i\in\cal I}$ e
+$\Inter_{i\in\cal I}$ assim:
+suponha que $\famil F i {\cal I}$ é uma família de conjuntos indexada por um
+conjunto de índices $\cal I$.
+Definimos
+$$
+\xalignat2
+\Union_{i\in\cal I} A_i &\defeq \lexists {i\in \cal I} {x \in A_i}&
+\Inter_{i\in\cal I} A_i &\defeq \lforall {i\in \cal I} {x \in A_i}.
+\endxalignat
+$$
+%%}}}
+
+%%{{{ prop: set_de_morgan_gen 
+\proposition.
+\label{set_de_morgan_gen}%
+\ii{dualidade}%
+Para todo conjunto $C$ e cada seqüência de conjuntos
+$\set{ A_n }_n$,
+$$
+\align
+C \setminus {\Union_{n=0}^\infty A_n} &= \Inter_{n=0}^{\infty} \paren{C \setminus A_n}\\
+C \setminus {\Inter_{n=0}^\infty A_n} &= \Union_{n=0}^{\infty} \paren{C \setminus A_n}.
+\endalign
+$$
+\proof Prova (usando fórmulas).
+Sejam $C$ conjunto e $\set{ A_n }_n$ seqüência de conjuntos.
+Calculamos
+$$
+\alignat2
+x \in C \setminus \Union_{n=0}^{\infty}A_n
+&\iff x \in C \land \lnot \biggparen{x \in \Union_{n=0}^{\infty}A_n}   \qqby{def.~$\setminus$}\\
+&\iff x \in C \land \lnot (\exists n\in\nats)[x \in A_n]  \qqby{def.~$\Union_{n=0}^{\infty}$}\\
+&\iff x \in C \land (\forall n\in\nats)[x \notin A_n]     \qqby{De Morgan}\\
+&\iff (\forall n\in\nats)[x \in C \land x \notin A_n]     \qqby{lógica}\\
+&\iff (\forall n\in\nats)[x \in C \setminus A_n]          \qqby{def.~$\setminus$}\\
+&\iff x \in \Inter_{n=0}^{\infty}(C \setminus A_n).       \qqby{def.~$\Inter_{n=0}^{\infty}$}
+\endalignat
+$$
+A prova da outra igualdade é similar:
+é só trocar os $\Union$ com os $\Inter$, e os $\exists$ com os $\forall$!
+\qed
+%%}}}
+
+\blah.
+Observe a semelhança entre essa prova e a prova da~\ref{set_de_morgan}:
+até nas justificativas de cada passo!
+Realmente, a~\ref{set_de_morgan_gen} é uma generalização
+da~\refn{set_de_morgan}, algo que tu provarás no exercício seguinte:
+
+%%{{{ x: set_de_morgan_gen_indeed 
+\exercise.
+\label{set_de_morgan_gen_indeed}%
+O que precisamos fazer para ganhar a~\ref{set_de_morgan} como um corolário
+da~\refn{set_de_morgan_gen}?
+
+\hint
+Quais são os dados que precisamos ter per aplicar a~\ref{set_de_morgan_gen}?
+
+\solution
+Dados conjuntos $A,B,C$, precisamos mostrar que:
+$$
+C \setminus (A \union B)
+=
+(C \setminus A) \inter (C \setminus B).
+$$
+Seja $\set{A_n}_n$ a seqüência $A,B,B,B,\dotsb$, (ou seja, a seqüência definida pelas:
+$A_0 = A$; e $A_i = B$ para $i > 0$).
+Pela~\ref{set_de_morgan_gen} temos então:
+$$
+C \setminus \munderbrace{\Union_{n=0}^\infty A_n} {A \union B}
+=
+\munderbrace{\Inter_{n=0}^{\infty} (C \setminus A_n)} {(C\setminus A) \inter (C\setminus B)}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: set_de_morgan_gen_nat_lang 
+\exercise.
+Escreva uma prova em linguagem natural da~\ref{set_de_morgan_gen}.
+
+\solution
+Mostramos as duas inclusões separadamente:
+\endgraf
+\lrdirset:
+Tome $x \in C \setminus \Union_{n=0}^{\infty}A_n$,
+ou seja, $x \in A_k$ para algum $k\in \nats$,
+e logo $x \notin C \setminus A_k$ e daí
+$x \notin \Inter_n \paren{C \setminus A_n}$
+(pois não pertence no seu $k$-ésimo conjunto)
+\endgraf
+A inclusão inversa \rldirset\ é similar.
+
+\endexercise
+%%}}}
+
+%%{{{ df: pairwise_disjoint 
+\definition.
+\label{pairwise_disjoint}%
+Seja $\scr A$ uma família de conjuntos.
+Chamamos seus membros \dterm{disjuntos dois a dois} sse nenhum deles
+tem elementos em comum com nenhum outro deles.
+Em símbolos:
+$$
+\align
+\text{os conjuntos da $\scr A$ são disjuntos dois a dois}
+&\defiff
+\lforall {A,B \in \scr A} {A \neq B \limplies A\inter B = \emptyset }.
+\intertext{Similarmente para famílias indexadas:}
+\text{os conjuntos da $\famil A i {\cal I}$ são disjuntos dois a dois}
+&\defiff
+\lforall {i,j \in \cal I} {i\neq j \limplies A_i \inter A_j = \emptyset}.
+\intertext{E logo para seqüências também:}
+\text{os conjuntos da $\sequence A n$ são disjuntos dois a dois}
+&\defiff
+\lforall {i,j \in \nats} {i\neq j \limplies A_i \inter A_j = \emptyset}.
+\endalign
+$$
+%%}}}
+
+%%{{{ x: disjoint_not_pairwise_disjoint 
+\exercise.
+\label{disjoint_not_pairwise_disjoint}%
+Ache uma família de conjuntos $\scr A$ com $\Inter \scr A = \emptyset$
+mas cujos membros não são disjuntos dois a dois.
+
+\solution
+Tome
+$$
+\scr A \asseq \set{ \set{0,1}, \set{1,2}, \set{7} }.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ warning: big_setops_vs_sum 
+\warning.
+\label{big_setops_vs_sum}%
+Uma diferença importantíssima entre os operadores $\sum{}$ e $\Union$ e seus indices:
+um ``somatório infinito'' não é nem associativo nem comutativo!
+O seguinte teorema de \Riemann{}Riemann é bastante impressionante!
+%%}}}
+
+%%{{{ thm: riemann_rearrangement 
+\theorem Riemann's rearrangement.
+\label{riemann_rearrangement}%
+Se uma serie infinita $\sum a_i$ de reais é \emph{condicionalmente convergente},%
+\footnote{Uma série $\sum a_i$ é \dterm{condicionalmente convergente}
+sse ela é convergente, mas a $\sum |a_i|$ não é.}
+então podemos apenas permutando seus termos criar uma nova serie infinita que
+converga em \emph{qualquer} $x\in[-\infty,\infty]$ que desejamos.
+\sketch.
+Separe as metas: (i) mostrar como criar uma série que converge num dado número $\ell$;
+(ii) mostrar como criar uma série divergente.
+\endgraf
+Observe que como $\sum a_i$ é condicionalmente convergente, ela contem uma infinidade
+de termos positivos, e uma infinidade de termos negativos.
+Para o (i), fixe um $\ell\in\reals$.
+Fique tomando termos positivos da serie $a_i$ até seu somatório supera o $\ell$.
+Agora fique tomando termos negativos da $a_i$ até seu somatório cai embaixo do $\ell$.
+Agora fique tomando termos positivos até superar o $\ell$, etc.~etc.
+Continuando assim conseguimos construir uma serie feita por termos da $\sum a_i$ que converge no $\ell$.
+\qes
+\proof.
+Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
+\qed
+%%}}}
+
+%%{{{ df: cartesian_product_of_indexed_family_of_sets 
+\definition Produto cartesiano (família).
+\label{cartesian_product_of_indexed_family_of_sets}%
+Seja $\family {A_i} {i\in \cal I}$ uma família de conjuntos
+indexada por um conjunto de índices $\cal I$.
+$$
+\Prod_{i\in \cal I}\defeq
+\setstt {\family {a_i} {i\in\cal I}} {$a_i\in A_i$ para todo $i\in\cal I$}.
+$$
+%%}}}
+
+\blah.
+Assim que ganhar pouca experiência com funções, vamos dar uma definição mais
+simples de produto cartesiano
+(\ref{Cartesian_product_of_indexed_family_of_sets_revisited}).
 
 \endsection
 %%}}}
