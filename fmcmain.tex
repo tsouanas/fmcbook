@@ -9320,20 +9320,51 @@ $$
 \definition Singleton.
 \label{singleton}%
 Um conjunto é \dterm{singleton} (ou \dterm{unitário}) sse ele contem
-apenas um elemento.
+exatamente um elemento.
+Formulamente,
+$$
+\Singleton(A)
+\defiff
+\exists x
+\paren{x \in A}
+\mland
+\lforall {u,v \in A} { u = v }.
+$$
 %%}}}
 
-%%{{{ x: define_singleton_formally 
+%%{{{ x: compare_altdef_of_singleton 
 \exercise.
-\label{define_singleton_formally}%
-Defina formalmete o predicado unário $\Singleton(A)$.
+\label{compare_altdef_of_singleton}%
+Decida se a afirmação seguinte pode servir como definição de singleton:
+$$
+\Singleton(A)
+\askiff
+\exists a
+\paren{ a \in A \land \forall x \paren{ x \in A \limplies x = a } }.
+$$
+
+\hint
+Substitua a fórmula longa com uma equivalente aproveitando
+uns açúcares sintácticos dos quantificadores $\forall, \exists$.
+
+\hint
+Escrevemos a fórmula
+$$
+\exists a
+\paren{ a \in A \land \forall x \paren{ x \in A \limplies x = a } }.
+$$
+como
+$$
+\paren{\exists a \in A}
+\lforall {x \in A} { x = a }.
+$$
 
 \endexercise
 %%}}}
 
 %%{{{ df: emptyset 
 \definition.
-\sdefined {\emptyset} {o conjunto vazio}
+\sdefined {\emptyset} {o conjunto vazio}%
 \label{emptyset_symbol}%
 Denotamos o conjunto vazio por $\emptyset$.
 \mistake
@@ -9933,6 +9964,21 @@ Dado $A$ conjunto, calcule os conjuntos $A\symdiff A$ e $A \symdiff \emptyset$.
 \endexercise
 %%}}}
 
+%%{{{ What symdiff really is 
+\note.
+Pensando pouco nas definições de
+$$
+A \symdiff B
+\qqqquad
+A = B
+$$
+concluimos que a diferença simétria de dois conjuntos tem exatamente
+todos os \dterm{testemunhos}\ii{testemunho}\ que mostram que
+os conjuntos são diferentes.
+O que podes concluir então assim que souberes que $A \symdiff B = \emptyset$?
+(Veja o~\ref{when_A_symdiff_B_is_empty}.)
+%%}}}
+
 \endsection
 %%}}}
 
@@ -10057,10 +10103,22 @@ a igualdade desses conjuntos, mostrando novamente as
 %%}}}
 
 \note.
-No~\refn{symdiff_def} eu dei uma definição elementária, usando a
-notação set-builder para determinar o conjunto $A\symdiff B$.
+No~\refn{symdiff_def} eu dei uma definição elementária,
+para determinar o conjunto $A\symdiff B$.
 De fato, seria até melhor \emph{definir} a operação $\symdiff$ usando uma das
 duas expressões acima.
+
+%%{{{ x: when_A_symdiff_B_is_empty 
+\exercise.
+Prove ou refute a afirmação:
+$$
+\text{para todo conjunto $A,B$,
+se $A\symdiff B = \emptyset$,
+então $A = B$}.
+$$
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
