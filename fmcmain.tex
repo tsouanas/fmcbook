@@ -10449,13 +10449,51 @@ $$
 \section Tuplas.
 \label{Tuples}%
 
-\TODO Par ordenado como black box.
-
 \blah.
-Naturalmente, podemos generalizar a idéia de par ordenado, cujo tamanho é $2$, para um conceito
-correspondente de tamanho $n$, onde $n$ é qualquer número natural.  Oi, tuplas!
+Começamos com a ideia de \dterm{par ordenado}, ou seja,
+um par de objetos onde um deles é considerado primeiro
+e o outro segundo.
+Naturalmente, podemos generalizar a idéia de par ordenado,
+cujo tamanho é $2$, para um conceito correspondente de tamanho $n$,
+onde $n$ é qualquer número natural.  Oi, tuplas!
 
-\TODO Tuplas como black boxes.
+%%{{{ Notation 
+\note Notação.
+Denotamos o par ordenado dos objetos $a$ e $b$ pelo $\tup{a, b}$ ou $\tupp{a, b}$.
+Em geral, usamos a notação $\tup{a_0, a_1, \dotsc, a_{n-1}}$ para uma tupla
+de tamanho $n$.
+%%}}}
+
+%%{{{ df: projections 
+\definition Projeções.
+Definimos as operações $\pi_i$ chamadas \dterm{projeções}, tais que
+para todos os $x,y$, temos
+$$
+\xalignat2
+\pi_0\tup{x,y} &= x &
+\pi_1\tup{x,y} &= y
+\endxalignat
+$$
+e similarmente para tuplas de tamanho $n$.
+%%}}}
+
+%%{{{ df: tuple_equality 
+\definition Igualdade.
+Definimos
+$$
+\align
+\tup{x,y} = \tup{x',y'}
+&\defiff
+x = x' \mland y = y'
+\intertext{Generalizando,}
+\tup{a_0,a_1,\dotsc,a_n} = \tup{b_0,b_1,\dotsc,b_m}
+&\defiff
+m = n
+\mland
+\text{$a_i = b_i$ para todo $i\in\set{0,\dotsc,n}$}
+\endalign
+$$
+%%}}}
 
 \endsection
 %%}}}
@@ -10535,56 +10573,33 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Sequences and indexed families
+%%{{{ Sequences 
 \section Seqüências.
 \label{Sequences}%
 
-\TODO Seqüências como black boxes.
+\note De tuplas para seqüências.
+A generalização de tuplas para seqüências é bem simples.
 
-\TODO Seqüências de conjuntos.
-
-\TODO De tupla para família de conjuntos indexada por algum conjunto $\cal I$: $\family {A_i} {i\in \cal I}$.
-
-%%{{{ eg: anscestors_and_children 
-\example.
-\label{ancestors_and_children}%
-Seja $\cal P$ o conjunto de todas as pessoas do mundo.
-Definimos para cada pessoa $p\in \cal P$, os conjuntos $A_p$ e $C_p$ de todos
-os ancestrais e todos os filhos de $p$, respeitivamente.
-\endexample
+%%{{{ Limits of sequnces 
+\note.
+No coração de calculus é o estudo de seqüências
+de números reais.  No~\ref{Real_numbers} definimos a noção de \dterm{limite} de
+uma seqüência de reais $\sequence a n$, e no~\ref{Metric_spaces}
+estendemos essa idéia num contexto mais geral e abstrato, onde
+os membros da seqüência não são necessariamente números reais,
+mas membros de um \emph{espaço métrico}.
+Nada mais por enquanto---paciência!
 %%}}}
 
-%%{{{ eg: airports_direct_flights 
-\example.
-\label{airports_direct_flights}%
-Seja $\cal A$ o conjunto de todos os aeroportos.
-Para cada aeroporto $a\in\cal A$, seja
-$$
-D_a \defeq \setst { b \in \cal A } { \text{existe vôo direto de $a$ para $b$} }.
-$$
-\endexample
-%%}}}
-
-%%{{{ eg: books_and_authors 
-\example.
-\label{books_and_authors}%
-Seja $\cal B$ o conjunto de todos os livros.
-Para cada livro $b\in\cal B$, sejam
-$$
-\align
-A_b &\defeq \setstt a {$a$ é um autor do livro $b$}\\
-W_b &\defeq \setstt w {$w$ é uma palavra que aparece no texto do livro $b$}.
-\endalign
-$$
-\endexample
+%%{{{ Sequences of sets 
+\note Seqüências de conjuntos.
+Mais interessante para a gente neste momento são \emph{seqüências de conjuntos}.
 %%}}}
 
 %%{{{ Q: how_would_you_define_Union_of_sequence 
 \question.
 \label{how_would_you_define_Union_of_sequence}%
-Imagina que temos, para cada $n\in\nats$, um conjunto $A_n$.%
-\footnote{Isso é chamado uma \dterm{seqüência} de conjuntos.
-Mais sobre isso:~\ref{Sequences}.}
+Imagina que temos definido, para cada $n\in\nats$, um conjunto $A_n$.
 Como tu definirias os conjuntos
 $\Union_{n=0}^{\infty} A_n$
 e 
@@ -10627,23 +10642,6 @@ $$
 $$
 
 \endexercise
-%%}}}
-
-%%{{{ df: Union_Inter_of_family 
-\definition.
-\label{Union_Inter_of_family}%
-Definimos os operadores unários
-$\Union_{i\in\cal I}$ e
-$\Inter_{i\in\cal I}$ assim:
-suponha que $\famil F i {\cal I}$ é uma família de conjuntos indexada por um
-conjunto de índices $\cal I$.
-Definimos
-$$
-\xalignat2
-\Union_{i\in\cal I} A_i &\defeq \lexists {i\in \cal I} {x \in A_i}&
-\Inter_{i\in\cal I} A_i &\defeq \lforall {i\in \cal I} {x \in A_i}.
-\endxalignat
-$$
 %%}}}
 
 %%{{{ prop: set_de_morgan_gen 
@@ -10730,6 +10728,133 @@ A inclusão inversa \rldirset\ é similar.
 \endexercise
 %%}}}
 
+%%{{{ warning: big_setops_vs_sum 
+\warning.
+\label{big_setops_vs_sum}%
+Uma diferença importantíssima entre os operadores $\sum{}$ e $\Union$ e seus indices:
+um ``somatório infinito'' não é nem associativo nem comutativo!
+O seguinte teorema de \Riemann{}Riemann é bastante impressionante!
+%%}}}
+
+%%{{{ thm: riemann_rearrangement 
+\theorem Riemann's rearrangement.
+\label{riemann_rearrangement}%
+Se uma serie infinita $\sum a_i$ de reais é \emph{condicionalmente convergente},%
+\footnote{Uma série $\sum a_i$ é \dterm{condicionalmente convergente}
+sse ela é convergente, mas a $\sum |a_i|$ não é.}
+então podemos apenas permutando seus termos criar uma nova serie infinita que
+converga em \emph{qualquer} $x\in[-\infty,\infty]$ que desejamos.
+\sketch.
+Separe as metas: (i) mostrar como criar uma série que converge num dado número $\ell$;
+(ii) mostrar como criar uma série divergente.
+\endgraf
+Observe que como $\sum a_i$ é condicionalmente convergente, ela contem uma infinidade
+de termos positivos, e uma infinidade de termos negativos.
+Para o (i), fixe um $\ell\in\reals$.
+Fique tomando termos positivos da serie $a_i$ até seu somatório supera o $\ell$.
+Agora fique tomando termos negativos da $a_i$ até seu somatório cai embaixo do $\ell$.
+Agora fique tomando termos positivos até superar o $\ell$, etc.~etc.
+Continuando assim conseguimos construir uma serie feita por termos da $\sum a_i$ que converge no $\ell$.
+\qes
+\proof.
+Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
+\qed
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Indexed families 
+\section Famílias indexadas.
+\label{Indexed_families}%
+
+\blah.
+Vamos agora generalizar o conceito de tupla para a
+\dterm{família indexada}\ii{família!indexada}
+por algum conjunto $\cal I$:
+$\family {a_i} {i\in \cal I}$ ou $\famst {a_i} {i\in \cal I}$.
+A idéia que nos motiva é: \emph{por quê nos limitar ``acessando''
+os membros de uma tupla apenas usando inteiros como indices (rótulos),
+enquanto podemos ``liberar'' qualquer objeto para servir como rótulo?}
+E é assim que fazemos mesmo.  Uns exemplos:
+
+%%{{{ eg: anscestors_and_children 
+\example.
+\label{ancestors_and_children}%
+Seja $\cal P$ o conjunto de todas as pessoas do mundo.
+Definimos para cada pessoa $p\in \cal P$, os conjuntos $A_p$ e $C_p$ de todos
+os ancestrais e todos os filhos de $p$, respeitivamente.
+Ou seja, acabamos de definir duas \emph{famílias indexadas} de conjuntos:
+a $\famil A p {\cal P}$ e a $\famil C p {\cal P}$.
+\endexample
+%%}}}
+
+%%{{{ eg: airports_direct_flights 
+\example.
+\label{airports_direct_flights}%
+Seja $\cal A$ o conjunto de todos os aeroportos.
+Para cada aeroporto $a\in\cal A$, seja
+$$
+D_a \defeq \setst { b \in \cal A } { \text{existe vôo direto de $a$ para $b$} }.
+$$
+Acabamos de definir uma família de conjuntos
+$\famst {D_a} {a \in \cal A}$.
+\endexample
+%%}}}
+
+%%{{{ eg: books_and_authors 
+\example.
+\label{books_and_authors}%
+Seja $\cal B$ o conjunto de todos os livros.
+Para cada livro $b\in\cal B$, sejam
+$$
+\align
+A_b &\defeq \setstt a {$a$ é um autor do livro $b$}\\
+W_b &\defeq \setstt w {$w$ é uma palavra que aparece no texto do livro $b$}.
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ df: Union_Inter_of_family 
+\definition.
+\label{Union_Inter_of_family}%
+Definimos os operadores unários
+$\Union_{i\in\cal I}$ e
+$\Inter_{i\in\cal I}$ assim:
+suponha que $\famil F i {\cal I}$ é uma família de conjuntos indexada por um
+conjunto de índices $\cal I$.
+Definimos
+$$
+\xalignat2
+\Union_{i\in\cal I} A_i &\defeq \lexists {i\in \cal I} {x \in A_i}&
+\Inter_{i\in\cal I} A_i &\defeq \lforall {i\in \cal I} {x \in A_i}.
+\endxalignat
+$$
+%%}}}
+
+%%{{{ df: cartesian_product_of_indexed_family_of_sets 
+\definition Produto cartesiano (família).
+\label{cartesian_product_of_indexed_family_of_sets}%
+Seja $\family {A_i} {i\in \cal I}$ uma família de conjuntos
+indexada por um conjunto de índices $\cal I$.
+$$
+\Prod_{i\in \cal I} A_i \defeq
+\setstt {\family {a_i} {i\in\cal I}} {$a_i\in A_i$ para todo $i\in\cal I$}.
+$$
+%%}}}
+
+\blah.
+Assim que ganhar pouca experiência com funções, vamos dar uma definição mais
+simples de produto cartesiano
+(\ref{Cartesian_product_of_indexed_family_of_sets_revisited}).
+
+\endsection
+%%}}}
+
+%%{{{ Pairwise-disjointness 
+\section Disjuntos dois-a-dois.
+
 %%{{{ df: pairwise_disjoint 
 \definition.
 \label{pairwise_disjoint}%
@@ -10768,55 +10893,6 @@ $$
 
 \endexercise
 %%}}}
-
-%%{{{ warning: big_setops_vs_sum 
-\warning.
-\label{big_setops_vs_sum}%
-Uma diferença importantíssima entre os operadores $\sum{}$ e $\Union$ e seus indices:
-um ``somatório infinito'' não é nem associativo nem comutativo!
-O seguinte teorema de \Riemann{}Riemann é bastante impressionante!
-%%}}}
-
-%%{{{ thm: riemann_rearrangement 
-\theorem Riemann's rearrangement.
-\label{riemann_rearrangement}%
-Se uma serie infinita $\sum a_i$ de reais é \emph{condicionalmente convergente},%
-\footnote{Uma série $\sum a_i$ é \dterm{condicionalmente convergente}
-sse ela é convergente, mas a $\sum |a_i|$ não é.}
-então podemos apenas permutando seus termos criar uma nova serie infinita que
-converga em \emph{qualquer} $x\in[-\infty,\infty]$ que desejamos.
-\sketch.
-Separe as metas: (i) mostrar como criar uma série que converge num dado número $\ell$;
-(ii) mostrar como criar uma série divergente.
-\endgraf
-Observe que como $\sum a_i$ é condicionalmente convergente, ela contem uma infinidade
-de termos positivos, e uma infinidade de termos negativos.
-Para o (i), fixe um $\ell\in\reals$.
-Fique tomando termos positivos da serie $a_i$ até seu somatório supera o $\ell$.
-Agora fique tomando termos negativos da $a_i$ até seu somatório cai embaixo do $\ell$.
-Agora fique tomando termos positivos até superar o $\ell$, etc.~etc.
-Continuando assim conseguimos construir uma serie feita por termos da $\sum a_i$ que converge no $\ell$.
-\qes
-\proof.
-Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
-\qed
-%%}}}
-
-%%{{{ df: cartesian_product_of_indexed_family_of_sets 
-\definition Produto cartesiano (família).
-\label{cartesian_product_of_indexed_family_of_sets}%
-Seja $\family {A_i} {i\in \cal I}$ uma família de conjuntos
-indexada por um conjunto de índices $\cal I$.
-$$
-\Prod_{i\in \cal I}\defeq
-\setstt {\family {a_i} {i\in\cal I}} {$a_i\in A_i$ para todo $i\in\cal I$}.
-$$
-%%}}}
-
-\blah.
-Assim que ganhar pouca experiência com funções, vamos dar uma definição mais
-simples de produto cartesiano
-(\ref{Cartesian_product_of_indexed_family_of_sets_revisited}).
 
 \endsection
 %%}}}
@@ -10897,7 +10973,27 @@ Calcule os conjuntos $\Inter_n A_n$ e $\Inter_n B_n$.
 \label{Multisets}%
 \iisee{bag}{multiset}%
 
-\note Multisets como black boxes.
+\blah.
+Coloquiamente falando, um \dterm{multiset}
+(também \dterm{bag} ou \dterm{sacola}) $M$ é como um conjunto,
+só que ele não pode responder apenas em perguntas do tipo
+<<o objeto $x$ pertence ao $M$?>>, mas também em
+<<\emph{quantas vézes pertence} o $x$ ao $M$?>>.
+Seus membros continuam sem ordem, mas agora tem \dterm{multiplicidade}.
+Usamos a notação
+$\bag{x_0, x_1, \dots, x_n}$
+para denotar multisets, ou até
+$\set{x_0, x_1, \dots, x_n}$
+sobrecarregando a notação $\set{\dots}$ se é claro pelo contexto
+que é um multiset e não um conjunto.
+
+\note Igualdade.
+Consideramos os multisets $M$ e $M'$ iguais sse para todo $x$,
+$$
+\text{$x$ pertence $n$ vezes ao $M$}
+\iff
+\text{$x$ pertence $n$ vezes ao $M'$}.
+$$
 
 \endsection
 %%}}}
@@ -11076,10 +11172,10 @@ Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pert
 Seja $A$ um conjunto, e $\sequence A n$ uma seqüência de subconjuntos de $A$.
 Sejam:
 $$
-\alignat 2
-A_* &= \Union_{i=0}^{\infty} \Inter_{j=i}^{\infty} A_j 
+\xalignat 2
+A_* &= \Union_{i=0}^{\infty} \Inter_{j=i}^{\infty} A_j &
 A^* &= \Inter_{i=0}^{\infty} \Union_{j=i}^{\infty} A_j
-\endalignat
+\endxalignat
 $$
 Como descreveria os elementos dos $A_*$ e $A^*$?
 É verdade que um desses conjuntos é subconjunto do outro? São iguais? São disjuntos?
@@ -20982,6 +21078,7 @@ isómorfo com o monóide $\sset {\nats_{>0}} {\ntimes}$
 
 %%{{{ chapter: The real numbers 
 \chapter Os números reais.
+\label{Real_numbers}%
 
 %%{{{ Axioms 
 \section Axiomas.
@@ -21034,6 +21131,7 @@ isómorfo com o monóide $\sset {\nats_{>0}} {\ntimes}$
 
 %%{{{ chapter: Metric spaces 
 \chapter Espaços métricos.
+\label{Metric_spaces}%
 
 %%{{{ Problems 
 \problems.
