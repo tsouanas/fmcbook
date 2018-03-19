@@ -10464,6 +10464,19 @@ Em geral, usamos a notação $\tup{a_0, a_1, \dotsc, a_{n-1}}$ para uma tupla
 de tamanho $n$.
 %%}}}
 
+%%{{{ Interface and equality 
+\note Interface e igualdade.
+Precisamos descrever qual é o ``interface primitivo'' desse novo
+tipo, e o que significa $=$ entre tuplas.
+Nosso único interface dada uma tupla de tamanho $n$, é que podemos
+pedir seu $i$-ésimo elemento, onde $0 \leq i < n$.
+Conversamente, para criar uma tupla de tamanho $n$, basta ter
+$n$ objetos $a_0, a_1, \dotsc, a_{n-1}$ (distintos ou não).
+Consideramos que duas tuplas são iguais se elas
+``concordam em cada posição''.
+Sem aspas, chegamos nas definições:
+%%}}}
+
 %%{{{ df: projections 
 \definition Projeções.
 Definimos as operações $\pi_i$ chamadas \dterm{projeções}, tais que
@@ -10499,7 +10512,8 @@ $$
 %%}}}
 
 %%{{{ Cartesian products 
-\section Produtos cartesianos.
+\section Produto cartesiano.
+\label{Cartesian_product}%
 
 %%{{{ df: cartesian_product 
 \definition.
@@ -10557,18 +10571,99 @@ $$
 \definition.
 \label{set_exp_first_recursive_definition}%
 Seja $A$ conjunto.
-Para $n\in\nats$ com $n\geq 2$ definimos os conjuntos:
+Para $n\in\nats$ com $n\geq 1$ definimos as \dterm{potências} de $A$ recursivamente pelas:
 $$
 \align
-A^2     &= A\times A\\
-A^{n+1} &= A^n \times A.
+A^1 &= A\\
+A^n &= A^{n-1} \times A \qquad \text{($n>2$)}.
 \endalign
 $$
 %%}}}
 
-\TODO As duas definições são equivalentes?
+%%{{{ Comparison with numbers (I) 
+\note Comparação com números (I).
+A semelhança entre a definição de potências de conjuntos e de números é gritante.
+Vamos investigar.
+Na~\ref{set_exp_first_recursive_definition} das duas equações recursivas
+$$
+\xalignat3
+A^n &= A^{n-1} \times A &
+A^n &= A \times A^{n-1}.
+\intertext{escolhemos a primeira.  Por quê?
+Observe que no caso de números, para a equação recursiva, as duas opções óbvias}
+a^n &= a^{n-1} \ntimes a &
+a^n &= a \ntimes a^{n-1} 
+\intertext{servem e são equivalentes.
+Uma explicação disso usa apenas o fato que a multiplicação de números é comutativa,
+então imediatamente temos $a^{n-1} \ntimes a = a \ntimes a^{n-1}$.
+Infelizmente não podemos contar nessa propriedade no caso de conjuntos,
+pois já sabemos que a $\times$ não é comutativa~(\ref{when_cartesian_commutes}).
+Mas as duas equações correspondem nas expressões}
+a^n &= \paren{\paren{\paren{\paren{\dotsb\paren{a\ntimes a}\ntimes a}\ntimes a} \dotsb} \ntimes a} &
+a^n &= \paren{a\ntimes \paren{\dotsb\paren{a\ntimes\paren{a\ntimes\paren{a \ntimes a}\dotsb}}}} &
+\endxalignat
+$$
+que são iguais agora por causa da \emph{associatividade} da operação $\ntimes$.
+%%}}}
 
-\TODO O produto cartesiano é associativo?
+%%{{{ Q: is times associative? 
+\question.
+O produto cartesiano é associativo?
+%%}}}
+\spoiler.
+
+%%{{{ A: answer with another question 
+\note Resposta.
+Respondemos nessa pergunta com outra:
+\emph{as tuplas}
+$$
+\tup{a_0, \tup{a_1, a_2}}
+\qquad
+\tup{\tup{a_0, a_1}, a_2}
+\qquad
+\tup{a_0, a_1, a_2}
+$$
+\emph{são iguais?}
+Depende.
+Queremos considerar elas como se fossem iguais, pois
+qualquer uma delas serve para satisfazer a especificação de tuplas:
+podemos definir as $i$-ésimas projecções para cada uma,
+e a igualdade vai acabar sendo satisfeita usando uma delas
+sse é satisfeita usando qualquer uma das outras.
+Para nos convencer que faz sentido considerar essas tuplas como iguais
+pense na idéia sobre a \emph{informação} que uma tupla carrega com ela.
+Agora tente ler as três tuplas em cima:
+$$
+\gather
+\text{\emph{Primeiro o objeto $a_0$, e depois temos: primeiro o $a_1$ e depois o $a_2$.}}\\
+\text{\emph{Primeiro temos: primeiro o objeto $a_0$ e depois o $a_1$; e depois temos o $a_2$.}}\\
+\text{\emph{Primeiro temos o objeto $a_0$ e depois o $a_1$ e depois o $a_2$.}}
+\endgather
+$$
+%%}}}
+
+%%{{{ Comparison with numbers (II) 
+\note Comparação com números (II).
+Uma diferença entre as definições de potências de números e de conjuntos
+é que no caso de conjuntos definimos o $A^n$ para todo $n \geq 1$,
+mas no caso de números naturáis conseguimos uma definição mais geral,
+definindo o $a^n$ para todo $n \geq 0$.
+Nossa base da recursão então foi $a^0 = 1$.
+Por quê $1$?
+%%}}}
+
+%%{{{ Unit 
+\note Unit.
+Se é para generalizar bem a definição de potências de números para o caso de
+conjuntos, procuramos nosso $1$, ou seja, uma \dterm{unidade}
+(também \dterm{identidade}, ou \dterm{elemento neutro})
+da nossa ``multiplicação'', $\times$.
+Essa unidade é chamada \dterm{unit}, e muito usada em linguagens de programação.
+Vamos usar o $\tup{}$ para denotá-la.
+Isso é um abuso notacional, pois $\tup{}$ também denota a tupla vazia,
+que é o único membro da unit;
+mas o contexto é em geral suficiente para tirar a ambigüidade.
+%%}}}
 
 \endsection
 %%}}}
@@ -10926,8 +11021,6 @@ linguagem natural e vice versa as afirmações e os objetos seguintes.
 
 \endexercise
 %%}}}
-
-\TODO More exercises.
 
 \endsection
 %%}}}
