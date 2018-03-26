@@ -10483,11 +10483,13 @@ Naturalmente, podemos generalizar a idéia de par ordenado,
 cujo tamanho é $2$, para um conceito correspondente de tamanho $n$,
 onde $n$ é qualquer número natural.  Oi, tuplas!
 
-%%{{{ Notation 
-\note Notação.
+%%{{{ Notation and terminology 
+\note Notação e terminologia.
 Denotamos o par ordenado dos objetos $a$ e $b$ pelo $\tup{a, b}$ ou $\tupp{a, b}$.
 Em geral, usamos a notação $\tup{a_0, a_1, \dotsc, a_{n-1}}$ para uma tupla
 de tamanho $n$.
+Quando queremos enfatisar o tamanho da tupla, falamos de \dterm{$n$-tupla}.
+Assim, um par ordenado é uma $2$-tupla.
 %%}}}
 
 %%{{{ Interface and equality 
@@ -10537,13 +10539,15 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Cartesian products 
+%%{{{ Cartesian product 
 \section Produto cartesiano.
 \label{Cartesian_product}%
 
 %%{{{ df: cartesian_product 
 \definition.
 \label{cartesian_product}%
+\tdefined{produto cartesiano}%
+\sdefined{{\holed A} \times {\holed B}}{o produto cartesiano dos \holed A e \holed B}%
 Sejam $A,B$ conjuntos.
 $$
 A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}
@@ -10698,8 +10702,21 @@ mas o contexto é em geral suficiente para tirar a ambigüidade.
 \section Seqüências.
 \label{Sequences}%
 
-\note De tuplas para seqüências.
+%%{{{ df: sequence 
+\definition Seqüência.
+\label{sequence}%
+\tdefined{seqüência}%
+\sdefined {\sequence {\holed a} n} {a seqüência ${\holed a}_0,{\holed a}_1,{\holed a}_2,\dotsc$}%
 A generalização de tuplas para seqüências é bem simples.
+Uma $n$-tupla $\tup{a_0,\dotsc,a_{n-1}}$ tem um membro para cada uma das
+$n$ posições $i = 0, \dotsc, n-1$, e nada mais.
+Uma \dterm{seqüência} tem um membro para cada natrual $i \in \nats$.
+Usamos a notação $\sequence a n$ para denotar a seqüência
+$$
+a_0, a_1, a_2, a_3, \dotsc
+$$
+Uma \dterm{seqüência finita} é apenas uma $n$-tupla, para algum $n\in\nats$.
+%%}}}
 
 %%{{{ Limits of sequnces 
 \note.
@@ -11083,6 +11100,110 @@ Calcule os conjuntos $\Inter_n A_n$ e $\Inter_n B_n$.
 
 \endexercise
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Generalized cartesian product 
+\section Produto cartesiano generalizado.
+
+%%{{{ ideia 
+\note.
+Vamos começar com
+\emph{dois objetos} $a$ e $b$, nessa ordem,
+ou seja com uma tupla $\tup{a,b}$.
+Já sabemos como generalizar essa idéia para uma \emph{família indexada}
+por um conjunto abstrato de índices $\cal I$, chegando assim
+na $\famil a i {\cal I}$.
+\endgraf
+Agora comece com \emph{dois conjuntos} $A$ e $B$, nessa ordem,
+ou seja com uma tupla $\tup{A,B}$.
+Podemos formar o \emph{produto cartesiano} dela,
+que em vez de escrever $\times\tup{A,B}$ escrevemos com
+notação comum e infixa $A\times B$.
+$$
+\text{produto de $\tup{A,B}$}
+= \setst {\tup{a,b}} {a \in A \mland b \in B} 
+$$
+Com mais detalhes:
+o \emph{produto da tupla de conjuntos} $\tup{A,B}$
+é \emph{o conjunto de todas as tuplas} $\tup{a,b}$ tais que seu \emph{primeiro}
+membro pertence no \emph{primeiro} membro da nossa tupla de conjuntos
+$\tup{A,B}$, e seu \emph{segundo} membro pertence no \emph{segundo} membro de
+$\tup{A,B}$.
+%%}}}
+
+\question.
+Como generalizar isso de tuplas para famílias indexadas?
+Lembre-se que em famílias indexadas não existe mais essa idéia de
+\emph{primeiro} e \emph{segundo} membro.
+Em vez disso, temos \emph{membro no índice $i$},
+um para cada $i\in\cal I$.
+\spoiler.
+
+%%{{{ in search for a generalization 
+\note Procurando uma generalização.
+Antes de responder na pergunta, vamos construir nosso caminho
+numa forma mais metódica.
+$$
+\matrix
+\format
+\c & \quad\c\quad & \c \\
+\tup{A,B} & \leadsto & A\times B \\
+\famil A i {\cal I} & \leadsto & ??
+\endmatrix
+$$
+Um passo importante é perceber que nessa situação são envolvidos
+dois processos: um de ``formar o produto de coisas'',
+e outro de ``generalizar de tuplas para famílias indexadas''.
+Então uma imagem melhor seria o diagrama
+$$
+\cdopt{sep=2cm}
+\tup{A,B}   \ar[r, "\text{product}"]\ar[d, "\text{generalize}"'] \| A\times B\ar[d, dashed, "\text{generalize}"]\\
+\famil A i {\cal I}   \ar[r, dashed, "\text{product}"]                  \| ??
+\endcd
+$$
+onde idealmente deveria \dterm{comutar}, que informalmente quis dizer que
+os dois caminhos que nos levam de $\tup{A,B}$ para o desejado $??$
+vão chegar na mesma coisa.
+(Teremos muito mais a falar sobre \dterm{diagramas comutativos} nos próximos
+capítulos.)
+\endgraf
+Assim fica mais fácil achar o $??$:
+$$
+\cdopt{column sep=2cm, row sep=6mm}
+\tup{A,B}       \ar[r]\ar[d] \| \setst  {\tup{a,b}}     {a\in A \mland b\in B}\ar[d]\\
+\tup{A_0,A_1}   \ar[r]\ar[d] \| \setst  {\tup{a_0,a_1}} {a_0\in A_0 \mland a_1\in A_1}\ar[d]\\
+\tup{A_0,A_1}   \ar[r]\ar[d] \| \setstt {\tup{a_0,a_1}} {$a_i\in A_i$ para todo $i\in\set{0,1}$}\ar[d, dashed]\\
+\famil A i {\cal I}   \ar[r, dashed]                          \| ??
+\endcd
+$$
+A definição correta agora da idéia que estavamos procurando é óbvia:
+$$
+\text{%
+o produto da $\famil A i {\cal I}$
+é o conjunto
+$\setstt {\famil a i {\cal I}} {$a_i \in A_i$ para todo $i\in\cal I$}$
+}.
+$$
+Só básta achar uma notação legal para esse conjunto, e essa escolha também é fácil.
+%%}}}
+
+%%{{{ df: gartesian porduct of an indexed family of sets 
+\definition Produto cartesiano de família.
+\label{cartesian_product_generalized}%
+\tdefined{produto cartesiano}[generalizado]%
+\sdefined
+    {\prod_{\holed i\in{\holed {\cal I}}} {\holed {A_i}}}
+    {o produto cartesiano da família indexada de conjuntos $\famil A i {\cal I}$.}%
+Seja $\famil A i {\cal I}$ uma família indexada de conjuntos.
+Definimos seu \dterm{produto cartesiano}
+$$
+\prod_{i\in\cal I} A_i
+\defeq
+\setstt {\famil a i {\cal I}} {$a_i \in A_i$ para todo $i\in\cal I$}.
+$$
+%}}}
 
 \endsection
 %%}}}
@@ -12959,12 +13080,10 @@ $$
 %%}}}
 
 %%{{{ Product of family of sets 
-\section Produto de família de conjuntos.
+\section Produto de família de conjuntos revisitado.
 \label{Cartesian_product_of_indexed_family_of_sets_revisited}%
 
 \TODO Definição, idéia, exercícios.
-
-\TODO CD of tuples, cartesian product, functions, generalized.
 
 \endsection
 %%}}}
