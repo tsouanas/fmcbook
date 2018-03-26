@@ -10468,6 +10468,39 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ x: inter_subseteq_union_for_nondisjoint_families 
+\exercise.
+Sejam $\scr A, \scr B$ famílias de conjuntos
+com $\scr A \inter \scr B \neq \emptyset$.
+Prove ou refute a afirmação:
+$$
+\Inter\scr A \subseteq \Union\scr B.
+$$
+
+\hint
+A afirmação é verdadeira.  Prove!
+
+\hint
+Como usarás a hipótese $\scr A \inter \scr B \neq \emptyset$?
+
+\hint
+Use as definições de $\Inter$ e $\Union$.
+
+\solution
+Vamos provar a afirmação.
+Suponha $x \in \Inter\scr A$\fact1.
+Para mostrar que $x \in \Union\scr B$, basta achar um membro da $\scr B$ em que o $x$ pertence.
+Seja $W \in \scr A \inter \scr B$ (sabemos que $\scr A \inter \scr B \neq \emptyset$).
+Logo $W \in \scr A$\fact2~e $W \in \scr B$ (def.~$\inter$).
+Pelas \byfact1,\byfact2 temos $x\in W$,
+e como $W \in \scr B$, temos o desejado $x \in \Union\scr B$.
+\endgraf
+(Obs.: demonstramos assim um $W$ tal que
+$\Inter\scr A \subseteq W \subseteq \Union\scr B$.)
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -10552,6 +10585,49 @@ Sejam $A,B$ conjuntos.
 $$
 A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}
 $$
+%%}}}
+
+%%{{{ x: times_distributes_over_union_and_inter 
+\exercise.
+\label{times_distributes_over_union_and_inter}
+Sejam $A,B,C$ conjuntos.  Prove que:
+$$
+\align
+A \times (B \union C) &= (A \times B) \union (A\times C)\\
+A \times (B \inter C) &= (A \times B) \inter (A\times C).
+\endalign
+$$
+
+\solution
+Vamos provar a
+$$
+A \times (B \union C) = (A \times B) \union (A\times C).
+$$
+Mostramos as duas inclusões separadamente:
+\endgraf
+\lrdirset:
+Seja $w \in A \times (B\union C)$.
+Logo $w = \tup{a,d}$ para algum $a \in A$ e algum $d\in B\union C$ (def.~$\times$).
+Logo $d\in B$ ou $d \in C$ (def.~$\union$).
+Caso $d \in B$, temos $w = \tup{a,d} \in A \times B$ (def.~$\times$).
+Caso $d \in C$, temos $w = \tup{a,d} \in A \times C$ (def.~$\times$).
+Nos dois casos concluimos que $w \in (A \times B) \union (A\times C)$ pela definição de $\union$.
+\endgraf
+\rldirset:
+Seja $w \in (A \times B) \union (A\times C)$.
+Logo $w\in (A\times B)$ ou $w \in (A\times C)$ (def.~$\union$).
+Caso $w \in (A \times B)$, temos $w = \tup{a,b}$ para algum $a\in A$ e algum $b\in B$ (def.$\times$).
+Logo $b \in B\union C$ (pois $b\in B$) (def.~$\union$).
+Logo pela definição de $\times$ temos o desejado $w = \tup{a,b} \in A \times (B\union C)$.
+O caso $w \in (A \times C)$ é similar.
+\endgraf
+A igualdade
+$$
+A \times (B \inter C) = (A \times B) \inter (A\times C)
+$$
+é provada similarmente.
+
+\endexercise
 %%}}}
 
 %%{{{ x: when_cartesian_commutes 
@@ -11242,12 +11318,12 @@ $$
 %%{{{ Problems 
 \problems.
 
-%%{{{ sequence_of_sets_inclusions_tricky_indices 
+%%{{{ sequence_of_sets_inclusions_tricky_indices_1 
 \problem.
-\label{sequence_of_sets_inclusions_tricky_indices}%
+\label{sequence_of_sets_inclusions_tricky_indices_1}%
 Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos,
 tais que para todo $n\in\nats$,
-$A_n \subsetneq B_{n+1}$.
+$A_n \subseteq B_{n+1}$.
 Prove que:
 $$
 \Union_{n=0}^\infty A_n \subseteq \Union_{n=0}^{\infty} B_n.
@@ -11267,25 +11343,52 @@ $x \in \Union_{n=0}^{\infty} B_n$
 \endproblem
 %%}}}
 
+%%{{{ sequence_of_sets_inclusions_tricky_indices_2 
+\problem.
+\label{sequence_of_sets_inclusions_tricky_indices_2}%
+Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos tais que
+$$
+\text{para todo número par $m$, $A_m \subseteq B_{m/2}$.}
+$$
+Prove que:
+$$
+\Inter_{n=0}^\infty A_n \subseteq \Inter_{n=0}^{\infty} B_n.
+$$
+
+\solution
+Suponha $x \in \Inter_{n=0}^\infty A_n$.
+Preciso mostrar que $x \in \Inter_{n=0}^{\infty} B_n$,
+ou seja, provar que $x\in B_k$ para todo $k\in\nats$.
+Seja $k \in \nats$.
+Como $x \in \Inter_{n=0}^{\infty}A_n$, temos $x \in A_{2k}$.
+Mas $A_{2k} \subseteq B_k$, logo $x \in B_k$.
+
+\endproblem
+%%}}}
+
 %%{{{ sequence_of_sets_inclusions_counterexample 
 \problem.
 \label{sequence_of_sets_proper_inclusions_counterexample}%
 Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos,
 tais que para todo $n\in\nats$,
 $A_n \subsetneq B_n$.
-Podemos concluir que
+Podemos concluir alguma das afirmações seguintes?:
 $$
-\Union_{n=0}^\infty A_n \subsetneq \Union_{n=0}^{\infty} B_n\,?
+\align
+\Union_{n=0}^\infty A_n &\subsetneq \Union_{n=0}^{\infty} B_n\\
+\Inter_{n=0}^\infty A_n &\subsetneq \Inter_{n=0}^{\infty} B_n
+\endalign
 $$
 
 \hint
-Procure um contraexemplo:
+Procure contraexemplos:
+para cada afirmação,
 defina duas seqüências $\sequence A n$ e $\sequence B n$
 que satisfazem a condição do problema, e mesmo assim,
 não é valida a conclusão proposta.
 
 \solution
-Vamos construir um contraexemplo.
+Vamos construir um contraexemplo para cada afirmação.
 \endgraf
 Considere as seqüências de conjuntos seguintes:
 para todo $n\in\nats$ define
@@ -11304,6 +11407,20 @@ $$
 Mesmo assim,
 $$
 \Union_{n=0}^\infty A_n = \reals = \Union_{n=0}^{\infty} B_n.
+$$
+\endgraf
+Para refutar a segunda afirmação, considere
+as seqüências de conjuntos seguintes:
+para todo $n\in\nats$ defina
+$$
+A_n \eqass \setst {k \in \nats}  {k > n}
+\qquad\qquad
+B_n \eqass \setst {k \in \nats}  {k \geq n}
+$$
+Observe que, realmente, para todo $n\in\nats$ temos $A_n \subsetneq B_n$.
+Mesmo assim,
+$$
+\Inter_{n=0}^\infty A_n = \emptyset = \Inter_{n=0}^{\infty} B_n.
 $$
 
 \endproblem
@@ -17948,12 +18065,12 @@ Os (1) e (2) garantam as (G0) e (G3) respectivamente,
 e o fato que $G$ é grupo garanta a (G1) também.
 Basta verificar a (G2), ou seja, que $e\in H$:
 $$
-\alignat2
-&\text{Tome $a\in H$.}                   \qqby{$H\neq\emptyset$\,}\\
-&\text{\ttherefore $a^{-1} \in H$}       \qqby{pela (ii)}\\
-&\text{\ttherefore $a\ast a^{-1} \in H$} \qqby{pela (i)}\\
-&\text{\ttherefore $e \in H$}            \qqby{def.~$a^{-1}$}
-\endalignat
+\stepproof{
+\proofsteptby {Tome $a\in H$.}       {$H\neq\emptyset$\,}\\
+\thereforetby {$a^{-1} \in H$}       {pela (ii)}\\
+\thereforetby {$a\ast a^{-1} \in H$} {pela (i)}\\
+\thereforetby {$e \in H$}            {def.~$a^{-1}$}
+}
 $$
 \qed
 %%}}}
@@ -18170,17 +18287,17 @@ $a^{-1} \in H_1\inter H_2$.
 Como $H_1\inter H_2 \subseteq G$,
 precisamos mostrar que é fechado sobre a operação:
 $$
-\alignat2
-&a,b \in H_1\inter H_2\\
-&\text{\ttherefore $a,b \in H_1$ e $a,b\in H_2$   }      \qqby{def.~$\inter$}\\
-&\text{\ttherefore $ab  \in H_1$ e $ab\in H_2$    }      \qqby{$H_1$ e $H_2$ grupos}\\
-&\text{\ttherefore $ab  \in H_1\inter H_2$ }      \qqby{def.~$\inter$}
+\stepproof{
+\proofsteptnb {$a,b \in H_1\inter H_2$}\\
+\thereforetby {$a,b \in H_1$ e $a,b\in H_2$} {def.~$\inter$}\\
+\thereforetby {$ab  \in H_1$ e $ab\in H_2$}  {$H_1$ e $H_2$ grupos}\\
+\thereforetby {$ab  \in H_1\inter H_2$}      {def.~$\inter$}
 \intertext{e sobre os inversos:}
-&a \in H_1\inter H_2\\
-&\text{\ttherefore $a      \in H_1$ e $a\in H_2$      } \qqby{def.~$\inter$}\\
-&\text{\ttherefore $a^{-1} \in H_1$ e $a^{-1}\in H_2$ } \qqby{$H_1$ e $H_2$ grupos}\\
-&\text{\ttherefore $a^{-1} \in H_1\inter H_2$  } \qqby{def.~$\inter$}
-\endalignat
+\proofsteptnb {$a \in H_1\inter H_2$}\\
+\thereforetby {$a      \in H_1$ e $a\in H_2$}      {def.~$\inter$}\\
+\thereforetby {$a^{-1} \in H_1$ e $a^{-1}\in H_2$} {$H_1$ e $H_2$ grupos}\\
+\thereforetby {$a^{-1} \in H_1\inter H_2$}         {def.~$\inter$}
+}
 $$
 %%}}}
 
@@ -18197,17 +18314,17 @@ no~\ref{intersection_of_subgroups_is_a_subgroup}.
 <<Como $H \leteq H_1\inter H_2 \subseteq G$,
 precisamos mostrar que $H$ é fechado sobre a operação:
 $$
-\alignat2
-&a,b \in H_1\union H_2\\
-&\text{\ttherefore $a,b \in H_1$ ou $a,b\in H_2$} \qqby{def.~$\union$}\\
-&\text{\ttherefore $ab \in H_1$ ou $ab\in H_2$  } \qqby{$H_1$ e $H_2$ grupos}\\
-&\text{\ttherefore $ab \in H_1\union H_2$       } \qqby{def.~$\union$}
+\stepproof{
+\proofsteptnb {$a,b \in H_1\union H_2$}\\
+\thereforetby {$a,b \in H_1$ ou $a,b\in H_2$} {def.~$\union$}\\
+\thereforetby {$ab \in H_1$ ou $ab\in H_2$  } {$H_1$ e $H_2$ grupos}\\
+\thereforetby {$ab \in H_1\union H_2$       } {def.~$\union$}
 \intertext{e sobre os inversos:}
-&a \in H_1\union H_2\\
-&\text{\ttherefore $a \in H_1$ ou $a\in H_2$          } \qqby{def.~$\union$}\\
-&\text{\ttherefore $a^{-1} \in H_1$ ou $a^{-1}\in H_2$} \qqby{$H_1$ e $H_2$ grupos}\\
-&\text{\ttherefore $a^{-1} \in H_1\union H_2$         } \qqby{def.~$\union$}
-\endalignat
+\proofsteptnb {$a \in H_1\union H_2$}\\
+\thereforetby {$a \in H_1$ ou $a\in H_2$          } {def.~$\union$}\\
+\thereforetby {$a^{-1} \in H_1$ ou $a^{-1}\in H_2$} {$H_1$ e $H_2$ grupos}\\
+\thereforetby {$a^{-1} \in H_1\union H_2$         } {def.~$\union$}
+}
 $$
 Logo, $H_1 \union H_2 \subgroup G$.>>
 }
@@ -25636,15 +25753,15 @@ b\in B
 $$
 Vamos ver:
 $$
-\alignat2
-&\text{Suponha $a\in A$ e $b\in B$.}\\
-&\text{\ttherefore $a,b \in A\union B$}                                 \qqby{def.~$\union$}\\
-&\text{\ttherefore $\set {a}, \set{a,b} \subseteq A \union B$}          \qqby{def.~$\subseteq$}\\
-&\text{\ttherefore $\set {a}, \set{a,b} \in \pset\paren{A \union B}$}   \qqby{def.~$\pset$}\\
-&\text{\ttherefore $\kurpair a b \subseteq \pset\paren{A \union B}$}    \qqby{def.~$\subseteq$}\\
-&\text{\ttherefore $\kurpair a b \in \pset\pset\paren{A \union B}$}     \qqby{def.~$\pset$}\\
-&\text{\ttherefore $\tup {a, b} \in \pset\pset\paren{A \union B}$}     \qqby{def.~$\tup{a,b}$}
-\endalignat
+\stepproof{
+\proofsteptnb {Suponha $a\in A$ e $b\in B$.}\\
+\thereforetby {$a,b \in A\union B$}                               {def.~$\union$}\\
+\thereforetby {$\set {a}, \set{a,b} \subseteq A \union B$}        {def.~$\subseteq$}\\
+\thereforetby {$\set {a}, \set{a,b} \in \pset\paren{A \union B}$} {def.~$\pset$}\\
+\thereforetby {$\kurpair a b \subseteq \pset\paren{A \union B}$}  {def.~$\subseteq$}\\
+\thereforetby {$\kurpair a b \in \pset\pset\paren{A \union B}$}   {def.~$\pset$}\\
+\thereforetby {$\tup {a, b} \in \pset\pset\paren{A \union B}$}    {def.~$\tup{a,b}$}
+}
 $$
 Tome então $W\asseq \pset\pset\paren{A \union B}$
 e defina
