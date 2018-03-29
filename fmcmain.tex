@@ -11058,11 +11058,6 @@ $$
 $$
 %%}}}
 
-\blah.
-Assim que ganhar pouca experiência com funções, vamos dar uma definição mais
-simples de produto cartesiano
-(\ref{Cartesian_product_of_indexed_family_of_sets_revisited}).
-
 \endsection
 %%}}}
 
@@ -11715,9 +11710,105 @@ mapa,
 map,
 operação,
 operador,
-procedimento,
 etc.
 %%}}}
+
+%%{{{ Intension vs. extension 
+\note Intensão vs{.}~extensão.
+Como nos conjuntos, temos novamente a idéia de \dterm{intensão}
+e \dterm{extensão} de uma função.
+Pensanso uma função como uma caixa que dentro dela tem um \emph{programa},
+a extensão dela seria o que ela faz mesmo internalmente (isso seria sua
+\emph{intensão}), mas o que ela \emph{consegue}.
+Imaginando duas ``caixas pretas'' $f$ e $g$ onde podemos apenas observar
+seus comportamentos usando os seus interfaces e nada mais, faz sentido
+considerar iguais aquelas que não conseguimos demonstrar nenhum comportamento diferente.
+Ou seja: qualquer entrada \emph{aceitável} para uma, deve ser \emph{aceitável}
+para a outra também (pois, se não, isso já seria uma diferença observável);
+e ainda mais, para a mesma entrada, as funções tem que atribuir o mesmo
+valor---novamente: se não isso já seria um comportamento diferente e
+observável.
+%%}}}
+
+%%{{{ What about the codomain? 
+\note E o codomínio?.
+\label{what_about_the_codomain}%
+Em matemática clássica, e especialmente em análise, não consideramos que o codomínio duma função ``faz parte dela''.
+Ou seja, a mesma função $\sin$, por exemplo, pode ser considerada como
+$$
+\alignat3
+\sin_1 &: \reals\to\reals     &
+\sin_2 &: \reals\to[-1,1]     &
+\sin_3 &: \reals\to(\infty,2) .
+\endalignat
+$$
+Para esse matemático então, \emph{o codomínio não é algo observável:}
+como tu vai diferenciar entre as $\sin_1, \sin_2, \sin_3$ em cima,
+se teu único interface é dando objetos para elas, e observando seus valóres (saídas)?
+Pois é, não tem como.
+No outro lado, se alterar os domínios isso já é uma diferença demonstrável
+(observável) com esse mesmo único interface.
+%%}}}
+
+%%{{{ x: how? 
+\exercise.
+Como?
+
+\hint
+O que significa que os domínios de duas funções são diferentes?
+
+\solution
+Se $f : A \to B$ e $g : C \to D$ são funções com $A\neq C$,
+pela definição de igualdade de conjuntos, existe $x \in A\symdiff C$.
+Para esse $x$, as funções vão comportar diferentemente.
+Se $x \in A$ (e logo $x\notin C$), a $f$ vai aceitar o $x$
+e vamos observar sua saida $f(x)$, mas a $g$ não vai aceitar
+o $x$, e assim não vamos ver nenhuma saida;
+Similarmente, se $x \in C$ (e logo $x\notin A$).
+
+\endexercise
+%%}}}
+
+%%{{{ Recoverable or not? 
+\note Recuperável ou não?.
+Com esse ponto de vista, o domínio é um conjunto \emph{recuperável}
+pela própria função $f$, pois podemos definir:
+$$
+\dom f
+\defeq
+\setstt x {$f(x)$ é definido}.
+$$
+Mas o codomínio não!
+%%}}}
+
+%%{{{ x: cod_pseudodef 
+\exercise.
+Qual o problema com essa suposta definição de codomínio de uma função $f$?:
+$$
+\cod f
+\defeq
+\setstt y {$f(x) = y$ para algum $x \in dom f$}.
+$$
+
+\hint
+Aplique a $\cod$ nos $\sin_1,\sin_2,\sin_3$ do \ref{what_about_the_codomain}.
+
+\solution
+Aplicando essa definição de $\cod$ nas $\sin_1,\sin_2,\sin_3$ do \ref{what_about_the_codomain},
+temos que
+$$
+\cod{\sin_1}
+= \cod{\sin_2}
+= \cod{\sin_3}
+$$
+mesmo que claramente não foi essa a nossa intenção.
+
+\endexercise
+%%}}}
+
+\blah.
+Tendo uma função $f : A \to B$ então, podemos considerar ela como uma função
+com codomínio qualquer superconjunto de $B$, sem mudar nada observável.
 
 %%{{{ df: f_eq_g 
 \definition Igualdade.
@@ -11730,12 +11821,6 @@ Digamos que $f=g$ sse \emph{quaisquer duas} das afirmações seguintes são vál
 \li para todo $x \in \dom g$, $f(x) = g(x)$.
 \endol
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Intension vs. Extension 
-\section Intensão vs{.}~extensão.
 
 %%{{{ df: function_graph 
 \definition.
@@ -11875,6 +11960,31 @@ satisfaz a $\phi(x,v)$.
 \blah.
 Deixamos a notação mais interessante para definir funções para depois.
 Ela merece uma secção própria (\refn{Lambda_notation})!
+
+\endsection
+%%}}}
+
+%%{{{ λ-notation and the mapsto arrow 
+\section A notação $\lambda$ e a setinha barrada $\mapsto$.
+\label{Lambda_notation}%
+
+\TODO De palavras para a notação lambda.
+
+\TODO Função anônima.
+
+\TODO Convenções.
+
+%%{{{ x: eta_conversion_first_encounter 
+\exercise.
+\label{eta_conversion_first_encounter}%
+Sejam $f : A \to B$.
+Qual nome tu daria para a função $\lam x {f\, x}$?
+
+\solution
+$f$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -12322,31 +12432,6 @@ de ``redemoinhos'' que aparecem nos seus diagramas.
 \section Diagramas comutativos.
 
 \TODO Como expressar o lei da identidade usando apenas a comutatividade de um diagrama.
-
-\endsection
-%%}}}
-
-%%{{{ λ-notation and the mapsto arrow 
-\section A notação $\lambda$ e a setinha barrada $\mapsto$.
-\label{Lambda_notation}%
-
-\TODO De palavras para a notação lambda.
-
-\TODO Função anônima.
-
-\TODO Convenções.
-
-%%{{{ x: eta_conversion_first_encounter 
-\exercise.
-\label{eta_conversion_first_encounter}%
-Sejam $f : A \to B$.
-Qual nome tu daria para a função $\lam x {f\, x}$?
-
-\solution
-$f$.
-
-\endexercise
-%%}}}
 
 \endsection
 %%}}}
