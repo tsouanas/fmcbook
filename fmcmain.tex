@@ -11640,8 +11640,8 @@ f : A \to B
 \dom f = A\;\mland\;
 \cod f = B.
 $$
-Escrevemos também $f\,x$ em vez de $f(x)$,
-e em certos casos (mais raros) até $x\,f$.
+Escrevemos também $f\app x$ em vez de $f(x)$,
+e em certos casos (mais raros) até $x\app f$.
 %%}}}
 
 %%{{{ f : A -> B  and  A --f--> B  notations 
@@ -11670,15 +11670,17 @@ Com isso entendemos que não existe ambigüidade, ou seja, para uma entrada $x$,
 a $f$ não pode ter mais que uma saida.
 E graças a outra frase, ``para todo $x\in A$'', sabemos que tem
 \emph{exatamente uma} saida.  Esta saida é o que denotamos por $f(x)$.
-Resumindo:
+\endgraf
+Resumindo: para todo $x\in\dom f$,
 \beginil
-\item{(1)} Para todo $x\in\dom f$, $f(x)$ é definido (totalidade);
-\item{(2)} Exite no máximo um $y\in\cod f$ com $f(x) = y$ (determinicidade).
+\item{(1)} existe pelo menos um $y\in\cod f$ tal que $y = f(x)$ (totalidade);
+\item{(2)} exite no máximo um $y\in\cod f$ tal que $y = f(x)$ (determinicidade).
 \endil
 \noindent
-Quando o (1) acontece dizemos que \emph{a função é definida em todo o seu domínio}.
+Quando o (1) acontece dizemos que \emph{a $f$ é definida em todo o seu domínio}.
 %%}}}
 
+%%{{{ Arity and tuples 
 \note Aridade e tuplas.
 \ii{aridade}%
 No jeito que ``definimos'' o que é uma função, ela só pode depender
@@ -11687,6 +11689,7 @@ Isso parece bastante limitante, pois estamos já acostumados
 com funções com aridades diferentes.%
 \footnote{Lembra-se que \dterm{aridade} é a quantidade de
 argumentos-entradas.}
+%%}}}
 
 \TODO Função como ``black box''.
 
@@ -11717,8 +11720,8 @@ etc.
 \note Intensão vs{.}~extensão.
 Como nos conjuntos, temos novamente a idéia de \dterm{intensão}
 e \dterm{extensão} de uma função.
-Pensanso uma função como uma caixa que dentro dela tem um \emph{programa},
-a extensão dela seria o que ela faz mesmo internalmente (isso seria sua
+Pensando uma função como uma caixa que dentro dela tem um \emph{programa},
+a extensão dela não seria o que ela faz mesmo internalmente (isso seria sua
 \emph{intensão}), mas o que ela \emph{consegue}.
 Imaginando duas ``caixas pretas'' $f$ e $g$ onde podemos apenas observar
 seus comportamentos usando os seus interfaces e nada mais, faz sentido
@@ -11736,11 +11739,11 @@ observável.
 Em matemática clássica, e especialmente em análise, não consideramos que o codomínio duma função ``faz parte dela''.
 Ou seja, a mesma função $\sin$, por exemplo, pode ser considerada como
 $$
-\alignat3
+\xalignat3
 \sin_1 &: \reals\to\reals     &
 \sin_2 &: \reals\to[-1,1]     &
-\sin_3 &: \reals\to(\infty,2) .
-\endalignat
+\sin_3 &: \reals\to(-\infty,2).
+\endxalignat
 $$
 Para esse matemático então, \emph{o codomínio não é algo observável:}
 como tu vai diferenciar entre as $\sin_1, \sin_2, \sin_3$ em cima,
@@ -11781,8 +11784,9 @@ $$
 Mas o codomínio não!
 %%}}}
 
-%%{{{ x: cod_pseudodef 
+%%{{{ x: cod_wrongdef 
 \exercise.
+\label{cod_wrongdef}%
 Qual o problema com essa suposta definição de codomínio de uma função $f$?:
 $$
 \cod f
@@ -11802,6 +11806,24 @@ $$
 = \cod{\sin_3}
 $$
 mesmo que claramente não foi essa a nossa intenção.
+
+\endexercise
+%%}}}
+
+\remark.
+O conjunto definido no~\ref{cod_wrongdef} realmente é interessante e importante,
+só que ele não é (necessariamente) o codomínio de
+
+%%{{{ x: what about these types for sin? 
+\exercise.
+Podemos considerar a função $\sin$ como uma função com os tipos seguintes?
+$$
+\xalignat3
+\sin_4 &: \rats \to \reals &
+\sin_5 &: \rats \to \rats  &
+\sin_6 &: \set{0} \to \set{0}
+\endxalignat
+$$
 
 \endexercise
 %%}}}
@@ -11839,10 +11861,30 @@ $$
 %%{{{ How to define and how not to define functions 
 \section Como definir e como não definir funções.
 
+%%{{{ Q: what must we do to correctly define a function f : A -> B ? 
 \question.
 \emph{O que precisamos fazer para definir corretamente uma função?}
+%%}}}
 
-\TODO Definição por expressão.
+%%{{{ A: We must make clear what its values are for all of its domain. 
+\blah Resposta.
+Precisamos deixar claro qual é a valor $f(a)$ para cada $a \in A$.
+%%}}}
+
+%%{{{ Definition by expression 
+\note Definição por expressão.
+Uma das maneiras mais comum para definir funções, é escrever algo do tipo:
+\emph{Seja $f:A\to B$ a função definida pela \thole}
+%%}}}
+
+%%{{{ remark: what we define is f(x) not f 
+\remark.
+Literalmente, o que estamos definindo assim é o ``$f(x)$'' para todo $x \in A$,
+e não o próprio $f$.  Mas, a $f$ sendo função, realmente é determinada para
+seu comportamento (seus valóres) das todas as entradas possíveis do seu domínio,
+então isso realmente defina a própria função $f$---graças a definição de igualdade
+de funções.
+%%}}}
 
 %%{{{ eg 
 \example.
@@ -11853,9 +11895,7 @@ $$
 \endexample
 %%}}}
 
-\TODO Descrição definitiva.
-
-\TODO riota.
+\TODO Descrição definitiva \& $\iota$/riota.
 
 %%{{{ eg: mother_and_child_function_and_wannabe 
 \example.
@@ -11923,11 +11963,50 @@ f(n) = \knuthcases{
 k, & se $n$ pode ser escrito como $3k+1$ para algum $k\in\nats$.\cr
 }
 $$
+Aqui o problema é que $f$ não foi definida para todo o seu domínio, pois
+existem números (por exemplo o $2$) que não satisfazem nenhum dos casos da
+definição da $f$.
 \endexample
 %%}}}
 
-%%{{{ eg 
+%%{{{ remark: use of otherwise 
+\remark.
+Para ter certeza que tomamos cuidado de todos os casos possíveis,
+podemos descrer o último caso com um ``otherwise'' (ou ``caso contrário'').
+Observe que as funções $f_1, f_2 : \nats \to \nats$ definidas pelas
+$$
+\align
+f_1(n) &= \knuthcases{
+0, & se $n$ pode ser escrito como $3k$ para algum $k\in\nats$;\cr
+n, & se $n$ pode ser escrito como $3k+1$ para algum $k\in\nats$;\cr
+2, & otherwise.\cr
+}\\
+f_2(n) &= \knuthcases{
+0, & se $n$ pode ser escrito como $3k$ para algum $k\in\nats$;\cr
+n, & otherwise.\cr
+}\\
+\endalign
+$$
+são realmente duas funções bem definidas e diferentes.
+%%}}}
+
+%%{{{ x: prove that they are different 
+\exercise.
+Prove que são diferentes!
+
+\solution
+Temos
+$$
+f_1(5) = 2 \neq 5 = f_2(5),
+$$
+logo $f_1 \neq f_2$.
+
+\endexercise
+%%}}}
+
+%%{{{ eg: overlapping_inconsistent_cases 
 \example.
+\label{overlapping_inconsistent_cases}%
 Definimos a função $g : \nats \to \nats$, pela
 $$
 g(n) = \knuthcases{
@@ -11936,7 +12015,74 @@ g(n) = \knuthcases{
 12, & caso contrário.
 }
 $$
+Aqui o problema é que não determinamos um único valor para cada membro do domínio da $g$.
+Por exemplo o $2$, satisfaz os dois primeiros casos da definição em cima.
+Então $g(2) = 0$, pois $2$ é primo, e também $g(2) = 1$, pois $2$ é par!
+Por isso essa $g$ é mal-definida, e não uma função.
 \endexample
+%%}}}
+
+%%{{{ x: is g a well-defined function? 
+\exercise.
+A $h : \nats \to \nats$, definida pela
+$$
+h(n) = \knuthcases{
+2n,  & se $n$ é primo;\cr
+n+2, & se $n$ é par;\cr
+12,  & caso contrário.
+}
+$$
+é uma função bem-definida?
+
+\hint
+Qual é a sobreposição dos casos que aparecem na definição da $h$ e quais os
+valóres da $h$ seguindo cada um deles?
+
+\solution
+A $h$ realmente é bem definida, mas isso não é imediatamente óbvio,
+pois os dois primeiros casos na sua definição não são distintos,
+e os valores que cada um escolhe para a $h$ são aparentemente diferentes.
+Para provar que a $h$ é uma função bem definida 
+precisamos ver quais são os membros do seu condomínio que satisfazem
+mais que um caso (aqui os dois primeiros casos, pois o terceiro é o ``caso contrario'')
+e verificar que o valor da $h$ para esses membros são os mesmos, independente
+do caso escolhido.
+O único número natural que é primo e par e o $2$.
+Seguindo o primeiro caso temos
+$$
+h(2) = 2\ntimes 2 = 4,
+$$
+e seguindo o segundo caso temos
+$$
+h(2) = 2+2 = 4.
+$$
+Logo, a $h$ realmente é uma função bem definida.
+
+\endexercise
+%%}}}
+
+%%{{{ remark: compatible cases (cases agree) 
+\remark.
+Quando dois casos diferentes duma definição de função atribuem os mesmos
+valores para as mesmas entradas da sua sobreposição comum, digamos que
+são \emph{compatíveis}, ou que \emph{concordam}.
+%%}}}
+
+%%{{{ Else-if 
+\note Else-if.  Programadores são bastante acostumados com o uso de
+``else-if'', e isso é algo que podemos usar definindo funções por casos.
+Alterando a definição da função do~\ref{overlapping_inconsistent_cases}
+podemos realmente (bem) definir uma função $g : \nats \to \nats$ pela
+$$
+g(n) = \knuthcases{
+0,  & se $n$ é primo;\cr
+1,  & senão; se $n$ é par;\cr
+12, & caso contrário.
+}
+$$
+Assim, cada caso é necessariamente separado de todos os casos anteriores.
+Em programação o múltiplo uso de ``else-if'', é chamado uma
+\dterm{if-else-if ladder}.
 %%}}}
 
 %%{{{ By extension 
@@ -11953,13 +12099,27 @@ satisfaz a $\phi(x,v)$.
 \footnote{Pode olhar também na definição formal disso,~\refn{functionlike}.}
 %%}}}
 
-\TODO Explicar e comparar.
-
-\TODO $f(x,y)$~vs.~$f(\tup{x,y})$.
+%%{{{ Arity and tuples 
+\note Aridade e tuplas.
+Caso que uma função precisa mais que um argumento como entrada,
+usamos a notação $f(x_1, \dotsc, x_n)$.
+Identificamos isso com uma função que recebe ``apenas um'' objeto
+como entrada: a $n$-tupla $\tup{x_1,\dotsc,x_n}$.
+Então identificamos as notações
+$$
+\gather
+f(x_1,\dotsc,x_n) = f( \tup{x_1,\dotsc,x_n} ) = f \tup{x_1,\dotsc,x_n}\\
+f(x)              = f( \tup{x} )              = f \tup{x} = f \app x\\
+f()               = f( \tup{}  )              = f \tup{}
+\endgather
+$$
+onde na última linha as vezes identificamos com o próprio $f$ também
+quando não existe possibilidade de confusão (mas vamos evitar isso aqui).
+%%}}}
 
 \blah.
-Deixamos a notação mais interessante para definir funções para depois.
-Ela merece uma secção própria (\refn{Lambda_notation})!
+Ainda não encontramos a notação mais interessante para definir funções.
+Vamos estudá-la agora; ela merece uma secção própria.
 
 \endsection
 %%}}}
@@ -11978,7 +12138,7 @@ Ela merece uma secção própria (\refn{Lambda_notation})!
 \exercise.
 \label{eta_conversion_first_encounter}%
 Sejam $f : A \to B$.
-Qual nome tu daria para a função $\lam x {f\, x}$?
+Qual nome tu daria para a função $\lam x {f\app x}$?
 
 \solution
 $f$.
