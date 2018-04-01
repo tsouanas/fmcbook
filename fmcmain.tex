@@ -11659,6 +11659,33 @@ $$
 Espero que dá para apreciar a laconicidade dessa notação.
 %%}}}
 
+\note O que é o típo duma função?.
+Vamos ver.
+
+%%{{{ x: what_is_the_type_of_foo 
+\exercise.
+Aqui um programa escrito em C:
+\sourcecode typefoo.c;
+\endgraf\noindent
+Qual é o típo desse $\code{x}$ no corpo da $\code{foo}$?
+Qual o tipo da $\code{foo}$?
+Cuidado: programadores de C (e C++, Java, etc.) tendem errar nessa última questão!
+
+\hint
+O típo de $\code{foo}$ não é $\code{int}$.
+Se fosse $\code{int}$ mesmo, o $\code{foo}$ seria um $\code{int}$.
+
+\solution
+O tipo de $\code{x}$ é $\code{int}$.
+O tipo de $\code{foo}$ é: ``função de $\code{int}$ para $\code{int}$''.
+Programadores de $C$ muitas vezes erram nessa terminologia, dizendo que o típo de $\code{foo}$ é $\code{int}$.
+Se fosse $\code{int}$ mesmo, o $\code{foo}$ seria um $\code{int}$.
+O que eles querem dizer é que o \emph{return type} de $\code{foo}$ é $\code{int}$, e isso tá certo.
+Mas a pergunta foi identificar o \emph{tipo} de $\code{foo}$.
+
+\endexercise
+%%}}}
+
 %%{{{ Conditions: functionhood_conditions 
 \note Condições.
 \label{functionhood_conditions}%
@@ -11687,6 +11714,20 @@ Isso parece bastante limitante, pois estamos já acostumados
 com funções com aridades diferentes.%
 \footnote{Lembra-se que \dterm{aridade} é a quantidade de
 argumentos-entradas.}
+Caso que uma função precisa mais que um argumento como entrada,
+usamos a notação $f(x_1, \dotsc, x_n)$.
+Identificamos isso com uma função que recebe ``apenas um'' objeto
+como entrada: a $n$-tupla $\tup{x_1,\dotsc,x_n}$.
+Então identificamos as notações
+$$
+\gather
+f(x_1,\dotsc,x_n) = f( \tup{x_1,\dotsc,x_n} ) = f \tup{x_1,\dotsc,x_n}\\
+f(x)              = f( \tup{x} )              = f \tup{x} = f \app x\\
+f()               = f( \tup{}  )              = f \tup{}
+\endgather
+$$
+onde na última linha as vezes identificamos com o próprio $f$ também
+quando não existe possibilidade de confusão (mas vamos evitar isso aqui).
 %%}}}
 
 \TODO Função como ``black box''.
@@ -11731,10 +11772,12 @@ valor---novamente: se não isso já seria um comportamento diferente e
 observável.
 %%}}}
 
-%%{{{ What about the codomain? 
-\note E o codomínio?.
-\label{what_about_the_codomain}%
-Em matemática clássica, e especialmente em análise, não consideramos que o codomínio duma função ``faz parte dela''.
+%%{{{ What about the codomain? (I) 
+\note E o codomínio? (I).
+\label{what_about_the_codomain_1}%
+Em matemática clássica, e especialmente em teoria de
+conjuntos~(\ref{Axiomatic_set_theory}) e análise,
+em geral não consideramos que o codomínio duma função ``faz parte dela''.
 Ou seja, a mesma função $\sin$, por exemplo, pode ser considerada como
 $$
 \xalignat3
@@ -11793,10 +11836,10 @@ $$
 $$
 
 \hint
-Aplique a $\cod$ nos $\sin_1,\sin_2,\sin_3$ do \ref{what_about_the_codomain}.
+Aplique a $\cod$ nos $\sin_1,\sin_2,\sin_3$ do \ref{what_about_the_codomain_1}.
 
 \solution
-Aplicando essa definição de $\cod$ nas $\sin_1,\sin_2,\sin_3$ do \ref{what_about_the_codomain},
+Aplicando essa definição de $\cod$ nas $\sin_1,\sin_2,\sin_3$ do \ref{what_about_the_codomain_1},
 temos que
 $$
 \cod{\sin_1}
@@ -11810,29 +11853,89 @@ mesmo que claramente não foi essa a nossa intenção.
 
 \remark.
 O conjunto definido no~\ref{cod_wrongdef} realmente é interessante e importante,
-só que ele não é (necessariamente) o codomínio de
+só que ele não é (necessariamente) o codomínio da função, mas o que chamamos de
+range:
+
+%%{{{ df: range 
+\definition.
+\tdefined{função}[range]%
+\sdefined {\range {\holed f}} {o range da função $f$}%
+Seja $f : A \to B$ função.
+Seu \dterm{range} é conjunto
+$$
+\range f
+\defeq
+\setstt y {$f(x) = y$ para algum $x \in A$}.
+$$
+Observe que $\range f \subseteq B$.
+%%}}}
 
 %%{{{ x: what about these types for sin? 
 \exercise.
-Podemos considerar a função $\sin$ como uma função com os tipos seguintes?
+Podemos considerar a função $\sin$ como uma função com os tipos seguintes?:
 $$
-\xalignat3
+\xalignat4
 \sin_4 &: \rats \to \reals &
-\sin_5 &: \rats \to \rats  &
-\sin_6 &: \set{0} \to \set{0}
+\sin_5 &: \reals\setminus\rats \to \reals\setminus\rats &
+\sin_6 &: \rats \to \rats  &
+\sin_7 &: \set{\pi} \to \set{0}
 \endxalignat
+$$
+
+\solution
+É fácil responder sobre as $\sin_4$ e $\sin_7$, pois realmente são
+apenas restrições da função $\sin : \reals\to\reals$ (veja~\ref{fresto}).
+Mas a situação com as $\sin_5$ e $\sin_6$ é bem mais complicada que isso!
+Sobre a $\sin_5$, supondo que sabemos que $\pi \notin \rats$,
+concluimos que o seu tipo está errado, pois $\sin(\pi) = 0 \notin \reals\setminus\rats$.
+Note que para responder nisso precisamos saber a irracionalidade de $\pi$,
+algo que não é trivial!
+Mesmo sabendo disso, não é fácil responder sobre a $\sin_6$.
+Seu tipo é realmente errado, pois
+$$
+\text{para todo $x \in \rats_{\neq0}$,  $\sin(x) \notin \rats$}
+$$
+mas a prova desse resultado é fora do escopo desse texto.
+(Veja~\cite[p.~21]{nivenirrational} para mais detalhes.)
+Ou seja, podemos considerar a $\sin$ com tipo
+$$
+\sin_8 : \rats_{\neq0} \to \reals\setminus\rats.
 $$
 
 \endexercise
 %%}}}
 
-\blah.
-Tendo uma função $f : A \to B$ então, podemos considerar ela como uma função
-com codomínio qualquer superconjunto de $B$, sem mudar nada observável.
+%%{{{ remark: codomain is any superset of range 
+\remark.
+Seguindo o ponto de vista do~\refn{what_about_the_codomain_1},
+tendo uma função $f : A \to B$,
+podemos considerar ela como uma função com codomínio qualquer superconjunto de
+$B$, sem mudar nada observável.
+Em símbolos:
+$$
+f : A \to B  \mland  \range f \subseteq B'  \implies  f : A \to B'.
+$$
+%%}}}
 
-%%{{{ df: f_eq_g 
-\definition Igualdade.
-\label{f_eq_g}%
+%%{{{ What about the codomain? (II) 
+\note E o codomínio? (II).
+\label{what_about_the_codomain_2}%
+Em outras partes de matemática, especialmente em teoria das
+categorias~(\ref{Category_theory}),
+teoria dos típos~(\ref{Type_theory}),
+e álgebra,
+consideramos que o codomínio duma função faz parte dela sim!
+Pensando em funções como black boxes então, com essa visão,
+temos que imaginar que as caixas pretas tem dois rótulos
+impressos: um na sua entrada com o domínio escrito nele,
+e um na sua saida com o codomínio.
+Assim, a diferença do condomínio vira uma coisa imediatamente
+observável: é só olhar no rótulo da saida!
+%%}}}
+
+%%{{{ df: f_eq_g_1 
+\definition Igualdade (I).
+\label{f_eq_g_1}%
 Sejam $f,g$ funções.
 Digamos que $f=g$ sse \emph{quaisquer duas} das afirmações seguintes são válidas:
 \beginol
@@ -11840,6 +11943,28 @@ Digamos que $f=g$ sse \emph{quaisquer duas} das afirmações seguintes são vál
 \li para todo $x \in \dom f$, $f(x) = g(x)$;
 \li para todo $x \in \dom g$, $f(x) = g(x)$.
 \endol
+%%}}}
+
+%%{{{ df: f_eq_g_2 
+\definition Igualdade (II).
+\label{f_eq_g_2}%
+Sejam $f,g$ funções.
+Digamos que $f=g$ sse 
+\beginol
+\li $\dom f = \dom g$;
+\li $\cod f = \cod g$;
+\li para todo $x \in \dom f$, $f(x) = g(x)$.
+\endol
+%%}}}
+
+%%{{{ df: f_eq_g 
+\definition Igualdade.
+\label{f_eq_g}%
+Sejam $f,g : A\to B$ funções.
+Digamos que $f=g$ sse
+$$
+\text{para todo $x \in A$, $f(x) = g(x)$.}
+$$
 %%}}}
 
 %%{{{ df: function_graph 
@@ -11866,7 +11991,7 @@ $$
 
 %%{{{ A: We must make clear what its values are for all of its domain. 
 \blah Resposta.
-Precisamos deixar claro qual é a valor $f(a)$ para cada $a \in A$.
+Precisamos deixar claro qual é o $f(a)$ para cada $a \in A$.
 %%}}}
 
 %%{{{ Definition by expression 
@@ -12062,7 +12187,7 @@ Logo, a $h$ realmente é uma função bem definida.
 %%{{{ remark: compatible cases (cases agree) 
 \remark.
 Quando dois casos diferentes duma definição de função atribuem os mesmos
-valores para as mesmas entradas da sua sobreposição comum, digamos que
+valores para as mesmas entradas da sua sobreposição comum, dizemos que
 são \emph{compatíveis}, ou que \emph{concordam}.
 %%}}}
 
@@ -12095,24 +12220,6 @@ Onde a fórmula (ou a afirmação) $\phi(x,v)$ deve ser \dterm{function-like}
 no $A$, ou seja, $\phi$ é tal que para todo $x\in A$, exatamente um $v \in B$
 satisfaz a $\phi(x,v)$.
 \footnote{Pode olhar também na definição formal disso,~\refn{functionlike}.}
-%%}}}
-
-%%{{{ Arity and tuples 
-\note Aridade e tuplas.
-Caso que uma função precisa mais que um argumento como entrada,
-usamos a notação $f(x_1, \dotsc, x_n)$.
-Identificamos isso com uma função que recebe ``apenas um'' objeto
-como entrada: a $n$-tupla $\tup{x_1,\dotsc,x_n}$.
-Então identificamos as notações
-$$
-\gather
-f(x_1,\dotsc,x_n) = f( \tup{x_1,\dotsc,x_n} ) = f \tup{x_1,\dotsc,x_n}\\
-f(x)              = f( \tup{x} )              = f \tup{x} = f \app x\\
-f()               = f( \tup{}  )              = f \tup{}
-\endgather
-$$
-onde na última linha as vezes identificamos com o próprio $f$ também
-quando não existe possibilidade de confusão (mas vamos evitar isso aqui).
 %%}}}
 
 \blah.
