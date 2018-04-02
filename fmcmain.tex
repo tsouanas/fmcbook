@@ -9757,7 +9757,7 @@ $
 %%{{{ beware: variable-binding in set-builder 
 \beware.
 As variáveis que aparecem na parte esquerda de set-builder,
-são ligadores que ligam com as correspondentes variáveis livres
+são \emph{ligadores}\ii{ligador}~que ligam com as correspondentes variáveis livres
 que aparecem na afirmação na parte direita (filtro).
 Então cuidado com o uso dessas variáveis pois é fácil escrever
 algo que mesmo que realmente determina um conjunto,
@@ -11759,7 +11759,7 @@ E graças a outra frase, ``para todo $x\in A$'', sabemos que tem
 Resumindo: para todo $x\in\dom f$,
 \beginil
 \item{(1)} existe pelo menos um $y\in\cod f$ tal que $y = f(x)$ (totalidade);
-\item{(2)} existe no máximo um $y\in\cod f$ tal que $y = f(x)$ (determinicidade).
+\item{(2)} existe no máximo  um $y\in\cod f$ tal que $y = f(x)$ (determinicidade).
 \endil
 \noindent
 Quando o (1) acontece dizemos que \emph{a $f$ é definida em todo o seu domínio}.
@@ -11873,7 +11873,7 @@ $$
 \endxalignat
 $$
 Para esse matemático então, \emph{o codomínio não é algo observável:}
-como tu vai diferenciar entre as $\sin_1, \sin_2, \sin_3$ em cima,
+como tu vai diferenciar entre as $\sin_1, \sin_2, \sin_3$ acima,
 se teu único interface é dando objetos para elas, e observando seus valóres (saídas)?
 Pois é, não tem como.
 No outro lado, se alterar os domínios isso já é uma diferença demonstrável
@@ -12268,7 +12268,7 @@ g(n) = \knuthcases{
 }
 $$
 Aqui o problema é que não determinamos um único valor para cada membro do domínio da $g$.
-Por exemplo o $2$, satisfaz os dois primeiros casos da definição em cima.
+Por exemplo o $2$, satisfaz os dois primeiros casos da definição acima.
 Então $g(2) = 0$, pois $2$ é primo, e também $g(2) = 1$, pois $2$ é par!
 Por isso essa $g$ é mal-definida, e não uma função.
 \endexample
@@ -12384,7 +12384,138 @@ $h(1,5)$ fica sem valor determinado, pois $2$ é primo e $2 \divides 6$ mas $3$ 
 
 \blah.
 Ainda não encontramos a notação mais interessante para definir funções.
-Vamos estudá-la agora; ela merece uma secção própria.
+Vamos estudá-la logo; ela merece uma secção própria.
+Antes disso, vamos ver mais uma maneira de definir funções: com buracos!
+
+\endsection
+%%}}}
+
+%%{{{ Holed expressions 
+\section Expressões com buracos.
+
+%%{{{ What is a holed expression? 
+\note O que é uma expressão com buraco?.
+\tdefined{buraco}%
+Podemos criar uma função através duma expressão,
+escolhendo um dos objetos que aparecem nela e o substituindo por um \dterm{buraco}.
+Criamos assim \emph{aquela função} que recebendo um argumento,
+retorna a expressão criada botando sua entrada no buraco da expressão.
+Usamos $\bhole$, $\dhole$, e $\_$, para denotar esses buracos.
+%%}}}
+
+%%{{{ eg: holed_expression 
+\example.
+\label{holed_expression}%
+Considere a expressão
+$$
+\align
+\cos(1 + 5\cbrt2)^{2a} + \sin(5)&.
+\intertext{Qual o típo dela?
+Ela denota um número real, ou seja,}
+\cos(1 + 5\cbrt2)^{2a} + \sin(5) &: \reals.
+\intertext{Escolhemos um objeto nela e botamos um buraco no seu lugar:}
+\cos(\bhole + 5\cbrt2)^{2a} + \sin(5)&.
+\intertext{Assim criamos uma função.
+Qual o típo dela?
+Para decidir o domínio dela, olhamos para o típo do objeto
+substituido por esse buraco.  Nesse caso, consideramos $1 : \reals$, então
+temos}
+\cos(\bhole + 5\cbrt2)^{2a} + \sin(5) &: \reals \to \reals
+\intertext{
+Uma outra opção seria escolher o $2$ no $5\cbrt2$, ou até o próprio $5\cbrt2$,
+criando assim a função}
+\cos(1 + \bhole)^{2a} + \sin(5) &: \reals \to \reals
+\endalign
+$$
+do mesmo típo.
+\endexample
+%%}}}
+
+%%{{{ more than one hole 
+\blah.
+Podemos botar mais que um buraco na mesma expressão,
+assim criando funções de aridades maiores.
+Seguimos a convenção que os seus argumentos são botados
+nos buracos que aparecem na ordem de esquerda para direita,
+e de cima pra baixo.
+%%}}}
+
+%%{{{ eg: holed_expression_many 
+\example.
+\label{holed_expression_many}%
+Considere de novo a expressão
+$$
+\align
+\cos(1 + 5\cbrt2)^{2a} + \sin(5) &: \reals,
+\intertext{mas agora bote os buracos}
+\cos(\bhole + 5\cbrt2)^{2\bhole} + \sin(\bhole)&.
+\intertext{Qual o típo dessa função?
+Cada um dos buracos está esperando receber um real,
+ou seja:}
+\cos(\bhole + 5\cbrt2)^{2\bhole} + \sin(\bhole)&:\reals^3\to\reals
+\intertext{Uma outra opção seria criar a função}
+\cos(1 + \bhole\cbrt\bhole)^{\bhole a} + \sin(\bhole) &: \reals^4 \to \reals,
+\endalign
+$$
+etc.
+\endexample
+%%}}}
+
+%%{{{ x: calculate_holes 
+\exercise.
+Calcule:
+\beginol
+\li $(2 + \bhole)(40)$;
+\li $(\bhole + 2\bhole)(2,4)$;
+\li $(\dhole \ntimes 2^{\dhole})(3,0)$;
+\li $(\set{1,2,3} \union \dhole)(\set{2,8})$;
+\endol
+
+\solution
+Calculamos:
+$$
+\align
+(2 + \bhole)(40) &= 2 + 40 = 42 \\
+(\bhole + 2\bhole)(2,4) &= 2 + 2^4 = 18 \\
+(\dhole \ntimes 2^{\dhole})(3,0) &= 3 \ntimes 2^0 = 3 \\
+(\set{1,2,3} \union \dhole)(\set{0,2}) &= \set{1,2,3} \union \set{0,2} = \set{0,1,2,3}
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ remark: fractions and the symbol of division 
+\remark.
+Da expressão
+$$
+\frac 1 2 : \rats
+$$
+podemos criar as funções
+$$
+\xalignat3
+\frac {\bhole} 2 & : \ints \to \rats &
+\frac 1 {\bhole} & : \ints_{\neq0} \to \rats &
+\frac {\bhole} {\bhole} & : \ints\times\ints_{\neq0} \to \rats
+\endxalignat
+$$
+Agora o símbolo $\div$ da operação binária de divisão que aparece nos calculadores
+talvez faz mas sentido, né?
+%%}}}
+
+%%{{{ Limitations 
+\note Limitações.
+Para um uso simples e rápido as expressões com buracos oferecem uma
+ferramenta muito útil.  Mas, temos umas limitações importantes:
+\beginol
+\li Não podemos ``ligar'' dois ou mais buracos para representar
+a idéia que o mesmo argumento vai ser copiado em todos eles.
+\li Não podemos escolher a órdem que os argumentos da função
+criada vão preencher os buracos.
+\endol
+Finalmente vamos estudar a notação lambda e com ela vamos
+superar essas limitações facilmente!
+%%}}}
 
 \endsection
 %%}}}
@@ -12393,27 +12524,226 @@ Vamos estudá-la agora; ela merece uma secção própria.
 \section A notação $\lambda$ e a setinha barrada $\mapsto$.
 \label{Lambda_notation}%
 
-\note De palavras para a notação lambda.
+%%{{{ Useless namings 
+\note Nomeamentos inúteis.
 Imagine que precisamos identificar uma certa função dum conjunto $A$ prum
 conjunto $B$, e depois de muitos cálculos e usando várias outras funções
-e objetos dados pelo nosso problema, concluimos que:
-\emph{a função desejada é aquela função que quando recebe como entrada
-um objeto $x$, ela retorna o $2x+5$}.
+e objetos dados pelo nosso problema, concluimos com a frase:
+\emph{<<\dots a função desejada é aquela função que recebendo como entrada
+um número $x$, ela retorna o $2x+5$.>>}.
+Vamos isolar esta subfrase:
+$$
+\text{aquela função que recebendo como entrada um número $x$, retorna o \thole$x$\thole}.
+$$
+O que ela denota?
+Claramente uma função.
+Mas qual é o \emph{nome} dessa função?
+Pois é, ela não tem.
+É uma função \emph{anônima}.
+Isso talvez aprece estranho, mas acontece o tempo todo com outros típos
+de objetos matemáticos, por exemplo com números.
+Falamos
+$$
+\text{<<a área dum triângulo com báse $b$ e altura $h$ é $bh/2$>>}
+$$
+sem nenhuma obrigação de nomear essa área com um nome para a usar;
+e ninguém reclama.
+Se tivessimos essa obrigação deveriamos falar:
+$$
+\text{<<\dots seja $a = bh/2$.  A área do triângulo é $a$.>>}
+$$
+Claramente isso é inútil.
+Introduzimos um novo nome apenas para o referir logo após e nunca mais.
+Em nossa última frase ``a área do triângulo é $a$'', a informação
+nem é mais visível.  O leitor vai ter que lembrar qual foi a definição desse $a$,
+ou ir procurar achá-la.
+Obviamente a abordagem anterior é melhor.
+\endgraf
+Para usar um exemplo de ``nomeamento inútil'' em programação, considere
+as funções seguintes em Python, cada uma programada por um programador diferente:
+\sourcecode uselessnaming.py;
+\endgraf\noindent
+Como funções são iguais, mas o programador que programou $\code{g}$,
+fez algo estranho.
+Decidiu nomear a expressão $\code{2 * x + 1}$ com o nome $\code{r}$,
+e a única coisa que ele fez com esse $\code{r}$, foi returnar seu
+valor.  Pra quê isso programador?
+%%}}}
 
-\TODO Função anônima.
+%%{{{ From words to lambda 
+\note De palavras para lambda.
+Voltamos na frase
+$$
+\text{``aquela função que recebendo como entrada um $x$,
+retorna o \thole$x$\thole''}
+$$
+onde <<\thole$x$\thole>> é uma expressão que determina um único objeto e que,
+possivelmente depende (refere) no $x$, como aconteceu por exemplo com o $2x+5$ acima.
+Se essa frase realmente determina uma função, então podemos também
+definir uma função \dterm{epônima}\ii{epônima}~(``com nome'') quando desejamos,
+escrevendo:
+$$
+\gather
+\text{Seja $f : A \to B$ tal que}\\
+\text{$f \defeq \text{aquela função que recebendo\dots}$}.
+\endgather
+$$
+Mas escrever todo isso toda vez que queremos ``construir'' uma função anônima
+é muito chato.  Bem vindo $\lambda$ (lambda) da notação de
+$\lambda$-calculus~(\ref{Lambda_calculus})!
+Escrevemos apenas
+$$
+\lam x {2x+5}
+$$
+para a frase:
+$$
+\overbrace{\text{aquela função que recebendo como entrada um número}}^{\dsize\lambda}~~x~~\overbrace{\text{, retorna o}}^{\dsize.}~~2x+5.
+$$
+%%}}}
 
-\TODO Convenções.
+%%{{{ df: lambda_abstraction 
+\definition.
+\label{lambda_abstraction}%
+\tdefined{$\lambda$-abstração}%
+\tdefined{$\lambda$-abstração}[corpo]%
+\sdefined {\lam {\holed x} {\thole}} {$\lambda$-abstração}%
+A expressão
+$$
+\lam x {\text{\thole$x$\thole}}
+$$
+é chamada \dterm{$\lambda$-abstração} e \emph{denota uma função}:
+$$
+\text{``aquela função que recebendo como entrada um $x$,
+retorna o \thole$x$\thole''}
+$$
+Supomos aqui que o domínio e codomínio são claros pelo contexto.
+Chamamos a parte ``\thole$x$\thole'' o \dterm{corpo} da abstração.
+%%}}}
+
+%%{{{ remark: lambda_is_a_binder & alpha_equiv_first_contact 
+\remark.
+\label{lambda_is_a_binder}%
+\label{alpha_equiv_first_contact}%
+O $\lambda$ é um \emph{ligador de variável}.
+Todos os $x$ que aparecem livres no \thole$x$\thole
+viram ligados com o $x$ do $\lambda x$.
+Naturalmente consideramos funções que são diferentes apenas nos
+nomes das variáveis ligadas como iguais.
+Por exemplo:
+$$
+\lam x x = \lam y y.
+$$
+Compare com programação onde uma troca \emph{com cuidado} de variáveis
+resulta em programas e procedimentos equivalêntes.
+Precisamos tomar os mesmos cuidados aqui, mas deixamos esses
+detalhes para o~\ref{Lambda_calculus}.
+%%}}}
+
+\blah.
+Então:
+o $\lambda$ nos permite criar funções anônimas numa maneira simples e útil.
+E o que podemos fazer com uma expressão dessas?
+Tudo que podemos fazer com uma função!
+
+%%{{{ eg: applying an anonymous function to an argument 
+\example.
+Calculamos:
+$$
+\align
+(\lam x {2x+5})(4) &= 2\ntimes 4 + 5 = 13 \\
+(\lam x x)(2)      &= 2 \\
+\endalign
+$$
+Em geral omitimos as parenteses no argumento, escrevendo:
+$$
+\plam x {2x+5} \lapp 4, \qquad
+\plam x x \lapp 2, \qquad
+\text{etc.},
+$$
+algo que acontece com funções epônimas também (veja~\ref{function_notation}).
+\endexample
+%%}}}
+
+%%{{{ dot-till-end convention 
+\note Convenção.
+Para evitar uso excessivo de parenteses, acordamos que o corpo duma
+$\lambda$-abstração extende o maior possível, por exemplo:
+$$
+\plam x {x + y + z}
+\qquad\text{significa}\qquad
+\plam x {\paren{x + y + z}}.
+$$
+%%}}}
+
+%%{{{ x: calculate lambda reductions 
+\exercise.
+Calcule os seguintes:
+\beginol
+\li $\plam x x \lapp 5$;
+\li $\plam y {42} \lapp 5$;
+\li $\plam z x \lapp 5$;
+\li $\plam x {x+1} \lapp 41$;
+\li $\plam x {2 + \plam y {3y} \lapp 5} \lapp 3$;
+\li $\plam x {2 + \plam y {3y} (x^2) } \lapp 3$;
+\li $\plam x {2 + \plam y {xy} \lapp 4 } \lapp 3$.
+\endol
+\noindent
+Não se preocupe se uns deles parecem errados ou bizarros,
+nem se tu errar calculando uns deles.
+
+\solution
+Calculamos:
+$$
+\align
+\plam x x \lapp 5 &= 5 \\
+\plam y {42} \lapp 5 &= 42 \\
+\plam z x \lapp 5 &= x \\
+\plam x {x+1} \lapp 41 &= 41 + 1 = 42 \\
+\plam x {2 + \plam y {3y} \lapp 5} \lapp 3 &= 2 + \plam y {3y} \lapp 5 = 2 + 3\ntimes 5 = 17 \\
+\plam x {2 + \plam y {3y} (x^2) } \lapp 3 &= 2 + \plam y {3y} (3^2) = 2 + 3\ntimes 3^2 = 29 \\
+\plam x {2 + \plam y {xy} \lapp 4 } \lapp 3 &= \plam x {2 + x\ntimes 4} \lapp 3 = 2 + 3 \ntimes 4 = 14.
+\endalign
+$$
+
+\endexercise
+%%}}}
 
 %%{{{ x: eta_conversion_first_encounter 
 \exercise.
 \label{eta_conversion_first_encounter}%
-Sejam $f : A \to B$.
+Seja $f : A \to B$.
 Qual nome tu daria para a função $\lam x {f\app x}$?
+Lembre-se que graças as convenções notacionais essa expressão é a mesma com a
+$\lamp x {f(x)}$.
+
+\hint
+Como a função $\lam x {f \app x}$ comporta?
 
 \solution
 $f$.
 
 \endexercise
+%%}}}
+
+%%{{{ df: barred arrow 
+\definition.
+\label{mapsto}%
+\tdefined{setinha barrada}%
+\sdefined {(\holed x \mapsto \holed{\thole x \thole})} {função anônima}%
+Uma notação diferente usada em matemática para criar funções anônimas
+utiliza a \dterm{setinha barrada} $\mapsto$:
+$$
+\text{escrevemos}\qquad
+(x \mapsto \thole)
+\qquad\text{como sinônimo de}\qquad
+\lam x {\thole}.
+$$
+%%}}}
+
+%%{{{ remark: we won't use mapsto, we'll use lambdas instead 
+\remark.
+Não vamos usar muito a notação $(x \mapsto \thole)$.
+Pois a notação $\lam x {\thole}$ serve bem melhor para a maioria dos nossos usos.
 %%}}}
 
 \endsection
@@ -12511,9 +12841,9 @@ Para cada uma das igualdades em baixo,
 decida se ela é válida ou não, justificando tua resposta.
 $$
 \xalignat4
-(1)\quad f &= {f \compose \id_A} &
-(2)\quad f &= {f \compose \id_B} &
-(3)\quad f &= {\id_A \compose f} &
+(1)\quad f &= {f \compose \id_A}; &
+(2)\quad f &= {f \compose \id_B}; &
+(3)\quad f &= {\id_A \compose f}; &
 (4)\quad f &= {\id_B \compose f}.
 \endxalignat
 $$
@@ -12978,7 +13308,6 @@ E não funções quaisquer, mas precisam ter um tipo compatível,
 com a aridade certa, etc.
 Esses buracos são ``de ordem superior''.
 E com buracos de ordem superior, vêm funções de ordem superior.
-
 %%}}}
 
 %%{{{ pseudodf: higher_order_function 
@@ -24310,6 +24639,7 @@ Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
 
 %%{{{ chapter: Lambda calculus 
 \chapter Lambda calculus.
+\label{Lambda_calculus}%
 
 %%{{{ The untyped lambda calculus 
 \section O $\lambda$-calculus não-tipado.
