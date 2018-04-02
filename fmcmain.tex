@@ -8878,7 +8878,11 @@ Podemos então pensar que um conjunto $A$ é um black box que tem apenas uma
 entrada onde podemos botar qualquer objeto $x$ desejamos, e tem como única
 ``saida'' uma luz que pode piscar ``sim'' ou ``não'' (correspondende nos casos
 $x\in A$ e $x\notin A$ respectivamente).
-\endgraf
+$$
+\tikzpicture
+\tikzi blackboxset;
+\endtikzpicture
+$$
 Usamos o termo \emph{black} box para enfatisar que não temos como ``olhar dentro''
 desse aparelho, dessa caixa, e ver o que acontece assim que botar uma entrada;
 nossa única informação será a luz da caixa que vai piscar ``sim'', ou ``não''.
@@ -11591,7 +11595,19 @@ Primeiramente precisamos entender bem o que é uma função e como se comporta.
 %%{{{ Concept, notation, equality 
 \section Conceito, notação, igualdade.
 
-\TODO Conceito.
+%%{{{ unlabeled black box for function 
+\note Funções como black boxes.
+\tdefined{black box}[de função]%
+\iisee{função!como black box}{black box}%
+Começamos imaginando funções como black boxes (lembre o~\refn{blackbox_set}?)
+mas esses black boxes são diferentes daqueles que usamos para conjuntos,
+pois essas caixas tem uma entrada mas também uma saida própria:
+$$
+\tikzpicture
+\tikzi blackboxfun;
+\endtikzpicture
+$$
+%%}}}
 
 \TODO Examples.
 
@@ -11659,8 +11675,12 @@ $$
 Espero que dá para apreciar a laconicidade dessa notação.
 %%}}}
 
-\note O que é o típo duma função?.
-Vamos ver.
+%%{{{ The type of a function 
+\note O típo duma função.
+Seja $f : A \to B$.
+Chamamos o ``$A \to B$'' o típo da $f$, e pronunciamos como
+<<função de $A$ para $B$>>.
+%%}}}
 
 %%{{{ x: what_is_the_type_of_foo 
 \exercise.
@@ -11730,8 +11750,6 @@ onde na última linha as vezes identificamos com o próprio $f$ também
 quando não existe possibilidade de confusão (mas vamos evitar isso aqui).
 %%}}}
 
-\TODO Função como ``black box''.
-
 %%{{{ Synonyms 
 \note Sinônimos.
 \tdefined{função!sinônimos}%
@@ -11770,6 +11788,29 @@ para a outra também (pois, se não, isso já seria uma diferença observável);
 e ainda mais, para a mesma entrada, as funções tem que atribuir o mesmo
 valor---novamente: se não isso já seria um comportamento diferente e
 observável.
+%%}}}
+
+%%{{{ Programs vs. functions 
+\note Programas vs.~funções.
+Considere as duas funções $\code{f}$ e $\code{g}$ implementadas no programa
+seguinte em Python:
+\sourcecode intext.py;
+\endgraf\noindent
+Suponha que queremos considerar ambas definidas nos inteiros.
+A \emph{extensão} da $\code{f}$ é a mesma com a extensão da $\code{g}$.
+Ou seja, como funções, temos $f = g$.
+Suas \emph{intensões} são diferentes.
+A primeira função, dado um número grande vai fazer bem mais operções até
+finalmente retornar um valor.
+Tente calcular as duas num Python interpreter e também perceberás uma diferença
+no tempo que cada uma precisa: compare os
+$\code{f(1000000000)}$ e $\code{g(1000000000)}$.
+Os \emph{programas} então são diferentes (pois num programa é a intensão que importa)
+mas as funções são iguais.
+Observe que quando observamos caixas pretas, não podemos nem medir o tempo que
+cada uma precisa para responder com seu valor, nem podemos tocar elas para ver
+qual ficou mais quente, nem escutar para possíveis barulhos, etc.
+Podemos apenas dar uma entrada e observar a saída e nada mais!
 %%}}}
 
 %%{{{ What about the codomain? (I) 
@@ -11896,7 +11937,7 @@ $$
 \text{para todo $x \in \rats_{\neq0}$,  $\sin(x) \notin \rats$}
 $$
 mas a prova desse resultado é fora do escopo desse texto.
-(Veja~\cite[p.~21]{nivenirrational} para mais detalhes.)
+(Veja~\cite[Cor.~2.7]{nivenirrational} para mais detalhes.)
 Ou seja, podemos considerar a $\sin$ com tipo
 $$
 \sin_8 : \rats_{\neq0} \to \reals\setminus\rats.
@@ -11915,6 +11956,21 @@ Em símbolos:
 $$
 f : A \to B  \mland  \range f \subseteq B'  \implies  f : A \to B'.
 $$
+Esse ponto de vista, identifica funções com gráficos iguais,
+mas nem definimos ainda o que é um gráfico de função.
+É o seguinte.
+%%}}}
+
+%%{{{ df: function_graph 
+\definition.
+\label{function_graph}%
+\tdefined{função!gráfico}%
+\sdefined{\graph{\holed f}} {o gráfico da função $\holed f$}%
+Dado função $f : X\to Y$, o \dterm{gráfico da $f$}, é o conjunto
+$$
+\graph f \defeq \setst {\tup{x,f(x)}} {x \in X}.
+$$
+Observe que $\graph f \subseteq X\times Y$.
 %%}}}
 
 %%{{{ What about the codomain? (II) 
@@ -11933,6 +11989,33 @@ Assim, a diferença do condomínio vira uma coisa imediatamente
 observável: é só olhar no rótulo da saida!
 %%}}}
 
+%%{{{ labeled black box for function 
+\note Funções como black boxes com rótulos.
+Com a ideia (II) de função visualizamos uma função
+$f : A \to B$ assim:
+$$
+\tikzpicture
+\tikzi blackboxfuncat;
+\endtikzpicture
+$$
+%%}}}
+
+%%{{{ Equality in functions 
+\note Igualdade de funções.
+Dependendo qual ponto de vista de função seguimos, a definição de igualdade
+para o tipo de função vai ser diferente!
+Mostramos primeiramente as definições corretas para o ponto de vista~(I)
+e o ponto de vista~(II)
+(explicados nos~\refn{what_about_the_codomain_1}~e~\refn{what_about_the_codomain_2}).
+Depois, escrevendo num jeito diferente chegamos numa definição que vamos realmente usar,
+e que é aplicável independente do ponto de visto.
+Nesse texto vamos sempre deixar claro para cada função encontrada qual conjunto
+consideramos como seu domínio e qual como seu codomínio.%
+\footnote{Exceto numas partes onde esclarecemos qual a noção de função que
+utilizamos.}
+Assim, a escolha de ponto de vista de função não vai nos afetar.
+%%}}}
+
 %%{{{ df: f_eq_g_1 
 \definition Igualdade (I).
 \label{f_eq_g_1}%
@@ -11943,6 +12026,11 @@ Digamos que $f=g$ sse \emph{quaisquer duas} das afirmações seguintes são vál
 \li para todo $x \in \dom f$, $f(x) = g(x)$;
 \li para todo $x \in \dom g$, $f(x) = g(x)$.
 \endol
+\endgraf\noindent
+Equivalentemente,
+$$
+f = g \defiff \graph f = \graph g.
+$$
 %%}}}
 
 %%{{{ df: f_eq_g_2 
@@ -11957,24 +12045,20 @@ Digamos que $f=g$ sse
 \endol
 %%}}}
 
+%%{{{ towards a flexible definition of equality 
+\blah.
+Aqui a definição ``flexível'':
+%%}}}
+
 %%{{{ df: f_eq_g 
 \definition Igualdade.
 \label{f_eq_g}%
 Sejam $f,g : A\to B$ funções.
-Digamos que $f=g$ sse
+Definimos
 $$
+f=g
+\defiff
 \text{para todo $x \in A$, $f(x) = g(x)$.}
-$$
-%%}}}
-
-%%{{{ df: function_graph 
-\definition.
-\label{function_graph}%
-\tdefined{função!gráfico}%
-\sdefined{\graph{\holed f}} {o gráfico da função $\holed f$}%
-Dado função $f : X\to Y$, o \dterm{gráfico da $f$}, é o conjunto
-$$
-\graph f \defeq \setst {(x,f(x))} {x \in X}.
 $$
 %%}}}
 
@@ -11990,7 +12074,7 @@ $$
 %%}}}
 
 %%{{{ A: We must make clear what its values are for all of its domain. 
-\blah Resposta.
+\note Resposta.
 Precisamos deixar claro qual é o $f(a)$ para cada $a \in A$.
 %%}}}
 
@@ -26381,7 +26465,7 @@ o conceito de \emph{relação} dentro da teoria de conjuntos, ou seja:
 
 %%{{{ Q: must we define more terminolofy from relations? 
 \question.
-Precisamos definir as demais  oções e termos que encontramos no~\ref{Relations}?
+Precisamos definir as demais noções e termos que encontramos no~\ref{Relations}?
 Por exemplo: precisamos definir os termos ``transitiva'', ``reflexiva'', etc.?
 %%}}}
 
