@@ -12532,6 +12532,7 @@ superar essas limitações facilmente!
 
 %%{{{ Useless namings 
 \note Nomeamentos inúteis.
+\label{useless_namings}%
 Imagine que precisamos identificar uma certa função dum conjunto $A$ prum
 conjunto $B$, e depois de muitos cálculos e usando várias outras funções
 e objetos dados pelo nosso problema, concluimos com a frase:
@@ -12785,6 +12786,8 @@ Uma função $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
 %%{{{ Composition 
 \section Composição.
 
+\TODO Composição com black boxes.
+
 %%{{{ df: fcompose 
 \definition.
 \label{fcompose}%
@@ -12796,13 +12799,21 @@ Definimos a função $g\of f : A\to C$ pela
 $$
 \paren{g\of f}(x) = g\paren{f(x)}.
 $$
+Assim temos
+$$
+\xalignat2
+\dom (g\of f) &= \dom f &
+\cod (g\of f) &= \cod g.
+\endxalignat
+$$
 Chamamos a $g\of f$ a \dterm{composição} da $g$ \emph{seguindo} a $f$
-(ou ``da $g$ com $f$'', ou ``da $g$ de $f$'').
+(ou ``da $g$ com $f$'', ou ``$g$ de $f$'').
 %%}}}
 
 %%{{{ beware: gof_not_fog 
 \beware.
 \label{gof_not_fog}%
+\label{digramatic_notation}%
 Escrevemos $g\of f$ e não $f\of g$ para a composição na~\ref{fcompose}!
 Então quando temos $A\toarrow f B\toarrow g C$, a composição é
 $g\of f : A \to C$, que parece o oposto da ordem das setinhas.
@@ -12810,6 +12821,7 @@ Definimos a notação alternativa
 $$
 f;g = g\of f,
 $$
+chamada \dterm{notação diagramática}\ii{composição}[diagramática]\iisee{digramática}{composição, diagramática},
 mas vamos principalmente usar a $g\of f$ mesmo.
 %%}}}
 
@@ -12827,9 +12839,21 @@ $A = C$.
 \endexercise
 %%}}}
 
-\TODO Mais um jeito de definir função: seja $f = g \of h$.
-
-\TODO pointless vs pointfull.
+%%{{{ defining functions as compositions 
+\note Definindo funções como composições.
+Como $\of$ é uma operação de funções, ganhamos então mais uma maneira
+de definir funções.
+Dadas compóveis funções $A \toarrow f B \toarrow g C$ podemos
+definir uma função $h : A \to C$ apenas escrevendo:
+$$
+\text{<<Seja $h = g\of f$.>>}
+$$
+Claramente (e seguindo a discussão no~\refn{useless_namings})
+não precisamos dar um nome para essa função.
+Podemos apenas falar sobre a $g\of f$, exatamente no mesmo
+jeito que falamos do número $2\ntimes 8$ sem precisar
+dar um nome pra ele!
+%%}}}
 
 \endsection
 %%}}}
@@ -12988,7 +13012,7 @@ $$
 
 \TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$).
 
-\TODO Aplicação parcial como black box.
+\TODO Aplicação parcial com black boxes.
 
 %%{{{ df: fresto 
 \definition Restrição.
