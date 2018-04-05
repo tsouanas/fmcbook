@@ -12786,7 +12786,32 @@ Uma função $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
 %%{{{ Composition 
 \section Composição.
 
-\TODO Composição com black boxes.
+%%{{{ Composition with black boxes 
+\note Composição com black boxes.
+Suponha que temos funções $A \toarrow f B \toarrow g C$.
+Note então que a saida da $f$ pode ser usada como entrada para
+a $g$:
+$$
+\tikzpicture
+\tikzi blackboxfuncomp1;
+\endtikzpicture
+$$
+Podemos criar um novo black box, conectando os ``cabos'' assim:
+$$
+\tikzpicture
+\tikzi blackboxfuncomp2;
+\endtikzpicture
+$$
+Pintamos preta essa construção, botando os rótulos certos
+de domínio e codomínio, e pronto:
+$$
+\tikzpicture
+\tikzi blackboxfuncomp3;
+\endtikzpicture
+$$
+Criamos assim a composição $g\of f$ das funções $f$ e $g$.
+Formalmente, chegamos na definição seguinte.
+%%}}}
 
 %%{{{ df: fcompose 
 \definition.
@@ -12797,7 +12822,7 @@ Sejam
 $A \toarrow f B \toarrow g C$.
 Definimos a função $g\of f : A\to C$ pela
 $$
-\paren{g\of f}(x) = g\paren{f(x)}.
+\paren{g\of f}(x) \defeq g\paren{f(x)}.
 $$
 Assim temos
 $$
@@ -12806,7 +12831,7 @@ $$
 \cod (g\of f) &= \cod g.
 \endxalignat
 $$
-Chamamos a $g\of f$ a \dterm{composição} da $g$ \emph{seguindo} a $f$
+Chamamos a $g\of f$ a \dterm{composição} da $g$ seguindo a $f$
 (ou ``da $g$ com $f$'', ou ``$g$ de $f$'').
 %%}}}
 
@@ -12816,13 +12841,16 @@ Chamamos a $g\of f$ a \dterm{composição} da $g$ \emph{seguindo} a $f$
 \label{digramatic_notation}%
 Escrevemos $g\of f$ e não $f\of g$ para a composição na~\ref{fcompose}!
 Então quando temos $A\toarrow f B\toarrow g C$, a composição é
-$g\of f : A \to C$, que parece o oposto da ordem das setinhas.
+$A \toarrow {g\of f} C$, que parece o oposto da ordem das setinhas.
 Definimos a notação alternativa
 $$
-f;g = g\of f,
+f;g \defeq g\of f,
 $$
-chamada \dterm{notação diagramática}\ii{composição}[diagramática]\iisee{digramática}{composição, diagramática},
-mas vamos principalmente usar a $g\of f$ mesmo.
+chamada \dterm{notação diagramática}\ii{composição}[diagramática]\iisee{digramática}{composição, diagramática}, pois concorda com as setinhas do diagrama:
+$$
+A \toarrow {f;g} C.
+$$
+Mas vamos principalmente usar a notação $g\of f$ mesmo.
 %%}}}
 
 %%{{{ x: when_is_fog_defined 
@@ -12923,47 +12951,6 @@ definida pela
 $$
 (f \times g)(x,y) = \tup{f(x), g(y)}.
 $$
-%%}}}
-
-%%{{{ x: constant_implies_idempotent 
-\exercise.
-\label{constant_implies_idempotent}%
-Seja $f : A \to A$.
-Prove ou refuta a implicação:
-$$
-\text{$f$ constante}
-\implies
-\text{$f$ idempotente}
-$$
-
-\solution
-Vamos provar a implicação.
-Suponha que $f:A\to A$ é constante.
-Seja $c\in A$ tal que para todo $x\in A$, $f(x) = c$\fact1.
-Queremos mostrar que $f\of f = f$, ou seja, que para todo $a\in A$,
-$$(f\of f)(a) = f(a)$$
-(definição de igualdade de funções~\refn{f_eq_g}).
-Calculamos no lado esquerdo:
-$$
-\alignat2
-(f\of f)(a)
-&= f\paren{f(a)}    \qqby{def.~$\fcom$}\\
-&= f(c)             \qqby{pelo \byfact1, com $x \asseq a$}\\
-&= c                \qqby{pelo \byfact1, com $x \asseq c$}
-\intertext{e no lado direito:}
-f(a)
-&= c                \qqby{pelo \byfact1, com $x \asseq a$}.
-\intertext{Logo, $f \of f = f$ como desejamos.
-\endgraf
-Alternativamente, podemos nos livrar dum passo no calculo do lado esquerdo assim:
-}
-(f\of f)(a)
-&= f\paren{f(a)}    \qqby{def.~$\fcom$}\\
-&= c.               \qqby{pelo \byfact1, com $x \asseq f(a)$}
-\endalignat
-$$
-
-\endexercise
 %%}}}
 
 %%{{{ x: gof_constant_does_not_imply 
@@ -13097,7 +13084,77 @@ Vacuamente temos que para todo $x\in \emptyset$, $f(x) = g(x)$.
 %%{{{ Composition laws 
 \section Leis de composição.
 
-\TODO Intuição com tarefas: comutatividade não, associatividade sim.
+\TODO Composição como operação: comparação com multiplicação nos inteiros.
+
+%%{{{ Associativity 
+\note Associatividade.
+Suponha que temos funções
+$$
+A \toarrow f B \toarrow g C \toarrow h D.
+$$
+Podemos entao formar as composições $g\of f$ e $h\of g$.
+Temos então:
+$$
+A \toarrow {g\of f} C \toarrow h D
+\qqquad
+A \toarrow f B \toarrow {h\of g} D.
+$$
+Compondo as funções do primeiro diagrama criamos a função $h\of(g\of f)$,
+e compondo aquelas do segundo criamos a $(h\of g)\of f$:
+$$
+A \tolongarrow {h\of (g\of f)} D
+\qqquad
+A \tolongarrow {(h\of g)\of f} D.
+$$
+Queremos saber se as duas funções são iguais.
+Vamos pensar sobre isso usando black boxes.
+$$
+\gathered
+\tikzpicture
+\tikzi blackboxfuncompassoc1;
+\endtikzpicture \\
+\tikzpicture
+\tikzi blackboxfuncompassoc2;
+\endtikzpicture
+\endgathered
+$$
+Primeiramente observe que os tipos delas são iguais.
+Então basta verificar que concordam para todo ponto $x\in A$.
+Pela definição de composição sabemos que ``internalmente''
+elas funcionam assim:
+$$
+\gathered
+\tikzpicture
+\tikzi blackboxfuncompassoc3;
+\endtikzpicture \\
+\tikzpicture
+\tikzi blackboxfuncompassoc4;
+\endtikzpicture
+\endgathered
+$$
+Agora pelas definições das $g\of f$ e $h\of g$,
+o que precisamos comparar na verdade são as:
+$$
+\gathered
+\tikzpicture
+\tikzi blackboxfuncompassoc5;
+\endtikzpicture \\
+\tikzpicture
+\tikzi blackboxfuncompassoc6;
+\endtikzpicture
+\endgathered
+$$
+Agora que tá tudo transparente parece óbvio que as duas funções são iguais,
+e comportam como a seguinte:
+$$
+\tikzpicture
+\tikzi blackboxfuncompassoc0;
+\endtikzpicture
+$$
+Mas para provar que as duas construções resultam na mesma função,
+vamos precisar calcular os <<$?$>> do desenho acima, e seguir
+fielmente as definições.
+%%}}}
 
 %%{{{ thm: associativity_of_fcom 
 \theorem.
@@ -13149,21 +13206,29 @@ $$
 \qed
 %%}}}
 
+%%{{{ Commutativity
+\note Comutatividade.
+É fácil provar que a composição de funções \emph{não é comutativa}.
+Faça isso agora no exercício seguinte!
+%%}}}
+
 %%{{{ x: non_commutativity_of_fcom 
 \exercise.
 \label{non_commutativity_of_fcom}%
-Existem funções $f,g$ tais que $f\of g$ e $g\of f$ são ambas definidas,
+Existem funções $f,g$ entre conjuntos distintos,
+tais que $f\of g$ e $g\of f$ são ambas definidas,
 mas mesmo assim
 $$
 f\of g \neq g\of f.
 $$
+Mostre pelo menos dois exemplos diferentes: um que utiliza
+apenas um conjunto $A$, e outro que utiliza dois conjuntos
+diferentes $A, B$.
 
 \endexercise
 %%}}}
 
-\TODO Composição como black box.
-
-\TODO Composição como operação: comparação com multiplicação nos inteiros.
+\TODO Intuição com tarefas: comutatividade não, associatividade sim.
 
 %%{{{ Q: what_is_the_identity_of_composition 
 \question.
@@ -13211,6 +13276,47 @@ num diagrama interno de endomapa quando ela é idempotente.
 \hint
 Separe as funções idempotêntes dependendo na quantidade
 de ``redemoinhos'' que aparecem nos seus diagramas.
+
+\endexercise
+%%}}}
+
+%%{{{ x: constant_implies_idempotent 
+\exercise.
+\label{constant_implies_idempotent}%
+Seja $f : A \to A$.
+Prove ou refuta a implicação:
+$$
+\text{$f$ constante}
+\implies
+\text{$f$ idempotente}
+$$
+
+\solution
+Vamos provar a implicação.
+Suponha que $f:A\to A$ é constante.
+Seja $c\in A$ tal que para todo $x\in A$, $f(x) = c$\fact1.
+Queremos mostrar que $f\of f = f$, ou seja, que para todo $a\in A$,
+$$(f\of f)(a) = f(a)$$
+(definição de igualdade de funções~\refn{f_eq_g}).
+Calculamos no lado esquerdo:
+$$
+\alignat2
+(f\of f)(a)
+&= f\paren{f(a)}    \qqby{def.~$\fcom$}\\
+&= f(c)             \qqby{pelo \byfact1, com $x \asseq a$}\\
+&= c                \qqby{pelo \byfact1, com $x \asseq c$}
+\intertext{e no lado direito:}
+f(a)
+&= c                \qqby{pelo \byfact1, com $x \asseq a$}.
+\intertext{Logo, $f \of f = f$ como desejamos.
+\endgraf
+Alternativamente, podemos nos livrar dum passo no calculo do lado esquerdo assim:
+}
+(f\of f)(a)
+&= f\paren{f(a)}    \qqby{def.~$\fcom$}\\
+&= c.               \qqby{pelo \byfact1, com $x \asseq f(a)$}
+\endalignat
+$$
 
 \endexercise
 %%}}}
@@ -13388,7 +13494,7 @@ Seguem uns exemplos de operadores de ordem superior que você talves já
 encontrou e até usou na tua vida.
 %%}}}
 
-\TODO Exemplos: composição, derivação, integração, somatório, produtório, etc.
+\TODO Exemplos: composição, derivação, integração, etc.
 
 %%{{{ Defining higher-order functions 
 \note Definindo funções de ordem superior.
@@ -13462,7 +13568,7 @@ $$
 F_1&: \reals \to \reals \\
 F_2&: \reals \to (\reals \to \reals) \\
 F_3&: (\reals \to \reals) \to \reals \\
-F_4&: (\reals \to \reals) \to (\reals to \reals) \\
+F_4&: (\reals \to \reals) \to (\reals \to \reals) \\
 F_5&: (\reals^2 \to \reals) \to \reals \\
 F_6&: (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
 \endalign
