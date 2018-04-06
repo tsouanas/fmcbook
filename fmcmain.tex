@@ -11659,6 +11659,13 @@ As vezes referimos aos membros do domínio e do codomínio duma função
 como \dterm{pontos} desses conjuntos.
 %%}}}
 
+%%{{{ df: endomapping 
+\definition Endomapa.
+\label{endomapping}%
+\tdefined{endomapa}%
+Uma função $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
+%%}}}
+
 %%{{{ f : A -> B  and  A --f--> B  notations 
 \note.
 Escrevemos ``sejam $f,g : A \to B$'' e entendemos como:
@@ -11744,6 +11751,18 @@ O que eles querem dizer é que o \emph{return type} de $\code{foo}$ é $\code{in
 Mas a pergunta foi identificar o \emph{tipo} de $\code{foo}$.
 
 \endexercise
+%%}}}
+
+%%{{{ df: function_space 
+\definition.
+\tdefined{espaço de funções}%
+\label{function_space}%
+Sejam $A,B$ conjuntos.
+O \dterm{espaço de funções} de $A$ para $B$ é o conjunto de todas as funções de
+$A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
+$$
+(A \to B) \defeq B^A \defeq \setst f {f: A \to B}.
+$$
 %%}}}
 
 %%{{{ Conditions: functionhood_conditions 
@@ -12396,6 +12415,16 @@ Antes disso, vamos ver mais uma maneira de definir funções: com buracos!
 \endsection
 %%}}}
 
+%%{{{ Internal and external diagrams 
+\section Diagramas internos e externos.
+
+\TODO Mostre internos e externos diagramas.
+
+\TODO Mostre internos e externos diagramas de endomapas.
+
+\endsection
+%%}}}
+
 %%{{{ Holed expressions 
 \section Expressões com buracos.
 
@@ -12756,21 +12785,62 @@ Pois a notação $\lam x {\thole}$ serve bem melhor para a maioria dos nossos us
 \endsection
 %%}}}
 
-%%{{{ Internal and external diagrams 
-\section Diagramas internos e externos.
+%%{{{ Empty (co)domains 
+\section (Co)domínios vazios.
 
-\TODO Mostre internos e externos diagramas.
+%%{{{ x: f_from_A_to_emptyset 
+\exercise.
+\label{f_from_A_to_emptyset}%
+Seja $f : A \to \emptyset$.
+O que podemos concluir sobre o $A$?
+Quantas funções têm esse tipo?
 
-%%{{{ df: endomapping 
-\definition Endomapa.
-\label{endomapping}%
-\tdefined{endomapa}%
-Uma função $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
+\hint
+O que significa ser função?
+
+\solution
+$A=\emptyset$, pois, caso contrario, pegando um $a\in A$,
+chegamos na contradição $f(a) \in \emptyset$.
+Quantas funções $f$ têm esse tipo?
+Vamos resolver isso logo: veja~\ref{emptyfun} e~\ref{uniqueness_of_emptyfun}.
+
+\endexercise
 %%}}}
 
-\TODO Mostre internos diagramas especiais de endomapas.
+%%{{{ x: f_from_emptyset_to_A 
+\exercise.
+\label{f_from_emptyset_to_A}%
+Seja $f : \emptyset \to A$.
+O que podemos concluir sobre o $A$?
+Quantas funções têm esse tipo?
+
+\endexercise
+%%}}}
+
+%%{{{ df: emptyfun 
+\definition Função vazia.
+\label{emptyfun}%
+\tdefined{função}[vazia]%
+\iisee{vazia!função}{função, vazia}%
+Uma função $f$ com $\dom f = \emptyset$ é chamada \dterm{função vazia}.
+%%}}}
+
+%%{{{ x: uniqueness_of_emptyfun 
+\exercise.
+\label{uniqueness_of_emptyfun}%
+<<Uma>> ou <<a>>?
+
+\solution
+<<A>> mesmo!
+Tome $f,g$ funções vazias.
+Logo $f : \emptyset \to A$ e $g : \emptyset \to B$ para alguns conjuntos $A,B$.
+Vacuamente temos que para todo $x\in \emptyset$, $f(x) = g(x)$.
+
+\endexercise
+%%}}}
 
 \endsection
+
 %%}}}
 
 %%{{{ Recursive definitions 
@@ -12886,10 +12956,24 @@ dar um nome pra ele!
 \endsection
 %%}}}
 
-%%{{{ Constructions and operations on functions 
-\section Construções e operações em funções.
+%%{{{ Functions for free 
+\section Funções de graça.
 
-\TODO Identidade.
+\blah.
+Investigamos aqui umas primeiras funções garantidas para existir assim que
+tivermos algum outro objeto: um conjunto, uma função, etc.
+
+%%{{{ df: Identity 
+\definition Identidade.
+\label{identity_of_A}%
+\tdefined{função}[identidade]%
+\sdefined {\id_{\holed A}} {a identidade do $\holed A$}
+\iisee{identidade}{função, identidade}%
+Seja $A$ conjunto.
+A função $\lam x x : A \to A$ é chamada
+\dterm{identidade do $A$}.
+Denotamos a identidade do conjunto $A$ por $\id_A : A \to A$ ou $1_A : A \to A$.
+%%}}}
 
 %%{{{ x: id_compose_practice
 \exercise.
@@ -12931,27 +13015,64 @@ $$
 \endexercise
 %%}}}
 
-\TODO Caraterística.
-
-\TODO Constante.
-
-%%{{{ df: ftimes 
-\definition.
-\label{ftimes}%
-\tdefined{função}[produto]%
-\sdefined {\holed f \times \holed g} {a função-produto e $f$ ``cross'' $g$}%
-Sejam funções
-$
-f : A \to B
-g : C \to D
-$
-Chamamos \dterm{função-produto da $f$ ``cross'' $g$}, que denotamos por $f \times g$
-a função $f \times g : A \times C \to B \times D$
-definida pela
+%%{{{ df: incto 
+\definition Inclusão.
+\label{incto}%
+\tdefined{função}[inclusão]%
+\sdefined {\holed f : \holed A \incto \holed B} {a inclusão do $A$ no $B$}%
+Sejam $A,B$ conjuntos com $A\subseteq B$.
+A função $\lam x x : A \to B$ é chamada \dterm{inclusão do $A$ no $B$}.
+Frequentemente usamos os nomes $i,\iota$ para denotá-la e escrevemos
 $$
-(f \times g)(x,y) = \tup{f(x), g(y)}.
+\iota : A \incto B
 $$
+para enfatisar que é a inclusão.
+Note que seguindo o ponto de vista categorial (\refn{f_eq_g_2}),
+se $A \subsetneq B$ então $\iota \neq \id_A$,
+mas seguindo o ponto de vista conjuntista (\refn{f_eq_g_1}),
+temos $\iota = \id_A$.
 %%}}}
+
+%%{{{ df: constant 
+\definition Constante.
+\label{constant_function}%
+\tdefined{função}[constante]%
+Seja $f : A\to B$.
+Chamamos a função $f$ \dterm{constante} sse ela mapea todos os membros
+do seu domínio para o mesmo objeto.
+Formulamente,
+$$
+\text{$f : A \to B$ constante}
+\defiff
+\lforall {x, y \in A} {f(x) = f(y)}.
+$$
+Dados conjuntos $A,B$, para todo $b\in B$, definimos a função constante
+$$
+k^A_b : A \to B
+\quad\text{com}\quad
+k^A_b(x) = b.
+$$
+Quando o $A$ é implícito pelo contexto, escrevemos apenas $k_b$.
+%%}}}
+
+%%{{{ x: different_def_of_constant_function 
+\exercise.
+\label{different_def_of_constant_function}%
+As vezes aparece como definição de função constante a seguinte:
+\emph{A função $f : A \to B$ é constante sse existe $b\in B$ tal que
+$f(x) = b$ para todo $x \in A$.}
+Essa definição é equivalente com a~\ref{constant_function}?
+
+\hint
+$\emptyset$.
+
+\solution
+Não.
+A função vazia $f : \emptyset\to\emptyset$ é constante com
+a~\ref{constant_function}, mas não com a definição do exercício.
+
+\endexercise
+%}}}
 
 %%{{{ x: gof_constant_does_not_imply 
 \exercise.
@@ -12995,11 +13116,32 @@ $$
 \endexercise
 %%}}}
 
-\TODO Iteração de função: $f^n$ (idéia e definição recursiva).
+%%{{{ df: characteristic_funcion 
+\definition Caraterística.
+\label{characteristic_function}%
+\tdefined{função}[caraterística]%
+\iisee{caraterística}{função, caraterística}%
+\sdefined {\chr_{\holed A}} {a função caraterística do $\holed A$}%
+Seja $A$ conjunto.
+A função caraterística do $A$ é a função $\chr_A : A \to \set{0,1}$
+definida pela
+$$
+\chr_A(x) =
+\knuthcases{
+1, &se $x\in A$\cr
+1, &se $x\notin A$\
+}.
+$$
+%%}}}
 
-\TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$).
+%%{{{ x: char_compose_char 
+\exercise.
+Suponha que $\chr_A\of\chr_A$ é definido.
+O que podes concluir sobre o $A$?
+A $\chr_A\of\chr_A$ é constante?
 
-\TODO Aplicação parcial com black boxes.
+\endexercise
+%%}}}
 
 %%{{{ df: fresto 
 \definition Restrição.
@@ -13012,73 +13154,22 @@ $f \resto X$ é a função de $X$ para $B$ definida pela
 $$
 (f \resto X)(x) = f(x).
 $$
+Tambem é usada a notação $f\mathord{|}_X$ para a função $f \resto X$.
 %%}}}
 
-\TODO Restrição: propriedades e notações alternativas.
-
-\TODO União: hipoteses necessárias para definir.
-
-\TODO Embedding.
+\TODO Exercise.
 
 \endsection
 %%}}}
 
-%%{{{ Empty (co)domains 
-\section (Co)domínios vazios.
+%%{{{ Partial application 
+\section Aplicação parcial.
 
-%%{{{ x: f_from_A_to_emptyset 
-\exercise.
-\label{f_from_A_to_emptyset}%
-Seja $f : A \to \emptyset$.
-O que podemos concluir sobre o $A$?
-Quantas funções têm esse tipo?
+\TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$).
 
-\hint
-O que significa ser função?
-
-\solution
-$A=\emptyset$, pois, caso contrario, pegando um $a\in A$,
-chegamos na contradição $f(a) \in \emptyset$.
-Quantas funções $f$ têm esse tipo?
-Vamos resolver isso logo: veja~\ref{emptyfun} e~\ref{uniqueness_of_emptyfun}.
-
-\endexercise
-%%}}}
-
-%%{{{ x: f_from_emptyset_to_A 
-\exercise.
-\label{f_from_emptyset_to_A}%
-Seja $f : \emptyset \to A$.
-O que podemos concluir sobre o $A$?
-Quantas funções têm esse tipo?
-
-\endexercise
-%%}}}
-
-%%{{{ df: emptyfun 
-\definition Função vazia.
-\label{emptyfun}%
-\tdefined{função}[vazia]%
-\iisee{vazia!função}{função, vazia}%
-Uma função $f$ com $\dom f = \emptyset$ é chamada \dterm{função vazia}.
-%%}}}
-
-%%{{{ x: uniqueness_of_emptyfun 
-\exercise.
-\label{uniqueness_of_emptyfun}%
-<<Uma>> ou <<a>>?
-
-\solution
-<<A>> mesmo!
-Tome $f,g$ funções vazias.
-Logo $f : \emptyset \to A$ e $g : \emptyset \to B$ para alguns conjuntos $A,B$.
-Vacuamente temos que para todo $x\in \emptyset$, $f(x) = g(x)$.
-
-\endexercise
-%%}}}
+\TODO Aplicação parcial com black boxes.
 
 \endsection
-
 %%}}}
 
 %%{{{ Composition laws 
@@ -13354,18 +13445,26 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Function spaces 
-\section Espaços de funções.
+%%{{{ More constructions and operations on functions 
+\section Mais construções e operações em funções.
 
-%%{{{ df: function_space 
+\TODO Iteração de função: $f^n$ (idéia e definição recursiva).
+
+%%{{{ df: ftimes 
 \definition.
-\tdefined{espaço de funções}%
-\label{function_space}%
-Sejam $A,B$ conjuntos.
-O \dterm{espaço de funções} de $A$ para $B$ é o conjunto de todas as funções de
-$A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
+\label{ftimes}%
+\tdefined{função}[produto]%
+\sdefined {\holed f \times \holed g} {a função-produto e $f$ ``cross'' $g$}%
+Sejam funções
+$
+f : A \to B
+g : C \to D
+$
+Chamamos \dterm{função-produto da $f$ ``cross'' $g$}, que denotamos por $f \times g$
+a função $f \times g : A \times C \to B \times D$
+definida pela
 $$
-(A \to B) \defeq B^A \defeq \setst f {f: A \to B}.
+(f \times g)(x,y) = \tup{f(x), g(y)}.
 $$
 %%}}}
 
@@ -13384,6 +13483,10 @@ $$
 Chamamos a $(\dhole \ast \dhole)$ a \dterm{operação pointwise}
 da $\ast$ no $(A \to B)$.
 %%}}}
+
+\TODO Exercise.
+
+\TODO União: hipoteses necessárias para definir.
 
 \endsection
 %%}}}
