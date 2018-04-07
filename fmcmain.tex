@@ -13058,10 +13058,10 @@ Quando o $A$ é implícito pelo contexto, escrevemos apenas $k_b$.
 
 %%{{{ x: different_def_of_constant_function 
 \exercise.
-\label{different_def_of_constant_function}%
+\label{constant_function_different_def}%
 As vezes aparece como definição de função constante a seguinte:
 \emph{A função $f : A \to B$ é constante sse existe $b\in B$ tal que
-$f(x) = b$ para todo $x \in A$.}
+para todo $x \in A$, $f(x) = b$.}
 Essa definição é equivalente com a~\ref{constant_function}?
 
 \hint
@@ -13071,6 +13071,50 @@ $\emptyset$.
 Não.
 A função vazia $f : \emptyset\to\emptyset$ é constante com
 a~\ref{constant_function}, mas não com a definição do exercício.
+
+\endexercise
+%}}}
+
+%%{{{ x: constant_function_why_did_we_omit_unique
+\exercise.
+\label{constant_function_why_did_we_omit_unique}%
+Na definição do~\ref{different_def_of_constant_function}
+não escrevemos ``existe único'', mas apenas ``existe''.
+O que mudaria com esse ``único''?
+Prove tua afirmação.
+
+\hint
+Lembra se que a definição é apenas aplicável numa \emph{função}.
+Mas cuidado com os casos especiais que invólvem o $\emptyset$.
+
+\solution
+\emph{Quase} nada!
+Parece ser redundante, pois a definição é aplicavel numa \emph{função}
+e graças à determinicidade sabemos que se existe, tem que ser único.
+Mas!
+Vamos provar para achar algo interessante.
+\endgraf
+Suponha que temos $b,b'\in B$ que satisfazem a condição, ou seja,
+temos:
+$$
+\align
+\text{para todo $x \in A$,}& f(x) = b \\
+\text{para todo $x \in A$,}& f(x) = b'
+\endalign
+$$
+Logo se $x\in A$, temos
+$$
+b = f(x) = b',
+$$
+ou seja, unicidade mesmo desse $b$.
+Mas isso é, supondo que $A\neq\emptyset$.
+O que acontece se $A=\emptyset$ e $B\neq\emptyset$?
+Botando esse ``único'' na definição, uma função
+$$
+\emptyset\toarrow f B
+$$
+vai ser constante sse $B$ é um singleton.
+Sem o ``único'', ela vai ser constante sse $B\neq\emptyset$.
 
 \endexercise
 %}}}
@@ -13126,6 +13170,30 @@ $$
 \defiff
 \pforall {a \in A}
 \lexists {b \in B} {f(a) = b}.
+$$
+Se substituir o $\exists$ por $\unique$, o problema tá resolvido?
+Sugira uma (outra) resolução simples.
+
+\hint
+Siga essa definição e tente achar alguam função que não vai ser chamada
+constante.
+
+\solution
+A definição tem o problema que vai aceitar toda função como constante,
+pois o que ela exige é satisfeito por toda função.
+Substituindo o $\exists$ por $\unique$ nada muda nesse sentido,
+pois toda função satisfaz essa afirmação mais forte
+(determinicidade de função).
+\endgraf
+O problema é que os quantificadores estão na ordem errada!
+Simplesmente trocando a ordem deles, chegamos numa
+definição equivalente à do~\ref{constant_function_different_def}:
+$$
+\text{$f:A\to B$ constante}
+\defiff
+\pexists {b \in B}
+\lforall {a \in A}
+{f(a) = b}.
 $$
 
 \endexercise
