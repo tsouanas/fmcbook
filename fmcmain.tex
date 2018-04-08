@@ -13165,7 +13165,7 @@ $$
 \defiff
 \lforall {x, y \in A} {f(x) = f(y)}.
 $$
-Dados conjuntos $A,B$, para todo $b\in B$, definimos a função constante
+Dados conjuntos $A,B$, e $b\in B$, definimos a função constante
 $$
 k^A_b : A \to B
 \quad\text{com}\quad
@@ -13192,6 +13192,36 @@ a~\ref{constant_function}, mas não com a definição do exercício.
 
 \endexercise
 %}}}
+
+%%{{{ prop: constant_function_definitions_almost_agree 
+\proposition.
+\label{constant_function_definitions_almost_agree}%
+Sejam $A \toarrow f B$ com $A \neq \emptyset$.
+Prove que:
+$$
+\text{$f$ constante}
+\iff
+\pexists {b\in B}
+\lforall {x\in A}
+{f(x) = b}.
+$$
+\proof.
+\lrdir:
+Seja $a\in A$ ($A\neq\emptyset$).
+Vamos mostramos que tomando $b\asseq f(a)$ a proposição na direita é satisfeita.
+Observe que o $f(a)\in B$ e satisfaz
+$$
+\lforall {x\in A} {f(x) = f(a)}
+$$
+pela definição de constante.
+\endgraf
+\rldir:
+Seja $b_0\in B$ tal que para todo $x\in A$, $f(x) = b_0$.
+Tome $x,y \in A$ ($A\neq\emptyset$).
+Precisamos mostrar que $f(x) = f(y)$.
+Pela hipótese temos que $f(x) = b_0 = f(y)$.
+\qed
+%%}}}
 
 %%{{{ x: gof_constant_does_not_imply 
 \exercise.
@@ -13665,7 +13695,10 @@ $$
 
 \solution
 Vamos provar a implicação.
-Suponha que $f:A\to A$ é constante.
+Suponha que $f : A\to A$ é constante.
+Caso $A=\emptyset$ a $f$ é a função vazia e a $f\of f$ também.
+Caso $A\neq\emptyset$, usamos a definição alternativa
+da~\ref{constant_function_definitions_almost_agree}.
 Seja $c\in A$ tal que para todo $x\in A$, $f(x) = c$\fact1.
 Queremos mostrar que $f\of f = f$, ou seja, que para todo $a\in A$,
 $$(f\of f)(a) = f(a)$$
