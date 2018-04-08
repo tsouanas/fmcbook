@@ -12418,9 +12418,130 @@ Antes disso, vamos ver mais uma maneira de definir funções: com buracos!
 %%{{{ Internal and external diagrams 
 \section Diagramas internos e externos.
 
-\TODO Mostre internos e externos diagramas.
+%%{{{ Internal diagrams 
+\note Diagramas internos.
+\tdefined{diagrama}[interno]%
+Em certos casos podemos representar toda a informação numa função
+usando \dterm{diagramas internos}, ou seja, diagramas que mostram
+o interno do domínio e codomínio duma função, e como ela comporta
+nele.
+%%}}}
 
-\TODO Mostre internos e externos diagramas de endomapas.
+%%{{{ eg: internal_diagram_example 
+\example.
+\label{internal_diagram_example}%
+Aqui um diagrama interno de duas funções $A \toarrow f B \toarrow g C$:
+$$
+\tikzpicture
+\tikzi internaldiagram;
+\endtikzpicture
+$$
+Aqui o conjunto $A$ tem 2 membros---não importa quais são, ou seja,
+os nomes deles---o $B$ tem 3, e o $C$ tem 2 também.
+\endexample
+%%}}}
+
+%%{{{ Names of elements 
+\note Nomes de elementos.
+É muito comum desenhar esse tipo de diagramas para construir exemplos e
+contraexemplos que involvem funções, e quando os \emph{quais são}
+os membros não é importante desenhamos apenas um $\bullet$ para
+representar os membros, com o entendimento que pontos distintos
+representam membros distintos.
+Note que \emph{se} quisermos definir formalmente um exemplo baseado num
+desenho, nossa tarefa é trivial: é só escolher nomes para os $\bullet$
+e pronto.
+Por exemplo, dando esses nómes nos pontos
+do~\ref{internal_diagram_example} chegamos no seguinte:
+$$
+\tikzpicture
+\tikzi internaldiagramnames;
+\endtikzpicture
+$$
+E agora para definir isso formalmente na escrita podemos apenas dizer:
+Sejam os conjuntos
+$$
+A = \set{\mathrm a, \mathrm b} \qqqquad
+B = \set{\mathrm c, \mathrm d, \mathrm e} \qqqquad
+C = \set{\mathrm u, \mathrm v}
+$$
+e as funções $f : A\to B$ e $g : B\to C$ definidas pelas:
+$$
+\aligned
+f(\mathrm a) &= e\\
+f(\mathrm b) &= d
+\endaligned
+\qqqquad
+\aligned
+g(\mathrm c) &= 1\\
+g(\mathrm d) &= 2\\
+g(\mathrm e) &= 2
+\endaligned
+$$
+Observe que os $\mathrm a, \mathrm b, \mathrm c$, etc.~\emph{não são variáveis},
+mas as próprias letras `a', `b', `c', etc.
+Naturalmente escolhemos nomes bem conhecidos, como números, letras, etc.
+%%}}}
+
+%%{{{ remark: to what do those barred arrows correspond? 
+\remark.
+Então em que corresponde cada uma das setinhas barradas do diagrama interno?
+Numa das \emph{equações} q definam a correspondente função,
+ou seja, num par da forma $\tup{x, f(x)}$.
+%%}}}
+
+%%{{{ External diagrams 
+\note Diagramas externos.
+\tdefined{diagrama}[externo]%
+Muitas vezes queremos olhar para a ``big picture'' e os detalhes
+``internos'' da configuração não nos importam.
+Pelo contrário, nos atrapalham: \emph{perdemos a floresta pelas arvores}.
+Nesse caso usamos \dterm{diagramas externos}.
+%%}}}
+
+%%{{{ eg: external_of_previous_example 
+\example.
+\label{external_of_previous_example}%
+O diagrama externo da configuração do~\ref{internal_diagram_example}
+é o seguinte:
+$$
+A \tolongarrow f B \tolongarrow g C.
+$$
+\endexample
+%%}}}
+
+%%{{{ Diagrams of endomaps 
+\note Diagramas de endomapas.
+No caso especial que temos um endomapa $f:A\to A$,
+podemos desenhar seu diagrama interno
+sem usar duas cópias de $A$, mas apenas mostrando os mapeamentos assim
+como o exemplo seguinte sugere.
+%%}}}
+
+%%{{{ eg: internal_diagram_of_endomap 
+\example.
+Considere o diagrama interno:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi internaldiagramendo1;
+\endtikzpicture
+$$
+Esse é o diagrama interno da função $f : A \to A$ definida pelas
+$$
+\xalignat8
+f(1) &= 2; &
+f(2) &= 1; &
+f(3) &= 1; &
+f(4) &= 4; &
+f(5) &= 5; &
+f(6) &= 8; &
+f(7) &= 5; &
+f(8) &= 5;
+\endxalignat
+$$
+onde $A = \set {1,2,3,4,5,6,7,8}$.
+\endexample
+%%}}}
 
 \endsection
 %%}}}
@@ -12555,8 +12676,8 @@ superar essas limitações facilmente!
 \endsection
 %%}}}
 
-%%{{{ The λ-notation 
-\section A notação $\lambda$.
+%%{{{ The lambda notation 
+\section A notação lambda.
 \label{Lambda_notation}%
 
 %%{{{ Useless namings 
@@ -13056,7 +13177,7 @@ $$
 Quando o $A$ é implícito pelo contexto, escrevemos apenas $k_b$.
 %%}}}
 
-%%{{{ x: different_def_of_constant_function 
+%%{{{ x: constant_function_different_def 
 \exercise.
 \label{constant_function_different_def}%
 As vezes aparece como definição de função constante a seguinte:
@@ -13089,28 +13210,7 @@ Falso.
 Um contraexemplo é o seguinte:
 $$
 \tikzpicture
-\draw (0,0) ellipse (1cm and 2cm);
-\draw (3,0) ellipse (1cm and 2cm);
-\draw (6,0) ellipse (1cm and 2cm);
-\draw (0,0)  node {$\bullet$};
-\draw (0,-1) node {$\bullet$};
-\draw (3,1)  node {$\bullet$};
-\draw (3,0)  node {$\bullet$};
-\draw (3,-1) node {$\bullet$};
-\draw (6,1)  node {$\bullet$};
-\draw (6,-1) node {$\bullet$};
-\draw[|->] (0.2,0) -- (2.8,-0.9);
-\draw[|->] (0.2,-.9) -- (2.8,0);
-\draw[|->] (3.2,0) -- (5.8,-0.9);
-\draw[|->] (3.2,-1) -- (5.8,-1);
-\draw[|->] (3.2,1) -- (5.8,1);
-\draw[->]  (0.5,2.5) -- (2.5,2.5);
-\draw[->]  (3.5,2.5) -- (5.5,2.5);
-\draw (0,2.5) node {$A$};
-\draw (3,2.5) node {$B$};
-\draw (6,2.5) node {$C$};
-\draw (1.5,2.20) node {$f$};
-\draw (4.5,2.20) node {$g$};
+\tikzi gofconstantdoesnotimply;
 \endtikzpicture
 $$
 
@@ -13168,8 +13268,8 @@ $$
 \chr_A(x) =
 \knuthcases{
 1, &se $x\in A$\cr
-0, &se $x\notin A$\
-}.
+0, &se $x\notin A$.
+}
 $$
 %%}}}
 
@@ -13196,25 +13296,154 @@ $$
 Tambem é usada a notação $f\mathord{|}_X$.
 %%}}}
 
-\TODO Exercise.
-
 \endsection
 %%}}}
 
 %%{{{ Partial application 
 \section Aplicação parcial.
 
-\TODO Aplicação parcial e ``buracos'': com $-$, $\cdot$, etc.; com lambdas ($\lambda$).
+%%{{{ Partial application with black boxes 
+\note Aplicação parcial com black boxes.
+Suponha que temos uma função de aridade~$2$:
+$$
+f : (A\times B) \to C.
+$$
+Ou seja, nossa função ``para funcionar'', precisa receber
+exatamente~2~argumentos: algum $a\in A$ e algum $b\in B$.
+$$
+\tikzpicture
+\tikzi blackboxfunpartapp1;
+\endtikzpicture
+$$
+para ``produzir'' o valor $f(a,b) \in C$.
+Queremos utilizar essa função de aridade~$2$,
+para criar duas outras, cada uma de aridade~$1$.
+A idéia é a seguinte: vamos ``fixar'' uma das suas entradas
+com um valor, e deixar a outra como entrada mesmo.
+Imagine que fixamos um certo $b_0\in B$ no segundo ``cabo'' de entrada,
+puxamos o outro cabo, e criamos uma nóva caixa assim:
+$$
+\tikzpicture
+\tikzi blackboxfunpartapp2;
+\endtikzpicture
+$$
+E agora pintamos preta nossa caixa, escrevemos seus rótulos (seu típo),
+e pronto, construimos uma nova função de aridade $1$:
+$$
+\tikzpicture
+\tikzi blackboxfunpartapp3;
+\endtikzpicture
+$$
+Observe que temos $f(\dhole,b_0):A \to C$.
+Vamos agora ver a mesma ideia usando buracos, sem black boxes.
+%%}}}
 
-\TODO Aplicação parcial com black boxes.
+%%{{{ Partial application using holes 
+\note Aplicação parcial usando buracos.
+Considere uma função $f$ de aridade 3:
+$$
+A \times B \times C \tolongarrow f D.
+$$
+Lembre-se que
+$$
+f(\dhole, \dhole, \dhole) :
+A \times B \times C \to D
+$$
+e ainda mais $f(\dhole, \dhole, \dhole)$ é a propria $f$!
+Queremos preencher uns desses buracos, mas não todos.
+E nada especial sobre esse $3$.
+Em geral, dada uma função $f$ de aridade $n$,
+podemos \emph{fixar} $k$ dos seus argumentos
+com certos valores, botar buracos nos ouros,
+e criar assim uma função de aridade $n-k$.
+Uns exemplos vão esclarecer esse processo.
+%%}}}
+
+%%{{{ eg: partial_application_holes_eg 
+\example.
+Considere a função $f : \reals^3 \to \reals$, definida pela
+$$
+f(x,y,z) = x + y^2 + z^3.
+$$
+Temos então
+$$
+\align
+f(\dhole,\dhole,\dhole) &: \reals^3 \to \reals.
+\intertext{Com aplicação parcial, fixando uns dos seus argumentos,
+criamos então as funções seguintes:}
+f(2,\dhole,\dhole)      &: \reals^2 \to \reals \\
+f(2,\dhole,\sin(2))     &: \reals   \to \reals \\
+f(\dhole,\sqrt2,\cbrt2) &: \reals^2 \to \reals \\
+f(\dhole,0,0)           &: \reals   \to \reals.
+\endalign
+$$
+A última, por exemplo, é a $\id_\reals$; a penúltima é a $\lam x {x+4}$.
+\endexample
+%%}}}
+
+%%{{{ eg: partial_application_holes_infix_eg 
+\example.
+Aplicando a função de adição $+ : \nats^2 \to \nats$
+parcialmente fixando seu segundo argumento no número $1$,
+criamos a função
+$$
+\align
+(\bhole + 1) &: \nats \to \nats
+\intertext{que é a função $\namedfun{succ}$ de sucessor;
+e fixando seu primeiro argumento no $0$ criamos a}
+(0 + \bhole) &: \nats \to \nats
+\endalign
+$$
+que é a $\id_\nats$.
+\endexample
+%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ Composition laws 
+%%{{{ Composition_laws 
 \section Leis de composição.
+\label{Composition_laws} 
 
-\TODO Composição como operação: comparação com multiplicação nos inteiros.
+%%{{{ Composition as an operation 
+\note Composição como operação.
+No mesmo jeito que o produto $3\ntimes 2$ denota um número,
+a composição $g\of f$ de certas funções $f$ e $g$ denota uma função.
+A $\of$ então realmente é uma operação (binária) nas funções,
+e agora vamos investigar as leis que ela satisfaz, fazendo uma
+comparação com a multiplicação nos números, procurando similaridades
+e diferêncas.  Note que já começamos com uma certa ambigüidade
+com esse ``nos números'', pois as leis satisfeitas
+pela~$\ntimes$~dependem em \emph{qual multiplicação} estamos considerando:
+a multiplicação nos reais, por exemplo, satisfaz a uma certa lei de inversos
+(viz.~«cada número diferente de zero tem um inverso multiplicativo»)
+mas nos inteiros não.  Mais sobre isso depois.
+%%}}}
+
+%%{{{ Totality 
+\note Totalidade.
+Primeiramente observe uma grande diferença entre composição e multiplicação:
+a multiplicação é uma operação \dterm{total}, ou seja, para todo número
+$x, y$, seu produto $x\ntimes y$ é definido.
+Mas como vimos na~\ref{fcompose}, para formar a composição $g\of f$
+de duas funções $f$ e $g$ elas precisam satisfazer a condição
+$\cod f = \dom g$.  Caso contrário, o $g\of f$ nem tem significado!
+Continuamos investigando mais propriedades.
+%%}}}
+
+%%{{{ Intuition with tasks 
+\note Intuição com tarefas.
+Vamos agora imaginar funções como tarefas para ser feitas em algo,
+e a composição como a ideia de ``seqüenciar as tarefas''.
+Ou seja $g\of f$ seria a tarefa ``fazer a tarefa $f$ e depois a $g$''.
+Com essa intuição, parecem óbvias as duas afirmações
+\beginol
+\li a composição é associativa;
+\li a composição não é comutativa.
+\endol
+\noindent
+Mas intuição nunca provou nada sozinha, então bora provar essas afirmações!
+%%}}}
 
 %%{{{ Associativity 
 \note Associatividade.
@@ -13370,12 +13599,6 @@ diferentes $A, B$.
 \endexercise
 %%}}}
 
-\TODO Intuição com tarefas: comutatividade não, associatividade sim.
-
-\blah.
-Continuamos nossa comparação da composição de funções com a multiplicação
-de números.
-
 %%{{{ Identity 
 \note Identidades.
 Investigamos aqui se a operação de composição possui \emph{identidade}
@@ -13419,7 +13642,7 @@ Seja $A$ conjunto com $\card A = 3$.
 Quantas funções idempotentes podemos definir no $A$?
 
 \hint
-Use um diagrama interno para endomapas.
+Use um diagrama interno para endomapas!
 
 \hint
 Observe que em geral, aparecem certos ``redemoinhos''
@@ -14451,7 +14674,7 @@ Seja $n = \card A$.
 %%{{{ constant_function_why_did_we_omit_unique
 \problem.
 \label{constant_function_why_did_we_omit_unique}%
-Na definição do~\ref{different_def_of_constant_function}
+Na definição do~\ref{constant_function_different_def}
 não escrevemos ``existe único'', mas apenas ``existe''.
 O que mudaria com esse ``único''?
 Prove tua afirmação.
@@ -14841,42 +15064,15 @@ Seja $A = \set{1, 2, 3, 4, 5, 6, 7, 8}$.
 Desenhamos:
 $$
 \tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiaginvestbase;
-\draw[->] (elem-1) to [bend left=20]  (elem-2);
-\draw[->] (elem-2) to [bend left=20]  (elem-1);
-\draw[->] (elem-8) to                 (elem-6);
-\draw[->] (elem-5) to                 (elem-7);
-\draw[->] (elem-5) to                 (elem-8);
-\node (elem-4h) at (-1.5 ,-1.3 ) {};
-\draw[->] (elem-4h) arc (10:290:0.25);
-\node (elem-5h) at ( 0.1 , 0.7 ) {};
-\draw[->] (elem-5h) arc (10:290:0.25);
-\draw (0,-3.0) node {$R$};
+\tikzi internaldiagramrel1;
 \endtikzpicture
 \quad
 \tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiaginvestbase;
-\draw[->] (elem-1) to                 (elem-2);
-\draw[->] (elem-8) to                 (elem-6);
-\draw[->] (elem-7) to                 (elem-5);
-\draw[->] (elem-5) to                 (elem-8);
-\draw[->] (elem-6) to                 (elem-5);
-\draw (0,-3.0) node {$S$};
+\tikzi internaldiagramrel2;
 \endtikzpicture
 \quad
 \tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiaginvestbase;
-\draw[->] (elem-1) to [bend left=20]  (elem-2);
-\draw[->] (elem-2) to [bend left=20]  (elem-1);
-\draw[->] (elem-5) to [bend left=20]  (elem-8);
-\draw[->] (elem-8) to [bend left=20]  (elem-5);
-\draw[->] (elem-3) to [bend left=20]  (elem-4);
-\draw[->] (elem-4) to [bend left=20]  (elem-3);
-\draw[->] (elem-7) to [bend left=10]  (elem-6);
-\draw[->] (elem-6) to [bend left=10]  (elem-7);
-\node (elem-5h) at ( 0.1 , 0.7 ) {};
-\draw[->] (elem-5h) arc (10:290:0.25);
-\draw (0,-3.0) node {$T$};
+\tikzi internaldiagramrel3;
 \endtikzpicture
 $$
 \endexample
