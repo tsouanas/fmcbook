@@ -11591,6 +11591,7 @@ Primeiramente precisamos entender bem o que é uma função e como se comporta.
 
 %%{{{ Concept, notation, equality 
 \section Conceito, notação, igualdade.
+\label{Function_contept}%
 
 %%{{{ unlabeled black box for function 
 \note Funções como black boxes.
@@ -12131,12 +12132,15 @@ $$
 
 %%{{{ Q: what must we do to correctly define a function f : A -> B ? 
 \question.
-\emph{O que precisamos fazer para definir corretamente uma função?}
+O que precisamos fazer para definir corretamente uma função?
 %%}}}
 
 %%{{{ A: We must make clear what its values are for all of its domain. 
 \note Resposta.
-Precisamos deixar claro qual é o seu valor para cada ponto no seu domínio.
+Precisamos deixar claro qual é o seu domínio e o seu valor para cada ponto no
+seu domínio.
+Se consideramos que o codomínio da função faz parte dela também (veja conversa
+no~\ref{Function_contept}), precisamos deixar claro seu codomínio também.
 %%}}}
 
 %%{{{ Definition by expression 
@@ -12219,6 +12223,7 @@ Cada vez que definimos uma função por casos, precisamos verificar que:
 \li contamos para todos os casos possíveis da entrada;
 \li não existe sobreposição inconsistente em nossos casos.
 \endol
+\noindent
 Seguem uns exemplos que demonstram esses erros.
 %%}}}
 
@@ -13582,11 +13587,11 @@ Primeiramente vamos verificar que as duas funções tem o mesmo domínio:
 $$
 \alignat2
 \dom\paren{ h \of (g \of f) }
-&= \dom (g \of f)               \qqby {def.~$\of$} \\
-&= \dom f                       \qqby {def.~$\of$}
+&= \dom (g \of f)               \qqby {def.~$h\of(g\of f)$} \\
+&= \dom f                       \qqby {def.~$g\of f$}
 \intertext{e do lado direito}
 \dom\paren{ (h \of g) \of f }
-&= \dom f.                      \qqby {def.~$\of$}
+&= \dom f.                      \qqby {def.~$(h\of g)\of f$}
 \endalignat
 $$
 Similarmente elas tem os mesmos codomínios
@@ -13594,11 +13599,11 @@ Similarmente elas tem os mesmos codomínios
 $$
 \alignat2
 \cod\paren{ h \of (g \of f) }
-&= \cod h                       \qqby {def.~$\of$}
+&= \cod h                       \qqby {def.~$h\of(g\of f)$}
 \intertext{e do lado direito}
 \dom\paren{ (h \of g) \of f }
-&= \cod (h \of g)               \qqby {def.~$\of$} \\
-&= \cod h.                      \qqby {def.~$\of$}
+&= \cod (h \of g)               \qqby {def.~$(h\of g)\of f$} \\
+&= \cod h.                      \qqby {def.~$h\of g$}
 \endalignat
 $$
 Agora precisamos mostrar que as duas funções comportam no mesmo jeito
@@ -13607,12 +13612,12 @@ Suponha $a\in A$ então, e calcule:
 $$
 \alignat2
 \paren{h \of (g \of f)}(a)
-&= h\paren{\paren{g \of f}(a)}  \qqby{def.~$\of$}\\
-&= h\paren{g \paren{f(a)}}      \qqby{def.~$\of$}
+&= h\paren{\paren{g \of f}(a)}  \qqby{def.~$h\of(g\of f)$}\\
+&= h\paren{g \paren{f(a)}}      \qqby{def.~$g\of f$}
 \intertext{e o lado direito:}
 \paren{(h \of g) \of f}(a)
-&= \paren{h \of g}\paren{f(a)}  \qqby{def.~$\of$}\\
-&= h\paren{g \paren{f(a)}}      \qqby{def.~$\of$}
+&= \paren{h \of g}\paren{f(a)}  \qqby{def.~$(h\of g)\of f$}\\
+&= h\paren{g \paren{f(a)}}      \qqby{def.~$h\of g$}
 \endalignat
 $$
 \qed
@@ -13746,7 +13751,174 @@ $$
 %%{{{ Commutative diagrams 
 \section Diagramas comutativos.
 
-\TODO Como expressar o lei da identidade usando apenas a comutatividade de um diagrama.
+\blah.
+Começamos com uma definição complicada; leia agora, mas veja logo os exemplos
+seguintes.
+
+%%{{{ pseudodf: commutative_diagram 
+\pseudodefinition diagrama comutativo.
+\label{commutative_diagram}%
+\tdefined{diagrama}[comutativo]%
+Digamos que um diagrama externo de funções \dterm{comuta} ou que é um
+\dterm{diagrama comutativo} sse: para todo par de ``caminhos'' feitos
+por seguindo setas, \emph{se pelo menos um dos dois caminhos tem tamanho
+maior que $1$}, então os dois caminhos são iguais.
+%%}}}
+
+%%{{{ eg: triangle
+\example.
+O que significa que o diagrama seguinte comuta?
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[dr, "h"'] \| B \ar[d, "g"] \\
+                             \| C
+\endcd
+$$
+Significa que $h = g\of f$.
+\endexample
+%%}}}
+
+%%{{{ eg: square
+\example.
+O que significa que o diagrama seguinte comuta?
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[d, "h"'] \| B \ar[d, "g"] \\
+D   \ar[r, "k"]             \| C
+\endcd
+$$
+Significa que $g\of f  = k\of h$
+\endexample
+%%}}}
+
+%%{{{ eg: commutative_diagram_example_line 
+\example.
+\label{commutative_diagram_example_line}%
+O que significa que o diagrama seguinte comuta?
+$$
+\cdopt{sep=2cm}
+A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
+\endcd
+$$
+Significa que $f\of g  = f\of h$.
+\endexample
+%%}}}
+
+%%{{{ beware: at least one path must have length greater than 1 
+\beware.
+Graças à parte enfatisada na~\ref{commutative_diagram}, \emph{não podemos}
+concluir no~\ref{commutative_diagram_example_line} que $g = h$, pois mesmo que
+existem esses dois caminhos de $A$ para $B$ (um seguindo a seta $g$, e outro
+seguindo a seta $h$), nenhum deles tem tamanho maior que 1.
+%%}}}
+
+%%{{{ eg: part of diagram commutes 
+\example.
+O que significa que o rectângulo no diagrama seguinte comuta?
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[d, "k"'] \| B \ar[d, "g"]  \ar[dr, "i"] \\
+D                           \| C \ar[l, "h"'] \ar[r, "j"] \| D 
+\endcd
+$$
+Apenas que $h \of g \of f = k$.
+Observe que isso não nos permite concluir nada especial sobre as
+setas~$i$ e~$j$ do triângulo.  Se soubéssemos que o diagrama
+comuta (e não apénas seu rectângulo), poderiamos concluir
+que $i = j\of g$ também.
+\endexample
+%%}}}
+
+\blah.
+Afirmando a comutatividade de certos diagramas vira uma maneira curta de
+afirmar proposições, como por exemplo essas duas leis que já encontramos
+na~\refn{Composition_laws}.
+
+%%{{{ eg: commutative_diagram_id_laws 
+\example.
+\label{commutative_diagram_id_laws}%
+Como expressar as lei da identidade da~\refn{Composition_laws} usando
+apenas a comutatividade dum diagrama?
+Assim:
+$$
+\cdopt{sep=2cm}
+A   \ar[dr, "f"']\ar[r, "\id_A"] \| A \ar[d, "g"]  \ar[dr, "f"]   \\
+                                 \| B \ar[r, "\id_B"'] \| B
+\endcd
+$$
+\endexample
+%%}}}
+
+%%{{{ x: commutative_diagram_associativity_law 
+\exercise.
+\label{commutative_diagram_associativity_law}%
+Afirme a lei da associatividade da~\refn{Composition_laws}
+usando a comutatividade dum diagrama.
+
+\hint
+Sejam $A\toarrow f B \toarrow g C \toarrow h D$.
+Basta desenhar um diagrama cuja comutatividade quis dizer
+$h \of (g \of f) = (h \of g) \of f$.
+
+\solution
+Sejam $A\toarrow f B \toarrow g C \toarrow h D$.
+Então o diagrama seguinte comuta:
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[rr, bend left=30,  "g\of f"] \|
+B   \ar[r, "g"]\ar[rr, bend right=30, "h\of g"'] \|
+C   \ar[r, "h"] \|
+D
+\endcd
+$$
+Outra maneira para desenhar o mesmo diagrama seria a seguinte:
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[rd, "g\of f"'] \| B \ar[d, "g"]  \ar[dr, "h\of g"] \\
+                                  \| C \ar[r, "h"']      \| D
+\endcd
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: commutative_diagram_copy_paste 
+\exercise.
+\label{commutative_diagram_copy_paste}%
+Suponha que os quadrados no diagrama seguinte comutam:
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"] \ar[d, "i"] \| B \ar[r, "g"] \ar[d, "j"] \| C \ar[d, "k"] \\
+P   \ar[r, "s"]             \| Q \ar[r, "t"]             \| R
+\endcd
+$$
+Prove que o rectângulo grande também comuta.
+
+\solution
+Temos que os quadrados do
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"] \ar[d, "i"] \| B \ar[r, "g"] \ar[d, "j"] \| C \ar[d, "k"] \\
+P   \ar[r, "s"]             \| Q \ar[r, "t"]             \| R
+\endcd
+$$
+comutam.
+Precisamos provar que o rectângulo também comuta, ou seja,
+que $k \of g \of f = t \of s \of i$.
+Calculamos:
+$$
+\alignat2
+k \of g \of f
+&= (k \of g) \of f \qqby{assoc.~da~$\of$}\\
+&= (t \of j) \of f \qqby{comut.~do quad.~direito}\\
+&= t \of (j \of f) \qqby{assoc.~da~$\of$}\\
+&= t \of (s \of i) \qqby{comut.~do quad.~esquerdo}\\
+&= t \of s \of i   \qqby{assoc.~da~$\of$}
+\endalignat
+$$
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
