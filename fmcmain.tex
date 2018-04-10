@@ -12981,7 +12981,10 @@ Vacuamente temos que para todo $x\in \emptyset$, $f(x) = g(x)$.
 
 %%{{{ Composition with black boxes 
 \note Composição com black boxes.
-Suponha que temos funções $A \toarrow f B \toarrow g C$.
+Suponha que temos uma configuração de conjuntos e funções assim:
+$$
+A \toarrow f B \toarrow g C.
+$$
 Note então que a saida da $f$ pode ser usada como entrada para
 a $g$:
 $$
@@ -13076,6 +13079,149 @@ jeito que falamos do número $2\ntimes 8$ sem precisar
 dar um nome pra ele!
 %%}}}
 
+%%{{{ why_not_compose_more 
+\note Por quê não compor mais?.
+\label{why_not_compose_more}%
+Sejam $f : A \to B$ e $g : B' \to C$, e suponha que $B \subsetneq B'$.
+É tentador definir uma função de composição $g\of f : A \to C$ pela
+$$
+(g\of f)(x) = f\big(f(x)\big) \quad \text{para todo $x\in A$}.
+$$
+No final das contas, para qualquer $x\in A$ temos $f(x)\in B$
+e como $B\subsetneq B'$, também temos $f(x) \in B'$.
+Então $g(f(x))$ é definido!
+Ou seja, por quê não relaxar pouco a restrição que temos na definição
+da composição
+$$
+\text{de}
+\quad
+\cod f = \dom g
+\quad
+\text{para}
+\cod f \subseteq \dom g
+\ \ \text{?}
+$$
+Usando black boxes, temos as funções
+$$
+\tikzpicture
+\tikzi blackboxfuncompsubset0;
+\draw[-Latex]  (1.5,0)  -- (0.5,0);
+\draw[-Latex]  (-0.5,0) -- (-1.5,0);
+\node (x)   at (4.5,0)    {$x$};
+\node (fx) at (0,0)       {$f(x)$};
+\node (gfx) at (-4.8,0)   {$g(f(x))$};
+\endtikzpicture
+$$
+e queremos ``conectar os cabos'' para criar um novo black box
+$$
+\tikzpicture
+\tikzi blackboxfuncompsubset0;
+\draw [rounded corners=0mm]
+      (-3,1)--(-3,-1)--(3,-1)--(3,1)--cycle;
+\draw[-Latex]  (1.5,0) -- (-1.5,0);
+\node (x)    at (4.5,0)     {$x$};
+\node (gfx)  at (-4.8,0)    {$g(f(x))$};
+\draw [rounded corners=0.25mm, fill=gray!50]
+      (-0.3,0.04)--(-0.3,-0.04)--(0.3,-0.04)--(0.3,0.04)--cycle;
+\endtikzpicture
+$$
+pintar ele preto e considerar como a $g\of f$ de $A$ para $C$ mesmo:
+$$
+\tikzpicture
+\tikzi blackboxfuncompthree;
+\node (x)   at (4.5,0)    {$x$};
+\node (gfx) at (-4.8,0)   {$g(f(x))$};
+\node (gof) at (0,0)      {$g\of f$};
+\node (A)   at (2.7,0.7)  {$A$};
+\node (C)   at (-2.7,0.7) {$C$};
+\endtikzpicture
+$$
+Qual o problema com isso?
+<<Nenhum>>, uns matemáticos responderiam, e ficariam usando esse tipo
+de composição ``mais geral''.
+Mas para a gente aqui, vamos supor que para motivos que não
+importam---talvez religiosos, ou um TOC mesmo---\emph{não podemos}
+conectar esse cabo no meio quando os conjuntos são diferentes:
+\quote{
+\emph{<<Tu não comporás funções $f$ e $g$ se $\cod f \neq \dom g$!>>}
+}
+Essa suposta restrição, na verdade não nos restringe---pelo contrário:
+nos ajuda criar composições ``limpas'' sem gambiarras como essa
+``fita durex'' no cabo conectando o $B$ com o $B'$!
+Trabalhe agora no exercício seguinte para demonstrar exatamente isso!
+%%}}}
+
+%%{{{ x: inclusions_for_compositions 
+\exercise.
+\label{inclusions_for_compositions}%
+Mostre como construir a função criada no~\ref{why_not_compose_more}
+como composição de black boxes que contenha as $f$ e $g$ mas
+sem nenhuma conexão ``proibida''.
+
+\hint
+Tu vai precisar definir uma terceira função $i$, e usar
+seu black box na tua construção.
+
+\hint
+O que falta é decidir o que botar nos ``?'' abaixo,
+e definir formalmente a função que corresponde nesta caixa:
+$$
+\tikzpicture
+\tikzi blackboxfuncompsubset0;
+\draw [rounded corners=0mm]
+      (-3,1)--(-3,-1)--(3,-1)--(3,1)--cycle;
+\draw[-Latex]  (1.5,0)  -- (0.5,0);
+\draw[-Latex]  (-0.5,0) -- (-1.5,0);
+\node (x)    at (4.5,0)     {$x$};
+\node (gfx)  at (-4.8,0)    {$g(f(x))$};
+\draw [rounded corners=0mm, fill=gray!10]
+      (-0.5,0.5)--(-0.5,-0.5)--(0.5,-0.5)--(0.5,0.5)--cycle;
+\node (i)  at (0,0)      {$?$};
+\node (iS) at (0.3,0.3)  {$?$};
+\node (iT) at (-0.3,0.3) {$?$};
+\endtikzpicture
+$$
+
+\solution
+Definimos a função $i : B \to B'$ pela regra
+$$
+i(x) = x,   \quad\text{para todo $x\in B$}.
+$$
+Seu black box então, parece assim:
+$$
+\tikzpicture
+\draw [rounded corners=0mm, fill=gray!10]
+      (-0.5,0.5)--(-0.5,-0.5)--(0.5,-0.5)--(0.5,0.5)--cycle;
+\node (i)  at (0,0)      {$i$};
+\node (iS) at (0.3,0.3)  {$B$};
+\node (iT) at (-0.3,0.3) {$B'$};
+\draw[-Latex]  (1.5,0)  -- (0.5,0);
+\draw[-Latex]  (-0.5,0) -- (-1.5,0);
+\endtikzpicture
+$$
+e é exatamente o ``missing link'' para construir nosso black box:
+$$
+\tikzpicture
+\tikzi blackboxfuncompsubset0;
+\draw [rounded corners=0mm]
+      (-3,1)--(-3,-1)--(3,-1)--(3,1)--cycle;
+\draw[-Latex]  (1.5,0)  -- (0.5,0);
+\draw[-Latex]  (-0.5,0) -- (-1.5,0);
+\draw [rounded corners=0mm, fill=gray!10]
+      (-0.5,0.5)--(-0.5,-0.5)--(0.5,-0.5)--(0.5,0.5)--cycle;
+\node (i)  at (0,0)      {$i$};
+\node (iS) at (0.3,0.3)  {$B$};
+\node (iT) at (-0.3,0.3) {$B'$};
+\endtikzpicture
+$$
+Construimos e usamos então a $g\of i\of f : A \to C$
+em vez da ``gambiarrada'' e proibida $g\of f$.
+Essa função $i$ é chamada a \dterm{inclusão do $A$ no $B$}
+que definimos na~\ref{inclusion_function}.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -13086,9 +13232,9 @@ dar um nome pra ele!
 Investigamos aqui umas primeiras funções garantidas para existir assim que
 tivermos alguns outros objetos: um conjunto, uma função, etc.
 
-%%{{{ df: Identity 
+%%{{{ df: identity_function 
 \definition Identidade.
-\label{identity_of_A}%
+\label{identity_function}%
 \tdefined{função}[identidade]%
 \sdefined {\id_{\holed A}} {a identidade do $\holed A$}
 \iisee{identidade}{função, identidade}%
@@ -13138,9 +13284,9 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ df: incto 
+%%{{{ df: inclusion_function 
 \definition Inclusão.
-\label{incto}%
+\label{inclusion_function}%
 \tdefined{função}[inclusão]%
 \sdefined {\holed f : \holed A \incto \holed B} {a inclusão do $A$ no $B$}%
 Sejam $A,B$ conjuntos com $A\subseteq B$.
@@ -13157,7 +13303,7 @@ mas seguindo o ponto de vista conjuntista (\refn{f_eq_g_1}),
 temos $i = \id_A$.
 %%}}}
 
-%%{{{ df: constant 
+%%{{{ df: constant_function 
 \definition Constante.
 \label{constant_function}%
 \tdefined{função}[constante]%
