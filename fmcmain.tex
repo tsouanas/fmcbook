@@ -12973,8 +12973,9 @@ Vacuamente temos que para todo $x\in \emptyset$, $f(x) = g(x)$.
 \section Definições recursivas.
 
 \blah.
-Já encontramos exemplos de funções com domínio $\nats$ definidas recursivamente.
-Vamos agora 
+Já encontramos várias definições recursivas.
+Agora vamos analizar com que precisamos tomar cuidado para garantir
+que nossas ``funções'' realmente são funções bem definidas.
 
 %%{{{ Safe recursion 
 \note Recursão segura.
@@ -13124,39 +13125,45 @@ Essa é exatamente a concjetura de \Collatz{}Collatz~(\ref{collatz_conjecture}).
 \endexercise
 %%}}}
 
-%%{{{ Mutual recursion 
+%%{{{ mutual_recursion 
 \note Recursão mutual.
+\label{mutual_recursion}%
 Podemos definir duas ou mais funções, cada uma chamando recursivamente
 outras, tomando certos cuidados como sempre para garantir que realmente
 todas as funções vão ser definidas mesmo para todas as entradas
 aceitas pelos domínios delas.
 
+%%{{{ eg: mutual_recursion_even_odd 
 \example.
+\label{mutual_recursion_even_odd}%
 {%
 \def\even{\namedfun{even}}%
 \def\odd{\namedfun{odd}}%
 Vamos definir as funções $\even,\odd:\nats\to\set{0,1}$ pelas
 $$
 \xalignat2
-\even(0)   &= 1           & \odd(0)   &= 0 \\
-\even(n+1) &= 1 - \odd(n) & \odd(n+1) &= 1 - \even(n)
+\even(0)   &= 1       & \odd(0)   &= 0 \\
+\even(n+1) &= \odd(n) & \odd(n+1) &= \even(n)
 \endxalignat
 $$
 Calculamos, por exemplo:
 $$
 \align
-\even(3)
-&= 1 - \odd(2)\\
-&= 1 - (1 - \even(1))\\
-&= 1 - (1 - (1 - \odd(0)))\\
-&= 1 - (1 - (1 - 0))\\
-&= 1 - (1 - 1)\\
-&= 1 - 0\\
-&= 1.
+\even(3) &
+= \odd(2)
+= \even(1))
+= \odd(0)))
+= 0 \\
+odd(3) &
+= \even(2)
+= \odd(1)
+= \even(0)
+= 1
 \endalign
 $$
 }
 \endexample
+%%}}}
 
 %%}}}
 
