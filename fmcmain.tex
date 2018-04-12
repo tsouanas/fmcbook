@@ -14188,7 +14188,7 @@ apenas a comutatividade dum diagrama?
 Assim:
 $$
 \cdopt{sep=2cm}
-A   \ar[dr, "f"']\ar[r, "\id_A"] \| A \ar[d, "g"]  \ar[dr, "f"]   \\
+A   \ar[dr, "f"']\ar[r, "\id_A"] \| A \ar[d, "f"]  \ar[dr, "f"]   \\
                                  \| B \ar[r, "\id_B"'] \| B
 \endcd
 $$
@@ -14272,7 +14272,62 @@ $$
 %%{{{ More constructions and operations on functions 
 \section Mais construções e operações em funções.
 
-\TODO Iteração de função: $f^n$ (idéia e definição recursiva).
+%%{{{ df: function_iterations 
+\definition iterações.
+\label{function_iterations}%
+\tdefined{função}[iteração]%
+\sdefined {\holed f^\holed n} {a $n$-ésima iteração da $f$.}%
+Seja $f : A \to A$.
+Definimos as \dterm{iterações} de $f$ pela recursão
+$$
+\align
+f^0     &= \id_A \\
+f^{n+1} &= f\of f^n
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: calculate_iterate_3_fx 
+\example.
+Seja $f : A \to A$.  Calculamos:
+$$
+\alignat2
+f^3(x)
+&= (f \of f^2)(x)                   \qqby{def.~$f^3$}\\
+&= (f \of (f \of f^1))(x)           \qqby{def.~$f^2$}\\
+&= (f \of (f \of (f \of f^0)))(x)   \qqby{def.~$f^1$}\\
+&= (f \of (f \of (f \of \id_A)))(x) \qqby{def.~$f^0$}\\
+&\dotseq (f \of f \of f)(x)         \qqby{ass.~$\of$; lei da~$\id_A$}\\
+&\dotseq f (f (f (x)))              \qqby{def.~$\of$}
+\endalignat
+$$
+Em geral omitimos parentênces quando a expressão involve apenas uma operação
+associativa;
+botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
+\endexample
+%%}}}
+
+%%{{{ beware: notation of functions with exponents 
+\beware.
+Em certos textos de matemática, aparece a notação $f^n(x)$ como
+sinónimo de $(f(x))^n$.
+Por exemplo:
+$$
+\text{quem escreveu\dots}
+\quad
+\sin^2 x + \cos^2 x
+\quad
+\aligned
+&\text{\dots quis dizer\dots}\\
+&\text{\dots mas aqui seria\dots}
+\endaligned
+\quad
+\aligned
+&(\sin x)^2   + (\cos x)^2    \\
+&\sin(\sin x) + \cos(\cos x).
+\endaligned
+$$
+%%}}}
 
 %%{{{ df: fcross 
 \definition cross.
@@ -14299,6 +14354,20 @@ $$
 $$
 %%}}}
 
+%%{{{ x: fcross_commutative_diagram 
+\exercise.
+\label{fcross_commutative_diagram}%
+Bote nomes e direções onde faltam e prove que o diagrama comuta:
+$$
+\cdopt{sep=2cm}
+A \ar[d, "f"']   \|  A\times C \ar[l, dash, ""]\ar[r, dash, ""]\ar[d, dashed, ""]   \| C \ar[d, "g"]  \\
+B                \|  B\times D \ar[l, dash, ""]\ar[r, dash, ""]                     \| D
+\endcd
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ df: fpair 
 \definition pair.
 \label{fpair}%
@@ -14320,6 +14389,20 @@ $$
 $$
 %%}}}
 
+%%{{{ x: fpair_commutative_diagram 
+\exercise.
+\label{fpair_commutative_diagram}%
+Bote nomes e direções onde faltam e prove que o diagrama comuta:
+$$
+\cdopt{sep=2cm}
+A \| A\times B \ar[l, dash, ""]\ar[r, dash, ""] \| B \\
+  \| D\ar[u, dashed, ""]\ar[ul, "f"]\ar[ur, "g"']
+\endcd
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ df: pointwise_operation 
 \definition pointwise.
 \label{pointwise_operation}%
@@ -14336,9 +14419,284 @@ Chamamos a $(\dhole \ast \dhole)$ a \dterm{operação pointwise}
 da $\ast$ no $(A \to B)$.
 %%}}}
 
-\TODO Exercise.
-
 \TODO União: hipoteses necessárias para definir.
+
+\endsection
+%%}}}
+
+%%{{{ Injections, Surjections, Bijections 
+\section Injetoras, sobrejetoras, bijetoras.
+
+\TODO Ideia e sketches.
+
+\question.
+Como tu definirias os conceitos de função injetiva e sobrejetiva?
+\spoiler.
+
+%%{{{ df: starjective_function 
+\definition.
+\label{starjective_function}%
+\tdefined{função}[injetora]%
+\tdefined{função}[sobrejetora]%
+\tdefined{função}[bijetora]%
+\sdefined {\holed f : \holed A \injto \holed B} {$\holed f : \holed A\to \holed B$ é injetora}%
+\sdefined {\holed f : \holed A \surto \holed B} {$\holed f : \holed A\to \holed B$ é sobrejetora}%
+\sdefined {\holed f : \holed A \bijto \holed B} {$\holed f : \holed A\to \holed B$ é bijetora}%
+Seja $f : A \to B$.
+Chamamos a $f$ \dterm{injetora} (ou \dterm{injetiva}) sse
+$$
+\text{para todo $x,y \in A$, se $x\neq y$ então $f(x) \neq f(y)$}.
+$$
+Chamamos a $f$ \dterm{sobrejetora} (ou \dterm{sobrejetiva}) sse
+$$
+\text{para todo $b \in B$, existe $a\in A$ tal que $f(a) = b$}.
+$$
+Chamamos a $f$ \dterm{bijetora} (ou \dterm{bijetiva}, ou \dterm{correspondência}), sse
+$f$ é injetora e sobrejetora.
+Usamos as notações
+$$
+\align
+f : A \injto B &\defiff \text{$f:A\to B$ é injetora}\\
+f : A \surto B &\defiff \text{$f:A\to B$ é sobrejetora}\\
+f : A \bijto B &\defiff \text{$f:A\to B$ é bijetora}
+\endalign
+$$
+%%}}}
+
+\TODO Exemplos e nãœxemplos.
+
+\TODO Quantas funções entre dois conjuntos tais que\dots?
+
+%%{{{ prop: injection_left_cancellable 
+\proposition.
+\label{injection_left_cancellable}%
+Sejam $B \toarrow f C$.
+A $f$ é injetora sse
+$$
+f\of g = f \of h \implies g = h
+$$
+para todas as $g,h$ tais que as composições em cima são definidas.
+Digamos então que $f$ é \dterm{$\of$-cancelável pela esquerda}:
+\proof.
+\ref{injection_left_cancellable_proof}%
+\qed
+%%}}}
+
+%%{{{ prop: surjection_right_cancellable 
+\proposition.
+\label{surjection_right_cancellable}%
+Sejam $B \toarrow f C$.
+A $f$ é sobrejetora sse
+$$
+g\of f = h\of f \implies g = h
+$$
+para todas as $g,h$ tais que as composições em cima são definidas.
+Digamos então que $f$ é \dterm{$\of$-cancelável pela direita}:
+\proof.
+\ref{surjection_right_cancellable_proof}%
+\qed
+%%}}}
+
+%%{{{ x: injection_left_cancellable_proof 
+\exercise.
+\label{injection_left_cancellable_proof}%
+Prove a~\ref{injection_left_cancellable}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: surjection_right_cancellable_proof 
+\exercise.
+\label{surjection_right_cancellable_proof}%
+Prove a~\ref{surjection_right_cancellable}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: injection_surjection_commutative_diagrams 
+\exercise.
+\label{injection_surjection_commutative_diagrams}%
+Descreva as propriedades
+\refn{injection_left_cancellable}--\refn{surjection_right_cancellable}
+usando diagramas comutativos.
+
+\solution
+A função $f$ é injetora sse cada diagrama da forma
+$$
+\cdopt{sep=2cm}
+A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
+\endcd
+$$
+comuta.
+\endgraf
+A função $f$ é sobrejetora sse cada diagrama da forma
+$$
+\cdopt{sep=2cm}
+B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
+\endcd
+$$
+comuta.
+
+\endexercise
+%%}}}
+
+%%{{{ x: fcom_respects_jections 
+\exercise Composição respeita ``-jetividade''.
+\label{fcom_respects_jections}%
+Sejam $f : A\to B$ e $g : B \to C$.
+Prove:
+\item{(1)} Se $f$ e $g$ são injetoras, então $g\fcom f$ também é;
+\item{(2)} Se $f$ e $g$ são sobrejetoras, então $g\fcom f$ também é;
+\item{(3)} Se $f$ e $g$ são bijetoras, então $g\fcom f$ também é.
+
+\endexercise
+%%}}}
+
+%%{{{ x: converse_to_gof_bij_conclusions 
+\exercise.
+Se $g\compose f$ é bijetora, o que podemos concluir sobre as $f,g$?  Justifique.
+
+\endexercise
+%%}}}
+
+%%{{{ x: converse_to_gof_bij_conclusions 
+\exercise.
+Se $f$ é injetora e $g$ sobrejetora, a $g\compose f$ é necessariamente bijetora?
+
+\solution
+Não.
+Aqui um contraexemplo:
+$$
+\tikzpicture
+\draw (0,0) ellipse (-.75cm and 1.25cm);
+\draw (3,0) ellipse (-.75cm and 1.25cm);
+\draw (6,0) ellipse (-.75cm and 1.25cm);
+\draw (0,-.5) node {$\bullet$};
+\draw (3,.5)  node {$\bullet$};
+\draw (3,-.5) node {$\bullet$};
+\draw (6,.5)  node {$\bullet$};
+\draw (6,-.5) node {$\bullet$};
+\draw[|->] (0.2,-.5) -- (2.8,-.5);
+\draw[|->] (3.2,-.5) -- (5.8,-.5);
+\draw[|->] (3.2,.5) -- (5.8,.5);
+\draw[->]  (0.5,1.5) -- (2.5,1.5);
+\draw[->]  (3.5,1.5) -- (5.5,1.5);
+\draw (0,1.5) node {$A$};
+\draw (3,1.5) node {$B$};
+\draw (6,1.5) node {$C$};
+\draw (1.5,1.20) node {$f$};
+\draw (4.5,1.20) node {$g$};
+\endtikzpicture
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: x_mapsto_singleton_x_properties 
+\exercise.
+Sejam $A\neq\emptyset$ um conjunto e $f : A \to \pset A$ definida pela equação
+$$
+f(a) = \set a.
+$$
+\beginol
+\li A $f$ é injetora?
+\li A $f$ é sobrejetora?
+\endol
+
+\solution
+\noindent (1) Sim: se $x,y\in A$, então
+$$
+x\neq y
+    \implies \set x \neq \set y
+    \implies f(x) \neq f(y).
+$$
+\endgraf
+\noindent (2) Não: para todo $a\in A$ temos
+$f(a) = \set a \neq \emptyset \in \pset A$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: finverse 
+\definition Função inversa.
+\label{finverse}%
+\tdefined{função}[inversa]%
+\sdefined {\finv {\holed f}} {a função inversa da $f$}%
+Seja função bijetora $f : A \bijto B$.
+Definimos a função $\finv f : B \to A$ pela
+$$
+\finv f (y) \defeq \text{aquele $x\in A$ tal que $f(x) = y$}.
+$$
+Chamamos a $\finv f$ a \dterm{função inversa} da $f$.
+%%}}}
+
+%%{{{ x: justify_finverse 
+\exercise.
+\label{justify_finverse}%
+Justifique a definição acima.
+O que precisas provar?
+
+\solution
+Pelo menos um tal $x\in A$ existe, pois a $f$ é sobrejetora.
+E como $f$ é injetora, existe no máximo um.
+Provamos assim a unicidade, algo que nos permite
+\emph{definir a função} no jeito que definimos
+na~\ref{finverse}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_is_bij 
+\exercise.
+\label{finv_is_bij}%
+Prove que quando a função inversa $\finv f$ é definida,
+ela é bijetiva.
+
+\endexercise
+%%}}}
+
+%%{{{ x: double_or_reverse_string_inj_or_surj 
+\exercise.
+\label{double_or_reverse_string_inj_or_surj}%
+Seja~$S$ o conjunto de todos os strings \emph{não vazios}
+dum alfabeto $\Sigma$, com $\card{\Sigma} \geq 2$.
+Considere a função
+$f : S \times \set{0,1} \to S$ definida pela:
+$$
+f(w,i) =
+\knuthcases{
+ww, &se $i = 0$\cr
+w', &se $i = 1$
+}
+$$
+onde $w'$ é o string reverso de $w$,
+e onde denotamos a concatenação de strings por juxtaposição.
+\beginil
+\item{(i)} A $f$ é injetora?
+\item{(ii)} A $f$ é sobrejetora?
+\endil
+
+\hint
+Quais são o domínio e o codomínio da $f$?
+
+\solution
+(i) Não, $f$ não é injetora.
+Tome uma letra do alfabeto $a\in\Sigma$ e observe que
+$$
+f(a, 0) = aa = f(aa,1).
+$$
+Como $(a,0) \neq (aa,1)$, a $f$ não é injetora.
+\endgraf
+(ii)
+Sim, $f$ é sobrejetora.
+Tome um aletorio string $w\in S$, e seja $w'$ o string reverso de $w$.
+Temos
+$$
+f(w',1) = (w')' = w.
+$$
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -14617,210 +14975,6 @@ Dados a $F : \ints\to(\ints\to\ints)$,
 é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
 
 \endexercise
-
-\endsection
-%%}}}
-
-%%{{{ Injections, Surjections, Bijections 
-\section Funções injetoras, sobrejetoras, e bijetoras.
-
-\TODO Ideia e sketches.
-
-\question.
-Como tu definirias os conceitos de função injetiva e sobrejetiva?
-\spoiler.
-
-%%{{{ df: starjective_function 
-\definition.
-\label{starjective_function}%
-\tdefined{função}[injetora]%
-\tdefined{função}[sobrejetora]%
-\tdefined{função}[bijetora]%
-\sdefined {\holed f : \holed A \injto \holed B} {$\holed f : \holed A\to \holed B$ é injetora}%
-\sdefined {\holed f : \holed A \surto \holed B} {$\holed f : \holed A\to \holed B$ é sobrejetora}%
-\sdefined {\holed f : \holed A \bijto \holed B} {$\holed f : \holed A\to \holed B$ é bijetora}%
-Seja $f : A \to B$.
-Chamamos a $f$ \dterm{injetora} (ou \dterm{injetiva}) sse
-$$
-\text{para todo $x,y \in A$, se $x\neq y$ então $f(x) \neq f(y)$}.
-$$
-Chamamos a $f$ \dterm{sobrejetora} (ou \dterm{sobrejetiva}) sse
-$$
-\text{para todo $b \in B$, existe $a\in A$ tal que $f(a) = b$}.
-$$
-Chamamos a $f$ \dterm{bijetora} (ou \dterm{bijetiva}, ou \dterm{correspondência}), sse
-$f$ é injetora e sobrejetora.
-Usamos as notações
-$$
-\align
-f : A \injto B &\defiff \text{$f:A\to B$ é injetora}\\
-f : A \surto B &\defiff \text{$f:A\to B$ é sobrejetora}\\
-f : A \bijto B &\defiff \text{$f:A\to B$ é bijetora}
-\endalign
-$$
-%%}}}
-
-\TODO Exemplos e nãœxemplos.
-
-\TODO Quantas funções entre dois conjuntos tais que\dots?
-
-%%{{{ x: fcom_respects_jections 
-\exercise Composição respeita ``-jetividade''.
-\label{fcom_respects_jections}%
-Sejam $f : A\to B$ e $g : B \to C$.
-Prove:
-\item{(1)} Se $f$ e $g$ são injetoras, então $g\fcom f$ também é;
-\item{(2)} Se $f$ e $g$ são sobrejetoras, então $g\fcom f$ também é;
-\item{(3)} Se $f$ e $g$ são bijetoras, então $g\fcom f$ também é.
-
-\endexercise
-%%}}}
-
-%%{{{ x: converse_to_gof_bij_conclusions 
-\exercise.
-Se $g\compose f$ é bijetora, o que podemos concluir sobre as $f,g$?  Justifique.
-
-\endexercise
-%%}}}
-
-%%{{{ x: converse_to_gof_bij_conclusions 
-\exercise.
-Se $f$ é injetora e $g$ sobrejetora, a $g\compose f$ é necessariamente bijetora?
-
-\solution
-Não.
-Aqui um contraexemplo:
-$$
-\tikzpicture
-\draw (0,0) ellipse (-.75cm and 1.25cm);
-\draw (3,0) ellipse (-.75cm and 1.25cm);
-\draw (6,0) ellipse (-.75cm and 1.25cm);
-\draw (0,-.5) node {$\bullet$};
-\draw (3,.5)  node {$\bullet$};
-\draw (3,-.5) node {$\bullet$};
-\draw (6,.5)  node {$\bullet$};
-\draw (6,-.5) node {$\bullet$};
-\draw[|->] (0.2,-.5) -- (2.8,-.5);
-\draw[|->] (3.2,-.5) -- (5.8,-.5);
-\draw[|->] (3.2,.5) -- (5.8,.5);
-\draw[->]  (0.5,1.5) -- (2.5,1.5);
-\draw[->]  (3.5,1.5) -- (5.5,1.5);
-\draw (0,1.5) node {$A$};
-\draw (3,1.5) node {$B$};
-\draw (6,1.5) node {$C$};
-\draw (1.5,1.20) node {$f$};
-\draw (4.5,1.20) node {$g$};
-\endtikzpicture
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: x_mapsto_singleton_x_properties 
-\exercise.
-Sejam $A\neq\emptyset$ um conjunto e $f : A \to \pset A$ definida pela equação
-$$
-f(a) = \set a.
-$$
-\beginol
-\li A $f$ é injetora?
-\li A $f$ é sobrejetora?
-\endol
-
-\solution
-\noindent (1) Sim: se $x,y\in A$, então
-$$
-x\neq y
-    \implies \set x \neq \set y
-    \implies f(x) \neq f(y).
-$$
-\endgraf
-\noindent (2) Não: para todo $a\in A$ temos
-$f(a) = \set a \neq \emptyset \in \pset A$.
-
-\endexercise
-%%}}}
-
-%%{{{ df: finverse 
-\definition Função inversa.
-\label{finverse}%
-\tdefined{função}[inversa]%
-\sdefined {\finv {\holed f}} {a função inversa da $f$}%
-Seja função bijetora $f : A \bijto B$.
-Definimos a função $\finv f : B \to A$ pela
-$$
-\finv f (y) \defeq \text{aquele $x\in A$ tal que $f(x) = y$}.
-$$
-Chamamos a $\finv f$ a \dterm{função inversa} da $f$.
-%%}}}
-
-%%{{{ x: justify_finverse 
-\exercise.
-\label{justify_finverse}%
-Justifique a definição acima.
-O que precisas provar?
-
-\solution
-Pelo menos um tal $x\in A$ existe, pois a $f$ é sobrejetora.
-E como $f$ é injetora, existe no máximo um.
-Provamos assim a unicidade, algo que nos permite
-\emph{definir a função} no jeito que definimos
-na~\ref{finverse}.
-
-\endexercise
-%%}}}
-
-%%{{{ x: finv_is_bij 
-\exercise.
-\label{finv_is_bij}%
-Prove que quando a função inversa $\finv f$ é definida,
-ela é bijetiva.
-
-\endexercise
-%%}}}
-
-%%{{{ x: double_or_reverse_string_inj_or_surj 
-\exercise.
-\label{double_or_reverse_string_inj_or_surj}%
-Seja~$S$ o conjunto de todos os strings \emph{não vazios}
-dum alfabeto $\Sigma$, com $\card{\Sigma} \geq 2$.
-Considere a função
-$f : S \times \set{0,1} \to S$ definida pela:
-$$
-f(w,i) =
-\knuthcases{
-ww, &se $i = 0$\cr
-w', &se $i = 1$
-}
-$$
-onde $w'$ é o string reverso de $w$,
-e onde denotamos a concatenação de strings por juxtaposição.
-\beginil
-\item{(i)} A $f$ é injetora?
-\item{(ii)} A $f$ é sobrejetora?
-\endil
-
-\hint
-Quais são o domínio e o codomínio da $f$?
-
-\solution
-(i) Não, $f$ não é injetora.
-Tome uma letra do alfabeto $a\in\Sigma$ e observe que
-$$
-f(a, 0) = aa = f(aa,1).
-$$
-Como $(a,0) \neq (aa,1)$, a $f$ não é injetora.
-\endgraf
-(ii)
-Sim, $f$ é sobrejetora.
-Tome um aletorio string $w\in S$, e seja $w'$ o string reverso de $w$.
-Temos
-$$
-f(w',1) = (w')' = w.
-$$
-
-\endexercise
-%%}}}
 
 \endsection
 %%}}}
