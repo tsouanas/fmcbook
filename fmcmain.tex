@@ -12969,212 +12969,6 @@ Vacuamente temos que para todo $x\in \emptyset$, $f(x) = g(x)$.
 
 %%}}}
 
-%%{{{ Recursive definitions 
-\section Definições recursivas.
-
-\blah.
-Já encontramos várias definições recursivas.
-Agora vamos analizar com que precisamos tomar cuidado para garantir
-que nossas ``funções'' realmente são funções bem definidas.
-
-%%{{{ Safe recursion 
-\note Recursão segura.
-Na maioria das vezes que definimos funções recursivamente
-exite ``algo'' (muitas vezes esse ``algo'' é o próprio
-argumento da função, mas não sempre) que com cada ``chamada recursiva''
-da função fica menor e menor, até cair num valor que garanta
-uma ``saida da recursão''.
-(Essa descrição é bem vaga sim.)
-%%}}}
-
-%%{{{ eg: recursion_with_powers_of_two 
-\example.
-\label{recursion_with_powers_of_two}%
-Seja $f : \nats\to\nats$ a função definida pela:
-$$
-f(x) =
-\knuthcases{
-\log_2(x), & se $x$ é uma potência de $2$;\cr
-f(x+1), & se não.
-}
-$$
-Aqui nas chamadas recursivas não é o próprio argumento que é
-``cada vez menor''---pelo contrário: as chamadas recursivas
-estão sendo cada vez com argumento maior!
-Mesmo assim, a recursão ``sempre termina'', e a $f$ realmente
-é bem definida.
-Calculamos como exemplo uns valores:
-$$
-\align
-f(0) &= f(1) = 0 \\
-f(4) &= 2 \\
-f(5) &= f(6) = f(7) = f(8) = 3 \\
-f(1020) &= f(1021) = f(1022) = f(1023) = f(1024) = 10.
-\endalign
-$$
-\endexample
-%%}}}
-
-%%{{{ x: find invariant 
-\exercise.
-Ache um ``algo'' que fica cada vez menor com cada chamada recursiva
-da $f$ do~\ref{recursion_with_powers_of_two}.
-
-\hint
-Uma ``distância'' está sendo cada vez menor.  Qual?
-
-\solution
-Com cada chamada com entrada $x$, o número $b - x$ é cada vez menor,
-onde $b = \min \setst {2^n} {x \leq 2^n, \ n\in\nats}$.
-
-\endexercise
-%%}}}
-
-%%{{{ Dangerous recursion 
-\note Recursão perigosa.
-Não é cada equação recursiva que realmente defina uma função!
-Vamos ver agora uns exemplos que mostram exatamente isso.
-%%}}}
-
-%%{{{ eg: dangerous_recursion_f 
-\example.
-\label{dangerous_recursion_f}%
-Seja $f : \nats\to\nats$ a função definida pela
-$$
-f(n) = f(n),
-\quad\text{para todo $n\in\nats$}.
-$$
-É óbvio que isso não \emph{determina} uma função:
-\emph{toda função $\nats\to\nats$ satisfaz essa equação},
-então não podemos usá-la como definição!
-\endexample
-%%}}}
-
-%%{{{ eg: dangerous_recursion_g 
-\example.
-\label{dangerous_recursion_g}%
-Seja $g : \nats\to\nats$ a função definida pela
-$$
-g(n) = g(n)+1,
-\quad\text{para todo $n\in\nats$}.
-$$
-Isso também não \emph{determina} uma função:
-\emph{nenhuma função $\nats\to\nats$ satisfaz essa equação},
-então não podemos usá-la como definição!
-\endexample
-%%}}}
-
-%%{{{ eg: dangerous_recursion_h 
-\example.
-\label{dangerous_recursion_h}%
-Seja $h : \nats\to\nats$ a função definida pela
-$$
-h(n) = h(n+1),
-\quad\text{para todo $n\in\nats$}.
-$$
-Isso também não \emph{determina} uma função---mas por quê?
-\endexample
-%%}}}
-
-%%{{{ x: what_is_the_problem_with_the_recursion_of_h 
-\exercise.
-\label{what_is_the_problem_with_the_recursion_of_h}%
-A pergunta não foi rhetórica!
-
-\endexercise
-%%}}}
-
-%%{{{ eg: collatz_recursive 
-\example.
-\label{collatz_recursive}%
-Considere a função $f : \nats_{>0} \to \nats$ definida pela recursão
-$$
-\align
-f(1) &= 1\\
-f(n) &=
-\knuthcases{
-f(n/2),  &se $n$ é par\cr
-f(3n+1), &se $n$ é ímpar.
-}\quad\text{(para $n > 1$)}.
-\endalign
-$$
-\endexample
-%%}}}
-
-%%{{{ x: calculate three values 
-\exercise.
-Calcule os valores $f(8), f(3), f(7)$ da $f$ acima.
-
-\endexercise
-%%}}}
-
-%%{{{ x: why_recursive_collatz_does_not_define_a_function 
-\exercise.
-\label{why_recursive_collatz_does_not_define_a_function}%
-Qual o problema com a definição da função $f$ do~\ref{collatz_recursive}?
-
-\hint
-Por quê termina a recursão para toda entrada?
-
-\solution
-Não sabemos se ela satisfaz a totalidade de função, ou seja,
-se ela é realmente definida em todo o seu domínio.
-Ate agora, ninguém sabe dizer!
-Essa é exatamente a concjetura de \Collatz{}Collatz~(\ref{collatz_conjecture}).
-
-\endexercise
-%%}}}
-
-%%{{{ mutual_recursion 
-\note Recursão mutual.
-\label{mutual_recursion}%
-Podemos definir duas ou mais funções, cada uma chamando recursivamente
-outras, tomando certos cuidados como sempre para garantir que realmente
-todas as funções vão ser definidas mesmo para todas as entradas
-aceitas pelos domínios delas.
-
-%%{{{ eg: mutual_recursion_even_odd 
-\example.
-\label{mutual_recursion_even_odd}%
-{%
-\def\even{\namedfun{even}}%
-\def\odd{\namedfun{odd}}%
-Vamos definir as funções $\even,\odd:\nats\to\set{0,1}$ pelas
-$$
-\xalignat2
-\even(0)   &= 1       & \odd(0)   &= 0 \\
-\even(n+1) &= \odd(n) & \odd(n+1) &= \even(n)
-\endxalignat
-$$
-Calculamos, por exemplo:
-$$
-\align
-\even(3) &
-= \odd(2)
-= \even(1))
-= \odd(0)))
-= 0 \\
-odd(3) &
-= \even(2)
-= \odd(1)
-= \even(0)
-= 1
-\endalign
-$$
-}
-\endexample
-%%}}}
-
-%%}}}
-
-\blah.
-Deixamos esse assunto por enquanto (até o~\ref{Recursive_functions}),
-assumindo que temos já um entendimento de como definições recursivas
-funcionam.
-
-\endsection
-%%}}}
-
 %%{{{ Composition 
 \section Composição.
 
@@ -14269,6 +14063,212 @@ $$
 \endsection
 %%}}}
 
+%%{{{ Recursive definitions 
+\section Definições recursivas.
+
+\blah.
+Já encontramos várias definições recursivas.
+Agora vamos analizar com que precisamos tomar cuidado para garantir
+que nossas ``funções'' realmente são funções bem definidas.
+
+%%{{{ Safe recursion 
+\note Recursão segura.
+Na maioria das vezes que definimos funções recursivamente
+exite ``algo'' (muitas vezes esse ``algo'' é o próprio
+argumento da função, mas não sempre) que com cada ``chamada recursiva''
+da função fica menor e menor, até cair num valor que garanta
+uma ``saida da recursão''.
+(Essa descrição é bem vaga sim.)
+%%}}}
+
+%%{{{ eg: recursion_with_powers_of_two 
+\example.
+\label{recursion_with_powers_of_two}%
+Seja $f : \nats\to\nats$ a função definida pela:
+$$
+f(x) =
+\knuthcases{
+\log_2(x), & se $x$ é uma potência de $2$;\cr
+f(x+1), & se não.
+}
+$$
+Aqui nas chamadas recursivas não é o próprio argumento que é
+``cada vez menor''---pelo contrário: as chamadas recursivas
+estão sendo cada vez com argumento maior!
+Mesmo assim, a recursão ``sempre termina'', e a $f$ realmente
+é bem definida.
+Calculamos como exemplo uns valores:
+$$
+\align
+f(0) &= f(1) = 0 \\
+f(4) &= 2 \\
+f(5) &= f(6) = f(7) = f(8) = 3 \\
+f(1020) &= f(1021) = f(1022) = f(1023) = f(1024) = 10.
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ x: find invariant 
+\exercise.
+Ache um ``algo'' que fica cada vez menor com cada chamada recursiva
+da $f$ do~\ref{recursion_with_powers_of_two}.
+
+\hint
+Uma ``distância'' está sendo cada vez menor.  Qual?
+
+\solution
+Com cada chamada com entrada $x$, o número $b - x$ é cada vez menor,
+onde $b = \min \setst {2^n} {x \leq 2^n, \ n\in\nats}$.
+
+\endexercise
+%%}}}
+
+%%{{{ Dangerous recursion 
+\note Recursão perigosa.
+Não é cada equação recursiva que realmente defina uma função!
+Vamos ver agora uns exemplos que mostram exatamente isso.
+%%}}}
+
+%%{{{ eg: dangerous_recursion_f 
+\example.
+\label{dangerous_recursion_f}%
+Seja $f : \nats\to\nats$ a função definida pela
+$$
+f(n) = f(n),
+\quad\text{para todo $n\in\nats$}.
+$$
+É óbvio que isso não \emph{determina} uma função:
+\emph{toda função $\nats\to\nats$ satisfaz essa equação},
+então não podemos usá-la como definição!
+\endexample
+%%}}}
+
+%%{{{ eg: dangerous_recursion_g 
+\example.
+\label{dangerous_recursion_g}%
+Seja $g : \nats\to\nats$ a função definida pela
+$$
+g(n) = g(n)+1,
+\quad\text{para todo $n\in\nats$}.
+$$
+Isso também não \emph{determina} uma função:
+\emph{nenhuma função $\nats\to\nats$ satisfaz essa equação},
+então não podemos usá-la como definição!
+\endexample
+%%}}}
+
+%%{{{ eg: dangerous_recursion_h 
+\example.
+\label{dangerous_recursion_h}%
+Seja $h : \nats\to\nats$ a função definida pela
+$$
+h(n) = h(n+1),
+\quad\text{para todo $n\in\nats$}.
+$$
+Isso também não \emph{determina} uma função---mas por quê?
+\endexample
+%%}}}
+
+%%{{{ x: what_is_the_problem_with_the_recursion_of_h 
+\exercise.
+\label{what_is_the_problem_with_the_recursion_of_h}%
+A pergunta não foi rhetórica!
+
+\endexercise
+%%}}}
+
+%%{{{ eg: collatz_recursive 
+\example.
+\label{collatz_recursive}%
+Considere a função $f : \nats_{>0} \to \nats$ definida pela recursão
+$$
+\align
+f(1) &= 1\\
+f(n) &=
+\knuthcases{
+f(n/2),  &se $n$ é par\cr
+f(3n+1), &se $n$ é ímpar.
+}\quad\text{(para $n > 1$)}.
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ x: calculate three values 
+\exercise.
+Calcule os valores $f(8), f(3), f(7)$ da $f$ acima.
+
+\endexercise
+%%}}}
+
+%%{{{ x: why_recursive_collatz_does_not_define_a_function 
+\exercise.
+\label{why_recursive_collatz_does_not_define_a_function}%
+Qual o problema com a definição da função $f$ do~\ref{collatz_recursive}?
+
+\hint
+Por quê termina a recursão para toda entrada?
+
+\solution
+Não sabemos se ela satisfaz a totalidade de função, ou seja,
+se ela é realmente definida em todo o seu domínio.
+Ate agora, ninguém sabe dizer!
+Essa é exatamente a concjetura de \Collatz{}Collatz~(\ref{collatz_conjecture}).
+
+\endexercise
+%%}}}
+
+%%{{{ mutual_recursion 
+\note Recursão mutual.
+\label{mutual_recursion}%
+Podemos definir duas ou mais funções, cada uma chamando recursivamente
+outras, tomando certos cuidados como sempre para garantir que realmente
+todas as funções vão ser definidas mesmo para todas as entradas
+aceitas pelos domínios delas.
+
+%%{{{ eg: mutual_recursion_even_odd 
+\example.
+\label{mutual_recursion_even_odd}%
+{%
+\def\even{\namedfun{even}}%
+\def\odd{\namedfun{odd}}%
+Vamos definir as funções $\even,\odd:\nats\to\set{0,1}$ pelas
+$$
+\xalignat2
+\even(0)   &= 1       & \odd(0)   &= 0 \\
+\even(n+1) &= \odd(n) & \odd(n+1) &= \even(n)
+\endxalignat
+$$
+Calculamos, por exemplo:
+$$
+\align
+\even(3) &
+= \odd(2)
+= \even(1))
+= \odd(0)))
+= 0 \\
+odd(3) &
+= \even(2)
+= \odd(1)
+= \even(0)
+= 1
+\endalign
+$$
+}
+\endexample
+%%}}}
+
+%%}}}
+
+\blah.
+Deixamos esse assunto por enquanto (até o~\ref{Recursive_functions}),
+assumindo que temos já um entendimento de como definições recursivas
+funcionam.
+
+\endsection
+%%}}}
+
 %%{{{ More constructions and operations on functions 
 \section Mais construções e operações em funções.
 
@@ -14701,349 +14701,6 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Higher-order functions 
-\section Funções de ordem superior.
-
-%%{{{ Holes again 
-\note Buracos de novo.
-Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
-botando \emph{buracos}, criando assim funções de várias aridades.
-Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
-permitiu dar nomes para esses buracos, identificar certos buracos, etc.
-Considere novamente uma expressão como a:
-$$
-\cos(1 + 5\cbrt2)^{2a} + \sin(5)
-$$
-onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
-Botando uns buracos, criamos, por exemplo as funções:
-$$
-\alignat2
-f_1&=\cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
-f_2&=\cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
-f_3&=\cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
-f_4&=\cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
-f_5&=\bhole + \sin(\bhole)                                &&\eqtype \reals^2 \to \reals\\
-f_6&=\lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
-f_7&=\lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
-\endalignat
-$$
-%%}}}
-
-%%{{{ x: verify_abstractions_of_expression 
-\exercise.
-\label{verify_abstractions_of_expression}%
-Para quais entradas cada uma dessas funções retorna o valor da expressão inicial?
-
-\hint
-Respeite as aridades!
-
-\solution
-Temos
-$$
-\align
-f_1&(2)\\
-f_2&(1,2,5)\\
-f_3&(1,5,a)\\
-f_4&(1,5,2a)\\
-f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
-f_6&(a)\\
-f_7&(2, 5).
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ Higher-order holes 
-\note Buracos de ordem superior.
-Em todos os exemplos acima, botamos os buracos para substituir
-apenas termos cujos valores seriam números (reais).
-Expressões tanto como as $2$, $1$, $5$, e $a$,
-quanto como as $5\cbrt2$, $2a$, e $cos(1 + 5\cbrt2)^{2a}$,
-denotam, no final das contas, números reais.
-Que tal botar um buraco assim:
-$$
-\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
-$$
-O que substituimos aqui?  O próprio $\sin$!  Por que não?
-E o que tipo de objetos podemos botar nesse buraco?
-Um real, não serve: a expressão
-$$
-\cos(1 + 5\cbrt2)^{2a} + 7(5)
-$$
-não faz sentido: ela é \dterm{mal-tipada}.
-O $7$ não pode receber um argumento como se fosse uma função, pois não é.
-Que tipo de coisa então caiba nesse buraco?
-Funções!
-E não funções quaisquer, mas precisam ter um tipo compatível,
-com a aridade certa, etc.
-Esses buracos são \emph{de ordem superior}.
-E com buracos de ordem superior, vêm funções de ordem superior.
-%%}}}
-
-%%{{{ pseudodf: higher_order_function 
-\pseudodefinition.
-\label{higher_order_function}%
-\tdefined{função}[de ordem superior]%
-Dizemos que uma função $f : A \to B$ é de \dterm{ordem superior}
-se ela recebe ou retorna funções.
-%%}}}
-
-%%{{{ x: type_higher_order_holed_expressions 
-\exercise.
-\label{type_higher_order_holed_expressions}%
-Escreva os tipos das funções seguintes:
-$$
-\align
-F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
-F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
-F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
-F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
-\endalign
-$$
-
-\solution
-Temos
-$$
-\alignat2
-F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
-F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                           &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
-F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
-F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)                &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
-F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
-\endalignat
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ Returning functions 
-\note Retornando funções.
-Até agora encontramos exemplos onde funções recebem como argumentos outras funções,
-mas aindo não conhecemos alguma função que \emph{retorna função}.
-Ou sera que conhecemos?
-Seguem uns exemplos de operadores de ordem superior que você talves já
-encontrou e até usou na tua vida.
-%%}}}
-
-\blah.
-Funções de ordem superior não é algo tão desconhecido como talvez aparece.
-O leitor já está acostumado com os operadores nos exemplos seguintes:
-
-%%{{{ eg: higher_order_example_composition 
-\example Composição.
-\label{higher_order_example_composition}%
-Sejam conjuntos $A,B,C$.
-O operador da composição $\of$ (que decoramos com $_{A,B,C}$ aqui para especificar o domínio e codomínio dele) é o seguinte:
-$$
-\dhole\of_{A,B,C}\dhole : (B\to C) \times (A\to B) \to (A\to C).
-$$
-Observe que ela é um operador de ordem superior, pois seus (dois) argumentos
-são funcões, e tambem pois sua saida também é uma função.
-\endexample
-%%}}}
-
-%%{{{ eg: higher_order_example_derivation 
-\example Derivação.
-\label{higher_order_example_derivation}%
-Considere o operador da derivação
-$$
-D(\dhole) : C^\infty \to C^\infty
-$$
-onde $C^\infty$ é o conjunto de todas as funções infinitamente deriváveis.
-Por exemplo, se $f(x) = x^3 + 5x$, temos
-$$
-D(f) = g
-$$
-onde $g(x) = 3x^2 + 5$.
-Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
-$$
-D(f) = \lam x {3x^2 + 5}
-$$
-sim.
-\endexample
-%%}}}
-
-%%{{{ eg: higher_order_example_integration 
-\example Integração.
-\label{higher_order_example_integration}%
-De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
-Sejam $a,b\in\reals$ com $a<b$ e seja
-$$
-R[a,b] \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
-$$
-Observe que $R[a,b]$ é um conjunto de funções.
-Definimos o operador
-$$
-\lam {u,f} {\int_a^{u} f} : ([a,b] \times R[a,b]) \to \reals
-$$
-cujo segundo argumento é uma função e logo ele é um operador de ordem superior também.
-Para a integração indefinita, seja
-$$
-R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
-$$
-e defina um operador
-$$
-\int\dhole : R \to \pset{(\reals\to\reals)}
-$$
-tal que
-$$
-\int f = \setst {F : \reals\to\reals} {D(F) = f}.
-$$
-\endexample
-%%}}}
-
-%%{{{ Defining higher-order functions 
-\note Definindo funções de ordem superior.
-Considere a função $F : \reals \to (\reals \to \reals)$ definda pela
-$$
-F(w) = \text{aquela função $f : \reals \to \reals$ que quando recebe um $x$, retorna $w + x$}.
-$$
-%%}}}
-
-%%{{{ Q: what type of thing is F(25)? 
-\question.
-Que tipo de coisa é o $F(25)$?
-%%}}}
-\spoiler.
-
-%%{{{ Answer 
-\note.
-Antes de responder nessa pergunta, vamos responder numa outra, ainda mais específica:
-o que \emph{é} o $F(25)$?
-Ou seja:
-$$
-F(25) = \dots?\dots
-$$
-Não precisamos pensar nada profundo!
-Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
-$$
-F(25) = \text{aquela função $f : \reals \to \reals$ que quando recebe um $x\in\reals$, retorna o número $25 + x$}.
-$$
-Ou seja,
-$$
-F(25) : \reals\to\reals.
-$$
-Sendo função, podemos a chamar com um argumento do certo tipo, por exemplo como o $3\in\reals$, e a evaluar:
-$$
-\paren{F(25)}(3) = 28.
-$$
-%%}}}
-
-%%{{{ x: where_did_28_come_from 
-\exercise.
-\label{where_did_28_come_from}%
-De onde chegou esse $28$?
-
-\solution
-Seguindo a definição da $F(25)$ ela é a função que recebendo um valor (agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
-$25 + 3 = 28$.
-
-\endexercise
-%%}}}
-
-%%{{{ With lambdas 
-\note Com lambdas.
-\ii{função!anônima}%
-Observe que na definição de $F(w)$, apareceu a frase ``aquela função $f$\dots''.
-Assim baptizamos temporariamente essa função com um nome (``$f$'') à toa:
-apenas para referir a ela e a retornar.
-Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
-e (logo) mais legível:
-$$
-F(w) = \lam x {w + x} \quad \eqtype \reals \to \reals
-$$
-Observe que no lado direito aparece uma função anônima.
-%%}}}
-
-%%{{{ x: find_expressions_with_given_types 
-\exercise.
-Escreva $\lambda$-expressões que podem ser consideradas como funções com os
-tipos seguintes:
-$$
-\align
-F_1&: \reals \to \reals \\
-F_2&: \reals \to (\reals \to \reals) \\
-F_3&: (\reals \to \reals) \to \reals \\
-F_4&: (\reals \to \reals) \to (\reals \to \reals) \\
-F_5&: (\reals^2 \to \reals) \to \reals \\
-F_6&: (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: find_expressions_with_given_types_abstract 
-\exercise.
-Escreva $\lambda$-expressões que podem ser consideradas como funções com os
-tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não pode assumir
-absolutamente nada mais!
-Para cada um dos típos, tente escrever as mais $\lambda$-expressões realmente
-diferentes que tu consegues.
-Cuidado: para uns deles não é possível achar nenhuma!
-$$
-\align
-&: A \to A \\
-&: (A \times B) \to A \\
-&: (A \times B) \to B \\
-&: (A \times B) \to (B \times A) \\
-&: A \to B \\
-&: A \to (B \to A) \\
-&: A \to (B \to B) \\
-&: (A \to A) \to A \\
-&: (A \to (B \to C) \to ((A\times B)\to C)) \\
-&: ((A\times B)\to C) \to (A \to (B \to C))
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Currying 
-
-\section Currificação.
-
-\note Ha-ha! Minha linguagem é melhor que a tua.
-Imagine que um amigo definiu uma função $f : \ints^2\to\ints$
-trabalhando numa linguagem de programação que não permite
-definições de funções de ordem superior.
-Queremos escrever um programa equivalente ao programa do nosso amigo
-numa outra linguagem que permite sim definir funções de ordem superior
-mas não funções de aridade maior que $1$.
-Mesmo assim nossas funções podem \emph{chamar} a função $f$ do nosso amigo nos seus corpos.
-
-\question.
-Como fazer isso?
-\spoiler.
-
-\blah.
-Aqui uma resposta, escrita em Python.
-
-\sourcecode currying.py;
-
-\TODO Explicar o que acontece.
-
-\exercise.
-Resolva o problema converso:
-começando com a função ``currificada'' de ordem superior $F$,
-defina sua versão ``decurrificada'' $f$ (de aridade 2).
-
-\solution
-Dados a $F : \ints\to(\ints\to\ints)$,
-é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
-
-\endexercise
-
-\endsection
-%%}}}
-
 %%{{{ Images and preimages 
 \section Imagens e preimagens.
 \label{Images_and_preimages}%
@@ -15381,6 +15038,351 @@ veja~\ref{big_operations_respected_by_img_and_pre}.
 \endsection
 %%}}}
 
+%%{{{ Higher-order functions 
+\section Funções de ordem superior.
+
+%%{{{ Holes again 
+\note Buracos de novo.
+Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
+botando \emph{buracos}, criando assim funções de várias aridades.
+Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
+permitiu dar nomes para esses buracos, identificar certos buracos, etc.
+Considere novamente uma expressão como a:
+$$
+\cos(1 + 5\cbrt2)^{2a} + \sin(5)
+$$
+onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
+Botando uns buracos, criamos, por exemplo as funções:
+$$
+\alignat2
+f_1&=\cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
+f_2&=\cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
+f_3&=\cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
+f_4&=\cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
+f_5&=\bhole + \sin(\bhole)                                &&\eqtype \reals^2 \to \reals\\
+f_6&=\lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
+f_7&=\lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
+\endalignat
+$$
+%%}}}
+
+%%{{{ x: verify_abstractions_of_expression 
+\exercise.
+\label{verify_abstractions_of_expression}%
+Para quais entradas cada uma dessas funções retorna o valor da expressão inicial?
+
+\hint
+Respeite as aridades!
+
+\solution
+Temos
+$$
+\align
+f_1&(2)\\
+f_2&(1,2,5)\\
+f_3&(1,5,a)\\
+f_4&(1,5,2a)\\
+f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
+f_6&(a)\\
+f_7&(2, 5).
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ Higher-order holes 
+\note Buracos de ordem superior.
+Em todos os exemplos acima, botamos os buracos para substituir
+apenas termos cujos valores seriam números (reais).
+Expressões tanto como as $2$, $1$, $5$, e $a$,
+quanto como as $5\cbrt2$, $2a$, e $cos(1 + 5\cbrt2)^{2a}$,
+denotam, no final das contas, números reais.
+Que tal botar um buraco assim:
+$$
+\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
+$$
+O que substituimos aqui?  O próprio $\sin$!  Por que não?
+E o que tipo de objetos podemos botar nesse buraco?
+Um real, não serve: a expressão
+$$
+\cos(1 + 5\cbrt2)^{2a} + 7(5)
+$$
+não faz sentido: ela é \dterm{mal-tipada}.
+O $7$ não pode receber um argumento como se fosse uma função, pois não é.
+Que tipo de coisa então caiba nesse buraco?
+Funções!
+E não funções quaisquer, mas precisam ter um tipo compatível,
+com a aridade certa, etc.
+Esses buracos são \emph{de ordem superior}.
+E com buracos de ordem superior, vêm funções de ordem superior.
+%%}}}
+
+%%{{{ pseudodf: higher_order_function 
+\pseudodefinition.
+\label{higher_order_function}%
+\tdefined{função}[de ordem superior]%
+Dizemos que uma função $f : A \to B$ é de \dterm{ordem superior}
+se ela recebe ou retorna funções.
+%%}}}
+
+%%{{{ x: type_higher_order_holed_expressions 
+\exercise.
+\label{type_higher_order_holed_expressions}%
+Escreva os tipos das funções seguintes:
+$$
+\align
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
+\endalign
+$$
+
+\solution
+Temos
+$$
+\alignat2
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                          &&\eqtype (\reals\to\reals) \to \reals\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                           &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)                &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ Returning functions 
+\note Retornando funções.
+Até agora encontramos exemplos onde funções recebem como argumentos outras funções,
+mas aindo não conhecemos alguma função que \emph{retorna função}.
+Ou sera que conhecemos?
+Seguem uns exemplos de operadores de ordem superior que você talves já
+encontrou e até usou na tua vida.
+%%}}}
+
+%%{{{ Defining higher-order functions 
+\note Definindo funções de ordem superior.
+Considere a função $F : \reals \to (\reals \to \reals)$ definda pela
+$$
+F(w) = \text{aquela função $f : \reals \to \reals$ que quando recebe um $x$, retorna $w + x$}.
+$$
+%%}}}
+
+%%{{{ Q: what type of thing is F(25)? 
+\question.
+Que tipo de coisa é o $F(25)$?
+%%}}}
+\spoiler.
+
+%%{{{ Answer 
+\note.
+Antes de responder nessa pergunta, vamos responder numa outra, ainda mais específica:
+o que \emph{é} o $F(25)$?
+Ou seja:
+$$
+F(25) = \dots?\dots
+$$
+Não precisamos pensar nada profundo!
+Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
+$$
+F(25) = \text{aquela função $f : \reals \to \reals$ que quando recebe um $x\in\reals$, retorna o número $25 + x$}.
+$$
+Ou seja,
+$$
+F(25) : \reals\to\reals.
+$$
+Sendo função, podemos a chamar com um argumento do certo tipo, por exemplo como o $3\in\reals$, e a evaluar:
+$$
+\paren{F(25)}(3) = 28.
+$$
+%%}}}
+
+%%{{{ x: where_did_28_come_from 
+\exercise.
+\label{where_did_28_come_from}%
+De onde chegou esse $28$?
+
+\solution
+Seguindo a definição da $F(25)$ ela é a função que recebendo um valor (agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
+$25 + 3 = 28$.
+
+\endexercise
+%%}}}
+
+%%{{{ With lambdas 
+\note Com lambdas.
+\ii{função!anônima}%
+Observe que na definição de $F(w)$, apareceu a frase ``aquela função $f$\dots''.
+Assim baptizamos temporariamente essa função com um nome (``$f$'') à toa:
+apenas para referir a ela e a retornar.
+Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
+e (logo) mais legível:
+$$
+F(w) = \lam x {w + x} \quad \eqtype \reals \to \reals
+$$
+Observe que no lado direito aparece uma função anônima.
+%%}}}
+
+%%{{{ x: find_expressions_with_given_types 
+\exercise.
+Escreva $\lambda$-expressões que podem ser consideradas como funções com os
+tipos seguintes:
+$$
+\align
+F_1&: \reals \to \reals \\
+F_2&: \reals \to (\reals \to \reals) \\
+F_3&: (\reals \to \reals) \to \reals \\
+F_4&: (\reals \to \reals) \to (\reals \to \reals) \\
+F_5&: (\reals^2 \to \reals) \to \reals \\
+F_6&: (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_expressions_with_given_types_abstract 
+\exercise.
+Escreva $\lambda$-expressões que podem ser consideradas como funções com os
+tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não pode assumir
+absolutamente nada mais!
+Para cada um dos típos, tente escrever as mais $\lambda$-expressões realmente
+diferentes que tu consegues.
+Cuidado: para uns deles não é possível achar nenhuma!
+$$
+\align
+&: A \to A \\
+&: (A \times B) \to A \\
+&: (A \times B) \to B \\
+&: (A \times B) \to (B \times A) \\
+&: A \to B \\
+&: A \to (B \to A) \\
+&: A \to (B \to B) \\
+&: (A \to A) \to A \\
+&: (A \to (B \to C) \to ((A\times B)\to C)) \\
+&: ((A\times B)\to C) \to (A \to (B \to C))
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+\blah.
+Funções de ordem superior não é algo tão desconhecido como talvez aparece.
+O leitor já está acostumado com os operadores nos exemplos seguintes:
+
+%%{{{ eg: higher_order_example_composition 
+\example Composição.
+\label{higher_order_example_composition}%
+Sejam conjuntos $A,B,C$.
+O operador da composição $\of$ (que decoramos com $_{A,B,C}$ aqui para especificar o domínio e codomínio dele) é o seguinte:
+$$
+\dhole\of_{A,B,C}\dhole : (B\to C) \times (A\to B) \to (A\to C).
+$$
+Observe que ela é um operador de ordem superior, pois seus (dois) argumentos
+são funcões, e tambem pois sua saida também é uma função.
+\endexample
+%%}}}
+
+%%{{{ eg: higher_order_example_derivation 
+\example Derivação.
+\label{higher_order_example_derivation}%
+Considere o operador da derivação
+$$
+D(\dhole) : C^\infty \to C^\infty
+$$
+onde $C^\infty$ é o conjunto de todas as funções infinitamente deriváveis.
+Por exemplo, se $f(x) = x^3 + 5x$, temos
+$$
+D(f) = g
+$$
+onde $g(x) = 3x^2 + 5$.
+Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
+$$
+D(f) = \lam x {3x^2 + 5}
+$$
+sim.
+\endexample
+%%}}}
+
+%%{{{ eg: higher_order_example_integration 
+\example Integração.
+\label{higher_order_example_integration}%
+De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
+Sejam $a,b\in\reals$ com $a<b$ e seja
+$$
+R[a,b] \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
+$$
+Observe que $R[a,b]$ é um conjunto de funções.
+Definimos o operador
+$$
+\lam f {\lam x {\int_a^{u} f}} : R[a,b] \to ([a,b] \to \reals)
+$$
+cujo argumento é uma função---e ainda mais,
+sua saida também é uma função---e logo ele é um operador de ordem superior
+também.
+Para a integração indefinita, seja
+$$
+R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
+$$
+e defina um operador
+$$
+\int\dhole : R \to \pset{(\reals\to\reals)}
+$$
+tal que
+$$
+\int f = \setst {F : \reals\to\reals} {D(F) = f}.
+$$
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Currying 
+
+\section Currificação.
+
+\note Ha-ha! Minha linguagem é melhor que a tua.
+Imagine que um amigo definiu uma função $f : \ints^2\to\ints$
+trabalhando numa linguagem de programação que não permite
+definições de funções de ordem superior.
+Queremos escrever um programa equivalente ao programa do nosso amigo
+numa outra linguagem que permite sim definir funções de ordem superior
+mas não funções de aridade maior que $1$.
+Mesmo assim nossas funções podem \emph{chamar} a função $f$ do nosso amigo nos seus corpos.
+
+\question.
+Como fazer isso?
+\spoiler.
+
+\blah.
+Aqui uma resposta, escrita em Python.
+
+\sourcecode currying.py;
+
+\TODO Explicar o que acontece.
+
+\exercise.
+Resolva o problema converso:
+começando com a função ``currificada'' de ordem superior $F$,
+defina sua versão ``decurrificada'' $f$ (de aridade 2).
+
+\solution
+Dados a $F : \ints\to(\ints\to\ints)$,
+é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
+
+\endexercise
+
+\endsection
+%%}}}
+
 %%{{{ Partial functions 
 \section Funções parciais.
 
@@ -15412,15 +15414,6 @@ $$
 (A \parto B) \defeq \setst f {f : A \parto B}.
 $$
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Product of family of sets 
-\section Produto de família de conjuntos revisitado.
-\label{Cartesian_product_of_indexed_family_of_sets_revisited}%
-
-\TODO Definição, idéia, exercícios.
 
 \endsection
 %%}}}
@@ -15459,6 +15452,15 @@ O que muda se $f$ é injetora?
 
 \endexercise
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Product of family of sets 
+\section Produto de família de conjuntos revisitado.
+\label{Cartesian_product_of_indexed_family_of_sets_revisited}%
+
+\TODO Definição, idéia, exercícios.
 
 \endsection
 %%}}}
