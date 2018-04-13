@@ -14360,7 +14360,7 @@ $$
 Bote nomes e direções onde faltam e prove que o diagrama comuta:
 $$
 \cdopt{sep=2cm}
-A \ar[d, "f"']   \|  A\times C \ar[l, dash, ""]\ar[r, dash, ""]\ar[d, dashed, ""]   \| C \ar[d, "g"]  \\
+A \ar[d, "f"']   \|  A\times C \ar[l, dash, ""]\ar[r, dash, ""]\ar[d, dotted, ""]   \| C \ar[d, "g"]  \\
 B                \|  B\times D \ar[l, dash, ""]\ar[r, dash, ""]                     \| D
 \endcd
 $$
@@ -14396,7 +14396,7 @@ Bote nomes e direções onde faltam e prove que o diagrama comuta:
 $$
 \cdopt{sep=2cm}
 A \| A\times B \ar[l, dash, ""]\ar[r, dash, ""] \| B \\
-  \| D\ar[u, dashed, ""]\ar[ul, "f"]\ar[ur, "g"']
+  \| D\ar[u, dotted, ""]\ar[ul, "f"]\ar[ur, "g"']
 \endcd
 $$
 
@@ -14829,7 +14829,72 @@ Seguem uns exemplos de operadores de ordem superior que você talves já
 encontrou e até usou na tua vida.
 %%}}}
 
-\TODO Exemplos: composição, derivação, integração, etc.
+\blah.
+Funções de ordem superior não é algo tão desconhecido como talvez aparece.
+O leitor já está acostumado com os operadores nos exemplos seguintes:
+
+%%{{{ eg: higher_order_example_composition 
+\example Composição.
+\label{higher_order_example_composition}%
+Sejam conjuntos $A,B,C$.
+O operador da composição $\of$ (que decoramos com $_{A,B,C}$ aqui para especificar o domínio e codomínio dele) é o seguinte:
+$$
+\dhole\of_{A,B,C}\dhole : (B\to C) \times (A\to B) \to (A\to C).
+$$
+Observe que ela é um operador de ordem superior, pois seus (dois) argumentos
+são funcões, e tambem pois sua saida também é uma função.
+\endexample
+%%}}}
+
+%%{{{ eg: higher_order_example_derivation 
+\example Derivação.
+\label{higher_order_example_derivation}%
+Considere o operador da derivação
+$$
+D(\dhole) : C^\infty \to C^\infty
+$$
+onde $C^\infty$ é o conjunto de todas as funções infinitamente deriváveis.
+Por exemplo, se $f(x) = x^3 + 5x$, temos
+$$
+D(f) = g
+$$
+onde $g(x) = 3x^2 + 5$.
+Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
+$$
+D(f) = \lam x {3x^2 + 5}
+$$
+sim.
+\endexample
+%%}}}
+
+%%{{{ eg: higher_order_example_integration 
+\example Integração.
+\label{higher_order_example_integration}%
+De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
+Sejam $a,b\in\reals$ com $a<b$ e seja
+$$
+R[a,b] \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
+$$
+Observe que $R[a,b]$ é um conjunto de funções.
+Definimos o operador
+$$
+\lam {u,f} {\int_a^{u} f} : ([a,b] \times R[a,b]) \to \reals
+$$
+cujo segundo argumento é uma função e logo ele é um operador de ordem superior também.
+Para a integração indefinita, seja
+$$
+R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
+$$
+e defina um operador
+$$
+\int\dhole : R \to \pset{(\reals\to\reals)}
+$$
+tal que
+$$
+\int f = \setst {F : \reals\to\reals} {D(F) = f}.
+$$
+\endexample
+%%}}}
 
 %%{{{ Defining higher-order functions 
 \note Definindo funções de ordem superior.
