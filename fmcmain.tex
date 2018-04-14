@@ -14511,9 +14511,9 @@ em termos das cardinalidades dos $A$ e $B$.
 \endexercise
 %%}}}
 
-%%{{{ prop: injection_left_cancellable 
+%%{{{ prop: injection_iff_mono 
 \proposition.
-\label{injection_left_cancellable}%
+\label{injection_iff_mono}%
 Sejam $B \toarrow f C$.
 A $f$ é injetora sse
 $$
@@ -14522,8 +14522,8 @@ $$
 para todas as $g,h$ tais que as composições em cima são definidas.
 Digamos então que $f$ é \dterm{$\of$-cancelável pela esquerda}:
 \sketch.
-A direção {\lrdir} é o~\ref{injection_left_cancellable_lrproof}.
-Para a direção {\rldir}, tome $x,x'\in B$ tais que $f(x)=f(x')$
+A direção {\lrdir} é o~\ref{injection_iff_mono_lrproof}.
+Para a direção {\rldir}, tome $b,b'\in B$ tais que $f(b)=f(b')$
 tome $A\asseq\set{0}$ e defina $g,h$ no diagrama
 $$
 \cdopt{sep=2cm}
@@ -14531,43 +14531,54 @@ $$
 \endcd
 $$
 em tal maneira que o diagrama comuta (tem que definir mesmo as $g,h$).
-Usamos agora a hipótese para concluir que $x=x'$, ou seja: a $f$ é injetora.
+Usamos agora a hipótese para concluir que $b=b'$, ou seja: a $f$ é injetora.
 \qes
 \proof.
-\lrdir: \ref{injection_left_cancellable_lrproof}
+\lrdir: \ref{injection_iff_mono_lrproof}.
 \endgraf
 \rldir:
-Suponha $x,x' \in B$ tais que $f(x) = f(x')$.
-Basta mostrar que $x = x'$.
+Suponha $b,b' \in B$ tais que $f(b) = f(b')$.
+Basta mostrar que $b = b'$.
+Temos então o diagrama interno seguinte:
+$$
+\tikzpicture
+\tikzi mono_implies_inj0;
+\endtikzpicture
+$$
 Seja $A = \set{0}$ e defina as $g,h$ no diagrama
 $$
 \cdopt{sep=2cm}
 \set{0}   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
 \endcd
 $$
-como as constantes
+como as funções constantes definidas pelas 
 $$
-\xalignat2
-g(0) &= x &
-h(0) &= x'.
-\endxalignat
+g(0) = b
+\qquad\text{e}\qquad
+h(0) = b'.
+$$
+Então agora estamos com o diagrama interno assim:
+$$
+\tikzpicture
+\tikzi mono_implies_inj1;
+\endtikzpicture
 $$
 Observe que como
 $$
 \align
-(f\of g)(0) &= f(g(0)) = f(x) \\
-(f\of h)(0) &= f(h(0)) = f(x')
+(f\of g)(0) &= f(g(0)) = f(b) \\
+(f\of h)(0) &= f(h(0)) = f(b')
 \endalign
 $$
-e $f(x) = f(x')$, temos
-$f\of g = f\of h$ e usando a hipótese, $g = h$.
-Logo as $g,h$ concordam no $0$, ou seja, $x = x'$.
+e $f(b) = f(b')$, temos
+$f\of g = f\of h$ e agora usamos a hipótese para ganhar $g = h$.
+Logo as $g,h$ concordam no $0$, ou seja, $b = b'$.
 \qed
 %%}}}
 
-%%{{{ prop: surjection_right_cancellable 
+%%{{{ prop: surjection_iff_epic 
 \proposition.
-\label{surjection_right_cancellable}%
+\label{surjection_iff_epic}%
 Sejam $B \toarrow f C$.
 A $f$ é sobrejetora sse
 $$
@@ -14576,7 +14587,7 @@ $$
 para todas as $g,h$ tais que as composições em cima são definidas.
 Digamos então que $f$ é \dterm{$\of$-cancelável pela direita}:
 \sketch.
-A direção {\lrdir} é o~\ref{injection_left_cancellable_lrproof}.
+A direção {\lrdir} é o~\ref{injection_iff_mono_lrproof}.
 Para a direção {\rldir}, tomamos $c \in C$ e procuramos achar
 $b\in B$ tal que $f(b) = c$.
 Defina o $D$ (cuidado: aqui não ajuda tomar $D=\set{0}$)
@@ -14594,11 +14605,17 @@ menos um ponto do domínio dela para o $c$.
 \qes
 \proof.
 \lrdir:
-\ref{surjection_right_cancellable_lrproof}%
+\ref{surjection_iff_epic_lrproof}.
 \endgraf
 \rldir:
 Suponha $c\in C$.
 Procuramos $b\in B$ tal que $f(b) = c$.
+Começamos então com o diagrama interno seguinte:
+$$
+\tikzpicture
+\tikzi epic_implies_surj0;
+\endtikzpicture
+$$
 Seja $D=\set{0,1}$ e defina as funções $g,h:C\to D$ pelas
 $$
 \xalignat2
@@ -14609,7 +14626,13 @@ h(y) &= \knuthcases{
 }
 \endxalignat
 $$
-Logo $g(c) = 0 \neq 1 = h(c)$, mas $g(y)=h(y)$ para todo $y\neq c$.
+Logo $g(c) \neq h(c)$, mas $g(y)=h(y)$ para todo $y\neq c$.
+Agora estamos assim:
+$$
+\tikzpicture
+\tikzi epic_implies_surj1;
+\endtikzpicture
+$$
 Como $g\neq h$ então, pela hipótese concluimos que $g\of f \neq h\of f$, ou seja,
 as $g\of f$ e $h\of f$ discordam em pelo menos um membro de $B$,
 e seja $b$ um tal membro:
@@ -14620,54 +14643,17 @@ Logo
 $$
 g(f(b)) \neq h(f(b)),
 $$
-mas $g$ e $h$ discordam apenas no $c\in C$, ou seja,
+ou seja, $g$ e $h$ discordam no $f(b)$.
+Mas $g$ e $h$ discordam apenas no $c$; ou seja,
 $f(b) = c$ como desejamos.
 \qed
-%%}}}
-
-%%{{{ x: injection_left_cancellable_lrproof 
-\exercise.
-\label{injection_left_cancellable_lrproof}%
-Prove a direção {\lrdir} da~\ref{injection_left_cancellable}.
-
-\solution
-Suponha então que $f\of g = f\of h$.
-Vamos mostrar que $g = h$.
-Seja $x \in A$.
-Pela hipótese,
-$$
-(f\of g)(x) = (f\of h)(x)
-$$
-logo $f(g(x)) = f(h(x))$
-e como $f$ injetora, chegamos no desejado $g(x) = h(x)$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: surjection_right_cancellable_lrproof 
-\exercise.
-\label{surjection_right_cancellable_lrproof}%
-Prove a direção {\lrdir} da~\ref{surjection_right_cancellable}.
-
-\solution
-Suponha que $g\of f = h\of f$.  Vamos mostrar que $g = h$.
-Seja $c\in C$.
-Logo existe $b\in B$ tal que $f(b) = c$.
-Como
-$$
-(g\of f)(b) = (h\of f)(b)
-$$
-temos $g(f(b)) = h(f(b))$, ou seja, $g(c) = h(c)$.
-Logo $g = h$.
-
-\endexercise
 %%}}}
 
 %%{{{ x: injection_surjection_commutative_diagrams 
 \exercise.
 \label{injection_surjection_commutative_diagrams}%
 Descreva as propriedades
-\refn{injection_left_cancellable}--\refn{surjection_right_cancellable}
+\refn{injection_iff_mono}--\refn{surjection_iff_epic}
 usando diagramas comutativos.
 
 \solution
@@ -14686,6 +14672,44 @@ B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
 \endcd
 $$
 temos $g=h$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: injection_iff_mono_lrproof 
+\exercise.
+\label{injection_iff_mono_lrproof}%
+Prove a direção {\lrdir} da~\ref{injection_iff_mono}.
+
+\solution
+Suponha então que $f\of g = f\of h$.
+Vamos mostrar que $g = h$.
+Seja $x \in A$.
+Pela hipótese,
+$$
+(f\of g)(x) = (f\of h)(x)
+$$
+logo $f(g(x)) = f(h(x))$
+e como $f$ injetora, chegamos no desejado $g(x) = h(x)$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: surjection_iff_epic_lrproof 
+\exercise.
+\label{surjection_iff_epic_lrproof}%
+Prove a direção {\lrdir} da~\ref{surjection_iff_epic}.
+
+\solution
+Suponha que $g\of f = h\of f$.  Vamos mostrar que $g = h$.
+Seja $c\in C$.
+Logo existe $b\in B$ tal que $f(b) = c$.
+Como
+$$
+(g\of f)(b) = (h\of f)(b)
+$$
+temos $g(f(b)) = h(f(b))$, ou seja, $g(c) = h(c)$.
+Logo $g = h$.
 
 \endexercise
 %%}}}
