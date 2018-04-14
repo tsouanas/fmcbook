@@ -14978,23 +14978,47 @@ Definimos:
 $$
 \align
 \img f X &\defeq \setst {f(x)} {x \in X}\\
-\pre f Y &\defeq \setst {a \in A} {f(a) \in Y}
+\pre f Y &\defeq \setst {a \in A} {f(a) \in Y}.
 \endalign
 $$
 %%}}}
 
-%%{{{ x: type_of_img_f_hole 
+%%{{{ x: type_of_img_f_hole_and_pre_f_hole  
 \exercise.
-\label{type_of_img_f_hole}%
-Qual o tipo da $\img f {\dhole}$?
+\label{type_of_img_f_hole_and_pre_f_hole}%
+Quais os típos das $\img f {\dhole}$ e $\pre f {\dhole}$?
+
+\solution
+$$
+\align
+\img f {\dhole} &: \pset X \to \pset Y \\
+\pre f {\dhole} &: \pset Y \to \pset X
+\endalign
+$$
 
 \endexercise
 %%}}}
 
-%%{{{ x: type_of_pre_f_hole 
+%%{{{ x: img_and_pre_of_emptyset 
 \exercise.
-\label{type_of_pre_f_hole}%
-Qual o tipo da $\pre f {\dhole}$?
+\label{img_and_pre_of_emptyset}%
+Seja $f : X \to Y$.
+Verifique:
+$$
+\align
+\img f \emptyset &= \emptyset \\
+\pre f \emptyset &= \emptyset.
+\endalign
+$$
+
+\solution
+As duas afirmações seguem diretamente pelas definições:
+$$
+\align
+\img f \emptyset &= \setst {f(x)}   {x \in \emptyset}    = \emptyset \\
+\pre f \emptyset &= \setst {x\in X} {f(x) \in \emptyset} = \emptyset.
+\endalign
+$$
 
 \endexercise
 %%}}}
@@ -15009,7 +15033,7 @@ $$
 
 \solution
 Não!
-O símbolo $\finv f (y)$ nem é definido no caso geral, pois
+O símbolo $\finv f (y)$ nem é definido no caso geral:
 o definimos \emph{apenas para funções bijetoras}.
 
 \endexercise
@@ -15018,11 +15042,33 @@ o definimos \emph{apenas para funções bijetoras}.
 %%{{{ x: when_erroneous_definition_of_pre_is_valid 
 \exercise.
 \label{when_erroneous_definition_of_pre_is_valid}%
-Seja $f: A \bijto B$.
-Mostre que:
+Sejam $f: A \bijto B$, e $Y \subseteq B$.
+Mostre que
 $$
 \pre f Y = \setst {\finv f (y)} {y \in Y}.
 $$
+
+\hint
+É um igualdade de conjuntos, então mostre cada uma das~{\lrdirset}
+e~{\rldirset} separadamente.
+
+\solution
+Caso $\pre f Y = \emptyset$, necessariamente $Y=\emptyset$ também
+(pois $f$ é sobrejetora) e logo
+$$
+\setst {\finv f (y)} {y \in Y}=\emptyset
+$$
+também.
+Caso contrário, mostramos as duas direções separadamente:
+\endgraf
+{\lrdirset}:
+Seja $x\in \pre f Y$ e logo
+seja $y_x\in Y$ tal que $f(x) = y_x$ (pela def.~$\pre f Y$).
+Logo $x = \finv f (y_x)$ pela definição da função inversa (\refn{finverse}),
+ou seja $x \in \setst {\finv f (y)} {y \in Y}$.
+\endgraf
+{\rldirset}:
+É só seguir os passos da {\lrdirset} em reverso.
 
 \endexercise
 %%}}}
@@ -15043,10 +15089,10 @@ Se $f$ é bijetora, o símbolo $\pre f Y$ pode ter duas interpretações diferen
 $$
 \pre f Y \askeq
 \knuthcases{
-\pre {{\color{alert} f}} Y
+\pre {\alert f} Y
 &= a preimagem de $Y$ através da função $f:A\to B$\cr
 & \cr
-\img {{\color{alert} {(\finv f)}}} Y
+\img {\alert {(\finv f)}} Y
 &= a imagem de $Y$ através da função $\finv f:B\to A$
 }
 $$
@@ -15077,17 +15123,54 @@ $(f^{-1})$ para enfatisar que estás denotando a função inversa da $f$.
 \endexercise
 %%}}}
 
+%%{{{ x: composition_with_inverse_subsets 
+\exercise.
+\label{composition_with_inverse_subsets}%
+Sejam conjuntos $X$ e $Y$, $f : X\to Y$, e $A\subseteq X$ e $B\subseteq Y$.
+Prove as afirmações:
+$$
+\align
+A &\subseteq \pre f {\img f A}\\
+B &\supseteq \img f {\pre f B}.
+\endalign
+$$
+
+\solution
+Vamos provar as duas afirmações.
+\proofpart{Prova de $A \subseteq \pre f {\img f A}$.}
+Suponha $a\in A$.
+Logo $f(a) \in \img f A$ pela definição da função-imagem,
+e logo $a \in \pre f {\img f A}$ pela definição da função-preimagem.
+\proofpart{Prova de $B \supseteq \img f {\pre f B}$.}
+Suponha $y_0 \in \img f {\pre f B}$.
+Logo tome $x_0 \in \pre f B$ tal que $y_0 = f(x_0)$\fact1.
+Pela definição da função-preimagem $f(x_0) \in B$,
+e agora pela~\byfact1~temos $y_0 \in B$.
+
+\endexercise
+%%}}}
+
 %%{{{ x: composition_with_inverse 
 \exercise.
 \label{composition_with_inverse}%
 Sejam conjuntos $X$ e $Y$, $f : X\to Y$, e $A\subseteq X$ e $B\subseteq Y$.
-Compare os conjuntos:
+Considere as afirmações:
 $$
 \align
 A &\askeq \pre f {\img f A}\\
 B &\askeq \img f {\pre f B}.
 \endalign
 $$
+Para cada uma delas: se podemos a concluir, prove;
+e caso contrário, mostre um contraexemplo.
+
+\hint
+Nenhuma é válida em geral.
+Procure contraexemplos.
+
+\hint
+O enunciado do~\ref{composition_with_inverse_conditions}
+pode te ajudar pensar em contraexemplos.
 
 \solution
 Mostramos dois contraexemplos, um para cada afirmação.
@@ -15143,22 +15226,62 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ x: composition_with_inverse_conditions 
-\exercise.
-\label{composition_with_inverse_conditions}%
-Caso que alguma das igualdades não é válida em geral, que mais seria necessário e suficiente supor sobre a $f$ para a garantir
-cada uma das igualdades do~\ref{composition_with_inverse}?
-No caso geral, é alguma das duas inclusões ({\lrdirset} ou {\rldirset}) de cada $\askeq$ válida?
+\question.
+O que muda no~\ref{composition_with_inverse} se $f$ é injetora?  Se é sobrejetora?
+\spoiler.
 
-\endexercise
+%%{{{ jection_iff_composition_with_inverse 
+\proposition.
+\label{jection_iff_composition_with_inverse}%
+Seja $f : X \to Y$.
+$$
+\align
+\text{$f$ injetora}    &\iff \text{para todo $A \subseteq X$, $A = \pre f {\img f A}$}  \tag{1}\\
+\text{$f$ sobrejetora} &\iff \text{para todo $B \subseteq Y$, $B = \img f {\pre f B}$}. \tag{2}
+\endalign
+$$
+\proof.
+As idas tu provarás (agora!) no~\refn{jection_implies_composition_with_inverse}.
+As voltas é o~\ref{jection_iff_composition_with_inverse_proof}.
+\qed
 %%}}}
 
-%%{{{ x: img_and_pre_of_emptyset 
+%%{{{ x: jection_implies_composition_with_inverse 
 \exercise.
-\label{img_and_pre_of_emptyset}%
-Seja $f : A \to B$.
-Calcule os conjuntos
-$\img f \emptyset$ e $\pre f \emptyset$.
+\label{jection_implies_composition_with_inverse}%
+Prove as idas da~\ref{jection_iff_composition_with_inverse}.
+
+\solution
+Temos duas implicações para provar.
+\proofpart{Ida da (i).}
+Suponha que $f$ é injetora, e seja $A\subseteq X$.
+Ja temos a
+$$
+A \subseteq \pre f {\img f A}
+$$
+pelo~\ref{composition_with_inverse_subsets}, então basta mostrar
+$$
+\pre f {\img f A} \subseteq A.
+$$
+Tome então $x_0 \in \pre f {\img f A}$.
+Logo $f(x_0) \in \img f A$.
+Logo $f(a) = f(x_0)$ para algum $a \in A$ (pela definição da função-imagem).
+Mas $f$ é injetora, então $a = x_0$ e logo $x_0\in A$.
+\proofpart{Ida da (ii).}
+Suponha que $f$ é sobrejetora, e seja $Y\subseteq B$.
+Ja temos a
+$$
+\img f {\pre f B} \subseteq B
+$$
+pelo~\ref{composition_with_inverse_subsets}, então basta mostrar
+$$
+B \subseteq \img f {\pre f B}
+$$
+Tome então $b \in B$.
+Agora seja $x_b \in X$ tal que $f(x_b) = b$ (pois $f$ é sobrejetora).
+Então $x_b \in \pre f B$.
+Logo $f(x_b) \in \img f {\pre f B}$.
+Logo $b \in \img f {\pre f B}$.
 
 \endexercise
 %%}}}
@@ -15177,6 +15300,20 @@ $$
 $$
 onde nas $\askeq$ prove que a igualdade em geral não é válida,
 mas uma das~\lrdirset~e~\rldirset, é.
+
+\hint
+Ataque cada direção ({\lrdirset} e {\rldirset}) separadamente.
+
+\hint
+Das duas $\askeq$, são válidas as inclusões:
+$$
+\align
+\img f {A\inter B} &\supseteq  \img f A \inter \img f B\\
+\img f {A\minus B} &\supseteq  \img f A \minus \img f B
+\endalign
+$$
+Prove, e mostre contraexemplos que demonstram que as reversas
+inclusões não são válidas em geral.
 
 \endexercise
 %%}}}
@@ -15219,7 +15356,7 @@ $$
 
 \blah.
 Essas propriedades generalizam naturalmente:
-veja~\ref{big_operations_respected_by_img_and_pre}.
+veja o~\ref{big_operations_respected_by_img_and_pre}.
 
 \endsection
 %%}}}
@@ -15811,6 +15948,63 @@ A   \ar[rr, "f"]\ar[dr, twoheadrightarrow, "e"']\|  \| B \\
                                                 \| C \ar[ur, rightarrowtail, "m"']
 \endcd
 $$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: jection_iff_composition_with_inverse_proof
+\problem.
+\label{jection_iff_composition_with_inverse_proof}%
+Prove a~\ref{jection_iff_composition_with_inverse}.
+
+\solution
+Já provou as idas no~\refn{jection_implies_composition_with_inverse}.
+Vamos provar as voltas.
+\proofpart{Volta da (1).}
+Suponha a hipótese:
+$$
+\text{para todo $A \subseteq X$, $A = \pre f {\img f A}$}.
+$$
+Para mostrar que $f$ é injetora, suponha que $x,x'\in X$ tais que $f(x) = f(x')$.
+Basta verificar que $x = x'$.
+Considere o conjunto $A = \set{x}$.
+Observe que $A \subseteq X$, e logo pela hipótese temos
+$$
+A = \pre f {\img f A}.\tag{A}
+$$
+Temos $f(x) \in \img f A$ pela definição da função-imagem.
+Como $f(x') = f(x)$ temos também $f(x') \in \img f A$.
+Logo
+$$
+x, x' \in \pre f {\img f A} \eqlabel A A = \set{x}.
+$$
+Como $x, x' \in \set{x}$, logo $x = x'$.
+\proofpart{Volta da (2).}
+Suponha a hipótese:
+$$
+\text{para todo $B \subseteq Y$, $B = \img f {\pre f B}$}.
+$$
+Tome $y_0\in Y$.
+Para mostrar que $f$ é sobrejetora
+basta mostrar que $\pre f {\set{y_0}} \neq \emptyset$.
+Considere o
+$$
+B = \set{y_0} \subseteq Y
+$$
+e logo pela hipótese temos
+$$
+B = \img f {\pre f B}.\tag{B}
+$$
+Ou seja, $\pre f B \neq \emptyset$
+(caso contrário teriamos
+$$
+B
+\eqlabel B \img f {\pre f B}
+= \img f {\emptyset}
+= \emptyset
+$$
+que é absurdo pois $B = \set{y_0}$).
+Isso mostra que $f$ é sobrejetora.
 
 \endproblem
 %%}}}
