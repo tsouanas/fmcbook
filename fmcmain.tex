@@ -15468,10 +15468,31 @@ O leitor já está acostumado com os operadores nos exemplos seguintes:
 Sejam conjuntos $A,B,C$.
 O operador da composição $\of$ (que decoramos com $_{A,B,C}$ aqui para especificar o domínio e codomínio dele) é o seguinte:
 $$
-\dhole\of_{A,B,C}\dhole : (B\to C) \times (A\to B) \to (A\to C).
+\dhole\of_{A,B,C}\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
 $$
 Observe que ela é um operador de ordem superior, pois seus (dois) argumentos
 são funcões, e tambem pois sua saida também é uma função.
+\endexample
+%%}}}
+
+%%{{{ eg: higher_order_example_apply 
+\example Apply.
+Suponha $f : A \to B$ e seja $a \in A$.
+Quando escrevemos $f\app a$ (ou $f(a)$), estamos denotando a aplicação da $f$ no $a$.
+Essa aplicação é uma operação de ordem superior também.
+O símbolo da aplicação é invisível, ou seja, a aplicação é denotada pela juxtaposição da função e do seu argumento.
+Em vez de escrever algo do tipo
+$$
+\namedfun{apply}(f, a)
+$$
+escrevemos simplesmente $f\app a$ ou $f(a)$.
+Como fizemos na composição, decoramos essa operação com $_{A,B}$
+para estudar o domínio e codomínio de cada caso.
+Então dados conjuntos $A,B$ temos
+$$
+\namedfun{apply}_{A,B} : \bigparen{(A \to B) \times A} \to B
+$$
+que é claramente uma operação de ordem superior.
 \endexample
 %%}}}
 
@@ -15507,7 +15528,7 @@ $$
 Observe que $R[a,b]$ é um conjunto de funções.
 Definimos o operador
 $$
-\lam f {\lam x {\int_a^{u} f}} : R[a,b] \to ([a,b] \to \reals)
+\lam f {\lam x {\int_a^{x} f}} : R[a,b] \to ([a,b] \to \reals)
 $$
 cujo argumento é uma função---e ainda mais,
 sua saida também é uma função---e logo ele é um operador de ordem superior
@@ -15524,26 +15545,10 @@ tal que
 $$
 \int f = \setst {F : \reals\to\reals} {D(F) = f}.
 $$
-\endexample
-%%}}}
-
-%%{{{ eg: higher_order_example_apply 
-\example Apply.
-Suponha $f : A \to B$ e seja $a \in A$.
-Quando escrevemos $f\app a$ (ou $f(a)$), estamos denotando a aplicação da $f$ no $a$.
-Essa aplicação é uma operação de ordem superior também.
-O símbolo da aplicação é invisível, ou seja, a aplicação é denotada pela juxtaposição da função e do seu argumento.
-Em vez de escrever algo do tipo
-$$
-\namedfun{apply}(f, a)
-$$
-escrevemos simplesmente $f\app a$ ou $f(a)$.
-Como fizemos na composição, decoramos essa operação com $_{A,B}$
-para estudar o domínio e codomínio de cada caso.
-Então dados conjuntos $A,B$ temos
-$$
-\namedfun{apply} : \bigparen{(A \to B) \times A} \to B.
-$$
+Observe que a notação comum em análise é diferente: usamos por exemplo
+$\int_a^x f(t)\, dt$, e o $\int f$ é visto como uma antiderivada
+(que depende numa constante $C$) e não como o conjunto de todas
+essas antiderivadas como definimos aqui.
 \endexample
 %%}}}
 
