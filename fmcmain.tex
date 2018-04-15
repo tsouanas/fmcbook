@@ -14424,8 +14424,6 @@ Chamamos a $(\dhole \ast \dhole)$ a \dterm{operação pointwise}
 da $\ast$ no $(A \to B)$.
 %%}}}
 
-\TODO União: hipoteses necessárias para definir.
-
 \endsection
 %%}}}
 
@@ -15508,8 +15506,9 @@ $$
 %%}}}
 
 \blah.
-Essas propriedades generalizam naturalmente:
-veja o~\ref{big_operations_respected_by_img_and_pre}.
+Essas propriedades generalizam naturalmente para uniões e intersecções
+de seqüências e famílias de conjuntos;
+veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
 
 \endsection
 %%}}}
@@ -15916,6 +15915,8 @@ $$
 $$
 %%}}}
 
+\TODO União: hipoteses necessárias para definir.
+
 \endsection
 %%}}}
 
@@ -16045,7 +16046,7 @@ Temos
 $$
 \align
 f\resto X       &\eqtype X \to B\\
-f\resto \dhole  &\eqtype \pset A \to \Union_{X\in\pset A}(X\to B)\\
+f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
 (\dhole\resto X)\resto (A \to B)
                 &\eqtype \paren{(A \to B) \to (X \to B)}
 \endalign
@@ -16105,7 +16106,7 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ prob: jection_iff_composition_with_inverse_proof
+%%{{{ jection_iff_composition_with_inverse_proof
 \problem.
 \label{jection_iff_composition_with_inverse_proof}%
 Prove a~\ref{jection_iff_composition_with_inverse}.
@@ -16113,6 +16114,7 @@ Prove a~\ref{jection_iff_composition_with_inverse}.
 \solution
 Já provou as idas no~\refn{jection_implies_composition_with_inverse}.
 Vamos provar as voltas.
+\endgraf
 \proofpart{Volta da (1).}
 Suponha a hipótese:
 $$
@@ -16132,6 +16134,7 @@ $$
 x, x' \in \pre f {\img f A} \eqlabel A A = \set{x}.
 $$
 Como $x, x' \in \set{x}$, logo $x = x'$.
+\endgraf
 \proofpart{Volta da (2).}
 Suponha a hipótese:
 $$
@@ -16162,26 +16165,154 @@ Isso mostra que $f$ é sobrejetora.
 \endproblem
 %%}}}
 
+%%{{{ big_intersection_respected_by_img_wrong_proof 
+\problem.
+\label{big_intersection_respected_by_img_wrong_proof}%
+Um aluno ``provou'' que se $f : A \to B$ e $\sequence A n$ é uma
+seqüência de subconjuntos de $A$, então
+$$
+\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
+$$
+Sua ``prova'' foi a seguinte:
+\quote{\noindent
+<<Calculamos:
+$$
+\alignat2
+b \in \img f {\Interl_{n=0}^\infty A_n}
+&\ifflabel1 \lexists {a \in \Interl_{n=0}^\infty A_n} {f(a) = b}            \qqby{def.~$\img f {\dhole}$}\\
+&\ifflabel2 \exists a \paren{a \in \Interl_{n=0}^\infty A_n \land f(a) = b} \qqby{lógica}\\
+&\ifflabel3 \exists a \paren{\forall n \paren{a \in A_n} \land f(a) = b}    \qqby{def.~$\Interl_{n=0}^\infty$}\\
+&\ifflabel4 \exists a \paren{\forall n \paren{a \in A_n \land f(a) = b}}    \qqby{lógica}\\
+&\ifflabel5 \exists a \forall n \paren{a \in A_n \land f(a) = b}            \qqby{lógica}\\
+&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b}            \qqby{lógica}\\
+&\ifflabel7 \forall n \lexists {a \in A_n} {f(a) = b}                       \qqby{lógica}\\
+&\ifflabel8 \forall n \paren{b \in \img f {A_n}}                            \qqby{def.~$\img f {\dhole}$}\\
+&\ifflabel9 b \in \Interl_{n=0}^\infty {\img f {A_n}}                       \qqby{def.~$\Interl_{n=0}^\infty$}
+\endalignat
+$$
+Logo temos
+$\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}$
+pela definição de igualdade de conjuntos.>>
+}
+\noindent
+Ache os seus erros.
+
+\hint
+O problema está na $\ifflabel6$.
+Uma da suas direções não é válida.
+
+\solution
+O problema é com a direção {\rldir} da $\ifflabel6$:
+$$
+\alignat2
+\cdots\iff  \exists a \forall n \paren{a \in A_n \land f(a) = b}
+&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b} \qqby{lógica}
+\endalignat
+$$
+Saber que
+\emph{existe $a$ tal que para todo $n$ algo $P(a,n)$ acontece}
+é uma afirmação bem mais forte do que saber que
+\emph{para todo $n$ existe algum $a$ tal que $P(a,n)$ acontece}.
+Na primeira temos pelo menos um $a$ que serve para todo $n$,
+mas na segunda pode ser que para cada $n$, o $a$ ``que serve''
+é diferente.  Para enfatisar essa dependência podemos escrever:
+\emph{para todo $n$ existe algum $a_n$ tal que $P(a_n, n)$}.
+É por isso que a ida é válida mas a vólta, em geral, não é.
+Compare com o~\ref{wrong_order_of_quantifiers}.
+
+\endproblem
+%%}}}
+
 %%{{{ big_operations_respected_by_img_and_pre 
 \problem.
 \label{big_operations_respected_by_img_and_pre}%
-Sejam $f : A \to B$, e duas famílias de conjuntos indexadas:
-$\famil A i {\cal I}$ feita por subconjuntos de $A$, e
-$\famil B j {\cal J}$ feita por subconjuntos de $B$.
-Ou seja, para todo $i\in \cal I$, e todo $j \in \cal J$,
+{%
+\def\I{{\cal I}}%
+\def\J{{\cal J}}%
+Sejam $f : A \to B$, e duas famílias indexadas de conjuntos:
+$\famil A i \I$ feita por subconjuntos de $A$, e
+$\famil B j \J$ feita por subconjuntos de $B$.
+Ou seja, par todo $i\in \I$, e todo $j \in \J$,
 temos $A_i \subseteq A$ e $B_j \subseteq B$.
 Mostre que:
 $$
 \align
-\img f {\Unionl_{i \in \cal I} A_i} &=      \Unionl_{i \in \cal I} \img f {A_i}\\
-\img f {\Interl_{i \in \cal I} A_i} &\askeq \Interl_{i \in \cal I} \img f {A_i}\\
-\pre f {\Interl_{j \in \cal J} B_j} &=      \Unionl_{j \in \cal J} \pre f {B_j}\\
-\pre f {\Interl_{j \in \cal J} B_j} &=      \Interl_{j \in \cal J} \pre f {B_j}
+\img f {\Unionl_{i \in \I} A_i} &=      \Unionl_{i \in \I} \img f {A_i} \tag1\\
+\img f {\Interl_{i \in \I} A_i} &\askeq \Interl_{i \in \I} \img f {A_i} \tag2\\
+\pre f {\Unionl_{j \in \J} B_j} &=      \Unionl_{j \in \J} \pre f {B_j} \tag3\\
+\pre f {\Interl_{j \in \J} B_j} &=      \Interl_{j \in \J} \pre f {B_j} \tag4
 \endalign
 $$
 onde na $\askeq$ prove que a igualdade em geral não é válida,
-mas uma das~\lrdirset~e~\rldirset, é, e supondo que $f$ é injetora,
-prove a outra também.
+mas uma das~{\lrdirset}~e~{\rldirset} é.
+Prove-a, e, supondo que $f$ é injetora, prove a outra também.
+}
+
+\solution
+{%
+\def\I{{\cal I}}%
+\def\J{{\cal J}}%
+\proofpart{(1)}:
+Provamos cada direção separadamente.
+{\lrdirset}:
+Seja $b \in \img f {\Union_{i\in\I} A_i}$.
+Seja $a\in\Union_{i\in\I} A_i$ tal que $f(a) = b$\fact1 (pela definição de função-imagem).
+Agora tome $i\in\I$ tal que $a\in A_i$\fact2.
+Agora pelas~\byfact1,\byfact2~temos que $b\in\img f {A_i}$.
+Ou seja, $b \in \Union_{i\in\I} \img f {A_i}$.
+{\rldirset}:
+Seja $b \in \Union_{i\in\I} \img f {A_i}$.
+Seja $i\in\I$ tal que $b\in \img f {A_i}$.
+Tome $a\in A_i$ tal que $f(a) = b$\fact1.
+Como $a\in A_i$, logo $a\in\Union_{i\in\I} A_i$ e agora pela~\byfact1
+ganhamos $b \in \img f {\Union_{i\in\I} A_i}$.
+\endgraf
+\proofpart{(2)}:
+Provamos primeiro a {\lrdirset} que é verdade para toda $f$,
+e mostramos que se $f$ é injetora, a {\rldirset} também é válida.
+{\lrdirset}:
+Seja $b \in \img f {\Inter_{i\in\I} A_i}$.
+Logo tome $a \in \Inter_{i\in\I} A_i$\fact1 tal que $f(a) = b$\fact2.
+Agora, como $a$ pertence em todos os $A_i$'s e $f(a) = b$,
+então para cada $i\in\I$, $b\in\img f {A_i}$.
+Ou seja, $b$ pertence em todos os $\img f {A_i}$'s.
+Chegamos então no desejado $b\in\Inter_{i\in\I} \img f {A_i}$.
+\endgraf
+{\rldirset}:
+Para essa direção vamos supor que $f$ é injetora.
+Tome $b\in\Inter_{i\in\I} \img f {A_i}$, ou seja $b$
+pertence em todos os $\img f {A_i}$'s.
+Ou seja, para cada um dos $A_i$'s, existe $a_i\in A_i$
+tal que $f(a_i) = b$.
+Mas a $f$ é injetora, então todos esses $a_i$'s são iguais;
+seja $a$ então esse membro comum dos $A_i$'s.
+Temos então que:
+$a \in \Inter_{i\in\I} {A_i}$ e $f(a) = b$.
+Ou seja, $b \in \img f {\Inter_{i\in\I} A_i}$.
+\endgraf
+\proofpart{(3)}:
+Calculamos:
+$$
+\alignat2
+a \in \pre f {\Unionl_{j\in\J} B_j}
+&\iff f(a) \in \Unionl_{j\in\J} B_j         \qqby {def.~$\pre f {\Unionl_{j\in\J} B_j}$}\\
+&\iff \lexists {j\in\J} {f(a) \in B_j}      \qqby {def.~$\Unionl_{j\in\J} B_j$}\\
+&\iff \lexists {j\in\J} {a \in \pre f {B_j}}\qqby {def.~$\pre f {B_j}$}\\
+&\iff a \in \Unionl_{j\in\J} {\pre f {B_j}}.\qqby {def.~$\Unionl_{j\in\J} {\pre f {B_j}}$}
+\endalignat
+$$
+Ou seja, $\pre f {\Unionl_{j \in \J} B_j} = \Unionl_{j \in \J} \pre f {B_j}$.
+\endgraf
+\proofpart{(4)}:
+{\lrdirset}:
+Seja $a \in \pre f {\Inter_{i\in\J}^\infty B_j}$.
+Logo $f(a) \in {\Inter_{i\in\J}^\infty B_j}$,
+ou seja, para todo $i\in\J$, $f(a) \in B_j$.
+Logo $a \in \pre f {B_j}$ para todo $i\in\J$, ou seja,
+$a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
+{\rldirset}.
+Similar: é só seguir os passos da {\lrdirset} em reverso.
+}
 
 \endproblem
 %%}}}
@@ -17972,10 +18103,13 @@ Prove ou refute a afirmação seguinte:
 \endil
 
 \hint
+{%
 \def\simi{\rel{\stackrel{\infty}=}}%
 Ache um contraexemplo para a $\simi$.  As outras, são.
+}
 
 \solution
+{%
 \def\simz{\rel{\stackrel{{}_{\mathrm z}}=}}%
 \def\sime{\rel{\stackrel{{}_{\mathrm e}}=}}%
 \def\simo{\rel{\stackrel{{}_{\mathrm o}}=}}%
@@ -18010,6 +18144,7 @@ g(n), &se $n$ ímpar
 $$
 satisfaz as $f \sime h\simo g$ pela sua construção.
 Logo, $f \rel{(\sime\rcom\simo)} g$.
+}
 
 \endproblem
 %%}}}
