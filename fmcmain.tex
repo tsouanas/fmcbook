@@ -8817,9 +8817,9 @@ Z &= \text{o conjunto de todos os números naturais menores que $2^{256!}$}.
 $$
 %%}}}
 
-%%{{{ Set comprehension 
-\definition Set comprehension.
-\label{set_comprehension}%
+%%{{{ set_builder 
+\definition Set-builder.
+\label{set_builder}%
 \label{definite_condition}%
 \tdefined{set comprehension}%
 \tdefined{condição definitiva}%
@@ -15088,9 +15088,9 @@ e temos $\finvp{\finv f} = f$.
 \endsection
 %%}}}
 
-%%{{{ Images and preimages 
-\section Imagens e preimagens.
-\label{Images_and_preimages}%
+%%{{{ Images, preimages 
+\section Imagens, preimagens.
+\label{Images_preimages}%
 
 %%{{{ Two important subsets 
 \note Dois subconjuntos importantes.
@@ -15182,6 +15182,13 @@ $$
 \align
 \img f X &\defeq \setst {f(x)} {x \in X}\\
 \pre f Y &\defeq \setst {a \in A} {f(a) \in Y}.
+\endalign
+$$
+Lembrando a notação set-builder~(\ref{set_builder}), temos as definições:
+$$
+\align
+y \in \img f X &\defiff \lexists{x\in X} {f(x) = y} \\
+x \in \pre f Y &\defiff f(x) \in Y.
 \endalign
 $$
 %%}}}
@@ -15371,7 +15378,7 @@ Nenhuma é válida em geral.
 Procure contraexemplos.
 
 \hint
-O enunciado do~\ref{composition_with_inverse_conditions}
+O enunciado do~\ref{jection_iff_composition_with_inverse}
 pode te ajudar pensar em contraexemplos.
 
 \solution
@@ -16520,6 +16527,59 @@ Similar: é só seguir os passos da {\lrdirset} em reverso.
 \endproblem
 %%}}}
 
+%%{{{ projection_inj_or_surj 
+\problem.
+\label{projection_inj_or_surj}%
+Sejam $A\neq\emptyset$ conjunto, $n\in\nats_{>0}$, e $I=\set{ i\in\nats \st i < n}$.
+Considere a função $\pi : I \times A^n \to A$ definida por
+$$
+\pi(i, \alpha)
+= \pi_i(\alpha)
+\qquad\biggparen{
+= \text{o $i$-ésimo elemento da tupla $\alpha$}
+}
+$$
+onde consideramos o primeiro membro duma tupla seu ``$0$-ésimo'' membro, etc.
+Investigue as perguntas:
+\beginol
+\li (1) $\pi$ é injetora?
+\li (2) $\pi$ é sobrejetora?
+\endol
+
+\hint
+Calcule uns valóres primeiro.  Por exemplo,
+$$
+\xalignat3
+\pi (2, \tup{2,3,5,7}) &= 5 &
+\pi (0, \tup{2})       &= 2 &
+\pi (3, \tup{2,0,0,1}) &= 1
+\endxalignat
+$$
+
+\solution
+(1) Depende no $n$:
+\endgraf
+\case{Caso $n>1$}, não é:
+pois tomando $a\in A$,
+$$
+\pi(0,\tup{a,\dotsc,a}) = a = \pi(1,\tup{a,\dotsc,a}).
+$$
+\endgraf
+\case{Caso $n=1$}, é:
+tomando $w, w' \in I\times A^n$ com $w\neq w'$, temos
+que $w = \tup{ 0, \tup{a} }$ e $w' = \tup{ 0, \tup{a'} }$
+para alguns $a,a'\in A$.
+Agora como $w\neq w'$ concluimos que $a\neq a'$ e logo
+$\pi(0,w) \neq \pi(0,w')$, ou seja, $\pi$ é injetora
+nesse caso.
+\endgraf\noindent
+(2)
+é sim:
+pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -16727,7 +16787,7 @@ também conhecido como \dterm{truth set} da $R$.
 \note Relação como uma generalização de função.
 Um jeito de olhar para uma relação é como uma ``função'' sem as restrições
 de totalidade e de determinicidade que encontramos no~\refn{functionhood_conditions}.
-Então: lembra dos conjuntos $A,B$ que encontramos na~\ref{Images_and_preimages}?
+Então: lembra dos conjuntos $A,B$ que encontramos na~\ref{Images_preimages}?
 Aqui são duas relações $R,Q$ de $A$ para $B$, determinadas por seus
 diagramas internos:
 $$
