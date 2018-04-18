@@ -11758,8 +11758,9 @@ Mas a pergunta foi identificar o \emph{tipo} de $\code{foo}$.
 
 %%{{{ df: function_space 
 \definition.
-\tdefined{espaço de funções}%
 \label{function_space}%
+\tdefined{função}[espaço de]%
+\sdefined {(\holed A \to \holed B)} {o conjunto das funções de $A$ para $B$}%
 Sejam $A,B$ conjuntos.
 O \dterm{espaço de funções} de $A$ para $B$ é o conjunto de todas as funções de
 $A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
@@ -16107,14 +16108,17 @@ Dados a $F : \ints\to(\ints\to\ints)$,
 A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente} definida no $A$,
 não nos permite considerer naturalmente situações onde um certo programa, por exemplo,
 retorna valores para certas entradas aceitáveis, e para as outras não: talvez
-ele fica num \emph{loop infinito}, ele faz a máquina explodir, ou simplesmente
+ele fica num \emph{loop infinito}; ou ele faz a máquina explodir; ou simplesmente
 não termina com uma saida---não importa o porquê.
-Definimos então o conceito de \emph{funções parciais}, que são exatamente isso:
-funções que para certas entradas aceitáveis delas, possivelmente \emph{divergem}.
+Definimos então o conceito de \emph{função parcial}, que é exatamente isso:
+funções que para certas entradas aceitáveis delas, possivelmente \dterm{divergem}.
 
 %%{{{ df: partial_function 
 \definition.
 \label{partial_function}%
+\tdefined{função}[parcial]%
+\sdefined {\holed f : \holed A \parto \holed B} {$f$ é uma função parcial de $A$ para $B$}%
+\sdefined {(\holed A \parto \holed B)} {o conjunto das funções parciais de $A$ para $B$}%
 Sejam $A,B$ conjuntos.
 Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse:
 $$
@@ -16132,7 +16136,26 @@ $$
 $$
 %%}}}
 
-\TODO União: hipoteses necessárias para definir.
+%%{{{ remark: total vs partial: default 
+\remark.
+Com essas definições cada função total é uma função parcial.
+Escrevemos esse ``total'' quando queremos enfatizar, mas normalmente
+``função'' sem o adjetivo ``parcial'' significa ``função total''.
+Claramente, quando trabalhamos principalmente com funções parciais,
+seguimos a convenção oposta.
+%%}}}
+
+%%{{{ remark: partial function conditions 
+\remark Condições.
+Encontramos então aqui o que acontece se apagar a primeira das
+Condições~\refn{functionhood_conditions}:
+\beginil
+\item{}\strikeout{(1)~totalidade};
+\item{}(2)~determinicidade.
+\endil
+e ficar só com a (2).
+No~\ref{Relations} vamos estudar também o caso onde apagamos ambas as condições.
+%%}}}
 
 \endsection
 %%}}}
@@ -16619,6 +16642,47 @@ nesse caso.
 \endgraf\noindent
 A $\pi$ é sobrejetora sim:
 pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
+
+\endproblem
+%%}}}
+
+%%{{{ funion 
+\problem União de funções.
+Sejam $f : A \to B$ e $g : C \to D$.
+Queremos definir a $f\union g : A\union C \to B\union D$,
+consultando as $f$ e $g$, numa maneira parecida com aquela da
+definição de $f\cross g$ (\refn{fcross}).
+Uma definição razoável deve fazer o diagrama seguinte comutar:
+$$
+\cdopt{column sep=2cm,row sep=1cm}
+A \ar[d, hook] \ar[r, "f"]   \| B \ar[d, hook] \\
+A\union C \ar[r, dashed, "f\union g"] \| B\union D \\
+C \ar[u, hook] \ar[r, "g"']  \| D \ar[u, hook]
+\endcd
+$$
+Explique quais são as condições necessárias para definir
+a $f\union g$, e defina-la.
+
+\solution
+Chame as $f$ e $g$ \dterm{compatíveis} sse:
+$$
+\text{para todo $x\in\dom f \inter \dom g$, $f(x) = g(x)$}.
+$$
+Agora dadas \emph{compatíveis} $f : A \to B$ e $g : C \to D$, definimos a
+$f \union g : A\union C \to B\union D$ pela
+$$
+(f\union g)(x) =
+\knuthcases{
+f(x), & se $x \in A$\cr
+g(x), & se $x \in C$.
+}
+$$
+Equivalentemente, podemos definir a $f\union g$ definindo seu gráfico:
+$$
+\graph (f\union g) \defeq \graph f \union \graph g.
+$$
+Observe que com nas duas maneiras precisamos a condição de
+compatibilidade para a $f\union g$ ser bem definida.
 
 \endproblem
 %%}}}
@@ -29400,6 +29464,7 @@ Tente dar a definição mais curta, elegante, e flexível possível!
 
 %%{{{ Constructing the functions 
 \section Construindo as funções.
+\label{Constructing_the_functions}%
 
 %%{{{ Specification 
 \note Especificação.
