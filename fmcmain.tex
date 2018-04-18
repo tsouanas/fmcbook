@@ -13560,6 +13560,55 @@ Escrevemos apenas $\chr_A$ quando o conjunto $X$ é implícito pelo
 contexto---e na práctica esse é quase sempre o caso!
 %%}}}
 
+%%{{{ warning: characteristic_function_inverted_values 
+\warning.
+\label{characteristic_function_inverted_values}%
+O uso de $1$ para representar ``true'' e o $0$ para o ``false'' é aleatório.
+De fato, dependendo de caso, as vezes definímos a função característica
+com esses valores invertidos!  Isso é muito comum em teoria de recursão
+(veja~\cite{kleeneIM} por exemplo), mas não só:
+nos shells de Unix\ii{Unix}[shell], também o valor $0$ representa o ``true''
+e cada valor positivo um ``false'' (com $1$ sendo o padrão deles).
+\endgraf
+\emph{A moral da história:}
+sempre verifique a definição da função característica
+usada---e se quiseres usar num texto teu, sempre bota sua definição junto!
+Nesse texto, quando aparece a notação $\chr_A$ sem definição,
+denota a função que definimos acima na~\ref{characteristic_function}.
+%%}}}
+
+%%{{{ remark: replacing_cases_by_characteristic_functions 
+\remark.
+\label{replacing_cases_by_characteristic_functions}%
+Um dos usos comuns de funções características é definir funções num jeito mais
+curto, aproveitando os fato que $0x = 0$ e $1x = x$ para todo $x\in\reals$.
+Esse uso lembra das expressões $\namedfun{if-then-else}$ que usamos
+\emph{evitando} um ``if branching'' em liguagens de programação.
+%%}}}
+
+%%{{{ eg: replacing_cases_by_characteristic_functions_example 
+\example.
+\label{replacing_cases_by_characteristic_functions_example}%
+Considere a $f : \reals \to \reals$ definida pela
+$$
+f(x) = \knuthcases{
+2\cbrt{x + \log_2 |x+1|} + x^2, & se $x \in \rats$ \cr
+2\cbrt{x + \log_2 |x+1|} + e^x, & caso contrário.
+}
+$$
+Usando as funções características de $\rats$ e $\reals\minus\rats$
+podemos definir a $f$ com uma equação só, e ``sem repetição'':
+$$
+f(x) = 2\cbrt{x + \log_2 |x+1|} + x^2 \chr_{\rats}(x) + e^x\chr_{\reals\minus\rats}(x).
+$$
+Isso lembra um
+$$
+f(x) = 2\cbrt{x + \log_2 |x+1|} + (\mathbf{if}~x\in\rats~\mathbf{then}~x^2~\mathbf{else}~e^x)
+$$
+usado em linguagens de programação que suportam if-then-else \emph{expressions}.
+\endexample
+%%}}}
+
 %%{{{ x: char_compose_char 
 \exercise.
 Suponha que $\chr_{A,X}\of\chr_{A,X}$ é definido.
@@ -13608,7 +13657,7 @@ para criar duas outras, cada uma de aridade~$1$.
 A idéia é a seguinte: vamos ``fixar'' uma das suas entradas
 com um valor, e deixar a outra como entrada mesmo.
 Imagine que fixamos um certo $b_0\in B$ no segundo ``cabo'' de entrada,
-puxamos o outro cabo, e criamos uma nóva caixa assim:
+puxamos o outro cabo, e criamos uma nova caixa assim:
 $$
 \tikzpicture
 \tikzi blackboxfunpartapp2;
@@ -13880,7 +13929,7 @@ $$
 f\of g \neq g\of f.
 $$
 Mostre pelo menos dois exemplos diferentes: um que utiliza
-apenas um conjunto $A$, e outro que utiliza dois conjuntos
+apenas um conjunto $A$; outro que utiliza dois conjuntos
 diferentes $A, B$.
 
 \endexercise
@@ -14049,7 +14098,7 @@ Significa que $f\of g  = f\of h$.
 \beware.
 Graças à parte enfatisada na~\ref{commutative_diagram}, \emph{não podemos}
 concluir no~\ref{commutative_diagram_example_line} que $g = h$, pois mesmo que
-existem esses dois caminhos de $A$ para $B$ (um seguindo a seta $g$, e outro
+existem esses dois caminhos de $A$ para $B$ (um seguindo a seta $g$, outro
 seguindo a seta $h$), nenhum deles tem tamanho maior que 1.
 %%}}}
 
