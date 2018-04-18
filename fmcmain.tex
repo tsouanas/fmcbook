@@ -15033,49 +15033,6 @@ $f(a) = \set a \neq \emptyset \in \pset A$.
 \endexercise
 %%}}}
 
-%%{{{ x: double_or_reverse_string_inj_or_surj 
-\exercise.
-\label{double_or_reverse_string_inj_or_surj}%
-Seja~$S$ o conjunto de todos os strings \emph{não vazios}
-dum alfabeto $\Sigma$, com $\card{\Sigma} \geq 2$.
-Considere a função
-$f : S \times \set{0,1} \to S$ definida pela:
-$$
-f(w,i) =
-\knuthcases{
-ww, &se $i = 0$\cr
-w', &se $i = 1$
-}
-$$
-onde $w'$ é o string reverso de $w$,
-e onde denotamos a concatenação de strings por juxtaposição.
-\beginil
-\item{(i)} A $f$ é injetora?
-\item{(ii)} A $f$ é sobrejetora?
-\endil
-
-\hint
-Quais são o domínio e o codomínio da $f$?
-
-\solution
-(i) Não, $f$ não é injetora.
-Tome uma letra do alfabeto $a\in\Sigma$ e observe que
-$$
-f(a, 0) = aa = f(aa,1).
-$$
-Como $(a,0) \neq (aa,1)$, a $f$ não é injetora.
-\endgraf
-(ii)
-Sim, $f$ é sobrejetora.
-Tome um aletorio string $w\in S$, e seja $w'$ o string reverso de $w$.
-Temos
-$$
-f(w',1) = (w')' = w.
-$$
-
-\endexercise
-%%}}}
-
 %%{{{ df: finverse 
 \definition Função inversa.
 \label{finverse}%
@@ -16577,6 +16534,47 @@ Similar: é só seguir os passos da {\lrdirset} em reverso.
 \endproblem
 %%}}}
 
+%%{{{ double_or_reverse_string_inj_or_surj 
+\problem.
+\label{double_or_reverse_string_inj_or_surj}%
+Seja~$S$ o conjunto de todos os strings \emph{não vazios}
+dum alfabeto $\Sigma$, com $\card{\Sigma} \geq 2$.
+Considere a função
+$f : S \times \set{0,1} \to S$ definida pela:
+$$
+f(w,i) =
+\knuthcases{
+ww, &se $i = 0$\cr
+w', &se $i = 1$
+}
+$$
+onde $w'$ é o string reverso de $w$,
+e onde denotamos a concatenação de strings por juxtaposição.
+(1) A $f$ é injetora?
+(2) A $f$ é sobrejetora?
+
+\hint
+Quais são o domínio e o codomínio da $f$?
+
+\solution
+(i) Não, $f$ não é injetora.
+Tome uma letra do alfabeto $a\in\Sigma$ e observe que
+$$
+f(a, 0) = aa = f(aa,1).
+$$
+Como $(a,0) \neq (aa,1)$, a $f$ não é injetora.
+\endgraf
+(ii)
+Sim, $f$ é sobrejetora.
+Tome um aletorio string $w\in S$, e seja $w'$ o string reverso de $w$.
+Temos
+$$
+f(w',1) = (w')' = w.
+$$
+
+\endproblem
+%%}}}
+
 %%{{{ projection_inj_or_surj 
 \problem.
 \label{projection_inj_or_surj}%
@@ -16585,16 +16583,12 @@ Considere a função $\pi : I \times A^n \to A$ definida por
 $$
 \pi(i, \alpha)
 = \pi_i(\alpha)
-\qquad\biggparen{
+\qquad\Bigparen{
 = \text{o $i$-ésimo elemento da tupla $\alpha$}
 }
 $$
 onde consideramos o primeiro membro duma tupla seu ``$0$-ésimo'' membro, etc.
-Investigue as perguntas:
-\beginol
-\li (1) $\pi$ é injetora?
-\li (2) $\pi$ é sobrejetora?
-\endol
+Investigue a injetoridade e a sobrejetoridade da $\pi$.
 
 \hint
 Calcule uns valóres primeiro.  Por exemplo,
@@ -16607,7 +16601,7 @@ $$
 $$
 
 \solution
-(1) Depende no $n$:
+A injetoridade da $\pi$ depende no $n$:
 \endgraf
 \case{Caso $n>1$}, não é:
 pois tomando $a\in A$,
@@ -16623,8 +16617,7 @@ Agora como $w\neq w'$ concluimos que $a\neq a'$ e logo
 $\pi(0,w) \neq \pi(0,w')$, ou seja, $\pi$ é injetora
 nesse caso.
 \endgraf\noindent
-(2)
-é sim:
+A $\pi$ é sobrejetora sim:
 pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
 
 \endproblem
