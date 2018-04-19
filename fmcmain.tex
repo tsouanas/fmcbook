@@ -12134,6 +12134,137 @@ $$
 \endsection
 %%}}}
 
+%%{{{ Internal and external diagrams 
+\section Diagramas internos e externos.
+
+%%{{{ Internal diagrams 
+\note Diagramas internos.
+\tdefined{diagrama}[interno]%
+Em certos casos podemos representar toda a informação numa função
+usando \dterm{diagramas internos}, ou seja, diagramas que mostram
+o interno do domínio e codomínio duma função, e como ela comporta
+nele.
+%%}}}
+
+%%{{{ eg: internal_diagram_example 
+\example.
+\label{internal_diagram_example}%
+Aqui um diagrama interno de duas funções $A \toarrow f B \toarrow g C$:
+$$
+\tikzpicture
+\tikzi internaldiagram;
+\endtikzpicture
+$$
+Aqui o conjunto $A$ tem 2 membros---não importa quais são, ou seja,
+os nomes deles---o $B$ tem 3, e o $C$ tem 2 também.
+\endexample
+%%}}}
+
+%%{{{ Names of elements 
+\note Nomes de elementos.
+É muito comum desenhar esse tipo de diagramas para construir exemplos e
+contraexemplos que involvem funções, e quando os \emph{quais são}
+os membros não é importante desenhamos apenas um $\bullet$ para
+representar os membros, com o entendimento que pontos distintos
+representam membros distintos.
+Note que \emph{se} quisermos definir formalmente um exemplo baseado num
+desenho, nossa tarefa é trivial: é só escolher nomes para os $\bullet$
+e pronto.
+Por exemplo, dando esses nómes nos pontos
+do~\ref{internal_diagram_example} chegamos no seguinte:
+$$
+\tikzpicture
+\tikzi internaldiagramnames;
+\endtikzpicture
+$$
+E agora para definir isso formalmente na escrita podemos apenas dizer:
+Sejam os conjuntos
+$$
+A = \set{\mathrm a, \mathrm b} \qqqquad
+B = \set{\mathrm c, \mathrm d, \mathrm e} \qqqquad
+C = \set{\mathrm u, \mathrm v}
+$$
+e as funções $f : A\to B$ e $g : B\to C$ definidas pelas:
+$$
+\aligned
+f(\mathrm a) &= e\\
+f(\mathrm b) &= d
+\endaligned
+\qqqquad
+\aligned
+g(\mathrm c) &= u\\
+g(\mathrm d) &= v\\
+g(\mathrm e) &= v
+\endaligned
+$$
+Observe que os $\mathrm a, \mathrm b, \mathrm c$, etc.~\emph{não são variáveis},
+mas as próprias letras `a', `b', `c', etc.
+Naturalmente escolhemos nomes bem conhecidos, como números, letras, etc.
+%%}}}
+
+%%{{{ remark: to what do those barred arrows correspond? 
+\remark.
+Então em que corresponde cada uma das setinhas barradas do diagrama interno?
+Numa das \emph{equações} q definam a correspondente função,
+ou seja, num par da forma $\tup{x, f(x)}$.
+%%}}}
+
+%%{{{ External diagrams 
+\note Diagramas externos.
+\tdefined{diagrama}[externo]%
+Muitas vezes queremos olhar para a ``big picture'' e os detalhes
+``internos'' da configuração não nos importam.
+Pelo contrário, nos atrapalham: \emph{perdemos a floresta pelas arvores}.
+Nesse caso usamos \dterm{diagramas externos}.
+%%}}}
+
+%%{{{ eg: external_of_previous_example 
+\example.
+\label{external_of_previous_example}%
+O diagrama externo da configuração do~\ref{internal_diagram_example}
+é o seguinte:
+$$
+A \tolongarrow f B \tolongarrow g C.
+$$
+\endexample
+%%}}}
+
+%%{{{ Diagrams of endomaps 
+\note Diagramas de endomapas.
+No caso especial que temos um endomapa $f:A\to A$,
+podemos desenhar seu diagrama interno
+sem usar duas cópias de $A$, mas apenas mostrando os mapeamentos assim
+como o exemplo seguinte sugere.
+%%}}}
+
+%%{{{ eg: internal_diagram_of_endomap 
+\example.
+Considere o diagrama interno:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi internaldiagramendo1;
+\endtikzpicture
+$$
+Esse é o diagrama interno da função $f : A \to A$ definida pelas
+$$
+\xalignat8
+f(1) &= 2; &
+f(2) &= 1; &
+f(3) &= 1; &
+f(4) &= 4; &
+f(5) &= 5; &
+f(6) &= 8; &
+f(7) &= 5; &
+f(8) &= 5;
+\endxalignat
+$$
+onde $A = \set {1,2,3,4,5,6,7,8}$.
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ How to define and how not to define functions 
 \section Como definir e como não definir funções.
 
@@ -12514,139 +12645,8 @@ $$
 
 \blah.
 Ainda não encontramos a notação mais interessante para definir funções.
-Vamos estudá-la logo; ela merece uma secção própria.
+Vamos estudá-la logo; ela merece uma secção própria (\ref{Lambda_notation}).
 Antes disso, vamos ver mais uma maneira de definir funções: com buracos!
-
-\endsection
-%%}}}
-
-%%{{{ Internal and external diagrams 
-\section Diagramas internos e externos.
-
-%%{{{ Internal diagrams 
-\note Diagramas internos.
-\tdefined{diagrama}[interno]%
-Em certos casos podemos representar toda a informação numa função
-usando \dterm{diagramas internos}, ou seja, diagramas que mostram
-o interno do domínio e codomínio duma função, e como ela comporta
-nele.
-%%}}}
-
-%%{{{ eg: internal_diagram_example 
-\example.
-\label{internal_diagram_example}%
-Aqui um diagrama interno de duas funções $A \toarrow f B \toarrow g C$:
-$$
-\tikzpicture
-\tikzi internaldiagram;
-\endtikzpicture
-$$
-Aqui o conjunto $A$ tem 2 membros---não importa quais são, ou seja,
-os nomes deles---o $B$ tem 3, e o $C$ tem 2 também.
-\endexample
-%%}}}
-
-%%{{{ Names of elements 
-\note Nomes de elementos.
-É muito comum desenhar esse tipo de diagramas para construir exemplos e
-contraexemplos que involvem funções, e quando os \emph{quais são}
-os membros não é importante desenhamos apenas um $\bullet$ para
-representar os membros, com o entendimento que pontos distintos
-representam membros distintos.
-Note que \emph{se} quisermos definir formalmente um exemplo baseado num
-desenho, nossa tarefa é trivial: é só escolher nomes para os $\bullet$
-e pronto.
-Por exemplo, dando esses nómes nos pontos
-do~\ref{internal_diagram_example} chegamos no seguinte:
-$$
-\tikzpicture
-\tikzi internaldiagramnames;
-\endtikzpicture
-$$
-E agora para definir isso formalmente na escrita podemos apenas dizer:
-Sejam os conjuntos
-$$
-A = \set{\mathrm a, \mathrm b} \qqqquad
-B = \set{\mathrm c, \mathrm d, \mathrm e} \qqqquad
-C = \set{\mathrm u, \mathrm v}
-$$
-e as funções $f : A\to B$ e $g : B\to C$ definidas pelas:
-$$
-\aligned
-f(\mathrm a) &= e\\
-f(\mathrm b) &= d
-\endaligned
-\qqqquad
-\aligned
-g(\mathrm c) &= u\\
-g(\mathrm d) &= v\\
-g(\mathrm e) &= v
-\endaligned
-$$
-Observe que os $\mathrm a, \mathrm b, \mathrm c$, etc.~\emph{não são variáveis},
-mas as próprias letras `a', `b', `c', etc.
-Naturalmente escolhemos nomes bem conhecidos, como números, letras, etc.
-%%}}}
-
-%%{{{ remark: to what do those barred arrows correspond? 
-\remark.
-Então em que corresponde cada uma das setinhas barradas do diagrama interno?
-Numa das \emph{equações} q definam a correspondente função,
-ou seja, num par da forma $\tup{x, f(x)}$.
-%%}}}
-
-%%{{{ External diagrams 
-\note Diagramas externos.
-\tdefined{diagrama}[externo]%
-Muitas vezes queremos olhar para a ``big picture'' e os detalhes
-``internos'' da configuração não nos importam.
-Pelo contrário, nos atrapalham: \emph{perdemos a floresta pelas arvores}.
-Nesse caso usamos \dterm{diagramas externos}.
-%%}}}
-
-%%{{{ eg: external_of_previous_example 
-\example.
-\label{external_of_previous_example}%
-O diagrama externo da configuração do~\ref{internal_diagram_example}
-é o seguinte:
-$$
-A \tolongarrow f B \tolongarrow g C.
-$$
-\endexample
-%%}}}
-
-%%{{{ Diagrams of endomaps 
-\note Diagramas de endomapas.
-No caso especial que temos um endomapa $f:A\to A$,
-podemos desenhar seu diagrama interno
-sem usar duas cópias de $A$, mas apenas mostrando os mapeamentos assim
-como o exemplo seguinte sugere.
-%%}}}
-
-%%{{{ eg: internal_diagram_of_endomap 
-\example.
-Considere o diagrama interno:
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi internaldiagramendo1;
-\endtikzpicture
-$$
-Esse é o diagrama interno da função $f : A \to A$ definida pelas
-$$
-\xalignat8
-f(1) &= 2; &
-f(2) &= 1; &
-f(3) &= 1; &
-f(4) &= 4; &
-f(5) &= 5; &
-f(6) &= 8; &
-f(7) &= 5; &
-f(8) &= 5;
-\endxalignat
-$$
-onde $A = \set {1,2,3,4,5,6,7,8}$.
-\endexample
-%%}}}
 
 \endsection
 %%}}}
