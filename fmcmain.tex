@@ -13612,13 +13612,59 @@ usado em linguagens de programação que suportam if-then-else \emph{expressions
 
 %%{{{ x: char_compose_char 
 \exercise.
-Suponha que $\chr_{A,X}\of\chr_{A,X}$ é definido.
+Sejam $A,X$ conjuntos com $A\subseteq X$.
+Suponha que $\chr_{A,X}\of\chr_{A,X}$ é definida.
 O que podes concluir sobre o $X$?
-A $\chr_{A,X}\of\chr_{A,X}$ é constante?
+Podemos concluir que a $\chr_A\of\chr_A$ é constante ou a identidade?
 
 \hint
 O fato que uma composição é definida dá informação sobre um domínio
 e um codomínio envolvido.
+
+\solution
+Temos $\chr_A : X \to \set{0,1}$.
+Como a composição $\chr_A \of \chr_A$ é definida,
+concluimos que $\cod(\chr_A) = \dom(\chr_A)$.
+Ou seja, $X = \set{0,1}$.
+\endgraf
+O $A$ sendo um subconjunto de $\set{0,1}$ so tem 4 possibilidades:
+$$
+\xalignat4
+A &= \emptyset; &
+A &= \set{0};   &
+A &= \set{1};   &
+A &= \set{0,1} = X.
+\endxalignat
+$$
+Calculamos em todos os casos:
+$$
+\align
+A = \emptyset &\implies
+\left\{\aligned
+(\chr_A \of \chr_A)(0) &= \chr_A(\chr_A(0)) = 0 \\
+(\chr_A \of \chr_A)(1) &= \chr_A(\chr_A(1)) = 0
+\endaligned\right. \\
+A = \set{0} &\implies
+\left\{\aligned
+(\chr_A \of \chr_A)(0) &= \chr_A(\chr_A(0)) = \chr_A(1) = 0 \\
+(\chr_A \of \chr_A)(1) &= \chr_A(\chr_A(1)) = \chr_A(0) = 1
+\endaligned\right. \\
+A = \set{1} &\implies
+\left\{\aligned
+(\chr_A \of \chr_A)(0) &= \chr_A(\chr_A(0)) = \chr_A(0) = 0 \\
+(\chr_A \of \chr_A)(1) &= \chr_A(\chr_A(1)) = \chr_A(1) = 1
+\endaligned\right. \\
+A = X &\implies
+\left\{\aligned
+(\chr_A \of \chr_A)(0) &= \chr_A(\chr_A(0)) = 1 \\
+(\chr_A \of \chr_A)(1) &= \chr_A(\chr_A(1)) = 1\,.
+\endaligned\right.
+\endalign
+$$
+Sobre a $\chr_A\of\chr_A$ então concluimos que
+se $A$ é um dos singletons $\set{0}$ ou $\set{1}$ então ela é a identidade.
+Caso contrario, ela é uma constante:
+se $A = \emptyset$ a constante $0$; se $A = X$ a constante $1$.
 
 \endexercise
 %%}}}
