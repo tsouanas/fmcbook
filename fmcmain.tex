@@ -10836,12 +10836,12 @@ $\Inter_{n=0}^{\infty} A_n$
 Definimos os operadores unários
 $\Union_{n=0}^{\infty}$ e
 $\Inter_{n=0}^{\infty}$ assim:
-suponha que $A_n$ é um conjunto para cada $n\in\nats$; definimos
+suponha que $A_n$ é um conjunto para cada $n\in\nats$; definimos:
 $$
-\xalignat2
-x \in \Union_{n=0}^{\infty} A_n &\defiff \lexists {n \in \nats} {x \in A_n}&
+\align
+x \in \Union_{n=0}^{\infty} A_n &\defiff \lexists {n \in \nats} {x \in A_n} \\
 x \in \Inter_{n=0}^{\infty} A_n &\defiff \lforall {n \in \nats} {x \in A_n}.
-\endxalignat
+\endalign
 $$
 %%}}}
 
@@ -10856,11 +10856,10 @@ Defina-las usando as operações de $\Union$ e $\Inter$.
 Seja $A_n$ uma seqüência de conjuntos.
 Defina
 $$
-\Union_{n=0}^{\infty} \defeq \Union\setst {A_n} {n\in\nats}
-\qqqquad
-\mland
-\qqqquad
-\Inter_{n=0}^{\infty} \defeq \Inter\setst {A_n} {n\in\nats}.
+\xalignat2
+\Union_{n=0}^{\infty} &\defeq \Union\setst {A_n} {n\in\nats} &
+\Inter_{n=0}^{\infty} &\defeq \Inter\setst {A_n} {n\in\nats}.
+\endxalignat
 $$
 
 \endexercise
@@ -10883,13 +10882,13 @@ Sejam $C$ conjunto e $\set{ A_n }_n$ seqüência de conjuntos.
 Calculamos
 $$
 \alignat2
-x \in C \setminus \Union_{n=0}^{\infty}A_n
-&\iff x \in C \land \lnot \biggparen{x \in \Union_{n=0}^{\infty}A_n}   \qqby{def.~$\setminus$}\\
-&\iff x \in C \land \lnot (\exists n\in\nats)[x \in A_n]  \qqby{def.~$\Union_{n=0}^{\infty}$}\\
+x \in C \setminus \Unionl_{n=0}^{\infty}A_n
+&\iff x \in C \land \lnot \biggparen{x \in \Unionl_{n=0}^{\infty}A_n}   \qqby{def.~$\setminus$}\\
+&\iff x \in C \land \lnot (\exists n\in\nats)[x \in A_n]  \qqby{def.~$\Unionl_{n=0}^{\infty}$}\\
 &\iff x \in C \land (\forall n\in\nats)[x \notin A_n]     \qqby{De Morgan}\\
 &\iff (\forall n\in\nats)[x \in C \land x \notin A_n]     \qqby{lógica}\\
 &\iff (\forall n\in\nats)[x \in C \setminus A_n]          \qqby{def.~$\setminus$}\\
-&\iff x \in \Inter_{n=0}^{\infty}(C \setminus A_n).       \qqby{def.~$\Inter_{n=0}^{\infty}$}
+&\iff x \in \Interl_{n=0}^{\infty}(C \setminus A_n).      \qqby{def.~$\Interl_{n=0}^{\infty}$}
 \endalignat
 $$
 A prova da outra igualdade é similar:
@@ -11161,6 +11160,8 @@ $$
 \text{$\lexists {p\in\cal P} {p \in C_p}$}       &: \text{existe pessoa que é seu próprio filho}.
 \endalign
 $$
+(Tuas traduções podem variar, especialmente se tuas definições
+dessas palavras são diferentes que aquelas que eu usei aqui.)
 
 \endexercise
 %%}}}
@@ -11183,6 +11184,23 @@ G_n &= \ival( {-1-\frac1n \,,\; 1+\frac1n} ).
 $$
 Calcule os conjuntos $\Union_n F_n$ e $\Inter_n G_n$.
 
+\hint
+Use as definições!
+
+\solution
+Temos
+$$
+\align
+x \in \Unionl_n F_n
+&\iff \lexists {n\in \nats} {x\in F_n}
+\iff x \in (-1,1) \\
+x \in \Interl_n G_n
+&\iff \lforall {n\in \nats} {x\in G_n}
+\iff x \in [-1,1].
+\endalign
+$$
+Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
+
 \endexercise
 %%}}}
 
@@ -11196,7 +11214,24 @@ A_n &= \setst {i\in\nats} {i \leq n} &
 B_n &= \nats\setminus A_n.
 \endxalignat
 $$
-Calcule os conjuntos $\Inter_n A_n$ e $\Inter_n B_n$.
+Calcule os conjuntos $\Union_n A_n$ e $\Inter_n B_n$.
+
+\hint
+Use as definições!
+
+\solution
+Temos
+$$
+\align
+a \in \Unionl_n A_n
+&\iff \lexists {n\in \nats} {a\in A_n}
+\iff a \in \nats \\
+b \in \Interl_n B_n
+&\iff \lforall {n\in \nats} {b\in B_n}
+\iff \False.
+\endalign
+$$
+Ou seja: $\Union_n A_n = \nats$ e $\Inter_n B_n = \emptyset$.
 
 \endexercise
 %%}}}
