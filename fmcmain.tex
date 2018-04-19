@@ -16424,16 +16424,48 @@ e seja $F$ o conjunto de todos os fixpoints da $f$.
 $$
 F = \setstt {x \in A} {$x$ é um fixpoint da $f$}
 $$
-Decida quais das igualdades seguintes são validas:
-prove aquelas que são; refuta aquelas que não.
+Quais das igualdades seguintes podemos concluir?:
 $$
-\xalignat3
+\xalignat2
 \img f F &= F &
-\pre f F &= F &
-f \resto F &= \idof F.
+\pre f F &= F
 \endxalignat
 $$
+Prove aquelas que sim; mostre um contraexemplo daquelas que não,
+mas verifique se alguma das duas inclusões
+{\lrdirset} ou {\rldirset} é válida.
 O que muda se $f$ é injetora?
+
+\solution
+Sempre temos $\img f F = F$ e $\pre f F \supseteq F$.
+Se $f$ é injetora, ganhamos a $\pre f F \subseteq F$ também.
+\endgraf
+\proofpart{Prova de $\img f F \subseteq F$.}
+Seja $y\in\img f F$.
+Logo tome $p\in F$ tal que $f(p) = y$\fact1 (pela definição da função-imagem).
+Logo $p$ é um fixpoint da $f$, ou seja, $f(p) = p$\fact2.
+Juntando as {\byfact1,\byfact2}, ganhamos $p = y$, ou seja $y$ é um fixpoint da $f$, e logo $y\in F$.
+\endgraf
+\proofpart{Prova de $\img f F \supseteq F$.}
+Seja $p \in F$.
+Logo $f(p) \in \img f F$ (pela definição da função-imagem).
+Mas $p$ é um fixpoint da $f$ (pois $p\in F$), ou seja $f(p) = p$.
+Logo $p \in \img f F$.
+\endgraf
+\proofpart{Prova de $\pre f F \supseteq F$.}
+Seja $p \in F$, ou seja $p$ é um fixpoint da $f$.
+Logo $f(p) = p \in F$, e logo $p \in \pre f F$.
+\endgraf
+\proofpart{Contraexemplo para $\pre f F \subseteq F$.}
+Tome $A = \set{0,1}$ e defina $f$ pela $f(x) = 0$.
+Nesse caso temos $F = \set{0}$, mas $\pre f F = \set{0,1}$.
+\endgraf
+\proofpart{Prova da $\pre f F \subseteq F$ quando $f$ injetora.}
+Seja $a\in \pre f F$.
+Logo $f(a)$ é um fixpoint da $f$.
+Ou seja, $f(f(a)) = f(a)$
+Agora, como $f$ é injetora, temos $f(a) = a$, ou seja,
+$a$ é um fixpoint também e logo $a\in F$.
 
 \endexercise
 %%}}}
