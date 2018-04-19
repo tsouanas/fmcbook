@@ -16257,6 +16257,7 @@ Note que a expressão ``$F(x)(y)$'' quis dizer ``$\bigparen{F(x)}(y)$'' mesmo.
 
 %%{{{ Partial functions 
 \section Funções parciais.
+\label{Partial_functions}%
 
 \blah.
 A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente} definida no $A$,
@@ -16302,7 +16303,7 @@ seguimos a convenção oposta.
 %%{{{ remark: partial function conditions 
 \remark Condições.
 Encontramos então aqui o que acontece se apagar a primeira das
-Condições~\refn{functionhood_conditions}:
+condições~\refn{functionhood_conditions}:
 \beginil
 \item{}\strikeout{(1)~totalidade};
 \item{}(2)~determinicidade.
@@ -16829,6 +16830,41 @@ $$
 $$
 Observe que com nas duas maneiras precisamos a condição de
 compatibilidade para a $f\union g$ ser bem definida.
+
+\endproblem
+%%}}}
+
+%%{{{ nondeterministic_functions 
+\problem Funções não-deterministas.
+\label{nondeterministic_functions}%
+\tdefined{função}[não-determinista]%
+No~\ref{Partial_functions} definimos um conceito mais geral de ``função'':
+as \emph{funções parciais}, onde apagamos a primeira das
+condições~\refn{functionhood_conditions}:
+\beginil
+\item{}\strikeout{(1)~totalidade};
+\item{}(2)~determinicidade.
+\endil
+Neste problema, pense numa maneira de usar funções (mesmo), para
+representar \dterm{funções não-deterministas}, ou seja, ``funções''
+que não respeitam necessariamente a determinicidade; apenas a totalidade:
+\beginil
+\item{}(1)~totalidade;
+\item{}\strikeout{(2)~determinicidade}.
+\endil
+Como definarias a composição $g \bullet f$ de duas funções não-deterministas?
+
+\solution
+Podemos representar uma ``função não-determinista'' $f$ de $A$ para $B$,
+usando uma função $\bar f : A \to \pset B\setminus\set{\emptyset}$,
+que manda cada $x\in A$ para o conjunto $\setst {y\in B} {f(x) = y}$.
+Sejam~$f : A \to \pset B\setminus\set{\emptyset}$
+e~$g : B \to \pset C\setminus\set{\emptyset}$ funções que representam
+funções não-deterministas.  Definimos sua composição
+$g\bullet f : A \to \pset C$ pela
+$$
+(g\bullet f)(x) = \Union\img g {f(x)}.
+$$
 
 \endproblem
 %%}}}
