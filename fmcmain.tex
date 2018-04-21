@@ -2406,7 +2406,7 @@ $$
 
 %%{{{ The well-ordering principle 
 \section O princípio da boa ordem (PBO).
-\label{WOP_principle}%
+\label{The_wellordering_principle}%
 
 \definition Elemento mínimo.
 \tdefined{mínimo}%
@@ -15225,18 +15225,20 @@ $$
 f(a) = \set a.
 $$
 Investigue:
-(1) A $f$ é injetora?
-(2) A $f$ é sobrejetora?
+(i) A $f$ é injetora?
+(ii) A $f$ é sobrejetora?
 
 \solution
-\noindent (1) Sim: se $x,y\in A$, então
+\noindent
+(i) Sim: se $x,y\in A$, então
 $$
-x\neq y
-    \implies \set x \neq \set y
-    \implies f(x) \neq f(y).
+f(x) = f(y)
+    \implies \set x = \set y
+    \implies x = y.
 $$
 \endgraf
-\noindent (2) Não: para todo $a\in A$ temos
+\noindent
+(ii) Não: para todo $a\in A$ temos
 $f(a) = \set a \neq \emptyset \in \pset A$.
 
 \endexercise
@@ -15259,10 +15261,10 @@ $$
 Chamamos a $\finv f$ a \dterm{função inversa} da $f$.
 %%}}}
 
-%%{{{ x: justify_finverse 
-\exercise.
-\label{justify_finverse}%
-Justifique a definição acima.
+%%{{{ x: finv_is_well_defined 
+\exercise A inversa é definida bem.
+\label{finv_is_well_defined}%
+Prove que a função $\finv f$ foi definida bem.
 O que precisas provar?
 
 \solution
@@ -15276,7 +15278,7 @@ na~\ref{finverse}.
 %%}}}
 
 %%{{{ x: finv_is_bij 
-\exercise.
+\exercise A inversa é bijetora.
 \label{finv_is_bij}%
 Prove que quando a função inversa $\finv f$ é definida, ela é bijetora.
 
@@ -15295,9 +15297,9 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ x: finv_of_finv_of_f_is_f 
-\exercise.
-\label{finv_of_finv_of_f_is_f}%
+%%{{{ x: finv_of_finv 
+\exercise Inversa da inversa.
+\label{finv_of_finv}%
 Prove que se a função inversa $\finv f$ é definida,
 então a sua inversa $\finvp{\finv f}$ também é
 e temos $\finvp{\finv f} = f$.
@@ -15326,6 +15328,84 @@ $$
 $$
 e a última igualdade é trivialmente válida,
 e logo $\finvp{\finv f} = f$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_of_fcompose 
+\exercise Inversa da composição.
+\label{finv_of_fcompose}%
+Sejam $
+\cd
+A \ar[r, tail, two heads, "f"] \| B \ar[r, tail, two heads, "g"] \| C
+\endcd
+$.
+Descreva a $\finvp{g\of f}$ em termos das $\finv f$ e $\finv g$ e prove
+tua afirmação.
+
+\hint
+Um erro comum é afirmar que $\finvp{g\of f} = \finv g \of \finv f$.
+Pense em funções como ``processos'' e na $g\of f$ como o processo
+<<faça $f$ e depois faça $g$>>.  Como exemplo, tome $f$ o <<bota
+tua cueca>> e $g$ o <<boa teu shorts>>.
+Logo $g\of f$ é o processo <<bora tua cueca e depois bota teu shorts>>.
+Assim, qual processo seria o $\finv g \of \finv f$?
+Se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
+
+\hint
+$\finvp{g\of f} = \finv f \of \finv g$.
+
+\hint
+Para provar a $\finvp{g\of f} = \finv f \of \finv g$,
+tome $x\in A$ e $z\in C$ e mostre a equivalência
+$$
+\finvp{g\of f}(x) = z
+\iff
+\paren{\finv f \of \finv g}(x) = z.
+$$
+
+\hint
+Calcule cada lado separadamente:
+$$
+\alignat2
+\finvp{g\of f}(x) = z
+&\iff (g\of f)(z) = x  \qqby{def.~$\finvp{g\of f}$} \\
+&\dotsiff \dots \\
+\paren{\finv f \of \finv g}(x) = z
+&\iff \finv f \funparen{\finv g (x)} = z  \qqby{def.~$\finv f \of \finv g$} \\
+&\dotsiff \dots
+\endalignat
+$$
+
+\hint
+As vezes a direção em que a gente olha para uma igualdade faz diferença:
+$\alpha = \beta \iff \beta = \alpha$ sim, mas nossos olhos conseguem
+enxergar certas informações melhor na forma $\alpha = \beta$, e outras
+na forma $\beta = \alpha$!
+
+\solution
+Vamos provar que
+$$
+\finvp{g\of f} = \finv f \of \finv g.
+$$
+Tome $x \in A$ e $z \in C$.  Basta provar que
+$$
+\finvp{g\of f}(x) = z
+\iff
+\paren{\finv f \of \finv g}(x) = z.
+$$
+pois isso quis dizer que as duas funções concordam em todo o seu domínio.
+Calculamos:
+$$
+\alignat2
+\finvp{g\of f}(x) = z
+&\iff (g\of f)(z) = x                     \qqby{def.~$\finvp{g\of f}$} \\
+&\iff g(f(z)) = x                         \qqby{def.~$g\of f$} \\
+&\iff \finv g (x) = f(z)                  \qqby{def.~$\finv g$} \\
+&\iff \finv f \funparen{\finv g (x)} = z  \qqby{def.~$\finv f$} \\
+&\iff \paren{\finv f \of \finv g}(x) = z. \qqby{def.~$\finv f \of \finv g$}
+\endalignat
+$$
 
 \endexercise
 %%}}}
@@ -16824,6 +16904,97 @@ $a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
 {\rldirset}.
 Similar: é só seguir os passos da {\lrdirset} em reverso.
 }
+
+\endproblem
+%%}}}
+
+%%{{{ injto_surfrom_powerset 
+\problem.
+\label{injto_surfrom_powerset}%
+Seja conjunto $A\neq\emptyset$.
+Defina funções $f,g$ com os tipos seguintes:
+$$
+\align
+f &: A \injto \pset A \\
+g &: \pset A \surto A.
+\endalign
+$$
+Prove que:
+(i) a $f$ é injetora;
+(ii) a $f$ não é sobrejetora;
+(iii) a $g$ é sobrejetora;
+(iv) a $g$ não é sobrejetora.
+
+\hint
+Cuidado: sobre o $A$ não podes supor nada mais que $A\neq\emptyset$.
+
+\hint
+A parte do problema sobre a $f : A \injto \pset A$ foi resolvida
+no~\ref{x_mapsto_singleton_x_properties}.
+Falta a parte sobre a $g : \pset \surto A$.
+
+\hint
+É para a parte do problema sobre a $g : \pset A \surto A$
+que precisas o $A\neq\emptyset$.
+
+\hint
+Seja $a_0 \in A$.  Defina a $g : \pset A \to A$ pela
+$$
+g(X) = \knuthcases{
+\dots?\dots, & $\dots?\dots$ \cr
+\dots?\dots, & caso contrário.
+}
+$$
+Novamente: cuidado para não supor nada mais que $A\neq\emptyset$
+sobre o $A$.  Por exemplo: não sabemos se $A$ tem \emph{mais}
+que um elemento (sabemos apenas que tem \emph{pelo menos} um);
+não sabemos se os membros dele são ordenados; etc.
+Se a gente soubesse que os membros de $A$ são \emph{bem ordenados}
+a gente poderia definir o primeiro caso acima pela
+$$
+g(X) = \knuthcases{
+\min X, & se $X \neq \emptyset$ \cr
+\dots?\dots, & caso contrário.
+}
+$$
+mas sem a informação que o $A$ é bem ordenado a $g$ não seria
+bem definida.
+Por enquanto: um conjunto é chamado \dterm{bem ordenado} sse todo
+$\emptyset\subsetneq X \subseteq A$ possui elemento mínimo.
+No~\ref{Wellorderings_and_transfinite_induction}
+estudamos conjuntos bem ordenados e suas propriedades.
+
+\hint
+Seja $a_0 \in A$.  Defina a $g : \pset A \to A$ pela
+$$
+g(X) = \knuthcases{
+x,   & se $X$ é o singleton $\set{x}$ \cr
+a_0, & caso contrário.
+}
+$$
+Falta provar que ela é sobrejetora e que não é injetora.
+
+\solution
+A parte do problema sobre a $f : A \injto \pset A$ foi resolvida
+no~\ref{x_mapsto_singleton_x_properties}, onde definimos a
+$f : A \to \pset A$ pela $f(x) = \set{x}$ e provamos as (i)--(ii).
+\endgraf
+Fixe $a_0 \in A$ ($A\neq\emptyset$) e defina a $g : \pset A \to A$ pela
+$$
+g(X) = \knuthcases{
+x,   & se $X$ é o singleton $\set{x}$\cr
+a_0, & caso contrário.
+}
+$$
+\endgraf
+(iii) \proofpart{A $g$ é sobrejetora.}
+Seja $y \in A$.  Observe que $g(\set{y}) = y$.
+Como $\set{y}\in\pset A$, temos que $g$ é sobrejetora.
+\endgraf
+(iv) \proofpart{A $g$ não é injetora.}
+Observe que $\emptyset, \set{a_0} \in \pset A$ e que $\emptyset \neq \set{a_0}$,
+mas mesmo assim $g(\emptyset) = a_0 = g(\set{a_0})$.
+Logo, $g$ não é injetora.
 
 \endproblem
 %%}}}
@@ -31972,6 +32143,7 @@ $$
 
 %%{{{ chapter: Well-orderings and transfinite induction 
 \chapter Bem-ordens e indução transfinita.
+\label{Wellorderings_and_transfinite_induction}%
 
 %%{{{ intro 
 \chapintro
