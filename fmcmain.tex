@@ -14963,8 +14963,8 @@ em termos das cardinalidades dos $A$ e $B$.
 \endexercise
 %%}}}
 
-%%{{{ prop: injection_iff_mono 
-\proposition.
+%%{{{ thm: injection_iff_mono 
+\theorem.
 \label{injection_iff_mono}%
 Sejam $B \toarrow f C$.
 A $f$ é injetora sse
@@ -15029,8 +15029,8 @@ Logo as $g,h$ concordam no $0$, ou seja, $b = b'$.
 \qed
 %%}}}
 
-%%{{{ prop: surjection_iff_epic 
-\proposition.
+%%{{{ thm: surjection_iff_epic 
+\theorem.
 \label{surjection_iff_epic}%
 Sejam $B \toarrow f C$.
 A $f$ é sobrejetora sse
@@ -15104,7 +15104,7 @@ $f(b) = c$ como desejamos.
 %%{{{ x: injection_surjection_commutative_diagrams 
 \exercise.
 \label{injection_surjection_commutative_diagrams}%
-Descreva as propriedades
+Descreva as propriedades dos teoremas
 \refn{injection_iff_mono}--\refn{surjection_iff_epic}
 usando diagramas comutativos.
 
@@ -15131,7 +15131,7 @@ temos $g=h$.
 %%{{{ x: injection_iff_mono_lrproof 
 \exercise.
 \label{injection_iff_mono_lrproof}%
-Prove a direção {\lrdir} da~\ref{injection_iff_mono}.
+Prove a direção {\lrdir} do~\ref{injection_iff_mono}.
 
 \solution
 Suponha então que $f\of g = f\of h$.
@@ -15150,7 +15150,7 @@ e como $f$ injetora, chegamos no desejado $g(x) = h(x)$.
 %%{{{ x: surjection_iff_epic_lrproof 
 \exercise.
 \label{surjection_iff_epic_lrproof}%
-Prove a direção {\lrdir} da~\ref{surjection_iff_epic}.
+Prove a direção {\lrdir} do~\ref{surjection_iff_epic}.
 
 \solution
 Suponha que $g\of f = h\of f$.  Vamos mostrar que $g = h$.
@@ -15244,6 +15244,12 @@ $f(a) = \set a \neq \emptyset \in \pset A$.
 \endexercise
 %%}}}
 
+\endsection
+%%}}}
+
+%%{{{ Inverses 
+\section Inversas.
+
 %%{{{ df: finverse 
 \definition Função inversa.
 \label{finverse}%
@@ -15332,6 +15338,45 @@ e logo $\finvp{\finv f} = f$.
 \endexercise
 %%}}}
 
+%%{{{ finv_inverse_laws 
+\proposition Leis da inversa.
+\label{finv_inverse_laws}%
+Para toda $f : A \bijto B$,
+temos:
+$$
+\xxalignat4
+\textrm{(L)} && \finv f \of f &= \id_A &
+f \of \finv f &= \id_B. &&\textrm{(R)}
+\endxxalignat
+$$
+\proof.
+Como $\finv f : B \to A$, temos
+$$
+\xalignat2
+\finv f \of f &: A \to A &
+f \of \finv f &: B \to B.
+\endxalignat
+$$
+Sejam $a\in A$ e $b\in B$.
+Calculamos:
+$$
+\alignat2
+(\finv f \of f) (a)
+&= \finv f (f(a)) \\
+&= \text{aquele $x\in A$ tal que $f(x) = f(a)$} \\
+&= a                                \qqby{$f$ inj.}\\
+&= \id_A(a). \\
+\intertext{Agora tomando $y\in B$ calculamos a outra numa maneira diferente:}
+(f \of \finv f) (b) = y
+&\iff f(\finv f(b)) = y \\
+&\iff \finv f (y) = \finv f(b) \\
+&\iff y = b                         \qqby{$\finv f$ inj.} \\
+&\iff \id_B(b) = y.
+\endalignat
+$$
+\qed
+%%}}}
+
 %%{{{ x: finv_of_fcompose 
 \exercise Inversa da composição.
 \label{finv_of_fcompose}%
@@ -15405,6 +15450,159 @@ $$
 &\iff \finv f \funparen{\finv g (x)} = z  \qqby{def.~$\finv f$} \\
 &\iff \paren{\finv f \of \finv g}(x) = z. \qqby{def.~$\finv f \of \finv g$}
 \endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ thm: finv_is_unique 
+\theorem Unicidade da função inversa.
+\label{finv_is_unique}%
+Seja $f : A \bijto B$.
+Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis da
+inversa~(\ref{finv_inverse_laws}), então $f' = \finv f$.
+\proof.
+Caso que $f'$ satisfaz a (L):
+$$
+\alignat2
+f'
+&= f' \of \id_B            \qqby{lei da $\id_B$} \\
+&= f' \of (f \of \finv f)  \qqby{(R) da $\finv f$} \\
+&= (f' \of f) \of \finv f  \qqby{assoc.} \\
+&= \id_A \of \finv f       \qqby{(L) da $f'$} \\
+&= \finv f.                \qqby{lei da $\id_A$}
+\intertext{E caso que $f'$ satisfaz a (R):}
+f'
+&= \id_A \of f'            \qqby{lei da $\id_A$} \\
+&= (\finv f \of f) \of f'  \qqby{(L) da $\finv f$} \\
+&= \finv f \of (f \of f')  \qqby{assoc.} \\
+&= \finv f \of \id_B       \qqby{(R) da $f'$} \\
+&= \finv f.                \qqby{lei da $\id_B$} \\
+\endalignat
+$$
+\qed
+%%}}}
+
+%%{{{ df: retractions_sections
+\definition Retracções, secções.
+\label{retractions_sections}%
+\label{retraction}%
+\tdefined{função}[retracção]%
+\tdefined{função}[secção]%
+\tdefined{função}[inversa-esquerda]%
+\tdefined{função}[inversa-direita]%
+Seja $f : A \to B$.
+Se $r : B \to A$ satisfaz a
+$$
+r \of f = \id_A
+$$
+então chamamo-la uma \dterm{retracção} ou uma
+\dterm{inversa-esquerda} da $f$.
+Se $s : B \to A$ satisfaz a
+$$
+f \of s = \id_B
+$$
+então chamamo-la uma \dterm{secção} ou uma
+\dterm{inversa-direita} da $f$.
+%%}}}
+
+\blah.
+Ganhamos imediatamente dois corolários fáceis dos teoremas
+\refn{injection_iff_mono}--\refn{surjection_iff_epic}.
+
+%%{{{ cor: retraction_implies_injection 
+\corollary.
+\label{retraction_implies_injection}%
+Se $f : A \to B$ tem retracção, então $f$ é injetora.
+\proof.
+Seja $r$ uma retracção da $f$.
+Temos
+$$
+f \of g = f \of h
+\implies r \of f \of g = r \of f \of h
+\implies \id_A \of g = id_A \of h
+\implies g = h
+$$
+e logo $f$ é injetora pelo~\ref{injection_iff_mono}.
+\qed
+%%}}}
+
+%%{{{ cor: section_implies_surjection 
+\corollary.
+\label{section_implies_surjection}%
+Se $f : A \to B$ tem secção, então $f$ é sobrejetora.
+\proof.
+Seja $s$ uma secção da $f$.
+Temos
+$$
+g \of f = h \of f
+\implies g \of f \of s = h \of f \of s
+\implies g \of \id_B = h \of \id_B
+\implies g = h
+$$
+e logo $f$ é sobrejetora pelo~\ref{surjection_iff_epic}.
+\qed
+%%}}}
+
+%%{{{ x: retraction_implies_injection_elementary_proof 
+\exercise.
+\label{retraction_implies_injection_elementary_proof}%
+Prove o~\ref{retraction_implies_injection} elementariamente (sem o~\refn{injection_iff_mono}).
+
+\solution
+Suponha que $f : A \to B$ e que $r : B \to A$ é uma retracção da $f$.
+Tome $x, x' \in A$ tais que $f(x) = f(x')$.
+Logo $r(f(x)) = r(f(x'))$.
+Logo $(r\of f)(x) = (r\of f)(x')$.
+Como $r$ é retracção, temos $\id_A(x) = \id_A(x')$, ou seja, $x = x'$ e $f$ é injetora.
+
+\endexercise
+%%}}}
+
+%%{{{ x: section_implies_surjection_elementary_proof 
+\exercise.
+\label{section_implies_surjection_elementary_proof}%
+Prove o~\ref{section_implies_surjection} elementariamente (sem o~\refn{surjection_iff_epic}).
+
+\solution
+Suponha que $f : A \to B$ e que $s : B \to A$ é uma secção da $f$.
+Tome $b \in B$.
+Logo $s(b) \in A$, e como $s$ secção, temos $f(s(b)) = b$, ou seja
+a $f$ é sobrejetora pois mapeia $s(b) \mapstoarrow f b$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: retraction_and_section_implies_inverse 
+\exercise.
+Seja $f : A \to B$ tal que $r,s : A \from B$ são retracção
+e secção da $f$ respectivamente.
+Podemos concluir a afirmação seguinte?:
+$$
+\text{$f$ é bijetora}
+\qquad\mland\qquad
+\text{$r = s = \finv f$}.
+$$
+Se sim, prove; se não, refute.
+
+\hint
+Primeiramente observe:
+$$
+\left.\aligned
+\text{$f$ tem retracção} &\implies   \text{$f$ é injetora} \\
+\text{$f$ tem secção}    &\implies   \text{$f$ é sobrejetora}
+\endaligned\right\}
+\implies \text{$f$ bijetora}.
+$$
+
+\solution
+Como $f$ tem retracção, ela é injetora;
+e como ela tem secção, ela é sobrejetora;
+logo $f$ é bijetora e a $\finv f$ é definida.
+Aplicamos então o~\ref{finv_is_unique} com $f'\asseq r$ e com $f'\asseq s$
+ganhamos:
+$$
+r = \finv f = s.
 $$
 
 \endexercise
