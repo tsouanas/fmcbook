@@ -17917,6 +17917,397 @@ de \emph{quantas vezes} um certo objeto relaciona com um certo outro.
 \endsection
 %%}}}
 
+%%{{{ Constructions and operations on relations 
+\section Construções e operações em relações.
+
+%%{{{ df: rinverse 
+\definition.
+\label{rinverse}%
+Seja $R$ uma relação de $A$ para $B$.
+Definimos a relação $\rinv R$ pela:
+$$
+x \rinv R y \defiff y \rel R x.
+$$
+%%}}}
+
+\blah.
+Todas as relações que consideramos nessa secção serão binárias.
+
+\note Composição.
+
+\TODO Ideia.
+
+%%{{{ eg: persons_books_words 
+\example.
+\label{persons_books_words}%
+\DefPred{Author}%
+\DefPred{Read}%
+\DefPred{Contains}%
+Sejam os conjuntos $\cal P$ de pessoas, $\cal B$ de livros, e $\cal W$ de palavras.
+Considere as relações:
+$$
+\align
+\Author(x,y)    &\defiff \text{$x$ é um escritor do livro $y$}\\
+\Read(x,y)      &\defiff \text{$x$ leu o livro $y$}\\
+\Contains(x,y)  &\defiff \text{a palavra $y$ aparece no livro $x$}
+\endalign
+$$
+Observe que $\Author$ e $\Read$ são relações de $\cal P$ para $\cal B$,
+e $\Contains$ de $\cal B$ para $\cal W$.
+O que seria a relação $\Author\rcom\Read$, o que a $\Author\rcom\Contains$,
+e o que a $\Read\rcom\Contains$?
+Antes de defini-las, vamos primeiramente pensar se faz sentido compor essas
+relações.
+Como a $\Author$ é uma relação de $\cal P$ para $\cal B$,
+e a $\Read$ de $\cal P$ para $\cal B$ também,
+podemos realmente as combinar:
+Similarmente, a $\Author$ é compatível com a $\Contains$.
+são compatíveis (gráças ao $\cal B$ ``no meio'').
+No outro lado, não faz podemos compor a $\Author$ com a $\Read$!
+Bem, então $\Author\rcom\Contains$ e $\Read\rcom\Contains$ são ambas
+relações de $\cal P$ para $\cal W$.
+Mas quais?
+Lembre que para definir uma relação, precisamos determinar
+completamente quando dois arbitrários $x,y$ são relacionados pela
+relação.
+Precisamos então completar as:
+$$
+\align
+x \relp{\Author\rcom\Contains} y &\defiff \text{\dots?\dots}\\
+x \relp{\Read\rcom\Contains}   y &\defiff \text{\dots?\dots}
+\endalign
+$$
+mas como?
+\spoiler.
+Bem, botamos:
+$$
+\align
+x \relp{\Author\rcom\Contains} y &\defiff \text{a pessoa $x$ escreveu algum livro que contem a palavra $y$}\\
+x \relp{\Read\rcom\Contains}   y &\defiff \text{a pessoa $x$ leu algum livro que contem a palavra $y$}
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ x: comparison_of_statements_about_reading_books 
+\exercise.
+\DefPred{Author}%
+\DefPred{Read}%
+\label{comparison_of_statements_about_reading_books}%
+A relação $R$ de $\cal P$ para $\cal W$ definida pela
+$$
+R(x,y) \defiff \text{a pessoa $x$ leu a palavra $y$ num livro}
+$$
+é a mesma relação com a $\Author\rcom\Read$?
+Em outras palavras:
+$$
+R \askeq \Author\rcom\Read
+$$
+
+\hint
+As afirmações:
+$$
+\gather
+\text{a pessoa $x$ leu a palavra $y$ num livro}\\
+\text{a pessoa $x$ leu um livro onde a palavra $y$ aparece}
+\endgather
+$$
+estão afirmando a mesma coisa?
+
+\endexercise
+%%}}}
+
+\blah.
+Vamos ver mais um exemplo, essa vez usando apenas um conjunto---e
+logo todas as relações são gratuitamente compatíveis para composição.
+
+%%{{{ x: grandparents_grandchildren_siblings_and_couples_with_children 
+\exercise.
+\label{grandparents_grandchildren_siblings_and_couples_with_children}%
+\DefPred{Parent}%
+\DefPred{Child}%
+Seja $\cal P$ o conjunto de todas as pessoas, e considere as relações
+$$
+\align
+\Parent(x,y) &\defiff \text{$x$ é a mãe ou o pai de $y$}\\
+\Child(x,y)  &\defiff \text{$x$ é filho ou filha de $y$}.
+\endalign
+$$
+Como tu definirias diretamente as relações seguintes?:
+$$
+\Parent\rcom\Parent
+\qqquad
+\Child\rcom\Child
+\qqquad
+\Parent\rcom\Child
+\qqquad
+\Child\rcom\Parent
+$$
+
+\solution
+{%
+\DefPred{Parent}%
+\DefPred{Child}%
+Temos:
+$$
+\align
+x \relp{\Parent\rcom\Parent} y &\defiff \text{$x$ é um avô ou uma avó de $y$}\\
+x \relp{\Child\rcom\Child}   y &\defiff \text{$x$ é um neto ou uma neta de $y$}\\
+x \relp{\Parent\rcom\Child}  y &\defiff \text{$x$ e $y$ tem um filho ou uma filha juntos}\\
+x \relp{\Child\rcom\Parent}  y &\defiff \text{$x$ e $y$ são irmã(o)s ou a mesma pessoa}
+\endalign
+$$
+}
+
+\endexercise
+%%}}}
+
+\question.
+Como podemos definir a composição de relações?
+\spoiler.
+
+%%{{{ df: rcompose 
+\definition.
+\label{rcompose}%
+\tdefined{relação}[composição]%
+\iisee{composição!de relações}{relação, composição}%
+Sejam conjuntos $A,B,C$ e as relações~$R$ de~$A$ para~$B$
+e~$S$ de~$B$ para~$C$.
+Definimos a relação~$R\rcom S$ de~$A$ para~$C$ pela
+$$
+a\rel{(R \rcom S)}c
+\defiff
+\text{existe $y \in B$ tal que $a \rel R y$ \& $y \rel S c$}.
+$$
+Chamamos a $R \rcom S$ a \dterm{composição} da $R$ \emph{com} a $S$.
+%%}}}
+
+%%{{{ beware: RoS_not_SoR 
+\beware.
+\label{RoS_not_SoR}%
+Não existe um consensus para a ordem de escrever esses $R,S$
+na~\ref{rcompose}.  Tome cuidado então enquanto lendo a notação
+$R \rcom S$, pois nosso $R \rcom S$ pode ser escrito como $S \rcom R$
+por outros autores, e vice versa.
+Quando a composição é denotada por $;$ a ordem concorda com nossa:
+$$
+a\rel{(R ; S)}c
+\defiff
+\text{existe $y \in B$ tal que $a \rel R y$ \& $y \rel S c$}.
+$$
+Veja também a~\ref{gof_not_fog}.
+%%}}}
+
+%%{{{ prop: associativity_of_rcom 
+\property.
+\label{associativity_of_rcom}%
+Sejam as relações binárias:
+$R$ de $A$ para $B$;
+$S$ de $B$ para $C$; e
+$T$ de $C$ para $D$.
+Então
+$$
+(R\rcom S)\rcom T = R \rcom (S\rcom T),
+$$
+e logo podemos escrever apenas $R\rcom S\rcom T$.
+\sketch.
+Supomos $a \in A$ e $d\in D$, e mostramos a equivalência
+$$
+a \rel{((R\rcom S)\rcom T)} d
+\iff
+a \rel{(R\rcom (S\rcom T))} d.
+$$
+aplicando a definição de $\rcom$ e leis da lógica.
+\qes
+\proof.
+Suponha $a\in A$ e $d\in D$.  Temos:
+$$
+\alignat 2
+a \rel{((R\rcom S)\rcom T)} d
+&\iff \lexists {c\in C} { a \rel{(R\rcom S)} c \;\land\; c \rel{T} d } \qqby{def.~de $\rcom$} \\
+&\iff \lexists {c\in C} { \lexists {b\in B} {x \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } \qqby{def.~de $\rcom$} \\
+&\iff \lexists {c\in C} { \lexists {b\in B} { \paren{ a \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } } \qqby{lógica} \\
+&\iff \lexists {b\in B} { \lexists {c\in C} { \paren { a \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } } \qqby{lógica} \\
+&\iff \lexists {b\in B} { \lexists {c\in C} { a \rel{R} b \;\land\; \paren{ b \rel{R} c \;\land\; c \rel{T} d } } } \qqby{lógica} \\
+&\iff \lexists {b\in B} { a \rel{R} b \;\land\; \lexists {c\in C} {  b \rel{R} c \;\land\; c \rel{T} d } } \qqby{lógica} \\
+&\iff \lexists {b\in B} { a \rel{R} b \;\land\; { b \rel{(R\rcom T)} d } } \qqby{def.~de $\rcom$} \\
+&\iff a \rel{(R\rcom(S\rcom T))} d \qqby{def.~de $\rcom$}.
+\endalignat
+$$
+\qed
+%%}}}
+
+%%{{{ x: associativity_of_rcom_nat_lang 
+\exercise.
+\label{associativity_of_rcom_nat_lang}%
+Escreva uma prova em linguagem natural da~\ref{associativity_of_rcom}.
+
+\solution
+\lrdir:
+Suponha $a \in A$ e $d \in D$ tais que
+$a \rel{((R\rcom S)\rcom T)} d$.
+Logo, para algum $c\in C$, temos $a \rel{(R\rcom S)} c$\fact1\ e
+$c \rel{T} d$\fact2,
+e usando a \byfact1\ ganhamos um $b\in B$ tal que $a \rel{R} b$\fact3
+e $b \rel{S} c$\fact4.
+Juntando as \byfact4~e~\byfact2 temos $b \rel{(S \rcom T)} d$, e agora
+junto com a \byfact3~chegamos em
+$a \rel{((R\rcom S)\rcom T)} d$.
+\endgraf
+A direção \rldir\ é similar.
+
+\endexercise
+%%}}}
+
+%%{{{ x: only_if_incest 
+\exercise.
+\label{only_if_incest}%
+\DefPred{Parent}%
+\DefPred{Child}%
+Prove ou refute:
+$$
+\Child\rcom\Child
+\askeq
+\Parent\rcom\Child.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: id_of_rcom 
+\exercise.
+\label{id_of_rcom}%
+Considere a $\rcom$ como uma operação nas relações binárias num conjunto $A$.
+Ela tem \dterm{identidade}?  Ou seja, existe alguma relação binária $E$ no $A$,
+tal que
+$$
+\text{para toda relação $R$ no $A$,}\quad
+E \rcom R = R = R \rcom E\,?
+$$
+Se sim, defina essa relação $E$ e prove que realmente é.
+Se não, prove que não existe.
+
+\hint
+Sem pensar, dois candidatos prováveis para considerar seriam a igualdade e
+a relação trivial $\True$ satisfeita por todos os pares de elementos de $A$:
+$$
+\text{ou}
+\knuthcases{
+x \rel E y \defiff \True\cr
+x \rel E y \defiff x = y
+}
+$$
+
+\solution
+Existe sim: a $E$ é a igualdade $=$.
+Vamos mostrar que para todos $a,b \in A$
+$$
+a \rel R b \iff a \rel{(E \rcom R)} b.
+$$
+Tratamos cada direção separadamente.
+\endgraf
+\lrdir.
+Suponha que $a \rel R b$.
+Precisamos mostrar que
+existe $w\in A$ tal que $a \rel E w$ e $w \rel R b$.
+Tome $w \asseq a$.  Realmente temos $a \rel E a$ (pois $E$ é a igualdade),
+e $a \rel R b$ que é nossa hipótese.
+\endgraf
+\rldir.
+Suponha que $a \rel {(E \rcom R)} b$.
+Logo, existe $w\in A$ tal que $a \rel E w$\fact1 e $w \rel R b$\fact2.
+Mas, como $E$ é a igualdade, o único $w$ que satisfaz a~\reffact1 é o proprio~$a$.
+Ou seja, $w = a$.
+Substituindo na~\byfact2, ganhamos o desejado $a \rel R b$.
+\endgraf
+A outra equivalência,
+$$
+a \rel R b \iff a \rel{(R \rcom E)} b,
+$$
+é similar.
+
+\endexercise
+%%}}}
+
+\TODO Interações.
+
+\TODO De composição e identidade para iteração.
+
+%%{{{ x: R_exp_n 
+\exercise Iterações.
+\label{R_exp_n}%
+Define formalmente a ``exponenciação'' $R^n$ duma dada relação binária $R$
+num conjunto, informalmente definida por:
+$$
+x\mathrel{\paren{R^n}}y \pseudodefiff
+x\mathrel{\Big(\underbrace{R\rcompose \dotsb\rcompose R}_{\text{$n$ vezes}}\Big)}y,
+$$
+valida \emph{para todo $n\in\nats$}.
+
+\hint
+Questão: o que precisa achar para tua definição servir para o caso $n=0$ também?
+
+\hint
+Resposta: precisa achar o elemento neutro da operação $\rcompose$.
+Já fez o~\ref{id_of_rcom}, né?
+
+\solution
+Definimos:
+$$
+\align
+x\mathrel{\paren{R^{0}}}y   &\defiff x=y\\
+x\mathrel{\paren{R^{n+1}}}y &\defiff x\mathrel{\paren{R\rcompose {R^n}}}y
+\endalign
+$$
+Ou, direitamente, em estilo ``point-free'':
+$$
+\align
+R^0     &\defeq \Eq\\
+R^{n+1} &\defeq R^n \rcom R,
+\endalign
+$$
+onde escrevemos $\Eq$ para a relação de igualdade $=$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: operation_with_inverse_does_not_yield_identity 
+\exercise.
+\label{operation_with_inverse_does_not_yield_identity}%
+Prove ou refute:
+\emph{para toda relação binária $R$ num conjunto $A$, $R \rcom \rinv R = \Eq = \rinv R \rcom R$}.
+
+\hint
+\ref{grandparents_grandchildren_siblings_and_couples_with_children}.
+
+\hint
+\ref{only_if_incest}
+
+\hint
+{%
+\DefPred{Parent}%
+\DefPred{Child}%
+Temos $\Parent = \rinv \Child$ (e logo $\Child = \rinv \Parent$ também).
+}
+
+\solution
+{%
+\DefPred{Parent}%
+\DefPred{Child}%
+Não, como o contraexemplo do~\ref{only_if_incest} mostra, pois
+$$
+{\Parent} = {\rinv \Child} \qquad\mland\qquad {\Child} = {\rinv \Parent}.
+$$
+}
+
+\endexercise
+%%}}}
+
+\TODO Quais propriedades ``familiares'' tem a inversa nas relações?.
+
+\endsection
+%%}}}
+
 %%{{{ Properties of relations 
 \section Propriedades de relações.
 
@@ -18131,6 +18522,174 @@ que mostra que $\sim$ é reflexiva também.
 %%{{{ x: find the error and prove that the proposition is false 
 \exercise.
 Ache o erro na prova acima e \emph{prove} que a proposição é falsa!
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Closures 
+\section Fechos.
+
+\TODO Lembre o que é conjunto fechado pela operação.
+
+\TODO Intuição com diagramas.
+
+%%{{{ pseudodf: fecho_pseudodefinition 
+\pseudodefinition.
+\label{fecho_pseudodefinition}%
+\tdefined{fecho!de relação}%
+Seja $R$ uma relação binária num conjunto $A$,
+e fixe uma propriedade \emph{razoável}
+daquelas que aparecem no~glossário~\refn{relations_glossary}.
+Definimos o fecho da $R$ pela propriedade para ser a relação que criamos se
+botar num jeito \emph{justo} todas as \emph{necessárias}
+setinhas no diagrama da $R$ até ela virar uma relação com a propriedade
+desejada.
+%%}}}
+
+\TODO Examples for fecho reflexivo, simétrico, transitivo.
+
+\TODO Por que não falamos de fecho total, asimétrico, etc.
+
+\TODO Explique o ``justo''.
+
+\TODO Explique o ``necessárias''.
+
+%%{{{ df: rclosure 
+\definition Fecho reflexivo.
+\label{rclosure}%
+\tdefined{fecho!reflexivo}%
+\sdefined {\rclosure {\holed R}} {o fecho reflexivo da \holed R}%
+\sdefined {\rcl {\holed R}} {o fecho reflexivo da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos a relação $\rclosure R$ pela
+$$
+x \rclosure R y \defiff x \rel R y \mlor x = y
+$$
+Chamamos a $\rclosure R$ o \dterm{fecho reflexivo} da $R$.
+Também usamos a notação $\rel {R^=}$.
+%%}}}
+
+%%{{{ x: wrong_sclosure_definition 
+\exercise.
+Alguém definiu o fecho simétrico assim:
+\endgraf
+\emph{Seja $R$ relação binária num conjunto $A$.
+Seu fecho simétrico é a relação $\sclosure R$ definida pela}
+$$
+x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R y.
+$$
+\endgraf
+Ache o erro na definição e mostre que a definição realmente é errada.
+
+\endexercise
+%%}}}
+
+%%{{{ df: sclosure 
+\definition Fecho simétrico.
+\label{sclosure}%
+\tdefined{fecho!simétrico}%
+\sdefined {\sclosure {\holed R}} {o fecho simétrico da \holed R}%
+\sdefined {\scl {\holed R}} {o fecho simétrico da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos a relação $\sclosure R$ pela
+Chamamos a $\sclosure R$ o \dterm{fecho simétrico} da $R$.
+Também usamos a notação $\rel {R^\leftrightarrow}$.
+%%}}}
+
+%%{{{ x: wrong_tclosure_definition 
+\exercise.
+Alguém definiu o fecho transitivo assim.
+\emph{Seja $R$ relação binária num conjunto $A$.
+Seu fecho transitivo é a relação $\tclosure R$ definida pela}
+$$
+x \tclosure R y \pseudodefiff \text{existe $w\in A$ tal que $x \rel R w \mland w \rel R y$}.
+$$
+Mas isso não é o fecho transitivo da $R$.  O que é mesmo?
+
+\solution
+A relação definida é a $R^2$, ou seja, a $R \rcom R$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: tclosure and rtclosure 
+\definition Fecho transitivo.
+\label{tclosure}%
+\label{rtclosure}%
+\tdefined{fecho!transitivo}%
+\tdefined{fecho!reflexivo-transitivo}%
+\sdefined {\tclosure {\holed R}} {o fecho transitivo da \holed R}%
+\sdefined {\tcl {\holed R}} {o fecho transitivo da \holed R}%
+\sdefined {\rtclosure {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
+\sdefined {\rtcl {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos as relações $\tclosure R$ e $\rtclosure R$ pelas
+$$
+\xalignat2
+x \tclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats_{>0}$}.
+&&\text{(\dterm{fecho transitivo} da $R$)}\\
+x \rel {R^*} y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats$}
+&&\text{(\dterm{fecho reflexivo-transitivo} da $R$)}\\
+\endxalignat
+$$
+Chamamos a $\tclosure R$ o \dterm{fecho transitivo} da $R$,
+e a $\rtclosure R$ o \dterm{fecho reflexivo-transitivo} da $R$.
+Também usamos as notações $\tcl R$ para o $\tclosure R$
+e $\rtcl R$ para o $\rtclosure R$.
+%%}}}
+
+%%{{{ x: order_of_closures_matters 
+\exercise.
+\label{order_of_closures_matters}%
+Seja $R$ relação num conjunto $A$.
+Podemos concluir alguma das afirmações seguintes?:
+\beginil
+\item{(i)}  $t(r(R)) \askeq r(t(R))$
+\item{(ii)} $t(s(R)) \askeq s(t(R)$
+\endil
+\noindent
+Onde $r, s, t$ são os fechos reflexivo, simétrico, transitivo respectivamente.
+
+\hint
+Use diagramas internos.
+
+\hint
+Tente achar um contraexemplo para o (ii).
+Qual a dificuldade de achar contraexemplo para o (i)?
+
+\endexercise
+%%}}}
+
+\blah.
+Deixamos as definições de outros fechos para os problemas.
+
+%%{{{ x: isPred 
+\exercise.
+\label{isPred}
+Considere a relação $\to$ no $\nats$, definida pela:
+$$
+x\to y \defiff x + 1 = y.
+$$
+Descreva as relações seguintes:
+\item{$\transcl{\to}$}: seu fecho transitivo;
+\item{$\rtranscl{\to}$}: seu fecho reflexivo transitivo;
+\item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo transitivo simétrico.
+\endgraf\noindent
+Descreva o conjunto quociente $\quoset{\nats}{\rtranscl{\leftrightarrow}}$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: isPred_in_reals 
+\exercise.
+\label{isPred_in_reals}%
+Considere a relação $\to$ definida pela mesma equação como
+no~\ref{isPred}, mas essa vez no conjunto $\reals$.
+Descreva os mesmos fechos e o
+$\quoset{\reals}{\rtranscl{\leftrightarrow}}$.
 
 \endexercise
 %%}}}
@@ -18658,560 +19217,6 @@ $$
 \iff
 \cdots
 $$
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Constructions and operations on relations 
-\section Construções e operações em relações.
-
-%%{{{ df: rinverse 
-\definition.
-\label{rinverse}%
-Seja $R$ uma relação de $A$ para $B$.
-Definimos a relação $\rinv R$ pela:
-$$
-x \rinv R y \defiff y \rel R x.
-$$
-%%}}}
-
-\blah.
-Todas as relações que consideramos nessa secção serão binárias.
-
-\note Composição.
-
-\TODO Ideia.
-
-%%{{{ eg: persons_books_words 
-\example.
-\label{persons_books_words}%
-\DefPred{Author}%
-\DefPred{Read}%
-\DefPred{Contains}%
-Sejam os conjuntos $\cal P$ de pessoas, $\cal B$ de livros, e $\cal W$ de palavras.
-Considere as relações:
-$$
-\align
-\Author(x,y)    &\defiff \text{$x$ é um escritor do livro $y$}\\
-\Read(x,y)      &\defiff \text{$x$ leu o livro $y$}\\
-\Contains(x,y)  &\defiff \text{a palavra $y$ aparece no livro $x$}
-\endalign
-$$
-Observe que $\Author$ e $\Read$ são relações de $\cal P$ para $\cal B$,
-e $\Contains$ de $\cal B$ para $\cal W$.
-O que seria a relação $\Author\rcom\Read$, o que a $\Author\rcom\Contains$,
-e o que a $\Read\rcom\Contains$?
-Antes de defini-las, vamos primeiramente pensar se faz sentido compor essas
-relações.
-Como a $\Author$ é uma relação de $\cal P$ para $\cal B$,
-e a $\Read$ de $\cal P$ para $\cal B$ também,
-podemos realmente as combinar:
-Similarmente, a $\Author$ é compatível com a $\Contains$.
-são compatíveis (gráças ao $\cal B$ ``no meio'').
-No outro lado, não faz podemos compor a $\Author$ com a $\Read$!
-Bem, então $\Author\rcom\Contains$ e $\Read\rcom\Contains$ são ambas
-relações de $\cal P$ para $\cal W$.
-Mas quais?
-Lembre que para definir uma relação, precisamos determinar
-completamente quando dois arbitrários $x,y$ são relacionados pela
-relação.
-Precisamos então completar as:
-$$
-\align
-x \relp{\Author\rcom\Contains} y &\defiff \text{\dots?\dots}\\
-x \relp{\Read\rcom\Contains}   y &\defiff \text{\dots?\dots}
-\endalign
-$$
-mas como?
-\spoiler.
-Bem, botamos:
-$$
-\align
-x \relp{\Author\rcom\Contains} y &\defiff \text{a pessoa $x$ escreveu algum livro que contem a palavra $y$}\\
-x \relp{\Read\rcom\Contains}   y &\defiff \text{a pessoa $x$ leu algum livro que contem a palavra $y$}
-\endalign
-$$
-\endexample
-%%}}}
-
-%%{{{ x: comparison_of_statements_about_reading_books 
-\exercise.
-\DefPred{Author}%
-\DefPred{Read}%
-\label{comparison_of_statements_about_reading_books}%
-A relação $R$ de $\cal P$ para $\cal W$ definida pela
-$$
-R(x,y) \defiff \text{a pessoa $x$ leu a palavra $y$ num livro}
-$$
-é a mesma relação com a $\Author\rcom\Read$?
-Em outras palavras:
-$$
-R \askeq \Author\rcom\Read
-$$
-
-\hint
-As afirmações:
-$$
-\gather
-\text{a pessoa $x$ leu a palavra $y$ num livro}\\
-\text{a pessoa $x$ leu um livro onde a palavra $y$ aparece}
-\endgather
-$$
-estão afirmando a mesma coisa?
-
-\endexercise
-%%}}}
-
-\blah.
-Vamos ver mais um exemplo, essa vez usando apenas um conjunto---e
-logo todas as relações são gratuitamente compatíveis para composição.
-
-%%{{{ x: grandparents_grandchildren_siblings_and_couples_with_children 
-\exercise.
-\label{grandparents_grandchildren_siblings_and_couples_with_children}%
-\DefPred{Parent}%
-\DefPred{Child}%
-Seja $\cal P$ o conjunto de todas as pessoas, e considere as relações
-$$
-\align
-\Parent(x,y) &\defiff \text{$x$ é a mãe ou o pai de $y$}\\
-\Child(x,y)  &\defiff \text{$x$ é filho ou filha de $y$}.
-\endalign
-$$
-Como tu definirias diretamente as relações seguintes?:
-$$
-\Parent\rcom\Parent
-\qqquad
-\Child\rcom\Child
-\qqquad
-\Parent\rcom\Child
-\qqquad
-\Child\rcom\Parent
-$$
-
-\solution
-{%
-\DefPred{Parent}%
-\DefPred{Child}%
-Temos:
-$$
-\align
-x \relp{\Parent\rcom\Parent} y &\defiff \text{$x$ é um avô ou uma avó de $y$}\\
-x \relp{\Child\rcom\Child}   y &\defiff \text{$x$ é um neto ou uma neta de $y$}\\
-x \relp{\Parent\rcom\Child}  y &\defiff \text{$x$ e $y$ tem um filho ou uma filha juntos}\\
-x \relp{\Child\rcom\Parent}  y &\defiff \text{$x$ e $y$ são irmã(o)s ou a mesma pessoa}
-\endalign
-$$
-}
-
-\endexercise
-%%}}}
-
-\question.
-Como podemos definir a composição de relações?
-\spoiler.
-
-%%{{{ df: rcompose 
-\definition.
-\label{rcompose}%
-\tdefined{relação}[composição]%
-\iisee{composição!de relações}{relação, composição}%
-Sejam conjuntos $A,B,C$ e as relações~$R$ de~$A$ para~$B$
-e~$S$ de~$B$ para~$C$.
-Definimos a relação~$R\rcom S$ de~$A$ para~$C$ pela
-$$
-a\rel{(R \rcom S)}c
-\defiff
-\text{existe $y \in B$ tal que $a \rel R y$ \& $y \rel S c$}.
-$$
-Chamamos a $R \rcom S$ a \dterm{composição} da $R$ \emph{com} a $S$.
-%%}}}
-
-%%{{{ beware: RoS_not_SoR 
-\beware.
-\label{RoS_not_SoR}%
-Não existe um consensus para a ordem de escrever esses $R,S$
-na~\ref{rcompose}.  Tome cuidado então enquanto lendo a notação
-$R \rcom S$, pois nosso $R \rcom S$ pode ser escrito como $S \rcom R$
-por outros autores, e vice versa.
-Quando a composição é denotada por $;$ a ordem concorda com nossa:
-$$
-a\rel{(R ; S)}c
-\defiff
-\text{existe $y \in B$ tal que $a \rel R y$ \& $y \rel S c$}.
-$$
-Veja também a~\ref{gof_not_fog}.
-%%}}}
-
-%%{{{ prop: associativity_of_rcom 
-\property.
-\label{associativity_of_rcom}%
-Sejam as relações binárias:
-$R$ de $A$ para $B$;
-$S$ de $B$ para $C$; e
-$T$ de $C$ para $D$.
-Então
-$$
-(R\rcom S)\rcom T = R \rcom (S\rcom T),
-$$
-e logo podemos escrever apenas $R\rcom S\rcom T$.
-\sketch.
-Supomos $a \in A$ e $d\in D$, e mostramos a equivalência
-$$
-a \rel{((R\rcom S)\rcom T)} d
-\iff
-a \rel{(R\rcom (S\rcom T))} d.
-$$
-aplicando a definição de $\rcom$ e leis da lógica.
-\qes
-\proof.
-Suponha $a\in A$ e $d\in D$.  Temos:
-$$
-\alignat 2
-a \rel{((R\rcom S)\rcom T)} d
-&\iff \lexists {c\in C} { a \rel{(R\rcom S)} c \;\land\; c \rel{T} d } \qqby{def.~de $\rcom$} \\
-&\iff \lexists {c\in C} { \lexists {b\in B} {x \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } \qqby{def.~de $\rcom$} \\
-&\iff \lexists {c\in C} { \lexists {b\in B} { \paren{ a \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } } \qqby{lógica} \\
-&\iff \lexists {b\in B} { \lexists {c\in C} { \paren { a \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } } \qqby{lógica} \\
-&\iff \lexists {b\in B} { \lexists {c\in C} { a \rel{R} b \;\land\; \paren{ b \rel{R} c \;\land\; c \rel{T} d } } } \qqby{lógica} \\
-&\iff \lexists {b\in B} { a \rel{R} b \;\land\; \lexists {c\in C} {  b \rel{R} c \;\land\; c \rel{T} d } } \qqby{lógica} \\
-&\iff \lexists {b\in B} { a \rel{R} b \;\land\; { b \rel{(R\rcom T)} d } } \qqby{def.~de $\rcom$} \\
-&\iff a \rel{(R\rcom(S\rcom T))} d \qqby{def.~de $\rcom$}.
-\endalignat
-$$
-\qed
-%%}}}
-
-%%{{{ x: associativity_of_rcom_nat_lang 
-\exercise.
-\label{associativity_of_rcom_nat_lang}%
-Escreva uma prova em linguagem natural da~\ref{associativity_of_rcom}.
-
-\solution
-\lrdir:
-Suponha $a \in A$ e $d \in D$ tais que
-$a \rel{((R\rcom S)\rcom T)} d$.
-Logo, para algum $c\in C$, temos $a \rel{(R\rcom S)} c$\fact1\ e
-$c \rel{T} d$\fact2,
-e usando a \byfact1\ ganhamos um $b\in B$ tal que $a \rel{R} b$\fact3
-e $b \rel{S} c$\fact4.
-Juntando as \byfact4~e~\byfact2 temos $b \rel{(S \rcom T)} d$, e agora
-junto com a \byfact3~chegamos em
-$a \rel{((R\rcom S)\rcom T)} d$.
-\endgraf
-A direção \rldir\ é similar.
-
-\endexercise
-%%}}}
-
-%%{{{ x: only_if_incest 
-\exercise.
-\label{only_if_incest}%
-\DefPred{Parent}%
-\DefPred{Child}%
-Prove ou refute:
-$$
-\Child\rcom\Child
-\askeq
-\Parent\rcom\Child.
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: id_of_rcom 
-\exercise.
-\label{id_of_rcom}%
-Considere a $\rcom$ como uma operação nas relações binárias num conjunto $A$.
-Ela tem \dterm{identidade}?  Ou seja, existe alguma relação binária $E$ no $A$,
-tal que
-$$
-\text{para toda relação $R$ no $A$,}\quad
-E \rcom R = R = R \rcom E\,?
-$$
-Se sim, defina essa relação $E$ e prove que realmente é.
-Se não, prove que não existe.
-
-\hint
-Sem pensar, dois candidatos prováveis para considerar seriam a igualdade e a relação trivial $\True$ satisfeita por todos os pares de elementos de $A$:
-$$
-\text{ou}
-\knuthcases{
-x \rel E y \defiff \True\cr
-x \rel E y \defiff x = y
-}
-$$
-
-\solution
-Existe sim: a $E$ é a igualdade $=$.
-Vamos mostrar que para todos $a,b \in A$
-$$
-a \rel R b \iff a \rel{(E \rcom R)} b.
-$$
-Tratamos cada direção separadamente.
-\endgraf
-\lrdir.
-Suponha que $a \rel R b$.
-Precisamos mostrar que
-existe $w\in A$ tal que $a \rel E w$ e $w \rel R b$.
-Tome $w \asseq a$.  Realmente temos $a \rel E a$ (pois $E$ é a igualdade),
-e $a \rel R b$ que é nossa hipótese.
-\endgraf
-\rldir.
-Suponha que $a \rel {(E \rcom R)} b$.
-Logo, existe $w\in A$ tal que $a \rel E w$\fact1 e $w \rel R b$\fact2.
-Mas, como $E$ é a igualdade, o único $w$ que satisfaz a~\reffact1 é o proprio~$a$.
-Ou seja, $w = a$.
-Substituindo na~\byfact2, ganhamos o desejado $a \rel R b$.
-\endgraf
-A outra equivalência,
-$$
-a \rel R b \iff a \rel{(R \rcom E)} b,
-$$
-é similar.
-
-\endexercise
-%%}}}
-
-\TODO Interações.
-
-\TODO De composição e identidade para iteração.
-
-%%{{{ x: R_exp_n 
-\exercise Iterações.
-\label{R_exp_n}%
-Define formalmente a ``exponenciação'' $R^n$ duma dada relação binária $R$
-num conjunto, informalmente definida por:
-$$
-x\mathrel{\paren{R^n}}y \pseudodefiff
-x\mathrel{\Big(\underbrace{R\rcompose \dotsb\rcompose R}_{\text{$n$ vezes}}\Big)}y,
-$$
-valida \emph{para todo $n\in\nats$}.
-
-\hint
-Questão: o que precisa achar para tua definição servir para o caso $n=0$ também?
-
-\hint
-Resposta: precisa achar o elemento neutro da operação $\rcompose$.
-Já fez o~\ref{id_of_rcom}, né?
-
-\solution
-Definimos:
-$$
-\align
-x\mathrel{\paren{R^{0}}}y   &\defiff x=y\\
-x\mathrel{\paren{R^{n+1}}}y &\defiff x\mathrel{\paren{R\rcompose {R^n}}}y
-\endalign
-$$
-Ou, direitamente, em estilo ``point-free'':
-$$
-\align
-R^0     &\defeq \Eq\\
-R^{n+1} &\defeq R^n \rcom R,
-\endalign
-$$
-onde escrevemos $\Eq$ para a relação de igualdade $=$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: operation_with_inverse_does_not_yield_identity 
-\exercise.
-\label{operation_with_inverse_does_not_yield_identity}%
-Prove ou refute:
-\emph{para toda relação binária $R$ num conjunto $A$, $R \rcom \rinv R = \Eq = \rinv R \rcom R$}.
-
-\hint
-\ref{grandparents_grandchildren_siblings_and_couples_with_children}.
-
-\hint
-\ref{only_if_incest}
-
-\hint
-\DefPred{Parent}%
-\DefPred{Child}%
-Temos $\Parent = \rinv \Child$ (e logo $\Child = \rinv \Parent$ também).
-
-\solution
-\DefPred{Parent}%
-\DefPred{Child}%
-Não, como o contraexemplo do~\ref{only_if_incest} mostra, pois
-$$
-{\Parent} = {\rinv \Child} \qquad\mland\qquad {\Child} = {\rinv \Parent}.
-$$
-
-\endexercise
-%%}}}
-
-\TODO Quais propriedades ``familiares'' tem a inversa nas relações?.
-
-\endsection
-%%}}}
-
-%%{{{ Closures 
-\section Fechos.
-
-\TODO Lembre o que é conjunto fechado pela operação.
-
-\TODO Intuição com diagramas.
-
-%%{{{ pseudodf: fecho_pseudodefinition 
-\pseudodefinition.
-\label{fecho_pseudodefinition}%
-\tdefined{fecho!de relação}%
-Seja $R$ uma relação binária num conjunto $A$,
-e fixe uma propriedade \emph{razoável}
-daquelas que aparecem no~glossário~\refn{relations_glossary}.
-Definimos o fecho da $R$ pela propriedade para ser a relação que criamos se
-botar num jeito \emph{justo} todas as \emph{necessárias}
-setinhas no diagrama da $R$ até ela virar uma relação com a propriedade
-desejada.
-%%}}}
-
-\TODO Examples for fecho reflexivo, simétrico, transitivo.
-
-\TODO Por que não falamos de fecho total, asimétrico, etc.
-
-\TODO Explique o ``justo''.
-
-\TODO Explique o ``necessárias''.
-
-%%{{{ df: rclosure 
-\definition Fecho reflexivo.
-\label{rclosure}%
-\tdefined{fecho!reflexivo}%
-\sdefined {\rclosure {\holed R}} {o fecho reflexivo da \holed R}%
-\sdefined {\rcl {\holed R}} {o fecho reflexivo da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos a relação $\rclosure R$ pela
-$$
-x \rclosure R y \defiff x \rel R y \mlor x = y
-$$
-Chamamos a $\rclosure R$ o \dterm{fecho reflexivo} da $R$.
-Também usamos a notação $\rel {R^=}$.
-%%}}}
-
-%%{{{ x: wrong_sclosure_definition 
-\exercise.
-Alguém definiu o fecho simétrico assim:
-\endgraf
-\emph{Seja $R$ relação binária num conjunto $A$.
-Seu fecho simétrico é a relação $\sclosure R$ definida pela}
-$$
-x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R y.
-$$
-\endgraf
-Ache o erro na definição e mostre que a definição realmente é errada.
-
-\endexercise
-%%}}}
-
-%%{{{ df: sclosure 
-\definition Fecho simétrico.
-\label{sclosure}%
-\tdefined{fecho!simétrico}%
-\sdefined {\sclosure {\holed R}} {o fecho simétrico da \holed R}%
-\sdefined {\scl {\holed R}} {o fecho simétrico da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos a relação $\sclosure R$ pela
-Chamamos a $\sclosure R$ o \dterm{fecho simétrico} da $R$.
-Também usamos a notação $\rel {R^\leftrightarrow}$.
-%%}}}
-
-%%{{{ x: wrong_tclosure_definition 
-\exercise.
-Alguém definiu o fecho transitivo assim.
-\emph{Seja $R$ relação binária num conjunto $A$.
-Seu fecho transitivo é a relação $\tclosure R$ definida pela}
-$$
-x \tclosure R y \pseudodefiff \text{existe $w\in A$ tal que $x \rel R w \mland w \rel R y$}.
-$$
-Mas isso não é o fecho transitivo da $R$.  O que é mesmo?
-
-\solution
-A relação definida é a $R^2$, ou seja, a $R \rcom R$.
-
-\endexercise
-%%}}}
-
-%%{{{ df: tclosure and rtclosure 
-\definition Fecho transitivo.
-\label{tclosure}%
-\label{rtclosure}%
-\tdefined{fecho!transitivo}%
-\tdefined{fecho!reflexivo-transitivo}%
-\sdefined {\tclosure {\holed R}} {o fecho transitivo da \holed R}%
-\sdefined {\tcl {\holed R}} {o fecho transitivo da \holed R}%
-\sdefined {\rtclosure {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
-\sdefined {\rtcl {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos as relações $\tclosure R$ e $\rtclosure R$ pelas
-$$
-\xalignat2
-x \tclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats_{>0}$}.
-&&\text{(\dterm{fecho transitivo} da $R$)}\\
-x \rel {R^*} y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats$}
-&&\text{(\dterm{fecho reflexivo-transitivo} da $R$)}\\
-\endxalignat
-$$
-Chamamos a $\tclosure R$ o \dterm{fecho transitivo} da $R$,
-e a $\rtclosure R$ o \dterm{fecho reflexivo-transitivo} da $R$.
-Também usamos as notações $\tcl R$ para o $\tclosure R$
-e $\rtcl R$ para o $\rtclosure R$.
-%%}}}
-
-%%{{{ x: order_of_closures_matters 
-\exercise.
-\label{order_of_closures_matters}%
-Seja $R$ relação num conjunto $A$.
-Podemos concluir alguma das afirmações seguintes?:
-\beginil
-\item{(i)}  $t(r(R)) \askeq r(t(R))$
-\item{(ii)} $t(s(R)) \askeq s(t(R)$
-\endil
-\noindent
-Onde $r, s, t$ são os fechos reflexivo, simétrico, transitivo respectivamente.
-
-\hint
-Use diagramas internos.
-
-\hint
-Tente achar um contraexemplo para o (ii).
-Qual a dificuldade de achar contraexemplo para o (i)?
-
-\endexercise
-%%}}}
-
-\blah.
-Deixamos as definições de outros fechos para os problemas.
-
-%%{{{ x: isPred 
-\exercise.
-\label{isPred}
-Considere a relação $\to$ no $\nats$, definida pela:
-$$
-x\to y \defiff x + 1 = y.
-$$
-Descreva as relações seguintes:
-\item{$\transcl{\to}$}: seu fecho transitivo;
-\item{$\rtranscl{\to}$}: seu fecho reflexivo transitivo;
-\item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo transitivo simétrico.
-\endgraf\noindent
-Descreva o conjunto quociente $\quoset{\nats}{\rtranscl{\leftrightarrow}}$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: isPred_in_reals 
-\exercise.
-\label{isPred_in_reals}%
-Considere a relação $\to$ definida pela mesma equação como
-no~\ref{isPred}, mas essa vez no conjunto $\reals$.
-Descreva os mesmos fechos e o
-$\quoset{\reals}{\rtranscl{\leftrightarrow}}$.
 
 \endexercise
 %%}}}
