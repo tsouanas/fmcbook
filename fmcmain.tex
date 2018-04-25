@@ -8982,6 +8982,7 @@ Mas antes disso, vamos discutir sobre dois conceitos de igualdade diferentes.
 
 %%{{{ Intension vs. Extension 
 \section Intensão vs{.}~extensão.
+\label{Intension_vs_extension_in_sets}%
 
 %%{{{ Consider four extensionally equal sets 
 \blah.
@@ -11932,8 +11933,9 @@ etc.
 
 %%{{{ Intension vs. extension 
 \note Intensão vs{.}~extensão.
-Como nos conjuntos, temos novamente a idéia de \dterm{intensão}
-e \dterm{extensão} de uma função.
+\label{intension_vs_extension_in_functions}%
+Como nos conjuntos (\ref{Intension_vs_extension_in_sets}),
+temos novamente a idéia de \dterm{intensão} e \dterm{extensão} de uma função.
 Pensando uma função como uma caixa que dentro dela tem um \emph{programa},
 a extensão dela não seria o que ela faz mesmo internalmente (isso seria sua
 \emph{intensão}), mas o que ela \emph{consegue}.
@@ -11949,6 +11951,7 @@ observável.
 
 %%{{{ Programs vs. functions 
 \note Programas vs.~funções.
+\label{programs_vs_functions}%
 Considere as duas funções $\code{f}$ e $\code{g}$ implementadas no programa
 seguinte em Python:
 \sourcecode intext.py;
@@ -17342,9 +17345,9 @@ compatibilidade para a $f\union g$ ser bem definida.
 \endproblem
 %%}}}
 
-%%{{{ nondeterministic_functions 
+%%{{{ implement_nondeterministic_functions 
 \problem Funções não-deterministas.
-\label{nondeterministic_functions}%
+\label{implement_nondeterministic_functions}%
 \tdefined{função}[não-determinista]%
 Na~\ref{Partial_functions} definimos um conceito mais geral de ``função'':
 as \emph{funções parciais}, onde apagamos a primeira das
@@ -17360,9 +17363,19 @@ que não respeitam necessariamente a determinicidade; apenas a totalidade:
 \item{}(1)~totalidade;
 \item{}\strikeout{(2)~determinicidade}.
 \endil
+Precisas então \dterm{implementar} o conceito de função não-determinista
+usando conceitos (tipos) que encontramos até agora: conjuntos, tuplas,
+seqüências, famílias indexadas, e funções.
+Para implementar um conceito não basta apenas definir o que são os
+objetos desse tipo em termos de já conhecidos.
+Precisamos implementar tambem o interface desejado, em termos de operações e
+relações que já temos em nossa disposição.
+Nesse caso:
+\endgraf
 Como definarias a composição $g \ast f$ de duas funções não-deterministas?
 Use a notação $f : A \ndeto B$ para <<$f$ é uma função não-determinista
 de $A$ para $B$>>.
+Que mais tu poderias fazer para tua implementação ser uma implementação boa?
 
 \solution
 Podemos representar a $f : A \ndeto B$ pela função
@@ -17378,6 +17391,11 @@ $g\ast f : A \ndeto C$ pela
 $$
 (\overline{g\ast f})(x) = \Union \img {\bar g} {\bar f (x)}.
 $$
+O que mais seria legal definir e mostrar para nossa implementação?
+Bem, seria bom definir pelo menos a identidade não-determinista
+$id_A : A \ndeto A$, e investigar se as leis que provamos sobre
+o caso de funções que conectam composição e identidades estão válidas
+para nossas funções não-deterministas também.
 
 \endproblem
 %%}}}
@@ -17407,22 +17425,29 @@ Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
 \chapter Relações.
 \label{Relations}%
 
-%%{{{ Concept, notation, equality 
-\section Conceito, notação, igualdade.
-
-%%{{{ functions vs relations 
-\note Funções vs.~relações.
+%%{{{ intro
+\chapintro
+Nesse capítulo estudamos então mais um \emph{tipo} importante para matemática:
+a \emph{relação}.
 Se pensamos em funções como construtores (ou ``apontadores'') de objetos,
 então as relações são \emph{construtores de afirmações}.
 Podemos pensar que uma relação é como um \emph{verbo}, ou um \emph{predicado}
 duma afirmação.
+Como no~\ref{Functions}, nosso objetivo é entender \emph{o que são}
+as coisas desse tipo (relações) e não como as definir formalmente como
+objetos matemáticos---sobre isso, paciência até o~\ref{Axiomatic_set_theory}.
 %%}}}
+
+%%{{{ Concept, notation, equality 
+\section Conceito, notação, igualdade.
 
 %%{{{ eg 
 \example.
 Nos numeros reais, estamos bem acostumados com as relações de ordem
 ($\leq$, $\geq$, $<$, $>$).
-Nos inteiros já estudamos bastante a relação de ``divide'' $\divides$.
+Nos inteiros já estudamos bastante a relação binária de ``divide''
+($\dhole\divides\dhole$) e a relação ternária de ``congruência modular''
+($\dhole \cong \dhole \pmod \dhole$).
 \endexample
 %%}}}
 
@@ -17441,20 +17466,21 @@ $$
 %%}}}
 
 \blah.
-As relações podem ``relacionar'' tipos diferentes.
+Relações podem ``relacionar'' tipos diferentes.
 
 %%{{{ eg 
 \example.
 Considere as relações seguintes, cujos argumentos não têm o mesmo típo.
 $$
 \align
-\namedpred{Born}(x,w)       &\defiff \text{$x$ nasceu no ano $w$}\\
-\namedpred{Author}(x,k)     &\defiff \text{$x$ escreveu o livro $k$}
+\namedpred{Born}(x,w)       &\defiff \text{$x$ nasceu no ano $w$} \\
+\namedpred{Author}(x,k)     &\defiff \text{$x$ escreveu o livro $k$} \\
+\namedpred{Read}(x,k)       &\defiff \text{$x$ leu o livro $k$}
 \endalign
 $$
 O primeiro argumento da primeira relação é uma pessoa
-mas o segundo é um ano; e a relação $\namedpred{Author}$
-é entre pessoas e livros.
+mas o segundo é um ano; e as relações $\namedpred{Author}$
+e $\namedpred{Read}$ são ambas entre pessoas e livros.
 \endexample
 %%}}}
 
@@ -17485,6 +17511,78 @@ $$
 \endexample
 %%}}}
 
+%%{{{ the type of a relation 
+\note O ``tipo'' de uma relação.
+Com cada relação associamos o seu \dterm{tipo} (pedimos emprestada aqui
+a terminologia usada em funções) que é apenas a informação de tipo
+para cada uma das suas entradas.
+%%}}}
+
+%%{{{ funlike_notation_for_relations 
+\note Notação funcionista.
+\label{funlike_notation_for_relations}%
+Relações de aridade $2$ são as mais comuns, e usamos certa notação
+e terminologia especialmente só para elas.
+Nesse caso, podemos ver o conceito de relação como uma generalização de função,
+onde nos livramos das duas condições do~\refn{functionhood_conditions}.
+Por isso, quando temos uma relação no $A\times B$
+usamos a frase <<relação \emph{de} $A$ \emph{para} $B$>>.
+Vamos criar uma notação parecida com aquala das funções para dizer que $R$
+é uma relação do conjunto $A$ para o conjunto $B$.
+Escrevemos, equivalentemente:
+$$
+R : A \relto B
+\qqqquad
+R : B \relfrom A
+\qqqquad
+A \reltoarrow R B
+\qqqquad
+B \relfromarrow R A.
+$$
+Todo isso quis dizer apenas que $R$ é uma relação binária entre $A$ e $B$.
+Também, em vez de escrever $R(x,y)$, escrevemos as vezes
+o $R$ com notação \emph{infixa}: $x \rel R y$.
+%%}}}
+
+%%{{{ beware: this notatios is not standard 
+\beware.
+A notação definida no~\refn{funlike_notation_for_relations}
+\emph{não} é padrão.
+%%}}}
+
+%%{{{ setlike_notation_for_relations 
+\note Notação conjuntista.
+\label{setlike_notation_for_relations}%
+Vestindo nosso chapel de conjuntista, abusamos a notação conjuntista e escrevemos
+tambem $\tupp{x,y} \in R$ para dizer que $R(x,y)$.
+E para afirmar que $R$ é uma relação ``de tipo'' $A\times B$, escrevemos
+até $R \subseteq A\times B$.
+É importante entender bem neste momento que essas são apenas
+\emph{notações}.  Uma relação $R$ \emph{não é} um conjunto, então nada pertence nela,
+e similarmente ela não é subconjunto de ninguém!
+Mesmo assim escrevemos coisas como
+$\namedpred{Author} \subseteq \cal P \times \cal B$
+e
+$\namedpred{Parents} \subseteq \cal P^3$
+\emph{entendendo} como: ``a $\namedpred{Author}$ é uma relação binária
+entre $\cal P$ e $\cal B$'' e ``a $\namedpred{Parents}$ é uma relação
+ternária entre membros de $\cal P$''.
+Mais uma vez: relações \emph{não são} conjuntos.
+%%}}}
+
+%%{{{ x: repeat_after_me_relations_are_not_sets 
+\exercise.
+Repita!
+
+\hint
+Relações \emph{não são}\dots
+
+\solution
+Relações \emph{não são} conjuntos!
+
+\endexercise
+%%}}}
+
 %%{{{ Black boxes 
 \note Black boxes.
 \label{blackbox_rel}%
@@ -17498,7 +17596,9 @@ Nesse caso dizemos que os $x_1,\dotsc,x_n$ \dterm{satisfazem} a $R$.
 
 \blah.
 Cada vez que introduzimos um tipo novo, precisamos definir quando dois objetos
-desse tipo são iguais.  Vamos fazer isso agora.
+desse tipo são iguais.  Vamos fazer isso agora.  Novamente, vamos optar para
+identificar relações cujos comportamentos são indistinguíveis usando apenas
+os seus interfaces.
 
 %%{{{ df: R_eq_S_bin_on_single_set_case 
 \definition Igualdade.
@@ -17532,31 +17632,35 @@ Digamos que $R=S$ sse para todo $x\in A\union C$, e todo $y \in B\union D$, temo
 \endexercise
 %%}}}
 
-%%{{{ notation: funlike_notation_for_rels 
-\note Notação.
-\label{funlike_notation_for_rels}%
-Como nas relações também temos a idéia de <<relação \emph{de} \dots\ \emph{para} \dots>>,
-vamos criar uma notação parecida com aquala das funções para dizer que $R$ é uma relação do conjunto $A$ para o conjunto $B$.
-Escrevemos, equivalentemente:
-$$
-R : A \relto B
-\qqqquad
-R : B \relfrom A
-\qqqquad
-A \reltoarrow R B
-\qqqquad
-B \relfromarrow R A.
-$$
-%%}}}
-
-\beware.
-A notação definida no~\refn{funlike_notation_for_rels} \emph{não} é padrão.
-
-\endsection
-%%}}}
-
 %%{{{ Intension vs. Extension 
-\section Intensão vs{.}~extensão.
+\note Intensão vs{.}~extensão.
+Com nossa experiência com \emph{intensão} e \emph{extensão} de
+conjuntos~(\refn{Intension_vs_extension_in_sets}) e de
+funções~(\refn{intension_vs_extension_in_functions}
+e~\refn{programs_vs_functions}), não precisamos esclarecer
+muita coisa sobre relações, pois a idéia continua a mesma.
+%%}}}
+
+%%{{{ eg: R(n) vs T(n) intensionally and extensionally 
+\example.
+Considere as relações no $\nats$:
+$$
+\align
+R(n) &\defiff \Prime(n) \mland \Even(n) \\
+T(n) &\defiff n = 2.
+\endalign
+$$
+As \emph{intensões} das relações $R$ e $T$ são diferentes,
+mas a \emph{extensão} é comum:
+$$
+\lforall {n\in\nats} {R(n) \iff T(n)}.
+$$
+\endexample
+%%}}}
+
+\blah.
+Para capturar a extensão duma relação, definimos o seu gráfico,
+na mesma forma que definimos no caso de funções~(\ref{function_graph}).
 
 %%{{{ df: relation_graph 
 \definition.
@@ -17575,11 +17679,144 @@ $$
 também conhecido como \dterm{truth set} da $R$.
 %%}}}
 
+%%{{{ remark: graph R = graph T and setlike notation 
+\remark.
+Agora temos uma maneira formal para afirmar que $R$ e $T$ tem
+a mesma extensão: $\graph R = \graph T$.
+E agora a notação conjuntista do~\refn{setlike_notation_for_relations}
+vira literalmente correta se substituir as relações por seus gráficos.
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Defining relations 
 \section Definindo relações.
+
+%%{{{ with holes 
+\note Com buracos.
+Começando com uma expressão que denota um \emph{objeto}
+e botando $n$ buracos em certas subexpressões dela, criamos
+uma \emph{função} de aridade $n$.
+Se fizer a mesma coisa numa expressão que denota uma \emph{afirmação},
+então criamos uma \emph{relação} de aridade $n$.
+%%}}}
+
+%%{{{ eg: john_loves_mary_holes 
+\example.
+Considere a frase \trel{João ama Maria}.
+Criamos assim as relações:
+$$
+\align
+L &\defeq \mtrel{{\thole} ama {\thole}} \\
+J &\defeq \mtrel{João ama {\thole}} \\
+M &\defeq \mtrel{{\thole} ama Maria}.
+\endalign
+$$
+A primeira é uma relação no $\cal P \times \cal P$ e as outras duas no $\cal P$.
+Usando variáveis em vez de buracos, escrevemos:
+$$
+\align
+L(x,y) &\defiff \mtrel{$x$ ama $y$} \\
+J(x)   &\defiff \mtrel{João ama $x$} \\
+M(x)   &\defiff \mtrel{$x$ ama Maria}.
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ other ways of defining relations 
+\note Outras maneiras de definir relações.
+Em vez de explicar todas as maneiras seguintes em detalhe,
+contamos que um exemplo é suficiente para cada caso, pois
+todas essas maneiras são já bem conhecidas graças à nossa
+experiência com funções no~\ref{Functions}.
+%%}}}
+
+%%{{{ eg: with formulas 
+\example Com fórmulas.
+Considere os conjuntos $\cal P$ de todas as pessoas
+e $\cal B$ de todos os livros.
+Sejam as relações
+$P\subseteq \ints$,
+$R\subseteq \ints \times \ints$,
+$Q\subseteq \cal P \times \cal B$, e
+$M\subseteq \ints^3$,
+definidas pelas fórmulas:
+$$
+\align
+P(n)     &\defiff \lforall {x,y\in\ints} {xy = n \limplies \paren{|x| = 1 \lor |y| = 1}} \\
+R(n,m)   &\defiff \lnot\lexists {k \in \ints} {\Prime(k) \land 2^n < k < 3^m}; \\
+Q(p,b)   &\defiff \lexists {b' \in \cal B} {b \neq b' \land \namedpred{Read}(p,b') \land \lexists {a \in \cal P} {\namedpred{Author}(a,b) \land \namedpred{Author}(a,b')}} \\
+C(a,b,m) &\defiff \lexists {k \in \ints} {mk = a-b}
+\endalign
+$$
+Tente expressar cada uma delas em lingua natural.
+\endexample
+%%}}}
+
+%%{{{ eg: relations_with_text 
+\example Com texto.
+\label{relations_with_text}%
+Sejam as relações $\namedpred{Coauthors}$ (binária, entre pessoas)
+e $\namedpred{SameCard}$ (unária, nos conjuntos), definidas pelas:
+$$
+\align
+\namedpred{Coauthors}(x,y) &\defiff \text{$x$ e $y$ já escreveram algum livro juntos}; \\
+\namedpred{SameCard}(x)    &\defiff \text{todos os membros de $x$ são conjuntos com a mesma cardinalidade}.
+\endalign
+$$
+Temos por exempo $\namedpred{Coauthors}(\textrm{Birkhoff}, \textrm{Mac Lane})$
+e $\namedpred{SameCard}(\set{ \set{0,1}, \set{\nats,\set{42}}, \set{\emptyset, \set{\emptyset}}})$.
+\endexample
+%%}}}
+
+%%{{{ beware: definitive text 
+\beware.
+Como sempre, tomamos cuidado quando definimos coisas com texto:
+tem que ser uma afirmação definitiva, sem ambigüidades, etc.
+%%}}}
+
+%%{{{ x: do_nats_ints_rats_reals_have_the_same_cardinality 
+\exercise.
+\label{do_nats_ints_rats_reals_have_the_same_cardinality}%
+Com a definição de $\namedpred{SameCard}$ do~\ref{relations_with_text},
+$\namedpred{SameCard}(\set{\nats,\ints,\rats,\reals})$?
+Responda com ``sim'' ou ``não'', com uma curtíssima explicação (sem prova).
+
+\hint
+Lembre a~\ref{naive_cardinality}.
+
+\solution
+Infelizmente não podemos ainda responder nessa pergunta:
+sua resposta é um dos assuntos principais do~\ref{Cantors_paradise}.
+Paciência!
+Se tu respondeste ``sim'' pois pensou que todos são conjuntos infinitos,
+fizeste bem, pois é uma resposta aceitável \emph{neste momento}.
+Só que\dots~não é uma resposta correta!
+(Aliás, seguindo a~\ref{naive_cardinality} é uma resposta correta sim,
+porém vamos ter que redefinir o conceito de cardinalidade logo.)
+
+\endexercise
+%%}}}
+
+%%{{{ eg: partial application 
+\example Aplicação parcial.
+Sejam as relações $\namedpred{EqPar}$ (binária entre inteiros),
+$B$ (unária em pessoas), e $N$ (unária em inteiros), definidas pelas:
+$$
+\align
+\namedpred{EqPar} &\defeq \dhole \cong \dhole \pmod 2 \\
+B                 &\defeq \namedpred{Coauthors}(\textrm{Birkhoff}, \dhole) \\
+N                 &\defeq \dhole < 0.
+\endalign
+$$
+Assim temos por exemplo:
+$\namedpred{EqPar}(3,11)$ mas $\lnot\namedpred{EqPar}(3,4)$;
+$B(\textrm{Mac~Lane})$ mas $\lnot B(\textrm{Thanos})$;
+$N(-23)$ mas $\lnot N(0)$.
+\endexample
+%%}}}
 
 \endsection
 %%}}}
@@ -19065,8 +19302,13 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Emulating functions with relations and vice-versa 
-\section Emulando funções com relações e vice versa.
+%%{{{ Implementing functions as relations and vice-versa 
+\section Implementando funções como relações e vice versa.
+
+\blah.
+Já encontramos a ideia de \emph{implementação} de algum
+conceito matemático no~\ref{Functions}
+(veja novamente o~\ref{implement_nondeterministic_functions}).
 
 \endsection
 %%}}}
@@ -19074,7 +19316,21 @@ $$
 %%{{{ Higher-order relations 
 \section Relações de ordem superior.
 
-\TODO HOL.
+\blah.
+Talvez você já se perguntou o que acontece se numa frase como a
+$$
+\mtrel{João ama Maria}
+$$
+em vez de substrituir os objetos ``João'' e ``Maria'' com buracos,
+substituir o próprio verbo ``amar'':
+$$
+\mtrel{João {\thole} Maria}.
+$$
+Chegamos assim no conceito de relações de ordem superior.
+Não vale a pena investigar (ainda) esse conceito pois necessita
+mais umas ferramentas (e pouco mais maduridade).
+Voltamos depois de estudar programação lógica (\ref{Logic_programming})
+e lógicas de ordem superior (\ref{Mathematical_logic}).
 
 \endsection
 %%}}}
@@ -27976,6 +28232,7 @@ Defina o $\cV$ dos $\cI$, $\cK$, $\cM$, $\cB$, $\cBp$, $\cC$, $\cS$, $\cW$, $\cR
 
 %%{{{ chapter: Mathematical logic 
 \chapter Lógica matemática.
+\label{Mathematical_logic}%
 
 %%{{{ Semantics: worlds and models 
 \section Semântica: mundos e modelos.
