@@ -18577,174 +18577,6 @@ Ache o erro na prova acima e \emph{prove} que a proposição é falsa!
 \endsection
 %%}}}
 
-%%{{{ Closures 
-\section Fechos.
-
-\TODO Lembre o que é conjunto fechado pela operação.
-
-\TODO Intuição com diagramas.
-
-%%{{{ pseudodf: fecho_pseudodefinition 
-\pseudodefinition.
-\label{fecho_pseudodefinition}%
-\tdefined{fecho!de relação}%
-Seja $R$ uma relação binária num conjunto $A$,
-e fixe uma propriedade \emph{razoável}
-daquelas que aparecem no~glossário~\refn{relations_glossary}.
-Definimos o fecho da $R$ pela propriedade para ser a relação que criamos se
-botar num jeito \emph{justo} todas as \emph{necessárias}
-setinhas no diagrama da $R$ até ela virar uma relação com a propriedade
-desejada.
-%%}}}
-
-\TODO Examples for fecho reflexivo, simétrico, transitivo.
-
-\TODO Por que não falamos de fecho total, asimétrico, etc.
-
-\TODO Explique o ``justo''.
-
-\TODO Explique o ``necessárias''.
-
-%%{{{ df: rclosure 
-\definition Fecho reflexivo.
-\label{rclosure}%
-\tdefined{fecho!reflexivo}%
-\sdefined {\rclosure {\holed R}} {o fecho reflexivo da \holed R}%
-\sdefined {\rcl {\holed R}} {o fecho reflexivo da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos a relação $\rclosure R$ pela
-$$
-x \rclosure R y \defiff x \rel R y \mlor x = y
-$$
-Chamamos a $\rclosure R$ o \dterm{fecho reflexivo} da $R$.
-Também usamos a notação $\rel {R^=}$.
-%%}}}
-
-%%{{{ x: wrong_sclosure_definition 
-\exercise.
-Alguém definiu o fecho simétrico assim:
-\endgraf
-\emph{Seja $R$ relação binária num conjunto $A$.
-Seu fecho simétrico é a relação $\sclosure R$ definida pela}
-$$
-x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R y.
-$$
-\endgraf
-Ache o erro na definição e mostre que a definição realmente é errada.
-
-\endexercise
-%%}}}
-
-%%{{{ df: sclosure 
-\definition Fecho simétrico.
-\label{sclosure}%
-\tdefined{fecho!simétrico}%
-\sdefined {\sclosure {\holed R}} {o fecho simétrico da \holed R}%
-\sdefined {\scl {\holed R}} {o fecho simétrico da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos a relação $\sclosure R$ pela
-Chamamos a $\sclosure R$ o \dterm{fecho simétrico} da $R$.
-Também usamos a notação $\rel {R^\leftrightarrow}$.
-%%}}}
-
-%%{{{ x: wrong_tclosure_definition 
-\exercise.
-Alguém definiu o fecho transitivo assim.
-\emph{Seja $R$ relação binária num conjunto $A$.
-Seu fecho transitivo é a relação $\tclosure R$ definida pela}
-$$
-x \tclosure R y \pseudodefiff \text{existe $w\in A$ tal que $x \rel R w \mland w \rel R y$}.
-$$
-Mas isso não é o fecho transitivo da $R$.  O que é mesmo?
-
-\solution
-A relação definida é a $R^2$, ou seja, a $R \rcom R$.
-
-\endexercise
-%%}}}
-
-%%{{{ df: tclosure and rtclosure 
-\definition Fecho transitivo.
-\label{tclosure}%
-\label{rtclosure}%
-\tdefined{fecho!transitivo}%
-\tdefined{fecho!reflexivo-transitivo}%
-\sdefined {\tclosure {\holed R}} {o fecho transitivo da \holed R}%
-\sdefined {\tcl {\holed R}} {o fecho transitivo da \holed R}%
-\sdefined {\rtclosure {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
-\sdefined {\rtcl {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos as relações $\tclosure R$ e $\rtclosure R$ pelas
-$$
-\xalignat2
-x \tclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats_{>0}$}.
-&&\text{(\dterm{fecho transitivo} da $R$)}\\
-x \rel {R^*} y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats$}
-&&\text{(\dterm{fecho reflexivo-transitivo} da $R$)}\\
-\endxalignat
-$$
-Chamamos a $\tclosure R$ o \dterm{fecho transitivo} da $R$,
-e a $\rtclosure R$ o \dterm{fecho reflexivo-transitivo} da $R$.
-Também usamos as notações $\tcl R$ para o $\tclosure R$
-e $\rtcl R$ para o $\rtclosure R$.
-%%}}}
-
-%%{{{ x: order_of_closures_matters 
-\exercise.
-\label{order_of_closures_matters}%
-Seja $R$ relação num conjunto $A$.
-Podemos concluir alguma das afirmações seguintes?:
-\beginil
-\item{(i)}  $t(r(R)) \askeq r(t(R))$
-\item{(ii)} $t(s(R)) \askeq s(t(R)$
-\endil
-\noindent
-Onde $r, s, t$ são os fechos reflexivo, simétrico, transitivo respectivamente.
-
-\hint
-Use diagramas internos.
-
-\hint
-Tente achar um contraexemplo para o (ii).
-Qual a dificuldade de achar contraexemplo para o (i)?
-
-\endexercise
-%%}}}
-
-\blah.
-Deixamos as definições de outros fechos para os problemas.
-
-%%{{{ x: isPred 
-\exercise.
-\label{isPred}
-Considere a relação $\to$ no $\nats$, definida pela:
-$$
-x\to y \defiff x + 1 = y.
-$$
-Descreva as relações seguintes:
-\item{$\transcl{\to}$}: seu fecho transitivo;
-\item{$\rtranscl{\to}$}: seu fecho reflexivo transitivo;
-\item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo transitivo simétrico.
-\endgraf\noindent
-Descreva o conjunto quociente $\quoset{\nats}{\rtranscl{\leftrightarrow}}$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: isPred_in_reals 
-\exercise.
-\label{isPred_in_reals}%
-Considere a relação $\to$ definida pela mesma equação como
-no~\ref{isPred}, mas essa vez no conjunto $\reals$.
-Descreva os mesmos fechos e o
-$\quoset{\reals}{\rtranscl{\leftrightarrow}}$.
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Equivalence relations and partitions 
 \section Relações de equivalência e partições.
 
@@ -19318,6 +19150,174 @@ mostrando que cada preordem $R$ fornece uma ordem $R'$.
 \TODO Ordens estritas.
 
 \TODO De fraca para estrita, ida e volta.
+
+\endsection
+%%}}}
+
+%%{{{ Closures 
+\section Fechos.
+
+\TODO Lembre o que é conjunto fechado pela operação.
+
+\TODO Intuição com diagramas.
+
+%%{{{ pseudodf: fecho_pseudodefinition 
+\pseudodefinition.
+\label{fecho_pseudodefinition}%
+\tdefined{fecho!de relação}%
+Seja $R$ uma relação binária num conjunto $A$,
+e fixe uma propriedade \emph{razoável}
+daquelas que aparecem no~glossário~\refn{relations_glossary}.
+Definimos o fecho da $R$ pela propriedade para ser a relação que criamos se
+botar num jeito \emph{justo} todas as \emph{necessárias}
+setinhas no diagrama da $R$ até ela virar uma relação com a propriedade
+desejada.
+%%}}}
+
+\TODO Examples for fecho reflexivo, simétrico, transitivo.
+
+\TODO Por que não falamos de fecho total, asimétrico, etc.
+
+\TODO Explique o ``justo''.
+
+\TODO Explique o ``necessárias''.
+
+%%{{{ df: rclosure 
+\definition Fecho reflexivo.
+\label{rclosure}%
+\tdefined{fecho!reflexivo}%
+\sdefined {\rclosure {\holed R}} {o fecho reflexivo da \holed R}%
+\sdefined {\rcl {\holed R}} {o fecho reflexivo da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos a relação $\rclosure R$ pela
+$$
+x \rclosure R y \defiff x \rel R y \mlor x = y
+$$
+Chamamos a $\rclosure R$ o \dterm{fecho reflexivo} da $R$.
+Também usamos a notação $\rel {R^=}$.
+%%}}}
+
+%%{{{ x: wrong_sclosure_definition 
+\exercise.
+Alguém definiu o fecho simétrico assim:
+\endgraf
+\emph{Seja $R$ relação binária num conjunto $A$.
+Seu fecho simétrico é a relação $\sclosure R$ definida pela}
+$$
+x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R y.
+$$
+\endgraf
+Ache o erro na definição e mostre que a definição realmente é errada.
+
+\endexercise
+%%}}}
+
+%%{{{ df: sclosure 
+\definition Fecho simétrico.
+\label{sclosure}%
+\tdefined{fecho!simétrico}%
+\sdefined {\sclosure {\holed R}} {o fecho simétrico da \holed R}%
+\sdefined {\scl {\holed R}} {o fecho simétrico da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos a relação $\sclosure R$ pela
+Chamamos a $\sclosure R$ o \dterm{fecho simétrico} da $R$.
+Também usamos a notação $\rel {R^\leftrightarrow}$.
+%%}}}
+
+%%{{{ x: wrong_tclosure_definition 
+\exercise.
+Alguém definiu o fecho transitivo assim.
+\emph{Seja $R$ relação binária num conjunto $A$.
+Seu fecho transitivo é a relação $\tclosure R$ definida pela}
+$$
+x \tclosure R y \pseudodefiff \text{existe $w\in A$ tal que $x \rel R w \mland w \rel R y$}.
+$$
+Mas isso não é o fecho transitivo da $R$.  O que é mesmo?
+
+\solution
+A relação definida é a $R^2$, ou seja, a $R \rcom R$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: tclosure and rtclosure 
+\definition Fecho transitivo.
+\label{tclosure}%
+\label{rtclosure}%
+\tdefined{fecho!transitivo}%
+\tdefined{fecho!reflexivo-transitivo}%
+\sdefined {\tclosure {\holed R}} {o fecho transitivo da \holed R}%
+\sdefined {\tcl {\holed R}} {o fecho transitivo da \holed R}%
+\sdefined {\rtclosure {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
+\sdefined {\rtcl {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos as relações $\tclosure R$ e $\rtclosure R$ pelas
+$$
+\xalignat2
+x \tclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats_{>0}$}.
+&&\text{(\dterm{fecho transitivo} da $R$)}\\
+x \rel {R^*} y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats$}
+&&\text{(\dterm{fecho reflexivo-transitivo} da $R$)}\\
+\endxalignat
+$$
+Chamamos a $\tclosure R$ o \dterm{fecho transitivo} da $R$,
+e a $\rtclosure R$ o \dterm{fecho reflexivo-transitivo} da $R$.
+Também usamos as notações $\tcl R$ para o $\tclosure R$
+e $\rtcl R$ para o $\rtclosure R$.
+%%}}}
+
+%%{{{ x: order_of_closures_matters 
+\exercise.
+\label{order_of_closures_matters}%
+Seja $R$ relação num conjunto $A$.
+Podemos concluir alguma das afirmações seguintes?:
+\beginil
+\item{(i)}  $t(r(R)) \askeq r(t(R))$
+\item{(ii)} $t(s(R)) \askeq s(t(R)$
+\endil
+\noindent
+Onde $r, s, t$ são os fechos reflexivo, simétrico, transitivo respectivamente.
+
+\hint
+Use diagramas internos.
+
+\hint
+Tente achar um contraexemplo para o (ii).
+Qual a dificuldade de achar contraexemplo para o (i)?
+
+\endexercise
+%%}}}
+
+\blah.
+Deixamos as definições de outros fechos para os problemas.
+
+%%{{{ x: isPred 
+\exercise.
+\label{isPred}
+Considere a relação $\to$ no $\nats$, definida pela:
+$$
+x\to y \defiff x + 1 = y.
+$$
+Descreva as relações seguintes:
+\item{$\transcl{\to}$}: seu fecho transitivo;
+\item{$\rtranscl{\to}$}: seu fecho reflexivo transitivo;
+\item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo transitivo simétrico.
+\endgraf\noindent
+Descreva o conjunto quociente $\quoset{\nats}{\rtranscl{\leftrightarrow}}$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: isPred_in_reals 
+\exercise.
+\label{isPred_in_reals}%
+Considere a relação $\to$ definida pela mesma equação como
+no~\ref{isPred}, mas essa vez no conjunto $\reals$.
+Descreva os mesmos fechos e o
+$\quoset{\reals}{\rtranscl{\leftrightarrow}}$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
