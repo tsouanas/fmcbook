@@ -17775,7 +17775,7 @@ $$
 %%{{{ other ways of defining relations 
 \note Outras maneiras de definir relações.
 Em vez de explicar todas as maneiras seguintes em detalhe,
-contamos que um exemplo é suficiente para cada caso, pois
+eu acho que um exemplo é suficiente para cada caso, pois
 todas essas maneiras são já bem conhecidas graças à nossa
 experiência com funções no~\ref{Functions}.
 %%}}}
@@ -17802,9 +17802,9 @@ Tente expressar cada uma delas em lingua natural.
 \endexample
 %%}}}
 
-%%{{{ eg: relations_with_text 
+%%{{{ eg: relations_with_text_example 
 \example Com texto.
-\label{relations_with_text}%
+\label{relations_with_text_example}%
 Sejam as relações $\namedpred{Coauthors}$ (binária, entre pessoas)
 e $\namedpred{SameCard}$ (unária, nos conjuntos), definidas pelas:
 $$
@@ -17827,7 +17827,7 @@ tem que ser uma afirmação definitiva, sem ambigüidades, etc.
 %%{{{ x: do_nats_ints_rats_reals_have_the_same_cardinality 
 \exercise.
 \label{do_nats_ints_rats_reals_have_the_same_cardinality}%
-Com a definição de $\namedpred{SameCard}$ do~\ref{relations_with_text},
+Com a definição de $\namedpred{SameCard}$ do~\ref{relations_with_text_example},
 $\namedpred{SameCard}(\set{\nats,\ints,\rats,\reals})$?
 Responda com ``sim'' ou ``não'', com uma curtíssima explicação (sem prova).
 
@@ -17847,8 +17847,9 @@ porém vamos ter que redefinir o conceito de cardinalidade logo.
 \endexercise
 %%}}}
 
-%%{{{ eg: partial application 
+%%{{{ eg: partial_application_in_relations_example 
 \example Aplicação parcial.
+\label{partial_application_in_relations_example}%
 Sejam as relações $\namedpred{EqPar}$ (binária entre inteiros),
 $B$ (unária em pessoas), e $N$ (unária em inteiros), definidas pelas:
 $$
@@ -18213,10 +18214,34 @@ A direção \rldir\ é similar.
 \DefPred{Child}%
 Prove ou refute:
 $$
-\Child\rcom\Child
+\Child\rcom\Parent
 \askeq
 \Parent\rcom\Child.
 $$
+
+\hint
+{%
+\DefPred{Parent}%
+\DefPred{Child}%
+$\Child\rcom\Parent\neq\Parent\rcom\Child$.
+Agora refute!
+}
+
+\solution
+{%
+\DefPred{Parent}%
+\DefPred{Child}%
+Temos $\Child\rcom\Parent\neq\Parent\rcom\Child$:
+\endgraf
+Tome $x,y\in \cal P$ dois irmãos que não têm filhos (juntos).
+Logo
+$$
+x \relp{\Parent\rcom\Child} y
+\qqtext{mas não}
+x \relp{\Child\rcom\Parent} y.
+$$
+Demonstramos assim que as duas relações são diferentes.
+}
 
 \endexercise
 %%}}}
@@ -18276,9 +18301,9 @@ $$
 \endexercise
 %%}}}
 
-\TODO Interações.
-
-\TODO De composição e identidade para iteração.
+\blah.
+Tendo uma operação binária (composição) e sua identidade (\ref{id_of_rcom})
+podemos já definir as suas potências.
 
 %%{{{ x: R_exp_n 
 \exercise Iterações.
@@ -18350,7 +18375,19 @@ $$
 \endexercise
 %%}}}
 
-\TODO Quais propriedades ``familiares'' tem a inversa nas relações?.
+%%{{{ x: describe_coauthors_in_terms_of_author 
+\exercise.
+Descreva a $\namedpred{Coauthors}$ do \ref{relations_with_text_example}
+em termos da $\namedpred{Author}$.
+
+\solution
+Considerando que um escritor é coescritor com ele mesmo,
+$$
+\namedpred{Coauthors} = \namedpred{Author}\rcom\rinv{\namedpred{Author}}.
+$$
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
