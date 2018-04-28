@@ -18675,7 +18675,7 @@ $$
 &\iff x = x'\\
 \tup{x,y} \sim_2 \tup{x',y'}
 &\iff y = y'\\
-\tup{x,y} \sim_{\text N} \tup{x',y'}
+\tup{x,y} \sim_{\textrm N} \tup{x',y'}
 &\iff \norm{ \tup{x,y} } = \norm{ \tup{x',y'} }
 \endalign
 $$
@@ -18689,26 +18689,47 @@ Facilmente todas são relações de equivalência.
 No $\reals^3$ considere as relações:
 $$
 \align
-\tup{x,y,z} \sim_1 \tup{x',y',z'}
+\tup{x,y,z} \sim_3 \tup{x',y',z'}
 &\iff z = z'\\
-\tup{x,y,z} \sim_2 \tup{x',y',z'}
-&\iff x = x' \mland y = y'
+\tup{x,y,z} \sim_{1,2} \tup{x',y',z'}
+&\iff x = x' \mland y = y' \\
+\tup{x,y,z} \sim_{\textrm N} \tup{x',y',z'}
+&\iff \norm{ \tup{x,y,z} } = \norm{ \tup{x',y',z'} }
 \endalign
 $$
-Facilmente ambas são relações de equivalência.
+Facilmente todas são relações de equivalência.
 \endexample
 %%}}}
 
 %%{{{ x: cannot replace and with or 
 \exercise.
-Mudamos o ``e'' para ``ou'' na última relação do~\ref{equivalent_relations_on_euclidean_space}:
+Mudamos o ``e'' para ``ou'' na segunda relação
+do~\ref{equivalent_relations_on_euclidean_space}:
 $$
-\tup{x,y,z} \sim_3 \tup{x',y',z'} \iff x = x' \mlor y = y'
+\tup{x,y,z} \sim \tup{x',y',z'} \iff x = x' \mlor y = y'
 $$
-A $\sim_3$ é uma relação de equivalência?
+A $\sim$ é uma relação de equivalência?
 
 \hint
 Ache um contraexemplo que refuta sua transitividade.
+
+\solution
+Não, pois não é transitiva.
+Tome os
+$\tup{0,0,0}$,
+$\tup{0,1,0}$, e
+$\tup{2,1,0}$.
+Observe que
+$$
+\tup{0,0,0}
+\sim
+\tup{0,1,0}
+\mland
+\tup{0,1,0}
+\sim
+\tup{2,1,0}
+$$
+mas $\tup{0,1,0} \not\sim \tup{2,1,0}$.
 
 \endexercise
 %%}}}
@@ -18718,10 +18739,10 @@ Ache um contraexemplo que refuta sua transitividade.
 \label{equivalent_properties_to_eqrel}%
 Seja $R$ uma relação binária num conjunto $A$.
 O.s.s.e.:
-\item{(i)} $R$ é uma relação de equivalência;
-\item{(ii)} $R$ é reflexiva e circular;
-\item{(iii)} $R$ é reflexiva e left-euclideana.
-\item{(iv)} $R$ é reflexiva e right-euclideana.
+\item{(i)}   $R$ é uma relação de equivalência;
+\item{(ii)}  $R$ é reflexiva e circular;
+\item{(iii)} $R$ é reflexiva e left-euclideana;
+\item{(iv)}  $R$ é reflexiva e right-euclideana.
 
 \endexercise
 %%}}}
@@ -18735,16 +18756,32 @@ Quantas relações de equivalência podemos definir no $A$?
 \hint
 Deixe para responder junto com o~\ref{how_many_partitions_on_3}.
 
+\solution
+Encontramos a resposta dessa pergunta no~\ref{how_many_partitions_on_3}.
+
 \endexercise
 %%}}}
 
 %%{{{ remark: conventions_for_internal_diagrams_of_rel 
 \remark Convenções para diagramas internos.
 \label{conventions_for_internal_diagrams_of_rel}%
-
+Quando queremos desenhar o diagrama duma relação que
+sabemos que tem uma certa propriedade, podemos preguiçar
+e não desenhar todas as suas setas.
+\crtabcase{Reflexiva:}
+não precisamos botar nenhuma das setinhas-redemoinhos,
+pois graças à reflexividade são todas implicitas.
+\crtabcase{Simétrica:}
+não precisamos botar cabeças nas setas, pois para
+cada seta já é garantida a sua seta-oposta, então
+botamos apenas uma linha entre dois objetos e já
+entendemos que existem as setas das duas direções
+entre si.
+\crtabcase{Transitiva:}
+não precisamos desenhar setas entre objetos se já
+existe um caminho entre eles usando outras setas
+já desenhadas.
 %%}}}
-
-\TODO Elaborar.
 
 %%{{{ Partition 
 \note Partição.
@@ -18760,16 +18797,13 @@ Esse tipo de colecção de classes vamos definir agora.
 \definition.
 \label{partition}%
 \tdefined{partição}%
-Seja $A$ conjunto e $\scr A$ uma família de subconjuntos de $A$:
-$$
-\scr A \subseteq \powerset A.
-$$
+Seja $A$ conjunto e $\scr A \subseteq \pset A$ uma família de subconjuntos de $A$.
 $\scr A$ é uma \dterm{partição} de $A$, sse:
 \item{(i)} $\Union \scr A = A$;
 \item{(ii)} os membros de $\scr A$ são disjuntos dois a dois;
-\item{(iii)} $\emptyset \notin \scr A$;
+\item{(iii)} $\emptyset \notin \scr A$.
 \endgraf\noindent
-Chamamos de \dterm{classes} os elementos de $\scr A$.
+Chamamos de \dterm{classes} os membros da $\scr A$.
 %%}}}
 
 %%{{{ x: partitions_of_seven 
@@ -18785,6 +18819,29 @@ $$
 \scr A_4 &= \big\{ \set 0, \set 1, \set 2, \set 3, \set 4, \set 5, \set 6 \big\}&\scr A_8 &= \big\{ \set 0, \set{1,2}, \set{6,5,4,3} \big\}        
 \endalignat
 $$
+
+\endexercise
+%%}}}
+
+%%{{{ x: union_scr_A_subset_already_known 
+\exercise.
+\label{union_scr_A_subset_already_known}%
+Podemos trocar o~(i) da~\ref{partition} por
+$$
+\text{(i$'$)}\quad\Union \scr A \supseteq A \ ?
+$$
+
+\hint
+Será que já sabemos a outra ``direção'' da igualdade?
+
+\solution
+Sim!
+Pois como $\scr A$ é uma família de subconjuntos de $A$,
+já sabemos que $\Union \scr A \subseteq A$.
+Logo, afirmar $\Union \scr A = A$ ou afirmar $\Union \scr A \supseteq A$
+nesse caso é a mesma coisa.
+Escolhemos o (i) pois fica mais natural (e porque se retirar a hipótese
+que $\scr A \subseteq \pset A$, o (i) vira necessário).
 
 \endexercise
 %%}}}
@@ -18971,7 +19028,7 @@ $$
 $$
 %%}}}
 
-%%{{{ eg: some_eqclasses_geometrically_and_algebrically
+%%{{{ eg: some_eqclasses_geometrically_and_algebrically 
 \example.
 \label{some_eqclasses_geometrically_and_algebrically}%
 Vamos descrever geometricamente as classes de equivalência das
@@ -18984,26 +19041,61 @@ $$
 &\iff x = x'\\
 \tup{x,y} \sim_2 \tup{x',y'}
 &\iff y = y'\\
-\tup{x,y} \sim_{\text N} \tup{x',y'}
+\tup{x,y} \sim_{\textrm N} \tup{x',y'}
 &\iff \norm{ \tup{x,y} } = \norm{ \tup{x',y'} }
 \endalign
 $$
+Em cada classe de equivalência da $\sim_1$ então, estão todos os
+pares que concordam na sua primeira coordenada.  Ou seja,
+cada classe é uma retas vertical, e o conjunto quociente é
+colecção de todas essas linhas.  Olhando ainda mais de longe,
+podemos ``identificar'' cada reta com seu representante canônico
+que fica no eixo-$x$, ou seja, podemos dizer que
+$$
+\quoset {\reals^2} {\sim_1} \pseudoeq \reals.
+$$
+A situação é similar para a $\sim_2$, so que essa vez são todas
+as retas horizontais, mas olhando novamente de longe,
+identificamos cada reta com seu representante canônico
+que agora fica no eixo-$y$, ou seja, novamente temos
+$$
+\quoset {\reals^2} {\sim_2} \pseudoeq \reals.
+$$
+Sobe a $\sim_{\textrm N}$, a classes do seu
+conjunto quociente são todos os cíclos com centro a origem $(0,0)$,
+incluindo o ``ciclo-trivial'' com raio $0$, que acaba sendo apenas
+o ponto $(0,0)$ mesmo.
+Essa vez, identificando cada cíclo com seu raio, chegamos
+na
+$$
+\quoset {\reals^2} {\sim_{\textrm N}} \pseudoeq \reals_{\geq 0}.
+$$
+Por enquanto, entendemos todas essas $\pseudoeq$ apenas como
+um ``modo de falar''.
+Cuidado pois nenhuma delas é uma verdadeira $=$!
+Os dois lados dessas ``igualdades'' são conjuntos cujos membros
+nem são objetos do mesmo tipo!
+No lado esquerdo pertencem \emph{conjuntos de pares de números reais},
+no lado direito pertencem \emph{números reais}.
 \endexample
 %%}}}
 
-\TODO Terminar o exemplo acima e o exercício em baixo com gráficos.
-
-%%{{{ x: more_eqclasses_geometrically_and_algebrically
+%%{{{ x: more_eqclasses_geometrically_and_algebrically 
 \exercise.
 \label{more_eqclasses_geometrically_and_algebrically}%
 Descreva geometricamente e algebricamente os conjuntos quocientes
 das relações de equivalência
 do~\ref{equivalent_relations_on_euclidean_space}.
 
+\hint
+Entendeu o~\ref{some_eqclasses_geometrically_and_algebrically}?
+
+\solution
+
 \endexercise
 %%}}}
 
-%%{{{ x: more_eqclasses_geometrically_and_algebrically
+%%{{{ x: guaranteed_eqrels 
 \exercise.
 \label{guaranteed_eqrels}%
 Seja $A$ um conjunto qualquer.
@@ -19018,14 +19110,14 @@ A identidade $=$, a trivial $\True$, e a vazia $\False$.
 
 %%{{{ x: equivalent_statements_to_x_equiv_y 
 \exercise.
-Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $x,y\in X$.
+Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $a,b\in X$.
 Mostre que as afirmações seguintes são equivalentes:
-\item{(i)} $x\sim y$
-\item{(ii)} $\eqclassimp x = \eqclassimp y$
-\item{(iii)} $\eqclassimp x \inter \eqclassimp y \neq \emptyset$.
+\item{(i)} $a\sim b$
+\item{(ii)} $\eqclassimp a = \eqclassimp b$
+\item{(iii)} $\eqclassimp a \inter \eqclassimp b \neq \emptyset$.
 
 \solution
-Vamos provar o ``(i)\bidir(iii)''.
+Vamos provar primeiro a ``(i)\bidir(iii)''.
 \endgraf
 \lrdir.
 Suponha que $a \sim b$.
@@ -19044,6 +19136,19 @@ ou seja $w \sim a$ e $w \sim b$ pela definição de classe de equivalência.
 Pela simetría da $\sim$ temos $a \sim w$.
 Agora como $a\sim w$ e $w \sim b$, pela transitividade da $\sim$ ganhamos
 o desejado $a \sim b$.
+\endgraf
+Agora vamos provar a ``(i)\bidir(ii)''.
+\endgraf
+\lrdir.
+Suponha que $a \sim b$.
+Tome $x\in \eqclassimp a$.
+Logo $x \sim a$.
+Mas $a \sim b$ e logo pela transitividade da $\sim$ temos $x \sim b$,
+e logo $x \in \eqclassimp b$.
+\rldir.
+Suponha que $\eqclassimp a = \eqclassimp b$.
+Pela reflexividade da $\sim$, sabemos que $a\in\eqclassimp a$.
+Logo $a\in\eqclassimp b$, e logo $a\sim b$ pela definição de $\eqclassimp b$.
 
 \endexercise
 %%}}}
@@ -19145,6 +19250,11 @@ $$
 \iff
 \cdots
 $$
+
+\solution
+Não, pois já provamos nas dicas que a $\sim_\delta$ não é transitiva
+para todo $\delta\in(0,1)$.  Como $\epsilon^2 \in (0,1)$ o resultado
+é imediato pois $x \approx_\epsilon y \iff x \sim_{\epsilon^2} y$.
 
 \endexercise
 %%}}}
@@ -20111,6 +20221,105 @@ $a \sim b$ e $b \sim c$ mas $a\not\sim c$.
 \sdefined {\leclo {\holed R}} {o fecho left-euclideano da \holed R}%
 Seja $R$ uma relação num conjunto $A$.
 Defina seus fechos: cíclico~($\cclo R$), left-euclideano~($\leclo R$), right-euclideano~($\reclo R$).
+
+\endproblem
+%%}}}
+
+%%{{{ prob: smiles_and_frowns 
+\problem.
+\label{smiles_and_frowns}%
+\def\Smile{\rel{\ddot\smile}}%
+\def\Frown{\rel{\ddot\frown}}% 
+No conjunto $\reals$ defina as relações:
+$$
+\align
+x \smile y
+    &\defiff x \leq y
+             \mland
+             \lnot \lexists {n \in \ints} {x \leq n \leq y} \\
+x \frown y
+    &\defiff x \leq y
+             \mland
+             \lnot \lexists {n \in \ints} {x < n < y}
+\endalign
+$$
+Sejam $\Smile$ o fecho reflexivo-simétrico da $\smile$,
+e $\Frown$ o fecho simétrico da $\frown$.
+\endgraf
+(i) Prove que $\Smile$ é uma relação de equivalência;
+(ii) Prove ou refute a afirmação: \emph{$\Frown$ é uma relação de equivalência}.
+
+\hint
+{%
+\def\Smile{\rel{\ddot\smile}}%
+\def\Frown{\rel{\ddot\frown}}%
+Sobre a (i):
+defina uma partição $\scr C$ de $\reals$ tal que $\scr C = \quoset \reals {\Smile}$;
+pois isso já mostraria que $\Smile$ é uma relação de equivalência.
+Sobre a (ii): a afirmação é falsa; refute!
+}
+
+\hint
+{%
+\def\Smile{\rel{\ddot\smile}}%
+\def\Frown{\rel{\ddot\frown}}%
+Sobre a (i):
+Defina a partição de $\reals$
+$$
+\scr C \defeq
+\munderbrace {\set{ (n,n+1) \st n\in\ints}} {\dsize \cal I}
+\union
+\munderbrace {\set{ \set{n} \st n \in\ints}} {\dsize \cal S}.
+$$
+Basta provar que $\scr C = \quoset \reals {\Smile}$.
+\endgraf\noindent
+Sobre a (ii): mostre com um contraexemplo que $\Frown$ não é transitiva.
+}
+
+\solution
+{%
+\def\Smile{\rel{\ddot\smile}}%
+\def\Frown{\rel{\ddot\frown}}%
+(i)
+Defina a partição de $\reals$
+$$
+\scr C \defeq
+\munderbrace {\set{ (n,n+1) \st n\in\ints}} {\dsize \cal I}
+\union
+\munderbrace {\set{ \set{n} \st n \in\ints}} {\dsize \cal S}.
+$$
+Basta provar que
+$
+    \scr C = \quoset \reals {\Smile}
+$,
+ou seja:
+$$
+    x\Smile y \iff \lexists {C\in \scr C} {x\in C \mland y\in C}.
+$$
+{\rldir}.
+Trivial nos dois casos $C\in\cal I$ e $C\in\cal S$.
+\endgraf\noindent
+{\lrdir}.
+Pela hipótese, $x=y$ ou $x\smile y$ ou $y\smile x$.
+Separamos então em casos:
+\endgraf\noindent
+\case{Caso $x=y$:}
+Caso $x\in\ints$ tome $C=\set x\in\cal S$.
+Caso $x\notin\ints$ tome $C=(\floor x, \floor x + 1)\in\cal I$.
+\endgraf\noindent
+\case{Caso $x\smile y$:}
+Nesse caso $[x,y] \inter \ints = \emptyset$.
+Facilmente, $\floor x < x \leq y < \floor x + 1$.
+Tome novamente $C=(\floor x, \floor x + 1)\in\cal I$.
+\endgraf\noindent
+\case{Caso $y\smile x$:}
+Similar.
+\endgraf
+(ii) Não é, pois não é transitiva.
+Observe que $0 \Frown 1$, pois não existe inteiro no $(0,1)$,
+e similarmente $1 \Frown 2$.
+Mas $0 \not\Frown 2$, pois $1$ é inteiro e $1\in(0,2)$.
+}
 
 \endproblem
 %%}}}
