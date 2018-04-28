@@ -7469,6 +7469,7 @@ e nos vamos ficar consistentemente fieis nela!
 %%{{{ The relation congruence modulo $m$ 
 \section A relação de congruência módulo~$m$.
 
+%%{{{ Fixing an $m$ 
 \note Fixando um $m$.
 Se fixar um inteiro $m>0$, então a expressão
 $$
@@ -7477,10 +7478,11 @@ $$
 tem duas variáveis livres: a $a$ e a $b$.
 Assim, a ``congruência módulo~$m$'' é uma relação binária,
 cujas propriedades investigamos agora.
+%%}}}
 
+%%{{{ thm: congruence_mod_m_is_an_eqrel 
 \theorem.
-\ii{relação}[de equivalência]
-\label{congruence_is_an_equivalence_relation}
+\label{congruence_mod_m_is_an_eqrel}%
 Fixe um inteiro $m > 0$.
 Para todos os $a,b\in\ints$,
 temos:
@@ -7504,6 +7506,15 @@ e as propriedades básicas da $\divides$.
 Então pelo~\ref{divides_properties} $m\divides (a-b) + (b-c) = a-c$.
 (3) Pela hipótese temos $m\divides a - b$\thinspace; logo (\refn{divides_properties} de novo) $m\divides -(a - b) = b - a$.
 \qed
+%%}}}
+
+%%{{{ remark: equivalence relation 
+\remark.
+\ii{relação}[de equivalência]%
+Uma relação que satisfaz essas três propriedades é chamada
+\dterm{relação de equivalência}~(\refn{Equivalence_relations_and_partitions}).
+Estudamos relações no~\ref{Relations}.  Paciência!
+%%}}}
 
 \endsection
 %%}}}
@@ -17631,6 +17642,7 @@ Mais uma vez: relações \emph{não são} conjuntos.
 
 %%{{{ x: repeat_after_me_relations_are_not_sets 
 \exercise.
+\label{repeat_after_me_relations_are_not_sets}%
 Repita!
 
 \hint
@@ -17936,27 +17948,82 @@ onde, para todos $x,y\in A$, desenhamos uma setinha
 $x\longrightarrow y$ sse $x \rel R y$.
 %%}}}
 
-\TODO Terminar o exemplo seguinte.
-
 %%{{{ eg: first_internal_diagrams_for_rel 
 \example.
 \label{first_internal_diagrams_for_rel}%
 Seja $A = \set{1, 2, 3, 4, 5, 6, 7, 8}$.
-Desenhamos:
+Desenhamos os diagramas de três relações binárias no $A$:
 $$
 \tikzpicture[>=stealth, scale=0.84]
-\tikzi internaldiagramrel1;
+\tikzi internaldiagramrel0;
+\draw[->] (elem-1) to [bend left=20]  (elem-2);
+\draw[->] (elem-2) to [bend left=20]  (elem-1);
+\draw[->] (elem-8) to                 (elem-6);
+\draw[->] (elem-5) to                 (elem-7);
+\draw[->] (elem-5) to                 (elem-8);
+\node (elem-4h) at (-1.5 ,-1.3 ) {};
+\draw[->] (elem-4h) arc (10:290:0.25);
+\node (elem-5h) at ( 0.1 , 0.7 ) {};
+\draw[->] (elem-5h) arc (10:290:0.25);
+\draw (0,-3.0) node {$R$};
 \endtikzpicture
 \quad
 \tikzpicture[>=stealth, scale=0.84]
-\tikzi internaldiagramrel2;
+\tikzi internaldiagramrel0;
+\draw[->] (elem-1) to                 (elem-2);
+\draw[->] (elem-8) to                 (elem-6);
+\draw[->] (elem-7) to                 (elem-5);
+\draw[->] (elem-5) to                 (elem-8);
+\draw[->] (elem-6) to                 (elem-5);
+\draw (0,-3.0) node {$S$};
 \endtikzpicture
 \quad
 \tikzpicture[>=stealth, scale=0.84]
-\tikzi internaldiagramrel3;
+\tikzi internaldiagramrel0;
+\draw[->] (elem-1) to [bend left=20]  (elem-2);
+\draw[->] (elem-2) to [bend left=20]  (elem-1);
+\draw[->] (elem-5) to [bend left=20]  (elem-8);
+\draw[->] (elem-8) to [bend left=20]  (elem-5);
+\draw[->] (elem-3) to [bend left=20]  (elem-4);
+\draw[->] (elem-4) to [bend left=20]  (elem-3);
+\draw[->] (elem-7) to [bend left=10]  (elem-6);
+\draw[->] (elem-6) to [bend left=10]  (elem-7);
+\node (elem-5h) at ( 0.1 , 0.7 ) {};
+\draw[->] (elem-5h) arc (10:290:0.25);
+\draw (0,-3.0) node {$Q$};
 \endtikzpicture
 $$
+Os gráficos delas então são os
+$$
+\align
+\graph R &= \set{ (1,2), (2,1), (4,4), (5,5), (5,7), (5,8), (8,6) } \\
+\graph S &= \set{ (1,2), (5,8), (6,5), (7,5), (8,6) } \\
+\graph Q &= \set{ (1,2), (2,1), (3,4), (4,3), (5,5), (5,8), (6,7), (7,6), (8,5) }.
+\endalign
+$$
+Mais uma vez, aviso que é comum identificar uma relação $R$ com seu gráfico
+$\graph R$, escrevendo por exemplo $R = \set { (1,2), (2,1), \dotsc }$.
+Já fez o~\ref{repeat_after_me_relations_are_not_sets}, né?
 \endexample
+%%}}}
+
+%%{{{ x: empty_and_true_relation 
+\exercise.
+\label{empty_and_true_relation}%
+No mesmo conjunto $A = \set{1,2,3,4,5,6,7,8}$, como parecem os diagramas
+das relações $F,T$ com gráficos $\graph F = \emptyset$ e $\graph T = A^2$?
+
+\solution
+O diagrama da $F$ parece assim:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi internaldiagramrel0;
+\draw (0,-3.0) node {$F$};
+\endtikzpicture
+$$
+E o diagrama da $T$ parece uma bagunça.
+
+\endexercise
 %%}}}
 
 %%{{{ x: we_cannot_draw_two_parallel_arrows_on_a_rel_diagram 
@@ -17974,28 +18041,61 @@ de \emph{quantas vezes} um certo objeto relaciona com um certo outro.
 \endexercise
 %%}}}
 
+%%{{{ remark: conventions_for_internal_diagrams_of_rel 
+\remark Convenções para diagramas internos.
+\label{conventions_for_internal_diagrams_of_rel}%
+Quando queremos desenhar o diagrama duma relação que
+sabemos que tem uma certa propriedade, podemos preguiçar
+e não desenhar todas as suas setas.
+\crtabcase{Reflexiva:}
+não precisamos botar nenhuma das setinhas-redemoinhos,
+pois graças à reflexividade são todas implicitas.
+\crtabcase{Simétrica:}
+não precisamos botar cabeças nas setas, pois para
+cada seta já é garantida a sua seta-oposta, então
+botamos apenas uma linha entre dois objetos e já
+entendemos que existem as setas das duas direções
+entre si.
+\crtabcase{Transitiva:}
+não precisamos desenhar setas entre objetos se já
+existe um caminho entre eles usando outras setas
+já desenhadas.
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Constructions and operations on relations 
 \section Construções e operações em relações.
 
-%%{{{ df: rinverse 
-\definition.
-\label{rinverse}%
-Seja $R$ uma relação de $A$ para $B$.
-Definimos a relação $\rinv R$ pela:
-$$
-x \rinv R y \defiff y \rel R x.
-$$
-%%}}}
-
 \blah.
 Todas as relações que consideramos nessa secção serão binárias.
 
-\note Composição.
+%%{{{ df: ropposite 
+\definition.
+\label{ropposite}%
+Seja $R$ uma relação de $A$ para $B$.
+Definimos a sua \dterm{relação oposta} $\rop R$ de $B$ para $A$ pela:
+$$
+x \rop R y \defiff y \rel R x.
+$$
+Também é conhecida como \dterm{relação inversa} ou \dterm{relação dual}.
+A notação mais comum para essa relação é a $\rinv R$.
+%%}}}
 
-\TODO Ideia.
+%%{{{ eg: opposite_relations_of_common_orders 
+\example.
+Nos $\reals$, a relação oposta $\rop<$ da $<$ é a $>$,
+e a $\rop\leq$ é a $\geq$.
+\endexample
+%%}}}
+
+%%{{{ Composition 
+\note Composição.
+Dadas relações compatíveis, podemos formar sua composição
+$R\rcom S$ numa forma natural.  Vamos ver uns exemplos
+antes de chegar na definição formal.
+%%}}}
 
 %%{{{ eg: persons_books_words 
 \example.
@@ -18078,7 +18178,7 @@ estão afirmando a mesma coisa?
 %%}}}
 
 \blah.
-Vamos ver mais um exemplo, essa vez usando apenas um conjunto---e
+Segue mais um exemplo, essa vez usando apenas um conjunto---e
 logo todas as relações são gratuitamente compatíveis para composição.
 
 %%{{{ x: grandparents_grandchildren_siblings_and_couples_with_children 
@@ -18357,11 +18457,12 @@ onde escrevemos $\Eq$ para a relação de igualdade $=$.
 \endexercise
 %%}}}
 
-%%{{{ x: operation_with_inverse_does_not_yield_identity 
+%%{{{ x: operation_with_opposite_does_not_yield_identity 
 \exercise.
-\label{operation_with_inverse_does_not_yield_identity}%
+\label{operation_with_opposite_does_not_yield_identity}%
 Prove ou refute:
-\emph{para toda relação binária $R$ num conjunto $A$, $R \rcom \rinv R = \Eq = \rinv R \rcom R$}.
+\emph{para toda relação binária $R$ num conjunto $A$,
+$R \rcom \rop R = \Eq = \rop R \rcom R$}.
 
 \hint
 \ref{grandparents_grandchildren_siblings_and_couples_with_children}.
@@ -18373,7 +18474,7 @@ Prove ou refute:
 {%
 \DefPred{Parent}%
 \DefPred{Child}%
-Temos $\Parent = \rinv \Child$ (e logo $\Child = \rinv \Parent$ também).
+Temos $\Parent = \rop \Child$ (e logo $\Child = \rop \Parent$ também).
 }
 
 \solution
@@ -18382,7 +18483,7 @@ Temos $\Parent = \rinv \Child$ (e logo $\Child = \rinv \Parent$ também).
 \DefPred{Child}%
 Não, como o contraexemplo do~\ref{only_if_incest} mostra, pois
 $$
-{\Parent} = {\rinv \Child} \qquad\mland\qquad {\Child} = {\rinv \Parent}.
+{\Parent} = {\rop \Child} \qquad\mland\qquad {\Child} = {\rop \Parent}.
 $$
 }
 
@@ -18397,10 +18498,24 @@ em termos da $\namedpred{Author}$.
 \solution
 Considerando que um escritor é coescritor com ele mesmo,
 $$
-\namedpred{Coauthors} = \namedpred{Author}\rcom\rinv{\namedpred{Author}}.
+\namedpred{Coauthors} = \namedpred{Author}\rcom\rop{\namedpred{Author}}.
 $$
 
 \endexercise
+%%}}}
+
+%%{{{ beware: rinv_is_not_inverse 
+\beware A inversa não é inversa.
+\label{rinv_is_not_inverse}%
+Depois dos exercícios~\refn{operation_with_opposite_does_not_yield_identity}
+e~\refn{describe_coauthors_in_terms_of_author}, deve ser claro porque eu
+preferi chamar a $\rop R$ a relação \emph{oposta} da $R$, e usar essa notação
+em vez de $\rinv R$ e o nome \emph{inversa}.
+(Que também usamos pois são os mais comuns!)
+Se usar a notação $\rinv R$, cuidado para não confudir pensando que
+$R \rcom \rinv R = \namedpred{Eq} = \rinv R \rcom R$, pois em geral isso
+não é verdade.
+Ou seja: a relação ``inversa'' $\rinv R$, \emph{não é a $\rcom$-inversa} da $R$!
 %%}}}
 
 \endsection
@@ -18595,8 +18710,9 @@ $$
 %%{{{ x: investigate_rel_properties_of_three_diags 
 \exercise.
 \label{investigate_rel_properties_of_three_diags}%
-Para cada uma das relações $R,S,T$ do~\refn{first_internal_diagrams_for_rel} decida
-se ela têm ou não, cada uma das propriedades do glossário no~\refn{relations_glossary}.
+Para cada uma das relações $R,S,Q,F,T$ do~\refn{first_internal_diagrams_for_rel}
+e do~\ref{empty_and_true_relation} decida se ela têm ou não, cada uma das
+propriedades do glossário no~\refn{relations_glossary}.
 
 \hint
 Cuidado: nas propriedades que acabam ser implicações, as variáveis que aparecem
@@ -18629,6 +18745,7 @@ Ache o erro na prova acima e \emph{prove} que a proposição é falsa!
 
 %%{{{ Equivalence relations and partitions 
 \section Relações de equivalência e partições.
+\label{Equivalence_relations_and_partitions}%
 
 %%{{{ Equivalence 
 \note Equivalência.
@@ -18663,6 +18780,29 @@ segue que $a$ e $c$ também serão equivalentes.
 Seja $A$ conjunto e $\sim$ uma relação binária no $A$.
 Chamamos $\sim$ uma \dterm{relação de equivalência} sse ela é
 reflexiva, simétrica, e transitiva.
+%%}}}
+
+%%{{{ eg: eq_is_an_eqrel 
+\example.
+\label{eq_is_an_eqrel}%
+A $=$ é uma relação de equivalência.
+\endexample
+%%}}}
+
+%%{{{ x: congruence_mod_m_is_an_eqrel_again 
+\exercise.
+\label{congruence_mod_m_is_an_eqrel_again}%
+Seja $m\in\nats$.
+Prove que a relação binária nos inteiros definida pela
+$$
+a \cong_m b \defiff a \cong b \pmod m
+$$
+é uma relação de equivalência.
+
+\solution
+Esqueceu o~\ref{congruence_mod_m_is_an_eqrel}?
+
+\endexercise
 %%}}}
 
 %%{{{ eg: equivalent_relations_on_euclidean_plane 
@@ -18734,19 +18874,6 @@ mas $\tup{0,1,0} \not\sim \tup{2,1,0}$.
 \endexercise
 %%}}}
 
-%%{{{ x: equivalent_properties_to_eqrel 
-\exercise.
-\label{equivalent_properties_to_eqrel}%
-Seja $R$ uma relação binária num conjunto $A$.
-O.s.s.e.:
-\item{(i)}   $R$ é uma relação de equivalência;
-\item{(ii)}  $R$ é reflexiva e circular;
-\item{(iii)} $R$ é reflexiva e left-euclideana;
-\item{(iv)}  $R$ é reflexiva e right-euclideana.
-
-\endexercise
-%%}}}
-
 %%{{{ x: how_many_equivalent_relations_on_3 
 \exercise.
 \label{how_many_equivalent_relations_on_3}%
@@ -18762,25 +18889,17 @@ Encontramos a resposta dessa pergunta no~\ref{how_many_partitions_on_3}.
 \endexercise
 %%}}}
 
-%%{{{ remark: conventions_for_internal_diagrams_of_rel 
-\remark Convenções para diagramas internos.
-\label{conventions_for_internal_diagrams_of_rel}%
-Quando queremos desenhar o diagrama duma relação que
-sabemos que tem uma certa propriedade, podemos preguiçar
-e não desenhar todas as suas setas.
-\crtabcase{Reflexiva:}
-não precisamos botar nenhuma das setinhas-redemoinhos,
-pois graças à reflexividade são todas implicitas.
-\crtabcase{Simétrica:}
-não precisamos botar cabeças nas setas, pois para
-cada seta já é garantida a sua seta-oposta, então
-botamos apenas uma linha entre dois objetos e já
-entendemos que existem as setas das duas direções
-entre si.
-\crtabcase{Transitiva:}
-não precisamos desenhar setas entre objetos se já
-existe um caminho entre eles usando outras setas
-já desenhadas.
+%%{{{ x: equivalent_properties_to_eqrel 
+\exercise.
+\label{equivalent_properties_to_eqrel}%
+Seja $R$ uma relação binária num conjunto $A$.
+O.s.s.e.:
+\item{(i)}   $R$ é uma relação de equivalência;
+\item{(ii)}  $R$ é reflexiva e circular;
+\item{(iii)} $R$ é reflexiva e left-euclideana;
+\item{(iv)}  $R$ é reflexiva e right-euclideana.
+
+\endexercise
 %%}}}
 
 %%{{{ Partition 
@@ -19065,8 +19184,7 @@ Sobe a $\sim_{\textrm N}$, a classes do seu
 conjunto quociente são todos os cíclos com centro a origem $(0,0)$,
 incluindo o ``ciclo-trivial'' com raio $0$, que acaba sendo apenas
 o ponto $(0,0)$ mesmo.
-Essa vez, identificando cada cíclo com seu raio, chegamos
-na
+Essa vez, identificando cada cíclo com seu raio, chegamos na
 $$
 \quoset {\reals^2} {\sim_{\textrm N}} \pseudoeq \reals_{\geq 0}.
 $$
@@ -19153,16 +19271,15 @@ Logo $a\in\eqclassimp b$, e logo $a\sim b$ pela definição de $\eqclassimp b$.
 \endexercise
 %%}}}
 
-%%{{{ x: congruence_mod_m_is_an_eqrel 
+%%{{{ x: quoset_of_congruence_mod_m 
 \exercise.
-\label{congruence_mod_m_is_an_eqrel}%
+\label{quoset_of_congruence_mod_m}%
 Seja $m\in\nats$.
-Prove que a relação binária nos inteiros definida pela
-$$
-a \sim_m b \defiff a \cong b \pmod m
-$$
-é uma relação de equivalência.
-Qual é a partição dos inteiros correspondente?
+Já provou no~\ref{congruence_mod_m_is_an_eqrel} que a relação de
+congruência módulo $m$ é uma relação de equivalência.
+Então: qual é o seu conjunto quociente?
+Também: seguindo a idéia do~\ref{some_eqclasses_geometrically_and_algebrically},
+com que tu ``identificaria'' o $\quoset \ints {\cong_m}$?
 
 \endexercise
 %%}}}
