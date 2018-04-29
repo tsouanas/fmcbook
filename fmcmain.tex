@@ -18941,9 +18941,9 @@ Esse tipo de colecção de classes vamos definir agora.
 \tdefined{partição}%
 Seja $A$ conjunto e $\scr A \subseteq \pset A$ uma família de subconjuntos de $A$.
 $\scr A$ é uma \dterm{partição} de $A$, sse:
-\item{(i)} $\Union \scr A = A$;
-\item{(ii)} os membros de $\scr A$ são disjuntos dois a dois;
-\item{(iii)} $\emptyset \notin \scr A$.
+\item{(P1)} $\Union \scr A = A$;
+\item{(P2)} os membros de $\scr A$ são disjuntos dois a dois;
+\item{(P3)} $\emptyset \notin \scr A$.
 \endgraf\noindent
 Chamamos de \dterm{classes} os membros da $\scr A$.
 %%}}}
@@ -18968,9 +18968,9 @@ $$
 %%{{{ x: union_scr_A_subset_already_known 
 \exercise.
 \label{union_scr_A_subset_already_known}%
-Podemos trocar o~(i) da~\ref{partition} por
+Podemos trocar o~(P1) da~\ref{partition} por
 $$
-\text{(i$'$)}\quad\Union \scr A \supseteq A \ ?
+\text{(P1$'$)}\quad\Union \scr A \supseteq A \ ?
 $$
 
 \hint
@@ -18982,8 +18982,8 @@ Pois como $\scr A$ é uma família de subconjuntos de $A$,
 já sabemos que $\Union \scr A \subseteq A$.
 Logo, afirmar $\Union \scr A = A$ ou afirmar $\Union \scr A \supseteq A$
 nesse caso é a mesma coisa.
-Escolhemos o (i) pois fica mais natural (e porque se retirar a hipótese
-que $\scr A \subseteq \pset A$, o (i) vira necessário).
+Escolhemos o (P1) pois fica mais natural (e porque se retirar a hipótese
+que $\scr A \subseteq \pset A$, o (P1) vira necessário).
 
 \endexercise
 %%}}}
@@ -18991,9 +18991,9 @@ que $\scr A \subseteq \pset A$, o (i) vira necessário).
 %%{{{ x: pairwise_necessary_for_partition 
 \exercise.
 \label{pairwise_necessary_for_partition}%
-Podemos trocar o~(ii) da~\ref{partition} por
+Podemos trocar o~(P2) da~\ref{partition} por
 $$
-\text{(ii$'$)}\quad\Inter \scr A = \emptyset\  ?
+\text{(P2$'$)}\quad\Inter \scr A = \emptyset\  ?
 $$
 
 \hint
@@ -19113,6 +19113,51 @@ Escreva claramente como definir uma partição dum conjunto $A$,
 dada uma relação de equivalência $\sim$ no $A$.
 Prove que realmente é uma partição
 (a partição \dterm{induzida} pela $\sim$).
+
+\solution
+Seja $\sim$ relação de equivalência num conjunto $A$.
+Vamos provar que $\quoset A \sim$ é uma partição do $A$.
+Primeiramente observe que cada membro de $\quoset A \sim$
+é um subconjunto de $A$.  Basta verificar as (P1)--(P3)
+da~\ref{partition}:
+\crproofpart{(P1) Mostrar que $A \subseteq \Union \paren{\quoset A \sim}$.}
+Tome $a\in A$.
+Como $a \sim a$, então $a \in \eqclassimp a$.
+Agora como $\eqclassimp a \in \quoset A \sim$,
+temos que $a \in \Union \paren{\quoset A \sim}$.
+\crproofpart{(P2) Os membros de $\quoset A \sim$ são disjuntos dois a dois.}
+Sejam $C,D \in \quoset A \sim$.
+Logo sejam $c,d \in A$ tais que $C = \eqclassimp c$ e $D = \eqclassimp d$.
+Precisamos provar \emph{qualquer uma} das duas implicações (são contrapositivas):
+$$
+\align
+C\neq D                 &\implies C\inter D = \emptyset; \\
+C\inter D\neq\emptyset  &\implies C = D.
+\endalign
+$$
+Vamos provar a segunda.
+Suponha $C\inter D \neq \emptyset$ e seja logo $w\in C\inter D$.
+Ou seja, $w\in C$ e $w \in D$, e logo $w \sim c$ e $w \sim d$.
+Queremos provar que $C = D$.
+{\lrdirset.}
+Tome $x \in C = \eqclassimp c$.
+Temos:
+$$
+x \sim c \sim w \sim d
+$$
+e logo $x \in \eqclassimp d = D$ e $C\subseteq D$.
+A {\rldirset} é similar.
+\crproofpart{(P3) $\emptyset \notin \quoset A \sim$.}
+Basta provar que para cada $a\in A$, $\eqclassimp a \neq \emptyset$.
+Isso é uma conseqüência da reflexividade da $\sim$, pois
+para todo $a\in A$, $a \in \eqclassimp a$.
+\endgraf
+Se escolher a primeira implicação na parte de (P2), a gente continua assim:
+Suponha $C\neq D$ e logo sem perda de generalidade, tome $c_0 \in C\setminus D$.
+Logo $c_0 \sim c$ e $c_0 \not\sim d$.
+Isso já mostra que não pode ter nenhum elemento $w \in C\inter D$, pois
+nesse caso teriamos $c_0 \sim c \sim w \sim d$ que obrigaria $c_0 \sim d$;
+impossível.
 
 \endexercise
 %%}}}
