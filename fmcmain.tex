@@ -13399,9 +13399,9 @@ de composição ``mais geral''.
 Mas para a gente aqui, vamos supor que para motivos que não
 importam---talvez religiosos, ou um TOC mesmo---\emph{não podemos}
 conectar esse cabo no meio quando os conjuntos são diferentes:
-\quote{
+\quote
 \emph{<<Não comporás funções $f$ e $g$ se $\cod f \neq \dom g$!>>}
-}
+\endquote
 Essa suposta restrição, na verdade não nos restringe---pelo contrário:
 nos ajuda criar composições ``limpas'' sem gambiarras como essa
 ``fita durex'' no cabo conectando o $B$ com o $B'$!
@@ -17052,7 +17052,7 @@ $$
 \img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
 $$
 Sua ``prova'' foi a seguinte:
-\quote{\noindent
+\quote
 <<Calculamos:
 $$
 \alignat2
@@ -17071,7 +17071,7 @@ $$
 Logo temos
 $\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}$
 pela definição de igualdade de conjuntos.>>
-}
+\endquote
 Ache os seus erros.
 
 \hint
@@ -17961,11 +17961,9 @@ $$
 \draw[->] (elem-8) to                 (elem-6);
 \draw[->] (elem-5) to                 (elem-7);
 \draw[->] (elem-5) to                 (elem-8);
-\node (elem-4h) at (-1.5 ,-1.3 ) {};
-\draw[->] (elem-4h) arc (10:290:0.25);
-\node (elem-5h) at ( 0.1 , 0.7 ) {};
-\draw[->] (elem-5h) arc (10:290:0.25);
-\draw (0,-3.0) node {$R$};
+\draw[->] ([shift={(0,.2)}]elem-4) arc (10:290:0.25);
+\draw[->] ([shift={(0,.2)}]elem-5) arc (10:290:0.25);
+\draw (rellabel) node {$R$};
 \endtikzpicture
 \quad
 \tikzpicture[>=stealth, scale=0.84]
@@ -17975,7 +17973,7 @@ $$
 \draw[->] (elem-7) to                 (elem-5);
 \draw[->] (elem-5) to                 (elem-8);
 \draw[->] (elem-6) to                 (elem-5);
-\draw (0,-3.0) node {$S$};
+\draw (rellabel) node {$S$};
 \endtikzpicture
 \quad
 \tikzpicture[>=stealth, scale=0.84]
@@ -17988,9 +17986,8 @@ $$
 \draw[->] (elem-4) to [bend left=20]  (elem-3);
 \draw[->] (elem-7) to [bend left=10]  (elem-6);
 \draw[->] (elem-6) to [bend left=10]  (elem-7);
-\node (elem-5h) at ( 0.1 , 0.7 ) {};
-\draw[->] (elem-5h) arc (10:290:0.25);
-\draw (0,-3.0) node {$Q$};
+\draw[->] ([shift={(0,.2)}]elem-5) arc (10:290:0.25);
+\draw (rellabel) node {$Q$};
 \endtikzpicture
 $$
 Os gráficos delas então são os
@@ -19080,8 +19077,8 @@ denotamos a $\eqclass a \sim$ apenas por $\eqclassimp a$.
 \exercise.
 Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $a,b\in X$.
 Mostre que as afirmações seguintes são equivalentes:
-\item{(i)} $a\sim b$
-\item{(ii)} $\eqclassimp a = \eqclassimp b$
+\item{(i)} $a\sim b$;
+\item{(ii)} $\eqclassimp a = \eqclassimp b$;
 \item{(iii)} $\eqclassimp a \inter \eqclassimp b \neq \emptyset$.
 
 \solution
@@ -19125,7 +19122,7 @@ Logo $a\in\eqclassimp b$, e logo $a\sim b$ pela definição de $\eqclassimp b$.
 %%}}}
 
 %%{{{ Partitions 
-\section Partitions.
+\section Partições.
 \label{Partitions}%
 
 %%{{{ idea_of_partition 
@@ -19993,14 +19990,14 @@ Também usamos a notação $\rel {R^=}$.
 %%{{{ x: wrong_sclosure_definition 
 \exercise.
 Alguém definiu o fecho simétrico assim:
-\quote{Seja $R$ relação binária num conjunto $A$.
+\quotepar
+<<Seja $R$ relação binária num conjunto $A$.
 Seu fecho simétrico é a relação $\sclosure R$ definida pela
 $$
-x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R y.
+x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R y\;\text{.>>}
 $$
-}
+\endquote
 Ache o erro na definição e mostre que a definição realmente é errada.
-Tente corrigir o erro.
 
 \hint
 Aplique fielmente essa definição na relação do~\ref{symmetric_closure_example}.
@@ -20180,17 +20177,6 @@ Deixamos então esse assunto para o~\ref{Logic_programming}.
 \endsection
 %%}}}
 
-%%{{{ Implementing functions as relations and vice-versa 
-\section Implementando funções como relações e vice versa.
-
-\blah.
-Já encontramos a ideia de \emph{implementação} de algum
-conceito matemático no~\ref{Functions}
-(veja novamente o~\ref{implement_nondeterministic_functions}).
-
-\endsection
-%%}}}
-
 %%{{{ Higher-order relations 
 \section Relações de ordem superior.
 
@@ -20247,7 +20233,30 @@ Define no $\reals$ a relação
 $$
 x \sim y \defiff x-y\in\rats.
 $$
-Prove que $\sim$ é uma relação de equivalência e descreva as classes do $\quoset {\reals} {\sim}$.
+Prove que $\sim$ é uma relação de equivalência e descreva as classes
+do $\quoset {\reals} {\sim}$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: simh_simv 
+\problem.
+\label{simh_simv}%
+\def\simh{\sim_{\mathrm h}}%
+\def\simv{\sim_{\mathrm v}}%
+\def\apph{\approx_{\mathrm h}}%
+\def\appv{\approx_{\mathrm v}}%
+Defina as relações $\simh$ e $\simv$ no $(\ints\to\ints)$:
+$$
+\align
+f \simh g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x+u) } \\
+f \simv g &\defiff \pexists {v\in\ints} \lforall {x \in\ints} {f(x) = g(x)+v } \\
+f \apph g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x+u) } \\
+f \appv g &\defiff \pexists {v\in\nats} \lforall {x \in\ints} {f(x) = g(x)+v }
+\endalign
+$$
+Para cada uma dessas relações, decisa se é:
+(ir)reflexiva; (a(nti))simétrica; transitiva.
 
 \endproblem
 %%}}}
@@ -20352,22 +20361,6 @@ Logo, $f \rel{(\sime\rcom\simo)} g$.
 
 \endproblem
 %%}}}
-
-\ignore{
-%%{{{ prob: simh_simv 
-\problem.
-\def\simh{\sim_{\mathrm h}}
-\def\simv{\sim_{\mathrm v}}
-Defina as relações $\simh$ e $\simv$ no $(\ints\to\ints)$:
-$$
-\align
-f \simh g &\iffdef (\exists u\in\ints)(\forall x \in\ints)[f(x) = g(x+u) ]\\
-f \simv g &\iffdef (\exists v\in\ints)(\forall x \in\ints)[f(x) = g(x)+v ]
-\endalign
-$$
-\endproblem
-%%}}}
-}
 
 %%{{{ R_eq_S 
 \problem Igualdade.
@@ -20681,6 +20674,40 @@ Observe que $0 \Frown 1$, pois não existe inteiro no $(0,1)$,
 e similarmente $1 \Frown 2$.
 Mas $0 \not\Frown 2$, pois $1$ é inteiro e $1\in(0,2)$.
 }
+
+\endproblem
+%%}}}
+
+%%{{{ prob: implementing_functions_as_relations_and_vice_versa 
+\problem Implementando funções como relações e vice versa.
+\label{implementing_functions_as_relations_and_vice_versa}%
+Já encontramos a ideia de \emph{implementação} de algum
+conceito matemático no~\ref{Functions}
+(veja novamente o~\ref{implement_nondeterministic_functions}).
+Como tu definiria funções como relações, e como relações como funções?
+Dê apenas um esboço da tua idéia, sem entrar em muitos detalhes.
+
+\solution
+Seguem umas idéias.
+\crproofpart{Função como relação.}
+Sejam $A,B$ conjuntos.
+Uma relação $f$ de $A$ para $B$
+tal que $f$ é \emph{left-total} e \emph{right-unique}
+(veja o glossário~\refn{relations_glossary})
+é chamada uma \dterm{função de $A$ para $B$}.
+Escrevemos $f(x) = y$ em vez de $f(x,y)$ ou de $x \rel f y$
+e para todo $a\in A$ denotamos com $f(a)$ o único $b\in B$
+tal que $a \rel f b$.
+\crproofpart{Relação binária como função.}
+Sejam $A,B$ conjuntos.
+Uma função $R : A \to \pset B$ é chamada uma \dterm{relação de $A$ para $B$}.
+Escrevemos $a \rel R b$ quando $b \in R(a)$,
+e $a \not\rel R b$ quando $b \notin R(a)$.
+\crproofpart{Relação geral como função.}
+Seja $W$ conjunto.
+Uma função $R : W \to \bools$ é chamada uma \dterm{relação no $W$}.
+Escrevemos $R(w)$ como afirmação, quando $R(w) = \True$, e $\lnot R(w)$
+ou ``não $R(w)$'' quando $R(w) = \False$.
 
 \endproblem
 %%}}}
@@ -23560,7 +23587,7 @@ $$
 Trocamos o $\inter$ para $\union$
 no~\ref{intersection_of_subgroups_is_a_subgroup}.
 \item{(i)} Ache o erro na prova seguinte:
-\quote{
+\quote
 <<Como $H \leteq H_1\inter H_2 \subseteq G$,
 precisamos mostrar que $H$ é fechado sobre a operação:
 $$
@@ -23577,7 +23604,7 @@ $$
 }
 $$
 Logo, $H_1 \union H_2 \subgroup G$.>>
-}
+\endquote
 \item{(ii)} Prove que a proposição não é válida.
 
 \endexercise
