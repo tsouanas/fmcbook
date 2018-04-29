@@ -7512,7 +7512,7 @@ Então pelo~\ref{divides_properties} $m\divides (a-b) + (b-c) = a-c$.
 \remark.
 \ii{relação}[de equivalência]%
 Uma relação que satisfaz essas três propriedades é chamada
-\dterm{relação de equivalência}~(\refn{Equivalence_relations_and_partitions}).
+\dterm{relação de equivalência}~(\refn{Equivalence_relations}).
 Estudamos relações no~\ref{Relations}.  Paciência!
 %%}}}
 
@@ -18766,12 +18766,13 @@ Ache o erro na prova acima e \emph{prove} que a proposição é falsa!
 \endsection
 %%}}}
 
-%%{{{ Equivalence relations and partitions 
-\section Relações de equivalência e partições.
-\label{Equivalence_relations_and_partitions}%
+%%{{{ Equivalence relations 
+\section Relações de equivalência.
+\label{Equivalence_relations}%
 
-%%{{{ Equivalence 
+%%{{{ idea_of_equivalence 
 \note Equivalência.
+\label{idea_of_equivalence}%
 Considere um conjunto $A$, onde queremos ``identificar'' certos elementos deles,
 talvez porque ligamos apenas sobre uma propriedade, e queremos ignorar os
 detalhes irrelevantes que nos obrigariam distinguir uns deles.
@@ -18897,9 +18898,64 @@ mas $\tup{0,1,0} \not\sim \tup{2,1,0}$.
 \endexercise
 %%}}}
 
-%%{{{ x: how_many_equivalent_relations_on_3 
+%%{{{ df: kernel_coimage 
+\definition.
+\label{kernel_coimage}
+\tdefined{kernel}
+\tdefined{coimagem}
+\sdefined {\ker {\holed f}} {kernel da \holed f}
+\sdefined {\coim {\holed f}} {coimagem da \holed f}
+Seja $f : X \to Y$ e defina a relação binária $\frel f$ no $X$ pela
+$$
+x_1 \frel f x_2 \defiff f(x_1)=f(x_2).
+$$
+Chamamos a $\frel f$ o \dterm{kernel} da $f$, e seu conjunto quociente
+a \dterm{coimagem} da $f$.
+Usamos também os símbolos $\ker f$ e $\coim f$ respectivamente.
+%%}}}
+
+%%{{{ x: frel_is_an_eqrel 
 \exercise.
-\label{how_many_equivalent_relations_on_3}%
+\label{frel_is_an_eqrel}%
+Com os dados da~\ref{kernel_coimage}
+mostre que $\frel f$ é uma relação de equivalência e descreva os elementos da coimagem.
+O que podemos dizer se $f$ é injetora?
+Se ela é sobrejetora?
+
+\endexercise
+%%}}}
+
+%%{{{ x: immediate applications 
+\exercise.
+Mostre que todas as relações dos
+exemplos~\refn{equivalent_relations_on_euclidean_plane}
+e~\refn{equivalent_relations_on_euclidean_space}
+são casos especiais do~\ref{frel_is_an_eqrel}
+(e logo são relações de equivalência ``gratuitamente'').
+
+\hint
+Para cada uma delas, precisa definir completamente a
+$f : A \to B$ (esclarecendo também quais são os $A,B$).
+
+\endexercise
+%%}}}
+
+%%{{{ x: guaranteed_eqrels 
+\exercise.
+\label{guaranteed_eqrels}%
+Seja $A$ um conjunto qualquer.
+Quais relações de equivalência podes já definir nele, sem saber
+absolutamente nada sobre seus elementos?
+
+\solution
+A identidade $=$, a trivial $\True$, e a vazia $\False$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: how_many_equivalence_relations_on_3 
+\exercise.
+\label{how_many_equivalence_relations_on_3}%
 Seja $A$ conjunto com $\card A = 3$.
 Quantas relações de equivalência podemos definir no $A$?
 
@@ -18925,12 +18981,137 @@ O.s.s.e.:
 \endexercise
 %%}}}
 
-%%{{{ Partition 
+%%{{{ x: distance_like_not_transitive 
+\exercise.
+\label{distance_like_not_transitive}%
+Seja real $\epsilon\in(0,1)$, e defina a relação $\approx_\epsilon$:
+$$
+x \approx_\epsilon y \defiff (x-y)^2 < \epsilon.
+$$
+A $\approx_\epsilon$ é uma relação de equivalência?
+
+\hint
+Primeiramente resolve o mesmo problema mas para a relação:
+$$
+x \sim_\epsilon y \defiff |x-y| < \epsilon
+$$
+onde $\epsilon > 0$.
+
+\hint
+Reflexividade e simetria das $\sim_\epsilon$ e $\approx_\epsilon$ são imediatas.
+Sobre a transitividade, um desenho na linha real ajudaria.
+
+\hint
+Como contraexemplo, tome os reais $0$, $\epsilon/2$, e $\epsilon$ e
+observe que $0 \sim_\epsilon \epsilon/2$ e $\epsilon/2 \sim_\epsilon \epsilon$
+mas mesmo assim não temos $0\sim_\epsilon \epsilon$.
+
+\hint
+Como podes usar a não-transitividade da $\sim_\epsilon$
+para deduzir a não-transitividade da $\approx_\epsilon$?
+
+\hint
+Para todo $\alpha\in\reals_{\geq 0}$ temos:
+$$
+\cdots
+\iff
+\sqrt{\alpha}\in(0,1)
+\iff
+\alpha\in(0,1)
+\iff
+\alpha^2\in(0,1)
+\iff
+\cdots
+$$
+
+\solution
+Não é.  Uma resolução já foi rescunhada nas dicas.
+Para um contraexemplo direto, pode tomar os reais
+$0$, $\sqrt \epsilon / 2$, e $\sqrt \epsilon$.
+Observe que $0 \approx_\epsilon \sqrt \epsilon / 2$
+e $\sqrt \epsilon / 2 \approx_\epsilon \sqrt \epsilon$
+mas não temos $0 \approx_\epsilon \sqrt \epsilon$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: equivalent_class 
+\definition.
+\label{equivalent_class}%
+\tdefined{classe de equivalência}%
+\sdefined {\eqclass {\holed a} {\holed R}} {classe de equivalência do $\holed a$ através da $\holed R$}%
+\sdefined {\eqclassimp {\holed a}} {classe de equivalência do $\holed a$ (relação implícita pelo contexto)}%
+Seja $A$ um conjunto e $\sim$ uma relação de equivalência no $A$.
+Para cada $a\in A$, definimos a \dterm{classe de equivalência do} $a$
+como o conjunto de todos os membros de $A$ que $\sim$-relacionam com o $a$.
+Formalmente definimos
+$$
+\eqclass a {\sim} \defeq \set {x\in A \st x\sim a}.
+$$
+Quando a relação de equivalência é implicita pelo contexto
+denotamos a $\eqclass a \sim$ apenas por $\eqclassimp a$.
+%%}}}
+
+%%{{{ x: equivalent_statements_to_x_equiv_y 
+\exercise.
+Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $a,b\in X$.
+Mostre que as afirmações seguintes são equivalentes:
+\item{(i)} $a\sim b$
+\item{(ii)} $\eqclassimp a = \eqclassimp b$
+\item{(iii)} $\eqclassimp a \inter \eqclassimp b \neq \emptyset$.
+
+\solution
+Vamos provar primeiro a ``(i)\bidir(iii)''.
+\endgraf
+\lrdir.
+Suponha que $a \sim b$.
+Precisamos achar um elemento que pertence nos dois conjuntos
+$\eqclassimp a$ e $\eqclassimp b$.
+Tome o proprio $a$.
+Temos $a\in \eqclassimp a$ pois $a \sim a$ (pela reflexividade da $\sim$).
+Tambem temos $a \in \eqclassimp b$, pois $a \sim b$ (hipótese).
+Logo $a \in \eqclassimp a \inter \eqclassimp b\neq\emptyset$.
+\endgraf
+\rldir.
+Suponha que $\eqclassimp a\inter\eqclassimp b \neq \emptyset$
+e tome $w \in \eqclassimp a\inter\eqclassimp b$.
+Logo $w \in \eqclassimp a$ e $w \in \eqclassimp b$,
+ou seja $w \sim a$ e $w \sim b$ pela definição de classe de equivalência.
+Pela simetría da $\sim$ temos $a \sim w$.
+Agora como $a\sim w$ e $w \sim b$, pela transitividade da $\sim$ ganhamos
+o desejado $a \sim b$.
+\endgraf
+Agora vamos provar a ``(i)\bidir(ii)''.
+\endgraf
+\lrdir.
+Suponha que $a \sim b$.
+Tome $x\in \eqclassimp a$.
+Logo $x \sim a$.
+Mas $a \sim b$ e logo pela transitividade da $\sim$ temos $x \sim b$,
+e logo $x \in \eqclassimp b$.
+\rldir.
+Suponha que $\eqclassimp a = \eqclassimp b$.
+Pela reflexividade da $\sim$, sabemos que $a\in\eqclassimp a$.
+Logo $a\in\eqclassimp b$, e logo $a\sim b$ pela definição de $\eqclassimp b$.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Partitions 
+\section Partitions.
+\label{Partitions}%
+
+%%{{{ idea_of_partition 
 \note Partição.
-Voltamos de novo para nosso conjunto $A$, mas essa vez sem uma predeterminada
-propriedade para focar.  Essa vez vamos dividir os elementos do $A$ em
-\dterm{classes}, tais que cada membro do $A$ pertencerá em
-\emph{exatamente uma delas}, e cada uma delas terá pelo menos um membro do $A$.
+\label{idea_of_partition}%
+Voltamos de novo para nosso conjunto $A$ do~\refn{idea_of_equivalence},
+mas essa vez sem uma predeterminada propriedade para focar.
+Essa vez vamos dividir os elementos do $A$ em \dterm{classes},
+tais que cada membro do $A$ pertencerá em \emph{exatamente uma delas},
+e cada uma delas terá pelo menos um membro do $A$.
 E nem vamos justificar essa separação, explicando o como ou o porquê.
 Esse tipo de colecção de classes vamos definir agora.
 %%}}}
@@ -19016,20 +19197,24 @@ diferentes, algo contra da nossa idéia de ``partição''.
 \endexercise
 %%}}}
 
+\endsection
+%%}}}
+
 %%{{{ Two sides of the same coin 
-\note Dois lados da mesma moeda.
+\section Dois lados da mesma moeda.
+
+\blah.
 Os dois conceitos de ``relação de equivalência'' e ``partição'',
 parecem diferentes mas realmente são apenas duas formas diferentes de
 expressar a mesma idéia.
 Cada relação de equivalência determina uma partição;
 e vice-versa: cada partição determina uma relação de equivalência.
-Bora provar isso.
-%%}}}
+Bora provar isso!
 
 %%{{{ x: wrong_partition_of_eqrel_def 
 \exercise Cuidado!.
 \label{wrong_partition_of_eqrel_def}%
-Tentando resolver esse problema, começando com uma relação de equivalência $R$,
+Tentando investigar isso, começando com uma relação de equivalência $R$,
 um aluno tentou definir a partição $\scr A_{R}$ assim:
 $$
 \align
@@ -19107,26 +19292,38 @@ $$
 %%}}}
 
 %%{{{ x: from_eqrel_to_partition 
-\exercise.
+\exercise De equivalência para partição.
 \label{from_eqrel_to_partition}%
-Escreva claramente como definir uma partição dum conjunto $A$,
-dada uma relação de equivalência $\sim$ no $A$.
-Prove que realmente é uma partição
-(a partição \dterm{induzida} pela $\sim$).
+Seja $\sim$ relação de equivalência num conjunto $A$.
+Escreva formalmente como definir uma partição
+$\scr A_{\sim}$ do $A$ em que suas classes são feitas
+por todos os $\sim$-relacionados.
+Prove que realmente é uma partição.
+
+\hint
+Mande os membros de $A$ se separar:
+<<se juntem todos os relacionados entre si!>>.
 
 \solution
-Seja $\sim$ relação de equivalência num conjunto $A$.
-Vamos provar que $\quoset A \sim$ é uma partição do $A$.
-Primeiramente observe que cada membro de $\quoset A \sim$
-é um subconjunto de $A$.  Basta verificar as (P1)--(P3)
-da~\ref{partition}:
-\crproofpart{(P1) Mostrar que $A \subseteq \Union \paren{\quoset A \sim}$.}
+\proofpart{Definir uma família de subconjuntos de $A$.}
+Definimos $\scr A_{\sim}$ para ser a família de todas as
+classes de equivalência através da $\sim$.  Formalmente:
+$$
+\scr A_{\sim}
+\defeq
+\setst {\eqclassimp a} {a \in A}.
+$$
+\proofpart{Provar que a família $\scr A_{\sim}$ é uma partição.}
+Primeiramente observe que cada membro de $\scr A_{\sim}$
+é um subconjunto de $A$.
+Agora basta verificar as (P1)--(P3) da~\ref{partition}.
+\crproofpart{(P1) Mostrar que $A \subseteq \Union \paren{\scr A_{\sim}}$.}
 Tome $a\in A$.
-Como $a \sim a$, então $a \in \eqclassimp a$.
-Agora como $\eqclassimp a \in \quoset A \sim$,
-temos que $a \in \Union \paren{\quoset A \sim}$.
-\crproofpart{(P2) Os membros de $\quoset A \sim$ são disjuntos dois a dois.}
-Sejam $C,D \in \quoset A \sim$.
+Como $a \sim a$ (reflexividade), então $a \in \eqclassimp a$.
+Agora como $\eqclassimp a \in \scr A_{\sim}$,
+temos que $a \in \Union \paren{\scr A_{\sim}}$.
+\crproofpart{(P2) Os membros de $\scr A_{\sim}$ são disjuntos dois a dois.}
+Sejam $C,D \in \scr A_{\sim}$.
 Logo sejam $c,d \in A$ tais que $C = \eqclassimp c$ e $D = \eqclassimp d$.
 Precisamos provar \emph{qualquer uma} das duas implicações (são contrapositivas):
 $$
@@ -19145,9 +19342,10 @@ Temos:
 $$
 x \sim c \sim w \sim d
 $$
+(simetria e transitividade da $\sim$)
 e logo $x \in \eqclassimp d = D$ e $C\subseteq D$.
 A {\rldirset} é similar.
-\crproofpart{(P3) $\emptyset \notin \quoset A \sim$.}
+\crproofpart{(P3) $\emptyset \notin \scr A_{\sim}$.}
 Basta provar que para cada $a\in A$, $\eqclassimp a \neq \emptyset$.
 Isso é uma conseqüência da reflexividade da $\sim$, pois
 para todo $a\in A$, $a \in \eqclassimp a$.
@@ -19156,62 +19354,42 @@ Se escolher a primeira implicação na parte de (P2), a gente continua assim:
 Suponha $C\neq D$ e logo sem perda de generalidade, tome $c_0 \in C\setminus D$.
 Logo $c_0 \sim c$ e $c_0 \not\sim d$.
 Isso já mostra que não pode ter nenhum elemento $w \in C\inter D$, pois
-nesse caso teriamos $c_0 \sim c \sim w \sim d$ que obrigaria $c_0 \sim d$;
+nesse caso usando a simetria e transitividade da $\sim$ teriamos
+$c_0 \sim c \sim w \sim d$ que obrigaria $c_0 \sim d$;
 impossível.
 
 \endexercise
 %%}}}
 
-%%{{{ x: from_partition_to_eqrel 
+%%{{{ x: why_all_of_eqrel_properties_are_needed 
 \exercise.
-\label{from_partition_to_eqrel}%
-Escreva claramente como definir uma relação de equivalência num conjunto $A$,
-dada uma partição $\scr A$ do $A$.
-Prove que realmente é uma relação de equivalência
-(a relação de equivalência \dterm{induzida} pela $\scr A$).
+\label{why_all_of_eqrel_properties_are_needed}%
+Explique onde precisou cada uma das propriedades da~\ref{equivalence_relation}
+(reflexividade, transitividade, simetria)
+na tua resolução do~\ref{from_eqrel_to_partition}.
+
+\solution
+Veja a resolução do~\ref{from_eqrel_to_partition}.
 
 \endexercise
 %%}}}
 
-%%{{{ x: why_all_of_partition_properties_are_needed 
-\exercise.
-\label{why_all_of_partition_properties_are_needed}%
-Explique onde precisou cada uma das condições (P1)--(P3) da~\ref{partition}
-na tua resolução do~\ref{from_partition_to_eqrel}.
+\blah.
+A partição definida no~\ref{from_eqrel_to_partition} é muito importante
+e merece seu próprio nome e sua própria notação.  Definimos agora.
 
-\endexercise
-%%}}}
-
-%%{{{ x: how_many_partitions_on_3 
-\exercise.
-\label{how_many_partitions_on_3}%
-Seja $A$ conjunto finito com $\card A = 3$.
-Quantas partições de $A$ existem?
-
-\endexercise
-%%}}}
-
-%%{{{ df: equivalent_class and quoset 
+%%{{{ df: quoset 
 \definition.
-\label{equivalent_class}%
 \label{quoset}%
-\tdefined{classe de equivalência}%
 \tdefined{conjunto}[quociente]%
-\sdefined {\eqclass {\holed a} {\holed R}} {classe de equivalência do $\holed a$ através da $\holed R$}%
-\sdefined {\eqclassimp {\holed a}} {classe de equivalência do $\holed a$ (relação implícita pelo contexto)}%
 \sdefined {\quoset {\holed A} {\holed R}} {conjunto quociente do $\holed A$ por $\holed R$}%
 \iisee{quociente!conjunto}{conjunto quociente}%
 Seja $A$ um conjunto e $\sim$ uma relação de equivalência no $A$.
-Para cada $a\in A$, definimos a \dterm{classe de equivalência do} $a$
-como o conjunto
+Definimos o \dterm{conjunto quociente} de $A$ por $\sim$ para ser a colecção
+de todas as classes de equivalência através da $\sim$.
+Formalmente:
 $$
-\eqclass a {\sim} \defeq \set {x\in A \st x\sim a},
-$$
-e quando a relação de equivalência é implicita pelo contexto
-denotamos apenas por $\eqclassimp a$.
-Definimos também o \dterm{conjunto quociente} de $A$ por $\sim$:
-$$
-\quoset A {\sim} \defeq \set {\eqclass a {\sim} \st a \in A }.
+\quoset A {\sim} \defeq \setst {\eqclass a {\sim}} {a \in A}.
 $$
 %%}}}
 
@@ -19277,64 +19455,23 @@ do~\ref{equivalent_relations_on_euclidean_space}.
 Entendeu o~\ref{some_eqclasses_geometrically_and_algebrically}?
 
 \solution
-
-\endexercise
-%%}}}
-
-%%{{{ x: guaranteed_eqrels 
-\exercise.
-\label{guaranteed_eqrels}%
-Seja $A$ um conjunto qualquer.
-Quais relações de equivalência podes já definir nele, sem saber
-absolutamente nada sobre seus elementos?
-
-\solution
-A identidade $=$, a trivial $\True$, e a vazia $\False$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: equivalent_statements_to_x_equiv_y 
-\exercise.
-Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $a,b\in X$.
-Mostre que as afirmações seguintes são equivalentes:
-\item{(i)} $a\sim b$
-\item{(ii)} $\eqclassimp a = \eqclassimp b$
-\item{(iii)} $\eqclassimp a \inter \eqclassimp b \neq \emptyset$.
-
-\solution
-Vamos provar primeiro a ``(i)\bidir(iii)''.
-\endgraf
-\lrdir.
-Suponha que $a \sim b$.
-Precisamos achar um elemento que pertence nos dois conjuntos
-$\eqclassimp a$ e $\eqclassimp b$.
-Tome o proprio $a$.
-Temos $a\in \eqclassimp a$ pois $a \sim a$ (pela reflexividade da $\sim$).
-Tambem temos $a \in \eqclassimp b$, pois $a \sim b$ (hipótese).
-Logo $a \in \eqclassimp a \inter \eqclassimp b\neq\emptyset$.
-\endgraf
-\rldir.
-Suponha que $\eqclassimp a\inter\eqclassimp b \neq \emptyset$
-e tome $w \in \eqclassimp a\inter\eqclassimp b$.
-Logo $w \in \eqclassimp a$ e $w \in \eqclassimp b$,
-ou seja $w \sim a$ e $w \sim b$ pela definição de classe de equivalência.
-Pela simetría da $\sim$ temos $a \sim w$.
-Agora como $a\sim w$ e $w \sim b$, pela transitividade da $\sim$ ganhamos
-o desejado $a \sim b$.
-\endgraf
-Agora vamos provar a ``(i)\bidir(ii)''.
-\endgraf
-\lrdir.
-Suponha que $a \sim b$.
-Tome $x\in \eqclassimp a$.
-Logo $x \sim a$.
-Mas $a \sim b$ e logo pela transitividade da $\sim$ temos $x \sim b$,
-e logo $x \in \eqclassimp b$.
-\rldir.
-Suponha que $\eqclassimp a = \eqclassimp b$.
-Pela reflexividade da $\sim$, sabemos que $a\in\eqclassimp a$.
-Logo $a\in\eqclassimp b$, e logo $a\sim b$ pela definição de $\eqclassimp b$.
+O $\quoset {\reals^3} {\sim_3}$ parece lasanha:
+é composto por todos os planos horizontais.
+O $\quoset {\reals^3} {\sim_{1,2}}$ é composto pelas todas as retas
+verticais (perpendiculares no $xy$-plano).
+O $\quoset {\reals^3} {\sim_{\textrm N}}$ é composto pelas todas as
+sferas com centro na origem.
+Informalmente temos as ``equações'' seguintes:
+$$
+\align
+\quoset {\reals^3} {\sim_3}             & \pseudoeq \reals \\
+\quoset {\reals^3} {\sim_{1,2}}         & \pseudoeq {\reals^2} \\
+\quoset {\reals^3} {\sim_{\textrm N}}   & \pseudoeq \reals_{\geq 0}.
+\endalign
+$$
+Na primeira identificamos cada plano com sua altura;
+na segunda cada reta com sua sombra no $xy$-plano;
+na terceira casa sfera com seu raio.
 
 \endexercise
 %%}}}
@@ -19352,97 +19489,109 @@ com que tu ``identificaria'' o $\quoset \ints {\cong_m}$?
 \endexercise
 %%}}}
 
-%%{{{ df: kernel_coimage 
-\definition.
-\label{kernel_coimage}
-\tdefined{kernel}
-\tdefined{coimagem}
-\sdefined {\ker {\holed f}} {kernel da \holed f}
-\sdefined {\coim {\holed f}} {coimagem da \holed f}
-Seja $f : X \to Y$ e defina a relação binária $\frel f$ no $X$ pela
-$$
-x_1 \frel f x_2 \defiff f(x_1)=f(x_2).
-$$
-Chamamos a $\frel f$ o \dterm{kernel} da $f$, e seu conjunto quociente
-a \dterm{coimagem} da $f$.
-Usamos também os símbolos $\ker f$ e $\coim f$ respectivamente.
-%%}}}
+\blah.
+Parece então que a partição é um conceito mais geral, pois nos permite
+``separar em classes'' um conjunto numa forma que não é obrigada seguir
+nenhuma lógica.  Mas essa intuição é enganosa!
+Vamos investigar o caminho de volta.
 
-%%{{{ x: frel_is_an_eqrel 
-\exercise.
-\label{frel_is_an_eqrel}%
-Com os dados da~\ref{kernel_coimage}
-mostre que $\frel f$ é uma relação de equivalência e descreva os elementos da coimagem.
-O que podemos dizer se $f$ é injetora?  Se ela é sobrejetora?
-
-\endexercise
-%%}}}
-
-%%{{{ x: immediate applications 
-\exercise.
-Mostre que todas as relações dos
-exemplos~\refn{equivalent_relations_on_euclidean_plane}
-e~\refn{equivalent_relations_on_euclidean_space}
-são casos especiais do~\ref{frel_is_an_eqrel}
-(e logo são relações de equivalência ``gratuitamente'').
+%%{{{ x: from_partition_to_eqrel 
+\exercise De partição para equivalência.
+\label{from_partition_to_eqrel}%
+Seja $A$ conjunto e $\scr A$ partição dele.
+Escreva claramente como definir uma relação de equivalência $\sim_{\scr A}$
+no $A$ tal que $\quoset A {\sim_{\scr A}} = \scr A$.
 
 \hint
-Para cada uma delas, precisa definir completamente a
-$f : A \to B$ (esclarecendo também quais são os $A,B$).
-
-\endexercise
-%%}}}
-
-%%{{{ x: distance_like_not_transitive 
-\exercise.
-\label{distance_like_not_transitive}%
-Seja real $\epsilon\in(0,1)$, e defina a relação $\approx_\epsilon$:
-$$
-x \approx_\epsilon y \defiff (x-y)^2 < \epsilon.
-$$
-A $\approx_\epsilon$ é uma relação de equivalência?
+Defina a relação tal que dois objetos são relacionados sse eles pertencem
+no mesmo membro da família $\scr A$.
 
 \hint
-Primeiramente resolve o mesmo problema mas para a relação:
+Definimos a $\sim_{\scr A}$ pela
 $$
-x \sim_\epsilon y \defiff |x-y| < \epsilon
+x \sim_{\scr A} y
+\defiff
+\lexists {C \in \scr A} {x,y \in C}.
 $$
-onde $\epsilon > 0$.
-
-\hint
-Reflexividade e simetria das $\sim_\epsilon$ e $\approx_\epsilon$ são imediatas.
-Sobre a transitividade, um desenho na linha real ajudaria.
-
-\hint
-Como contraexemplo, tome os reais $0$, $\epsilon/2$, e $\epsilon$ e
-observe que $0 \sim_\epsilon \epsilon/2$ e $\epsilon/2 \sim_\epsilon \epsilon$
-mas mesmo assim não temos $0\sim_\epsilon \epsilon$.
-
-\hint
-Como podes usar a não-transitividade da $\sim_\epsilon$
-para deduzir a não-transitividade da $\approx_\epsilon$?
-
-\hint
-Para todo $\alpha\in\reals_{\geq 0}$ temos:
-$$
-\cdots
-\iff
-\sqrt{\alpha}\in(0,1)
-\iff
-\alpha\in(0,1)
-\iff
-\alpha^2\in(0,1)
-\iff
-\cdots
-$$
+Prove que $\sim_{\scr A}$ é uma relação de equivalência.
 
 \solution
-Não é.  Uma resolução já foi rescunhada nas dicas.
-Para um contraexemplo direto, pode tomar os reais
-$0$, $\sqrt \epsilon / 2$, e $\sqrt \epsilon$.
-Observe que $0 \approx_\epsilon \sqrt \epsilon / 2$
-e $\sqrt \epsilon / 2 \approx_\epsilon \sqrt \epsilon$
-mas não temos $0 \approx_\epsilon \sqrt \epsilon$.
+Definimos a $\sim_{\scr A}$ pela
+$$
+x \sim_{\scr A} y
+\defiff
+\lexists {C \in \scr A} {x,y \in C}.
+$$
+\crtabproofpart{A relação $\sim_{\scr A}$ é uma relação de equivalência.}
+\crproofpart{Reflexiva.}
+Tome $a \in A$.
+Precisamos mostrar que existe $C \in \scr A$ tal que $a \in C$.
+Mas, como $\scr A$ é uma partição \byfact{P1}, temos que $\Union \scr A = A$.
+Seja então $C$ tal que $a \in C \in \scr A$.  Logo $a \sim_{\scr A} a$.
+\crproofpart{Simetria.}
+Trivial pois $x,y \in C \iff y,x \in C$.
+\crproofpart{Transitiva.}
+Suponha $x \sim_{\scr A} y$ e $y \sim_{\scr A} z$.
+Logo sejam $C,D \in \scr A$ tais que $x,y \in C$ e $y,z \in D$.
+Agora, como $y \in C\inter D$ e $\scr A$ é uma partição \byfact{P2},
+temos $C = D$.  Ou seja, $x,z \in C \in \scr A$ e logo $x \sim_{\scr A} z$.
+\crtabproofpart{O conjunto quociente $\quoset A {\sim_{\scr A}}$ é a partição $\scr A$.}
+\crproofpart{\lrdirset.}
+Tome $C \in \quoset A {\sim_{\scr A}}$.
+Seja $c \in A$ tal que $C = \eqclassimp c$.
+Como $c \in \Union \scr A$ ($\scr A$ partição \byfact{P1}),
+seja $C'$ o único ($\scr A$ partição \byfact{P2}) membro da $\scr A$ tal que $c \in C'$.
+Basta mostrar que $C = C'$.
+Tome $x \in C = \eqclassimp c$.
+logo $x \sim_{\scr A} c$, e logo existe $D' \in \scr A$ tal que $x,c \in D'$.
+Mas pela escolha do $C'$, temos $D' = C'$, e logo $x \in C'$ e $C \subseteq C'$.
+Conversamente, tome $x' \in C'$.
+Logo $x',c \in C'$, logo $x'\sim_{\scr A} c$, e logo $x' \in \eqclassimp c = C$.
+Ou seja, $C' \subseteq C$.
+\crproofpart{\rldirset.}
+Tome $C' \in \scr A$.
+Como $C' \neq \emptyset$ (pois $\scr A$ é partição~\byfact{P3}),
+seja $c' \in C'$.
+Basta provar que $\eqclassimp {c'} = C'$.
+Tome $x \in \eqclassimp {c'}$.
+Logo $x \sim_{\scr A} c'$, e logo seja $D' \in \scr A$ tal que $x,c' \in D'$.
+Mas, como $c' \in C'\inter D'$, concluimos que $C'=D'$ (pela~\byfact{P2}).
+Ou seja, $x \in C'$.
+Conversamente, tome $x' \in C'$.
+Como $c'\in C'$, logo $x' \sim_{\scr A} c'$ pela definição da $\sim_{\scr A}$,
+ou seja $x'\in\eqclassimp {c'}$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: why_all_of_partition_properties_are_needed 
+\exercise.
+\label{why_all_of_partition_properties_are_needed}%
+Explique onde precisou cada uma das condições (P1)--(P3) da~\ref{partition}
+na tua resolução do~\ref{from_partition_to_eqrel}.
+
+\solution
+Veja a resolução do~\ref{from_partition_to_eqrel}.
+
+\endexercise
+%%}}}
+
+%%{{{ df: induced_equivalence_relation_and_partition 
+\definition.
+\label{induced_equivalence_relation_and_partition}%
+\tdefined{relação}[induzida]%
+\tdefined{partição}[induzida]%
+Chamamos a $\sim_{\scr A}$ a \dterm{relação de equivalência induzida pela $\scr A$}.
+Similarmente chamamos o conjunto quociente $\quoset A {\sim}$
+a \dterm{partição induzida pela $\sim$}.
+%%}}}
+
+%%{{{ x: how_many_partitions_on_3 
+\exercise.
+\label{how_many_partitions_on_3}%
+Seja $A$ conjunto finito com $\card A = 3$.
+Quantas partições de $A$ existem?
+Por quê isso resolve o~\ref{how_many_equivalence_relations_on_3}?
 
 \endexercise
 %%}}}
@@ -20226,7 +20375,7 @@ Então, em qual conjunto $A'$ faz sentido definir nossa ordem $R'$?
 
 %%{{{ prob: how_many_partitions 
 \problem Números Bell.
-\label{how_many_partitions}
+\label{how_many_partitions}%
 Seja $A$ conjunto finito.
 Quantas partições de $A$ existem?
 
