@@ -2167,13 +2167,13 @@ Ou seja, a $P(0)$ realmente é verdade.
 \crproofpart{Passo indutivo.}
 Precisamos provar a afirmação:
 $$
-\forall x \bracket{P(x) \implies P(x+1)},
+\forall x \bracket{P(x) \implies P(Sx)},
 $$
 ou seja,
 $$
 \forall x
-\bigbracket{\paren{\forall n\forall m \bracket{ (n + m) + x     = n + (m + x)    } }
-   \implies \paren{\forall u\forall v \bracket{ (u + v) + (x+1) = u + (v + (x+1))} }}
+\bigbracket{\paren{\forall n\forall m \bracket{ (n + m) + x  = n + (m + x) }}
+   \implies \paren{\forall u\forall v \bracket{ (u + v) + Sx = u + (v + Sx)}}}
 $$
 onde escolhi nomes diferentes nas variáveis quantificadas apenas para
 enfatisar que são realmente diferentes!
@@ -2184,17 +2184,17 @@ $$
 $$
 Preciso mostrar que:
 $$
-\forall u\forall v \bracket{ (u + v) + (x+1) = u + (v + (x+1))}
+\forall u\forall v \bracket{ (u + v) + Sx = u + (v + Sx)}
 $$
 Sejam $u,v\in\nats$.
 Calculamos:
 $$
 \alignat2
-\underline{(u + v) + (x + 1)}
-&= (\underline{(u + v) + x}) + 1    \qqby {a2} \\
-&= \underline{(u + (v + x)) + 1}    \qqby {H.I., com $n := u$, $m := v$} \\
-&= u + (\underline{(v + x) + 1})    \qqby {a2} \\
-&= u + (v + (x + 1)).               \qqby {a2}
+\underline{(u + v) + Sx}
+&= S(\underline{(u + v) + x})    \qqby {a2} \\
+&= \underline{S(u + (v + x))}    \qqby {H.I., com $n := u$, $m := v$} \\
+&= u + (\underline{S(v + x)})    \qqby {a2} \\
+&= u + (v + Sx).                 \qqby {a2}
 \endalignat
 $$
 Isso termina nossa prova.
@@ -2243,7 +2243,7 @@ são a mesma expressão.
 Precisamos provar que:
 $$
 \forall k \bracket{\munderbrace {0 + k = k + 0} {Q(k)}
-          \implies \munderbrace {0 + (k+1) = (k+1) + 0} {Q(k+1)}}.
+          \implies \munderbrace {0 + Sk = Sk + 0} {Q(Sk)}}.
 $$
 Seja $k\in\nats$ tal que
 $$
@@ -2251,16 +2251,16 @@ $$
 $$
 Queremos mostrar que
 $$
-0 + (k+1) = (k+1) + 0.
+0 + Sk = Sk + 0.
 $$
 Calculamos:
 $$
 \alignat2
-0 + (k+1)
-&= (0 + k) + 1  \qqby {a2} \\
-&= (k + 0) + 1  \qqby {H.I.} \\
-&= k + 1        \qqby {a1} \\
-&= (k + 1) + 0. \qqby {a1}
+0 + Sk
+&= S(0 + k)  \qqby {a2} \\
+&= S(k + 0)  \qqby {H.I.} \\
+&= Sk        \qqby {a1} \\
+&= Sk + 0.   \qqby {a1}
 \endalignat
 $$
 Isso termina nossa base.
@@ -2273,8 +2273,8 @@ $$
 \munderbrace {\forall m \paren{k + m = m + k}}
 {P(k)}
 \implies
-\munderbrace {\forall m \paren{(k+1) + m = m + (k+1)}}
-{P(k+1)}
+\munderbrace {\forall m \paren{Sk + m = m + Sk}}
+{P(Sk)}
 }.
 $$
 Seja $k\in\nats$ tal que
@@ -2284,16 +2284,16 @@ $$
 então.
 Basta provar que
 $$
-\munderbrace {\forall m \paren{(k+1) + m = m + (k+1)}} {P(k+1)}.
+\munderbrace {\forall m \paren{Sk + m = m + Sk}} {P(Sk)}.
 $$
 Seja $m\in\nats$.
 Calculamos:
 $$
 \alignat2
-(k+1) + m
-&= (k+m) + 1    \qqby {a2} \\
-&= (m+k) + 1    \qqby {H.I.} \\
-&= m + (k+1).   \qqby {a2}
+Sk + m
+&= S(k+m)   \qqby {a2} \\
+&= S(m+k)   \qqby {H.I.} \\
+&= m + Sk.  \qqby {a2}
 \endalignat
 $$
 Isso termina nossa prova.
@@ -2316,19 +2316,19 @@ Está no último cálculo.
 O erro está na primeira equação do último cálculo:
 $$
 \alignat2
-(k+1) + m
-&= (k+m) + 1. \qqby {a2}
+Sk + m
+&= S(k+m). \qqby {a2}
 \endalignat
 $$
 A \byfact{a2} não nos permite concluir isso; só o seguinte:
 $$
-k + (m+1) = (k+m) + 1.
+k + Sm = S(k+m).
 $$
-Se soubessimos que $(k+1) + m = k + (m+1)$ seria fácil
+Se soubessimos que $Sk + m = k + Sm$ seria fácil
 terminar essa prova corretamente.
 Essa propriedade parece razoável para afirmar:
 $$
-\forall x \forall y \bracket{ (x+1) + y = x + (y+1) }
+\forall x \forall y \bracket{ Sx + y = x + Sy }
 $$
 Bora provar então!
 
@@ -2342,66 +2342,64 @@ A operação $+$ satisfaz:
 $$
 \forall a
 \forall b
-\bigparen{ (a+1) + b = a + (b+1) }.
+\bigparen{ Sa + b = a + Sb }.
 $$
 \proof.
 Provamos por indução que
 $$
 \forall b
-\munderbrace {\forall a \bigparen{ (a+1) + b = a + (b+1) }} {P(a)}.
+\munderbrace {\forall a \bigparen{ Sa + b = a + Sb }} {P(a)}.
 $$
 \proofpart{Base.}
 Precisamos provar que
 $$
-\munderbrace {\forall a \bigparen{ (a+1) + 0 = a + (0+1) }} {P(0)}.
+\munderbrace {\forall a \bigparen{ Sa + 0 = a + S0 }} {P(0)}.
 $$
 Calculamos:
 $$
 \alignat2
-(a+1) + 0
-&= a + 1      \qqby {a1} \\
-a + (0+1)
-&= a + (1+0)  \qqby {base do~\refn{natadd_is_commutative}} \\
-&= a + 1.     \qqby {a1}
+Sa + 0
+&= Sa        \qqby {a1} \\
+a + S0
+&= S(a + 0)  \qqby {a2} \\
+&= Sa.       \qqby {a1}
 \endalignat
 $$
-Observe que realmente na base do~\refn{natadd_is_commutative} provamos
-(corretamente!) que o $0$ comuta com todo natural; então com o $1$ também.
 \proofpart{Passo indutivo.}
 Queremos provar:
 $$
 \forall k
 \Bigbracket{
 \munderbrace
-    {\forall a \bigparen{ (a+1) + k = a + (k+1) }}
+    {\forall a \bigparen{ Sa + k = a + Sk }}
     {P(k)}
 \implies
 \munderbrace
-    {\forall a \bigparen{ (a+1) + (k+1) = a + ((k+1)+1) }}
-    {P(k+1)}
+    {\forall a \bigparen{ Sa + Sk = a + SSk }}
+    {P(Sk)}
 }.
 $$
 Seja $k\in\nats$ tal que
 $$
 \munderbrace
-    {\forall a \bigparen{ (a+1) + k = a + (k+1) }}
+    {\forall a \bigparen{ Sa + k = a + Sk }}
     {P(k)}.
 \tag{H.I.}
 $$
 Basta mostrar que
 $$
 \munderbrace
-    {\forall a \bigparen{ (a+1) + (k+1) = a + ((k+1)+1) }}
-    {P(k+1)}.
+    {\forall a \bigparen{ Sa + Sk = a + SSk }}
+    {P(Sk)}.
 $$
 Seja $a\in\nats$.
 Calculamos
 $$
 \alignat2
-(a+1) + (k+1)
-&= ((a+1) + k) + 1  \qqby {a2} \\
-&= (a + (k+1)) + 1  \qqby {H.I.} \\
-&= a + ((k+1)+1).   \qqby {a2}
+Sa + Sk
+&= S(Sa + k)    \qqby {a2} \\
+&= S(a + Sk)    \qqby {H.I.~com $a := a$} \\
+&= a + SSk.     \qqby {a2}
 \endalignat
 $$
 Isso termina nossa prova, e logo substituindo a
