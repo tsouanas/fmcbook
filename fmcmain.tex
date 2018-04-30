@@ -17511,8 +17511,9 @@ objetos matemáticos---sobre isso, paciência até o~\ref{Axiomatic_set_theory}.
 %%{{{ Concept, notation, equality 
 \section Conceito, notação, igualdade.
 
-%%{{{ eg 
+%%{{{ eg: leq_geq_lt_gt_example 
 \example.
+\label{leq_geq_lt_gt_example}%
 Nos numeros reais, estamos bem acostumados com as relações de ordem
 ($\leq$, $\geq$, $<$, $>$).
 Nos inteiros já estudamos bastante a relação binária de ``divide''
@@ -17521,8 +17522,9 @@ Nos inteiros já estudamos bastante a relação binária de ``divide''
 \endexample
 %%}}}
 
-%%{{{ eg 
+%%{{{ eg: mother_parents_love_example 
 \example.
+\label{mother_parents_love_example}%
 No conjunto $\cal P$ de pessoas, conhecemos várias relações também.
 Por exemplo
 $$
@@ -17538,8 +17540,9 @@ $$
 \blah.
 Relações podem ``relacionar'' tipos diferentes.
 
-%%{{{ eg 
+%%{{{ eg: born_author_read_example 
 \example.
+\label{born_author_read_example}%
 Considere as relações seguintes, cujos argumentos não têm o mesmo típo.
 $$
 \align
@@ -17554,8 +17557,8 @@ e $\namedpred{Read}$ são ambas entre pessoas e livros.
 \endexample
 %%}}}
 
-%%{{{ eg 
-\example.
+%%{{{ eg: equalities 
+\example Igualdades.
 Para cada tipo, sua igualdade $=$ é uma relação, de aridade $2$.
 Nos números naturais por exemplo, se $n,m\in\nats$, $n = m$ é uma afirmação:
 $$
@@ -17586,6 +17589,22 @@ $$
 Com cada relação associamos o seu \dterm{tipo} (pedimos emprestada aqui
 a terminologia usada em funções) que é apenas a informação de tipo
 para cada uma das suas entradas.
+Escrevemos
+$$
+R : \reltype{A_1,\dotsc,A_n}
+$$
+para afirmar que $R$ é uma relação $n$-ária
+entre os conjuntos $A_1,\dotsc,A_n$.
+As relações do~\ref{born_author_read_example} tem os típos seguintes:
+$$
+\align
+\namedpred{Born}        &: \reltype{\cal P, \cal Y} \\
+\namedpred{Author}      &: \reltype{\cal P, \cal B} \\
+\namedpred{Read}        &: \reltype{\cal P, \cal B}
+\endalign
+$$
+onde $\cal P, \cal Y, \cal B$ são os conjuntos de pessoas, anos, livros
+(respectivamente).
 %%}}}
 
 %%{{{ funlike_notation_for_relations 
@@ -17610,11 +17629,12 @@ A \reltoarrow R B
 B \relfromarrow R A.
 $$
 Todo isso quis dizer apenas que $R$ é uma relação binária entre $A$ e $B$.
+Ou seja, tudo isso é sinónimo com o $R : \reltype{A,B}$.
 Também, em vez de escrever $R(x,y)$, escrevemos as vezes
 o $R$ com notação \emph{infixa}: $x \rel R y$.
 %%}}}
 
-%%{{{ beware: this notatios is not standard 
+%%{{{ beware: this notation is not standard 
 \beware.
 A notação definida no~\refn{funlike_notation_for_relations}
 \emph{não} é padrão.
@@ -20293,16 +20313,16 @@ Para cada uma das relações acima, decida se ela tem ou não cada uma das propr
 %%{{{ prob: simz_sime_simo_simi 
 \problem.
 \label{simz_sime_simo_simi}%
-\def\simz{\rel{\stackrel{{}_{\mathrm z}}=}}%
-\def\sime{\rel{\stackrel{{}_{\mathrm e}}=}}%
-\def\simo{\rel{\stackrel{{}_{\mathrm o}}=}}%
+\def\simz{\rel{\stackrel{{}_{\mathrmsmall z}}=}}%
+\def\sime{\rel{\stackrel{{}_{\mathrmsmall e}}=}}%
+\def\simo{\rel{\stackrel{{}_{\mathrmsmall o}}=}}%
 \def\simi{\rel{\stackrel{\infty}=}}%
 Defina as relações seguintes no $(\nats\to\nats)$ assim:
 $$
 \align
-f\simz g&\defiff f(0)    = g(0)\\
-f\sime g&\defiff f(2n)   = g(2n)  \ \text{para todo $n\in\nats$}\\
-f\simo g&\defiff f(2k+1) = g(2k+1)\ \text{para todo $k\in\nats$}\\
+f\simz g&\defiff f(0)    = g(0) \\
+f\sime g&\defiff f(2n)   = g(2n)  \ \text{para todo $n\in\nats$} \\
+f\simo g&\defiff f(2k+1) = g(2k+1)\ \text{para todo $k\in\nats$} \\
 f\simi g&\defiff f(n)    = g(n)   \ \text{para uma infinidade de $n\in\nats$.}
 \endalign
 $$
@@ -33572,12 +33592,12 @@ Mostre que o Choice~\axref{ac} é equivalente com o seguinte axioma:
 \noindent
 {\bf Choice (Rel).}
 {\proclaimstyle
-Se uma relação $R \in \relspace A B$ tem a propriedade de totalidade,
-então existe função $f : A\to B$ com $x \mathrel{R} f(x)$ para todo $x\in A$.
+Se uma relação $R \in \relspace{A,B}$ tem a propriedade de totalidade,
+então existe função $f : A\to B$ com $x \rel R f(x)$ para todo $x\in A$.
 }
 $$
 \bigparen{
-R \in \relspace A B
+R \in \relspace{A,B}
 \land
 \dom R = A
 }
