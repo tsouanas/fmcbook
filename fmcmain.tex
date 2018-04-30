@@ -2099,20 +2099,123 @@ $$
 $$
 %%}}}
 
-%%{{{ prop: natadd_is_associative 
-\proposition Associatividade da adição.
+%%{{{ thm: natadd_is_associative 
+\theorem Associatividade da adição.
 \label{natadd_is_associative}%
 A operação $+$ da~\ref{natops_rec_defs}~é associativa:
 $$
 \forall n
 \forall m
 \forall k
-\bigparen{n + (m + k) = (n + m) + k}.
+\bigparen{ n + (m + k) = (n + m) + k }.
 $$
+\proof.
+Queremos provar a afirmação
+$$
+\forall n
+\forall m
+\forall k
+Q(n,m,k)
+$$
+onde
+$$
+Q(x,y,z) \defiff \bigparen{x + (y + z) = (x + y) + z}.
+$$
+Como ela não está no formato $\forall n P(n)$ não podemos
+atacá-la diretamente com indução.
+Mas, na verdade, reescrevendo como
+$$
+\forall n
+\munderbrace {\forall m \forall k Q(n,m,k)} {P_1(n)}
+$$
+já percebemos que tem a forma certa.
+Pela lógica podemos trocar a órdem de quantificadores consecutivos
+\emph{do mesmo tipo}, então o que queremos provar é equivalente aos
+$$
+\xalignat3
+\forall n & \munderbrace {\forall m \forall k Q(n,m,k)} {P_1(n)}; &
+\forall m & \munderbrace {\forall n \forall k Q(n,m,k)} {P_2(m)}; &
+\forall k & \munderbrace {\forall n \forall m Q(n,m,k)} {P_3(k)};
+\endxalignat
+$$
+etc.~(tem ainda mais três opções que não escrevi),
+onde em cada caso o $P_i$ tem uma definição diferente,
+mas o $Q$ tem sempre a mesma.
+Escolhemos provar a
+$$
+\forall k \munderbrace {\forall n \forall m Q(n,m,k)} {P(k)}.
+$$
+por indução.
+\crproofpart{Base.}
+Precisamos provar o $P(0)$, ou seja:
+$$
+\forall n \forall m Q(n,m,0),
+$$
+ou seja:
+$$
+\forall n \forall m \bracket{\paren{n+m} + 0 = n + \paren{m+0}}.
+$$
+Sejam $n,m\in\nats$.
+Calculamos os dois lados:
+$$
+\alignat2
+\underline{\paren{n+m} + 0} &= n + m \qqby {a1)} \\
+n + \paren{\underline{m+0}} &= n + m \qqby {a1)}
+\endalignat
+$$
+Ou seja, a $P(0)$ realmente é verdade.
+\crproofpart{Passo indutivo.}
+Precisamos provar a afirmação:
+$$
+\forall x \bracket{P(x) \implies P(x+1)},
+$$
+ou seja,
+$$
+\forall x
+\bigbracket{\paren{\forall n\forall m \bracket{ (n + m) + x     = n + (m + x)    } }
+   \implies \paren{\forall u\forall v \bracket{ (u + v) + (x+1) = u + (v + (x+1))} }}
+$$
+onde escolhi nomes diferentes nas variáveis quantificadas apenas para
+enfatisar que são realmente diferentes!
+Bora provar isso então.
+Seja $x\in\nats$ tal que
+$$
+\forall n\forall m \bracket{ (n + m) + x = n + (m + x) }. \tag{H.I.}
+$$
+Preciso mostrar que:
+$$
+\forall u\forall v \bracket{ (u + v) + (x+1) = u + (v + (x+1))}
+$$
+Sejam $u,v\in\nats$.
+Calculamos:
+$$
+\alignat2
+\underline{(u + v) + (x + 1)}
+&= (\underline{(u + v) + x}) + 1    \qqby {a2} \\
+&= \underline{(u + (v + x)) + 1}    \qqby {H.I., com $n := u$, $m := v$} \\
+&= u + (\underline{(v + x) + 1})    \qqby {a2} \\
+&= u + (v + (x + 1)).               \qqby {a2}
+\endalignat
+$$
+Isso termina nossa prova.
+\qed
 %%}}}
 
-%%{{{ prop: natadd_is_commutative 
-\proposition Comutatividade da adição.
+%%{{{ How to choose on which variable to induct 
+\note Como escolher a variável da indução.
+Acabamos de escolhemos para fazer a indução no $k$.
+Por quê?
+Como a definição da adição foi recursivas no segundo argumento
+da função, vai nos ajudar se a indução é feita numa variável
+que aparece mais como segundo argumento da adição.
+Aqui por exemplo, a $k$ aparce duas vezes como argumento da $+$,
+e as duas vezes ela é o segundo argumento da $+$.
+O $n$ no outro lado parece duas vezes como primeiro argumento,
+e o $m$ uma como primeiro e uma como segundo.
+%%}}}
+
+%%{{{ thm: natadd_is_commutative 
+\theorem Comutatividade da adição.
 \label{natadd_is_commutative}%
 A operação $+$ da~\ref{natops_rec_defs}~é comutativa:
 $$
@@ -2120,6 +2223,192 @@ $$
 \forall m
 \bigparen{n + m = m + n}.
 $$
+\wrongproof.
+Provamos a
+$$
+\forall n
+\munderbrace {\forall m \bigparen{n + m = m + n}} {P(n)}.
+$$
+\proofpart{Base.}
+Queremos provar
+$$
+\forall m \munderbrace {\bigparen{0 + m = m + 0}} {Q(m)}.
+$$
+Vamos provar por indução!
+\leftindent
+\proofpart{Sub-base.}
+Trivial, pois o que queremos provar é $0 + 0 = 0 + 0$ e os dois lados
+são a mesma expressão.
+\crproofpart{Sub-passo indutivo.}
+Precisamos provar que:
+$$
+\forall k \bracket{\munderbrace {0 + k = k + 0} {Q(k)}
+          \implies \munderbrace {0 + (k+1) = (k+1) + 0} {Q(k+1)}}.
+$$
+Seja $k\in\nats$ tal que
+$$
+0 + k = k + 0.   \tag{H.I.}
+$$
+Queremos mostrar que
+$$
+0 + (k+1) = (k+1) + 0.
+$$
+Calculamos:
+$$
+\alignat2
+0 + (k+1)
+&= (0 + k) + 1  \qqby {a2} \\
+&= (k + 0) + 1  \qqby {H.I.} \\
+&= k + 1        \qqby {a1} \\
+&= (k + 1) + 0. \qqby {a1}
+\endalignat
+$$
+Isso termina nossa base.
+\endleftindent
+\crproofpart{Passo indutivo.}
+Queremos provar:
+$$
+\forall k
+\Bigbracket{
+\munderbrace {\forall m \paren{k + m = m + k}}
+{P(k)}
+\implies
+\munderbrace {\forall m \paren{(k+1) + m = m + (k+1)}}
+{P(k+1)}
+}.
+$$
+Seja $k\in\nats$ tal que
+$$
+\forall m \paren{k + m = m + k}     \tag{H.I.}
+$$
+então.
+Basta provar que
+$$
+\munderbrace {\forall m \paren{(k+1) + m = m + (k+1)}} {P(k+1)}.
+$$
+Seja $m\in\nats$.
+Calculamos:
+$$
+\alignat2
+(k+1) + m
+&= (k+m) + 1    \qqby {a2} \\
+&= (m+k) + 1    \qqby {H.I.} \\
+&= m + (k+1).   \qqby {a2}
+\endalignat
+$$
+Isso termina nossa prova.
+\mistaqed
+%%}}}
+
+%%{{{ x: natadd_is_commutative_find_the_error 
+\exercise.
+\label{natadd_is_commutative_find_the_error}%
+A prova do~\ref{natadd_is_commutative} tem um erro!
+Ache o erro.
+
+\hint
+Está no passo indutivo.
+
+\hint
+Está no último cálculo.
+
+\solution
+O erro está na primeira equação do último cálculo:
+$$
+\alignat2
+(k+1) + m
+&= (k+m) + 1. \qqby {a2}
+\endalignat
+$$
+A \byfact{a2} não nos permite concluir isso; só o seguinte:
+$$
+k + (m+1) = (k+m) + 1.
+$$
+Se soubessimos que $(k+1) + m = k + (m+1)$ seria fácil
+terminar essa prova corretamente.
+Essa propriedade parece razoável para afirmar:
+$$
+\forall x \forall y \bracket{ (x+1) + y = x + (y+1) }
+$$
+Bora provar então!
+
+\endexercise
+%%}}}
+
+%%{{{ lemma: succx_plus_y_eq_x_plus_succy
+\lemma.
+\label{succx_plus_y_eq_x_plus_succy}%
+A operação $+$ satisfaz:
+$$
+\forall a
+\forall b
+\bigparen{ (a+1) + b = a + (b+1) }.
+$$
+\proof.
+Provamos por indução que
+$$
+\forall b
+\munderbrace {\forall a \bigparen{ (a+1) + b = a + (b+1) }} {P(a)}.
+$$
+\proofpart{Base.}
+Precisamos provar que
+$$
+\munderbrace {\forall a \bigparen{ (a+1) + 0 = a + (0+1) }} {P(0)}.
+$$
+Calculamos:
+$$
+\alignat2
+(a+1) + 0
+&= a + 1      \qqby {a1} \\
+a + (0+1)
+&= a + (1+0)  \qqby {base do~\refn{natadd_is_commutative}} \\
+&= a + 1.     \qqby {a1}
+\endalignat
+$$
+Observe que realmente na base do~\refn{natadd_is_commutative} provamos
+(corretamente!) que o $0$ comuta com todo natural; então com o $1$ também.
+\proofpart{Passo indutivo.}
+Queremos provar:
+$$
+\forall k
+\Bigbracket{
+\munderbrace
+    {\forall a \bigparen{ (a+1) + k = a + (k+1) }}
+    {P(k)}
+\implies
+\munderbrace
+    {\forall a \bigparen{ (a+1) + (k+1) = a + ((k+1)+1) }}
+    {P(k+1)}
+}.
+$$
+Seja $k\in\nats$ tal que
+$$
+\munderbrace
+    {\forall a \bigparen{ (a+1) + k = a + (k+1) }}
+    {P(k)}.
+\tag{H.I.}
+$$
+Basta mostrar que
+$$
+\munderbrace
+    {\forall a \bigparen{ (a+1) + (k+1) = a + ((k+1)+1) }}
+    {P(k+1)}.
+$$
+Seja $a\in\nats$.
+Calculamos
+$$
+\alignat2
+(a+1) + (k+1)
+&= ((a+1) + k) + 1  \qqby {a2} \\
+&= (a + (k+1)) + 1  \qqby {H.I.} \\
+&= a + ((k+1)+1).   \qqby {a2}
+\endalignat
+$$
+Isso termina nossa prova, e logo substituindo a
+justificação~``(a2)'' na prova do~\ref{natadd_is_commutative} por
+``pelo~\ref{succx_plus_y_eq_x_plus_succy}'' ganhamos também o direito de
+substituir seu~``$\mistakesymbol$'' por um legítimo~``$\qedsymbol$''.
+\qed
 %%}}}
 
 %%{{{ x: natmult_is_associative 
