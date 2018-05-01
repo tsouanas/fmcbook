@@ -3585,10 +3585,13 @@ $$
 %%{{{ Permutations of things not all distinct 
 \section Permutações de objetos não todos distintos.
 
+%%{{{ Q: in how many ways can we permute n not-all-distinct objects? 
 \question.
 De quantas maneiras podemos permutar $n$ objetos se
 eles não são todos distíntos?
+%%}}}
 
+%%{{{ eg: pessimissimo 
 \example.
 \label{pessimissimo}
 Conte todas as palavras feitas por permutações das 12 letras da palavra
@@ -3891,8 +3894,11 @@ $$
 $$
 \moveqedup
 \endexample
+%%}}}
 
+%%{{{ x: choices_may_depend_on_past_ones_but_not_their_quantity 
 \exercise.
+\label{choices_may_depend_on_past_ones_but_not_their_quantity}%
 Escolhendo outra ordem de colocar as letras
 na \proofstyle{Idéia 1} do~\ref{pessimissimo}
 nossas opções em cada passo seriam diferentes.
@@ -3976,6 +3982,7 @@ $$
 $$
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -3983,10 +3990,11 @@ $$
 %%{{{ Binomial coefficients 
 \section Binomial e seus coeficientes.
 
+%%{{{ thm: binomial_theorem 
 \theorem Binomial.
+\label{binomial_theorem}%
 \ii{teorema}[binomial]%
 \iisee{binomial}[teorema]{teorema binomial}%
-\label{binomial_theorem}%
 Sejam $x,y\in\ints$ e $n\in\nats$.
 $$
 \align
@@ -4022,6 +4030,7 @@ corresponde no produto
 $xyxyyxy = x^3y^4$, e cada diferente escolha das $\binom 7 4$
 correspondará com uma maneira diferente para formar o $x^3y^4$.
 \qes
+%%}}}
 
 \endsection
 %%}}}
@@ -4030,9 +4039,12 @@ correspondará com uma maneira diferente para formar o $x^3y^4$.
 \section Número de subconjuntos. 
 \label{Number_of_subsets}%
 
+%%{{{ Q: how many subsets of a finite set? 
 \question.
 Quantos subconjuntos dum conjunto finito existem?
+%%}}}
 
+%%{{{ Idea 1: subset_count_using_strings 
 \note Idéia 1.
 \label{subset_count_using_strings}
 Começamos com um exemplo de um conjunto $A$ de tamanho 6:
@@ -4106,18 +4118,23 @@ corresponde exatamente numa configuração do problema novo dos strings e vice-v
 \emph{O que ganhamos?}
 Sabemos como contar todos esses strings: são $2^6$.
 Concluimos que os subconjuntos do $A$ são $2^6$ também.
+%%}}}
 
+\blah.
 Generalizando essa idéia chegamos no resultado:
 
+%%{{{ prop: number_of_subsets_of_finite_set_as_power 
 \proposition.
-\label{number_of_subsets_of_finite_set}
+\label{number_of_subsets_of_finite_set_as_power}
 Seja $A$ conjunto finito.
 $$
 \card{\pset A} = 2^{\card A}.
 $$
+%%}}}
 
+%%{{{ Idea 2: subset_count_by_grouping 
 \note Idéia 2.
-\label{subset_count_by_grouping}
+\label{subset_count_by_grouping}%
 Um outro jeito para contar todos os subconjuntos dum dado conjunto $A$, seria
 os separar em grupos baseados no seu tamanho.
 Assim, percebos que esses subconjuntos são naturalmente divididos em $n+1$ colecções:
@@ -4138,24 +4155,32 @@ para os somar.
 O~\ref{sum_of_all_binomial_coefficients} mostre que na verdade,
 não é nada dificil calcular o somatório diretamente sem nem
 calcular nenhum dos seus termos separadamente!
+%%}}}
 
+%%{{{ prop: number_of_subsets_of_finite_set_as_sum 
 \proposition.
+\label{number_of_subsets_of_finite_set_as_sum}%
 Seja $A$ conjunto finito.
 $$
 \card{\pset A} = \sum_{i=0}^n \comb n i,\qquad\text{onde $n = \card A$}.
 $$
+%%}}}
 
-
+\blah.
 Combinando as duas proposições chegamos num resultado interessante:
 
+%%{{{ cor: sum_of_binom_coefs 
 \corollary.
+\label{sum_of_binom_coefs}%
 Para todo $n\in\nats$,
 $$
 \sum_{i=0}^n \binom n i
 = \binom n 0 + \binom n 1 + \dotsb + \binom n {n-1} + \binom n n
 = 2^n
 $$
+%%}}}
 
+%%{{{ x: sum_of_all_binomial_coefficients 
 \exercise.
 \label{sum_of_all_binomial_coefficients}
 Esqueça o corolário e prove que:
@@ -4177,12 +4202,13 @@ Teorema binomial~\refn{binomial_theorem}.
 Cada somatório é apenas um caso especial do teorema binomial.
 
 \hint
-Toma $x = y = 1$ no teorema para resolver o primeiro.
+Toma $x,y \asseq 1$ no teorema para resolver o primeiro.
 
 \hint
-Toma $x = 1$ e $y = -1$ para resolver o segundo.
+Toma $x \asseq 1$ e $y \asseq -1$ para resolver o segundo.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -4190,6 +4216,7 @@ Toma $x = 1$ e $y = -1$ para resolver o segundo.
 %%{{{ Pascal's triangle 
 \section O triângulo de Pascal.
 
+%%{{{ The first powers of the binomial 
 \note As primeiras potências do binomial.
 Calculamos:
 $$
@@ -4205,8 +4232,11 @@ $$
 (x+y)^8 &= x^8 + 8 x^7y  + 28 x^6y^2  + 56 x^5y^3  + 70 x^4y^4  + 56 x^3y^5 + 28 x^2y^6 + 8 xy^7 + y^8
 \endalign
 $$
+%%}}}
 
+%%{{{ pascal_triangle 
 \note O triângulo de Pascal.
+\label{pascal_triangle}%
 \tdefined{triângulo}[de Pascal]
 Tomando os coeficientes acima criamos o triângulo seguinte,
 conhecido como \emph{triângulo de \Pascal[triângulo]{}Pascal}:%
@@ -4245,12 +4275,15 @@ $$
 \ddots
 \endmatrix
 $$
+%%}}}
 
+\blah.
 Observando o triângulo, percebemos que com umas exceções---quais?---cada
 número é igual à soma de dois números \emph{na linha em cima}:
 aquele que fica na mesma posição, e aquele que fica na posição anterior.
 (Consideramos os ``espaços'' no triângulo como se fossem $0$'s.)
 
+%%{{{ x: write this formally 
 \exercise.
 Escreva essa relação formalmente.
 
@@ -4281,7 +4314,9 @@ $$
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ thm: combinations_recursive_equation 
 \theorem.
 \label{combinations_recursive_equation}
 Para todos inteiros positivos $n$ e $r$ positivos temos:
@@ -4303,7 +4338,9 @@ $$
 + \underbrace{\comb {n-1} {r-1}}_{\text{escolhas com $s$}}.
 $$
 \qes
+%%}}}
 
+%%{{{ x 
 \exercise.
 Prove o~\ref{combinations_recursive_equation} para todos os $n,r\in\nats$
 com $0<r<n$, usando como definição do símbolo $\comb n r$ a
@@ -4332,7 +4369,9 @@ $$
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 \emph{Redefina} o símbolo $\comb n r$ para todo $n,r\in\nats$
 recursivamente com
@@ -4350,6 +4389,7 @@ $\comb n r = \dfrac {n!} {(n-r)!\stimes r!}$\,.
 Indução.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -4357,6 +4397,7 @@ Indução.
 %%{{{ Counting recursively 
 \section Contando recursivamente.
 
+%%{{{ x: sequences_of_twos_and_threes 
 \exercise.
 \label{sequences_of_twos_and_threes}
 Defina uma função $f : \nats\to\nats$ que conta as seqüências feitas por os números 2 e 3 com soma sua entrada.
@@ -4376,7 +4417,9 @@ Para calcular o valor de $f(17)$, \emph{não} use a definição recursiva ``top-
 $f(0), f(1), f(2), \dotsc$ até o valor desejado.
 
 \endexercise
+%%}}}
 
+%%{{{ x: sequences_of_twos_and_threes_restricted 
 \exercise.
 \label{sequences_of_twos_and_threes_restricted}
 Defina uma função $g : \nats\to\nats$ que conta as seqüências feitas por os números 2 e 3 com soma sua entrada, em quais aparecem os dois números (2 e 3).
@@ -4405,7 +4448,9 @@ g(n) =
 $
 
 \endexercise
+%%}}}
 
+%%{{{ x: infinite_city_1 
 \exercise Dirigindo na cidade infinita (sem destino).
 \label{infinite_city_1}
 No ``meio'' duma ``cidade infinita'', tem um motorista no seu carro.
@@ -4465,7 +4510,9 @@ Em cada das $a$ intersecções que ele encontra ele tem $3$ opções.
 Logo, ele pode seguir $3^a$ caminhos diferentes dirigindo até seu combustível acabar.
 
 \endexercise
+%%}}}
 
+%%{{{ x: infinite_mountain 
 \exercise Dirigindo na montanha infinita.
 \label{infinite_mountain}
 No ``meio'' duma montanha de altura infinita, tem um motorista no seu carro.
@@ -4508,7 +4555,9 @@ Conta o número de caminhos em cada grupo separadamente (recursivamente!),
 e e use o princípio da adição para contar quantos são todos.
 
 \endexercise
+%%}}}
 
+%%{{{ x: infinite_city_2 
 \exercise Dirigindo na cidade infinita (com destino).
 \label{infinite_city_2}
 No ``meio'' duma ``cidade infinita'', tem um motorista no seu carro.
@@ -4534,6 +4583,7 @@ Conta o número de caminhos em cada grupo separadamente (recursivamente!),
 e e use o princípio da adição para contar quantos são todos.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -4554,7 +4604,9 @@ e e use o princípio da adição para contar quantos são todos.
 \section O princípio da inclusão--exclusão.
 \label{Inclusion_exclusion_principle}%
 
+%%{{{ x: 42_passengers_on_a_plane 
 \exercise.
+\label{42_passengers_on_a_plane}%
 42 passangeiros estão viajando num avião.
 \beginul
 \li 11 deles não comem beef.
@@ -4570,6 +4622,7 @@ e e use o princípio da adição para contar quantos são todos.
 Quantos são os passangeiros que não comem nem beef nem peixe?
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -4825,9 +4878,9 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ prob: frogs 
+%%{{{ prob: aleco_bego 
 \problem.
-\label{frogs}
+\label{aleco_bego}%
 Aleco e Bego são dois sapos.
 Eles estão na frente de uma escada com 11 degraus.
 No 6o degrau, tem Cátia, uma cobra, com fome.
@@ -5487,7 +5540,7 @@ Xÿźźÿ o Mago Bravo decidiu matar todos os lemmings que ele guarda no seu qui
 Seus feitiços são os:
 \beginul
 \li ``magic missile'', que mata 2 lemmings simultaneamente, e gasta 1 ponto ``mana'';
-\li ``fireball'', que mata 3 lemmings simultaneamente, e gasta 2 pontos ``mana''.
+\li ``fireball'', que mata 3 lemmings simultaneamente, e gasta 2 pontos mana.
 \endul
 \noindent
 Alem dos feitiços, Xÿźźÿ pode usar seu bastão para matar
@@ -5495,13 +5548,13 @@ os lemmings (que não custa nada, e mata 1 lemming com cada batida).
 \endgraf
 Suponha que o mago \emph{nunca} lançará um feitiço que mataria mais lemmings do
 que tem (ou seu quintal vai se queimar).
-Ele tem $m$ pontos ``mana'' e existem $n$ lemmings no seu quintal.
+Ele tem $m$ pontos mana e existem $n$ lemmings no seu quintal.
 Em quantas maneiras diferentes ele pode destruir todos os lemmings se\dots
 \beginol
 \li os lemmings são indistinguíveis?
 \li os lemmings são distinguíveis?
 \li os lemmings são distinguíveis e cada vez que Xÿźźÿ mata um usando seu bastão,
-ele \emph{ganha} um ponto de ``mana''?
+ele \emph{ganha} um ponto de mana?
 \endol
 \noindent
 (Para os casos que os lemmings são distinguíveis,
@@ -32815,7 +32868,7 @@ $\cal N = \sset \Nats {\Zero,\Succ}$ que satisfaz as leis:
 $$
 \alignat2
 &\text{Zero é um número natural:}&\qquad&\Zero \in \Nats                                 \tag{P1}\\
-&\text{O sucessor é uma operação unária nos naturais:}&&\Succ \eqtype \Nats \to \Nats  \tag{P2}\\
+&\text{O sucessor é uma operação unária nos naturais:}&&\Succ \eqtype \Nats \to \Nats    \tag{P2}\\
 &\text{Naturais diferentes tem sucessores diferentes:}&&\Succ \eqtype \Nats \injto \Nats \tag{P3}\\
 &\text{Zero não é o sucessor de nenhum natural:}&&\Zero \notin \img \Succ \Nats          \tag{P4}\\
 &\text{Os naturais satisfazem o princípio da indução:}                                   \tag{P5}
