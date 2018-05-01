@@ -5606,9 +5606,12 @@ Veja o~\cite{nivencount}.
 %%{{{ Factorization 
 \section Fatorização.
 
+%%{{{ Q: given a positive integer n, how can we break it to construction blocks? 
 \question.
 \emph{Dado um inteiro positivo $n$, como podemos ``o quebrar'' em blocos de construção?}
+%%}}}
 
+%%{{{ what is our cement? 
 \note.
 Vamos primeiramente responder nessa questão com outra:
 \emph{Qual seria nosso ``cimento''?}
@@ -5624,7 +5627,7 @@ $$
 \intertext{e o $1$ não é mais ``quebrável''.
 Nesse quesito, ele é um bloco atómico, um ``tijolo''.
 Repetimos esse processo até chegar num somatório cujos termos são todos tijolos:}
- &= \underbrace{1 + 1 + 1 + 1 + \dotsb + 1}_{\text{$28$ termos}}.
+ &= \tunderbrace{1 + 1 + 1 + 1 + \dotsb + 1} {$28$ termos}.
 \endalign
 $$
 O leitor é convidado pensar sobre as próximas observações:
@@ -5646,9 +5649,11 @@ $$
 não conseguimos o ``quebrar'' em peças menores.  Pelo contrario,
 ele aparece novamente, da mesma forma, no lado direito.
 \endol
+%%}}}
 
+%%{{{ x: partitioning_restricted_best_strategy 
 \exercise.
-\label{partitioning_restricted_best_strategy}
+\label{partitioning_restricted_best_strategy}%
 Qual é a melhor estratégia para desconstruir o $n$ em $1$'s conseguindo
 o menor número de passos possível?  Quantos passos precisa?
 Suponha que em cada passo tu tens que escolher apenas \emph{um} termo (não
@@ -5665,7 +5670,9 @@ Então começando com qualquer número $n$, depois de $n-1$ passos chegamos
 na sua forma $n = 1+1+\dotsb +1$.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Prove formalmente tua resposta no~\ref{partitioning_restricted_best_strategy}.
 
@@ -5679,7 +5686,9 @@ Indução.
 Seja $steps(x)$ o número de passos necessários para quebrar o $x$ em $1$'s.
 
 \endexercise
+%%}}}
 
+%%{{{ times in stead of plus 
 \note ``$\,\ntimes\,$'' ao invés de ``$\,+\,$''.
 Vamos agora usar como cimento a operação $\ntimes$,
 ilustrando o processo com o número $2016$:
@@ -5706,7 +5715,7 @@ $$
 usando os tijolos 2, 3, e 7, e a operação de multiplicação.
 Nos vamos definir formalmente esses tijolos (são os \ii{primo}[informalmente]\dterm{primos},~\ref{prime}),
 e estudar suas propriedades.
-
+\endgraf
 Ilustrando com o mesmo número $2016$, um outro caminho para processar seria o seguinte:
 $$
 \align
@@ -5719,9 +5728,11 @@ $$
 2016&= 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 3 \ntimes 2 \ntimes 3 \ntimes 7.
 \endalign
 $$
+%%}}}
 
+%%{{{ x: fundamental_theorem_of_arithmetic_omen 
 \exercise.
-\label{fundamental_theorem_of_arithmetic_omen}
+\label{fundamental_theorem_of_arithmetic_omen}%
 O que tu percebes sobre as duas desconstruções?:
 $$
 \align
@@ -5737,7 +5748,9 @@ e cada um deles foi usado o mesmo número de vezes:
 $2016 = 2^5 3^2 7$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: factorize_some_integers 
 \exercise.
 \label{factorize_some_integers}%
 Fatorize os inteiros $15$, $16$, $17$, $81$, $100$, $280$, $2015$, e $2017$
@@ -5753,25 +5766,33 @@ $$
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ codeit: program_factor_naive 
 \codeit FactorNaive.
 \label{program_factor_naive}
 Escreva um programa que mostra para cada entrada, sua fatorizações em primos.
 Executa teu programa para verificar tuas respostas no~\ref{factorize_some_integers}.
 \endcodeit
+%%}}}
 
+%%{{{ Q: how many different construction blocks for times? 
 \question.
 Usando adição, nos precisamos apenas um tipo de tijolo para construir qualquer
 inteiro positivo: o $1$.
 Usando a multiplicação nos já percebemos que vários tipos são necessários; mas quantos?
+%%}}}
 
-\note.
-A pergunta e sua resposta não são triviais!
+%%{{{ A: soon 
+\note Resposta (Euclides).
+Essa pergunta e sua resposta não são triviais!
 Recomendo para ti, tentar responder e \emph{provar} tua afirmação.
 Logo vamos encontrar a resposta (de Euclides)
 que é um dos teoremas mais famosos e importantes na história de matemática
 (\ref{primes_is_infinite}).
+%%}}}
 
+\blah.
 No fim do capítulo chegamos no resultado principal
 que esclareçará o~\ref{fundamental_theorem_of_arithmetic_omen}:
 o Teorema Fundamental de Aritmética (\refn{fundamental_theorem_of_arithmetic}),
@@ -5788,6 +5809,7 @@ e provado completamente e formalmente por \Gauss{}Gauss
 %{{{ Divisibility 
 \section Divisibilidade.
 
+%%{{{ df: divides 
 \definition Divisibilidade.
 \label{divides}%
 \tdefined{divide}%
@@ -5804,11 +5826,15 @@ a\divides b \defiff \lexists {k\in\ints} {b = ak}.
 $$
 Os \dterm{divisores} do $a$ são todos os inteiros $d$ tais que $d \divides a$.
 Naturalmente, usamos a notação $a\ndivides b$ quando $a$ não divide $b$.
+%%}}}
 
+%%{{{ eg 
 \example. $3 \divides 12$, porque $12 = 3 \ntimes 4$ e $4\in\ints$, mas
 $8 \ndivides 12$, porque nenhum inteiro $u$ satisfaz $12 = 8u$.
 \endexample
+%%}}}
 
+%%{{{ x: divides_properties 
 \exercise Propriedades da divisibilidade.
 \label{divides_properties}
 Sejam $a,b,x,y,m\in\ints$.
@@ -5829,10 +5855,11 @@ Prove que:
 \hint Aplique a definição do $\divides$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: divides_is_almost_a_partial_order 
 \exercise Mais propriedades da divisibilidade.
-\label{divides_is_almost_antisymmetric}%
-\label{divides_is_a_partial_order_on_nats}%
+\label{divides_is_almost_a_partial_order}%
 Para todos $a,b,c\in\ints$,
 $$
 \alignat 2
@@ -5847,7 +5874,9 @@ Se $a,b\in\nats$, a terceira propriedade fica mais forte:
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ prop: wrong_property_of_product_dividing_common_multiple 
 \proposition.
 \label{wrong_property_of_product_dividing_common_multiple}
 Sejam $a,b,m\in\ints$.  Se $a \divides m$ e $b \divides m$, então $ab \divides m$.
@@ -5860,7 +5889,9 @@ ab = (mu)(mv) = m(umv),
 $$
 e como $umv\in\ints$, $ab \divides m$.
 \mistaqed
+%%}}}
 
+%%{{{ x: find the error and prove that it is false 
 \exercise.
 Ache o erro na prova acima e \emph{prove} que a proposição é falsa!
 
@@ -5886,14 +5917,16 @@ mas
 $6\ntimes 15 = 90 \ndivides 30$.
 
 \endexercise
+%%}}}
 
-\note.
+\blah.
 Nos encontramos a ``versão correta'' da proposição falsa acima no
 item~\refn{wrong_property_of_product_dividing_common_multiple}
 depois (\ref{product_of_coprimes_divides_common_multiple}).
 
+%%{{{ x: implications_with_divisibility_of_linear_combinations 
 \exercise.
-\label{implications_with_divisibility_of_linear_combinations}
+\label{implications_with_divisibility_of_linear_combinations}%
 Sejam $a,b,c\in\ints$.
 Para cada afirmação abaixo, prove-a ou desprove-a:
 $$
@@ -5924,11 +5957,13 @@ $$
 \endaligned
 \right\}
 \implies
-a \divides \underbrace{(2b + 2c) - (b + 2c)}_{\dsize b}.
+a \divides \munderbrace{(2b + 2c) - (b + 2c)} {\dsize b}.
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ df: prime 
 \definition Primo.
 \label{prime}
 \tdefined{primo}
@@ -5938,7 +5973,9 @@ $$
 Seja $p\in\nats$, com $p \geq 2$.
 Chamamos o $p$ \dterm{primo} sse $p$ é divisível apenas por $\pm 1$ e $\pm p$.
 Caso contrario, ele é \dterm{composto}.
+%%}}}
 
+%%{{{ x: zero_and_one_prime_or_composite 
 \exercise.
 O $0$ é primo?  Composto?
 O $1$ é primo?  Composto?
@@ -5949,13 +5986,17 @@ $p$ como um natural tal que $p \geq 2$.
 Logo, não é aplicável nem para o 0 nem para o 1.
 
 \endexercise
+%%}}}
 
+%%{{{ x: 2_is_the_only_even_prime 
 \exercise.
 \label{2_is_the_only_even_prime}
 2 é o único primo par.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Usando uma fórmula de lógica, defina diretamente o que significa que
 um $n\in\nats\setminus\set 1$ é composto.
@@ -5968,32 +6009,41 @@ $$
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ x: first_primes 
 {\input knuthprimes
 \example.
 \label{first_primes}%
 Os primeiros 31 primos são os \primes{31}.
 \endexample
 }
+%%}}}
 
+%%{{{ x: in_primes_divides_means_equals 
 \exercise.
 \label{in_primes_divides_means_equals}
 Sejam $p$, $q$ primos, com $p\divides q$.
 Mostre que $p=q$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: every_composite_number_is_divisible_by_a_prime 
 \exercise.
 \label{every_composite_number_is_divisible_by_a_prime}
 Seja $b$ composto.  Prove que $b$ tem um divisor primo $d\leq \sqrt b$.
 
 \endexercise
+%%}}}
 
+%%{{{ codeit: program_factor 
 \codeit factor.
 \label{program_factor}
 Use o~\ref{every_composite_number_is_divisible_by_a_prime}
 para melhorar teu programa do~\ref{program_factor_naive}.
 \endcodeit
+%%}}}
 
 \endsection
 %%}}}
@@ -6001,6 +6051,7 @@ para melhorar teu programa do~\ref{program_factor_naive}.
 %%{{{ The division algorithm 
 \section O algoritmo da divisão.
 
+%%{{{ lemma: euclidean_division 
 \lemma Divisão de Euclides.
 \label{euclidean_division}%
 \Euclid[lema da divisão]%
@@ -6010,7 +6061,7 @@ $$
 a = bq + r,
 \qquad
 0\leq r < b.
-\eqdef{division}
+\eqdef{division_eq}
 $$
 Alem disso, os $q$ e $r$ são \emph{determinados unicamente}.
 \sketch.
@@ -6036,19 +6087,25 @@ Observe que ela tem elementos não-negativos e, aplicando a PBO, considera o men
     $0\leq r < b$ e $0\leq r' < b$.
     Mostre que $r=r'$ e $q=q'$.
 \qes
+%%}}}
 
+\blah.
 Por causa dessa existência e unicidade, podemos definir:
 
+%%{{{ df: division 
 \definition Divisão.
+\label{division}%
 \tdefined{divisão}%
 \tdefined{quociente}[divisão]%
 \tdefined{resto}[divisão]%
 \sidx[see]{quociente}{divisão} 
 Dados $a,b\in\ints$ com $b>0$, chamamos os inteiros $q$ e $r$ que satisfazem
-a~\eqref{division}
+a~\eqref{division_eq}
 Chamamos o $q$ o \dterm{quociente} e o $r$ o
 \dterm{resto} da divisão de $a$ por $b$.
+%%}}}
 
+%%{{{ x: n_divides_exactly_one_of_n_consecutive_integers 
 \exercise.
 \label{n_divides_exactly_one_of_n_consecutive_integers}
 Seja $n\in\nats$ positivo.  Se $a_0,a_1,\dotsc,a_{n-1}$ são $n$ inteiros consecutivos,
@@ -6065,7 +6122,9 @@ ache o certo $i$ tal que $n\divides a_i$.
 Para a unicidade, ache o resto da divisão de $n$ por o aleatorio $a_j$.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Prove que para todo $n\in\ints$, se $3\ndivides n$
 então $3 \divides n^2 - 1$.
@@ -6075,7 +6134,9 @@ Ou fatorize o $n^2-1$ e use o~\ref{n_divides_exactly_one_of_n_consecutive_intege
 ou considere os dois casos possíveis dependendo dos restos da divisão de $n$ por $3$.
 
 \endexercise
+%%}}}
 
+%%{{{ df: closed_under_addition 
 \definition Conjunto fechado sobre $+$.
 \label{closed_under_addition}%
     Seja $A$ conjunto de números que satisfaz a propriedade:
@@ -6083,21 +6144,28 @@ ou considere os dois casos possíveis dependendo dos restos da divisão de $n$ p
     a,b \in A \implies a+b \in A.
     $$
     Digamos que $A$ é \dterm{fechado} sobre $+$.
+%%}}}
 
+%%{{{ x 
 \exercise.
 O $\emptyset$ e o $\set{0}$ são fechados sobre $+$.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Generalize a noção acima para definir a noção
 ``conjunto fechado sobre $f$'',
 onde $f$ é uma operação no $A$ de aridade qualquer.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
-Quais dos conjuntos abaixo são fechados sobre $+$, quais sobre $-$, e quais sobre $\cdot$?
+Quais dos conjuntos abaixo são fechados sobre $+$,
+quais sobre $-$, e quais sobre $\cdot$?
 $$
 \aligned
     U &= \set{0}\\
@@ -6115,38 +6183,55 @@ $$
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Defina os conjuntos infinitos do exercício anterior sem usar ``$\ldots$\!''.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 O $\rats$ é fechado sobre quais das quatro operações binárias: $+$, $-$, $\cdot$, $\div$?
 E o $\rats\setminus\set0$?
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Prove que se um conjunto é fechado sobre $-$, ele tem que ser fechado sobre $+$ também, mas não o converso!
 
 \endexercise
+%%}}}
 
-Um conjunto de inteiros fechado sobre $-$ (e $+$), não tem muita liberdade na ``forma'' dele.
+\blah.
+Um conjunto de inteiros fechado sobre $-$ (e $+$),
+não tem muita liberdade na ``forma'' dele.
 O teorema seguinte mostra a forma geral de todos eles.
 
-\theorem.
+%%{{{ x: form_of_closed_under_minus 
+\exercise.
 \label{form_of_closed_under_minus}
-Seja $S\subseteq\ints$, com $S\neq\emptyset$, $S$ fechado sobre $-$ (e logo, sobre $+$ também).
-Prove que $S=\set 0$ ou $S$ possui um mínimo elemento positivo $m$ e $S = \set{ km \st k \in\ints}$.
+Seja $S\subseteq\ints$, com $S\neq\emptyset$,
+$S$ fechado sobre $-$ (e logo, sobre $+$ também).
+Prove que $S=\set 0$ ou $S$ possui um mínimo elemento positivo $m$
+e $S = \setst {km} {k \in\ints}$.
 
+\endexercise
+%%}}}
+
+%%{{{ x: form_of_closed_under_minus_without_disjunction 
 \exercise.
 Sem usar disjunção, escreva uma frase equivalente com a conclusão do
 \ref{form_of_closed_under_minus}, e explique porque ela é equivalente.
 
-\hint Existe $n\in\nats$ tal que $S = \set{ kn \st k\in\ints}$.
+\hint Existe $n\in\nats$ tal que $S = \setst {kn} {k\in\ints}$.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -6154,6 +6239,7 @@ Sem usar disjunção, escreva uma frase equivalente com a conclusão do
 %%{{{ The greatest common divisor 
 \section O máximo divisor comum.
 
+%%{{{ df: a_gcd 
 \definition.
 \label{a_gcd}%
 Sejam $a,b\in\ints$.
@@ -6165,18 +6251,20 @@ Em símbolos:
 $
 d = \dsym{\gcd a b}
 \defiff
-\underbrace{
+\tunderbrace {
 d \divides a
 \;\land\;
 d \divides b
-}_{\text{divisor comun}}
+} {divisor comun}
 \;\land\;
-\underbrace{
+\tunderbrace {
 \lforall c {c\divides a \;\land\; c\divides b \implies c\divides d}
-}_{\text{``máximo''}}.
+} {``máximo''}.
 $
 \hfil\mistake}
+%%}}}
 
+%%{{{ x 
 \exercise.
 A~\ref{a_gcd} tem um erro: o símbolo $\gcd a b$ não foi bem definido!
 O que precisamos provar para definir realmente o símbolo $\gcd a b$?
@@ -6191,7 +6279,9 @@ Duas coisas:
 \emph{se $d$, $d'$, são inteiros que satisfazem essas relações, então $d=d'$.}
 
 \endexercise
+%%}}}
 
+%%{{{ prop 
 \proposition.
 Sejam $a,b\in\ints$.  Se $d,d'\in\ints$ são máximos divisores comum
 dos $a$ e $b$, então $d=\pm d'$.
@@ -6204,37 +6294,44 @@ Suponha que $d,d'$ são m.d.c.'s de $a$ e $b$.
 Como $d$ é um m.d.c., todos os divisores em comum dos $a$ e $b$ o dividem.
 Mas, como $d'$ é um divisor em comum, então $d'\divides d$.
 Simetricamente concluimos que $d\divides d'$.
-Logo $d = \pm d'$ (por~\ref{divides_is_almost_antisymmetric}).
+Logo $d = \pm d'$ (por~\ref{divides_is_almost_a_partial_order}).
 \qed
+%%}}}
 
+%%{{{ cor 
 \corollary.
 Sejam $a,b\in\ints$.
 Existe único $d\in\nats$ tal que $d$ é um m.d.c.~de $a$ e~$b$.
+%%}}}
 
+\blah.
 Agora podemos definir o símbolo $\gcd a b$:
 
+%%{{{ df: gcd 
 \definition O máximo divisor comum.
-\label{gcd}
-\sidx[see]{máximo divisor comum}{mdc}
-\tdefined{mdc}
+\label{gcd}%
+\tdefined{mdc}%
+\sdefined{\gcd {\holed a} {\holed b}}{o máximo divisor comum de \holed a e \holed b}%
+\sidx[see]{máximo divisor comum}{mdc}%
 Sejam $a,b\in\ints$.
 $$
 d = \dsym{\gcd a b}
 \defiff
-\underbrace{
+\tunderbrace {
 d \divides a
 \;\land\;
 d \divides b
-}_{\text{divisor comun}}
+} {divisor comun}
 \;\land\;
-\underbrace{
+\tunderbrace {
 d\in\nats
 \;\land\;
 \lforall c {\paren{c\divides a \mland c\divides b} \implies c\divides d}
-}_{\text{o máximo}}
-\sdefined{\gcd {\holed a} {\holed b}}{o máximo divisor comum de \holed a e \holed b}
+} {o máximo}
 $$
+%%}}}
 
+%%{{{ thm: gcd_as_linear_combination & gcd_divides_any_linear_combination 
 \theorem.
 \label{gcd_as_linear_combination}%
 \label{gcd_divides_any_linear_combination}%
@@ -6254,7 +6351,9 @@ Considere o conjunto $L$ de todas as combinações lineares.
 Prove que existe $n_0\in\nats$ tal que $L = \set{ kn_0 \st k\in\ints }$.
 Verifique que $\gcd a b = n_0$.
 \qes
+%%}}}
 
+%%{{{ x 
 \exercise.
 Verifique se a forma do $\gcd a b$ como combinação linear dos $a$ e $b$
 é unicamente determinada.
@@ -6272,18 +6371,22 @@ $$
 $$
 
 \endexercise
+%%}}}
 
+%%{{{ prop: gcd_of_comparable 
 \proposition.
-\label{gcd_of_comparable}
+\label{gcd_of_comparable}%
 $a\divides b \implies \gcd a b = a$.
 Especificamente, $\gcd a 0 = a$.
 \sketch.
 Precisamos apenas verificar as condições da definição de m.d.c., que seguem por
 as propriedades de $\divides$ que já provamos.
 \qes
+%%}}}
 
+%%{{{ x: gcd_signs 
 \exercise.
-\label{gcd_signs}
+\label{gcd_signs}%
 $
 \gcd a b
 =
@@ -6295,9 +6398,11 @@ $
 $.
 
 \endexercise
+%%}}}
 
+%%{{{ x: gcd_of_two_is_gcd_of_one_plus_sum 
 \exercise.
-\label{gcd_of_two_is_gcd_of_one_plus_sum}
+\label{gcd_of_two_is_gcd_of_one_plus_sum}%
 Sejam $a,b\in\ints$.
 Prove que
 $$
@@ -6339,10 +6444,12 @@ $c$ é um divisor comum dos $a$ e $b$, então $c\divides d$ pela definição do 
 como m.d.c.~dos $a$ e $b$.
 
 \endexercise
+%%}}}
 
+%%{{{ lemma: euclid_lemma 
 \lemma Lema de Euclides.
-\label{euclid_lemma}
-\Euclid[lema]
+\label{euclid_lemma}%
+\Euclid[lema]%
 Sejam $a,b\in\ints$ e $p$ primo.
 Se $p \divides ab$, então $p\divides a$ ou $p\divides b$.
 \sketch.
@@ -6366,9 +6473,11 @@ Observe que como $p\divides ab$, segue que $p\divides asb$ (por~\ref{divides_pro
 Obviamente $p\divides ptb$ também.
 Logo, $p\divides asb + ptb = b$.
 \qed
+%%}}}
 
+%%{{{ thm: coprime_with_a_part_of_a_product_must_divide_the_other_part_to_divide_the_product 
 \theorem.
-\label{coprime_with_a_part_of_a_product_must_divide_the_other_part_to_divide_the_product}
+\label{coprime_with_a_part_of_a_product_must_divide_the_other_part_to_divide_the_product}%
 Se $\gcd d a = 1$ e $d \divides ab$, então $d \divides b$.
 \sketch.
 A prova é practicamente a mesma com aquela do~\ref{euclid_lemma}:
@@ -6390,9 +6499,11 @@ $$
 e argumentando como na prova do~\ref{euclid_lemma}
 concluimos que $d \divides b$.
 \qed
+%%}}}
 
+%%{{{ cor: product_of_coprimes_divides_common_multiple 
 \corollary.
-\label{product_of_coprimes_divides_common_multiple}
+\label{product_of_coprimes_divides_common_multiple}%
 Se $a\divides m$, $b\divides m$, e $\gcd a b = 1$, então $ab\divides m$.
 \proof.
 Como $a\divides m$, temos $m = au$ para algum $u\in\ints$.
@@ -6401,7 +6512,9 @@ Mas $b\divides m=au$, e como $\gcd b a = 1$, temos $b\divides u$
 Então $bv = u$ para algum $v\in\ints$.
 Substituindo, $m = au = a(bv) = (ab)v$, ou seja, $ab \divides m$.
 \qed
+%%}}}
 
+%%{{{ thm: primes_is_infinite 
 \theorem Euclid.
 \label{primes_is_infinite}%
 \Euclid[infinidade de primos]%
@@ -6422,6 +6535,7 @@ ou $p$ é divisivel por algum primo $q \not\in P$
 (por~\ref{every_composite_number_is_divisible_by_a_prime}).
 Nos dois casos, existe pelo menos um primo fora do $P$.
 \qed
+%%}}}
 
 \endsection
 %%}}}
@@ -6429,6 +6543,7 @@ Nos dois casos, existe pelo menos um primo fora do $P$.
 %%{{{ The Euclidean algorithm 
 \section O algoritmo de Euclides.
 
+%%{{{ Idea 
 \note Idéia.
 Sejam $a,b$ inteiros positivos.
 Como achamos o $\gcd a b$?
@@ -6444,13 +6559,15 @@ r_0     &   =    & r_1                        & q_2     &  +     & r_2,    & 0\l
 r_1     &   =    & r_2                        & q_3     &  +     & r_3,    & 0\leq r_3 < r_2         \\
         & \vdots &                            &         &        &         & \hfil\vdots\hfil        \\
 r_{n-3} &   =    & r_{n-2}                    & q_{n-1} &  +     & r_{n-1},& 0\leq r_{n-1} < r_{n-2} \\
-r_{n-2} &   =    & \boxed{\mathstrut r_{n-1}} & q_n     &  +     & \underbrace{r_n}_0,      & 0 = r_n < r_{n-1}.      
+r_{n-2} &   =    & \boxed{\mathstrut r_{n-1}} & q_n     &  +     & \munderbrace {r_n} {0},     & 0 = r_n < r_{n-1}.      
 \endmatrix
 $$
 O $\gcd a b$ estará na posição marcada acima.
 Vamos agora descrever o algoritmo formalmente, e provar
 (informalmente e formalmente) sua corretude!
+%%}}}
 
+%%{{{ algorithm: euclidean_algorithm 
 \algorithm Euclides.
 \label{euclidean_algorithm}%
 \tdefined{algoritmo}[de Euclides]%
@@ -6471,36 +6588,37 @@ OUTPUT: $\gcd a b$
 \endol
 {\hrule width \hsize height 1pt\relax}
 }
+%%}}}
 
+%%{{{ eg: euclidean_algorithm_example 
 \example.
-\label{euclidean_algorithm_example}
+\label{euclidean_algorithm_example}%
 Ache o $\gcd {101} {73}$ com o algoritmo de Euclides.
 
 \solution
-Sabendo que os dois números são primos, fica imediato que eles são coprimos entre si também:
-a reposta é 1.
-
+Sabendo que os dois números são primos, fica imediato que eles são coprimos
+entre si também: a reposta é 1.
+\endgraf
 Aplicando o algoritmo de Euclides, para achar o $\gcd {101} {73}$, dividimos o $101$ por $73$:
 $$
 \alignat 2
-101 &= 73 \ntimes \underbrace{\phantom 1}_{\text{quociente}} + \underbrace{\phantom{28}}_{\text{resto}},      &\qquad&0 \leq \underbrace{\phantom{28}}_{\text{resto}} < 73
+101 &= 73       \ntimes \tunderbrace {\phantom 1} {quociente} + \tunderbrace {\phantom{28}} {resto},      &\qquad&0 \leq \tunderbrace {\phantom{28}} {resto} < 73
 \intertext{e sabemos que assim reduziremos o problema para o alvo de achar o $\gcd {73} {\text{resto}}$.  Pensando, achamos os valores:}
-101 &= 73 \ntimes \underbrace{1}_{\text{quociente}} + \underbrace{28}_{\text{resto}},      &\quad&0 \leq \underbrace{28}_{\text{resto}} < 73 
+101 &= 73       \ntimes \tunderbrace {1} {quociente} + \tunderbrace {28} {resto},      &\quad&0 \leq \tunderbrace {28} {resto} < 73 
 \intertext{ou seja, $\gcd {101} {73} = \gcd {73} {28}$.  Então, repetimos:}
-73 &= 28 \ntimes \underbrace{{2}}_{\text{quociente}} + \underbrace{{17}}_{\text{resto}},      &&0 \leq \underbrace{17}_{\text{resto}} < 28
+73  &= 28       \ntimes \tunderbrace {2} {quociente} + \tunderbrace {17} {resto},      &&0 \leq \tunderbrace {17} {resto} < 28
 \intertext{ou seja, $\gcd {73} {28} = \gcd {28} {17}$.  Repetimos:}
-28 &= 17 \ntimes \underbrace{1}_{\text{quociente}} + \underbrace{11}_{\text{resto}},      &&0 \leq \underbrace{11}_{\text{resto}} < 17
+28  &= 17       \ntimes \tunderbrace {1} {quociente} + \tunderbrace {11} {resto},      &&0 \leq \tunderbrace {11} {resto} < 17
 \intertext{ou seja, $\gcd {28} {17} = \gcd {17} {11}$.  Repetimos:}
-17 &= 11 \ntimes \underbrace{1}_{\text{quociente}} + \underbrace{6}_{\text{resto}},      &&0 \leq \underbrace{6}_{\text{resto}} < 11
+17  &= 11       \ntimes \tunderbrace {1} {quociente} + \tunderbrace {6}  {resto},      &&0 \leq \tunderbrace {6} {resto} < 11
 \intertext{ou seja, $\gcd {17} {11} = \gcd {11} 6$.  Repetimos:}
-11 &= 6 \ntimes \underbrace{1}_{\text{quociente}} + \underbrace{5}_{\text{resto}},      &&0 \leq \underbrace{5}_{\text{resto}} < 6
+11  &= 6        \ntimes \tunderbrace {1} {quociente} + \tunderbrace {5}  {resto},      &&0 \leq \tunderbrace {5} {resto} < 6
 \intertext{ou seja, $\gcd {11} 6 = \gcd 6 5$.  Repetimos:}
-6 &= 5 \ntimes \underbrace{1}_{\text{quociente}} + \underbrace{1}_{\text{resto}},      &&0 \leq \underbrace{1}_{\text{resto}} < 5
+6   &= 5        \ntimes \tunderbrace {1} {quociente} + \tunderbrace {1}  {resto},      &&0 \leq \tunderbrace {1} {resto} < 5
 \intertext{ou seja, $\gcd 6 5 = \gcd 5 1$.  Como $\gcd 5 1 = 1$, nem precisamos repetir, mas vamos mesmo assim:}
-5 &= \boxed 1 \ntimes \underbrace{5}_{\text{quociente}} + \underbrace{0}_{\text{resto}}.      &&
+5   &= \boxed 1 \ntimes \tunderbrace {5} {quociente} + \tunderbrace {0} {resto}.      &&
 \endalignat
 $$
-
 Mais compactamente, os passos são:
 $$
 \matrix
@@ -6517,15 +6635,20 @@ $$
 $$
 \moveqedup
 \endexample
+%%}}}
 
+%%{{{ 
 \remark.
 \def\Euclid{\algorithmstyle{Euclid}}%
 Podemos utilizar o algoritmo de Euclides para achar o $\gcd a b$
 onde $a,b\in\ints$ também,
 graças ao~\ref{gcd_signs}:
 $(a,b) = (\abs a, \abs b) = \Euclid(\abs a, \abs b)$.
+%%}}}
 
+%%{{{ x: find_a_couple_of_gcds 
 \exercise.
+\label{find_a_couple_of_gcds}%
 Usando o algoritmo de Euclides, ache os:
 (i) $\gcd {108} {174}$; 
 (ii) $\gcd {2016} {305}$.
@@ -6572,19 +6695,25 @@ $$
 %$$
 
 \endexercise
+%%}}}
 
+%%{{{ codeit: implement_euclidean_algorithm 
 \codeit.
 \label{implement_euclidean_algorithm}
 Implemente o algoritmo de Euclides e verifique tuas soluções nos exercícios anteriores.
 \endcodeit
+%%}}}
 
+%%{{{ codeit: implement_verbose_euclidean_algorithm 
 \codeit.
 \label{implement_verbose_euclidean_algorithm}
 Implemente um modo ``verbose'' no teu programa
 do~\ref{implement_euclidean_algorithm},
 onde ele mostra todas as equações e desigualdades, e não apenas o resultado final.
 \endcodeit
+%%}}}
 
+%%{{{ lemma: euclid_gcd_lemma 
 \lemma Euclides.
 \label{euclid_gcd_lemma}
 Se $a,b\in\ints$ com $b > 0$, então $\gcd a b = \gcd b r$,
@@ -6606,8 +6735,8 @@ d \divides a
 \mland
 d \divides b
 &\implies
-d\divides \overbrace{a - bq}^{\dsize r}\\
-d\divides \underbrace{bq + r}_{\dsize a}
+d\divides \moverbrace {a - bq} {\dsize r}\\
+d\divides \munderbrace {bq + r} {\dsize a}
 &\impliedby
 d \divides b
 \mland
@@ -6632,18 +6761,25 @@ $$
 $$
 que mostra a corretude do algoritmo.
 \mistaqed
+%%}}}
 
+%%{{{ x: what_is_the_problem_with_euclid_gcd_lemma 
 \exercise.
+\label{what_is_the_problem_with_euclid_gcd_lemma}%
 Qual é o problema com a prova do~\ref{euclid_gcd_lemma}?
 
 \solution
-A definição do maior divisor comum $(a,b)$ não foi ``o maior divisor comum dos $a$ e $b$''.
-Lembre-se~\ref{gcd}.  Veja também o~\ref{gcd_alternative_definition}.
+A definição do maior divisor comum $(a,b)$ não foi
+``o maior divisor comum dos $a$ e $b$''.
+Lembre-se a~\ref{gcd}.
+Veja também o~\ref{gcd_alternative_definition}.
 
 \endexercise
+%%}}}
 
+%%{{{ thm: euclidean_algorithm_correctness 
 \theorem Algorítmo de Euclides.
-\label{euclidean_algorithm_correctness}
+\label{euclidean_algorithm_correctness}%
 O~\ref{euclidean_algorithm} é correto.
 \proof.
 Precisamos provar duas coisas: \emph{terminação\/}\/ e \emph{corretude}.
@@ -6674,9 +6810,11 @@ Logo, essa seqüência não pode ser infinita.
 Realmente, o tamanho dela não pode ser maior que $b$,
 então depois de no máximo $b$ passos, o algorítmo terminará.
 \qed
+%%}}}
 
+%%{{{ x: euclidean_algorithm_proof_why_informal 
 \exercise.
-\label{euclidean_algorithm_proof_why_informal}
+\label{euclidean_algorithm_proof_why_informal}%
 Nenhuma das duas partes da prova do~\ref{euclidean_algorithm_correctness}
 é completamente formal.  Explique porque.
 (Veja também os~\refs{euclidean_algorithm_correctness_formal_proof_by_induction}--\refn{euclidean_algorithm_correctness_formal_proof_by_wop}.)
@@ -6689,14 +6827,19 @@ Nenhuma das duas partes da prova do~\ref{euclidean_algorithm_correctness}
 São os ``${}\dotsb{}$'' mesmo!
 
 \endexercise
+%%}}}
 
+%%{{{ Steps in Euclid's algorithm 
 \note Passos do algoritmo de Euclides.
 Como o exercício seguinte mostra, o algoritmo de Euclides
 é bem mais eficiente do que nós mostramos acima:
 depois dois passos, as duas entradas, nos piores dos casos,
 são reduzidas para metade.
+%%}}}
 
+%%{{{ x: less_steps_in_euclid
 \exercise.
+\label{less_steps_in_euclid}%
 Se $a \geq b$, então $r < a/2$, onde $r$ o resto da divisão de $a$ por $b$.
 
 \hint Separe os casos: ou $b > a/2$ ou $b \leq a/2$.
@@ -6713,6 +6856,7 @@ Então $r = a-b < a/2$.
 Então $r < b < a/2$.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -6720,6 +6864,7 @@ Então $r < b < a/2$.
 %%{{{ The extended Euclidean algorithm 
 \section O algoritmo estendido de Euclides.
 
+%%{{{ How do we find the coefs of the linear combination 
 \note.
 Nos já provamos que o m.d.c.~$\gcd a b$ de dois inteiros $a$ e $b$
 pode ser escrito como uma combinação linear deles, mas como podemos
@@ -6728,17 +6873,22 @@ $$
 \gcd a b = as + bt,     \qquad s,t\in\ints?
 $$
 Supresamente a resposta já está ``escondida'' no mesmo algoritmo de Euclides!
+%%}}}
 
+%%{{{ algorithm: extended_euclidean_algorithm 
 \algorithm Algoritmo estendido de Euclides.
-\label{extended_euclidean_algorithm}
-\Euclid[algoritmo estendido]
-\tdefined{algoritmo}[estendido de Euclides]
+\label{extended_euclidean_algorithm}%
+\Euclid[algoritmo estendido]%
+\tdefined{algoritmo}[estendido de Euclides]%
 \algospec
  INPUT: $a,b\in\ints$, $b>0$
 OUTPUT: $s,t\in\ints$ tais que $\gcd a b = as + bt$.
 \endspec
+%%}}}
 
+%%{{{ eg: write_a_gcd_as_a_linear_combination 
 \example.
+\label{write_a_gcd_as_a_linear_combination}%
 Escreva o $\gcd {101} {73}$ como combinação linear dos $101$ e $73$.
 
 \solution
@@ -6791,33 +6941,40 @@ falando.  Serve apenas para ajudar nossos olhos humanos.
 Achamos então $s,t\in\ints$ que satisfazem a equação $1 = sa + tb$:
 são os $s = -13$ e $t = 18$.
 \endexample
+%%}}}
 
+%%{{{ x: more_gcds_as_linear_combinations 
 \exercise.
+\label{more_gcds_as_linear_combinations}%
 Usando o algoritmo estendido de Euclides, escreve:
 (i) o $\gcd {108} {174}$ como combinação linear dos 108 e 174; 
 (ii) o $\gcd {2016} {305}$ como combinação linear dos 2016 e 305.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
 
 %%{{{ The sieve of Eratosthenes 
-\section O crivo de Eratostenes.
+\section O crivo de Eratosthenes.
+\label{Sieve_of_Eratosthenes}.
 
+%%{{{ Q: How can we find all primes up to a given bound? 
 \question.
 Como podemos achar todos os primos até um dado limitante $b\in\nats$?
+%%}}}
 
+%%{{{ A: answer_by_eratosthenes 
+\note Resposta.
+\label{answer_by_eratosthenes}%
+\def\co##1{\phantom{##1}}%
+\def\ci##1{\underline{##1}}%
 \Eratosthenes[crivo]%
-\noindent
-Eratostenes (276--194 a.C.)~conseguiu responder com sua metodo conhecida como
-o ``crivo de Eratostenes''.
+Eratosthenes (276--194 a.C.)~conseguiu responder com sua metodo conhecida como
+o \dterm{crivo de Eratosthenes}.
 Antes de descrever o seu algoritmo formalmente, vamos aplicar sua idéia
 para achar todos os primos menores ou iguais que $b=128$.
-
-{%
-\def\co#1{\phantom{#1}}%
-\def\ci#1{\underline{#1}}%
 Primeiramente liste todos os números de $2$ até $b=128$:
 $$
 \matrix
@@ -6910,23 +7067,29 @@ $$
 \endmatrix
 $$
 E podemos já parar aqui, certos que os números que ainda ficam na lista, são todos os primos desejados.
-}
+%%}}}
 
+%%{{{ x: why? 
 \exercise.
 Por quê?
 
 \endexercise
+%%}}}
 
+%%{{{ x: eratosthenian_algorithm 
 \exercise.
-\label{eratosthenian_algorithm}
-Escreva formalmente o algoritmo do Eratostenes.
+\label{eratosthenian_algorithm}%
+Escreva formalmente o algoritmo do Eratosthenes.
 
 \endexercise
+%%}}}
 
+%%{{{ codeit: implement_eratosthenian_algorithm 
 \codeit.
 \label{implement_eratosthenian_algorithm}
-Implemente o algoritmo de Eratostenes e use-lo para achar todos os primos até o $1024$.
+Implemente o algoritmo de Eratosthenes e use-lo para achar todos os primos até o $1024$.
 \endcodeit
+%%}}}
 
 \endsection
 %%}}}
@@ -6934,11 +7097,12 @@ Implemente o algoritmo de Eratostenes e use-lo para achar todos os primos até o
 %%{{{ The fundamental theorem of arithmetic 
 \section O teorema fundamental da aritmética.
 
+%%{{{ thm: fundamental_theorem_of_arithmetic 
 \theorem fundamental da aritmética (Euclides, Gauss).
+\label{fundamental_theorem_of_arithmetic}%
 \ii{teorema}[fundamental da aritmética]%
 \Gauss{}%
 \Euclid{}%
-\label{fundamental_theorem_of_arithmetic}%
 Todo $n\in\nats$ com $n > 1$, pode ser escrito como um produtório de primos.
 Essa expressão é única se desconsiderar a ordem dos fatores do produtório.
 \proof.
@@ -6994,9 +7158,12 @@ Necessariamente, isso vai acontecer ``simultaneamente'' nos dois lados
 de primos igual com 1, impossível), ou seja: $s = t$.
 Note que as equações $p_i = q_{j_i}$ mostram a unicidade desejada.
 \qed
+%%}}}
 
+\blah.
 Graças o teorema fundamental da aritmética podemos definir a:
 
+%%{{{ df: canonical_representation_of_ints 
 \definition Representação canónica de inteiros.
 \label{canonical_representation_of_ints}
 \tdefined{representação canónica}[de inteiros]
@@ -7035,12 +7202,16 @@ onde agora os $p_0 < p_1 < \cdots < p_k$ são \emph{todos os $k+1$ primeiros pri
 sendo então $p_0 = 2$, e $p_k$ o maior primo divisor do $n$.
 Chamamos essa forma a \dterm{representação canónica completa} do $n$.
 (Veja também o~\ref{encoding_of_finite_sequences}.)
+%%}}}
 
+%%{{{ x: canonical_representation_with_int_exponents 
 \exercise.
-\label{canonical_representation_with_int_exponents}
-O que acontece se relaxar a restrição nos exponentes ainda mais?: $a_i\in\ints$.
+\label{canonical_representation_with_int_exponents}%
+O que acontece se relaxar a restrição nos exponentes ainda mais?:
+$a_i\in\ints$.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -7049,20 +7220,28 @@ O que acontece se relaxar a restrição nos exponentes ainda mais?: $a_i\in\ints
 \section Problemas em aberto.
 \label{Open_problems_in_number_theory}%
 
+%%{{{ conjecture: goldbach_conjecture 
 \conjecture Goldbach.
 \label{goldbach_conjecture}%
 \Goldbach{}
+%%}}}
 
+%%{{{ conjecture: twin_primes_conjecture 
 \conjecture Twin primes.
-\label{twin_primes_conjecture}%
+\label{twin_primes_conjecture}
+%%}}}
 
+%%{{{ conjecture: legendre_conjecture 
 \conjecture Legendre.
 \label{legendre_conjecture}%
 \Legendre{}
+%%}}}
 
+%%{{{ conjecture: collatz_conjecture
 \conjecture Collatz.
 \label{collatz_conjecture}%
 \Collatz{}
+%%}}}
 
 \endsection
 %%}}}
@@ -7519,7 +7698,7 @@ Veja o~\cite[\S\S1.6--1.8]{babybm}.
 %%{{{ The idea behind congruence relation 
 \section A idéia da relação de congruência.
 
-\note.
+\blah.
 Vamos fixar um inteiro positivo $m\in\nats$.
 Graças à divisão de Euclides~(\refn{euclidean_division}),
 qualquer inteiro $a\in\ints$ pode ser escrito na forma
@@ -7553,17 +7732,22 @@ mesma classe, quando separamos eles em grupos usando o inteiro $m$}''.
 A primeira coisa que precisamos perceber é que essa frase é uma afirmação sobre 3 objetos.
 Queremos então uma definição e uma notação que captura essa relação \emph{de aridade 3}.
 
-\note Congruência intuitivamente (1).
+%%{{{ Congruences intuitively 
+\note Congruência intuitivamente.
 Chamamos dois inteiros \dterm{congruentes} módulo um terceiro inteiro,
 sse eles têm o mesmo resto, quando divididos por ele.
+%%}}}
 
+%%{{{ Critique 
 \note Crítica.
 Primeiramente, o texto da definição é bem informal e ambíguo.
 Para tirar essas ambiguidades, precisamos introduzir variáveis para
 referir sobre os ``mesmos restos'':
+%%}}}
 
-\note Congruência intuitivamente (2).
-\label{congruence_intuitive_definition}
+%%{{{ df: congruence_intuitive_definition 
+\definition Intuitiva.
+\label{congruence_intuitive_definition}%
 Sejam $a,b,m\in\ints$ com $m>0$, e sejam $q_a$, $r_a$, $q_b$, e $r_b$
 os inteiros determinados por as divisões:
 $$
@@ -7574,9 +7758,11 @@ b &= mq_b + r_b     &      & 0 \leq r_b < m
 $$
 Digamos que os $a$ e $b$ são \dterm{congruentes} módulo~$m$,
 sse $r_a = r_b$.
+%%}}}
 
+%%{{{ remark: from_same_remainders_to_divides_the_diference 
 \remark.
-\label{from_same_remainders_to_divides_the_diference}
+\label{from_same_remainders_to_divides_the_diference}%
 Olhando para dois números $a$ e $b$, congruêntes módulo~$m$,
 o que podemos dizer sobre a diferença deles?
 Observe:
@@ -7598,13 +7784,15 @@ a - b
 $$
 Essa observação nos mostra um caminho mais curto e elegante para definir o mesmo
 conceito.  É o seguinte:
+%%}}}
 
+%%{{{ df: congruence 
 \definition Congruência (Gauss).
-\label{congruence}
-\tdefined{congruência}
-\tdefined{módulo}
-\Gauss[definição de congruência]
-\sdefined{\holed a \cong {\holed b} \pmod {\holed m}}{\holed a é congruente com \holed b módulo \holed m}
+\label{congruence}%
+\tdefined{congruência}%
+\tdefined{módulo}%
+\sdefined{\holed a \cong {\holed b} \pmod {\holed m}}{\holed a é congruente com \holed b módulo \holed m}%
+\Gauss[definição de congruência]%
 Sejam $a,b,m\in\ints$ com $m>0$.
 Digamos que os $a$ e $b$ são \dterm{congruentes} \dterm{módulo} $m$,
 sse $m \divides a - b$.
@@ -7614,12 +7802,15 @@ a \cong b \pmod m
 \defiff m \divides a - b
 $$
 e lemos: \emph{o $a$ é congruente com $b$ módulo~$m$}.
+%%}}}
 
+%%{{{ beware: cong_mod_is_a_ternary_relation 
 \beware.
+\label{cong_mod_is_a_ternary_relation}%
 A notação de congruência as vezes iluda de ser enterpredada como se fosse
 uma relação entre o lado esquerdo $L$ e o lado direito $R$, assim:
 $$
-\underbrace{a}_{L} \cong \underbrace{b \pmod m}_{R}.
+\tunderbrace {a} {L} \cong \tunderbrace {b \pmod m} {R}.
 $$
 \emph{Não!}
 Principalmente, o lado direito, $b \pmod m$, nem é definido, então não tem significado,
@@ -7630,13 +7821,17 @@ $$
 \holed u \cong \holed v \pmod {\holed w}
 $$
 dados $u,v,w\in\ints$ com $w>1$.
+%%}}}
 
+%%{{{ Intuition 
 \note Intuição.
 Se precisamos para algum motivo pessoal---porque sim---separar mentalmente a
 notação de congruência em dois lados, o único jeito que faz algum sentido
 seria o:
 $$
-\underbrace{\mathstrut a \cong b}_L\quad\underbrace{\!\!\pmod m}_{R}.
+\tunderbrace {\mathstrut a \cong b} {L}
+\quad
+\tunderbrace {\!\!\pmod m} {R}.
 $$
 Assim, entendemos que ``algo acontece'' (lado $L$), ``dentro algo'' (lado $R$),
 onde ``algo acontece'' seria ``o $a$ \emph{parece} com $b$'',
@@ -7644,11 +7839,15 @@ e ``dentro algo'' seria ``módulo~$m$''.
 Mas, claramente tudo isso é apenas uma guia (caso que queremos)
 e nada mais que isso.  Para argumentar sobre a relação de congruência,
 usamos \emph{apenas sua definição formal!}
+%%}}}
 
+\blah.
 Para ganhar o direito de usar qualquer uma das duas definições, precisamos
 mostrar que são equivalentes:
 
+%%{{{ thm: cong_mod_equivalence_of_definitions 
 \theorem Equivalência das duas definições.
+\label{cong_mod_equivalence_of_definitions}%
 Sejam $a,b,m\in\ints$ com $m>0$, e sejam $q_a, r_a, q_b, r_b\in\ints$
 os números determinados por as divisões:
 $$
@@ -7700,7 +7899,7 @@ $$
 Observe que $m\divides a-b$ e $m\divides m(q_a - q_b)$.
 Então $m$ tem que dividir a diferença deles também:
 $$
-m\divides \underbrace{(a - b) - m(q_a - q_b)}_{\dsize r_a - r_b}
+m\divides \munderbrace {(a - b) - m(q_a - q_b)} {\dsize r_a - r_b}
 $$
 Usando as duas desigualdades: $0 \leq \abs{r_a - r_b} < m$.
 Como $\abs{r_a-r_b}$ é um múltiplo de $m$, concluimos que necessariamente
@@ -7723,8 +7922,11 @@ concluimos que
 $m\divides a - b$, ou seja:
 $a \cong b \pmod m$.
 \qed
+%%}}}
 
+%%{{{ note: binary_mod 
 \note A operação binária ``mod''.
+\label{binary_mod}%
 Em linguagens de programação é comum encontrar o operador \emph{binário}
 ``mod'', frequentemente denotado com o símbolo ``\thinspace{\tt \%}\thinspace''.
 Em matemática, essa função \emph{binária} (aridade 2) é mais
@@ -7743,8 +7945,11 @@ $$
 \qquad\qquad
 4 = 69 \pmod 5
 $$
+%%}}}
 
+%%{{{ x: explain_the_type_of_bmod 
 \exercise.
+\label{explain_the_type_of_bmod}%
 Explique o tipo da função $\bmod : \ints\times\nats_{>0} \to \nats$.
 
 \hint Qual seria o valor de $4 \bmod 0$?
@@ -7755,9 +7960,11 @@ precisamos $a\in\ints$ e $b\in\nats_{>0}$ para definir a divisão
 de $a$ por $b$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: mod_vs_mod 
 \exercise mod vs mod.
-\label{mod-vs-mod}
+\label{mod_vs_mod}%
 Para cada uma das expressões abaixo uma das 3 opções é valida:
 (a) ela denota um termo;
 (b) ela denota uma afirmação; ou
@@ -7794,7 +8001,9 @@ seja $x\in\ints$ tal que $x \bmod 4 = 2$.  Logo $x = 4k + 2 = 2(2k + 1)$ para al
 \endol
 
 \endexercise
+%%}}}
 
+%%{{{ notation 
 \note Notação.
 Talvez ficaria mais intuitivo (e menos confúso), usar uma notação como a
 $$
@@ -7803,6 +8012,7 @@ $$
 que aparece mais fiel na sua semántica.
 Mas a notação que é usada internacionalmente, é aquela que nos definimos
 e nos vamos ficar consistentemente fieis nela!
+%%}}}
 
 \endsection
 %%}}}
@@ -7863,8 +8073,9 @@ Estudamos relações no~\ref{Relations}.  Paciência!
 %%{{{ Modular arithmetic 
 \section Aritmética modular.
 
+%%{{{ prop: modular_arithmetic_properties 
 \property.
-\label{modular_arithmetic_properties}
+\label{modular_arithmetic_properties}%
 Se $a \cong b \pmod m$, então para todo $x\in\ints$ temos:
 $$
 (1)\quad a + x \cong b + x   \pmod m;
@@ -7876,20 +8087,25 @@ $$
 \sketch.
 Todas seguem facilmente pela definição (\refn{congruence}) de congruência módulo~$m$.
 \qes
+%%}}}
 
+%%{{{ beware: wrong_cancellation_law_modulo_m 
 \beware.
-\label{wrong_cancellation_law_modulo_m}
+\label{wrong_cancellation_law_modulo_m}%
 O lei de cancelamento, mesmo valido nas igualdades,
 não é valido nas congruências em geral.
 Por exemplo,
 $3\ntimes 2 \cong 3\ntimes 8 \pmod {18}$,
 mas não podemos cancelar os $3$ nos dois lados:
 $2 \ncong 8 \pmod {18}$.
+%%}}}
 
+\blah.
 Felizmente, o teorema seguinte mostra quando realmente podemos cancelar:
 
+%%{{{ thm: cancellation_law_modulo_m 
 \theorem Lei de cancelamento módulo $m$.
-\label{cancellation_law_modulo_m}
+\label{cancellation_law_modulo_m}%
 Seja $c\in\ints$ tal que $\gcd c m = 1$.
 $$
 ca\cong cb\pmod m
@@ -7911,7 +8127,9 @@ ca\cong cb\pmod m
 $$
 \moveqedup
 \qed
+%%}}}
 
+%%{{{ x 
 \exercise.
 Aplicando as definições e propriedades de congruência e da relação $\divides$,
 ache uma outra prova do~\refn{cancellation_law_modulo_m}.
@@ -7923,9 +8141,11 @@ Mas $\gcd m c = 1$, então
 $m\divides a - b$, ou seja, $a \cong b \pmod m$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: from_mod_m_to_mod_am 
 \exercise.
-\label{from_mod_m_to_mod_am}
+\label{from_mod_m_to_mod_am}%
 Suponha que $x \cong t \pmod m$, e seja $a$ um inteiro positivo.
 O que podemos concluir sobre o $x$ módulo~$ma$?
 
@@ -7952,65 +8172,74 @@ $$
 e $x$ tem que satisfazer (exatamente) uma delas.
 
 \endexercise
+%%}}}
 
+%%{{{ x: from_equality_to_congruence 
 \exercise De igualdades para congruências.
 \label{from_equality_to_congruence}
 Seja $a,b\in\ints$.  Se $a = b$, então $a\cong b\pmod m$ para qualquer inteiro $m\in\nats$.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
 
 %%{{{ Divisibility criteria 
 \section Critéria de divisibilidade.
+\label{Divisibility_criteria}%
 \ii{divisibilidade}[critéria]%
 
-\criterion Divisibilidade por 10$^k$.
-\label{divisibility_criterion_powers_of_10}
+%%{{{ criterion: divisibility_criterion_powers_of_10 
+\criterion Divisibilidade por potências de 10.
+\label{divisibility_criterion_powers_of_10}%
 Um inteiro $c\neq 0$ é divisível por $10^k$
 sse
-o $c$ escrito em base decimal
-termina com $k$ dígitos 0.
+o $c$ escrito em base decimal termina com $k$ dígitos 0.
+%%}}}
 
+%%{{{ criterion: divisibility_criterion_2_5 
 \criterion Divisibilidade por $2$ ou $5$.
-\label{divisibility_criterion_2}
-\label{divisibility_criterion_5}
+\label{divisibility_criterion_2_5}%
 Seja $m\in\set{2, 5}$.
 Um inteiro $c$ é divisível por $m$
 sse
 o valor do último dígitos do $c$ (em base decimal) é $m$.
+%%}}}
 
+%%{{{ criterion: divisibility_criterion_3_9 
 \criterion Divisibilidade por 3 ou 9.
-\label{divisibility_criterion_3}
-\label{divisibility_criterion_9}
+\label{divisibility_criterion_3_9}%
 Seja $m\in\set{3, 9}$.
 Um inteiro $c$ é divisível por $m$
 sse
 o somatório dos valores dos dígitos do $c$ (em base decimal) é
 divisível por $m$.
+%%}}}
 
+%%{{{ criterion: divisibility_criterion_4_20_24_50
 \criterion Divisibilidade por 4, 20, 25, 50.
-\label{divisibility_criterion_4}
-\label{divisibility_criterion_20}
-\label{divisibility_criterion_25}
-\label{divisibility_criterion_50}
+\label{divisibility_criterion_4_20_25_50}%
 Seja $m\in\set{4, 20, 25, 50}$.
 Um inteiro $c$ é divisível por $m$
 sse
 o número formado por os \oldstyle{2} últimos dígitos do $c$ (em base decimal)
 é divisível por $m$.
+%%}}}
 
+%%{{{ criterion: divisibility_criterion_11 
 \criterion Divisibilidade por 11.
-\label{divisibility_criterion_11}
+\label{divisibility_criterion_11}%
 Um inteiro $c$ é divisível por $11$
 sse
 o somatório dos valores dos dígitos do $c$ (em base decimal) em posição par
 menos o somatório dos valores dos seus dígitos em posição impar
 é divisível por $11$.
+%%}}}
 
+%%{{{ x: divisibility_criterion_6 
 \exercise Divisibilidade por 6.
-\label{divisibility_criterion_6}
+\label{divisibility_criterion_6}%
 Ache um critério (para o sistema decimal) para divisibilidade por 6.
 
 \hint $6 = 2\ntimes 3$
@@ -8027,8 +8256,10 @@ $$
 Logo, aplicamos os critéria de divisibilidade por $2$ e por $3$.
 
 \endexercise
+%%}}}
 
-\criterion Divisibilidade por 8.
+%%{{{ prop: divisibility_criterion_8_wrong 
+\proposition Divisibilidade por 8.
 \label{divisibility_criterion_8_wrong}
 Um número $c$ é divisível por 8 sse ele satisfaz
 os critéria de divisibilidade por $2$ e $4$.
@@ -8043,8 +8274,11 @@ $$
 $$
 Logo, aplicamos os critéria de divisibilidade por $2$ e por $4$.
 \mistaqed
+%%}}}
 
+%%{{{ x: divisibility_criterion_8_wrong_why 
 \exercise.
+\label{divisibility_criterion_8_wrong_why}%
 Ache o erro no~\ref{divisibility_criterion_8_wrong},
 e compare com a solução do~\ref{divisibility_criterion_6}.
 
@@ -8057,8 +8291,11 @@ Um contraexemplo:
 $2 \divides 12$ e $4 \divides 12$, mas $2\ntimes 4 = 8 \ndivides 12$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: divisibility_criterion_8_powers_of_2 
 \exercise.
+\label{divisibility_criterion_8_powers_of_2}%
 Ache um critério (no sistema decimal) para divisibilidade por 8,
 e generalize para divisibilidade por $2^k$
 
@@ -8067,13 +8304,17 @@ e generalize para divisibilidade por $2^k$
 \hint $2 \divides 10 \implies 2^3 \divides 10^3$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: divisibility_criterion_2_exp_x_times_5_exp_y 
 \exercise.
+\label{divisibility_criterion_2_exp_x_times_5_exp_y}%
 Ache um critério (no sistema decimal) para divisibilidade por $2^x5^y$, onde $x,y\in\nats$.
 
 \hint Os $2$ e $5$ são divisores de $10$.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -8081,10 +8322,11 @@ Ache um critério (no sistema decimal) para divisibilidade por $2^x5^y$, onde $x
 %%{{{ Inverses modulo $m$ 
 \section Inversos módulo~$m$.
 
+%%{{{ df: inverse_modulo_m 
 \definition Inverso módulo $m$.
-\tdefined{inverso}[multiplicativo módulo~$m$]
-\sdefined{{\holed a}^{-1}}{o inverso (multiplicativo) do $\holed a$ (módulo~$m$)}
-\label{inverse_modulo_m}
+\label{inverse_modulo_m}%
+\tdefined{inverso}[multiplicativo módulo~$m$]%
+\sdefined{{\holed a}^{-1}}{o inverso (multiplicativo) do $\holed a$ (módulo~$m$)}%
 Seja $a,a',m\in\ints$.
 Chamamos $a'$ \dterm{um inverso (multiplicativo) de $a$ módulo~$m$},
 sse
@@ -8092,7 +8334,9 @@ $$
 aa' \cong 1 \pmod m.
 $$
 Se existe inverso do $a$, o denotamos com $a^{-1}$ (dado um módulo~$m$).\mistake
+%%}}}
 
+%%{{{ x: what is wrong? 
 \exercise.
 Qual o problema com a definição do $a^{-1}$?
 
@@ -8102,11 +8346,14 @@ existe um inverso, ele é único, que nos realmente mostramos
 no~\ref{inverse_modulo_m_uniqueness}.
 
 \endexercise
+%%}}}
 
+\blah.
 Podemos falar sobre \emph{o} inverso (ao invés de \emph{um} inverso) graças ao teorema seguinte:
 
+%%{{{ thm: inverse_modulo_m_uniqueness 
 \theorem Unicidade do inverso.
-\label{inverse_modulo_m_uniqueness}
+\label{inverse_modulo_m_uniqueness}%
 Sejam $a,m\in\ints$.
 Se $b,b'\in\ints$ satisfazem a $ax \cong 1 \pmod m$, então $b \cong b' \pmod m$.
 \proof.
@@ -8127,13 +8374,18 @@ Daí,
 $(ba)b \cong (ba)b' \pmod m$,
 ou seja $b \cong b' \pmod m$.
 \qed
+%%}}}
 
+%%{{{ eg 
 \example.
 O inverso de $2$ módulo~$9$ é o $5$, porque $2\ntimes 5 = 10 \cong 1 \pmod 9$.
 \endexample
+%%}}}
 
+\blah.
 Como o exemplo seguinte mostra, os inversos não existem sempre:
 
+%%{{{ eg 
 \example.
 O $4$ não tem inverso módulo~$6$.
 
@@ -8150,9 +8402,12 @@ $$
 $$
 \moveqedup
 \endexample
+%%}}}
 
+\blah.
 O teorema seguinte esclariza a situação:
 
+%%{{{ thm: find_inverse_modulo_m 
 \theorem Inverso módulo $m$.
 \label{find_inverse_modulo_m}
 Sejam $a,m\in\ints$.
@@ -8193,6 +8448,7 @@ a combinação linear dos $a$ e $m$.
 Pelo~\ref{gcd_divides_any_linear_combination}, $\gcd a m \divides 1$,
 logo $\gcd a m = 1$.
 \qed
+%%}}}
 
 \endsection
 %%}}}
@@ -8200,12 +8456,13 @@ logo $\gcd a m = 1$.
 %%{{{ The Chinese remainder theorem 
 \section O teorema chinês do resto.
 
+%%{{{ thm: chinese_remainder_theorem 
 \theorem Teorema chinês do resto.
-\ii{teorema}[chinês do resto]
-\iisee{chinês}[teorema do resto]{teorema chinês}
-\ii{sistema}[de congruências]
-\ii{congruência}[sistema]
-\label{chinese_remainder_theorem}
+\label{chinese_remainder_theorem}%
+\ii{teorema}[chinês do resto]%
+\iisee{chinês}[teorema do resto]{teorema chinês}%
+\ii{sistema}[de congruências]%
+\ii{congruência}[sistema]%
 Sejam $a_1,\dotsc,a_k,m_1,\dotsc,m_k\in\ints$,
 com os $m_i$'s coprimos dois a dois:
 $$
@@ -8249,7 +8506,9 @@ Suponha que $x'\in\ints$ é uma solução do sistema.
 Usando a definição de congruência e propriedades
 de $\divides$, mostramos que $x' \cong x \pmod M$.
 \qes
+%%}}}
 
+%%{{{ eg 
 \example.
 Ache todos os inteiros $x\in\ints$ que satisfazem o sistema de congruências:
 $$
@@ -8290,7 +8549,9 @@ $$
 Para resumir, as soluções do sistema são todos os elementos do
 $\set{ 180k + 146 \st k\in\ints }$.
 \endexample
+%%}}}
 
+%%{{{ eg 
 \example.
 Ache todos os inteiros $x\in\ints$ com $\abs x < 64$ que satisfazem o sistema de congruências:
 $$
@@ -8370,7 +8631,9 @@ Facilmente verificamos que os únicos dos seus elementos que satisfazem nossa
 restrição $\abs x < 64$ são os inteiros obtenidos pelos valores de $k = 0$ e $-1$:
 $x_1 = 43$, $x_2 = -17$.
 \endexample
+%%}}}
 
+%%{{{ x: coprime_vs_pairwise_coprime 
 \exercise ``entre si'' vs ``dois a dois''.
 \label{coprime_vs_pairwise_coprime}
 Considere as frases:
@@ -8392,7 +8655,9 @@ Os $2$, $4$, $5$ são coprimos entre si (têm m.d.c.~1) mas mesmo assim não sã
 $\gcd 2 4 = 2$.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Acha as soluções dos seguinte sistemas de congruências:
 $$
@@ -8419,10 +8684,13 @@ x  &\cong 3\phantom0 \pmod 3\\
 $$
 
 \endexercise
+%%}}}
 
+\blah.
 O exercício seguinte te convida descobrir que o teorema chinês pode ser aplicado
 em casos mais gerais do que aparece inicialmente!
 
+%%{{{ x 
 \exercise.
 Resolva os sistemas de congruências:
 $$
@@ -8471,6 +8739,7 @@ Não todos os sistemas de congruências tem soluções.
 Nesse exercício um dos dois sistemas não tem solução.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -8478,20 +8747,23 @@ Nesse exercício um dos dois sistemas não tem solução.
 %%{{{ Euler's totient function 
 \section A função totiente de Euler.
 
+%%{{{ df: euler_phi_function 
 \definition Função totiente de Euler.
-\iisee{totiente}{função totiente}
-\iisee{Euler}[função]{função totiente}
-\Euler[função totiente]
-\tdefined{função}[totiente de Euler]
-\sdefined{\totsym} {a função totiente de Euler}
-\label{euler_phi_function}
+\label{euler_phi_function}%
+\iisee{totiente}{função totiente}%
+\iisee{Euler}[função]{função totiente}%
+\Euler[função totiente]%
+\tdefined{função}[totiente de Euler]%
+\sdefined{\totsym} {a função totiente de Euler}%
 Seja inteiro $n>0$.
 Definimos
 $$
 \tot n \defeq \sizeof {\set { i \in \set{1,\dotsc,n} \st \gcd i n = 1 } }.
 $$
 Em palavras, $\tot n$ é o número dos inteiros entre $1$ e $n$ que são coprimos com $n$.
+%%}}}
 
+%%{{{ x 
 \exercise.
 Calcule os valores da $\tot n$ para $n=1,2,3,4,8,11,12,16.$
 
@@ -8505,15 +8777,19 @@ Como $p$ é primo, ele é coprimo com todos os $1,\dotsc,p-1$.
 E como $\gcd p p = p \neq 1$, pela definição da $\totsym$ temos
 $\tot p = p-1$.
 \qed
+%%}}}
 
+%%{{{ x: number_of_multiples_of_a_until_ai 
 \exercise.
-\label{number_of_multiples_of_a_until_ai}
+\label{number_of_multiples_of_a_until_ai}%
 Quantos multiplos de $a$ existem no $\set{1,2,\dotsc,a^i}$?
 
 \endexercise
+%%}}}
 
+%%{{{ x: tot_of_power_of_prime 
 \exercise.
-\label{tot_of_power_of_prime}
+\label{tot_of_power_of_prime}%
 $
 \text{$p$ primo} \implies
 \tot {p^a} = p^a - p^{a-1} = p^{a-1} (p-1)
@@ -8531,31 +8807,39 @@ são os múltiplos de $p$.
 Pelo~\ref{number_of_multiples_of_a_until_ai} temos a resposta.
 
 \endexercise
+%%}}}
 
+%%{{{ x: sum_of_tots_of_powers_of_prime 
 \exercise.
-\label{sum_of_tots_of_powers_of_prime}
+\label{sum_of_tots_of_powers_of_prime}%
 Sejam $p$ primo e $k\in\ints$.  Calcule o valor do somatório
 $\sum_{i=0}^k \tot {p^i}$.
 
 \hint Calcule o valor de cada termo aplicando o~\ref{tot_of_power_of_prime}.
 
 \endexercise
+%%}}}
 
+%%{{{ x: tot_of_product_of_primes 
 \exercise.
-\label{tot_of_product_of_primes}
+\label{tot_of_product_of_primes}%
 $\text{$p,q$ primos, $p\neq q$} \implies \tot {pq} = (p-1)(q-1)$.
 
 \endexercise
+%%}}}
 
+%%{{{ thm: tot_is_multiplicative 
 \theorem.
-\iisee{multiplicativa}{função multiplicativa}
-\tdefined{função}[multiplicativa]
-\label{tot_is_multiplicative}
+\label{tot_is_multiplicative}%
+\iisee{multiplicativa}{função multiplicativa}%
+\tdefined{função}[multiplicativa]%
 A função $\totsym$ é \dterm{multiplicativa}:
 $$
 \gcd m n = 1 \implies \tot {mn} = \tot m \tot n.
 $$
+%%}}}
 
+%%{{{ cor 
 \corollary.
 Se $n\geq 2$, então
 $$
@@ -8569,7 +8853,9 @@ $$
 $$
 onde os $p_i$'s são todos os primos divisores de $n$.
 \sketch.
-Escrevemos o $n$ na sua representação canónica pelo teorema fundamental da aritmética~(\refn{fundamental_theorem_of_arithmetic}), e aplicamos repetetivamente o~\ref{tot_is_multiplicative}.
+Escrevemos o $n$ na sua representação canónica pelo teorema fundamental da
+aritmética~(\refn{fundamental_theorem_of_arithmetic}),
+e aplicamos repetetivamente o~\ref{tot_is_multiplicative}.
 \qes
 \proof.
 Pelo teorema fundamental da aritmética~(\refn{fundamental_theorem_of_arithmetic}),
@@ -8595,12 +8881,16 @@ n
 $$
 \moveqedup
 \qed
+%%}}}
 
+%%{{{ x 
 \exercise.
 $a\divides b \implies \tot a \divides \tot b$.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 $
 \tot {2n} =
@@ -8611,9 +8901,11 @@ $
 $
 
 \endexercise
+%%}}}
 
+%%{{{ x: tot_is_par_for_n_greater_than_2 
 \exercise.
-\label{tot_is_par_for_n_greater_than_2}
+\label{tot_is_par_for_n_greater_than_2}%
 $\tot n$ é par para todo $n\geq 3$.
 
 \hint Os inverso aparecem ``em pares''.  Mas uns são emparelhados com eles
@@ -8629,6 +8921,7 @@ Aplica o~\ref{tot_is_multiplicative} e o~\ref{tot_of_power_of_prime}.
 Ou o $2$ aparece nos fatores primos do $n$, ou não.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -8636,6 +8929,7 @@ Ou o $2$ aparece nos fatores primos do $n$, ou não.
 %%{{{ Theorems of Euler and Fermat 
 \section Teoremas de Euler e de Fermat.
 
+%%{{{ thm: euler_congruence_theorem 
 \theorem Euler.
 \label{euler_congruence_theorem}%
 \Euler[teorema]%
@@ -8665,7 +8959,9 @@ r_1r_2\dotsb r_{\tot m}
 $$
 Trabalhando na última congruência chegamos na congruência desejada.
 \qes
+%%}}}
 
+%%{{{ cor: fermat_little_theorem_1 
 \corollary Fermat.
 \label{fermat_little_theorem_1}%
 \Fermat[teorema]%
@@ -8689,7 +8985,9 @@ a^{p-1}
 \endalignedat
 $$
 \qed
+%%}}}
 
+%%{{{ cor: fermat_little_theorem_2 
 \corollary Fermat.
 \label{fermat_little_theorem_2}%
 \Fermat[teorema]%
@@ -8724,7 +9022,9 @@ Agora pela transitividade e
 simetria da $congruência$ módulo~$m$, finalmente temos:
 $a^p \cong a \pmod p$
 \qed
+%%}}}
 
+%%{{{ Summarizing the three theorems 
 \note Resumindo os três teoremas.
 Esquematicamente:
 $$
@@ -8750,9 +9050,11 @@ $$
 &\qqqquad&\text{Fermat, (\refn{euler_congruence_theorem})}.
 \endalignat
 $$
+%%}}}
 
+%%{{{ eg: last_digit_of_big_number_example 
 \example.
-\label{last_digit_of_big_number_example}
+\label{last_digit_of_big_number_example}%
 Ache o último dígito do $2^{800}$.
 
 \solution
@@ -8777,7 +9079,9 @@ $$
 Podemos já eliminar a primeira porque $2^{800}$ é par.
 Finalmente, o último dígito de $2^{800}$ é o $\digit6$.
 \endexample
+%%}}}
 
+%%{{{ x 
 \exercise.
 Responda no primeiro ``por quê?'' do~\ref{last_digit_of_big_number_example}.
 
@@ -8786,13 +9090,14 @@ Responda no primeiro ``por quê?'' do~\ref{last_digit_of_big_number_example}.
 \hint Divide ele por 10.
 
 \solution
-Para o número $n$ escrito em base decimal como $\delta_k\delta_{k-1}\dotsb \delta_1\delta_0$,
+Para o número $n$ escrito em base decimal como
+$\delta_k\delta_{k-1}\dotsb \delta_1\delta_0$,
 temos:
 $$
 \align
 n
 &= d_0 + 10d_1 + 100d_2 + \dotsb 10^{k-1}d_{k-1} + 10^kd_k\\
-&= \underbrace{d_0}_{\text{resto}} + 10\underbrace{(d_1 + 10d_2 + \dotsb 10^{k-2}d_{k-1} + 10^{k-1}d_k)}_{\text{quociente}},
+&= \tunderbrace {d_0} {resto} + 10\tunderbrace {(d_1 + 10d_2 + \dotsb 10^{k-2}d_{k-1} + 10^{k-1}d_k)} {quociente},
 \endalign
 $$
 onde $d_i$ é o correspondente valor do dígito $\delta_i$.
@@ -8800,7 +9105,9 @@ onde $d_i$ é o correspondente valor do dígito $\delta_i$.
 para cada um, para enfatisar a diferença entre os dois conceitos.)
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Responda no segundo também, e ache um outro caminho para chegar no resultando, usando
 o teorema chinês do resto (\ref{chinese_remainder_theorem}).
@@ -8825,7 +9132,9 @@ ou, como $5\divides 10$, usar diretamente o~\ref{from_mod_m_to_mod_am},
 para concluir que $x = 10k + 5i + 1$, onde $i=0,1$.
 
 \endexercise
+%%}}}
 
+%%{{{ x 
 \exercise.
 Ache o resto da divisão de $41^{75}$ por $3$.
 
@@ -8868,6 +9177,7 @@ $$
 Então $41^{75} \bmod 3 = 2$.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -8889,7 +9199,6 @@ Então $41^{75} \bmod 3 = 2$.
 \TODO Criptografia ``public-key''.
 %%}}}
 
-%%{{{ RSA encryption and decryption 
 \TODO RSA criptografia e descriptografia.
 
 %%{{{ thm 
@@ -8935,7 +9244,6 @@ e logo, $m^k$ e $\tot M$ também são: $\gcd m {\tot M} = \gcd {m^k} {\tot M} = 
 O que acontece se $m$ e $\tot M$ não são coprimos?
 
 \endexercise
-%%}}}
 %%}}}
 
 \endsection
@@ -9024,8 +9332,6 @@ Use o sonho de calouro (\ref{freshmans_dream}).
 \endproblem
 %%}}}
 
-\ignore{
-
 %%{{{ prob 
 \problem.
 Prove que
@@ -9051,7 +9357,8 @@ p^{q-1} + q^{p-1} \cong 1 \pmod {pq}.
 $$
 
 \hint
-O que seria o $p^{q-1} + q^{p-1}$ módulo~$p$?  E módulo~$q$?
+O que seria o $p^{q-1} + q^{p-1}$ módulo~$p$?
+E módulo~$q$?
 
 \hint
 China.
@@ -9064,12 +9371,14 @@ China.
 Ache uma generalização do problema anterior,
 aplicável para inteiros $a,b$ com $\gcd a b = 1$:
 
-\hint Nesse caso \emph{não} temos
+\hint
+Nesse caso \emph{não} temos
 $$
 a^{b-1} + b^{a-1} \cong 1 \pmod {ab}.
 $$
 
-\hint $p-1 = \tot p$ para qualquer primo $p$.
+\hint
+$p-1 = \tot p$ para qualquer primo $p$.
 
 \hint
 Prove que:
@@ -9079,8 +9388,6 @@ $$
 
 \endproblem
 %%}}}
-
-}% ignore
 
 \endproblems
 %%}}}
