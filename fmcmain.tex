@@ -20548,9 +20548,9 @@ do $\quoset {\reals} {\sim}$.
 \endproblem
 %%}}}
 
-%%{{{ prob: simh_simv 
+%%{{{ prob: simh_simv_apph_appv 
 \problem.
-\label{simh_simv}%
+\label{simh_simv_apph_appv}%
 \def\simh{\mathrel{\sim}}%
 \def\simv{\mathrel{\wr}}%
 \def\apph{\mathrel{\approx}}%
@@ -20559,13 +20559,153 @@ Considere as relações seguintes no $(\ints\to\ints)$:
 $$
 \align
 f \simh g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x+u) } \\
-f \simv g &\defiff \pexists {v\in\ints} \lforall {x \in\ints} {f(x) = g(x)+v } \\
 f \apph g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x+u) } \\
-f \appv g &\defiff \pexists {v\in\nats} \lforall {x \in\ints} {f(x) = g(x)+v }.
+f \simv g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x)+u } \\
+f \appv g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x)+u }.
 \endalign
 $$
 Para cada uma dessas relações, decida se é:
-(ir)reflexiva; (a(nti)s)simétrica; transitiva.
+(ir)reflexiva; transitiva; (a(nti)s)simétrica.
+
+\hint
+Primeiramente tente entender (visualizar) essas relações.
+
+\solution
+{%
+\def\simh{\mathrel{\sim}}%
+\def\simv{\mathrel{\wr}}%
+\def\apph{\mathrel{\approx}}%
+\def\appv{\mathrel{\wr\mkern-1mu\wr}}%
+Primeiramente tentamos entender essas relações bem informalmente.
+As $\simh$ e $\apph$ envolvem um movimento horizontal,
+e as $\simv$ e $\appv$ um movimento vertical.
+Especificamente $f \simh g$ [$f \simv g$]
+sse $f$ e $g$ são a mesma função depois de um ``shift'' horizontal
+[vertical] para qualquer direção.
+As $\apph$ e $\appv$ são parecidas so que $f \apph g$
+[$f \appv g$] sse a $f$ ``coincide'' com a $g$ depois de um
+``shift'' da $f$ para a direita [para baixo] $0$ ou mais ``posições''.
+\endgraf\medskip
+\crtabproofpart{Reflexividade.}
+Todas são reflexivas, algo que mostramos tomando $u \asseq 0$.
+Vamos ver em detalhe apenas para a $\simh$.
+\crproofpart{Reflexividade da $\apph$.}
+\endgraf\noindent
+    Seja $f : \ints\to\ints$.
+    Temos para todo $x\in \ints$, $f(x) = f(x + 0)$, e como $0\in\nats$,
+    logo $f\apph f$.
+\endgraf\medskip
+\crtabproofpart{Transitividade.}
+Todas são transitivas, e parecida em todas:
+usando nossas hipoteses ganhamos dois números $i,j$ e o número que procuramos
+acaba sendo o $i + j$.
+Vamos ver em detalhe apenas para a $\appv$:
+\crproofpart{Transitividade da $\appv$.}
+\endgraf\noindent
+    Sejam $f,g,h: \ints\to\ints$ tais que $f\simh g$ e $g\simh h$.
+    Sejam então $i,j\in\ints$ tais que:
+    $$
+    \align
+    \text{para todo $x\in \ints$, }&f(x) = g(x+i) \tag{1} \\
+    \text{para todo $x\in \ints$, }&g(x) = h(x+j).\tag{2}
+    \endalign
+    $$
+    Seja $z\in\ints$ e calcule:
+    $$
+    \alignat2
+    f(z)
+    &= g(z+i)       \qqby {pela (1) com $x \asseq z$} \\
+    &= h((z+i)+j)   \qqby {pela (2) com $x \asseq z+i$} \\
+    &= h(z+(i+j)).
+    \endalignat
+    $$
+    Ou seja, o inteiro $i+j$ mostra que $f\simh h$.
+Já provamos então que todas essas relações são preordens!
+Vamos pesquisar sobre as outras propriedades agora.
+\endgraf\medskip
+\crtabproofpart{(A(nti)s)simetria.}
+As $\simh$ e $\simv$ são simétricas, algo que mostramos para as
+duas no mesmo jeito: nossa hipótese fornece um $i\in\ints$
+que satisfaz algo, e o inteiro que procuramos acaba sendo o $-i$.
+As $\appv$ é antissimétrica, mas a $\apph$ não satisfaz nenhuma
+dessas propriedades.
+Vamos provar a simetria da $\simh$, a antisimmetria da $\appv$,
+e refutar a simetria e a antissimetria da $\apph$.
+\crproofpart{Simetria da $\simh$.}
+\endgraf\noindent
+    Sejam $f,g : \ints\to\ints$ tais que $f\simh g$.
+    Então seja $i\in\ints$ tal que
+    para todo $x\in \ints$, $f(x) = g(x+i)$\fact1.
+    Observe que para todo $x\in\ints$, temos:
+    $$
+    \alignat2
+    g(x)
+    &= g(x+(i-i)) \\
+    &= g((x-i)+i) \\
+    &= f(x-i).    \qqby{pela~\byfact1~com $x\asseq x-i$}
+    \endalignat
+    $$
+    Ou seja, o $-i\in\ints$ mostra que $g\simh f$.
+\crproofpart{Antisimmetria da $\appv$.}
+\endgraf\noindent
+    Sejam $f,g : \ints\to\ints$ tais que $f\appv g$ e $g\appv f$.
+    Sejam então $i,j\in\nats$ tais que para todo $x\in \ints$
+    $f(x) = g(x)+i$ e $g(x) = f(x)+j$.
+    Seja $x\in\ints$ e calcule:
+    $$
+    f(x) = g(x)+i = f(x) + j + i.
+    $$
+    Logo $i+j = 0$, e sendo ambos naturais, temos $i=j=0$.
+    Ou seja, para todo $x\in\ints$, $f(x) = g(x)$, e logo $f=g$.
+\crtabproofpart{A $\appv$ não é nem relação de equivalência nem de ordem.}
+\crproofpart{Refutação da simetria da $\apph$.}
+    \endgraf\noindent
+    Como contraexemplo tome as funções $f,g : \ints\to\ints$
+    definidas pelas:
+    $$
+    \xalignat2
+    f(0) &= 1                   & g(1) &= 1 \\
+    f(x) &= 0 \quad (x \neq 0)  & g(x) &= 0 \quad (x \neq 1)
+    \endxalignat
+    $$
+    Observe que realmente $f \apph g$ pois temos
+    que para todo $x \in \ints$, $f(x) = g(x+1)$.
+    Mas $g\not\apph f$.  Suponha que tem $u\in\nats$
+    tal que para todo $x\in\ints$, $g(x) = f(x + u)$.
+    Basta ou achar um absurdo.
+    Pela nossa hipótese, $g(1) = f(1 + u)$.
+    Mas $g(1) = 1$, ou seja $f(1+u) = 1$.
+    Pela definição da $f$ então $u+1 = 0$,
+    Absurdo, pois o $0$ não é sucessor de nenhum natural.
+\crproofpart{Refutação da antissimetria da $\apph$.}
+    \endgraf\noindent
+    Como contraexemplo tome as funções $f,g : \ints\to\ints$
+    definidas pelas:
+    $$
+    \xalignat2
+    f(x) &=
+    \knuthcases{
+    0, & se $x$ é par; \cr
+    1, & se $x$ é ímpar;
+    }
+    &
+    g(x) &=
+    \knuthcases{
+    1, & se $x$ é par; \cr
+    0, & se $x$ é ímpar;
+    }
+    \endxalignat
+    $$
+    Observe que realmente $f \apph g$ (tome $u \asseq 1$)
+    e $g \apph f$ (tome $u \asseq 1$ de novo).
+    Mesmo assim, $f\neq g$.
+    Logo $\apph$ não é uma relação antisimmétrica.
+\endgraf\medskip
+Concluimos então que:
+as $\simh$ e $\simv$ são relações de equivalência,
+a $\appv$ é uma relação de ordem,
+e a $\apph$ apenas uma preordem.
+}
 
 \endproblem
 %%}}}
@@ -20869,6 +21009,97 @@ c &\leteq \tup{ t,t,\dots,t,u,u,\dotsc,u }
 $$
 como contraexemplo, pois temos
 $a \sim b$ e $b \sim c$ mas $a\not\sim c$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: cofinite_cameo_appearance 
+\problem.
+\label{cofinite_cameo_appearance}%
+No conjunto $(\reals\to\reals)$ definimos:
+$$
+\align
+f \approx g &\defiff \text{o conjunto $\setst {x \in \reals} {f(x) = g(x)}$ é infinito};\\
+f \sim    g &\defiff \text{o conjunto $\setst {x \in \reals} {f(x) \neq g(x)}$ é finito}.
+\endalign
+$$
+Prove que:
+\item{(i)} uma delas é relação de equivalência;
+\item{(ii)} a outra não é.
+
+\hint
+Se um subconjunto $X\subseteq\reals$ é infinito, isso não quis dizer
+que $\reals\setminus X$ é finito!
+
+\hint
+A $\sim$ é a relação de equivalência.
+
+\hint
+A $\approx$ não é transitiva.  Refute!
+
+\solution%%{{{
+A $\sim$ é uma relação de equivalência:
+\crproofpart{Reflexiva.}
+Seja $f : \reals\to\reals$.
+Calculamos:
+$$
+\setst {x \in \reals} {f(x) \neq f(x)} = \emptyset,
+$$
+que, sendo finito, mostra que $f\sim f$.
+\crproofpart{Simétrica.}
+Trivial, pois para quaisquer $f,g : \reals\to\reals$ temos
+$$
+\setst {x \in \reals} {f(x) \neq g(x)}
+=
+\setst {x \in \reals} {g(x) \neq f(x)}
+$$
+e logo um é finito sse o outro é finito.
+\crproofpart{Transitiva.}
+Sejam $f,g,h:\reals\to\reals$ tais que $f\sim g$ e $g\sim h$.
+Logo:
+$$
+\align
+A &\defeq \text{$\setst {x \in \reals} {f(x) \neq g(x)}$ finíto} \tag{1} \\
+B &\defeq \text{$\setst {x \in \reals} {g(x) \neq h(x)}$ finíto} \tag{2}.
+\endalign
+$$
+Seja $w \in \reals$.
+Vamos provar que
+$$
+w \notin A \union B \implies f(w) = h(w).
+$$
+Calculamos:
+$$
+\alignat2
+f(w) &= g(w)    \qqby{pois $w \notin A$} \\
+     &= h(w)    \qqby{pois $w \notin B$}.
+\endalignat
+$$
+Contrapositivamente,
+$$
+f(w) \neq h(w) \implies w \in A \union B.
+$$
+Mas $A\union B$ é finito,
+(sendo uma união finita de conjuntos finitos)
+e mostramos que
+$$
+\setst {x \in \reals} {f(x) \neq h(x)} \subseteq A\union B
+$$
+e logo também finito, ou seja, $f\sim h$.
+\crproofpart{A $\approx$ não é uma relação de equivalência.}
+Vamos refutar a sua transitividade.
+Como contraexemplo, tome as $f,g,h : \reals\to\reals$ definidas pelas:
+$$
+\alignat3
+    f(x) &= 1 &
+    g(x) &= \cos(x) &
+    h(x) &= -1.
+\endalignat
+$$
+Observe que $f \approx g$ pois concordam nos pontos $2k\pi$ para todo $k\in\ints$.
+Também $g \approx h$ pois concordam nos pontos $(2k+1)\pi$ para todo $k\in\ints$.
+Mesmo assim, $f \not\approx h$ pois não concordam em ponto nenhum.
+%%}}}
 
 \endproblem
 %%}}}
@@ -29100,7 +29331,8 @@ Os detalhes estão no~\ref{schroder_bernstein_lattice_proof}.
 \definition.
 \label{cofinito_em_nats}%
 \tdefined{cofinito}%
-Chamamos um $A\subseteq \nats$ \dterm{cofinito} sse seu complemento $\nats\setminus A$ é finito.
+Chamamos um $A\subseteq \nats$ \dterm{cofinito} sse
+seu complemento $\nats\setminus A$ é finito.
 %%}}}
 
 %%{{{ prob: family_of_cofinite_lattice 
