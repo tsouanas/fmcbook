@@ -2437,6 +2437,29 @@ $
 \endexercise
 %%}}}
 
+%%{{{ thm: natmult_identity 
+\theorem Identidade da multiplicação.
+\label{natmult_identity}%
+$
+\forall x
+\bigbracket{ x \ntimes S0 = x = S0 \ntimes x}.
+$
+\proof.
+Seja $x\in \nats$.
+Calculamos:
+$$
+\alignat2
+x \ntimes S0
+&= (x \ntimes 0) + x    \qqby {(m2), $n\asseq x$, $m\asseq 0$}\\
+&= 0 + x                \qqby {(m1)} \\
+&= x + 0                \qqby {$+$ comut.~(\refn{natadd_is_commutative})} \\
+&= x.                   \qqby {(a1)}
+\endalignat
+$$
+Como já provamos a comutatividade da $\ntimes$, isso termina nossa prova.
+\qed
+%%}}}
+
 %%{{{ x: natadd_distributive_over_natmult 
 \exercise Distributividade.
 \label{natmult_distributes_over_natadd}%
@@ -2460,6 +2483,61 @@ $
 \bigparen{x \expop (a + b) = (x \expop a) \ntimes (x \expop b)}.
 $
 
+\hint
+Indução no $b$.
+
+\hint
+\proofpart{Base: $\forall x \forall a \bigbracket{x^{a+0} = x^a \ntimes x^0}$}.
+
+\hint
+\proofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+\forall x \forall a \bigbracket{x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
+$$
+Agora precisas provar que
+$$
+\forall x \forall a \bigbracket{x^{a+Sk} = x^a \ntimes x^Sk}.
+$$
+
+\solution
+Por indução no $b$.
+(Vamos seguir a convenção comum de denotar o $x\expop y$ por $x^y$ e que
+as exponenciação ``pega mais forte'' que a multiplicação.)
+\crproofpart{Base: $\forall x \forall a \bigbracket{x^{a+0} = x^a \ntimes x^0}$}.
+Sejam $x,a\in\nats$.
+Calculamos:
+$$
+\alignat2
+x^{a+0}
+&= x^a              \qqby{(a1)}\\
+&= x^a \ntimes S0   \qqby{$S0$ identidade (\refn{natmult_identity})}\\
+&= x^a \ntimes x^0. \qqby{(e1)}
+\endalignat
+$$
+\crproofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+\forall x \forall a \bigbracket{x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
+$$
+Basta provar que
+$$
+\forall x \forall a \bigbracket{x^{a+Sk} = x^a \ntimes x^Sk}.
+$$
+Sejam $x,a\in\nats$.
+Queremos provar $x^{a+Sk} = x^a \ntimes x^Sk$.
+Calculamos:
+$$
+\alignat2
+x^{a + Sk}
+&= x^{S(a + k)}                 \qqby{(a2)} \\
+&= x^{a+k} \ntimes x            \qqby{(e2)} \\
+&= (x^a\ntimes x^k) \ntimes x   \qqby{(H.I.)} \\
+&= x^a\ntimes (x^k \ntimes x)   \qqby{assoc.~de~$\ntimes$~(\refn{natmult_is_associative})} \\
+&= x^a\ntimes x^Sk.             \qqby{(e2)}
+\endalignat
+$$
+
 \endexercise
 %%}}}
 
@@ -2472,6 +2550,59 @@ $
 \forall c
 \bigparen{(a \expop b) \expop c = a \expop (b \ntimes c)}.
 $
+
+\hint
+Indução no $c$.
+
+\hint
+\proofpart{Base: $\forall a \forall b \bigparen{ (a^b)^0 = a^{b \ntimes 0} }$.}
+
+\hint
+\proofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+\forall a \forall b \bigbracket{ (a^b)^k = a^{b \ntimes k} }.\tag{H.I.}
+$$
+Agora precisas provar que
+$$
+\forall a \forall b \bigbracket{ (a^b)^{Sk} = a^{b \ntimes Sk} }.
+$$
+
+\solution
+Por indução no $c$.
+\crproofpart{Base: $\forall a \forall b \bigbracket{ (a^b)^0 = a^{b \ntimes 0} }$.}
+Sejam $a,b\in\nats$.
+Calculamos:
+$$
+\alignat2
+(a^b)^0
+&= S0     \qqby {e1} \\
+a^{b \ntimes 0}
+&= a^0    \qqby {m1} \\
+&= S0.    \qqby {e1}
+\endalignat
+$$
+\crproofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+\forall a \forall b \bigbracket{ (a^b)^k = a^{b \ntimes k} }.\tag{H.I.}
+$$
+Queremos provar que
+$$
+\forall a \forall b \bigbracket{ (a^b)^{Sk} = a^{b \ntimes Sk} }.
+$$
+Sejam $a,b\in\nats$.
+Basta mostrar que $(a^b)^{Sk} = a^{b \ntimes Sk}$.
+Calculamos:
+$$
+\alignat2
+(a^b)^{Sk}
+&= (a^b)^k \ntimes (a^b)        \qqby {(e2), $n\asseq a\expop b$, $m\asseq k$} \\
+&= a^{b \ntimes k} \ntimes a^b  \qqby {(H.I.), $a\asseq a$, $b\asseq b$} \\
+&= a^{(b \ntimes k) + b}        \qqby {\refn{law_of_natexp_1}, $x\asseq a$, $a\asseq b \ntimes k$, $b\asseq b$} \\
+&= a^{b \ntimes Sk}.            \qqby {(m2), $n\asseq b$, $m\asseq k$}\\
+\endalignat
+$$
 
 \endexercise
 %%}}}
