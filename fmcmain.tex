@@ -12075,7 +12075,7 @@ Agora fique tomando termos positivos até superar o $\ell$, etc.~etc.
 Continuando assim conseguimos construir uma série feita por termos da $\sum a_i$ que converge no $\ell$.
 \qes
 \proof.
-Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol2}.
+Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol1}.
 \qed
 %%}}}
 
@@ -27989,7 +27989,7 @@ Chamamos o $\cal K$ um \dterm{corpo} (ou \dterm{field})
 sse todos os seus membros diferentes de $0$ são invertíveis,
 ou seja sse:
 $$
-\text{para todo $a\in K\setminus\set{0}$,
+\text{para todo $a\in K_{\neq0}$,
 existe $y \in K$, tal que $ay = 1 = ya$.}
 \tag{FM3}
 $$
@@ -28085,20 +28085,280 @@ isómorfo com o monóide $\sset {\nats_{>0}} {\ntimes}$
 \chapter Os números reais.
 \label{Real_numbers}%
 
-%%{{{ Axioms 
-\section Axiomas.
+%%{{{ intro 
+\chapintro
+O $\sset \reals {+,\ntimes,0,1}$ é um \emph{corpo ordenado completo}.
+Nesse capítulo vamos estudar o que isso significa e investigar as
+primeiras conseqüências dos axiomas dos reais.
+Alem disso, vamos definir e estudar os conceitos fundamentais
+de limites e séries.
+%%}}}
+
+%%{{{ Ordered fields 
+\section Corpos ordenados.
+\label{Ordered_fields}%
+
+%%{{{ df: ordered_field 
+\definition Corpo ordenado.
+\label{ordered_field}%
+\tdefined{corpo}[ordenado]%
+Seja $R$ um conjunto, $0,1\in R$, e $+$ e $\ntimes$ duas operações
+binárias no $R$.
+Seja também $P \subseteq R$.
+Chamamos o $\sset R {+, \ntimes, 0, 1, P}$ um \dterm{corpo ordenado} sse 
+$$
+\align
+\pforall {a,b\in R}     &\bracket{a + b \in R}          \tag{FA0}\\
+\pforall {a,b\in R}     &\bracket{a\ntimes b \in R}     \tag{FM0}\\
+\pforall {a,b,c\in R}   &\bracket{a + (b + c) = (a + b) + c}   \tag{FA1}\\
+\pforall {a,b,c\in R}   &\bracket{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}  \tag{FM1}\\
+\pforall {a \in R}      &\bracket{a + 0 = a}            \tag{FA2}\\
+\pforall {a \in R}      &\bracket{a\ntimes 1 = a}       \tag{FM2}\\
+\pforall {a\in R}
+\pexists {y\in R}       &\bracket{a + y = 0}            \tag{FA3}\\
+\pforall {a\in R_{\neq0}}
+\pexists {y\in R}       &\bracket{a \ntimes y = 1}      \tag{FM3}\\
+\pforall {a,b\in R}     &\bracket{a + b = b + a}        \tag{FA4}\\
+\pforall {a,b\in R}     &\bracket{a\ntimes b = b \ntimes a}  \tag{FM4}\\
+\pforall {a,b,c \in R}  &\bracket{a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)} \tag{FD}\\
+\pforall {a,b\in P}     &\bracket{a + b \in P}          \tag{FO1}\\
+\pforall {a,b\in P}     &\bracket{a\ntimes b \in P}     \tag{FO2}\\
+\pforall {x \in R}      &\bracket{\text{exatamente uma: $-x \in P$; $x = 0$; $x \in P$}}  \tag {FO3}\\
+\endalign
+$$
+%%}}}
+
+\blah.
+Em vez de definir o conjunto $P$ em termos da ordem $>$ assim
+$$
+P \defeq \setst {x\in R} {x > 0}
+$$
+optamos para definir a ordem $>$ em termos do conjunto $P$.
+
+%%{{{ df: gt_in_ordered_fields 
+\definition.
+\label{gt_in_ordered_fields}%
+Definimos a relação binária $>$ no $R$ pela
+$$
+x > y \defiff x - y \in P.
+$$
+Naturalmente definimos as $<, \leq, \geq$ em termos das $>$ e $=$.
+%%}}}
+
+%%{{{ remark: rats is an ordered field too 
+\remark.
+Os números racionais também formam um corpo ordenado.
+Ou seja, todas essas leis que listamos até agora,
+não são suficientes para determinar os reais, pois
+nem conseguem diferencia-los dos racionais.
+Falta só um axioma, o axioma da completude,
+que realmente vai determinar o conjunto $\reals$.
+Mas para entender esse axioma, precisamos primeiro
+entender um outro conceito: o \emph{supremum},
+e seu conceito dual, o \emph{infimum}.
+Faremos isso nas~\refn{Infimum_and_supremum_on_reals}--\refn{Completeness_of_reals}.
+%%}}}
+
+\blah.
+Vamos agora investigar umas conseqüências dessas leis
+de corpo ordenado.
+
+%%{{{ thm: ordered_field_trichotomy 
+\theorem Tricotomia.
+\label{ordered_field_trichotomy}%
+Para todo $a,b\in R$, exatamente uma das
+$$
+a < b;\qquad
+a = b;\qquad
+a > b;
+$$
+é válida.
+%%}}}
+
+%%{{{ thm: ordered_field_transitivity 
+\theorem Transitividade.
+\label{ordered_field_transitivity}%
+A $<$ é uma relação transitiva:
+$$
+a < b \mland b < c \implies a < c.
+$$
+%%}}}
+
+%%{{{ thm: ordered_field_plus_c_monotone 
+\theorem.
+\label{ordered_field_plus_c_monotone}%
+Se $a < b$ então $a + c < b + c$.
+%%}}}
+
+%%{{{ thm: ordered_field_times_positive_c_monotone 
+\theorem.
+\label{ordered_field_times_positive_c_monotone}%
+Se $a < b \mland c > 0$ então $ac < bc$.
+%%}}}
+
+%%{{{ thm: ordered_field_product_of_negatives_is_positive 
+\theorem.
+\label{ordered_field_product_of_negatives_is_positive}%
+Se $a,b < 0$ então $ab > 0$.
+%%}}}
+
+%%{{{ cor: ordered_field_square_of_nonzero_is_positive 
+\corollary.
+\label{ordered_field_square_of_nonzero_is_positive}%
+Se $a\neq 0$ então $a^2 > 0$.
+%%}}}
+
+%%{{{ thm: ordered_field_one_is_greater_than_zero 
+\theorem.
+\label{ordered_field_one_is_greater_than_zero}%
+$1 > 0$
+%%}}}
+
+%%{{{ thm: ordered_field_times_negative_c_antimonotone 
+\theorem.
+\label{ordered_field_times_negative_c_antimonotone}%
+Se $a < b \mland c < 0$ então $ac > bc$.
+%%}}}
+
+%%{{{ thm: ordered_field_negate_is_antimonotone 
+\theorem.
+\label{ordered_field_negate_is_antimonotone}%
+Se $a < b$ então $-a > -b$.
+%%}}}
+
+%%{{{ cor: ordered_field_negate_of_negative_is_positive 
+\corollary.
+\label{ordered_field_negate_of_negative_is_positive}%
+Se $a < 0$ então $-a > 0$.
+%%}}}
+
+%%{{{ thm: ordered_field_product_positive_means_samesign 
+\theorem.
+\label{ordered_field_product_positive_means_samesign}%
+Se $ab > 0$ então $a,b$ são ou ambos positivos ou ambos negativos.
+%%}}}
+
+%%{{{ thm: ordered_field_add_side_by_side 
+\theorem.
+\label{ordered_field_add_side_by_side}%
+Se $a < c \mland b < d$ então $a + b < c + d$.
+%%}}}
+
+%%{{{ x 
+\exercise.
+Não existe $x\in R$ com $x^2 + 1 = 0$.
+
+\endexercise
+%%}}}
+
+%%{{{ x 
+\exercise.
+Para todo $a,b\in R$, temos $a^2 + b^2 \geq 0$.
+Ainda mais, $a^2 + b^2 = 0$ sse $a = b = 0$.
+
+\endexercise
+%%}}}
+
+%%{{{ x 
+\exercise.
+O $R$ não tem elemento máximo:
+não existe $M\in R$ tal que $x\leq M$ para todo $x\in R$.
+
+\endexercise
+%%}}}
+
+%%{{{ x 
+\exercise.
+Se $x$ tem a propriedade que $0 \leq x < \epsilon$ para todo $\epsilon > 0$, então $x = 0$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
 
 %%{{{ Infimum and supremum 
 \section Infimum e supremum.
+\label{Infimum_and_supremum_on_reals}%
 
 \endsection
 %%}}}
 
 %%{{{ Completude 
 \section Completude.
+\label{Completeness_of_reals}%
+
+\endsection
+%%}}}
+
+%%{{{ The axioms of the reals 
+\section Os axiomas dos números reais.
+\label{Axioms_of_reals}%
+
+\blah.
+Na abordagem axiomática, não nos importa \emph{definir}\/ ou
+\emph{construir} os objetos que vamos chamar de \emph{numeros reais}.
+Começamos aceitando a existência dum certo conjunto que denotamos
+por $\reals$, suas operações binárias de adição e multiplicação,
+seu zero $0$ e seu um $1$, e seu subconjunto $P$ de números
+\emph{positivos}.
+Estipulamos os axiomas seguintes.
+
+%%{{{ ax: closedness 
+\axiom Fechado.
+O $\reals$ é fechado sobre $+$ e $\ntimes$.
+%%}}}
+
+%%{{{ ax: associativity 
+\axiom Associatividade.
+As $+$ e $\ntimes$ são associativas.
+%%}}}
+
+%%{{{ ax: identities 
+\axiom Identidades.
+As $+$ e $\ntimes$ têm os distintos $0$ e $1$ como
+identidades respectivamente.
+%%}}}
+
+%%{{{ ax: inverses 
+\axiom Inversos.
+Todo $a\in \reals$ tem $+$-inverso (denotado por $-a$)
+e todo $a\neq 0$ tem $\ntimes$-inverso (denotado por $a^{-1}$).
+%%}}}
+
+%%{{{ ax: commutativity 
+\axiom Comutatividade.
+As $+$ e $\ntimes$ são comutativas.
+%%}}}
+
+%%{{{ ax: distributivity 
+\axiom Distributividade.
+A $\ntimes$ é distributiva sobre a $+$.
+%%}}}
+
+%%{{{ ax: positive closedness 
+\axiom Positivamente fechado.
+O $P$ é fechado sobre $+$ e $\ntimes$.
+%%}}}
+
+%%{{{ ax: trichotomy 
+\axiom Tricotomia.
+Para todo $x \in \reals$ exatamente uma das afirmações seguintes é válida:
+$-x$ é positivo;
+$x=0$;
+$x$.
+%%}}}
+
+%%{{{ ax: completeness 
+\axiom Completude.
+Todo conjunto $A\neq\emptyset$ de reais que é limitado por cima,
+tem um supremum, ou seja, existe real $b\in\reals$ tal que $b = \sup A$.
+%%}}}
+
+\blah.
+Ou seja, estipulamos o seguinte:
+\endgraf\medskip\noindent
+\centerline{\proclaimstyle O $\reals$ é um corpo ordenado completo.}
 
 \endsection
 %%}}}
@@ -28126,7 +28386,7 @@ isómorfo com o monóide $\sset {\nats_{>0}} {\ntimes}$
 
 \cite{spivakcalculus},
 \cite{hardypuremath},
-\cite{apostol1}~\&~\cite{apostol2}.
+\cite{apostol1}.
 
 \endfurther
 %%}}}
@@ -28502,8 +28762,8 @@ O conjunto $A$ é \dterm{infinito} sse $A$ não é finito.
 \definition.
 \label{countable_set}%
 \label{uncountable_set}%
-\tdefined{contável}[conjunto]%
-\tdefined{incontável}[conjunto]%
+\tdefined{conjunto}[contável]%
+\tdefined{conjunto}[incontável]%
 O conjunto $A$ é \dterm{contável} sse $A$ é finito ou $\nats\eqc A$.
 Usamos os termos \dterm{enumerável} e \dterm{denumerável} como sinónimos
 de contável.
@@ -35103,8 +35363,8 @@ $$
 \item{(ii)}  $\alpha$ é finito
 \item{(iii)} $\alpha=1$
 \item{(iv)}  $\alpha$ finíto \& $\alpha\neq 0$
-\item{(v)}   $\text{ou}\,\left\{\aligned&\text{$\alpha$ finíto      \& $\beta=\omega$}\\&\text{$\alpha=\omega$ \& $\beta=0$}\endaligned\right.$
-\item{(vi)}  $\text{ou}\,\left\{\aligned&\text{$1\leq\alpha<\omega$ \& $\beta=\omega$}\\&\text{$\alpha=\omega$ \& $\beta=1$}\endaligned\right.$
+\item{(v)}   $\text{ou}\,\leftbrace{\aligned&\text{$\alpha$ finíto      \& $\beta=\omega$}\\&\text{$\alpha=\omega$ \& $\beta=0$}\endaligned}$
+\item{(vi)}  $\text{ou}\,\leftbrace{\aligned&\text{$1\leq\alpha<\omega$ \& $\beta=\omega$}\\&\text{$\alpha=\omega$ \& $\beta=1$}\endaligned}$
 
 \endexercise
 %%}}}
