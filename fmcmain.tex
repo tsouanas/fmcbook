@@ -2101,6 +2101,26 @@ $$
 $$
 %%}}}
 
+%%{{{ remark: Conventions 
+\remark Convenções.
+Seguindo a convenção comum, escrevemos o $x\expop y$ como $x^y$,
+mas mesmo assim consideramos isso como um açúcar sintáctico para
+a expressão $x \expop y$.  Entendemos então que no $x^y$ temos
+uma aplicação binária, aplicada nos dois argumentos $x$ e $y$.
+Vamos seguir também a convenção que a exponenciação
+``pega mais forte'' que as outras duas operações,
+e que multiplicação pega mais forte que a adição:
+$a \ntimes b^c$ escrito sem parênteses quis dizer
+$a \ntimes (b \expop c)$ e não $(a \ntimes b) \expop c$;
+e $a + b\times c$ quis dizer $a + (b\times c)$.
+Graças às associatividades das $+$ e $\ntimes$
+(\ref{natadd_is_associative} e~\ref{natmult_is_associative})
+podemos escrever $a + b + c$ e $a \ntimes b \ntimes c$,
+mas para a exponenciação que não é associativa escolhemos
+a associatividade-direita: $a^{b^c}$ é $a \expop (b \expop c)$
+e não $(a \expop b) \expop c$.
+%%}}}
+
 %%{{{ thm: natadd_is_associative 
 \theorem Associatividade da adição.
 \label{natadd_is_associative}%
@@ -2193,26 +2213,33 @@ Calculamos:
 $$
 \alignat2
 \underline{(u + v) + Sx}
-&= S(\underline{(u + v) + x})    \qqby {a2} \\
-&= \underline{S(u + (v + x))}    \qqby {H.I., com $n := u$, $m := v$} \\
-&= u + (\underline{S(v + x)})    \qqby {a2} \\
-&= u + (v + Sx).                 \qqby {a2}
+&= S(\underline{(u + v) + x})    \by {a2}
+&= \underline{S(u + (v + x))}    \by {H.I., com $n := u$, $m := v$}
+&= u + (\underline{S(v + x)})    \by {a2}
+&= u + (v + Sx).                 \by {a2}
 \endalignat
 $$
 Isso termina nossa prova.
 \qed
 %%}}}
 
-%%{{{ How to choose on which variable to induct 
+%%{{{ Q: How do we choose which forall to attack by induction? 
+\question.
+Acabamos de escolher para provar por indução no $k$.
+Por quê $k$?
+Faz diferença ou não?
+Como escolherias qual dos $\forall$ seria o melhor para atacar por indução?
+%%}}}
+\spoiler.
+
+%%{{{ A: How to choose on which variable to induct 
 \note Como escolher a variável da indução.
-Acabamos de escolhemos para fazer a indução no $k$.
-Por quê?
-Como a definição da adição foi recursivas no segundo argumento
+Como a definição da adição foi recursiva no segundo argumento
 da função, vai nos ajudar se a indução é feita numa variável
-que aparece mais como segundo argumento da adição.
-Aqui por exemplo, a $k$ aparce duas vezes como argumento da $+$,
-e as duas vezes ela é o segundo argumento da $+$.
-O $n$ no outro lado parece duas vezes como primeiro argumento,
+que aparece mais como segundo argumento da adição do que como primeiro.
+Aqui por exemplo, a $k$ aparece duas vezes como argumento da $+$,
+e as duas vezes ela é o segundo argumento da $+$.  Perfeito.
+O $n$ no outro lado aparece duas vezes como primeiro argumento,
 e o $m$ uma como primeiro e uma como segundo.
 %%}}}
 
@@ -2249,7 +2276,7 @@ $$
 $$
 Seja $k\in\nats$ tal que
 $$
-0 + k = k + 0.   \tag{H.I.}
+0 + k = k + 0.   \tag{S.H.I.}
 $$
 Queremos mostrar que
 $$
@@ -2259,15 +2286,15 @@ Calculamos:
 $$
 \alignat2
 0 + Sk
-&= S(0 + k)  \qqby {a2} \\
-&= S(k + 0)  \qqby {H.I.} \\
-&= Sk        \qqby {a1} \\
-&= Sk + 0.   \qqby {a1}
+&= S(0 + k)  \by {(a2)}
+&= S(k + 0)  \by {(S.H.I.)}
+&= Sk        \by {(a1)}
+&= Sk + 0.   \by {(a1)}
 \endalignat
 $$
 Isso termina nossa base.
 \endleftindent
-\crproofpart{Passo indutivo.}
+\proofpart{Passo indutivo.}
 Queremos provar:
 $$
 \forall k
@@ -2434,30 +2461,97 @@ $
 \bigparen{n \ntimes m = m \ntimes n}.
 $
 
-\endexercise
-%%}}}
+\hint
+Por indução em qualquer uma das $m,n$.
 
-%%{{{ thm: natmult_identity 
-\theorem Identidade da multiplicação.
-\label{natmult_identity}%
-$
-\forall x
-\bigbracket{ x \ntimes S0 = x = S0 \ntimes x}.
-$
-\proof.
-Seja $x\in \nats$.
+\hint
+Prove a base da tua indução com uma sub-indução!
+
+\hint
+Teu passo indutivo vai precisar duma sub-indução também!
+
+\solution
+Por indução no $m$.
+\crproofpart{Base: $\forall n \paren{n \ntimes 0 = 0 \ntimes n}$.}
+Vamos provar por indução!
+\leftindent
+\proofpart{Sub-base: $0 \ntimes 0 = 0 \ntimes 0$.}
+Trivial!
+\crproofpart{Sub-passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+k \ntimes 0 = 0 \ntimes k.  \tag{S.H.I.1}
+$$
+Ou seja, \emph{$k$ é um número que comuta com o $0$}.
+Vamos provar que $Sk \ntimes 0 = 0 \ntimes Sk$.
 Calculamos:
 $$
 \alignat2
-x \ntimes S0
-&= (x \ntimes 0) + x    \qqby {(m2), $n\asseq x$, $m\asseq 0$}\\
-&= 0 + x                \qqby {(m1)} \\
-&= x + 0                \qqby {$+$ comut.~(\refn{natadd_is_commutative})} \\
-&= x.                   \qqby {(a1)}
+Sk \ntimes 0  &= 0  \by{(m1)}
+0 \ntimes Sk
+&= 0 \ntimes k + 0  \by{(m2)}
+&= 0 \ntimes k      \by{(a1)}
+&= k \ntimes 0      \by{(S.H.I.1)}
+&= 0.               \by{(m1)}
 \endalignat
 $$
-Como já provamos a comutatividade da $\ntimes$, isso termina nossa prova.
-\qed
+Isso prova nossa base.
+\endleftindent
+\proofpart{Passo indutivo.}
+Seja $w\in\nats$ tal que
+$$
+\forall n \paren{n \ntimes w = w \ntimes n}. \tag{H.I.}
+$$
+Ou seja, \emph{$w$ é um número que comuta com todos}.
+Queremos provar que seu sucessor $Sw$ faz a mesma coisa:
+$$
+\forall n \paren{n \ntimes Sw = Sw \ntimes n}.
+$$
+Vamos provar por mais uma indução!
+\leftindent
+\proofpart{Sub-base: $0 \ntimes Sw = Sw \ntimes 0$.}
+Calculamos:
+$$
+\alignat2
+0 \ntimes Sw
+&= 0 \ntimes w + 0 \by{(m2)}
+&= 0 \ntimes w     \by{(a1)}
+&= w \ntimes 0     \by{Base ($0$ comuta com todos) ou (H.I.) ($w$ comuta com todos)}
+&= 0               \by{(m1)}
+&= Sw \ntimes 0.   \by{(m1)}
+\endalignat
+$$
+\crproofpart{Sub-passo indutivo.}
+Seja $p\in\nats$ tal que ele comuta com o $Sw$:
+$$
+p \ntimes Sw = Sw \ntimes p.    \tag{S.H.I.2}
+$$
+Vamos provar que $Sp$ também comuta com o $Sw$:
+$$
+Sp \ntimes Sw = Sw \ntimes Sp.
+$$
+Calculamos:
+$$
+\alignat2
+Sp \ntimes Sw
+&= Sp \ntimes w + Sp        \by{(m2)}
+&= w \ntimes Sp + Sp        \by{(H.I.): $w$ comuta com todos}
+&= (w \ntimes p + w) + Sp   \by{(m2)}
+&= w \ntimes p + (w + Sp)   \by{associatividade da $+$}
+&= w \ntimes p + S(w + p)   \by{(a2)}
+&= w \ntimes p + S(p + w)   \by{comutatividade da $+$}
+&= w \ntimes p + (p + Sw)   \by{(a2)}
+Sw \ntimes Sp
+&= Sw \ntimes p + Sw        \by{(m2)}
+&= p \ntimes Sw + Sw        \by{(S.H.I.2): $p$ comuta com o $Sw$}
+&= (p \ntimes w + p) + Sw   \by{(m2)}
+&= p \ntimes w + (p + Sw)   \by{associatividade da $+$}
+&= w \ntimes p + (p + Sw).  \by{(H.I.): $w$ comuta com todos}
+\endalignat
+$$
+\endleftindent
+
+\endexercise
 %%}}}
 
 %%{{{ x: natadd_distributive_over_natmult 
@@ -2467,10 +2561,79 @@ $
 \forall x
 \forall y
 \forall z
-\bigparen{x \ntimes (y + z) = (x \ntimes y) + (x \ntimes z)}.
+\bigbracket{x \ntimes (y + z) = (x \ntimes y) + (x \ntimes z)}.
 $
 
+\hint
+Indução no $z$.
+
+\solution
+Provamos a afirmação por indução no $z$.
+\crproofpart{Base: $\forall x \forall y \bracket{x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0)}$}.
+Sejam $x,y \in \nats$.
+Queremos provar que
+$$
+x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0).
+$$
+Calculamos:
+$$
+\alignat2
+x \ntimes (y + 0)
+&= x \ntimes y                 \by {(a1)}
+&= x \ntimes y + 0             \by {(a1)}
+&= x \ntimes y + x \ntimes 0.  \by {(m1)}
+\endalignat
+$$
+\proofpart{Passo indutivo.}
+Seja $k\in \nats$ tal que
+$$
+\forall x
+\forall y
+\bracket{x \ntimes (y + k) = (x \ntimes y) + (x \ntimes k)}. \tag{H.I.}
+$$
+Vamos provar que
+$$
+\forall x
+\forall y
+\bracket{x \ntimes (y + Sk) = (x \ntimes y) + (x \ntimes Sk)}.
+$$
+Sejam $x,y\in\nats$.
+Calculamos
+$$
+\alignat2
+x \ntimes (y + Sk)
+&= x \ntimes S(y + k)                \by {(a1)}
+&= \bigparen{x \ntimes (y + k)} + x  \by {(m2)}
+&= (x \ntimes y + x \ntimes k) + x   \by {(H.I.) com $x\asseq x$, $y\asseq y$}
+&= x \ntimes y + (x \ntimes k + x)   \by {associatividade de $+$}
+&= x \ntimes y + x \ntimes Sk.       \by {(m2)}
+\endalignat
+$$
+
 \endexercise
+%%}}}
+
+%%{{{ thm: natmult_identity 
+\theorem Identidade da multiplicação.
+\label{natmult_identity}%
+$
+\forall x
+\bigparen{ x \ntimes S0 = x = S0 \ntimes x}.
+$
+\proof.
+Seja $x\in \nats$.
+Calculamos:
+$$
+\alignat2
+x \ntimes S0
+&= (x \ntimes 0) + x    \by {(m2), $n\asseq x$, $m\asseq 0$}
+&= 0 + x                \by {(m1)}
+&= x + 0                \by {$+$ comut.~(\refn{natadd_is_commutative})}
+&= x.                   \by {(a1)}
+\endalignat
+$$
+Como já provamos a comutatividade da $\ntimes$, isso termina nossa prova.
+\qed
 %%}}}
 
 %%{{{ x: law_of_natexp_1 
@@ -2480,7 +2643,7 @@ $
 \forall x
 \forall a
 \forall b
-\bigparen{x \expop (a + b) = (x \expop a) \ntimes (x \expop b)}.
+\bigparen{x^{a + b} = (x^a) \ntimes (x^b)}.
 $
 
 \hint
@@ -2546,7 +2709,7 @@ $
 \forall a
 \forall b
 \forall c
-\bigparen{(a \expop b) \expop c = a \expop (b \ntimes c)}.
+\bigparen{(a^b)^c = a^{b \ntimes c}}.
 $
 
 \hint
