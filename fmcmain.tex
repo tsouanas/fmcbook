@@ -19733,8 +19733,6 @@ no $\nats$, que não é assimétrica, pois é reflexiva.
 \endexercise
 %%}}}
 
-\TODO Escrever as idéias das propriedades seguintes.
-
 %%{{{ Transitions 
 \note Transições.
 \tdefined{relação!transitiva}%
@@ -19742,11 +19740,14 @@ no $\nats$, que não é assimétrica, pois é reflexiva.
 \tdefined{relação!left-euclidean}%
 \tdefined{relação!right-euclidean}%
 As vezes queremos garantir a existência de alguma seta dadas duas ou mais setas.
-As propriedades mais comuns nesse caso são:
-transitividade;
-circularidade;
-left-euclidean;
-right-euclidean.
+Suponha que $x\rel R y$ e $y \rel R z$.
+Se isso garanta que $x\rel R z$ chamamos a $R$ \dterm{transitiva};
+e se isso garanta que $z \rel R x$, \dterm{circular}.
+Suponha agora que temos dois objetos cada um relacionados com um terceiro.
+Se isso já é suficiente para garantir que eles também são relacionados,
+chamamos a relação \dterm{left-euclidean}.
+Similarmente, se a relação de um objeto com dois outros garanta que os outros
+também relacionam entre si, chamamos a relação \dterm{right-euclidean}.
 %%}}}
 
 %%{{{ Why the names -euclidean? 
@@ -20752,7 +20753,11 @@ Observe que esta convenção é a oposta que seguimos nas funções, onde um ple
 \emph{função} quis dizer \emph{função total}.
 %%}}}
 
-\TODO Examples.
+%%{{{ eg: common orders are orders 
+\example.
+As $\leq$ e $\geq$ comuns, são ordens totais nos $\nats,\ints,\rats,\reals$.
+\endexample
+%%}}}
 
 %%{{{ divides_is_not_an_order_on_ints 
 \exercise.
@@ -20765,6 +20770,55 @@ O que podemos concluir se $a\divides b$ e $b\divides a$?
 \endexercise
 %%}}}
 
+%%{{{ divides_is_a_partial_order_on_nats 
+\example.
+A relação $\divides$ no $\nats$ é uma ordem parcial.
+(Provaste isso no~\ref{divides_is_almost_a_partial_order}.)
+\endexample
+%%}}}
+
+%%{{{ df: strict_order 
+\definition Ordem estrita.
+\label{strict_order}%
+\tdefined{ordem}[estrita]%
+Seja $R$ uma relação binária num conjunto $A$.
+Chamamos a $R$ \dterm{ordem estrita} sse ela é irreflexiva, transitiva, e assimétrica.
+Se ela também é tricotômica, chamamos-la \dterm{ordem estrita total}.
+%%}}}
+
+%%{{{ remark: default adjective 
+\remark Adjetivo implícito.
+\tdefined{ordem}[fraca]%
+Quando queremos enfatizar que uma relação é uma ordem e não uma ordem estrita,
+usamos o termo \dterm{fraca}.  Similarmente com as funções (totais vs.~parciais),
+Dependendo do contexto o \emph{adjetivo implicito} pode mudar.
+Quando focamos em ordens estritas, ``ordem'' vira sinônimo de ``ordem estrita''
+e precisamos o adjetivo ``fraca'' para referir a uma ordem (fraca).
+%%}}}
+
+%%{{{ x: weak_fromto_strong_orders 
+\exercise De fraca para estrita, ida e volta.
+\label{weak_fromto_strong_orders}%
+Seja $A$ conjunto.
+(1)
+Seja $\leq$ uma ordem no $A$.
+Defina a relação $<$ no $A$ pela:
+$$
+x < y \defiff x \leq y \mland x \neq y.
+$$
+Prove que $<$ é uma ordem estrita.
+\endgraf
+(2)
+Seja $<$ uma ordem no $A$, e
+defina a relação $\leq$ no $A$ pela:
+$$
+x \leq \defiff x < y \mlor x = y.
+$$
+Prove que $\leq$ é uma ordem.
+
+\endexercise
+%%}}}
+
 %%{{{ df: preorder_relation 
 \definition Preordem.
 \label{preorder_relation}%
@@ -20773,13 +20827,17 @@ O que podemos concluir se $a\divides b$ e $b\divides a$?
 Uma relação binária $R$ num conjunto $A$ é chamada \dterm{preordem} (ou \dterm{quasiordem}) sse ela é reflexiva e transitiva.
 %%}}}
 
+%%{{{ eg: divides_is_a_preorder_on_ints 
+\example.
+\label{divides_is_a_preorder_on_ints}%
+Como provamos no~\ref{divides_is_almost_a_partial_order},
+a relação $\divides$ nos inteiros é uma preordem.
+\endexample
+%%}}}
+
 \blah.
 No~\ref{why_called_preorder} tu vai justificar o nome ``preordem'',
 mostrando que cada preordem $R$ fornece uma ordem $R'$.
-
-\TODO Ordens estritas.
-
-\TODO De fraca para estrita, ida e volta.
 
 \endsection
 %%}}}
