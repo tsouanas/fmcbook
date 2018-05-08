@@ -18472,6 +18472,18 @@ para nossas funções não-deterministas também.
 \endproblem
 %%}}}
 
+%%{{{ prob: epimono_factorization_teaser 
+\problem.
+\label{epimono_factorization_teaser}%
+Mostre que toda função $f : A \to B$ pode ser ``decomposta'' em
+$$
+f = e \of m
+$$
+onde $e$ é uma função sobrejetora e $m$ uma função injetora.
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -19986,11 +19998,11 @@ mas $\tup{0,1,0} \not\sim \tup{2,1,0}$.
 
 %%{{{ df: kernel_coimage 
 \definition.
-\label{kernel_coimage}
-\tdefined{kernel}
-\tdefined{coimagem}
-\sdefined {\ker {\holed f}} {kernel da \holed f}
-\sdefined {\coim {\holed f}} {coimagem da \holed f}
+\label{kernel_coimage}%
+\tdefined{kernel}%
+\tdefined{coimagem}%
+\sdefined {\ker {\holed f}} {kernel da \holed f}%
+\sdefined {\coim {\holed f}} {coimagem da \holed f}%
 Seja $f : X \to Y$ e defina a relação binária $\frel f$ no $X$ pela
 $$
 x_1 \frel f x_2 \defiff f(x_1)=f(x_2).
@@ -20134,6 +20146,7 @@ Formalmente definimos
 $$
 \eqclass a {\sim} \defeq \set {x\in A \st x\sim a}.
 $$
+As vezes aparece também a notação $\eqclassalt a \sim$.
 Quando a relação de equivalência é implicita pelo contexto
 denotamos a $\eqclass a \sim$ apenas por $\eqclassimp a$.
 %%}}}
@@ -21430,6 +21443,50 @@ x \sim y \defiff x-y\in\rats.
 $$
 Prove que $\sim$ é uma relação de equivalência e descreva as classes
 do $\quoset {\reals} {\sim}$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: epimono_factorization_teaser_now_easy 
+\problem Agora é fácil.
+\label{epimono_factorization_teaser_now_easy}%
+Resolvemos o~\ref{epimono_factorization_teaser}.
+Seja $f : A\to B$ uma função qualquer, e considere a $\frel f$
+da~\ref{kernel_coimage}.
+Então $f$ pode ser ``decomposta'' assim:
+$$
+\cdopt{sep=1.5cm}
+A   \ar[r,two heads, ""]\ar[rrr, bend left, "f"] \|
+\quoset A {\frel f} \ar[r,two heads,tail, "\tilde f"'] \|
+\Img f              \ar[r,hook, ""] \|
+B
+\endcd
+$$
+onde a primeira função é a ``projecção'' $\eqclassimp {\dhole}$,
+a terceira é a inclusão $\Img f \subseteq B$, e a bijecção no meio
+é a função definida pela
+$$
+\tilde f(\eqclassimp a) = f(a),
+$$
+que garanta a comutatividade do diagrama em cima.
+Mesmo assim, falta provar umas coisas.
+Ache o que, e prove.
+
+\hint
+Precisas mostrar que:
+(1) a $\tilde f$ é bem definida;
+(2) a $\tilde f$ é uma bijecção.
+
+\hint
+(1)
+Para mostrar que $\tilde f$ é bem definida, precisa mostrar que
+a escolha do representante da classe não afeta o valor da função.
+Ou seja, tome $a, a'\in A$ e mostre que:
+$$
+\eqclass a = \eqclass {a'} \implies f(a) = f(a').
+$$
+(2)
+A bijetoridade da $\tilde f$ não precisa de dicas!
 
 \endproblem
 %%}}}
@@ -22974,7 +23031,7 @@ Todos os seguintes conjuntos estruturados são grupos:
 %%{{{ noneg: with numbers 
 \nonexample Com números.
 E \emph{nenhum} dos seguintes é um grupo:
-$\sset \nats {+,0}$;
+$\sset \nats {+}$;
 $\sset {\ints_{\neq 0}} {\ntimes,1}$;
 $\sset \reals {+,1}$.
 \endnonexample
@@ -23127,6 +23184,7 @@ Ou seja, procuramos as \emph{conseqüências das leis} (G0)--(G3).
 
 %%{{{ First consequences 
 \section Primeiras conseqüências.
+\label{First_consequences_of_group_laws}%
 
 %%{{{ lm: uniqueness_of_identity_in_group 
 \lemma Unicidade da identidade.
@@ -23374,12 +23432,21 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ x: uniqueness_of_inverses_in_group_proof_without_cancellation 
+\exercise.
+\label{uniqueness_of_inverses_in_group_proof_without_cancellation}%
+Ache uma prova do~\ref{uniqueness_of_inverses_in_group}
+que não precisa das leis de cancelamento.
+
+\endexercise
+%%}}}
+
 %%{{{ ginv_is_a_function 
 \note Inverso.
 \label{ginv_is_a_function}%
 Provando finalmente a unicidade dos inversos
-(\refn{uniqueness_of_inverses_in_group}) ganhamos em cada grupo $G$ uma
-\emph{função} (unária) de inverso
+(\refn{uniqueness_of_inverses_in_group}) ganhamos em cada
+grupo $G$ uma \emph{função} (unária) de inverso
 $$
 \ginvt : G \to G.
 $$
@@ -23387,7 +23454,8 @@ Sua \emph{totalidade} era já garantida pela~(G3);
 e agora acabamos de ganhar sua \emph{determinicidade} com
 o~\ref{uniqueness_of_inverses_in_group}.
 Ou seja: \emph{função!}
-Podemos finalmente definir uma notação para denotar o inverso de qualquer $a\in G$.
+Podemos finalmente definir uma notação para denotar o inverso
+de qualquer $a\in G$.
 Bora!
 %%}}}
 
@@ -27199,6 +27267,32 @@ Veja bem a prova do~\ref{first_isomorphism_theorem_groups}.
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ prob: how_come_the_cancellation_laws_hold_in_nongroup_without_inverses 
+\problem.
+\label{how_come_the_cancellation_laws_hold_in_nongroup_without_inverses}%
+No~\ref{First_consequences_of_group_laws} provamos que as leis de cancelamento
+implicam a existência de únicos inversos.
+Lembre-se que o $\sset {\nats} {+}$ não é um grupo pois não satisfaz a (G3).
+Mesmo assim, no $\sset {\nats} {+}$ ambas as leis de cancelamento são válidas.
+Então, isso implica a existência de inversos únicos!
+Qual o erro aqui?
+
+\hint
+O que precisamos na prova do fato que as leis de cancelamento implicam
+a existência de inversos únicos?
+
+\solution
+Na prova do fato que as leis de cancelamento implicam a existência
+de inversos únicos, \emph{usamos} a (G3) que garanta a existência,
+e provamos a unicidade.  No caso do $\sset {\nats} {+}$ não temos a
+(G3) (existência de inversos).  Então nossa prova nesse caso mostra
+que cada membro de $\sset {\nats} +$ tem \emph{no máximo} um inverso,
+algo que realmente é verdade: o $0$ tem exatamente um, e nenhum dos
+outros tem.
+
+\endproblem
+%%}}}
 
 %%{{{ Direct products 
 \blah.
