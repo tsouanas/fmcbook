@@ -23003,7 +23003,7 @@ No~\ref{Sn_is_a_group} provarás que para todo $n\in\nats$, o $S_n$ é um grupo.
 Seja $m\in\nats$.  Tem como achar um grupo com ordem $m$?
 Observe que como sabemos que $\gord {S_n} = n!$, podemos já achar um grupo com ordem $m$ para qualqeur $m$ que fosse um fatorial.
 Por exemplo, se $m=120$ já temos o grupo $S_5$, pois $\gord {S_5} = 5! = 120$.
-Mas para um $m$ arbitrário, existe grupo com ordem $m$?
+Mas para um $m$ arbitrário, existe grupo de ordem $m$?
 
 \hint
 \ref{Congruences}.
@@ -23706,40 +23706,6 @@ onde $\swap(x,y) = \tup{y,x}$.
 \endexercise
 %%}}}
 
-%%{{{ criterion: Cancellation-based group definition 
-\criterion Definição de grupo com cancelação.
-\label{cancellation_based_group_def}%
-Seja $\ssetfont G = \sset G \ast$ um conjunto \emph{finito} estruturado
-que satisfaz:
-$$
-\align
-\pforall {a,b\in G}    &\bracket{a\ast b \in G}                    \tag{G0} \\
-\pforall {a,b,c\in G}  &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1} \\
-\pforall {a,x,y\in G}  &\bracket{a\ast x = a\ast y \implies x=y}   \tag{GCL}\\
-\pforall {a,x,y\in G}  &\bracket{x\ast a = y\ast a \implies x=y}   \tag{GCR}
-\endalign
-$$
-Então $\ssetfont G$ é um grupo.
-%%}}}
-
-%%{{{ x: we_need_both_cancellation_laws_to_have_a_group 
-\exercise.
-\label{we_need_both_cancellation_laws_to_have_a_group}
-Podemos apagar um dos (GCL), (GCR) das hipoteses do~\ref{cancellation_based_group_def}?
-
-\endexercise
-%%}}}
-
-%%{{{ x: cancellation_based_group_def_only_valid_for_finite_G 
-\exercise.
-Mostre que não podemos apagar o ``finito'' das nossas hipoteses.
-
-\hint
-Não.  Procure contraexemplo!
-
-\endexercise
-%%}}}
-
 %%{{{ lm: solution_of_group_equations 
 \lemma Resolução de equações.
 \label{solution_of_group_equations}%
@@ -23838,8 +23804,40 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ x: onesided_group_def 
-\exercise Unilateral definição de grupo.
+%%{{{ criterion: cancellation_based_group_def 
+\criterion Definição de grupo com cancelação.
+\label{cancellation_based_group_def}%
+Seja $\ssetfont G = \sset G \ast$ um conjunto \emph{finito} estruturado
+que satisfaz:
+$$
+\align
+\pforall {a,b\in G}    &\bracket{a\ast b \in G}                    \tag{G0} \\
+\pforall {a,b,c\in G}  &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1} \\
+\pforall {a,x,y\in G}  &\bracket{a\ast x = a\ast y \implies x=y}   \tag{GCL}\\
+\pforall {a,x,y\in G}  &\bracket{x\ast a = y\ast a \implies x=y}   \tag{GCR}
+\endalign
+$$
+Então $\ssetfont G$ é um grupo.
+\proof.
+\ref{cancellation_based_group_def_proof}
+\qed
+%%}}}
+
+%%{{{ x: cancellation_based_group_def_only_valid_for_finite_G 
+\exercise.
+Mostre que não podemos apagar o ``finito'' das nossas hipoteses.
+
+\hint
+Procure contraexemplo!
+
+\solution
+Veja~\ref{how_come_the_cancellation_laws_hold_in_nongroup_without_inverses}.
+
+\endexercise
+%%}}}
+
+%%{{{ criterion: onesided_group_def 
+\criterion Unilateral definição de grupo.
 \label{onesided_group_def}%
 Seja $\ssetfont G = \sset G {\ast,e}$ um conjunto estruturado que satisfaz:
 $$
@@ -23848,16 +23846,39 @@ $$
 \pforall {a,b,c\in G}                      &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1}  \\
 \pforall {a \in G}                         &\bracket{a\ast e = a}                      \tag{G2R} \\
 \pforall {a\in G} \pexists {y\in G}   &\bracket{a \ast y = e}                     \tag{G3R} \\
-\intertext{Mostre que $\ssetfont G$ é um grupo.
-Comece verificando que mesmo se conseguir provar as}
-\pforall {a \in G}                         &\bracket{e\ast a = a}                      \tag{G2L} \\
+\endalign
+$$
+Então $\ssetfont G$ é um grupo.
+\proof.
+\ref{onesided_group_def_proof}%
+\qed
+%%}}}
+
+%%{{{ x: onesided_group_def_catch 
+\exercise.
+\label{onesided_group_def_catch}%
+Verifique que mesmo se conseguir provar as
+$$
+\align
+\pforall {a \in G}                    &\bracket{e\ast a = a}                      \tag{G2L} \\
 \pforall {a\in G} \pexists {a'\in G}  &\bracket{a' \ast a = e}                    \tag{G3L} 
 \endalign
 $$
-isso não nos permite deduzir trivialmente as (G2) e (G3)!  Explique o por quê.
+isso não nos permite deduzir trivialmente as (G2) e (G3)!
+Explique o porquê.
+
+\endexercise
+%%}}}
+
+%%{{{ x: onesided_group_def_proof 
+\exercise.
+\label{onesided_group_def_proof}%
+Prove o~\ref{onesided_group_def}.
+Cuidado: lembre-se o~\ref{onesided_group_def_catch}.
 
 \hint
-Para evitar as chances de ``roubar'' sem querer, use uma notação adaptada às novas leis:
+Para evitar as chances de ``roubar'' sem querer,
+use uma notação adaptada às novas leis:
 chame $e_r$ a identidade-direita grantida pela (G2R);
 $a_{R}$ para os inversos-direitos grantidos pela (G3R); e
 $a_{L}$ para os inversos-esquerdos garantidos pela (G3L).
@@ -23879,10 +23900,10 @@ Para provar as (G2') e (G3'),
 tome um $a\in G$ e comece com:
 $$
 \xalignat2
-e \ast a &= (a \ast a_R) \ast a     & e \ast a &= (e \ast a) \ast e\\
-         &= \dotsb                  &          &= e \ast (a \ast e)\\
-         &=                         &          &= e \ast (a \ast (\;?\;))\\
-         &=                         &          &= \dotsc
+e \ast a &= (a \ast a_R) \ast a  & e \ast a &= (e \ast a) \ast e\\
+         &= \dotsb               &          &= e \ast (a \ast e)\\
+         &=                      &          &= e \ast (a \ast (\;?\;))\\
+         &=                      &          &= \dotsc
 \endxalignat
 $$
 
@@ -23901,11 +23922,11 @@ continuar.
 
 %%{{{ x: splitsided_group_notdef 
 \exercise.
-\label{splitsided_grou_notdef}%
+\label{splitsided_group_notdef}%
 Podemos substituir a (G3R) do~\ref{onesided_group_def} por
 $$
 \align
-\pforall {a\in G} \pexists {a'\in G}  &\bracket{a' \ast a = e}                    \tag{G3L} \\
+\pforall {a\in G} \pexists {a'\in G}  &\bracket{a' \ast a = e} \tag{G3L} \\
 \endalign
 $$
 e ainda concluir que $\ssetfont G$ é grupo?
@@ -23926,11 +23947,12 @@ Procure um contraexemplo.
 
 %%{{{ Cayley tables 
 \section Tabelas Cayley.
+\label{Cayley_tables}%
 
 %%{{{ Q: In how many ways can we define an operation to create a finite group? 
 \question.
-De quantas maneiras podemos definir uma operação binária $\ast$ num conjunto
-finito $G$, tal que $\sset G \ast$ é um grupo?
+De quantas maneiras podemos definir uma operação binária $\ast$
+num conjunto finito $G$, tal que $\sset G \ast$ é um grupo?
 %%}}}
 \spoiler.
 
@@ -24145,11 +24167,11 @@ o conceito de isomorfia~(\refn{Group_morphisms}).
 %%{{{ x: find_all_groups_of_order_0_and_1 
 \exercise.
 \label{find_all_groups_of_order_0_and_1}%
-Tem grupos com ordem 1?  Com 0?
+Tem grupos de ordem 1?  De 0?
 
 \solution
-Com ordem $1$ sim.  Cada um tem a mesma forma: seu único elemento é sua identidade.
-Com ordem $0$, não: a lei (G2) \emph{manda a existência} de um certo membro do grupo (a sua identidade).
+De ordem $1$ sim.  Cada um tem a mesma forma: seu único elemento é sua identidade.
+De ordem $0$, não: a lei (G2) \emph{manda a existência} de um certo membro do grupo (a sua identidade).
 
 \endexercise
 %%}}}
@@ -27290,6 +27312,15 @@ e provamos a unicidade.  No caso do $\sset {\nats} {+}$ não temos a
 que cada membro de $\sset {\nats} +$ tem \emph{no máximo} um inverso,
 algo que realmente é verdade: o $0$ tem exatamente um, e nenhum dos
 outros tem.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: cancellation_based_group_def_proof 
+\problem.
+\label{cancellation_based_group_def_proof}%
+(1) Prove o~\ref{cancellation_based_group_def}.
+(2) Podemos apagar um dos (GCL), (GCR) das hipoteses?
 
 \endproblem
 %%}}}
