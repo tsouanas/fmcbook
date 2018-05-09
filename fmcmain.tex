@@ -1444,9 +1444,9 @@ cada vez menos com o compilador real.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Recursion 
-\chapter Recursão.
-\label{Recursion}%
+%%{{{ chapter: Recursion & Induction  
+\chapter Recursão \& Indução.
+\label{Recursion_induction}%
 \iisee{recursão}{recursão}%
 
 %%{{{ First examples 
@@ -1491,265 +1491,6 @@ Calcule o valor $L_{12}$.
 \endsection
 %%}}}
 
-%%{{{ The natural numbers formally 
-\section Os números naturais formalmente.
-\label{Nats_formally}%
-
-%%{{{ df: nats_plus_recursive_def 
-\definition Adição.
-Definimos a operação $+$ no $\nats$ pelas:
-$$
-\align
-n + 0   &= n      \tag{a1}\\
-n + S m &= S(n+m) \tag{a2}
-\endalign
-$$
-%%}}}
-
-%%{{{ eg: three_plus_two_formally 
-\example.
-\label{three_plus_two_formally}%
-Calcule a soma $SSS0 + SS0$.
-
-\solution
-Temos a expressão
-$$
-SSS0 + SS0.
-$$
-Qual equação aplica?
-Com certeza não podemos aplicar a primeira (na direção ``$\Rightarrow$''),
-pois nossa expressão não tem a forma $n + 0$.
-Por quê não?  O primeiro termo na nossa expressão, o $SSS0$, não é um problema
-pois ele pode ``casar'' com o $n$ do lado esquerdo da (a1).
-Mas nosso segundo termo, o $SS0$,
-não pode casar com o $0$, então a (a1) não é aplicável.
-A segunda equação é sim, pois nossos termos podem casar assim
-com as variáveis da (a2):
-$$
-\alignat2
-{\munderbrace{SSS0}n} + {S\munderbrace{S0}m}\\
-\intertext{Tomando $n\asseq SSS0$ e $m\asseq S0$ substituimos nossa expressão por seu
-igual seguindo a (a2):}
-{\munderbrace{SSS0}n} + {S\munderbrace{S0}m}
-&= S\bigparen{ {\munderbrace{SSS0}n} + {\munderbrace{S0}m} }  \by{por (a2)}
-\intertext{Depois um passo de cálculo então chegamos na expressão
-$S(SSS0 + S0)$.
-Como nenhuma equação tem a forma $S(\text{\thole}) = \text{\lthole}$,
-olhamos ``dentro'' da nossa expressão para achar nas suas subexpressões
-possíveis ``casamentos'' com nossas equações.
-Focamos então na subexpressão sublinhada
-$S(\underline{SSS0 + S0})$:
-vamos tentar substituí-la por algo igual.
-Novamente a primeira equação não é aplicavel
-por causa do novo segundo termo ($S0$), mas a (a2) é:}
-S\bigparen{{\munderbrace{SSS0}n} + {S\munderbrace{0}m}}\\
-\intertext{Tomando agora $n\asseq SSS0$ e $m\asseq 0$ substituimos de novo
-seguindo a (a2):}
-S\toverbrace{\bigparen{{\munderbrace{SSS0}n} + {S\munderbrace{0}m}}}{isso}
-&= S\toverbrace{S\bigparen{ {\munderbrace{SSS0}n} + {\munderbrace{0}m} }}{por isso}  \by{por (a2)}
-\intertext{Agora focamos na subexpressão $SS(\underline{SSS0 + 0})$ e podemos finalmente
-aplicar a primeira equação:}
-SS\bigparen{{\munderbrace{SSS0}n} + 0}\\
-\intertext{então tomando $n\asseq SSS0$ substituimos}
-SS\toverbrace{\bigparen{{\munderbrace{SSS0}n} + 0}}{isso}
-&= SS\toverbrace{ {\munderbrace{SSS0}n} }{por isso}  \by{por (a1)}
-\endalignat
-$$
-Finalmente chegamos no resultado: no termo $SSSSS0$.
-Nunca mais vamos escrever tudo isso com tanto detalhe!
-Esse cálculo que acabamos de fazer, escrevemos curtamente nessa forma:
-$$
-\alignat2
-SSS0 + SS0
-&= S(SSS0 + S0) \by {por (a2)}
-&= SS(SSS0 + 0) \by {por (a2)}
-&= SSSSS0       \by {por (a1)}
-\endalignat
-$$
-escrevendo apenas em cada linha o que foi usado.
-
-\endexample
-%%}}}
-
-%%{{{ x: zero_plus_four_formally 
-\exercise.
-\label{zero_plus_four_formally}%
-Calcule a soma dos $0 + SSSS0$.
-
-\endexercise
-%%}}}
-
-%%{{{ Evaluation strategy 
-\note Estratégias de evaluação.
-\tdefined{estratégia}[de evaluação]%
-Vamos dizer que queremos calcular começando com uma expressão mais complexa,
-como por exemplo a
-$$
-0 + \bigparen{0 + S\bigparen{(SS0 + 0) + 0}}.
-$$
-Como procedimos?
-A expressão enteira não pode ser substituida pois nenhuma das (a1)--(a2) tem
-essa forma, mas aparecem várias subexpressões em quais podemos \emph{focar}
-para nosso próximo passo de cálculo:
-$$
-\align
-0 + \underline{\bigparen{0 + S\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com (a2)}\\
-0 + \bigparen{0 + S\underline{\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com (a1)}\\
-0 + \bigparen{0 + S\bigparen{\underline{(SS0 + 0)} + 0}},&\quad\text{casando com (a1)}.
-\endalign
-$$
-Podemos seguir uma \dterm{estratégia de evaluação} específica, por exemplo,
-focando sempre na expressão que aparece primeira à esquerda; ou podemos
-escolher cada vez onde focar aleatoriamente; etc.
-No~\ref{three_plus_two_plus_one} tu vai ter que escolher onde focar
-várias vezes.
-%%}}}
-
-%%{{{ x: three_plus_two_plus_one 
-\exercise.
-\label{three_plus_two_plus_one}%
-Calcule os valor das expressões $SSS0 + (SS0 + S0)$ e $(SSS0 + SS0) + S0$.
-
-\solution
-Um caminho para calcular a primeira é o seguinte:
-$$
-\alignat2
-SSS0 + \underline{(SS0 + S0)}
-&= SSS0 + S\underline{(SS0 + 0)} \by{por (a2)}
-&= \underline{SSS0 + SSS0}       \by{por (a1)}
-&= S\underline{(SSS0 + SS0)}     \by{por (a2)}
-&= SS\underline{(SSS0 + S0)}     \by{por (a2)}
-&= SSS\underline{(SSS0 + 0)}     \by{por (a2)}
-&= SSSSSS0                       \by{por (a1)}
-\intertext{e um caminho para calcular a segunda é o:}
-\underline{(SSS0 + SS0) + S0}
-&= S(\underline{(SSS0 + SS0)} + 0)  \by{por (a2)}
-&= S(S\underline{(SSS0 + S0)} + 0)  \by{por (a2)}
-&= S\underline{(SS(SSS0 + 0) + 0)}  \by{por (a2)}
-&= SSS\underline{(SSS0 + 0)}        \by{por (a1)}
-&= SSSSSS0                          \by{por (a1)}
-\endalignat
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: nats_double_def 
-\exercise.
-\label{nats_double_def}%
-Define (recursivamente) a função $d : \Nat \to \Nat$ que dobra sua entrada.
-Verifique que o dobro de três ($SSS0$) é seis ($SSSSSS0$).
-
-\hint
-Pensando fora do $\Nat$:
-como podemos calcular o valor de $2(n+1)$, se sabemos como dobrar
-qualquer número menor de $n+1$?
-
-\hint
-$2(n+1) = 2n + 2$.
-
-\solution
-Definimos:
-$$
-\align
-d( 0 )  &= 0        \tag{D1}\\
-d( Sn ) &= SSd(n).  \tag{D2}
-\endalign
-$$
-Calculamos:
-$$
-\alignat2
-d( SSS0 )
-&= SSd(SS0)    \by{por (D2)}
-&= SSSSd(S0)   \by{por (D2)}
-&= SSSSSSd(0)  \by{por (D2)}
-&= SSSSSS0.    \by{por (D1)}
-\endalignat
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: nats_ntimes_recursive_def 
-\exercise.
-\label{nats_ntimes_recursive_def}%
-Define a multiplicação no $\nats$.
-
-\hint
-Precisa de novo duas equações.
-
-\hint
-$$
-\align
-n \ntimes 0  &= \text{\lthole}\\
-n \ntimes Sm &= \text{\lthole}
-\endalign
-$$
-
-\hint
-Na segunda equação, no seu lado direito, tu tem acesso no valor
-$n \ntimes m$, pois é ``mais simples'' do que o $n \ntimes Sm$.
-Isso é o poder da recursão: podes considerar o problema que tu
-tá tentando resolver (definir a multplicação), como resolvido
-para as ``entradas mais simples''.
-
-\endexercise
-%%}}}
-
-%%{{{ x: nats_exp_recursive_def 
-\exercise.
-\label{nats_exp_recursive_def}%
-Define a exponencação no $\nats$.
-
-\endexercise
-%%}}}
-
-%%{{{ nats_leq_recursive_def 
-\definition Ordem.
-Com que temos definido podemos já definir recursivamente
-uma \emph{relação} no $\nats$.  A relação de ordem $\leq$:
-$$
-\align
-0  \leq m  &\iff \True      \tag{LE1}\\
-Sn \leq 0  &\iff \False     \tag{LE2}\\
-Sn \leq Sm &\iff n \leq m   \tag{LE3}
-\endalign
-$$
-%%}}}
-
-%%{{{ eg: two_leq_four_but_four_notleq_two 
-\example.
-\label{two_leq_four_but_four_notleq_two}%
-Ache se $SS0 \leq SSSS0$ e se $SSSS0 \leq SS0$.
-
-\solution
-Calculamos:
-$$
-\alignat2
-SS0 \leq SSSS0
-&\iff S0 \leq SSS0  \by{por (LE3)}
-&\iff 0  \leq SS0   \by{por (LE3)}
-&\iff \True         \by{por (LE1)}
-\endalignat
-$$
-ou seja, realmente $SS0 \leq SSSS0$.
-No outro lado, calculamos
-$$
-\alignat2
-SSSS0 \leq SS0
-&\iff SSS0 \leq S0  \by{por (LE3)}
-&\iff SS0  \leq 0   \by{por (LE3)}
-&\iff \False        \by{por (LE2)}
-\endalignat
-$$
-ou seja, $SSSS0 \not\leq SS0$.
-
-\endexample
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Sums and products, formally 
 \section Somatórios e produtórios formalmente.
 
@@ -1757,131 +1498,6 @@ ou seja, $SSSS0 \not\leq SS0$.
 
 \endsection
 %%}}}
-
-%%{{{ Problems 
-\problems.
-
-%%{{{ prob: quot_rem_eq_prob 
-\problem.
-\label{quot_rem_eq_prob}
-Considere as funções $q$, $r$, e $t$ definidas recursivamente:
-$$
-\xalignat3
-q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
-q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
-q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
-q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
-q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
-\endxalignat
-$$
-O que cada função calcula?
-
-\hint
-Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
-
-\solution
-\item{($q$:)}
-    $q(n) = \bigg\lfloor{\dfrac n 3}\bigg\rfloor$.
-\item{($r$:)}
-    O $r(n)$ é o resto da divisão do $n$ por $3$.
-\item{($t$:)}
-    A $t$ decida se suas entradas são iguais ou não.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: products_in_disguise 
-\problem.
-\label{products_in_disguise}
-Seja $h : \nats\to\nats$.
-Defina recursivamente as funções $t : \nats \to \nats$ e $T : \nats^2 \to \nats$ que satisfazem:
-$$
-\align
-t(n)   &= h(0)h(1)\dotsb h(n-1)     = \prod\limits_{i=0}^{n-1} h(i);\\
-T(m,n) &= h(m)h(m+1)\dotsb h(m+n-1) = \prod\limits_{i=m}^{m+n-1} h(i).
-\endalign
-$$
-
-\hint
-Depois de definir confira tuas definições seguindo elas para calcular uns valores.
-Por exemplo, $t(2)$ e $T(5,2)$ devem dar os resultados
-$$
-\xalignat2
-t(2) &= h(0)h(1)
-&
-T(5,2) &= h(5)h(6).
-\endxalignat
-$$
-
-\hint
-Mesmo que a função $T$ tem aridade 2, escolhendo bem,
-tu não precisarás escrever 4 equações, mas apenas 2.
-
-\solution
-Definimos
-$$
-\xalignat2
-t      &\eqtype \nats\to\nats   &  T        &\eqtype \nats^2\to\reals\\
-t(0)   &= 1                     &  T(m,0)   &= 1                     \\
-t(n+1) &= h(n) \ntimes t(n)     &  T(m,k+1) &= h(m+k) \ntimes T(m,k).  
-\endxalignat
-$$
-Tendo definido primeiro a $T$, podemos definir a $t$ assim:
-$$
-t(n) = T(0,n).
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ prob: victors_mistake 
-\problem.
-\label{victors_mistake}%
-Tentando resolver o~\ref{products_in_disguise},
-% STUDENT: Victor
-um aluno definiu corretamente a $t$ e depois a usou
-na sua definição de $T$, assim:
-$$
-T(m,n) = {t(m+n)}/{t(m)}.
-$$
-Qual o problema com essa definição?
-(Suponha como conhecida uma definição recursiva da
-operação $/$ de divisão inteira.)
-
-\hint
-Qual é o contradomínio da $h$?
-
-\hint
-$0\in\nats$.
-
-\hint
-O que acontece se $h(i) = 0$ para algum $i \in \nats$?
-
-\solution
-Se $h(i) = 0$ para algum $i \in \nats$,
-o $t(j)=0$ para todo $j>i$.
-Assim, a expressão
-${t(m+n)}/{t(m)}$ não é definida para qualquer $m>i$.
-Observe que a solução seria certa se
-o contradomínio da $h$ fosse o $\nats\setminus\set0$.
-
-\endproblem
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Induction 
-\chapter Indução.
 
 %%{{{ The principle of finite induction 
 \section O princípio da indução finita (PIF).
@@ -2130,777 +1746,6 @@ $$
 Prove que para todo inteiro $n \geq 5$,
 $$
     n^2 < 2^n.
-$$
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Proving properties of operations and relations of naturals 
-\section Provando propriedades de operações e relações nos naturais.
-
-%%{{{ convention about quantifiers 
-\note Convenção.
-Nessa secção todos os quantificadores que aparecem ``nus'' em fórmulas
-\emph{quantificam sobre os naturais}.  Por exemplo
-$$
-\forall x
-\forall y
-\exists z
-\forall w
-P(x,y,z,w)
-$$
-significa
-$$
-\pforall {x \in \nats}
-\pforall {y \in \nats}
-\pexists {z \in \nats}
-\lforall {w \in \nats}
-{P(x,y,z,w)}.
-$$
-%%}}}
-
-\blah.
-Vamos primeiramente \emph{definir} recursivamente as tres operações de adição,
-multiplicação, e exponenciação:
-
-%%{{{ df: natops_rec_defs 
-\definition.
-\label{natops_rec_defs}%
-Temos:
-$$
-\xxalignat3
-&
-\alignedat2
-\text{(a1)}&\quad&   n + 0  &= n     \\
-\text{(a2)}&&        n + Sm &= S(n+m)
-\endalignedat
-&&
-\alignedat2
-\text{(m1)}&\quad&   n \ntimes 0  &= 0   \\
-\text{(m2)}&&        n \ntimes Sm &= (n \ntimes m) + n
-\endalignedat
-&&
-\alignedat2
-\text{(e1)}&\quad&   n \expop 0  &= S0   \\
-\text{(e2)}&&        n \expop Sm &= (n \expop m) \ntimes n
-\endalignedat
-\endxxalignat
-$$
-%%}}}
-
-%%{{{ conventions about precedence and associativity 
-\note Convenções.
-Seguindo a convenção comum, escrevemos o $x\expop y$ como $x^y$,
-mas mesmo assim consideramos isso como um açúcar sintáctico para
-a expressão $x \expop y$.  Entendemos então que no $x^y$ temos
-uma aplicação binária, aplicada nos dois argumentos $x$ e $y$.
-Vamos seguir também a convenção que a exponenciação
-``pega mais forte'' que as outras duas operações,
-e que multiplicação pega mais forte que a adição:
-$a \ntimes b^c$ escrito sem parênteses quis dizer
-$a \ntimes (b \expop c)$ e não $(a \ntimes b) \expop c$;
-e $a + b\ntimes c$ quis dizer $a + (b\ntimes c)$.
-Graças às associatividades das $+$ e $\ntimes$
-(\ref{natadd_is_associative} e~\ref{natmult_is_associative})
-podemos escrever $a + b + c$ e $a \ntimes b \ntimes c$,
-mas para a exponenciação que não é associativa escolhemos
-a associatividade-direita: $a^{b^c}$ é $a \expop (b \expop c)$
-e não $(a \expop b) \expop c$.
-%%}}}
-
-%%{{{ thm: natadd_is_associative 
-\theorem Associatividade da adição.
-\label{natadd_is_associative}%
-A operação $+$ da~\ref{natops_rec_defs}~é associativa:
-$$
-\forall n
-\forall m
-\forall k
-\bigparen{ n + (m + k) = (n + m) + k }.
-$$
-\proof.
-Queremos provar a afirmação
-$$
-\forall n
-\forall m
-\forall k
-Q(n,m,k)
-$$
-onde
-$$
-Q(x,y,z) \defiff \bigparen{x + (y + z) = (x + y) + z}.
-$$
-Como ela não está no formato $\forall n P(n)$ não podemos
-atacá-la diretamente com indução.
-Mas, na verdade, reescrevendo como
-$$
-\forall n
-\munderbrace {\forall m \forall k Q(n,m,k)} {P_1(n)}
-$$
-já percebemos que tem a forma certa.
-Pela lógica podemos trocar a órdem de quantificadores consecutivos
-\emph{do mesmo tipo}, então o que queremos provar é equivalente aos
-$$
-\xalignat3
-\forall n & \munderbrace {\forall m \forall k Q(n,m,k)} {P_1(n)}; &
-\forall m & \munderbrace {\forall n \forall k Q(n,m,k)} {P_2(m)}; &
-\forall k & \munderbrace {\forall n \forall m Q(n,m,k)} {P_3(k)};
-\endxalignat
-$$
-etc.~(tem ainda mais três opções que não escrevi),
-onde em cada caso o $P_i$ tem uma definição diferente,
-mas o $Q$ tem sempre a mesma.
-Escolhemos provar a
-$$
-\forall k \munderbrace {\forall n \forall m Q(n,m,k)} {P(k)}.
-$$
-por indução.
-\crproofpart{Base.}
-Precisamos provar o $P(0)$, ou seja:
-$$
-\forall n \forall m Q(n,m,0),
-$$
-ou seja:
-$$
-\forall n \forall m \bracket{\paren{n+m} + 0 = n + \paren{m+0}}.
-$$
-Sejam $n,m\in\nats$.
-Calculamos os dois lados:
-$$
-\alignat2
-\underline{\paren{n+m} + 0} &= n + m \by {a1)}
-n + \paren{\underline{m+0}} &= n + m \by {a1)}
-\endalignat
-$$
-Ou seja, a $P(0)$ realmente é verdade.
-\crproofpart{Passo indutivo.}
-Precisamos provar a afirmação:
-$$
-\forall x \bracket{P(x) \implies P(Sx)},
-$$
-ou seja,
-$$
-\forall x
-\bigbracket{\paren{\forall n\forall m \bracket{ (n + m) + x  = n + (m + x) }}
-   \implies \paren{\forall u\forall v \bracket{ (u + v) + Sx = u + (v + Sx)}}}
-$$
-onde escolhi nomes diferentes nas variáveis quantificadas apenas para
-enfatizar que são realmente diferentes!
-Bora provar isso então.
-Seja $x\in\nats$ tal que
-$$
-\forall n\forall m \bracket{ (n + m) + x = n + (m + x) }. \tag{H.I.}
-$$
-Preciso mostrar que:
-$$
-\forall u\forall v \bracket{ (u + v) + Sx = u + (v + Sx)}
-$$
-Sejam $u,v\in\nats$.
-Calculamos:
-$$
-\alignat2
-\underline{(u + v) + Sx}
-&= S(\underline{(u + v) + x})    \by {a2}
-&= \underline{S(u + (v + x))}    \by {H.I., com $n := u$, $m := v$}
-&= u + (\underline{S(v + x)})    \by {a2}
-&= u + (v + Sx).                 \by {a2}
-\endalignat
-$$
-Isso termina nossa prova.
-\qed
-%%}}}
-
-%%{{{ Q: How do we choose which forall to attack by induction? 
-\question.
-Acabamos de escolher para provar por indução no $k$.
-Por quê $k$?
-Faz diferença ou não?
-Como escolherias qual dos $\forall$ seria o melhor para atacar por indução?
-%%}}}
-\spoiler.
-
-%%{{{ A: How to choose on which variable to induct 
-\note Como escolher a variável da indução.
-Como a definição da adição foi recursiva no segundo argumento
-da função, vai nos ajudar se a indução é feita numa variável
-que aparece mais como segundo argumento da adição do que como primeiro.
-Aqui por exemplo, a $k$ aparece duas vezes como argumento da $+$,
-e as duas vezes ela é o segundo argumento da $+$.  Perfeito.
-O $n$ no outro lado aparece duas vezes como primeiro argumento,
-e o $m$ uma como primeiro e uma como segundo.
-%%}}}
-
-%%{{{ thm: natadd_is_commutative 
-\theorem Comutatividade da adição.
-\label{natadd_is_commutative}%
-A operação $+$ da~\ref{natops_rec_defs}~é comutativa:
-$$
-\forall n
-\forall m
-\bigparen{n + m = m + n}.
-$$
-\wrongproof.
-Provamos a
-$$
-\forall n
-\munderbrace {\forall m \bigparen{n + m = m + n}} {P(n)}.
-$$
-\proofpart{Base.}
-Queremos provar
-$$
-\forall m \munderbrace {\bigparen{0 + m = m + 0}} {Q(m)}.
-$$
-Vamos provar por indução!
-\leftindent
-\proofpart{Sub-base.}
-Trivial, pois o que queremos provar é $0 + 0 = 0 + 0$ e os dois lados
-são a mesma expressão.
-\crproofpart{Sub-passo indutivo.}
-Precisamos provar que:
-$$
-\forall k \Bigbracket{\munderbrace {0 + k = k + 0} {Q(k)}
-          \implies \munderbrace {0 + Sk = Sk + 0} {Q(Sk)}}.
-$$
-Seja $k\in\nats$ tal que
-$$
-0 + k = k + 0.   \tag{S.H.I.}
-$$
-Queremos mostrar que
-$$
-0 + Sk = Sk + 0.
-$$
-Calculamos:
-$$
-\alignat2
-0 + Sk
-&= S(0 + k)  \by {(a2)}
-&= S(k + 0)  \by {(S.H.I.)}
-&= Sk        \by {(a1)}
-&= Sk + 0.   \by {(a1)}
-\endalignat
-$$
-Isso termina nossa base.
-\endleftindent
-\proofpart{Passo indutivo.}
-Queremos provar:
-$$
-\forall k
-\Bigbracket{
-\munderbrace {\forall m \paren{k + m = m + k}}
-{P(k)}
-\implies
-\munderbrace {\forall m \paren{Sk + m = m + Sk}}
-{P(Sk)}
-}.
-$$
-Seja $k\in\nats$ tal que
-$$
-\forall m \paren{k + m = m + k}     \tag{H.I.}
-$$
-então.
-Basta provar que
-$$
-\munderbrace {\forall m \paren{Sk + m = m + Sk}} {P(Sk)}.
-$$
-Seja $m\in\nats$.
-Calculamos:
-$$
-\alignat2
-Sk + m
-&= S(k+m)   \by {(a2)}
-&= S(m+k)   \by {(H.I.)}
-&= m + Sk.  \by {(a2)}
-\endalignat
-$$
-Isso termina nossa prova.
-\mistaqed
-%%}}}
-
-%%{{{ x: natadd_is_commutative_find_the_error 
-\exercise.
-\label{natadd_is_commutative_find_the_error}%
-A prova do~\ref{natadd_is_commutative} tem um erro!
-Ache o erro.
-
-\hint
-Está no passo indutivo.
-
-\hint
-Está no último cálculo.
-
-\solution
-O erro está na primeira equação do último cálculo:
-$$
-\alignat2
-Sk + m
-&= S(k+m). \by {a2}
-\endalignat
-$$
-A \byfact{a2} não nos permite concluir isso; só o seguinte:
-$$
-k + Sm = S(k+m).
-$$
-Se soubessimos que $Sk + m = k + Sm$ seria fácil
-terminar essa prova corretamente.
-Essa propriedade parece razoável para afirmar:
-$$
-\forall x \forall y \bracket{ Sx + y = x + Sy }
-$$
-Bora provar então!
-
-\endexercise
-%%}}}
-
-%%{{{ lemma: succx_plus_y_eq_x_plus_succy
-\lemma.
-\label{succx_plus_y_eq_x_plus_succy}%
-A operação $+$ satisfaz:
-$$
-\forall a
-\forall b
-\bigparen{ Sa + b = a + Sb }.
-$$
-\proof.
-Provamos por indução que
-$$
-\forall b
-\munderbrace {\forall a \bigparen{ Sa + b = a + Sb }} {P(b)}.
-$$
-\proofpart{Base.}
-Precisamos provar que
-$$
-\munderbrace {\forall a \bigparen{ Sa + 0 = a + S0 }} {P(0)}.
-$$
-Calculamos:
-$$
-\alignat2
-Sa + 0
-&= Sa        \by {a1}
-a + S0
-&= S(a + 0)  \by {a2}
-&= Sa.       \by {a1}
-\endalignat
-$$
-\proofpart{Passo indutivo.}
-Queremos provar:
-$$
-\forall k
-\Bigbracket{
-\munderbrace
-    {\forall a \bigparen{ Sa + k = a + Sk }}
-    {P(k)}
-\implies
-\munderbrace
-    {\forall a \bigparen{ Sa + Sk = a + SSk }}
-    {P(Sk)}
-}.
-$$
-Seja $k\in\nats$ tal que
-$$
-\munderbrace
-    {\forall a \bigparen{ Sa + k = a + Sk }}
-    {P(k)}.
-\tag{H.I.}
-$$
-Basta mostrar que
-$$
-\munderbrace
-    {\forall a \bigparen{ Sa + Sk = a + SSk }}
-    {P(Sk)}.
-$$
-Seja $a\in\nats$.
-Calculamos
-$$
-\alignat2
-Sa + Sk
-&= S(Sa + k)    \by {a2}
-&= S(a + Sk)    \by {H.I.~com $a := a$}
-&= a + SSk.     \by {a2}
-\endalignat
-$$
-Isso termina nossa prova, e logo substituindo a
-justificação~``(a2)'' na prova do~\ref{natadd_is_commutative} por
-``pelo~\ref{succx_plus_y_eq_x_plus_succy}'' ganhamos também o direito de
-substituir seu~``\thinspace\mistakesymbol\thinspace'' por um
-legítimo~``\thinspace\qedsymbol\thinspace''.
-\qed
-%%}}}
-
-%%{{{ x: natmult_is_associative 
-\exercise Associatividade da multiplicação.
-\label{natmult_is_associative}%
-$
-\forall n
-\forall m
-\forall k
-\bigparen{(n \ntimes m) \ntimes k = n \ntimes (m \ntimes k)}.
-$
-
-\endexercise
-%%}}}
-
-%%{{{ x: natmult_is_commutative 
-\exercise Comutatividade da multiplicação.
-\label{natmult_is_commutative}%
-$
-\forall n
-\forall m
-\bigparen{n \ntimes m = m \ntimes n}.
-$
-
-\hint
-Por indução em qualquer uma das $m,n$.
-
-\hint
-Prove a base da tua indução com uma sub-indução!
-
-\hint
-Teu passo indutivo vai precisar duma sub-indução também!
-
-\solution
-Por indução no $m$.
-\crproofpart{Base: $\forall n \paren{n \ntimes 0 = 0 \ntimes n}$.}
-Vamos provar por indução!
-\leftindent
-\proofpart{Sub-base: $0 \ntimes 0 = 0 \ntimes 0$.}
-Trivial!
-\crproofpart{Sub-passo indutivo.}
-Seja $k\in\nats$ tal que
-$$
-k \ntimes 0 = 0 \ntimes k.  \tag{S.H.I.1}
-$$
-Ou seja, \emph{$k$ é um número que comuta com o $0$}.
-Vamos provar que $Sk \ntimes 0 = 0 \ntimes Sk$.
-Calculamos:
-$$
-\alignat2
-Sk \ntimes 0  &= 0  \by{(m1)}
-0 \ntimes Sk
-&= 0 \ntimes k + 0  \by{(m2)}
-&= 0 \ntimes k      \by{(a1)}
-&= k \ntimes 0      \by{(S.H.I.1)}
-&= 0.               \by{(m1)}
-\endalignat
-$$
-Isso prova nossa base.
-\endleftindent
-\proofpart{Passo indutivo.}
-Seja $w\in\nats$ tal que
-$$
-\forall n \paren{n \ntimes w = w \ntimes n}. \tag{H.I.}
-$$
-Ou seja, \emph{$w$ é um número que comuta com todos}.
-Queremos provar que seu sucessor $Sw$ faz a mesma coisa:
-$$
-\forall n \paren{n \ntimes Sw = Sw \ntimes n}.
-$$
-Vamos provar por mais uma indução!
-\leftindent
-\proofpart{Sub-base: $0 \ntimes Sw = Sw \ntimes 0$.}
-Calculamos:
-$$
-\alignat2
-0 \ntimes Sw
-&= 0 \ntimes w + 0 \by{(m2)}
-&= 0 \ntimes w     \by{(a1)}
-&= w \ntimes 0     \by{Base ($0$ comuta com todos) ou (H.I.) ($w$ comuta com todos)}
-&= 0               \by{(m1)}
-&= Sw \ntimes 0.   \by{(m1)}
-\endalignat
-$$
-\crproofpart{Sub-passo indutivo.}
-Seja $p\in\nats$ tal que ele comuta com o $Sw$:
-$$
-p \ntimes Sw = Sw \ntimes p.    \tag{S.H.I.2}
-$$
-Vamos provar que $Sp$ também comuta com o $Sw$:
-$$
-Sp \ntimes Sw = Sw \ntimes Sp.
-$$
-Calculamos:
-$$
-\alignat2
-Sp \ntimes Sw
-&= Sp \ntimes w + Sp        \by{(m2)}
-&= w \ntimes Sp + Sp        \by{(H.I.): $w$ comuta com todos}
-&= (w \ntimes p + w) + Sp   \by{(m2)}
-&= w \ntimes p + (w + Sp)   \by{associatividade da $+$}
-&= w \ntimes p + S(w + p)   \by{(a2)}
-&= w \ntimes p + S(p + w)   \by{comutatividade da $+$}
-&= w \ntimes p + (p + Sw)   \by{(a2)}
-Sw \ntimes Sp
-&= Sw \ntimes p + Sw        \by{(m2)}
-&= p \ntimes Sw + Sw        \by{(S.H.I.2): $p$ comuta com o $Sw$}
-&= (p \ntimes w + p) + Sw   \by{(m2)}
-&= p \ntimes w + (p + Sw)   \by{associatividade da $+$}
-&= w \ntimes p + (p + Sw).  \by{(H.I.): $w$ comuta com todos}
-\endalignat
-$$
-\endleftindent
-
-\endexercise
-%%}}}
-
-%%{{{ x: natadd_distributive_over_natmult 
-\exercise Distributividade.
-\label{natmult_distributes_over_natadd}%
-$
-\forall x
-\forall y
-\forall z
-\bigbracket{x \ntimes (y + z) = (x \ntimes y) + (x \ntimes z)}.
-$
-
-\hint
-Indução no $z$.
-
-\solution
-Provamos a afirmação por indução no $z$.
-\crproofpart{Base: $\forall x \forall y \bracket{x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0)}$}.
-Sejam $x,y \in \nats$.
-Queremos provar que
-$$
-x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0).
-$$
-Calculamos:
-$$
-\alignat2
-x \ntimes (y + 0)
-&= x \ntimes y                 \by {(a1)}
-&= x \ntimes y + 0             \by {(a1)}
-&= x \ntimes y + x \ntimes 0.  \by {(m1)}
-\endalignat
-$$
-\proofpart{Passo indutivo.}
-Seja $k\in \nats$ tal que
-$$
-\forall x
-\forall y
-\bracket{x \ntimes (y + k) = (x \ntimes y) + (x \ntimes k)}. \tag{H.I.}
-$$
-Vamos provar que
-$$
-\forall x
-\forall y
-\bracket{x \ntimes (y + Sk) = (x \ntimes y) + (x \ntimes Sk)}.
-$$
-Sejam $x,y\in\nats$.
-Calculamos
-$$
-\alignat2
-x \ntimes (y + Sk)
-&= x \ntimes S(y + k)                \by {(a1)}
-&= \bigparen{x \ntimes (y + k)} + x  \by {(m2)}
-&= (x \ntimes y + x \ntimes k) + x   \by {(H.I.) com $x\asseq x$, $y\asseq y$}
-&= x \ntimes y + (x \ntimes k + x)   \by {associatividade de $+$}
-&= x \ntimes y + x \ntimes Sk.       \by {(m2)}
-\endalignat
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ thm: natmult_identity 
-\theorem Identidade da multiplicação.
-\label{natmult_identity}%
-$
-\forall x
-\bigparen{ x \ntimes S0 = x = S0 \ntimes x}.
-$
-\proof.
-Seja $x\in \nats$.
-Calculamos:
-$$
-\alignat2
-x \ntimes S0
-&= (x \ntimes 0) + x    \by {(m2), $n\asseq x$, $m\asseq 0$}
-&= 0 + x                \by {(m1)}
-&= x + 0                \by {$+$ comut.~(\refn{natadd_is_commutative})}
-&= x.                   \by {(a1)}
-\endalignat
-$$
-Como já provamos a comutatividade da $\ntimes$, isso termina nossa prova.
-\qed
-%%}}}
-
-%%{{{ x: law_of_natexp_1 
-\exercise Lei de exponenciação 1.
-\label{law_of_natexp_1}%
-$
-\forall x
-\forall a
-\forall b
-\bigparen{x^{a + b} = (x^a) \ntimes (x^b)}.
-$
-
-\hint
-Indução no $b$.
-
-\hint
-\proofpart{Base: $\forall x \forall a \bigbracket{x^{a+0} = x^a \ntimes x^0}$}.
-
-\hint
-\proofpart{Passo indutivo.}
-Seja $k\in\nats$ tal que
-$$
-\forall x \forall a \bigbracket{x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
-$$
-Agora precisas provar que
-$$
-\forall x \forall a \bigbracket{x^{a+Sk} = x^a \ntimes x^Sk}.
-$$
-
-\solution
-Por indução no $b$.
-\crproofpart{Base: $\forall x \forall a \bigbracket{x^{a+0} = x^a \ntimes x^0}$}.
-Sejam $x,a\in\nats$.
-Calculamos:
-$$
-\alignat2
-x^{a+0}
-&= x^a              \by{(a1)}
-&= x^a \ntimes S0   \by{$S0$ identidade (\refn{natmult_identity})}
-&= x^a \ntimes x^0. \by{(e1)}
-\endalignat
-$$
-\crproofpart{Passo indutivo.}
-Seja $k\in\nats$ tal que
-$$
-\forall x \forall a \bigbracket{x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
-$$
-Basta provar que
-$$
-\forall x \forall a \bigbracket{x^{a+Sk} = x^a \ntimes x^Sk}.
-$$
-Sejam $x,a\in\nats$.
-Queremos provar $x^{a+Sk} = x^a \ntimes x^Sk$.
-Calculamos:
-$$
-\alignat2
-x^{a + Sk}
-&= x^{S(a + k)}                 \by{(a2)}
-&= x^{a+k} \ntimes x            \by{(e2)}
-&= (x^a\ntimes x^k) \ntimes x   \by{(H.I.)}
-&= x^a\ntimes (x^k \ntimes x)   \by{assoc.~de~$\ntimes$~(\refn{natmult_is_associative})}
-&= x^a\ntimes x^Sk.             \by{(e2)}
-\endalignat
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: law_of_natexp_2 
-\exercise Lei de exponenciação 2.
-\label{law_of_natexp_2}%
-$
-\forall a
-\forall b
-\forall c
-\bigparen{(a^b)^c = a^{b \ntimes c}}.
-$
-
-\hint
-Indução no $c$.
-
-\hint
-\proofpart{Base: $\forall a \forall b \bigparen{ (a^b)^0 = a^{b \ntimes 0} }$.}
-
-\hint
-\proofpart{Passo indutivo.}
-Seja $k\in\nats$ tal que
-$$
-\forall a \forall b \bigbracket{ (a^b)^k = a^{b \ntimes k} }.\tag{H.I.}
-$$
-Agora precisas provar que
-$$
-\forall a \forall b \bigbracket{ (a^b)^{Sk} = a^{b \ntimes Sk} }.
-$$
-
-\solution
-Por indução no $c$.
-\crproofpart{Base: $\forall a \forall b \bigbracket{ (a^b)^0 = a^{b \ntimes 0} }$.}
-Sejam $a,b\in\nats$.
-Calculamos:
-$$
-\alignat2
-(a^b)^0
-&= S0     \by {(e1)}
-a^{b \ntimes 0}
-&= a^0    \by {(m1)}
-&= S0.    \by {(e1)}
-\endalignat
-$$
-\crproofpart{Passo indutivo.}
-Seja $k\in\nats$ tal que
-$$
-\forall a \forall b \bigbracket{ (a^b)^k = a^{b \ntimes k} }.\tag{H.I.}
-$$
-Queremos provar que
-$$
-\forall a \forall b \bigbracket{ (a^b)^{Sk} = a^{b \ntimes Sk} }.
-$$
-Sejam $a,b\in\nats$.
-Basta mostrar que $(a^b)^{Sk} = a^{b \ntimes Sk}$.
-Calculamos:
-$$
-\alignat2
-(a^b)^{Sk}
-&= (a^b)^k \ntimes (a^b)        \by {(e2), $n\asseq a^b$, $m\asseq k$}
-&= a^{b \ntimes k} \ntimes a^b  \by {(H.I.), $a\asseq a$, $b\asseq b$}
-&= a^{(b \ntimes k) + b}        \by {\refn{law_of_natexp_1}, $x\asseq a$, $a\asseq b \ntimes k$, $b\asseq b$}
-&= a^{b \ntimes Sk}.            \by {(m2), $n\asseq b$, $m\asseq k$}
-\endalignat
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ df: natops_leq_def 
-\definition.
-\label{natops_leq_def}%
-Definimos a relação $\leq$ assim:
-$$
-n \leq m \defiff \lexists {k\in\nats} {n + k = m}.
-$$
-%%}}}
-
-%%{{{ x: natleq_lemma 
-\exercise.
-\label{natleq_lemma}%
-Prove que
-$$
-\forall n \forall m \bigparen{ n \leq S m  \iff  n \leq m  \mlor  n = S m}
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: natleq_loset 
-\exercise.
-\label{natleq_loset}%
-Prove que $\leq$ é uma ordem linear, i.e.:
-$$
-\gather
-\forall n \bigparen{ n \leq n } \\
-\forall n \forall m \bigparen{n \leq m  \mland  m \leq n  \implies  m = n} \\
-\forall x \forall y \forall z \bigparen{x \leq y  \mland  y \leq z  \implies  x \leq y} \\
-\forall x \forall y \bigparen{n \leq m  \mlor  m \leq n}
-\endgather
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: natleq_woset 
-\exercise.
-\label{natleq_woset}%
-Prove que $\leq$ é uma bem-ordem, i.e.,
-$$
-\text{para todo $A \subseteq \nats$,}\quad
-A \neq \emptyset \implies \text{$A$ tem elemento mínimo}.
 $$
 
 \endexercise
@@ -3263,6 +2108,84 @@ então existe o $\min\set{a\in A\st n_0 < a}$.
 %%{{{ Problems 
 \problems.
 
+%%{{{ prob: products_in_disguise 
+\problem.
+\label{products_in_disguise}
+Seja $h : \nats\to\nats$.
+Defina recursivamente as funções $t : \nats \to \nats$ e $T : \nats^2 \to \nats$ que satisfazem:
+$$
+\align
+t(n)   &= h(0)h(1)\dotsb h(n-1)     = \prod\limits_{i=0}^{n-1} h(i);\\
+T(m,n) &= h(m)h(m+1)\dotsb h(m+n-1) = \prod\limits_{i=m}^{m+n-1} h(i).
+\endalign
+$$
+
+\hint
+Depois de definir confira tuas definições seguindo elas para calcular uns valores.
+Por exemplo, $t(2)$ e $T(5,2)$ devem dar os resultados
+$$
+\xalignat2
+t(2) &= h(0)h(1)
+&
+T(5,2) &= h(5)h(6).
+\endxalignat
+$$
+
+\hint
+Mesmo que a função $T$ tem aridade 2, escolhendo bem,
+tu não precisarás escrever 4 equações, mas apenas 2.
+
+\solution
+Definimos
+$$
+\xalignat2
+t      &\eqtype \nats\to\nats   &  T        &\eqtype \nats^2\to\reals\\
+t(0)   &= 1                     &  T(m,0)   &= 1                     \\
+t(n+1) &= h(n) \ntimes t(n)     &  T(m,k+1) &= h(m+k) \ntimes T(m,k).  
+\endxalignat
+$$
+Tendo definido primeiro a $T$, podemos definir a $t$ assim:
+$$
+t(n) = T(0,n).
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: victors_mistake 
+\problem.
+\label{victors_mistake}%
+Tentando resolver o~\ref{products_in_disguise},
+% STUDENT: Victor
+um aluno definiu corretamente a $t$ e depois a usou
+na sua definição de $T$, assim:
+$$
+T(m,n) = {t(m+n)}/{t(m)}.
+$$
+Qual o problema com essa definição?
+(Suponha como conhecida uma definição recursiva da
+operação $/$ de divisão inteira.)
+
+\hint
+Qual é o contradomínio da $h$?
+
+\hint
+$0\in\nats$.
+
+\hint
+O que acontece se $h(i) = 0$ para algum $i \in \nats$?
+
+\solution
+Se $h(i) = 0$ para algum $i \in \nats$,
+o $t(j)=0$ para todo $j>i$.
+Assim, a expressão
+${t(m+n)}/{t(m)}$ não é definida para qualquer $m>i$.
+Observe que a solução seria certa se
+o contradomínio da $h$ fosse o $\nats\setminus\set0$.
+
+\endproblem
+%%}}}
+
 %%{{{ prob: every_finite_set_of_reals_has_min_and_max 
 \problem.
 \label{every_finite_set_of_reals_has_min_and_max}%
@@ -3340,71 +2263,11 @@ e vamos a encontrar novamente bem depois, no~\ref{Recursive_functions}.
 
 \endproblem
 %%}}}
-
 \endproblems
 %%}}}
 
 %%{{{ Further reading 
 \further.
-
-Mais informações sobre indução e indução forte,
-veja o~\cite[Cap.~6]{velleman}.
-Sobre o princípio da boa ordem e indução,
-veja o~\cite[\S\S1.4--1.5]{babybm}
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Functional programming 
-\chapter Programação funcional.
-
-%%{{{ Problems 
-\problems.
-
-%%{{{ prob: stretch_countdown_take 
-{%
-\def\stretch{\namedfun{stretch}}
-\def\countdown{\namedfun{countdown}}
-\def\take{\namedfun{take}}
-\problem.
-Defina as funções com equações (recursivas):
-$$
-\xalignat3
-\stretch    &\eqtype \nats \to [\nats] \to [\nats] &
-\countdown  &\eqtype \nats \to [\nats] &
-\take       &\eqtype \nats \to [\nats] \to [\nats].\\
-\endxalignat
-$$
-Exemplos de uso:
-$$
-\align
-\stretch\ 3 [2,8]       &= [2,2,2,8,8,8]    \\
-\stretch\ 2 [1,9,8,3]   &= [1,1,9,9,8,8,3,3]\\
-\countdown\ 3           &= [3,2,1,0]        \\
-\countdown\ 1           &= [1,0]            \\
-\take\ 3\ [2,3,5,7,11]  &= [2,3,5]          \\
-\take\ 8\ [0,1,2,4]     &= [0,1,2,4]
-\endalign
-$$
-
-\endproblem
-}
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{huttonhaskell},
-\cite{lyah};
-\cite{birdthinking},
-\cite{thompsonhaskell};
-\cite{birdfphaskell}.
 
 \endfurther
 %%}}}
@@ -9832,6 +8695,1088 @@ Veja o~\cite[\S1.9]{babybm}.
 
 \cite{nivennumbers},
 \cite{hardywright}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: The natural numbers: recursion & induction 
+\chapter Os números naturais: recursão \& indução.
+
+%%{{{ The natural numbers formally 
+\section Os números naturais formalmente.
+\label{Nats_formally}%
+
+%%{{{ df: nats_plus_recursive_def 
+\definition Adição.
+Definimos a operação $+$ no $\nats$ pelas:
+$$
+\align
+n + 0   &= n      \tag{a1}\\
+n + S m &= S(n+m) \tag{a2}
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: three_plus_two_formally 
+\example.
+\label{three_plus_two_formally}%
+Calcule a soma $SSS0 + SS0$.
+
+\solution
+Temos a expressão
+$$
+SSS0 + SS0.
+$$
+Qual equação aplica?
+Com certeza não podemos aplicar a primeira (na direção ``$\Rightarrow$''),
+pois nossa expressão não tem a forma $n + 0$.
+Por quê não?  O primeiro termo na nossa expressão, o $SSS0$, não é um problema
+pois ele pode ``casar'' com o $n$ do lado esquerdo da (a1).
+Mas nosso segundo termo, o $SS0$,
+não pode casar com o $0$, então a (a1) não é aplicável.
+A segunda equação é sim, pois nossos termos podem casar assim
+com as variáveis da (a2):
+$$
+\alignat2
+{\munderbrace{SSS0}n} + {S\munderbrace{S0}m}\\
+\intertext{Tomando $n\asseq SSS0$ e $m\asseq S0$ substituimos nossa expressão por seu
+igual seguindo a (a2):}
+{\munderbrace{SSS0}n} + {S\munderbrace{S0}m}
+&= S\bigparen{ {\munderbrace{SSS0}n} + {\munderbrace{S0}m} }  \by{por (a2)}
+\intertext{Depois um passo de cálculo então chegamos na expressão
+$S(SSS0 + S0)$.
+Como nenhuma equação tem a forma $S(\text{\thole}) = \text{\lthole}$,
+olhamos ``dentro'' da nossa expressão para achar nas suas subexpressões
+possíveis ``casamentos'' com nossas equações.
+Focamos então na subexpressão sublinhada
+$S(\underline{SSS0 + S0})$:
+vamos tentar substituí-la por algo igual.
+Novamente a primeira equação não é aplicavel
+por causa do novo segundo termo ($S0$), mas a (a2) é:}
+S\bigparen{{\munderbrace{SSS0}n} + {S\munderbrace{0}m}}\\
+\intertext{Tomando agora $n\asseq SSS0$ e $m\asseq 0$ substituimos de novo
+seguindo a (a2):}
+S\toverbrace{\bigparen{{\munderbrace{SSS0}n} + {S\munderbrace{0}m}}}{isso}
+&= S\toverbrace{S\bigparen{ {\munderbrace{SSS0}n} + {\munderbrace{0}m} }}{por isso}  \by{por (a2)}
+\intertext{Agora focamos na subexpressão $SS(\underline{SSS0 + 0})$ e podemos finalmente
+aplicar a primeira equação:}
+SS\bigparen{{\munderbrace{SSS0}n} + 0}\\
+\intertext{então tomando $n\asseq SSS0$ substituimos}
+SS\toverbrace{\bigparen{{\munderbrace{SSS0}n} + 0}}{isso}
+&= SS\toverbrace{ {\munderbrace{SSS0}n} }{por isso}  \by{por (a1)}
+\endalignat
+$$
+Finalmente chegamos no resultado: no termo $SSSSS0$.
+Nunca mais vamos escrever tudo isso com tanto detalhe!
+Esse cálculo que acabamos de fazer, escrevemos curtamente nessa forma:
+$$
+\alignat2
+SSS0 + SS0
+&= S(SSS0 + S0) \by {por (a2)}
+&= SS(SSS0 + 0) \by {por (a2)}
+&= SSSSS0       \by {por (a1)}
+\endalignat
+$$
+escrevendo apenas em cada linha o que foi usado.
+
+\endexample
+%%}}}
+
+%%{{{ x: zero_plus_four_formally 
+\exercise.
+\label{zero_plus_four_formally}%
+Calcule a soma dos $0 + SSSS0$.
+
+\endexercise
+%%}}}
+
+%%{{{ Evaluation strategy 
+\note Estratégias de evaluação.
+\tdefined{estratégia}[de evaluação]%
+Vamos dizer que queremos calcular começando com uma expressão mais complexa,
+como por exemplo a
+$$
+0 + \bigparen{0 + S\bigparen{(SS0 + 0) + 0}}.
+$$
+Como procedimos?
+A expressão enteira não pode ser substituida pois nenhuma das (a1)--(a2) tem
+essa forma, mas aparecem várias subexpressões em quais podemos \emph{focar}
+para nosso próximo passo de cálculo:
+$$
+\align
+0 + \underline{\bigparen{0 + S\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com (a2)}\\
+0 + \bigparen{0 + S\underline{\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com (a1)}\\
+0 + \bigparen{0 + S\bigparen{\underline{(SS0 + 0)} + 0}},&\quad\text{casando com (a1)}.
+\endalign
+$$
+Podemos seguir uma \dterm{estratégia de evaluação} específica, por exemplo,
+focando sempre na expressão que aparece primeira à esquerda; ou podemos
+escolher cada vez onde focar aleatoriamente; etc.
+No~\ref{three_plus_two_plus_one} tu vai ter que escolher onde focar
+várias vezes.
+%%}}}
+
+%%{{{ x: three_plus_two_plus_one 
+\exercise.
+\label{three_plus_two_plus_one}%
+Calcule os valor das expressões $SSS0 + (SS0 + S0)$ e $(SSS0 + SS0) + S0$.
+
+\solution
+Um caminho para calcular a primeira é o seguinte:
+$$
+\alignat2
+SSS0 + \underline{(SS0 + S0)}
+&= SSS0 + S\underline{(SS0 + 0)} \by{por (a2)}
+&= \underline{SSS0 + SSS0}       \by{por (a1)}
+&= S\underline{(SSS0 + SS0)}     \by{por (a2)}
+&= SS\underline{(SSS0 + S0)}     \by{por (a2)}
+&= SSS\underline{(SSS0 + 0)}     \by{por (a2)}
+&= SSSSSS0                       \by{por (a1)}
+\intertext{e um caminho para calcular a segunda é o:}
+\underline{(SSS0 + SS0) + S0}
+&= S(\underline{(SSS0 + SS0)} + 0)  \by{por (a2)}
+&= S(S\underline{(SSS0 + S0)} + 0)  \by{por (a2)}
+&= S\underline{(SS(SSS0 + 0) + 0)}  \by{por (a2)}
+&= SSS\underline{(SSS0 + 0)}        \by{por (a1)}
+&= SSSSSS0                          \by{por (a1)}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: nats_double_def 
+\exercise.
+\label{nats_double_def}%
+Define (recursivamente) a função $d : \Nat \to \Nat$ que dobra sua entrada.
+Verifique que o dobro de três ($SSS0$) é seis ($SSSSSS0$).
+
+\hint
+Pensando fora do $\Nat$:
+como podemos calcular o valor de $2(n+1)$, se sabemos como dobrar
+qualquer número menor de $n+1$?
+
+\hint
+$2(n+1) = 2n + 2$.
+
+\solution
+Definimos:
+$$
+\align
+d( 0 )  &= 0        \tag{D1}\\
+d( Sn ) &= SSd(n).  \tag{D2}
+\endalign
+$$
+Calculamos:
+$$
+\alignat2
+d( SSS0 )
+&= SSd(SS0)    \by{por (D2)}
+&= SSSSd(S0)   \by{por (D2)}
+&= SSSSSSd(0)  \by{por (D2)}
+&= SSSSSS0.    \by{por (D1)}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: nats_ntimes_recursive_def 
+\exercise.
+\label{nats_ntimes_recursive_def}%
+Define a multiplicação no $\nats$.
+
+\hint
+Precisa de novo duas equações.
+
+\hint
+$$
+\align
+n \ntimes 0  &= \text{\lthole}\\
+n \ntimes Sm &= \text{\lthole}
+\endalign
+$$
+
+\hint
+Na segunda equação, no seu lado direito, tu tem acesso no valor
+$n \ntimes m$, pois é ``mais simples'' do que o $n \ntimes Sm$.
+Isso é o poder da recursão: podes considerar o problema que tu
+tá tentando resolver (definir a multplicação), como resolvido
+para as ``entradas mais simples''.
+
+\endexercise
+%%}}}
+
+%%{{{ x: nats_exp_recursive_def 
+\exercise.
+\label{nats_exp_recursive_def}%
+Define a exponenciação no $\nats$.
+
+\endexercise
+%%}}}
+
+%%{{{ nats_leq_recursive_def 
+\definition Ordem.
+Com que temos definido podemos já definir recursivamente
+uma \emph{relação} no $\nats$.  A relação de ordem $\leq$:
+$$
+\align
+0  \leq m  &\iff \True      \tag{LE1}\\
+Sn \leq 0  &\iff \False     \tag{LE2}\\
+Sn \leq Sm &\iff n \leq m   \tag{LE3}
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: two_leq_four_but_four_notleq_two 
+\example.
+\label{two_leq_four_but_four_notleq_two}%
+Ache se $SS0 \leq SSSS0$ e se $SSSS0 \leq SS0$.
+
+\solution
+Calculamos:
+$$
+\alignat2
+SS0 \leq SSSS0
+&\iff S0 \leq SSS0  \by{por (LE3)}
+&\iff 0  \leq SS0   \by{por (LE3)}
+&\iff \True         \by{por (LE1)}
+\endalignat
+$$
+ou seja, realmente $SS0 \leq SSSS0$.
+No outro lado, calculamos
+$$
+\alignat2
+SSSS0 \leq SS0
+&\iff SSS0 \leq S0  \by{por (LE3)}
+&\iff SS0  \leq 0   \by{por (LE3)}
+&\iff \False        \by{por (LE2)}
+\endalignat
+$$
+ou seja, $SSSS0 \not\leq SS0$.
+
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Proving properties of operations and relations on naturals 
+\section Provando propriedades de operações e relações nos naturais.
+
+%%{{{ convention about quantifiers 
+\note Convenção.
+Nessa secção todos os quantificadores que aparecem ``nus'' em fórmulas
+\emph{quantificam sobre os naturais}.  Por exemplo
+$$
+\forall x
+\forall y
+\exists z
+\forall w
+P(x,y,z,w)
+$$
+significa
+$$
+\pforall {x \in \nats}
+\pforall {y \in \nats}
+\pexists {z \in \nats}
+\lforall {w \in \nats}
+{P(x,y,z,w)}.
+$$
+%%}}}
+
+\blah.
+Vamos primeiramente \emph{definir} recursivamente as tres operações de adição,
+multiplicação, e exponenciação:
+
+%%{{{ df: natops_rec_defs 
+\definition.
+\label{natops_rec_defs}%
+Temos:
+$$
+\xxalignat3
+&
+\alignedat2
+\text{(a1)}&\quad&   n + 0  &= n     \\
+\text{(a2)}&&        n + Sm &= S(n+m)
+\endalignedat
+&&
+\alignedat2
+\text{(m1)}&\quad&   n \ntimes 0  &= 0   \\
+\text{(m2)}&&        n \ntimes Sm &= (n \ntimes m) + n
+\endalignedat
+&&
+\alignedat2
+\text{(e1)}&\quad&   n \expop 0  &= S0   \\
+\text{(e2)}&&        n \expop Sm &= (n \expop m) \ntimes n
+\endalignedat
+\endxxalignat
+$$
+%%}}}
+
+%%{{{ conventions about precedence and associativity 
+\note Convenções.
+Seguindo a convenção comum, escrevemos o $x\expop y$ como $x^y$,
+mas mesmo assim consideramos isso como um açúcar sintáctico para
+a expressão $x \expop y$.  Entendemos então que no $x^y$ temos
+uma aplicação binária, aplicada nos dois argumentos $x$ e $y$.
+Vamos seguir também a convenção que a exponenciação
+``pega mais forte'' que as outras duas operações,
+e que multiplicação pega mais forte que a adição:
+$a \ntimes b^c$ escrito sem parênteses quis dizer
+$a \ntimes (b \expop c)$ e não $(a \ntimes b) \expop c$;
+e $a + b\ntimes c$ quis dizer $a + (b\ntimes c)$.
+Graças às associatividades das $+$ e $\ntimes$
+(\ref{natadd_is_associative} e~\ref{natmult_is_associative})
+podemos escrever $a + b + c$ e $a \ntimes b \ntimes c$,
+mas para a exponenciação que não é associativa escolhemos
+a associatividade-direita: $a^{b^c}$ é $a \expop (b \expop c)$
+e não $(a \expop b) \expop c$.
+%%}}}
+
+%%{{{ thm: natadd_is_associative 
+\theorem Associatividade da adição.
+\label{natadd_is_associative}%
+A operação $+$ da~\ref{natops_rec_defs}~é associativa:
+$$
+\forall n
+\forall m
+\forall k
+\bigparen{ n + (m + k) = (n + m) + k }.
+$$
+\proof.
+Queremos provar a afirmação
+$$
+\forall n
+\forall m
+\forall k
+Q(n,m,k)
+$$
+onde
+$$
+Q(x,y,z) \defiff \bigparen{x + (y + z) = (x + y) + z}.
+$$
+Como ela não está no formato $\forall n P(n)$ não podemos
+atacá-la diretamente com indução.
+Mas, na verdade, reescrevendo como
+$$
+\forall n
+\munderbrace {\forall m \forall k Q(n,m,k)} {P_1(n)}
+$$
+já percebemos que tem a forma certa.
+Pela lógica podemos trocar a órdem de quantificadores consecutivos
+\emph{do mesmo tipo}, então o que queremos provar é equivalente aos
+$$
+\xalignat3
+\forall n & \munderbrace {\forall m \forall k Q(n,m,k)} {P_1(n)}; &
+\forall m & \munderbrace {\forall n \forall k Q(n,m,k)} {P_2(m)}; &
+\forall k & \munderbrace {\forall n \forall m Q(n,m,k)} {P_3(k)};
+\endxalignat
+$$
+etc.~(tem ainda mais três opções que não escrevi),
+onde em cada caso o $P_i$ tem uma definição diferente,
+mas o $Q$ tem sempre a mesma.
+Escolhemos provar a
+$$
+\forall k \munderbrace {\forall n \forall m Q(n,m,k)} {P(k)}.
+$$
+por indução.
+\crproofpart{Base.}
+Precisamos provar o $P(0)$, ou seja:
+$$
+\forall n \forall m Q(n,m,0),
+$$
+ou seja:
+$$
+\forall n \forall m \bracket{\paren{n+m} + 0 = n + \paren{m+0}}.
+$$
+Sejam $n,m\in\nats$.
+Calculamos os dois lados:
+$$
+\alignat2
+\underline{\paren{n+m} + 0} &= n + m \by {a1)}
+n + \paren{\underline{m+0}} &= n + m \by {a1)}
+\endalignat
+$$
+Ou seja, a $P(0)$ realmente é verdade.
+\crproofpart{Passo indutivo.}
+Precisamos provar a afirmação:
+$$
+\forall x \bracket{P(x) \implies P(Sx)},
+$$
+ou seja,
+$$
+\forall x
+\bigbracket{\paren{\forall n\forall m \bracket{ (n + m) + x  = n + (m + x) }}
+   \implies \paren{\forall u\forall v \bracket{ (u + v) + Sx = u + (v + Sx)}}}
+$$
+onde escolhi nomes diferentes nas variáveis quantificadas apenas para
+enfatizar que são realmente diferentes!
+Bora provar isso então.
+Seja $x\in\nats$ tal que
+$$
+\forall n\forall m \bracket{ (n + m) + x = n + (m + x) }. \tag{H.I.}
+$$
+Preciso mostrar que:
+$$
+\forall u\forall v \bracket{ (u + v) + Sx = u + (v + Sx)}
+$$
+Sejam $u,v\in\nats$.
+Calculamos:
+$$
+\alignat2
+\underline{(u + v) + Sx}
+&= S(\underline{(u + v) + x})    \by {a2}
+&= \underline{S(u + (v + x))}    \by {H.I., com $n := u$, $m := v$}
+&= u + (\underline{S(v + x)})    \by {a2}
+&= u + (v + Sx).                 \by {a2}
+\endalignat
+$$
+Isso termina nossa prova.
+\qed
+%%}}}
+
+%%{{{ Q: How do we choose which forall to attack by induction? 
+\question.
+Acabamos de escolher para provar por indução no $k$.
+Por quê $k$?
+Faz diferença ou não?
+Como escolherias qual dos $\forall$ seria o melhor para atacar por indução?
+%%}}}
+\spoiler.
+
+%%{{{ A: How to choose on which variable to induct 
+\note Como escolher a variável da indução.
+Como a definição da adição foi recursiva no segundo argumento
+da função, vai nos ajudar se a indução é feita numa variável
+que aparece mais como segundo argumento da adição do que como primeiro.
+Aqui por exemplo, a $k$ aparece duas vezes como argumento da $+$,
+e as duas vezes ela é o segundo argumento da $+$.  Perfeito.
+O $n$ no outro lado aparece duas vezes como primeiro argumento,
+e o $m$ uma como primeiro e uma como segundo.
+%%}}}
+
+%%{{{ thm: natadd_is_commutative 
+\theorem Comutatividade da adição.
+\label{natadd_is_commutative}%
+A operação $+$ da~\ref{natops_rec_defs}~é comutativa:
+$$
+\forall n
+\forall m
+\bigparen{n + m = m + n}.
+$$
+\wrongproof.
+Provamos a
+$$
+\forall n
+\munderbrace {\forall m \bigparen{n + m = m + n}} {P(n)}.
+$$
+\proofpart{Base.}
+Queremos provar
+$$
+\forall m \munderbrace {\bigparen{0 + m = m + 0}} {Q(m)}.
+$$
+Vamos provar por indução!
+\leftindent
+\proofpart{Sub-base.}
+Trivial, pois o que queremos provar é $0 + 0 = 0 + 0$ e os dois lados
+são a mesma expressão.
+\crproofpart{Sub-passo indutivo.}
+Precisamos provar que:
+$$
+\forall k \Bigbracket{\munderbrace {0 + k = k + 0} {Q(k)}
+          \implies \munderbrace {0 + Sk = Sk + 0} {Q(Sk)}}.
+$$
+Seja $k\in\nats$ tal que
+$$
+0 + k = k + 0.   \tag{S.H.I.}
+$$
+Queremos mostrar que
+$$
+0 + Sk = Sk + 0.
+$$
+Calculamos:
+$$
+\alignat2
+0 + Sk
+&= S(0 + k)  \by {(a2)}
+&= S(k + 0)  \by {(S.H.I.)}
+&= Sk        \by {(a1)}
+&= Sk + 0.   \by {(a1)}
+\endalignat
+$$
+Isso termina nossa base.
+\endleftindent
+\proofpart{Passo indutivo.}
+Queremos provar:
+$$
+\forall k
+\Bigbracket{
+\munderbrace {\forall m \paren{k + m = m + k}}
+{P(k)}
+\implies
+\munderbrace {\forall m \paren{Sk + m = m + Sk}}
+{P(Sk)}
+}.
+$$
+Seja $k\in\nats$ tal que
+$$
+\forall m \paren{k + m = m + k}     \tag{H.I.}
+$$
+então.
+Basta provar que
+$$
+\munderbrace {\forall m \paren{Sk + m = m + Sk}} {P(Sk)}.
+$$
+Seja $m\in\nats$.
+Calculamos:
+$$
+\alignat2
+Sk + m
+&= S(k+m)   \by {(a2)}
+&= S(m+k)   \by {(H.I.)}
+&= m + Sk.  \by {(a2)}
+\endalignat
+$$
+Isso termina nossa prova.
+\mistaqed
+%%}}}
+
+%%{{{ x: natadd_is_commutative_find_the_error 
+\exercise.
+\label{natadd_is_commutative_find_the_error}%
+A prova do~\ref{natadd_is_commutative} tem um erro!
+Ache o erro.
+
+\hint
+Está no passo indutivo.
+
+\hint
+Está no último cálculo.
+
+\solution
+O erro está na primeira equação do último cálculo:
+$$
+\alignat2
+Sk + m
+&= S(k+m). \by {a2}
+\endalignat
+$$
+A \byfact{a2} não nos permite concluir isso; só o seguinte:
+$$
+k + Sm = S(k+m).
+$$
+Se soubessimos que $Sk + m = k + Sm$ seria fácil
+terminar essa prova corretamente.
+Essa propriedade parece razoável para afirmar:
+$$
+\forall x \forall y \bracket{ Sx + y = x + Sy }
+$$
+Bora provar então!
+
+\endexercise
+%%}}}
+
+%%{{{ lemma: succx_plus_y_eq_x_plus_succy
+\lemma.
+\label{succx_plus_y_eq_x_plus_succy}%
+A operação $+$ satisfaz:
+$$
+\forall a
+\forall b
+\bigparen{ Sa + b = a + Sb }.
+$$
+\proof.
+Provamos por indução que
+$$
+\forall b
+\munderbrace {\forall a \bigparen{ Sa + b = a + Sb }} {P(b)}.
+$$
+\proofpart{Base.}
+Precisamos provar que
+$$
+\munderbrace {\forall a \bigparen{ Sa + 0 = a + S0 }} {P(0)}.
+$$
+Calculamos:
+$$
+\alignat2
+Sa + 0
+&= Sa        \by {a1}
+a + S0
+&= S(a + 0)  \by {a2}
+&= Sa.       \by {a1}
+\endalignat
+$$
+\proofpart{Passo indutivo.}
+Queremos provar:
+$$
+\forall k
+\Bigbracket{
+\munderbrace
+    {\forall a \bigparen{ Sa + k = a + Sk }}
+    {P(k)}
+\implies
+\munderbrace
+    {\forall a \bigparen{ Sa + Sk = a + SSk }}
+    {P(Sk)}
+}.
+$$
+Seja $k\in\nats$ tal que
+$$
+\munderbrace
+    {\forall a \bigparen{ Sa + k = a + Sk }}
+    {P(k)}.
+\tag{H.I.}
+$$
+Basta mostrar que
+$$
+\munderbrace
+    {\forall a \bigparen{ Sa + Sk = a + SSk }}
+    {P(Sk)}.
+$$
+Seja $a\in\nats$.
+Calculamos
+$$
+\alignat2
+Sa + Sk
+&= S(Sa + k)    \by {a2}
+&= S(a + Sk)    \by {H.I.~com $a := a$}
+&= a + SSk.     \by {a2}
+\endalignat
+$$
+Isso termina nossa prova, e logo substituindo a
+justificação~``(a2)'' na prova do~\ref{natadd_is_commutative} por
+``pelo~\ref{succx_plus_y_eq_x_plus_succy}'' ganhamos também o direito de
+substituir seu~``\thinspace\mistakesymbol\thinspace'' por um
+legítimo~``\thinspace\qedsymbol\thinspace''.
+\qed
+%%}}}
+
+%%{{{ x: natmult_is_associative 
+\exercise Associatividade da multiplicação.
+\label{natmult_is_associative}%
+$
+\forall n
+\forall m
+\forall k
+\bigparen{(n \ntimes m) \ntimes k = n \ntimes (m \ntimes k)}.
+$
+
+\endexercise
+%%}}}
+
+%%{{{ x: natmult_is_commutative 
+\exercise Comutatividade da multiplicação.
+\label{natmult_is_commutative}%
+$
+\forall n
+\forall m
+\bigparen{n \ntimes m = m \ntimes n}.
+$
+
+\hint
+Por indução em qualquer uma das $m,n$.
+
+\hint
+Prove a base da tua indução com uma sub-indução!
+
+\hint
+Teu passo indutivo vai precisar duma sub-indução também!
+
+\solution
+Por indução no $m$.
+\crproofpart{Base: $\forall n \paren{n \ntimes 0 = 0 \ntimes n}$.}
+Vamos provar por indução!
+\leftindent
+\proofpart{Sub-base: $0 \ntimes 0 = 0 \ntimes 0$.}
+Trivial!
+\crproofpart{Sub-passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+k \ntimes 0 = 0 \ntimes k.  \tag{S.H.I.1}
+$$
+Ou seja, \emph{$k$ é um número que comuta com o $0$}.
+Vamos provar que $Sk \ntimes 0 = 0 \ntimes Sk$.
+Calculamos:
+$$
+\alignat2
+Sk \ntimes 0  &= 0  \by{(m1)}
+0 \ntimes Sk
+&= 0 \ntimes k + 0  \by{(m2)}
+&= 0 \ntimes k      \by{(a1)}
+&= k \ntimes 0      \by{(S.H.I.1)}
+&= 0.               \by{(m1)}
+\endalignat
+$$
+Isso prova nossa base.
+\endleftindent
+\proofpart{Passo indutivo.}
+Seja $w\in\nats$ tal que
+$$
+\forall n \paren{n \ntimes w = w \ntimes n}. \tag{H.I.}
+$$
+Ou seja, \emph{$w$ é um número que comuta com todos}.
+Queremos provar que seu sucessor $Sw$ faz a mesma coisa:
+$$
+\forall n \paren{n \ntimes Sw = Sw \ntimes n}.
+$$
+Vamos provar por mais uma indução!
+\leftindent
+\proofpart{Sub-base: $0 \ntimes Sw = Sw \ntimes 0$.}
+Calculamos:
+$$
+\alignat2
+0 \ntimes Sw
+&= 0 \ntimes w + 0 \by{(m2)}
+&= 0 \ntimes w     \by{(a1)}
+&= w \ntimes 0     \by{Base ($0$ comuta com todos) ou (H.I.) ($w$ comuta com todos)}
+&= 0               \by{(m1)}
+&= Sw \ntimes 0.   \by{(m1)}
+\endalignat
+$$
+\crproofpart{Sub-passo indutivo.}
+Seja $p\in\nats$ tal que ele comuta com o $Sw$:
+$$
+p \ntimes Sw = Sw \ntimes p.    \tag{S.H.I.2}
+$$
+Vamos provar que $Sp$ também comuta com o $Sw$:
+$$
+Sp \ntimes Sw = Sw \ntimes Sp.
+$$
+Calculamos:
+$$
+\alignat2
+Sp \ntimes Sw
+&= Sp \ntimes w + Sp        \by{(m2)}
+&= w \ntimes Sp + Sp        \by{(H.I.): $w$ comuta com todos}
+&= (w \ntimes p + w) + Sp   \by{(m2)}
+&= w \ntimes p + (w + Sp)   \by{associatividade da $+$}
+&= w \ntimes p + S(w + p)   \by{(a2)}
+&= w \ntimes p + S(p + w)   \by{comutatividade da $+$}
+&= w \ntimes p + (p + Sw)   \by{(a2)}
+Sw \ntimes Sp
+&= Sw \ntimes p + Sw        \by{(m2)}
+&= p \ntimes Sw + Sw        \by{(S.H.I.2): $p$ comuta com o $Sw$}
+&= (p \ntimes w + p) + Sw   \by{(m2)}
+&= p \ntimes w + (p + Sw)   \by{associatividade da $+$}
+&= w \ntimes p + (p + Sw).  \by{(H.I.): $w$ comuta com todos}
+\endalignat
+$$
+\endleftindent
+
+\endexercise
+%%}}}
+
+%%{{{ x: natadd_distributive_over_natmult 
+\exercise Distributividade.
+\label{natmult_distributes_over_natadd}%
+$
+\forall x
+\forall y
+\forall z
+\bigbracket{x \ntimes (y + z) = (x \ntimes y) + (x \ntimes z)}.
+$
+
+\hint
+Indução no $z$.
+
+\solution
+Provamos a afirmação por indução no $z$.
+\crproofpart{Base: $\forall x \forall y \bracket{x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0)}$}.
+Sejam $x,y \in \nats$.
+Queremos provar que
+$$
+x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0).
+$$
+Calculamos:
+$$
+\alignat2
+x \ntimes (y + 0)
+&= x \ntimes y                 \by {(a1)}
+&= x \ntimes y + 0             \by {(a1)}
+&= x \ntimes y + x \ntimes 0.  \by {(m1)}
+\endalignat
+$$
+\proofpart{Passo indutivo.}
+Seja $k\in \nats$ tal que
+$$
+\forall x
+\forall y
+\bracket{x \ntimes (y + k) = (x \ntimes y) + (x \ntimes k)}. \tag{H.I.}
+$$
+Vamos provar que
+$$
+\forall x
+\forall y
+\bracket{x \ntimes (y + Sk) = (x \ntimes y) + (x \ntimes Sk)}.
+$$
+Sejam $x,y\in\nats$.
+Calculamos
+$$
+\alignat2
+x \ntimes (y + Sk)
+&= x \ntimes S(y + k)                \by {(a1)}
+&= \bigparen{x \ntimes (y + k)} + x  \by {(m2)}
+&= (x \ntimes y + x \ntimes k) + x   \by {(H.I.) com $x\asseq x$, $y\asseq y$}
+&= x \ntimes y + (x \ntimes k + x)   \by {associatividade de $+$}
+&= x \ntimes y + x \ntimes Sk.       \by {(m2)}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ thm: natmult_identity 
+\theorem Identidade da multiplicação.
+\label{natmult_identity}%
+$
+\forall x
+\bigparen{ x \ntimes S0 = x = S0 \ntimes x}.
+$
+\proof.
+Seja $x\in \nats$.
+Calculamos:
+$$
+\alignat2
+x \ntimes S0
+&= (x \ntimes 0) + x    \by {(m2), $n\asseq x$, $m\asseq 0$}
+&= 0 + x                \by {(m1)}
+&= x + 0                \by {$+$ comut.~(\refn{natadd_is_commutative})}
+&= x.                   \by {(a1)}
+\endalignat
+$$
+Como já provamos a comutatividade da $\ntimes$, isso termina nossa prova.
+\qed
+%%}}}
+
+%%{{{ x: law_of_natexp_1 
+\exercise Lei de exponenciação 1.
+\label{law_of_natexp_1}%
+$
+\forall x
+\forall a
+\forall b
+\bigparen{x^{a + b} = (x^a) \ntimes (x^b)}.
+$
+
+\hint
+Indução no $b$.
+
+\hint
+\proofpart{Base: $\forall x \forall a \bigbracket{x^{a+0} = x^a \ntimes x^0}$}.
+
+\hint
+\proofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+\forall x \forall a \bigbracket{x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
+$$
+Agora precisas provar que
+$$
+\forall x \forall a \bigbracket{x^{a+Sk} = x^a \ntimes x^Sk}.
+$$
+
+\solution
+Por indução no $b$.
+\crproofpart{Base: $\forall x \forall a \bigbracket{x^{a+0} = x^a \ntimes x^0}$}.
+Sejam $x,a\in\nats$.
+Calculamos:
+$$
+\alignat2
+x^{a+0}
+&= x^a              \by{(a1)}
+&= x^a \ntimes S0   \by{$S0$ identidade (\refn{natmult_identity})}
+&= x^a \ntimes x^0. \by{(e1)}
+\endalignat
+$$
+\crproofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+\forall x \forall a \bigbracket{x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
+$$
+Basta provar que
+$$
+\forall x \forall a \bigbracket{x^{a+Sk} = x^a \ntimes x^Sk}.
+$$
+Sejam $x,a\in\nats$.
+Queremos provar $x^{a+Sk} = x^a \ntimes x^Sk$.
+Calculamos:
+$$
+\alignat2
+x^{a + Sk}
+&= x^{S(a + k)}                 \by{(a2)}
+&= x^{a+k} \ntimes x            \by{(e2)}
+&= (x^a\ntimes x^k) \ntimes x   \by{(H.I.)}
+&= x^a\ntimes (x^k \ntimes x)   \by{assoc.~de~$\ntimes$~(\refn{natmult_is_associative})}
+&= x^a\ntimes x^Sk.             \by{(e2)}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: law_of_natexp_2 
+\exercise Lei de exponenciação 2.
+\label{law_of_natexp_2}%
+$
+\forall a
+\forall b
+\forall c
+\bigparen{(a^b)^c = a^{b \ntimes c}}.
+$
+
+\hint
+Indução no $c$.
+
+\hint
+\proofpart{Base: $\forall a \forall b \bigparen{ (a^b)^0 = a^{b \ntimes 0} }$.}
+
+\hint
+\proofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+\forall a \forall b \bigbracket{ (a^b)^k = a^{b \ntimes k} }.\tag{H.I.}
+$$
+Agora precisas provar que
+$$
+\forall a \forall b \bigbracket{ (a^b)^{Sk} = a^{b \ntimes Sk} }.
+$$
+
+\solution
+Por indução no $c$.
+\crproofpart{Base: $\forall a \forall b \bigbracket{ (a^b)^0 = a^{b \ntimes 0} }$.}
+Sejam $a,b\in\nats$.
+Calculamos:
+$$
+\alignat2
+(a^b)^0
+&= S0     \by {(e1)}
+a^{b \ntimes 0}
+&= a^0    \by {(m1)}
+&= S0.    \by {(e1)}
+\endalignat
+$$
+\crproofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+\forall a \forall b \bigbracket{ (a^b)^k = a^{b \ntimes k} }.\tag{H.I.}
+$$
+Queremos provar que
+$$
+\forall a \forall b \bigbracket{ (a^b)^{Sk} = a^{b \ntimes Sk} }.
+$$
+Sejam $a,b\in\nats$.
+Basta mostrar que $(a^b)^{Sk} = a^{b \ntimes Sk}$.
+Calculamos:
+$$
+\alignat2
+(a^b)^{Sk}
+&= (a^b)^k \ntimes (a^b)        \by {(e2), $n\asseq a^b$, $m\asseq k$}
+&= a^{b \ntimes k} \ntimes a^b  \by {(H.I.), $a\asseq a$, $b\asseq b$}
+&= a^{(b \ntimes k) + b}        \by {\refn{law_of_natexp_1}, $x\asseq a$, $a\asseq b \ntimes k$, $b\asseq b$}
+&= a^{b \ntimes Sk}.            \by {(m2), $n\asseq b$, $m\asseq k$}
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ df: natops_leq_def 
+\definition.
+\label{natops_leq_def}%
+Definimos a relação $\leq$ assim:
+$$
+n \leq m \defiff \lexists {k\in\nats} {n + k = m}.
+$$
+%%}}}
+
+%%{{{ x: natleq_lemma 
+\exercise.
+\label{natleq_lemma}%
+Prove que
+$$
+\forall n \forall m \bigparen{ n \leq S m  \iff  n \leq m  \mlor  n = S m}
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: natleq_loset 
+\exercise.
+\label{natleq_loset}%
+Prove que $\leq$ é uma ordem linear, i.e.:
+$$
+\gather
+\forall n \bigparen{ n \leq n } \\
+\forall n \forall m \bigparen{n \leq m  \mland  m \leq n  \implies  m = n} \\
+\forall x \forall y \forall z \bigparen{x \leq y  \mland  y \leq z  \implies  x \leq y} \\
+\forall x \forall y \bigparen{n \leq m  \mlor  m \leq n}
+\endgather
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: natleq_woset 
+\exercise.
+\label{natleq_woset}%
+Prove que $\leq$ é uma bem-ordem, i.e.,
+$$
+\text{para todo $A \subseteq \nats$,}\quad
+A \neq \emptyset \implies \text{$A$ tem elemento mínimo}.
+$$
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+%%{{{ prob: quot_rem_eq_prob 
+\problem.
+\label{quot_rem_eq_prob}
+Considere as funções $q$, $r$, e $t$ definidas recursivamente:
+$$
+\xalignat3
+q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
+q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
+q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
+q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
+q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
+\endxalignat
+$$
+O que cada função calcula?
+
+\hint
+Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
+
+\solution
+\item{($q$:)}
+    $q(n) = \bigg\lfloor{\dfrac n 3}\bigg\rfloor$.
+\item{($r$:)}
+    O $r(n)$ é o resto da divisão do $n$ por $3$.
+\item{($t$:)}
+    A $t$ decida se suas entradas são iguais ou não.
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+Mais informações sobre indução e indução forte,
+veja o~\cite[Cap.~6]{velleman}.
+Sobre o princípio da boa ordem e indução,
+veja o~\cite[\S\S1.4--1.5]{babybm}
 
 \endfurther
 %%}}}
@@ -22297,6 +22242,60 @@ diretamente como conjuntos, algo que não fazemos nesse texto.
 De novo: muitos livros seguem essa abordagem, então o leitor é conselhado
 tomar o cuidado necessário enquanto estudando esses assuntos.
 Nos vamos ver relações como conjuntos apenas no~\ref{Axiomatic_set_theory}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Functional programming 
+\chapter Programação funcional.
+
+%%{{{ Problems 
+\problems.
+
+%%{{{ prob: stretch_countdown_take 
+{%
+\def\stretch{\namedfun{stretch}}
+\def\countdown{\namedfun{countdown}}
+\def\take{\namedfun{take}}
+\problem.
+Defina as funções com equações (recursivas):
+$$
+\xalignat3
+\stretch    &\eqtype \nats \to [\nats] \to [\nats] &
+\countdown  &\eqtype \nats \to [\nats] &
+\take       &\eqtype \nats \to [\nats] \to [\nats].\\
+\endxalignat
+$$
+Exemplos de uso:
+$$
+\align
+\stretch\ 3 [2,8]       &= [2,2,2,8,8,8]    \\
+\stretch\ 2 [1,9,8,3]   &= [1,1,9,9,8,8,3,3]\\
+\countdown\ 3           &= [3,2,1,0]        \\
+\countdown\ 1           &= [1,0]            \\
+\take\ 3\ [2,3,5,7,11]  &= [2,3,5]          \\
+\take\ 8\ [0,1,2,4]     &= [0,1,2,4]
+\endalign
+$$
+
+\endproblem
+}
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{huttonhaskell},
+\cite{lyah};
+\cite{birdthinking},
+\cite{thompsonhaskell};
+\cite{birdfphaskell}.
 
 \endfurther
 %%}}}
