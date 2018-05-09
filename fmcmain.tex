@@ -429,7 +429,7 @@ Não vamos usar mais esse tipo de árvore sintáctica nessas notas.
 
 \note Arvores de derivação.
 \tdefined{árvore de derivação}%
-Em vez, vamos ficar usando \dterm{árvores de derivação} como essas:
+Em vez, vamos usar \dterm{árvores de derivação} como essas:
 $$
 \def\fCenter{}
 \xalignat2
@@ -516,7 +516,7 @@ $$
 $$
 que mostra como a expressão aritmética $(1 + 5) \ntimes 2$ na sua \dterm{raiz}
 (ou \dterm{root}) é composta por os numeráis $1$, $5$, e $2$
-(que são as \dterm{folhas} (ou \dterm{leaves}) dessa árvore.
+que são as \dterm{folhas} (ou \dterm{leaves}) dessa árvore.
 
 \endsection
 %%}}}
@@ -685,8 +685,9 @@ $$
 %%}}}
 
 \blah.
-Ainda a gramática não refleta bem nossa idéia.
-Podemos a melhorar, com mais regras e com nomes melhores
+Bem melhor!
+Mas ainda a gramática não refleta bem nossa idéia.
+Podemos melhorá-la, com mais regras e com nomes melhores
 que deixam mais claras nossas intenções:
 
 %%{{{ g: ArExp_grammar_3 
@@ -731,7 +732,9 @@ Pode usar sua linguagem como numerais para os naturais?
 %%{{{ Metalanguages 
 \section Metalinguagens.
 
+%%{{{ metalanguage 
 \note.
+\label{metalanguage}%
 \tdefined{metalinguagem}%
 \tdefined{linguagem-objeto}%
 Já encontramos o conceito de linguagem como um objeto de estudo.
@@ -741,13 +744,16 @@ estudar linguágens de programação, etc.
 esse próprio estudo acontece também usando uma (outra) linguagem.
 Aqui usamos por exemplo português, provando propriedades, dando definições,
 afirmando relações, etc., de outras linguagens que estudamos,
-como da aritmética, de lógica matemática, de linguagens de programação, etc.
+como da aritmética, de lógica matemática, de programação, etc.
 Para enfatizar essa diferença e para tirar certas ambigüidades,
 chamamos \dterm{linguagem-objeto} a linguagem que estudamos,
 e \dterm{metalinguagem} a linguagem que usamos para falar
 sobre a linguagem-objeto.
+%%}}}
 
+%%{{{ metavariables 
 \note.
+\label{metavariables}%
 \tdefined{metavariável}%
 Imagine que você trabalha como programador e teu chefe lhe pediu
 fazer uma mudança no código de um programa escrito na linguagem de
@@ -759,7 +765,7 @@ para $\alpha\code{\_of\_}\tau$.>>
 <<essa variável aqui $\code{i}$ que é de tipo $\code{int}$,
 precisa ser renomeada para $\code{i\_of\_int}$;
 e essa $\code{count}$ também para $\code{count\_of\_int}$;
-e essa $\code{mean}$ de $\code{float}$, para $\code{mean\_of\_float}$,
+e essa $\code{mean}$ de tipo $\code{float}$, para $\code{mean\_of\_float}$,
 etc.>>
 \endgraf
 Nesse pedido---obviamente sem noção, algo muito comum em pedidos de chefes
@@ -769,10 +775,11 @@ as $\code{i}$, $\code{i\_of\_int}$,
 $\code{count}$, $\code{count\_of\_int}$,
 $\code{mean}$, e $\code{mean\_of\_float}$
 de outra.
-Chamamos a $\alpha$ e $\tau$ \dterm{metavariável},
+Chamamos a $\alpha$ e $\tau$ \dterm{metavariáveis},
 pois elas pertencem na metalinguagem,
 e não na linguagem-objeto,
 que nesse exemplo é a linguagem de programação C.
+%%}}}
 
 \endsection
 %%}}}
@@ -802,7 +809,7 @@ Seguindo nossa~\ref{ArExp_grammar_2}, cada vez que escrevemos um operador binár
 começamos e terminamos com `$($' e `$)$' respectivamente.
 Logo, ``$1 + 2$'' nem é uma expressão gerada por essa gramática!
 Mas como é tedioso botar as parenteses mais externas, temos a convenção
-de as omitir.
+de omiti-las.
 Logo, consideramos a ``$1 + 2$'' como uma \dterm{abreviação} da expressão aritmética ``$(1 + 2)$''.
 Então qual é o primeiro caráter da $1 + 2$?  É sim o `$($',
 pois consideramos o $1+2$ apenas como um nome que usamos na
@@ -847,8 +854,22 @@ a linguagem de verdade.
 \exercise.
 \label{for_while_sugar}%
 Mostre como um $\code{while}$ loop pode ser implementado como
-açúcar sintáctico numa linguagem que tem $\code{for}$ loops,
+açúcar sintáctico numa linguagem que tem $\code{for}$ loops
+mas não $\code{while}$ loops,
 e vice versa.
+
+\endexercise
+%%}}}
+
+%%{{{ x: recursion_loop_sugar 
+\exercise.
+\label{recursion_loop_sugar}%
+Mostre como um $\code{for}$ loop no estilo da linguagem C
+pode ser implementado sem usar nenhum dos loops disponíveis
+em C (for, while, do-while).
+
+\hint
+Recursão.
 
 \endexercise
 %%}}}
@@ -1548,7 +1569,7 @@ $$
 \exercise.
 \label{nats_double_def}%
 Define (recursivamente) a função $d : \Nat \to \Nat$ que dobra sua entrada.
-Verifique que o dobro de $3$ é $6$.
+Verifique que o dobro de três ($SSS0$) é seis ($SSSSSS0$).
 
 \hint
 Pensando fora do $\Nat$:
@@ -2051,7 +2072,7 @@ $$
 %%{{{ Proving properties of operations and relations of naturals 
 \section Provando propriedades de operações e relações nos naturais.
 
-%%{{{ convention: quantifiers 
+%%{{{ convention about quantifiers 
 \note Convenção.
 Nessa secção todos os quantificadores que aparecem ``nus'' em fórmulas
 \emph{quantificam sobre os naturais}.  Por exemplo
@@ -2101,8 +2122,8 @@ $$
 $$
 %%}}}
 
-%%{{{ remark: Conventions 
-\remark Convenções.
+%%{{{ conventions about precedence and associativity 
+\note Convenções.
 Seguindo a convenção comum, escrevemos o $x\expop y$ como $x^y$,
 mas mesmo assim consideramos isso como um açúcar sintáctico para
 a expressão $x \expop y$.  Entendemos então que no $x^y$ temos
@@ -2112,7 +2133,7 @@ Vamos seguir também a convenção que a exponenciação
 e que multiplicação pega mais forte que a adição:
 $a \ntimes b^c$ escrito sem parênteses quis dizer
 $a \ntimes (b \expop c)$ e não $(a \ntimes b) \expop c$;
-e $a + b\times c$ quis dizer $a + (b\times c)$.
+e $a + b\ntimes c$ quis dizer $a + (b\ntimes c)$.
 Graças às associatividades das $+$ e $\ntimes$
 (\ref{natadd_is_associative} e~\ref{natmult_is_associative})
 podemos escrever $a + b + c$ e $a \ntimes b \ntimes c$,
