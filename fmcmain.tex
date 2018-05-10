@@ -23669,7 +23669,7 @@ que tivermos um grupo~$G$, e voltaremos logo nessas duas questões.
 Se $a,b$ são membros de algum grupo $\sset G {\ast,e}$, podemos concluir algo sobre os\dots:?
 $$
 \align
-\ginvp{e}           &\askeq \dots?\\
+\ginv {e}           &\askeq \dots?\\
 \ginvp{\ginv a}     &\askeq \dots?\\
 \ginvp{a \ast b}    &\askeq \dots?
 \endalign
@@ -23677,14 +23677,129 @@ $$
 %%}}}
 \spoiler.
 
+%%{{{ A: yes, but we need to prove them 
+\blah Resposta.
+Sim:
+$$
+\align
+\ginv  e            &\askeq e\\
+\ginvp{\ginv a}     &\askeq a\\
+\ginvp{a \ast b}    &\askeq \ginv b \ast \ginv a
+\endalign
+$$
+Mas precisamos provar cada uma delas.
+%%}}}
+
+%%{{{ Different interpretations 
+\note Interpretações diferentes.
+Considere a primeira afirmação acima:
+$$
+\ginv e = e.
+$$
+De quantas maneiras podemos ler (entender) essa equação,
+e o que seria uma prova de cada uma dessas maneiras?
+\crcase{Maneira 1:}
+$$
+\align
+\tunderbrace {\ginv e} {isso}
+&\tunderbrace {=} {é}
+\tunderbrace {e} {a identidade do grupo}.\\
+\intertext{\case{Maneira 2:}}
+\tunderbrace {e} {isso}
+&\tunderbrace {=} {é}
+\tunderbrace {\ginv e} {o inverso de $e$}.\\
+\intertext{\case{Maneira 3:}}
+\tunderbrace {\ginv e} {isso}
+&\tunderbrace {=} {é}
+\tunderbrace {e} {isso}.
+\endalign
+$$
+Com a primeira, o que precisamos mostrar é que o objeto $\ginv e$
+satisfaz a definição de ser a identidade do grupo, ou seja:
+$$
+\text{para todo $a \in G$, $\ginv e \ast a = e = a \ast \ginv e$}.
+$$
+Com a segunda, precisamos mostrar que a coisa vermelha
+é o inverso da coisa azul.
+Mas o que significa ser inverso de algo?
+Precisamos mostrar que:
+$$
+\align
+\alert{e} \ast \alertb{e}
+&= e\\
+\alertb{e} \ast \alert{e}
+&= e.
+\endalign
+$$
+Com a terceira, a única coisa que podemos fazer é começar calcular
+até finalmente chegar nessa igualdade.
+%%}}}
+
+%%{{{ advice: the more ways to read an equation, the better 
+\advice.
+Cada vez que tu queres provar uma igualdade que involve certas
+noções, tente ``ler'' o que a igualdade realmente afirma em
+várias maneiras diferentes.  Cada uma é uma chance para te dar
+uma idéia de como prová-la!
+%%}}}
+
 %%{{{ prop: inverse_of_identity_in_group 
 \property.
 \label{inverse_of_identity_in_group}
 Em todo grupo $G$, $\ginv e = e$.
+\preproof.
+Das três maneiras analizadas acima, escolhi a segunda.
+Nos exercícios investigamos as outras duas.
+\endpreproof
 \proof.
-Precisamos mostrar que $e$ é o inverso de $e$, ou seja,
+Basta mostrar que $e$ é o inverso de $e$, ou seja,
 que ele satisfaz $ee = e$, algo imediato pela definição da identidade $e$.
 \qed
+%%}}}
+
+%%{{{ x 
+\exercise.
+Mostre uma prova alternativa da~\ref{inverse_of_identity_in_group}%
+baseada na primeira maneira.
+
+\solution
+Precisamos mosrar que
+$$
+\text{para todo $a \in G$, $\ginv e \ast a = e = a \ast \ginv e$}.
+$$
+Seja $a \in G$.
+Vamos mostrar que o $\ginv e$ ``deixa o $a$ em paz'' pelos dois lados.
+Calculamos:
+$$
+\alignat2
+\ginv e \ast a
+&= \ginv e \ast (e \ast a)  \by {$a = e\ast a$}
+&= (\ginv e \ast e) \ast a  \by {G1}
+&= e \ast a                 \by {def.~de $\ginv e$}
+&= a                        \by {def.~de $e$}
+\endalignat
+$$
+Ou outro lado é similar.
+
+\endexercise
+%%}}}
+
+%%{{{ x 
+\exercise.
+Mostre uma prova alternativa da~\ref{inverse_of_identity_in_group}%
+baseada na terceira maneira.
+
+\solution
+Calculamos:
+$$
+\alignat2
+\ginv e
+&= \ginv e \ast e   \by {def.~$e$}
+&= e                \by {def.~$\ginv e$}
+\endalignat
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ lm: inverse_of_inverse_in_group 
