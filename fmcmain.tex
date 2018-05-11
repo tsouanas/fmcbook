@@ -1557,7 +1557,8 @@ Seja $k\in\ints$ tal que $x = 2k+1$.\cr
 \git {$x$ ímpar}
 \gim {\lexists {k\in\ints} {x = 2k+1}}
 \gim {k \in \ints}
-\gim {\alert{x = 2k + 1}}
+\gim {x = 2k + 1}
+\gim {\alert{x^2 = 2(2k^2 + 2k) + 1}}
 \goals
 \gim {\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}
 \gim {\faded{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
@@ -24504,20 +24505,20 @@ Temos então que ver o que podemos botar nos $\faded?$ para completar
 as \dterm{tabelas Cayley}\Cayley[tabela]{} em baixo:
 $$
 \xalignat3
-&\matrix
+\matrix
 \ast& e & a \\
 e   & \faded? & \faded? \\
 a   & \faded? & \faded?
 \endmatrix
-&
-&\matrix
+&&
+\matrix
 \ast& e & a & b \\
 e   & \faded? & \faded? & \faded? \\
 a   & \faded? & \faded? & \faded? \\
 b   & \faded? & \faded? & \faded?
 \endmatrix
-&
-&\matrix
+&&
+\matrix
 \ast& e & a & b & c \\
 e   & \faded? & \faded? & \faded? & \faded? \\
 a   & \faded? & \faded? & \faded? & \faded? \\
@@ -24531,7 +24532,9 @@ pois certos deles são determinados; e cada vez que fazemos uma escolha
 para um deles, possivelmente nossas opções próximas deminuiam.
 Para começar, como $e\ast x = x = x \ast e$ para qualquer $x$ do grupo,
 a primeira linha e a primeira coluna da tabela já são determinadas:%
-\footnote{De fato, foi por isso que Cayley realmente nem escreveu a coluna e a linha ``exterior'', tomando a convenção que o elemento que aparece primeiro é a sua identidade.
+\footnote{De fato, foi por isso que Cayley realmente nem escreveu a coluna
+e a linha ``exterior'', tomando a convenção que o elemento que aparece
+primeiro é a sua identidade.
 Para um grupo de três elementos então, ele começaria assim:
 $$
 \matrix
@@ -24551,26 +24554,48 @@ $$
 }
 $$
 \xalignat3
-&\matrix
+\matrix
 \ast& e & a \\
 e   & e & a \\
 a   & a & \faded?
 \endmatrix
-&
-&\matrix
+&&
+\matrix
 \ast& e & a & b \\
 e   & e & a & b \\
 a   & a & \faded? & \faded? \\
 b   & b & \faded? & \faded?
 \endmatrix
-&
-&\matrix
+&&
+\matrix
 \ast& e & a & b & c \\
 e   & e & a & b & c \\
 a   & a & \faded? & \faded? & \faded? \\
 b   & b & \faded? & \faded? & \faded? \\
 c   & c & \faded? & \faded? & \faded?
 \endmatrix
+&
+\intertext{Exatamente por causa dessa observação, em geral omitimos a
+primeira coluna e a primeira linha dessas tabelas, escrevendo as três
+tabelas acima nesse jeito:}
+\matrix
+e & a \\
+a & \faded?
+\endmatrix
+&&
+\matrix
+e & a & b \\
+a & \faded? & \faded? \\
+b & \faded? & \faded?
+\endmatrix
+&&
+\matrix
+e & a & b & c \\
+a & \faded? & \faded? & \faded? \\
+b & \faded? & \faded? & \faded? \\
+c & \faded? & \faded? & \faded?
+\endmatrix
+&
 \endxalignat
 $$
 %%}}}
@@ -24589,9 +24614,8 @@ Em teoria temos duas opções: $e,a$.  Mas precisamos verificar se o conjunto
 realmente torna-se um grupo ou não.  Escolha $a$:
 $$
 \matrix
-\ast& e & a \\
-e   & e & a \\
-a   & a & \alert{a}
+e & a \\
+a & \alert{a}
 \endmatrix
 $$
 Qual seria o inverso do $a$?
@@ -24600,9 +24624,8 @@ Assim o~(G3) será violado, ou seja, não podemos escolher o $a$.
 Se escolher nossa única outra opção ($e$) temos:
 $$
 \matrix
-\ast& e & a \\
-e   & e & a \\
-a   & a & \alert{e}
+e & a \\
+a & \alert{e}
 \endmatrix
 $$
 Que realmente é um grupo.
@@ -24624,6 +24647,18 @@ Ache todas as operações possíveis que tornam um conjunto com $3$ membros um g
 \hint
 Só tem uma maneira.  Qual?  Por quê?
 
+\solution
+Só tem uma maneira:
+$$
+\matrix
+e & a & b\\
+a & b & e\\
+b & e & a
+\endmatrix
+$$
+Realmente não temos nenhuma opção em nenhum dos $\faded?$.
+O~\ref{find_the_rules_of_grupoku} investiga o porquê.
+
 \endexercise
 %%}}}
 
@@ -24637,11 +24672,11 @@ nem são números---mas as leis~(G0)--(G3) que tem que ser satisfeitas.
 E caso que queremos criar um grupo abeliano, a~(G4) também.
 %%}}}
 
-%%{{{ Find the rules of grupoku 
+%%{{{ x: find_the_rules_of_grupoku 
 \exercise.
 \label{find_the_rules_of_grupoku}%
-Que restrições pode afirmar que temos nesse jogo de ``Grupoku'', graças todos os resultados
-que temos provado até agora sobre grupos?
+Que restrições pode afirmar que temos nesse jogo de ``Grupoku'',
+graças todos os resultados que temos provado até agora sobre grupos?
 E se queremos um grupo abeliano, muda o quê?
 
 \endexercise
@@ -24650,7 +24685,7 @@ E se queremos um grupo abeliano, muda o quê?
 %%{{{ x: find_all_groups_of_order_4 
 \exercise.
 \label{find_all_groups_of_order_4}%
-Ache todas as operações possíveis que tornam um conjunto com $4$ elementos
+Ache todas as operações possíveis que tornam um conjunto com $4$ membros
 um grupo.
 
 \hint
@@ -24660,6 +24695,26 @@ tem dois que realmente não tem como as identificar, mesmo renomeanos seus
 membros.
 Tudo isso vai fazer bem mais sentido daqui umas secções onde vamos estudar
 o conceito de isomorfia~(\refn{Group_morphisms}).
+
+\solution
+$$
+\xalignat2
+\matrix
+e & a & b & c \\
+a & b & c & e \\
+b & c & e & a \\
+c & e & a & b
+\endmatrix
+&&
+\matrix
+e & a & b & c \\
+a & e & c & b \\
+b & c & e & a \\
+c & b & a & e
+\endmatrix
+&
+\endxalignat
+$$
 
 \endexercise
 %%}}}
@@ -24761,7 +24816,7 @@ $$
 %%}}}
 
 \hint%%{{{
-Seguinto as dicas anteriores, provavelmente tu chegou aqui:
+Seguindo as dicas anteriores, provavelmente tu chegou aqui:
 $$
 \alignat2
 a \uparrow_1 (k+1)
@@ -24774,7 +24829,9 @@ a gente \emph{poderia} continuar assim:}
 &= a \uparrow_2 (k+1).       \by{def.~$\uparrow_2$}
 \intertext{\emph{So que não!}
 Sobre o $G$ sabemos apenas que é um grupo, então não podemos contar na
-comutatividade da sua operação $\ast$.
+comutatividade da sua operação $\ast$.%
+\footnote{Inclusive, se a $\ast$ fosse comutativa o resultado seria
+trivial e nem precisaria prova por indução.}
 Voltando no passo que tivemos colado}
 a \uparrow_1 (k+1)
 &= a \ast (a \uparrow_1 k)   \by{def.~$\uparrow_1$}
@@ -25012,11 +25069,12 @@ $$
 $$
 Ou seja
 $$
-xxyy = xyxy
-$$
-e cancelando os $x$ pela esquerda e os $y$ pela direita, chegamos no desejado:
-$$
-xy = yx.
+\align
+xxyy &= xyxy
+\intertext{e cancelando os $x$ pela esquerda
+e os $y$ pela direita, chegamos no desejado:}
+xy &= yx.
+\endalign
 $$
 
 \endexercise
@@ -25079,7 +25137,7 @@ Precisamos mostrar que existe $n\in\nats_{>0}$ com $a^n = e$.
 Se $m>0$, o conjunto $N \leteq \set{ n\in\nats_{>0} \st a^n = e}$ não é vazio,
 então pelo princípio da boa ordem~\ii{princípio!da boa ordem}(PBO)
 possui elemento mínimo e logo
-$\gord a = \min N < \infty$
+$\gord a = \min N < \infty$.
 Se $m<0$, observe que $-m > 0$, e calcule:
 $$
 a^{-m} = \ginvp{a^m} = \ginv e = e,
