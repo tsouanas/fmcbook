@@ -1400,9 +1400,238 @@ cada vez mais um papel de compilador mental também, e acaba brigando
 cada vez menos com o compilador real.
 %%}}}
 
-%%{{{ The board 
-\note O tabuleiro.
+%%{{{ the game and its board 
+\note O jogo e seu tabuleiro.
+Podemos pensar que o jogo acontece em duas partes.
+A primeira parte é a \proofstyle{Prova}.
+É aqui que o jogador (você) joga, onde cada movimento
+é escrever uma frase mais nessa parte.
+A segunda parte é a tabela de Dados/Alvos.
+O enunciado do teorema que queres provar criao contexto da prova,
+ou seja, ele está deixando claro quais são os \emph{dados},
+e qual (ou quais) os \emph{alvos}.
+Com cada movimento (frase escrita na parte \proofstyle{Prova}),
+a tabela dos Dados/Alvos muda para refletir a situação atual
+do jogo.  Novos dados podem ser adicionados, uns álvos podem
+ser matados, outros nascidos.  O jogo termina quando não tem
+mais nenhum alvo vivo.
+\endgraf
+As partes do jogo e seu tabuleiro parecem assim então:
+\endgraf\medskip\noindent
+\hbox to \hsize{
+\vtop{
+\halign to .3\hsize{##\hfil\cr
+\proofstyle{Prova.}\cr
+\cr
+\cr
+\cr
+}
+}
+\vtop{
+\gg
+\givens
+\git {}
+\git {}
+\gim {\hskip3cm}
+\goals
+\gim {\hskip3cm}
+\endgg
+}
+}
 %%}}}
+
+%%{{{ eg: x odd => x^2 odd 
+\example.
+Nesse exemplo encontramos uma prova de um teorema sobre inteiros.
+Neste momento apenas siga essa prova, movimento-por-movimento,
+para entender a ideia desse jogo e nada mais.
+\endgraf\medskip\noindent
+\hbox to \hsize{
+\vtop{
+\halign to .333\hsize{#\hfil\cr
+\proofstyle{Prova.}\cr
+}
+}
+\hfill
+\vtop{
+\gg
+\givens
+\gim {\phantom{\lexists {k\in\ints} {x = 2k+1}}}
+\goals
+\gim {\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}
+\endgg
+}
+}
+\endgraf\medskip\noindent
+\endgraf\medskip\noindent
+\hbox to \hsize{
+\vtop{
+\halign to .333\hsize{#\hfil\cr
+\proofstyle{Prova.}\cr
+\alert{Seja $x$ inteiro.}\cr
+}
+}
+\hfill
+\vtop{
+\gg
+\givens
+\gim {\alert{x \in \ints}}
+\gim {\phantom{\lexists {k\in\ints} {x = 2k+1}}}
+\goals
+\gim {\coloredcancel{red}{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}
+\gim {\alert{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
+\endgg
+}
+}
+\endgraf\medskip\noindent
+\endgraf\medskip\noindent
+\hbox to \hsize{
+\vtop{
+\halign to .333\hsize{#\hfil\cr
+\proofstyle{Prova.}\cr
+Seja $x$ inteiro.\cr
+\alert{Suponha $x$ ímpar.}\cr
+}
+}
+\hfill
+\vtop{
+\gg
+\givens
+\gim {x \in \ints}
+\git {\alert{$x$ ímpar}}
+\gim {\phantom{\lexists {k\in\ints} {x = 2k+1}}}
+\goals
+\gim {\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}
+\gim {\coloredcancel{red}{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
+\git {\alert{$x^2$ ímpar}}
+\endgg
+}
+}
+\endgraf\medskip\noindent
+\endgraf\medskip\noindent
+\hbox to \hsize{
+\vtop{
+\halign to .333\hsize{#\hfil\cr
+\proofstyle{Prova.}\cr
+Seja $x$ inteiro.\cr
+Suponha $x$ ímpar.\cr
+\alert{Seja $k\in\ints$ tal que $x = 2k+1$.}\cr
+}
+}
+\hfill
+\vtop{
+\gg
+\givens
+\gim {x \in \ints}
+\git {$x$ ímpar}
+\gim {\lexists {k\in\ints} {x = 2k+1}}
+\gim {\alert{k \in \ints}}
+\gim {\alert{x = 2k + 1}}
+\goals
+\gim {\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}
+\gim {\faded{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
+\git {$x^2$ ímpar}
+\endgg
+}
+}
+\endgraf\medskip\noindent
+\endgraf\medskip\noindent
+\hbox to \hsize{
+\vtop{
+\halign to .333\hsize{#\hfil\cr
+\proofstyle{Prova.}\cr
+Seja $x$ inteiro.\cr
+Suponha $x$ ímpar.\cr
+Seja $k\in\ints$ tal que $x = 2k+1$.\cr
+\alert{Calculamos:}\cr
+\phantom{a}\cr
+\alert{\quad$\aligned x^2 &= (2k+1)^2 = 4k^2 + 4k + 1 \\&= 2(2k^2+2k) + 1\endaligned$}\cr
+\phantom{a}\cr
+}
+}
+\hfill
+\vtop{
+\gg
+\givens
+\gim {x \in \ints}
+\git {$x$ ímpar}
+\gim {\lexists {k\in\ints} {x = 2k+1}}
+\gim {k \in \ints}
+\gim {\alert{x = 2k + 1}}
+\goals
+\gim {\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}
+\gim {\faded{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
+\git {$x^2$ ímpar}
+\gim {\lexists {a\in\ints} {x^2 = 2a + 1}}
+\endgg
+}
+}
+\endgraf\medskip\noindent
+\endgraf\medskip\noindent
+\hbox to \hsize{
+\vtop{
+\halign to .333\hsize{#\hfil\cr
+\proofstyle{Prova.}\cr
+Seja $x$ inteiro.\cr
+Suponha $x$ ímpar.\cr
+Seja $k\in\ints$ tal que $x = 2k+1$.\cr
+Calculamos:\cr
+\phantom{a}\cr
+\quad$\aligned x^2 &= (2k+1)^2 = 4k^2 + 4k + 1 \\&= 2(2k^2+2k) + 1\endaligned$\cr
+\phantom{a}\cr
+\alert{Como $(2k^2+2k)\in\ints$, temos que $x^2$ é ímpar.}\cr
+}
+}
+\hfill
+\vtop{
+\gg
+\givens
+\gim {x \in \ints}
+\git {$x$ ímpar}
+\gim {\lexists {k\in\ints} {x = 2k+1}}
+\gim {k \in \ints}
+\gim {x = 2k + 1}
+\goals
+\gim {{\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}}
+\gim {{\faded{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}}
+\git {{\faded{$x^2$ ímpar}}}
+\gim {\coloredcancel{red}{\lexists {a\in\ints} {x^2 = 2a + 1}}}
+\endgg
+}
+}
+\endgraf\medskip\noindent
+Matamos todos os alvos, então podemos concluir que o que queriamos
+provar, foi provado (ou seja: é um teorema mesmo).
+\endexample
+%%}}}
+
+\TODO complete the example.
+
+%%{{{ remark: the text above is terrible 
+\remark.
+O texto que a prova acabou sendo é \emph{terrível}.
+Parece escrito por um robô que não entende nada.
+Não vamos escrever provas nesse jeito.  Em vez disso,
+o texto ``real e humano'' que corresponde nessa prova
+seria algo do tipo:
+\quotepar
+Seja $x$ inteiro ímpar,
+e logo seja $k\in\ints$ tal que $x = 2k + 1$.
+Preciso mostrar que $x^2$ é ímpar também.
+Calculamos: $x^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k) + 1$.
+Como $2k^2+2k\in\ints$, logo $x^2$ ímpar.
+\endquote
+Mesmo assim, é importante entender o ``backend'' da prova,
+em termos da tabela ``Dados/Alvos''.
+Então quando tu vai escrever tuas próprias provas,
+pelo menos no início, podes aproveitar um rascunho
+para fazer teu ``bookkeeping'', escrevendo e apagando
+coisas nele com cada frase que escreveu na tua prova.
+Com mais experiência, esse processo vai virar automático
+e subconsciente.
+%%}}}
+
+\TODO Finish the section.
 
 \endsection
 %%}}}
