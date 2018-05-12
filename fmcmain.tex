@@ -9236,6 +9236,7 @@ ou seja, $SSSS0 \not\leq SS0$.
 
 %%{{{ Proving properties of operations and relations on naturals 
 \section Provando propriedades de operações e relações nos naturais.
+\label{Proving_properties_of_natops}%
 
 %%{{{ convention about quantifiers 
 \note Convenção.
@@ -23487,14 +23488,24 @@ Claramente, o $\sset M +$ também é.
 \endexample
 %%}}}
 
-%%{{{ eg: modular_arithmetic_group_eg
-\example Aritmética modular.
-\label{modular_arithmetic_group_eg}%
-O $\finord n \defeq \set{0,\dotsc,n-1}$ com a operação $+_n$ da adição
-módulo $n$.
+%%{{{ eg: modular_addition_group_eg
+\example Adição modular.
+\label{modular_addition_group_eg}%
+O $\finord n \defeq \set{0,\dotsc,n-1}$ com a operação $+_n$
+da adição módulo $n$.
 Qual é o inverso de um elemento $a$ nesse caso?
 É o $n-a$, pois $a +_n (n-a) = 0 = (n-a) +_n a$.
 \endexample
+%%}}}
+
+%%{{{ noneg: modular_multiplication_group_noneg
+\nonexample Multiplicação modular.
+\label{modular_arithmetic_group_eg}%
+O $\finord n \defeq \set{0,\dotsc,n-1}$ com a operação $\ntimes_n$
+da multiplicação módulo $n$, não é um grupo, pois o $0$ não tem inverso.
+O $\sset {\set{1,\dotsc,5}} {\ntimes_6}$ também não é um grupo,
+pois não é fechado: $2 \ntimes_6 3 = 0$.
+\endnonexample
 %%}}}
 
 %%{{{ df: symmetric_group 
@@ -23946,21 +23957,21 @@ $$
 $$
 De quantas maneiras podemos ler (entender) essa equação,
 e o que seria uma prova de cada uma dessas maneiras?
-\crcase{Maneira 1:}
 $$
-\align
+\xxalignat3
+\text{\crcase{Maneira 1:}}&&
 \tunderbrace {\ginv e} {isso}
 &\tunderbrace {=} {é}
-\tunderbrace {e} {a identidade do grupo}.\\
-\intertext{\case{Maneira 2:}}
+\tunderbrace {e} {a identidade do grupo.}&&\\
+\text{\case{Maneira 2:}}&&
 \tunderbrace {e} {isso}
 &\tunderbrace {=} {é}
-\tunderbrace {\ginv e} {o inverso de $e$}.\\
-\intertext{\case{Maneira 3:}}
+\tunderbrace {\ginv e} {o inverso de $e$.}&&\\
+\text{\case{Maneira 3:}}&&
 \tunderbrace {\ginv e} {isso}
 &\tunderbrace {=} {é}
-\tunderbrace {e} {isso}.
-\endalign
+\tunderbrace {e} {isso.}&&
+\endxxalignat
 $$
 Com a primeira, o que precisamos mostrar é que o objeto $\ginv e$
 satisfaz a definição de ser a identidade do grupo, ou seja:
@@ -24113,7 +24124,7 @@ Foi sim!
 É apenas que o~$\sset {\reals_{\neq0}} {\ntimes}$ é um grupo abeliano;
 em outras palavras a ``ordem que acontecem os membros'' não importa.
 Mas tudo isso é apenas uma \emph{intuição correta} para adivinhar essa lei.
-Precisamos a provar.
+Precisamos prová-la.  Bora!
 %%}}}
 
 %%{{{ lm: inverse_of_product_in_group 
@@ -24960,6 +24971,29 @@ desse teorema.
 \qed
 %%}}}
 
+%%{{{ thm: properties_of_exp_in_general 
+\theorem.
+\label{properties_of_exp_in_general}%
+A operação de exponenciação definida
+no~\ref{associative_with_identity_exp_defs_equiv}
+satisfaz as leis:
+\beginol
+\item{\rm (1)} $\pforall {n,m\in\nats} \lforall {a \in A} {a^m \ast a^n = a^{m+n}}$;
+\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {a \in A} {(a^m)^n = a^{m\ntimes n}}$;
+\endol
+\proof Provado.
+Provamos por indução as duas leis nos exercícios~\refn{law_of_natexp_1}
+e~\refn{law_of_natexp_2}.
+Verifique que nossas provas precisaram apenas a \emph{associatividade}
+e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
+então podemos substituir a multiplicação por a nossa $\ast$.
+Sobre outra operação envolvida nas provas, a adição, não precisamos
+verificar nada, pois nos dois casos é a mesma operação:
+a adição nos naturais.
+\qed
+
+%%}}}
+
 %%{{{ x: sq_of_prod_not_prod_of_sq 
 \exercise.
 \label{sq_of_prod_not_prod_of_sq}%
@@ -25091,8 +25125,10 @@ Temos:
 \item{\rm (2)} $(a^m)^n = a^{m\ntimes n}$;
 \item{\rm (3)} $a^{-n} = \paren{a^n}^{-1} = \paren{a^{-1}}^n$.
 \sketch.
-Provamos primeiro para $m,n\in\nats$ por indução.
-Depois consideramos os casos de inteiros negativos.
+Provamos primeiro para $m,n\in\nats$ por indução
+a (3)---as (1) e (2) já provamos~(\ref{properties_of_exp_in_general}).
+Depois consideramos os casos de inteiros negativos
+para as três leis.
 \qes
 %%}}}
 
