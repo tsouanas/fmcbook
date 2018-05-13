@@ -25022,10 +25022,12 @@ O que você acha que deveria ser denotado por $a^{-2}$?
 \blah Resposta.
 Bem, tem duas interpretações, ambas razoáveis:
 $$
-a^{-2} =
-\knuthcases{
-\paren{a^{-1}}^2  & (o quadrado do inverso do $a$)\cr
-\paren{a^2}^{-1}  & (o inverso do quadrado do $a$)
+a^{-2} \askeq
+\leftangle{~
+\aligned
+\paren{\ginv a}^2 & \quad\text{(o quadrado do inverso do $a$)}\\\\
+\ginvp{a^2}       & \quad\text{(o inverso do quadrado do $a$)}
+\endaligned
 }
 $$
 Prove que as duas interpretações são equivalentes, ou seja:
@@ -25180,7 +25182,7 @@ Logo:
 $$
 \gord a =
 \knuthcases{
-\min\set{ n\in\nats_{>0} \st a^n = e }, & se $\set{ n\in\nats_{>0} \st a^n = e }\neq\emptyset$\cr
+\min \setst {n\in\nats_{>0}} {a^n = e}, & se $\setst {n\in\nats_{>0}} {a^n = e} \neq \emptyset$\cr
 \infty,                                 & caso contrário.
 }
 $$
@@ -25220,7 +25222,7 @@ Se $m>0$, tome $n\leteq m$.  Se não?
 
 \solution%%{{{
 Precisamos mostrar que existe $n\in\nats_{>0}$ com $a^n = e$.
-Se $m>0$, o conjunto $N \leteq \set{ n\in\nats_{>0} \st a^n = e}$ não é vazio,
+Se $m>0$, o conjunto $N \leteq \setst {n\in\nats_{>0}} {a^n = e}$ não é vazio,
 então pelo princípio da boa ordem~\ii{princípio!da boa ordem}(PBO)
 possui elemento mínimo e logo
 $\gord a = \min N < \infty$.
@@ -25248,7 +25250,7 @@ $$
 Queremos provar que, no final das contas, nesta lista aparecem exatemente $n$
 distintos membros de $G$.  Ou seja,
 $$
-\card{\set{ a^k \st k \in \ints }} = n.
+\card{\setst {a^k} {k\in\ints}} = n.
 $$
 Consideramos os
 $$
@@ -25429,8 +25431,8 @@ Observe que $\rats$ e $\ints$ são subgrupos dele, mas $\nats$ não é.
 \endgraf\noindent
 (2) Considere o grupo $\sset {\reals_{\neq0}} {\ntimes}$.
 Observe que $\set{1, -1}$, $\rats_{\neq0}$, e para qualquer
-$\alpha\in\reals_{\neq0}$ o conjunto $\set{ \alpha^k \st k\in\ints }$ são todos
-subgrupos dele, mas $\ints$ e $\set{ \alpha^n \st n\in\nats }$ não são.
+$\alpha\in\reals_{\neq0}$ o conjunto $\setst {\alpha^k} {k\in\ints}$ são todos
+subgrupos dele, mas $\ints$ e $\setst {\alpha^n} {n\in\nats}$ não são.
 \endexample
 %%}}}
 
@@ -25922,7 +25924,7 @@ onde $A\subseteq G$.
 Seguindo ingenuamente a definição de $\generate a$,
 uma primeira abordagem seria botar
 $$
-\generate A = \set{ a^m \st a \in A,\  m \in\ints }
+\generate A = \setst {a^m} {a \in A,\  m \in\ints}
 $$
 e chamar $\generate A$ o subgrupo de $G$ gerado por $A$.\mistake
 %%}}}
@@ -26433,9 +26435,9 @@ porque $1 + (-6) = -5 \in 5\ints$ e $1 + (-3) = -2 \notin 5\ints$ respectivament
 Seja $G$ grupo e $H\subgrp G$.  Para $a\in G$ definimos
 $$
 \xalignat2
-aH &\defeq \set{ ah \st h\in H }.
+aH &\defeq \setst {ah} {h\in H}
 &
-Ha &\defeq \set{ ha \st h\in H }
+Ha &\defeq \setst {ha} {h\in H}.
 \endxalignat
 $$
 Chamamos o $aH$ o \dterm{left-coset} do $H$ através de $a$,
@@ -26457,7 +26459,7 @@ $$
 %%{{{ Q: How many cosets? 
 \question.
 \emph{Dados um grupo $G$ e $H\subgroup G$, quantas coclasses $Ha$ tem?
-Ou seja, qual é a cardinalidade do conjunto $\set { Ha \st a \in G }$?}
+Ou seja, qual é a cardinalidade do conjunto $\setst {Ha} {a\in G}$?}
 %%}}}
 
 %%{{{ thm: the cosets of H are the quotient set G / congmodR 
@@ -26465,7 +26467,7 @@ Ou seja, qual é a cardinalidade do conjunto $\set { Ha \st a \in G }$?}
 \ii{partição}%
 \ii{relação!de equivalência}%
 Sejam $G$ grupo e $H\subgroup G$.
-A família $\scr A = \set { Ha \st a\in G }$ é uma partição do $G$
+A família $\scr A = \setst {Ha} {a\in G}$ é uma partição do $G$
 e sua correspondente relação de equivalência é a congruência módulo-direito $H$.
 \proof.
 Vamos denotar por $\eqclassimp a$ a classe de equivalência de $a\in G$.
@@ -26704,7 +26706,7 @@ Vamos agora generalizar a notação que usamos nos cosets de
 \label{HK_of_groups}%
 Seja $G$ grupo e $H,K\subgroup G$.  Definimos
 $$
-HK \defeq \set { hk \st h\in H,\ k\in K }.
+HK \defeq \setst {hk} {h\in H,\ k\in K}.
 $$
 %%}}}
 
@@ -26731,9 +26733,9 @@ Calcule os $HK$ e $KH$ e decida se $HK=KH$ e se $HK$ e $KH$ são subgrupos de $S
 Pela definição
 $$
 \xalignat2
-HK &= \set{ hk \st h\in H,\ k\in K}
+HK &= \setst {hk} {h\in H,\ k\in K}
 & 
-KH &= \set{ kh \st h\in H,\ k\in K}
+KH &= \setst {kh} {h\in H,\ k\in K}
 \\
 &= \set{
 \id\compose\id,
@@ -26854,7 +26856,7 @@ Mostre que $\cal Z_p$ é um grupo e ache sua ordem.
 \exercise.
 \label{the_multiplicative_group_Zn}%
 Seja $n\in\nats$ com $n>1$ e defina
-$\cal Z_n = \sset {\set{a \in \finord n \st \gcd a n = 1}} {\ntimes}$
+$\cal Z_n = \sset {\setst {a \in \finord n} {\gcd a n = 1}} {\ntimes}$
 onde $\ntimes$ é a multiplicação módulo~$n$.
 Mostre que $\cal Z_n$ é um grupo e ache sua ordem.
 
@@ -27692,7 +27694,7 @@ $$
 \align
 \ker\phi
 &\defeq
-\set { g \in G \st \phi(g) = e_{G'} }\\
+\setst {g \in G} {\phi(g) = e_{G'}}\\
 &=
 \pre{\phi}{\set{e_{G'}}}
 \endalign
