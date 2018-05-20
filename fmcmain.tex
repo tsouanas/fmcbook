@@ -24163,19 +24163,35 @@ A $\paren{a \ast b} \ast \paren{\ginv b \ast \ginv a} = e$ é similar.
 Desenha um diagrama cuja comutatividade é a lei que tu acabou de provar.
 
 \hint
-Podes começar com os conjuntos seguintes:
+A ideia é descrever cada lado da
 $$
-\cdopt{column sep=1cm, row sep=2cm}
-            \| G\times G \|           \| \| \| G \\
-G\times G   \|           \| G\times G \| \| \|   \\
-            \| G\times G \|           \| \| \| G
-\endcd
+\ginvp{a\ast b} = \ginv b \ast \ginv a
 $$
-Só basta botar as setas (e seus nómes).
+como um caminho.
+Pense em duas listas de instruções para ser aplicadas no $\tup{a,b}$,
+tais que:
+seguindo uma das listas acabamos no $\ginv b \ast \ginv a$,
+e seguindo a outra no $\ginvp{a\ast b}$.
+Para o lado $\ginvp{a\ast b}$ existe apenas uma maneira razoável
+de ``quebrá-lo'' em sub-passos.
+Para o lado $\ginv b \ast \ginv a$ existem duas equivalentes.
+Escolha uma, ou desenha as duas no mesmo diagrama.
 
 \hint
-Já botei as setas pra ti.
-Basta botas os nomes.
+Podes começar com os conjuntos seguintes:
+$$
+\cdopt{column sep=1cm, row sep=1cm}
+            \| G\times G\ar[d]\ar[rrrr] \|           \| \| \| G\ar[dd] \\
+            \| G\times G\ar[d]          \|           \| \| \|   \\
+            \| G\times G\ar[rrrr]       \|           \| \| \| G
+\endcd
+$$
+A coluna esquerda corresponde num caminho do $\tup{a,b}$
+para o $\tup{\ginv b, \ginv a}$.
+
+\hint
+Substitui a coluna esquerda por dois caminhos formando o rombo
+na esquerda (ele comuta):
 $$
 \cdopt{column sep=6mm, row sep=2cm}
                         \| |[alias=N]| G\times G \|                      \| \| \| |[alias=NE]| G \\
@@ -24190,6 +24206,7 @@ $$
 \ar[from=S,to=SE]
 \endcd
 $$
+Agora só basta botar nomes nas setas.
 
 \solution
 Uma tal diagrama é o seguinte:
@@ -25498,7 +25515,7 @@ Se $H$ é um subconjunto não vazio do grupo $\sset G {\ast,e}$, então:
 $$
 \rightbrace{
 \alignedat3
-\textrm{(0)} &\quad &            &\emptyset \neq H \subseteq G  &\qquad &\textrm{($H$ é não vazio)}\\
+\textrm{(0)} &\quad &            &\emptyset \neq H \subseteq G  &\qquad &\textrm{($H$ é n\~ao vazio)}\\
 \textrm{(1)} &\quad & a, b \in H &\implies a\ast b \in H        &\qquad &\textrm{($H$ é $\ast$-fechado)}\\
 \textrm{(2)} &\quad & a \in H    &\implies a^{-1}  \in H        &\qquad &\textrm{($H$ é $^{-1}$-fechado)}
 \endalignedat
@@ -25563,8 +25580,7 @@ de $H$ têm seu inverso dentro do $H$.
 Tome um $a\in H$ e considere a seqüência das suas potências positivas:
 $$
 \alignat2
-a, a^2, a^3, \dotsc \in H
-\by{graças à hipótese (1)}
+a, a^2, a^3, \dotsc &\in H \by{graças à hipótese (1)}
 \endalignat
 $$
 Como o $H$ é finito vamos ter um elemento repetido,
@@ -25582,11 +25598,11 @@ $$
 \tunderbrace{\cancel{a\ast a \ast \dotsb \ast a}}{$s$ vezes}
 }{$r$ vezes}
 &=\toverbrace{\cancel{a\ast a \ast \dotsb \ast a}}{$s$ vezes}.
-\intertext{Agora usamos a lei de cancelamento-direito:}
+\intertext{Agora operando nos dois lados pela direita por $\ginvp{a^s}$:}
 \toverbrace{a\ast a \ast \dotsb \ast a}{$r-s$ vezes}
 &=e
 \intertext{Ou seja, $e = a^{r-s}$ e acabamos de provar que $e\in H$.
-Observe que $r-s>0$, então temos:}
+Observe que $r-s>0$, então temos pelo menos um $a$ na esquerda:}
 \toverbrace{a\ast \tunderbrace{a \ast \dotsb \ast a}{$r-s-1$ vezes}}{$r-s$ vezes}
 &=e
 \endalign
@@ -25601,7 +25617,7 @@ e logo $\ginv a = \ginv e = e = a \in H$.
 Nesse caso, temos $e = aa^{r-s-1}$, ou seja,
 achamos o inverso do $a$: é o $a^{r-s-1}$, e ele pertence no $H$, pois é potência positiva de $a$ (e $H$ é fechado pela operação).
 \endgraf
-Em ambos os casos mostramos que $\ginv a \in H$ e podemos
+Em ambos dos casos mostramos que $\ginv a \in H$ e podemos
 aplicar o~\ref{subgroup_criterion} para concluir o desejado
 $H\subgroup G$.
 \qed
@@ -26791,7 +26807,7 @@ $$
 %%{{{ sketch and proof 
 \sketch.
 Para a direção \lrdir, precisamos mostrar que $HK$ é fechado sobre a operação e fechado sobre os inversos.
-Tomamos aleatorios $h_1k_1,h_2k_2\in HK$ e aplicando as propriedades de grupo e nossa hipótese,
+Tomamos aleatórios $h_1k_1,h_2k_2\in HK$ e aplicando as propriedades de grupo e nossa hipótese,
 mostramos que $(h_1k_1)(h_2k_2) \in HK$.  Similarmente para os inversos: consideramos um
 arbitrário elemento $hk\in HK$ e mostramos que seu inverso $\ginvp{hk} \in HK$.  Aqui, alem da
 hipótese precisamos o~\ref{inverse_of_product_in_group}.
