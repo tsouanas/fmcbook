@@ -8979,6 +8979,56 @@ Veja o~\cite[\S1.9]{babybm}.
 \section Os números naturais formalmente.
 \label{Nats_formally}%
 
+\blah.
+Lembrando a~\ref{Nat_grammar}, começamos com a definição seguinte.
+
+%%{{{ df: nat
+\definition Nat.
+\label{nat}%
+\tdefined{Nat}%
+Definimos os \dterm{numerais $\Nat$} para representar os números naturais
+com uma definição inductiva:
+\item{(N0)} $0 \in \Nat$;
+\item{(N1)} Para todo $n$, se $n\in\Nat$, então $Sn \in \Nat$;
+\item{(N2)} Nada mais está no $\Nat$.
+%%}}}
+
+%%{{{ eg: 0,1,2,3 ; primes 
+\example.
+Aqui os numerais de $\Nat$ que correspondem nos primeiros
+quatro números naturais:
+$$
+0,\quad
+S0,\quad
+SS0,\quad
+SSS0\quad
+$$
+Escrevemos a seqüência de primos então assim:
+$$
+SS0,\quad
+SSS0,\quad
+SSSSS0,\quad
+SSSSSSS0,\quad
+SSSSSSSSSSS0,\quad\dots
+$$
+Ou seja, cada número natural $n$ corresponde numa seqüência
+de $n$ cópias de $S$, seguidas por um $0$.
+\endexample
+%%}}}
+
+%%{{{ remark: unary numeral system 
+\remark.
+Esse sistema de numerais é praticamente um sistema unário.
+A grande \emph{desvantagem} dele é que o tamanho dos numeráis cresce
+analogamente com o tamanho de números.
+Comparando com os sistemas mais comuns com bases $b > 1$ como o binário
+ou o decimal, já parece deficiente nesse sentido.
+Mas uma \emph{vantagem} para a gente nesse caso é sua simplicidade
+na sua definição recursiva:
+\emph{cada $\Nat$ ou é o zero, ou o sucessor de um $\Nat$}.
+Todo esse capítulo é desenvolvido usando apenas essa definição.
+%%}}}
+
 %%{{{ df: nats_plus_recursive_def 
 \definition Adição.
 Definimos a operação $+$ no $\nats$ pelas:
@@ -9311,7 +9361,7 @@ e não $(a \expop b) \expop c$.
 %%{{{ thm: natadd_is_associative 
 \theorem Associatividade da adição.
 \label{natadd_is_associative}%
-A operação $+$ da~\ref{natops_rec_defs}~é associativa:
+A operação $+$ da~\ref{natops_rec_defs} é associativa:
 $$
 \forall n
 \forall m
@@ -9433,7 +9483,7 @@ e o $m$ uma como primeiro e uma como segundo.
 %%{{{ thm: natadd_is_commutative 
 \theorem Comutatividade da adição.
 \label{natadd_is_commutative}%
-A operação $+$ da~\ref{natops_rec_defs}~é comutativa:
+A operação $+$ da~\ref{natops_rec_defs} é comutativa:
 $$
 \forall n
 \forall m
@@ -9446,7 +9496,7 @@ $$
 \munderbrace {\forall m \bigparen{n + m = m + n}} {P(n)}.
 $$
 \proofpart{Base.}
-Queremos provar
+Queremos provar o $P(0)$, ou seja, o seguinte:
 $$
 \forall m \munderbrace {\bigparen{0 + m = m + 0}} {Q(m)}.
 $$
@@ -9495,7 +9545,7 @@ $$
 $$
 Seja $k\in\nats$ tal que
 $$
-\forall m \paren{k + m = m + k}     \tag{H.I.}
+\munderbrace {\forall m \paren{k + m = m + k}} {P(k)} \tag{H.I.}
 $$
 então.
 Basta provar que
