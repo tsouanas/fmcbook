@@ -24839,13 +24839,15 @@ De ordem $0$, não: a lei (G2) \emph{manda a existência} de um certo membro do 
 \label{exp_in_group}%
 \sdefined {{\holed a}^{\holed m}} {$a \ast \dotsb \ast a$ ($m$ vezes)}
 Seja $a$ elemento dum grupo $\sset G {\ast,e}$.
-Definimos suas potências $a^n$ onde $n\in\nats$ recursivamente:
+Definimos suas potências $a^{\ast n}$ onde $n\in\nats$ recursivamente:
 $$
 \align
-a^0     &\defeq e\\
-a^{n+1} &\defeq a \ast a^n
+a^{\ast0}     &\defeq e\\
+a^{\ast{n+1}} &\defeq a \ast a^n
 \endalign
 $$
+Quando a operação $\ast$ é entendida pelo contexto
+escrevemos apenas $a^n$ em vez de $a^{\ast{n}}$.
 %%}}}
 
 %%{{{ x: exp_in_group_altdef 
@@ -25019,15 +25021,15 @@ no enunciado do~\ref{exp_in_group_altdef}!
 %%{{{ thm: associative_with_identity_exp_defs_equiv 
 \theorem.
 \label{associative_with_identity_exp_defs_equiv}%
-Seja $A$ um conjunto estruturado e~$\cdot$~uma operação
+Seja $A$ um conjunto estruturado e~$\ast$~uma operação
 binária e associativa no~$A$, com identidade $u$.
 As duas definições de potências
 $$
 \xalignat2
-a^0     &= u &
-a^0     &= u \\
-a^{n+1} &= a \ast a^n &
-a^{n+1} &= a^n \ast a
+a^{\ast0}     &= u &
+a^{\ast0}     &= u \\
+a^{\ast{n+1}} &= a \ast a^n &
+a^{\ast{n+1}} &= a^n \ast a
 \endxalignat
 $$
 são equivalentes, ou seja, as duas operações
@@ -25573,16 +25575,12 @@ $$
 H \subgroup G
 $$
 \sketch.
-A direção \lrdir\ é trivial.
-Para a \rldir\ observamos que a associatividade é garantida pelo fato que $G$ é grupo,
+Observamos que a associatividade é garantida pelo fato que $G$ é grupo,
 então basta provar que $e\in H$.
 Por isso, usamos a hipótese $H\neq\emptyset$ para tomar um $a\in H$
 e usando nossas (poucas) hipoteses concluimos que $e\in H$ também.
 \qes
 \proof.
-\lrdir: Trivial.
-\endgraf
-\rldir:
 Precisamos verificar as leis (G0)--(G3) para o $\sset H {\ast}$.
 Os (1) e (2) garantam as (G0) e (G3) respectivamente,
 e o fato que $G$ é grupo garanta a (G1) também.
@@ -25607,7 +25605,7 @@ Em símbolos:
 $$
 \rightbrace{
 \alignedat3
-\textrm{(0)} &\quad &            &\emptyset \neq H \finsubseteq G   &\qquad &\textrm{($H$ é \emph{finito} e não vazio)}\\
+\textrm{(0)} &\quad &            &\emptyset \neq H \finsubseteq G   &\qquad &\textrm{($H$ é \emph{finito} e n\~ao vazio)}\\
 \textrm{(1)} &\quad & a, b \in H &\implies a\ast b \in H            &\qquad &\textrm{($H$ é $\ast$-fechado)}
 \endalignedat
 }
@@ -25678,14 +25676,10 @@ $H\subgroup G$.
 Sejam $G$ grupo e $\emptyset\neq H \subseteq G$.
 Logo:
 $$
-H\subgrp G \iff \text{para todo $a,b\in H$},\ a\ginv b\in H.
+\text{para todo $a,b\in H$},\ a\ginv b\in H
+\implies H \subgroup G.
 $$
 \proof.
-\lrdir:
-Sejam $a,b\in H$.
-Como $b\in H$ e $H\subgroup G$, $\ginv b \in H$, e logo, $a\ginv b \in H$.
-\endgraf
-\rldir:
 Como $H\neq\emptyset$, tome $h\in H$.
 Pela hipótese, $h\ginv h\in H$, ou seja $e\in H$.
 Como $e,h\in H$, de novo pela hipótese temos $e\ginv h \in H$,
@@ -25695,6 +25689,12 @@ Basta provar que é fechado pela operação de $G$ também:
 tomando $a,b\in H$, ganhamos $a,\ginv b\in H$,
 então pela hipótese $a\ginvp{\ginv b} \in H$, ou seja, $ab \in H$.
 \qed
+%%}}}
+
+%%{{{ remark: the converses of all criteria above are obviously true 
+\remark.
+Em todos esses critérios, as direções {\rldir} também são válida
+(e suas prova devem ser óbvias).
 %%}}}
 
 %%{{{ x: subgroup_is_an_order 
@@ -27739,6 +27739,44 @@ Escrevemos também $\phi : G \iso G'$ para ``$\phi$ é um isomorfismo de $G$ par
 \exercise.
 \label{isomorphic_is_an_equivalence_relation}%
 Mostre que $\isomorphic$ é uma relação de equivalência.
+
+\endexercise
+%%}}}
+
+%%{{{ x: additive_ints_and_rats_are_different_groups 
+\exercise.
+\label{additive_ints_and_rats_are_different_groups}%
+Mostre que os $\sset \ints +$ e $\sset \rats +$ não são
+isómorfos.
+
+\hint
+Procure uma propriedade grupoteórica que um dos dois tem e o outro não.
+
+\solution
+Considere a propriedade seguinte:
+$$
+\text{Para todo $w$, existe $u$ tal que $u+u = w$.}
+$$
+Ela é uma propriedade grupoteórica, válida no $\sset \rats +$
+e inválida no $\sset \ints +$.
+Em outras palavras, suponha para chegar num absurdo que temos
+um isomorfismo desses grupos $\phi : \ints \to \rats$.
+Olhe para o $w \asseq \phi(1)$ (qualquer número ímpar serveria em vez do $1$).
+Sendo racional, o $u \asseq \phi(1)/2$ também é racional e temos:
+$$
+w = u + u.
+$$
+Qual inteiro é o $\finv\phi$?
+Deve ser um inteiro que satisfaz
+$$
+\finv\phi(u) + \finv\phi(u)
+= \finv\phi(u+u)
+= \finv\phi(w)
+= 1
+$$
+mas tal inteiro não existe.
+Logo, não pode existir nenhum isomorfismo entre os
+$\sset \ints +$ e $\sset \rats +$.
 
 \endexercise
 %%}}}
