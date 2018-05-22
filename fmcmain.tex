@@ -19508,8 +19508,11 @@ A notação mais comum para essa relação é a $\rinv R$.
 %%{{{ cor: rop_is_an_involution 
 \corollary.
 \label{rop_is_an_involution}%
-A operação $\rop{\dhole}$ é uma \emph{involução}:
-para toda relação binária $R$, $\rop {\rop R} = R$.
+\tdefined{involução}%
+A operação $\rop{\dhole}$ é uma \dterm{involução}:
+$$
+\text{para toda relação binária $R$, $\ropp {\rop R} = R$.}
+$$
 %%}}}
 
 %%{{{ eg: opposite_relations_of_common_orders 
@@ -25797,8 +25800,8 @@ Seja $G$ grupo, e $H_1,H_2\subgroup G$.
 Então $H_1\inter H_2 \subgroup G$.
 
 \hint
-Precisa mostrar que $H_1\inter H_2$ é fechado sobre a operação do grupo
-e sobre inversos.
+Precisa mostrar que $H_1\inter H_2 \neq \emptyset$ e que é fechado sobre a
+operação do grupo e sobre inversos.
 
 \hint
 Para mostrar que é fechado sobre a operação do grupo
@@ -25809,21 +25812,24 @@ suponha $a\in H_1\inter H_2$ e mostre que
 $a^{-1} \in H_1\inter H_2$.
 
 \solution%%{{{
-Como $H_1\inter H_2 \subseteq G$,
-precisamos mostrar que é fechado sobre a operação:
+Temos $H_1\inter H_2 \subseteq G$.
+Observe primeiramente que $H_1\inter H_2\neq \emptyset$,
+pois $e\in\H_1$ e $e\in H_2$ (os dois sendo subgrupos de $G$).
+Agora mostramos que o $H_1\inter H_2$ é fechado pela operação:
 $$
 \stepproof{
 \proofsteptnb {$a,b \in H_1\inter H_2$}\\
 \thereforetby {$a,b \in H_1$ e $a,b\in H_2$} {def.~$\inter$}\\
 \thereforetby {$ab  \in H_1$ e $ab\in H_2$}  {$H_1$ e $H_2$ grupos}\\
 \thereforetby {$ab  \in H_1\inter H_2$}      {def.~$\inter$}
-\intertext{e sobre os inversos:}
+\intertext{e pelos inversos:}
 \proofsteptnb {$a \in H_1\inter H_2$}\\
 \thereforetby {$a      \in H_1$ e $a\in H_2$}      {def.~$\inter$}\\
 \thereforetby {$a^{-1} \in H_1$ e $a^{-1}\in H_2$} {$H_1$ e $H_2$ grupos}\\
 \thereforetby {$a^{-1} \in H_1\inter H_2$}         {def.~$\inter$}
 }
 $$
+e o resultado segue graças ao~\ref{subgroup_criterion}.
 %%}}}
 
 \endexercise
@@ -25875,10 +25881,53 @@ então $\Inter {\scr H} \subgroup G$.
 Seja $G$ conjunto e $H\subgroup G$.
 Defina no $G$ a relação $\rel R$ pela
 $$
-a \rel R b \defiff ab^{-1} \in H.
+a \rel R b \defiff a\ginv b \in H.
 $$
 Decida se a relação $\rel R$ é uma
 relação de ordem parcial, de ordem total, de equivalência, ou nada disso.
+
+\hint
+É uma relação de equivalência.
+Prove as 3 propriedades!
+
+\solution
+\proofpart{Reflexiva:}
+Seja $a\in G$.
+Calculamos:
+$$
+\align
+a \rel R a
+&\iff a\ginv a\in H\\
+&\iff e\in H
+\endalign
+$$
+que é verdade pois $H\subgroup G$.
+\crproofpart{Transitiva:}
+Sejam $a,b,c \in G$ tais que $a \rel R b$ e $b \rel R c$.
+Precisamos mostrar que $a \rel R c$, ou seja, mostrar que $a\ginv c \in H$.
+Temos
+$$
+\alignat2
+a\ginv b &\in H  \bytag {a \rel R b} 1
+b\ginv c &\in H  \bytag {b \rel R c} 2
+(a\ginv b) (b \ginv c) &\in H \by {pelas (1) e (2) pois $H\subgroup G$}
+\endalignat
+$$
+Logo $a\ginv b b \ginv c = a \ginv c \in H$.
+\crproofpart{Simmétrica:}
+Sejam $a,b \in G$ tais que $a \rel R b$, ou seja, $a\ginv b \in H$\fact1.
+Vamos provar que $b \rel R a$, ou seja, queremos $b\ginv a \in H$.
+Mas como $H$ é fechado pelos inversos, pela~\byfact1~temos que
+$\ginvp{a\ginv b}\in H$.
+Mas calculando
+$$
+\alignat2
+\ginvp{a\ginv b}
+&= \ginvp{\ginv b} \ginv a      \by {inv.~de~op.}
+&= b \ginv a                    \by {inv.~de~inv.}
+\endalignat
+$$
+ou seja, $b\ginv a \in H$.
 
 \endexercise
 %%}}}
@@ -26069,6 +26118,9 @@ para o $\generate{ \set{a_1, a_2,\dotsc, a_n}}$.
 \exercise.
 Dado grupo $G$,
 calcule os $\generate \emptyset$ e $\generate G$.
+
+\hint
+Considere o ``produto vazio'' igual ao $e\in G$.
 
 \endexercise
 %%}}}
