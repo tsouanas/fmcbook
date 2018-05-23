@@ -25746,10 +25746,17 @@ Os $\set{0,2,4}$ e $\set{0,3}$ são seus únicos subgrupos não-triviais.
 \endexample
 %%}}}
 
-%%{{{ eg: Permutations (bijections) 
-\example Permutações (bijecções).
+%%{{{ eg: Permutations 
+\example Permutações.
 O $\set{\id, \phi}$ é um subgrupo de $S_3$, onde $\phi = \permc{1 & 2}$.
 \endexample
+%%}}}
+
+%%{{{ x: find all subgroups of S_3 
+\exercise.
+Ache todos os subgrupos de $S_3$.
+
+\endexercise
 %%}}}
 
 %%{{{ eg: Real functions 
@@ -28241,7 +28248,9 @@ $$
 Mostre que dado um grupo $G$, seu centro $Z(G)\subgrp G$.
 
 \solution
-Como $Z(G) \subseteq G$, precisamos apenas mostrar que:
+Primeiramente observe que $Z(G)\neq\emptyset$:
+$e \in Z(G)$ pois para todo $g\in G$, $eg=e=ge$ pela definição de $e$.
+Como $\emptyset \neq Z(G) \subseteq G$, precisamos apenas mostrar que:
 \endgraf\noindent
 \proofpart{Fechado pela operação:}
 Sejam $x,y\in Z(G)$.
@@ -28268,11 +28277,13 @@ Seja $g\in G$.
 Calculamos:
 $$
 \alignat2
-(\ginv x)g
-&= \ginvp{\ginv g x}       \by{$G$ grupo}
-&= \ginvp{x \ginv g}       \by{$x \in Z(G)$}
-&= \ginvp{\ginv g} \ginv x \by{$G$ grupo}
-&= g \ginv x.              \by{$G$ grupo}
+\ginv x g
+&= \ginvp{\ginvp{\ginv x g}}         \by{inv.~de~inv.}
+&= \ginvp{\ginv g {\ginvp{\ginv x}}} \by{inv.~de~prod.}
+&= \ginvp{\ginv g x}                 \by{inv.~de~inv.}
+&= \ginvp{x \ginv g}                 \by{$x \in Z(G)$}
+&= \ginvp{\ginv g} \ginv x           \by{inv.~de~prod.}
+&= g \ginv x.                        \by{inv.~de~inv.}
 \endalignat
 $$
 
