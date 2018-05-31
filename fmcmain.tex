@@ -26282,7 +26282,7 @@ Ache todos os geradores $A$ de $S_3$ com tamanho $2$.
 %%}}}
 
 %%{{{ Congruences and cosets 
-\section Congruências e cosets.
+\section Congruências e coclasses.
 
 %%{{{ The relation R was actually congruence mod subgroup 
 \note.
@@ -26296,7 +26296,7 @@ Vamos a redefinir com seu próprio nome e sua própria notação:
 \label{congruence_mod_H}%
 \tdefined{congruência}[módulo subgrupo]%
 \tdefined{módulo!subgrupo}%
-\sdefined{\holed a \cong {\holed b} \pmodr {\holed H}}{\holed a é congruente com \holed b módulo-direito \holed H, onde $\holed H \subgroup G$}
+\sdefined{\holed a \cong {\holed b} \pmodr {\holed H}}{\holed a é congruente com \holed b módulo-direito \holed H, onde $\holed H \subgroup G$}%
 Seja $G$ grupo e $H\subgroup G$.
 Definimos
 $$
@@ -26522,7 +26522,7 @@ Concluimos então que $ab^{-1} \notin H$, ou seja $a \ncong b \pmodr H$.
 \endexercise
 %%}}}
 
-%%{{{ x: do case 1 
+%%{{{ x: do case 3 
 \exercise.
 Decida qual dos (i)--(iii) aplica no \casestyle{caso 3} do~\refn{investigation_of_cong_mod_H}.
 
@@ -26577,10 +26577,10 @@ porque $1 + (-6) = -5 \in 5\ints$ e $1 + (-3) = -2 \notin 5\ints$ respectivament
 %%}}}
 
 %%{{{ def: cosets 
-\definition Cosets.
+\definition Coclasses.
 \label{coset}%
-\tdefined{coset}%
-\iisee{coclasse}{coset}%
+\tdefined{coclasse}%
+\iisee{coset}{coclasse}%
 \sdefined{\holed a H} {o left-coset do $H\subgrp G$ através do $a\in G$}%
 \sdefined{H\holed a} {o right-coset do $H\subgrp G$ através do $a\in G$}%
 Seja $G$ grupo e $H\subgrp G$.  Para $a\in G$ definimos
@@ -26628,7 +26628,7 @@ Sabemos disso pois $H$ sendo subgrupo de $G$ é fechado pelos inversos
 
 %%{{{ Q: How many cosets? 
 \question.
-\emph{Dados um grupo $G$ e $H\subgroup G$, quantas coclasses $Ha$ tem?
+\emph{Dados um grupo $G$ e $H\subgroup G$, quantas coclasses tem o $H$?
 Ou seja, qual é a cardinalidade do conjunto $\setst {Ha} {a\in G}$?}
 %%}}}
 
@@ -26669,8 +26669,9 @@ e pronto.
 \qed
 %%}}}
 
-%%{{{ x: direct proof that coclasses form a partition 
+%%{{{ x: direct_proof_that_coclasses_form_a_partition 
 \exercise.
+\label{direct_proof_that_coclasses_form_a_partition}%
 \ii{partição}%
 Prove diretamente (sem passar pela relação de equivalência) que
 a família de todas as coclasses dum $H\subgroup G$ é uma partição de $G$:
@@ -26783,11 +26784,13 @@ Temos então $f_{\cdot a}(h) = d$, e logo $f_{\cdot a}$ é sobrejetora no $Ha$.
 \endexercise
 %%}}}
 
-\question.
-Por quê os direitos?
-O que acontece se considerar a colecção de todos os cosets esquerdos?
-É uma partição também?
-E se sim, qual é sua relação de equivalência correspondente?
+\blah.
+Talvez não é tão óbvio que temos já descoberto um teorema interessante!
+Ele é conhecido como \emph{teorema de \Lagrange[teorema]Lagrange},
+mesmo que não foi \Lagrange{}Lagrange que o provou na sua generalidade,
+mas apenas num caso especifico---mais detalhes nas notas históricas.
+Vamos formular e provar o teorema, mas primeiro uma definição relevante
+e umas perguntas para refletir.
 
 %%{{{ df: index_of_subgroup 
 \definition Índice.
@@ -26799,15 +26802,11 @@ O \dterm{índice} de $H$ no $G$ é o número de right-cosets de $H$ no $G$.
 Denotamos-lo com os símbolos $\groupind G H$ ou $\altgroupind G H$.
 %%}}}
 
-%%{{{ x: number_of_cosets_independend_of_side 
-\exercise.
-\label{number_of_cosets_independend_of_side}%
-Sejam $G$ grupo, $H\subgrp G$.
-Prove que o número de coclasses à esquerda de $H$ é o mesmo
-com o número de coclasses à direita de $H$.
-
-\endexercise
-%%}}}
+\question.
+Por quê as coclasses direitas?
+O que acontece se considerar a colecção de todas as coclasses esquerdas?
+É uma partição também?
+E se sim, qual é sua relação de equivalência correspondente?
 
 %%{{{ thm: lagrange_theorem 
 \theorem Lagrange.
@@ -26816,16 +26815,30 @@ com o número de coclasses à direita de $H$.
 \ii{teorema}[Lagrange]%
 Seja $G$ grupo finito e $H\subgroup G$.
 Então $\groupord H \divides \groupord G$.
-\sketch.
+\proof.
 Sabemos que o $G$ pode ser particionado pelos right cosets de $H$,
-e que cada um deles tem a mesma cardinalidade com o proprio $H$.
-\qes
+e que cada um deles tem a mesma cardinalidade $o(H)$ com o proprio $H$.
+Logo,
+$$
+\gord G = \groupind G H \gord H,
+$$
+e temos o que queremos provar.
+\qed
+%%}}}
+
+%%{{{ remark: lagrange_reformulated 
+\remark.
+\label{lagrange_reformulated}%
+O teorema de Lagrange então afirma que
+$$
+\groupind G H  =  \card G / \card H.
+$$
 %%}}}
 
 %%{{{ Corollaries as exercises 
 \note Corollários.
 Graças ao teorema de Lagrange~\refn{lagrange_theorem}
-ganhamos muitos corollários diretamente,
+ganhamos muitos corollários\Lagrange[teorema!corolário]{} diretamente,
 como tu vai verificar agora resolvendo os exercícios seguintes:
 %%}}}
 
@@ -26898,6 +26911,16 @@ a^{\gord G}
 = e^k
 = e.
 $$
+
+\endexercise
+%%}}}
+
+%%{{{ x: number_of_cosets_independend_of_side 
+\exercise.
+\label{number_of_cosets_independend_of_side}%
+Sejam $G$ grupo, $H\subgrp G$.
+Prove que o número de coclasses à esquerda de $H$ é o mesmo
+com o número de coclasses à direita de $H$.
 
 \endexercise
 %%}}}
@@ -26993,16 +27016,19 @@ HK = KH
 \iff
 HK \subgrp G
 $$
-%%{{{ sketch and proof 
 \sketch.
-Para a direção \lrdir, precisamos mostrar que $HK$ é fechado sobre a operação e fechado sobre os inversos.
-Tomamos aleatórios $h_1k_1,h_2k_2\in HK$ e aplicando as propriedades de grupo e nossa hipótese,
-mostramos que $(h_1k_1)(h_2k_2) \in HK$.  Similarmente para os inversos: consideramos um
-arbitrário elemento $hk\in HK$ e mostramos que seu inverso $\ginvp{hk} \in HK$.  Aqui, alem da
-hipótese precisamos o~\ref{inverse_of_product_in_group}.
-Para a direção \rldir, mostramos as ``$\subseteq$'' e ``$\supseteq$'' separadamente,
-usando idéias parecidas.
+Para a direção \lrdir, precisamos mostrar que $HK$ é fechado
+sobre a operação e fechado sobre os inversos.
+Tomamos aleatórios $h_1k_1,h_2k_2\in HK$ e aplicando as propriedades
+de grupo e nossa hipótese, mostramos que $(h_1k_1)(h_2k_2) \in HK$.
+Similarmente para os inversos:
+consideramos um arbitrário elemento $hk\in HK$ e mostramos que seu
+inverso $\ginvp{hk} \in HK$.
+Aqui, alem da hipótese precisamos o~\ref{inverse_of_product_in_group}.
+Para a direção \rldir, mostramos as ``$\subseteq$'' e ``$\supseteq$''
+separadamente, usando idéias parecidas.
 \qes
+%%{{{ proof 
 \proof.
 \lrdir:
 Precisamos mostrar que $HK$ é fechado sobre a operação e fechado sobre os inversos.
@@ -27041,6 +27067,151 @@ Realmente, $\ginv x = \ginvp{kh} = \ginv h \ginv k \in HK$.
 %%}}}
 %%}}}
 
+%%{{{ The idea behind Lagrange 
+\note A idéia atrás do teorema de Lagrange.
+Temos um grupo finito $G$, e um subgrupo $H \subgrp G$.
+Vamos conseguir arrumar \emph{todos os membros de $G$}
+numa tabela:
+$$
+\matrix
+\format
+& \quad\c\quad & \quad\c\quad & \quad\c\quad & \ \ \c\ \  & \quad\c\quad \\
+& \bullet  & \bullet  & \bullet  & \dots   & \bullet\\
+& \bullet  & \bullet  & \bullet  & \dots   & \bullet\\
+& \phantom\bullet \\
+& \vdots   & \vdots   & \vdots   & \ddots  & \vdots \\
+& \phantom\bullet \\
+& \bullet  & \bullet  & \bullet  & \dots   & \bullet
+\endmatrix
+$$
+Sua primeira linha sera feita por todos os membros de $H$.
+Sabendo que $G$ é finito, temos que $H$ também é, e
+logo essa primeira linha será finita também.
+Vamos chamar $n$ a $\gord H$, e logo $h_1,\dots,h_n$
+os $n$ membros de $H$.
+Então a primeira linha tem tamanho $n$, e é a seguinte:
+$$
+\matrix
+\format
+\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
+H\phantom{a''} &:
+& h_1\phantom{a''}
+& h_2\phantom{a''}
+& h_3\phantom{a''}
+& \dots
+& h_n\phantom{a''}\\
+\endmatrix
+$$
+Vamos mostrar como botar o resto dos membros de $G$ nessa
+tabela.
+Na verdade, tem uma chance que não tem mais elementos para
+botar: isso acontece se $H = G$.  Nesse caso não temos
+mais nada pra fazer, já conseguimos o que queriamos.
+Mas, no caso geral, existem membros de $G$ fora do $H$.
+Seja $a\in G$ um deles, ou seja, $a \notin H$.
+Agora bota todos os elementos seguintes na tabela:
+$$
+\matrix
+\format
+\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
+H\phantom{a''} &:
+& h_1\phantom{a''}
+& h_2\phantom{a''}
+& h_3\phantom{a''}
+& \dots
+& h_n\phantom{a''}\\
+Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
+\endmatrix
+$$
+Agora \emph{afirmamos} sobre os elementos novos que:
+\beginil
+\item{--} eles são realmente $n$, ou seja, distintos dois-a-dois;
+\item{--} eles são realmente novos, ou seja, nenhum deles é igual a algum
+dos membros que já estava na tabela.
+\endil
+\endgraf\noindent
+Se provar essas afirmações, saberemos que temos exatamente $2n$
+membros de $G$ já arrumados na nossa tabela.
+E depois?
+Caso que o $G$ não tem mais elementos, não temos nada mais pra fazer,
+pois já conseguimos o que queriamos.
+Caso que tenha membros de $G$ fora deles, seja $a'\in G$ um deles,
+ou seja $a'$ não é nenhum dos membros já listados.
+E agora bota todos os elementos seguintes na tabela:
+$$
+\matrix
+\format
+\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
+H\phantom{a''} &:
+& h_1\phantom{a''}
+& h_2\phantom{a''}
+& h_3\phantom{a''}
+& \dots
+& h_n\phantom{a''}\\
+Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
+Ha'  &:         & h_1 a'  & h_2 a'  & h_3 a'  & \dots   & h_n a'
+\endmatrix
+$$
+Novamente, \emph{afirmamos} sobre os elementos novos que:
+\beginil
+\item{--} eles são realmente $n$;
+\item{--} eles são realmente novos.
+\endil
+\noindent
+\emph{E por aí vai.}
+Sabemos que o processo vai terminar depois duma quantidade finita
+de passos, pois o $G$ é finito.
+Quando terminar então, teriamos conseguido arrumar todos os seus
+membros numa tabela de largura $n$ e altura igual à quantidade
+de coclasses direitas do $H$ no $G$, ou seja,
+altura $m \asseq \groupind G H$.
+$$
+\matrix
+\format
+\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
+H    &:         & h_1     & h_2     & h_3     & \dots   & h_n   \\
+Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
+Ha'  &:         & h_1 a'  & h_2 a'  & h_3 a'  & \dots   & h_n a'\\
+& \phantom\bullet \\
+\phantom h\vdots&\phantom:& \phantom h\vdots& \phantom h\vdots & \phantom h\vdots & \ddots  & \phantom h\vdots\\
+& \phantom\bullet \\
+Ha'' &:         & h_1 a'' & h_2 a'' & h_3 a'' & \dots   & h_n a''
+\endmatrix
+$$
+\endgraf
+A única coisa que basta fazer então, é provar todas as afirmações que
+deixamos sem prova acima.
+Mudando os nomes dos $a, a', \dots, a''$ para $a_2, a_3, \dots, a_m$,
+queremos provar para quaisquer $i,j\in\set{2,\dotsc,m}$ as seguintes:%
+\footnote{Talvez aparece estranha a escolha de índices que começa com ${}_2$,
+mas é muito conveniente aqui, pois o índice final ${}_m$ já seria a
+propria altura da tabela.
+Se ficou triste por a falta do $a_1$, tome $a_1\asseq e$ e vai dar certo:
+a primeira coclasse de $H$ (o próprio $H$), seria o $Ha_1$ nesse caso.
+Mas nada disso é necessário!}
+\beginil
+\item{(1)} $h_1a_i, h_2a_i, \dotsc, h_na_i$ são realmente $n$, ou seja,
+distintos dois-a-dois;
+\item{(2)} $h_1a_i, h_2a_i, \dotsc, h_na_i$ são realmente novos, ou seja:
+\itemitem{(2a)} nenhum deles é igual a algum dos $h_1,h_2,\dotsc,h_n$;
+\itemitem{(2b)} nenhum deles é igual a algum dos $h_1a_j, h_2a_j, \dotsc, h_na_j$
+para $j < i$.
+\endil
+\endgraf
+Nenhuma delas é difícil provar---na verdade, \emph{nos já provamos} todas.%
+\footnote{A~(1) é o~\ref{cosets_are_equinumerous};
+a~(2) é o~(ii) do~\refn{direct_proof_that_coclasses_form_a_partition}.}
+Mesmo assim, bora prová-las novamente aqui com uns ``one-liners'':
+$$
+\gather
+h_ua_i = h_va_i \implies h_u = h_v \implies u=v;\tag{1}\\
+h_ua_i = h_v    \implies a_i = \ginv{h_u}h_v \implies \text{$a_i \in H$, que é absurdo};\tag{2a}\\
+h_ua_i = h_va_j \implies a_i = \ginv{h_u}h_va_j \implies \text{$a_i \in Ha_j$, que é absurdo}.\tag{2b}
+\endgather
+$$
+Pronto!
+%%}}}
+
 \endsection
 %%}}}
 
@@ -27070,13 +27241,15 @@ Mostre que $\cal Z_n$ é um grupo e ache sua ordem.
 %%}}}
 
 \blah.
-Já estamos em posição de ganhar o teorema de congruências
-de~\Euler{}Euler~\refn{euler_congruence_theorem} como um corolário fácil
+Já estamos em posição de ganhar o ``teorema pequeno de Fermat'' e sua
+generalização, o teorema de congruências
+de~\Euler{}Euler~\refn{euler_congruence_theorem}
+como um corolário\Lagrange[teorema!corolário]{} fácil
 das nossas novas ferramentas grupoteóricas.
 
-%%{{{ cor: euler_congruence_theorem_revisited 
+%%{{{ cor: euler_congruence_theorem_as_corollary_of_lagrange 
 \corollary Teorema de Euler.
-\label{euler_congruence_theorem_revisited}%
+\label{euler_congruence_theorem_as_corollary_of_lagrange}%
 Sejam $a,m\in\ints$ com $\gcd a m = 1$.
 Então
 $$
@@ -27087,6 +27260,16 @@ Consequência do teorema de~\Lagrange{}Lagrange~\refn{lagrange_theorem}
 graças ao~\ref{the_multiplicative_group_Zn}.
 \qes
 %%}}}
+
+\blah.
+Ainda mais resultados podem ser derivados como
+corolários\Lagrange[teorema!corolário]{} do
+teorema de Lagrange, mas deixo isso para os problemas:
+no~\refn{euclids_theorem_as_corollary_of_lagrange}
+tu ganha o fato que tem uma infinidade de primos
+(\refn{primes_is_infinite}, teorema de~\Euclid{}Euclides);
+e no~\refn{wilsons_theorem_as_corollary_of_lagrange}
+o teorema de~\Wilson[teorema]{}Wilson.
 
 \endsection
 %%}}}
@@ -28110,9 +28293,11 @@ Ou seja, $a'\in\Img\phi$.
 \ii{teorema de isomorfismo}[primeiro (de grupos)]%
 \iiseealso{isomorfismo}{teorema de isomorfismo}%
 Sejam $\cal G, \cal H$ grupos e $\phi : \cal G \to \cal H$ homomorfismo.
+\beginil
 \item{\rm (i)} $\ker\phi\normal \cal G$;
 \item{\rm (ii)} $\Img\phi\subgrp \cal H$;
 \item{\rm (iii)} $\quogrp G {\ker\phi} \iso \Img\phi$.
+\endilnoskip
 \sketch.
 Acabamos de provar as (i)~\&~(ii) nos~\refn{kernel_normal}~\&~\refn{image_subgroup}.
 Para a (iii) precisamos definir uma função
@@ -28360,6 +28545,27 @@ $$
 &= \ginvp{\ginv g} \ginv x           \by{inv.~de~prod.}
 &= g \ginv x.                        \by{inv.~de~inv.}
 \endalignat
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: euclids_theorem_as_corollary_of_lagrange 
+\problem Teorema de Euclides.
+\label{euclids_theorem_as_corollary_of_lagrange}%
+Mostre como provar o teorema de Euclides~\refn{primes_is_infinite}
+como um corolário de Lagrange\Lagrange[teorema!corolário]{}.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: wilsons_theorem_as_corollary_of_lagrange 
+\problem Teorema de Wilson.
+\label{wilsons_theorem_as_corollary_of_lagrange}%
+Mostre como provar o teorema de \Wilson[teorema]{}Wilson
+como um corolário de Lagrange\Lagrange[teorema!corolário]{}:
+$$
+\text{$n$ é primo} \iff \facp{n-1} \cong -1 \pmod n.
 $$
 
 \endproblem
