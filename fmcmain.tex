@@ -24532,7 +24532,11 @@ Vamos agora sobrecarregar ainda mais esse $\times$:
 Sejam $\cal G_1 = \sset {G_1} {\ast_1}$ e $\cal G_2 = \sset {G_2} {\ast_2}$ grupos.
 Definimos o grupo
 $$
-\cal G_1 \times \cal G_2 = \sset {G_1 \times G_2} {{\ast_1} \times {\ast_2}}.
+\cal G_1 \times \cal G_2 = \sset {G_1 \times G_2} {\ast},
+$$
+onde $\ast$ é a operação definida pela
+$$
+\tup{x_1, x_2} \ast \tup{y_1, y_2} = \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2}.
 $$
 %%}}}
 
@@ -24540,6 +24544,60 @@ $$
 \exercise.
 \label{direct_product_of_groups_is_a_group}%
 Prove que realmente é um grupo.
+
+\solution
+{%
+\def\xx{\tup{x_1,x_2}}%
+\def\yy{\tup{y_1,z_2}}%
+\def\zz{\tup{z_1,z_2}}%
+Precisamos verificar as leis (G0)--(G3).
+\crproofpart{(G0).}
+Tome $\xx, \yy \in G_1\times G_2$.
+Calculamos
+$$
+\alignat2
+\xx \ast \yy
+&= \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2} \by {def.~$\ast$}
+&\in G_1 \times G_2.                    \by {$G_1$ e $G_2$ fechados pelas suas operações}
+\endalignat
+$$
+e logo $G_1\times G_2$ é $\ast$-fechado.
+\crproofpart{(G1).}
+Tome $\xx, \yy, \zz \in G_1\times G_2$.
+Calculamos:
+$$
+\align
+\paren{\xx \ast \yy} \ast \zz
+&= \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2} \ast \zz \\
+&= \tup{\paren{x_1 \ast_1 y_1} \ast_1 z_1, \paren{x_2 \ast_2 y_2} \ast_2 z_2} \\
+&= \tup{x_1 \ast_1 \paren{y_1 \ast_1 z_1}, x_2 \ast_2 \paren{y_2 \ast_2 z_2}} \\
+&= \xx \ast \paren{\tup{y_1 \ast_1 z_1, y_2 \ast_2 z_2}} \\
+&= \xx \ast \paren{\yy \ast \zz}.
+\endalign
+$$
+\proofpart{(G2).}
+Afirmação: o $\tup{e_1,e_2}\in G_1\times G_2$ é a $\ast$-identidade.
+Prova da afirmação: tome $\xx \in G_1\times G_2$ e calcule:
+$$
+\tup{e_1, e_2} \ast \xx
+= \tup{e_1 \ast_1 x_1, e_2 \ast_2 x_2}
+= \xx
+= \tup{x_1 \ast_1 e_1, x_2 \ast_2 e_2}
+= \xx \ast \tup{e_1, e_2}.
+$$
+\proofpart{(G3).}
+Seja $\xx \in G_1 \times G_2$.
+Afirmação: o $\tup{\ginv{x_1}, \ginv{x_2}}$ é o $\ast$-inverso dele.
+Realmente temos:
+$$
+\xx \ast \tup{\ginv{x_1}, \ginv{x_2}}
+= \tup{x_1 \ast_1 \ginv{x_1}, x_2 \ast_2 \ginv{x_2}}
+= \tup{e_1, e_2}
+= \tup{\ginv{x_1} \ast_1 x_1, \ginv{x_2} \ast_2 x_2}
+= \tup{\ginv{x_1}, \ginv{x_2}} \ast \xx.
+$$
+Assim concluimos nossa prova.
+}
 
 \endexercise
 %%}}}
