@@ -12519,6 +12519,39 @@ $$
 $$
 %%}}}
 
+%%{{{ remark: picking_elements_from_indexed_sets 
+\remark Tomando elementos de conjuntos indexados.
+\label{picking_elements_from_indexed_sets}%
+{%
+\def\bla{\mathrm{bla}}%
+Suponha que temos um conjunto $A$ indexado
+por um conjunto $B\neq\emptyset$:
+$$
+A = \setst {\bla(b)} { b\in B }.
+$$
+Como podemos ``tomar um arbitrario membro de $A$``?
+Claramente podemos dizer: ``seja $a \in A$'', algo válido
+para qualquer conjunto $A \neq \emptyset$.
+Mas nesse caso, ``sejando'' um $b\in B$, determinamos
+um membro de $A$: o $\bla(b)$.
+Assim, se provarmos algo sobre o $\bla(b)$,
+isso é suficiente para concluir que todos os elementos
+de $A$ satisfazem esse algo.
+Imagine então que queremos provar que
+$$
+A \subseteq C.
+$$
+Podemos seguir o caminho padrão, provando
+$$
+\lforall {a \in A} {a \in C}
+$$
+mas, temos mais um caminho para seguir nesse caso: provar que
+$$
+\lforall {b \in B} {\bla(b) \in C}.
+$$
+}
+%%}}}
+
 \endsection
 %%}}}
 
@@ -13580,17 +13613,18 @@ $$
 
 %%{{{ Equality in functions 
 \note Igualdade de funções.
-Dependendo qual ponto de vista de função seguimos, a definição de igualdade
-para o tipo de função vai ser diferente!
-Mostramos primeiramente as definições corretas para o ponto de vista~(I)
-e o ponto de vista~(II)
-(explicados nos~\refn{what_about_the_codomain_1}~e~\refn{what_about_the_codomain_2}).
-Depois, escrevendo num jeito diferente chegamos numa definição que vamos realmente usar,
-e que é aplicável independente do ponto de visto.
-Nesse texto vamos sempre deixar claro para cada função encontrada qual conjunto
-consideramos como seu domínio e qual como seu codomínio.%
-\footnote{Exceto numas partes onde esclarecemos qual a noção de função que
-utilizamos.}
+Dependendo qual ponto de vista de função seguimos,
+a definição de igualdade para o tipo de função vai ser diferente!
+Mostramos primeiramente as definições corretas para
+o ponto de vista~(I) e o ponto de vista~(II)
+(explicados nos~\refn{what_about_the_codomain_1}
+e~\refn{what_about_the_codomain_2}).
+Depois, escrevendo num jeito diferente, chegamos numa definição que
+vamos realmente usar e que é aplicável independente do ponto de visto.
+Nesse texto vamos sempre deixar claro para cada função encontrada qual
+conjunto consideramos como seu domínio e qual como seu codomínio.%
+\footnote{Exceto numas partes onde esclarecemos qual a noção de
+função que utilizamos.}
 Assim, a escolha de ponto de vista de função não vai nos afetar.
 %%}}}
 
@@ -18218,6 +18252,82 @@ $a$ é um fixpoint também e logo $a\in F$.
 
 \endexercise
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Indexed families as functions 
+\section Famílias indexadas como funções.
+\label{Indexed_families_as_functions}%
+
+\blah.
+Agora que sabemos o que é uma função, podemos apreciar
+que qualquer família $F = \famst {a_i} {i \in \cal I}$
+indexada por um conjunto $\cal I$ \emph{comporta como uma
+função} com domínio $\cal I$ e codomínio o conjunto de
+todos membros da $F$.
+
+%%{{{ remark: equality_for_indexed_sets 
+\remark Igualdade entre conjuntos indexados.
+\label{equality_for_indexed_sets}%
+{%
+\def\bla{\mathrm{bla}}%
+\def\blu{\mathrm{blu}}%
+Com esse ponto de vista, para mostrar que dois \emph{conjuntos}
+indexados pelo mesmo conjunto são iguais, é \emph{suficiente}
+mostrar que são iguais como funções---mas não \emph{necessário}:
+veja~\ref{equal_as_fun_not_necessary_for_equal_as_indexed_sets}.
+\endgraf
+Por exemplo, sejam $A,B$ conjuntos indexados pelo mesmo conjunto $C$:
+$$
+\alignat2
+A &= \setst {\bla(c)} {c \in C} &
+B &= \setst {\blu(c)} {c \in C}.
+\endalignat
+$$
+Suponha que queremos provar $A=B$.
+O caminho orthodoxo seria seguir a definição de igualdade de conjuntos
+e provar
+$$
+x\in A \iff x \in B,
+\qqqtext{ou seja,}
+A \subseteq B \mland A \supseteq B.
+$$
+Mas, vendo eles como \emph{conjuntos indexados por o $C$},
+podemos matar o alvo $A=B$ numa maneira alternativa, aplicando
+a definição de igualdade de funções.  No final das contas,
+parecem funções com domínios iguais (o $C$).
+Então provando a afirmação
+$$
+\lforall {c \in C} {\bla(c) = \blu(c)}
+$$
+é suficiente para o $A=B$.
+Observe que mostramos algo ainda mais forte: não é apenas
+que $A=B$ como conjuntos, mas como \emph{famílias} indexadas também,
+ou seja, eles concordam em todo índice.
+}
+%%}}}
+
+%%{{{ beware: equal_as_fun_not_necessary_for_equal_as_indexed_sets 
+\beware.
+\label{equal_as_functions_not_necessary_for_equal_as_indexed_sets}%
+A afirmação que usei acima para provar que $A=B$, é uma afirmação
+\emph{mais forte} que a $A=B$.  Ou seja, pode ser que como funções
+não são iguais, mas como conjuntos indexados, são.
+Por exemplo, considere os
+$$
+\alignat2
+A &= \setst {x + 1} {x \in \ints} &
+B &= \setst {x - 1} {x \in \ints}.
+\endalignat
+$$
+São dois conjuntos indexados pelo mesmo conjunto $\ints$.
+Obviamente $A=B$, mas para nenhum indice $x \in \ints$ temos
+$x + 1 = x - 1$.
+%%}}}
+
+\blah.
+Compare essa discussão com a~\ref{picking_elements_from_indexed_sets}.
 
 \endsection
 %%}}}
@@ -26354,12 +26464,13 @@ Vamos a redefinir com seu próprio nome e sua própria notação:
 \label{congruence_mod_H}%
 \tdefined{congruência}[módulo subgrupo]%
 \tdefined{módulo!subgrupo}%
-\sdefined{\holed a \cong {\holed b} \pmodr {\holed H}}{\holed a é congruente com \holed b módulo-direito \holed H, onde $\holed H \subgroup G$}%
+\sdefined{\holed a \cong {\holed b} \pmodR {\holed H}}{\holed a é congruente com \holed b módulo-direito \holed H, onde $\holed H \subgroup G$}%
 Seja $G$ grupo e $H\subgroup G$.
 Definimos
 $$
-a \cong b \pmodr H \defiff ab^{-1} \in H.
+a \cong b \pmodR H \defiff a\ginv b \in H.
 $$
+Usamos também a notação $a \congR b$.
 %%}}}
 
 %%{{{ x: mod_m_as_a_special_case_of_mod_H 
@@ -26376,7 +26487,7 @@ Ou seja, mostre como a definição nos inteiros é apenas um caso especial da de
 \note Investigando a congruência.
 \label{investigation_of_cong_mod_H}%
 Vamos supor que temos um grupo $G$ e um subgrupo $H\subgroup G$.
-Tomamos $a,b\in G$ e queremos ver se $a\cong b\pmodr H$.
+Tomamos $a,b\in G$ e queremos ver se $a\cong b\pmodR H$.
 Separamos em casos:
 \beginil
 \item{\case{Caso 1:}} os dois elementos $a$ e $b$ estão no $H$;
@@ -26419,20 +26530,20 @@ Os 3 casos da Investigação~\refn{investigation_of_cong_mod_H}.
 \noindent
 Para cada caso, queremos decidir se:
 \beginil
-\item{(i)} podemos concluir que $a \cong b \pmodr H$;
-\item{(ii)} podemos concluir que $a \ncong b \pmodr H$;
+\item{(i)} podemos concluir que $a \cong b \pmodR H$;
+\item{(ii)} podemos concluir que $a \ncong b \pmodR H$;
 \item{(iii)} nenhum dos (i)--(ii).
 \endil
 Vamos ver qual dos (i)--(iii) aplica no \casestyle{caso 1}.
 Temos
 $$
-a \cong b \pmodr H
+a \cong b \pmodR H
 \defiff a\ginv b \in H
 $$
 Como $b\in H$ e $H$ é um grupo ($H\subgroup G$) concluimos que
 $\ginv b \in H$.
 Agora, como $a, \ginv b \in H$ ganhamos $a\ginv b\in H$, ou seja,
-$a \cong b \pmodr H$:
+$a \cong b \pmodR H$:
 \topinsert
 \centerline{
 \tikzpicture[>=stealth]%%{{{
@@ -26478,7 +26589,7 @@ Se $b{-1} \in H$ seu inverso também deveria estar no $H$, pois $H$ é um grupo.
 
 \hint
 Suponha que $ab^{-1} \in H$ para chegar num absurdo, mostrando assim que necessariamente,
-$a \ncong b \pmodr H$.  Cuidado:
+$a \ncong b \pmodR H$.  Cuidado:
 $$
 xy \in H \nimplies x \in H \mland y \in H.
 $$
@@ -26574,7 +26685,7 @@ Achamos assim nossa contradição:
 $$
 b^{-1} = eb^{-1} = (a^{-1}a)b^{-1} = a^{-1}(ab^{-1}) \in H.
 $$
-Concluimos então que $ab^{-1} \notin H$, ou seja $a \ncong b \pmodr H$.
+Concluimos então que $ab^{-1} \notin H$, ou seja $a \ncong b \pmodR H$.
 %%}}}
 
 \endexercise
@@ -26586,17 +26697,17 @@ Decida qual dos (i)--(iii) aplica no \casestyle{caso 3} do~\refn{investigation_o
 
 \hint
 Ache dois exemplos com $a,b\notin H$, tais que num
-$a \cong b \pmodr H$ e no outro $a \ncong b \pmodr H$.
+$a \cong b \pmodR H$ e no outro $a \ncong b \pmodR H$.
 
 \hint
-Um exemplo consiste em: um grupo $G$, um subgrupo $H\subgroup G$, e dois elementos $a,b\in G\setminus H$ tais que satisfazem (ou não) a congruência $a\cong b \pmodr H$.
+Um exemplo consiste em: um grupo $G$, um subgrupo $H\subgroup G$, e dois elementos $a,b\in G\setminus H$ tais que satisfazem (ou não) a congruência $a\cong b \pmodR H$.
 
 \hint
 Procure teus exemplos no grupo dos inteiros com adição $\sset \ints +$.
 
 \hint
 Tome $G \leteq \sset \ints +$, $H \leteq 2\ints$, $a \leteq 1$, $b \leteq 3$
-e observe que $1 \cong 3 \pmodr {2\ints}$.
+e observe que $1 \cong 3 \pmodR {2\ints}$.
 
 \hint
 Não é possível achar o outro exemplo com o mesmo subgrupo $2\ints$,
@@ -26615,7 +26726,7 @@ a&\leteq 1  \\
 b&\leteq 6  
 \endaligned
 }
-&\implies a \cong b \pmodr H
+&\implies a \cong b \pmodR H
 &
 \rightbrace{
 \aligned
@@ -26625,7 +26736,7 @@ a&\leteq 1  \\
 b&\leteq 3  
 \endaligned
 }
-&\implies a \ncong b \pmodr H,
+&\implies a \ncong b \pmodR H,
 \endxalignat
 $$
 porque $1 + (-6) = -5 \in 5\ints$ e $1 + (-3) = -2 \notin 5\ints$ respectivamente.
@@ -26666,6 +26777,10 @@ $$
 \proofpart{\lrdir}
 Suponha $Ha = H$.
 Como $e \in H$, então $ea \in Ha$, mas $ea = a$ e pronto.
+Numa linha só:
+$$
+a = ea \in Ha = H.
+$$
 \crproofpart{\rldir}
 Suponha $a \in H$.
 Para provar $Ha = H$ separamos as duas direcções:
@@ -26695,31 +26810,45 @@ Ou seja, qual é a cardinalidade do conjunto $\setst {Ha} {a\in G}$?}
 \ii{partição}%
 \ii{relação!de equivalência}%
 Sejam $G$ grupo e $H\subgroup G$.
-A família $\scr A = \setst {Ha} {a\in G}$ é uma partição do $G$
-e sua correspondente relação de equivalência é a congruência módulo-direito $H$.
+A família $\cosetsR H = \setst {Ha} {a\in G}$ é uma partição do $G$
+e sua correspondente relação de equivalência é a congruência $\congR$
+módulo-direito $H$.  Equivalentemente:
+$$
+\quoset G {\congR} \;=\; \cosetsR H
+$$
+Simetricamente, $\quoset G {\congL} = \cosetsL H$,
+onde $\cosetsL H = \setst {aH} {a\in G}$.
 \proof.
-Vamos denotar por $\eqclassimp a$ a classe de equivalência de $a\in G$.
-Provamos que $\eqclassimp a = Ha$.
-\endgraf
-``$\subseteq$'':
+Vamos denotar por $\eqclassimp a$ a classe de equivalência de
+$a\in G$ (atravez da relação $\congR$).
+Queremos provar que
+$\quoset G {\congR} = \cosetsR H$, ou seja
+$$
+\setst { \eqclassimp a } {a \in G}
+=
+\setst { Ha } {a \in G}.
+$$
+Esses conjuntos são indexados pelo mesmo conjunto (o $G$),
+logo basta provar que para todo $a\in G$, $\eqclassimp a = Ha$.
+(Veja a~\ref{equality_for_indexed_sets}.)
+\crproofpart{\lrdirset:}
 Suponha $x \in \eqclassimp a$.
-Logo $x \cong a \pmodr H$, ou seja, $xa^{-1} \in H$.
+Logo $x \cong a \pmodR H$, ou seja, $x\ginv a \in H$.
 Pela definição de $Ha$ então temos
 $$
 Ha\ni
-\underbrace{\paren{xa^{-1}}}_{\in H}a
-= x\paren{a^{-1}a}
+\munderbrace {\paren{x\ginv a}} {\in H} a
+= x\paren{\ginv a a}
 = x.
 $$
-\endgraf
-``$\supseteq$'':
+\proofpart{\rldirset:}
 Suponha que $x\in Ha$.
 Logo $x=ha$ para algum $h\in H$ e queremos mostrar que $ha\in\eqclassimp a$,
-ou seja $ha \cong a \pmodr H$.
+ou seja $ha \cong a \pmodR H$.
 Confirmamos:
 $$
-\paren{ha} a^{-1}
-= h \paren{aa^{-1}}
+\paren{ha} \ginv a
+= h \paren{a\ginv a}
 = h
 \in H
 $$
@@ -26732,37 +26861,45 @@ e pronto.
 \label{direct_proof_that_coclasses_form_a_partition}%
 \ii{partição}%
 Prove diretamente (sem passar pela relação de equivalência) que
-a família de todas as coclasses dum $H\subgroup G$ é uma partição de $G$:
+a família $\cosetsR H$ de todas as coclasses direitas dum
+$H\subgroup G$ é uma partição de $G$:
 \beginil
-\item{(i)}   para todo $x\in G$, existe coclasse $Ha$ com $x \in Ha$;
-\item{(ii)}  para todo $c\in G$, se $c\in Ha\inter Hb$ então $Ha = Hb$;
-\item{(iii)} nenhuma coclasse $Ha$ é vazia.
+\item{(i)}   para todo $x\in G$, existe coclasse $H'$ com $x \in H'$;
+\item{(ii)}  para todas $H',H'' \in \cosetsR H$,
+se $H'\inter H''\neq\emptyset$ então $H' = H''$;
+\item{(iii)} nenhuma coclasse é vazia.
 \endilnoskip
 
 \hint%%{{{
-Para os (i) e (iii) explique porque $a \in Ha$ para todo $a\in G$ e vice versa.
-Para o (ii) tome um elemento comum $c\in G$ tal que
-$$
-h_a a = c = h_b b.
-$$
-Agora mostra que $Ha \subseteq Hb$; a outra diração será similar.
+Para o (i) tome um arbitrário $x\in G$ e ache uma coclasse
+de $H$ que o $x$ esteja dentro.
+Para o (ii) tome um elemento comum $c\in Ha\inter Hb$ 
+e deduza que $Ha=Hb$.
+Para o (iii) observe que toda coclasse de $H$ é um conjunto
+da forma $Ha$ para algum $a \in G$.
+Ache um elemento do $Ha$.
 %%}}}
 
 \hint%%{{{
-Para os (i) e (iii) lembra que $H$ sendo subgrupo de $G$ ele também é grupo.
-Qual elemento é garantido de pertencer no $H$ e como podemos usar esse fato aqui?
-Para o (ii) tome $ha \in Ha$ e mostre que $ha \in Hb$.
-Aplique uma série de substituições $ha = \dotsb$ para chegar num elemento
-do $Hb$, ou seja, um produto que começa com elementos de $H$ e termina em $b$.
+Para o (ii), temos um $c$ tal que
+$$
+h_a a = c = h_b b
+\qqquad
+\text{para alguns $h_a, h_b\in H$}.
+$$
+Agora use o $h_a a = h_b = b$ para mostrar que $Ha = Hb$.
 %%}}}
 
 \hint%%{{{
-Para o (ii):
-como temos que $h_aa=h_bb$, precisamos ``criar'' a expressão
-``$h_aa$'' para a substituir por $h_bb$.
-Com que precisamos e podemos multiplicar o $ha$ pela equerda para conseguir isso?
-Cuidado: para garantir igualdade só pode multiplicar com $e$,
-mas pode substituir o $e$ com muitos produtos iguais ao $e$.
+Para o (ii) aplique uma série de manipulações algébricas num
+arbitrário membro de $Ha$ (que pela definição de $Ha$ vai ter
+a forma $ha$ para algum $h\in H$) até chegar num elemento do $Hb$,
+ou seja, um produto que começa com elementos de $H$ e termina em $b$:
+$$
+Ha \ni ha = \dotsb = \munderbrace {\phantom{hhhh}} {\in H} b.
+$$
+Como temos que $h_aa=h_bb$, seria legal ``criar'' a expressão
+``$h_aa$'' para substituí-la por $h_bb$.
 %%}}}
 
 \solution%%{{{
@@ -26783,19 +26920,51 @@ Precisamos mostrar que $x \in Hb$.
 Calculamos:
 $$
 \align
-x
-&= ha\\
-&= e(ha)\\
-&= \paren{\paren{h_a h^{-1}}^{-1}\paren{h_a h^{-1}}} (ha)\\
-&= \paren{\paren{h^{-1}}^{-1} h_a^{-1}} h_a \cancel{\paren{h^{-1} h}} a\\
-&= \paren{h h_a^{-1}} \paren{h_a a}\\
-&= \paren{h h_a^{-1}} \paren{h_b b}\\
-&= \paren{h h_a^{-1} h_b} b\\
+x= ha
+&= h\paren{\ginv {h_a} h_a}a\\
+&= h\ginv {h_a} \paren{h_a a}\\
+&= h\ginv {h_a} \paren{h_b b}\\
+&= \paren{h \ginv {h_a} h_b}b\\
 &\in Hb.
 \endalign
-$$%%}}}
+$$
+A oura direção ($Ha \supseteq Hb$) é similar.
+%%}}}
 
 \endexercise
+%%}}}
+
+%%{{{ Does it still seem weird?
+\note.
+Talvez ainda parece estranho:
+o que a afirmação <<$a\ginv b \in H$>> tem a ver com a
+<<os $a,b$ pertencem na mesma coclasse direita de $H$>>?
+Observe que, se $a,b$ pertencem na mesma coclasse direita de $H$,
+então para algum $c \in G$ temos $a,b \in Hc$, e logo
+$a = h_a c$ e $b = h_b c$ para alguns $h_a, h_b \in H$.
+Vamo lá:
+$$
+a \ginv b \in H
+\iff
+h_a c \ginvp{h_b c} \in H
+\iff
+h_a c \ginv c \ginv {h_b} \in H
+\iff
+h_a h_b \in H
+\quad\text{que é verdade.}
+$$
+Conversamente,
+$$
+a\ginv b \in H
+\implies
+\paren{a \ginv b} b \in Hb
+\implies
+a \paren{\ginv b b} \in Hb
+\implies
+a \in Hb
+\quad\text{e logo $a,b \in Hb$}.
+$$
+Espero que tá mais claro agora.
 %%}}}
 
 %%{{{ x: cosets_are_equinumerous 
@@ -27548,11 +27717,33 @@ N \normal G
 $$
 %%}}}
 
+%%{{{ explain the underlined 
+\note.
+{%
+\def\bla{\mathrm{bla}}%
+Se a parte sublinhada acima parece estranha,
+lembre-se a~\ref{picking_elements_from_indexed_sets}.
+Provando a afirmação
+$$
+\align
+\pforall {n\in N} &\bracket{\text{algo sobre o $gn\ginv g$}}
+\intertext{ganhamos que todos os membros do $gN\ginv g$ satisfazem
+esse algo, pois o conjunto $gN\ginv g$ é indexado por o $N$.
+Aqui o algo é o <<pertencer no $N$>>.
+Ou seja:}
+\pforall {n\in N} &\bracket{gn\ginv g \in N}
+\endalign
+$$
+afirma que todos os membros de $gN\ginv g$ pertencem no $N$,
+ou seja, $gN\ginv g \subseteq N$.
+}
+%%}}}
+
 \blah.
 Seguem umas definições alternativas.
 
-%%{{{ lemma: normal_subgroup_altdef_gNginvg_eq_N 
-\lemma.
+%%{{{ criterion: normal_subgroup_altdef_gNginvg_eq_N 
+\criterion.
 \label{normal_subgroup_altdef_gNginvg_eq_N}%
 \ii{subgrupo!normal}%
 Sejam $G$ grupo, e $N\subgroup G$.
@@ -27574,8 +27765,37 @@ $$
 \qes
 %%}}}
 
-%%{{{ lemma: normal_subgroup_altdef_gN_eq_Ng 
-\lemma.
+%%{{{ beware: g n g^{-1} \neq n 
+\beware.
+Se tivemos $N \normal G$ temos sim que $gn\ginv g \in N$,
+mas isso \emph{não garanta} que $gn\ginv g = n$ não!
+Sabemos que para todo $n\in N$, temos $gn\ginv g = n'$ \emph{para algum}
+$n' \in N$, mas nada nos permite concluir que esse $n'$ é nosso $n$.
+Isso quis dizer que \emph{não podemos provar que}
+$$
+\align
+gN\ginv g
+&= N
+\intertext{\emph{tratando-os como conjuntos indexados
+por o mesmo conjunto $N$:}}
+\setst {gn\ginv g} {n\in N}
+&= \setst {n} {n\in N}.
+\endalign
+$$
+Mas mesmo assim conseguimos provar que os conjuntos são iguais sim.
+%%}}}
+
+%%{{{ x: gnginvg_neq_n 
+\exercise.
+\label{gnginvg_neq_n}%
+Ache um contraexemplo que mostra que não necessariamente
+$gn\ginv g = n$, mesmo com $n\in N \normal G$.
+
+\endexercise
+%%}}}
+
+%%{{{ criterion: normal_subgroup_altdef_gN_eq_Ng 
+\criterion.
 \label{normal_subgroup_altdef_gN_eq_Ng}%
 \ii{subgrupo!normal}%
 Sejam $G$ grupo, e $N\subgroup G$.
@@ -27589,23 +27809,6 @@ $$
 Para a \lrdir, tome $g\in G$ e $x \in gN$.
 Assim $x = gn$ para algum $n\in N$.
 \qes
-%%}}}
-
-%%{{{ beware: g n g^{-1} \neq n 
-\beware.
-Se tivemos $N \normal G$ temos sim que $gn\ginv g \in N$,
-mas isso \emph{não garanta} que $gn\ginv g = n$ não!
-Sabemos que para todo $n\in N$, temos $gn\ginv g = n'$ \emph{para algum}
-$n' \in N$, mas nada nos permite concluir que esse $n'$ é nosso $n$.
-%%}}}
-
-%%{{{ x: gnginvg_neq_n 
-\exercise.
-\label{gnginvg_neq_n}%
-Ache um contraexemplo que mostra que não necessariamente
-$gn\ginv g = n$, mesmo com $n\in N \normal G$.
-
-\endexercise
 %%}}}
 
 %%{{{ x: cosets_of_subgroup_of_index_2 
@@ -27657,6 +27860,29 @@ Logo $hx\ginv h \in H\inter N$.
 \endexercise
 %%}}}
 
+%%{{{ Summarizing 
+\note.
+Para resumir, sabemos que podemos usar qualquer uma das afirmações
+seguintes como definição de $N \normal G$:
+$$
+N \normal G
+\defiff
+\text{qualquer uma das:}\ \ 
+\leftbrace{
+\gathered
+\text{$N$ é fechado pelos conjugados} \\
+\lforall {g\in G} {gN\ginv g \subseteq N} \\
+\lforall {g\in G} {gN\ginv g = N} \\
+\lforall {g\in G} {gN = Ng} \\
+\cosetsL N = \cosetsR N \\
+\congL \;=\; \congR
+\endgathered
+}
+$$
+onde $\cosetsL N$ e $\cosetsR N$ são as colecções de left
+e right cosets de $N$ respectivamente.
+%%}}}
+
 \endsection
 %%}}}
 
@@ -27665,54 +27891,50 @@ Logo $hx\ginv h \in H\inter N$.
 
 \note.
 Acabamos de identificar certos subgrupos dum grupo $G$---que chamamos \dterm{normais}---com uma propriedade legal:
-a colecção de todas as suas coclasses esquerdas e a mesma com a colecção
-de todas as suas coclasses direitas.
-Começando então com um $N\normal G$, podemos falar \emph{da} partição correspodente de $G$,
-sem specificar se estamos considerando a colecção das coclasses esquerdas ou das direitas.
-Ou seja, nesse caso, as duas relações de equivalência
+a colecção de todas as suas coclasses esquerdas e a mesma com
+a colecção de todas as suas coclasses direitas.
+Começando então com um $N\normal G$, podemos falar \emph{da} partição
+correspodente de $G$, sem specificar se estamos considerando a colecção
+das coclasses esquerdas ou das direitas.
+Ou seja, nesse caso, as relações de equivalência
 $$
-\bhole \cong \bhole \pmodl N
+\bhole \cong \bhole \pmodL N
 \qqqqtext{e}
-\bhole \cong \bhole \pmodr N
+\bhole \cong \bhole \pmodR N
 $$
 são a \emph{mesma} relação, e por isso escrevemos simplesmente
 $$
 \bhole \cong \bhole \pmod N.
 $$
 Vamos começar com um certo grupo $G$:
- e um subgrupo normal dele
 $$
-\tikzpicture%%{{{
+\tikzpicture
 \tikzi quogrpbefore;
 \endtikzpicture
-%%}}}
 $$
 Identificamos nele um subgrupo normal $N\normal G$.
 Assim que fizermos isso, todo o $G$ se-arruma
 graças à partição de todas as coclasses de $N$:
 $$
 \gathered
-\tikzpicture%%{{{
+\tikzpicture
 \tikzi quogrpnormal;
 \endtikzpicture
-%%}}}
 \endgathered
 \qquad\leadsto\qquad
 \gathered
-\tikzpicture%%{{{
+\tikzpicture
 \tikzi quogrppartitioned;
 \endtikzpicture
-%%}}}
 \endgathered
 $$
 E agora comece se afastar mais e mais, até não dá mais pra ver
 os pontinhos \emph{dentro} dessas classes, e até as proprias
 classes viram pontinhos:
 $$
-\tikzpicture%%{{{
+\tikzpicture
 \tikzi quogrpzoomout;
 \endtikzpicture
-%%}}}
 $$
 Denotamos esse conjunto por $\quogrp G N$:
 $$
