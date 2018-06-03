@@ -11981,6 +11981,7 @@ e similarmente para tuplas de tamanho $n$.
 
 %%{{{ df: tuple_equality 
 \definition Igualdade.
+\label{tuple_equality}%
 Definimos
 $$
 \align
@@ -12451,7 +12452,8 @@ $\family {a_i} {i\in \cal I}$ ou $\famst {a_i} {i\in \cal I}$.
 A idéia que nos motiva é: \emph{por quê nos limitar ``acessando''
 os membros de uma tupla apenas usando inteiros como indices (rótulos),
 enquanto podemos ``liberar'' qualquer objeto para servir como rótulo?}
-E é assim que fazemos mesmo.  Uns exemplos:
+E é assim que fazemos mesmo.
+Uns exemplos:
 
 %%{{{ eg: anscestors_and_children 
 \example.
@@ -12491,6 +12493,23 @@ $$
 \endexample
 %%}}}
 
+\blah.
+Seguindo a definição de igualdade para tuplas, definir
+igualdade entre famílias indexadas é fácil:
+
+%%{{{ df: equality_for_indexed_families 
+\definition Igualdade.
+\label{equality_for_indexed_families}%
+Sejam
+$\family {a_i} {i\in \cal I}$
+$\family {b_i} {i\in \cal I}$
+famílias indexadas por um conjunto de índices $\cal I$.
+Chamamo-nas iguais sse
+$$
+\lforall {i\in\cal I} {a_i = b_i}.
+$$
+%%}}}
+
 %%{{{ df: Union_Inter_of_family 
 \definition.
 \label{Union_Inter_of_family}%
@@ -12517,39 +12536,6 @@ $$
 \Prod_{i\in \cal I} A_i \defeq
 \setstt {\family {a_i} {i\in\cal I}} {$a_i\in A_i$ para todo $i\in\cal I$}.
 $$
-%%}}}
-
-%%{{{ remark: picking_elements_from_indexed_sets 
-\remark Tomando elementos de conjuntos indexados.
-\label{picking_elements_from_indexed_sets}%
-{%
-\def\bla{\mathrm{bla}}%
-Suponha que temos um conjunto $A$ indexado
-por um conjunto $B\neq\emptyset$:
-$$
-A = \setst {\bla(b)} { b\in B }.
-$$
-Como podemos ``tomar um arbitrario membro de $A$``?
-Claramente podemos dizer: ``seja $a \in A$'', algo válido
-para qualquer conjunto $A \neq \emptyset$.
-Mas nesse caso, ``sejando'' um $b\in B$, determinamos
-um membro de $A$: o $\bla(b)$.
-Assim, se provarmos algo sobre o $\bla(b)$,
-isso é suficiente para concluir que todos os elementos
-de $A$ satisfazem esse algo.
-Imagine então que queremos provar que
-$$
-A \subseteq C.
-$$
-Podemos seguir o caminho padrão, provando
-$$
-\lforall {a \in A} {a \in C}
-$$
-mas, temos mais um caminho para seguir nesse caso: provar que
-$$
-\lforall {b \in B} {\bla(b) \in C}.
-$$
-}
 %%}}}
 
 \endsection
@@ -18256,16 +18242,83 @@ $a$ é um fixpoint também e logo $a\in F$.
 \endsection
 %%}}}
 
-%%{{{ Indexed families as functions 
-\section Famílias indexadas como funções.
-\label{Indexed_families_as_functions}%
+%%{{{ Indexed sets and indexed families 
+\section Conjuntos indexados e famílias indexadas.
+\label{Indexed_sets_and_indexed_families}%
 
-\blah.
+%%{{{ indexed_families_as_functions 
+\note Famílias indexadas como funções.
+\label{indexed_families_as_functions}%
 Agora que sabemos o que é uma função, podemos apreciar
 que qualquer família $F = \famst {a_i} {i \in \cal I}$
-indexada por um conjunto $\cal I$ \emph{comporta como uma
-função} com domínio $\cal I$ e codomínio o conjunto de
-todos membros da $F$.
+indexada por um conjunto $\cal I$ \emph{comporta como uma função}
+com domínio $\cal I$ e codomínio o conjunto de todos membros da $F$.
+Com esse ponto de vista, quando são duas \emph{famílias} indexadas 
+iguais?  Os conjuntos de índices têm que ser iguais, e para todo
+índice as famílias tem que concordar.
+Ou seja, esse ponto de vista é razoável pois concorda com
+a definição de igualdade que já tivemos
+(\ref{equality_for_indexed_families}).
+%%}}}
+
+%%{{{ indexed_sets
+\note Conjuntos indexados.
+\label{indexed_sets}%
+Quando usamos um conjunto $B$ para ``indexar'' um conjunto $A$,
+chamamos o $A$ um \dterm{indexado por $B$}.
+Isso praticamente quis dizer que o $A$ pode ser escrito na forma
+$$
+A = \setst {\dots b \dots} {b \in B},
+$$
+ou, mais ``adultamente'' e plenamente:
+temos uma função sobrejetora $f : B \surto A$.
+%%}}}
+
+%%{{{ remark: every_set_can_be_indexed 
+\remark.
+\label{every_set_can_be_indexed}%
+Todo conjunto $A$ pode ser indexado por ele mesmo, pois
+$$
+A = \setst {a} {a \in A}.
+$$
+Em outras palavras, o ``conjunto indexado'' não é um tipo
+diferente do tipo ``conjunto''.  Não faz sentido nos perguntar
+se um conjunto $A$ é indexado ou não, pois todos são (pelo
+menos por eles mesmo).
+%%}}}
+
+%%{{{ remark: picking_elements_from_indexed_sets 
+\remark Tomando elementos de conjuntos indexados.
+\label{picking_elements_from_indexed_sets}%
+{%
+\def\bla{\mathrm{bla}}%
+Suponha que temos um conjunto $A$ indexado
+por um conjunto $B\neq\emptyset$:
+$$
+A = \setst {\bla(b)} {b\in B}.
+$$
+Como podemos ``tomar um arbitrario membro de $A$``?
+Claramente podemos dizer: ``seja $a \in A$'', algo válido
+para qualquer conjunto $A \neq \emptyset$.
+Mas nesse caso, ``sejando'' um $b\in B$, determinamos
+um membro de $A$: o $\bla(b)$.
+Assim, se provarmos algo sobre o $\bla(b)$,
+isso é suficiente para concluir que todos os elementos
+de $A$ satisfazem esse algo.
+Imagine então que queremos provar que
+$$
+A \subseteq C.
+$$
+Podemos seguir o caminho padrão, provando
+$$
+\lforall {a \in A} {a \in C}
+$$
+mas, temos mais um caminho para seguir nesse caso: provar que
+$$
+\lforall {b \in B} {\bla(b) \in C}.
+$$
+}
+%%}}}
 
 %%{{{ remark: equality_for_indexed_sets 
 \remark Igualdade entre conjuntos indexados.
@@ -18273,9 +18326,9 @@ todos membros da $F$.
 {%
 \def\bla{\mathrm{bla}}%
 \def\blu{\mathrm{blu}}%
-Com esse ponto de vista, para mostrar que dois \emph{conjuntos}
+Para mostrar que dois \emph{conjuntos}
 indexados pelo mesmo conjunto são iguais, é \emph{suficiente}
-mostrar que são iguais como funções---mas não \emph{necessário}:
+mostrar que são iguais como famílias---mas não \emph{necessário}:
 veja~\ref{equal_as_fun_not_necessary_for_equal_as_indexed_sets}.
 \endgraf
 Por exemplo, sejam $A,B$ conjuntos indexados pelo mesmo conjunto $C$:
@@ -18325,9 +18378,6 @@ São dois conjuntos indexados pelo mesmo conjunto $\ints$.
 Obviamente $A=B$, mas para nenhum indice $x \in \ints$ temos
 $x + 1 = x - 1$.
 %%}}}
-
-\blah.
-Compare essa discussão com a~\ref{picking_elements_from_indexed_sets}.
 
 \endsection
 %%}}}
@@ -19210,10 +19260,13 @@ $$
 %%}}}
 
 \blah.
-Principalmente vamos trabalhar com relações binárias definidas num conjunto só,
-então a definição de igualdade~\refn{R_eq_S_bin_on_single_set_case} que
-acabamos de ver nos serve bem.  No~\ref{R_eq_S_bin_on_different_sets_case}
-e no~\ref{R_eq_S} tu vai extender essa definição para os casos mais gerais.
+Principalmente vamos trabalhar com relações binárias definidas
+num conjunto só, então a definição de
+igualdade~\refn{R_eq_S_bin_on_single_set_case} que
+acabamos de ver nos serve bem.
+No~\ref{R_eq_S_bin_on_different_sets_case}
+e no~\ref{R_eq_S} tu vai extender essa definição para
+os casos mais gerais.
 
 %%{{{ x: R_eq_S_bin_on_different_sets_case 
 \exercise Igualdade.
@@ -27511,7 +27564,7 @@ para \emph{subgrupos} $H,K\subgroup G$.
 Mas não usamos nenhuma propriedade de subgrupo mesmo.
 Podemos realmente estender essa notação para arbitrários
 \emph{subconjuntos} de $G$, e, por que não,
-até usar notação como a seguinte abominágem:
+até usar notação como a seguinte abominação:
 $$
 g_1ABg_2B\ginv{g_3}Ag_1CB
 \defeq
