@@ -27930,9 +27930,10 @@ e right cosets de $N$ respectivamente.
 \endsection
 %%}}}
 
-%%{{{ Quotient group 
+%%{{{ The quotient group 
 \section O grupo quociente.
 
+%%{{{ The quotient group 
 \note.
 Acabamos de identificar certos subgrupos dum grupo $G$---que chamamos \dterm{normais}---com uma propriedade legal:
 a colecção de todas as suas coclasses esquerdas e a mesma com
@@ -27990,6 +27991,7 @@ através da relação de congruência módulo $N$.%
 \footnote{Lembra-se que dada qualquer relação de equivalência
 num conjunto, definimos seu conjunto quociente?
 Veja a~\ref{quoset}.}
+%%}}}
 
 %%{{{ Q: How can we turn the quotient set into a group? 
 \question.
@@ -28023,12 +28025,79 @@ $$
 e é denotado por $\quogrp G N$.
 %%}}}
 
+%%{{{ lemma: operation_for_coclasses_of_normal 
+\lemma.
+\label{operation_for_coclasses_of_normal}%
+Sejam $G$ grupo, $N \normal G$, e $a,b \in G$.
+$$
+(Na)(Nb) = N(ab)
+$$
+\sketch.
+Mostramos cada direção da
+$$
+g \in (Na)(Nb) \iff g \in N(ab)
+$$
+separadamente.
+Sem detalhes, temos
+$$
+\xalignat2
+&
+\aligned
+g \in (Na)(Nb)
+&\implies g = (n_a a) (n_b b) \\
+&\implies g = n_a (a n_b) b \\
+&\impliesbecause{$^{(\normal)}$} g = n_a (n_b' a) b \\
+&\implies g = \munderbrace {\munderbrace{(n_a n_b')} {\in N} (a b)} {\in N (ab)}
+\endaligned
+&&
+\aligned
+g \in N(ab)
+&\implies g = n(ab)\\
+&\implies g = \munderbrace{\munderbrace{(na)} {\in Na} \munderbrace{\vphantom(b\vphantom)} {\in Nb}} {\in (Na)(Nb)}
+\endaligned
+\endxalignat
+$$
+onde os nomes das variáveis introduzidas deve indicar uns dos detalhes omitidos.
+\qes
+\proof.
+Mostramos cada direção da
+$$
+g \in (Na)(Nb) \iff g \in N(ab)
+$$
+separadamente.
+\crproofpart{\lrdir}.
+Suponha $g \in (Na)(Nb)$.
+Logo sejam $a'\in Na$ e $b' \in Nb$ tais que $g = a'b'$.
+Pelas definições dos $Na$ e $Nb$, sejam $n_a,n_b \in N$
+tais que $a' = n_a a$ e $b' = n_b b$.
+Logo temos
+$$
+g = (n_a a) (n_b b) = n_a (a n_b) b
+$$
+Mas como $a n_b \in aN$ e $aN = Na$ (pois $N\normal G$),
+temos que $a n_b$ = $n_b' a$ para algum $n_b' \in N$.
+Logo
+$$
+g = n_a (n_b' a) b = (n_a n_b') (a b) \in N (ab)
+$$
+pois $n_a n_b' \in N$.
+\crproofpart{\rldir}.
+Suponha $g \in N(ab)$.
+Logo seja $n\in N$ tal que $g = n(ab)$.
+Logo temos
+$$
+g = n(ab) = (na)b \in (Na)(Nb)
+$$
+pois $na \in Na$ e $b \in Nb$.
+\qed
+%%}}}
+
 \blah.
 Para merecer esse nome, o $\quogrp G N$ deve ser um grupo mesmo.
 Vamos provar isso agora.
 
-%%{{{ prop: quogrp_is_a_group 
-\proposition.
+%%{{{ thm: quogrp_is_a_group 
+\theorem.
 \label{quogrp_is_a_group}%
 Sejam $G$ grupo e $N\normal G$.
 O $\quogrp G N$ é um grupo.
