@@ -24150,7 +24150,7 @@ $$
 \align
 \ginv  e            &\askeq e\\
 \ginvp{\ginv a}     &\askeq a\\
-\ginvp{a \ast b}    &\askeq \ginv b \ast \ginv a
+\ginvp{a \ast b}    &\askeq \ginv b \ast \ginv a.
 \endalign
 $$
 Mas precisamos provar cada uma delas.
@@ -28107,39 +28107,35 @@ O $\quogrp G N$ é um grupo.
 \sketch.
 Usando o~\ref{operation_for_coclasses_of_normal} verificamos
 as leis de grupo (G0)--(G3) para o $\quogrp G N$.
-\endgraf
-(G0):
+\crproofpart{(G0):}
 Sejam $A,B \in \quogrp G N$.
 Mostramos que $AB \in \quogrp G N$, ou seja,
 escrevemos o $AB$ como $Nw$ para algum certo $w \in G$.
-\endgraf
-(G1):
+\crproofpart{(G1):}
 Sejam $A,B,C \in \quogrp G N$.
 Mostramos que $(AB)C = A(BC)$.
-\endgraf
-(G2):
+\crproofpart{(G2):}
 Procuramos um membro de $\quogrp G N$ que satisfaz as leis de identidade.
 O candidato óbvio é o próprio $N$.
 Basta confirmar essa afirmação, ou seja, mostrar que para todo $A \in \quogrp G N$,
 temos $NA = A = AN$.
-\endgraf
-(G3):
+\crproofpart{(G3):}
 Para mostrar que cada um dos membros de $\quogrp G N$ tem um inverso,
-seja $A\in \quogrp G N$ e mostre como achar o seu inverso.
+seje $A\in \quogrp G N$ e mostre como achar o seu inverso.
 Aqui o candidato que faz sentido considerar, seria o $N(\ginv a)$,
 onde $a$ é qualquer membro de $A$.
 \qes
 \proof.
 Usando o~\ref{operation_for_coclasses_of_normal} verificamos
 as leis de grupo (G0)--(G3) para o $\quogrp G N$.
-\crproofpart{(G0)}:
+\crproofpart{(G0):}
 Sejam $A,B \in \quogrp G N$, e sejam $a,b \in G$ tais que
 $A = Na$ e $B = Nb$.
 Agora graças ao~\ref{operation_for_coclasses_of_normal} temos:
 $$
 (Na)(Nb) = N(ab) \in \quogrp G N
 $$
-\proofpart{(G1)}:
+\proofpart{(G1):}
 Sejam $A,B,C \in \quogrp G N$, e logo sejam $a,b,c\in G$ tais que
 $A = Na$, $B = Nb$, e $C = Nc$.
 Usando novamente o~\ref{operation_for_coclasses_of_normal} calculamos:
@@ -28151,7 +28147,7 @@ $$
 = (Na)\bigparen{N(bc)}
 = (Na)\bigparen{(Nb)(Nc)}.
 $$
-\proofpart{(G2)}:
+\proofpart{(G2):}
 Procuramos um membro de $\quogrp G N$ que satisfaz as leis de identidade.
 Afirmação: o $N \in \quogrp G N$ é a identidade do $\quogrp G N$.
 Para provar essa afirmação precisamos mostrar que para todo $A \in \quogrp G N$,
@@ -28162,7 +28158,7 @@ Novamente usando o~\ref{operation_for_coclasses_of_normal} calculamos:
 $$
 (Ne)(Na) = N(ea) = Na = A = Na = N(ae) = (Na)(Ne).
 $$
-\proofpart{(G3)}:
+\proofpart{(G3):}
 Seja $A\in \quogrp G N$ e logo seja $a\in G$ tal que $A = Na$.
 Afirmação: o $N(\ginv a)$ é o inverso de $A$.
 Para provar essa afirmação precisamos verificar que:
@@ -28189,7 +28185,17 @@ e pronto.
 %%{{{ Symmetries 
 \section Simetrias.
 
-\note O que é uma simetria.
+%%{{{ eg: [symmetry_eg] flip around a bisector 
+\example.
+\label{symmetry_eg}%
+A transformação que gira o triangulo por volta do
+eixo mostrado por um ângulo $\pi$, é uma simetria
+do triangulo.
+\endexample
+%%}}}
+
+%%{{{ What is a symmetry? (1) 
+\note O que é uma simetria (1).
 Ok, então «simetria» é uma \emph{transformação} que leva uma forma
 geométrica para outra, tal que o resultado fica exatamente em cima
 da forma original: se desenhar a forma-depois em cima da forma-antes,
@@ -28199,13 +28205,49 @@ geométricas neste momento, apenas dar uma intuição com
 ``palavras da rua'' então essa descrição deve servir para nos guiar.
 Mas isso \emph{não é suficiente} para chamar uma transformação de
 simetria.
+%%}}}
 
-%%{{{ noneg: flip just the base 
+%%{{{ noneg: [symmetry_noneg] flip just the base 
 \nonexample.
+\label{symmetry_noneg}%
 Considere a transformação
 que deixa todos os pontos dos lados $AB$ e $AC$ em paz,
 mas vira todo o lado $BC$ para a outra direção.
 \endnonexample
+%%}}}
+
+%%{{{ Q: What would you add to exclude symmetry_noneg ?
+\question.
+O que tu adicionaria na ``definição'' de simetria acima
+para excluir transformações como essa do~\ref{symmetry_noneg}?
+%%}}}
+\spoiler.
+
+%%{{{ What is a symmetry? (2) 
+\note O que é uma simetria (2).
+Observe que existe uma diferença importante entre a transformação
+do~\ref{symmetry_eg} e aquela do~\ref{symmetry_noneg}:
+a primeira \emph{preserve as distanças}, a segunda não.
+Vamos chamar as transformações $T$ e $T'$ respectivamente.
+Tome quaisquer dois pontos $x,y$ no triângulo, e meda sua
+distança $d(x,y)$.
+A transformação $T$ garanta que
+$$
+d(x,y) = d(Tx, Ty)
+$$
+para todos os $x,y$, mas a $T'$ não:
+existem $x,y$ tais que $d(x,y) \neq d(T'x, T'y)$.
+Isso é o que faltou da nossa primeira tentativa de dizer
+o que é uma simetria:
+ela tem que \emph{preservar as distanças}.
+%%}}}
+
+%%{{{ x: Show that symmetry_noneg is not a symmetry 
+\exercise.
+Demonstre (informalmente no desenho) que a transformação $T'$
+do~\ref{symmetry_noneg} não preserve as distanças.
+
+\endexercise
 %%}}}
 
 %%{{{ Dih3_symmetries 
@@ -28399,17 +28441,22 @@ sse ela \emph{preserve a estrutura de $\cal A$ no $\cal B$}.
 
 %%{{{ Preserving the structure 
 \note Preservando a estrutura.
+\tdefined{preservar}%
+\tdefined{respeitar}%
 Mas o que é a estrutura dum grupo?
 Num grupo temos a sua operação (binária), podemos pegar inversos (operação unária),
 e temos também em cada grupo um membro especial chamado identidade do grupo (constante).
-Ou seja, \emph{preservar a estrutura} faz sentido significar as três coisas seguintes:
+Ou seja, \dterm{preservar a estrutura} faz sentido significar as três coisas seguintes:
 $$
 \xalignat2
 &\text{preservar a operação:}   & \phi(x \ast_A y)    &= \phi(x) \ast_B \phi(y)   \tag{i}   \\
 &\text{preservar a identidade:} & \phi(e_A)           &= e_B                      \tag{ii}  \\
-&\text{preservar os inversos:}  & \phi(\ginvt_A (x))  &= \ginvt_B\paren{\phi(x)}. \tag{iii} 
+&\text{preservar os inversos:}  & \phi(\ginvt_A (x))  &= \ginvt_B\paren{\phi(x)}. \tag{iii}
 \endxalignat
 $$
+Também usamos o termo \dterm{respeitar}, muitas vezes como sinônimo de
+preservar mas não sempre---então tome cuidado com as definições,
+especialmente se a estrutura envolve relações.
 %%}}}
 
 %%{{{ Two paths 
@@ -28495,15 +28542,15 @@ para decidir se alguma função é um homomorfismo.
 \tdefined{homomorfismo}%
 Sejam $\cal A = \sset A {\ast_A,e_A}$ e $\cal B = \sset B {\ast_B,e_B}$ grupos.
 A função $\phi : A \to B$ é um \dterm{homomorfismo} de $\cal A$ para $\cal B$
-sse:
+sse ela respeita a identidade, a operação, e os inversos do $A$:
 $$
-\align
-&\phi(e_A) = e_B\\
-\text{para todo $x,y\in A$},\quad
-&\phi(x \ast_A y) = \phi(x) \ast_B \phi(y)\\
-\text{para todo $x\in A$},\quad
-&\phi(\ginv x) = \ginvp{\phi(x)}
-\endalign
+\alignat2
+&&\phi(e_A)      &= e_B\\
+&\text{para todo $x,y\in A$},\quad &
+\phi(x \ast_A y) &= \phi(x) \ast_B \phi(y)\\
+&\text{para todo $x\in A$},\quad &
+\phi(\ginv x)    &= \ginvp{\phi(x)}.
+\endalignat
 $$
 As vezes escrevemos $\phi : \cal A \to \cal B$ (em vez de $\phi:A\to B$)
 para enfatizar que o $\phi$ nos leva do \emph{grupo} $\cal A$ para o
@@ -28514,16 +28561,14 @@ para enfatizar que o $\phi$ nos leva do \emph{grupo} $\cal A$ para o
 \note.
 Quando pelo contexto podemos inferir qual é a operação involvida,
 optamos para denotá-la com juxtaposição como produto mesmo.
-Por exemplo, escrevemos:
+Por exemplo, escrevemos
 $$
-\text{para todo $x,y\in A$},
-\quad
 \phi(xy) = \phi(x)\phi(y)
 $$
 sem ambiguidade nenhuma:
 o $xy$ que aparece no lado esquerdo,
 só pode denotar o $x \ast_A y$, pois $x,y \in A$.
-,o outro lado, o $\phi(x) \phi(y)$ só pode denotar o $\phi(x) \ast_B \phi(y)$,
+No outro lado, o $\phi(x) \phi(y)$ só pode denotar o $\phi(x) \ast_B \phi(y)$,
 pois $\phi(x),\phi(y) \in B$.
 A mesma coisa acontece com os inversos:
 $\phi(\ginv x)$ só pode denotar ``a imagem do inverso (no $A$) de $x$'',
@@ -28538,15 +28583,19 @@ e no segundo caso num membro de $B$.
 Sejam grupos $\cal A = \sset A {\ast_A}$ e $\cal B = \sset B {\ast_B}$,
 e função $\phi : \cal A \to \cal B$ que preserva a operação, ou seja, tal que
 $$
-\align
-\phi(x \ast_A y) &= \phi(x) \ast_B \phi(y)
-\quad\text{para todo $x,y\in A$}.\\
-\intertext{Então:}
-\phi(e_A)     &= e_B             \tag{i}  \\
-\phi(\ginv x) &= \ginvp{\phi(x)} \text{para todo $x\in A$}. \tag{ii} 
-\endalign
+\quad\text{para todo $x,y\in A$},\quad
+\phi(x \ast_A y) = \phi(x) \ast_B \phi(y).
 $$
+Então $\phi$ é um homomorfismo.
 \sketch.
+Precisamos provar o que falta:
+$$
+\alignat2
+&&\phi(e_A)      &= e_B              \tag{i}  \\
+&\text{para todo $x\in A$},\quad &
+\phi(\ginv x)    &= \ginvp{\phi(x)}. \tag{ii}
+\endalignat
+$$
 Para o~(i), calculamos $\phi(e_A) = \phi(e_A) \phi(e_A)$
 para concluir que $e_B = \phi(e_A)$;
 para o~(ii), mostramos que o $\phi(\ginv x)$ satisfaz a
@@ -29191,8 +29240,10 @@ O $S$ com a operação a concatenação de strings, é um monóide.  Sua identid
 \endexample
 %%}}}
 
+%%{{{ Q: How would you define homomorphism between monoids? 
 \question.
 Como tu definirias o homomorfismo entre monóides?
+%%}}}
 \spoiler.
 
 %%{{{ df: monoid_homomorphism 
