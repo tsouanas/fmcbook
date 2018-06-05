@@ -27934,6 +27934,7 @@ e right cosets de $N$ respectivamente.
 
 %%{{{ The quotient group 
 \section O grupo quociente.
+\label{The_quotient_group}%
 
 %%{{{ The quotient group 
 \note.
@@ -28104,27 +28105,82 @@ Vamos provar isso agora.
 Sejam $G$ grupo e $N\normal G$.
 O $\quogrp G N$ é um grupo.
 \sketch.
-Precisamos verificar as leis de grupo (G0)--(G3) para o $\quogrp G N$.
+Usando o~\ref{operation_for_coclasses_of_normal} verificamos
+as leis de grupo (G0)--(G3) para o $\quogrp G N$.
 \endgraf
 (G0):
-Sejam $C,D \in \quogrp G N$.  Mostramos que $CD \in \quogrp G N$, ou seja,
-escrevemos o $CD$ como $Nw$ para algum certo $w \in G$.
+Sejam $A,B \in \quogrp G N$.
+Mostramos que $AB \in \quogrp G N$, ou seja,
+escrevemos o $AB$ como $Nw$ para algum certo $w \in G$.
 \endgraf
 (G1):
-Sejam $C,D,E \in \quogrp G N$.  Mostramos que $(CD)E = C(DE)$.
+Sejam $A,B,C \in \quogrp G N$.
+Mostramos que $(AB)C = A(BC)$.
 \endgraf
 (G2):
 Procuramos um membro de $\quogrp G N$ que satisfaz as leis de identidade.
 O candidato óbvio é o próprio $N$.
-Basta confirmar essa afirmação, ou seja, mostrar que para todo $C \in \quogrp G N$,
-temos $NC = C = CN$.
+Basta confirmar essa afirmação, ou seja, mostrar que para todo $A \in \quogrp G N$,
+temos $NA = A = AN$.
 \endgraf
 (G3):
 Para mostrar que cada um dos membros de $\quogrp G N$ tem um inverso,
-seja $C\in \quogrp G N$, e mostre como achar o seu inverso.
-Aqui o candidato que faz sentido considerar, seria o $N(\ginv c)$,
-onde $c$ é qualquer membro de $C$.
+seja $A\in \quogrp G N$ e mostre como achar o seu inverso.
+Aqui o candidato que faz sentido considerar, seria o $N(\ginv a)$,
+onde $a$ é qualquer membro de $A$.
 \qes
+\proof.
+Usando o~\ref{operation_for_coclasses_of_normal} verificamos
+as leis de grupo (G0)--(G3) para o $\quogrp G N$.
+\crproofpart{(G0)}:
+Sejam $A,B \in \quogrp G N$, e sejam $a,b \in G$ tais que
+$A = Na$ e $B = Nb$.
+Agora graças ao~\ref{operation_for_coclasses_of_normal} temos:
+$$
+(Na)(Nb) = N(ab) \in \quogrp G N
+$$
+\proofpart{(G1)}:
+Sejam $A,B,C \in \quogrp G N$, e logo sejam $a,b,c\in G$ tais que
+$A = Na$, $B = Nb$, e $C = Nc$.
+Usando novamente o~\ref{operation_for_coclasses_of_normal} calculamos:
+$$
+\bigparen{(Na)(Nb)}(Nc)
+= \bigparen{N(ab)}(Nc)
+= N\paren{(ab)c}
+= N\paren{a(bc)}
+= (Na)\bigparen{N(bc)}
+= (Na)\bigparen{(Nb)(Nc)}.
+$$
+\proofpart{(G2)}:
+Procuramos um membro de $\quogrp G N$ que satisfaz as leis de identidade.
+Afirmação: o $N \in \quogrp G N$ é a identidade do $\quogrp G N$.
+Para provar essa afirmação precisamos mostrar que para todo $A \in \quogrp G N$,
+temos $NA = A = AN$.
+Realmente, seja $A \in \quogrp G N$.
+Logo $A = Na$ para algum $a\in G$.
+Novamente usando o~\ref{operation_for_coclasses_of_normal} calculamos:
+$$
+(Ne)(Na) = N(ea) = Na = A = Na = N(ae) = (Na)(Ne).
+$$
+\proofpart{(G3)}:
+Seja $A\in \quogrp G N$ e logo seja $a\in G$ tal que $A = Na$.
+Afirmação: o $N(\ginv a)$ é o inverso de $A$.
+Para provar essa afirmação precisamos verificar que:
+$$
+N(\ginv a) A = N = A N(\ginv a).
+$$
+Usando o~\ref{operation_for_coclasses_of_normal} calculamos
+$$
+\bigparen{N(\ginv a)}(Na)
+= N(\ginv a a)
+= Ne
+= N
+= Ne
+= N(a\ginv a)
+= (Na) \bigparen{N(\ginv a)}
+$$
+e pronto.
+\qed
 %%}}}
 
 \endsection
@@ -28133,7 +28189,24 @@ onde $c$ é qualquer membro de $C$.
 %%{{{ Symmetries 
 \section Simetrias.
 
-\TODO O que é uma simetria.
+\note O que é uma simetria.
+Ok, então «simetria» é uma \emph{transformação} que leva uma forma
+geométrica para outra, tal que o resultado fica exatamente em cima
+da forma original: se desenhar a forma-depois em cima da forma-antes,
+cada ponto da forma-depois vai cair em cima dum ponto da forma-antes.
+Isso é bem informal, mas nosso objetivo não é estudar simetrias
+geométricas neste momento, apenas dar uma intuição com
+``palavras da rua'' então essa descrição deve servir para nos guiar.
+Mas isso \emph{não é suficiente} para chamar uma transformação de
+simetria.
+
+%%{{{ noneg: flip just the base 
+\nonexample.
+Considere a transformação
+que deixa todos os pontos dos lados $AB$ e $AC$ em paz,
+mas vira todo o lado $BC$ para a outra direção.
+\endnonexample
+%%}}}
 
 %%{{{ Dih3_symmetries 
 \note As simetrias dum triângulo equilátero.
@@ -28184,13 +28257,13 @@ tal que ele vira um grupo.
 \iisee{dihedral}{grupo dihedral}
 %%}}}
 
-%%{{{ x: dih4 
+%%{{{ x: dih_4 
 \exercise.
-\label{dih4}%
+\label{dih_4}%
 Ache todas as simetrias num quadrado.
 
 \hint
-Todas as simetrias são 8.
+Todas as simetrias são $8$.
 
 \endexercise
 %%}}}
@@ -28203,14 +28276,30 @@ Qual a $\gord{\dih n}$?
 \endexercise
 %%}}}
 
+%%{{{ hasse_diagrams_first_encounter 
 \note Diagramas Hasse.
 \label{hasse_diagrams_first_encounter}%
+Quando temos uma ordem parcial $\leq$ definida num conjunto,
+podemos desenhar os membros do conjunto num diagrama
+chamado \dterm{diagrama Hasse}.
+Desenhamos os membros do conjunto e botamos uma linha
+\emph{subindo} dum membro $x$ para outro $y$ sse $x\leq y$ e,
+ainda mais, não tem nenhum $w$ entre os dois ($x \leq w \leq y$).
+(Fique lendo até os exemplos e vai fazer sentido.)
+No~\ref{Posets} vamos trabalhar demais com esses diagramas;
+agora é uma boa oportunidade introduzi-los nesse contexto.
+Qual contexto exatamente?  Qual o conjunto e qual a ordem?
+Lembre-se que $\subgrp$ é uma ordem parcial entre grupos
+(\ref{subgroup_is_an_order}), ou seja, o conjunto de todos
+os subgrupos dum dado grupo é ordenado pela $\subgrp$.
+Bora desenhar então!
+%%}}}
 
-%%{{{ diagram of Dih3
-\blah.
+%%{{{ Hasse diagram of Dih3 
+\example O Hasse das simetrias do triângulo.
 $$
 \tikzpicture
-\node (top)     at (0,  0 ) {$\moverbrace{\set{I,R,R',D_1,D_2}}{\dih 3}$};
+\node (top)     at (0,  0 ) {$\moverbrace{\set{I,R,R',D_1,D_2,D_3}}{\dih 3}$};
 \node (ir1r2)   at (-3, -2) {$\set{I,R,R'}$};
 \node (id1)     at (-1, -2) {$\set{I,D_1}$};
 \node (id2)     at (1,  -2) {$\set{I,D_2}$};
@@ -28226,10 +28315,11 @@ $$
 \draw (bot) -- (id3);
 \endtikzpicture
 $$
+\endexample
 %%}}}
 
-%%{{{ diagram of Dih4
-\blah.
+%%{{{ Hasse diagram of Dih4 
+\example O Hasse das simetrias do quadrado.
 $$
 \tikzpicture
 \node (top)     at (0,  0 ) {$\moverbrace{\set{I,R,R',R'',D_1,D_2,H,V}}{\dih 4}$};
@@ -28259,6 +28349,7 @@ $$
 \draw (bot) -- (iv);
 \endtikzpicture
 $$
+\endexample
 %%}}}
 
 %%{{{ x: dih_4_isomorphic_to_what 
