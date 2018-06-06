@@ -28188,9 +28188,44 @@ e pronto.
 %%{{{ eg: [symmetry_eg] flip around a bisector 
 \example.
 \label{symmetry_eg}%
-A transformação que gira o triangulo por volta do
+A transformação $T$ que gira o triangulo por volta do
 eixo mostrado por um ângulo $\pi$, é uma simetria
 do triangulo.
+$$
+\gathered
+\tikzpicture
+\node[inner sep=0pt] at (0,1.732)   (A) {};
+\node[inner sep=0pt] at (-1,0)      (B) {};
+\node[inner sep=0pt] at (1,0)       (C) {};
+\node[inner sep=0pt,outer sep=0pt] at (0,0.577) (G) {};
+\draw[color=red] (-.5,0.866) -- (B) -- (C);
+\draw[color=blue] (-.5,0.866) -- (A) -- (C);
+\node[color=blue,xshift=-3mm] at (A) {$A$};
+\node[color=red,xshift=-2mm,yshift=1mm] at (B) {$B$};
+\node[xshift=2mm,yshift=2mm] at (C) {$C$};
+\draw[dashed] (1,0) -- +(150:2.5cm) node [pos=0.83] {\rotator{150}};
+\draw[dashed] (1,0) -- +(330:5mm);
+\endtikzpicture
+\endgathered
+\qquad
+\text{vira assim pela $T$:}
+\qqquad
+\gathered
+\tikzpicture
+\node[inner sep=0pt] at (0,1.732)   (A) {};
+\node[inner sep=0pt] at (-1,0)      (B) {};
+\node[inner sep=0pt] at (1,0)       (C) {};
+\node[inner sep=0pt,outer sep=0pt] at (0,0.577) (G) {};
+\draw[color=blue] (-.5,0.866) -- (B) -- (C);
+\draw[color=red] (-.5,0.866) -- (A) -- (C);
+\node[color=red,xshift=-3mm] at (A) {$B$};
+\node[color=blue,xshift=-2mm,yshift=1mm] at (B) {$A$};
+\node[xshift=2mm,yshift=2mm] at (C) {$C$};
+\draw[dashed] (1,0) -- +(150:2.5cm);
+\draw[dashed] (1,0) -- +(330:5mm);
+\endtikzpicture
+\endgathered
+$$
 \endexample
 %%}}}
 
@@ -28210,9 +28245,44 @@ simetria.
 %%{{{ noneg: [symmetry_noneg] flip just the base 
 \nonexample.
 \label{symmetry_noneg}%
-Considere a transformação
+Considere a transformação $T'$
 que deixa todos os pontos dos lados $AB$ e $AC$ em paz,
-mas vira todo o lado $BC$ para a outra direção.
+mas vira todos os pontos do interior do $BC$ para a outra direção:
+$$
+\gathered
+\tikzpicture
+\node[inner sep=0pt] at (0,1.732)   (A) {};
+\node[inner sep=0pt] at (-1,0)      (B) {};
+\node[inner sep=0pt] at (1,0)       (C) {};
+\node[inner sep=0pt,outer sep=0pt] at (0,0.577) (G) {};
+\draw (A)--(B)--(C)--(A)--cycle;
+\draw[dashed] (0,-0.666)--(0,0.333) node [pos=0.333] {\rotator{90}};
+\node at (A) {$\mkern-32mu A$};
+\node at (B) {$\mkern-24mu B$};
+\node at (C) {$\mkern 24mu C$};
+\draw[color=red] (B)--(0,0);
+\draw[color=blue] (C)--(0,0);
+\endtikzpicture
+\endgathered
+\qquad
+\text{vira assim pela $T'$:}
+\qqquad
+\gathered
+\tikzpicture
+\node[inner sep=0pt] at (0,1.732)   (A) {};
+\node[inner sep=0pt] at (-1,0)      (B) {};
+\node[inner sep=0pt] at (1,0)       (C) {};
+\node[inner sep=0pt,outer sep=0pt] at (0,0.577) (G) {};
+\draw (A)--(B)--(C)--(A)--cycle;
+\node at (A) {$\mkern-32mu A$};
+\node at (B) {$\mkern-24mu B$};
+\node at (C) {$\mkern 24mu C$};
+\draw[color=blue] (B)--(0,0);
+\draw[color=red] (C)--(0,0);
+\draw[dashed] (0,-0.666)--(0,0.333);
+\endtikzpicture
+\endgathered
+$$
 \endnonexample
 %%}}}
 
@@ -28225,12 +28295,13 @@ para excluir transformações como essa do~\ref{symmetry_noneg}?
 
 %%{{{ What is a symmetry? (2) 
 \note O que é uma simetria (2).
+\tdefined{isometria}%
 Observe que existe uma diferença importante entre a transformação
 do~\ref{symmetry_eg} e aquela do~\ref{symmetry_noneg}:
-a primeira \emph{preserve as distanças}, a segunda não.
+a primeira \emph{preserve as distâncias}, a segunda não.
 Vamos chamar as transformações $T$ e $T'$ respectivamente.
 Tome quaisquer dois pontos $x,y$ no triângulo, e meda sua
-distança $d(x,y)$.
+distância $d(x,y)$.
 A transformação $T$ garanta que
 $$
 d(x,y) = d(Tx, Ty)
@@ -28239,56 +28310,69 @@ para todos os $x,y$, mas a $T'$ não:
 existem $x,y$ tais que $d(x,y) \neq d(T'x, T'y)$.
 Isso é o que faltou da nossa primeira tentativa de dizer
 o que é uma simetria:
-ela tem que \emph{preservar as distanças}.
+ela tem que \emph{preservar as distâncias},
+ou seja, ser uma \dterm{isometria}.
 %%}}}
 
 %%{{{ x: Show that symmetry_noneg is not a symmetry 
 \exercise.
 Demonstre (informalmente no desenho) que a transformação $T'$
-do~\ref{symmetry_noneg} não preserve as distanças.
+do~\ref{symmetry_noneg} não preserve as distâncias.
 
 \endexercise
 %%}}}
+
+%%{{{ Q: Which are all the symmetries of an equilateral triangle? 
+\question.
+Quais são todas as simetrias dum triângulo equilátero?
+%%}}}
+\spoiler.
 
 %%{{{ Dih3_symmetries 
 \note As simetrias dum triângulo equilátero.
 \label{Dih3_symmetries}%
 $$
 \tikzpicture
+\draw[color=white,dashed] (0,1.732) -- +(270:2.5cm);
+\draw[color=white,dashed] (0,1.732) -- +(90:5mm);
 \tikzi dih3base;
+\draw[dashed] (1,0) -- +(150:2.5cm) node [pos=0.83] {\rotator{150}};
+\draw[dashed] (1,0) -- +(330:5mm);
+\endtikzpicture
+\tikzpicture
+\draw[color=white,dashed] (0,1.732) -- +(270:2.5cm);
+\draw[color=white,dashed] (0,1.732) -- +(90:5mm);
+\tikzi dih3base;
+\draw[dashed] (-1,0) -- +(30:2.5cm) node [pos=0.83] {\rotator{30}};
+\draw[dashed] (-1,0) -- +(210:5mm);
+\endtikzpicture
+\tikzpicture
+\tikzi dih3base;
+\draw[dashed] (0,1.732) -- +(270:2.5cm) node [pos=0.83] {\rotator{90}};
+\draw[dashed] (0,1.732) -- +(90:5mm);
 \endtikzpicture
 $$
 $$
 \tikzpicture
-\tikzi dih3rot1;
+\tikzi dih3rotbase;
 \endtikzpicture
-$$
-$$
 \tikzpicture
-\tikzi dih3rot2;
+\tikzi dih3rotbase;
 \endtikzpicture
-$$
-$$
 \tikzpicture
-\tikzi dih3flip1;
-\endtikzpicture
-$$
-$$
-\tikzpicture
-\tikzi dih3flip2;
-\endtikzpicture
-$$
-$$
-\tikzpicture
-\tikzi dih3flip3;
+\tikzi dih3rotinvisbase;
 \endtikzpicture
 $$
 %%}}}
 
-\TODO Complete the figure.
+\TODO Complete the figures.
 
-\TODO Como definir uma operação no conjunto de simetrias do triângulo,
-tal que ele vira um grupo.
+%%{{{ Q: How can we turn Dih3 into a group? 
+\question.
+Como podemos definir uma operação no conjunto de todas as simetrias
+dum triângulo eqüilateral, tal que ele vira um grupo?
+%%}}}
+\spoiler.
 
 \note Um primeiro exemplo de isomorfismo.
 
