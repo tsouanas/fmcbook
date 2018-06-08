@@ -28263,13 +28263,13 @@ $$
 \node[inner sep=0pt] at (-1,0)      (B) {};
 \node[inner sep=0pt] at (1,0)       (C) {};
 \node[inner sep=0pt,outer sep=0pt] at (0,0.577) (G) {};
-\draw (A)--(B)--(C)--(A)--cycle;
-\draw[dashed] (0,-0.666)--(0,0.333) node [pos=0.333] {\rotator{90}};
-\node at (A) {$\mkern-32mu A$};
-\node at (B) {$\mkern-24mu B$};
-\node at (C) {$\mkern 24mu C$};
-\draw[color=red] (B)--(0,0);
-\draw[color=blue] (C)--(0,0);
+\draw (A) -- (C) -- (B);
+\draw[color=red] (-.5,0.866) -- (B);
+\draw[color=blue] (-.5,0.866) -- (A);
+\node[xshift=-3mm] at (A) {$A$};
+\node[xshift=-2mm,yshift=1mm] at (B) {$B$};
+\node[xshift=2mm,yshift=2mm] at (C) {$C$};
+\draw[dashed] (0,.577) -- +(150:1.2) node [pos=.666] {\rotator{150}};
 \endtikzpicture
 \endgathered
 \qquad
@@ -28281,13 +28281,13 @@ $$
 \node[inner sep=0pt] at (-1,0)      (B) {};
 \node[inner sep=0pt] at (1,0)       (C) {};
 \node[inner sep=0pt,outer sep=0pt] at (0,0.577) (G) {};
-\draw (A)--(B)--(C)--(A)--cycle;
-\node at (A) {$\mkern-32mu A$};
-\node at (B) {$\mkern-24mu B$};
-\node at (C) {$\mkern 24mu C$};
-\draw[color=blue] (B)--(0,0);
-\draw[color=red] (C)--(0,0);
-\draw[dashed] (0,-0.666)--(0,0.333);
+\draw (A) -- (C) -- (B);
+\draw[color=blue] (-.5,0.866) -- (B);
+\draw[color=red] (-.5,0.866) -- (A);
+\node[xshift=-3mm] at (A) {$A$};
+\node[xshift=-2mm,yshift=1mm] at (B) {$B$};
+\node[xshift=2mm,yshift=2mm] at (C) {$C$};
+\draw[dashed] (0,.577) -- +(150:1.0);
 \endtikzpicture
 \endgathered
 $$
@@ -28530,7 +28530,8 @@ mas apenas re-descobriu o grupo $\sym 3$ que conhecemos
 desde o início desse capítulo!
 Em qual sentido os dois grupos ``são praticamente a mesma coisa''?
 Esse é o assunto da~\ref{Group_morphisms},
-mas podemos já dar uma primeira resposta.
+mas podemos já dar uma primeira resposta informal:
+\emph{como grupos, eles comportam no mesmo jeito}.
 %%}}}
 
 %%{{{ Are they equal then? 
@@ -28540,19 +28541,33 @@ A palavra certa para esse caso é \dterm{isómorfos} ou
 \dterm{isomórficos}.  As palavras vem do grego \emph{ίσο}
 que significa ``igual'' e \emph{μορφή} que significa ``forma''.
 Isómorfos então são aqueles que tem a mesma forma.
-Eles têm exatamente as mesmas propriedades grupoteóricas.
+Eles têm exatamente as mesmas \emph{propriedades grupoteóricas}.
+Escrevemos $\cal A \iso \cal B$ quando $\cal A$ e $\cal B$
+são isómorfos.
 %%}}}
 
 %%{{{ Group-theoretic properties 
 \note Propriedades grupoteóricas.
+\label{grouptheoretic_properties}%
+\tdefined{propriedade}[grupoteórica]%
 Essas são propriedades que o grupista não consegue enxergar com
 seus olhos grupoteóricos.
 Uns exemplos:
 \beginil
-\item{--} <<o grupo é cíclico>>;
-\item{--} <<existe membro no grupo cuja ordem é $2$>>;
-\item{--} <<o grupo tem dois membros que são seus próprios inversos>>;
-\item{--} <<o grupo possui $3$ subgrupos normais>>;
+\item{--} <<ele tem membro cuja ordem é $2$>>;
+\item{--} <<ele é cíclico>>;
+\item{--} <<ele tem dois membros que são seus próprios inversos>>;
+\item{--} <<ele possui $3$ subgrupos normais>>;
+\item{--} <<ele tem exatamente $4$ membros>>.
+\endil
+A última talvez não parece ser muito grupoteórica, mas de fato
+o grupista entende essa afirmação---talvez se reformulá-la como
+<<ele tem ordem $4$>> não vai aparecer estranho.
+Uns nãœxemplos:
+\beginil
+\item{--} <<seus membros são conjuntos>>;
+\item{--} <<seus membros são números>>;
+\item{--} <<ele tem membro que é singleton>>;
 \endil
 Por outro lado, o conjuntista, com seus olhos conjuntoteóricos
 consegue enxergar todas as diferenças entre o $\dih 3$ e $\sym 3$:
@@ -28567,16 +28582,70 @@ E para o grupista?
 Ele não tá nem aí sobre a natureza dos membros, ou seus nomes,
 ou sua aparência!
 O que importa pra ele são suas propriedades grupoteóricas e nada mais:
-O inverso desse é aquele, o produto desses é aquilo, a identidade
-é essa, esse aqui é um gerador, esses aqui são conjugados, etc., etc.
+o inverso desse é aquele; o produto desses é aquilo;
+a identidade é essa; esse aqui é um gerador; esses aqui são conjugados;
+etc., etc.
+%%}}}
+
+%%{{{ x: why dih 4 is not isomorphic with sym 4
+\example.
+Explique porque o $\dih 4$ não é isómorfo com o $\sym 4$.
+\solution
+Como $\gord{\dih 4} = 8 \neq 24 = \gord{\sym 4}$,
+já sabemos que os dois grupos não são isomórficos.
+\endexample
+%%}}}
+
+%%{{{ x: why dih 4 is not isomorphic with Z/8Z
+\exercise.
+Explique porque o $\dih 4$ não é isómorfo com o grupo aditivo
+$\ints_8$ dos inteiros com adição módulo $8$.
+
+\solution
+Basta achar uma propriedade grupoteórica que um dos dois grupos tem
+e o outro não.  Uns exemplos:
+\beginil
+\item{--} <<{\thole} é abeliano>>:
+satisfeita por $\ints_8$ mas não por $\dih 4$;
+\item{--} <<{\thole} é cíclico>>:
+satisfeita por $\ints_8$ mas não por $\dih 4$;
+\item{--} <<{\thole} tem $3$ membros de ordem $2$>>:
+satisfeita por $\dih 4$ mas não por $\ints_8$;
+\endil
+etc.
+
+\endexercise
+%%}}}
+
+%%{{{ eg: is dih 4 cyclic? 
+\example.
+O $\dih 4$ é um grupo cíclico?
+
+\solution
+Para ver se $\dih 4$ é um grupo cíclico ou não, conferimos
+para cada membro $a$ dele, se $a$ pode gerar o grupo inteiro
+ou não.
+Calculamos:
+$$
+\xalignat2
+\gen I   &= \set {I}          & \gen {\Delta_1} &= \set {I, \Delta_1} \\
+\gen R   &= \set {I,R,R',R''} & \gen {\Delta_2} &= \set {I, \Delta_2} \\
+\gen R'  &= \set {I,R'}       & \gen H          &= \set {I, H} \\
+\gen R'' &= \gen R            & \gen V          &= \set {I, V}
+\endxalignat
+$$
+Nenhum desses subgrupos gerados é o próprio $\dih 4$,
+e logo $\dih 4$ não é um grupo cíclico.
+\endexample
 %%}}}
 
 %%{{{ hasse_diagrams_first_encounter 
 \note Diagramas Hasse.
 \label{hasse_diagrams_first_encounter}%
+\tdefined{Hasse}[diagrama]%
 Quando temos uma ordem parcial $\leq$ definida num conjunto,
 podemos desenhar os membros do conjunto num diagrama
-chamado \dterm{diagrama Hasse}.
+chamado \dterm{diagrama Hasse}\Hasse{}.
 Desenhamos os membros do conjunto e botamos uma linha
 \emph{subindo} dum membro $x$ para outro $y$ sse $x\leq y$ e,
 ainda mais, não tem nenhum $w$ entre os dois ($x \leq w \leq y$).
@@ -28660,13 +28729,11 @@ Não pode ser o $\sym 4$ obviamente, por questão de tamanho!
 \hint
 Mas olhe dentro do $\sym 4$: no seus subgrupos!
 
-\endexercise
-%%}}}
-
-%%{{{ x: why dih 3 is not isomorphic with Z/8Z
-\exercise.
-Usando propriedades grupoteóricas, explique porque o $\dih 3$ não é isómorfo
-com o grupo aditivo $\ints_8$ dos inteiros com adição módulo $8$.
+\hint
+Renomeia teus $A,B,C,D$ para $1,2,3,4$.
+Agora veja cada uma das simetrias do $\dih 4$, para onde ela
+leva cada número, e escreva sua permutação correspondente do $\sym 4$.
+Basta provar que esse conjunto realmente é um subgrupo de $\sym 4$.
 
 \endexercise
 %%}}}
