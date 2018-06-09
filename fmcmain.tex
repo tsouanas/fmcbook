@@ -29045,25 +29045,27 @@ $\sset \ints +$ e $\sset \rats +$.
 \label{kernel}%
 \tdefined{kernel de homomorfismo}%
 \sdefined {\ker{\holed \phi}} {o kernel do homomorfismo $\holed \phi$}
-Sejam $G, G'$ grupos e $\phi$ um homomorfismo de $G$ para $G'$.
+Sejam $A,B$ grupos e $\phi:A\to B$ um homomorfismo.
 Definimos
 $$
 \align
 \ker\phi
-&\defeq
-\setst {g \in G} {\phi(g) = e_{G'}}\\
-&=
-\pre{\phi}{\set{e_{G'}}}
+&\defeq \pre \phi {\set{e_B}} \\
+\big(&= \setst {a \in A} {\phi(a) = e_B} \ \big)\\
+\Img\phi
+&\defeq \img \phi A \\
+&= \setst {b \in B} {\lexists {x\in A} {\phi(x) = b}}
 \endalign
 $$
-e o chamamos o \dterm{kernel} do $\phi$.
+Chamamos o $\ker \phi$ o \dterm{kernel} do $\phi$
+e o $\Img \phi$ o \dterm{image} do $\phi$.
 %%}}}
 
 %%{{{ x: kernel_subgroup 
 \exercise.
 \label{kernel_subgroup}%
-Sejam $G$ e $G'$ grupos e $\phi$ um homomorfismo de $G$ para $G'$.
-Prove que $\ker\phi\subgroup G$.
+Sejam $A$ e $B$ grupos e $\phi : A \to B$ homomorfismo.
+Prove que $\ker\phi\subgrp A$.
 
 \hint
 Graças ao~\ref{subgroup_criterion}, precisas provar:
@@ -29071,37 +29073,37 @@ Graças ao~\ref{subgroup_criterion}, precisas provar:
 (ii)~$\ker\phi$ é~$^{-1}$-fechado.
 
 \hint
-Para o (i), tome $x,y\in\ker\phi$ e mostre que $xy\in\ker\phi$, ou seja, que $\phi(xy) = e_{G'}$.
+Para o (i), tome $x,y\in\ker\phi$ e mostre que $xy\in\ker\phi$,
+ou seja, que $\phi(xy) = e_B$.
 
 \hint
-Para o (ii), tome $x\in\ker\phi$ e mostre que $\ginv x\in\ker\phi$, ou seja, que $\phi\funparen{\ginv x} = e_{G'}$.
+Para o (ii), tome $x\in\ker\phi$ e mostre que $\ginv x\in\ker\phi$,
+ou seja, que $\phi\funparen{\ginv x} = e_B$.
 
 \solution
 Graças ao~\ref{subgroup_criterion}, basta provar:
-\endgraf
-\proofpart{$\ker\phi$ é fechado pela operação:}
+\crproofpart{$\ker\phi$ é fechado pela operação:}
 Sejam $x,y\in\ker\phi$.
-Precisamos mostrar que $xy\in\ker\phi$, ou seja, que $\phi(xy) = e_{G'}$.
+Precisamos mostrar que $xy\in\ker\phi$, ou seja, que $\phi(xy) = e_B$.
 Calculamos:
 $$
 \alignat2
 \phi(xy)
 &= \phi(x) \phi(y)  \by{$\phi$ homo (oper.)}
-&= e_{G'} e_{G'}    \by{$x,y\in\ker\phi$}
-&= e_{G'}           \by{def.~$e_{G'}$}
+&= e_B e_B          \by{$x,y\in\ker\phi$}
+&= e_B.             \by{def.~$e_B$}
 \endalignat
 $$
-\endgraf
 \proofpart{$\ker\phi$ é fechado pelos inversos:}
 Seja $x\in\ker\phi$.
-Precisamos mostrar que $\ginv x\in\ker\phi$, ou seja, que $\phi\funparen{\ginv x} = e_{G'}$.
+Precisamos mostrar que $\ginv x\in\ker\phi$, ou seja, que $\phi\funparen{\ginv x} = e_B$.
 Calculamos:
 $$
 \alignat2
 \phi\funparen{\ginv x}
 &= \ginvp{\phi(x)}  \by{$\phi$ homo (inv.)}
-&= \ginvp{e_{G'}}   \by{$x\in\ker\phi$}
-&= e_{G'}           \by{inverso da identidade~(\ref{inverse_of_identity_in_group})}
+&= \ginv{e_B}       \by{$x\in\ker\phi$}
+&= e_B.             \by{inverso da identidade~(\ref{inverse_of_identity_in_group})}
 \endalignat
 $$
 
@@ -29111,33 +29113,33 @@ $$
 %%{{{ x: kernel_normal 
 \exercise.
 \label{kernel_normal}%
-Sejam $G$ e $G'$ grupos e $\phi$ um homomorfismo de $G$ para $G'$.
+Sejam $A$ e $B$ grupos e $\phi : A \to B$ homomorfismo.
 Prove que $\ker\phi\normal G$.
 
 \hint
-Acabamos de provar que $\ker\phi\subgrp \cal G$ no~\ref{kernel_subgroup}.
+Acabamos de provar que $\ker\phi\subgrp \cal A$ no~\ref{kernel_subgroup}.
 Basta provar que $\ker\phi$ é fechado pelos conjugados.
-Seja $n\in\ker\phi$ e tome $g\in G$.
-Precisamos provar que o $g$-conjugado de $n$, também está no $\ker\phi$:
-$gn\ginv g \in \ker\phi$.
-Ou seja, basta verificar que realmente $\phi(gn\ginv g) = e_{\cal G'}$.
+Seja $k\in\ker\phi$ e tome $a\in A$.
+Precisamos provar que o $a$-conjugado de $k$ também está no $\ker\phi$:
+$ak\ginv a \in \ker\phi$.
+Ou seja, basta verificar que realmente $\phi(ak\ginv a) = e_B$.
 
 \solution
-Seja $n\in\ker\phi$ e tome $g\in \cal G$.
-Precisamos provar que o $g$-conjugado de $n$, também está no $\ker\phi$:
-$gn\ginv g \in \ker\phi$.
+Seja $k\in\ker\phi$ e tome $a\in A$.
+Precisamos provar que o $a$-conjugado de $k$ também está no $\ker\phi$:
+$ak\ginv a \in \ker\phi$.
 Calculamos:
 $$
 \alignat2
-\phi\funparen{gn\ginv g}
-&= \phi(g) \phi(n) \phi\funparen{\ginv g}       \by{$\phi$ homo}
-&= \phi(g) e_{\cal G'} \phi\funparen{\ginv g}   \by{$n\in\ker\phi$}
-&= \phi(g) \phi\funparen{\ginv g}               \by{def.~$e_{\cal G'}$}
-&= \phi(g) \ginvp{\phi(g)}                      \by{$\phi$ homo}
-&= e_{\cal G'}                                  \by{def.~$\ginvp{\phi(g)}$}
+\phi\funparen{ak\ginv a}
+&= \phi(a) \phi(k) \phi\funparen{\ginv a}   \by{$\phi$ homo}
+&= \phi(a) e_B \phi\funparen{\ginv a}       \by{$n\in\ker\phi$}
+&= \phi(a) \phi\funparen{\ginv a}           \by{def.~$e_B$}
+&= \phi(a) \ginvp{\phi(a)}                  \by{$\phi$ homo}
+&= e_B                                      \by{def.~$\ginvp{\phi(a)}$}
 \endalignat
 $$
-Logo $gn\ginv g\in\ker\phi$ como queremos provar.
+Logo $ak\ginv a\in\ker\phi$ como queremos provar.
 
 \endexercise
 %%}}}
@@ -29147,7 +29149,7 @@ Logo $gn\ginv g\in\ker\phi$ como queremos provar.
 \label{kernel_normal_alt_proof}%
 Veja a prova completa do~\ref{kernel_normal}.
 No seu cálculo, mostre como continuar num caminho diferente depois da terceira
-igualdade para chegar no mesmo resultado desejado: $e_{G'}$.
+igualdade para chegar no mesmo resultado desejado: $e_B$.
 
 \hint
 Aplicamos a propriedade que homomorfismos preservem os inversos.
@@ -29157,13 +29159,13 @@ Aplique outra propriedade de homomorfismos.
 Calculamos:
 $$
 \alignat2
-\phi\funparen{gn\ginv g}
-&= \phi(g) \phi(n) \phi\funparen{\ginv g}   \by{$\phi$ homo (oper.)}
-&= \phi(g) e_{G'} \phi\funparen{\ginv g}    \by{$n\in\ker\phi$}
-&= \phi(g) \phi\funparen{\ginv g}           \by{def.~$e_{G'}$}
-&= \phi(g \ginv g)                          \by{$\phi$ homo (oper.)}
-&= \phi(e_G)                                \by{def.~$\ginv g$}
-&= e_{G'}                                   \by{$\phi$ homo (iden.)}
+\phi\funparen{ak\ginv a}
+&= \phi(a) \phi(k) \phi\funparen{\ginv a}   \by{$\phi$ homo (oper.)}
+&= \phi(a) e_B \phi\funparen{\ginv a}       \by{$k\in\ker\phi$}
+&= \phi(a) \phi\funparen{\ginv a}           \by{def.~$e_B$}
+&= \phi(a \ginv a)                          \by{$\phi$ homo (oper.)}
+&= \phi(e_A)                                \by{def.~$\ginv a$}
+&= e_B                                      \by{$\phi$ homo (iden.)}
 \endalignat
 $$
 
@@ -29173,45 +29175,43 @@ $$
 %%{{{ x: image_subgroup 
 \exercise.
 \label{image_subgroup}%
-Sejam $G$ e $G'$ grupos e $\phi$ um homomorfismo de $G$ para $G'$.
-Prove que $\Img\phi\subgrp G'$.
+Sejam $A$ e $B$ grupos e $\phi$ um homomorfismo de $A$ para $B$.
+Prove que $\Img\phi\subgrp B$.
 
 \hint
 Precisas mostrar que $\Img\phi$ é fechado pela operação e pelos conjuntos.
 
 \hint
 \proofpart{$\Img\phi$ fechado pela operação:}
-Tome $a', b' \in \Img\phi$ e ache um $x\in\cal G$ tal que que $\phi(x) = a'b'$.
-\endgraf\noindent
-\proofpart{$\Img\phi$ fechado pelos conjuntos:}
-Tome $a' \in \Img\phi$ e ache um $x\in\cal G$ tal que $\phi(x) = \ginvp{a'}$.
+Tome $x', y' \in \Img\phi$ e ache um $w\in A$ tal que que $\phi(w) = x'y'$.
+\crproofpart{$\Img\phi$ fechado pelos conjuntos:}
+Tome $x' \in \Img\phi$ e ache um $x\in A$ tal que $\phi(x) = \ginvp{x'}$.
 
 \solution
 \proofpart{$\Img\phi$ fechado pela operação:}
-Sejam $a', b' \in \Img\phi$.
-Logo, sejam $a,b\in\cal G$ tais que $\phi a = a'$, e $\phi b = b'$.
+Sejam $x', y' \in \Img\phi$.
+Logo, sejam $x,y\in A$ tais que $\phi x = x'$, e $\phi y = y'$.
 Calculamos:
 $$
 \alignat2
-\phi(ab)
-&= \phi(a) \phi(b)  \by{$\phi$ homo (oper.)}
-&= a' b'.           \by{pela escolha dos $a,b$}
+\phi(xy)
+&= \phi(x) \phi(y)  \by{$\phi$ homo (oper.)}
+&= x' y'.           \by{pela escolha dos $x,y$}
 \endalignat
 $$
-Ou seja, $a'b' \in \Img\phi$.
-\endgraf\noindent
-\proofpart{$\Img\phi$ fechado pelos conjuntos:}
-Seja $a' \in \Img\phi$.
-Logo, seja $a\in\cal G$ tal que $\phi a = a'$.
+Ou seja, $x'y' \in \Img\phi$.
+\crproofpart{$\Img\phi$ fechado pelos conjuntos:}
+Seja $x' \in \Img\phi$.
+Logo, seja $x\in A$ tal que $\phi x = x'$.
 Calculamos:
 $$
 \alignat2
-\phi(\ginv a)
-&= \ginvp{\phi a}   \by{$\phi$ homo (inv.)}
-&= \ginvp{a'}.      \by{pela escolha do $a$}
+\phi\funparen{\ginv x}
+&= \ginvp{\phi x}   \by{$\phi$ homo (inv.)}
+&= \ginvp{x'}.      \by{pela escolha do $x$}
 \endalignat
 $$
-Ou seja, $a'\in\Img\phi$.
+Ou seja, $x'\in\Img\phi$.
 
 \endexercise
 %%}}}
@@ -29222,17 +29222,17 @@ Ou seja, $a'\in\Img\phi$.
 \iisee{grupo!teorema de isomorfismo}{teorema de isomorfismo}%
 \ii{teorema de isomorfismo}[primeiro (de grupos)]%
 \iiseealso{isomorfismo}{teorema de isomorfismo}%
-Sejam $\cal G, \cal H$ grupos e $\phi : \cal G \to \cal H$ homomorfismo.
+Sejam $\cal A, \cal B$ grupos e $\phi : \cal A \to \cal B$ homomorfismo.
 \beginil
-\item{\rm (i)} $\ker\phi\normal \cal G$;
-\item{\rm (ii)} $\Img\phi\subgrp \cal H$;
-\item{\rm (iii)} $\quogrp G {\ker\phi} \iso \Img\phi$.
+\item{\rm (i)}   $\ker\phi\normal \cal A$;
+\item{\rm (ii)}  $\Img\phi\subgrp \cal B$;
+\item{\rm (iii)} $\quogrp A {\ker\phi} \iso \Img\phi$.
 \endilnoskip
 \sketch.
 Acabamos de provar as (i)~\&~(ii) nos~\refn{kernel_normal}~\&~\refn{image_subgroup}.
 Para a (iii) precisamos definir uma função
 $$
-\psi : \quogrp G {\ker\phi} \to \Img\phi
+\psi : \quogrp A {\ker\phi} \to \Img\phi
 $$
 tal que $\psi$ é um isomorfismo.
 Seja $K \asseq \ker\phi$.
@@ -29244,10 +29244,10 @@ O problema é que $\psi$ não parece \emph{bem-definida}, pois seu valor
 pode depender na escolha do representante $x$ da coclasse---veja
 o~\ref{not_well_defined_function_danger} caso que o problema
 com essa definição não é claro.
-Precisamos melhorar essa definição e provar que realmente defina
-uma \emph{função} $\psi$; que a $\psi$ é bijetora; que $\psi$ é
-um homomorfismo (e logo isomorfismo), ou seja que $\psi$ preserva
-a operação.
+Precisamos melhorar essa definição e provar que:
+(a) realmente defina uma \emph{função} $\psi$;
+(b) $\psi$ é bijetora;
+(c) $\psi$ é um homomorfismo (e logo isomorfismo).
 \qes
 %%}}}
 
