@@ -21991,12 +21991,12 @@ $$
 \cdopt{sep=1.5cm}
 A   \ar[r,two heads, ""]\ar[rrr, bend left, "f"] \|
 \quoset A {\frel f} \ar[r,two heads,tail, "\tilde f"'] \|
-\Img f              \ar[r,hook, ""] \|
+\ima f              \ar[r,hook, ""] \|
 B
 \endcd
 $$
 onde a primeira função é a ``projecção'' $\eqclassimp {\dhole}$,
-a terceira é a inclusão $\Img f \subseteq B$, e a bijecção no meio
+a terceira é a inclusão $\ima f \subseteq B$, e a bijecção no meio
 é a função definida pela
 $$
 \tilde f(\eqclassimp a) = f(a),
@@ -29049,17 +29049,17 @@ $\sset \ints +$ e $\sset \rats +$.
 Sejam $A,B$ grupos e $\phi:A\to B$ um homomorfismo.
 Definimos
 $$
-\align
+\alignat2
 \ker\phi
-&\defeq \pre \phi {\set{e_B}} \\
-\big(&= \setst {a \in A} {\phi(a) = e_B} \ \big)\\
-\Img\phi
-&\defeq \img \phi A \\
-&= \setst {b \in B} {\lexists {x\in A} {\phi(x) = b}}
-\endalign
+&\defeq \pre \phi {\set{e_B}} &
+\quad\big(&= \setst {a \in A} {\phi(a) = e_B} \ \big)\\
+\ima\phi
+&\defeq \img \phi A &
+\quad\big(&= \setst {b \in B} {\lexists {x\in A} {\phi(x) = b}} \ \big)
+\endalignat
 $$
 Chamamos o $\ker \phi$ o \dterm{kernel} do $\phi$
-e o $\Img \phi$ o \dterm{image} do $\phi$.
+e o $\ima \phi$ o \dterm{image} do $\phi$.
 %%}}}
 
 %%{{{ x: kernel_subgroup 
@@ -29069,9 +29069,10 @@ Sejam $A$ e $B$ grupos e $\phi : A \to B$ homomorfismo.
 Prove que $\ker\phi\subgrp A$.
 
 \hint
-Graças ao~\ref{subgroup_criterion}, precisas provar:
+Primeiramente verifique que $\ker\phi\neq\emptyset$.
+Agora, graças ao~\ref{subgroup_criterion}, precisas provar:
 (i)~$\ker\phi$ é~$\ast$-fechado;
-(ii)~$\ker\phi$ é~$^{-1}$-fechado.
+(ii)~$\ker\phi$ é~$\ginv{}$-fechado.
 
 \hint
 Para o (i), tome $x,y\in\ker\phi$ e mostre que $xy\in\ker\phi$,
@@ -29082,7 +29083,10 @@ Para o (ii), tome $x\in\ker\phi$ e mostre que $\ginv x\in\ker\phi$,
 ou seja, que $\phi\funparen{\ginv x} = e_B$.
 
 \solution
-Graças ao~\ref{subgroup_criterion}, basta provar:
+Primeiramente observamos que $\ker\phi\neq\emptyset$:
+$e_A \in \ker\phi$, pois $\phi$ é um homomorfismo
+e logo leva a $e_A$ para a $e_B$.
+Então graças ao~\ref{subgroup_criterion}, basta provar:
 \crproofpart{$\ker\phi$ é fechado pela operação:}
 Sejam $x,y\in\ker\phi$.
 Precisamos mostrar que $xy\in\ker\phi$, ou seja, que $\phi(xy) = e_B$.
@@ -29177,20 +29181,20 @@ $$
 \exercise.
 \label{image_subgroup}%
 Sejam $A$ e $B$ grupos e $\phi$ um homomorfismo de $A$ para $B$.
-Prove que $\Img\phi\subgrp B$.
+Prove que $\ima\phi\subgrp B$.
 
 \hint
-Precisas mostrar que $\Img\phi$ é fechado pela operação e pelos conjuntos.
+Precisas mostrar que $\ima\phi$ é fechado pela operação e pelos conjuntos.
 
 \hint
-\proofpart{$\Img\phi$ fechado pela operação:}
-Tome $x', y' \in \Img\phi$ e ache um $w\in A$ tal que que $\phi(w) = x'y'$.
-\crproofpart{$\Img\phi$ fechado pelos conjuntos:}
-Tome $x' \in \Img\phi$ e ache um $x\in A$ tal que $\phi(x) = \ginvp{x'}$.
+\proofpart{$\ima\phi$ fechado pela operação:}
+Tome $x', y' \in \ima\phi$ e ache um $w\in A$ tal que que $\phi(w) = x'y'$.
+\crproofpart{$\ima\phi$ fechado pelos conjuntos:}
+Tome $x' \in \ima\phi$ e ache um $x\in A$ tal que $\phi(x) = \ginvp{x'}$.
 
 \solution
-\proofpart{$\Img\phi$ fechado pela operação:}
-Sejam $x', y' \in \Img\phi$.
+\proofpart{$\ima\phi$ fechado pela operação:}
+Sejam $x', y' \in \ima\phi$.
 Logo, sejam $x,y\in A$ tais que $\phi x = x'$, e $\phi y = y'$.
 Calculamos:
 $$
@@ -29200,9 +29204,9 @@ $$
 &= x' y'.           \by{pela escolha dos $x,y$}
 \endalignat
 $$
-Ou seja, $x'y' \in \Img\phi$.
-\crproofpart{$\Img\phi$ fechado pelos conjuntos:}
-Seja $x' \in \Img\phi$.
+Ou seja, $x'y' \in \ima\phi$.
+\crproofpart{$\ima\phi$ fechado pelos conjuntos:}
+Seja $x' \in \ima\phi$.
 Logo, seja $x\in A$ tal que $\phi x = x'$.
 Calculamos:
 $$
@@ -29212,7 +29216,7 @@ $$
 &= \ginvp{x'}.      \by{pela escolha do $x$}
 \endalignat
 $$
-Ou seja, $x'\in\Img\phi$.
+Ou seja, $x'\in\ima\phi$.
 
 \endexercise
 %%}}}
@@ -29223,17 +29227,19 @@ Ou seja, $x'\in\Img\phi$.
 \iisee{grupo!teorema de isomorfismo}{teorema de isomorfismo}%
 \ii{teorema de isomorfismo}[primeiro (de grupos)]%
 \iiseealso{isomorfismo}{teorema de isomorfismo}%
-Sejam $G, G'$ grupos e $\phi : G \to G$ homomorfismo.
+Sejam $\cal G = \sset G {\ast, \ginvt, e}$ e
+$\cal G' = \sset {G'} {\ast', \ginvt', e'}$ grupos
+e $\phi : \cal G \to \cal G'$ homomorfismo.
 \beginil
 \item{\rm (i)}   $\ker\phi\normal G$;
-\item{\rm (ii)}  $\Img\phi\subgrp G'$;
-\item{\rm (iii)} $\quogrp G {\ker\phi} \iso \Img\phi$.
+\item{\rm (ii)}  $\ima\phi\subgrp G'$;
+\item{\rm (iii)} $\quogrp G {\ker\phi} \iso \ima\phi$.
 \endilnoskip
 \sketch.
 Acabamos de provar as (i)~\&~(ii) nos~\refn{kernel_normal}~\&~\refn{image_subgroup}.
 Para a (iii) precisamos definir uma função
 $$
-\Phi : \quogrp G {\ker\phi} \to \Img\phi
+\Phi : \quogrp G {\ker\phi} \to \ima\phi
 $$
 tal que $\Phi$ é um isomorfismo.
 Seja $K \asseq \ker\phi$.
@@ -29288,6 +29294,38 @@ temos uma tarefa para fazer:
 Até conseguir provar isso, não podemos considerar a $\psi$ uma função
 \ii{função}[bem-definida]\emph{bem-definida}.
 Veja bem a prova do~\ref{first_isomorphism_theorem_groups}.
+%%}}}
+
+%%{{{ thm: group_homo_mono_iff_ker_singleton 
+\theorem.
+\label{group_homo_mono_iff_ker_singleton}%
+Sejam $A,B$ grupos e $\phi : A \to B$ homomorfismo.
+$$
+\text{$\phi$ monomorfismo}
+\iff
+\ker\phi = \set{e_A}.
+$$
+\proof.
+\proofpart{\lrdir}.
+Como $e_A \in \ker\phi$,
+basta provar que todos os membros de $\ker\phi$ são iguais.
+Sejam $x,y\in\ker\phi$ então.
+Logo $\phi(x) = e_B = \phi(y)$,
+e como $\phi$ é injetora, concluimos o desejado $x=y$.
+\crproofpart{\rldir}.
+$$
+\stepproof{
+\proofsteptnb {Sejam $x,y \in A$ tais que $\phi(x) = \phi(y)$.}\\
+\thereforetby {$\phi(x) \ginv{\phi(y)} = e_B$}          {$(\ast \ginv{\phi(y)})$}\\
+\thereforetby {$\phi(x) \phi\funparen{\ginv y} = e_B$}  {$\phi$ homo (inv.)}\\
+\thereforetby {$\phi(x \ginv y) = e_B$}                 {$\phi$ homo (op.)}\\
+\thereforetby {$x\ginv y \in \ker\phi$}                 {def.~$\ker\phi$}\\
+\thereforetby {$x\ginv y \in \set{e_A}$}                {hipótese}\\
+\thereforetby {$x\ginv y = e_A$}                        {$\set{e_A}$ singleton}\\
+\thereforetby {$x = y$}                                 {$(\ast y)$}
+}
+$$
+\qed
 %%}}}
 
 \endsection
@@ -30073,12 +30111,12 @@ grupos, para os anéis:
 \lemma.
 \label{image_subring}%
 Seja $\phi : R \to S$ um homomorfismo de anéis.
-Sua imagem $\Img\phi$ é um subanel de $S$.
+Sua imagem $\ima\phi$ é um subanel de $S$.
 \sketch.
-Usamos o~\ref{subring_criterion} e a definição de $\Img\phi$.
+Usamos o~\ref{subring_criterion} e a definição de $\ima\phi$.
 \qes
 \proof.
-Tome $a,b\in \Img\phi$.  Logo
+Tome $a,b\in \ima\phi$.  Logo
 $$
 \alignat2
 a &= \phi(a') &\quad&\text{para algum $a' \in R$}\\
@@ -30101,7 +30139,7 @@ ab
 &= \phi(a'b').          \by{$\phi$ homo ($\cdot$)}
 \endalignat
 $$
-Ou seja:  $1_S, a+b, -a, ab \in \Img\phi$ e podemos usar
+Ou seja:  $1_S, a+b, -a, ab \in \ima\phi$ e podemos usar
 o~\ref{subring_criterion}.
 \qed
 %%}}}
