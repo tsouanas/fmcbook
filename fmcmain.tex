@@ -27682,18 +27682,18 @@ Similarmente para os $K$ e $N$.
 \endexercise
 %%}}}
 
-%%{{{ df: conjugate_of_group_element 
-\definition Conjugado.
-\label{conjugate_of_group_element}%
+%%{{{ df: conjugates_of_group_element 
+\definition Conjugados.
+\label{conjugates_of_group_element}%
 \tdefined{conjugado}[de elemento de grupo]%
 Seja $G$ grupo e $a\in G$.
 Para qualquer $g\in G$, o $ga\ginv g$ é chamado
 um \dterm{conjugado} de $a$.
 %%}}}
 
-%%{{{ x: is_conjugate_of_is_an_eqrel
+%%{{{ x: is_conjugate_of_an_eqrel
 \exercise.
-\label{is_conjugate_of_is_an_eqrel}%
+\label{is_conjugate_of_an_eqrel}%
 Seja $G$ um grupo.
 A relação $\sim$ definida pela
 $$
@@ -27738,6 +27738,16 @@ $$
 Ou seja, $a \sim c$.
 
 \endexercise
+%%}}}
+
+%%{{{ df: conjugation_by_member 
+\definition Conjugação por membro.
+\label{conjugation_by_member}%
+Seja $G$ grupo e $g\in G$.
+Definimos a função $\gconj g : G \to G$ pela
+$$
+\gconj g (x) = gx\ginv g.
+$$
 %%}}}
 
 %%{{{ df: normal_subgroup 
@@ -28977,6 +28987,36 @@ $$
 $$
 %%}}}
 
+%%{{{ x: id_is_an_auto 
+\exercise.
+\label{id_is_an_auto}%
+Seja $G$ grupo.  Mostre que a $\id : G \to G$
+é um homomorfismo (e logo automorfismo).
+
+\solution
+Sejam $x,y\in G$.
+Calculamos
+$$
+\id(xy) = xy = \id(x)\id(y)
+$$
+e logo $\id$ é um homomorfismo,
+e como $\id$ é bijetora e endomapa, $\id$ é um automorfismo.
+
+\endexercise
+%%}}}
+
+%%{{{ x: conj_is_an_auto 
+\exercise.
+\label{conj_is_an_auto}%
+Seja $G$ grupo.  Para todo $g\in G$, a conjugação por $g$
+(\ref{conjugation_by_member}) é um automorfismo.
+
+\endexercise
+%%}}}
+
+\blah.
+Finalmente podemos definir o que significa que dois grupos são isómorfos!
+
 %%{{{ df: isomorphic_groups 
 \definition Grupos isomórficos.
 \label{isomorphic_groups}%
@@ -29227,9 +29267,8 @@ Ou seja, $x'\in\ima\phi$.
 \iisee{grupo!teorema de isomorfismo}{teorema de isomorfismo}%
 \ii{teorema de isomorfismo}[primeiro (de grupos)]%
 \iiseealso{isomorfismo}{teorema de isomorfismo}%
-Sejam $\cal G = \sset G {\ast, \ginvt, e}$ e
-$\cal G' = \sset {G'} {\ast', \ginvt', e'}$ grupos
-e $\phi : \cal G \to \cal G'$ homomorfismo.
+Sejam $G$ e $G'$ grupos
+e $\phi : G \to G'$ homomorfismo.
 \beginil
 \item{\rm (i)}   $\ker\phi\normal G$;
 \item{\rm (ii)}  $\ima\phi\subgrp G'$;
@@ -29243,10 +29282,12 @@ $$
 $$
 tal que $\Phi$ é um isomorfismo.
 Seja $K \asseq \ker\phi$.
-Queremos definir, para qualquer coclasse $Kx$ do $K$ pela
+Queremos definir a $\Phi$ pela
 $$
-\Phi(Kx) = \phi(x).
+\Phi(Kx) = \phi(x)
 $$
+para qualquer coclasse $Kx$ do $K$ (essas são as suas entradas).
+\endgraf
 O problema é que $\Phi$ não parece \emph{bem-definida}, pois seu valor
 pode depender na escolha do representante $x$ da coclasse---veja
 o~\ref{not_well_defined_function_danger} caso que o problema
@@ -29284,13 +29325,29 @@ ou
 (querendo retornar $\code{1}$ caso que for chamada pelo $\code{foo(a)}$,
 e $\code{3}$ caso que for chamada pelo $\code{foo(num)}$).
 \endgraf
+Até pior, e para corresponder ainda melhor com nosso caso, observe
+que o $Kx$ é na verdade uma operação entre um subgrupo $K$ e um membro
+$x$ que resulta num subconjunto de $G$.  Se o perigo de definir
+a $\Phi$ nesse jeito não é ainda óbvio, imagine que definimos uma
+``função'' $f$ pela
+$$
+f(x+y) = y.
+$$
+O que seria o $f(2+3)$?  $3$?  Por quê não $0$?
+No final das contas,
+$$
+2 + 3 = 5 = 5 + 0 = 4 + 1 = 12 + (-5) = \dots
+$$
+e $f$ não tem como saber o jeito que tu imaginou ``quebrar''
+sua entrada em dois somantes!
+\endgraf
 Mesmo se definir ela pela
 $$
 \psi(C) = \phi(c),\quad
 \text{onde $c$ é algum membro de $C$}
 $$
 temos uma tarefa para fazer:
-\emph{precisamos provar que seu valor $\psi(C)$ não depende na escolha de $c$}.
+\emph{precisamos provar que seu valor $\psi(C)$ não depende da escolha de $c$}.
 Até conseguir provar isso, não podemos considerar a $\psi$ uma função
 \ii{função}[bem-definida]\emph{bem-definida}.
 Veja bem a prova do~\ref{first_isomorphism_theorem_groups}.
@@ -29431,9 +29488,12 @@ $$
 Se $F$ é injetora, então $x=y \impliedby F(x) = F(y)$.
 
 \solution
-Como $\Aut G \subseteq \namedop{Bij} G$, precisamos verificar apenas que $\Aut G$ é:
-\endgraf\noindent
-\proofpart{Fechado pela operação:}
+Como $\Aut G \subseteq \namedop{Bij} G$ precisamos verificar
+apenas que $\Aut G$ é:
+\crproofpart{Não vazio:}
+$\id : G \to G$ é um automorfismo (\ref{id_is_an_auto})
+e logo $\Aut G\neq\emptyset$.
+\crproofpart{Fechado pela operação:}
 Tome $\phi,\psi\in\Aut G$, e $x,y\in G$.  Calculamos:
 $$
 \alignat2
@@ -29444,10 +29504,9 @@ $$
 &=\paren{\phi\compose\psi}(x) \cdot \paren{\phi\compose\psi}(y). \by{def.~$\compose$}
 \endalignat
 $$
-\endgraf\noindent
 \proofpart{Fechado pelos inversos:}
 Tome $\phi\in\Aut G$.
-Precisamos verificar que a bijecção $\phi^{-1}$
+Precisamos verificar que a bijecção $\finv\phi$
 é realmente um homomorfismo.
 Ou seja, precisamos mostrar que
 $$
@@ -29527,6 +29586,25 @@ $$
 &= g \ginv x.                        \by{inv.~de~inv.}
 \endalignat
 $$
+
+\endproblem
+%%}}}
+
+%%{{{ df: inner_auto 
+\definition Inner autos.
+\label{inner_auto}%
+Seja $G$ grupo.
+Definimos o conjunto dos seus \dterm{inner automorfismos}
+$$
+\Inn(G) \defeq \setst {\gconj g} {g \in G}
+$$
+onde $\gconj g$ é a conjugação por $g$ (\ref{conjugation_by_member}).
+%%}}}
+
+%%{{{ prob: inn_normal_aut 
+\problem.
+\label{inn_normal_aut}%
+$\Inn G \normal \Aut G$.
 
 \endproblem
 %%}}}
