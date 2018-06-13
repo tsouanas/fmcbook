@@ -27763,6 +27763,49 @@ $$
 Chamamos a $\gconj g$ a \dterm{conjugação por $g$}.
 %%}}}
 
+%%{{{ x: conjugation_by_member_respects_powers 
+\exercise.
+\label{conjugation_by_member_respects_powers}%
+Sejam $G$ grupo e $g,a\in G$.
+Para todo $n\in\nats$, $\paren{ga\ginv g}^n = g a^n \ginv g$.
+Em outras palavras, a conjugação por membro respeita as potências:
+$$
+\gconj g (a^n) = 
+\paren{\gconj g (a)}^n
+$$
+para todo $n\in\nats$.
+
+\hint
+Indução.
+
+\solution
+Provamos por indução.
+Observe que
+$$
+\align
+(ga\ginv g)^0 &= e \\
+g a^0 \ginv g &= g e \ginv g = g \ginv g = e.
+\endalign
+$$
+Agora seja $k\in\nats$ tal que
+$$
+ (ga\ginv g)^k = g a^k \ginv g. \tag{H.I.}
+$$
+Calculamos
+$$
+\alignat2
+(ga\ginv g)^{k+1}
+    &= (ga\ginv g)^k (ga\ginv g) \\
+    &= (ga^k\ginv g) (ga\ginv g) \by{pela H.I.}
+    &= ga^k(\ginv g g)a\ginv g \\
+    &= ga^ka\ginv g \\
+    &= ga^{k+1}\ginv g.
+\endalignat
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ df: normal_subgroup 
 \definition Subgrupo normal.
 \label{normal_subgroup}%
@@ -29176,9 +29219,9 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ x: kernel_normal 
+%%{{{ x: kernel_is_normal 
 \exercise.
-\label{kernel_normal}%
+\label{kernel_is_normal}%
 Sejam $A$ e $B$ grupos e $\phi : A \to B$ homomorfismo.
 Prove que $\ker\phi\normal A$.
 
@@ -29210,10 +29253,10 @@ Logo $ak\ginv a\in\ker\phi$ como queremos provar.
 \endexercise
 %%}}}
 
-%%{{{ x: kernel_normal_alt_proof 
+%%{{{ x: kernel_is_normal_alt_proof 
 \exercise.
-\label{kernel_normal_alt_proof}%
-Veja a prova completa do~\ref{kernel_normal}.
+\label{kernel_is_normal_alt_proof}%
+Veja a prova completa do~\ref{kernel_is_normal}.
 No seu cálculo, mostre como continuar num caminho diferente depois da terceira
 igualdade para chegar no mesmo resultado desejado: $e_B$.
 
@@ -29296,7 +29339,7 @@ e $\phi : G \to G'$ homomorfismo.
 \item{\rm (iii)} $\quogrp G {\ker\phi} \iso \ima\phi$.
 \endilnoskip
 \sketch.
-Acabamos de provar as (i)~\&~(ii) nos~\refn{kernel_normal}~\&~\refn{image_subgroup}.
+Acabamos de provar as (i)~\&~(ii) nos~\refn{kernel_is_normal}~\&~\refn{image_subgroup}.
 Para a (iii) precisamos definir uma função
 $$
 \Phi : \quogrp G {\ker\phi} \to \ima\phi
@@ -29416,6 +29459,32 @@ $$
 }
 $$
 \qed
+%%}}}
+
+%%{{{ kernel <==> normal 
+\note.
+Já provamos algo (\ref{kernel_is_normal}) que,
+informalmente falando, podemos escrever assim:
+$$
+\text{kernel} \implies \text{normal}.
+$$
+E o converso?
+Será que também é verdade?
+O que exatamente é esse converso?
+Como formalizar?  Podemos provar?
+\endgraf
+Realmente o converso da implicação-informal também é válido:
+$$
+\text{normal} \implies \text{kernel}.
+$$
+Temos então o slogan
+$$
+\text{normal} \iff \text{kernel}.
+$$
+Ou seja, em teoria de grupos os conceitos de ``kernel''
+e de ``subgrupo normal'' são apenas dois lados da mesma moeda.
+Deixo os \emph{detalhes importantes} pra ti,
+no~\ref{normal_is_kernel}---não pule!
 %%}}}
 
 \endsection
@@ -29645,7 +29714,25 @@ Prove tua afirmação!
 %%{{{ prob: exponentiation_respects_conjugation 
 \problem.
 \label{exponentiation_respects_conjugation}%
-Se $x,y$ são conjugados, então para todo $n\in\nats$, $x^n$ e $y^n$ também são.
+Se $x,y$ são conjugados, então para todo $n\in\nats$,
+$x^n$ e $y^n$ também são.
+
+\hint
+Lembre o~\ref{conjugation_by_member_respects_powers}.
+
+\solution
+Isso é um corolário imediato
+do~\ref{conjugation_by_member_respects_powers}:
+Como $x,y$ conjugados, temos $x = gy\ginv g$ para algum $g\in G$.
+E agora calculamos:
+$$
+\alignat2
+x^n
+&= \paren{gy\ginv g}^n \\
+&= gy^n\ginv g      \by{pelo \refn{conjugation_by_member_respects_powers}}.
+\endalignat
+$$
+e logo $x^n,y^n$ conjugados também.
 
 \endproblem
 %%}}}
@@ -29654,6 +29741,45 @@ Se $x,y$ são conjugados, então para todo $n\in\nats$, $x^n$ e $y^n$ também s�
 \problem.
 \label{conjugates_have_the_same_order}%
 Membros da mesma classe de conjugação tem a mesma ordem.
+
+\hint
+Separe os casos em $\gord a = n \in\nats$ e $\gord a = \infty$.
+
+\hint
+Lembre o~\ref{exponentiation_respects_conjugation}
+e o~\ref{conjugacy_class_of_e}.
+
+\solution
+Sejam $a,b$ conjugados.
+\crcase{Caso que $\gord a < \infty$.}
+\crproofpart{Resolução 1.}
+Preciso mostrar:
+(i) $b^n = e$;
+(ii) para todo $m$ com $0<m<n$, $b^m \neq e$.
+\endgraf
+(i) Pelo~\ref{exponentiation_respects_conjugation},
+temos que $a^n$ e $b^n$ são conjugados,
+mas $a^n = e$, e a classe de conjugação de $e$ é o singleton $\set{e}$
+(\ref{conjugacy_class_of_e}).
+Logo $b^n = e$.
+\endgraf
+(ii) Pela mesma observação cada suposto $b^m = e$
+obrigaria $a^m = e$ também.
+Logo $\gord b = n$.
+\crproofpart{Resolução 2.}
+Pelo~\ref{exponentiation_respects_conjugation}
+temos $a^{\gord a}$ conjugado com $b^{\gord a}$.
+Logo $b^{\gord a} = e$ e logo $\gord b \divides \gord a$.
+Similarmente $\gord a \divides \gord b$ e logo $\gord a = \gord b$
+pois ambos são naturais.
+\crcase{Caso que $\gord a = \infty$.}
+Tenho que para todo $n > 0$, $a^n \neq e$,
+e preciso mostrar a mesma coisa sobe os $b^n$.
+De novo, de qualquer suposto contraexemplo $m\in \nats$ com $b^m = e$
+concluimos $a^m = e$ que é absurdo pois $\gord a = \infty$.
+\endgraf
+Para uma resolução mais poderosa e simples,
+veja o~\ref{conjugates_look_alike}.
 
 \endproblem
 %%}}}
@@ -29685,6 +29811,65 @@ como um corolário de Lagrange\Lagrange[teorema!corolário]{}:
 $$
 \text{$n$ é primo} \iff \facp{n-1} \cong -1 \pmod n.
 $$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: normal_is_kernel 
+\problem kernel = normal.
+\label{normal_is_kernel}%
+Já provamos algo que informalmente falando podemos escrever assim:
+$$
+\text{kernel} \implies \text{normal}
+$$
+Formalize e prove o converso.
+
+\hint
+Formalização:
+\proclaimstyle{Seja $G$ grupo e $N \normal G$.
+Logo existem grupo $G'$ e homomorfismo $\phi : G \to G'$
+tal que $N$ é o kernel de $\phi$.}
+
+\hint
+O $G'$ é o $\quogrp G N$.
+
+\solution
+Formalização:
+\proclaimstyle{Seja $G$ grupo e $N \normal G$.
+Logo existem grupo $G'$ e homomorfismo $\phi : G \to G'$
+tal que $N$ é o kernel de $\phi$.}
+\crproofpart{Prova.}
+Considere o grupo $\quogrp G N$ e
+defina a $\phi : G \to \quogrp G N$
+pela
+$$
+\phi(x) = Nx.
+$$
+Basta provar que:
+\beginil
+\item{(i)}  $\phi$ é um homomorfismo;
+\item{(ii)} $\ker\phi = N$.
+\endil
+(i) Basta verificar que $\phi$ respeita a operação.
+Sejam $x,y \in G$.
+Calculamos
+$$
+\phi (xy) = N(xy) = (Nx)(Ny) = \phi(x) \phi(y).
+$$
+(ii) Temos
+$$
+\alignat2
+x\in \ker\phi
+&\iff \phi(x) = e_{\quogrp G N} \by {def.~$\ker\phi$}
+&\iff \phi(x) = N       \by {$N$ é a identidade do $\quogrp G N$}
+&\iff Nx = N            \by {def.~$\phi$}
+&\iff x \in N.          \by {\ref{Ha_eq_H_iff_a_in_H}}
+\endalignat
+$$
+Ou seja, $\ker\phi = N$.
+\endgraf
+Com isso concluimos que na teoria de grupos,
+``subgrupo normal'' e ``kernel'' são dois lados da mesma moeda.
 
 \endproblem
 %%}}}
