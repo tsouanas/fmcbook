@@ -31097,6 +31097,8 @@ Ou seja, estipulamos o seguinte:
 %%{{{ A bit of historical context 
 \history Um pouco de contexto histórico.
 
+\TODO Terminar as duas histórias.
+
 \note Números salvagens.
 1682:
 \Leibniz{}Leibniz prova que $\sin$ não é uma \dterm{função algebrica}.
@@ -31147,11 +31149,12 @@ Cantor e depois Cantor).
 \endhistory
 %%}}}
 
-%%{{{ What is counting? 
-\section O que é contar?.
+%%{{{ What is counting and comparing of quantities? 
+\section O que é contar e comparar quantidades?.
 
+%%{{{ How we count 
 \note.
-Quando queremos \dterm{contar} uma quantidade dos membros
+Quando queremos \dterm{contar} a quantidade de membros
 dum conjunto $A$, começamos apontando a cada um deles,
 e usando \emph{números}, atribuimos um para cada membro.
 No final das contas---ahem---acabamos com um certo número $n$
@@ -31161,8 +31164,41 @@ Em símbolos,
 $$
 \card A = n.
 $$
-Essa análise tem varios pontos sobresimplificados e talvez
+Essa análise tem varios pontos hipersimplificados e talvez
 controversiais.
+\endgraf
+Primeiramente note que, se o conjunto $A$ é infinito, esse
+processo nunca vai parar, e a gente não vai conseguir atribuir
+um $n\in\nats$ para representar a cardinalidade $\card A$.
+Alem disso, precisamos \emph{ter} os números.
+Isso talvez parece um ponto bobo, mas vale a pena se perguntar
+se os humanos sabiam sobre o conceito de \dterm{quantidade},
+e equivalentemente de \dterm{cardinalidade de conjunto},
+antes de \emph{ter} os números ou não!
+%%}}}
+
+%%{{{ Do we really need numbers? 
+\note Precisamos mesmo de números?.
+Sabemos como contar conjuntos finitos então.
+E usamos o $\nats$ para representar as quantidades possíveis.
+Agora não queremos contar, mas \emph{comparar} dois conjuntos
+\emph{com relação à quantidade de elementos}.
+A discussão sobre contagem acima presuponha a existência
+dos números que usamos para contar:  1, 2, 3, etc.,
+e dependende da época talvez o 0 também faz parte desses números.
+Mas, bem antes de ter números para contar, os humanos poderiam
+comparar quantidades.
+Talvez um humano prehistórico sabia dizer que ele tem a mesma
+quantidade de filhos que seu vizinho, sem saber dizer que
+cada um tem \emph{cinqo} filhos.
+Como ele sabia então comprarar essas cardinalidades?
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Equinumerosity 
+\section Eqüinumerosidade.
 
 %%{{{ df: finord 
 \definition.
@@ -31209,25 +31245,6 @@ $$
 
 \endexercise
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Equinumerosity 
-\section Eqüinumerosidade.
-
-\note Comparação de quantidades.
-Sabemos como contar então.
-E usamos o $\nats$ para representar as quantidades possíveis.
-Agora não queremos contar, mas \emph{comparar} dois conjuntos
-\emph{com relação à quantidade de elementos}.
-
-\note O que são os números?.
-A discussão sobre contagem acima presuponha a existência
-dos números que usamos para contar:  1, 2, 3, etc.,
-e dependende da época talvez o 0 também faz parte desses números.
-Mas, bem antes de ter números para contar, os humanos poderiam
-comparar quantidades.
 
 %%{{{ df: equinumerous 
 \definition Eqüinúmeros.
@@ -31514,7 +31531,7 @@ usando as duas barras para indicar essa ``dupla abstracção''.
 \label{infinite_set}%
 \tdefined{finito}%
 \tdefined{infinito}%
-O conjunto $A$ é \dterm{finito} sse existe $n\in\nats$ tal que $\finord n \eqc A$.
+O conjunto $A$ é \dterm{finito} sse existe $n\in\nats$ tal que $A \eqc \finord n$.
 O conjunto $A$ é \dterm{infinito} sse $A$ não é finito.
 %%}}}
 
@@ -31533,14 +31550,14 @@ O conjunto $A$ é \dterm{incontável} sse $A$ não é contável.
 %%{{{ countable vs enumerable 
 \warning.
 Em muitos textos as palavras ``contável'' e ``(d)enumerável'' não
-são sinónimos: um delas pode insistir que o conjunto seja infinito,
-e a outra relaxar essa restrição para permitir os finitos também.
-As duas palavras, etimologicamente e semanticamente falando,
+são exatamente sinónimas: uma delas pode insistir que o conjunto seja
+infinito, e a outra relaxar essa restrição para permitir os finitos
+também.  As duas palavras, etimologicamente e semanticamente falando,
 parecem ser sinônimos no mundo matemático, e por isso nesse texto
 eu vou usar as duas como sinônimos mesmo.  Mas cuidado lendo
 textos diferentes, pois podem significar coisas diferentes
 no caso que o conjunto em questão é finito.
-(Nos infinitos os dois termos sempre concordam.)
+(Sobre conjuntos infinitos os dois termos sempre concordam.)
 %%}}}
 
 %%{{{ df: enumeration 
@@ -31555,8 +31572,8 @@ A = \img \pi {\nats} = \set{\pi(0), \pi(1), \pi(2), \dotsc}
 $$
 %%}}}
 
-%%{{{ prop: A_is_countable_equiv_statements 
-\proposition.
+%%{{{ lemma: A_is_countable_equiv_statements 
+\lemma.
 \label{A_is_countable_equiv_statements}%
 Seja $A$ conjunto.
 O.s.s.e.:
@@ -31566,10 +31583,55 @@ O.s.s.e.:
 \sketch.
 As direcões $(1)\Rightarrow(2)\Rightarrow(3)$ são conseqüências fáceis
 das definições.  Para ``fechar o round-robin'' ($(3)\Rightarrow(1)$),
-precisamos definir uma \emph{bijecção} $f : \nats\bijto A$, dados uma
-\emph{surjecção} $\pi:\nats\surjto A$.  Usamos recursão e o princípio
-da boa ordem.
+precisamos definir uma \emph{bijecção} $f : \nats\bijto A$
+ou $f : \finord n\bijto A$, dados uma \emph{surjecção} $\pi:\nats\surjto A$.
+Usamos recursão e o princípio da boa ordem.
 \qes
+\proof.
+Vamos provar o lemma ``round-robin'', provando as implicações
+$(1)\Rightarrow(2)\Rightarrow(3)\Rightarrow(1)$.
+As duas primeiras são conseqüências imediatas das definições---nada
+interessante---mas para a $(3)\Rightarrow(1)$ precisamos mais cuidado.
+\crproofpart{$(1)\Rightarrow(2)$.}
+Caso $A$ finito, para algum $n\in\nats$ temos $A\eqc \finord n \subseteq \nats$
+e logo $A \leqc \nats$.
+Caso que $A$ infinito, temos $A\eqc\nats\subseteq\nats$ e logo $A \leqc \nats$.
+\crproofpart{$(2)\Rightarrow(3)$.}
+Suponha que $A\neq\emptyset$.
+Vamos construir uma enumeração do $A$, ou seja, uma $\pi : \nats \surjto A$.
+Pela hipótese, seja $N_0 \subseteq \nats$ tal que $A \eqc N_0$.
+E logo temos uma bijeção $f : N_0 \bijto A$.
+Seja $a_0 \in A$ ($A\neq\emptyset$) e defina a função $\pi : \nats \to A$ pela
+$$
+\pi(x) =
+\knuthcases{
+f(x), & se $x \in N_0$ \cr
+a_0,  & se não.
+}
+$$
+Basta verificar que $\pi$ é realmente sobrejetora, mas isso é fácil:
+para cada $a\in A$, temos
+$$
+\pi(\finv{f}(a)) = a.
+$$
+\proofpart{$(3)\Rightarrow(1)$.}
+Caso $A=\emptyset$ ele é finito e logo contável.
+Seja $\pi : \nats \surjto A$ uma enumeração de $A$ então.
+Precisamos definir uma bijecção $f : \nats\bijto A$ ou $f : \finord n\bijto A$.
+Defina a $f$ pela recursão
+$$
+\align
+f(0)   &= \pi(0) \\
+\text{e para $n>0$ defina}\qquad
+f(n) &= \pi(m_n)
+\phantom{\text{e para $n>0$ defina}\qquad}
+\endalign
+$$
+onde $m_n$ é o menor natural $m$ tal que $\pi(m) \notin \set{f(0),\dotsc,f(n-1)}$
+se tal natural existe.
+E se não?
+Nesse caso paramos e temos $f : \finord n \to A$.
+\qed
 %%}}}
 
 %%{{{ What do we gain? 
@@ -31774,6 +31836,10 @@ de enumerar o $\rats$.
 %%{{{ Cantor's second diagonal argument 
 \section O segundo argumento diagonal de Cantor.
 
+\TODO Explain in terms of decimal numerals of numbers in $[0,1]$.
+
+\TODO Geometric representation of decimal numbers (maybe on ``reals'' chapter).
+
 %%{{{ x: why_cant_we_prove_that_rats_is_uncountable 
 \exercise.
 Por quê não podemos usar o mesmo argumento para concluir que o $\setst{q \in \rats}{0\leq q\leq 1}$ também é incontável?
@@ -31789,6 +31855,8 @@ Como tu vai provar que o número construido pela método de Cantor realmente é 
 
 %%{{{ Cantor set 
 \section O conjunto de Cantor.
+
+\TODO Apresentar.
 
 \endsection
 %%}}}
