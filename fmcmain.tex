@@ -31308,8 +31308,8 @@ Usamos as bijecções seguintes: identidade, composição, inversa.
 \endexercise
 %%}}}
 
-%%{{{ prop: leqc_is_equiorder 
-\proposition.
+%%{{{ lemma: leqc_is_equiorder 
+\lemma.
 \label{leqc_is_equiorder}%
 A $\leqc$ é:
 $$
@@ -31615,8 +31615,9 @@ $$
 \pi(\finv{f}(a)) = a.
 $$
 \proofpart{$(3)\Rightarrow(1)$.}
-Caso $A=\emptyset$ ele é finito e logo contável.
-Seja $\pi : \nats \surjto A$ uma enumeração de $A$ então.
+Caso $A$ finito, $A$ é contável.
+Suponha que $A$ infinito, e seja $\pi : \nats \surjto A$
+uma enumeração de $A$.
 Precisamos definir uma bijecção $f : \nats\bijto A$ ou $f : \finord n\bijto A$.
 Defina a $f$ pela recursão
 $$
@@ -31627,10 +31628,8 @@ f(n) &= \pi(m_n)
 \phantom{\text{e para $n>0$ defina}\qquad}
 \endalign
 $$
-onde $m_n$ é o menor natural $m$ tal que $\pi(m) \notin \set{f(0),\dotsc,f(n-1)}$
-se tal natural existe.
-E se não?
-Nesse caso paramos e temos $f : \finord n \to A$.
+onde $m_n$ é o menor natural $m$ tal que $\pi(m) \notin \set{f(0),\dotsc,f(n-1)}$.
+Observe que tal $m_n$ existe graças ao \ii{PBO}Principio da boa ordem \refn{WOP}.
 \qed
 %%}}}
 
@@ -32066,7 +32065,129 @@ Prove que $\nats \eqc \kstar\nats$.
 \blah.
 Até agora temos encontrado apenas duas quantidades infinitas diferentes:
 aquela do $\nats$, e aquela do $\reals$.
-Essa situação está prestes a mudar drasticamente com o teorema seguinte.
+Essa situação está prestes a mudar drasticamente..
+
+\note O teorema de Cantor.
+Cantor provou que para todo conjunto $A$, seu powerset $\pset A$
+tem cardinalidade estritamente maior que do $A$:
+$$
+A \ltc \pset A.
+$$
+Primeiramente observe que para conjuntos finitos já sabemos disso,
+e é fácil provar:
+$$
+\card {\pset A} = 2^{\card A} > \card A
+$$
+pois para todo $n\in\nats$, realmente temos $2^n > n$.
+Cantor conseguiu provar que $A \ltc \pset A$ para qualquer $A$.
+Lembrando a definição de $\ltc$, precisamos provar duas coisas:
+$$
+A \leqc \pset A
+\qqqquad
+A \neqc \pset A.
+$$
+A primeira é fácil: faça agora!
+
+%%{{{ x: A_leqc_pset_A 
+\exercise.
+\label{A_leqc_pset_A}%
+Para todo conjunto $A$, $A \leqc \pset A$.
+
+\hint
+Seja $A$ conjunto e defina a $f : A \to \pset A$ pela
+$$
+f(x) = \set x.
+$$
+Prove que é injetora.
+
+\solution
+Seja $A$ conjunto.
+Definimos a $f : a \injto \pset a$ pela
+$$
+f(x) = \set x.
+$$
+Facilmente ela é injetora (\ref{the_singletonizer_is_injective}).
+
+\endexercise
+%%}}}
+
+%%{{{ proof idea with depressive members 
+\note A linda idéia da sua prova.
+Suponha que temos o $A$, e uma função $A \toarrow \pi \pset A$.
+Vamos provar que a $\pi$ não pode ser sobrejetora---e logo, nem bijetora.
+Para entender a idéia melhor, vamos desenhar um exemplo.
+Imagina então que o $A$ parece como no desenho abaixo,
+e seu powerset tá no seu lado, onde eu desenhei apenas uns dos
+seus membros, pois o desenho ficaria bagunçado demais se eu tivesse
+desenhado todos.  Mas todos estão lá mesmo: o $\pset A$, pela sua definição,
+é o conjunto de \emph{todos} os subconjuntos de $A$.
+$$
+\mathrm{desenho aqui}
+$$
+A $\pi$ então mapeia cada membro de $A$ com um membro de $\pset A$.
+Por exemplo, pode ser assim:
+$$
+\mathrm{desenho com $\pi$ aqui}
+$$
+Vamos dar um toque antropomórfico agora:
+vamos considerar os membros de $A$ como pessoas, e a $\pi$
+como uma função de \emph{amor}, que mapeia cada $x\in A$
+para o conjunto de todas as pessoas que $x$ ama:
+$$
+\pi (x) = \setstt {y \in A} {$x$ ama $y$}.
+$$
+Lembre-se que nosso objetivo é achar um membro de $\pset A$
+que não pertence na imagem da $\pi$.
+Chame \dterm{depressivo} um $x \in A$ sse $x$ não se ama.
+Ou seja,
+$$
+\text{$x$ é depressivo}
+\defiff
+x \notin \pi x
+$$
+pois $\pi x$ são todas as pessoas que $x$ ama.%
+\footnote{Outros exemplos de definições razoáveis nessa interpretação
+seriam chamar o $x$ \dterm{misántropo} se $\pi(x) = \emptyset$,
+\dterm{egoista} se $\pi(x) = \set x$, etc.,
+mas só vamos precisar dos depressívos mesmo aqui.}
+Assim, cada $x\in A$ ou é depressivo, ou não.
+Condiseramos o conjunto $D$ de todos os depressivos membros de $A$:
+$$
+D
+\defeq \setstt {x \in A} {$x$ é depressivo}
+= \setst {x \in A} {x \notin \pi(x)}.
+$$
+Observe que $D \subseteq A$, ou seja, $D$ é um membro do $\pset A$.
+Esse $D$ é o testemunha que estamos procurando:
+um membro do codomínio da $\pi$, garantido para não pertencer
+na imagem $\img \pi A$.
+Por quê?
+Para chegar num abdurdo, suponha o contrário:
+que para algum $d \in A$, temos $\pi(d) = D$.
+Faz sentido agora perguntar:
+\emph{esse $d$ é depressivo?}
+Dois casos existem, e os dois chegam em absurdo:
+$$
+\alignat2
+\text{$d$ depressivo}
+&\implies d \notin \pi(d)           \by {def.~depressivo}
+&\implies d \notin D                \by {pela escolha de $d$}
+&\implies \text{$d$ não depressivo} \by {def.~$D$}
+&\implies \text{absurdo!}\\
+\text{$d$ não depressivo}
+&\implies d \in \pi(d)          \by {def.~depressivo}
+&\implies d \in D               \by {pela escolha de $d$}
+&\implies \text{$d$ depressivo} \by {def.~$D$}
+&\implies \text{absurdo!}
+\endalignat
+$$
+Logo, para nenhum $d \in A$ temos $\pi(d) = D$,
+ou seja, $D \notin \img \pi A$ e logo $\pi$ não é sobrejetora.
+Note bem que em lugar nenhum usamos os desenhos do $A$ e da $\pi$
+nessa prova.  Desenhei apenas para ilustrar.
+Podemos então provar formalmente o teorema de Cantor,
+sem nada depressivo!
+%%}}}
 
 %%{{{ thm: cantor_theorem 
 \theorem Cantor.
@@ -32077,16 +32198,9 @@ Seja $A$ conjunto.
 Então $A\ltc \pset A$.
 \proof.
 Seguindo a definição de $\ltc$, precisamos provar duas coisas:
-\endgraf
-\proofstyle{Prova de $A\leqc \pset A$.}
-Basta achar uma função injetora de $A$ para $\pset A$.
-Definimos a $f : A \injto \pset A$ pela
-$$
-f(x) = \set x.
-$$
-Facilmente ela é injetora (\ref{the_singletonizer_is_injective}).
-\endgraf
-\proofstyle{Prova de $A\neqc \pset A$.}
+\crproofpart{Prova de $A\leqc \pset A$.}
+\ref{A_leqc_pset_A}.
+\crproofpart{Prova de $A\neqc \pset A$.}
 Basta provar que não existe função sobrejetora de $A$ para $\pset A$.
 Seja $\pi : A \to \pset A$.
 Queremos provar que a $\pi$ não pode ser sobrejetora, ou seja,
@@ -32095,10 +32209,6 @@ mostrar um elemento $C$ do seu codomínio que não pertence na imagem da $\pi$
 $\pre \pi C = \emptyset$).
 Observe que para qualquer $x\in A$, temos $\pi(x)\in\pset A$,
 ou seja $\pi(x) \subseteq A$.
-Faz sentido então perguntar:
-$$
-x \in \pi(x) ?
-$$
 Chame os $x\in A$ que satisfazem $x \in \pi(x)$ \dterm{obedientes},
 e os outros \dterm{rebeldes}.
 Queremos considerar o conjunto $C$ de todos os rebeldes:
