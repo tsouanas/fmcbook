@@ -31702,8 +31702,9 @@ que já adivinhamos).
 \codeit EnumPairs.
 \label{program_enumpairs}
 Implemente uma estratégia para ganhar no jogo sem repetições com
-conjunto-segredos o $\nats^2$.  Ou seja, escreva um programa que imprime (pra
-sempre) os palpites do jogador na sua ordem. 
+conjunto-segredos o $\nats^2$.
+Ou seja, escreva um programa que imprime (pra sempre) os palpites
+do jogador na sua ordem.
 \endcodeit
 %%}}}
 
@@ -31711,7 +31712,7 @@ sempre) os palpites do jogador na sua ordem.
 \codeit EnumRatsReps.
 \label{program_enumrats}
 Modifique o EnumPairs para o caso com conjunto-segredos
-o conjunto de racionais não-negativos, mas permitindo repetições. 
+o conjunto de racionais não-negativos, mas permitindo repetições.
 Represente cada palpite como fracção,
 imprimindo por exemplo o racional $\frac 1 3$ como o string
 ``{\tt 1/3}''.
@@ -31757,42 +31758,6 @@ ou seja, a seqüência $\set{ f^n (0,0) }_{n}$.
 \codeit NextPair.
 \label{NextPair}%
 Implemente função do~\ref{nextPair}.
-\endcodeit
-%%}}}
-
-%%{{{ codeit: RatApprox 
-\codeit RatApprox.
-\label{RatApprox}%
-Usando uma implementação de enumeração $\set{q_n}_n$ do $\rats$
-(com ou sem repetições), implemente uma função
-$a : \reals\times\reals \to \nats$ que, dados $x\in\reals$ e $\varepsilon>0$
-retorna o primeiro $n\in\nats$ com a propriedade $\abs{q_n - x} < \varepsilon$:
-$$
-a(x,\varepsilon) = \min\setst{n\in\nats}{\abs{q_n-x}<\varepsilon}.
-$$
-\endgraf
-Se tua linguagem de programação suporta funções de ordem superior,
-considere que seu primeiro argumento deve ser a própria enumeração $q$:
-$$
-\align
-\namedfun{ratApprox} &\eqtype (\nats\to\rats) \to \reals \to \reals \to \nats\\
-\namedfun{ratApprox}\ q\ x\ \varepsilon &= \min\setst{n\in\nats}{\abs{q_n-x}<\varepsilon}
-\endalign 
-$$
-Alternativamente, pode representar uma enumeração de racionais
-como uma lista (infinita) de racionais.  Considere retornar o
-primeiro racional suficientemente próximo alem de apenas seu
-indice.  Improvise e teste sua função, vendo quanto ``demora''
-uma enumeração para chegar suficientemente perto de um número
-pre-determinado, sendo racional ou não.
-Por exemplo, use $x=\sqrt 2$ ou $e$ ou $\pi$,
-e
-$\varepsilon=1, 1/2, 1/4, \dotsc$.
-Assim, para qualquer real $x$, tu pode
-\emph{construir}---mesmo não muito ``eficientemente''---uma
-seqüência de racionais que converge em $x$, apenas aplicando a função
-$\lambda \varepsilon. \namedfun{ratApprox}\ q\ x\ \varepsilon$
-em argumentos que formam qualquer seqüência que convirja no zero!
 \endcodeit
 %%}}}
 
@@ -31936,12 +31901,16 @@ e $a,b \in \reals$ e tais que os intervalos são nem vazios nem singletons.
 
 %%{{{ The Cantor--Schröder--Bernstein theorem 
 \section O teorema Cantor--Schröder--Bernstein.
+\label{The_CSB_theorem}%
 
 \blah.
-Esse teorema que provamos aqui é conhecido como ``\Cantor{}Cantor--\Schroder{}Shröder--\Bernstein{}Bernstein''
-ou ``\Schroder{}Schröder--\Bernstein{}Bernstein'', mas vamos referir a ele nessas notas apenas com
-o nome de Bernstein, pois foi o primeiro que demonstrou sua vericidade numa forma correta.%
-\footnote{E sua prova não precisou o \emph{axioma da escolha}~(\refn{Axioms_of_choice}),
+Esse teorema que provamos aqui é conhecido como
+``\Cantor{}Cantor--\Schroder{}Shröder--\Bernstein{}Bernstein''
+ou ``Schröder--Bernstein'', mas vamos referir a ele nessas notas
+apenas com o nome de Bernstein, pois foi o primeiro que demonstrou
+sua vericidade numa forma correta.%
+\footnote{E sua prova não precisou o
+\emph{axioma da escolha}~(\refn{Axioms_of_choice}),
 algo que vamos apreciar mais no~\ref{Axiomatic_set_theory}.}
 Vamos começar atacando esse problema com uma abordagem amorosa,
 de \Smullyan{}Smullyan (veja~\cite{smullyanbeginners}).
@@ -31986,11 +31955,12 @@ Tente casar todos os membros de cada um desse grupo entre si!
 %%}}}
 
 \blah.
-Voltando dessa versão antropomórfica do problema, observe que a condição (1)
-garanta a existência duma função $f : A \to B$, que graças à (2) é injetora.
-Similarmente, a condição (3) garanta a existência duma função $g : B \to A$,
-que graças à (4) é injetora também.
-Essas são as hipotéses do~\ref{schroder_bernstein}
+Voltando dessa versão antropomórfica do problema, observe que
+a condição (1) garanta a existência duma função $f : A \to B$,
+que graças à (2) é injetora.
+Similarmente, a condição (3) garanta a existência duma função
+$g : B \to A$, que graças à (4) é injetora também.
+Essas são as hipotéses do~\ref{schroder_bernstein}.
 Observe também que se resolver o problema amoroso do~\ref{schroder_bernstein_by_smullyan}
 tu já forneceu uma função \emph{bijetora} $F : A \to B$, definida pela
 $$
@@ -32067,6 +32037,7 @@ Até agora temos encontrado apenas duas quantidades infinitas diferentes:
 aquela do $\nats$, e aquela do $\reals$.
 Essa situação está prestes a mudar drasticamente..
 
+%%{{{ Cantor's theorem: what it says and first steps 
 \note O teorema de Cantor.
 Cantor provou que para todo conjunto $A$, seu powerset $\pset A$
 tem cardinalidade estritamente maior que do $A$:
@@ -32087,6 +32058,7 @@ A \leqc \pset A
 A \neqc \pset A.
 $$
 A primeira é fácil: faça agora!
+%%}}}
 
 %%{{{ x: A_leqc_pset_A 
 \exercise.
@@ -32122,7 +32094,12 @@ seus membros, pois o desenho ficaria bagunçado demais se eu tivesse
 desenhado todos.  Mas todos estão lá mesmo: o $\pset A$, pela sua definição,
 é o conjunto de \emph{todos} os subconjuntos de $A$.
 $$
-\mathrm{desenho aqui}
+\tikzpicture
+\draw (0,0) to[out=180,in=90] (-1,-1) to[out=270,in=270] (1,-1) to[out=90,in=0] cycle;
+\node at (0,-.2) {$\bullet$};
+\node at (-.9,-.9) {$\ast$};
+\node at (.9,-.9) {$\star$};
+\endtikzpicture
 $$
 A $\pi$ então mapeia cada membro de $A$ com um membro de $\pset A$.
 Por exemplo, pode ser assim:
@@ -32143,9 +32120,9 @@ Ou seja,
 $$
 \text{$x$ é depressivo}
 \defiff
-x \notin \pi x
+x \notin \pi(x)
 $$
-pois $\pi x$ são todas as pessoas que $x$ ama.%
+pois $\pi(x)$ são todas as pessoas que $x$ ama.%
 \footnote{Outros exemplos de definições razoáveis nessa interpretação
 seriam chamar o $x$ \dterm{misántropo} se $\pi(x) = \emptyset$,
 \dterm{egoista} se $\pi(x) = \set x$, etc.,
@@ -32173,18 +32150,21 @@ $$
 &\implies d \notin \pi(d)           \by {def.~depressivo}
 &\implies d \notin D                \by {pela escolha de $d$}
 &\implies \text{$d$ não depressivo} \by {def.~$D$}
-&\implies \text{absurdo!}\\
+&\implies \text{absurdo!}
+\intertext{e no outro lado,}
 \text{$d$ não depressivo}
-&\implies d \in \pi(d)          \by {def.~depressivo}
-&\implies d \in D               \by {pela escolha de $d$}
-&\implies \text{$d$ depressivo} \by {def.~$D$}
+&\implies d \in \pi(d)              \by {def.~depressivo}
+&\implies d \in D                   \by {pela escolha de $d$}
+&\implies \text{$d$ depressivo}     \by {def.~$D$}
 &\implies \text{absurdo!}
 \endalignat
 $$
 Logo, para nenhum $d \in A$ temos $\pi(d) = D$,
 ou seja, $D \notin \img \pi A$ e logo $\pi$ não é sobrejetora.
-Note bem que em lugar nenhum usamos os desenhos do $A$ e da $\pi$
-nessa prova.  Desenhei apenas para ilustrar.
+Em palavras antropomórficas, com essas definições
+ninguém pode amar \emph{somente todos} os depressivos.
+Note bem que em lugar nenhum usamos os desenhos do $A$
+e da $\pi$ nessa prova.  Desenhei apenas para ilustrar.
 Podemos então provar formalmente o teorema de Cantor,
 sem nada depressivo!
 %%}}}
@@ -32308,7 +32288,7 @@ Similarmente achamos conjuntos ``estritamente entre'' os conjuntos que aparecem
 depois nessa seqüência.
 %%}}}
 
-%%{{{ note: some questions rise 
+%%{{{ note: some questions arise 
 \note.
 Umas questões aparecem imediatamente:
 \beginol
@@ -32383,6 +32363,31 @@ como uma prova de $(0,1)^2 \eqc (0,1)$.
 (1) Precisamos disso para que $f$ seja bem definida (por quê?).
 (2) A $f$ não é bijetora!  (Por quê?)
 
+\solution
+(1) Precisamos disso para que $f$ seja bem definida.
+Sem essa restrição, para onde $f$ manda o $\tup{1/2,1/3}$?
+O $1/3$ realmente \emph{determina} os $b_j$'s, mas o $1/2$
+não determina os $a_i$'s pois:
+$$
+0.4999\dots = 1/2 = 0.5000\dots
+$$
+e logo a $f$ não seria bem-definida sem essa restrição.
+\endgraf
+(2) A $f$ não é bijetora!
+Basta só criar um exemplo que sua preimagem seria um número que
+termina em $999\dots$:
+$$
+f( ? ) = 0.4393939393\dots
+$$
+Nenhuma entrada $(a,b)$ pode ser mapeada nesse número, pois pela
+definição da $f$ o $b$ só pode ser o $0.333\dots = 1/3$
+(e nenhum problema com isso), mas o $a$ deve ser o $0.4999\dots$.
+Ou seja $a=1/2$.  Mas
+$$
+f(\frac 1 2,\frac 1 3) = 0.53030303 \neq 0.439393\dots
+$$
+e logo $f$ não é sobrejetora!
+
 \endproblem
 %%}}}
 
@@ -32414,6 +32419,42 @@ $$
 Qual é a cardinalidade do $\eqclass f {\sime} \inter \eqclass f {\simo}$?
 
 \endproblem
+%%}}}
+
+%%{{{ codeit: RatApprox 
+\codeit RatApprox.
+\label{RatApprox}%
+Usando uma implementação de enumeração $\set{q_n}_n$ do $\rats$
+(com ou sem repetições), implemente uma função
+$a : \reals\times\reals \to \nats$ que, dados $x\in\reals$ e $\varepsilon>0$
+retorna o primeiro $n\in\nats$ com a propriedade $\abs{q_n - x} < \varepsilon$:
+$$
+a(x,\varepsilon) = \min\setst{n\in\nats}{\abs{q_n-x}<\varepsilon}.
+$$
+\endgraf
+Se tua linguagem de programação suporta funções de ordem superior,
+considere que seu primeiro argumento deve ser a própria enumeração $q$:
+$$
+\align
+\namedfun{ratApprox} &\eqtype (\nats\to\rats) \to \reals \to \reals \to \nats\\
+\namedfun{ratApprox}\ q\ x\ \varepsilon &= \min\setst{n\in\nats}{\abs{q_n-x}<\varepsilon}
+\endalign 
+$$
+Alternativamente, pode representar uma enumeração de racionais
+como uma lista (infinita) de racionais.  Considere retornar o
+primeiro racional suficientemente próximo alem de apenas seu
+indice.  Improvise e teste sua função, vendo quanto ``demora''
+uma enumeração para chegar suficientemente perto de um número
+pre-determinado, sendo racional ou não.
+Por exemplo, use $x=\sqrt 2$ ou $e$ ou $\pi$,
+e
+$\varepsilon=1, 1/2, 1/4, \dotsc$.
+Assim, para qualquer real $x$, tu pode
+\emph{construir}---mesmo não muito ``eficientemente''---uma
+seqüência de racionais que converge em $x$, apenas aplicando a função
+$\lambda \varepsilon. \namedfun{ratApprox}\ q\ x\ \varepsilon$
+em argumentos que formam qualquer seqüência que convirja no zero!
+\endcodeit
 %%}}}
 
 %%{{{ df: terminating_game 
