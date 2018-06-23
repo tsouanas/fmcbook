@@ -32316,8 +32316,39 @@ cardinalidades?
 \endsection
 %%}}}
 
-%%{{{ Ordinal vs. cardinal numbers 
-\section Números ordinais vs.~cardinais.
+%%{{{ Transfinite_numbers 
+\section Os números transfinitos.
+\label{Transfinite_numbers}%
+
+%%{{{ ordinals_vs_cardinals 
+\note Ordinais vs{.} cardinais.
+\label{ordinals_vs_cardinals}%
+Na língua natural temos os números \dterm{cardinais}
+\quotepar
+um, dois, três, quatro, cinco, \dots
+\endquote
+e os números \dterm{ordinais}
+\quotepar
+primeiro, segundo, terceiro, quarto, quinto, \dots
+\endquote
+\Cantor{}Cantor generalizou esses números finitos para os casos finitos,
+que chamou de \dterm{números transfinitos} (veja \cite{cantortransfinite}).
+Os cardinais representam \emph{quantidades} e os ordinais \emph{ordens}.
+Abusando pouco a lingua, podemos dizer que o cardinal dum conjuno $A$
+mostra \emph{quantos membros ele tem}, e o ordinal dum conjunto ordenado
+$\ssetfont B$ \emph{mostra quão longo ele é}.
+%%}}}
+
+%%{{{ Transfinite arithmetic 
+\note Aritmética transfinita.
+Bem mais que isso, Cantor conseguiu definir e elaborar uma
+\dterm{aritmética transfinita}: definiu operações de adição,
+multiplicação, e exponenciação nesses números e sua aritmética
+realmente---alem de ser linda---é muito útil e interessante.
+Nesse capítulo não vamos nos preocupar com isso---paciência até
+o~\ref{Axiomatic_set_theory} (\refn{Cardinal_arithmetic})
+e o~\ref{Ordinal_arithmetic} (todo!).
+%%}}}
 
 \endsection
 %%}}}
@@ -34767,10 +34798,11 @@ Veja a discução no~\refn{axioms_vs_axiomatic_schemata}.
 Usamos o termo ``esquema axiomático'', pois para cada fórmula $\phi(\dhole)$,
 ganhamos um novo axioma pelo~\axref{separation}.
 Para enfatizar isso podemos até o citar como~\axref{separation}$_{\phi}$.
-Antes de o usar então precisamos primeiramente escolher nossa fórmula $\phi$, assim passando do \emph{esquema}~\axref{separation}
+Antes de usá-lo então precisamos primeiramente escolher nossa fórmula $\phi$,
+assim passando do \emph{esquema}~\axref{separation}
 para o \emph{axioma}~\axref{separation}$_{\phi}$.
 Agora como o axioma começa com ``$\forall w \exists \dots$'',
-precisamos escolher em qual conjunto $w$ nos vamos o aplicar,
+precisamos escolher em qual conjunto $w$ nós vamos aplicá-lo,
 para ganhar finalmente um novo conjunto.
 %%}}}
 
@@ -35054,7 +35086,7 @@ mas caso contrário, não.
 \endgraf
 No outro lado, num jogo onde  nosso objetivo é construir pelos axiomas um
 conjunto com cardinalidade \emph{pelo menos} $n$, como vimos
-no~\ref{arbitrarily_large_finite_sets} temos uma estratégia vencedora sim:
+no~\ref{arbitrarily_large_finite_sets}, temos uma estratégia vencedora sim:
 comece com uma aplicação do Emptyset~(\axref{emptyset})
 para ganhar o $\emptyset$ e aplique iterativamente o
 Powerset~(\axref{powerset}) construindo assim conjuntos de
@@ -36451,6 +36483,7 @@ que escolhemos nessa direção é realmente finita.
 
 %%{{{ Cardinal arithmetic 
 \section Aritmética cardinal.
+\label{Cardinal_arithmetic}%
 
 \endsection
 %%}}}
@@ -36688,7 +36721,7 @@ Mostre pelos axiomas \axref{extensionality}--\axref{unionset} que:
 \problem.
 \label{two_sets_and_one_proper_class_problem}%
 Sejam $a,b$ conjuntos.
-Mostre pelos axiomas \axref{extensionality}--\axref{union} que as classes
+Mostre pelos axiomas \axref{extensionality}--\axref{unionset} que as classes
 $$
 \align
     C &= \set{
@@ -36783,7 +36816,7 @@ $\setsucc{(\setsucc{(\setsucc x)})}$.
 \tdefined{axioma}[Infinity]%
 \label{infinity}%
 Existe um conjunto que tem o $\emptyset$ como membro e é fechado pela
-operação $(x \mapsto \setsucc x)$.
+operação $\lam x {\setsucc x}$.
 $$
 \exists s
 \bigparen{
@@ -37119,11 +37152,13 @@ Pois $I\in\scr I$.
 \label{existence_of_nats}%
 Existe pelo menos um sistema Peano $\cal N = \sset \Nats {\Zero, \Succ}$.
 \sketch.
-Definimos:
+Definimos
+$$
+\cal N \defeq \tup{\Nats, \Zero, \Succ},
+$$
+onde:
 $$
 \align
-\cal N &\defeq \tup{\Nats, \Zero, \Succ},\\
-\text{onde:}\qquad
 \Nats &\defeq \Inter \setst {i \in \pset I} {\emptyset \in i \land \forall x \paren{x\in i \limplies \setsucc x \in i}}\\
 \Zero &\defeq \emptyset\\
 \Succ &\defeq \setst {\tup{m,n}\in \Nats\times\Nats} { n = \setsucc m }.
@@ -37258,7 +37293,6 @@ $$
 &= \Succ_2 k          \by{pela escolha de $k'$}
 \endalignat
 $$
-
 ou seja, $\Succ_2 k \in \phi[\Nats_1]$.
 
 \endexercise
@@ -38421,6 +38455,7 @@ Nesse caso chamamos o $A$ \dterm{bem-ordenado} ou \dterm{woset}
 
 %%{{{ chapter: Ordinal arithmetic 
 \chapter Aritmética ordinal.
+\label{Ordinal_arithmetic}%
 
 %%{{{ x: omegaomega_plus_one_is_well_ordered 
 \exercise.
