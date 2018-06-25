@@ -11132,6 +11132,7 @@ $$
 
 %%{{{ x: rich_set_builder_sugar 
 \exercise.
+\label{rich_set_builder_sugar}%
 Mostre como a notação ``mais rica'' de
 $$
 \setst {t(x_1, \dotsc, x_n)} {\phi(x_1,\dotsc,x_n)}
@@ -15206,7 +15207,7 @@ $\resfun f X$ é a função de $X$ para $B$ definida pela
 $$
 (\resfun f X)(x) = f(x).
 $$
-Tambem é usada a notação $\resfunsub f X$.
+Também é usada a notação $\resfunsub f X$.
 %%}}}
 
 \endsection
@@ -17972,7 +17973,7 @@ $$
 \dhole\of_{A,B,C}\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
 $$
 Observe que ela é um operador de ordem superior, pois seus (dois) argumentos
-são funcões, e tambem pois sua saida também é uma função.
+são funcões, e também pois sua saida também é uma função.
 \endexample
 %%}}}
 
@@ -18965,7 +18966,7 @@ usando conceitos (tipos) que encontramos até agora: conjuntos, tuplas,
 seqüências, famílias indexadas, e funções.
 Para implementar um conceito não basta apenas definir o que são os
 objetos desse tipo em termos de já conhecidos.
-Precisamos implementar tambem o interface desejado, em termos de operações e
+Precisamos implementar também o interface desejado, em termos de operações e
 relações que já temos em nossa disposição.
 Nesse caso:
 \endgraf
@@ -19184,7 +19185,7 @@ A notação ``$\relto$'' definida no~\refn{funlike_notation_for_relations}
 \note Notação conjuntista.
 \label{setlike_notation_for_relations}%
 Vestindo nosso chapel de conjuntista, abusamos a notação conjuntista e escrevemos
-tambem $\tupp{x,y} \in R$ para dizer que $R(x,y)$.
+também $\tupp{x,y} \in R$ para dizer que $R(x,y)$.
 E para afirmar que $R$ é uma relação ``de tipo'' $A\times B$, escrevemos
 até $R \subseteq A\times B$.
 É importante entender bem neste momento que essas são apenas
@@ -20702,7 +20703,7 @@ Precisamos achar um elemento que pertence nos dois conjuntos
 $\eqclassimp a$ e $\eqclassimp b$.
 Tome o proprio $a$.
 Temos $a\in \eqclassimp a$ pois $a \sim a$ (pela reflexividade da $\sim$).
-Tambem temos $a \in \eqclassimp b$, pois $a \sim b$ (hipótese).
+Também temos $a \in \eqclassimp b$, pois $a \sim b$ (hipótese).
 Logo $a \in \eqclassimp a \inter \eqclassimp b\neq\emptyset$.
 \endgraf
 \rldir.
@@ -30210,7 +30211,7 @@ onde $0,1$ são constantes e $\plus,\times$ são operações binárias.
 O $\cal R$ é um \dterm{anel} sse:
 \item{(i)} $\sset R {\plus, 0}$ é um grupo abeliano;
 \item{(ii)} $\sset R {\times, 1}$ é um monóide;
-\item{(iii)} as seguindes leis são satisfeitas:
+\item{(iii)} as seguintes leis são satisfeitas:
 $$
 \alignat2
 \pforall {a,b,c \in R} &\bracket{a\times (b \plus c) = (a\times b) \plus (a \times c)}  &\tag{RDL}\\
@@ -31213,7 +31214,7 @@ $$
 
 %%{{{ x: define \finord using set-builder 
 \exercise.
-Defina o $\finord n$ usando a notação ``set-builder''.
+Defina o $\finord n$ usando a notação set-builder.
 
 \hint
 Começa com o $\nats$ e filtre seus elementos usando suas relações de ordem.
@@ -31278,15 +31279,59 @@ Seguindo nossa práctica comum, usamos também $A\gtc B$ como sinónimo de $B\lt
 $A \not\geqc B$ para significar que não é o caso que $B \leqc A$, etc.
 %%}}}
 
+%%{{{ x: A_subset_B_implies_A_leqc_B 
+\exercise.
+Verifique que
+$$
+A \subseteq B \implies A \leqc B.
+$$
+Mostre que, em geral,
+$$
+A \subsetneq B \nimplies A \ltc B.
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ x: wrong_ltc_def 
 \exercise.
-Prove ou disprove a afirmação que podemos usar a seguinde definição como alternativa:
+\label{wrong_ltc_def}%
+Prove ou disprove a afirmação que podemos usar a seguinte definição como alternativa:
 $$
 A \ltc B \askiff \lexists {B_0\subsetneq B} {A \eqc B_0}.
 $$
 
 \hint
 $\nats\ltc\ints$?
+
+\endexercise
+%%}}}
+
+%%{{{ x: fun_leqc_def_injto 
+\exercise.
+\label{fun_leqc_def_injto}%
+Prove ou disprove a afirmação que podemos usar a seguinte definição como alternativa:
+$$
+A \leqc B \askiff \lexists f {f : A \injto B}.
+$$
+
+\hint
+Realmente
+$$
+A \leqc B \iff \lexists f {f : A \injto B}.
+$$
+Prove!
+
+\endexercise
+%%}}}
+
+%%{{{ x: fun_leqc_def_surto 
+\exercise.
+\label{fun_leqc_def_surto}%
+Podemos usar a seguinte definição como alternativa?:
+$$
+A \leqc B \askiff \lexists f {f : B \surto A}.
+$$
 
 \endexercise
 %%}}}
@@ -31506,6 +31551,7 @@ e observe que realmente $F(t) = f$.
 %%{{{ What is cardinality? 
 \section O que é cardinalidade?.
 
+%%{{{ The double abstraction of Cantor 
 \note A dupla abstracção de Cantor.
 \Cantor{}Cantor definiu a cardinalidade numa maneira informal,
 mas sua descrição é bastante indicativa e serve como uma guia
@@ -31518,6 +31564,26 @@ $$
 \cantorcard A
 $$
 usando as duas barras para indicar essa ``dupla abstracção''.
+%%}}}
+
+%%{{{ But what is a cardinal number? 
+\note Mas o que é um número cardinal?.
+Vamos voltar pouco ao passado, e seguindo os passos do livro
+clássico de \Hausdorff{}Hausdorff (\cite{hausdorffsettheory})
+não vamos preocupar com a \emph{natureza} dos cardinais.
+Vamos deixar isso ``para os filósofos'' como ele disse,
+pois na época que ele escreveu seu texto ninguém tinha conseguido
+dar uma definição satisfatória de \dterm{número cardinal}.
+Uns anos depois, \vonNeumann{}von~Neumann conseguiu definir
+formalmente os números cardinais, algo que vamos encontrar
+no~\ref{Ordinal_arithmetic}.  Mas sem saber o que são,
+já podemos usá-los deixando claro quais são as propriedades
+que exigimos que eles satisfaçam.
+Um operador de cardinalidade $\card{\dhole}$ deve satisfazer a:
+$$
+A \eqc B \iff \card{A} = \card{B}.
+$$
+%%}}}
 
 \endsection
 %%}}}
@@ -31891,7 +31957,6 @@ $$
 (\alpha,\beta) \eqc (0,1)
 $$
 onde $\alpha,\beta \in \reals\union\set{\minfty,\pinfty}$ com $\alpha < \beta$.
-e $a,b \in \reals$ e tais que os intervalos são nem vazios nem singletons.
 
 \endexercise
 %%}}}
@@ -32304,6 +32369,51 @@ cardinalidades?
 \endsection
 %%}}}
 
+%%{{{ The smallest infinities
+\section As menores infinidades.
+
+\blah.
+Então.  Já sabemos que tem uma quantidade infinita de infinidades diferentes
+graças ao teorema de Cantor.  Já encontramos as cardinalidades dos primeiros
+beths
+$$
+\beth_0 < \beth_1 < \beth_2 < \beth_3 < \dotsb
+$$
+que são os nomes das cardinalidades dos conjuntos
+$$
+\nats \ltc \pset\nats \ltc \pset\pset\nats \ltc \pset\pset\pset\nats \ltc \dotsb
+$$
+
+\note As eqüinumerosidades até agora.
+Temos então provado as:
+$$
+\nats 
+\eqc \ints
+\eqc \rats
+\eqc \algs
+\eqc C\union C'
+\eqc \Union_{n=0}^\infty {C_n}
+\eqc C^n
+\eqc \kstar C
+$$
+onde $C,C'$, etc.~denotam conjuntos contáveis.
+E tambem temos:
+$$
+\gather
+\Delta \eqc \cantorset \eqc \pset\nats \\
+(\alpha,\beta) \eqc [\alpha,\beta) \eqc (\alpha,\beta] \eqc [\alpha,\beta] \eqc \reals.
+\endgather
+$$
+onde $\alpha,\beta\in\reals\union\set{\minfty,\pinfty}$ tais que $\alpha<\beta$.
+Como $\cantorset \subseteq [0,1]$ concluimos que
+$$
+\Delta \eqc \cantorset \eqc \pset\nats \leqc
+(a,b) \eqc [a,b) \eqc (a,b] \eqc [a,b] \eqc (0,1) \eqc \reals.
+$$
+
+\endsection
+%%}}}
+
 %%{{{ Cardinal comparability 
 \section Comparabilidade de cardinais.
 
@@ -32363,8 +32473,8 @@ Assim que \Cantor{}Cantor, \Dedekind{}Dedekind, e seus seguidores
 desenvolveram essa primeira teoria de conjuntos, os matemáticos
 da época ganharam uma ferramenta poderosa e útil que nos liberou
 e guiou para desenvolvemento de bem mais teorias interessantes, como:
-\emph{teoria de espáços métricos}, \emph{topologia geral},
-e \emph{teoria de medida}.
+\emph{teoria de espaços métricos}, \emph{topologia geral},
+e \emph{teoria da medida}.
 Nesse texto vamos dedicar um capítulo para a primeira (\ref{Metric_spaces})
 e um para a segunda (\ref{General_topology}),
 e apenas uma secção (essa!)~para a terceira.
@@ -32372,15 +32482,18 @@ e apenas uma secção (essa!)~para a terceira.
 
 %%{{{ measure theory 
 \note.
-Na França vários matemáticos, principalmente \Borel{}Borel, \Baire{}Baire,
-\Lebesgue{}Lebesgue, e \Frechet{}Frechét desenvolveram a teoria de medida.
+Vários matemáticos, principalmente \Borel{}Borel, \Baire{}Baire,
+\Lebesgue{}Lebesgue, \Frechet{}Frechét, \Hausdorff{}Hausdorff,
+desenvolveram a teoria de medida.
 Podemos pensar em medida como uma generalização do comprimento dum intervalo
 $(a,b)$ de reais, em tal jeito que podemos atribuir um ``comprimento''
-(ou seja, \dterm{medir}) conjuntos bem mais complicados que intervalos.
+(ou seja, \dterm{medir}) conjuntos bem mais complicados que intervalos,
+e equivalentemente para dimensões maiores, generalizando assim as idéias
+de área, volúme, etc.
 Isso nos leva para uma \emph{teoria de integração} bem mais poderosa que
-a primeira que encontramos (integral \Riemann{}Riemann), e tambem serve
+a primeira que encontramos (integral \Riemann{}Riemann), e também serve
 como base para fundar a \emph{teoria de probabilidade}, graças ao
-\Kolmogorov{}Kolmogorov.
+\Kolmogorov{}Kolmogorov (1933, \cite{kolmogorovprob}).
 Nosso interesse aquí tem a ver com probabilidade mesmo, pois queremos
 responder na pergunta seguinte.
 %%}}}
@@ -32390,7 +32503,7 @@ responder na pergunta seguinte.
 Escolhemos \emph{aleatoriamente} um número real $a\in[0,1]$.
 Qual a probabilidade de $a$ ser\dots
 (i) o número $1/2$?
-(ii) um número real no $[0,1/n]$?
+(ii) um número real no $(a,b)$ com $0\leq a<b \leq 1$?
 (iii) um número racional?
 (iv) um número algébrico?
 %%}}}
@@ -32402,14 +32515,15 @@ Qual a probabilidade de $a$ ser\dots
 números, funções, limites, etc., especialmente usando frases
 como a \emph{<<tende ao>>}, então vou deixar certas coisas claras
 aqui antes de começar nosso pequeno estudo.
-\beginil
-\item{(A)}
+\endgraf
+{(1)}
 A probabilidade dum evento especifico acontecer, se é definida, é um
 número real no $[0,1]$.
 E números não mexem.
 Números não tendem a lugar nenhum.
 Números ficam quetinhos nos seus lugares.
-\item{(B)}
+\endgraf
+{(2)}
 O limite duma função também não tende a lugar nenhum.
 Se é definido, é apenas um número real (talvez ``extendido'' para incluir
 como números os $\pminfty$).
@@ -32423,7 +32537,6 @@ O limite \emph{não tende ao} zero.
 O limite \emph{é o próprio} zero!
 Podemos sim dizer (corretamente) que
 \emph{a expressão $1/x$ tende ao 0 quando $x$ tende ao $\pinfty$}.
-\endil
 %%}}}
 
 \endsection
@@ -32431,6 +32544,12 @@ Podemos sim dizer (corretamente) que
 
 %%{{{ Consequences in computability and definability 
 \section Conseqüências em computabilidade e definabilidade.
+
+\TODO Quantos programas?. 
+
+\TODO Quantas funções?.
+
+\TODO Gödel numbers e lista de todos os programas.
 
 \endsection
 %%}}}
@@ -32712,16 +32831,18 @@ $T = \emptyset$?
 %%{{{ Further reading 
 \further.
 
-Sobre a teoria de conjuntos de Cantor:
+\blah Sobre a teoria de conjuntos de Cantor.
 \cite{kleeneIM},
 \cite{ynmnst}.
+Um livro muito divertido que trata bem essas idéias de infinito
+que encontramos aqui é o \cite[Part~VI]{satancantorinfinity}.
 
-Sobre teoria da medida:
+\blah Sobre teoria da medida.
 \cite{bartlemeasure},
 \cite{halmosmeasure},
 \cite{taylorintegration}.
 
-Sobre os passos que levaram Cantor nas suas descobertas:
+\blah Sobre os passos que levaram Cantor nas suas descobertas.
 \cite{srivastavacantor}.
 
 \endfurther
