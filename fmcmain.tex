@@ -28738,7 +28738,7 @@ Bora desenhar então!
 
 %%{{{ hasse_dih3 
 \example O Hasse das simetrias do triângulo.
-\label{dih3_hasse}%
+\label{hasse_dih3}%
 $$
 \tikzpicture
 \node (top)     at (0,  0 ) {$\moverbrace{\set{I,R,R',\Delta_1,\Delta_2,\Delta_3}}{\dih 3}$};
@@ -32936,13 +32936,11 @@ $$
 
 %%{{{ Diagramas Hasse 
 \note Diagramas Hasse.
-\label{hasse_diagrams_first_encounter}%
 \tdefined{Hasse}[diagrama]%
-Já encontramos diagramas \Hasse{}Hasse
-(\ref{hasse_diagrams_first_encounter},
-\ref{hasse_dih3}, \ref{hasse_dih4})
-onde desenhamos os Hasse duns posets de
-subgrupos.
+Já encontramos diagramas \Hasse{}Hasse no \ref{Group_theory}
+(\refn{hasse_diagrams_first_encounter},
+\refn{hasse_dih3}, \refn{hasse_dih4})
+onde desenhamos os Hasse duns posets de subgrupos.
 %%}}}
 
 \beware.
@@ -34527,6 +34525,29 @@ Supondo que é, chegamos no absurdo que achamos no~\refn{russells_paradox}.
 \qed
 %%}}}
 
+%%{{{ the general Russell paradox 
+\note O paradoxo de Russell geral.
+Russell falou de conjuntos e de pertencer, mas facilmente identificamos
+que seu paradoxo é apenas um caso de uma verdade mais geral.
+Considere $R$ qualquer relação.
+A formula
+$$
+\lnot
+\exists x
+\forall y
+\paren{ R(x,y) \liff \lnot R(y,y) }
+$$
+é um tautologia; um teorema da FOL.
+Suponha que tal $x$ existe (chame-o $x_0$).
+Como $R(x_0, y) \liff \lnot R(y,y)$ para todos os $y$, então
+tomando $y \asseq x_0$ chegamos na contradição
+$$
+R(x_0,x_0) \liff \lnot R(x_0,x_0).
+$$
+Observe que tomando como $R$ a relação $\in$ e como universo
+o universo matemático comum, chegamos no paradoxo de Russell.
+%%}}}
+
 \endsection
 %%}}}
 
@@ -34700,14 +34721,14 @@ Todo conjunto é determinado por seus membros.
 $$
 \forall a \forall b
 \paren{
-a = b
-\liff
 \forall x
 \paren{
 x \in a
 \liff
 x \in b
 }
+\limplies
+a = b
 }
 \axtaglabel{ZF1}{extensionality}
 $$
@@ -35828,9 +35849,9 @@ $$
 \text{a \emph{classe}}
 \quad
 A\times B = \class z {
-(\exists x \in A)
-(\exists y \in B)
-z = \tup {x,y}
+\pexists {x \in A}
+\lexists {y \in B}
+{z = \tup {x,y}}
 }
 \quad
 \text{é um \emph{conjunto}}.
