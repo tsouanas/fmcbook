@@ -33055,8 +33055,8 @@ chamamos o $x$ \dterm{maximal} de $P$ sse nenhum elemento
 está acima dele.  Simbolicamente:
 $$
 \align
-\text{$x$ minimal}&\defiff  \lforall {y \in P} {y \leq x \implies x = y};\\
-\text{$x$ maximal}&\defiff  \lforall {y \in P} {x \leq y \implies x = y}.
+\text{$x$ minimal de $P$}&\defiff  \lforall {y \in P} {y \leq x \implies x = y};\\
+\text{$x$ maximal de $P$}&\defiff  \lforall {y \in P} {x \leq y \implies x = y}.
 \endalign
 $$
 %%}}}
@@ -33068,7 +33068,7 @@ $$
 \tdefined{lower bound}%
 \sdefined{\ubs {\holed A}} {o conjunto dos upper bounds de $\holed A$}%
 \sdefined{\lbs {\holed A}} {o conjunto dos lower bounds de $\holed A$}%
-Seja $A\subseteq P$
+Sejam $A\subseteq P$ e $m\in P$.
 O $m$ é um \dterm{upper bound} de $A$ sse $x \leq m$ para todo $x\in A$.
 Dualmente, o $m$ é um \dterm{lower bound} de $A$ sse $m \leq x$ para todo $x \in A$.
 Usamos a notação
@@ -33144,7 +33144,7 @@ O que podemos concluir quando $\glb A \in A$ e quando $\lub A \in A$?
 \tdefined{downset}%
 \tdefined{upset}%
 \sdefined{\downs{\holed P}} {o conjunto de downsets de $\holed P$}%
-Chamamos o $A\subseteq P$ um \dterm{downset} de $A$
+Chamamos o $A\subseteq P$ um \dterm{downset} no $P$
 sse o $A$ é ``fechado para baixo'', e \emph{dualmente},
 o chamamos \dterm{upset} sse ele é ``fechado para cima''.
 Formalmente,
@@ -33451,10 +33451,22 @@ a \meet (b \join a) &= a
 $$
 %%}}}
 
+%%{{{ criterion: lattice_without_idem_criterion 
+\criterion.
+\label{lattice_without_idem_criterion}%
+Seja $\cal L = \sset L {\join, \meet}$ conjunto estruturado
+onde $\join$ e $\meet$ satisfazem as leis de:
+associatividade, comutatividade, absorção.
+Então $\cal L$ é um reticulado.
+\proof.
+\ref{abs_and_com_imply_idem}.
+\qed
+%%}}}
+
 %%{{{ x: abs_and_com_imply_idem 
 \exercise.
 \label{abs_and_com_imply_idem}%
-Num lattice $L$, prove que podemos inferir as leis da idempotência pelas outras.
+Prove o~\ref{lattice_without_idem_criterion}.
 
 \hint
 $a\join(a\meet(a\join a))$.
@@ -36162,13 +36174,84 @@ Separe em casos: $x=y$ ou não.
 %%}}}
 
 %%{{{ x: bad_pair 
-\exercise.
+\exercise Bad pair.
 \label{bad_pair}%
 Prove que não podemos usar a operação
 $$
-\tup{x,y} \defeq \bigset{ x, \set{x, y} }
+\tup{x,y} \defeq \bigset{ x, \set{y} }
 $$
 como uma implementação de par ordenado.
+
+\hint
+O $\tup{x,y}$ não satisfaz a~\ref{spec_tup1}.
+Mostre um contraexemplo, ou seja, ache objetos $x,y,x',y'$ tais que:
+$$
+\tup{x,y} = \tup{x',y'}
+$$
+e mesmo assim não temos $x=x'$ e $y=y'$.
+
+\solution
+Seja $o$ qualquer conjunto (tome $o \asseq \emptyset$ por exemplo).
+Considere o $\set{\set{o}, \set{\set{o}}}$.
+Ele representa algum par ordenado?
+Calculamos:
+$$
+\align
+\tup{ \set{o}, \set{o} } &= \set{\set{o}, \set{\set{o}}} \\
+\tup{ \set{\set{o}}, o } &= \set{\set{\set{o}}, \set{o}}
+\endalign
+$$
+Observe que os conjuntos nos lados direitos são iguais:
+$$
+\set{\set{o}, \set{\set{o}}}
+=
+\set{\set{\set{o}}, \set{o}}
+$$
+e logo
+$$
+\tup{ \set{o}, \set{o} }
+=
+\tup{ \set{\set{o}}, o }.
+$$
+Isso já mostra que a~\ref{spec_tup1} não é satisfeita, pois
+$\set{o} \neq \set{\set{o}}$.
+(E nem $\set{o}=o$ mas só precisamos uma das duas ser falsa
+para concluir que a propriedade não é satisfeita.)
+\hfill\mistakesymbol
+\endgraf
+A prova que acabamos de escrever tem um roubo sutil,
+que é muito fácil corrigir, mas difícil identificar!
+Para corrigí-lo, basta tomar o conjunto $\emptyset$
+onde tomamos um arbitrário conjunto $o$, e a prova
+vira correta!
+O \ref{find_the_crime_of_foundation} pede identificar
+o problema.
+
+\endexercise
+%%}}}
+
+%%{{{ x: spooky_pair 
+\exercise Spooky pair.
+\label{spooky_pair}%
+Podemos usar a operação
+$$
+\tup{x,y} \defeq \bigset{ x, \set{x,y} }
+$$
+como uma implementação de par ordenado?
+Prove que ele satisfaz a~\ref{spec_tup2}.
+Ele satisfaz a~\ref{spec_tup1}?
+
+\hint
+Para provar a~\ref{spec_tup2}, dados conjuntos $a,b$,
+tome $x\in a$ e $y \in b$ e ache um conjunto $w$ tal que
+$\tup{x,y} \in w$.
+(Exatamente como a gente fez no~\ref{kurpair_satisfies_tup2}.)
+
+\hint
+Sobre a~\ref{spec_tup1}, a situação é mais complicada.
+Nesse momento não podemos provar que ela é satisfeita,
+mas nem construir um contraexemplo!
+Mesmo assim, vale a pena pensar: que conjunto (spooky!) serviria?
 
 \endexercise
 %%}}}
@@ -38236,11 +38319,11 @@ como corolários.
 \endexercise
 %%}}}
 
-%%{{{ x: bad_pair_becomes_good_pair 
-\exercise.
-\label{bad_pair_becomes_good_pair}%
+%%{{{ x: spooky_pair_becomes_good_pair 
+\exercise Spooky pair agora.
+\label{spooky_pair_becomes_good_pair}%
 Prove que com o axioma Foundation podemos sim usar a operação
-do~\ref{bad_pair}
+do~\ref{spooky_pair}
 $$
 \tup{x,y} \defeq \bigset{ x, \set{x, y} }
 $$
@@ -38554,6 +38637,15 @@ $$
 \UnaryInfC{$\set{a, b}$}
 \DisplayProof{}
 $$
+
+\endproblem
+%%}}}
+
+%%{{{ find_the_crime_of_foundation 
+\problem.
+\label{find_the_crime_of_foundation}%
+Na resolução do~\ref{bad_pair}, tem um roubo.
+Ache e explique.
 
 \endproblem
 %%}}}
