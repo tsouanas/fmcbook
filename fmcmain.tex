@@ -10,15 +10,165 @@
 
 %%{{{ chapter: Introduction 
 \chapter Introdução.
+\label{Introduction}%
 
-%%{{{ Afirmações vs.~objetos 
+%%{{{ chapintro 
+\chapintro
+Umas coisas nessa introdução não são pra fazer sentido.%
+\footnote{Essa frase é uma dessas coisas.}
+Se encontrar alguma notação, algum termo, símbolo, processo, etc.,
+que tu não reconhece, continue lendo.
+%%}}}
+
+%%{{{ Errors 
+\section Erros.
+
+\note Type errors.
+
+\note De lógica.
+
+\note De matemática.
+
+\note De semântica.
+
+\TODO Diferença entre as duas frases:
+Se $\namedhole A$, então $\namedhole B$.
+Como $\namedhole A$, logo $\namedhole B$.
+
+\note Deu erro---e agora?.
+
+\endsection
+%%}}}
+
+%%{{{ Affirmations vs. objects 
 \section Afirmações vs.~objetos.
 
 \endsection
 %%}}}
 
-%%{{{ Axioms, definitions, theorems, proofs 
-\section Axiomas, definições, teoremas, provas.
+%%{{{ Definitions 
+\section Definições.
+
+\note.
+Dando uma definição de algum termo, notação, etc., precisamos deixar claro
+o que nosso leitor precisa verificar para ver se a definição é satisfeita
+ou não.
+Considere como exemplo a noção de \emph{primos gêmeos} que aparece em
+teoria de números.
+
+\note Contexto.
+
+%%{{{ What's a tijolo? 
+\note O que é um tijolo?.
+No meu primeiro semestre como professor no Brasil, em algum momento---%
+não lembro porquê---um aluno na sua explicação usou a palavra ``tijolo''.
+O problema é, que eu nunca tinha encontrado essa palavra antes; então
+perguntei ao meu aluno:
+\quote
+<<O que é um tijolo?>>
+\endquote
+Neste momento o aluno sentiu um desafio: como você explica o que é um tijolo?
+\footnote{O aluno não falava inglês---nem grego!---e logo a gente não tinha
+uma linguagem ``fallback'' para usá-la e tirar minha dúvida.}
+Ele precisou dar uma \emph{definição} dessa palavra.
+A resposta dele foi
+\quote
+\emph{<<Tijolo é um tijolo, ué!>>}
+\endquote
+\dots E isso não me ajudou muito.
+%%}}}
+
+%%{{{ Circular definition 
+\note Definições circulares.
+\tdefined{definição circular}%
+A resposta do aluno acima é um exemplo duma \dterm{definição circular}.
+$$
+\tikzpicture
+\node (word) at (0,0) {tijolo};
+\draw[-Latex] (word.-45) arc (-150:150:6mm);
+\endtikzpicture
+$$
+Tenho então essa questão pra ti.
+\quote
+\emph{<<O que é um conjunto?>>}
+\endquote
+Uma resposta razoável neste momento seria a seguinte:
+\quote
+\emph{<<Um conjunto é uma colecção de objetos.>>}
+\endquote
+E, se eu sei o que significa ``colecção'' eu vou entender
+o que é um conjunto e vou ficar feliz; mas caso contrario, eu vou perguntar:
+\quote
+\emph{<<E o que é uma colecção?>>}
+\endquote
+Provavelmente aquele aluno que me ensinou o que é ``tijolo'' ia responder:
+\quote
+\emph{<<Uma colecção é um conjunto de objetos.>>}
+\endquote
+Aqui o problema é o mesmo com o ``tijolo'', só que um tiquinho menos óbvio,
+pois o cíclo aqui pelo menos tem duas setinhas:
+$$
+\tikzpicture
+\node[inner sep=2pt, outer sep=2pt] (word1) at (-1,0) {conjunto};
+\node[inner sep=2pt, outer sep=2pt] (word2) at (1,0)  {colecção};
+\draw (word1) edge[out=315,in=225,-Latex] (word2);
+\draw (word2) edge[out=135,in=45, -Latex] (word1);
+\endtikzpicture
+$$
+Pensando numa forma computacional, entendemos essa definição como um
+programa cuja execução caiu num \emph{loop infinito}.
+Como ele nunca termina, nos nunca sabemos se um objeto satisfaz
+ou não essa definição.
+%}}}
+
+%%{{{ Recursive definitions 
+\note Definições recursivas.
+Alguém pode pensar que o problema com as definições circulares é que a palavra
+que estamos definindo apareceu na sua própria definição.
+Isso \emph{não} é o caso!
+Numa \dterm{definição recursiva} a palavra que queremos definir parece aparacer
+dentro da sua própria definição, e mesmo assim, não estamos caindo num loop infinito,
+e realmente conseguimos definir o que queremos.
+Mas bora deixar esse assunto para depois, quando com pouco mais experiência
+vamos trabalhar com recursão.
+%%}}}
+
+\note Erros em definições.
+
+%%{{{ The importance of definitions 
+\note A importância das definições.
+Superficialmente alguém pode pensar que ``não existe definição errada''.
+Ficando no pé da letra seria difícil convencer esse alguém que ele não
+tem razão.  Muitas vezes dando as definições corretas é o que te permite
+provar um teorema difícil que seria inatacável sem elas.
+Uma definição deve ser simples para entender e usar.
+E deve capturar um conceito interessante.
+Tendo as definições corretas, raciocinamos melhor,
+e conseguimos formular nosso pensamento numa forma
+curta e entendível.
+Com prática, vamos conseguir identificar quando faria sentido definir
+um termo novo, dar uma definição elegante e correta, e escolher
+um nome bom, e se for útil uma notação conveniente também.
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Theorems and friends 
+\section Teoremas e seus amigos.
+
+\TODO Erro na prova não é suficiente para dizer que o teorema é errado.
+
+\TODO Conseqüência de teorema errado não é suficiente para concluir que a
+conseqüência é errada também.
+
+\endsection
+%%}}}
+
+%%{{{ And what is ...?  And why ...? 
+\section E o que é \dots?  E por quê \dots?.
+
+\note Geometria euclideana.
 
 \endsection
 %%}}}
@@ -53,6 +203,12 @@ $\iff$ vs $\defiff$ vs $\assiff$.
 \section Conjuntos, funções, relações.
 
 \TODO Aridade.
+
+\endsection
+%%}}}
+
+%%{{{ Programming vs. proving 
+\section Programando vs.~provando.
 
 \endsection
 %%}}}
@@ -1350,7 +1506,7 @@ sobre provas no resto do texto.
 %%{{{ Proofs as games 
 \section Provas como jogos.
 
-%%{{{ lorenzo dialogue games 
+%%{{{ lorenzen dialogue games 
 \note.
 Existem várias maneiras de usar jogos para estudar provas.
 Num dos mais comuns, é selecionada uma afirmação e dois jogadores
@@ -1372,15 +1528,15 @@ onde teu oponente só joga uma vez (e joga primeiro) escolhendo
 a ordem das cartas no caso de Solitaire ou onde botar as minas no
 caso de Minesweeper.  Após disso, quem joga é apenas você.
 }
-Tu estás jogando contra um ou mais álvos, onde cada alvo é uma afirmação
+Tu estás jogando com um ou mais álvos, onde cada alvo é uma afirmação
 matemática que tu estás querendo matá-la (provar).
 Para conseguir isso, tu tens na tua disposição:
-certas \emph{armas} (os seus dados), definições, teoremas, etc.,
-e finalmente \emph{a própria lógica},
+certas \emph{armas}: os seus dados (hipoteses),
+definições, teoremas, etc., e finalmente \emph{a própria lógica},
 que é representada aqui por \emph{as próprias regras do jogo}.
 O jogo é feito numa maneira que se não roubar
-(ou seja, se seguir suas regras),
-então tua prova realmente mostra a vericidade dos teus álvos.
+(ou seja, se seguir as regras),
+então tua prova realmente estabelece a vericidade dos teus álvos.
 %%}}}
 
 %%{{{ where's the compiler? 
@@ -1396,7 +1552,7 @@ mas praticando acaba sendo algo natural.
 No mesmo sentido, o programador iniciante ``briga'' com o compilador
 o tempo todo, e com mais experiência ele assume (conscientemente ou não)
 cada vez mais um papel de compilador mental também, e acaba brigando
-cada vez menos com o compilador real.
+cada vez menos com o compilador da sua máquina.
 %%}}}
 
 %%{{{ the game and its board 
