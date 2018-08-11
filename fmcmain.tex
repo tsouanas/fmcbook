@@ -890,6 +890,7 @@ Pode usar sua linguagem como numerais para os naturais?
 
 %%{{{ Metalanguages 
 \section Metalinguagens.
+\label{Metalanguages}%
 
 %%{{{ metalanguage 
 \note.
@@ -915,11 +916,11 @@ sobre a linguagem-objeto.
 \label{metavariables}%
 \tdefined{metavariável}%
 Imagine que você trabalha como programador e teu chefe lhe pediu
-fazer uma mudança no código de um programa escrito na linguagem de
+fazer uma mudança no código de todos os teus programas escritos na linguagem de
 programação C.
 Ele disse:
-<<Cada variável $\alpha$ de tipo $\tau$ que aparece no código fonte tem que ser renomeada
-para $\alpha\code{\_of\_}\tau$.>>
+<<Em todo programa teu $\Pi$, substitua cada variável $\alpha$ de tipo $\tau$
+que aparece no código fonte por para $\alpha\code{\_of\_}\tau$.>>
 <<Por exemplo,>> ele continuou abrindo o programa no seu editor,
 <<essa variável aqui $\code{i}$ que é de tipo $\code{int}$,
 precisa ser renomeada para $\code{i\_of\_int}$;
@@ -929,15 +930,18 @@ etc.>>
 \endgraf
 Nesse pedido---obviamente sem noção, algo muito comum em pedidos de chefes
 de programadores---aparecem duas ``espécies'' de variáveis diferentes:
-as $\alpha$ e $\tau$ são variáveis de uma espécie;
+as $\Pi$, $\alpha$, e $\tau$ são variáveis de uma espécie;
 as $\code{i}$, $\code{i\_of\_int}$,
 $\code{count}$, $\code{count\_of\_int}$,
 $\code{mean}$, e $\code{mean\_of\_float}$
 de outra.
-Chamamos a $\alpha$ e $\tau$ \dterm{metavariáveis},
+Chamamos $\Pi$, $\alpha$ e $\tau$ \dterm{metavariáveis},
 pois elas pertencem na metalinguagem,
 e não na linguagem-objeto,
 que nesse exemplo é a linguagem de programação C.
+Observe que a metavariável $\Pi$ denota programas escritas na linguagem-objeto (C)
+a metavariável $\alpha$ denota variaveis de C,
+e a metavariável $\tau$ denota tipos da C.
 %%}}}
 
 \endsection
@@ -1163,7 +1167,7 @@ chamados \dterm{variáveis proposicionais}.
 
 \TODO
 Começar com duas definições erradas:
-uma sem pars outra com conectivos apenas entre atómicas.
+uma sem parens outra com conectivos apenas entre atómicas.
 
 \blah.
 Finalmente chegamos na definição correta do que é uma fórmula:
@@ -1174,11 +1178,11 @@ Finalmente chegamos na definição correta do que é uma fórmula:
 \tdefined{fórmula}[proposicional]
 \beginul
 \li Se $P$ é uma variável proposicional, então $P$ é uma fórmula.
-\li Se $A$ é uma fórmula, então $\lnot A$ é uma fórmula.
-\li Se $A,B$ são fórmulas, então:
-\item{-} $(A \limplies B)$ é uma fórmula;
-\item{-} $(A \lor B)$ é uma fórmula;
-\item{-} $(A \land B)$ é uma fórmula.
+\li Se $F$ é uma fórmula, então $\lnot F$ é uma fórmula.
+\li Se $F,G$ são fórmulas, então:
+\item{-} $(F \limplies G)$ é uma fórmula;
+\item{-} $(F \lor G)$ é uma fórmula;
+\item{-} $(F \land G)$ é uma fórmula.
 \endul
 Nada mais é uma fórmula.
 Uma fórmula que consiste em apenas uma variável proposicional é chamada
@@ -1196,6 +1200,14 @@ F &\bnfeq A \bnfor \lnot F \bnfor (F \limplies F) \bnfor (F \land F) \bnfor (F \
 A &\bnfeq P_0 \bnfor P_1 \bnfor P_2 \bnfor \dotsb
 \endalign
 $$
+%%}}}
+
+%%{{{ x: metavar_vs_vats_in_propositional_formula 
+\exercise.
+No texto da \ref{propositional_formula}, identifique todas as metavariáveis
+e todas as variáveis (veja~\refn{Metalanguages}, \refn{metavariables}).
+
+\endexercise
 %%}}}
 
 \endsection
@@ -1234,16 +1246,16 @@ Por enquanto, deixe pra lá!
 %%}}}
 
 %%{{{ Syntactic sugar 
-\section Açúcar sintáctico.
+\section Açúcar sintáctico e convenções.
 
-%%{{{ Notation: limplied_liff_abbr 
-\note Notação.
+%%{{{ limplied_liff_abbr 
+\note Açúcar sintáctico.
 \label{limplied_liff_abbr}%
-Se $A,B$ são fórmulas, usamos as seguintes abreviações:
+Se $F,G$ são fórmulas, usamos as seguintes abreviações:
 $$
 \align
-(A \liff B)     &\abbreq ((A \limplies B) \land (B \limplies A))\\
-(A \limplied B) &\abbreq (B \limplies A)
+(F \liff G)     &\sugareq ((F \limplies G) \land (G \limplies F))\\
+(F \limplied G) &\sugareq (G \limplies F)
 \endalign
 $$
 %%}}}
@@ -1264,11 +1276,172 @@ O primeiro caráter da fórmula $B$.
 \endexercise
 %%}}}
 
+%%{{{ Parentheses 
+\note Parenteses.
+Nos permitimos ``esquecer'' as parenteses mais externas
+duma fórmula.
+$$
+F \limplies G \abbreq (F \limplies G).
+$$
+%%}}}
+
+%%{{{ Associativities 
+\note Associatividades.
+Atribuimos às $\land$ e $\lor$ uma associatividade à esquerda,
+e a $\limplies$ uma associatividade à direita.
+Pela semântica desejada a primeira escolha é arbitraria,
+pois a conjunção e a disjunção são operações \emph{associativas}.
+Mas a implicação não é.  Nossa escolha então importa!
+%%}}}
+
+%%{{{ x: limplies_is_not_associative 
+\exercise.
+Verifique com um exemplo que realmente, em geral
+$$
+A \limplies (B \limplies C)
+\qqtext{não é equivalente à}
+(A \limplies B) \limplies C.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ Precedences 
+\note Precedências.
+Não vamos escolher nenhuma das $\land$, $\lor$ para considerá-la
+mais forte, ou seja, \emph{nunca} vamos escrever algo do tipo
+$$
+F \lor G \land H.
+$$
+Por outro lado é comum considerar que elas têm precedência contra
+a $\limplies$: com as
+$$
+F \limplies G \land H
+\qqtext{e}
+F \lor G \limplies H
+$$
+denotamos as fórmulas
+$$
+(F \limplies (G \land H))
+\qqtext{e}
+((F \lor G) \limplies H)
+$$
+respectivamente.
+Mesmo assim, eu vou tentar botar essas parenteses quando considero
+que ajudam na leitura da fórmula!
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Its limitations 
 \section Suas limitações.
+
+%%{{{ related propositions seem unrelated 
+\note.
+Considere a afirmação
+\quote
+Se Igor é brasileiro ele toca violão.
+\endquote
+Qual é a melhor maneira para traduzir essa afirmação na
+nossa linguagem de lógica proposicional?
+Estamos procurando então uma \emph{fórmula} da $\zolang$
+que poderia representar essa afirmação.
+Podemos usar a fórmula seguinte:
+$$
+(P_0 \limplies P_1)
+$$
+mas precisamos ainda declarar quais são as proposições
+denotadas por as variáveis proposicionais que usamos ($P_0$ e $P_1$).
+A escolha é óbvia:
+$$
+\align
+P_0 &:\ \text{Igor é brasileiro}\\
+P_1 &:\ \text{Igor é toca violão}
+\endalign
+$$
+Note aqui que $P_0$ não poderia ser ``ele toca violão'', pois
+na afirmação original esse ``ele'' refere ao Igor, então seria
+errado mudar isso para o indefinido e ambiguo ``ele''.
+Tudo bem até agora, mas como vamos traduzir as frases:
+\beginol
+\li Se Thanos é brasileiro ele toca violão.
+\li Se Igor é brasileiro ele toca piano.
+\li Se Igor é grego ele toca violão.
+\endol
+Note que cada uma dessas proposições afirma algo muito parecido
+com a original, e mesmo assim o melhor jeito que temos
+para representar cada uma delas, é:
+$$
+\align
+&(P_2 \limplies P_3)\\
+&(P_0 \limplies P_4)\\
+&(P_5 \limplies P_1)
+\endalign
+$$
+O problema é que perdemos muita informação nessa traduação,
+e olhando apenas para essas fórmulas não conseguimos ver
+as conexões que alguem vê lendo as afirmações escritas na
+lingua natural acima.
+%%}}}
+
+%%{{{ zolang_is_way_too_poor_for_some_propositions 
+\note.
+Até pior, vamos tentar traduzir a afirmação seguinte:
+\quote
+Todo brasileiro que fala grego toca piano.
+\endquote
+
+\question.
+Qual é a melhor forma que você pode traduzir essa proposição para a linguagem
+$\zolang$?
+\spoiler.
+%%}}}
+
+%%{{{ a_wrong_translation_to_zolang 
+\note.
+Uma tentativa errada seria pensar numa fórmula como
+$$
+((B \land G) \limplies P)
+$$
+onde escolhendo as proposições denotadas por nossos
+$B$, $G$, e $P$, acabamos falando algo sem sentido:
+$$
+\align
+B &: \text{todo brasileiro}\\
+G &: \text{alguém que fala grego}\\
+P &: \text{ele toca piano}
+\endalign
+$$
+ou algo parecido com isso.
+Agora pare e resolva o exercício seguinte:
+%%}}}
+
+%%{{{ x: what_is_wrong_with_this_translation_to_zolang 
+\exercise.
+Qual o problema com essa tradução?
+
+\endexercise
+%%}}}
+
+%%{{{ we accept the best is the worst 
+\note.
+Infelizmente temos que aceitar que a melhor tradução que conseguimos
+é denotar a afirmação inteira por alguma variavel proposicional.
+Ou seja, pelos olhos da $\zolang$, essa é uma afirmação atômica.
+%%}}}
+
+%%{{{ x: universal_proposition_boils_down_to_pvar_in_zolang 
+\exercise.
+\label{universal_proposition_boils_down_to_pvar_in_zolang}%
+Para um exemplo ``mais matemático'', considere a afirmação
+\quote
+Para todo inteiro $n$, se $n$ é primo e $n>2$, então $n+2$ é primo.
+\endquote
+Qual é a melhor tradução dela que conseguimos na linguagem $\zolang$?
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -1282,7 +1455,9 @@ O primeiro caráter da fórmula $B$.
 %%{{{ Further reading 
 \further.
 
-\cite[Cap.~1]{velleman}.
+\cite[Cap.~1]{velleman};
+\cite[Cap.~1]{corilascar1};
+\cite[Cap.~1]{bellmachover}.
 
 \endfurther
 %%}}}
@@ -1407,7 +1582,7 @@ $$
 \align
 F &\bnfeq
 \mathit{A}
-\bnfor (\lnot F)
+\bnfor \lnot F
 \bnfor (F \limplies F)
 \bnfor (F \land F)
 \bnfor (F \lor F)
@@ -1428,7 +1603,7 @@ defina umas gramáticas em BNF para gerar a linguagem das suas fórmulas bem for
 Aqui uma solução:
 $$
 \align
-\bnf{F}     &\bnfeq \bnf{At} \bnfor (\lnot \bnf{F}) \bnfor (\bnf{F} \bnf{Bin} \bnf{F}) \bnfor \bnf{Q}\bnf{Var}\bnf{F}\\
+\bnf{F}     &\bnfeq \bnf{At} \bnfor \lnot \bnf{F} \bnfor (\bnf{F} \bnf{Bin} \bnf{F}) \bnfor \bnf{Q}\bnf{Var}\bnf{F}\\
 \bnf{Bin}   &\bnfeq \lor \bnfor \land \bnfor \limplies\\
 \bnf{Q}     &\bnfeq \forall \bnfor \exists\\
 \bnf{Var}   &\bnfeq x_0 \bnfor x_1 \bnfor x_2 \bnfor \dotsb\\
@@ -1445,12 +1620,6 @@ $$
 
 %%{{{ Its semantics 
 \section Sua semântica.
-
-\endsection
-%%}}}
-
-%%{{{ Universes and structures 
-\section Universos e mundos.
 
 \endsection
 %%}}}
@@ -1493,11 +1662,27 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ x: unique_x_Px_sugar 
+\exercise.
+Ache uma fórmula de FOL equivalente da
+$\unique{x} P(x)$ e uma da $\lunique {x \in A} {P(x)}$.
+Lemos o ``$\unique{}$'' como ``existe único''.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Its limitations 
 \section Suas limitações.
+
+\blah.
+Para a maioria das afirmações que encontramos em matemática normalmente
+$\folang$ é suficiente.  Mesmo assim, ela tem suas limitações tanto
+para expressar certas proposições matemáticas, quanto para certas afirmações
+que encontramos com freqüência na nossa vida.
+Mas vou deixar essas preocupações para os problemas.
 
 \endsection
 %%}}}
@@ -1505,13 +1690,32 @@ $$
 %%{{{ Problems 
 \problems.
 
+%%{{{ limitation_of_fol_in_math 
+\problem.
+\label{limitation_of_fol_in_math}%
+Ache uma afirmação matemática que $\folang$ não é capaz para traduzir bem.
+
+\endproblem
+%%}}}
+
+%%{{{ modal_temporal_logics 
+\problem.
+\label{limitation_of_fol_not_in_math}%
+Pense em outras afirmações que aparecem freqüentemente na nossa fala
+que $\folang$ seria pobre para traduzir bem.
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
 %%{{{ Further reading 
 \further.
 
-\cite[Cap.~2]{velleman}.
+\cite[Cap.~2]{velleman};
+\cite[Cap.~3]{corilascar1};
+\cite[Cap.~2--3]{bellmachover}.
 
 \endfurther
 %%}}}
