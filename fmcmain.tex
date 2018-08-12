@@ -1470,6 +1470,7 @@ Qual é a melhor tradução dela que conseguimos na linguagem $\zolang$?
 
 %%{{{ Its syntax 
 \section Sua sintaxe.
+\label{FOL_syntax}%
 
 %%{{{ givens_for_a_FOL 
 \note Dados.
@@ -1615,11 +1616,48 @@ $$
 \endexercise
 %%}}}
 
+\question.
+O que precisamos especificar para ter uma linguagem FOL?
+
+\blah Resposta.
+Olhando cuidadosamente para a sua sintaxe, é claro que precisamos
+deixar claro quais são os símbolos de variáveis, constantes,
+funções, e predicados, que vamos usar, e suas aridades para
+os símbolos de funções e predicados.
+
 \endsection
 %%}}}
 
 %%{{{ Its semantics 
 \section Sua semântica.
+
+\blah.
+Tanto como na lógica proposicional, não vamos nos preocupar
+neste momento para definir formalmente uma semântica para
+as linguagens de lógica da primeira ordem.
+Para conseguir isso, precisamos ganhar muita experiência
+com conjuntos (\ref{Sets}), funções (\ref{Functions}),
+e Relações (\ref{Relations}), e uma certa
+\emph{maturidade matemática} que vai chegando durante
+nossos estudos.
+Finalmente no~\ref{Mathematical_logic} vamos voltar
+nessa questão.
+Mesmo assim, precisamos dar pelo menos uma primeira idéia
+da semântica da FOL, mesmo sem rigidez.
+
+\note.
+Dada uma linguagem de FOL, para suas fórmulas ganharem
+um significado, precisamos deixar claro:
+\beginul
+\li Qual é o \dterm{universo}, ou seja, todos os objetos
+onde as variáveis (e constantes) tomam seus valores.
+Todos os nossos termos vão acabar denotando objetos
+desse universo.
+\li Para cada símbolo de função, qual é a função mesmo
+que ele representa no universo escolhido.
+\li Para cada símbolo de predicado, qual é a relação mesmo
+que ele representa no universo escolhido.
+\endul
 
 \endsection
 %%}}}
@@ -1631,8 +1669,8 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Syntactic sugar 
-\section Açúcar sintáctico.
+%%{{{ Syntactic sugar and conventions 
+\section Açúcar sintáctico e convenções.
 
 %%{{{ x: exists_x_in_A_Px_sugar 
 \exercise.
@@ -1878,6 +1916,7 @@ para entender a ideia desse jogo e nada mais.
 \goals
 \gim {\coloredcancel{red}{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}
 \gim {\alert{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
+\gim {\hphantom{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}
 \endgg
 }
 }
@@ -1990,6 +2029,7 @@ Calculamos:\cr
 \gim {\lexists {k\in\ints} {x = 2k+1}}
 \gim {k \in \ints}
 \gim {x = 2k + 1}
+\gim {x^2 = 2(2k^2 + 2k) + 1}
 \goals
 \gim {{\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ par}}}}}
 \gim {{\faded{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}}
@@ -2004,21 +2044,22 @@ provar, foi provado (ou seja: é um teorema mesmo).
 \endexample
 %%}}}
 
-\TODO complete the example.
-
 %%{{{ remark: the text above is terrible 
 \remark.
 O texto que a prova acabou sendo é \emph{terrível}.
 Parece escrito por um robô que não entende nada.
-Não vamos escrever provas nesse jeito.  Em vez disso,
-o texto ``real e humano'' que corresponde nessa prova
-seria algo do tipo:
+Não vamos escrever provas nesse jeito.
+Em vez disso, o texto ``real e humano'' que corresponde
+nessa prova seria algo do tipo:
 \quotepar
 Seja $x$ inteiro ímpar,
 e logo seja $k\in\ints$ tal que $x = 2k + 1$.
 Preciso mostrar que $x^2$ é ímpar também.
-Calculamos: $x^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k) + 1$.
-Como $2k^2+2k\in\ints$, logo $x^2$ ímpar.
+Calculamos:
+$$
+x^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k) + 1.
+$$
+Como $2k^2+2k\in\ints$, logo $x^2$ é ímpar.
 \endquote
 Mesmo assim, é importante entender o ``backend'' da prova,
 em termos da tabela ``Dados/Alvos''.
@@ -2030,13 +2071,91 @@ Com mais experiência, esse processo vai virar automático
 e subconsciente.
 %%}}}
 
-\TODO Finish the section.
-
 \endsection
 %%}}}
 
 %%{{{ Proofs by cases 
 \section Provas por casos.
+
+\blah.
+Suponha que está tentando provar uma afirmação.
+Para matar esse monstro, em qualquer momento da tua prova,
+você pode separar em casos, e mostrar como matá-lo
+em cada um deles.
+Quando decidir atacar nessa maneira precisa tomar certos cuidados.
+
+%%{{{ our new goals 
+\note Nossos novos alvos.
+\label{case_split_clones_goal}
+O alvo tá sendo clonado igualzíssimo para cada um dos casos.
+%%}}}
+
+%%{{{ remark: seems weird choice to case split 
+\remark.
+Mas, peraí.
+A gente quer matar um monstro $G$.
+Depois desse passo de separar em, sei lá, 4 casos,
+agora nosso objetivo é matar 4 cópias desse monstro,
+uma em cada caso.
+Se fosse cada um desses novos monstros pelo menos
+um pouquinho mais fraco o motivo de separar em casos
+faria sentido.  Mas, como eu acabei de dizer,
+em cada caso temos que matar um clono de $G$.
+Não uma versão diferente de $G$.  O mesmo $G$!
+%%}}}
+
+%%{{{ Q: why case split? 
+\question.
+Por quê separar em casos então e multiplicar nossos alvos?
+%%}}}
+\spoiler.
+
+%%{{{ A: the monsters don't get weaker, but we get stronger 
+\blah Resposta.
+Não é que teus novos alvos são mais fracos---pois eles não são---mas
+é você mesmo que fica mais forte em cada um deles.
+Em cada caso, ganhas mais uma arma:
+o dado que o próprio caso te oferece para matar esse mesmo alvo.
+%%}}}
+
+%%{{{ Don't forget a case 
+\note Não deixar nenhum caso por fora.
+Uma maneira de ter certeza que não esqueceu nada, é escolher uma
+propriedade $A$ e separar nos dois casos complementares:
+$A$ ou não $A$.
+Para um exemplo de como errar, suponha que queremos provar
+que para todo inteiro $n$, o $n(n-1)$ é um múltiplo de $3$.
+Consideramos dois casos:
+\beginol
+\li Caso $n = 3k$   para algum $k\in\ints$.
+\li Caso $n = 3k+1$ para algum $k\in\ints$.
+\endol
+E cada um deles, é fácil provar que realmente $n(n-1)$ é
+um múltiplo de $3$.  Mas claramente temos um erro aqui,
+pois, como um contraexemplo tome o inteiro $2$ e calcule:
+$5(5-1) = 20$, e com certeza $20$ não é um múltiplo de $3$.
+O problema é que em nossa separação em casos a gente não
+considerou todas as possibilidades!
+Esquecemos um terceiro caso:
+\quote
+Caso contrário.
+\endquote
+Como aprendemos nos capítulos~\refn{Number_theory_divisibility}
+e~\refn{Number_theory_congruences}, a única possibilidade que deixamos,
+esse ``caso contrário'' é equivalente ao:
+\quote
+Caso $n = 3k+2$  para algum $k\in\ints$.
+\endquote
+Uma separação em casos correta então seria considerar todos os:
+\beginol
+\li Caso $n = 3k$   para algum $k\in\ints$.
+\li Caso $n = 3k+1$ para algum $k\in\ints$.
+\li Caso $n = 3k+2$ para algum $k\in\ints$.
+\endol
+E com essa separação, felizmente, não podemos provar
+essa afirmação errada, pois no terceiro caso, não temos como
+matar nosso alvo!
+%%}}} 
 
 \endsection
 %%}}}
@@ -2050,6 +2169,7 @@ e subconsciente.
 %%{{{ Implication 
 \section Implicação.
 
+%%{{{ Understand 
 \note Entender.
 Pensando no que uma implicação realmente é vamos visualizá-la como uma premissa:
 \quote
@@ -2058,9 +2178,9 @@ Pensando no que uma implicação realmente é vamos visualizá-la como uma premi
 E o que é prometido caso que a condição $A$ não for verdadeira?
 Nada!
 É importante entender essa parte, e talvez essa piada conhecida ajuda:
-\quote
+\quotepar
 Um filho tá gritando e seu pai vire e fala pra ele:
-\emph{se tu continuar gritando, eu vou bater em ti!}
+\emph{``se tu continuar gritando, eu vou bater em ti!''}
 O filho, com medo, imediatemente fica calado, e logo após seu pai bate nele.
 \endquote
 A pergunta para pensar é: \emph{o pai mentiu?}
@@ -2073,9 +2193,11 @@ se $\namedhole A$ então $\namedhole B$
 \endquote
 como uma promessa.
 Aqui o pai não prometeu nada no caso que seu filho parasse de gritar!
-Nesse exemplo bobo então, a afirmação do paí é verdadeira \dterm{vacuamente}
+Nesse exemplo bobo então, a afirmação do pai é verdadeira \dterm{vacuamente}
 como a gente fala:
-ou seja, como não aconteceu a condição, não tem como culpá-lo de mentiroso.
+ou seja, como não aconteceu a \emph{premissa},
+não tem como culpá-lo de mentiroso.
+%%}}}
 
 \note O que eu ganhei?.
 
