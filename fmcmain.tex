@@ -870,9 +870,7 @@ mas vamos deixar isso para depois (\ref{remove_dots_from_ArExp_grammar}).
 \grammar Nat.
 \label{Nat_grammar}%
 $$
-\align
-\bnf{Nat} &\bnfeq 0 \bnfor S \bnf{Nat}
-\endalign
+\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
 $$
 %%}}}
 
@@ -880,7 +878,7 @@ $$
 \exercise.
 \label{generate_some_nats_from_grammar}%
 Quais são umas das palavras que podes gerar com a~\ref{Nat_grammar}?
-Pode usar sua linguagem como numerais para os naturais?
+Podemos usar sua linguagem como numerais para os naturais?
 
 \endexercise
 %%}}}
@@ -2678,7 +2676,7 @@ L_k
 &= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by{def.~de $\ell(n)$, $k\geq3$}
 &= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by{ass.~e com.~de $+$}
 &= F_{k-1} + F_{k+1}                        \by{def.~de $F_n$, $k\geq3$}
-&= \ell(k)                                  \by{def.~de $\ell(n)$},
+&= \ell(k),                                 \by{def.~de $\ell(n)$}
 \endalignat
 $$
 que termina nossa prova.
@@ -3080,15 +3078,50 @@ $$
 \item{(iii)} Prove que para todo $x\in\nats$, $\alpha(2,x) = 2x + 3$.
 \endil
 A função $\alpha$ é conhecida como função de \Ackermann{}Ackermann,
-e vamos a encontrar novamente bem depois, no~\ref{Recursive_functions}.
+e vamos encontrá-la novamente bem depois, no~\ref{Recursive_functions}.
 
 \endproblem
 %%}}}
+
+%%{{{ prob: quot_rem_eq_prob 
+\problem.
+\label{quot_rem_eq_prob}
+Considere as funções $q$, $r$, e $t$ definidas recursivamente:
+$$
+\xalignat3
+q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
+q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
+q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
+q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
+q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
+\endxalignat
+$$
+O que cada função calcula?
+
+\hint
+Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
+
+\solution
+\item{($q$:)}
+    $q(n) = \bigg\lfloor{\dfrac n 3}\bigg\rfloor$.
+\item{($r$:)}
+    O $r(n)$ é o resto da divisão do $n$ por $3$.
+\item{($t$:)}
+    A $t$ decida se suas entradas são iguais ou não.
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
 %%{{{ Further reading 
 \further.
+
+Mais informações sobre indução e indução forte,
+veja o~\cite[Cap.~6]{velleman}.
+Sobre o princípio da boa ordem e indução,
+veja o~\cite[\S\S1.4--1.5]{babybm}
 
 \endfurther
 %%}}}
@@ -9528,7 +9561,11 @@ Veja o~\cite[\S1.9]{babybm}.
 \label{Nats_formally}%
 
 \blah.
-Lembrando a~\ref{Nat_grammar}, começamos com a definição seguinte.
+Lembrando a~\ref{Nat_grammar}
+$$
+\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+$$
+começamos com a definição seguinte.
 
 %%{{{ df: nat
 \definition Nat.
@@ -9536,9 +9573,9 @@ Lembrando a~\ref{Nat_grammar}, começamos com a definição seguinte.
 \tdefined{Nat}%
 Definimos os \dterm{numerais $\Nat$} para representar os números naturais
 com uma definição inductiva:
-\item{(N0)} $0 \in \Nat$;
-\item{(N1)} Para todo $n$, se $n\in\Nat$, então $Sn \in \Nat$;
-\item{(N2)} Nada mais está no $\Nat$.
+\item{(N0)} $0$ é um $\Nat$;
+\item{(N1)} Para todo $n$, se $n$ é um $\Nat$, então $Sn$ é um $\Nat$;
+\item{(N2)} Nada mais é um $\Nat$.
 %%}}}
 
 %%{{{ eg: 0,1,2,3 ; primes 
@@ -9579,7 +9616,7 @@ Todo esse capítulo é desenvolvido usando apenas essa definição.
 
 %%{{{ df: nats_plus_recursive_def 
 \definition Adição.
-Definimos a operação $+$ no $\nats$ pelas:
+Definimos a operação $+$ no $\Nat$ pelas:
 $$
 \align
 n + 0   &= n      \tag{a1}\\
@@ -10607,45 +10644,11 @@ $$
 %%{{{ Problems 
 \problems.
 
-%%{{{ prob: quot_rem_eq_prob 
-\problem.
-\label{quot_rem_eq_prob}
-Considere as funções $q$, $r$, e $t$ definidas recursivamente:
-$$
-\xalignat3
-q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
-q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
-q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
-q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
-q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
-\endxalignat
-$$
-O que cada função calcula?
-
-\hint
-Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
-
-\solution
-\item{($q$:)}
-    $q(n) = \bigg\lfloor{\dfrac n 3}\bigg\rfloor$.
-\item{($r$:)}
-    O $r(n)$ é o resto da divisão do $n$ por $3$.
-\item{($t$:)}
-    A $t$ decida se suas entradas são iguais ou não.
-
-\endproblem
-%%}}}
-
 \endproblems
 %%}}}
 
 %%{{{ Further reading 
 \further.
-
-Mais informações sobre indução e indução forte,
-veja o~\cite[Cap.~6]{velleman}.
-Sobre o princípio da boa ordem e indução,
-veja o~\cite[\S\S1.4--1.5]{babybm}
 
 \endfurther
 %%}}}
