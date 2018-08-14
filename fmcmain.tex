@@ -1618,7 +1618,7 @@ Qual é a melhor tradução dela que conseguimos na linguagem $\zolang$?
 \note Dados.
 Um conjunto infinito de símbolos de variáveis
 $$
-\folvars  = \set{x_0, x_1, x_2, x_3, \dotsc}.
+\folvars  = \set{\folsym x_0, \folsym x_1, \folsym x_2, \folsym x_3, \dotsc}.
 $$
 Conjuntos de símbolos de constantes, de funções, e de predicados:
 $$
@@ -1628,9 +1628,9 @@ Uma função $\folarity$ que atribua para cada símbolo de função ou
 de predicado, sua \dterm{aridade}, ou seja, a quantidade de argumentos
 que ele necessita ``consumir''.
 Por exemplo, numa FOL que usariamos para cálculo, faria
-sentido ter símbolos $+,\cos,<$ entre outros, com aridades
-$\folarity(+) = 2$, $\folarity(\cos) = 1$,
-$\folarity(<) = 2$, etc.
+sentido ter símbolos $\folsym +,\folsym{cos},\folsym{<}$ entre outros, com aridades
+$\folarity(\folsym{+}) = 2$, $\folarity(\folsym{cos}) = 1$,
+$\folarity(\folsym{<}) = 2$, etc.
 \endgraf
 Alternativamente, podemos grupear os símbolos de funções por aridade,
 e similarmente para os símbolos de predicados, escrevendo assim
@@ -1657,9 +1657,9 @@ Vamos discutir isso no~\ref{Mathematical_logic}.}
 Tomando
 $$
 \align
-\folcons  &= \set{c_0, c_1, c_2, c_3, \dotsc}\\
-\folfuns  &= \set{f_0, f_1, f_2, f_3, \dotsc}\\
-\folpreds &= \set{P_0, P_1, P_2, P_3, \dotsc}
+\folcons  &= \set{\folsym c_0, \folsym c_1, \folsym c_2, \folsym c_3, \dotsc}\\
+\folfuns  &= \set{\folsym f_0, \folsym f_1, \folsym f_2, \folsym f_3, \dotsc}\\
+\folpreds &= \set{\folsym P_0, \folsym P_1, \folsym P_2, \folsym P_3, \dotsc}
 \endalign
 $$
 e especificando uma função de aridade $\folarity$ criamos uma FOL.
@@ -1667,13 +1667,44 @@ Alternativamente tomamos
 $$
 \xalignat2
 \bigparen{\;\folcons =\;}\quad
-\folfuns_0   &= \set{f^0_0, f^0_1, f^0_2, f^0_3, \dotsc} & \folpreds_0  &= \set{P^0_0, P^0_1, P^0_2, P^0_3, \dotsc}\\
-\folfuns_1   &= \set{f^1_0, f^1_1, f^1_2, f^1_3, \dotsc} & \folpreds_1  &= \set{P^1_0, P^1_1, P^1_2, P^1_3, \dotsc}\\
-\folfuns_2   &= \set{f^2_0, f^2_1, f^2_2, f^2_3, \dotsc} & \folpreds_2  &= \set{P^2_0, P^2_1, P^2_2, P^2_3, \dotsc}\\
-             &\eqvdots                                   &              &\eqvdots                                    
+\folfuns_0   &= \set{\folsym f^0_0, \folsym f^0_1, \folsym f^0_2, \folsym f^0_3, \dotsc} & \folpreds_0  &= \set{\folsym P^0_0, \folsym P^0_1, \folsym P^0_2, \folsym P^0_3, \dotsc}\\
+\folfuns_1   &= \set{\folsym f^1_0, \folsym f^1_1, \folsym f^1_2, \folsym f^1_3, \dotsc} & \folpreds_1  &= \set{\folsym P^1_0, \folsym P^1_1, \folsym P^1_2, \folsym P^1_3, \dotsc}\\
+\folfuns_2   &= \set{\folsym f^2_0, \folsym f^2_1, \folsym f^2_2, \folsym f^2_3, \dotsc} & \folpreds_2  &= \set{\folsym P^2_0, \folsym P^2_1, \folsym P^2_2, \folsym P^2_3, \dotsc}\\
+             &\eqvdots                                                                   &              &\eqvdots                                                                  
 \endxalignat
 $$
 onde temos denotado a aridade de cada símbolo como um ``exponente''.
+\endexample
+%%}}}
+
+%%{{{ eg: FOL_example_number_theory 
+\example.
+\label{FOL_example_number_theory}%
+Para estudar teoria de números alguém poderia escolher essa linguagem:
+$$
+\align
+\folcons    &= \set{\folsym 0, \folsym 1, \folsym 2, \dots} \\
+\folfuns_1  &= \set{{-}} \\
+\folfuns_2  &= \set{{+}, {\cdot}, \folsym {gcd}} \\
+\folpreds_1 &= \set{\folsym{Prime}, \folsym{Even}, \folsym{Odd}, \folsym{IsZero}} \\
+\folpreds_2 &= \set{{=}, {<}, {\leq}, {\divides}}
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ eg: FOL_example_people 
+\example.
+\label{FOL_example_people}%
+Para estudar pessoas e suas relações uma linguagem poderia ser:
+$$
+\align
+\folcons    &= \set{\folsym{Thanos}, \folsym{Ramile}, \folsym{Eva}, \folsym{Sam}, \folsym{Maroui}, \folsym{Jebinos}} \\
+\folfuns_1  &= \set{\folsym{mother}, \folsym{father}} \\
+\folpreds_1 &= \set{\folsym{Male}, \folsym{Female}, \folsym{Adult}, \folsym{Mother}, \folsym{Father}} \\
+\folpreds_2 &= \set{=, \folsym{Loves}, \folsym{SiblingOf}, \folsym{MotherOf}, \folsym{FatherOf}}
+\endalign
+$$
 \endexample
 %%}}}
 
