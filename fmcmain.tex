@@ -1624,19 +1624,32 @@ Conjuntos de símbolos de constantes, de funções, e de predicados:
 $$
 \folcons, \folfuns, \folpreds.
 $$
-Uma função $\folarity : \folfuns \union \folpreds \to \nats$ de aridade,
-que atribua para cada símbolo nesses conjuntos sua aridade.
+Uma função $\folarity$ que atribua para cada símbolo de função ou
+de predicado, sua \dterm{aridade}, ou seja, a quantidade de argumentos
+que ele necessita ``consumir''.
+Por exemplo, numa FOL que usariamos para cálculo, faria
+sentido ter símbolos $+,\cos,<$ entre outros, com aridades
+$\folarity(+) = 2$, $\folarity(\cos) = 1$,
+$\folarity(<) = 2$, etc.
 \endgraf
-Alternativamente, podemos grupear os símbolos de funções por aridade, e similarmente o símbolos de predicados, escrevendo assim
-$\folfuns_n$, para o conjunto de símbolos de funções de aridade $n$, e similarmente $\folpreds_n$ para os símbolos de predicados.
-Assim as duas afirmações são equivalentes:
+Alternativamente, podemos grupear os símbolos de funções por aridade,
+e similarmente para os símbolos de predicados, escrevendo assim
+$\folfuns_n$ e $\folpreds_n$, para o conjunto de símbolos de funções
+e de predicados de aridade $n$ respectivamente.
+As duas abordagens são equivalentes:
 $$
-f \in \folfuns \mland \folarity(f) = n
-\iff
-f \in \folfuns_n.
+\align
+f \in \folfuns  \mland \folarity(f) = n &\iff f \in \folfuns_n\\
+P \in \folpreds \mland \folarity(P) = n &\iff P \in \folfuns_n.
+\endalign
 $$
-Note também que podemos considerar funções de aridade $0$ como constantes,
+Note também que podemos usar funções de aridade $0$ como constantes,
 e assim nem precisamos um conjunto especial para esses símbolos.
+Mesmo assim, não vamos fazer isso aqui.
+Questão de gosto.%
+\footnote{Mentira.
+Tem uns detalhes inessenciais neste momento sobre essa escolha.
+Vamos discutir isso no~\ref{Mathematical_logic}.}
 %%}}}
 
 %%{{{ eg: full_FOL_example 
@@ -1653,7 +1666,7 @@ e especificando uma função de aridade $\folarity$ criamos uma FOL.
 Alternativamente tomamos
 $$
 \xalignat2
-\folcons =
+\bigparen{\;\folcons =\;}\quad
 \folfuns_0   &= \set{f^0_0, f^0_1, f^0_2, f^0_3, \dotsc} & \folpreds_0  &= \set{P^0_0, P^0_1, P^0_2, P^0_3, \dotsc}\\
 \folfuns_1   &= \set{f^1_0, f^1_1, f^1_2, f^1_3, \dotsc} & \folpreds_1  &= \set{P^1_0, P^1_1, P^1_2, P^1_3, \dotsc}\\
 \folfuns_2   &= \set{f^2_0, f^2_1, f^2_2, f^2_3, \dotsc} & \folpreds_2  &= \set{P^2_0, P^2_1, P^2_2, P^2_3, \dotsc}\\
@@ -1661,6 +1674,66 @@ $$
 \endxalignat
 $$
 onde temos denotado a aridade de cada símbolo como um ``exponente''.
+\endexample
+%%}}}
+
+%%{{{ Terms vs. formulae 
+\note Terms {vs.} fórmulas.
+Não vamos dar diretamente uma definição do quando uma expressão é uma fórmula.
+Em vez disso, vamos primeiro definir o que são os \emph{termos} duma FOL.
+A idéia é que o termos representam os individuais (objetos) do nosso universo.
+Se estamos estudando pessoas, cada termo vai acabar apontando (denotando)
+uma pessoa.  Estudando cálculo, os termos denotariam números reais, etc.
+Um termo então é um caso especifico de fórmula?
+Não!  Temos um ``type error'' se pensar assim!
+Os termos denotam objetos.
+As fórmulas denotam proposições (afirmações) (possivelmente \emph{sobre}
+objetos).
+Talvez uns exemplos ajudam.
+%%}}}
+
+%%{{{ eg: terms_vs_formulas_example 
+\example.
+Estudando cálculo, as expressões seguintes são termos:
+$$
+\xalignat7
+ &0
+&&\pi
+&&x
+&&-1
+&&1/2
+&&\sin(\pi/x)
+&&x\sin(\pi/3) + y\cos(\pi^2)
+\endxalignat
+$$
+Por outro lado, as expressões seguintes são fórmulas:
+$$
+\xalignat4
+&
+\gathered
+{0 < 1} \land {x < 0} \\
+{x^2 = 0} \limplies {x = 0}
+\endgathered
+&&
+\gathered
+\lnot\exists y (y^2 > 4) \\
+x^2 + y^2 = 1
+\endgathered
+&&
+\gathered
+\forall x (0 \leq x^2 0) \\
+\exists x \forall y (x + y = 0)
+\endgathered
+&&
+\gathered
+\forall y \exists y (x + y = 0) \\
+\forall z ({z = 0} \lor \forall w \lnot (w + z = w)
+\endgathered
+\endxalignat
+$$
+Uns dos termos chamamos de atômicos e similarmente umas das fórmulas
+chamamos de atômicas.  Tente agora (antes de ver a definição) adivinhar
+quais desses termos são atômicos e quais dessas fórmulas são atômicas.
 \endexample
 %%}}}
 
@@ -1706,14 +1779,14 @@ $$
 \tdefined{FOL}[fôrmula]%
 \beginul
 \li Se $A$ é uma fórmula atómica, então $A$ é uma fórmula.
-\li Se $A$ é uma fórmula, então $\lnot A$ é uma fórmula.
-\li Se $A,B$ são fórmulas, então:
-\item{-} $(A \limplies B)$ é uma fórmula;
-\item{-} $(A \lor B)$ é uma fórmula;
-\item{-} $(A \land B)$ é uma fórmula.
-\li Se $A$ é uma fórmula e $x$ é uma variável, então:
-\item{-} $\forall x A$ é uma fórmula;
-\item{-} $\exists x A$ é uma fórmula.
+\li Se $F$ é uma fórmula, então $\lnot F$ é uma fórmula.
+\li Se $F,G$ são fórmulas, então:
+\item{-} $(F \limplies G)$ é uma fórmula;
+\item{-} $(F \lor G)$ é uma fórmula;
+\item{-} $(F \land G)$ é uma fórmula.
+\li Se $F$ é uma fórmula e $x$ é uma variável, então:
+\item{-} $\forall x F$ é uma fórmula;
+\item{-} $\exists x F$ é uma fórmula.
 \endul
 %%}}}
 
@@ -1758,14 +1831,18 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ Q: What do we need in order to have a FOL language? 
 \question.
 O que precisamos especificar para ter uma linguagem FOL?
+%%}}}
 
+%%{{{ A: pick symbols and their arities 
 \blah Resposta.
 Olhando cuidadosamente para a sua sintaxe, é claro que precisamos
 deixar claro quais são os símbolos de variáveis, constantes,
 funções, e predicados, que vamos usar, e suas aridades para
 os símbolos de funções e predicados.
+%%}}}
 
 \endsection
 %%}}}
@@ -1789,6 +1866,7 @@ da semântica da FOL, mesmo sem rigidez.
 
 %%{{{ Interpretations 
 \note Interpretações.
+\label{Interpretations}%
 Dada uma linguagem de FOL, para suas fórmulas ganharem
 significado, precisamos deixar claro:
 \beginul
@@ -1801,15 +1879,18 @@ que ele representa no universo escolhido.
 \li Para cada \emph{símbolo de predicado}, qual é a \emph{relação mesmo}
 que ele representa no universo escolhido.
 \endul
-Assim que der tudo isso, digamos que temos uma \dterm{interpretação}.
+\noindent
+Assim que der tudo isso, digamos que temos uma \dterm{interpretação}
+da linguagem.
 %%}}}
 
 %%{{{ Definition of truth 
 \note Definição de verdade.
 Mas o que significa que uma fórmula é verdadeira?
-Note que assim que especificar tudo isso, se numa fórmula
-não aparecem variáveis livres, podemos decidir já sua vericidade,
-testando a correspondente afirmação na sua interpretação.
+Tendo uma interpretação (\refn{Interpretations})%
+---ou seja, assim que especificar tudo isso---se numa fórmula
+não aparecem variáveis livres, podemos investigar já sua vericidade,
+testando a correspondente afirmação na interpretação.
 Se aparecem variáveis livres, tendo uma atribuição de objetos
 nelas também podemos decidir sua vericidade.
 Essa curta explicação informal deve servir por enquanto,
@@ -1826,12 +1907,13 @@ Considere as fórmulas
 \li $\exists x \forall y R(x,y)$.
 \li $\forall y \exists x R(x,y)$.
 \endol
-Escolhendo que o universo é feito por todas as pessoas (tanto vivas quanto mortas)
-e que $P$ e $Q$ são os predicados de ``ser pai'' e ``ser homem'',
-a primeira fórmula vira-se verdade: realmente cada pai é um homem.
-Escolhendo interpretar o $R(u,v)$ como ``$u$ é a mãe de $y$'',
-a segunda frase se-traduza como ``existe pessoa que é mãe de todos''
-(que é falso), mas a terceira diz ``cada pessoa tem mãe'' (que é verdadeiro).
+Escolhendo que o universo é feito por todas as pessoas
+(tanto vivas quanto mortas) e que $P$ e $Q$ são os predicados de
+``ser pai'' e ``ser homem'', a primeira fórmula vira-se verdade:
+realmente cada pai é um homem.  Escolhendo interpretar o $R(u,v)$
+como ``$u$ é a mãe de $y$'', a segunda frase se-traduza como
+``existe pessoa que é mãe de todos'' (que é falso),
+mas a terceira diz ``cada pessoa tem mãe'' (que é verdadeiro).
 \endexample
 %%}}}
 
@@ -1862,38 +1944,115 @@ ache uma interpretação que a satisfaz e uma que não.
 %%{{{ Syntactic sugar and conventions 
 \section Açúcar sintáctico e convenções.
 
-%%{{{ x: exists_x_in_A_Px_sugar 
+%%{{{ Non-limitations 
+\note Não-limitações.
+Numa primeira olhada a linguagem pode parecer limitada
+para expressar umas afirmações que encontramos o tempo
+todo em matemática:
+$$
+\gathered
+\text{``para todo número primo $p$, \dots''} \\
+\text{``para todo $x\in A$, \dots''} \\
+\text{``exite $x\in A$ tal que \dots''} \\
+\text{``exite único $x$ tal que \dots''} \\
+\text{``exite único $x\in A$ tal que \dots''}
+\endgathered
+$$
+etc.
+Podemos expressar essas afirmações numa linguagem de FOL?
+Se não, vamos precisar aumentar nossa linguagem
+com novos quantificadores, mas felizmente isso
+não é necessário.  Podemos realmente escrever
+todas essas afirmações e logo basta só descrever
+como, e definir mais \emph{acúcar sintáctico}.
+Trabalhe
+%%}}}
+
+%%{{{ x: forall_x_in_A_sugar 
 \exercise.
-Ache uma fórmula de FOL equivalente da $\lexists {x \in A} {P(x)}$.
+\label{forall_x_in_A_sugar}%
+Ache uma fórmula de linguagem de FOL equivalente à
+$\lforall {x \in A} {\phi(x)}$, onde $\phi(x)$ é
+uma fórmula que envolve o $x$.  Podes supor que
+tua linguagem tem o símbolo `$\in$' nos seus predicados.
+
+\hint
+Só para ajudar, suponha que o universo é feito
+por todas as pessoas da terra, e que $A$ é o conjunto
+de todos os alunos.
+E só para ficar mais concreto ainda, suponha
+que a fórmula $\phi(x)$ quis dizer que
+<<$x$ é uma pessoa legal>>.
+O desafio é conseguir escrever a afirmação
+$$
+\text{<<todo aluno é legal>>}
+$$
+O problema é que minha linguagem me permite dizer
+$$
+\forall x {\lthole}
+$$
+ou seja
+$$
+\text{<<toda pessoa, \dots>>}
+\text{<<para toda pessoa $x$, $\psi(x)$>>}
+$$
+etc., mas não <<para todo aluno $x$, $\psi(x)$>>.
+O que você precisa afirmar \emph{para toda pessoa $x$} mesmo,
+tal que a afirmação inteira vai acabar sendo equivalente a
+$$
+\text{<<todo aluno é legal>>}?
+$$
+
+\hint
+Tu tens que afirmar algo para toda pessoa $x$.
+Em vez de afirmar que $x$ é legal, afirme uma implicação:
+afirme que
+$$
+\text{se $x$ {\lthole}, então {\lthole}}.
+$$
 
 \solution
 $$
-\lexists {x \in A} {P(x)}
+\lforall {x \in A} {\phi(x)}
 \iff
-\lexists x \paren{ x\in A \land P(x) }
+\forall x \paren{ x\in A \limplies \phi(x) }
 $$
 
 \endexercise
 %%}}}
 
-%%{{{ x: forall_x_in_A_Px_sugar 
+%%{{{ x: exists_x_in_A_sugar 
 \exercise.
-Ache uma fórmula de FOL equivalente da $\lforall {x \in A} {P(x)}$.
+\label{exists_x_in_A_sugar}%
+Similarmente para a $\lexists {x \in A} {\phi(x)}$.
+
+\hint
+A idéia é parecida com o~\ref{forall_x_in_A_sugar},
+mas cuidado, pois é fácil errar!
+
+\hint
+Se eu quiser afirmar que existe \emph{um aluno} $x$ tal que $\phi(x)$,
+mas eu posso apenas afirmar que existe \emph{uma pessoa} $x$ tal que $\psi(x)$, como eu posso escolher esse $\psi(x)$ para conseguir dizer o que eu quero?
+Observe que afirmando que existe aluno $x$ tal que $\phi(x)$,
+é a mesma coisa de afirmar que existe pessoa $x$ tal que $\phi(x)$ e\dots
+mais uma coisa!
+Qual?
 
 \solution
 $$
-\lforall {x \in A} {P(x)}
+\lexists {x \in A} {\phi(x)}
 \iff
-\forall x \paren{ x\in A \limplies P(x) }
+\lexists x \paren{ x\in A \land \phi(x) }
 $$
 
 \endexercise
 %%}}}
 
-%%{{{ x: unique_x_Px_sugar 
+%%{{{ x: unique_x_sugar 
 \exercise.
-Ache uma fórmula de FOL equivalente da
-$\unique{x} P(x)$ e uma da $\lunique {x \in A} {P(x)}$.
+\label{unique_x_sugar}%
+Similarmente para
+$\unique{x} \phi(x)$ e uma da $\lunique {x \in A} {\phi(x)}$.
 Lemos o ``$\unique{}$'' como ``existe único''.
 
 \endexercise
