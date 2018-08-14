@@ -33,9 +33,59 @@ são para os capítulos próximos.
 
 \note De semântica.
 
-\TODO Diferença entre as duas frases:
-Se $\namedhole A$, então $\namedhole B$.
-Como $\namedhole A$, logo $\namedhole B$.
+%%{{{ if_vs_since 
+\note Se {vs.} como.
+\label{if_vs_since}%
+Considere as frases seguintes:
+$$
+\gather
+\text{<<Se $\namedhole A$, $\namedhole B$.>>}\\
+\text{<<Como $\namedhole A$, $\namedhole B$.>>}
+\endgather
+$$
+Primeiramente observe que, em português, cada uma delas tem uma
+palavra implícita logo após da virgula:
+$$
+\gather
+\text{<<Se $\namedhole A$, ({\lthole}) $\namedhole B$.>>}\\
+\text{<<Como $\namedhole A$, ({\lthole}) $\namedhole B$.>>}
+\endgather
+$$
+Quais são?
+Na primeira frase a palavra implícita é a ``então'', e na segunda a ``logo'':
+$$
+\gather
+\text{<<Se $\namedhole A$, (então) $\namedhole B$.>>}\\
+\text{<<Como $\namedhole A$, (logo) $\namedhole B$.>>}
+\endgather
+$$
+Numa lida superficial as duas frases podem aparecer parecidas.
+Mas são bem, bem diferentes!
+%%}}}
+
+%%{{{ x: explain_the_difference_between_if_and_since 
+\exercise.
+\label{explain_the_difference_between_if_and_since}%
+Qual é a diferença entre as duas frases?
+
+\solution
+A frase
+$$
+\text{<<Se $\namedhole A$, (então) $\namedhole B$.>>}
+$$
+é uma afirmação que a proposição $A$ implica a proposição $B$.
+Ou seja, não está afirmando que a proposição $A$ é verdade (nem que é falsa),
+e também nada sobre a $B$.
+No outro lado, a frase
+$$
+\text{<<Se $\namedhole A$, (então) $\namedhole B$.>>}
+$$
+é uma \emph{argumentação}.
+Seu escritor já usa como fato conhecido que $A$ é verdade,
+e alem disso, ele tá afirmando que $B$ também é verdade por causa disso.
+
+\endexercise
+%%}}}
 
 \note Deu erro---e agora?.
 
@@ -187,8 +237,98 @@ conseqüência é errada também.
 %%{{{ Notation of this text 
 \section Notação desse texto.
 
-\note.
-\label{eqiff_decorators}%
+%%{{{ equal or equivalente 
+\note Igual ou equivalente?.
+Usamos os símbolos `$=$' e `$\iffsymbol$' para afirmar uma relação especifica entre as
+coisas que aparecem nos dois lados deles.
+Só que os \emph{tipos} de coisas são diferentes para cada símbolo.
+O $=$ fica entre \emph{objetos}, o `$\iffsymbol$' entre \emph{proposições} (afirmações).
+\endgraf
+Usamos $=$ para dizer que os objetos nos seus lados são \emph{iguais}, ou seja,
+as coisas escritas nos seus dois lados, denotam o mesmo objeto.
+Por exemplo ``$1+5$'' denota um número e ``$3$'' também denota um número, e escrevendo
+$$
+1 + 5 = 3
+$$
+estamos afirmando (erroneamente nesse caso!) que as duas expressões denotam o mesmo número.
+Escrever $1 + 5 = 6$ seria uma afirmação correta.
+Pronunciamos o $A = B$ como ``$A$ é igual ao $B$''.
+\endgraf
+Usamos $\iff$ para dizer que as proposições (afirmações) nos seus lados são
+\emph{logicamente equivalentes}, ou seja, são ambas verdadeiras ou ambas falsas.
+Escrevemos então
+$$
+\text{$p$ é primo e $p>2$}
+\iff
+\text{$p$ é um primo ímpar}
+$$
+e nesse caso essa é uma afirmação correta.
+Note que não sabemos dizer qual é o caso aqui: são ambas verdadeiras, ou ambas falsas?
+Não sabemos que número é denotado por a variável $p$, mesmo assim as afirmações
+são equivalentes.
+Note que isso nos permite escrever o símbolo `$\iffsymbol$' entre proposições que não
+tem nada a ver uma com outra.
+Por exemplo, seria válido e correto escrever
+$$
+0 = 1
+\iff
+\text{existe número natural maior que todos os outros}
+$$
+mas esse tipo de afirmações raramente aparecem em matemática.
+Pronunciamos o $A \iff B$ como ``$A$ é equivalente a $B$'' ou,
+``$A$ se e somente se $B$'', usando a abreviação \dterm{sse}
+para a frase ``se e somente se''.
+%%}}}
+
+%%{{{ x: which_is_if_and_which_is_only_if 
+\exercise.
+\label{which_is_if_and_which_is_only_if}%
+Entendemos o `$\impliessymbol$' como uma abreviação de
+``implica'' e o `$\impliedbysymbol$' como uma abreviação de
+``é implicado por''.
+Podemos ler as expressões seguintes assim também:
+$$
+\align
+A \implies B & :\quad\text{se $A$ então $B$}\\
+A \iff B     & :\quad\text{$A$ se e somente se $B$}
+\endalign
+$$
+Podemos pronunciar o `$\impliessymbol$' e o `$\impliedbysymbol$'
+apenas por uma das frases: ``se'' e ``somente se''.
+Qual é qual?
+
+\endexercise
+%%}}}
+
+%%{{{ by definition 
+\note Por definição.
+Peluma convenção a coisa sendo definida vai no lado esquerdo do símbolo
+que decoramos com esse ``def'' e a sua definição fica no lado direito.
+Então mesmo que nos símbolos `$=$' e `$\iffsymbol$' podemos trocar seus lados,
+nos $\defeq$ e $\defiff$, não!
+%%}}}
+
+%%{{{ eg: with_and_without_def 
+\example.
+Qual a diferença entre as duas expressões?
+$$
+\align
+\text{$n$ é ímpar} &\defiff \text{$n = 2k + 1$ para algum inteiro $k$}\\
+\text{$n$ é ímpar} &\iff    \text{$n = 2k + 1$ para algum inteiro $k$}
+\endalign
+$$
+A primeira linha \emph{é uma definição}.
+Estamos \emph{definindo} o que significa ``ser ímpar'', dizendo como
+traduzir a afirmação ``$n$ é ímpar'' em uma outra afirmação que
+supostamente entendemos.
+A segunda linha \emph{é uma afirmação}:
+afirma que as duas proposições nos seus lados são equivalentes.
+Ou seja, é algo que pode ser provado, ou refutado.
+E para usar o `$\iffsymbol$' com certeza seus dois lados precisam ser
+afirmações bem definidas.
+\endexample
+%%}}}
+
 $=$ vs $\defeq$ vs $\asseq$ vs $\eqass$.
 $\iff$ vs $\defiff$ vs $\assiff$.
 
@@ -907,6 +1047,10 @@ Para enfatizar essa diferença e para tirar certas ambigüidades,
 chamamos \dterm{linguagem-objeto} a linguagem que estudamos,
 e \dterm{metalinguagem} a linguagem que usamos para falar
 sobre a linguagem-objeto.
+Note que todos os símbolos `$\iffsymbol$', `$\impliessymbol$', e `$\impliedbysymbol$'
+fazem parte da \emph{metalinguagem}, e não é para confundir com os
+`${\liff}$', `${\limplies}$', e `${\limplied}$' que geralmente usamos
+como símbolos de certas \emph{linguagens} de lógica.
 %%}}}
 
 %%{{{ metavariables 
@@ -1355,7 +1499,7 @@ A escolha é óbvia:
 $$
 \align
 P_0 &:\ \text{Igor é brasileiro}\\
-P_1 &:\ \text{Igor é toca violão}
+P_1 &:\ \text{Igor toca violão}
 \endalign
 $$
 Note aqui que $P_0$ não poderia ser ``ele toca violão'', pois
@@ -1425,7 +1569,7 @@ Qual o problema com essa tradução?
 %%{{{ we accept the best is the worst 
 \note.
 Infelizmente temos que aceitar que a melhor tradução que conseguimos
-é denotar a afirmação inteira por alguma variavel proposicional.
+é denotar a afirmação inteira por alguma variável proposicional.
 Ou seja, pelos olhos da $\zolang$, essa é uma afirmação atômica.
 %%}}}
 
@@ -1635,7 +1779,7 @@ neste momento para definir formalmente uma semântica para
 as linguagens de lógica da primeira ordem.
 Para conseguir isso, precisamos ganhar muita experiência
 com conjuntos (\ref{Sets}), funções (\ref{Functions}),
-e Relações (\ref{Relations}), e uma certa
+e relações (\ref{Relations}), e uma certa
 \emph{maturidade matemática} que vai chegando durante
 nossos estudos.
 Finalmente no~\ref{Mathematical_logic} vamos voltar
@@ -1643,19 +1787,67 @@ nessa questão.
 Mesmo assim, precisamos dar pelo menos uma primeira idéia
 da semântica da FOL, mesmo sem rigidez.
 
-\note.
+%%{{{ Interpretations 
+\note Interpretações.
 Dada uma linguagem de FOL, para suas fórmulas ganharem
-um significado, precisamos deixar claro:
+significado, precisamos deixar claro:
 \beginul
 \li Qual é o \dterm{universo}, ou seja, todos os objetos
 onde as variáveis (e constantes) tomam seus valores.
 Todos os nossos termos vão acabar denotando objetos
 desse universo.
-\li Para cada símbolo de função, qual é a função mesmo
+\li Para cada \emph{símbolo de função}, qual é a \emph{função mesmo}
 que ele representa no universo escolhido.
-\li Para cada símbolo de predicado, qual é a relação mesmo
+\li Para cada \emph{símbolo de predicado}, qual é a \emph{relação mesmo}
 que ele representa no universo escolhido.
 \endul
+Assim que der tudo isso, digamos que temos uma \dterm{interpretação}.
+%%}}}
+
+%%{{{ Definition of truth 
+\note Definição de verdade.
+Mas o que significa que uma fórmula é verdadeira?
+Note que assim que especificar tudo isso, se numa fórmula
+não aparecem variáveis livres, podemos decidir já sua vericidade,
+testando a correspondente afirmação na sua interpretação.
+Se aparecem variáveis livres, tendo uma atribuição de objetos
+nelas também podemos decidir sua vericidade.
+Essa curta explicação informal deve servir por enquanto,
+junta com os exemplos abaixo.
+No~\ref{Mathematical_logic} vamos ver tudo formalmente e com carinho.
+Paciência.
+%%}}}
+
+%%{{{ eg: interpretting_formulas_example 
+\example.
+Considere as fórmulas
+\beginol
+\li $\forall x (P(x) \limplies Q(x))$;
+\li $\exists x \forall y R(x,y)$.
+\li $\forall y \exists x R(x,y)$.
+\endol
+Escolhendo que o universo é feito por todas as pessoas (tanto vivas quanto mortas)
+e que $P$ e $Q$ são os predicados de ``ser pai'' e ``ser homem'',
+a primeira fórmula vira-se verdade: realmente cada pai é um homem.
+Escolhendo interpretar o $R(u,v)$ como ``$u$ é a mãe de $y$'',
+a segunda frase se-traduza como ``existe pessoa que é mãe de todos''
+(que é falso), mas a terceira diz ``cada pessoa tem mãe'' (que é verdadeiro).
+\endexample
+%%}}}
+
+%%{{{ x: interpretting_formulas_exercise
+\exercise.
+\label{interpretting_formulas_exercise}%
+Para cada uma das fórmulas abaixo, quando possível,
+ache uma interpretações que a satisfaz e uma que não.
+\beginol
+\li $\forall x \forall y R(x,y) \land \lnot R(y,x)$;
+\li $\forall x \forall z \exists y R(x,y) \land R(y,x)$;
+\li $\exists x \exists y \exists z Q(f(x,y),z)$.
+\endol
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -5026,7 +5218,7 @@ Bego, 1, 2 ou 3.  E ele é tóxico: se Cátia o comer, ela morre na hora.
 \endtikzpicture
 %%}}}
 %\caption{Fig.~2}
-\endgraf\centerline{Os dois sapos do~\ref{frogs} e suas possibilidades para começar.}
+\endgraf\centerline{Os dois sapos do~\ref{aleco_bego} e suas possibilidades para começar.}
 %\endcaption
 \endinsert
 \item{(1)} Por enquanto, Cátia está dormindo profundamente.
