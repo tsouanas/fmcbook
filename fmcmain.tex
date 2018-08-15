@@ -1303,7 +1303,7 @@ Considere as seguinte proposições:
 \note Dados.
 Um conjunto de símbolos
 $$
-\zolvars = \set{ P_0, P_1, P_2, \dotsc }
+\zolvars = \set{ \lsym p_0, \lsym p_1, \lsym p_2, \dotsc }
 $$
 chamados \dterm{variáveis proposicionais}.
 
@@ -1319,7 +1319,7 @@ Finalmente chegamos na definição correta do que é uma fórmula:
 \label{propositional_formula}%
 \tdefined{fórmula}[proposicional]
 \beginul
-\li Se $P$ é uma variável proposicional, então $P$ é uma fórmula.
+\li Se $p$ é uma variável proposicional, então $p$ é uma fórmula.
 \li Se $F$ é uma fórmula, então $\lnot F$ é uma fórmula.
 \li Se $F,G$ são fórmulas, então:
 \item{-} $(F \limplies G)$ é uma fórmula;
@@ -1339,7 +1339,7 @@ $$
 \align
 F &\bnfeq A \bnfor \lnot F \bnfor (F \limplies F) \bnfor (F \land F) \bnfor (F \lor F)\\
 \intertext{onde $A$ denota as fórmulas atômicas da $\zolang$, ou seja as variáveis proposicionais:}
-A &\bnfeq P_0 \bnfor P_1 \bnfor P_2 \bnfor \dotsb
+A &\bnfeq \lsym p_0 \bnfor \lsym p_1 \bnfor \lsym p_2 \bnfor \dotsb
 \endalign
 $$
 %%}}}
@@ -1478,6 +1478,7 @@ que ajudam na leitura da fórmula!
 
 %%{{{ Its limitations 
 \section Suas limitações.
+\label{ZOL_limitations}%
 
 %%{{{ related propositions seem unrelated 
 \note.
@@ -1614,28 +1615,109 @@ Qual é a melhor tradução dela que conseguimos na linguagem $\zolang$?
 \section Sua sintaxe.
 \label{FOL_syntax}%
 
+%%{{{ the alphabet 
+\note O alfabeto.
+Pelas limitações da linguagem da lógica proposicional que encontramos
+já na~\refn{ZOL_limitations} faz sentido adicionar pelo menos os dois
+símbolos que correspondem nos quantificadores ``para todo'' e ``existe'',
+alem do resto dos símbolos que já temos:
+$$
+\lnot, \limplies, \land, \lor, \forall, \exists
+$$
+\endgraf
+O que mais vamos precisar?
+Com certeza precisamos uma nova infinidade de símbolos para \emph{variáveis}
+$$
+\lsym x_0, \lsym x_1, \lsym x_2, \dots
+$$
+Essas variáveis não tem nada a ver com as variáveis proposicionais,
+pois elas não denotam proposições, mas individuais (objetos).
+\endgraf
+Que mais?
+Faria sentido permitir símbolos de \emph{nomes} ou \emph{constantes}
+para denotar certos individuais.  Por exemplo, estudando números,
+$3$ e $\pi$ são constantes, símbolos que assim que determinar uma
+linguagem, eles vão sempre denotar o mesmo objeto.
+Observe que não faz sentido falar <<existe $3$ tal que\dots>>
+nem <<para todo $3$ \dots>>.  Nossa sintaxe deve proibir essas
+abominagens.%
+\footnote{Mesmo assim, já aconteceu na turma dum amigo meu
+corrigindo provas de cálculo ver a frase ``$\forall 3 > 0$''.
+Um aluno que, enquanto colando na prova, provavelmente pensou
+que seu colega tinha errado no ``$\forall \varepsilon > 0$''.
+Depois dele, muitos mais alunos acabaram entregando prova com
+``$\forall 3 > 0$''.  Ai ai\dots}
+Adicionamos então símbolos para constantes
+$$
+c,d,e,\dots
+$$
+\endgraf
+Que mais?
+Bem, se é para conseguir \emph{formular afirmações sobre individuais},
+vamos precisar símbolos para \emph{predicados} que recebem argumentos.
+E com eles vamos substituir os símbolos de variáveis proposicionais.
+Já discutimos (\refn{ZOL_limitations}) que uma das limitações que
+queremos atender com essa nova linguagem é que afirmações bem parecidas
+acabam sendo denotadas por fórmulas que não tem nada em comum:
+nossa melhor tradução das afirmações ``$8$ é múltiplo de $2$''
+e ``$10$ é múltiplo de $3$'' é algo do tipo $\lsym p_0$ para uma e
+$\lsym p_1$ para a outra.
+Não serve.  Queremos conseguir usar algo do tipo $P(8,2)$ para uma
+e $P(10,3)$ para a outra, onde o $P$ \emph{é o mesmo símbolo},
+preservando assim a conexão entre as afirmações.
+Jogamos fora então todos os símbolos de variáveis proposicionais
+para usar símbolos de \emph{predicados}:
+$$
+P, Q, R, \dots
+$$
+e bora botar a virgula `$,$' também para separar os argumentos.
+\endgraf
+Algo mais?
+Sim, precisamos de uma última coisa.
+Símbolos para denotar \emph{funções}.
+Eles nos permitem apontar para algum individual dados outros.
+Por exemplo <<a mãe da Bárbara>>; ou $\lsym x_0 + \sin(\pi)$
+que seria <<a soma do $\lsym x_0$ com o seno do $\pi$>>, etc.
+Aqui a gente usaria símbolos como $\lsym{mother}$, $+$, $\ntimes$,
+$\sin$, $\cos$, nos números.
+Vamos adicionar então símbolos de \emph{funções}
+$$
+f, g, h, \dots
+$$
+e pronto.
+Então o alfabéto duma linguagem FOL parece assim:
+$$
+\tunderbrace{\lnot, \limplies, \land, \lor, \forall, \exists} {lógica};
+\tunderbrace{(, {,}, )} {puntuação};
+\tunderbrace{\lsym x_0, \lsym x_1, \lsym x_2, \dots} {variáveis};
+\tunderbrace{c, d, e, \dots} {constantes};
+\tunderbrace{f, g, h, \dots} {funções};
+\tunderbrace{P, Q, R, \dots} {predicados}.
+$$
+%%}}}
+
 %%{{{ givens_for_a_FOL 
-\note Dados.
+\note Os dados para uma linguagem de FOL.
 Um conjunto infinito de símbolos de variáveis
 $$
-\folvars  = \set{\folsym x_0, \folsym x_1, \folsym x_2, \folsym x_3, \dotsc}.
+\folvars  = \set{\lsym x_0, \lsym x_1, \lsym x_2, \lsym x_3, \dotsc}.
 $$
 Conjuntos de símbolos de constantes, de funções, e de predicados:
 $$
 \folcons, \folfuns, \folpreds.
 $$
-Uma função $\folarity$ que atribua para cada símbolo de função ou
-de predicado, sua \dterm{aridade}, ou seja, a quantidade de argumentos
-que ele necessita ``consumir''.
-Por exemplo, numa FOL que usariamos para cálculo, faria
-sentido ter símbolos $\folsym +,\folsym{cos},\folsym{<}$ entre outros, com aridades
-$\folarity(\folsym{+}) = 2$, $\folarity(\folsym{cos}) = 1$,
-$\folarity(\folsym{<}) = 2$, etc.
-\endgraf
-Alternativamente, podemos grupear os símbolos de funções por aridade,
-e similarmente para os símbolos de predicados, escrevendo assim
+Vamos separar os símbolos de funções por \dterm{aridade},
+ou seja, por a quantidade de argumentos que ele necessita ``consumir''.
+Similarmente para os símbolos de predicados, escrevendo assim
 $\folfuns_n$ e $\folpreds_n$, para o conjunto de símbolos de funções
-e de predicados de aridade $n$ respectivamente.
+e de predicados de aridade $n$ respectivamente.%
+\footnote{Alternativamente, podemos deixar os símbolos de aridades
+diferentes juntos e exigir uma função $\folarity$ que
+atribua a cada deles sua aridade.
+Por exemplo, numa FOL que usariamos para cálculo, faria
+sentido ter símbolos $\lsym +,\lsym{cos},\lsym{<}$ entre outros, com aridades
+$\folarity(\lsym{+}) = 2$, $\folarity(\lsym{cos}) = 1$,
+$\folarity(\lsym{<}) = 2$, etc.
 As duas abordagens são equivalentes:
 $$
 \align
@@ -1643,7 +1725,13 @@ f \in \folfuns_n  &\iff f \in \folfuns  \mland \folarity(f) = n\\
 P \in \folpreds_n &\iff P \in \folpreds \mland \folarity(P) = n.
 \endalign
 $$
-Note também que podemos usar funções de aridade $0$ como constantes,
+Vamos discutir mais sobre isso no~\ref{Mathematical_logic}.
+}
+%%}}}
+
+%%{{{ remark: nullary functions as constants 
+\remark.
+Podemos usar funções de aridade $0$ como constantes,
 e assim nem precisamos um conjunto especial para esses símbolos.
 Mesmo assim, não vamos fazer isso aqui.
 Questão de gosto.%
@@ -1652,41 +1740,16 @@ Tem uns detalhes inessenciais neste momento sobre essa escolha.
 Vamos discutir isso no~\ref{Mathematical_logic}.}
 %%}}}
 
-%%{{{ eg: full_FOL_example 
-\example.
-Tomando
-$$
-\align
-\folcons  &= \set{\folsym c_0, \folsym c_1, \folsym c_2, \folsym c_3, \dotsc}\\
-\folfuns  &= \set{\folsym f_0, \folsym f_1, \folsym f_2, \folsym f_3, \dotsc}\\
-\folpreds &= \set{\folsym P_0, \folsym P_1, \folsym P_2, \folsym P_3, \dotsc}
-\endalign
-$$
-e especificando uma função de aridade $\folarity$ criamos uma FOL.
-Alternativamente tomamos
-$$
-\xalignat2
-\bigparen{\;\folcons =\;}\quad
-\folfuns_0   &= \set{\folsym f^0_0, \folsym f^0_1, \folsym f^0_2, \folsym f^0_3, \dotsc} & \folpreds_0  &= \set{\folsym P^0_0, \folsym P^0_1, \folsym P^0_2, \folsym P^0_3, \dotsc}\\
-\folfuns_1   &= \set{\folsym f^1_0, \folsym f^1_1, \folsym f^1_2, \folsym f^1_3, \dotsc} & \folpreds_1  &= \set{\folsym P^1_0, \folsym P^1_1, \folsym P^1_2, \folsym P^1_3, \dotsc}\\
-\folfuns_2   &= \set{\folsym f^2_0, \folsym f^2_1, \folsym f^2_2, \folsym f^2_3, \dotsc} & \folpreds_2  &= \set{\folsym P^2_0, \folsym P^2_1, \folsym P^2_2, \folsym P^2_3, \dotsc}\\
-             &\eqvdots                                                                   &              &\eqvdots                                                                  
-\endxalignat
-$$
-onde temos denotado a aridade de cada símbolo como um ``exponente''.
-\endexample
-%%}}}
-
 %%{{{ eg: FOL_example_number_theory 
 \example.
 \label{FOL_example_number_theory}%
 Para estudar teoria de números alguém poderia escolher essa linguagem:
 $$
 \align
-\folcons    &= \set{\folsym 0, \folsym 1, \folsym 2, \dots} \\
+\folcons    &= \set{\lsym 0, \lsym 1, \lsym 2, \dots} \\
 \folfuns_1  &= \set{{-}} \\
-\folfuns_2  &= \set{{+}, {\cdot}, \folsym {gcd}} \\
-\folpreds_1 &= \set{\folsym{Prime}, \folsym{Even}, \folsym{Odd}, \folsym{IsZero}} \\
+\folfuns_2  &= \set{{+}, {\cdot}, \lsym {gcd}} \\
+\folpreds_1 &= \set{\lsym{Prime}, \lsym{Even}, \lsym{Odd}, \lsym{IsZero}} \\
 \folpreds_2 &= \set{{=}, {<}, {\leq}, {\divides}}
 \endalign
 $$
@@ -1703,31 +1766,47 @@ $-1$, $-(1 + x)$, etc.
 Para estudar pessoas e suas relações uma linguagem poderia ser:
 $$
 \align
-\folcons    &= \set{\folsym{Thanos}, \folsym{Ramile}, \folsym{Eva}, \folsym{Sam}, \folsym{Maroui}, \folsym{Jebinos}} \\
-\folfuns_1  &= \set{\folsym{mother}, \folsym{father}} \\
-\folpreds_1 &= \set{\folsym{Male}, \folsym{Female}, \folsym{Adult}, \folsym{Mother}, \folsym{Father}, \folsym{Brazilian}, \folsym{Greek}} \\
-\folpreds_2 &= \set{=, \folsym{Loves}, \folsym{SiblingOf}, \folsym{MotherOf}, \folsym{FatherOf}}
+\folcons    &= \set{\lsym{Thanos}, \lsym{Ramile}, \lsym{Eva}, \lsym{Sam}, \lsym{Maroui}, \lsym{Jebinos}} \\
+\folfuns_1  &= \set{\lsym{mother}, \lsym{father}} \\
+\folpreds_1 &= \set{\lsym{Male}, \lsym{Female}, \lsym{Adult}, \lsym{Mother}, \lsym{Father}, \lsym{Brazilian}, \lsym{Greek}} \\
+\folpreds_2 &= \set{=, \lsym{Loves}, \lsym{SiblingOf}, \lsym{MotherOf}, \lsym{FatherOf}}
 \endalign
 $$
-Qual a diferença entre os símbolos $\folsym{mother}$ e $\folsym{Mother}$?
-Ambos são símbolos de aridade $1$, mas $\folsym{mother}$ é um símbolo de função
-e $\folsym{Mother}$ é um símbolo de predicado.
+Qual a diferença entre os símbolos $\lsym{mother}$ e $\lsym{Mother}$?
+Ambos são símbolos de aridade $1$, mas $\lsym{mother}$ é um símbolo de função
+e $\lsym{Mother}$ é um símbolo de predicado.
 O que isso quis dizer?
 Suponha que $p$ é qualquer objeto do meu mundo (vamos pensar em pessoas).
-A expressão $\folsym{mother}(p)$ vai acabar denotando um objeto do meu mundo
+A expressão $\lsym{mother}(p)$ vai acabar denotando um objeto do meu mundo
 também.  A intenção do criador dessa linguagem provavelmente foi que
-$\folsym{mother}(p)$ denota a mãe de $p$.
-Similarmente, $\folsym{mother}(\folsym{mother}(p))$ denota a mãe da mãe
+$\lsym{mother}(p)$ denota a mãe de $p$.
+Similarmente, $\lsym{mother}(\lsym{mother}(p))$ denota a mãe da mãe
 da pessoa $p$.  E por aí vai.
-No outro lado, a expressão $\folsym{Mother}(p)$ não denota pessoa, mas
+No outro lado, a expressão $\lsym{Mother}(p)$ não denota pessoa, mas
 sim uma afirmação \emph{sobre} a pessoa $p$.  Adivinhando novamente
-a intenção do criador, a proposição $\folsym{Mother}(p)$ afirma que
+a intenção do criador, a proposição $\lsym{Mother}(p)$ afirma que
 a pessoa $p$ \emph{é uma mãe}.
-E o símbolo $\folsym{MotherOf}$?
+E o símbolo $\lsym{MotherOf}$?
 Como ele tem aridade $2$, ele precisa de $2$ objetos, e assim
 que recebé-los ele denota uma afirmação (pois é símbolo de \emph{predicado}).
-Aqui a idéia é que $\folsym{MotherOf}(p,q)$ denota a afirmação
+Aqui a idéia é que $\lsym{MotherOf}(p,q)$ denota a afirmação
 <<$p$ é a mãe de $q$>>.
+\endexample
+%%}}}
+
+%%{{{ eg: full_FOL_example 
+\example.
+Tomamos
+$$
+\xalignat2
+\bigparen{\;\folcons =\;}\quad
+\folfuns_0   &= \set{\lsym f^0_0, \lsym f^0_1, \lsym f^0_2, \lsym f^0_3, \dotsc} & \folpreds_0  &= \set{\lsym P^0_0, \lsym P^0_1, \lsym P^0_2, \lsym P^0_3, \dotsc}\\
+\folfuns_1   &= \set{\lsym f^1_0, \lsym f^1_1, \lsym f^1_2, \lsym f^1_3, \dotsc} & \folpreds_1  &= \set{\lsym P^1_0, \lsym P^1_1, \lsym P^1_2, \lsym P^1_3, \dotsc}\\
+\folfuns_2   &= \set{\lsym f^2_0, \lsym f^2_1, \lsym f^2_2, \lsym f^2_3, \dotsc} & \folpreds_2  &= \set{\lsym P^2_0, \lsym P^2_1, \lsym P^2_2, \lsym P^2_3, \dotsc}\\
+             &\eqvdots                                                                   &              &\eqvdots                                                                  
+\endxalignat
+$$
+onde temos denotado a aridade de cada símbolo como um ``exponente''.
 \endexample
 %%}}}
 
@@ -1736,7 +1815,7 @@ Aqui a idéia é que $\folsym{MotherOf}(p,q)$ denota a afirmação
 Note que podemos considerar o símbolo de igualdade `$=$' como símbolo
 da lógica, botando junto com os
 $$
-\lnot, \limplies, \lor, \land, \forall, \exists, =
+\lnot, \limplies, \land, \lor, \forall, \exists, =
 $$
 e nesse caso falamos que temos uma FOL \emph{com igualdade}.
 Ou podemos considerar `$=$' como mais um predicado,
