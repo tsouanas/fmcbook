@@ -87,6 +87,8 @@ e alem disso, ele tá afirmando que $B$ também é verdade por causa disso.
 \endexercise
 %%}}}
 
+\note Teses {vs.} hipoteses.
+
 \note Deu erro---e agora?.
 
 \endsection
@@ -1687,12 +1689,13 @@ $$
 e pronto.
 Então o alfabéto duma linguagem FOL parece assim:
 $$
-\tunderbrace{\lnot, \limplies, \land, \lor, \forall, \exists} {lógica};
-\tunderbrace{(, {,}, )} {puntuação};
-\tunderbrace{\lsym x_0, \lsym x_1, \lsym x_2, \dots} {variáveis};
-\tunderbrace{c, d, e, \dots} {constantes};
-\tunderbrace{f, g, h, \dots} {funções};
-\tunderbrace{P, Q, R, \dots} {predicados}.
+\def\symsnames##1##2{\tunderbrace{\;\vphantom {g_g} ##1\;} {##2}}
+\symsnames {\lnot\ \limplies\ \land\ \lor\ \forall\ \exists\;} {lógica}\ 
+\symsnames {(\ )\ ,\;} {puntuação}\ 
+\symsnames {\lsym x_0\ \lsym x_1\ \lsym x_2\ \dots\;} {variáveis}\ 
+\symsnames {c\ d\ e\ \dots\;} {constantes}\ 
+\symsnames {f\ g\ h\ \dots\;} {funções}\ 
+\symsnames {P\ Q\ R\ \dots\;} {predicados}.
 $$
 %%}}}
 
@@ -1711,7 +1714,22 @@ ou seja, por a quantidade de argumentos que ele necessita ``consumir''.
 Similarmente para os símbolos de predicados, escrevendo assim
 $\folfuns_n$ e $\folpreds_n$, para o conjunto de símbolos de funções
 e de predicados de aridade $n$ respectivamente.%
-\footnote{Alternativamente, podemos deixar os símbolos de aridades
+%%}}}
+
+%%{{{ remark: nullary functions as constants 
+\remark.
+Podemos usar funções de aridade $0$ como constantes,
+e assim nem precisamos um conjunto especial para esses símbolos.
+Mesmo assim, não vamos fazer isso aqui.
+Questão de gosto.%
+\footnote{Mentira.
+Tem uns detalhes inessenciais neste momento sobre essa escolha.
+Vamos discutir isso no~\ref{Mathematical_logic}.}
+%%}}}
+
+%%{{{ remark: alternative approach with arity metafunction 
+\remark.
+Alternativamente, podemos deixar os símbolos de aridades
 diferentes juntos e exigir uma função $\folarity$ que
 atribua a cada deles sua aridade.
 Por exemplo, numa FOL que usariamos para cálculo, faria
@@ -1726,18 +1744,6 @@ P \in \folpreds_n &\iff P \in \folpreds \mland \folarity(P) = n.
 \endalign
 $$
 Vamos discutir mais sobre isso no~\ref{Mathematical_logic}.
-}
-%%}}}
-
-%%{{{ remark: nullary functions as constants 
-\remark.
-Podemos usar funções de aridade $0$ como constantes,
-e assim nem precisamos um conjunto especial para esses símbolos.
-Mesmo assim, não vamos fazer isso aqui.
-Questão de gosto.%
-\footnote{Mentira.
-Tem uns detalhes inessenciais neste momento sobre essa escolha.
-Vamos discutir isso no~\ref{Mathematical_logic}.}
 %%}}}
 
 %%{{{ eg: FOL_example_number_theory 
@@ -10065,9 +10071,10 @@ Veja o~\cite[\S1.9]{babybm}.
 
 %%{{{ chapter: The natural numbers: recursion; induction 
 \chapter Os números naturais: recursão; indução.
+\label{Natsrecind}%
 
-%%{{{ The natural numbers formally: recursion 
-\section Os números naturais formalmente: recursão.
+%%{{{ The natural numbers formally 
+\section Os números naturais formalmente.
 \label{Nats_formally}%
 
 \blah.
@@ -10077,18 +10084,119 @@ $$
 $$
 começamos com a definição seguinte.
 
-%%{{{ df: nat 
+%%{{{ df: Nat 
 \definition Nat.
-\label{nat}%
+\label{Nat}%
 \tdefined{Nat}%
 Definimos os \dterm{numerais $\Nat$} para representar os números naturais
 com uma definição inductiva:
+\beginil
 \item{(N0)} $0$ é um $\Nat$;
 \item{(N1)} Para todo $n$, se $n$ é um $\Nat$, então $Sn$ é um $\Nat$;
-\item{(N2)} Nada mais é um $\Nat$.
+\endil
+Nada mais é um $\Nat$.
 %%}}}
 
-\TODO Com regras de inferência.
+%%{{{ Rules of inference 
+\note Regras de inferência.
+Uma maneira diferente de descrever a mesma idéia é com \dterm{regras de inferência}.
+Essa abordagem combina bem com as árvores sintácticas:
+escrevemos
+$$
+\centerAlignProof
+\AxiomC{}
+\UnaryInfC{$0 \is \Nat$}
+\DisplayProof{}
+$$
+e entendemos isso como
+$$
+\text{<<(sem nenhuma premissa) posso concluir que $0$ é um $\Nat$>>}
+$$
+Vamos dar o nome \rule{Zero}\ para \emph{regra de inferência},
+pois vamos precisar referir a ela depois.
+Escrevemos seu nome no lado direito da linha de inferência.
+Fica assim:
+$$
+\centerAlignProof
+\AxiomC{}
+\UnaryInfBy{Zero}{$0 \is \Nat$}
+\DisplayProof{}
+$$
+Olhando pra isso entendemos o seguinte:
+a regra \rule{Zero}\ nos permite inferir que $0$ é um $\Nat$.
+%%}}}
+
+\question.
+Como tu representaria a segunda regra da~\ref{Nat} como uma regra
+de inferência?
+\spoiler.
+
+%%{{{ with inference rules 
+\note Com regras de inferência.
+$$
+\xalignat2
+&
+\centerAlignProof
+\AxiomC{}
+\UnaryInfBy{Zero}{$0 \is \Nat$}
+\DisplayProof{}
+&&
+\centerAlignProof
+\AxiomC{$n \is \Nat$}
+\UnaryInfBy{Succ}{$Sn \is \Nat$}
+\DisplayProof{}
+\endxalignat
+$$
+%%}}}
+
+%%{{{ eg: SSSS0 is a nat 
+\example.
+Vamos inferir que $SSSS0$ é um $\Nat$ mesmo.
+
+\solution
+Vamos construir sua árvore ``bottom-up''.
+O desafio é inferir que
+$$
+SSSS0 \is \Nat
+$$
+e usando a regra \rule{Succ}\ podemos \emph{reduzir} esse problema para
+$$
+\centerAlignProof
+\AxiomC{$SSS0 \is \Nat$}
+\UnaryInfBy{Succ}{$SSSS0 \is \Nat$}
+\DisplayProof{}
+$$
+Essa árvore tem afirmações ``abertas'' então não terminamos ainda.
+Usando a mesma regra reduzimos o $SSS0 \is \Nats$ para:
+$$
+\centerAlignProof
+\AxiomC{$SS0 \is \Nat$}
+\UnaryInfBy{Succ}{$SSS0 \is \Nat$}
+\UnaryInfBy{Succ}{$SSSS0 \is \Nat$}
+\DisplayProof{}
+$$
+e continuando nessa maneira, chegamos finalmente no
+$0 \is \Nats$ que inferimos com a regra \rule{Zero},
+fechando assim a única coisa que tava aberta:
+$$
+\centerAlignProof
+\AxiomC{}
+\UnaryInfBy{Zero}{$0 \is \Nat$}
+\UnaryInfBy{Succ}{$S0 \is \Nat$}
+\UnaryInfBy{Succ}{$SS0 \is \Nat$}
+\UnaryInfBy{Succ}{$SSS0 \is \Nat$}
+\UnaryInfBy{Succ}{$SSSS0 \is \Nat$}
+\DisplayProof{}
+$$
+\endexample
+%%}}}
+
+%%{{{ x: read the tree bottom-up and top-down 
+\exercise.
+Leia essa árvore tanto de baixo pra cima, quanto de cima pra baixo!
+
+\endexercise
+%%}}}
 
 %%{{{ eg: 0,1,2,3 ; primes 
 \example.
@@ -10401,8 +10509,8 @@ ou seja, $SSSS0 \not\leq SS0$.
 \endsection
 %%}}}
 
-%%{{{ Proving properties of operations and relations on naturals: induction 
-\section Provando propriedades de operações e relações nos naturais: indução.
+%%{{{ Proving properties of operations and relations on the naturals 
+\section Provando propriedades de operações e relações nos naturais.
 \label{Proving_properties_of_natops}%
 
 %%{{{ convention about quantifiers 
