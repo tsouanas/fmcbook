@@ -732,27 +732,24 @@ Não vamos usar mais esse tipo de árvore sintáctica nessas notas.
 \tdefined{árvore de derivação}%
 Em vez, vamos usar \dterm{árvores de derivação} como essas:
 $$
-\def\fCenter{}
 \xalignat2
-&\centerAlignProof
-\AxiomC{1}
-\AxiomC{5}
-\AxiomC{2}
-\RightLabel{$\ntimes$}
-\BinaryInf$\fCenter (5 \ntimes 2)$
-\RightLabel{$+$}
-\BinaryInf$\fCenter 1 + (5 \ntimes 2)$
-\DisplayProof{}
 &
-&\centerAlignProof
-\AxiomC{1}
-\AxiomC{5}
-\RightLabel{$+$}
-\BinaryInf$\fCenter (1 + 5)$
-\AxiomC{2}
-\RightLabel{$\ntimes$}
-\BinaryInf$\fCenter (1 + 5) \ntimes 2$
-\DisplayProof{}
+\Proof {
+\Ass {1}
+              \Ass {5}  \Ass {2}
+              \I2--------------- {$\ntimes$}
+              {$(5 \ntimes 2)$}
+\I2---------------------------- {$+$}
+      {$1 + (5 \ntimes 2)$}
+}
+&&
+\Proof {
+\Ass {1}  \Ass {5}
+\I2--------------- {$+$}
+     {$(1 + 5)$}            \Ass {2}
+     \I2---------------------------- {$\ntimes$}
+           {$(1 + 5) \ntimes 2$}
+}
 \endxalignat
 $$
 
@@ -769,51 +766,43 @@ Exatamente por isso, reduzimos essa expressão em duas novas, escrevendo
 uma linha em cima dela, onde temos agora dois lugares para botar essas
 duas coisas.  No lado da linha, escrevemos sua ``justificativa''
 $$
-\def\fCenter{}
-\centerAlignProof
 \AxiomC{$\hole$}
 \AxiomC{$\hole$}
 \RightLabel{$\holed \ntimes$}
-\BinaryInf$\fCenter (1 + 5) \ntimes 2$
-\DisplayProof{}
+\BinaryInfC{$(1 + 5) \ntimes 2$}
+\DisplayProof
 $$
 e nos dois buracos que aparecem botamos as expressões que estão
 nos lados desse $\ntimes$:
 $$
-\def\fCenter{}
-\centerAlignProof
 \AxiomC{$\holed {(1 + 5)}$}
 \AxiomC{$\holed {\vphantom(2}$}
 \RightLabel{$\ntimes$}
-\BinaryInf$\fCenter (1 + 5) \ntimes 2$
-\DisplayProof{}
+\BinaryInfC{$(1 + 5) \ntimes 2$}
+\DisplayProof
 $$
 Agora $2$ já é uma expressão \dterm{atômica} (ou seja, inquebrável),
 mas a $(1 + 5)$ não é então repetimos o mesmo processo nela:
 $$
-\def\fCenter{}
-\centerAlignProof
 \AxiomC{$\holed 1$}
 \AxiomC{$\holed 5$}
 \RightLabel{$\holed +$}
-\BinaryInf$\fCenter (1 + 5)$
+\BinaryInfC{$(1 + 5)$}
 \AxiomC{${\vphantom(2}$}
 \RightLabel{$\ntimes$}
-\BinaryInf$\fCenter (1 + 5) \ntimes 2$
-\DisplayProof{}
+\BinaryInfC{$(1 + 5) \ntimes 2$}
+\DisplayProof
 $$
 Chegamos finalmente na árvore
 $$
-\def\fCenter{}
-\centerAlignProof
 \AxiomC{$1$}
 \AxiomC{$5$}
 \RightLabel{$+$}
-\BinaryInf$\fCenter (1 + 5)$
+\BinaryInfC{$(1 + 5)$}
 \AxiomC{${\vphantom(2}$}
 \RightLabel{$\ntimes$}
-\BinaryInf$\fCenter (1 + 5) \ntimes 2$
-\DisplayProof{}
+\BinaryInfC{$(1 + 5) \ntimes 2$}
+\DisplayProof
 $$
 que mostra como a expressão aritmética $(1 + 5) \ntimes 2$ na sua \dterm{raiz}
 (ou \dterm{root}) é composta por os numeráis $1$, $5$, e $2$
@@ -10103,10 +10092,8 @@ Uma maneira diferente de descrever a mesma idéia é com \dterm{regras de infer�
 Essa abordagem combina bem com as árvores sintácticas:
 escrevemos
 $$
-\centerAlignProof
-\AxiomC{}
-\UnaryInfC{$0 \is \Nat$}
-\DisplayProof{}
+\InfFromBy0 {} {$0 \is \Nat$}
+\DisplayProof
 $$
 e entendemos isso como
 $$
@@ -10117,10 +10104,8 @@ pois vamos precisar referir a ela depois.
 Escrevemos seu nome no lado direito da linha de inferência.
 Fica assim:
 $$
-\centerAlignProof
-\AxiomC{}
-\UnaryInfBy{Zero}{$0 \is \Nat$}
-\DisplayProof{}
+\InfFromBy0 {Zero} {$0 \is \Nat$}
+\DisplayProof
 $$
 Olhando pra isso entendemos o seguinte:
 a regra \rule{Zero}\ nos permite inferir que $0$ é um $\Nat$.
@@ -10136,15 +10121,12 @@ de inferência?
 $$
 \xalignat2
 &
-\centerAlignProof
-\AxiomC{}
-\UnaryInfBy{Zero}{$0 \is \Nat$}
-\DisplayProof{}
+\InfFromBy0 {Zero} {$0 \is \Nat$}
+\DisplayProof
 &&
-\centerAlignProof
 \AxiomC{$n \is \Nat$}
-\UnaryInfBy{Succ}{$Sn \is \Nat$}
-\DisplayProof{}
+\InfFromBy1 {Succ} {$0 \is \Nat$}
+\DisplayProof
 \endxalignat
 $$
 %%}}}
@@ -10161,32 +10143,28 @@ SSSS0 \is \Nat
 $$
 e usando a regra \rule{Succ}\ podemos \emph{reduzir} esse problema para
 $$
-\centerAlignProof
 \AxiomC{$SSS0 \is \Nat$}
-\UnaryInfBy{Succ}{$SSSS0 \is \Nat$}
-\DisplayProof{}
+\InfFromBy1 {Succ} {$SSSS0 \is \Nat$}
+\DisplayProof
 $$
 Essa árvore tem afirmações ``abertas'' então não terminamos ainda.
 Usando a mesma regra reduzimos o $SSS0 \is \Nats$ para:
 $$
-\centerAlignProof
 \AxiomC{$SS0 \is \Nat$}
-\UnaryInfBy{Succ}{$SSS0 \is \Nat$}
-\UnaryInfBy{Succ}{$SSSS0 \is \Nat$}
-\DisplayProof{}
+\InfFromBy1{Succ}{$SSS0 \is \Nat$}
+\InfFromBy1{Succ}{$SSSS0 \is \Nat$}
+\DisplayProof
 $$
 e continuando nessa maneira, chegamos finalmente no
 $0 \is \Nats$ que inferimos com a regra \rule{Zero},
 fechando assim a única coisa que tava aberta:
 $$
-\centerAlignProof
-\AxiomC{}
-\UnaryInfBy{Zero}{$0 \is \Nat$}
-\UnaryInfBy{Succ}{$S0 \is \Nat$}
-\UnaryInfBy{Succ}{$SS0 \is \Nat$}
-\UnaryInfBy{Succ}{$SSS0 \is \Nat$}
-\UnaryInfBy{Succ}{$SSSS0 \is \Nat$}
-\DisplayProof{}
+\InfFromBy0{Zero}{$0 \is \Nat$}
+\InfFromBy1{Succ}{$S0 \is \Nat$}
+\InfFromBy1{Succ}{$SS0 \is \Nat$}
+\InfFromBy1{Succ}{$SSS0 \is \Nat$}
+\InfFromBy1{Succ}{$SSSS0 \is \Nat$}
+\DisplayProof
 $$
 \endexample
 %%}}}
@@ -36017,7 +35995,7 @@ $$
 %%}}}
 
 \blah.
-\noindent\dots e agora parece que não podemos fazer muita coisa mais.
+\dots e agora parece que não podemos fazer muita coisa mais.
 Precisamos novos axiomas:
 
 %%{{{ ax: Pairset 
@@ -36708,7 +36686,6 @@ $\set{ \emptyset, \set{\emptyset, \set{\emptyset}}}$.
 }
 Podemos representar essa construção em forma de árvore:
 $$
-\centerAlignProof
 \AxiomC{}
 \RightLabel{\axref{emptyset}}
 \UnaryInfC{$\emptyset$}
@@ -36728,13 +36705,12 @@ $$
 \BinaryInfC{$\set{\emptyset, \set{\emptyset}}$}
 \RightLabel{\axref{pairset}}
 \BinaryInfC{$\set{\emptyset, \set{\emptyset, \set{\emptyset}}}$}
-\DisplayProof{}
+\DisplayProof
 $$
 onde a dupla linha indica que pulamos alguns passos implícitios,
 como o uso de Extensionality~(\axref{extensionality}) nesse caso.
 Usamos agora essa construção para construir um conjunto de cardinalidade $3$:
 $$
-\centerAlignProof
 \AxiomC{}
 \RightLabel{\axref{emptyset}}
 \UnaryInfC{$\emptyset$}
@@ -36758,7 +36734,7 @@ $$
 \UnaryInfC{$\set{\emptyset, \set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}}, \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}$}
 \RightLabel{\axref{separation},\ $\phi(x)\asseq \exists w(w\in x)$}
 \UnaryInfC{$\set{\set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}}, \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}$}
-\DisplayProof{}
+\DisplayProof
 $$
 Observe que para usar o \axref{separation} precisamos especificar qual é a fórmula--filtro.
 \endexample
@@ -36772,7 +36748,6 @@ Mostre que $\set{b, \set{\emptyset, \set{a}}}$ é conjunto.
 
 \solution
 $$
-\centerAlignProof
 \AxiomC{$b$}
 \AxiomC{}
 \RightLabel{Empty}
@@ -36785,7 +36760,7 @@ $$
 \BinaryInfC{$\set{\emptyset, \set{a}}$}
 \RightLabel{Pair}
 \BinaryInfC{$\set{b, \set{\emptyset, \set{a}}}$}
-\DisplayProof{}
+\DisplayProof
 $$
 Onde deixamos as ``folhas'' da árvore $a,b$ ``sem fechar'', pois
 correspondem realmente em nossas hipotéses: os conjuntos $a,b$ são dados!
@@ -36819,7 +36794,6 @@ Agora aplicando o Union nele o ganhamos o $A$.
 \noindent
 Aqui uma construção do $B$ pelos axiomas, em forma de árvore:
 $$
-\centerAlignProof
 \AxiomC{$a$}
 \AxiomC{$b$}
 \RightLabel{Pair}
@@ -36835,7 +36809,7 @@ $$
 \BinaryInfC{$\set{\set{a,b},\set{\set{c,d}}}$}
 \RightLabel{Union}
 \UnaryInfC{$\set{a,b,\set{c,d}}$}
-\DisplayProof{}
+\DisplayProof
 $$
 \endgraf
 \bigskip
@@ -36844,7 +36818,6 @@ Para o $C$, usamos o Separation~(\axref{separation})
 no $\pset \paren{\Union A}$, que é conjunto graças aos Union (\axref{unionset})
 \& Powerset (\axref{powerset}):
 $$
-\centerAlignProof
 \AxiomC{$A$}
 \RightLabel{ZF6}
 \UnaryInfC{$\Union A$}
@@ -36852,7 +36825,7 @@ $$
 \UnaryInfC{$\pset\Union A$}
 \RightLabel{ZF4}
 \UnaryInfC{$C$}
-\DisplayProof{}
+\DisplayProof
 $$
 onde na aplicação de ZF4 usamos a fórmula
 $
@@ -37307,7 +37280,6 @@ proposições~\refn{kurpair_satisfies_tup1}--\refn{kurpair_satisfies_tup2}.
 Primeiramente verificamos que dados objetos $x,y$, o $\tup{x,y}$
 realmente é um conjunto:
 $$
-\centerAlignProof
 \AxiomC{}
 \RightLabel{Empty}
 \UnaryInfC{$\emptyset$}
@@ -37326,7 +37298,7 @@ $$
 \UnaryInfC{$\set{\set{y}}$}
 \RightLabel{Pair}
 \BinaryInfC{$\set{\set{\emptyset,\set{x}}, \set{\set{y}}}$}
-\DisplayProof{}
+\DisplayProof
 $$
 \proofpart{\ref{spec_tup2}:}
 Sejam $A,B$ conjuntos.
@@ -37346,7 +37318,6 @@ fórmula da~\ref{kurpair_satisfies_tup2} para ganhar o $A\times B$.
 Um conjunto que serve como $W$ é o $\pset\pset\pset(A\union B)$,
 como verificamos aqui, escrevendo a derivação em forma de árvore:
 $$
-\centerAlignProof
 \AxiomC{}
 \UnaryInfC{$\emptyset\in\pset(A\union B)$}
 \AxiomC{$a \in A$}
@@ -39837,7 +39808,6 @@ Usando o Replacement com a $\Phi(x)$ nesse conjunto, construimos o desejado $\se
 \endgraf
 Em forma de árvore:
 $$
-\centerAlignProof
 \AxiomC{}
 \RightLabel{Empty}
 \UnaryInfC{$\emptyset$}
@@ -39847,7 +39817,7 @@ $$
 \UnaryInfC{$\set{\emptyset, \set{\emptyset}}$}
 \RightLabel{Repl; $\Phi$}
 \UnaryInfC{$\set{a, b}$}
-\DisplayProof{}
+\DisplayProof
 $$
 
 \endproblem
