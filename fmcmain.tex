@@ -10214,6 +10214,8 @@ Todo esse capítulo é desenvolvido usando apenas essa definição.
 
 \TODO Variáveis {vs.} metavariáveis nas definições acima.
 
+\TODO Igualdade.
+
 \endsection
 %%}}}
 
@@ -10401,7 +10403,27 @@ $$
 \endexercise
 %%}}}
 
-\TODO Um programador pior definindo a $+$.
+%%{{{ A worse programmer 
+\note Um programador pior.
+Alguém definiu a adição usando essas quatro equações:
+$$
+\align
+0  + 0  &= 0  \\
+Sn + 0  &= Sn \\
+0  + Sm &= Sm \\
+Sn + Sm &= S(Sn + m)
+\endalign
+$$
+Ou seja, para cada argumento da operação, ele tratou os dois
+casos principais separadamente, resultando assim em quatro
+equações.
+Mas, olhando nas primeiras duas, dá pra ver que ambás são
+casos especiais da nossa primeira equação.
+No final das contas, nas duas o que acontece é que o primeiro
+argumento acaba sendo o resultado da soma, e é exatamente isso
+que nossa primeira equação disse.
+Nossa definição é bem melhor então, mais elegante e econômica.
+%%}}}
 
 %%{{{ x: nats_ntimes_recursive_def 
 \exercise.
@@ -10447,53 +10469,13 @@ Defina a exponenciação no $\nats$.
 \endexercise
 %%}}}
 
-\endsection
-%%}}}
+%%{{{ x: fibonacci_nats 
+\exercise.
+\label{fibonacci_nats}%
+Defina usando equações recursivas a \dterm{seqüência Fibonacci},
+como função de $\Nat$ para $\Nat$.
 
-%%{{{ Defining relations recursively 
-\section Definindo relações recursivamente.
-
-%%{{{ nats_leq_recursive_def 
-\definition Ordem.
-Com que temos já definido podemos definir recursivamente
-uma \emph{relação} no $\nats$.  A relação de ordem $\leq$:
-$$
-\align
-0  \leq m  &\iff \True      \tag{LE1}\\
-Sn \leq 0  &\iff \False     \tag{LE2}\\
-Sn \leq Sm &\iff n \leq m   \tag{LE3}
-\endalign
-$$
-%%}}}
-
-%%{{{ eg: two_leq_four_but_four_notleq_two 
-\example.
-\label{two_leq_four_but_four_notleq_two}%
-Ache se $SS0 \leq SSSS0$ e se $SSSS0 \leq SS0$.
-
-\solution
-Calculamos:
-$$
-\alignat2
-SS0 \leq SSSS0
-&\iff S0 \leq SSS0  \by{por (LE3)}
-&\iff 0  \leq SS0   \by{por (LE3)}
-&\iff \True         \by{por (LE1)}
-\endalignat
-$$
-ou seja, realmente $SS0 \leq SSSS0$.
-No outro lado, calculamos
-$$
-\alignat2
-SSSS0 \leq SS0
-&\iff SSS0 \leq S0  \by{por (LE3)}
-&\iff SS0  \leq 0   \by{por (LE3)}
-&\iff \False        \by{por (LE2)}
-\endalignat
-$$
-ou seja, $SSSS0 \not\leq SS0$.
-
-\endexample
+\endexercise
 %%}}}
 
 \endsection
@@ -10558,7 +10540,7 @@ $$
 Seguindo a convenção comum, escrevemos o $x\expop y$ como $x^y$,
 mas mesmo assim consideramos isso como um açúcar sintáctico para
 a expressão $x \expop y$.  Entendemos então que no $x^y$ temos
-uma aplicação binária, aplicada nos dois argumentos $x$ e $y$.
+uma aplicação duma operação binária (aplicada nos argumentos $x$ e $y$).
 Vamos seguir também a convenção que a exponenciação
 ``pega mais forte'' que as outras duas operações,
 e que multiplicação pega mais forte que a adição:
@@ -10572,6 +10554,81 @@ mas para a exponenciação que não é associativa escolhemos
 a associatividade-direita: $a^{b^c}$ é $a \expop (b \expop c)$
 e não $(a \expop b) \expop c$.
 %%}}}
+
+%%{{{ Addition is associative 
+\note A adição é associativa.
+Vamos tentar provar essa afirmação.
+Primeiramente, o que a afirmação significa?
+A adição é essa operação $+$ que definimos na~\ref{natops_rec_defs}.
+Vamos tentar escrever essa afirmação numa maneira mais formal
+para expor sua estrutura lógica:
+$$
+\forall n \forall m \forall k
+\bigparen{ (n+m) + k = n + (m+k) }.
+$$
+Nosso alvo tem a forma
+$$
+\lforall {x\in\Nat} {\phi(x)}
+$$
+olhando como
+$$
+\forall n
+\munderbrace {
+\alertb{\forall m \forall k \bigparen{ (n+m) + k = n + (m+k) }}
+} {\alertb{\phi_1(n)}}
+$$
+podemos atacá-la tomando um arbitrario membro de $\Nat$ e mostrando
+que ele goza a propriedade $\phi$.
+\endgraf
+Seja $a \in \Nat$ então.
+Agora precisamos mostrar que $\phi(a)$, ou seja nosso alvo é
+$$
+\forall m \forall k
+\bigparen{ (n+m) + k = n + (m+k) }.
+$$
+Observe que nosso álvo é apenas uma afirmação sobre o natural $k$.
+Beleza.
+Mas nosso alvo tem a mesma forma,
+$$
+\munderbrace{
+\forall m
+\munderbrace{
+\alertb{
+\forall k
+\bigparen{ (a+m) + k = a + (m+k) }
+}} {\alertb{\phi_2(m)}}
+} {\phi_1(a)}
+$$
+então podemos atacar novamente
+coma mesma ideia, ``sejando'' mais um natural.
+\endgraf
+Seja $m\in\Nat$.
+Preciso provar que
+$$
+\munderbrace{
+\forall k
+\munderbrace{
+\alertb{
+(a+m) + k = a + (m+k)
+}} {\alertb{\phi_3(k)}}
+} {\phi_2(m)}.
+$$
+Atacamos uma última vez com a mesma estratégia:
+\endgraf
+Seja $y\in\Nat$.
+Agora precisamos provar
+$$
+\munderbrace{
+(a+m) + y = a + (m+y)
+} {\phi_3(y)}.
+$$
+E agora?
+Como chegamos numa igualdade, precisamos veriface que seus dois lados
+realmente denotam o mesmo valor.
+Vamos calcular então.
+%%}}}
+
+\TODO Termine essa tentativa.
 
 %%{{{ thm: natadd_is_associative 
 \theorem Associatividade da adição.
@@ -11161,51 +11218,51 @@ $
 \forall a
 \forall b
 \forall c
-\bigparen{(a^b)^c = a^{b \ntimes c}}.
+\bigparen{a^{b \ntimes c}} = (a^b)^c.
 $
 
 \hint
 Indução no $c$.
 
 \hint
-\proofpart{Base: $\forall a \forall b \bigparen{ (a^b)^0 = a^{b \ntimes 0} }$.}
+\proofpart{Base: $\forall a \forall b \bigparen{ a^{b \ntimes 0} = (a^b)^0 }$.}
 
 \hint
 \proofpart{Passo indutivo.}
 Seja $k\in\nats$ tal que
 $$
-\forall a \forall b \bigbracket{ (a^b)^k = a^{b \ntimes k} }.\tag{H.I.}
+\forall a \forall b \bigbracket{ a^{b \ntimes k} = (a^b)^k }.\tag{H.I.}
 $$
 Agora precisas provar que
 $$
-\forall a \forall b \bigbracket{ (a^b)^{Sk} = a^{b \ntimes Sk} }.
+\forall a \forall b \bigbracket{ a^{b \ntimes Sk} = (a^b)^{Sk} }.
 $$
 
 \solution
 Por indução no $c$.
-\crproofpart{Base: $\forall a \forall b \bigbracket{ (a^b)^0 = a^{b \ntimes 0} }$.}
+\crproofpart{Base: $\forall a \forall b \bigbracket{ a^{b \ntimes 0} = (a^b)^0 }$.}
 Sejam $a,b\in\nats$.
 Calculamos:
 $$
 \alignat2
-(a^b)^0
-&= S0     \by {(e1)}
 a^{b \ntimes 0}
 &= a^0    \by {(m1)}
+&= S0     \by {(e1)}
+(a^b)^0
 &= S0.    \by {(e1)}
 \endalignat
 $$
 \crproofpart{Passo indutivo.}
 Seja $k\in\nats$ tal que
 $$
-\forall a \forall b \bigbracket{ (a^b)^k = a^{b \ntimes k} }.\tag{H.I.}
+\forall a \forall b \bigbracket{ a^{b \ntimes k} = (a^b)^k }.\tag{H.I.}
 $$
 Queremos provar que
 $$
-\forall a \forall b \bigbracket{ (a^b)^{Sk} = a^{b \ntimes Sk} }.
+\forall a \forall b \bigbracket{ a^{b \ntimes Sk} = (a^b)^{Sk} }.
 $$
 Sejam $a,b\in\nats$.
-Basta mostrar que $(a^b)^{Sk} = a^{b \ntimes Sk}$.
+Basta mostrar que $a^{b \ntimes Sk} = (a^b)^{Sk}$.
 Calculamos:
 $$
 \alignat2
@@ -11266,6 +11323,55 @@ A \neq \emptyset \implies \text{$A$ tem elemento mínimo}.
 $$
 
 \endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Defining relations recursively 
+\section Definindo relações recursivamente.
+
+%%{{{ nats_leq_recursive_def 
+\definition Ordem.
+Com que temos já definido podemos definir recursivamente
+uma \emph{relação} no $\nats$.  A relação de ordem $\leq$:
+$$
+\align
+0  \leq m  &\iff \True      \tag{LE1}\\
+Sn \leq 0  &\iff \False     \tag{LE2}\\
+Sn \leq Sm &\iff n \leq m   \tag{LE3}
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: two_leq_four_but_four_notleq_two 
+\example.
+\label{two_leq_four_but_four_notleq_two}%
+Ache se $SS0 \leq SSSS0$ e se $SSSS0 \leq SS0$.
+
+\solution
+Calculamos:
+$$
+\alignat2
+SS0 \leq SSSS0
+&\iff S0 \leq SSS0  \by{por (LE3)}
+&\iff 0  \leq SS0   \by{por (LE3)}
+&\iff \True         \by{por (LE1)}
+\endalignat
+$$
+ou seja, realmente $SS0 \leq SSSS0$.
+No outro lado, calculamos
+$$
+\alignat2
+SSSS0 \leq SS0
+&\iff SSS0 \leq S0  \by{por (LE3)}
+&\iff SS0  \leq 0   \by{por (LE3)}
+&\iff \False        \by{por (LE2)}
+\endalignat
+$$
+ou seja, $SSSS0 \not\leq SS0$.
+
+\endexample
 %%}}}
 
 \endsection
