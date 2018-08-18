@@ -10532,26 +10532,29 @@ multiplicação, e exponenciação:
 %%{{{ df: natops_rec_defs 
 \definition.
 \label{natops_rec_defs}%
-Temos:
+Definimos as operações de adição, multiplicação, e exponenciação
+recursivamente assim:
 $$
 \xxalignat3
 &
 \alignedat2
-\text{(a1)}&\quad&   n + 0  &= n     \\
-\text{(a2)}&&        n + Sm &= S(n+m)
+\text{(a1)}&\quad&  n + 0  &= n     \\
+\text{(a2)}&&       n + Sm &= S(n+m)
 \endalignedat
 &&
 \alignedat2
-\text{(m1)}&\quad&   n \ntimes 0  &= 0   \\
-\text{(m2)}&&        n \ntimes Sm &= (n \ntimes m) + n
+\text{(m1)}&\quad&  n \ntimes 0  &= 0   \\
+\text{(m2)}&&       n \ntimes Sm &= (n \ntimes m) + n
 \endalignedat
 &&
 \alignedat2
-\text{(e1)}&\quad&   n \expop 0  &= S0   \\
-\text{(e2)}&&        n \expop Sm &= (n \expop m) \ntimes n
+\text{(e1)}&\quad&  n \expop 0  &= S0   \\
+\text{(e2)}&&       n \expop Sm &= (n \expop m) \ntimes n.
 \endalignedat
 \endxxalignat
 $$
+Observe que cada uma dessas equações tem um implícito
+$\forall n$ ou $\forall n\forall m$ na frente dela.
 %%}}}
 
 %%{{{ conventions about precedence and associativity 
@@ -10587,7 +10590,7 @@ $$
 $$
 Nosso alvo tem a forma
 $$
-\lforall {x\in\Nat} {\phi(x)}
+\lforall {x\in\nats} {\phi(x)}
 $$
 olhando como
 $$
@@ -10642,12 +10645,108 @@ $$
 } {\phi_3(y)}.
 $$
 E agora?
-Como chegamos numa igualdade, precisamos veriface que seus dois lados
+Como chegamos numa igualdade, precisamos verificar que seus dois lados
 realmente denotam o mesmo valor.
 Vamos calcular então.
+Tomando o lado esquerdo, $(a+m)+y$, tantamos casá-lo com as equações
+(a1)--(a2), mas ele não casa com nenhuma delas, então não tem como
+simplificá-lo.%
+\footnote{Isso não é exatamente verdade, pois o lado direito
+da (a1), sendo apenas uma variável, casa com qualquer coisa.
+Mas escolhendo qualquer (sub)expressão da $(a+m)+y$, para casar
+com $n$, não vamos ter progresso nenhum, pois vamos acabar
+adicionando apenas uns ``$+0$'' até cansar, sem nenhuma
+mudança na posição das parenteses que nos importam aqui.}
 %%}}}
 
-\TODO Termine essa tentativa.
+%%{{{ Q: Seems like a dead end---or is it? 
+\question.
+\label{not_a_dead_end_without_induction}%
+Parece que chegamos num ``dead end''.
+Tem como continuar?
+%%}}}
+\spoiler.
+
+%%{{{ A: case split 
+\blah Resposta.
+Tem!
+O problema foi que não sabemos nem sobre o $m$ nem sobre o $y$
+se são da forma $0$ ou da forma $S\bnf{Nat}$ e por isso não conseguimos
+aplicar nenhuma das (a1)--(a2).
+Mas podemos \emph{separar em casos}.
+Vamos escolher um desses Nats então, o $y$, e considerar:
+\beginul
+\li \case{Caso} $y$ é o $0$: \dots
+\li \case{Caso} $y$ é o successor de algum Nat: \dots
+\endul
+Lembre-se que cada vez que separamos em casos, nosso alvo
+tá sendo \emph{copiado e colado} para cada um deles.
+%%}}}
+
+%%{{{ x: solve_the_zero_case_of_case_split 
+\exercise.
+\label{solve_the_zero_case_of_case_split}%
+Prove que
+$$
+(a+m) + y = a + (m+y)
+$$
+no primeiro caso.
+
+\endexercise
+%%}}}
+
+%%{{{ The second case 
+\note O segundo caso.
+Sabemos que $y$ é o sucessor de algum natural,
+então vamos escolher um nome pra denotá-lo:
+\emph{seja $y'\in\Nat$ tal que $y = Sy'$}\fact1.
+Calculamos:
+$$
+\alignat2
+(a + m) + y
+&= (a + m) + Sy' \by {hipótese~\byfact1}
+&= S\paren{(a+m) + y'} \by {(a2), com $n\asseq (a+m)$, $m\asseq y'$}
+\intertext{e o outro lado}
+a + (m + y)
+&= a + (m + Sy')  \by {hipótese~\byfact1}
+&= a + S(m + y')  \by {(a2) com $n\asseq m$, $m\asseq y'$}
+&= S(a + (m + y')) \by {(a2) com $n\asseq a$, $m\asseq m+y'$}
+\endalignat
+$$
+E agora peguntamos
+$$
+S\paren{(a+m) + y'}
+\askeq
+S(a + (m + y'))
+$$
+e para resolver isso basta ``cortar os $S$s'' e provar que
+$$
+(a+m) + y' = a + (m + y').
+$$
+\emph{E estamos onde estavamos!}
+Só com $a,m,y'$ em vez de $a,m,y$.  E daí?
+Podemos separar esse caso em dois subcasos:
+\beginul
+\li \case{Caso $y'$} é o $0$: \dots
+\li \case{Caso $y'=Sy''$} para algum $y''\in\Nat$: \dots
+\endul
+O primeiro subcaso vamos conseguir matar, pois é igual ao
+primeiro caso.  Mas a melhor coisa que conseguimos no segundo
+caso seria chegar ate o alvo
+$$
+(a + m) + y'' \askeq a + (m+y'').
+$$
+E depois?  Considerar dois casos novamente?
+Não importa quantas vezes repetir essa idéia, a gente
+sempre cai conseguir matar apenas um dos sub-(sub-sub-\dots)-casos,
+e chegar num
+$$
+(a + m) + y^{\prime\prime\cdots\prime}
+\askeq
+a + (m + y^{\prime\prime\cdots\prime}).
+$$
+Obviamente precisamos uma outra técnica para provar esse teorema.
+%%}}}
 
 %%{{{ thm: natadd_is_associative 
 \theorem Associatividade da adição.
