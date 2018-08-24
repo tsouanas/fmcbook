@@ -13172,6 +13172,60 @@ $$
 \endsection
 %%}}}
 
+%%{{{ Translating propositions from and to set relations 
+\section Traduzindo proposições de e para relações de conjuntos.
+
+\blah.
+Lembra os exemplos~\refn{ancestors_and_children},~\refn{airports_direct_flights},
+e~\refn{books_and_authors}?
+Bom.  Vamos practicar nossa fluência em cojuntos usando esses exemplos agora.
+
+%%{{{ x: ancestors_and_children_translations 
+\exercise.
+\label{ancestors_and_children_translations}%
+Para toda pessoa $p\in\cal P$ defina $A_p$ e $C_p$ como
+no~\ref{ancestors_and_children}.
+Suponha que $p,q,r$ denotam pessoas.
+Traduza as afirmações descritas na linguagem de conjuntos para
+linguagem natural e vice versa.
+\beginol
+\li $p$ e $q$ são irmãos;
+\li $C_p \neq \emptyset$;
+\li $p$ é filho único;
+\li $p$ e $q$ são parentes;
+\li $p$ e $q$ são primos de primeiro grau;
+\li $r$ é filho dos $p$ e $q$;
+\li $C_p \inter C_q \neq \emptyset$;
+\li $A_p \subseteq A_q$;
+\li $\emptyset \subsetneq C_p \subsetneq C_q$;
+\li $\lexists {p\in\cal P} {p \in C_p}$.
+\endol
+
+\solution
+Traduzimos:
+$$
+\align
+\text{$p$ e $q$ são irmãos}                      &: \text{$p\neq q \mland \exists r \paren{\set{p,q}\subseteq C_r}$} \\
+\text{$C_p \neq \emptyset$}                      &: \text{$p$ tem pelo menos um filho} \\
+\text{$p$ é filho único}                         &: \text{$\lexists {r\in A_p} {C_r = \set{p}}$} \\
+\text{$p$ e $q$ são parentes}                    &: \text{$A_p \inter A_q \neq \emptyset$} \\
+\text{$p$ e $q$ são primos de primeiro grau}     &: \text{$\exists r,r'\paren{p\in C_r \mland q \in C_{r'} \mland \text{$r$ e $r'$ são irmãos}}$} \\
+\text{$r$ é filho dos $p$ e $q$}                 &: \text{$r \in C_p \inter C_q$} \\
+\text{$C_p \inter C_q \neq \emptyset$}           &: \text{$p$ e $q$ têm pelo menos um filho juntos} \\
+\text{$A_p \subseteq A_q$}                       &: \text{$p$ é um anscestor ou irmão de $q$} \\
+\text{$\emptyset \subsetneq C_p \subsetneq C_q$} &: \text{$q$ tem filho(s) com $p$ mas com outra pessoa também} \\
+\text{$\lexists {p\in\cal P} {p \in C_p}$}       &: \text{existe pessoa que é seu próprio filho}.
+\endalign
+$$
+(Tuas traduções podem variar, especialmente se tuas definições
+dessas palavras são diferentes que aquelas que eu usei aqui.)
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Powerset 
 \section Powerset.
 
@@ -13202,6 +13256,14 @@ Concluimos que:
 $$
 \card{\pset A} = 2^{\card A}.
 $$
+
+\endexercise
+%%}}}
+
+%%{{{ x: powersingletons 
+\exercise.
+Defina usando duas maneiras diferentes um operador unário $\pset_1$
+que forma o conjunto de todos os \emph{singletons} da sua entrada.
 
 \endexercise
 %%}}}
@@ -14041,60 +14103,6 @@ Tome
 $$
 \scr A \asseq \set{ \set{0,1}, \set{1,2}, \set{7} }.
 $$
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Translating propositions from and to set relations 
-\section Traduzindo proposições de e para relações de conjuntos.
-
-\blah.
-Lembra os exemplos~\refn{ancestors_and_children},~\refn{airports_direct_flights},
-e~\refn{books_and_authors}?
-Bom.  Vamos practicar nossa fluência em cojuntos usando esses exemplos agora.
-
-%%{{{ x: ancestors_and_children_translations 
-\exercise.
-\label{ancestors_and_children_translations}%
-Para toda pessoa $p\in\cal P$ defina $A_p$ e $C_p$ como
-no~\ref{ancestors_and_children}.
-Suponha que $p,q,r$ denotam pessoas.
-Traduza as afirmações descritas na linguagem de conjuntos para
-linguagem natural e vice versa.
-\beginol
-\li $p$ e $q$ são irmãos;
-\li $C_p \neq \emptyset$;
-\li $p$ é filho único;
-\li $p$ e $q$ são parentes;
-\li $p$ e $q$ são primos de primeiro grau;
-\li $r$ é filho dos $p$ e $q$;
-\li $C_p \inter C_q \neq \emptyset$;
-\li $A_p \subseteq A_q$;
-\li $\emptyset \subsetneq C_p \subsetneq C_q$;
-\li $\lexists {p\in\cal P} {p \in C_p}$.
-\endol
-
-\solution
-Traduzimos:
-$$
-\align
-\text{$p$ e $q$ são irmãos}                      &: \text{$p\neq q \mland \exists r \paren{\set{p,q}\subseteq C_r}$} \\
-\text{$C_p \neq \emptyset$}                      &: \text{$p$ tem pelo menos um filho} \\
-\text{$p$ é filho único}                         &: \text{$\lexists {r\in A_p} {C_r = \set{p}}$} \\
-\text{$p$ e $q$ são parentes}                    &: \text{$A_p \inter A_q \neq \emptyset$} \\
-\text{$p$ e $q$ são primos de primeiro grau}     &: \text{$\exists r,r'\paren{p\in C_r \mland q \in C_{r'} \mland \text{$r$ e $r'$ são irmãos}}$} \\
-\text{$r$ é filho dos $p$ e $q$}                 &: \text{$r \in C_p \inter C_q$} \\
-\text{$C_p \inter C_q \neq \emptyset$}           &: \text{$p$ e $q$ têm pelo menos um filho juntos} \\
-\text{$A_p \subseteq A_q$}                       &: \text{$p$ é um anscestor ou irmão de $q$} \\
-\text{$\emptyset \subsetneq C_p \subsetneq C_q$} &: \text{$q$ tem filho(s) com $p$ mas com outra pessoa também} \\
-\text{$\lexists {p\in\cal P} {p \in C_p}$}       &: \text{existe pessoa que é seu próprio filho}.
-\endalign
-$$
-(Tuas traduções podem variar, especialmente se tuas definições
-dessas palavras são diferentes que aquelas que eu usei aqui.)
 
 \endexercise
 %%}}}
