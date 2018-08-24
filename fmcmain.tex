@@ -3223,6 +3223,7 @@ $$
 
 %TODO explain that it's just one more tool to attack theorems
 %TODO XXX Maybe refer to a weaker result from "irrationality"?
+%%{{{ lemma: odd_to_any_power_is_odd 
 \lemma.
 \label{odd_to_any_power_is_odd}
 Para todo $n\in\nats$, e todo ímpar $k\in\ints$, $k^n$ é ímpar.
@@ -3248,30 +3249,34 @@ k^{t+1}
 $$
 Logo, como $2ab + a + b\in\ints$, $k^{t+1}$ é ímpar.
 \qed
+%%}}}
 
 \endsection
 %%}}}
 
 %%{{{ Strong induction 
 \section O princípio da indução finita forte (PIFF).
-\label{Strong_induction}
+\label{Strong_induction}%
 
-\note.
+\blah.
 O seguinte princípio parece mais forte que o PIF.
 Na verdade, nos naturais, os dois princípios são equivalentes:
 
+%%{{{ thm: COVIP 
+\label{COVIP}%
 \theorem Princípio da indução finita forte (PIFF).
 \tdefined{PIFF}
 \iiseealso{PIFF}{indução}
 \tdefined{indução}[forte]
 \iisee{princípio}[da indução finita forte]{indução forte}
-\label{FSIP}
 Seja $P(n)$ uma propriedade de naturais.
 Se para todo $k\in\nats$,
 a hipótese que $P(i)$ é verdade para todo $i<k$
 implica que $P(k)$ também é,
 então $P(n)$ é verdade para todo $n\in\nats$.
+%%}}}
 
+%%{{{ note: PIFF in symbols 
 \note.
 Esquematicamente o PIFF:
 $$
@@ -3283,6 +3288,7 @@ $$
     {n\in\nats}
     {P(n)}.
 $$
+%%}}}
 
 \endsection
 %%}}}
@@ -3291,7 +3297,9 @@ $$
 \section O princípio da boa ordem (PBO).
 \label{The_wellordering_principle}%
 
+%%{{{ df: minimum_first_encounter 
 \definition Elemento mínimo.
+\label{minimum_first_encounter}%
 \tdefined{mínimo}%
 \sdefined {\min {\holed A}} {mínimo do \holed A}%
 Seja $A$ um conjunto ordenado.
@@ -3300,15 +3308,23 @@ Um elemento $m\in A$ é chamado
 sse
 $m$ é menor de todos os outros elementos do $A$.
 Quando o conjunto $A$ possui elemento mínimo,
-escrevemos $\min A$ para o denotar:
+escrevemos $\min A$ para denotá-lo:
 $$
 m = \dsym{\min A} \defiff m\in A \;\land\; \lforall {a\in A} {a \neq m \limplies m < a}.
 $$
-
 Note que necessariamente o mínimo dum conjunto $A$ pertence no $A$.
-Para justificar a definição do símbolo $\min A$, \emph{devemos} provar o seguinte:
+%%}}}
 
+%%{{{ remark: we_must_prove_uniqueness_of_min 
+\remark.
+\label{we_must_prove_uniqueness_of_min}%
+Para justificar a definição do símbolo $\min A$, \emph{devemos} provar o
+seguinte:
+%%}}}
+
+%%{{{ x: uniqueness_of_minimum 
 \exercise Unicidade de mínimo.
+\label{uniqueness_of_minimum}%
 Um conjunto não pode ter mais que um elemento mínimo.
 
 \hint
@@ -3321,14 +3337,20 @@ chega numa contradição.
 Pela transitividade, $a<b$ e $b<a$ implicam uma contradição.
 
 \endexercise
+%%}}}
 
+%%{{{ x: ordered_singleton_set_has_minimum 
 \exercise.
+\label{ordered_singleton_set_has_minimum}%
 Seja $U$ um conjunto unitário ordenado.
 Prove que ele tem elemento mínimo.
 
 \endexercise
+%%}}}
 
+%%{{{ x: finite_nonempty_subset_of_poset_has_minimum 
 \exercise.
+\label{finite_nonempty_subset_has_minimum}%
 Seja $A$ um conjunto ordenado, e um subconjunto finito $A_0\finsubseteq A$,
 com $A_0\neq\emptyset$.
 O $A_0$ possui elemento mínimo.
@@ -3337,11 +3359,13 @@ O $A_0$ possui elemento mínimo.
 Indução no tamanho do $A_0$.
 
 \endexercise
+%%}}}
 
+%%{{{ thm: WOP 
 \theorem Princípio da boa ordem (PBO).
+\label{WOP}%
 \tdefined{PBO}%
 \tdefined{princípio}[da boa ordem]%
-\label{WOP}%
 \iiseealso{PBO}{princípio da boa ordem}%
 Cada subconjunto não vazio do\/ $\nats$ possui mínimo.
 \sketch.
@@ -3349,21 +3373,29 @@ Seja $P(n)$ a propriedade que cada subconjunto $A\subseteq\nats$
 que possui elementos menores ou iguais a $n$ tem mínimo.
 Vamos mostrar por indução que para todo $n$, $P(n)$.
 \qes
+%%}}}
 
+%%{{{ x: which_orders_are_wellorders 
 \exercise.
+\label{which_orders_are_wellorders}%
 Quais dos $\ints$, $\rats$, $\rats_{>0}$, $\rats_{\geq0}$, $\reals$,
 satisfázem a propriedade de boa ordem?
 
 \endexercise
+%%}}}
 
+%%{{{ x: which_subsets_are_well_ordered 
 \exercise.
+\label{which_subsets_are_well_ordered}%
 Seja $a\in\reals$.
 Quais dos $\rats_{\geq a}$, $\reals_{\geq a}$,
 e $\set{ 2^{-n} \st n \in\nats, n \leq a}$
 satisfázem a propriedade de boa ordem?
 
 \endexercise
+%%}}}
 
+%%{{{ thm: no_int_between_0_and_1 
 \theorem.
 \label{no_int_between_0_and_1}%
 Não existe inteiro $k$ tal que\/ $0 < k < 1$.
@@ -3374,8 +3406,11 @@ não é vazio.
 Aplique o PBO para tomar seu menor elemento, e ache um outro contraexemplo,
 ainda menor, chegando assim numa contradição.
 \qes
+%%}}}
 
+%%{{{ x: no_int_between_0_and_1_by_induction 
 \exercise.
+\label{no_int_between_0_and_1_by_induction}%
 Prove o \ref{no_int_between_0_and_1} usando indução.
 
 \hint
@@ -3397,28 +3432,37 @@ Para o passo indutivo, tomando um $k\in\nats$ tal que $P(k)$, separa tua prova
 em dois casos, dependendo da razão que o $P(k)$ seja verdade.
 
 \endexercise
+%%}}}
 
+%%{{{ x: if_ab_is_1_then_what 
 \exercise.
+\label{if_ab_is_1_then_what}%
 Sejam $a,b\in\ints$ com $ab=1$.
 Prove que $a=\pm1$ e $b=\pm1$.
 
 \endexercise
+%%}}}
 
+%%{{{ thm: PIF_set_form 
 \theorem Indução, forma com conjuntos.
-\tdefined{indução}[forma com conjuntos]
 \label{PIF_set_form}
+\tdefined{indução}[forma com conjuntos]
 Seja $A\subseteq\nats$ tal que $0\in A$ e $n+1\in A$ para todo $n\in A$.
 $A=\nats$.
 \sketch.
 Caso contrario, existeriam ``contraexemplos'', ou seja, naturais que não pertencem no $A$.
 Aplique a PBO para escolher o menor tal contraexemplo, e chega num absurdo.
 \qes
+%%}}}
 
+%%{{{ x: shifted_WOP 
 \exercise.
+\label{shifted_WOP}%
 Prove que se um subconjunto $A$ de inteiros tem elementos maiores que um número fixo $n_0$,
 então existe o $\min\set{a\in A\st n_0 < a}$.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -7969,6 +8013,7 @@ $N$ não pode ter apenas divisores da forma $4n+1$.
 $\text{PBO} \iff \text{PIF}$.
 
 \hint
+Nos já provamos a direção \lrdir.
 Para provar a \rldir, considere o predicado
 ``todos os conjuntos $A$ com $k\in A$ para algum natural $k\leq n$ têm mínimo'',
 ou o ``todos os conjuntos $A$ com $n\in A$ têm mínimo''.
@@ -12070,7 +12115,7 @@ para \emph{o} denotar.  Seria mal-definido.
 
 %%{{{ Parallelism with Singleton(-) to emphasize error 
 \note.
-Para apreciar ainda mais a gravidade do erro:
+Para apreciar ainda mais a gravidade do erro acima:
 se apenas a definição de $\Empty(\dhole)$ fosse suficiente
 para introduzir a notação $\emptyset$ para denotar ``o conjunto vazio'',
 poderiamos também escolher um símbolo para denotar ``o conjunto unitário'':
@@ -12101,19 +12146,45 @@ E agora o singleton dele $\set{\set{x}}$, e dele, e dele, \dots
 \endexercise
 %%}}}
 
+\blah.
+Então precisamos provar existência e unicidade.
+Faça isso agora nos exercícios seguintes.
+
+%%{{{ x: naive_existence_of_emptyset 
+\exercise Existência do vazio.
+\label{naive_existence_of_emptyset}%
+Usando as ferramentas que temos desenvolvido, construe um conjunto vazio.
+
+\hint
+Use o set-builder.
+
+\hint
+Basta achar um filtro que garante que nenhum objeto ``passa'':
+$$
+\setst x {\askhole}
+$$
+
+\solution
+O conjunto $\setst x {x \neq x}$ é um conjunto vazio.
+
+\endexercise
+%%}}}
+
 %%{{{ x: naive_uniqueness_of_emptyset 
 \exercise Unicidade do vazio.
 \label{naive_uniqueness_of_emptyset}%
 Supondo que existe pelo menos um conjunto vazio, mostre sua unicidade.
+Não use reductio ad absurdum.
+
+\hint
 Em outras palavras, prove que:
 $$
 \text{se $A,B$ são vazios, então $A = B$.}
 $$
-Não use reductio ad absurdum.
 
 \hint
 Suponha que $A,B$ são vazios.
-Qual é teu alvo agora?
+Qual é teu alvo agora, e o que ele significa mesmo?
 
 \hint
 Teu alvo é mostrar que $A = B$.
@@ -12175,7 +12246,13 @@ $$
 %%{{{ x: naive_uniqueness_of_universet 
 \exercise.
 \label{naive_uniqueness_of_universet}
-Supondo que existe um conjunto universal, mostre sua unicidade.
+Demonstre a existência e unicidade do conjunto universal.
+
+\hint
+Já demonstrou a existência (\ref{naive_existence_of_emptyset}) e a unicidade
+(\ref{naive_uniqueness_of_emptyset} ou
+\refn{naive_uniqueness_of_emptyset_absurdum})
+do vazio?
 
 \endexercise
 %%}}}
