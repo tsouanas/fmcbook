@@ -13556,12 +13556,13 @@ Assim, um par ordenado é uma $2$-tupla.
 
 %%{{{ Interface and equality 
 \note Interface e igualdade.
-Precisamos descrever qual é o ``interface primitivo'' desse novo
-tipo, e o que significa $=$ entre tuplas.
+Precisamos: (1) descrever qual é o ``interface primitivo'' desse novo
+tipo, em tal forma que deixamos claro o que precisamos definir
+para determinar uma tupla; e (2) o que significa $=$ entre tuplas.
 Nosso único interface dada uma tupla de tamanho $n$, é que podemos
 pedir seu $i$-ésimo elemento, onde $0 \leq i < n$.
-Conversamente, para criar uma tupla de tamanho $n$, basta ter
-$n$ objetos $a_0, a_1, \dotsc, a_{n-1}$ (distintos ou não).
+Conversamente, para definir uma tupla de tamanho $n$, basta
+determinar todos os objetos (distintos ou não) nas suas $n$ posições.
 Consideramos que duas tuplas são iguais se elas
 ``concordam em cada posição''.
 Sem aspas, chegamos nas definições:
@@ -13573,11 +13574,30 @@ Definimos as operações $\pi_i$ chamadas \dterm{projecções}, tais que
 para todos os $x,y$, temos
 $$
 \xalignat2
-\pi_0\tup{x,y} &= x &
-\pi_1\tup{x,y} &= y
+\proj 0 \tup{x,y} &= x &
+\proj 1 \tup{x,y} &= y
 \endxalignat
 $$
 e similarmente para tuplas de tamanho $n$.
+Quando o $n$ não é implicito pelo contexto, decoramos
+esses símbolos com essa informação para evitar confusão.
+Por exemplo:
+$$
+\xalignat3
+\projfrom 2 1 \tup{x,y}     &= y &
+\projfrom 3 1 \tup{x,y,z}   &= y &
+\projfrom 4 3 \tup{x,y,z,w} &= w
+\endxalignat
+$$
+etc.
+Outros nomes para as projecções $\proj 0$ e $\proj 1$ são:
+$$
+\namedfun{proj}_0 / \namedfun{proj}_1;
+\fst / \snd;
+\outl / \outr.
+$$
+Uns autores em vez de começar os índices no $0$, começam no $1$;
+aqui nesse texto vamos sempre começar no $0$.
 %%}}}
 
 %%{{{ df: tuple_equality 
@@ -13597,6 +13617,24 @@ m = n
 \text{$a_i = b_i$ para todo $i\in\set{0,\dotsc,n}$}
 \endalign
 $$
+%%}}}
+
+\TODO Precisamos tuplas maiores que pares?.
+
+%%{{{ x: tuples_of_size_2_are_enough 
+\exercise.
+\label{tuples_of_size_2_are_enough}%
+Mostre que com a definição de
+$$
+\tup{x,y,z} \defeq \tup{\tup{x,y},z}
+$$
+conseguimos a igualdade \emph{desejada}
+$$
+\tup{x,y,z} = \tup{x',y',z'}
+\iff x = x' \mland y = y' \mland z = z'.
+$$
+
+\endexercise
 %%}}}
 
 \endsection
