@@ -13549,9 +13549,16 @@ Denotamos o par ordenado dos objetos $a$ e $b$ pelo $\tupa{a, b}$
 ou $\tupp{a, b}$.
 Em geral, usamos as notações $\tupa{a_0, a_1, \dotsc, a_{n-1}}$
 e~$\tupp{a_0, a_1, \dotsc, a_{n-1}}$ para tuplas de tamanho~$n$.
+As vezes é mais legível usar índices começando com $1$---tanto faz.
 Quando queremos enfatizar o tamanho da tupla, falamos de
 \dterm{$n$-tupla}.
 Assim, um par ordenado é uma $2$-tupla.
+\emph{As vezes} escolhemos como nome duma tupla uma variável
+decorada com uma setinha em cima dela, e usando a mesma
+letra com índices para seus membros, por exemplo
+$\vec x = \tup{x_0,x_1,\dotsc,x_n}$, $\vec w = \tup{w_1,w_2}$, etc.
+Outra convençao comum é usar uma fonte em ``negrito'', por exemplo
+$\mathbf{a} = \tup{a_1,a_2,a_3}$, $\mathbf{u} = \tup{u_0,u_1}$, etc.
 %%}}}
 
 %%{{{ Interface and equality 
@@ -13592,12 +13599,16 @@ $$
 etc.
 Outros nomes para as projecções $\proj 0$ e $\proj 1$ são:
 $$
-\namedfun{proj}_0 / \namedfun{proj}_1;
-\fst / \snd;
-\outl / \outr.
+\namedfun{proj}_0,\ \namedfun{proj}_1,\ \dotsc;
+\qquad
+\pproj0 {\dhole},\ \pproj1 {\dhole)},\ \dotsc;
+\qquad
+\fst,\ \snd;
+\qquad
+\outl,\ \outr.
 $$
-Uns autores em vez de começar os índices no $0$, começam no $1$;
-aqui nesse texto vamos sempre começar no $0$.
+Uns autores em vez de decorar os símbolos das projeções com índices começando
+no $0$, eles começam no $1$; aqui nesse texto vamos sempre começar no $0$.
 %%}}}
 
 %%{{{ df: tuple_equality 
@@ -13610,7 +13621,7 @@ $$
 &\defiff
 x = x' \mland y = y'
 \intertext{Generalizando,}
-\tup{a_0,a_1,\dotsc,a_n} = \tup{b_0,b_1,\dotsc,b_m}
+\tup{a_1,\dotsc,a_n} = \tup{b_1,\dotsc,b_m}
 &\defiff
 m = n
 \mland
@@ -13619,22 +13630,130 @@ m = n
 $$
 %%}}}
 
-\TODO Precisamos tuplas maiores que pares?.
+%%{{{ Do we need bigger tuples? 
+\note Precisamos tuplas maiores?.
+Introduzimos então esse novo \emph{tipo primitivo} de $2$-tuplas.
+E se precisar uma tripla?  Precisamos escolher se vamos aceitar
+mais tipos como primitivos ($3$-tuplas (triplas), $4$-tuplas,
+(quadruplas), $5$-tuplas (quintuplas), etc., etc.) ou não.
+\endgraf
+Caso que sim, vamos precisar uma $n$-upla para cada $n\in\nats$.
+E precisamos definir a igualdade para cada um desses tipos,
+algoque fazemos facilmente com:
+$$
+\tup{x_1, \dots, x_n}
+=
+\tup{x'_1, \dots, x'_n}
+\defiff
+x_1 = x'_1
+\mland \cdots \mland
+x_n = x'_n.
+$$
+Naturalmente dizemos que uma $n$-tupla $t$ é \emph{determinada
+por os objetos em cada uma das suas $n$ posições}.
+Então para definir uma $n$-tupla basta só definir as
+$$
+\projfrom n 0 t,
+\projfrom n 1 t,
+\dotsc,
+\projfrom n {n-1} t.
+$$
+\endgraf
+E caso contrário?  Será que podemos utilizar apenas as $2$-tuplas
+para conseguir o que nossos amigos que trabalham com $n$-tuplas como
+tipos primitivos conseguem?
+A resposta é sim.
+Vamos investigar.
+%%}}}
 
-%%{{{ x: tuples_of_size_2_are_enough 
+%%{{{ Q: How would you define $n$-tuples for n > 2, given 2-tuples? 
+\question.
+Como tu definarias os típos de $n$-tuplas para $n>2$, dado um tipo
+de $2$-tuplas?
+%%}}}
+\spoiler.
+
+%%{{{ x: tuples_of_size_2_are_good_for_3 
 \exercise.
-\label{tuples_of_size_2_are_enough}%
+\label{tuples_of_size_3_are_good_for_3}%
 Mostre que com a definição de
 $$
-\tup{x,y,z} \defeq \tup{\tup{x,y},z}
+\tup{x,y,z} \defeq \tup{x,\tup{y,z}}
 $$
 conseguimos a igualdade \emph{desejada}
 $$
 \tup{x,y,z} = \tup{x',y',z'}
 \iff x = x' \mland y = y' \mland z = z'.
 $$
+Cuidado: é um `$\iffsymbol$' acima, não um `$\defiffsymbol$'!
+Ou seja, definindo as $3$-tuplas nessa maneira, querendo
+ou não, a igualdade entre seus objetos já é definida!
+Não teriamos o direito de definí-la novamente!
+
+\solution
+Calculamos
+$$
+\alignat2
+\tup{x,y,z} = \tup{x',y',z'}
+&\sugariff \tup{x,{y,z}} = \tup{x',\tup{y',z'}} \\
+&\iff x = x' \mland \tup{y,z} = \tup{y',z'}     \by{def.~de~$=$~para $2$-tuplas}
+&\iff x = x' \mland y = y' \mland z = z'.       \by{def.~de~$=$~para $2$-tuplas}
+\endalignat
+$$
+que é exatamente o que desejamos mostrar!
 
 \endexercise
+%%}}}
+
+%%{{{ df: n_tuples_based_on_2_tuples 
+\definition.
+\label{n_tuples_based_on_2_tuples}%
+Seja $n\in\nats$ com $n > 2$.
+Dados $n$ objetos $x_1,x_2,\dotsc,x_n$ definimos a $n$-tupla
+$$
+\tup{x_1, x_2, \dotsc, x_n}
+\defeq
+\tup{x_1, \tup{x_2, \dotsc, x_n}}.
+$$
+%%}}}
+
+%%{{{ Tuples of extreme sizes 
+\note Tuplas de tamanhos extremos.
+O que seria uma $1$-tupla?
+E, pior ainda, o que seria uma $0$-tupla?
+E uma tupla infinita?
+Vamos responder apenas na primeira pergunta agora.
+Os outros dois casos vamos discutir logo depois:
+sobre as $0$-tuplas na \refn{Cartesian_product}
+que conhecemos o \emph{produto cartesiano}
+e sobre tuplas infinitas nas \refn{Sequences} e
+\refn{Indexed_families} que encontramos \emph{seqüências}
+e \emph{famílias indexadas} respectivamente.
+%%}}}
+
+%%{{{ df: tuples_of_size_1 
+\definition Tuplas de tamanho 1.
+\label{tuples_of_size_1}%
+Observe que escolhendo definir a $1$-tupla como
+$$
+\tup{x} \defeq x
+$$
+atende nossas exigências:
+$$
+\tup{x} = \tup{y} \iff
+x = y
+$$
+que é exatamente a igualdade desejada.
+Ou seja, para nossos objetivos podemos \emph{identificar os objetos}
+$\tup{x}$ e $x$.
+%%}}}
+
+%%{{{ The empty tuple 
+\note A tupla vazia.
+Seguindo nossa intuição com as tuplas dos outros tamanhos,
+o que seria uma $0$-tupla?
+Bem, para definir um objeto $\vec t$ desse tipo, precisamos deixar
+claro\dots $0$ projeções
 %%}}}
 
 \endsection
@@ -13799,7 +13918,7 @@ $$
 $$
 \emph{são iguais?}
 Depende.
-Queremos considerar elas como se fossem iguais, pois
+Queremos considerá-las como se fossem iguais, pois
 qualquer uma delas serve para satisfazer a especificação de tuplas:
 podemos definir as $i$-ésimas projecções para cada uma,
 e a igualdade vai acabar sendo satisfeita usando uma delas
@@ -13809,9 +13928,9 @@ pense na idéia sobre a \emph{informação} que uma tupla carrega com ela.
 Agora tente ler as três tuplas em cima:
 $$
 \gather
-\text{\emph{Primeiro o objeto $a_0$, e depois temos: primeiro o $a_1$ e depois o $a_2$.}}\\
-\text{\emph{Primeiro temos: primeiro o objeto $a_0$ e depois o $a_1$; e depois temos o $a_2$.}}\\
-\text{\emph{Primeiro temos o objeto $a_0$ e depois o $a_1$ e depois o $a_2$.}}
+\text{<<Primeiro o objeto $a_0$, e depois temos: primeiro o $a_1$ e depois o $a_2$.>>}\\
+\text{<<Primeiro temos: primeiro o objeto $a_0$ e depois o $a_1$; e depois temos o $a_2$.>>}\\
+\text{<<Primeiro temos o objeto $a_0$ e depois o $a_1$ e depois o $a_2$.>>}
 \endgather
 $$
 %%}}}
