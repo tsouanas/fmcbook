@@ -12863,7 +12863,7 @@ A\inter B = \emptyset.
 $$
 A linguagem de conjuntos é realmente muito expressiva,
 algo que vamos começar a apreciar ainda mais, na
-\ref{Translating_props_from_and_to_set_relations}.
+\ref{Translating_from_and_to_the_language_of_sets}.
 %%}}}
 
 \TODO Diagramas de Venn e suas limitações.
@@ -14040,6 +14040,32 @@ As vezes usamos a notações mais curtas: $\Union_n A_n$ e $\Inter_n A_n$
 respectivamente.
 %%}}}
 
+%%{{{ x: sequence_of_sets_inclusions_tricky_indices_1 
+\exercise.
+\label{sequence_of_sets_inclusions_tricky_indices_1}%
+Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos tais que
+$$
+\text{para todo $n\in\nats$, $A_n \subseteq B_{n+1}$.}
+$$
+Prove que:
+$$
+\Union_{n=0}^\infty A_n \subseteq \Union_{n=0}^{\infty} B_n.
+$$
+
+\solution
+Suponha $x \in \Union_{n=0}^\infty A_n$\fact1.
+Preciso mostrar que $x \in \Union_{n=0}^{\infty} B_n$,
+ou seja, mostrar que $x$ pertence em pelo menos um dos $B_n$'s.
+(Ou seja, procuro um $k\in \nats$ tal que $x \in B_k$.)
+Seja $m\in \nats$ tal que $x \in A_m$
+(tal $m$ existe pela \byfact1).
+Agora pela hipótese (com $n \asseq m$) $A_m \subseteq B_{m+1}$,
+e logo $x \in B_{m+1}$, algo que mostra que
+$x \in \Union_{n=0}^{\infty} B_n$, pois $m+1\in\nats$.
+
+\endexercise
+%%}}}
+
 %%{{{ Union_Inter_of_sequences_as_sugar 
 \exercise.
 \label{Union_Inter_of_sequences_as_sugar}%
@@ -14214,6 +14240,60 @@ Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol1}.
 \endsection
 %%}}}
 
+%%{{{ Intervals on the real line 
+\section Intervalos na reta real.
+
+%%{{{ intervals_of_reals 
+\definition Intervalos.
+\label{intervals_of_reals}%
+\tdefined{intervalos}[de números]%
+Sejam $\alpha,\beta\in\reals$.
+Definimos os \dterm{intervalos} seguintes:
+$$
+\xalignat2
+(\alpha, \beta) &\defeq \setst {x\in\reals} {\alpha < x < \beta} &
+(\alpha, \beta] &\defeq \setst {x\in\reals} {\alpha < x \leq \beta} \\
+[\alpha, \beta) &\defeq \setst {x\in\reals} {\alpha \leq x < \beta} &
+[\alpha, \beta] &\defeq \setst {x\in\reals} {\alpha \leq x \leq \beta}.
+\endxalignat
+$$
+%%}}}
+
+%%{{{ x: running_intervals_on_reals 
+\exercise.
+\label{running_intervals_on_reals}%
+Para $n=1,2,3,\dotsc$ defina os intervalos de reais
+$$
+\xalignat2
+F_n &= \ival[ {-1+\frac1n \,,\; 1-\frac1n} ] &
+G_n &= \ival( {-1-\frac1n \,,\; 1+\frac1n} ).
+\endxalignat
+$$
+Calcule os conjuntos $\Union_n F_n$ e $\Inter_n G_n$.
+
+\hint
+Use as definições!
+
+\solution
+Temos
+$$
+\align
+x \in \Unionl_n F_n
+&\iff \lexists {n\in \nats} {x\in F_n}
+\iff x \in (-1,1) \\
+x \in \Interl_n G_n
+&\iff \lforall {n\in \nats} {x\in G_n}
+\iff x \in [-1,1].
+\endalign
+$$
+Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Indexed families 
 \section Famílias indexadas.
 \label{Indexed_families}%
@@ -14360,63 +14440,9 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Intervals on the real line 
-\section Intervalos na reta real.
-
-%%{{{ intervals_of_reals 
-\definition Intervalos.
-\label{intervals_of_reals}%
-\tdefined{intervalos}[de números]%
-Sejam $\alpha,\beta\in\reals$.
-Definimos os \dterm{intervalos} seguintes:
-$$
-\xalignat2
-(\alpha, \beta) &\defeq \setst {x\in\reals} {\alpha < x < \beta} &
-(\alpha, \beta] &\defeq \setst {x\in\reals} {\alpha < x \leq \beta} \\
-[\alpha, \beta) &\defeq \setst {x\in\reals} {\alpha \leq x < \beta} &
-[\alpha, \beta] &\defeq \setst {x\in\reals} {\alpha \leq x \leq \beta}.
-\endxalignat
-$$
-%%}}}
-
-%%{{{ x: running_intervals_on_reals 
-\exercise.
-\label{running_intervals_on_reals}%
-Para $n=1,2,3,\dotsc$ defina os intervalos de reais
-$$
-\xalignat2
-F_n &= \ival[ {-1+\frac1n \,,\; 1-\frac1n} ] &
-G_n &= \ival( {-1-\frac1n \,,\; 1+\frac1n} ).
-\endxalignat
-$$
-Calcule os conjuntos $\Union_n F_n$ e $\Inter_n G_n$.
-
-\hint
-Use as definições!
-
-\solution
-Temos
-$$
-\align
-x \in \Unionl_n F_n
-&\iff \lexists {n\in \nats} {x\in F_n}
-\iff x \in (-1,1) \\
-x \in \Interl_n G_n
-&\iff \lforall {n\in \nats} {x\in G_n}
-\iff x \in [-1,1].
-\endalign
-$$
-Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Translating_props_from_and_to_set_relations 
-\section Traduzindo proposições de e para relações de conjuntos.
-\label{Translating_props_from_and_to_set_relations}
+%%{{{ Translating_from_and_to_the_language_of_sets 
+\section Traduzindo de e para a linguagem de conjuntos.
+\label{Translating_from_and_to_the_language_of_sets}
 
 \blah.
 Lembra os exemplos~\refn{ancestors_and_children},~\refn{airports_direct_flights},
@@ -14603,32 +14629,6 @@ $$
 
 %%{{{ Problems 
 \problems.
-
-%%{{{ sequence_of_sets_inclusions_tricky_indices_1 
-\problem.
-\label{sequence_of_sets_inclusions_tricky_indices_1}%
-Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos tais que
-$$
-\text{para todo $n\in\nats$, $A_n \subseteq B_{n+1}$.}
-$$
-Prove que:
-$$
-\Union_{n=0}^\infty A_n \subseteq \Union_{n=0}^{\infty} B_n.
-$$
-
-\solution
-Suponha $x \in \Union_{n=0}^\infty A_n$.
-Preciso mostrar que $x \in \Union_{n=0}^{\infty} B_n$,
-ou seja, mostrar que $x$ pertence em pelo menos um dos $B_n$'s.
-(Ou seja, procuro um $k\in \nats$ tal que $x \in B_k$.)
-Seja $m\in \nats$ tal que $x \in A_m$
-(pela definição de $\Union_{n=0}^\infty A_n$).
-Pela hipótese, $x \in B_{m+1}$, algo que mostra que
-$x \in \Union_{n=0}^{\infty} B_n$
-(tome $k \asseq m+1$).
-
-\endproblem
-%%}}}
 
 %%{{{ sequence_of_sets_inclusions_tricky_indices_2 
 \problem.
