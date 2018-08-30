@@ -12233,6 +12233,7 @@ O conjunto $\setst x {x \neq x}$ é um conjunto vazio.
 %%{{{ x: naive_uniqueness_of_emptyset 
 \exercise Unicidade do vazio.
 \label{naive_uniqueness_of_emptyset}%
+\ii{unicidade!do $\emptyset$}%
 Supondo que existe pelo menos um conjunto vazio, mostre sua unicidade.
 Não use reductio ad absurdum.
 
@@ -12264,6 +12265,7 @@ que foi o que queremos provar.
 %%{{{ x: naive_uniqueness_of_emptyset_absurdum 
 \exercise.
 \label{naive_uniqueness_of_emptyset_absurdum}%
+\ii{unicidade!do $\emptyset$}%
 Ache uma prova diferente, essa vez usando reductio ad absurdum.
 
 \hint
@@ -12305,7 +12307,8 @@ $$
 
 %%{{{ x: naive_uniqueness_of_universet 
 \exercise Existência e unicidade do universal.
-\label{naive_uniqueness_of_universet}
+\label{naive_uniqueness_of_universet}%
+\ii{unicidade!do universal}%
 Demonstre a existência e unicidade do conjunto universal.
 
 \hint
@@ -14887,21 +14890,56 @@ Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pert
 \endproblem
 %%}}}
 
-%%{{{ set_liminf_limsup 
+%%{{{ set_liminf_limsup_problem 
 \problem.
-Seja $A$ um conjunto, e $\sequence A n$ uma seqüência de subconjuntos de $A$.
-Sejam:
+\label{set_liminf_limsup_problem}%
+Seja $\sequence A n$ uma seqüência de conjuntos.
+Definimos os conjuntos
 $$
 \xalignat 2
 A_* &= \Union_{i=0}^{\infty} \Inter_{j=i}^{\infty} A_j &
 A^* &= \Inter_{i=0}^{\infty} \Union_{j=i}^{\infty} A_j.
 \endxalignat
 $$
-Como descreverias os elementos dos $A_*$ e $A^*$?
 É verdade que um desses conjuntos é subconjunto do outro?
 São iguais?  São disjuntos?
+Como descreverias os elementos dos $A_*$ e $A^*$?
+
+\hint
+Podemos provar que $A_* \subseteq A^*$.
 
 \endproblem
+%%}}}
+
+\blah.
+Os $A_*$ e $A^*$ do \ref{set_liminf_limsup_problem} merecem seus próprios nomes!
+
+%%{{{ df: set_limits 
+\definition.
+\label{set_limits}%
+\tdefined{limite}[de seqüência de conjuntos]%
+\tdefined{limite}[de seqüência de conjuntos]%
+\sdefined{\liminf_n A_n} {o limite inferior da seqüência $\sequence A n$}%
+\sdefined{\limsup_n A_n} {o limite superior da seqüência $\sequence A n$}%
+\sdefined{\lim_n A_n} {o limite da seqüência $\sequence A n$}%
+Seja $\sequence A n$ uma seqüência de conjuntos.
+Definimos seu \dterm{limite inferior} e seu \dterm{limite superior} pelas:
+$$
+\xalignat2
+\liminf_n A_n &\defeq \Union_{i=0}^{\infty} \Inter_{j=i}^{\infty} A_j &
+\limsup_n A_n &\defeq \Inter_{i=0}^{\infty} \Union_{j=i}^{\infty} A_j.
+\endxalignat
+$$
+Note que pelo~\ref{set_liminf_limsup_problem} sabemos que
+$$
+\liminf_n A_n \subseteq \limsup_n A_n.
+$$
+Digamos que a seqüência de conjuntos $\sequence A n$ \dterm{converge} sse
+$$
+\liminf_n A_n = \limsup_n A_n.
+$$
+Nesse caso, chamamos esse conjunto de \dterm{limite} da $\sequence A n$
+e usamos a notação $\lim_n A_n$ para denotá-lo.
 %%}}}
 
 \endproblems
@@ -29566,8 +29604,9 @@ Ou seja, $a \sim c$.
 \endexercise
 %%}}}
 
-%%{{{ df: conjugacy class 
+%%{{{ df: conjugacy_class 
 \definition Classe de conjugação.
+\label{conjugacy_class}%
 \tdefined{classe de conjugação}%
 \sdefined {\gcl {\holed a}} {a classe de conjugação de $a$}%
 Seja $G$ grupo e $a\in G$.
@@ -29577,6 +29616,19 @@ $$
 $$
 ou seja, $\gcl a$ é a classe de equivalência do $a$
 através da relação <<é um conjugado de>>.
+%%}}}
+
+%%{{{ x: conjugacy_class_of_e 
+\exercise.
+\label{conjugacy_class_of_e}%
+Seja $G$ grupo.
+Calcule a $\gcl e$.
+
+\hint
+$\gcl e = \set{e}$.
+Por quê?
+
+\endexercise
 %%}}}
 
 %%{{{ df: conjugation_by_member 
@@ -36601,8 +36653,8 @@ seguido pela nossa primeira definição:
 
 %%{{{ thm: uniqueness_of_emptyset 
 \theorem Unicidade do conjunto vazio.
-\ii{unicidade!do $\emptyset$}%
 \label{uniqueness_of_emptyset}%
+\ii{unicidade!do $\emptyset$}%
 O conjunto sem membros garantido pelo axioma~\axref{emptyset} é único.
 \proof.
 Suponha que $e, o$ são conjuntos ambós satisfazendo a propriedade:
