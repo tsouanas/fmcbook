@@ -12327,6 +12327,7 @@ Denotamos o conjunto universal por $\universet$.
 
 %%{{{ Q: How do we use a fact that a set is nonempty? 
 \question.
+\label{how_do_we_use_nonempty}%
 Como podemos usar um fato do tipo $D\neq \emptyset$ em nossas provas?
 O que ganhamos realmente?
 %%}}}
@@ -13837,6 +13838,35 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ x: commutativity of AxB doesn't imply A=B 
+\exercise.
+Prove ou refute:
+para todos os conjuntos $A,B$,
+$$
+A\times B = B \times A \implies A=B.
+$$
+
+\hint
+Se conseguiu refutar, tá errado.
+Eu imagino que em algum ponto tu ``sejou'' algum objeto
+em algum conjunto que não podia!
+Lembra a~\ref{how_do_we_use_nonempty}?
+
+\solution
+Como contraexemplo tome $A \asseq \emptyset$ e $B\asseq\nats$
+(qualquer $B\neq\emptyset$ serve).
+Observe que $A\neq B$, mas mesmo assim
+$$
+A\times B = B \times A
+$$
+pois
+$$
+\emptyset \times \nats = \emptyset = \nats \times \emptyset.
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ x: when_cartesian_commutes 
 \exercise.
 \label{when_cartesian_commutes}%
@@ -14176,6 +14206,42 @@ A inclusão inversa \rldirset\ é similar.
 \endexercise
 %%}}}
 
+%%{{{ x: distributivity over a sequence of sets 
+\exercise.
+Prove ou refute:
+para todo conjunto $A$ e toda seqüência de conjuntos $\set{B_n}_n$
+$$
+A \union \Inter_{n=0}^{\infty} B_n
+=
+\Inter_{n=0}^\infty \paren{A \union B_n}
+$$
+
+\solution
+A afirmação é verdadeira.
+\endgraf
+{\lrdirset}:
+Suponha $x \in A \union \Inter_{n=0}^{\infty} B_n$.
+Logo $x\in A$ ou $x \in \Inter_{n=0}^{\infty} B_n$.
+\case{Caso $x\in A$.}
+Temos que para todo $n\in\nats$, $x\in A\union B_n$ (pois $x \in A$), e logo $x \in \Inter_{n=0}^\infty \paren{A \union B_n}$.
+\case{Caso $x\in \Inter_{n=0}^{\infty} B_n$.}
+Seja $n\in\nats$.  Preciso mostrar que $x \in A \union B_n$,
+que é verdade pois $x \in B_n$ pela hipótese do caso.
+\endgraf
+{\rldirset}:
+Suponha $x \in \Inter_{n=0}^\infty \paren{A \union B_n}$.
+Logo $x \in A \union B_n$ para todo $n \in \nats$.
+\case{Caso $x\in A$,} o resultado é imediato
+\case{Caso $x\notin A$.}
+Seja $m\in \nats$.
+Vou mostrar que $x\in B_m$.
+Sabemos pela hipótese que $x \in A \union B_m$, e como $x \notin A$, logo $x\in B_m$.
+Como o $m$ foi arbitrário, concluimos que para todo $m\in \nats$, $x \in B_m$, que foi
+exatamente o que precisamos provar.
+
+\endexercise
+%%}}}
+
 %%{{{ x: running_intervals_on_nats 
 \exercise.
 \label{running_intervals_on_nats}%
@@ -14451,6 +14517,59 @@ Note que em palavras de rua, as definições são igualzíssimas:
 um objeto pertence à união da família sse ele pertence a pelo
 menos um dos seus membros; e perence à sua intersecção sse ele
 pertence a todos os seus membros.
+
+%%{{{ x: intersection_of_indices_of_families_exercise 
+\exercise.
+\label{intersection_of_indices_of_families_exercise}%
+Sejam $I,J$ conjuntos de índices e para cada $k\in I\union J$ seja $A_k$ um conjunto.
+A afirmação
+$$
+\Union_{k\in I\inter J} A_k
+=
+\Union_{k\in I} A_k \inter
+\Union_{k\in J} A_k
+$$
+é verdadeira?
+Responda\dots
+(1) ``sim'', e prove;
+(2) ``não'', e refute; ou
+(3) ``depende'', e demonstre dois exemplos: um onde a afirmação é verdadeira,
+e outro onde não é.
+
+\hint
+Depende.
+Agora ache um exemplo e um contraexemplo.
+
+\solution
+Depende!
+Primeiramente um exemplo onde a afirmação é válida:
+$$
+\xalignat2
+I = J &= \set{1} &
+A_1 &= \set{5}
+\intertext{\dots e um onde a afirmação é falsa:}
+I &=\set{1} &
+A_1 = A_2 &= \set{5} \\
+J &=\set{2}
+\endxalignat
+$$
+Realmente, verificamos calculando no primeiro exemplo:
+$$
+\xalignat2
+\Union_{k\in I\inter J} A_k &= A_1 &
+\Union_{k\in I} A_k \inter \Union_{k\in J} A_k &= A_1 \inter A_1 = A_1
+\intertext{\dots e no segundo:}
+\Union_{k\in I\inter J} A_k &= \Union_{k\in\emptyset} A_k = \emptyset &
+\Union_{k\in I} A_k \inter \Union_{k\in J} A_k &= A_1 \inter A_2 = \set{5}
+\endxalignat
+$$
+
+\endexercise
+%%}}}
+
+\blah.
+Deixando o \ref{intersection_of_indices_of_families_exercise}
+nos guiar, chegamos numa investigação interessante:
 
 %%{{{ x: unions_and_intersections_of_indices 
 \exercise.
@@ -14736,6 +14855,32 @@ $$
 %%{{{ Problems 
 \problems.
 
+%%{{{ calculate_set_extensions 
+\problem.
+\label{calculate_set_extensions}%
+Calcule as extensões dos conjuntos:
+$$
+\set{\set{\emptyset}}\cross\pset\emptyset;
+\qqqquad
+\set{\set{\emptyset}}\symdiff\Union\emptyset
+$$
+
+\solution
+Calculamos:
+$$
+\align
+\set{\set{\emptyset}}\cross \pset\emptyset &
+= \set{\set{\emptyset}}\cross\set{\emptyset}
+= \set{(\set{\emptyset},\emptyset)} \\
+\set{\set{\emptyset}}\symdiff\Union\emptyset &
+= \set{\set{\emptyset}}\symdiff\emptyset
+= \set{\set{\emptyset}}
+\endalign
+$$
+
+\endproblem
+%%}}}
+
 %%{{{ sequence_of_sets_inclusions_tricky_indices_2 
 \problem.
 \label{sequence_of_sets_inclusions_tricky_indices_2}%
@@ -14815,6 +14960,30 @@ Mesmo assim,
 $$
 \Inter_{n=0}^\infty A_n = \emptyset = \Inter_{n=0}^{\infty} B_n.
 $$
+
+\endproblem
+%%}}}
+
+%%{{{ sequence_of_sets_inclusions_tricky_indices_3 
+\problem.
+\label{sequence_of_sets_inclusions_tricky_indices_3}%
+Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos tais que
+$$
+\text{para todo número primo $p$, $A_p \subseteq B_{2p}$.}
+$$
+Prove ou refute:
+$$
+\Inter_{n=0}^\infty A_n \subseteq \Union_{n=28}^{\infty} B_n.
+$$
+
+\solution
+Suponha $x \in \Inter_{n=0}^\infty A_n$.\fact1
+Preciso mostrar que $x \in \Union_{n=28}^{\infty} B_n$,
+ou seja, achar um inteiro $m\geq 28$ tal que $x\in B_m$.
+Pela {\byfact1} temos $x\in A_{17}$; e como $17$ é primo,
+$A_{17}\subseteq B_{34}$ (pela hipótese).
+Logo $x \in B_{34}$.
+Então realmente $x \in \Union_{n=28}^{\infty} B_n$.
 
 \endproblem
 %%}}}
