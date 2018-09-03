@@ -8265,7 +8265,7 @@ com os elementos de $\nats\setminus\set0$.
 Tua metodo deve ser uma \emph{revertível}, no sentido que
 cada seqüência finita
 $$
-s = \seq{s_0,s_1,\dotsc,s_{k_s}}\in S
+s = \tup{s_0,s_1,\dotsc,s_{k_s}}\in S
 $$
 deve corresponder em exatamente um número natural $n_s\in\nats\setminus\set0$,
 e, dado esse número $n_s\in\nats_{>0}$, deveria ser possível ``extrair''
@@ -8292,9 +8292,9 @@ p_{k_n}^{a_{k_n}}
 $.
 
 \hint
-Teste tua codificação nas seqüências $\seq{1,3}$ e $\seq{1,3,0}$.
+Teste tua codificação nas seqüências $\tup{1,3}$ e $\tup{1,3,0}$.
 Como essas seqüências são diferentes, suas codificações devem ser diferentes também.
-E a seqüência vazia $\seq{}\in S$?  
+E a seqüência vazia $\tup{}\in S$?  
 
 \solution
 Seja
@@ -8304,7 +8304,7 @@ $$
 a seqüência infinita dos primos.  (Assim, $p_0 = 2$, $p_1 = 3$, $p_2 = 5$, etc.)
 Seja
 $$
-\seq{s_0, s_1, \dotsc, s_{n-1}} \in S
+\tup{s_0, s_1, \dotsc, s_{n-1}} \in S
 $$
 uma seqüência de naturais de tamanho $n$.
 Vamos a codificar com o inteiro
@@ -8326,7 +8326,7 @@ Se existe exponente $a_j = 0$, o $c$ não codifica nenhuma seqüência.
 Caso contrario, todos os exponentes são positivos, e o $c$ codifica
 a seqüência
 $$
-\seq{a_0-1, a_1-1, \dotsc, a_m-1} \in S.
+\tup{a_0-1, a_1-1, \dotsc, a_m-1} \in S.
 $$
 
 \endproblem
@@ -15109,6 +15109,33 @@ Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pert
 \endproblem
 %%}}}
 
+%%{{{ sandwiching_a_set_sequence 
+\problem Sanduichando uma seqüência de conjuntos.
+\label{sandwiching_a_set_sequence}%
+Seja $\seqn A n$ uma seqüência de conjuntos.
+Demonstre que para todo $k\in\nats$,
+$$
+\Inter_{i=k}^{\infty} {A_i}
+\subseteq
+A_k
+\subseteq
+\Union_{i=k}^{\infty} {A_i}.
+$$
+Ou seja, temos:
+$$
+\matrix
+\format
+\c      & \;\c\; & \r                                                 & \quad\c\quad & \c     & \quad\c\quad & \r                                                 & \;\c\; & \c  \\
+C_0     & \asseq & A_0 \inter A_1 \inter A_2 \inter A_3 \inter \dotsb & \subseteq    & A_0    & \subseteq    & A_0 \union A_1 \union A_2 \union A_3 \union \dotsb & \eqass & D_0 \\
+C_1     & \asseq &            A_1 \inter A_2 \inter A_3 \inter \dotsb & \subseteq    & A_1    & \subseteq    &            A_1 \union A_2 \union A_3 \union \dotsb & \eqass & D_1 \\
+C_2     & \asseq &                       A_2 \inter A_3 \inter \dotsb & \subseteq    & A_2    & \subseteq    &                       A_2 \union A_3 \union \dotsb & \eqass & D_2 \\
+        & \vdots &                     \ddots \phantom{\inter \dotsb} & \vdots       & \vdots & \vdots       &                     \ddots \phantom{\union \dotsb} & \eqass & \vdots \\
+\endmatrix
+$$
+
+\endproblem
+%%}}}
+
 %%{{{ set_liminf_limsup_problem 
 \problem.
 \label{set_liminf_limsup_problem}%
@@ -15190,6 +15217,59 @@ $$
 $$
 Nesse caso, chamamos esse conjunto de \dterm{limite} da $\sequence A n$
 e usamos a notação $\lim_n A_n$ para denotá-lo.
+%%}}}
+
+%%{{{ df: increasing_decreasing_sequence 
+\definition.
+\label{increasing_decreasing_sequence}%
+Seja $\sequence A n$ uma seqüência de conjuntos.
+Dizemos que $\sequence A n$ é uma \dterm{seqüência crescente} sse
+$A_i \subseteq A_{i+1}$ para todo $i\in \nats$.
+Similarmente, $\sequence A n$ é uma \dterm{seqüência decrescente} sse
+$A_i \supseteq A_{i+1}$ para todo $i\in \nats$.
+Rascunhamente:
+$$
+\align
+\text{$\sequence A n$ crescente}
+&\defiff A_0 \subseteq A_1 \subseteq A_2 \subseteq \cdots \\
+\text{$\sequence A n$ decrescente}
+&\defiff A_0 \supseteq A_1 \supseteq A_2 \supseteq \cdots
+\endalign
+$$
+Uma seqüência é \dterm{monótona} (ou \dterm{monotônica}) sse
+ela é crescente ou decrescente.
+%%}}}
+
+%%{{{ prob: monotone_sequences_have_limits 
+\problem.
+\label{monotone_sequences_have_limits}%
+Seja $\seqn A n$ uma seqüência monótona.
+Demonstre que $\seqn A n$ tem limite.
+Qual é?
+
+\endproblem
+%%}}}
+
+%%{{{ prob: sandwich_breads_are_monotone_and_optimal 
+\problem Os pães do sanduiche são monótonos e ótimos.
+\label{sandwich_breads_are_monotone_and_optimal}%
+No~\ref{sandwiching_a_set_sequence} definimos duas seqüências
+``sanduichando'' a $\seqn A n$: uma crescente (a $\seqn C n$)
+e uma decrescente (a $\seqn D n$).
+Pelo~\ref{monotone_sequences_have_limits} então ambas
+têm limites, e realmente temos
+$$
+\limit_n C_n = \liminf_n A_n \subseteq \limsup_n A_n = \limit_n D_n.
+$$
+Ainda mais é verdade:
+de todas as seqüências crescentes, $\seqn C n$ é a maior tal que
+$C_n\subseteq A_n$ para todo $n\in\nats$; e similarmente
+de todas as decrescentes, $\seqn D n$ é a menor tal que
+$A_n\subseteq D_n$ para todo $n\in\nats$.
+Formalize o que significam as palavras ``maior'' e ``menor''
+na afirmação acima, e demonstre sua vericidade.
+
+\endproblem
 %%}}}
 
 \endproblems
