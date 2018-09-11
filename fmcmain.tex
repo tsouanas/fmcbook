@@ -15404,28 +15404,6 @@ $$
 Espero que dá para apreciar a laconicidade dessa notação.
 %%}}}
 
-%%{{{ df: endomapping 
-\definition.
-\label{endomapping}%
-\tdefined{endomapa}%
-Uma função $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
-%%}}}
-
-%%{{{ eg: succ and its black box 
-\example.
-A função $\namedfun{succ} : \nats\to\nats$
-que retorna para cada natural $n$ seu sucessor $n+1$.
-Dando por exemplo $2$ como entrada nela, observamos o valor
-$\namedfun{succ}(2) = 3$:
-$$
-\tikzpicture
-\tikzi blackboxfunsucc;
-\endtikzpicture
-$$
-O $\namedfun{succ}$ é um exemplo de endomapa.
-\endexample
-%%}}}
-
 %%{{{ function vs. application of function 
 \note Função vs.~aplicação de função.
 Em matemática muitas vezes falamos frases como as seguintes:
@@ -15813,9 +15791,9 @@ função que utilizamos.}
 Assim, a escolha de ponto de vista de função não vai nos afetar.
 %%}}}
 
-%%{{{ df: f_eq_g_1 
-\definition Igualdade (I).
-\label{f_eq_g_1}%
+%%{{{ df: f_eq_g_setist 
+\definition Igualdade (I): ``Conjuntista''.
+\label{f_eq_g_setist}%
 Sejam $f,g$ funções.
 Digamos que $f=g$ sse \emph{quaisquer duas} das afirmações seguintes são válidas:
 \beginol
@@ -15829,9 +15807,9 @@ f = g \defiff \graph f = \graph g.
 $$
 %%}}}
 
-%%{{{ df: f_eq_g_2 
-\definition Igualdade (II).
-\label{f_eq_g_2}%
+%%{{{ df: f_eq_g_catist 
+\definition Igualdade (II): ``Categorista''.
+\label{f_eq_g_catist}%
 Sejam $f,g$ funções.
 Digamos que $f=g$ sse 
 \beginol
@@ -15856,6 +15834,38 @@ f=g
 \defiff
 \text{para todo $x \in A$, $f(x) = g(x)$.}
 $$
+%%}}}
+
+%%{{{ df: endomapping 
+\definition.
+\label{endomapping}%
+\tdefined{endomapa}%
+Uma função $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
+%%}}}
+
+%%{{{ eg: succ and its black box 
+\example.
+A função $\namedfun{succ} : \nats\to\nats$
+que retorna para cada natural $n$ seu sucessor $n+1$.
+Dando por exemplo $2$ como entrada nela, observamos o valor
+$\namedfun{succ}(2) = 3$:
+$$
+\tikzpicture
+\tikzi blackboxfunsucc;
+\endtikzpicture
+$$
+O $\namedfun{succ}$ é um exemplo de endomapa.
+\endexample
+%%}}}
+
+%%{{{ remark: Some notions don't make sense for the Setist 
+\remark.
+Observe que a noção de ``ser endomapa'' não faz sentido
+para quem escolher definir \emph{função} pela~\ref{f_eq_g_setist}
+(ou seja, para o ``Conjuntista'')
+pois ele nem sabe dizer qual é o codomínio duma função.
+Logo vamos encontrar mais noções que também não fazem
+sentido pra ele---fique alerto!
 %%}}}
 
 \endsection
@@ -17076,9 +17086,9 @@ $$
 i : A \incto B
 $$
 para enfatizar que é uma inclusão mesmo.
-Note que seguindo o ponto de vista categorial (\refn{f_eq_g_2}),
+Note que seguindo o ponto de vista categorial (\refn{f_eq_g_catist}),
 se $A \subsetneq B$ então $i \neq \id_A$,
-mas seguindo o ponto de vista conjuntista (\refn{f_eq_g_1}),
+mas seguindo o ponto de vista conjuntista (\refn{f_eq_g_setist}),
 temos $i = \id_A$.
 %%}}}
 
@@ -17611,7 +17621,7 @@ de igualdade~\refn{f_eq_g}:
 mostrando que elas tem o mesmo domínio $A$,
 e que comportam igualmente para o arbitrário $a \in A$.
 Observe que seus codomínios também são iguais, satisfazendo
-assim a definição de igualdade~\refn{f_eq_g_2} também.
+assim a definição de igualdade~\refn{f_eq_g_catist} também.
 Pegando cada lado da igualdade e aplicando a definição de $\of$
 chegamos no mesmo valor.
 \qes
@@ -17628,7 +17638,7 @@ $$
 \endalignat
 $$
 Similarmente elas tem os mesmos codomínios
-(caso que seguimos a definição~\refn{f_eq_g_2})
+(caso que seguimos a definição~\refn{f_eq_g_catist})
 $$
 \alignat2
 \cod\paren{ h \of (g \of f) }
