@@ -19472,6 +19472,31 @@ Se $f : A \to B$ então, temos que:
 As duas afirmações são conseqüências imediatas das definições envolvidas.
 %%}}}
 
+%%{{{ x: our_img_notation_is_better 
+\exercise.
+\label{our_img_notation_is_better}%
+Em matemática as vezes aparece a notação $f(X)$ para denotar a imagem do
+$X\subseteq \dom f$ através da função $f$.
+Aqui usamos a notação $\img f X$.
+\emph{Sem usar o conjunto vazio em lugar nenhum na tua resposta},
+dê um exemplo (completo) que mostre que a notação $f(X)$ pode ser problemática
+(e logo nossa notação $\img f X$ é melhor).
+Explique curtamente.
+
+\hint
+Pode acontecer que $X \in A$ e também $X \subseteq A$?
+
+\solution
+Sejam $A = \set{ 1, 2, \set{1,2} }$, e $X = \set {1,2}$.
+Observe que $X\in A$ e $X \subseteq A$.
+Seja $f : A \to \set{3}$ a função constante definida pela $f(x) = 3$.
+Assim a notação $f(X)$ fica ambígua: a $f$-imagem de $X\subseteq A$ é o $\set 3$,
+mas o valor da $f$ no $X$ é o $3$.
+E $3 \neq \set{3}$.
+
+\endexercise
+%%}}}
+
 %%{{{ x: erroneous_definition_of_pre 
 \exercise.
 \label{erroneous_definition_of_pre}%
@@ -19568,6 +19593,60 @@ símbolo $\pre f Y$ \emph{denotam o mesmo objeto}.
 Temporariamente mude tua notação para ajudar teus olhos distinguir entre as duas interpretações melhor.
 Use, por exemplo, $f_{-1}$ para denotar a função inversa da $f$, ou, alternativamente, bota parenteses
 $(f^{-1})$ para enfatizar que estás denotando a função inversa da $f$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: bij_iff_all_pre_are_singletons 
+\exercise.
+\label{bij_iff_all_pre_are_singletons}%
+Seja $f : A \to B$.
+Prove que
+$$
+\text{$f$ bijetora} \iff \text{para todo $b \in B$, $\pre f {\set b}$ é um conjunto unitário}.
+$$
+
+\hint
+Pense\dots
+Como podes matar um alvo que um conjunto $S$ é unitário?
+Como podes usar um fato que um conjunto $S$ é unitário?
+
+\hint
+Como matar o alvo que um conjunto $S$ é unitário?
+Basta mostrar duas coisas:
+(1) $S$ tem pelo menos um membro (ou seja: $S\neq\emptyset$);
+(2) $S$ tem no máximo um membro (ou seja: para todo $s,s' \in S$,
+temos $s=s'$).
+E como usar o fato que um conjunto $S$ é unitário?
+Para todos os $s, s' \in S$, ganhamos que $s=s'$.
+
+\solution
+\proofpart{\lrdir}.
+Suponha que $f$ bijetora, e seja $b\in B$.
+Vou demonstrar que $\pre f {\set b}$ é unitário.
+Vamos chamá-lo de $A_b$.
+Como $f$ é sobrejetora, logo seja $a_b \in A$ tal que $f(a_b) = b$.
+Logo $a_b \in A_b$ pela definição da preimagem,
+e logo $A_b \neq\emptyset$ (pois tem pelo menos um membro).
+Basta mostrar que tem no máximo um membro.
+Sejam $a, a' \in A_b$ então e vamos mostrar que $a=a'$.
+Pela escolha dos $a,a'$, temos $f(a) = f(a') = b$;
+e agora pela injetividade da $f$ temos o desejado $a=a'$.
+\crtabproofpart{\rldir}.
+Suponha que para todo $b \in B$, o $\pre f {\set b}$ é unitário.
+Preciso mostrar que $f$ é injetora e sobrejetora.
+\crproofpart{$f$ injetora:}
+Suponha que temos $x,y\in A$ tais que $f(x) = f(y)$ e chame esse valor comum de $b$.
+Basta provar que $x=y$.
+Pela hipótese, o $\pre f {\set b}$ é unitário,
+e pela escolha dos $x,y$ sabemos que $x,y$ pertencem a ele.
+Logo $x=y$.
+\crproofpart{$f$ sobrejetora:}
+Seja $b\in B$.
+Procuramos $a\in A$ tal que $f(a) = b$.
+Pela hipótese, o conjunto $\pre f {\set b}$ é unitário (e logo não vazio).
+Tome $a$ o (único) membro desse conjunto e observe que pela definição
+de preimagem temos que $f(a) = b$.
 
 \endexercise
 %%}}}
@@ -20193,6 +20272,7 @@ $$
 &: A \to (B \to A) \\
 &: A \to (B \to B) \\
 &: (A \to A) \to A \\
+&: A \to \bigparen{B \to \paren{(A\to B) \times (A\union C) \times \nats}} \\
 &: (A \to (B \to C) \to ((A\times B)\to C)) \\
 &: ((A\times B)\to C) \to (A \to (B \to C))
 \endalign
@@ -20414,6 +20494,54 @@ No~\ref{Relations} vamos estudar também o caso onde apagamos ambas as condiçõ
 Seja $f : A \to A$ um endomapa num conjunto $A$.
 Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
 $f(x) = x$.
+%%}}}
+
+%%{{{ x: fixpoint_iff_iterations 
+\exercise.
+\label{fixpoint_iff_iterations}%
+Prove a afirmação:
+$$
+\text{$x$ é um fixpoint da $f$}
+\iff
+\text{para todo $n\in\nats$, $x$ é um fixpoint da $f^n$}.
+$$
+
+\hint
+A {\rldir} é muito fácil; para a {\lrdir} use indução.
+
+\solution
+\proofpart{\lrdir}:
+Suponha $x$ é um fixpoint da $f$.
+Vamos provar o que precisamos por indução no $n$.
+\proofpart{Base:}
+Calculamos:
+$$
+\alignat2
+f^0 (x)
+&= 1_A (x)  \by{pela def.~da $f^0$}
+&= x        \by{pela def.~da $1_A$}
+\endalignat
+$$
+e logo $x$ é um fixpoint da $f^0$.
+\proofpart{Passo indutivo:}
+Suponha $k\in\nats$ tal que $x$ é um fixpoint da $f^k$ (H.I.).
+Calculamos:
+$$
+\alignat2
+f^{k+1}(x)
+&= (f \of f^k)(x)   \by{pela def.~de $f^{k+1}$}
+&= f\paren{f^k(x)}  \by{pela def.~de $f\of f^k$}
+&= f( x )           \by{pois $x$ é um fixpoint da $f^k$ (H.I.)}
+&= x                \by{pois $x$ é um fixpoint da $f$}
+\endalignat
+$$
+e logo $x$ é um fixpoint da $f^{k+1}$.
+\crproofpart{\rldir}:
+Usando nossa hipótese com $n \asseq 1$, temos que $x$ é um fixpoint da $f^1$.
+Mas $f^1$ é a propria $f$ (pois $f^1 = f \of f^0 = f \of 1_A = f$)
+e logo $x$ é um fixpoint da $f$.
+
+\endexercise
 %%}}}
 
 %%{{{ x: fix_f_properties 
