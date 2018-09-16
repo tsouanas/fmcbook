@@ -19917,10 +19917,10 @@ Mesmo assim, a recursão ``sempre termina'', e a $f$ realmente
 Calculamos como exemplo uns valores:
 $$
 \align
-f(0) &= f(1) = 0 \\
-f(4) &= 2 \\
-f(5) &= f(6) = f(7) = f(8) = 3 \\
-f(1020) &= f(1021) = f(1022) = f(1023) = f(1024) = 10.
+f(0) &= f(1) = \log_2(1) = 0 \\
+f(4) &= \log_2(4) = 2 \\
+f(5) &= f(6) = f(7) = f(8) = \log_2(8) = 3 \\
+f(1020) &= f(1021) = f(1022) = f(1023) = f(1024) = \log_2(1024) = 10.
 \endalign
 $$
 \endexample
@@ -19958,9 +19958,8 @@ $$
 f(n) = f(n),
 \quad\text{para todo $n\in\nats$}.
 $$
-É óbvio que isso não \emph{determina} uma função:
-\emph{toda função $\nats\to\nats$ satisfaz essa equação},
-então não podemos usá-la como definição!
+É óbvio que isso não \emph{determina} uma função.
+Mas por quê?
 \endexample
 %%}}}
 
@@ -19969,12 +19968,13 @@ então não podemos usá-la como definição!
 \label{dangerous_recursion_g}%
 Seja $g : \nats\to\nats$ a função definida pela
 $$
-g(n) = g(n)+1,
-\quad\text{para todo $n\in\nats$}.
+\align
+g(0) &= 1 \\
+g(n) &= g(n)+1, \quad\text{para todo $n>0$}.
+\endalign
 $$
-Isso também não \emph{determina} uma função:
-\emph{nenhuma função $\nats\to\nats$ satisfaz essa equação},
-então não podemos usá-la como definição!
+Isso também não \emph{determina} uma função.
+Por quê?
 \endexample
 %%}}}
 
@@ -19983,17 +19983,108 @@ então não podemos usá-la como definição!
 \label{dangerous_recursion_h}%
 Seja $h : \nats\to\nats$ a função definida pela
 $$
-h(n) = h(n+1),
-\quad\text{para todo $n\in\nats$}.
+h(n) = h(n+1), \quad\text{para todo $n\in\nats$}.
 $$
 Isso também não \emph{determina} uma função---mas por quê?
 \endexample
 %%}}}
 
-%%{{{ x: what_is_the_problem_with_the_recursion_of_h 
+%%{{{ x: what_is_the_problem_with_those_recursive_definitions 
 \exercise.
-\label{what_is_the_problem_with_the_recursion_of_h}%
-A pergunta não foi rhetórica!
+\label{what_is_the_problem_with_those_recursive_definitions}%
+As perguntas sobre as $f,g,h$ acima não foram rhetóricas!
+
+\endexercise
+%%}}}
+
+%%{{{ eg: pre_collatz_safe 
+\example.
+\label{pre_collatz_safe}%
+Considere a função $k : \nats \to \nats$ definida pela recursão
+$$
+\align
+k(0) &= 1\\
+k(1) &= 1\\
+k(n) &=
+\knuthcases{
+k(n/2), &se $n$ é potência de $2$\cr
+k(n+1), &caso contrário
+}\quad\text{(para $n > 1$)}.
+\endalign
+$$
+Aceitaria isso como uma definição duma função $k : \nats\to\nats$?
+\endexample
+%%}}}
+
+%%{{{ eg: pre_collatz_unsafe 
+\example.
+\label{pre_collatz_unsafe}%
+Considere a função $d : \nats \to \nats$ definida pela recursão
+$$
+\align
+d(0) &= 1\\
+d(1) &= 1\\
+d(n) &=
+\knuthcases{
+d(n/2), &se $n$ é potência de $2$\cr
+d(n+3), &caso contrário
+}\quad\text{(para $n > 1$)}.
+\endalign
+$$
+Aceitaria isso como uma definição duma função $d : \nats\to\nats$?
+\endexample
+%%}}}
+
+%%{{{ x: reply 
+\exercise.
+Responda nas perguntas dos exemplos acima~(\refn{pre_collatz_safe}
+e~\refn{pre_collatz_unsafe}).
+
+\endexercise
+%%}}}
+
+%%{{{ x: calculate_pre_collatz 
+\exercise.
+\label{calculate_pre_collatz}%
+Usando as $k,d : \nats\to\nats$ dos exemplos \refn{pre_collatz_safe}
+e~\refn{pre_collatz_safe} acima calcule os:
+$$
+k(6); \quad
+k(9); \quad
+d(5); \quad
+d(11);\quad
+d(6).
+$$
+(Confira teus resultados com minha dica e minha resolução!)
+
+\hint
+Se tu achou valores para todas as expressões,
+tu errou (pelo menos uma vez).
+Todos eles são definidos exceto um!
+
+\solution
+Calculamos:
+$$
+k(6)  &= k(7) = k(8) = k(4) = k(2) = k(1) = 1 \\
+k(9)  &= k(10) = k(11) = k(12) = \dotsb = k(16) = k(8) \dotseq 1 \\
+d(5)  &= d(8) = d(4) = d(2) = d(1) = 1 \\
+d(11) &= d(14) = d(17) = d(20) = d(23) = d(26) = d(29) = d(32) = d(16) \dotseq 1 \\
+d(6)  &= d(9) = d(12) = d(15) = d(18) = d(21) = d(24) = d(27) = d(30) = d(33) = \dotseq 1 \\
+$$
+onde parece que o último cálculo \emph{nunca terminará}.
+Deixo você se preocupar com a vericidade dessa afirmação
+no~\ref{why_pre_collatz_unsafe_diverges_on_6}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: k_is_the_constant_one 
+\exercise.
+Qual é a função $k$ do~\ref{pre_collatz_safe}?
+(Tu deves saber um nome dela bem simples.)
+
+\solution
+Ela é a função constante do $\nats$ com valor $1$.
 
 \endexercise
 %%}}}
@@ -20001,14 +20092,15 @@ A pergunta não foi rhetórica!
 %%{{{ eg: collatz_recursive 
 \example.
 \label{collatz_recursive}%
-Considere a função $f : \nats_{>0} \to \nats$ definida pela recursão
+Considere a função $c : \nats \to \nats$ definida pela recursão
 $$
 \align
-f(1) &= 1\\
-f(n) &=
+c(0) &= 1\\
+c(1) &= 1\\
+c(n) &=
 \knuthcases{
-f(n/2),  &se $n$ é par\cr
-f(3n+1), &se $n$ é ímpar.
+c(n/2),  &se $n$ é par\cr
+c(3n+1), &caso contrário
 }\quad\text{(para $n > 1$)}.
 \endalign
 $$
@@ -20017,7 +20109,71 @@ $$
 
 %%{{{ x: calculate three values 
 \exercise.
-Calcule os valores $f(8), f(3), f(7)$ da $f$ acima.
+Calcule os valores $c(8), c(3), c(7)$ da função $c$ acima.
+
+\endexercise
+%%}}}
+
+%%{{{ What's going on? 
+\note O que tá acontecendo?.
+Já deve ser claro que apenas escrevendo umas equações que involvem
+a função que queremos definir não é uma maneira segura que garanta
+que realmente nossas equações \emph{determinam} (definam) uma função.
+Umas vezes deu certo, outras não.
+Mas em todos os casos, a ``definição'' da função foi apenas uma
+\emph{lista de equações}.%
+\footnote{Foi mesmo?
+Não exatamente: \emph{depois} veja o~\ref{not_a_list_of_equations}.}
+Estamos procurando entender melhor essa situação:
+um cara chegou com um um bocado de equações como uma suposta definição
+recursiva duma função, e a gente aceitou isso como definição mesmo.
+E outro cara chegou com o mesmo tipo de coisa (um bocado de equações)
+e no caso dele a gente falou ``desculpa mas isso não serve como
+definição de função''.  Que tal?
+%%}}}
+
+%%{{{ Recursive definitions as systems to solve 
+\note Definições recursivas como sistemas para resolver.
+
+%%}}}
+
+%%{{{ x: why_each_of_the_non_definitions_fails 
+\exercise.
+\label{why_each_of_the_non_definitions_fails}%
+Com esse novo ponto de visto, responda para cada uma
+das supostas definições na pergunta: por quê não
+deu certo?
+
+\solution
+Sobre a $f$:
+\emph{toda função $f : \nats\to\nats$ satisfaz essa equação},
+então não podemos usá-la como definição!
+\endgraf
+Sobre a $g$:
+\emph{nenhuma função $g : \nats\to\nats$ satisfaz essa equação},
+então não podemos usá-la como definição!
+\endgraf
+Sobre a $h$:
+\emph{mais que uma função $h : \nats \to \nats$ satisfaz essa equação},
+então não podemos usá-la como definição!
+
+\endexercise
+%%}}}
+
+%%{{{ x: which_functions_satisfy_the_equations_of_h 
+\exercise.
+\label{which_functions_satisfy_the_equations_of_h}%
+Quais são exatamente as funções que satisfazem a ``definição''
+da $h$ do~\ref{dangerous_recursion_h}?
+
+\hint
+Suponha que uma $h : \nats\to\nats$ satisfaz essa
+definição, e suponha que seu valor $h(5) = v$
+para algum $v\in\nats$.  O que podes concluir
+sobre os valores da $h$ para suas outra entradas?
+
+\solution
+Todas as funções constantes.
 
 \endexercise
 %%}}}
@@ -20025,7 +20181,7 @@ Calcule os valores $f(8), f(3), f(7)$ da $f$ acima.
 %%{{{ x: why_recursive_collatz_does_not_define_a_function 
 \exercise.
 \label{why_recursive_collatz_does_not_define_a_function}%
-Qual o problema com a definição da função $f$ do~\ref{collatz_recursive}?
+Qual o problema com a definição da função $c$ do~\ref{collatz_recursive}?
 
 \hint
 Por que termina a recursão para toda entrada?
@@ -21413,6 +21569,83 @@ Bem, seria bom definir pelo menos a identidade não-determinista
 $id_A : A \ndeto A$, e investigar se as leis que provamos sobre
 o caso de funções que conectam composição e identidades estão válidas
 para nossas funções não-deterministas também.
+
+\endproblem
+%%}}}
+
+%%{{{ why_pre_collatz_unsafe_diverges_on_6 
+\problem.
+\label{why_pre_collatz_unsafe_diverges_on_6}
+Calculando para resolver o~\ref{calculate_pre_collatz}
+pareceu que o cálculo do $d(6)$ não ia terminar.
+Prove que realmente não termina.
+
+\hint
+Botei esse problema para desenferrujar tuas armas
+de teoria dos números (capítulos~\refn{Number_theory_divisibility}
+e~\refn{Number_theory_congruences})
+
+\hint
+Observe que a seqüência desses valores começa com 6, assim:
+$$
+6
+\leadsto 9
+\leadsto 12
+\leadsto 15
+\leadsto 18
+\leadsto 21
+\leadsto \dotsb
+$$
+Mas, somando $+3$ num número par, sabemos já que o próximo
+número será ímpar e logo não pode ser potência de $2$,
+e logo já sabemos que o próximo passo sera somar $+3$ novamente.
+Então podemos pular os ímpares acima, e reduzir nosso trabalho
+focando nessa seqüência:
+$$
+6
+\leadsto 12
+\leadsto 18
+\leadsto 24
+\leadsto 30
+\leadsto 36
+\leadsto \dotsb
+$$
+De $6$ para $12$ ela ``pulou'' a potência (de $2$) $8$.
+E de $12$ para $18$ também pulou o $16$.
+A próxima potência é o $32$, que nossa seqüência tambem
+conseguiu pular ($30\leadsto 36$).
+Teu objetivo é \emph{demonstrar} que ela consegue ``pular''
+\emph{todas} as potências de $2$.
+
+\hint
+Módulo $6$.
+
+\hint
+Como parecem \emph{todas} as potências de $2$ dentro do ``módulo-$6$''?
+
+\hint
+A seqüência de todas as potências de $2$ é:
+$$
+1, 2, 4, 8, 16, 32, 64, \dotsc
+$$
+que, módulo $6$ fica:
+$$
+1, 2, 4, 2, 4, 2, 4, 2, \dotsc \pmod 6.
+$$
+Isso é fácil para provar: então prove.
+
+\hint
+Observe que somando $+6$ num número não o muda ``módulo $6$''.
+(Lembre que $6 \cong 0 \pmod 6$.)
+
+\hint
+Ou seja: começando com qualquer número $m$ que módulo $6$
+é um dos $0,3,5$ sabemos que $d(m)$ \emph{diverge}, ou seja,
+o $d(m)$ não é definido.
+E se $m$ é $1$ módulo $6$?
+A única potência de $2$ que é $1$ módulo $6$ é o próprio $1$,
+e logo qualquer outro inteiro que é $1$ módulo $6$ não
+pode ser uma potência de $2$.
 
 \endproblem
 %%}}}
