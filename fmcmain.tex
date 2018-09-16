@@ -19887,12 +19887,77 @@ veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
 Já encontramos várias definições recursivas.
 Agora vamos analizar com que precisamos tomar cuidado para garantir
 que nossas ``funções'' realmente são funções bem definidas.
+Vamos começar lembrando como exemplo duas funções recursivas famosas demais.
+
+%%{{{ eg: fact_and_fib_recursive_eg 
+\example.
+\label{fact_and_fib_recursive_eg}%
+Sejam $a:\nats\to\nats$ definida pelas
+$$
+\alignat2
+a(0) &= 1\\
+a(n) &= n \ntimes a(n-1), \quad\text{para todo $n>0$};
+\intertext{e $b:\nats\to\nats$ definida pelas}
+b(0) &= 1\\
+b(1) &= 1\\
+b(n) &= b(n-1) + b(n-2), \quad\text{para todo $n\in\nats$}.
+\endalignat
+$$
+Muitas vezes deixamos as frases ``para todo $n>0$'' como
+implícitas pelo contexto---mas entenda que elas precisam estar lá,
+e \emph{estão} lá mesmo quando escolhemos omití-las.
+Agora, assuma que tu aceita ambas as $a,b : \nats\to\nats$ como
+funções \emph{bem definidas}, e continue lendo.
+\endexample
+%%}}}
+
+%%{{{ mutual_recursion 
+\note Recursão mutual.
+\label{mutual_recursion}%
+Podemos definir duas ou mais funções, cada uma chamando recursivamente
+outras, tomando certos cuidados como sempre para garantir que realmente
+todas as funções vão ser definidas mesmo para todas as entradas
+aceitas pelos domínios delas.
+%%}}}
+
+%%{{{ eg: mutual_recursion_even_odd 
+\example.
+\label{mutual_recursion_even_odd}%
+{%
+\def\even{\namedfun{even}}%
+\def\odd{\namedfun{odd}}%
+Vamos definir as funções $\even,\odd:\nats\to\set{0,1}$ pelas
+$$
+\xalignat2
+\even(0)   &= 1       & \odd(0)   &= 0 \\
+\even(n+1) &= \odd(n) & \odd(n+1) &= \even(n)
+\endxalignat
+$$
+Calculamos, por exemplo:
+$$
+\align
+\even(3) &
+= \odd(2)
+= \even(1)
+= \odd(0)
+= 0 \\
+odd(3) &
+= \even(2)
+= \odd(1)
+= \even(0)
+= 1
+\endalign
+$$
+}
+\endexample
+%%}}}
 
 %%{{{ Safe recursion 
 \note Recursão segura.
 Na maioria das vezes que definimos funções recursivamente
-existe ``algo'' (muitas vezes esse ``algo'' é o próprio
-argumento da função, mas não sempre) que com cada ``chamada recursiva''
+existe ``algo''---muitas vezes esse ``algo'' é o próprio
+argumento da função (como no~\ref{fact_and_fib_recursive_eg})
+mas não sempre---que com cada ``chamada recursiva''
 da função fica menor e menor, até cair num valor que garanta
 uma ``saida da recursão''.
 (Essa descrição é bem vaga sim.)
@@ -19901,12 +19966,12 @@ uma ``saida da recursão''.
 %%{{{ eg: recursion_with_powers_of_two 
 \example.
 \label{recursion_with_powers_of_two}%
-Seja $f : \nats\to\nats$ a função definida pela:
+Seja $p : \nats\to\nats$ a função definida pela:
 $$
-f(x) =
+p(x) =
 \knuthcases{
 \log_2(x), & se $x$ é uma potência de $2$;\cr
-f(x+1), & se não.
+p(x+1), & se não.
 }
 $$
 Aqui nas chamadas recursivas não é o próprio argumento que é
@@ -19917,10 +19982,10 @@ Mesmo assim, a recursão ``sempre termina'', e a $f$ realmente
 Calculamos como exemplo uns valores:
 $$
 \align
-f(0) &= f(1) = \log_2(1) = 0 \\
-f(4) &= \log_2(4) = 2 \\
-f(5) &= f(6) = f(7) = f(8) = \log_2(8) = 3 \\
-f(1020) &= f(1021) = f(1022) = f(1023) = f(1024) = \log_2(1024) = 10.
+p(0) &= p(1) = \log_2(1) = 0 \\
+p(4) &= \log_2(4) = 2 \\
+p(5) &= p(6) = p(7) = p(8) = \log_2(8) = 3 \\
+p(1020) &= p(1021) = p(1022) = p(1023) = p(1024) = \log_2(1024) = 10.
 \endalign
 $$
 \endexample
@@ -19929,7 +19994,7 @@ $$
 %%{{{ x: find invariant 
 \exercise.
 Ache um ``algo'' que fica cada vez menor com cada chamada recursiva
-da $f$ do~\ref{recursion_with_powers_of_two}.
+da $p$ do~\ref{recursion_with_powers_of_two}.
 
 \hint
 Uma ``distância'' está sendo cada vez menor.  Qual?
@@ -20138,13 +20203,209 @@ definição de função''.
 O que tá acontecendo?
 %%}}}
 
-%%{{{ Recursive definitions as systems to solve 
-\note Definições recursivas como sistemas para resolver.
-Lembra os \emph{sistemas de equações} em um ou mais \emph{incognitos}
-que tu precisou \emph{resolver}?
+%%{{{ Do you remember school "math"? 
+\note Lembra da ``matemática'' na escola?.
+Lembra os \emph{sistemas de equações} em um ou mais
+\emph{incognitos} que tu precisou \emph{resolver}
+estudando matemática básica?%
+\footnote{Presumo aqui que o leitor já teve contato com esse
+tipo de exercícios desde criança; mas caso contrário, espero
+que a conversa vai continuar fazendo sentido.}
+Por exemplo, um exercício pode pedir para o aluno:
+\emph{resolva o sistema} seguinte nos reais ($x\in\reals$):
+$$
+\system{
+x^2     &= 64 \\
+10 + 2x &= 2 + x
+}
+$$
+O aluno vai responder que ``o sistema tem uma resolução única:
+$$
+x = -8.\text{''}
+$$
+e vai ganhar um biscoito.
+Esses sistemas são mais comuns em espaços de dimenções superiores
+($\reals^2$, $\reals^n$, $\complex^n$, etc.).
+Mas no final das contas, qual é o objetivo?
+O que significa resolver um sistema deles?
+Bem, significa dar uma das seguintes respostas:
+\beginol
+\li O sistema é impossível;
+\li O sistema é possível e indeterminado;
+\li O sistema é possível e determinado;
+\endol
+e nos dois últimos casos, queremos descrever todas as resoluções
+se for indeterminado, ou achar sua única resolução caso que é determinado.
+Uns sistemas no $\reals^2$ por exemplo são os:
+$$
+\xxalignat4
+(A)&
+\lsystem{
+x^2 + y^2 &= 1 \\
+y         &= 2x
+}&
+(B)&
+\lsystem{
+y &= x^2 + 8 \\
+x &= y + 1
+}&
+(C)&
+\lsystem{
+x       &= 2y + 1 \\
+3x - 6y &= 3
+}&
+(D)&
+\lsystem{
+x &= y^2 \\
+y &= \sin(x).
+}&
+\endxxalignat
+$$
+Aqui o aluno deu umas respostas interessantes.
+(A) O sistema é possível mas indeterminado: tem duas resoluções:
+$\tupp{x,y} = \tupp{\sqrt3/2, 1/2}$
+e
+$\tupp{x,y} = \tupp{1/2,\sqrt3/2}$.
+(B) O sistema é impossível: nenhum par $\tupp{x,y}\in\reals^2$
+satisfaz ambas as equações.
+(C) O sistema é possível mas indeterminado: todos os membros do
+conjunto
+$
+\setst {\tupp{t, 2t+1} \in\reals^2} {t\in \reals}
+$
+satisfazem o sistema (e tem pelo menos dois membros nesse conjunto---na
+verdade tem uma infinidade deles).
+(D) O sistema é possível e determinado: tem resolução única, o
+$\tupp{x,y} = \tupp{0,0}$.
+
+%%{{{ remark: infinite_does_not_mean_all_eg_systems 
+\remark.
+\label{infinite_does_not_mean_all_eg_systems}%
+O fato que um sistema tem uma infinidade de resoluções, não quis
+dizer que \emph{todos} os possíveis candidatos são resoluções.
+Por exemplo o sistema~(3) acima tem uma infinidade de resoluções,
+mas não são todos os membros do $\reals^2$ que servem: considere
+o $\tupp{x,y} \asseq \tupp{1,1}$ por exemplo.
 %%}}}
 
-\TODO{Terminar isso.}
+%%}}}
+
+%%{{{ Recursive definitions as systems to solve 
+\note Definições recursivas como sistemas para resolver.
+O que isso tem a ver com as definições recursivas?
+No primeiro sistema acima estamos procurando \emph{números reais},
+ou seja, estamos procurando determinar o \alert{incognito}
+$\alert x\in\reals$ que consegue satisfazer todas as equações:
+$$
+\system{
+\alert x^2     &= 64 \\
+10 + 2\alert x &= 2 + \alert x
+}
+$$
+Podemos pensar então que todos os reais são candidatos consideráveis
+aqui, e nosso trabalho é achar quem serve para o sistema (se é possível)
+e quem não.
+Testando então para o $\alert x\asseq 4$ temos:
+$$
+\system{
+\alert 8^2            &= 64 \\
+10 + 2\ntimes\alert 8 &= 2 + \alert 8
+}
+$$
+e assim percebemos que o $8$ \emph{não} serve pois tem pelo menos uma
+equação que ele não satisfaz.
+E a situação é similar resolvendo sistemas com incógnitos membros
+de $\reals^2$ ou $\complex^n$ etc., onde procuramos um par de números 
+reais no primeiro caso, ou $n$ números complexos no segundo.
+Testamos então o $(\sqrt 2, 0)$ nos sistemas
+$$
+\xxalignat4
+(A)&
+\lsystem{
+\alert x^2 + \alert y^2 &= 1 \\
+\alert y         &= 2\alert x
+}&
+(B)&
+\lsystem{
+\alert y &= \alert x^2 + 8 \\
+\alert x &= \alert y + 1
+}&
+(C)&
+\lsystem{
+\alert x       &= 2\alert y + 1 \\
+3\alert x - 6\alert y &= 3
+}&
+(D)&
+\lsystem{
+\alert x &= \alert y^2 \\
+\alert y &= \sin(\alert x).
+}&
+\endxxalignat
+$$
+etc., etc.
+\endgraf
+Agora te convido olhar para todas as definições recursivas que a gente
+encontrou aqui com uma maneira similar:
+\emph{como sistemas}, onde agora \emph{o incognito não é um número real
+mas uma função no $(\nats\to\nats)$}.
+$$
+\lsystem{
+a(0) &= 1\\
+a(n) &= n \ntimes a(n-1)
+}
+\lsystem{
+b(0) &= 1\\
+b(1) &= 1\\
+b(n) &= b(n-1) + b(n-2)
+}
+\lsystem{
+p(x) &=
+\knuthcases{
+\log_2(x), & se $x$ é uma potência de $2$;\cr
+p(x+1), & caso contrário
+}
+}
+\lsystem{
+f(n) &= f(n)
+}
+\lsystem{
+g(0) &= 1 \\
+g(n) &= g(n)+1
+}
+\lsystem{
+h(n) &= h(n+1)
+}
+$$
+$$
+\lsystem{
+k(0) &= 1\\
+k(1) &= 1\\
+k(n) &=
+\knuthcases{
+k(n/2), &se $n$ é potência de $2$\cr
+k(n+1), &caso contrário
+}
+}
+\lsystem{
+d(0) &= 1\\
+d(1) &= 1\\
+d(n) &=
+\knuthcases{
+d(n/2), &se $n$ é potência de $2$\cr
+d(n+3), &caso contrário
+}
+}
+\lsystem{
+c(0) &= 1\\
+c(1) &= 1\\
+c(n) &=
+\knuthcases{
+c(n/2),  &se $n$ é par\cr
+c(3n+1), &caso contrário
+}
+}
+$$
+%%}}}
 
 %%{{{ x: why_each_of_the_non_definitions_fails 
 \exercise.
@@ -20221,48 +20482,6 @@ Mas não seria errado considerar que essas são listas de
 equações sim, com o acordo que\dots são listas infinitas!
 Pois sim, podemos ver cada uma dessas como um esquema que
 corresponde numa equação para cada escolha de $n$.
-%%}}}
-
-%%{{{ mutual_recursion 
-\note Recursão mutual.
-\label{mutual_recursion}%
-Podemos definir duas ou mais funções, cada uma chamando recursivamente
-outras, tomando certos cuidados como sempre para garantir que realmente
-todas as funções vão ser definidas mesmo para todas as entradas
-aceitas pelos domínios delas.
-
-%%{{{ eg: mutual_recursion_even_odd 
-\example.
-\label{mutual_recursion_even_odd}%
-{%
-\def\even{\namedfun{even}}%
-\def\odd{\namedfun{odd}}%
-Vamos definir as funções $\even,\odd:\nats\to\set{0,1}$ pelas
-$$
-\xalignat2
-\even(0)   &= 1       & \odd(0)   &= 0 \\
-\even(n+1) &= \odd(n) & \odd(n+1) &= \even(n)
-\endxalignat
-$$
-Calculamos, por exemplo:
-$$
-\align
-\even(3) &
-= \odd(2)
-= \even(1)
-= \odd(0)
-= 0 \\
-odd(3) &
-= \even(2)
-= \odd(1)
-= \even(0)
-= 1
-\endalign
-$$
-}
-\endexample
-%%}}}
-
 %%}}}
 
 \blah.
