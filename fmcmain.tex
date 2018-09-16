@@ -18097,215 +18097,6 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Recursive definitions 
-\section Definições recursivas.
-
-\blah.
-Já encontramos várias definições recursivas.
-Agora vamos analizar com que precisamos tomar cuidado para garantir
-que nossas ``funções'' realmente são funções bem definidas.
-
-%%{{{ Safe recursion 
-\note Recursão segura.
-Na maioria das vezes que definimos funções recursivamente
-existe ``algo'' (muitas vezes esse ``algo'' é o próprio
-argumento da função, mas não sempre) que com cada ``chamada recursiva''
-da função fica menor e menor, até cair num valor que garanta
-uma ``saida da recursão''.
-(Essa descrição é bem vaga sim.)
-%%}}}
-
-%%{{{ eg: recursion_with_powers_of_two 
-\example.
-\label{recursion_with_powers_of_two}%
-Seja $f : \nats\to\nats$ a função definida pela:
-$$
-f(x) =
-\knuthcases{
-\log_2(x), & se $x$ é uma potência de $2$;\cr
-f(x+1), & se não.
-}
-$$
-Aqui nas chamadas recursivas não é o próprio argumento que é
-``cada vez menor''---pelo contrário: as chamadas recursivas
-estão sendo cada vez com argumento maior!
-Mesmo assim, a recursão ``sempre termina'', e a $f$ realmente
-é bem definida.
-Calculamos como exemplo uns valores:
-$$
-\align
-f(0) &= f(1) = 0 \\
-f(4) &= 2 \\
-f(5) &= f(6) = f(7) = f(8) = 3 \\
-f(1020) &= f(1021) = f(1022) = f(1023) = f(1024) = 10.
-\endalign
-$$
-\endexample
-%%}}}
-
-%%{{{ x: find invariant 
-\exercise.
-Ache um ``algo'' que fica cada vez menor com cada chamada recursiva
-da $f$ do~\ref{recursion_with_powers_of_two}.
-
-\hint
-Uma ``distância'' está sendo cada vez menor.  Qual?
-
-\solution
-Com cada chamada com entrada $x$, o número $b - x$ é cada vez menor,
-onde
-$$
-b = \min \setst {2^n} {x \leq 2^n, \ n\in\nats}.
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ Dangerous recursion 
-\note Recursão perigosa.
-Não é cada equação recursiva que realmente defina uma função!
-Vamos ver agora uns exemplos que mostram exatamente isso.
-%%}}}
-
-%%{{{ eg: dangerous_recursion_f 
-\example.
-\label{dangerous_recursion_f}%
-Seja $f : \nats\to\nats$ a função definida pela
-$$
-f(n) = f(n),
-\quad\text{para todo $n\in\nats$}.
-$$
-É óbvio que isso não \emph{determina} uma função:
-\emph{toda função $\nats\to\nats$ satisfaz essa equação},
-então não podemos usá-la como definição!
-\endexample
-%%}}}
-
-%%{{{ eg: dangerous_recursion_g 
-\example.
-\label{dangerous_recursion_g}%
-Seja $g : \nats\to\nats$ a função definida pela
-$$
-g(n) = g(n)+1,
-\quad\text{para todo $n\in\nats$}.
-$$
-Isso também não \emph{determina} uma função:
-\emph{nenhuma função $\nats\to\nats$ satisfaz essa equação},
-então não podemos usá-la como definição!
-\endexample
-%%}}}
-
-%%{{{ eg: dangerous_recursion_h 
-\example.
-\label{dangerous_recursion_h}%
-Seja $h : \nats\to\nats$ a função definida pela
-$$
-h(n) = h(n+1),
-\quad\text{para todo $n\in\nats$}.
-$$
-Isso também não \emph{determina} uma função---mas por quê?
-\endexample
-%%}}}
-
-%%{{{ x: what_is_the_problem_with_the_recursion_of_h 
-\exercise.
-\label{what_is_the_problem_with_the_recursion_of_h}%
-A pergunta não foi rhetórica!
-
-\endexercise
-%%}}}
-
-%%{{{ eg: collatz_recursive 
-\example.
-\label{collatz_recursive}%
-Considere a função $f : \nats_{>0} \to \nats$ definida pela recursão
-$$
-\align
-f(1) &= 1\\
-f(n) &=
-\knuthcases{
-f(n/2),  &se $n$ é par\cr
-f(3n+1), &se $n$ é ímpar.
-}\quad\text{(para $n > 1$)}.
-\endalign
-$$
-\endexample
-%%}}}
-
-%%{{{ x: calculate three values 
-\exercise.
-Calcule os valores $f(8), f(3), f(7)$ da $f$ acima.
-
-\endexercise
-%%}}}
-
-%%{{{ x: why_recursive_collatz_does_not_define_a_function 
-\exercise.
-\label{why_recursive_collatz_does_not_define_a_function}%
-Qual o problema com a definição da função $f$ do~\ref{collatz_recursive}?
-
-\hint
-Por que termina a recursão para toda entrada?
-
-\solution
-Não sabemos se ela satisfaz a totalidade de função, ou seja,
-se ela é realmente definida em todo o seu domínio.
-Ate agora, ninguém sabe dizer!
-Essa é exatamente a conjectura de \Collatz{}Collatz~(\ref{collatz_conjecture}).
-
-\endexercise
-%%}}}
-
-%%{{{ mutual_recursion 
-\note Recursão mutual.
-\label{mutual_recursion}%
-Podemos definir duas ou mais funções, cada uma chamando recursivamente
-outras, tomando certos cuidados como sempre para garantir que realmente
-todas as funções vão ser definidas mesmo para todas as entradas
-aceitas pelos domínios delas.
-
-%%{{{ eg: mutual_recursion_even_odd 
-\example.
-\label{mutual_recursion_even_odd}%
-{%
-\def\even{\namedfun{even}}%
-\def\odd{\namedfun{odd}}%
-Vamos definir as funções $\even,\odd:\nats\to\set{0,1}$ pelas
-$$
-\xalignat2
-\even(0)   &= 1       & \odd(0)   &= 0 \\
-\even(n+1) &= \odd(n) & \odd(n+1) &= \even(n)
-\endxalignat
-$$
-Calculamos, por exemplo:
-$$
-\align
-\even(3) &
-= \odd(2)
-= \even(1)
-= \odd(0)
-= 0 \\
-odd(3) &
-= \even(2)
-= \odd(1)
-= \even(0)
-= 1
-\endalign
-$$
-}
-\endexample
-%%}}}
-
-%%}}}
-
-\blah.
-Deixamos esse assunto por enquanto (até o~\ref{Recursive_functions}),
-supondo que temos já um entendimento de como definições recursivas
-funcionam.
-
-\endsection
-%%}}}
-
 %%{{{ More constructions and operations on functions 
 \section Mais construções e operações em funções.
 
@@ -20041,6 +19832,215 @@ $$
 Essas propriedades generalizam naturalmente para uniões e intersecções
 de seqüências e famílias de conjuntos;
 veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
+
+\endsection
+%%}}}
+
+%%{{{ Recursive definitions 
+\section Definições recursivas.
+
+\blah.
+Já encontramos várias definições recursivas.
+Agora vamos analizar com que precisamos tomar cuidado para garantir
+que nossas ``funções'' realmente são funções bem definidas.
+
+%%{{{ Safe recursion 
+\note Recursão segura.
+Na maioria das vezes que definimos funções recursivamente
+existe ``algo'' (muitas vezes esse ``algo'' é o próprio
+argumento da função, mas não sempre) que com cada ``chamada recursiva''
+da função fica menor e menor, até cair num valor que garanta
+uma ``saida da recursão''.
+(Essa descrição é bem vaga sim.)
+%%}}}
+
+%%{{{ eg: recursion_with_powers_of_two 
+\example.
+\label{recursion_with_powers_of_two}%
+Seja $f : \nats\to\nats$ a função definida pela:
+$$
+f(x) =
+\knuthcases{
+\log_2(x), & se $x$ é uma potência de $2$;\cr
+f(x+1), & se não.
+}
+$$
+Aqui nas chamadas recursivas não é o próprio argumento que é
+``cada vez menor''---pelo contrário: as chamadas recursivas
+estão sendo cada vez com argumento maior!
+Mesmo assim, a recursão ``sempre termina'', e a $f$ realmente
+é bem definida.
+Calculamos como exemplo uns valores:
+$$
+\align
+f(0) &= f(1) = 0 \\
+f(4) &= 2 \\
+f(5) &= f(6) = f(7) = f(8) = 3 \\
+f(1020) &= f(1021) = f(1022) = f(1023) = f(1024) = 10.
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ x: find invariant 
+\exercise.
+Ache um ``algo'' que fica cada vez menor com cada chamada recursiva
+da $f$ do~\ref{recursion_with_powers_of_two}.
+
+\hint
+Uma ``distância'' está sendo cada vez menor.  Qual?
+
+\solution
+Com cada chamada com entrada $x$, o número $b - x$ é cada vez menor,
+onde
+$$
+b = \min \setst {2^n} {x \leq 2^n, \ n\in\nats}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ Dangerous recursion 
+\note Recursão perigosa.
+Não é cada equação recursiva que realmente defina uma função!
+Vamos ver agora uns exemplos que mostram exatamente isso.
+%%}}}
+
+%%{{{ eg: dangerous_recursion_f 
+\example.
+\label{dangerous_recursion_f}%
+Seja $f : \nats\to\nats$ a função definida pela
+$$
+f(n) = f(n),
+\quad\text{para todo $n\in\nats$}.
+$$
+É óbvio que isso não \emph{determina} uma função:
+\emph{toda função $\nats\to\nats$ satisfaz essa equação},
+então não podemos usá-la como definição!
+\endexample
+%%}}}
+
+%%{{{ eg: dangerous_recursion_g 
+\example.
+\label{dangerous_recursion_g}%
+Seja $g : \nats\to\nats$ a função definida pela
+$$
+g(n) = g(n)+1,
+\quad\text{para todo $n\in\nats$}.
+$$
+Isso também não \emph{determina} uma função:
+\emph{nenhuma função $\nats\to\nats$ satisfaz essa equação},
+então não podemos usá-la como definição!
+\endexample
+%%}}}
+
+%%{{{ eg: dangerous_recursion_h 
+\example.
+\label{dangerous_recursion_h}%
+Seja $h : \nats\to\nats$ a função definida pela
+$$
+h(n) = h(n+1),
+\quad\text{para todo $n\in\nats$}.
+$$
+Isso também não \emph{determina} uma função---mas por quê?
+\endexample
+%%}}}
+
+%%{{{ x: what_is_the_problem_with_the_recursion_of_h 
+\exercise.
+\label{what_is_the_problem_with_the_recursion_of_h}%
+A pergunta não foi rhetórica!
+
+\endexercise
+%%}}}
+
+%%{{{ eg: collatz_recursive 
+\example.
+\label{collatz_recursive}%
+Considere a função $f : \nats_{>0} \to \nats$ definida pela recursão
+$$
+\align
+f(1) &= 1\\
+f(n) &=
+\knuthcases{
+f(n/2),  &se $n$ é par\cr
+f(3n+1), &se $n$ é ímpar.
+}\quad\text{(para $n > 1$)}.
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ x: calculate three values 
+\exercise.
+Calcule os valores $f(8), f(3), f(7)$ da $f$ acima.
+
+\endexercise
+%%}}}
+
+%%{{{ x: why_recursive_collatz_does_not_define_a_function 
+\exercise.
+\label{why_recursive_collatz_does_not_define_a_function}%
+Qual o problema com a definição da função $f$ do~\ref{collatz_recursive}?
+
+\hint
+Por que termina a recursão para toda entrada?
+
+\solution
+Não sabemos se ela satisfaz a totalidade de função, ou seja,
+se ela é realmente definida em todo o seu domínio.
+Ate agora, ninguém sabe dizer!
+Essa é exatamente a conjectura de \Collatz{}Collatz~(\ref{collatz_conjecture}).
+
+\endexercise
+%%}}}
+
+%%{{{ mutual_recursion 
+\note Recursão mutual.
+\label{mutual_recursion}%
+Podemos definir duas ou mais funções, cada uma chamando recursivamente
+outras, tomando certos cuidados como sempre para garantir que realmente
+todas as funções vão ser definidas mesmo para todas as entradas
+aceitas pelos domínios delas.
+
+%%{{{ eg: mutual_recursion_even_odd 
+\example.
+\label{mutual_recursion_even_odd}%
+{%
+\def\even{\namedfun{even}}%
+\def\odd{\namedfun{odd}}%
+Vamos definir as funções $\even,\odd:\nats\to\set{0,1}$ pelas
+$$
+\xalignat2
+\even(0)   &= 1       & \odd(0)   &= 0 \\
+\even(n+1) &= \odd(n) & \odd(n+1) &= \even(n)
+\endxalignat
+$$
+Calculamos, por exemplo:
+$$
+\align
+\even(3) &
+= \odd(2)
+= \even(1)
+= \odd(0)
+= 0 \\
+odd(3) &
+= \even(2)
+= \odd(1)
+= \even(0)
+= 1
+\endalign
+$$
+}
+\endexample
+%%}}}
+
+%%}}}
+
+\blah.
+Deixamos esse assunto por enquanto (até o~\ref{Recursive_functions}),
+supondo que temos já um entendimento de como definições recursivas
+funcionam.
 
 \endsection
 %%}}}
