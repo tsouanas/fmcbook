@@ -20397,12 +20397,13 @@ Tome $n\asseq 4$ e já temos problema, pois
 $4 \neq 3 + 2$.
 O candidato $\id_\nats$ então não satisfaz o sistema.
 Próximo!
-Vamos tentar com $f \asseq \succ$:
+Vamos tentar com $f \asseq \succ$, essa vez divulgando a notação
+mais econômica, sem parenteses:
 }
 \rsystem{
-\alert {\succ}(0) &= 0\\
-\alert {\succ}(1) &= 1\\
-\alert {\succ}(n) &= \alert {\succ}(n-1) + \alert {\succ}(n-2)
+\alert {\succ}\fa 0 &= 0\\
+\alert {\succ}\fa 1 &= 1\\
+\alert {\succ}\fa n &= \alert {\succ}\fap {n-1} + \alert {\succ}\fap {n-2}
 }
 &\iff
 \lsystem{
@@ -20446,19 +20447,19 @@ Por exemplo, escrevemos
 <<seja $r\in\reals$ \emph{a} resolução do sistema tal>>, etc.
 Observe o artigo definido!
 No outro lado, se o sistema tem várias resoluções,
-\emph{não pode servir como definição\/}; mas pelo menos
+\emph{não pode servir como definição;} mas pelo menos
 sabendo que o conjunto das suas resoluções não é vazio
 podemos escrever, por exemplo,
 <<seja $t\in\reals$ \emph{uma} resolução do sistema tal>>.
 E nada muda com sistemas cujos incognitos são funções!
-Por quê mudaria?  No final das contas é a existência
+E por que mudaria?  No final das contas é a existência
 e unicidade de algo que nos permite definí-lo!
 \endgraf
 Voltamos agora para o sistema que usamos para definir
 a função fibonacci.
 Realmente esse sistema tem uma resolução única
 (a função fibonacci), e logo posso escrever esse
-poeminha mágico para dar a\dots
+poeminho mágico para dar a\dots
 %%}}}
 
 %%{{{ df: fibonacci_dangerous_def 
@@ -20468,9 +20469,9 @@ poeminha mágico para dar a\dots
 Seja $\fib:\nats\to\nats$ definda pelas
 $$
 \text{(FIB)}\ \lsystem{
-\fib 0 &= 0\\
-\fib 1 &= 1\\
-\fib n &= \fib (n-1) + \fib (n-2), \quad\text{para todo $n>1$}.
+\fib\fa 0 &= 0\\
+\fib\fa 1 &= 1\\
+\fib\fa n &= \fib\fap {n-1} + \fib\fap {n-2}, \quad\text{para todo $n>1$}.
 }
 $$
 \mistake
@@ -20552,7 +20553,7 @@ então não podemos usá-la como definição!
 \exercise.
 \label{which_functions_satisfy_the_equations_of_h}%
 Quais são exatamente as funções que satisfazem a ``definição''
-da $h$ do~\ref{dangerous_recursion_h}?
+da $h$ acima?
 
 \hint
 Suponha que uma $h : \nats\to\nats$ satisfaz essa
@@ -20724,8 +20725,17 @@ encontrou e até usou na tua vida.
 \note Definindo funções de ordem superior.
 Considere a função $F : \reals \to (\reals \to \reals)$ definda pela
 $$
-F(w) = \text{aquela função $f : \reals \to \reals$ que quando recebe um $x$, retorna $w + x$}.
+F(w) = \text{aquela função $g : \reals \to \reals$ que quando recebe um $x$, retorna $w + x$}.
 $$
+Ou, equivalentemente:
+$$
+F(w) = \text{aquela função $g : \reals \to \reals$ definida pela g(x) = w + x}.
+$$
+Que tipo de objetos a função $F$ retorna?
+Funções!  Nesse caso determinamos exatamente para qualquer entrada
+dela, qual seria a função que vai ser retornada.
+Em Python, podemos por exemplo escrever:
+\sourcecode higher.py;
 %%}}}
 
 %%{{{ Q: what type of thing is F(25)? 
@@ -20745,7 +20755,7 @@ $$
 Não precisamos pensar nada profundo!
 Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
 $$
-F(25) = \text{aquela função $f : \reals \to \reals$ que quando recebe um $x\in\reals$, retorna o número $25 + x$}.
+F(25) = \text{aquela função $g : \reals \to \reals$ que quando recebe um $x\in\reals$, retorna o número $25 + x$}.
 $$
 Ou seja,
 $$
@@ -20781,6 +20791,8 @@ $$
 F(w) = \lam x {w + x} \quad \eqtype \reals \to \reals
 $$
 Observe que no lado direito aparece uma função anônima.
+Novamente mostrando código em Python, escrevemos:
+\sourcecode higherlam.py;
 %%}}}
 
 %%{{{ x: find_expressions_with_given_types 
@@ -20848,14 +20860,14 @@ são funcões, e também pois sua saida também é uma função.
 %%{{{ eg: higher_order_example_apply 
 \example Apply.
 Suponha $f : A \to B$ e seja $a \in A$.
-Quando escrevemos $f\app a$ (ou $f(a)$), estamos denotando a aplicação da $f$ no $a$.
+Quando escrevemos $f\fa a$ (ou $f(a)$), estamos denotando a aplicação da $f$ no $a$.
 Essa aplicação é uma operação de ordem superior também.
 O símbolo da aplicação é invisível, ou seja, a aplicação é denotada pela juxtaposição da função e do seu argumento.
 Em vez de escrever algo do tipo
 $$
 \namedfun{apply}(f, a)
 $$
-escrevemos simplesmente $f\app a$ ou $f(a)$.
+escrevemos simplesmente $f\fa a$ ou $f(a)$.
 Como fizemos na composição, decoramos essa operação com $_{A,B}$
 para estudar o domínio e codomínio de cada caso.
 Então dados conjuntos $A,B$ temos
