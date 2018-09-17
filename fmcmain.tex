@@ -19895,22 +19895,24 @@ Vamos começar lembrando como exemplo duas funções recursivas famosas demais.
 \label{fact_and_fib_recursive_eg}%
 Sejam $a:\nats\to\nats$ definida pelas
 $$
-\alignat2
+\align
 a(0) &= 1\\
 a(n) &= n \ntimes a(n-1), \quad\text{para todo $n>0$};
 \intertext{e $b:\nats\to\nats$ definida pelas}
 b(0) &= 1\\
 b(1) &= 1\\
-b(n) &= b(n-1) + b(n-2), \quad\text{para todo $n\in\nats$}.
-\endalignat
+b(n) &= b(n-1) + b(n-2), \quad\text{para todo $n>1$}.
+\endalign
 $$
 Muitas vezes deixamos as frases ``para todo $n>0$'' como
 implícitas pelo contexto---mas entenda que elas precisam estar lá,
 e \emph{estão} lá mesmo quando escolhemos omití-las.
-Agora, assuma que tu aceita ambas as $a,b : \nats\to\nats$ como
-funções \emph{bem definidas}, e continue lendo.
 \endexample
 %%}}}
+
+\blah.
+Agora, assuma que tu aceita ambas as $a,b : \nats\to\nats$ do
+exemplo assima como funções \emph{bem definidas}, e continue lendo.
 
 %%{{{ mutual_recursion 
 \note Recursão mutual.
@@ -20073,9 +20075,9 @@ k(0) &= 1\\
 k(1) &= 1\\
 k(n) &=
 \knuthcases{
-k(n/2), &se $n$ é potência de $2$\cr
-k(n+1), &caso contrário
-}\quad\text{(para $n > 1$)}.
+k(n/2), & se $n$ é potência de $2$\cr
+k(n+1), & caso contrário
+}\quad\text{(para todo $n > 1$)}.
 \endalign
 $$
 Aceitaria isso como uma definição duma função $k : \nats\to\nats$?
@@ -20092,9 +20094,9 @@ d(0) &= 1\\
 d(1) &= 1\\
 d(n) &=
 \knuthcases{
-d(n/2), &se $n$ é potência de $2$\cr
-d(n+3), &caso contrário
-}\quad\text{(para $n > 1$)}.
+d(n/2), & se $n$ é potência de $2$\cr
+d(n+3), & caso contrário
+}\quad\text{(para todo $n > 1$)}.
 \endalign
 $$
 Aceitaria isso como uma definição duma função $d : \nats\to\nats$?
@@ -20167,11 +20169,12 @@ c(0) &= 1\\
 c(1) &= 1\\
 c(n) &=
 \knuthcases{
-c(n/2),  &se $n$ é par\cr
-c(3n+1), &caso contrário
+c(n/2),  & se $n$ é par\cr
+c(3n+1), & caso contrário
 }\quad\text{(para $n > 1$)}.
 \endalign
 $$
+E a mesma pergunta: aceita?
 \endexample
 %%}}}
 
@@ -20353,85 +20356,193 @@ etc., etc.
 \endgraf
 Agora te convido olhar para todas as definições recursivas que a gente
 encontrou aqui com uma maneira similar:
-\emph{como sistemas}, onde agora \emph{o incognito não é um número real
+\emph{como sistemas}, onde agora \emph{o incógnito não é um número real
 mas uma função no $(\nats\to\nats)$}.
+%%}}}
+
+%%{{{ eg: fibs again 
+\example.
+\def\succ{\namedfun{succ}}
+Considere o sistema que usamos para definir a função fibonacci
+no~\ref{fact_and_fib_recursive_eg}.
 $$
-\lsystem{
-a(0) &= 1\\
-a(n) &= n \ntimes a(n-1)
-}
-\lsystem{
-b(0) &= 1\\
-b(1) &= 1\\
-b(n) &= b(n-1) + b(n-2)
-}
-\lsystem{
-p(x) &=
-\knuthcases{
-\log_2(x), & se $x$ é uma potência de $2$;\cr
-p(x+1), & caso contrário
-}
-}
-\lsystem{
-f(n) &= f(n)
-}
-\lsystem{
-g(0) &= 1 \\
-g(n) &= g(n)+1
-}
-\lsystem{
-h(n) &= h(n+1)
+\system{
+\alert f(0) &= 0\\
+\alert f(1) &= 1\\
+\alert f(n) &= \alert f(n-1) + \alert f(n-2), \quad\text{para todo $n>1$}.
 }
 $$
+Agora o incógnito é uma função $f : \nats\to\nats$.
+Vamos testar uns candidatos consideráveis:
+tome $f \asseq \id_\nats$:
 $$
+\align
+\rsystem{
+\alert {\id_\nats}(0) &= 0\\
+\alert {\id_\nats}(1) &= 1\\
+\alert {\id_\nats}(n) &= \alert {\id_\nats}(n-1) + \alert {\id_\nats}(n-2)
+}
+&\iff
 \lsystem{
-k(0) &= 1\\
-k(1) &= 1\\
-k(n) &=
-\knuthcases{
-k(n/2), &se $n$ é potência de $2$\cr
-k(n+1), &caso contrário
+0 &= 0\\
+1 &= 1\\
+n &= (n-1) + (n-2),\quad\text{para todo $n>1$}.
 }
+\intertext{%
+Legal!  As duas primeiras linhas do sistema são satisfeitas.
+Para a terceira, testando com o $n\asseq 3$ dá certo, pois realmente
+$3 = 2 + 1$
+mas é muito fácil perceber que essa igualdade não é satisfeita em geral.
+Tome $n\asseq 4$ e já temos problema, pois
+$4 \neq 3 + 2$.
+O candidato $\id_\nats$ então não satisfaz o sistema.
+Próximo!
+Vamos tentar com $f \asseq \succ$:
 }
+\rsystem{
+\alert {\succ}(0) &= 0\\
+\alert {\succ}(1) &= 1\\
+\alert {\succ}(n) &= \alert {\succ}(n-1) + \alert {\succ}(n-2)
+}
+&\iff
 \lsystem{
-d(0) &= 1\\
-d(1) &= 1\\
-d(n) &=
-\knuthcases{
-d(n/2), &se $n$ é potência de $2$\cr
-d(n+3), &caso contrário
+1   &= 0\\
+2   &= 1\\
+n+1 &= n + (n-1),\quad\text{para todo $n>1$}.
 }
-}
-\lsystem{
-c(0) &= 1\\
-c(1) &= 1\\
-c(n) &=
-\knuthcases{
-c(n/2),  &se $n$ é par\cr
-c(3n+1), &caso contrário
-}
+\endalign
+$$
+Fuen-fuen-fuen!
+Bem, então nem a $\id_\nats$ nem a $\succ$ satisfazem esse sistema.
+\endexample
+%%}}}
+
+%%{{{ remark: not_exactly_a_list_of_equations 
+\remark.
+\label{not_exactly_a_list_of_equations}%
+No~\ref{what_is_going_on_with_recursive_definitions}
+afirmei que cada suposta definição de função foi ``apenas
+uma lista de equações''.
+São realmente listas de \emph{equações?}
+Umas dessas afirmações não são equações não;
+pois em vez de ter a forma ``\,${\lthole} = {\lthole}$\,''
+elas têm a forma ``\,$\forall n {\lthole}$\,''.
+Ou seja, correspondem em proposições universais
+(quantificadas universalmente) e não em proposições
+(atômicas) de equações.
+Mas não seria errado considerar que essas são listas de
+equações sim, com o acordo que\dots são listas infinitas!
+Pois sim, podemos ver cada uma dessas como um \emph{esquema}
+de equações que fornece uma equação para cada escolha de $n\in\nats$.
+%%}}}
+
+%%{{{ When a system serves as a definition.
+\note Quando um sistema serve para definir.
+Quando um sistema cujos incógnitos são números tem resolução
+única isso quis dizer que o sistema \emph{determina}
+um certo número.  Ou seja, \emph{podemos usar o próprio sistema
+para definir um número real} como a resolução dele.
+Por exemplo, escrevemos
+<<seja $r\in\reals$ \emph{a} resolução do sistema tal>>, etc.
+Observe o artigo definido!
+No outro lado, se o sistema tem várias resoluções,
+\emph{não pode servir como definição\/}; mas pelo menos
+sabendo que o conjunto das suas resoluções não é vazio
+podemos escrever, por exemplo,
+<<seja $t\in\reals$ \emph{uma} resolução do sistema tal>>.
+E nada muda com sistemas cujos incognitos são funções!
+Por quê mudaria?  No final das contas é a existência
+e unicidade de algo que nos permite definí-lo!
+\endgraf
+Voltamos agora para o sistema que usamos para definir
+a função fibonacci.
+Realmente esse sistema tem uma resolução única
+(a função fibonacci), e logo posso escrever esse
+poeminha mágico para dar a\dots
+%%}}}
+
+%%{{{ df: fibonacci_dangerous_def 
+\definition.
+\label{fibonacci_dangerous_def}%
+\def\fib{\namedfun{fib}}%
+Seja $\fib:\nats\to\nats$ definda pelas
+$$
+\text{(FIB)}\ \lsystem{
+\fib 0 &= 0\\
+\fib 1 &= 1\\
+\fib n &= \fib (n-1) + \fib (n-2), \quad\text{para todo $n>1$}.
 }
 $$
+\mistake
+%%}}}
+
+%%{{{ Q: Is there a problem? 
+\question.
+Tem problema?
+%%}}}
+\spoiler.
+
+%%{{{ A: We used fib to justify its own definition!
+\blah Resposta.
+\def\fib{\namedfun{fib}}%
+Usamos a própria coisa que queremos definir (a função fibonacci)
+para justificar sua própria definição (ou seja, para argumentar
+que o sistema (FIB) tem resolução única)!
+Como a $\fib$ foi definida pelas equações recursivas do (FIB),
+sua definição \emph{depende da existência e unicidade da
+resolução do sistema}, então não podemos usá-la antes
+de provar isso!
+%%}}}
+
+%%{{{ We can't prove existence yet; assume it and prove uniqueness 
+\note.
+Infelizmente $\fib$ não estamos prontos neste momento para provar que
+esse sistema tem \emph{pelo menos} uma resolução!%
+\footnote{%
+Mas calma, daqui uns capítulos estaremos!
+}
+Atrás desse fato fica o poderoso
+Teorema\ii{teorema}[de recursão] de Recursão~\refn{recursion_theorem}.
+Mas pelo menos deve ser fácil provar que tem \emph{no máximo}
+uma resolução (\ref{fib_system_has_at_most_one_solution}).
 %%}}}
 
 %%{{{ x: why_each_of_the_non_definitions_fails 
 \exercise.
 \label{why_each_of_the_non_definitions_fails}%
-Com esse novo ponto de visto, responda para cada uma
-das supostas definições na pergunta: por quê não
-deu certo?
+Com esse novo ponto de vista, para cada uma
+das supostas definições das funções $f,g,h:\nats\to\nats$
+(dos exemplos~\refn{dangerous_recursion_f},
+\refn{dangerous_recursion_g}, e~\refn{dangerous_recursion_h})
+responda na pergunta: por que não deu certo?
+$$
+\xalignat3
+(1)~&\lsystem{
+f(n) &= f(n)
+}&
+(2)~&\lsystem{
+g(0) &= 1 \\
+g(n) &= g(n)+1
+}&
+(3)~&\lsystem{
+h(n) &= h(n+1)
+}
+\endxalignat
+$$
+Foi porque o sistema não tem resoluções?
+Ou porque tem várias?  Tem infinítas?  Tem todas?
 
 \solution
 Sobre a $f$:
-\emph{toda função $f : \nats\to\nats$ satisfaz essa equação},
+toda função $f : \nats\to\nats$ satisfaz essa equação,
 então não podemos usá-la como definição!
 \endgraf
 Sobre a $g$:
-\emph{nenhuma função $g : \nats\to\nats$ satisfaz essa equação},
+nenhuma função $g : \nats\to\nats$ satisfaz essa equação,
 então não podemos usá-la como definição!
 \endgraf
 Sobre a $h$:
-\emph{mais que uma função $h : \nats \to \nats$ satisfaz essa equação},
+mais que uma função $h : \nats \to \nats$ satisfaz essa equação,
 então não podemos usá-la como definição!
 
 \endexercise
@@ -20467,28 +20578,10 @@ Por que termina a recursão para toda entrada?
 Não sabemos se ela satisfaz a totalidade de função, ou seja,
 se ela é realmente definida em todo o seu domínio.
 Ate agora, ninguém sabe dizer!
-Essa é exatamente a conjectura de \Collatz{}Collatz~(\ref{collatz_conjecture}).
+Essa é exatamente a conjectura de
+\Collatz[conjectura]{}Collatz~(\ref{collatz_conjecture}).
 
 \endexercise
-%%}}}
-
-%%{{{ remark: not_exactly_a_list_of_equations 
-\remark.
-\label{not_exactly_a_list_of_equations}%
-No~\ref{what_is_going_on_with_recursive_definitions}
-afirmei que cada suposta definição de função foi ``apenas
-uma lista de equações''.
-São realmente listas de \emph{equações?}
-Umas dessas afirmações não são equações não;
-pois tem a forma ``$\pforall n {\lthole}$''
-e não a forma ``${\lthole} = {\lthole}$''.
-Ou seja, correspondem em proposições universais
-(quantificadas universalmente) e não em proposições
-(atômicas) de equações.
-Mas não seria errado considerar que essas são listas de
-equações sim, com o acordo que\dots são listas infinitas!
-Pois sim, podemos ver cada uma dessas como um esquema que
-corresponde numa equação para cada escolha de $n$.
 %%}}}
 
 \blah.
@@ -21900,6 +21993,15 @@ E se $m$ é $1$ módulo $6$?
 A única potência de $2$ que é $1$ módulo $6$ é o próprio $1$,
 e logo qualquer outro inteiro que é $1$ módulo $6$ não
 pode ser uma potência de $2$.
+
+\endproblem
+%%}}}
+
+%%{{{ fib_system_has_at_most_one_solution 
+\problem.
+\label{fib_system_has_at_most_one_solution}%
+Prove que se o sistema (FIB) da~\ref{fibonacci_dangerous_def}
+tem resolução, então ela é única.
 
 \endproblem
 %%}}}
