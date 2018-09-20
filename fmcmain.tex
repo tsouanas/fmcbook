@@ -18527,7 +18527,7 @@ $$
 para todas as $g,h$ tais que as composições em cima são definidas.
 Digamos então que $f$ é \dterm{$\of$-cancelável pela direita}:
 \sketch.
-A direção {\lrdir} é o~\ref{injection_iff_mono_lrproof}.
+A direção {\lrdir} é o~\ref{surjection_iff_epic_lrproof}.
 Para a direção {\rldir}, tomamos $c \in C$ e procuramos achar
 $b\in B$ tal que $f(b) = c$.
 Defina o $D$ (cuidado: aqui não ajuda tomar $D=\set{0}$)
@@ -18647,7 +18647,7 @@ Como
 $$
 (g\of f)(b) = (h\of f)(b)
 $$
-temos $g(f(b)) = h(f(b))$, ou seja, $g(c) = h(c)$.
+temos $g(f(b)) = h(f(b))$; e, pela escolha de $b$, $g(c) = h(c)$.
 Logo $g = h$.
 
 \endexercise
@@ -20932,10 +20932,11 @@ essas antiderivadas como definimos aqui.
 %%}}}
 
 %%{{{ Currying 
-
 \section Currificação.
+\label{Currying}%
 
-\note Ha-ha! Minha linguagem é melhor que a tua.
+%%{{{ Ha-ha!  My language is better than yours 
+\note Ha-ha!  Minha linguagem é melhor que a tua.
 Imagine que um amigo definiu uma função $f : \ints^2\to\ints$
 trabalhando numa linguagem de programação que não permite
 definições de funções de ordem superior.
@@ -20943,31 +20944,233 @@ Queremos escrever um programa equivalente ao programa do nosso amigo
 numa outra linguagem que permite sim definir funções de ordem superior
 mas não funções de aridade maior que $1$.
 Mesmo assim nossas funções podem \emph{chamar} a função $f$ do nosso amigo nos seus corpos.
-
-\question.
-Como fazer isso?
-\spoiler.
-
-%%{{{ Currying in Python 
-\note Currificação em Python.
-\label{currying_in_python}%
-Aqui uma resposta, escrita em Python.
 %%}}}
 
+%%{{{ Q: How can we do this? 
+\question.
+Como fazer isso?
+%%}}}
+\spoiler.
+
+%%{{{ Answer in Python 
+\note Resposta em Python.
+\label{currying_in_python}%
+Aqui uma resposta, escrita em Python.
 \sourcecode currying.py;
+%%}}}
 
 \TODO Explicar o que acontece.
 
-%%{{{ x: uncurry_exercise 
-\exercise Uncurry.
+%%{{{ x: uncurry first exercise
+\exercise.
 Resolva o problema converso:
-começando com a função ``currificada'' de ordem superior $F$,
-defina sua versão ``decurrificada'' $f$ (de aridade 2).
+começando com a função de ordem superior $F$,
+defina sua versão $f$ (de aridade 2).
 
 \solution
 Dados a $F : \ints\to(\ints\to\ints)$,
 é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
 Note que a expressão ``$F(x)(y)$'' quis dizer ``$\bigparen{F(x)}(y)$'' mesmo.
+
+\endexercise
+%%}}}
+
+%%{{{ Currying 
+\note Currificação.
+\tdefined{currificação}%
+A maneira que conseguimos utilizar funções de ordem
+superior mas de aridade $1$, para ``emular'' funções
+de aridades maiores é chamada \emph{currificação},
+em homenagem ao Haskell~\Curry[currificação]{}Curry.%
+\footnote{O próprio \Curry{}Curry atribuiu o conceito
+ao \Schonfinkel[currificação]{}Schönfinkel,
+mas \Frege[currificação]{}Frege já tinha usado isso antes.}
+No exemplo acima digamos que $F$ é a \dterm{currificação}
+da $f$, ou sua versão currificada.
+%%}}}
+
+%%{{{ Q: How can we define the generic curry and uncurry functions? 
+\question.
+Usando a notação-$\lambda$ como podemos definir funções
+$\curry, \uncurry$ para a situação mais genérica onde
+a função de dois argumentos é do tipo $(A \times B) \to C$?
+%%}}}
+\spoiler.
+
+%%{{{ Answer 
+\blah Resposta.
+Primeiramente vamos nos preocupar com os tipos dessas funções.
+São assim:
+$$
+\cdopt{sep=2cm}
+\paren{(A\times B)\to C}  \ar[r, shift left, "\curry"] \| \paren{A \to (B\to C)} \ar[l, shift left, "\uncurry"]
+\endcd
+$$
+Temos então
+$$
+\curry : \paren{(A\times B)\to C} \longto \paren{A \to (B\to C)}
+$$
+definida pela
+$$
+\curry(\alert{\dots?}
+$$
+Como denotar o arbitrário membro do seu domínio $\paren{(A\times B)\to C}$?
+Sendo uma função, vou escolher denotá-lo por $f$.
+Voltamos então:
+$$
+\curry(f) = \alert{\dots?}
+$$
+Que tipo de coisa estamos tentando \emph{construir} no lado direito?
+Pelo tipo da $\curry$, deve ser uma função de $A$ para $(B\to C)$.
+E o que tenho na minha disposição?  Neste ponto apenas a $f$.
+Facilita escrever claramente todas as coisas disponíveis e seus típos.
+Então por enquanto tenho apenas
+$$
+f : (A\times B) \to C.
+$$
+E eu quero construir uma função de tipo $A\to (B \to C)$.
+Para definí-la preciso deixar claro o seu comportamento então:
+$$
+\curry(f) = \lam {\alert{\dots?}} {\dots}
+$$
+Como denotar a arbitrária entrada dessa função?
+Bem, sendo uma função com domínio $A$, vou escolher denotar
+seu argumento por $a$:
+$$
+\curry(f) = \lam {a} {\alert{\dots?}}
+$$
+A mesma pergunta: o que eu ganhei e o que tipo de coisa preciso construir agora?
+Ganhei um $a : A$, e preciso construir
+algo do tipo $B\to C$, ou seja, uma função (então vou começar com um $\lambda$\dots)
+que recebe $B$'s (então $\lam b {\dots}$ e retorna $C$'s:
+$$
+\curry(f) = \lam {a} {\lam {b} {\alert{\dots?}}}
+$$
+Aqui preciso construir um $C$'zinho e eu tenho:
+$$
+\align
+f &: (A\times B) \to C \\
+a &: A \\
+b &: B
+\intertext{%
+Fácil!  Pois eu tenho um fornecedor de $C$'s, e ele só
+precisa de um par de um $A$'zinho e um $B$'zinho para
+funcionar---pun intended---e felizmente eu tenho ambos, e logo
+}
+f(a,b) &: C
+\endalign
+$$
+Com isso consego finalmente terminar:
+$$
+\curry(f) = \lam {a} {\lam {b} {f(a,b)}}.
+$$
+Deixo a definição da $\uncurry$ pra ti:
+%%}}}
+
+%%{{{ x: uncurry_using_lambdas 
+\exercise.
+Usando a notação-$\lambda$ defina a $\uncurry$.
+
+\hint
+Queremos definir a
+$$
+\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
+$$
+então sabemos já como começar: basta definir o
+$$
+\uncurry(\alert{\dots?}
+$$
+Peraí: qual seria uma opção boa para denotar esse argumento?
+
+\hint
+Que tipo de coisa é esse argumento?
+Uma função $A \to (B\to C)$, ou seja, uma função de ordem
+superior; vou escolher $F$ aqui, para me lembrar desse fato.
+Voltando então:
+$$
+\uncurry(F) = \alert{\dots?}
+$$
+O que eu ganhei e o que eu preciso construir?
+Ganhei
+$$
+F : A \to (B\to C)
+$$
+e preciso algo do tipo $(A\times B) \to C$.
+Então já sei como começar.
+Como?
+
+\hint
+Sendo uma função, vou já escrever:
+$$
+\uncurry(F) = \lam {\alert{\dots?}} {\dots}
+$$
+e preciso escolher como denotar a sua entrada.
+E aqui tenho duas abordagens razoáveis:
+ou escolher alguma variável como $w,t,\vec w, \vec t$, etc.,
+onde ela terá o tipo $A\times B$;
+ou usar a notação-$\lambda$ de aridades maiores escrevendo
+$\tup{a,b}$ para a arbitrária entrada dessa função.
+Vamos escolher segunda opção (se quiser, pode escolher a primeira).
+Continue!
+
+\hint
+Estamos aqui então:
+$$
+\uncurry(F) =
+\lam {\tup{a,b}} {\alert{\dots?}}
+$$
+e o que precisamos construir aqui?
+Sendo a ``saida'' duma função com tipo $(A\times B)\to C$,
+eu preciso construir uma coisa do tipo $C$.
+Mas o que mais eu tenho agora?
+Meus dados tem aumentado:
+$$
+\align
+F &: A\to (B \to C) \\
+\tup{a,b} &: (A\times B)
+\intertext{e logo}
+a &: A \\
+b &: B \\
+\alert{??} &: C\\
+\endalign
+$$
+Como posso usá-los para construir algo do tipo $C$?
+Eu não tenho um ``fornecedor'' de $C$'s imediato,
+mas percebo que tenho um\dots\ fornecedor de fornecedores
+de $C$'s!  (Minha $F$.)
+E para ela funcionar
+preciso oferecer $A$'zinho, e pronto, ela vai fornecer
+um fornecedor de $C$'s.
+Felizmente temos um $a : A$.
+Então temos:
+$$
+F(a) : ??
+$$
+
+\hint
+Temos
+$$
+\align
+F &: A\to (B \to C) \\
+\tup{a,b} &: (A\times B) \\
+a &: A \\
+b &: B \\
+F(a)    &: B \to C
+\intertext{e logo}
+F(a)(b) &: ??
+\endalign
+$$
+Termine!
+
+\solution
+Queremos definir a
+$$
+\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
+$$
+e \emph{seguindo as dicas} chegamos em:
+$$
+\uncurry(F) = \lam {\tup{a,b}} {\bigparen{F(a)}(b)}.
+$$
 
 \endexercise
 %%}}}

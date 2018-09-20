@@ -4,5 +4,7 @@ def F(w):
     def g(x):
         return w + x
 
+    # at this point a function g has been defined
+
     # return it
     return g
