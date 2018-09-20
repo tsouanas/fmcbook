@@ -6662,7 +6662,7 @@ um $n\in\nats\setminus\set 1$ é composto.
 \solution
 Seja $n\in\nats$.
 $$
-\namedpred{Composite}(n) \defiff
+\namedrel{Composite}(n) \defiff
 \lexists {a,b\in\nats\setminus\set{0,1}} { n = ab }.
 $$
 
@@ -13622,7 +13622,7 @@ $$
 \remark Notações alternativas.
 Outros nomes para as projecções $\proj 0$ e $\proj 1$ são:
 $$
-\namedfun{proj}_0,\ \namedfun{proj}_1,\ \dotsc;
+\tproj0,\ \tproj1,\ \dotsc;
 \qquad
 \pproj0 {\dhole},\ \pproj1 {\dhole},\ \dotsc;
 \qquad
@@ -15868,16 +15868,17 @@ Uma função $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
 
 %%{{{ eg: succ and its black box 
 \example.
-A função $\namedfun{succ} : \nats\to\nats$
+\DefFUN suc succ
+A função $\suc : \nats\to\nats$
 que retorna para cada natural $n$ seu sucessor $n+1$.
 Dando por exemplo $2$ como entrada nela, observamos o valor
-$\namedfun{succ}(2) = 3$:
+$\suc(2) = 3$:
 $$
 \tikzpicture
 \tikzi blackboxfunsucc;
 \endtikzpicture
 $$
-O $\namedfun{succ}$ é um exemplo de endomapa.
+O $\suc$ é um exemplo de endomapa.
 \endexample
 %%}}}
 
@@ -17709,9 +17710,9 @@ um com $A\neq B$; outro com $A = B$.
 
 \solution
 {%
-\def\flip{\namedfun{flip}}%
-\def\zero{\namedfun{zero}}%
-\def\one{\namedfun{one}}%
+\DefFun flip
+\DefFun zero
+\DefFun one
 Para o primeiro exemplo, escolhe $A = \set{0}$ e $B=\set{0,1}$.
 Agora sejam $f : A \to B$ e $g : B \to A$ definidas pelas
 $$
@@ -19926,9 +19927,6 @@ aceitas pelos domínios delas.
 %%{{{ eg: mutual_recursion_even_odd 
 \example.
 \label{mutual_recursion_even_odd}%
-{%
-\def\even{\namedfun{even}}%
-\def\odd{\namedfun{odd}}%
 Vamos definir as funções $\even,\odd:\nats\to\set{0,1}$ pelas
 $$
 \xalignat2
@@ -19951,7 +19949,6 @@ odd(3) &
 = 1
 \endalign
 $$
-}
 \endexample
 %%}}}
 
@@ -20362,7 +20359,6 @@ mas uma função no $(\nats\to\nats)$}.
 
 %%{{{ eg: fibs again 
 \example.
-\def\succ{\namedfun{succ}}
 Considere o sistema que usamos para definir a função fibonacci
 no~\ref{fact_and_fib_recursive_eg}.
 $$
@@ -20465,7 +20461,6 @@ poeminho mágico para dar a\dots
 %%{{{ df: fibonacci_dangerous_def 
 \definition.
 \label{fibonacci_dangerous_def}%
-\def\fib{\namedfun{fib}}%
 Seja $\fib:\nats\to\nats$ definda pelas
 $$
 \text{(FIB)}\ \lsystem{
@@ -20485,7 +20480,6 @@ Tem problema?
 
 %%{{{ A: We used fib to justify its own definition!
 \blah Resposta.
-\def\fib{\namedfun{fib}}%
 Usamos a própria coisa que queremos definir (a função fibonacci)
 para justificar sua própria definição (ou seja, para argumentar
 que o sistema (FIB) tem resolução única)!
@@ -22047,9 +22041,9 @@ Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
 
 %%{{{ prob: stretch_countdown_take 
 {%
-\def\stretch{\namedfun{stretch}}
-\def\countdown{\namedfun{countdown}}
-\def\take{\namedfun{take}}
+\DefFpf stretch
+\DefFpf countdown
+\DefFpf take
 \problem.
 Defina as funções com equações (recursivas):
 $$
@@ -22131,9 +22125,9 @@ No conjunto $\cal P$ de pessoas, conhecemos várias relações também.
 Por exemplo
 $$
 \align
-\namedpred{Mother}(x,y)     &\defiff \text{$x$ é a mãe de $y$}\\
-\namedpred{Parents}(x,y,z)  &\defiff \text{$x$ e $y$ são os pais de $z$}\\
-\namedpred{Love}(x,y)       &\defiff \text{$x$ ama $y$}
+\Mother (x,y)     &\defiff \text{$x$ é a mãe de $y$}\\
+\Parents (x,y,z)  &\defiff \text{$x$ e $y$ são os pais de $z$}\\
+\Love (x,y)       &\defiff \text{$x$ ama $y$}
 \endalign
 $$
 \endexample
@@ -22148,14 +22142,14 @@ Relações podem ``relacionar'' tipos diferentes.
 Considere as relações seguintes, cujos argumentos não têm o mesmo tipo.
 $$
 \align
-\namedpred{Born}(x,w)       &\defiff \text{$x$ nasceu no ano $w$} \\
-\namedpred{Author}(x,k)     &\defiff \text{$x$ escreveu o livro $k$} \\
-\namedpred{Read}(x,k)       &\defiff \text{$x$ leu o livro $k$}
+\Born (x,w)       &\defiff \text{$x$ nasceu no ano $w$} \\
+\Author (x,k)     &\defiff \text{$x$ escreveu o livro $k$} \\
+\Read (x,k)       &\defiff \text{$x$ leu o livro $k$}
 \endalign
 $$
 O primeiro argumento da primeira relação é uma pessoa
-mas o segundo é um ano; e as relações $\namedpred{Author}$
-e $\namedpred{Read}$ são ambas entre pessoas e livros.
+mas o segundo é um ano; e as relações $\namedrel{Author}$
+e $\namedrel{Read}$ são ambas entre pessoas e livros.
 \endexample
 %%}}}
 
@@ -22201,9 +22195,9 @@ As relações dos exemplos~\ref{mother_parents_love_example}
 e~\ref{born_author_read_example} têm os tipos seguintes:
 $$
 \xalignat2
-\namedpred{Mother}  &: \reltype{\cal P, \cal P}         & \namedpred{Born}   &: \reltype{\cal P, \cal Y} \\
-\namedpred{Parents} &: \reltype{\cal P, \cal P, \cal P} & \namedpred{Author} &: \reltype{\cal P, \cal B} \\
-\namedpred{Love}    &: \reltype{\cal P, \cal P}         & \namedpred{Read}   &: \reltype{\cal P, \cal B}
+\namedrel{Mother}  &: \reltype{\cal P, \cal P}         & \namedrel{Born}   &: \reltype{\cal P, \cal Y} \\
+\namedrel{Parents} &: \reltype{\cal P, \cal P, \cal P} & \namedrel{Author} &: \reltype{\cal P, \cal B} \\
+\namedrel{Love}    &: \reltype{\cal P, \cal P}         & \namedrel{Read}   &: \reltype{\cal P, \cal B}
 \endxalignat
 $$
 onde $\cal P, \cal Y, \cal B$ são os conjuntos de pessoas, anos, livros
@@ -22254,11 +22248,11 @@ até $R \subseteq A\times B$.
 \emph{notações}.  Uma relação $R$ \emph{não é} um conjunto, então nada pertence nela,
 e similarmente ela não é subconjunto de ninguém!
 Mesmo assim escrevemos coisas como
-$\namedpred{Author} \subseteq \cal P \times \cal B$
+$\namedrel{Author} \subseteq \cal P \times \cal B$
 e
-$\namedpred{Parents} \subseteq \cal P^3$
-\emph{entendendo} como: ``a $\namedpred{Author}$ é uma relação binária
-entre $\cal P$ e $\cal B$'' e ``a $\namedpred{Parents}$ é uma relação
+$\namedrel{Parents} \subseteq \cal P^3$
+\emph{entendendo} como: ``a $\namedrel{Author}$ é uma relação binária
+entre $\cal P$ e $\cal B$'' e ``a $\namedrel{Parents}$ é uma relação
 ternária entre membros de $\cal P$''.
 Mais uma vez: relações \emph{não são} conjuntos.
 %%}}}
@@ -22450,7 +22444,7 @@ $$
 \align
 P(n)     &\defiff \lforall {x,y\in\ints} {xy = n \limplies \paren{|x| = 1 \lor |y| = 1}} \\
 R(n,m)   &\defiff \lnot\lexists {k \in \ints} {\Prime(k) \land 2^n < k < 3^m}; \\
-Q(p,b)   &\defiff \lexists {b' \in \cal B} {b \neq b' \land \namedpred{Read}(p,b') \land \lexists {a \in \cal P} {\namedpred{Author}(a,b) \land \namedpred{Author}(a,b')}} \\
+Q(p,b)   &\defiff \lexists {b' \in \cal B} {b \neq b' \land \namedrel{Read}(p,b') \land \lexists {a \in \cal P} {\namedrel{Author}(a,b) \land \namedrel{Author}(a,b')}} \\
 C(a,b,m) &\defiff \lexists {k \in \ints} {mk = a-b}
 \endalign
 $$
@@ -22461,16 +22455,16 @@ Tente expressar cada uma delas em lingua natural.
 %%{{{ eg: relations_with_text_example 
 \example Com texto.
 \label{relations_with_text_example}%
-Sejam as relações $\namedpred{Coauthors}$ (binária, entre pessoas)
-e $\namedpred{SameCard}$ (unária, nos conjuntos), definidas pelas:
+Sejam as relações $\namedrel{Coauthors}$ (binária, entre pessoas)
+e $\namedrel{SameCard}$ (unária, nos conjuntos), definidas pelas:
 $$
 \align
-\namedpred{Coauthors}(x,y) &\defiff \text{$x$ e $y$ já escreveram algum livro juntos}; \\
-\namedpred{SameCard}(x)    &\defiff \text{todos os membros de $x$ são conjuntos com a mesma cardinalidade}.
+\namedrel{Coauthors}(x,y) &\defiff \text{$x$ e $y$ já escreveram algum livro juntos}; \\
+\namedrel{SameCard}(x)    &\defiff \text{todos os membros de $x$ são conjuntos com a mesma cardinalidade}.
 \endalign
 $$
-Por exempo: $\namedpred{Coauthors}(\textrm{Birkhoff}, \textrm{Mac Lane})$
-e $\namedpred{SameCard}(\set{ \set{0,1}, \set{\nats,\set{42}}, \set{\emptyset, \set{\emptyset}}})$.
+Por exempo: $\namedrel{Coauthors}(\textrm{Birkhoff}, \textrm{Mac Lane})$
+e $\namedrel{SameCard}(\set{ \set{0,1}, \set{\nats,\set{42}}, \set{\emptyset, \set{\emptyset}}})$.
 \endexample
 %%}}}
 
@@ -22483,8 +22477,8 @@ tem que ser uma afirmação definitiva, sem ambigüidades, etc.
 %%{{{ x: do_nats_ints_rats_reals_have_the_same_cardinality 
 \exercise.
 \label{do_nats_ints_rats_reals_have_the_same_cardinality}%
-Com a definição de $\namedpred{SameCard}$ do~\ref{relations_with_text_example},
-$\namedpred{SameCard}(\set{\nats,\ints,\rats,\reals})$?
+Com a definição de $\namedrel{SameCard}$ do~\ref{relations_with_text_example},
+$\namedrel{SameCard}(\set{\nats,\ints,\rats,\reals})$?
 Responda com ``sim'' ou ``não'', com uma curtíssima explicação (sem prova).
 
 \hint
@@ -22506,9 +22500,8 @@ porém vamos ter que redefinir o conceito de cardinalidade logo.
 %%{{{ eg: partial_application_in_relations_example 
 \example Aplicação parcial.
 \label{partial_application_in_relations_example}%
-\def\EqParity{\namedpred{EqParity}}%
-\def\Neg{\namedpred{Neg}}%
-\def\Coauthors{\namedpred{Coauthors}}%
+\DefRel EqParity
+\DefRel Neg
 Sejam as relações $\EqParity$ (binária entre inteiros),
 $B$ (unária em pessoas), e $\Neg$ (unária em inteiros), definidas pelas:
 $$
@@ -22748,9 +22741,6 @@ antes de chegar na definição formal.
 %%{{{ eg: persons_books_words 
 \example.
 \label{persons_books_words}%
-\DefPred{Author}%
-\DefPred{Read}%
-\DefPred{Contains}%
 Sejam os conjuntos $\cal P$ de pessoas, $\cal B$ de livros, e $\cal W$ de palavras.
 Considere as relações:
 $$
@@ -22799,8 +22789,6 @@ $$
 
 %%{{{ x: comparison_of_statements_about_reading_books 
 \exercise.
-\DefPred{Author}%
-\DefPred{Read}%
 \label{comparison_of_statements_about_reading_books}%
 A relação $R$ de $\cal P$ para $\cal W$ definida pela
 $$
@@ -22832,8 +22820,6 @@ logo todas as relações são gratuitamente compatíveis para composição.
 %%{{{ x: grandparents_grandchildren_siblings_and_couples_with_children 
 \exercise.
 \label{grandparents_grandchildren_siblings_and_couples_with_children}%
-\DefPred{Parent}%
-\DefPred{Child}%
 Seja $\cal P$ o conjunto de todas as pessoas, e considere as relações
 $$
 \align
@@ -22853,9 +22839,6 @@ $$
 $$
 
 \solution
-{%
-\DefPred{Parent}%
-\DefPred{Child}%
 Temos:
 $$
 \align
@@ -22865,7 +22848,6 @@ x \relp{\Parent\rcom\Child}  y &\defiff \text{$x$ e $y$ tem um filho ou uma filh
 x \relp{\Child\rcom\Parent}  y &\defiff \text{$x$ e $y$ são irmã(o)s ou a mesma pessoa}
 \endalign
 $$
-}
 
 \endexercise
 %%}}}
@@ -22988,8 +22970,6 @@ A direção \rldir\ é similar.
 %%{{{ x: only_if_incest 
 \exercise.
 \label{only_if_incest}%
-\DefPred{Parent}%
-\DefPred{Child}%
 Prove ou refute:
 $$
 \Child\rcom\Parent
@@ -22998,17 +22978,10 @@ $$
 $$
 
 \hint
-{%
-\DefPred{Parent}%
-\DefPred{Child}%
 $\Child\rcom\Parent\neq\Parent\rcom\Child$.
 Agora refute!
-}
 
 \solution
-{%
-\DefPred{Parent}%
-\DefPred{Child}%
 Temos $\Child\rcom\Parent\neq\Parent\rcom\Child$:
 \endgraf
 Tome $x,y\in \cal P$ dois irmãos que não têm filhos (juntos).
@@ -23019,7 +22992,6 @@ x \relp{\Parent\rcom\Child} y
 x \relp{\Child\rcom\Parent} y.
 $$
 Demonstramos assim que as duas relações são diferentes.
-}
 
 \endexercise
 %%}}}
@@ -23135,21 +23107,13 @@ $R \rcom {\rop R} = \Eq = {\rop R} \rcom R$}.
 \ref{only_if_incest}
 
 \hint
-{%
-\DefPred{Parent}%
-\DefPred{Child}%
 Temos $\Parent = \rop \Child$ (e logo $\Child = \rop \Parent$ também).
-}
 
 \solution
-{%
-\DefPred{Parent}%
-\DefPred{Child}%
 Não, como o contraexemplo do~\ref{only_if_incest} mostra, pois
 $$
 {\Parent} = {\rop \Child} \qquad\mland\qquad {\Child} = {\rop \Parent}.
 $$
-}
 
 \endexercise
 %%}}}
@@ -23157,13 +23121,13 @@ $$
 %%{{{ x: describe_coauthors_in_terms_of_author 
 \exercise.
 \label{describe_coauthors_in_terms_of_author}%
-Descreva a $\namedpred{Coauthors}$ do \ref{relations_with_text_example}
-em termos da $\namedpred{Author}$.
+Descreva a $\namedrel{Coauthors}$ do \ref{relations_with_text_example}
+em termos da $\namedrel{Author}$.
 
 \solution
 Considerando que um escritor é coescritor com ele mesmo,
 $$
-\namedpred{Coauthors} = \namedpred{Author}\rcom\rop{\namedpred{Author}}.
+\namedrel{Coauthors} = \namedrel{Author}\rcom\rop{\namedrel{Author}}.
 $$
 
 \endexercise
@@ -23178,7 +23142,7 @@ preferi chamar a $\rop R$ a relação \emph{oposta} da $R$, e usar essa notaçã
 em vez de $\rinv R$ e o nome \emph{inversa}.
 (Que também usamos pois são os mais comuns!)
 Se usar a notação $\rinv R$, cuidado para não confundir que
-$R \rcom {\rinv R} = \namedpred{Eq} = {\rinv R} \rcom R$,
+$R \rcom {\rinv R} = \namedrel{Eq} = {\rinv R} \rcom R$,
 pois em geral isso não é verdade.
 Ou seja: a relação ``inversa'' $\rinv R$,
 \emph{não é a $\rcom$-inversa} da $R$!
