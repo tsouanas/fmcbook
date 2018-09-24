@@ -17523,6 +17523,7 @@ que é a $\id_\nats$.
 
 %%{{{ Composition as an operation 
 \note Composição como operação.
+\label{composition_as_an_operation}%
 No mesmo jeito que o produto $3\ntimes 2$ denota um número,
 a composição $g\of f$ de certas funções $f$ e $g$ denota uma função.
 A $\of$ então realmente é uma operação (binária) nas funções,
@@ -18448,288 +18449,6 @@ $$
 \exercise.
 Ache a cardinalidade dos conjuntos da~\ref{jection_spaces}
 em termos das cardinalidades dos $A$ e $B$.
-
-\endexercise
-%%}}}
-
-%%{{{ thm: injection_iff_mono 
-\theorem.
-\label{injection_iff_mono}%
-Sejam $B \toarrow f C$.
-A $f$ é injetora sse
-$$
-f\of g = f \of h \implies g = h
-$$
-para todas as $g,h$ tais que as composições em cima são definidas.
-Digamos então que $f$ é \dterm{$\of$-cancelável pela esquerda}:
-\sketch.
-A direção {\lrdir} é o~\ref{injection_iff_mono_lrproof}.
-Para a direção {\rldir}, tome $b,b'\in B$ tais que $f(b)=f(b')$.
-Basta demonstrar que $b=b'$.
-Tome $A\asseq\set{0}$ e defina $g,h$ no diagrama
-$$
-\cdopt{sep=2cm}
-\set{0}   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
-\endcd
-$$
-em tal maneira que o diagrama comuta (tem que definir mesmo as $g,h$).
-Usamos agora a hipótese para concluir que $b=b'$.
-\qes
-\proof.
-\lrdir: \ref{injection_iff_mono_lrproof}.
-\endgraf
-\rldir:
-Suponha $b,b' \in B$ tais que $f(b) = f(b')$.
-Basta mostrar que $b = b'$.
-Temos então o diagrama interno seguinte:
-$$
-\tikzpicture
-\tikzi mono_implies_inj0;
-\endtikzpicture
-$$
-Seja $A = \set{0}$ e defina as $g,h$ no diagrama
-$$
-\cdopt{sep=2cm}
-\set{0}   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
-\endcd
-$$
-como as funções constantes definidas pelas 
-$$
-g(0) = b
-\qqtext{e}
-h(0) = b'.
-$$
-Então agora estamos com o diagrama interno assim:
-$$
-\tikzpicture
-\tikzi mono_implies_inj1;
-\endtikzpicture
-$$
-Observe que como
-$$
-\align
-(f\of g)(0) &= f(g(0)) = f(b) \\
-(f\of h)(0) &= f(h(0)) = f(b')
-\endalign
-$$
-e $f(b) = f(b')$, temos
-$f\of g = f\of h$ e agora usamos a hipótese para ganhar $g = h$.
-Logo as $g,h$ concordam no $0$, ou seja, $b = b'$.
-\qed
-%%}}}
-
-%%{{{ thm: surjection_iff_epic 
-\theorem.
-\label{surjection_iff_epic}%
-Sejam $B \toarrow f C$.
-A $f$ é sobrejetora sse
-$$
-g\of f = h\of f \implies g = h
-$$
-para todas as $g,h$ tais que as composições em cima são definidas.
-Digamos então que $f$ é \dterm{$\of$-cancelável pela direita}:
-\sketch.
-A direção {\lrdir} é o~\ref{surjection_iff_epic_lrproof}.
-Para a direção {\rldir}, tomamos $c \in C$ e procuramos achar
-$b\in B$ tal que $f(b) = c$.
-Defina o $D$ (cuidado: aqui não ajuda tomar $D=\set{0}$)
-e as $g,h$ no diagrama
-$$
-\cdopt{sep=2cm}
-B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
-\endcd
-$$
-em tal maneira que $g\neq h$,
-mas mesmo assim \emph{concordam em todo o $C$ exceto no ponto $c$}.
-Usando a contrapositiva da hipótese ganhamos
-$g\of f \neq h\of f$, mas isso só pode acontecer se a $f$ mandou pelo
-menos um ponto do domínio dela para o $c$.
-\qes
-\proof.
-\lrdir:
-\ref{surjection_iff_epic_lrproof}.
-\endgraf
-\rldir:
-Suponha $c\in C$.
-Procuramos $b\in B$ tal que $f(b) = c$.
-Começamos então com o diagrama interno seguinte:
-$$
-\tikzpicture
-\tikzi epic_implies_surj0;
-\endtikzpicture
-$$
-Seja $D=\set{0,1}$ e defina as funções $g,h:C\to D$ pelas
-$$
-g(y) = 0
-\qqtext{e}
-h(y) = \knuthcases{
-1, &se $y = c$; \cr
-0, &se $y \neq c$.
-}
-$$
-Logo $g(c) \neq h(c)$, mas $g(y)=h(y)$ para todo $y\neq c$.
-Agora estamos assim:
-$$
-\tikzpicture
-\tikzi epic_implies_surj1;
-\endtikzpicture
-$$
-Como $g\neq h$ então, pela hipótese concluimos que $g\of f \neq h\of f$, ou seja,
-as $g\of f$ e $h\of f$ discordam em pelo menos um membro de $B$,
-e seja $b$ um tal membro:
-$$
-(g\of f)(b) \neq (h\of f)(b).
-$$
-Logo
-$$
-g(f(b)) \neq h(f(b)),
-$$
-ou seja, $g$ e $h$ discordam no $f(b)$.
-Mas $g$ e $h$ discordam apenas no $c$; ou seja,
-$f(b) = c$ como desejamos.
-\qed
-%%}}}
-
-%%{{{ x: injection_surjection_commutative_diagrams 
-\exercise.
-\label{injection_surjection_commutative_diagrams}%
-Descreva as propriedades dos teoremas
-\refn{injection_iff_mono}--\refn{surjection_iff_epic}
-usando diagramas comutativos.
-
-\solution
-A função $f$ é injetora sse em todo diagrama comutativo da forma
-$$
-\cdopt{sep=2cm}
-A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
-\endcd
-$$
-temos $g=h$.
-\endgraf
-A função $f$ é sobrejetora sse em todo diagrama comutativo da forma
-$$
-\cdopt{sep=2cm}
-B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
-\endcd
-$$
-temos $g=h$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: injection_iff_mono_lrproof 
-\exercise.
-\label{injection_iff_mono_lrproof}%
-Prove a direção {\lrdir} do~\ref{injection_iff_mono}.
-
-\solution
-Suponha então que $f\of g = f\of h$.
-Vamos mostrar que $g = h$.
-Seja $x \in A$.
-Pela hipótese,
-$$
-(f\of g)(x) = (f\of h)(x)
-$$
-logo $f(g(x)) = f(h(x))$
-e como $f$ injetora, chegamos no desejado $g(x) = h(x)$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: surjection_iff_epic_lrproof 
-\exercise.
-\label{surjection_iff_epic_lrproof}%
-Prove a direção {\lrdir} do~\ref{surjection_iff_epic}.
-
-\solution
-Suponha que $g\of f = h\of f$.  Vamos mostrar que $g = h$.
-Seja $c\in C$.
-Logo existe $b\in B$ tal que $f(b) = c$.
-Como
-$$
-(g\of f)(b) = (h\of f)(b)
-$$
-temos $g(f(b)) = h(f(b))$; e, pela escolha de $b$, $g(c) = h(c)$.
-Logo $g = h$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: fcom_respects_jections 
-\exercise Composição respeita ``-jetividade''.
-\label{fcom_respects_jections}%
-Sejam $f : A\to B$ e $g : B \to C$.
-Prove:
-\item{(1)} Se $f$ e $g$ são injetoras, então $g\fcom f$ também é;
-\item{(2)} Se $f$ e $g$ são sobrejetoras, então $g\fcom f$ também é;
-\item{(3)} Se $f$ e $g$ são bijetoras, então $g\fcom f$ também é.
-
-\endexercise
-%%}}}
-
-%%{{{ x: converse_to_gof_bij_conclusions 
-\exercise.
-Se $g\compose f$ é bijetora, o que podemos concluir sobre as $f,g$?  Justifique.
-
-\endexercise
-%%}}}
-
-%%{{{ x: converse_to_gof_bij_conclusions 
-\exercise.
-Se $f$ é injetora e $g$ sobrejetora, a $g\compose f$ é necessariamente bijetora?
-
-\solution
-Não.
-Aqui um contraexemplo:
-$$
-\tikzpicture
-\draw (0,0) ellipse (-.75cm and 1.25cm);
-\draw (3,0) ellipse (-.75cm and 1.25cm);
-\draw (6,0) ellipse (-.75cm and 1.25cm);
-\draw (0,-.5) node {$\bullet$};
-\draw (3,.5)  node {$\bullet$};
-\draw (3,-.5) node {$\bullet$};
-\draw (6,.5)  node {$\bullet$};
-\draw (6,-.5) node {$\bullet$};
-\draw[|->] (0.2,-.5) -- (2.8,-.5);
-\draw[|->] (3.2,-.5) -- (5.8,-.5);
-\draw[|->] (3.2,.5) -- (5.8,.5);
-\draw[->]  (0.5,1.5) -- (2.5,1.5);
-\draw[->]  (3.5,1.5) -- (5.5,1.5);
-\draw (0,1.5) node {$A$};
-\draw (3,1.5) node {$B$};
-\draw (6,1.5) node {$C$};
-\draw (1.5,1.20) node {$f$};
-\draw (4.5,1.20) node {$g$};
-\endtikzpicture
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: x_mapsto_singleton_x_properties 
-\exercise.
-\label{x_mapsto_singleton_x_properties}%
-Sejam $A\neq\emptyset$ um conjunto e $f : A \to \pset A$ definida pela equação
-$$
-f(a) = \set a.
-$$
-Investigue:
-(i) A $f$ é injetora?
-(ii) A $f$ é sobrejetora?
-
-\solution
-\noindent
-(i) Sim: se $x,y\in A$, então
-$$
-f(x) = f(y)
-    \implies \set x = \set y
-    \implies x = y.
-$$
-\endgraf
-\noindent
-(ii) Não: para todo $a\in A$ temos
-$f(a) = \set a \neq \emptyset \in \pset A$.
 
 \endexercise
 %%}}}
@@ -19883,6 +19602,450 @@ veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
 \endsection
 %%}}}
 
+%%{{{ A real trip 
+\section Uma viagem real.
+\label{A_real_trip}%
+
+%%{{{ the trip 
+\note.
+Começamos na~\ref{Composition_laws} procurar conexões entre
+a composição e a multiplicação e realmente achamos muitas
+similaridades e essa influência já se tornou muito útil.
+Vamos começar dando uma olhada novamente numa propriedade
+de funções, a injetoridade.
+Pela sua definição, $f$ é injetora exatamente quando
+$$
+\text{para todo $x,y$, $f\fa x = f\fa y \implies x=y$}.
+$$
+Isso até parece pouco com ``cancelação'':
+$$
+\cancel f\fa x = \cancel f\fa y \implies x = y.
+$$
+Queremos investigar se e quando podemos cancelar uma
+função quando operada com composições:
+$$
+\align
+f \of g = f \of h &\askimplies g = h
+\intertext{e como nossa operação já sabemos que não
+é comutativa precisamos tratar essa questões similares separadamente:}
+g \of f = h \of f &\askimplies g = h\\
+g \of f = f \of h &\askimplies g = h.
+\endalign
+$$
+Vamos voltar no
+$$
+\cancel f\fa x = \cancel f\fa y \implies x = y.
+$$
+e agora vamos supor que os $f,x,y$ são números reais!
+E logo as expressões $f x$ e $f y$ denotam apenas os produtos
+$f\ntimes x$ e $f\ntimes y$.
+Bem.
+O que podemos concluir sabendo que
+$$
+f x = f y ?
+$$
+Se $f\neq0$ podemos cancelá-lo:
+$$
+\cancel f x = \cancel f y
+$$
+chegando assim na
+$$
+x = y.
+$$
+É que se $f=0$ então $f$ não é cancelável.%
+\footnote{Por que não?
+Se tu aprendeu numa maneira religiosa algum poeminha
+do tipo ``não cancelarás $0$ nas multiplicações'', esqueça;
+ninguém se importa com que teu padre falaste; investigue!
+Vamos voltar nessa questão depois (\ref{More_algebraic_strucures} (\refn{Rings}); \ref{Real_numbers}).
+}
+Parece ótimo: exatamente o tipo da coisa que estamos procurando.
+Será que podemos já trazer essa sabedoria da $\ntimes$ nos reais
+para a $\fcom$ nas funções?
+O que seria nosso ``zero'' nas funções?
+Uma resposta boba sera ``a função constante 0'', mas dizendo isso
+já perdemos a generalidade: queremos algo descrevível para qualquer
+função e não algo que serve apenas para funções cujos codomínios
+tem o $0$ como membro.  E ainda pior.  Até para funções numéricas
+a função constante $k_0 = \lam x 0$ não é nada de cancelavel.
+(Veja~\ref{constant_zero_is_not_cancellable}.)
+Mes peraí.
+Talvez não é o ``ser zero'' que é importante nesse ponto de
+cancelamento!
+Realmente: por que esse ``se $f\neq0$'' acima?
+<<É que se $f=0$ então $f$ não é cancelável.>>
+Mas essa resposta não é exatamente luminosa.
+Realmente, o que nos permete cancelar numeros reais na multiplicação?
+Vamos tentar algo mais cuidadoso e formal:%
+\footnote{Mesmo sendo cedo neste momento para essa abordagem
+creio que o leitor vai conseguir acompanhar a idéia.
+Estudando algebra abstrata nos capítulos~\refn{Group_theory}
+e~\refn{More_algebraic_structures} tudo isso vai aparecer
+bem tranqüilo e natural.  Prometo.}
+$$
+\alignat2
+f x = f y
+&\implies f^{-1} (f x) = f^{-1} (f y)   \by {multiplicando por $f^{-1}$}
+&\implies (f^{-1} f) x = (f^{-1} f) y   \by {pela associatividade da $\ntimes$}
+&\implies 1 x = 1 y                     \by {pela def.~da $f^{-1}$}
+&\implies x = y.                        \by {pela def.~de $1$}
+\endalignat
+$$
+O único passo duvidoso seria o primeiro:
+como sabemos que existe esse inverso?
+\emph{Não sabemos.}
+Então talvez é isso que estamos procurando!
+Talvez
+$$
+\text{$f$ tem inversa} \iff \text{$f$ é cancelável}!
+$$
+Para provar essa afirmação precisamos saber
+o que ``cancelável'' significa formalmente aqui.
+Qual das três implicações que consideramos acima vamos escolher?:
+$$
+\text{$f$ é cancelável}
+\askiff
+\leftbrace{
+\aligned
+f \of g = f \of h &\implies g = h \\
+g \of f = h \of f &\implies g = h \\
+g \of f = f \of h &\implies g = h.
+\endaligned
+}
+$$
+A $\ntimes$ nos reais sendo uma operação \emph{comutativa},
+não consegue diferenciar entre essas afirmações.
+Ou seja, por causa da riquesa das leis que temos
+na multiplicação nos reais, certas distinções desaparecem,
+``se desabam''---algo que podemos pensar como pobresa também!
+E vice versa, com menos leis, ganhamos mais distinções---riquesa!
+No mundo de números reais, um certo $x$ ou tem inverso
+ou não.  De qual lado inverso?  Não faz sentido perguntar
+isso nos reais pois o lado não importa.
+Não vamos falar apenas sobre ``inverso'' mas sim sobre
+\dterm{inverso esquerdo} e \dterm{inverso direito}.
+Similarmente, nos reais só tem uma $1$ para considerar;
+nas funções, cada conjunto $A$ chega com sua $1_A$!
+\emph{O mundo das funções é suficientemente rico para enxergar
+essas noções ``inenxergáveis'' no mundo dos reais.}
+%%}}}
+
+%%{{{ x: constant_zero_is_not_cancellable 
+\exercise.
+\label{constant_zero_is_not_cancellable}%
+Demonstre que uma função constante $k_0 : A \to B$
+não é sempre cancelável.  Quando é?  E por qual lado?
+
+\endexercise
+%%}}}
+
+\blah.
+Influenciados por toda essa viagem chegamos nuns resultados
+muito importantes e interessantes sobre a injetoridade,
+a sobrejetoridade, e os cancelamentos (esquedos e direitos)
+das funções.
+
+%%{{{ Q: guess the theory that's about to come 
+\question.
+Quais resultados tu acha que vamos provar?
+Consegues prová-los?
+\spoiler.
+%%}}}
+
+%%{{{ thm: injection_iff_mono 
+\theorem.
+\label{injection_iff_mono}%
+Sejam $B \toarrow f C$.
+A $f$ é injetora sse
+$$
+f\of g = f \of h \implies g = h
+$$
+para todas as $g,h$ tais que as composições acima são definidas.
+Digamos então que $f$ é \dterm{$\of$-cancelável pela esquerda}:
+\sketch.
+A direção {\lrdir} é o~\ref{injection_iff_mono_lrproof}.
+Para a direção {\rldir}, tome $b,b'\in B$ tais que $f(b)=f(b')$.
+Basta demonstrar que $b=b'$.
+Tome $A\asseq\set{0}$ e defina $g,h$ no diagrama
+$$
+\cdopt{sep=2cm}
+\set{0}   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
+\endcd
+$$
+em tal maneira que o diagrama comuta (tem que definir mesmo as $g,h$).
+Usamos agora a hipótese para concluir que $b=b'$.
+\qes
+\proof.
+\lrdir: \ref{injection_iff_mono_lrproof}.
+\endgraf
+\rldir:
+Suponha $b,b' \in B$ tais que $f(b) = f(b')$.
+Basta mostrar que $b = b'$.
+Temos então o diagrama interno seguinte:
+$$
+\tikzpicture
+\tikzi mono_implies_inj0;
+\endtikzpicture
+$$
+Seja $A = \set{0}$ e defina as $g,h$ no diagrama
+$$
+\cdopt{sep=2cm}
+\set{0}   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
+\endcd
+$$
+como as funções constantes definidas pelas 
+$$
+g(0) = b
+\qqtext{e}
+h(0) = b'.
+$$
+Então agora estamos com o diagrama interno assim:
+$$
+\tikzpicture
+\tikzi mono_implies_inj1;
+\endtikzpicture
+$$
+Observe que como
+$$
+\align
+(f\of g)(0) &= f(g(0)) = f(b) \\
+(f\of h)(0) &= f(h(0)) = f(b')
+\endalign
+$$
+e $f(b) = f(b')$, temos
+$f\of g = f\of h$ e agora usamos a hipótese para ganhar $g = h$.
+Logo as $g,h$ concordam no $0$, ou seja, $b = b'$.
+\qed
+%%}}}
+
+%%{{{ thm: surjection_iff_epic 
+\theorem.
+\label{surjection_iff_epic}%
+Sejam $B \toarrow f C$.
+A $f$ é sobrejetora sse
+$$
+g\of f = h\of f \implies g = h
+$$
+para todas as $g,h$ tais que as composições acima são definidas.
+Digamos então que $f$ é \dterm{$\of$-cancelável pela direita}:
+\sketch.
+A direção {\lrdir} é o~\ref{surjection_iff_epic_lrproof}.
+Para a direção {\rldir}, tomamos $c \in C$ e procuramos achar
+$b\in B$ tal que $f(b) = c$.
+Defina o $D$ (cuidado: aqui não ajuda tomar $D=\set{0}$)
+e as $g,h$ no diagrama
+$$
+\cdopt{sep=2cm}
+B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
+\endcd
+$$
+em tal maneira que $g\neq h$,
+mas mesmo assim \emph{concordam em todo o $C$ exceto no ponto $c$}.
+Usando a contrapositiva da hipótese ganhamos
+$g\of f \neq h\of f$, mas isso só pode acontecer se a $f$ mandou pelo
+menos um ponto do domínio dela para o $c$.
+\qes
+\proof.
+\lrdir:
+\ref{surjection_iff_epic_lrproof}.
+\endgraf
+\rldir:
+Suponha $c\in C$.
+Procuramos $b\in B$ tal que $f(b) = c$.
+Começamos então com o diagrama interno seguinte:
+$$
+\tikzpicture
+\tikzi epic_implies_surj0;
+\endtikzpicture
+$$
+Seja $D=\set{0,1}$ e defina as funções $g,h:C\to D$ pelas
+$$
+g(y) = 0
+\qqtext{e}
+h(y) = \knuthcases{
+1, &se $y = c$; \cr
+0, &se $y \neq c$.
+}
+$$
+Logo $g(c) \neq h(c)$, mas $g(y)=h(y)$ para todo $y\neq c$.
+Agora estamos assim:
+$$
+\tikzpicture
+\tikzi epic_implies_surj1;
+\endtikzpicture
+$$
+Como $g\neq h$ então, pela hipótese concluimos que $g\of f \neq h\of f$, ou seja,
+as $g\of f$ e $h\of f$ discordam em pelo menos um membro de $B$,
+e seja $b$ um tal membro:
+$$
+(g\of f)(b) \neq (h\of f)(b).
+$$
+Logo
+$$
+g(f(b)) \neq h(f(b)),
+$$
+ou seja, $g$ e $h$ discordam no $f(b)$.
+Mas $g$ e $h$ discordam apenas no $c$; ou seja,
+$f(b) = c$ como desejamos.
+\qed
+%%}}}
+
+%%{{{ x: injection_surjection_commutative_diagrams 
+\exercise.
+\label{injection_surjection_commutative_diagrams}%
+Descreva as propriedades dos teoremas
+\refn{injection_iff_mono}--\refn{surjection_iff_epic}
+usando diagramas comutativos.
+
+\solution
+A função $f$ é injetora sse em todo diagrama comutativo da forma
+$$
+\cdopt{sep=2cm}
+A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
+\endcd
+$$
+temos $g=h$.
+\endgraf
+A função $f$ é sobrejetora sse em todo diagrama comutativo da forma
+$$
+\cdopt{sep=2cm}
+B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
+\endcd
+$$
+temos $g=h$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: injection_iff_mono_lrproof 
+\exercise.
+\label{injection_iff_mono_lrproof}%
+Prove a direção {\lrdir} do~\ref{injection_iff_mono}.
+
+\solution
+Suponha então que $f\of g = f\of h$.
+Vamos mostrar que $g = h$.
+Seja $x \in A$.
+Pela hipótese,
+$$
+(f\of g)(x) = (f\of h)(x)
+$$
+logo $f(g(x)) = f(h(x))$
+e como $f$ injetora, chegamos no desejado $g(x) = h(x)$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: surjection_iff_epic_lrproof 
+\exercise.
+\label{surjection_iff_epic_lrproof}%
+Prove a direção {\lrdir} do~\ref{surjection_iff_epic}.
+
+\solution
+Suponha que $g\of f = h\of f$.  Vamos mostrar que $g = h$.
+Seja $c\in C$.
+Logo existe $b\in B$ tal que $f(b) = c$.
+Como
+$$
+(g\of f)(b) = (h\of f)(b)
+$$
+temos $g(f(b)) = h(f(b))$; e, pela escolha de $b$, $g(c) = h(c)$.
+Logo $g = h$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: fcom_respects_jections 
+\exercise Composição respeita ``-jetividade''.
+\label{fcom_respects_jections}%
+Sejam $f : A\to B$ e $g : B \to C$.
+Prove:
+\item{(1)} Se $f$ e $g$ são injetoras, então $g\fcom f$ também é;
+\item{(2)} Se $f$ e $g$ são sobrejetoras, então $g\fcom f$ também é;
+\item{(3)} Se $f$ e $g$ são bijetoras, então $g\fcom f$ também é.
+
+\endexercise
+%%}}}
+
+%%{{{ x: converse_to_gof_bij_conclusions 
+\exercise.
+Se $g\compose f$ é bijetora, o que podemos concluir sobre as $f,g$?  Justifique.
+
+\endexercise
+%%}}}
+
+%%{{{ x: converse_to_gof_bij_conclusions 
+\exercise.
+Se $f$ é injetora e $g$ sobrejetora, a $g\compose f$ é necessariamente bijetora?
+
+\solution
+Não.
+Aqui um contraexemplo:
+$$
+\tikzpicture
+\draw (0,0) ellipse (-.75cm and 1.25cm);
+\draw (3,0) ellipse (-.75cm and 1.25cm);
+\draw (6,0) ellipse (-.75cm and 1.25cm);
+\draw (0,-.5) node {$\bullet$};
+\draw (3,.5)  node {$\bullet$};
+\draw (3,-.5) node {$\bullet$};
+\draw (6,.5)  node {$\bullet$};
+\draw (6,-.5) node {$\bullet$};
+\draw[|->] (0.2,-.5) -- (2.8,-.5);
+\draw[|->] (3.2,-.5) -- (5.8,-.5);
+\draw[|->] (3.2,.5) -- (5.8,.5);
+\draw[->]  (0.5,1.5) -- (2.5,1.5);
+\draw[->]  (3.5,1.5) -- (5.5,1.5);
+\draw (0,1.5) node {$A$};
+\draw (3,1.5) node {$B$};
+\draw (6,1.5) node {$C$};
+\draw (1.5,1.20) node {$f$};
+\draw (4.5,1.20) node {$g$};
+\endtikzpicture
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: x_mapsto_singleton_x_properties 
+\exercise.
+\label{x_mapsto_singleton_x_properties}%
+Sejam $A\neq\emptyset$ um conjunto e $f : A \to \pset A$ definida pela equação
+$$
+f(a) = \set a.
+$$
+Investigue:
+(i) A $f$ é injetora?
+(ii) A $f$ é sobrejetora?
+
+\solution
+\noindent
+(i) Sim: se $x,y\in A$, então
+$$
+f(x) = f(y)
+    \implies \set x = \set y
+    \implies x = y.
+$$
+\endgraf
+\noindent
+(ii) Não: para todo $a\in A$ temos
+$f(a) = \set a \neq \emptyset \in \pset A$.
+
+\endexercise
+%%}}}
+
+%%{{{ remark: we could have worked via multiplication earlier 
+\remark.
+Já definimos os conceitos de inversa e de identidade
+antes de fazer essa viagem real que fizemos aqui.
+Mas com essa experiência podemos voltar e repensar
+em mais motivações e influências para chegar nesses
+conceitos.  Pode viajar a vontade!
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Recursive definitions 
 \section Definições recursivas.
 \label{Recursive_definitions_as_systems}%
@@ -20999,6 +21162,8 @@ a função de dois argumentos é do tipo $(A \times B) \to C$?
 %%}}}
 \spoiler.
 
+\TODO First show wrong-type attempt.
+
 %%{{{ Answer 
 \blah Resposta.
 Primeiramente vamos nos preocupar com os tipos dessas funções.
@@ -21185,13 +21350,15 @@ $$
 \label{Partial_functions}%
 
 \blah.
-A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente} definida no $A$,
-não nos permite considerer naturalmente situações onde um certo programa, por exemplo,
-retorna valores para certas entradas aceitáveis, e para as outras não: talvez
-ele fica num \emph{loop infinito}; ou ele faz a máquina explodir; ou simplesmente
-não termina com uma saida---não importa o porquê.
-Definimos então o conceito de \emph{função parcial}, que é exatamente isso:
-funções que para certas entradas aceitáveis delas, possivelmente \dterm{divergem}.
+A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente}
+definida no $A$, não nos permite considerer naturalmente situações onde
+um certo programa, por exemplo, retorna valores para certas entradas
+aceitáveis, e para as outras não:
+talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
+ou simplesmente não termina com uma saida---não importa o porquê.
+Definimos então o conceito de \emph{função parcial}, que é exatamente
+isso: funções que para certas entradas aceitáveis delas, possivelmente
+\dterm{divergem}.
 
 %%{{{ df: partial_function 
 \definition.
