@@ -23733,32 +23733,33 @@ tricotomia.
 %%{{{ Glossary: relations_glossary 
 \note Glossário.
 \label{relations_glossary}%
+\def\called##1{&\qqqquad&\textrm{(##1)}\\}
 Resumimos aqui as propriedades que encontramos.
 Seja $X$ conjunto e $R$ uma relação binária nele.
 Definimos as seguintes propriedades:
 $$
 \alignat2
-&x \rel R x                                         &\qqqquad&\textrm{(reflexiva)}\\
-&x \not\rel R x                                     &\qqqquad&\textrm{(irreflexiva)}\\
-&x \rel R y  \implies  y \rel R x                   &\qqqquad&\textrm{(simétrica)}\\
-&x \rel R y  \implies  y \not\rel R x               &\qqqquad&\textrm{(assimétrica)}\\
-&x \rel R y  \mland y \rel R x \implies x = y       &\qqqquad&\textrm{(antissimétrica)}\\
-&x \rel R y  \mland  y \rel R z \implies x \rel R z &\qqqquad&\textrm{(transitiva)}\\
-&x \rel R y  \mland  y \rel R z \implies z \rel R x &\qqqquad&\textrm{(circular)}\\
-&x \rel R y  \mland  x \rel R z \implies y \rel R z &\qqqquad&\textrm{(right-euclidean)}\\
-&x \rel R z  \mland  y \rel R z \implies x \rel R y &\qqqquad&\textrm{(left-euclidean)}\\
-&x \rel R y  \mlor   y \rel R x                     &\qqqquad&\textrm{(total)}\\
+&x \rel R x                                         \called {reflexiva}
+&x \not\rel R x                                     \called {irreflexiva}
+&x \rel R y  \implies  y \rel R x                   \called {simétrica}
+&x \rel R y  \implies  y \not\rel R x               \called {assimétrica}
+&x \rel R y  \mland y \rel R x \implies x = y       \called {antissimétrica}
+&x \rel R y  \mland  y \rel R z \implies x \rel R z \called {transitiva}
+&x \rel R y  \mland  y \rel R z \implies z \rel R x \called {circular}
+&x \rel R y  \mland  x \rel R z \implies y \rel R z \called {right-euclidean}
+&x \rel R z  \mland  y \rel R z \implies x \rel R y \called {left-euclidean}
+&x \rel R y  \mlor   y \rel R x                     \called {total}
 \text{exatamente uma das:}\quad
-&x \rel R y\, ; \ \  y \rel R x\, ; \ \  x = y      &\qqqquad&\textrm{(tricotômica)}
+&x \rel R y\, ; \ \  y \rel R x\, ; \ \  x = y      \called {tricotômica}
 \endalignat
 $$
 Para o caso mais geral onde $R$ é uma relação binária de $X$ para $Y$, temos:
 $$
 \alignat2
-&\pforall {x \in X} \lexists {y \in Y} {x \rel R y} &\qqqquad&\textrm{(left-total)}\\
-&\pforall {y \in Y} \lexists {x \in X} {x \rel R y} &\qqqquad&\textrm{(right-total ou surjetiva)}\\
-&y \rel R x  \mland  z \rel R x \implies y = z      &\qqqquad&\textrm{(left-unique ou injetiva}\\
-&x \rel R y  \mland  x \rel R z \implies y = z      &\qqqquad&\textrm{(right-unique ou funcional)}
+&\pforall {x \in X} \lexists {y \in Y} {x \rel R y} \called {left-total}
+&\pforall {y \in Y} \lexists {x \in X} {x \rel R y} \called {right-total ou surjetiva}
+&y \rel R x  \mland  z \rel R x \implies y = z      \called {left-unique ou injetiva}
+&x \rel R y  \mland  x \rel R z \implies y = z      \called {right-unique ou funcional}
 \endalignat
 $$
 %%}}}
@@ -23927,48 +23928,6 @@ $$
 \tup{2,1,0}
 $$
 mas $\tup{0,1,0} \not\sim \tup{2,1,0}$.
-
-\endexercise
-%%}}}
-
-%%{{{ df: kernel_coimage 
-\definition.
-\label{kernel_coimage}%
-\tdefined{kernel}%
-\tdefined{coimagem}%
-\sdefined {\ker {\holed f}} {kernel da \holed f}%
-\sdefined {\coim {\holed f}} {coimagem da \holed f}%
-Seja $f : X \to Y$ e defina a relação binária $\frel f$ no $X$ pela
-$$
-x_1 \frel f x_2 \defiff f(x_1)=f(x_2).
-$$
-Chamamos a $\frel f$ o \dterm{kernel} da $f$, e seu conjunto quociente
-a \dterm{coimagem} da $f$.
-Usamos também os símbolos $\ker f$ e $\coim f$ respectivamente.
-%%}}}
-
-%%{{{ x: frel_is_an_eqrel 
-\exercise.
-\label{frel_is_an_eqrel}%
-Com os dados da~\ref{kernel_coimage}
-mostre que $\frel f$ é uma relação de equivalência e descreva os elementos da coimagem.
-O que podemos dizer se $f$ é injetora?
-Se ela é sobrejetora?
-
-\endexercise
-%%}}}
-
-%%{{{ x: immediate applications 
-\exercise.
-Mostre que todas as relações dos
-exemplos~\refn{equivalent_relations_on_euclidean_plane}
-e~\refn{equivalent_relations_on_euclidean_space}
-são casos especiais do~\ref{frel_is_an_eqrel}
-(e logo são relações de equivalência ``gratuitamente'').
-
-\hint
-Para cada uma delas, precisa definir completamente a
-$f : A \to B$ (esclarecendo também quais são os $A,B$).
 
 \endexercise
 %%}}}
@@ -24692,6 +24651,48 @@ e \emph{provar que ela é uma relação de equivalência}.
 Não esqueça essas dicas!
 %%}}}
 
+%%{{{ df: kernel_coimage 
+\definition.
+\label{kernel_coimage}%
+\tdefined{kernel}%
+\tdefined{coimagem}%
+\sdefined {\ker {\holed f}} {kernel da \holed f}%
+\sdefined {\coim {\holed f}} {coimagem da \holed f}%
+Seja $f : X \to Y$ e defina a relação binária $\frel f$ no $X$ pela
+$$
+x_1 \frel f x_2 \defiff f(x_1)=f(x_2).
+$$
+Chamamos a $\frel f$ o \dterm{kernel} da $f$, e seu conjunto quociente
+a \dterm{coimagem} da $f$.
+Usamos também os símbolos $\ker f$ e $\coim f$ respectivamente.
+%%}}}
+
+%%{{{ x: frel_is_an_eqrel 
+\exercise.
+\label{frel_is_an_eqrel}%
+Com os dados da~\ref{kernel_coimage}
+mostre que $\frel f$ é uma relação de equivalência e descreva os elementos da coimagem.
+O que podemos dizer se $f$ é injetora?
+Se ela é sobrejetora?
+
+\endexercise
+%%}}}
+
+%%{{{ x: immediate applications 
+\exercise.
+Mostre que todas as relações dos
+exemplos~\refn{equivalent_relations_on_euclidean_plane}
+e~\refn{equivalent_relations_on_euclidean_space}
+são casos especiais do~\ref{frel_is_an_eqrel}
+(e logo são relações de equivalência ``gratuitamente'').
+
+\hint
+Para cada uma delas, precisa definir completamente a
+$f : A \to B$ (esclarecendo também quais são os $A,B$).
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -24888,7 +24889,7 @@ Essa relação então é o \emph{fecho reflexivo} da $R$.
 %%{{{ eg: symmetric_closure_example 
 \example Fecho simétrico.
 \label{symmetric_closure_example}%
-Vamos calcular o agora o fecho simétrico da mesma relação $R$
+Vamos calcular agora o fecho simétrico da mesma relação $R$
 do~\ref{reflexive_closure_example}:
 $$
 \tikzpicture[>=stealth, scale=0.84]
@@ -35547,7 +35548,7 @@ pois $\pi(x)$ são todas as pessoas que $x$ ama.%
 \footnote{Outros exemplos de definições razoáveis nessa interpretação
 seriam chamar o $x$ \dterm{misántropo} se $\pi(x) = \emptyset$,
 \dterm{egoista} se $\pi(x) = \set x$, etc.,
-mas só vamos precisar dos depressívos mesmo aqui.}
+mas aqui só vamos precisar dos depressivos mesmo.}
 Assim, cada $x\in A$ ou é depressivo, ou não.
 Condiseramos o conjunto $D$ de todos os depressivos membros de $A$:
 $$
