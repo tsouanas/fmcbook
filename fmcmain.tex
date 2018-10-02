@@ -23800,6 +23800,471 @@ já desenhadas.
 \endsection
 %%}}}
 
+%%{{{ Closures 
+\section Fechos.
+
+\blah.
+Antes de definir formalmente o conceito importante de fechos,
+começamos com uns exemplos ilustrativos para os três fechos mais comuns:
+reflexivo, simétrico, transitivo.
+A idéia é sempre a mesma, e vamos descreve-la como um algoritmo.
+
+%%{{{ The idea 
+\note A idéia.
+Começamos com uma relação $R$, e fixamos uma propriedade
+desejada (por exemplo, a transitividade).
+Vamos construir uma nova relação $\bar R$, que chamamos o \dterm{fecho}
+da $R$ pela propriedade escolhida.
+Pense na $R$ como o seu diagrama interno, com suas setinhas.
+Primeiramente nós nos perguntamos:
+<<a relação já tem essa propriedade?>>
+Caso que sim, não precisamos fazer nada, a relação que temos é
+o fecho $\bar R$ que queriamos construir.
+Caso que não, quis dizer que tem setinhas que
+\emph{deveriam estar} no diagrama, mas não estão.
+(Essas setinhas são as testemunhas que refutam a nossa propriedade.)
+Adicionamo-las na nossa relação.
+E agora voltamos a perguntar a mesma pergunta,
+e continuar no mesmo jeito, até finalmente chegar numa
+relação $\bar R$ que realmente satisfaz a propriedade escolhida.
+Essa relação $\bar R$ é o fecho da $R$ pelessa propriedade.
+%%}}}
+
+%%{{{ eg: reflexive_closure_example 
+\example Fecho reflexivo.
+\label{reflexive_closure_example}%
+Seja $R$ a relação no $A$ com o diagrama seguinte:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\endtikzpicture
+$$
+Qual é o fecho reflexivo dela?
+Bem, primeiramente nós nos perguntamos:
+será que a relação já é reflexiva?
+Ela não é.
+Identificamos então as setinhas-testemunhas desse fato:
+são as $(1,1)$, $(3,3)$, $(7,7)$, e $(8,8)$.
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\node[color=blue] (elem-1b) at (elem-1) {$1$};
+\node[color=blue] (elem-3b) at (elem-3) {$3$};
+\node[color=blue] (elem-7b) at (elem-7) {$7$};
+\node[color=blue] (elem-8b) at (elem-8) {$8$};
+\draw[->, color=red, ultra thick, dotted] ([shift={(0,0.2)}]elem-3) arc (10:290:0.25);
+\draw[->, color=red, ultra thick, dotted] ([shift={(0,0.2)}]elem-7) arc (10:290:0.25);
+\draw[->, color=red, ultra thick, dotted] ([shift={(0,-.2)}]elem-1) arc (-170:120:0.25);
+\draw[->, color=red, ultra thick, dotted] ([shift={(-.2,0)}]elem-8) arc (80:350:0.25);
+\endtikzpicture
+$$
+Adicionamo-la na relação e chegamos em:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\draw[->] ([shift={(0,0.2)}]elem-3) arc (10:290:0.25);
+\draw[->] ([shift={(0,0.2)}]elem-7) arc (10:290:0.25);
+\draw[->] ([shift={(0,-.2)}]elem-1) arc (-170:120:0.25);
+\draw[->] ([shift={(-.2,0)}]elem-8) arc (80:350:0.25);
+\endtikzpicture
+$$
+\dots e perguntamos a mesma pergunta:
+será que ela é reflexiva?
+Agora é sim!
+Essa relação então é o \emph{fecho reflexivo} da $R$.
+\endexample
+%%}}}
+
+%%{{{ eg: symmetric_closure_example 
+\example Fecho simétrico.
+\label{symmetric_closure_example}%
+Vamos calcular agora o fecho simétrico da mesma relação $R$
+do~\ref{reflexive_closure_example}:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\endtikzpicture
+$$
+Será que ela já é simétrica?
+Ela não é por causa das três setinhas seguintes,
+onde para cada uma mostro em azul a setinha-razão que obriga
+a setinha-faltante (em vermelho) ser adicionada:
+$$
+\xxalignat3
+&
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\draw[->, color=blue, ultra thick        ] (elem-8) to                 (elem-6);
+\draw[->, color=red , ultra thick, dotted] (elem-6) to [bend left=30]  (elem-8);
+\endtikzpicture
+&&
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\draw[->, color=blue, ultra thick        ] (elem-6) to                 (elem-7);
+\draw[->, color=red , ultra thick, dotted] (elem-7) to [bend left=15]  (elem-6);
+\endtikzpicture
+&&
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\draw[->, color=blue, ultra thick        ] (elem-5) to                 (elem-8);
+\draw[->, color=red , ultra thick, dotted] (elem-8) to [bend right=30] (elem-5);
+\endtikzpicture
+\endxxalignat
+$$
+Então adicionamos todas essas setinhas necessárias:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\draw[->            ] (elem-8) to                 (elem-6);
+\draw[->            ] (elem-6) to                 (elem-7);
+\draw[->            ] (elem-5) to                 (elem-8);
+\draw[->            ] (elem-6) to [bend left=30]  (elem-8);
+\draw[->            ] (elem-7) to [bend left=15]  (elem-6);
+\draw[->            ] (elem-8) to [bend right=30] (elem-5);
+\endtikzpicture
+$$
+Agora perguntamos novamente: a relação é simétrica?
+Ela é sim, então paramos aqui.
+A relação criada é o \emph{fecho simétrico} da $R$.
+\endexample
+%%}}}
+
+%%{{{ eg: transitive_closure_example 
+\example Fecho transitivo.
+\label{transitive_closure_example}%
+Para ser original, seja $R$ a mesma relação dos
+exemplos~\refn{reflexive_closure_example}--\refn{symmetric_closure_example}:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\endtikzpicture
+$$
+Essa vez vamos calcular o fecho transitivo dela, então começamos com a pergunta:
+será que a relação já é transitiva?
+Não é!
+Então precisamos achar todas as setinhas que deveriam estar nela e não estão
+e adicioná-las:
+$$
+\xxalignat3
+&
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\draw[->, color=blue, ultra thick        ] (elem-5) to (elem-8);
+\draw[->, color=blue, ultra thick        ] (elem-8) to (elem-6);
+\draw[->, color=red , ultra thick, dotted] (elem-5) to (elem-6);
+\endtikzpicture
+&&
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\draw[->, color=blue, ultra thick        ] (elem-8) to (elem-6);
+\draw[->, color=blue, ultra thick        ] (elem-6) to (elem-7);
+\draw[->, color=red , ultra thick, dotted] (elem-8) to (elem-7);
+\endtikzpicture
+&&
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosures0;
+\draw[->, color=blue, ultra thick        ] (elem-1) to [bend left=20] (elem-2);
+\draw[->, color=blue, ultra thick        ] (elem-2) to [bend left=20] (elem-1);
+\draw[->, color=red , ultra thick, dotted] ([shift={(0,-.2)}]elem-1) arc (-170:120:0.25);
+\endtikzpicture
+\endxxalignat
+$$
+Adicionando todas essas setas necessárias, chegamos na relação:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosurest1;
+\endtikzpicture
+$$
+E perguntamos: ela é transitiva?
+\emph{Ainda não!}
+Pois, as novas setinhas que adicionamos criaram novos caminhos que
+obrigam mais uma setinha estar na relação (dois caminhos diferentes
+explicam a adição dessa mesma setinha nesse caso):
+$$
+\xalignat2
+&
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosurest1;
+\draw[->, color=blue, ultra thick        ] (elem-5) to (elem-6);
+\draw[->, color=blue, ultra thick        ] (elem-6) to (elem-7);
+\draw[->, color=red , ultra thick, dotted] (elem-5) to (elem-7);
+\endtikzpicture
+&&
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosurest1;
+\draw[->, color=blue, ultra thick        ] (elem-5) to (elem-8);
+\draw[->, color=blue, ultra thick        ] (elem-8) to (elem-7);
+\draw[->, color=red , ultra thick, dotted] (elem-5) to (elem-7);
+\endtikzpicture
+\endxalignat
+$$
+Adicionamos então a setinha $(5,7)$:
+$$
+\tikzpicture[>=stealth, scale=0.84]
+\tikzi reldiagclosurest1;
+\draw[->] (elem-5) to (elem-7);
+\endtikzpicture
+$$
+Ela é transitiva agora?  Sim, finalmente!
+Então esse é o \emph{fecho transitivo} da $R$.
+\endexample
+%%}}}
+
+%%{{{ pseudodf: fecho_pseudodefinition 
+\pseudodefinition.
+\label{closure_pseudodefinition}%
+\tdefined{fecho!de relação}%
+Seja $R$ uma relação binária num conjunto $A$,
+e fixe uma propriedade \emph{razoável}
+daquelas que aparecem no~glossário~\refn{relations_glossary}.
+Definimos o fecho da $R$ pela propriedade para ser a relação que criamos se
+\emph{adicionar} numa maneira \emph{justa} todas as setinhas \emph{necessárias}
+no diagrama da $R$ até ela virar uma relação com a propriedade
+desejada.
+%%}}}
+
+%%{{{ remark: we may add but never remove 
+\remark Podemos botar mas não retirar.
+Note então que o fecho $\bar R$ de uma relação $R$ tem todas
+as setinhas que $R$ tem, e possivelmente mais ainda.
+Ou seja, temos
+$$
+\graph R \subseteq \graph \bar R
+$$
+para qualquer fecho escolhido.
+%%}}}
+
+\blah.
+Na~\ref{closure_pseudodefinition} enfatizei as palavras ``razoável'',
+``justa'' e ``necessárias''.
+Vamos ver o que cada uma delas quis dizer mesmo.
+
+%%{{{ Necessary arrows 
+\note Setinhas necessárias.
+``Adicionar apenas as setinhas \emph{necessárias}'' quis dizer que
+a falta de cada uma dessas setinhas é uma razão que nossa relação não
+satisfaz a propriedade escolhida.
+Caso contrário não vamos adiciona-la, \emph{mesmo se sua adição não afeta nada}.
+%%}}}
+
+%%{{{ Fair way 
+\note Maneira justa.
+``Adicionar setinhas numa maneira \emph{justa}'' quis dizer que em
+nenhum ponto vamos ter que escolher entre duas ou mais setinhas-testemunhas
+\emph{tais que a adição de apenas uma} seria suficiente para satisfazer
+a propriedade.
+Imagine que nesse caso, nossa escolha não seria justa para a setinha
+não-escolhida (ou para a setinha escolhida, dependendo o ponto de vista).
+Formar o fecho duma relação deve ser uma operação, e sendo isso deve
+ser determinista.
+Imagina entao que temos uma propriedade estranha, dizendo que:
+$$
+x \rel R x \mland y \rel R y \implies x \rel R y \mlor y \rel R x.
+$$
+(Nem adianta tentar achar um nome razoável para essa propriedade.)
+Agora, a relação $R$ no $\nats$ com $\graph R = \set{ (0,0), (1,1) }$
+claramente não satisfaz essa propriedade.
+Tentando formar o fecho através dessa propriedade, já na primeira etapa,
+temos duas ``setinhas-testemunhas'' que podemos escolher para adicionar:
+a $(0,1)$ e a $(1,0)$.  Graças à restrição de ``necessárias'', não podemos
+adicionar ambas, pois assim que adicionar uma, a propriedade já é satisfeita.
+No outro lado, não podemos escolher uma das duas numa maneira justa:
+as duas servem igualmente bem.
+\emph{Para esse tipo de propriedade então não podemos definir um fecho.}
+Espero que isso explica também o que eu quis dizer com a palavra ``razoável''.
+O~\ref{unreasonable_properties_for_closures_of_relations} esclarecerá
+isso ainda mais.
+%%}}}
+
+%%{{{ x: unreasonable_properties_for_closures_of_relations 
+\exercise.
+\label{unreasonable_properties_for_closures_of_relations}%
+Por que não falamos de fecho total, irreflexivo, e asimétrico?
+
+\hint
+Seja justo.
+
+\solution
+Fechando através da totalidade a gente deveria tomar umas decisões
+injustas.
+Fechando através da irreflexividade a gente deveria retirar setinhas
+quando fechando podemos apenas adicionar.
+Fechando através da asimetria, a gente deveria retirar setinhas
+também e inclusive isso seria numa maneira injusta:
+dadas setinhas $(0,1)$ e $(1,0)$ qual das duas tu vai escolher para retirar?
+
+\endexercise
+%%}}}
+
+%%{{{ Q: How would you define the reflexive and symmetric closures of R? 
+\question.
+Como tu definarias formalmente o fecho reflexivo e o fecho simétrico duma relação $R$?
+%%}}}
+\spoiler.
+
+%%{{{ df: rclosure 
+\definition Fecho reflexivo.
+\label{rclosure}%
+\tdefined{fecho!reflexivo}%
+\sdefined {\rclosure {\holed R}} {o fecho reflexivo da \holed R}%
+\sdefined {\rclo {\holed R}} {o fecho reflexivo da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos a relação $\rclosure R$ pela
+$$
+x \rclosure R y \defiff x \rel R y \mlor x = y
+$$
+Chamamos a $\rclosure R$ o \dterm{fecho reflexivo} da $R$.
+Também usamos a notação $\rel {R^=}$.
+%%}}}
+
+%%{{{ x: wrong_sclosure_definition 
+\exercise.
+Alguém definiu o fecho simétrico assim:
+\quotepar
+<<Seja $R$ relação binária num conjunto $A$.
+Seu fecho simétrico é a relação $\sclosure R$ definida pela
+$$
+x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R x\;\text{.>>}
+$$
+\endquote
+Ache o erro na definição e mostre que a definição realmente é errada.
+
+\hint
+Aplique fielmente essa definição na relação do~\ref{symmetric_closure_example}.
+
+\hint
+Essa definição pode acabar apagando setas!
+
+\solution
+Tome a relação $R$ nos $\nats$ com gráfico $\set{(0,1)}$.
+Aplicando essa suposta definição da $\sclosure R$ então temos:
+$$
+x \sclosure R y \iff x \rel R y \mland y \rel R x \iff \False
+$$
+ou seja, a $x \sclosure R y$ acaba sendo a relação vazia.
+Assim acabamos apagando setinhas, algo contra do nosso conceito de fecho!
+
+\endexercise
+%%}}}
+
+%%{{{ df: sclosure 
+\definition Fecho simétrico.
+\label{sclosure}%
+\tdefined{fecho!simétrico}%
+\sdefined {\sclosure {\holed R}} {o fecho simétrico da \holed R}%
+\sdefined {\sclo {\holed R}} {o fecho simétrico da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos a relação $\sclosure R$ pela
+$$
+x \sclosure R y \defiff x \rel R y \mlor y \rel R x.
+$$
+Chamamos a $\sclosure R$ o \dterm{fecho simétrico} da $R$.
+Também usamos a notação $\rel {R^\leftrightarrow}$.
+%%}}}
+
+%%{{{ x: wrong_tclosure_definition 
+\exercise.
+Alguém definiu o fecho transitivo assim.
+\emph{Seja $R$ relação binária num conjunto $A$.
+Seu fecho transitivo é a relação $\tclosure R$ definida pela}
+$$
+x \tclosure R y \pseudodefiff \text{existe $w\in A$ tal que $x \rel R w \mland w \rel R y$}.
+$$
+Mas isso não é o fecho transitivo da $R$.  O que é mesmo?
+
+\solution
+A relação definida é a $R^2$, ou seja, a $R \rcom R$.
+
+\endexercise
+%%}}}
+
+%%{{{ Q: How would you define the transitive closures of R? 
+\question.
+Como tu definarias formalmente o fecho transitivo duma relação $R$?
+%%}}}
+\spoiler.
+
+%%{{{ df: tclosure and rtclosure 
+\definition Fecho transitivo.
+\label{tclosure}%
+\label{rtclosure}%
+\tdefined{fecho!transitivo}%
+\tdefined{fecho!reflexivo-transitivo}%
+\sdefined {\tclosure {\holed R}} {o fecho transitivo da \holed R}%
+\sdefined {\tclo {\holed R}} {o fecho transitivo da \holed R}%
+\sdefined {\rtclosure {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
+\sdefined {\rtclo {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
+Seja $R$ relação num conjunto $A$.
+Definimos as relações $\tclosure R$ e $\rtclosure R$ pelas
+$$
+\xalignat2
+x \tclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats_{>0}$}.
+&&\text{(\dterm{fecho transitivo} da $R$)}\\
+x \rtclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats$}
+&&\text{(\dterm{fecho reflexivo-transitivo} da $R$)}\\
+\endxalignat
+$$
+Chamamos a $\tclosure R$ o \dterm{fecho transitivo} da $R$,
+e a $\rtclosure R$ o \dterm{fecho reflexivo-transitivo} da $R$.
+Também usamos as notações $\tclo R$ para o $\tclosure R$
+e $\rtclo R$ para o $\rtclosure R$.
+%%}}}
+
+%%{{{ x: order_of_closures_matters 
+\exercise.
+\label{order_of_closures_matters}%
+Seja $R$ relação num conjunto $A$.
+Podemos concluir alguma das afirmações seguintes?:
+\beginil
+\item{(i)}  $t(r(R)) \askeq r(t(R))$
+\item{(ii)} $t(s(R)) \askeq s(t(R)$
+\endil
+Aqui $r, s, t$ são os fechos reflexivo, simétrico, transitivo respectivamente.
+
+\hint
+Use diagramas internos.
+
+\hint
+Tente achar um contraexemplo para o (ii).
+Qual a dificuldade de achar contraexemplo para o (i)?
+
+\endexercise
+%%}}}
+
+\blah.
+Deixamos as definições de outros fechos para os problemas.
+
+%%{{{ x: isPred 
+\exercise.
+\label{isPred}
+Considere a relação $\to$ no $\nats$, definida pela:
+$$
+x\to y \defiff x + 1 = y.
+$$
+Descreva as relações seguintes:
+\item{$\transcl{\to}$}: seu fecho transitivo;
+\item{$\rtranscl{\to}$}: seu fecho reflexivo-transitivo;
+\item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo-transitivo-simétrico.
+\endgraf\noindent
+Descreva o conjunto quociente $\quoset{\nats}{\rtranscl{\leftrightarrow}}$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: isPred_in_reals 
+\exercise.
+\label{isPred_in_reals}%
+Considere a relação $\to$ definida pela mesma equação como
+no~\ref{isPred}, mas essa vez no conjunto $\reals$.
+Descreva os mesmos fechos e o
+$\quoset{\reals}{\rtranscl{\leftrightarrow}}$.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Equivalence relations 
 \section Relações de equivalência.
 \label{Equivalence_relations}%
@@ -24807,471 +25272,6 @@ a relação $\divides$ nos inteiros é uma preordem.
 \blah.
 No~\ref{why_called_preorder} tu vai justificar o nome ``preordem'',
 mostrando que cada preordem $R$ fornece uma ordem $R'$.
-
-\endsection
-%%}}}
-
-%%{{{ Closures 
-\section Fechos.
-
-\blah.
-Antes de definir formalmente o conceito importante de fechos,
-começamos com uns exemplos ilustrativos para os três fechos mais comuns:
-reflexivo, simétrico, transitivo.
-A idéia é sempre a mesma, e vamos descreve-la como um algoritmo.
-
-%%{{{ The idea 
-\note A idéia.
-Começamos com uma relação $R$, e fixamos uma propriedade
-desejada (por exemplo, a transitividade).
-Vamos construir uma nova relação $\bar R$, que chamamos o \dterm{fecho}
-da $R$ pela propriedade escolhida.
-Pense na $R$ como o seu diagrama interno, com suas setinhas.
-Primeiramente nós nos perguntamos:
-<<a relação já tem essa propriedade?>>
-Caso que sim, não precisamos fazer nada, a relação que temos é
-o fecho $\bar R$ que queriamos construir.
-Caso que não, quis dizer que tem setinhas que
-\emph{deveriam estar} no diagrama, mas não estão.
-(Essas setinhas são as testemunhas que refutam a nossa propriedade.)
-Adicionamo-las na nossa relação.
-E agora voltamos a perguntar a mesma pergunta,
-e continuar no mesmo jeito, até finalmente chegar numa
-relação $\bar R$ que realmente satisfaz a propriedade escolhida.
-Essa relação $\bar R$ é o fecho da $R$ pelessa propriedade.
-%%}}}
-
-%%{{{ eg: reflexive_closure_example 
-\example Fecho reflexivo.
-\label{reflexive_closure_example}%
-Seja $R$ a relação no $A$ com o diagrama seguinte:
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\endtikzpicture
-$$
-Qual é o fecho reflexivo dela?
-Bem, primeiramente nós nos perguntamos:
-será que a relação já é reflexiva?
-Ela não é.
-Identificamos então as setinhas-testemunhas desse fato:
-são as $(1,1)$, $(3,3)$, $(7,7)$, e $(8,8)$.
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\node[color=blue] (elem-1b) at (elem-1) {$1$};
-\node[color=blue] (elem-3b) at (elem-3) {$3$};
-\node[color=blue] (elem-7b) at (elem-7) {$7$};
-\node[color=blue] (elem-8b) at (elem-8) {$8$};
-\draw[->, color=red, ultra thick, dotted] ([shift={(0,0.2)}]elem-3) arc (10:290:0.25);
-\draw[->, color=red, ultra thick, dotted] ([shift={(0,0.2)}]elem-7) arc (10:290:0.25);
-\draw[->, color=red, ultra thick, dotted] ([shift={(0,-.2)}]elem-1) arc (-170:120:0.25);
-\draw[->, color=red, ultra thick, dotted] ([shift={(-.2,0)}]elem-8) arc (80:350:0.25);
-\endtikzpicture
-$$
-Adicionamo-la na relação e chegamos em:
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\draw[->] ([shift={(0,0.2)}]elem-3) arc (10:290:0.25);
-\draw[->] ([shift={(0,0.2)}]elem-7) arc (10:290:0.25);
-\draw[->] ([shift={(0,-.2)}]elem-1) arc (-170:120:0.25);
-\draw[->] ([shift={(-.2,0)}]elem-8) arc (80:350:0.25);
-\endtikzpicture
-$$
-\dots e perguntamos a mesma pergunta:
-será que ela é reflexiva?
-Agora é sim!
-Essa relação então é o \emph{fecho reflexivo} da $R$.
-\endexample
-%%}}}
-
-%%{{{ eg: symmetric_closure_example 
-\example Fecho simétrico.
-\label{symmetric_closure_example}%
-Vamos calcular agora o fecho simétrico da mesma relação $R$
-do~\ref{reflexive_closure_example}:
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\endtikzpicture
-$$
-Será que ela já é simétrica?
-Ela não é por causa das três setinhas seguintes,
-onde para cada uma mostro em azul a setinha-razão que obriga
-a setinha-faltante (em vermelho) ser adicionada:
-$$
-\xxalignat3
-&
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\draw[->, color=blue, ultra thick        ] (elem-8) to                 (elem-6);
-\draw[->, color=red , ultra thick, dotted] (elem-6) to [bend left=30]  (elem-8);
-\endtikzpicture
-&&
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\draw[->, color=blue, ultra thick        ] (elem-6) to                 (elem-7);
-\draw[->, color=red , ultra thick, dotted] (elem-7) to [bend left=15]  (elem-6);
-\endtikzpicture
-&&
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\draw[->, color=blue, ultra thick        ] (elem-5) to                 (elem-8);
-\draw[->, color=red , ultra thick, dotted] (elem-8) to [bend right=30] (elem-5);
-\endtikzpicture
-\endxxalignat
-$$
-Então adicionamos todas essas setinhas necessárias:
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\draw[->            ] (elem-8) to                 (elem-6);
-\draw[->            ] (elem-6) to                 (elem-7);
-\draw[->            ] (elem-5) to                 (elem-8);
-\draw[->            ] (elem-6) to [bend left=30]  (elem-8);
-\draw[->            ] (elem-7) to [bend left=15]  (elem-6);
-\draw[->            ] (elem-8) to [bend right=30] (elem-5);
-\endtikzpicture
-$$
-Agora perguntamos novamente: a relação é simétrica?
-Ela é sim, então paramos aqui.
-A relação criada é o \emph{fecho simétrico} da $R$.
-\endexample
-%%}}}
-
-%%{{{ eg: transitive_closure_example 
-\example Fecho transitivo.
-\label{transitive_closure_example}%
-Para ser original, seja $R$ a mesma relação dos
-exemplos~\refn{reflexive_closure_example}--\refn{symmetric_closure_example}:
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\endtikzpicture
-$$
-Essa vez vamos calcular o fecho transitivo dela, então começamos com a pergunta:
-será que a relação já é transitiva?
-Não é!
-Então precisamos achar todas as setinhas que deveriam estar nela e não estão
-e adicioná-las:
-$$
-\xxalignat3
-&
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\draw[->, color=blue, ultra thick        ] (elem-5) to (elem-8);
-\draw[->, color=blue, ultra thick        ] (elem-8) to (elem-6);
-\draw[->, color=red , ultra thick, dotted] (elem-5) to (elem-6);
-\endtikzpicture
-&&
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\draw[->, color=blue, ultra thick        ] (elem-8) to (elem-6);
-\draw[->, color=blue, ultra thick        ] (elem-6) to (elem-7);
-\draw[->, color=red , ultra thick, dotted] (elem-8) to (elem-7);
-\endtikzpicture
-&&
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosures0;
-\draw[->, color=blue, ultra thick        ] (elem-1) to [bend left=20] (elem-2);
-\draw[->, color=blue, ultra thick        ] (elem-2) to [bend left=20] (elem-1);
-\draw[->, color=red , ultra thick, dotted] ([shift={(0,-.2)}]elem-1) arc (-170:120:0.25);
-\endtikzpicture
-\endxxalignat
-$$
-Adicionando todas essas setas necessárias, chegamos na relação:
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosurest1;
-\endtikzpicture
-$$
-E perguntamos: ela é transitiva?
-\emph{Ainda não!}
-Pois, as novas setinhas que adicionamos criaram novos caminhos que
-obrigam mais uma setinha estar na relação (dois caminhos diferentes
-explicam a adição dessa mesma setinha nesse caso):
-$$
-\xalignat2
-&
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosurest1;
-\draw[->, color=blue, ultra thick        ] (elem-5) to (elem-6);
-\draw[->, color=blue, ultra thick        ] (elem-6) to (elem-7);
-\draw[->, color=red , ultra thick, dotted] (elem-5) to (elem-7);
-\endtikzpicture
-&&
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosurest1;
-\draw[->, color=blue, ultra thick        ] (elem-5) to (elem-8);
-\draw[->, color=blue, ultra thick        ] (elem-8) to (elem-7);
-\draw[->, color=red , ultra thick, dotted] (elem-5) to (elem-7);
-\endtikzpicture
-\endxalignat
-$$
-Adicionamos então a setinha $(5,7)$:
-$$
-\tikzpicture[>=stealth, scale=0.84]
-\tikzi reldiagclosurest1;
-\draw[->] (elem-5) to (elem-7);
-\endtikzpicture
-$$
-Ela é transitiva agora?  Sim, finalmente!
-Então esse é o \emph{fecho transitivo} da $R$.
-\endexample
-%%}}}
-
-%%{{{ pseudodf: fecho_pseudodefinition 
-\pseudodefinition.
-\label{closure_pseudodefinition}%
-\tdefined{fecho!de relação}%
-Seja $R$ uma relação binária num conjunto $A$,
-e fixe uma propriedade \emph{razoável}
-daquelas que aparecem no~glossário~\refn{relations_glossary}.
-Definimos o fecho da $R$ pela propriedade para ser a relação que criamos se
-\emph{adicionar} numa maneira \emph{justa} todas as setinhas \emph{necessárias}
-no diagrama da $R$ até ela virar uma relação com a propriedade
-desejada.
-%%}}}
-
-%%{{{ remark: we may add but never remove 
-\remark Podemos botar mas não retirar.
-Note então que o fecho $\bar R$ de uma relação $R$ tem todas
-as setinhas que $R$ tem, e possivelmente mais ainda.
-Ou seja, temos
-$$
-\graph R \subseteq \graph \bar R
-$$
-para qualquer fecho escolhido.
-%%}}}
-
-\blah.
-Na~\ref{closure_pseudodefinition} enfatizei as palavras ``razoável'',
-``justa'' e ``necessárias''.
-Vamos ver o que cada uma delas quis dizer mesmo.
-
-%%{{{ Necessary arrows 
-\note Setinhas necessárias.
-``Adicionar apenas as setinhas \emph{necessárias}'' quis dizer que
-a falta de cada uma dessas setinhas é uma razão que nossa relação não
-satisfaz a propriedade escolhida.
-Caso contrário não vamos adiciona-la, \emph{mesmo se sua adição não afeta nada}.
-%%}}}
-
-%%{{{ Fair way 
-\note Maneira justa.
-``Adicionar setinhas numa maneira \emph{justa}'' quis dizer que em
-nenhum ponto vamos ter que escolher entre duas ou mais setinhas-testemunhas
-\emph{tais que a adição de apenas uma} seria suficiente para satisfazer
-a propriedade.
-Imagine que nesse caso, nossa escolha não seria justa para a setinha
-não-escolhida (ou para a setinha escolhida, dependendo o ponto de vista).
-Formar o fecho duma relação deve ser uma operação, e sendo isso deve
-ser determinista.
-Imagina entao que temos uma propriedade estranha, dizendo que:
-$$
-x \rel R x \mland y \rel R y \implies x \rel R y \mlor y \rel R x.
-$$
-(Nem adianta tentar achar um nome razoável para essa propriedade.)
-Agora, a relação $R$ no $\nats$ com $\graph R = \set{ (0,0), (1,1) }$
-claramente não satisfaz essa propriedade.
-Tentando formar o fecho através dessa propriedade, já na primeira etapa,
-temos duas ``setinhas-testemunhas'' que podemos escolher para adicionar:
-a $(0,1)$ e a $(1,0)$.  Graças à restrição de ``necessárias'', não podemos
-adicionar ambas, pois assim que adicionar uma, a propriedade já é satisfeita.
-No outro lado, não podemos escolher uma das duas numa maneira justa:
-as duas servem igualmente bem.
-\emph{Para esse tipo de propriedade então não podemos definir um fecho.}
-Espero que isso explica também o que eu quis dizer com a palavra ``razoável''.
-O~\ref{unreasonable_properties_for_closures_of_relations} esclarecerá
-isso ainda mais.
-%%}}}
-
-%%{{{ x: unreasonable_properties_for_closures_of_relations 
-\exercise.
-\label{unreasonable_properties_for_closures_of_relations}%
-Por que não falamos de fecho total, irreflexivo, e asimétrico?
-
-\hint
-Seja justo.
-
-\solution
-Fechando através da totalidade a gente deveria tomar umas decisões
-injustas.
-Fechando através da irreflexividade a gente deveria retirar setinhas
-quando fechando podemos apenas adicionar.
-Fechando através da asimetria, a gente deveria retirar setinhas
-também e inclusive isso seria numa maneira injusta:
-dadas setinhas $(0,1)$ e $(1,0)$ qual das duas tu vai escolher para retirar?
-
-\endexercise
-%%}}}
-
-%%{{{ Q: How would you define the reflexive and symmetric closures of R? 
-\question.
-Como tu definarias formalmente o fecho reflexivo e o fecho simétrico duma relação $R$?
-%%}}}
-\spoiler.
-
-%%{{{ df: rclosure 
-\definition Fecho reflexivo.
-\label{rclosure}%
-\tdefined{fecho!reflexivo}%
-\sdefined {\rclosure {\holed R}} {o fecho reflexivo da \holed R}%
-\sdefined {\rclo {\holed R}} {o fecho reflexivo da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos a relação $\rclosure R$ pela
-$$
-x \rclosure R y \defiff x \rel R y \mlor x = y
-$$
-Chamamos a $\rclosure R$ o \dterm{fecho reflexivo} da $R$.
-Também usamos a notação $\rel {R^=}$.
-%%}}}
-
-%%{{{ x: wrong_sclosure_definition 
-\exercise.
-Alguém definiu o fecho simétrico assim:
-\quotepar
-<<Seja $R$ relação binária num conjunto $A$.
-Seu fecho simétrico é a relação $\sclosure R$ definida pela
-$$
-x \sclosure R y \pseudodefiff x \rel R y \mland y \rel R x\;\text{.>>}
-$$
-\endquote
-Ache o erro na definição e mostre que a definição realmente é errada.
-
-\hint
-Aplique fielmente essa definição na relação do~\ref{symmetric_closure_example}.
-
-\hint
-Essa definição pode acabar apagando setas!
-
-\solution
-Tome a relação $R$ nos $\nats$ com gráfico $\set{(0,1)}$.
-Aplicando essa suposta definição da $\sclosure R$ então temos:
-$$
-x \sclosure R y \iff x \rel R y \mland y \rel R x \iff \False
-$$
-ou seja, a $x \sclosure R y$ acaba sendo a relação vazia.
-Assim acabamos apagando setinhas, algo contra do nosso conceito de fecho!
-
-\endexercise
-%%}}}
-
-%%{{{ df: sclosure 
-\definition Fecho simétrico.
-\label{sclosure}%
-\tdefined{fecho!simétrico}%
-\sdefined {\sclosure {\holed R}} {o fecho simétrico da \holed R}%
-\sdefined {\sclo {\holed R}} {o fecho simétrico da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos a relação $\sclosure R$ pela
-$$
-x \sclosure R y \defiff x \rel R y \mlor y \rel R x.
-$$
-Chamamos a $\sclosure R$ o \dterm{fecho simétrico} da $R$.
-Também usamos a notação $\rel {R^\leftrightarrow}$.
-%%}}}
-
-%%{{{ x: wrong_tclosure_definition 
-\exercise.
-Alguém definiu o fecho transitivo assim.
-\emph{Seja $R$ relação binária num conjunto $A$.
-Seu fecho transitivo é a relação $\tclosure R$ definida pela}
-$$
-x \tclosure R y \pseudodefiff \text{existe $w\in A$ tal que $x \rel R w \mland w \rel R y$}.
-$$
-Mas isso não é o fecho transitivo da $R$.  O que é mesmo?
-
-\solution
-A relação definida é a $R^2$, ou seja, a $R \rcom R$.
-
-\endexercise
-%%}}}
-
-%%{{{ Q: How would you define the transitive closures of R? 
-\question.
-Como tu definarias formalmente o fecho transitivo duma relação $R$?
-%%}}}
-\spoiler.
-
-%%{{{ df: tclosure and rtclosure 
-\definition Fecho transitivo.
-\label{tclosure}%
-\label{rtclosure}%
-\tdefined{fecho!transitivo}%
-\tdefined{fecho!reflexivo-transitivo}%
-\sdefined {\tclosure {\holed R}} {o fecho transitivo da \holed R}%
-\sdefined {\tclo {\holed R}} {o fecho transitivo da \holed R}%
-\sdefined {\rtclosure {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
-\sdefined {\rtclo {\holed R}} {o fecho reflexivo-transitivo da \holed R}%
-Seja $R$ relação num conjunto $A$.
-Definimos as relações $\tclosure R$ e $\rtclosure R$ pelas
-$$
-\xalignat2
-x \tclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats_{>0}$}.
-&&\text{(\dterm{fecho transitivo} da $R$)}\\
-x \rtclosure R y &\defiff x \rel {R^n} y \ \ \text{para algum $n\in\nats$}
-&&\text{(\dterm{fecho reflexivo-transitivo} da $R$)}\\
-\endxalignat
-$$
-Chamamos a $\tclosure R$ o \dterm{fecho transitivo} da $R$,
-e a $\rtclosure R$ o \dterm{fecho reflexivo-transitivo} da $R$.
-Também usamos as notações $\tclo R$ para o $\tclosure R$
-e $\rtclo R$ para o $\rtclosure R$.
-%%}}}
-
-%%{{{ x: order_of_closures_matters 
-\exercise.
-\label{order_of_closures_matters}%
-Seja $R$ relação num conjunto $A$.
-Podemos concluir alguma das afirmações seguintes?:
-\beginil
-\item{(i)}  $t(r(R)) \askeq r(t(R))$
-\item{(ii)} $t(s(R)) \askeq s(t(R)$
-\endil
-Aqui $r, s, t$ são os fechos reflexivo, simétrico, transitivo respectivamente.
-
-\hint
-Use diagramas internos.
-
-\hint
-Tente achar um contraexemplo para o (ii).
-Qual a dificuldade de achar contraexemplo para o (i)?
-
-\endexercise
-%%}}}
-
-\blah.
-Deixamos as definições de outros fechos para os problemas.
-
-%%{{{ x: isPred 
-\exercise.
-\label{isPred}
-Considere a relação $\to$ no $\nats$, definida pela:
-$$
-x\to y \defiff x + 1 = y.
-$$
-Descreva as relações seguintes:
-\item{$\transcl{\to}$}: seu fecho transitivo;
-\item{$\rtranscl{\to}$}: seu fecho reflexivo-transitivo;
-\item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo-transitivo-simétrico.
-\endgraf\noindent
-Descreva o conjunto quociente $\quoset{\nats}{\rtranscl{\leftrightarrow}}$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: isPred_in_reals 
-\exercise.
-\label{isPred_in_reals}%
-Considere a relação $\to$ definida pela mesma equação como
-no~\ref{isPred}, mas essa vez no conjunto $\reals$.
-Descreva os mesmos fechos e o
-$\quoset{\reals}{\rtranscl{\leftrightarrow}}$.
-
-\endexercise
-%%}}}
 
 \endsection
 %%}}}
