@@ -25116,22 +25116,26 @@ Por que isso resolve o~\ref{how_many_equivalence_relations_on_3}?
 
 %%{{{ Summary 
 \note Resumo.
+\DefFun partize
+\DefFun eqrelize
+\DefOp EqRel
+\DefOp Part
 O coração dessa secção fica nos exercícios~\refn{from_eqrel_to_partition}
 e~\refn{from_partition_to_eqrel}.  Vamos resumir o que tá acontecendo.
-Para qualquer conjunto $A$ definimos os conjuntos $\namedop{EqRel}(A)$
-de todas as suas relações de equivalência e $\namedop{Part}(A)$ de
+Para qualquer conjunto $A$ definimos os conjuntos $\EqRel(A)$
+de todas as suas relações de equivalência e $\Part(A)$ de
 todas as suas partições:
 $$
 \align
-\namedop{EqRel}(A) &\defeq \setstt {{\sim}} {$\sim$ é uma relação de equivalência no $A$} \\
-\namedop{Part}(A)  &\defeq \setstt {{\scr A}} {$\scr A$ é uma partição do $A$}.
+\EqRel(A) &\defeq \setstt {{\sim}} {$\sim$ é uma relação de equivalência no $A$} \\
+\Part(A)  &\defeq \setstt {{\scr A}} {$\scr A$ é uma partição do $A$}.
 \endalign
 $$
 Dado conjunto $A$ encontramos como definir \emph{funções}
 $$
 \cdopt{sep=2cm}
-\namedop{EqRel}(A) \ar[r, shift left, "\namedfun{partize}"] \|
-\namedop{Part}(A)  \ar[l, shift left, "\namedfun{eqrelize}"]
+\EqRel(A) \ar[r, shift left, "\partize"] \|
+\Part(A)  \ar[l, shift left, "\eqrelize"]
 \endcd
 $$
 que ``traduzem'' qualquer relação de equivalência para sua partição induzida
@@ -25139,18 +25143,19 @@ e qualquer partição para sua relação de equivalência induzida.
 São definidas pelas:
 $$
 \xalignat2
-\namedfun{partize}(\sim) &\defeq \quoset A {\sim} &
-x \relp{\namedfun{eqrelize}(\scr A)} y &\defiff \lexists {C\in \scr A} {x,y \in C}.
+\partize(\sim) &\defeq \quoset A {\sim} &
+x \relp{\eqrelize(\scr A)} y &\defiff \lexists {C\in \scr A} {x,y \in C}.
 \endxalignat
 $$
 Essas traduções são fieis, no sentido de:
 $$
 \xalignat2
-\namedfun{partize}  \of \namedfun{eqrelize} &= \id_{\namedop{Part}(A)} &
-\namedfun{eqrelize} \of \namedfun{partize}  &= \id_{\namedop{EqRel}(A)}.
+\partize  \of \eqrelize &= \id_{\Part(A)} &
+\eqrelize \of \partize  &= \id_{\EqRel(A)}.
 \endxalignat
 $$
-Ou, com as primeiras notações que usamos e também com palavras:
+De fato, ambas são bijecções, e cada uma é a inversa da outra.
+Com as primeiras notações que usamos e também com palavras, temos:
 $$
 \xalignat2
 {\sim_{\scr A_{\sim}}}   &= {\sim}    && \text{<<a relação induzida pela partição induzida pela $\sim$ é a própria $\sim$>>}; \\
