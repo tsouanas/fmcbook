@@ -25114,21 +25114,24 @@ Por que isso resolve o~\ref{how_many_equivalence_relations_on_3}?
 \endexercise
 %%}}}
 
-%%{{{ remark: coin_summary 
-\remark Resumo da moeda.
-Para qualquer conjunto $A$ definimos os conjuntos $R$ de todas as suas relações
-de equivalência e $P$ de todas as suas partições:
+%%{{{ Summary 
+\note Resumo.
+O coração dessa secção fica nos exercícios~\refn{from_eqrel_to_partition}
+e~\refn{from_partition_to_eqrel}.  Vamos resumir o que tá acontecendo.
+Para qualquer conjunto $A$ definimos os conjuntos $\namedop{EqRel}(A)$
+de todas as suas relações de equivalência e $\namedop{Part}(A)$ de
+todas as suas partições:
 $$
 \align
-R = \namedop{EqRel}(A) &\defeq \setstt {\sim} {$\sim$ é uma relação de equivalência no $A$} \\
-P = \namedop{Part}(A)  &\defeq \setstt {\scr A} {$\scr A$ é uma partição do $A$}.
+\namedop{EqRel}(A) &\defeq \setstt {{\sim}} {$\sim$ é uma relação de equivalência no $A$} \\
+\namedop{Part}(A)  &\defeq \setstt {{\scr A}} {$\scr A$ é uma partição do $A$}.
 \endalign
 $$
 Dado conjunto $A$ encontramos como definir \emph{funções}
 $$
 \cdopt{sep=2cm}
-R  \ar[r, shift left, "\namedfun{partize}"] \|
-P  \ar[l, shift left, "\namedfun{eqrelize}"]
+\namedop{EqRel}(A) \ar[r, shift left, "\namedfun{partize}"] \|
+\namedop{Part}(A)  \ar[l, shift left, "\namedfun{eqrelize}"]
 \endcd
 $$
 que ``traduzem'' qualquer relação de equivalência para sua partição induzida
@@ -25143,19 +25146,20 @@ $$
 Essas traduções são fieis, no sentido de:
 $$
 \xalignat2
-\namedfun{partize}  \of \namedfun{eqrelize} &= \id_P &
-\namedfun{eqrelize} \of \namedfun{partize}  &= \id_R.
+\namedfun{partize}  \of \namedfun{eqrelize} &= \id_{\namedop{Part}(A)} &
+\namedfun{eqrelize} \of \namedfun{partize}  &= \id_{\namedop{EqRel}(A)}.
 \endxalignat
 $$
-Ou, com as primeiras notações que usamos:
+Ou, com as primeiras notações que usamos e também com palavras:
 $$
-{\sim_{\scr A_{\sim}}} = {\sim}
-\qqqqtext{e}
-{\scr A_{\sim_{\scr A}}} = {\scr A},
+\xalignat2
+{\sim_{\scr A_{\sim}}}   &= {\sim}    && \text{<<a relação induzida pela partição induzida pela $\sim$ é a própria $\sim$>>}; \\
+{\scr A_{\sim_{\scr A}}} &= {\scr A}  && \text{<<a partição induzida pela relação induzida pela $\scr A$ é a própria $\scr A$>>}.
+\endxalignat
 $$
-e, finalmente com palavras:
-<<a relação induzida pela partição induzida pela $\sim$ é a própria $\sim$>>; e
-<<a partição induzida pela relação induzida pela $\scr A$ é a própria $\scr A$>>.
+Não se preocupe se o conceito do \emph{conjunto quociente} ainda parece meio
+distante ou abstrato demais.  Ataque os problemas e os exercícios, e confie
+que estudando teoria dos grupos (\ref{Group_theory}) isso vai mudar!
 %%}}}
 
 %%{{{ remark: two_sides_of_the_same_coin_eqrel_partition 
@@ -25182,7 +25186,7 @@ Finalmente, quando temos uma família $\scr A$ de subconjuntos de $A$
 e precisamos \emph{provar que ela é uma partição}, podemos definir
 a relação $\sim_{\scr A}$ pela
 $$
-x \sim y \iff \lexists {C\in\scr A} {x,y \in C}
+x \sim_{\scr A} y \iff \lexists {C\in\scr A} {x,y \in C}
 $$
 e \emph{provar que ela é uma relação de equivalência}.
 \endol
