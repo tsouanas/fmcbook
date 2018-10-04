@@ -25008,10 +25008,16 @@ com que tu ``identificaria'' o $\quoset \ints {\cong_m}$?
 %%}}}
 
 \blah.
-Parece então que a partição é um conceito mais geral, pois nos permite
+Já vimos que cada relação de equivalência determina uma partição:
+seu conjunto quociente.
+Mas parece que a partição é um conceito mais geral, pois nos permite
 ``separar em classes'' um conjunto numa forma que não é obrigada seguir
-nenhuma lógica.  Mas essa intuição é enganosa!
-Vamos investigar o caminho de volta.
+nenhuma lógica ou regra: sem nenhuma relação de equivalência ``por trás''.
+Ou seja: \emph{talvez tem partições que não são conjuntos quocientes de
+nenhuma relação de equivalência.}  Mas essa intuição razoável é enganosa!
+Vamos investigar agora o caminho de volta: mostrar que cada
+partição $\scr A$ também determina uma relação de equivalência $\sim_{\scr A}$,
+e sim, a partição $\scr A$ é um conjunto quociente: o $\quoset {A} {\sim_{\scr A}}$!
 
 %%{{{ x: from_partition_to_eqrel 
 \exercise De partição para equivalência.
@@ -25116,7 +25122,7 @@ Por que isso resolve o~\ref{how_many_equivalence_relations_on_3}?
 
 %%{{{ Summary 
 \note Resumo.
-\DefFun partize
+\DefFun quotient
 \DefFun eqrelize
 \DefOp EqRel
 \DefOp Part
@@ -25134,7 +25140,7 @@ $$
 Dado conjunto $A$ encontramos como definir \emph{funções}
 $$
 \cdopt{sep=2cm}
-\EqRel(A) \ar[r, shift left, "\partize"] \|
+\EqRel(A) \ar[r, shift left, "\quotient"] \|
 \Part(A)  \ar[l, shift left, "\eqrelize"]
 \endcd
 $$
@@ -25143,15 +25149,15 @@ e qualquer partição para sua relação de equivalência induzida.
 São definidas pelas:
 $$
 \xalignat2
-\partize(\sim) &\defeq \quoset A {\sim} &
+\quotient(\sim) &\defeq \quoset A {\sim} &
 x \relp{\eqrelize(\scr A)} y &\defiff \lexists {C\in \scr A} {x,y \in C}.
 \endxalignat
 $$
 Essas traduções são fieis, no sentido de:
 $$
 \xalignat2
-\partize  \of \eqrelize &= \id_{\Part(A)} &
-\eqrelize \of \partize  &= \id_{\EqRel(A)}.
+\quotient \of \eqrelize &= \id_{\Part(A)} &
+\eqrelize \of \quotient &= \id_{\EqRel(A)}.
 \endxalignat
 $$
 De fato, ambas são bijecções, e cada uma é a inversa da outra.
@@ -25245,13 +25251,14 @@ $f : A \to B$ (esclarecendo também quais são os $A,B$).
 
 %%{{{ Order relations 
 \section Relações de ordem.
+\label{Order_relations}%
 
 %%{{{ df: order_relation 
 \definition Ordem.
 \label{order_relation}%
 Seja $R$ uma relação binária num conjunto $A$.
 Chamamos a $R$ \dterm{ordem parcial} sse ela é reflexiva, transitiva, e antissimétrica.
-Se ela também é total, chamamos-la \dterm{ordem total}.
+Se ela também é total, a chamamos de \dterm{ordem total}.
 %%}}}
 
 %%{{{ beware: total-partial default, relations vs functions 
