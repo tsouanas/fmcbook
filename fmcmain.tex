@@ -2054,8 +2054,10 @@ No~\ref{Mathematical_logic} vamos ver tudo formalmente e com carinho.
 Paciência.
 %%}}}
 
-%%{{{ eg: interpretting_formulas_example 
+%%{{{ eg: interpretting_formulas_example; mother_of_all 
 \example.
+\label{interpretting_formulas_exercise}%
+\label{mother_of_all}%
 Considere as fórmulas
 \beginol
 \li $\forall x (P(x) \limplies Q(x))$;
@@ -15188,7 +15190,7 @@ que foi o que queremos provar.
 %%}}}
 
 %%{{{ set_liminf_limsup_problem_soul_level 
-\problem.
+\problem Nível coração.
 \label{set_liminf_limsup_problem_soul_level}%
 Entenda no teu coração o que tu provaste no~\ref{set_liminf_limsup_problem}.
 Como descreverias os elementos dos $A_*$ e $A^*$?
@@ -24260,6 +24262,18 @@ Qual a dificuldade de achar contraexemplo para o (i)?
 \endexercise
 %%}}}
 
+%%{{{ x: find_reflexive_transitive_closure_of_pgoesto 
+\exercise.
+\label{find_reflexive_transitive_closure_of_pgoesto}%
+Definimos no $\nats$ a relação binária $\leadsto$ pela:
+$$
+a\leadsto b \defiff \text{para algum primo $p$, $ap = b$}.
+$$
+Qual é o seu fecho reflexivo-transitivo?
+
+\endexercise
+%%}}}
+
 \blah.
 Deixamos as definições de outros fechos para os problemas.
 
@@ -25676,13 +25690,60 @@ e a $\apph$ apenas uma preordem.
 \endproblem
 %%}}}
 
+%%{{{ word_on_the_street_for_order_of_limit_depending_quantifiers 
+\note Com palavras da rua.
+\label{word_on_the_street_for_order_of_limit_depending_quantifiers}%
+Já encontramos várias vezes situações onde a troca dos $\forall\exists$
+para $\exists\forall$ mudou completamente o significado
+(o~\ref{mother_of_all} é o mais ilustrativo).
+Vamos focar agora no caso onde o universo é o $\nats$, o primeiro
+quantificador quantifica o $n$ sobre todo o $\nats$, mas o segundo
+quantifica todos os naturais \emph{começando com esse $n$}.
+Tu já fez o~\ref{set_liminf_limsup_problem_soul_level}, certo?
+Seria bom achar aqui mais uma maneira de entender essa situação,
+explicando os dois significados \emph{com palavras de rua}.
+A situação aqui é parecida.
+Temos:
+$$
+\gather
+\pexists {n\in\nats} \lforall {x \geq n} { \text{algo} }\\
+\pforall {n\in\nats} \lexists {x \geq n} { \text{algo} }.
+\endgather
+$$
+Supondo que esse ``algo'' tá dizendo que <<$x$ é legal>>,
+as afirmações acima com palavras de rua ficam assim:
+$$
+\align
+\pexists {n\in\nats} \lforall {x \geq n} { \text{$x$ é legal} }
+&\text{<<A partir dum ponto, todos são legais>>} \\
+\pforall {n\in\nats} \lexists {x \geq n} { \text{$x$ é legal} }
+&\text{<<Sempre vai ter legais>>}.
+\endalign
+$$
+Assim, ambas nos permitem concluir que tem uma infinidade de legais.
+Mas quantos \emph{ilegais} tem?  A primeira nos permite concluir
+que tem apenas uma quantidade finita de ilegais, pois, escolhendo
+tal $n_0\in\nats$ cuja existência é afirmada sabemos que todas
+as possíveis excessões (os ``possivelmente ilegais'') estão
+entre eles: $0,1,\dotsc,n_0-1$.
+Note que isso não quis dizer que todos eles são ilegais.
+No outro lado, a segunda, não nos permite concluir isso.
+O fato que ``sempre vai ter legais'', não exclue a possibilidade
+de ``sempre vai ter ilegais'' também!
+Por exemplo, sempre vai ter números pares, mas sempre vai ter números
+ímpares também, né?
+Os problemas seguintes brincam com essas idéias.
+%%}}}
+
 %%{{{ prob 
 \problem.
+\def\efeq{\rel{\buildrel{{}_{\exists\forall}} \over =}}%
+\def\feeq{\rel{\buildrel{{}_{\forall\exists}} \over =}}%
 Defina no $(\nats\to\nats)$ as relações seguintes:
 $$
 \align
-f \rel{\buildrel{{}_{\exists\forall}} \over =} g &\defiff (\exists n\in\nats) (\forall x \geq n) [ f(x) = g(x) ]\\
-f \rel{\buildrel{{}_{\forall\exists}} \over =} g &\defiff (\forall n\in\nats) (\exists x \geq n) [ f(x) = g(x) ]
+f \efeq g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) = g(x) }\\
+f \feeq g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) = g(x) }
 \endalign
 $$
 Para cada uma das relações acima, decida se ela é relação de equivalência (prove ou refute).
@@ -25693,14 +25754,21 @@ Se é, descreva seu conjunto quociente.
 
 %%{{{ prob 
 \problem.
+\def\efle{\rel{\buildrel{{}_{\exists\forall}} \over \leq}}%
+\def\fele{\rel{\buildrel{{}_{\forall\exists}} \over \leq}}%
+\def\eflt{\rel{\buildrel{{}_{\exists\forall}} \over <}}%
+\def\felt{\rel{\buildrel{{}_{\forall\exists}} \over <}}%
 Defina no $(\reals\to\reals)$ as relações seguintes:
 $$
 \align
-f \rel{\buildrel{{}_{\exists\forall}} \over \leq} g &\defiff (\exists n\in\nats) (\forall x \geq n) [ f(x) \leq g(x) ]\\
-f \rel{\buildrel{{}_{\forall\exists}} \over \leq} g &\defiff (\forall n\in\nats) (\exists x \geq n) [ f(x) \leq g(x) ]
+f \efle g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) \leq g(x) } \\
+f \fele g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) \leq g(x) } \\
+f \eflt g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) < g(x) } \\
+f \felt g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) < g(x) }
 \endalign
 $$
-Para cada uma das relações acima, decida se ela tem ou não cada uma das propriedades de uma ordem total.
+Para cada uma das relações acima, decida se ela tem ou não cada uma das propriedades de uma ordem total,
+e de uma ordem estrita.
 
 \endproblem
 %%}}}
