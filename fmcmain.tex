@@ -22555,7 +22555,7 @@ $$
 \endexample
 %%}}}
 
-%%{{{ the type of a relation 
+%%{{{ The ``type'' of a relation 
 \note O ``tipo'' de uma relação.
 Com cada relação associamos o seu \dterm{tipo} (pedimos emprestada aqui
 a terminologia usada em funções) que é apenas a informação de tipo
@@ -22701,6 +22701,15 @@ para~$D$, como tu definirias a igualdade~$R=S$ nesse caso?
 
 \solution
 Digamos que $R=S$ sse para todo $x\in A\union C$, e todo $y \in B\union D$, temos $x \rel R y \iff x \rel S y$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: R_eq_S 
+\exercise Igualdade.
+\label{R_eq_S}%
+Defina a igualdade para o caso mais geral onde as relações $R$ e $S$ são relações de aridade qualquer,
+em conjuntos quaisquer.
 
 \endexercise
 %%}}}
@@ -23111,12 +23120,11 @@ O que seria a relação $\Author\rcom\Read$, o que a $\Author\rcom\Contains$,
 e o que a $\Read\rcom\Contains$?
 Antes de defini-las, vamos primeiramente pensar se faz sentido compor essas
 relações.
-Como a $\Author$ é uma relação de $\cal P$ para $\cal B$,
-e a $\Read$ de $\cal P$ para $\cal B$ também,
-podemos realmente as combinar:
-Similarmente, a $\Author$ é compatível com a $\Contains$.
-são compatíveis (gráças ao $\cal B$ ``no meio'').
-No outro lado, não faz podemos compor a $\Author$ com a $\Read$!
+Realmente $\Read$ é componível com $\Contains$
+(gráças ao $\cal B$ ``no meio'') e
+similarmente sobre a $\Author$ com $\Contains$.
+No outro lado, não podemos compor as $\Author$ e $\Read$ em nenhuma
+ordem!
 Bem, então $\Author\rcom\Contains$ e $\Read\rcom\Contains$ são ambas
 relações de $\cal P$ para $\cal W$.
 Mas quais?
@@ -23285,16 +23293,21 @@ aplicando a definição de $\rcom$ e leis da lógica.
 \proof.
 Suponha $a\in A$ e $d\in D$.  Temos:
 $$
+\def\R{\rel R}%
+\def\S{\rel S}%
+\def\T{\rel T}%
+\def\RS{\relp {R\rcom S}}%
+\def\ST{\relp {S\rcom T}}%
 \alignat 2
 a \rel{((R\rcom S)\rcom T)} d
-&\iff \lexists {c\in C} { a \rel{(R\rcom S)} c \;\land\; c \rel{T} d } \by{def.~de $\rcom$}
-&\iff \lexists {c\in C} { \lexists {b\in B} {x \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } \by{def.~de $\rcom$}
-&\iff \lexists {c\in C} { \lexists {b\in B} { \paren{ a \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } } \by{lógica}
-&\iff \lexists {b\in B} { \lexists {c\in C} { \paren { a \rel{R} b \;\land\; b \rel{R} c } \;\land\; c \rel{T} d } } \by{lógica}
-&\iff \lexists {b\in B} { \lexists {c\in C} { a \rel{R} b \;\land\; \paren{ b \rel{R} c \;\land\; c \rel{T} d } } } \by{lógica}
-&\iff \lexists {b\in B} { a \rel{R} b \;\land\; \lexists {c\in C} {  b \rel{R} c \;\land\; c \rel{T} d } } \by{lógica}
-&\iff \lexists {b\in B} { a \rel{R} b \;\land\; { b \rel{(R\rcom T)} d } } \by{def.~de $\rcom$}
-&\iff a \rel{(R\rcom(S\rcom T))} d. \by{def.~de $\rcom$}
+&\iff \lexists {c\in C} { a \RS c \;\land\; c \T d }                                                    \by{def.~de $\rcom$}
+&\iff \lexists {c\in C} { \lexists {b\in B} {a \R b \;\land\; b \S c } \;\land\; c \T d }               \by{def.~de $\rcom$}
+&\iff \lexists {c\in C} { \lexists {b\in B} { \paren{ a \R b \;\land\; b \S c } \;\land\; c \T d } }    \by{lógica}
+&\iff \lexists {b\in B} { \lexists {c\in C} { \paren { a \R b \;\land\; b \S c } \;\land\; c \T d } }   \by{lógica}
+&\iff \lexists {b\in B} { \lexists {c\in C} { a \R b \;\land\; \paren{ b \S c \;\land\; c \T d } } }    \by{lógica}
+&\iff \lexists {b\in B} { a \R b \;\land\; \lexists {c\in C} {  b \S c \;\land\; c \T d } }             \by{lógica}
+&\iff \lexists {b\in B} { a \R b \;\land\; { b \ST d } }                                                \by{def.~de $\rcom$}
+&\iff a \rel{(R\rcom(S\rcom T))} d.                                                                     \by{def.~de $\rcom$}
 \endalignat
 $$
 \qed
@@ -25484,6 +25497,91 @@ do $\quoset {\reals} {\sim}$.
 \endproblem
 %%}}}
 
+%%{{{ prob: preorders_are_idempotent 
+\problem.
+\label{preorders_are_idempotent}%
+Seja $R$ uma preordem num conjunto $A$.
+Prove que $R$ é \dterm{idempotente}, ou seja, $R = R\of R$.
+
+\solution
+\def\R{\rel R}%
+\def\RR{\rel {(R\of R)}}%
+Vamos provar as duas direções separadamente.
+\crproofpart{$x \R y \implies x \RR y$:}
+Suponha $x \R y$.
+Como $\R$ é reflexiva, logo $x \R x$.
+Pelas $x \R x$ e $x \R y$ concluimos que $x \RR y$.
+\crproofpart{$x \RR y \implies x \R y$:}
+Suponha $x \RR y$.
+Logo $x \R w$ e $w \R y$ para algum $w \in A$ (pela def.~de $\of$),
+e logo pela transitividade da $\R$ temos $x \R y$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: when_is_rop_irreflexive 
+\problem.
+\label{when_is_rop_irreflexive}%
+Seja $S$ uma relação binária num conjunto $A$ tal que
+$$
+\text{$\paren{S\of \rop S}$ é irreflexiva}.
+$$
+Qual é o gráfico da $S$?
+Prove tua resposta.
+
+\hint
+Supondo que $x \rel S y$, o que tu consegues concluir?
+
+\solution
+$\graph(S) = \emptyset$.
+\endgraf
+Pois, supondo que tem membros, tome $(x,y) \in \graph(S)$, e agora:
+$x \rel S y$ e logo $y \rop S x$ (pela def.~de $\rop S$).
+Logo $x \relp{S\of \rop S} x$, que contradiza
+a irreflexividade da $S \of \rop S$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: condorcet_paradox 
+\problem Condorcet.
+\label{condorcet_paradox}%
+\Condorcet[parádoxo]%
+Seja $P\neq\emptyset$ um conjunto de pessoas e
+$C\neq\emptyset$ um conjunto de candidatos.
+Seja $\gtrdot$ a relação binária no $C$ definida pela
+$$
+x \gtrdot y \defiff \text{a maioria da população do $P$ prefere $x$ do que $y$}.
+$$
+Podemos concluir que $\gtrdot$ é transitiva?
+Responde ``sim'' e prove; ou ``não'' e mostre um contraexemplo.
+
+\hint
+Já jogou ``pedra--papel--tesoura''?
+
+\solution
+Não.  Sejam $P = \set{p,q,r}$ e $C = \set{a,b,c}$.
+Considere que as pessoas do $P$ em ordem de preferência de melhor para pior têm:
+$$
+\align
+    p:\ & a, b, c \\
+    q:\ & c, a, b \\
+    r:\ & b, c, a.
+\endalign
+$$
+Assim temos:
+$$
+\alignat2
+a &\gtrdot b, \by{pois os $p,q$ preferem $a$ que $b$}
+b &\gtrdot c, \by{pois os $p,r$ preferem $b$ que $c$}
+\endalignat
+$$
+mas $a \smartnot\gtrdot c$ pois apenas o $p$ prefere $a$ que $c$.
+De fato, $c \gtrdot a$, pois os $q,r$ preferem $c$ que $a$.
+
+\endproblem
+%%}}}
+
 %%{{{ prob: epimono_factorization_teaser_now_easy 
 \problem Agora é fácil.
 \label{epimono_factorization_teaser_now_easy}%
@@ -25845,15 +25943,6 @@ Logo, $f \rel{(\sime\rcom\simo)} g$.
 \endproblem
 %%}}}
 
-%%{{{ R_eq_S 
-\problem Igualdade.
-\label{R_eq_S}%
-Defina a igualdade para o caso mais geral onde as relações $R$ e $S$ são relações de aridade qualquer,
-em conjuntos quaisquer.
-
-\endproblem
-%%}}}
-
 %%{{{ why_called_preorder 
 \problem Por que preordem?.
 \label{why_called_preorder}%
@@ -26043,6 +26132,59 @@ c &\leteq \tup{ t,t,\dots,t,u,u,\dotsc,u }
 $$
 como contraexemplo, pois temos
 $a \sim b$ e $b \sim c$ mas $a\not\sim c$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: explain_succ_rel 
+\problem.
+\label{explain_succ_rel}%
+Seja a relação $\to$ no $\nats$ definida pela
+$$
+a \to b \defiff a + 1 = b.
+$$
+Dê uma definição simples da relação $\to^n$ para quem não sabe
+nem de iterações nem de composições de relações (e sequer quer aprender essas noções).
+Prove tua afirmação, que a relação $\to^n$ é igual à relação que tu definiu.
+
+\hint
+Seja $n\in\nats$.  Temos:
+$$
+a \rel{\to^n} b \iff a + n = b.
+$$
+Agora prove que isso é válido para todo $a,b,n\in\nats$.
+
+\solution
+Seja $n\in\nats$.  Temos:
+$$
+a \rel{\to^n} b \iff a + n = b.
+$$
+Sejam $a,b\in\nats$.
+Vou provar por indução que para todo $n\in\nats$,
+$$
+a \ton n b  \iff  a + n = b.
+$$
+\proofpart{Base.}
+Temos
+$$
+\alignat2
+a \ton 0 b
+&\iff a = b \by{pela def.~$\ton 0$}
+&\iff a + 0 = b.
+\intertext{
+\proofpart{Passo Indutivo.}
+Seja $k\in\nats$ tal que
+}
+a \ton k b &\ifflabel {HI} a + k = b.%\tag{H.I.}
+\intertext{Calculamos:}
+a \ton {k+1} b
+&\iff a \rel{(\ton k\of\to)} b                \by{def.~$\ton{k+1}$}
+&\iff \lexists w {a \ton k w \mland w \to b}  \by{def.~$\of$}
+&\iff \lexists w {a + k = w \mland w + 1 = b} \by{HI; def.~de~$\to$}
+&\iff {(a + k) + 1 = b} \\
+&\iff {a + (k + 1) = b}.
+\endalignat
+$$
 
 \endproblem
 %%}}}
