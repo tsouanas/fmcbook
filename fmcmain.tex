@@ -29252,8 +29252,9 @@ Verifique os números do~\ref{orders_of_members_of_S3}.
 \endexercise
 %%}}}
 
-%%{{{ x: non-zero integer power = e guarantees positive one 
+%%{{{ x: nonzero_power_is_gid_implies_finite_order 
 \exercise.
+\label{nonzero_power_is_gid_implies_finite_order}%
 Seja $G$ grupo e $a\in G$.
 Se existe $m\in\ints_{\neq 0}$ tal que $a^m = e$, então $\gord a < \infty$.
 
@@ -29263,7 +29264,7 @@ Precisamos mostrar que existe $n\in\nats_{>0}$ com $a^n = e$.
 \hint
 Se $m>0$, tome $n\leteq m$.  Se não?
 
-\solution%%{{{
+\solution
 Precisamos mostrar que existe $n\in\nats_{>0}$ com $a^n = e$.
 Se $m>0$, o conjunto $N \leteq \setst {n\in\nats_{>0}} {a^n = e}$ não é vazio,
 então pelo princípio da boa ordem~\ii{princípio!da boa ordem}(PBO)
@@ -29275,7 +29276,6 @@ a^{-m} = \ginvp{a^m} = \ginv e = e,
 $$
 e novamente
 $N\neq\emptyset$ e $\gord a < \infty$.
-%%}}}
 
 \endexercise
 %%}}}
@@ -29436,9 +29436,25 @@ Precisamos provar que para todo $r,s\in\ints$,
 $$
 a^r = a^s \implies r = s.
 $$
-Sem perda de generalidade suponhamos $s\leq r$ e cancelamos pela direita
-o $a^s$.  Usando a definição de $\gord a$ concluimos que $r-s=0$ e logo $r=s$.
+Sem perda de generalidade suponhamos $s\leq r$ e usando a hipótese
+chegamos em $a^{r-s} = e$; e como a ordem de $a$ é infinita,
+temos $r-s=0$ e logo $r=s$.
 \qes
+\proof.
+Precisamos provar que para todo $r,s\in\ints$,
+$$
+a^r = a^s \implies r = s.
+$$
+Sem perda de generalidade suponhamos $s\leq r$ e usando a hipótese
+temos
+$$
+a^sa^{r-s} = a^s
+$$
+e logo $a^{r-s} = e$ (\ref{cheaper_gid}).
+Agora, como $\gord a = \infty$, usando o contrapositivo
+do~\ref{nonzero_power_is_gid_implies_finite_order} obtemos que não existe
+nenhum inteiro $m\neq 0$ tal que $a^m=e$.  Logo $r-s = 0$, ou seja $r = s$.
+\qed
 %%}}}
 
 \endsection
