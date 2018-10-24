@@ -28346,15 +28346,15 @@ Veja~\ref{how_come_the_cancellation_laws_hold_in_nongroup_without_inverses}.
 Seja $\ssetfont G = \sset G {\ast,e}$ um conjunto estruturado que satisfaz:
 $$
 \align
-\pforall {a,b\in G}                        &\bracket{a\ast b \in G}                    \tag{G0}  \\
-\pforall {a,b,c\in G}                      &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1}  \\
-\pforall {a \in G}                         &\bracket{a\ast e = a}                      \tag{G2R} \\
-\pforall {a\in G} \pexists {y\in G}   &\bracket{a \ast y = e}                     \tag{G3R} \\
+\pforall {a,b\in G}                 &\bracket{a\ast b \in G}                    \tag{G0}  \\
+\pforall {a,b,c\in G}               &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1}  \\
+\pforall {a \in G}                  &\bracket{a\ast e = a}                      \tag{G2R} \\
+\pforall {a\in G} \pexists {y\in G} &\bracket{a \ast y = e}                     \tag{G3R} \\
 \endalign
 $$
 Então $\ssetfont G$ é um grupo.
 \proof.
-\ref{onesided_group_def_proof}%
+\ref{onesided_group_def_proof}.
 \qed
 %%}}}
 
@@ -29592,9 +29592,9 @@ Logo, jamais precisaramos verificar a~(G1) para um possível subgrupo.
 E isso não é o único ``desconto'' que temos quando queremos provar
 que~$H \subgroup G$.  Vamos ver mais dois critéria agora:
 
-%%{{{ criterion: subgroup_criterion 
+%%{{{ criterion: nonempty_subgroup_criterion 
 \criterion Subgrupo.
-\label{subgroup_criterion}%
+\label{nonempty_subgroup_criterion}%
 Se $H$ é um subconjunto não vazio do grupo $\sset G {\ast,e}$, então:
 $$
 \rightbrace{
@@ -29629,6 +29629,37 @@ $$
 \qed
 %%}}}
 
+%%{{{ The skeleton of the proof 
+\note O esqueleto dessa demonstração.
+Vamos lembrar o tema de arvores, escrevendo a prova
+do~\ref{nonempty_subgroup_criterion} assim:
+$$
+\Proof {
+\A {$h\in H$}
+\I1-------- {}
+{$\ginv h\in H$}
+                        \A {$h \in H$}
+\I2----------------------------------- {}
+{$\ginv h h \in H$}
+\I1----------------------------------- {}
+{$e \in H$}
+}
+$$
+Quais são as justificações de cada linha de inferência?
+$$
+\Proof {
+\A {$h\in H$}
+\I1-------- {$H$ $\ast$-fechado}
+{$\ginv h\in H$}
+                        \A {$h \in H$}
+\I2----------------------------------- {$H$ $\ginv{}$-fechado}
+{$\ginv h h \in H$}
+\I1----------------------------------- {def.~$\ginv h$}
+{$e \in H$}
+}
+$$
+%%}}}
+
 %%{{{ criterion: finite_subgroup_criterion 
 \criterion Subgrupo finito.
 \label{finite_subgroup_criterion}%
@@ -29646,7 +29677,7 @@ $$
 H \subgroup G
 $$
 \sketch.
-Basta demonstar o (2) para aplicar o~\ref{subgroup_criterion}.
+Basta demonstar o (2) para aplicar o~\ref{nonempty_subgroup_criterion}.
 Tome um $a\in H$ e considere a seqüência das suas potências
 $a, a^2, a^3, \dotsc \in H$.
 Como o $H$ é finito vamos ter um elemento repetido,
@@ -29655,7 +29686,7 @@ para achar qual dos $a, a^2, a^3, \dotsc$ deve ser o $\ginv a$,
 provando assim que $\ginv a\in H$.
 \qes
 \proof.
-Graças ao~\ref{subgroup_criterion}, basta mostrar que todos os membros
+Graças ao~\ref{nonempty_subgroup_criterion}, basta mostrar que todos os membros
 de $H$ têm seu inverso dentro do $H$.
 Tome um $a\in H$ e considere a seqüência das suas potências positivas:
 $$
@@ -29698,7 +29729,7 @@ Nesse caso, temos $e = aa^{r-s-1}$, ou seja,
 achamos o inverso do $a$: é o $a^{r-s-1}$, e ele pertence no $H$, pois é potência positiva de $a$ (e $H$ é fechado pela operação).
 \endgraf
 Em ambos dos casos mostramos que $\ginv a \in H$ e podemos
-aplicar o~\ref{subgroup_criterion} para concluir o desejado
+aplicar o~\ref{nonempty_subgroup_criterion} para concluir o desejado
 $H\subgroup G$.
 \qed
 %%}}}
@@ -29713,6 +29744,28 @@ $$
 \implies H \subgroup G.
 $$
 \proof.
+\ref{subgroup_single_check_criterion_proof}.
+\qed
+%%}}}
+
+%%{{{ remark: the converses of all criteria above are obviously true 
+\remark.
+Em todos esses critérios, as direções {\rldir} também são válidas
+(e suas demonstrações devem ser óbvias).
+%%}}}
+
+%%{{{ x: subgroup_single_check_criterion_proof 
+\exercise.
+\label{subgroup_single_check_criterion_proof}%
+Prove o~\ref{subgroup_single_check_criterion}.
+
+\hint
+Prove primeiro que $H$ é fechado pelos inversos, tomando um $h\in H$
+e demonstrando que $\ginv h \in H$.
+Depois basta provar que $H$ é fechado pela operação, tomando
+$a,b\in H$ e demostrando que $ab \in H$.
+
+\solution
 Como $H\neq\emptyset$, tome $h\in H$.
 Pela hipótese, $h\ginv h\in H$, ou seja $e\in H$.
 Como $e,h\in H$, de novo pela hipótese temos $e\ginv h \in H$,
@@ -29721,13 +29774,8 @@ Temos então que o $H$ é fechado pelos inversos.
 Basta provar que é fechado pela operação de $G$ também:
 tomando $a,b\in H$, ganhamos $a,\ginv b\in H$,
 então pela hipótese $a\ginvp{\ginv b} \in H$, ou seja, $ab \in H$.
-\qed
-%%}}}
 
-%%{{{ remark: the converses of all criteria above are obviously true 
-\remark.
-Em todos esses critérios, as direções {\rldir} também são válida
-(e suas prova devem ser óbvias).
+\endexercise
 %%}}}
 
 %%{{{ x: subgroup_is_an_order 
@@ -29863,7 +29911,7 @@ $$
 \thereforetby {$a^{-1} \in H_1\inter H_2$}         {def.~$\inter$}
 }
 $$
-e o resultado segue graças ao~\ref{subgroup_criterion}.
+e o resultado segue graças ao~\ref{nonempty_subgroup_criterion}.
 %%}}}
 
 \endexercise
@@ -29912,12 +29960,13 @@ então $\Inter {\scr H} \subgroup G$.
 %%{{{ x: congruence_mod_H_teaser 
 \exercise.
 \label{congruence_mod_H_teaser}%
+\def\RH{\rel {R_H}}%
 Seja $G$ conjunto e $H\subgroup G$.
-Defina no $G$ a relação $\rel R$ pela
+Defina no $G$ a relação $\RH$ pela
 $$
-a \rel R b \defiff a\ginv b \in H.
+a \RH b \defiff a\ginv b \in H.
 $$
-Decida se a relação $\rel R$ é uma
+Decida se a relação $\RH$ é uma
 relação de ordem parcial, de ordem total, de equivalência, ou nada disso.
 
 \hint
@@ -29925,32 +29974,33 @@ relação de ordem parcial, de ordem total, de equivalência, ou nada disso.
 Prove as 3 propriedades!
 
 \solution
+\def\RH{\rel {R_H}}%
 \proofpart{Reflexiva:}
 Seja $a\in G$.
 Calculamos:
 $$
 \align
-a \rel R a
+a \RH a
 &\iff a\ginv a\in H\\
 &\iff e\in H
 \endalign
 $$
 que é verdade pois $H\subgroup G$.
 \crproofpart{Transitiva:}
-Sejam $a,b,c \in G$ tais que $a \rel R b$ e $b \rel R c$.
-Precisamos mostrar que $a \rel R c$, ou seja, mostrar que $a\ginv c \in H$.
+Sejam $a,b,c \in G$ tais que $a \RH b$ e $b \RH c$.
+Precisamos mostrar que $a \RH c$, ou seja, mostrar que $a\ginv c \in H$.
 Temos
 $$
 \alignat2
-a\ginv b &\in H  \bytag {$a \rel R b$} 1
-b\ginv c &\in H  \bytag {$b \rel R c$} 2
+a\ginv b &\in H  \bytag {$a \RH b$} 1
+b\ginv c &\in H  \bytag {$b \RH c$} 2
 (a\ginv b) (b \ginv c) &\in H \by {pelas (1) e (2) pois $H\subgroup G$}
 \endalignat
 $$
 Logo $a\ginv b b \ginv c = a \ginv c \in H$.
 \crproofpart{Simmétrica:}
-Sejam $a,b \in G$ tais que $a \rel R b$, ou seja, $a\ginv b \in H$\fact1.
-Vamos provar que $b \rel R a$, ou seja, queremos $b\ginv a \in H$.
+Sejam $a,b \in G$ tais que $a \RH b$, ou seja, $a\ginv b \in H$\fact1.
+Vamos provar que $b \RH a$, ou seja, queremos $b\ginv a \in H$.
 Mas como $H$ é fechado pelos inversos, pela~\byfact1~temos que
 $\ginvp{a\ginv b}\in H$.
 Mas calculando
@@ -29998,10 +30048,10 @@ Ou seja, prove que para qualquer grupo $G$ e qualquer $a\in G$,
 $\generate a \subgroup G$.
 
 \hint
-Use o~\ref{subgroup_criterion}.
+Use o~\ref{nonempty_subgroup_criterion}.
 
 \solution
-Graças ao~\ref{subgroup_criterion},
+Graças ao~\ref{nonempty_subgroup_criterion},
 precisamos verificar que $\generate a$ é fechado pela operação e pelos inversos.
 \endgraf\noindent
 \proofpart{Fechado pela operação:}
@@ -32983,7 +33033,7 @@ Prove que $\ker\phi\subgrp A$.
 
 \hint
 Primeiramente verifique que $\ker\phi\neq\emptyset$.
-Agora, graças ao~\ref{subgroup_criterion}, precisas provar:
+Agora, graças ao~\ref{nonempty_subgroup_criterion}, precisas provar:
 (i)~$\ker\phi$ é~$\ast$-fechado;
 (ii)~$\ker\phi$ é~$\ginv{}$-fechado.
 
@@ -32999,7 +33049,7 @@ ou seja, que $\phi\funparen{\ginv x} = e_B$.
 Primeiramente observamos que $\ker\phi\neq\emptyset$:
 $e_A \in \ker\phi$, pois $\phi$ é um homomorfismo
 e logo leva a $e_A$ para a $e_B$.
-Então graças ao~\ref{subgroup_criterion}, basta provar:
+Então graças ao~\ref{nonempty_subgroup_criterion}, basta provar:
 \crproofpart{$\ker\phi$ é fechado pela operação:}
 Sejam $x,y\in\ker\phi$.
 Precisamos mostrar que $xy\in\ker\phi$, ou seja, que $\phi(xy) = e_B$.
@@ -34264,7 +34314,7 @@ Ou seja, o $\cal R$ é comutativo.
 %%{{{ Q: How would you define subring and ring homomorphism? 
 \question.
 Como tu definirias o conceito de subanel?
-Pode definir algum critérion parecido com os critéria~\refn{subgroup_criterion}
+Pode definir algum critérion parecido com os critéria~\refn{nonempty_subgroup_criterion}
 ou~\refn{finite_subgroup_criterion} para decidir se algo é subanel dum dado anel?
 E o homomorfismo de anel?  Como definirias isso?  E pode definir algum critérion
 parecido com o~\refn{in_groups_respecting_products_means_morphism}?
