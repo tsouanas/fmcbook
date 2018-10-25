@@ -29599,9 +29599,9 @@ Se $H$ é um subconjunto não vazio do grupo $\sset G {\ast,e}$, então:
 $$
 \rightbrace{
 \alignedat3
-\textrm{(0)} &\quad &            &\emptyset \neq H \subseteq G  &\qquad &\textrm{($H$ é n\~ao vazio)}\\
-\textrm{(1)} &\quad & a, b \in H &\implies a\ast b \in H        &\qquad &\textrm{($H$ é $\ast$-fechado)}\\
-\textrm{(2)} &\quad & a \in H    &\implies a^{-1}  \in H        &\qquad &\textrm{($H$ é $^{-1}$-fechado)}
+\textrm{(0)} & \quad &                      & \emptyset \neq H \subseteq G                 &\qquad &\textrm{($H$ é n\~ao vazio)}\\
+\textrm{(1)} & \quad & \pforall {a,b \in G} & \bracket{a, b \in H \implies a\ast b \in H}  &\qquad &\textrm{($H$ é $\ast$-fechado)}\\
+\textrm{(2)} & \quad & \pforall {a \in G}   & \bracket{a \in H    \implies \ginv a \in H}  &\qquad &\textrm{($H$ é $^{-1}$-fechado)}
 \endalignedat
 }
 \implies
@@ -29660,6 +29660,19 @@ $$
 $$
 %%}}}
 
+%%{{{ remark: shorter formulas 
+\remark.
+Observe que como $H\subseteq G$, a afirmação
+$$
+\lforall {a,b \in G} {a,b\in H \implies ab \in H}
+$$
+é equivalente à
+$$
+\lforall {a,b \in H} {ab \in H}.
+$$
+No próximo critério vamos escrever nessa forma mais curta.
+%%}}}
+
 %%{{{ criterion: finite_subgroup_criterion 
 \criterion Subgrupo finito.
 \label{finite_subgroup_criterion}%
@@ -29668,9 +29681,9 @@ fechado sobre a operação $\ast$, então $H$ é um subgrupo de $G$.
 Em símbolos:
 $$
 \rightbrace{
-\alignedat3
-\textrm{(0)} &\quad &            &\emptyset \neq H \finsubseteq G   &\qquad &\textrm{($H$ é \emph{finito} e n\~ao vazio)}\\
-\textrm{(1)} &\quad & a, b \in H &\implies a\ast b \in H            &\qquad &\textrm{($H$ é $\ast$-fechado)}
+\alignedat2
+\textrm{(0)} \quad & \emptyset \neq H \finsubseteq G        &\qquad &\textrm{($H$ é \emph{finito} e n\~ao vazio)}\\
+\textrm{(1)} \quad & \lforall{a, b \in H}{a\ast b \in H}    &\qquad &\textrm{($H$ é $\ast$-fechado)}
 \endalignedat
 }
 \implies
@@ -29735,13 +29748,20 @@ $H\subgroup G$.
 %%}}}
 
 %%{{{ criterion: subgroup_single_check_criterion 
-\criterion.
+\criterion Subgrupo.
 \label{subgroup_single_check_criterion}%
-Sejam $G$ grupo e $\emptyset\neq H \subseteq G$.
-Logo:
+Se $G$ é um grupo e $\emptyset\neq H \subseteq G$ tal que
+$$\text{para todo $a,b\in H$},\ a\ginv b\in H,$$
+então $H\subgroup G$.  Em símbolos:
 $$
-\text{para todo $a,b\in H$},\ a\ginv b\in H
-\implies H \subgroup G.
+\rightbrace{
+\aligned
+\textrm{(0)} \quad & \emptyset \neq H \subseteq G \\
+\textrm{(1)} \quad & \lforall {a, b \in H} {a\ast \ginv b \in H}
+\endaligned
+}
+\implies
+H \subgroup G
 $$
 \proof.
 \ref{subgroup_single_check_criterion_proof}.
@@ -29829,7 +29849,23 @@ O $\set{\id, \phi}$ é um subgrupo de $\sym 3$, onde $\phi = \permc{1 & 2}$.
 
 %%{{{ x: find all subgroups of \sym 3 
 \exercise.
-Ache todos os subgrupos de $\sym 3$.
+Ache todos os subgrupos do $\sym 3$.
+
+\hint
+São 6.  Ache todos.
+
+\solution
+Os seguintes são todos os subgrupos do $\sym 3$:
+$$
+\xalignat6
+&\set {\id} &
+&\set {\id, \phi} &
+&\set {\id, \phi\psi} &
+&\set {\id, \psi\phi} &
+&\set {\id, \psi, \psi^2} &
+&\sym 3.
+\endxalignat
+$$
 
 \endexercise
 %%}}}
