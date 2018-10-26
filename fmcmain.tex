@@ -25543,6 +25543,21 @@ a irreflexividade da $S \of \rop S$.
 \endproblem
 %%}}}
 
+%%{{{ prob: rcom_does_not_respect_transitivity 
+\problem.
+\label{rcom_does_not_respect_transitivity}%
+Sejam $R,S$ relações binárias e transitivas no $A$.
+Podemos concluir que $R \rcom S$ também é transitiva?
+Se sim, demonstre; se não, mostre um contraexemplo.
+
+\hint
+Não.  Para achar um contraexemplo desenha as
+setinhas das relações envolvidas para construir
+os desejados $x,y,z$.
+
+\endproblem
+%%}}}
+
 %%{{{ prob: condorcet_paradox 
 \problem Condorcet.
 \label{condorcet_paradox}%
@@ -25578,6 +25593,71 @@ b &\gtrdot c, \by{pois os $p,r$ preferem $b$ que $c$}
 $$
 mas $a \smartnot\gtrdot c$ pois apenas o $p$ prefere $a$ que $c$.
 De fato, $c \gtrdot a$, pois os $q,r$ preferem $c$ que $a$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: dom_trans_cod_not_trans 
+\problem.
+\label{dom_trans_cod_not_trans}%
+Sejam $A \toarrow f B$ e $\leadsto$ uma relação transitiva no $A$.
+Definimos a relação $R$ no $B$ pela
+$$
+b \rel R b'
+\defiff
+\text{existem $a, a' \in A$ tais que $f(a) = b$, $f(a') = b'$, e $a \leadsto a'$}.
+$$
+Podemos concluir que $R$ também é transitiva?
+Se sim, demonstre; se não, mostre um contraexemplo.
+
+\hint
+Não.
+
+\hint
+A $f$ não é necessariamente injetora.
+
+\solution
+Não, e vamos ver um contraexemplo.
+Considere:
+$$
+\align
+A &= \set{1,2,3,4} \\
+B &= \set{5,6,7}
+\endalign
+$$
+e a $\leadsto$ relacionando apenas os:
+$$
+\align
+1 &\leadsto 2 \\
+3 &\leadsto 4.
+\endalign
+$$
+Defina a $f:A\to B$ pelas
+$$
+\align
+1 &\mapstoarrow f 5 \\
+2 &\mapstoarrow f 6 \\
+3 &\mapstoarrow f 6 \\
+4 &\mapstoarrow f 7.
+\endalign
+$$
+Primeiramente observe que realmente $\leadsto$ é transitiva.
+Vamos verificar que: $5 \rel R 6$ e $6 \rel R 7$ mas mesmo assim
+$5 \not\rel R 7$.
+Os testemunhos de $5 \rel R 6$ são os $1$ e $2$; e
+os testemunhos de $6 \rel R 7$ são os $3$ e $4$.
+Mas os únicos candidados para testemunhos de $5 \rel R 7$
+são os $1$ e $4$, e $1 \not\leadsto 4$; e logo $5 \not\rel R 7$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: dom_trans_cod_trans_if_inj 
+\problem.
+\label{dom_trans_cod_trans_if_inj}%
+O que muda no~\ref{dom_trans_cod_not_trans} se
+adicionar a hipótese que $f$ é injetora?
+Prove tua afirmação.
 
 \endproblem
 %%}}}
