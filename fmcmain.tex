@@ -26649,6 +26649,29 @@ $$
 onde não escrevemos os ``$\ast$-'' quando são implícitos pelo contexto.
 %%}}}
 
+%%{{{ operating_on_an_empty_list_of_objects 
+\note Operando numa lista vazia de objetos.
+\label{operating_on_an_empty_list_of_objects}%
+Suponha que para algum $k\in\nats$ temos uns objetos
+$$
+a_0,a_1,\dotsc,a_{k-1}
+$$
+definidos.  Ou seja, temos $k$ objetos.
+O que seria o resultado operando eles entre si?
+Isso é algo que denotamos por
+$$
+a_0 \ast a_1 \ast \dotsb \ast a_{k-1}
+\qqqqtext{ou}
+a_0 a_1 \dotsb a_{k-1}.
+$$
+Como \emph{a operação associativa}, essa expressão faz sentido,
+assim sem parênteses, para qualquer $k>0$.
+E, se \emph{a operação tem identidade}, então ela é definida até
+para o caso extremo de $k=0$.
+Se $k=0$ temos uma lista de $0$ membros para operar.
+E realmente definimos esse resultado para ser a identidade da operação.
+%%}}}
+
 \endsection
 %%}}}
 
@@ -30360,23 +30383,73 @@ i\in\finord k;\
 m_i \in \ints;\ 
 a_i \in A
 }
-\endalign
-$$
-o \dterm{subgrupo de $G$ gerado por $A$}.
+\intertext{o \dterm{subgrupo de $G$ gerado por $A$}.
 Ou seja, os membros de $\generate A$ são os produtos finitos feitos por
-membros de $A$ e seus inversos:
-$$
-\align
+membros de $A$ e seus inversos:}
 \generate{A}
 &\defeq
 \setstt {a_0\ast\dotsb\ast a_{k-1}}
-{$k\in\nats$; $a_i \in A$ ou $\ginv{a_i} \in A$}.
+{$k\in\nats$;\ $i\in\finord k$;\ $a_i \in A$ ou $\ginv{a_i} \in A$}.
 \endalign
 $$
-Lembre-se que consideramos o produto vazio para ser o $e$,
-então $e \in \generate A$ para qualquer $A$.
 Abusando a notação, escrevemos também $\generate{ a_1, a_2,\dotsc, a_n }$
 para o $\generate{ \set{a_1, a_2,\dotsc, a_n}}$.
+%%}}}
+
+%%{{{ remark: why_e_is_in_every_generated_subgroup 
+\remark.
+\label{why_e_is_in_every_generated_subgroup}%
+Lembre-se (\ref{operating_on_an_empty_list_of_objects}) que para $k=0$
+a expressão acima é a identidade $e$,
+e logo $e \in \generate A$ para qualquer $A$.
+%%}}}
+
+%%{{{ df: group_word 
+\definition Palavra.
+\label{group_word}%
+Chamamos dum termo feito por membros dum grupo $G$ operados entre si
+de \dterm{palavra} de $G$.  Especificando um subconjunto $A\subseteq G$,
+uma $A$-palavra seria uma palavra de $G$ feita usando apenas membros
+de $A$ e seus inversos.
+%%}}}
+
+%%{{{ Some_examples_of_words 
+\example.
+\label{some_examples_of_words}%
+Seja $G$ grupo e $A=\set{w,x,y,z}$ um subconjunto de $G$.
+Umas $A$-palavras são as:
+$$
+\xalignat5
+& wxyz  &
+& \ginv x &
+& wwwwwww &
+& wxx\ginv yyyyw\ginv zw &
+& \ginv z\ginv z \ginv z y \ginv y z z x \ginv x z
+\intertext{Podemos usar exponentes para abreviar essas palavras:}
+& wxyz  &
+& \ginv x &
+& w^7 &
+& wx^2\ginv yy^3w\ginv zw &
+& z^{-3} y \ginv y z^2 x \ginv x z.
+\intertext{e as vezes até usamos um ``overline'' para indicar os inversos:}
+& wxyz  &
+& \overline x &
+& w^7 &
+& w\,x^2\,\overline y\,y^3\,w\,\overline z\,w &
+& \overline z^3\,y\,\overline y\,z^2\,x\,\overline x\,z.
+\endxalignat
+$$
+Observe que começando com uma palavra podemos \emph{computar} seu valor,
+sendo uma palavra onde não aparecem consecutivos objetos canceláveis,
+aplicando um passo cada vez: selecionando um tal par e o apagando.
+
+\endexample
+%%}}}
+
+%%{{{ remark: generate_A is the set of all values of A-words 
+\remark.
+Com essa definição o $\generate A$ é feito por os valores de todas
+as $A$-palavras.
 %%}}}
 
 %%{{{ x: Calculate <> and <G> 
@@ -30398,11 +30471,19 @@ Prove que $\generate A \subgroup G$ para qualquer grupo $G$ e qualquer $A\subset
 \endexercise
 %%}}}
 
-%%{{{ Top-down and bottom-up 
-\note ``Top-down'' e ``bottom-up''.
-Temos então duas caracterizações do~$\generate A$:
-\endgraf
-\proofpartstyle{Bottom-up:}
+%%{{{ Q: How would you describe bottom-up and top-down for generate_A? 
+\question.
+Temos duas mais caracterizações do~$\generate A$ especialmente
+importantes: bottom-up e top-down.  A gente já encontrou algo
+similar, definindo os fechos de relações (especialmente o fecho
+transitivo) no \ref{Relations},~\refn{Closures}.
+Como descreverias os dois processos para definir o $\generate A$?
+%%}}}
+\spoiler.
+
+%%{{{ generated_subgroup_bottom_up_informally 
+\note Bottom-up, informalmente.
+\label{generated_subgroup_bottom_up_informally}%
 Começamos com um conjunto~$T$ onde botamos todos os elementos que desejamos
 no subgrupo (os elementos de~$A$ nesse caso),
 e enquanto isso não forma um grupo, ficamos nos perguntando \emph{por que não}.
@@ -30415,67 +30496,226 @@ Vendo as leis, isso sempre quis dizer que um certo elemento tá faltando:
 \li (G2) violada: a identidade~$e \notin T$.
 \li (G3) violada: para algum~$t \in T$, seu inverso~$\ginv t \notin T$.
 \endul
-Então ficamos \emph{adicionando} os elementos faltantes, e repetindo a mesma
-pergunta, até chegar num conjunto que não viola nenhuma das leis, ou seja, um
-grupo mesmo.  É o conjunto~$T$ que tem todos os elementos de~$A$ e todos os
+E agora?
+\beginul
+\li (G0) violada? Resolução: adicione o $st$: $T\union \set{st}$.
+\li (G2) violada? Resolução: adicione o $e$: $T\union \set{e}$.
+\li (G3) violada? Resolução: adicione o $\ginv t$: $T\union \set{\ginv t}$.
+\endul
+Como resolver cada um desses 3 possíveis problemas então?
+Adicionando os membros culpados!  E depois?  Se o conjunto já virou
+um grupo, paramos.  Se não, continuamos.
+Ficamos \emph{adicionando} os membros culpados (os faltantes)
+e repetindo a mesma pergunta, até chegar num conjunto que não viola
+nenhuma das leis, ou seja, um grupo mesmo.
+É o conjunto~$T$ que tem todos os elementos de~$A$ e todos os
 necessários de~$G$ para formar um grupo.
 \endgraf
-\proofpartstyle{Top-down:}
-Começamos com a família~$\cal F$ de \emph{todos} os subgrupos de~$G$
-que contenham o~$A$.
-\emph{Primeiramente verificamos que essa família não é vazia:}
-fato, pois já temos um membro dela: o próprio~$G$ já é um grupo que~$G \supseteq A$.
-Mas no~$G$ existe possível ``lixo'': membros fora do~$A$ cuja presença não
-foi justificada como necessária pelas leis de grupo.
-Precisamos filtrar esse lixo, para ficar apenas com os membros ``necessários''.
-Quais são esses membros?  São aqueles que pertencem em \emph{todos} os grupos
-dessa família~$\cal F$.  Ou seja, a intersecção~$\Inter \cal F$ é o
-desejado~$\generate A$.
+Cuidado: é tentoso pensar como resolução \emph{retirar} os $s,t$, no caso da
+(G0), ou o $t$ no caso da (G3).  Por exemplo, alguém poderia pensar que o
+problema no caso da violada (G0), foi a presença dos $s,t$ no $T$; mas não é!
+O problema é a ausência do $st$.  Lembre nossa intuição: queremos começar com o
+$A$ e sem perder nenhum dos seus membros, chegar num subgrupo de $G$, adicionando
+apenas os necessários.
 %%}}}
 
-%%{{{ prop: subgroup_generate_A_topdown 
-\proposition Definição top-down.
-\label{subgroup_generate_A_topdown}%
-Sejam $\sset G \ast$ grupo e $A \subseteq G$.
-$$
-\generate A = \Inter \setst { H \subgroup G } { H \supseteq A }.
-$$
-\sketch.
-Provamos cada direção separadamente:
-Para a \lrdirset, tome um arbitrário membro $\alpha \in \generate A$
-e um arbitrário $H \subgroup G$ tal que $H \supseteq A$, e mostre
-que $\alpha\in H$.
-Para a \rldirset, tome um $\alpha$ que pertence em todos os subgrupos de $G$ que contenham o $A$
-e mostre que ele pode ser escrito na forma desejada (da definição de~$\generate A$).
-\qes
-%%}}}
-
-%%{{{ prop: subgroup_generate_A_bottomup 
-\proposition Definição bottom-up.
-\label{subgroup_generate_A_bottomup}%
-Sejam $\sset G \ast$ grupo e $A \subseteq G$.
+%%{{{ thm: generated_subgroup_bottom_up_formally 
+\theorem Bottom-up, formalmente.
+\label{generated_subgroup_bottom_up_formally}%
+Sejam $G$ grupo e $A \subseteq G$.
 Definimos a seqüência de conjuntos:
 $$
 \align
-T_1     &= A\\
-T_{n+1} &= T_n
-\union \tunderbrace {\setst { s \ast t } {s,t \in T_n}} {(G0)}
+A_0     &= A\\
+A_{n+1} &= A_n
+\union \tunderbrace {\setst {ab} {a,b \in A_n}} {(G0)}
 \union \tunderbrace {\set e} {(G2)}
-\union \tunderbrace {\setst {\ginv t} {t \in T_n}} {(G3)}
+\union \tunderbrace {\setst {\ginv a} {a \in A_n}} {(G3)}.
 \endalign
 $$
-Temos
+Observe que
 $$
-\generate A = \Union_{n=1}^{\infty} T_n.
+A = A_0 \subseteq A_1 \subseteq A_2 \subseteq A_3 \subseteq \dotsb
+$$
+Temos:
+$$
+\generate A = \Union_{n=0}^{\infty} A_n.
 $$
 \sketch.
 Provamos cada direção separadamente:
-Para a \lrdirset, tome um arbitrário membro $\alpha \in \generate A$
-e ache um inteiro $w \geq 1$ tal que $\alpha \in T_w$.
-Para a \rldirset, basta provar que cada um dos $T_1, T_2, T_3, \dots$
-é subconjunto de $\generate A$.  Podes usar indução.
+Para a {\lrdirset}, tome um arbitrário membro $\alpha \in \generate A$
+e ache $w\in\nats$ tal que $\alpha \in A_w$.
+Para a {\rldirset}, basta provar que cada um dos $A_0, A_1, A_2, \dots$
+é subconjunto de $\generate A$.  Podes---alias, deves---usar indução.
 \qes
 %%}}}
+
+%%{{{ generated_subgroup_top_down_informally 
+\note Top-down, informalmente.
+\label{generated_subgroup_top_down_informally}%
+Começamos considerando o próprio $G$ como um possível candidato para ser
+o subgrupo de $G$ gerado por o conjunto $A$.  No final das contas,
+$G \subgroup G$, e também $G \supseteq A$.
+Mas no~$G$ existe possível ``lixo'': membros fora do~$A$ cuja presença não
+foi justificada como necessária pelas leis de grupo.
+Precisamos filtrar esse lixo, para ficar apenas com os membros ``necessários''.
+Quais são esses membros?
+Bem, se conseguir formar um subgrupo $H \subgroup G$
+tal que $H\supseteq A$ e que \emph{não} tem alguns dos membros,
+isso quis dizer que eles não são realmente necessários; ou seja, é lixo.
+Então quem fica mesmo?
+Ficam apenas aqueles que pertencem a \emph{todos} os subgrupos de $G$ que contenham o $A$.
+Estes membros são exatamente os membros do $\generate A$.
+%%}}}
+
+%%{{{ top_down_heart_level 
+\note Top-down: nível coração.
+\label{top_down_heart_level}%
+Vamos pensar em nosso alvo (o $\generate A$) como o \emph{menor} de todos
+os subgrupos de $G$ que contenham o $A$.  O que significa esse ``menor''?
+Menor em qual ordem?  Não ligamos sobre quantidade de elementos aqui.
+Menor quis dizer subgrupo---lembra que $\subgroup$ é uma
+ordem~(\ref{subgroup_is_an_order}), né?---ou $\subseteq$-menor,
+que \emph{nesse caso} acaba sendo equivalente.
+O que tudo isso quis dizer?
+Queremos definir o $\generate A$ como
+\emph{aquele} conjunto $\overline A$ que satisfaz:
+(i) $A \supseteq \overline A \subgroup G$; e
+(ii) para todo $K$ tal que $A \subseteq K \subgroup G$,
+temos $\overline A \subgroup K$.
+Observe que nada muda se trocar o $\subgroup$ por $\subseteq$ na última condição,
+pois como $\generate A$ e $K$ são subgrupos de $G$, as afirmações
+$\overline A \subseteq K$ e $\overline A \subgroup K$ são equivalentes.
+\endgraf
+Podemos parar nossa definição aqui?  Não, pois esse ``aquele'' acima
+não foi merecido ainda: como sabemos que existe tal conjunto?
+Felizmente, graças à (ii), se tal conjunto existe,
+ele é único~(\ref{uniqueness_of_minimum_subgroup_containing_A}).
+\endgraf
+Começamos com a família~$\scr H$ de \emph{todos} os subgrupos de~$G$
+que contenham o~$A$:
+$$
+\scr H = \setst {H} {A \supseteq H \subgroup G}.
+$$
+Afirmamos que o conjunto que procuramos é o $\Inter \scr H$.
+Basta verificar que ele satisfaz todas as condições,
+algo que tu vai fazer agora:
+%%}}}
+
+%%{{{ x: intersection_of_possibly_empty_family_in_top_down_heart_level 
+\exercise.
+\label{intersection_of_possibly_empty_family_in_top_down_heart_level}%
+Mesmo verificando essas três coisas, ainda falta provar algo!
+Temos um erro sutil mas importantíssimo;
+\emph{como se fosse} uma possível divisão por zero!
+Ache o que é, e prove o que precisas provar para corrigi-lo.
+
+\solution
+Precisamos verificar que a família $\scr H$ tem pelo menos um membro
+antes de intersectar (veja a resolução do~\ref{Inter_emptyset}).
+Fato, pois já temos um membro dela: o próprio $G$!
+É imediato verificar que $G \in \scr H$, e logo $\scr H \neq \emptyset$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: intersection_of_cal_H_contains_A 
+\exercise.
+\label{intersection_of_cal_H_contains_A}%
+$A \subseteq \Inter \scr H$.
+
+\solution
+Pela definição da $\scr H$, para todo $H \in \scr H$ temos $A \subseteq H$.
+Logo $A \subseteq \Inter \scr H$.
+Isso deveria ser óbvio, e resolvido desde~\ref{Inter_of_containers_contains}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: intersection_of_cal_H_is_a_subgroup 
+\exercise.
+\label{intersection_of_cal_H_is_a_subgroup}%
+$\Inter \scr H \subgroup G$.
+
+\solution
+Imediato pelo~\ref{arbitrary_intersection_of_subgroups_is_a_subgroup},
+pois $\scr H$ e não vazia e todos os seus membros são subgrupos.
+
+\endexercise
+%%}}}
+
+%%{{{ x: intersection_of_cal_H_is_contained_in_every_other_candidate 
+\exercise.
+\label{intersection_of_cal_H_is_contained_in_every_other_candidate}%
+Para cada candidato $K$ com $A \subseteq K \subgroup G$, temos
+$$
+\Inter \scr H \subgroup K.
+$$
+
+\hint
+Como já provamos que $\Inter \scr H$ é um grupo, e como $K$ também
+é grupo, basta provar $\Inter \scr H \subseteq K$.
+
+\solution
+Seja $K$ tal que $A \subseteq K \subgroup G$.
+Como já provamos que $\Inter \scr H$ é um grupo, e como $K$ também
+é grupo, basta provar $\Inter \scr H \subseteq K$.
+Mas, pela sua escolha, $K$ é um dos membros da família $\scr H$,
+e logo $\Inter \scr H \subseteq K$.
+Se isso não é óbvio, resolva o~\ref{Inter_is_contained_in_every_member}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: uniqueness_of_minimum_subgroup_containing_A 
+\exercise.
+\label{uniqueness_of_minimum_subgroup_containing_A}%
+Demonstre que realmente a condição (ii) acima garanta que se tal conjunto
+existe, ele é único.
+
+\solution
+Isso não é nada demais do que unicidade do mínimo, se existe,
+algo fácil para provar num contexto geral para qualquer ordem
+(\ref{uniqueness_of_min_max}).
+Mas vamos ver essa prova nesse contexto especifico aqui.
+Suponha que $\overline A, A'$ ambos satisfazem a (i)--(ii).
+Vamos provar que $\overline A = A'$.
+Como $\overline A$ satisfaz a (ii) e $A'$ satisfaz a (i), temos
+$$
+\overline A \subgroup A'.
+$$
+No outro lado, $A'$ satisfaz a (ii) e $\overline A$ satisfaz a (i), logo
+$$
+A' \subgroup \overline A.
+$$
+Logo $\overline A = A'$, pois a relação de subgrupo é
+antisimétrica~(\ref{subgroup_is_an_order}).
+
+\endexercise
+%%}}}
+
+%%{{{ thm: generated_subgroup_top_down_formally 
+\theorem Top-down, formalmente.
+\label{generated_subgroup_top_down_formally}%
+Sejam $G$ grupo e $A\subseteq G$.
+Logo
+$$
+\generate A = \Inter \setst { H \subgroup G } { A \subseteq H }.
+$$
+\sketch.
+Seja $\scr H = \setst { H \subgroup G } { A \subseteq H }$.
+Provamos cada direção separadamente:
+Para a {\lrdirset}, tome um arbitrário membro $\alpha \in \generate A$
+e um arbitrário $H \subgroup G$ tal que $H \supseteq A$,
+e mostre que $\alpha\in H$.
+Para a {\rldirset}, tome um $\alpha$ que pertence a todos
+os subgrupos de $G$ que contenham o $A$ e mostre que
+ele pode ser escrito na forma desejada (da definição de~$\generate A$).
+\qes
+%%}}}
+
+\blah.
+Ou seja, temos três definições equivalentes de \dterm{subgrupo gerado por $A$}.
 
 %%{{{ df: cyclic_group 
 \definition Grupo cíclico.
@@ -30514,6 +30754,22 @@ O $\sym 3$ não é.
 \endexercise
 %%}}}
 
+%%{{{ x: generators_of_additive_Z6
+\exercise.
+\label{generators_of_additive_Z6}%
+Ache todos os membros geradores de $\sset {\ints_6} {+_6}$.
+
+\hint
+Ele tem dois.
+
+\solution
+$$
+\generate 1 = \generate 5 = \ints_6.
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ x: generators_of_S3 
 \exercise.
 \label{generators_of_S3}%
@@ -30521,6 +30777,144 @@ Ache todos os geradores $A$ de $\sym 3$ com tamanho $2$.
 
 \endexercise
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ A detour: bottom-up and top-down 
+\section Um desvio: bottom-up e top-down.
+\label{Bottom_up_and_top_down}%
+
+\note.
+As idéias de bottom-up e top-down são tão fundamentais que vale a pena
+desviar um pouco do nosso estudo de grupos para discutir e generalizar
+o que acabou de acontecer.
+Vamos dizer que temos um tipo de coisas que gostamos e estudamos.
+Aqui esse tipo de coisas foi o grupo, mas queremos ver essas
+idéias num contexto ainda mais abstrato e geral.
+Então não vamos especificar esse tipo.
+Vamos chamar esses objetos de \dterm{bichos}.
+Suponha agora que cada bicho tem ``por trás'' um associado conjunto,
+Por exemplo, os grupos e em geral os conjuntos estruturados tem seus carrier sets.
+Então faz sentido de unir, intersectar, etc., bichos.
+Suponha também que cada bicho tem algo que faz seu conjunto ser especial:
+sua estrutura, umas leis, etc.
+Assim, já temos como definir o que significa \dterm{subbicho}:
+\emph{$B_0$ é subbicho do bicho $B$ sse $B_0 \subseteq B$ e $B_0$ também é um bicho}.
+Agora começa com um bicho $B$, e considere um subconjunto $S \subseteq B$,
+que não é necessariamente um subbicho.
+Queremos definir o \dterm{subbicho gerado por $S$}.
+Precisamos:
+\beginol
+\li saber que a relação de ``subbicho'' é uma ordem;
+\li saber que intersecção arbitrária de bichos é bicho.
+\endol
+Agora podemos definir o \dterm{subbicho gerado por $S$} para ser o menor subbicho
+de $B$ que contenha o $S$, ou seja, a intersecção
+$$
+\Inter \setstt {C} {$C$ é subbicho de $B$ que contenha o $S$}.
+$$
+Curtamente:
+$$
+\Inter_{S \subseteq C \leq B} C,
+$$
+onde $\leq$ aqui significa ``subbicho''.
+
+\blah.
+Essas construções aparecem o tempo todo, para vários bichos:
+espaços topológicos, $\sigma$-algebras, espaços vetoriais, relações transitivas,
+modelos de lógica, etc.
+Aqui vamos usar como exemplo para ilustrar o processo os \emph{conjuntos convexos}
+do plano euclideano $\reals^2$:
+
+%%{{{ df: convex_set_in_plane 
+\definition Conjuntos convexos.
+\label{convex_set_in_plane}%
+Seja $C \subseteq \reals^2$.
+Chamamos o $C$ \dterm{convexo} sse
+para todo $P, Q \in C$, o segmento $\segment {PQ} \subseteq C$.
+%%}}}
+
+\TODO Add figures.
+
+%%{{{ x: which_sets_are_convex 
+\exercise.
+\label{which_sets_are_convex}%
+Desenha os subconjuntos seguintes de $\reals^2$:
+\beginol
+\li $\emptyset$;
+\li $\set{\tup{0,0}}$;
+\li $\set{\tup{0,0},\tup{0,1}}$;
+\li $\set{\tup{0,0},\tup{0,1},\tup{1,0},\tup{1,1}}$;
+\li $\setst {\tup{x,y}} {x^2+y^2 = 1}$;
+\li $\setst {\tup{x,y}} {x^2+y^2 \leq 1}$;
+\li $\setst {\tup{x,y}} {x^2+y^2 < 1}$;
+\li $\setst {\tup{x,0}} {0\leq x < 1}$.
+\endol
+Quais deles são convexos?
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_the_convex_hulls 
+\exercise.
+\label{find_the_convex_hulls}%
+Para cada um dos conjuntos do~\ref{which_sets_are_convex} que não
+foi convexo, desenha seu fecho convexo.
+
+\endexercise
+%%}}}
+
+%%{{{ x: convex_sets_have_the_intersection_property 
+\exercise.
+\label{convex_sets_have_the_intersection_property}%
+Prove que os conjuntos convexos têm a propriedade de intersecção:
+se $\scr C$ é uma família não vazia de conjuntos convexos, então
+$\Inter \scr C$ é um conjunto convexo.
+
+\endexercise
+%%}}}
+
+\blah.
+Logo, \emph{podemos definir} o \dterm{fecho convexo} (ou \dterm{convex hull})
+dum subconjunto $S\subseteq\reals^2$ usando a abordagem top-down.
+
+%%{{{ df: convex_hull_bottom_up 
+\definition.
+\label{convex_hull_bottom_up}%
+Seja $S\subseteq\reals^2$.
+Definimos a seqüência de conjuntos $\sequence S n$ pela recursão:
+$$
+\align
+S_0     &= S \\
+S_{n+1} &= S_n \union \setstt {M \in \reals^2} {existem $P,Q \in S_n$ tais que $M$ é um ponto no segmento $\segment {PQ}$}.
+\endalign
+$$
+Agora definimos o \dterm{fecho convexo} (ou \dterm{convex hull}) $\hull S$ de $S$ pela
+$$
+\hull S \defeq \Union_{n=0}^\infty S_n.
+$$
+%%}}}
+
+%%{{{ x: convex_hull_bottom_up_deserves_the_name 
+\exercise.
+\label{convex_hull_bottom_up_deserves_the_name}%
+Prove que o convex hull $\hull S$ dum $S \subseteq \reals^2$ merece seu nome:
+(i) $\hull S$ é convexo mesmo e contem o $S$; (ii) qualquer convexo $C$ que contem o $S$, está contido no $\hull S$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: how_can_we_define_the_convex_hull_top_down 
+\exercise.
+\label{how_can_we_define_the_convex_hull_top_down}%
+Como podemos definir o fecho convexo dum conjunto $S\subseteq\reals^2$ ``top-down''?
+
+\endexercise
+%%}}}
+
+\blah.
+Chega para agora.  No~\ref{Lattices} vamos voltar a estudar pouco esse assunto.
 
 \endsection
 %%}}}
@@ -33778,7 +34172,30 @@ existe $t \in \ints$ tal que $H = t\ints$.
 \problem.
 \label{identifier_of_all}%
 Seja $G$ grupo finito.
-Demonstre que existe $N\in\nats$ tal que para todo $a \in G$, temos $a^N = e$.
+Demonstre que existe inteiro $N>1$ tal que para todo $a \in G$, temos $a^N = e$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: weird_convex 
+\problem.
+\label{weird_convex}%
+Seja $Q$ o conjunto de todos os pontos do cíclo com ângulo racional:
+$$
+Q = \setst {\tup{\cos\theta, \sin\theta}} {\theta\in[0,2\pi)\inter\rats}.
+$$
+Considere a seqüência
+$$
+Q = Q_0 \subseteq Q_1 \subseteq Q_2 \subseteq Q_3 \subseteq \dotsb
+$$
+obtenida pela bottom-up construção do~\ref{Bottom_up_and_top_down}.
+Qual conjunto é o convex hull $\generate Q$ do $Q$?
+$\generate Q = Q_1$?
+Tem $Q_i \subseteq Q_{i+1}$ para algum $i\in\nats$?
+O que muda se definir o $Q$ como
+$$
+Q = \union_n \set{\tup{\cos n, \sin n}}?
+$$
 
 \endproblem
 %%}}}
