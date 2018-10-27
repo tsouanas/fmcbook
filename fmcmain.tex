@@ -30550,6 +30550,60 @@ Para a {\rldirset}, basta provar que cada um dos $A_0, A_1, A_2, \dots$
 \qes
 %%}}}
 
+%%{{{ eg: tree_for_a_member_of_generate_A 
+\example.
+\label{tree_for_a_member_of_generate_A}%
+Pensando em como demonstrar formalmente o~\ref{generated_subgroup_bottom_up_formally},
+talvez ajuda considerar um exemplo específico para entender melhor como funciona.
+Considere então um $A=\set{a,b}\subseteq G$ e um $a^3b^{-8}\in\generate A$.
+Como podemos provar que $a^3b^{-8} \in \Union_n A_n$?
+Basta achar um $n\in\nats$ tal que $a^3b^{-8}\in A_n$; mas qual $n$ serve aqui?
+Vamos plantar uma árvore abreviada:
+$$
+\Proof{
+   \A {$b \in A$}
+\I1-------------- {}
+    {$b \in A_0$}
+\I1-------------- {}
+   {$b^2 \in A_1$}
+\I1-------------- {}
+   {$b^4 \in A_2$}
+\I1-------------- {}
+   {$b^8 \in A_4$}
+\I1------------------- {}
+   {$b^{-8} \in A_5$}
+                        \A {$a \in A$}
+                   \I1------------------ {}
+                         {$a \in A_0$}
+                   \I1------------------ {}
+                        {$a^2 \in A_1$}
+                                                \A {$a \in A_0$}
+                                            \I1------------------ {}
+                                                  {$a \in A_1$}
+                   \I2------------------------------------------ {}
+                                {$a^3 \in A_2$}
+                            \I1------------------ {}
+                                {$a^3 \in A_3$}
+                            \I1------------------ {}
+                                {$a^3 \in A_4$}
+                            \I1------------------ {}
+                                {$a^3 \in A_5$}
+\I2----------------------------------------------- {}
+            {$a^3b^{-8}\in A_6$}
+}
+$$
+\endexample
+%%}}}
+
+%%{{{ x: tree_for_a_member_of_generate_A_justifications 
+\exercise.
+\label{tree_for_a_member_of_generate_A_justifications}%
+Justifique cada uma das linhas de inferência da árvore
+do~\ref{tree_for_a_member_of_generate_A}.
+
+\endexercise
+%%}}}
+
 %%{{{ generated_subgroup_top_down_informally 
 \note Top-down, informalmente.
 \label{generated_subgroup_top_down_informally}%
