@@ -30209,6 +30209,7 @@ ou seja, $b\ginv a \in H$.
 
 %%{{{ Generators 
 \section Geradores.
+\label{Group_generators}%
 
 %%{{{ df: subgroup_generated_by_a 
 \definition.
@@ -30373,27 +30374,16 @@ Vamos finalmente definir o $\gen A$.
 Sejam $\sset G \ast$ grupo e $A\subseteq G$.
 Chamamos o
 $$
-\align
-\generate{A}
-&\defeq
-\setst {a_0^{m_0}\ast\dotsb\ast a_{k-1}^{m_{k-1}}}
-{%
-k\in\nats;\ 
-i\in\finord k;\ 
-m_i \in \ints;\ 
-a_i \in A
-}
-\intertext{o \dterm{subgrupo de $G$ gerado por $A$}.
-Ou seja, os membros de $\generate A$ são os produtos finitos feitos por
-membros de $A$ e seus inversos:}
-\generate{A}
-&\defeq
+\generate A
+\defeq
 \setstt {a_0\ast\dotsb\ast a_{k-1}}
-{$k\in\nats$;\ $i\in\finord k$;\ $a_i \in A$ ou $\ginv{a_i} \in A$}.
-\endalign
+        {$k\in\nats$;\ $i\in\finord k$;\ $a_i \in A$ ou $\ginv{a_i} \in A$}.
 $$
-Abusando a notação, escrevemos também $\generate{ a_1, a_2,\dotsc, a_n }$
-para o $\generate{ \set{a_1, a_2,\dotsc, a_n}}$.
+o \dterm{subgrupo de $G$ gerado por $A$}.
+Ou seja, os membros de $\generate A$ são os produtos finitos feitos por
+membros de $A$ e seus inversos.
+Abusando a notação, escrevemos também $\generate {a_1, a_2,\dotsc, a_n}$
+para o $\generate {\set{a_1, a_2,\dotsc, a_n}}$.
 %%}}}
 
 %%{{{ remark: why_e_is_in_every_generated_subgroup 
@@ -30402,6 +30392,85 @@ para o $\generate{ \set{a_1, a_2,\dotsc, a_n}}$.
 Lembre-se (\ref{operating_on_an_empty_list_of_objects}) que para $k=0$
 a expressão acima é a identidade $e$,
 e logo $e \in \generate A$ para qualquer $A$.
+%%}}}
+
+%%{{{ property: equivalent_formulations_for_generate_A 
+\property.
+\label{equivalent_formulations_for_generate_A}%
+As alternativas definições são equivalentes:
+$$
+\generate A
+=
+\leftbrace{
+\aligned
+& \setst  {a_0^{m_0}\ast\dotsb\ast a_{k-1}^{m_{k-1}}}
+          {k\in\nats;\ i\in\finord k;\ m_i \in \ints;\ a_i \in A} \\
+& \setst  {a_0^{m_0}\ast\dotsb\ast a_{k-1}^{m_{k-1}}}
+          {k\in\nats;\ i\in\finord k;\ m_i \in \set{-1,1};\ a_i \in A} \\
+& \setstt {a_0\ast\dotsb\ast a_{k-1}}
+          {$k\in\nats$;\ $i\in\finord k$;\ $a_i \in A$ ou $\ginv{a_i} \in A$}.
+\endaligned
+}
+$$
+%%}}}
+
+%%{{{ x: check_that_a_word_satisfies_all_three_definitions_for_generate_A 
+\exercise.
+\label{check_that_a_word_satisfies_all_three_definitions_for_generate_A}%
+Sejam $G$ grupo e um subconjunto dele $A=\set{a,b,c,d}$.
+Mostre que $a^3b^{-2}cb^3d^{-1} \in \generate A$ para todas
+as três definições equivalentes da~\ref{equivalent_formulations_for_generate_A}.
+Ou seja, para cada um desses conjuntos, decida quais são todas as atribuições
+necessárias que satisfazem o ``filtro'' de cada conjunto.
+
+\solution
+Pela sua forma, já é óbvio que
+$$
+\align
+a^3b^{-2}cb^3d^{-1}
+&\in \setst {a_0^{m_0}\ast\dotsb\ast a_{k-1}^{m_{k-1}}}
+            {k\in\nats;\ i\in\finord k;\ m_i \in \ints;\ a_i \in A}.
+\intertext{Basta tomar $k\asseq 5$ e}
+&
+\alignedat2
+a_0 &\asseq a  & m_0 &\asseq 3  \\
+a_1 &\asseq b  & m_1 &\asseq -2 \\
+a_2 &\asseq c  & m_2 &\asseq 1  \\
+a_3 &\asseq b  & m_3 &\asseq 3  \\
+a_4 &\asseq d  & m_4 &\asseq -1
+\endalignedat
+\intertext{e pronto!  Mas para mostrar que}
+a^3b^{-2}cb^3d^{-1}
+&\in \setst {a_0^{m_0}\ast\dotsb\ast a_{k-1}^{m_{k-1}}}
+            {k\in\nats;\ i\in\finord k;\ m_i \in \set{-1,1};\ a_i \in A} 
+\intertext{não podemos fazer a mesma escolha, pois cada um dos $m_i$
+pode ser ou $1$ ou $-1$.  Basta só aumentar o $k$, e tomando $k \asseq 10$ e}
+&
+\alignedat4
+a_0 &\asseq a  & m_0 &\asseq 1  & a_5 &\asseq c  & m_5 &\asseq 1 \\
+a_1 &\asseq a  & m_1 &\asseq 1  & a_6 &\asseq b  & m_6 &\asseq 1 \\
+a_2 &\asseq a  & m_2 &\asseq 1  & a_7 &\asseq b  & m_7 &\asseq 1 \\
+a_3 &\asseq b  & m_3 &\asseq -1 & a_8 &\asseq b  & m_8 &\asseq 1 \\
+a_4 &\asseq b  & m_4 &\asseq -1 & a_9 &\asseq d  & m_9 &\asseq -1.
+\endalignedat
+\intertext{Finalmente para provar que}
+a^3b^{-2}cb^3d^{-1}
+&\in \setstt {a_0\ast\dotsb\ast a_{k-1}}
+             {$k\in\nats$;\ $i\in\finord k$;\ $a_i \in A$ ou $\ginv{a_i} \in A$}.
+\intertext{o $k$ é o mesmo, $k\asseq 10$, e basta escolher nossos $a_i$'s
+em tal forma que cada um deles ou é membro de $A$ ou seu inverso é.  Fácil:}
+&
+\alignedat2
+a_0 &\asseq a        & a_5 &\asseq c \\
+a_1 &\asseq a        & a_6 &\asseq b \\
+a_2 &\asseq a        & a_7 &\asseq b \\
+a_3 &\asseq \ginv b  & a_8 &\asseq b \\
+a_4 &\asseq \ginv b  & a_9 &\asseq \ginv d.
+\endalignedat
+\endalign
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ df: group_word 
@@ -30459,6 +30528,15 @@ calcule os $\generate \emptyset$ e $\generate G$.
 
 \hint
 Considere o ``produto vazio'' igual ao $e\in G$.
+
+\solution
+Temos
+$$
+\align
+\generate \emptyset &= \set{e} \\
+\generate G         &= G.
+\endalign
+$$
 
 \endexercise
 %%}}}
@@ -30533,16 +30611,18 @@ A_{n+1} &= A_n
 \union \tunderbrace {\setst {\ginv a} {a \in A_n}} {(G3)}.
 \endalign
 $$
-Observe que
+Logo temos:
 $$
-A = A_0 \subseteq A_1 \subseteq A_2 \subseteq A_3 \subseteq \dotsb
-$$
-Temos:
-$$
+\gather
+A = A_0 \subseteq A_1 \subseteq A_2 \subseteq A_3 \subseteq \dotsb\\
 \generate A = \Union_{n=0}^{\infty} A_n.
+\endgather
 $$
 \sketch.
-Provamos cada direção separadamente:
+Provar $A_n \subseteq A_{n+1}$ para todo $n\in\nats$ é imediato
+por indução.  Para a afirmação principal,
+que $\generate A = \Union_{n=0}^{\infty} A_n$,
+provamos cada direção separadamente:
 Para a {\lrdirset}, tome um arbitrário membro $\alpha \in \generate A$
 e ache $w\in\nats$ tal que $\alpha \in A_w$.
 Para a {\rldirset}, basta provar que cada um dos $A_0, A_1, A_2, \dots$
@@ -30560,38 +30640,58 @@ Como podemos provar que $a^3b^{-8} \in \Union_n A_n$?
 Basta achar um $n\in\nats$ tal que $a^3b^{-8}\in A_n$; mas qual $n$ serve aqui?
 Vamos plantar uma árvore abreviada:
 $$
-\Proof{
-   \A {$b \in A$}
+\Proofm {
+   \A {b \in A}
 \I1-------------- {}
-    {$b \in A_0$}
-\I1-------------- {}
-   {$b^2 \in A_1$}
-\I1-------------- {}
-   {$b^4 \in A_2$}
-\I1-------------- {}
-   {$b^8 \in A_4$}
-\I1------------------- {}
-   {$b^{-8} \in A_5$}
-                        \A {$a \in A$}
-                   \I1------------------ {}
-                         {$a \in A_0$}
-                   \I1------------------ {}
-                        {$a^2 \in A_1$}
-                                                \A {$a \in A_0$}
-                                            \I1------------------ {}
-                                                  {$a \in A_1$}
-                   \I2------------------------------------------ {}
-                                {$a^3 \in A_2$}
-                            \I1------------------ {}
-                                {$a^3 \in A_3$}
-                            \I1------------------ {}
-                                {$a^3 \in A_4$}
-                            \I1------------------ {}
-                                {$a^3 \in A_5$}
-\I2----------------------------------------------- {}
-            {$a^3b^{-8}\in A_6$}
+    {b \in A_0}
+               \A {b \in A}
+            \I1-------------- {}
+                {b \in A_0}
+\I2--------------- {}
+    {b^2 \in A_1}
+               \A {b \in A}
+            \I1-------------- {}
+                {b \in A_0}
+            \I1-------------- {}
+                {b \in A_1}
+\I2--------------- {}
+    {b^3 \in A_2}
+               \A {\vdots}
+            \I1-------------- {}
+                {b \in A_2}
+\I2--------------- {}
+    {b^4 \in A_3}
+\I1--------------- {}
+       {\vdots}
+\I1--------------- {}
+    {b^7 \in A_6}
+               \A {\vdots}
+            \I1-------------- {}
+                {b \in A_6}
+\I2--------------- {}
+    {b^8 \in A_7}
+\I1----------------- {}
+    {b^{-8} \in A_8}
+                           \A {a \in A}
+                      \I1------------------ {}
+                            {a \in A_0}
+                      \I1------------------ {}
+                           {a^2 \in A_1}
+                                                  \A {a \in A}
+                                              \I1--------------- {}
+                                                   {a \in A_0}
+                                               \I1-------------- {}
+                                                   {a \in A_1}
+                      \I2--------------------------------------- {}
+                                   {a^3 \in A_2}
+                               \I1------------------ {}
+                                   {a^3 \in A_8}
+\I2-------------------------------------------------- {}
+                {a^3 b^{-8} \in A_8}
 }
 $$
+Então já sabemos que o $n\asseq 8$ é suficiente e logo concluimos
+que $a^3 b^{-8} \in \Union_n A_n$.
 \endexample
 %%}}}
 
@@ -30600,6 +30700,159 @@ $$
 \label{tree_for_a_member_of_generate_A_justifications}%
 Justifique cada uma das linhas de inferência da árvore
 do~\ref{tree_for_a_member_of_generate_A}.
+
+\solution
+A parte esquerda parece assim:
+$$
+\Proofm {
+   \A {b \in A}
+\I1-------------- {}
+    {b \in A_0}
+               \A {b \in A}
+            \I1-------------- {}
+                {b \in A_0}
+\I2--------------- {}
+    {b^2 \in A_1}
+               \A {b \in A}
+            \I1-------------- {}
+                {b \in A_0}
+            \I1-------------- {}
+                {b \in A_1}
+\I2--------------- {}
+    {b^3 \in A_2}
+               \A {\vdots}
+            \I1-------------- {}
+                {b \in A_2}
+\I2--------------- {}
+    {b^4 \in A_3}
+\I1--------------- {}
+       {\vdots}
+\I1--------------- {}
+    {b^7 \in A_6}
+               \A {\vdots}
+            \I1-------------- {}
+                {b \in A_6}
+\I2--------------- {}
+    {b^8 \in A_7}
+\I1----------------- {}
+    {b^{-8} \in A_8}
+}
+$$
+Onde explicamos a regra inferida (*):
+$$
+\Proofm {
+     \A {x^k \in A_m}
+\I1-------------------- {$x\in A$}
+   {x^{k+1} \in A_{m+1}}
+}
+\qquad\leadsto\qquad
+\Proofm {
+\A {x^k \in A_k}
+                 \A {x \in A_0}
+                \I1------------- {$A_0\subseteq A_k$}
+                    {x \in A_k}
+\I2----------------------------- {}
+        {x^2 \in A_{k+1}}
+}
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: tree_for_a_member_of_generate_A_shorter 
+\exercise.
+\label{tree_for_a_member_of_generate_A_shorter}%
+Com uma arvore mais baixa demonstra que $a^3 b^{-8} \in A_5$.
+
+\hint
+Tem como mostrar $b^{-8} \in A_4$.
+
+\hint
+$$
+\Proofm {
+   \A {b \in A}
+\I1-------------- {}
+    {b \in A_0}
+\I1--------------- {}
+    {b^2 \in A_1}
+\I1--------------- {}
+    {b^4 \in A_2}
+\I1--------------- {}
+    {b^8 \in A_3}
+}
+$$
+Como justificar cada linha?
+
+\solution
+$$
+\Proofm {
+   \A {b \in A}
+\I1-------------- {}
+    {b \in A_0}
+\I1--------------- {*}
+    {b^2 \in A_1}
+\I1--------------- {*}
+    {b^4 \in A_2}
+\I1--------------- {*}
+    {b^8 \in A_3}
+\I1----------------- {}
+    {b^{-8} \in A_4}
+                           \A {a \in A}
+                      \I1------------------ {}
+                            {a \in A_0}
+                      \I1------------------ {*}
+                           {a^2 \in A_1}
+                                                  \A {a \in A}
+                                              \I1--------------- {}
+                                                   {a \in A_0}
+                                               \I1-------------- {}
+                                                   {a \in A_1}
+                      \I2--------------------------------------- {}
+                                   {a^3 \in A_2}
+                               \I1------------------ {}
+                                   {a^3 \in A_4}
+\I2-------------------------------------------------- {}
+                {a^3 b^{-8} \in A_5}
+}
+$$
+Onde explicamos a regra inferida (*):
+$$
+\Proofm {
+\A {x \in A_m}
+\I1-------------- {*}
+   {x^2 \in A_{m+1}}
+}
+\qquad\leadsto\qquad
+\Proofm {
+\A {x \in A_k}
+\A {x \in A_k}
+\I2----------------- {}
+   {x^2 \in A_{k+1}}
+}
+$$
+A parte esquerda com pouco mais detalhe parece assim:
+$$
+\Proofm {
+   \A {b \in A}
+\I1-------------- {}
+    {b \in A_0}
+                   \A {b \in A}
+                \I1-------------- {}
+                    {b \in A_0}
+\I2-------------------------------- {}
+           {b^2 \in A_1}
+                           \A {\vdots}
+                        \I1-------------- {}
+                            {b^2 \in A_1}
+        \I2-------------------------- {}
+           {b^4 \in A_2}
+                           \A {\vdots}
+                        \I1-------------- {}
+                            {b^4 \in A_2}
+        \I2--------------------------- {}
+                {b^8 \in A_3}
+}
+$$
 
 \endexercise
 %%}}}
@@ -30618,15 +30871,15 @@ Bem, se conseguir formar um subgrupo $H \subgroup G$
 tal que $H\supseteq A$ e que \emph{não} tem alguns dos membros,
 isso quis dizer que eles não são realmente necessários; ou seja, é lixo.
 Então quem fica mesmo?
-Ficam apenas aqueles que pertencem a \emph{todos} os subgrupos de $G$ que contenham o $A$.
-Estes membros são exatamente os membros do $\generate A$.
+Ficam apenas aqueles que pertencem a \emph{todos} os subgrupos de $G$
+que contêm o $A$.  Estes membros são exatamente os membros do $\generate A$.
 %%}}}
 
 %%{{{ top_down_heart_level 
 \note Top-down: nível coração.
 \label{top_down_heart_level}%
 Vamos pensar em nosso alvo (o $\generate A$) como o \emph{menor} de todos
-os subgrupos de $G$ que contenham o $A$.  O que significa esse ``menor''?
+os subgrupos de $G$ que contêm o $A$.  O que significa esse ``menor''?
 Menor em qual ordem?  Não ligamos sobre quantidade de elementos aqui.
 Menor quis dizer subgrupo---lembra que $\subgroup$ é uma
 ordem~(\ref{subgroup_is_an_order}), né?---ou $\subseteq$-menor,
@@ -30647,13 +30900,13 @@ Felizmente, graças à (ii), se tal conjunto existe,
 ele é único~(\ref{uniqueness_of_minimum_subgroup_containing_A}).
 \endgraf
 Começamos com a família~$\scr H$ de \emph{todos} os subgrupos de~$G$
-que contenham o~$A$:
+que contêm o~$A$:
 $$
-\scr H = \setst {H} {A \supseteq H \subgroup G}.
+\scr H = \setst {H} {A \subseteq H \subgroup G}.
 $$
 Afirmamos que o conjunto que procuramos é o $\Inter \scr H$.
 Basta verificar que ele satisfaz todas as condições,
-algo que tu vai fazer agora:
+algo que tu vai fazer agora nos exercícios abaixo, mas antes disso\dots
 %%}}}
 
 %%{{{ x: intersection_of_possibly_empty_family_in_top_down_heart_level 
@@ -30673,6 +30926,18 @@ Fato, pois já temos um membro dela: o próprio $G$!
 \endexercise
 %%}}}
 
+%%{{{ x: intersection_of_cal_H_is_a_subgroup 
+\exercise.
+\label{intersection_of_cal_H_is_a_subgroup}%
+$\Inter \scr H \subgroup G$.
+
+\solution
+Imediato pelo~\ref{arbitrary_intersection_of_subgroups_is_a_subgroup},
+pois $\scr H$ e não vazia e todos os seus membros são subgrupos.
+
+\endexercise
+%%}}}
+
 %%{{{ x: intersection_of_cal_H_contains_A 
 \exercise.
 \label{intersection_of_cal_H_contains_A}%
@@ -30686,25 +30951,11 @@ Isso deveria ser óbvio, e resolvido desde~\ref{Inter_of_containers_contains}.
 \endexercise
 %%}}}
 
-%%{{{ x: intersection_of_cal_H_is_a_subgroup 
-\exercise.
-\label{intersection_of_cal_H_is_a_subgroup}%
-$\Inter \scr H \subgroup G$.
-
-\solution
-Imediato pelo~\ref{arbitrary_intersection_of_subgroups_is_a_subgroup},
-pois $\scr H$ e não vazia e todos os seus membros são subgrupos.
-
-\endexercise
-%%}}}
-
 %%{{{ x: intersection_of_cal_H_is_contained_in_every_other_candidate 
 \exercise.
 \label{intersection_of_cal_H_is_contained_in_every_other_candidate}%
 Para cada candidato $K$ com $A \subseteq K \subgroup G$, temos
-$$
-\Inter \scr H \subgroup K.
-$$
+$\Inter \scr H \subgroup K$.
 
 \hint
 Como já provamos que $\Inter \scr H$ é um grupo, e como $K$ também
@@ -30763,7 +31014,7 @@ Para a {\lrdirset}, tome um arbitrário membro $\alpha \in \generate A$
 e um arbitrário $H \subgroup G$ tal que $H \supseteq A$,
 e mostre que $\alpha\in H$.
 Para a {\rldirset}, tome um $\alpha$ que pertence a todos
-os subgrupos de $G$ que contenham o $A$ e mostre que
+os subgrupos de $G$ que contêm o $A$ e mostre que
 ele pode ser escrito na forma desejada (da definição de~$\generate A$).
 \qes
 %%}}}
@@ -30839,7 +31090,8 @@ Ache todos os geradores $A$ de $\sym 3$ com tamanho $2$.
 \section Um desvio: bottom-up e top-down.
 \label{Bottom_up_and_top_down}%
 
-\note.
+%%{{{ Thingies and subthingies
+\note Bichos e subbichos.
 As idéias de bottom-up e top-down são tão fundamentais que vale a pena
 desviar um pouco do nosso estudo de grupos para discutir e generalizar
 o que acabou de acontecer.
@@ -30864,15 +31116,16 @@ Precisamos:
 \li saber que intersecção arbitrária de bichos é bicho.
 \endol
 Agora podemos definir o \dterm{subbicho gerado por $S$} para ser o menor subbicho
-de $B$ que contenha o $S$, ou seja, a intersecção
+de $B$ que contem o $S$, ou seja, a intersecção
 $$
-\Inter \setstt {C} {$C$ é subbicho de $B$ que contenha o $S$}.
-$$
-Curtamente:
-$$
-\Inter_{S \subseteq C \leq B} C,
+\align
+\generate S &= \Inter \setstt {C} {$C$ é subbicho de $B$ que contem o $S$}.
+\intertext{Curtamente: dados $S \subseteq B$, temos}
+\generate S &= \Inter_{S \subseteq C \leq B} C,
+\endalign
 $$
 onde $\leq$ aqui significa ``subbicho''.
+%%}}}
 
 \blah.
 Essas construções aparecem o tempo todo, para vários bichos:
@@ -30903,7 +31156,9 @@ Desenha os subconjuntos seguintes de $\reals^2$:
 \li $\setst {\tup{x,y}} {x^2+y^2 = 1}$;
 \li $\setst {\tup{x,y}} {x^2+y^2 \leq 1}$;
 \li $\setst {\tup{x,y}} {x^2+y^2 < 1}$;
-\li $\setst {\tup{x,0}} {0\leq x < 1}$.
+\li $\setst {\tup{x,0}} {0\leq x < 1}$;
+\li $\setst {\tup{x,y}} {\max\set{\abs x, \abs y} < 1}$.
+\li $\setst {\tup{x,y}} {x + y > 1}$.
 \endol
 Quais deles são convexos?
 
@@ -30913,8 +31168,8 @@ Quais deles são convexos?
 %%{{{ x: find_the_convex_hulls 
 \exercise.
 \label{find_the_convex_hulls}%
-Para cada um dos conjuntos do~\ref{which_sets_are_convex} que não
-foi convexo, desenha seu fecho convexo.
+Para cada um dos conjuntos do~\ref{which_sets_are_convex}
+que não é convexo, desenha seu fecho convexo.
 
 \endexercise
 %%}}}
@@ -30959,16 +31214,57 @@ Prove que o convex hull $\hull S$ dum $S \subseteq \reals^2$ merece seu nome:
 \endexercise
 %%}}}
 
-%%{{{ x: how_can_we_define_the_convex_hull_top_down 
-\exercise.
+%%{{{ Q: how_can_we_define_the_convex_hull_top_down 
+\question.
 \label{how_can_we_define_the_convex_hull_top_down}%
 Como podemos definir o fecho convexo dum conjunto $S\subseteq\reals^2$ ``top-down''?
+%%}}}
+\spoiler.
+
+%%{{{ A 
+\blah Resposta.
+Precisamos ter pelo menos um conjunto convexo que contem o $S$,
+verificar que intersecção arbitrária de conjuntos convexos é conjunto convexo,
+e que a relação ``subconjunto convexo'' é uma ordem.
+A última coisa é trivial.  As outras duas, deixo como exercícios
+pra ti~(\refn{at_least_one_convex_contains_S}
+e~\refn{intersection_of_convex_is_convex}).
+Com essas coisas podemos definir o $\convexhull S$ como
+$$
+\convexhull S = \Inter \setst {C} {S \subseteq C \leq \reals^2}
+$$
+onde $\leq$ é a relação de ``subconjunto convexo''.
+Assim $\convexhull S$:
+(i) é convexo e contem o $S$;
+(ii) esta contido em qualquer conjunto que satisfaz a (i).
+A argumentação é exatamente a mesma com o caso de grupos
+(\ref{top_down_heart_level} e os exercícios o seguindo:
+\refn{intersection_of_cal_H_is_a_subgroup};
+\refn{intersection_of_cal_H_contains_A};
+\refn{intersection_of_cal_H_is_contained_in_every_other_candidate}).
+%%}}}
+
+%%{{{ x: intersection_of_convex_is_convex 
+\exercise.
+\label{intersection_of_convex_is_convex}%
+A intersecção de uma família não vazia de conjuntos convexos é um conjunto convexo.
+
+\endexercise
+%%}}}
+
+%%{{{ x: at_least_one_convex_contains_S 
+\exercise.
+\label{at_least_one_convex_contains_S}%
+Seja $S$ um subconjunto do plano.
+Demonstre que a família de todos os conjuntos convexos que
+contêm o $S$ não é vazia.
 
 \endexercise
 %%}}}
 
 \blah.
-Chega para agora.  No~\ref{Lattices} vamos voltar a estudar pouco esse assunto.
+Chega para agora.
+No~\ref{Lattices} vamos revisitar esse assunto num contexto abstrato.
 
 \endsection
 %%}}}
@@ -34243,13 +34539,23 @@ $$
 Q = Q_0 \subseteq Q_1 \subseteq Q_2 \subseteq Q_3 \subseteq \dotsb
 $$
 obtenida pela bottom-up construção do~\ref{Bottom_up_and_top_down}.
-Qual conjunto é o convex hull $\generate Q$ do $Q$?
-$\generate Q = Q_1$?
-Tem $Q_i \subseteq Q_{i+1}$ para algum $i\in\nats$?
-O que muda se definir o $Q$ como
-$$
-Q = \union_n \set{\tup{\cos n, \sin n}}?
-$$
+(i) Qual conjunto é o convex hull $\generate Q$ do $Q$?
+(ii) Descreva o conjunto $Q_1$.
+(iii) Tem $Q_i = Q_{i+1}$ para algum $i\in\nats$?
+
+\endproblem
+%%}}}
+
+%%{{{ prob: weird_convex_hard 
+\problem.
+\label{weird_convex_hard}%
+No~\ref{weird_convex}, $Q_1 = Q_2$?
+
+\hint
+Se conseguir uma resolução com o conhecimento desse livro até
+esse capítulo, por favor avise me.  Caso contrário, paciência
+até o~\ref{Cantors_paradise}, onde revisitamos essa pergunta nos
+seus problemas.
 
 \endproblem
 %%}}}
@@ -34487,6 +34793,13 @@ de álgebra abstrata.
 Depois de se acostumar com as idéias algébricas em geral,
 dois livros focados especialmente em teoria dos grupos
 são os~\cite{rosegroups} e~\cite{rotmangroups}.
+
+O convex hull que encontramos \emph{en passant} nesse capítulo
+gera um problema algorítmico muito interessante:
+\emph{dado um conjunto $A$ de pontos dum espaço euclideano
+($\reals^2$, $\reals^n$, etc.) calcule um óptimo $C \subseteq A$
+tal que seus pontos são as vértices do convex hull do $A$}.
+Para mais sobre isso, veja por exemplo o~\cite{clrs}[\S33.3].
 
 \endfurther
 %%}}}
@@ -35604,6 +35917,15 @@ Ou seja, estipulamos o seguinte:
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ prob: weird_convex_modulized 
+\problem.
+\label{weird_convex_modulized}%
+O que muda no~\ref{weird_convex} se definir o $Q$ como
+$Q = \union_n \set{\tup{\cos n, \sin n}}$?
+
+\endproblem
+%%}}}
 
 \endproblems
 %%}}}
@@ -37351,6 +37673,14 @@ Suponha para chegar num absurdo que $T=\sym a$ para algum $a\in A$.
 
 \hint
 $T = \emptyset$?
+
+\endproblem
+%%}}}
+
+%%{{{ prob: weird_convex_now_easy 
+\problem Agora é fácil.
+\label{weird_convex_now_easy}%
+Resolva o (iii) do~\ref{weird_convex_hard}.
 
 \endproblem
 %%}}}
@@ -39617,7 +39947,7 @@ usamos o~\axref{separation}?
 Queremos mostrar que uma certa classe $C$ de objetos realmente é um conjunto.
 Para conseguir isso com o~\axref{separation},
 precisamos construir (pelos axiomas!) um \emph{conjunto}
-$W$ que contenha todos os objetos da nossa classe $C$.
+$W$ que contem todos os objetos da nossa classe $C$.
 Em geral o $W$ vai ter mais elementos, um certo ``lixo'', que precisamos nos livrar.
 E é exatamente com o~\axref{separation} que jogamos fora esse lixo,
 usando uma apropriada fórmula $\phi$ como ``tesoura'' para cortar o $W$ e ficar só com o $C$,
