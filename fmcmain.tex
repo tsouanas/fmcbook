@@ -5093,7 +5093,8 @@ Separe as seqüências em dois grupos: aquelas que começam com 2, e aquelas que
 Cuidado com a ``base'' $f(0)$.  Quantas seqüências de 2 e 3, somam em $0$?
 
 \hint
-Para calcular o valor de $f(17)$, \emph{não} use a definição recursiva ``top-down'', mas ``bottom-up'': calcule os valores em seqüência linear
+Para calcular o valor de $f(17)$, \emph{não} use a definição recursiva ``top-down'',
+mas ``bottom-up'': calcule os valores em seqüência linear
 $f(0), f(1), f(2), \dotsc$ até o valor desejado.
 
 \endexercise
@@ -24400,10 +24401,21 @@ Chamamos $\sim$ uma \dterm{relação de equivalência} sse ela é
 reflexiva, simétrica, e transitiva.
 %%}}}
 
-%%{{{ eg: eq_is_an_eqrel 
+%%{{{ eg: eqrel_eg_eq 
 \example.
-\label{eq_is_an_eqrel}%
+\label{eqrel_eg_eq}%
 A $=$ é uma relação de equivalência.
+\endexample
+%%}}}
+
+%%{{{ eg: eqrel_eg_parity 
+\example.
+\label{eqrel_eg_parity}%
+A relação $\sim_2$ que relaciona exatamente os inteiros com a mesma paridade
+$$
+x \sim_2 y \defiff \text{ambos os $x,y$ são pares ou ambos os $x,y$ são ímpares}.
+$$
+Essa relação de equivalência é um caso especial da próxima.
 \endexample
 %%}}}
 
@@ -24419,6 +24431,50 @@ $$
 
 \solution
 Esqueceu o~\ref{congruence_mod_m_is_an_eqrel}?
+
+\endexercise
+%%}}}
+
+%%{{{ eg: eqrel_eg_countries 
+\example.
+\label{eqrel_eg_countries}%
+No conjunto $\cal P$ de pessoas, a relação
+$$
+x \sim y \defiff \text{$x$ e $y$ nasceram no mesmo país}
+$$
+é uma relação de equivalência.
+\endexample
+%%}}}
+
+%%{{{ eg: eqrel_eg_children 
+\example.
+\label{eqrel_eg_countries}%
+No conjunto $\cal P$ de pessoas, a relação
+$$
+x \sim y \defiff \text{$x$ e $y$ têm a mesma quantidade de filhos}
+$$
+é uma relação de equivalência.
+\endexample
+%%}}}
+
+%%{{{ noneg: eqrel_noneg_food
+\nonexample.
+\label{eqrel_noneg_food}%
+Num conjunto $\cal P$ de pessoas, a relação
+$$
+x \sim y \defiff \text{existe comida que $x$ e $y$ ambos comeram hoje}
+$$
+não é sempre uma relação de equivalência.
+\endnonexample
+%%}}}
+
+%%{{{ x: why not? 
+\exercise.
+Por que não?
+
+\hint
+Não é necessariamente nem reflexiva nem transitiva.
+Invente um contraexemplo para cada propriedade.
 
 \endexercise
 %%}}}
@@ -24975,6 +25031,186 @@ $$
 onde $E$ é o conjunto de todas as relações de equivalência no $A$.
 
 \endexercise
+%%}}}
+
+%%{{{ seeing_the_quotient_set 
+\note Enxergando o conjunto quociente.
+\label{seeing_the_quotient_set}%
+Tendo um conjunto $A$ e uma relação de equivalência $\sim$,
+no conjunto quociente $\quoset A \sim$ a relação de equivalência
+$\sim$ se vira igualdade $=$ mesmo.
+Numa maneira, $\quoset A \sim$ é o mundo que chegamos se nossa $\sim$
+virar para ser a nossa $=$.  O mundo onde não conseguimos enxergar
+diferenças entre objetos $\sim$-relaçionados.
+Para dar um exemplo, considere o conjunto dos inteiros $\ints$,
+e a relação de equivalência $\sim$ definida pela
+$$
+x \sim y \defiff x \cong y \pmod 2,
+$$
+ou seja, $\sim$ relaciona os inteiros com a mesma \dterm{paridade}.
+Vamos olhar para nosso conjunto:
+$$
+\set {\dots, -3, -2, -1, 0, 1, 2, 3, \dots}
+$$
+Quantos elementos ele tem?
+Uma infinidade, correto?
+Sim, pois todos os
+$$
+\dots, -3, -2, -1, 0, 1, 2, 3, \dots
+$$
+são distintos dois-a-dois.
+Vamos lembrar uma propriedade fundamental de conjuntos:
+quantos elementos tem o
+$$
+\set {7, 7, 7, 5, 0, 8, 8}?
+$$
+Temos escrito $7$ termos para ser exatamente os membros
+desse conjunto, mas quantos elementos ele tem mesmo?
+$4$, pois num conjunto não existe a noção de
+\emph{quantas vezes} um membro pertence a ele;
+só a noção de pertencer.
+E isso é uma conseqüência imediata da definição de igualdade
+de conjuntos.  Lembre se:
+$$
+A = B \defiff \lforall x {x\in A \iff x \in B}
+$$
+e logo
+$$
+\set {7, 7, 7, 5, 0, 8, 8} = \set {0, 8, 7, 5}
+$$
+pois realmente para todo $x$,
+$$
+x \in \set {7, 7, 7, 5, 0, 8, 8}
+\iff
+x \in \set {0, 8, 7, 5}
+$$
+e, sendo iguais não pode ser que eles tem cardinalidades diferentes!
+Voltando para o conjunto de inteiros
+$$
+\set {\dots, -3, -2, -1, 0, 1, 2, 3, \dots}
+$$
+agora imagina que perguntamos sobre sua cardinalidade uma pessoa
+$\sim$-cega.  O que quis dizer $\sim$-cega?  Ela não consegue
+enxergar como distintos objetos relacionados pela $\sim$.
+O que ela vai responder em nossa pergunta?
+<<2>>.
+Pois, para essa pessoa os
+$$
+\dots, -4, -2, 0, 2, 4, \dots
+$$
+são todos indistingüíveis, e a mesma coisa sobre os
+$$
+\dots, -5, -3, -1, 1, 3, 5, \dots
+$$
+O conjunto quociente $\quoset \ints \sim$ então,
+é o conjunto que ela enxerga.
+Só tem um probleminha agora:
+\emph{quais} são esses dois membros do conjunto que ela enxerga?
+A resposta correta aqui pode aparecer chocante mas é
+\standout
+\emph{<<não importa>>}.
+\endstandout
+Uma escolha natural seria escolher como membros do $\quoset \ints \sim$
+os dois conjuntos:
+$$
+\set{\dots, -4, -2, 0, 2, 4, \dots}
+\qqtext{e}
+\set{\dots, -5, -3, -1, 1, 3, 5, \dots}
+$$
+chegando assim no
+$$
+\quoset\ints\sim
+= \set {
+\set{\dots, -4, -2, 0, 2, 4, \dots},
+\set{\dots, -5, -3, -1, 1, 3, 5, \dots}
+}.
+$$
+De fato, pela\ref{quoset} do conjunto quociente, $\quoset\ints\sim$
+realmente é esse conjunto.  E isso faz sentido, pois uma definição
+de $\quoset A R$ precisa determinar completamente um objeto.
+Mas uma outra escolha poderia ser o conjunto
+$$
+\set{0, 1}
+$$
+ou qualquer outro ``rótulo'' para cada classe de equivalência:
+$$
+\set{{\bf 0}, {\bf 1}}, \quad
+\set{\mathrm{even}, \mathrm{odd}}, \quad
+\set{\mathrm{E}, \mathrm{O}}, \quad
+\set{\emptyset, \set{\emptyset}}, \quad\dotsc
+$$
+Basta só ter exatamente dois membros.
+Toda esse conversa chega no teorema e na definição seguintes:
+%%}}}
+
+%%{{{ thm: only_theorem_about_relations 
+\theorem.
+\label{only_theorem_about_relations}%
+Seja $A$ conjunto e $\sim$ uma relação binária nele.
+A $\sim$ é uma relação de equivalência se e somente se
+existe conjunto $Q$ e surjecção
+$$
+\pi : A \surto Q
+\taglabel{QS1}{quoset_determining_surjection_1}
+$$
+tal que
+$$
+x \sim y \iff \pi(x) = \pi(y).
+\taglabel{QS2}{quoset_determining_surjection_2}
+$$
+%%}}}
+
+%%{{{ df: general_quotient_and_determining_surjection 
+\definition.
+\label{general_quotient_and_determining_surjection}%
+No contexto do~\ref{only_theorem_about_relations},
+quando temos $\pi$ e $Q$ que satisfazem
+as~\tagref{quoset_determining_surjection_1}
+e~\tagref{quoset_determining_surjection_1},
+dizemos que $Q$ é um \dterm{quociente} de $A$ por $\sim$,
+e que $\pi$ é uma \dterm{surjecção determinante} da $\sim$.
+%%}}}
+
+%%{{{ remark: choose_your_quotient_wisely 
+\remark.
+\label{choose_your_quotient_wisely}%
+A prova do~\ref{only_theorem_about_relations} fornece
+o quociente $\quoset A \sim$ e a surjecção
+$\lam x {\eqclass x \sim}$
+(ou, com buracos, $\eqclass {\dhole} {\sim}$)
+que mapeia cada membro de $A$ a sua classe de equivalência.
+Vamos dizer que esse seria o ``conjunto quociente oficial'',
+e a ``surjecção determinante oficial''.
+Mas dependendo do uso, pode ser que para uns
+casos é melhor utilizar outro quociente
+e outra surjecção determinante.
+E até pior---ou, na verdade, melhor---pessoas
+diferentes podem escolher quocientes diferentes
+como \emph{mais iluminantes}.
+Vamos ver uns exemplos.
+Em cada um, vamos ver o oficial, e comparar com uma
+alternativa melhor.
+%%}}}
+
+%%{{{ x: quotient_set_example_countries 
+\example.
+\label{quotient_set_example_countries}%
+
+\endexample
+%%}}}
+
+%%{{{ x: quotient_set_example_countries 
+\example.
+\label{quotient_set_example_countries}%
+
+\endexample
+%%}}}
+
+%%{{{ x: quotient_set_example_countries 
+\example.
+\label{quotient_set_example_countries}%
+
+\endexample
 %%}}}
 
 %%{{{ eg: some_eqclasses_geometrically_and_algebrically 
