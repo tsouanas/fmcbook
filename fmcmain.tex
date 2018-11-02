@@ -30931,7 +30931,7 @@ talvez ajuda considerar um exemplo específico para entender melhor como funcion
 Considere então um $A=\set{a,b}\subseteq G$ e um $a^3b^{-8}\in\generate A$.
 Como podemos provar que $a^3b^{-8} \in \Union_n A_n$?
 Basta achar um $n\in\nats$ tal que $a^3b^{-8}\in A_n$; mas qual $n$ serve aqui?
-Vamos plantar uma árvore abreviada:
+Vamos plantar uma árvore abreviada e rascunhosa:
 $$
 \Proofm {
    \A {b \in A}
@@ -31562,8 +31562,183 @@ No~\ref{Lattices} vamos revisitar esse assunto num contexto abstrato.
 \endsection
 %%}}}
 
+%%{{{ Problems intermission 
+\problems Intervalo de problemas.
+
+%%{{{ prob: how_come_the_cancellation_laws_hold_in_nongroup_without_inverses 
+\problem.
+\label{how_come_the_cancellation_laws_hold_in_nongroup_without_inverses}%
+Na~\ref{First_consequences_of_group_laws} provamos que as leis de cancelamento
+implicam a existência de únicos inversos.
+Lembre-se que o $\sset {\nats} {+}$ não é um grupo pois não satisfaz a (G3).
+Mesmo assim, no $\sset {\nats} {+}$ ambas as leis de cancelamento são válidas.
+Então, isso implica a existência de inversos únicos!
+Qual o erro aqui?
+
+\hint
+O que precisamos na prova do fato que as leis de cancelamento implicam
+a existência de inversos únicos?
+
+\solution
+Na prova do fato que as leis de cancelamento implicam a existência
+de inversos únicos, \emph{usamos} a (G3) que garanta a existência,
+e provamos a unicidade.  No caso do $\sset {\nats} {+}$ não temos a
+(G3) (existência de inversos).  Então nossa prova nesse caso mostra
+que cada membro de $\sset {\nats} +$ tem \emph{no máximo} um inverso,
+algo que realmente é verdade: o $0$ tem exatamente um, e nenhum dos
+outros tem.
+
+\endproblem
+%%}}}
+
+%%{{{ bust_proof_of_uniqueness_of_identity_in_group 
+\problem.
+\label{bust_proof_of_uniqueness_of_identity_in_group}%
+Considere essa suposta prova da unicidade da identidade~(\ref{uniqueness_of_identity_in_group}):
+\quote
+\indent<<Seja $G$ grupo e suponha que temos identidades $e_1,e_2 \in G$.
+Seja $a\in G$.
+Como $e_1$ é identidade, temos $a \ast \ginv a = e_1$\fact1.
+Como $e_2$ é identidade, também temos $a \ast \ginv a = e_2$\fact2.
+Pelas \byfact1~e~\byfact2, como os lados esquerdos são iguais,
+o lados direitos também são.
+Ou seja, $e_1 = e_2$ que foi o que queremos provar.>>
+\endquote
+Identifique todos os erros nessa tentativa de prova.
+
+\endproblem
+%}}}
+
+%%{{{ df: group_center 
+\definition Centro.
+\label{group_center}%
+\tdefined{grupo}[centro]%
+\sdefined{Z(\holed G)} {o centro do grupo $\holed G$}%
+Dado um grupo $G$, definimos seu \dterm{centro} $Z(G)$
+como o conjunto de todos os membros de $G$ que ``comutam'' com todos os membros de $G$:
+$$
+Z(G) \defeq \setstt {z \in G} {para todo $g\in G$, $zg = gz$}.
+$$
+%%}}}
+
+%%{{{ prob: center_G_is_a_subgroup 
+\problem.
+\label{center_G_is_a_subgroup}%
+Mostre que dado um grupo $G$, seu centro $Z(G)\subgrp G$.
+
+\solution
+Primeiramente observe que $Z(G)\neq\emptyset$:
+$e \in Z(G)$ pois para todo $g\in G$, $eg=e=ge$ pela definição de $e$.
+Como $\emptyset \neq Z(G) \subseteq G$, precisamos apenas mostrar que:
+\endgraf\noindent
+\proofpart{Fechado pela operação:}
+Sejam $x,y\in Z(G)$.
+Para provar que $xy\in Z(G)$,
+verificamos que o $(xy)$ comuta com todos os elementos de $G$.
+Seja $g\in G$.
+Calculamos:
+$$
+\alignat2
+(xy)g
+&= x(yg)  \by{(G1)}
+&= x(gy)  \by{$y\in Z(G)$}
+&= (xg)y  \by{(G1)}
+&= (gx)y  \by{$x\in Z(G)$}
+&= g(xy). \by{(G1)}
+\endalignat
+$$
+\endgraf\noindent
+\proofpart{Fechado pelos inversos:}
+Seja $x\in Z(G)$.
+Para provar que $\ginv x\in Z(G)$,
+verificamos que o $\ginv x$ comuta com todos os elementos de $G$.
+Seja $g\in G$.
+Calculamos:
+$$
+\alignat2
+\ginv x g
+&= \ginvp{\ginvp{\ginv x g}}         \by{inv.~de~inv.}
+&= \ginvp{\ginv g {\ginvp{\ginv x}}} \by{inv.~de~prod.}
+&= \ginvp{\ginv g x}                 \by{inv.~de~inv.}
+&= \ginvp{x \ginv g}                 \by{$x \in Z(G)$}
+&= \ginvp{\ginv g} \ginv x           \by{inv.~de~prod.}
+&= g \ginv x.                        \by{inv.~de~inv.}
+\endalignat
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: all_subgroups_of_additive_ints 
+\problem.
+\label{all_subgroups_of_additive_ints}%
+No~\ref{some_subgroups_of_additive_ints} tu provaste que para todo $m\in\ints$,
+$m\ints \subgroup \sset \ints +$.  Demonstre que esses são \emph{todos} os
+subgrupos de $\sset \ints +$.  Ou seja: para todo $H \subgroup \sset\ints+$,
+existe $t \in \ints$ tal que $H = t\ints$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: identifier_of_all 
+\problem.
+\label{identifier_of_all}%
+Seja $G$ grupo finito.
+Existe inteiro $N>0$ tal que para todo $a \in G$, $a^N = e$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: weird_convex 
+\problem.
+\label{weird_convex}%
+Seja $Q$ o conjunto de todos os pontos do cíclo com ângulo racional:
+$$
+Q = \setst {\tup{\cos\theta, \sin\theta}} {\theta\in[0,2\pi)\inter\rats}.
+$$
+Considere a seqüência
+$$
+Q = Q_0 \subseteq Q_1 \subseteq Q_2 \subseteq Q_3 \subseteq \dotsb
+$$
+obtenida pela bottom-up construção da~\refn{Bottom_up_and_top_down}.
+(i) Qual conjunto é o convex hull $\generate Q$ do $Q$?
+(ii) Descreva o conjunto $Q_1$.
+(iii) Tem $Q_i = Q_{i+1}$ para algum $i\in\nats$?
+
+\endproblem
+%%}}}
+
+%%{{{ prob: weird_convex_hard 
+\problem.
+\label{weird_convex_hard}%
+No~\ref{weird_convex}, $Q_1 = Q_2$?
+
+\hint
+Não!  O $Q_1$ tem ``buracos'' nele, e o $Q_2$ não tem!
+Tem com achar um tal buraco no $Q_1$.
+
+\hint
+$(0,0) \in Q_2 \setminus Q_2$.  Por quê?
+
+\hint
+Para ``passar pelo $(0,0)$'', uma corda obrigatoriamente
+tem que ser uma diámetro.
+
+\hint
+Por enquanto só podemos responder ``não'' por causa desse
+buraco.  Tem outros buracos?
+Paciência até o~\ref{Cantors_paradise}, onde revisitamos essa
+pergunta nos seus problemas.
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ Congruences and cosets 
 \section Congruências e coclasses.
+\label{Group_congruences_and_cosets}%
 
 %%{{{ The relation R was actually congruence mod subgroup 
 \note.
@@ -31583,7 +31758,7 @@ Definimos
 $$
 a \cong b \pmodR H \defiff a\ginv b \in H.
 $$
-Usamos também a notação $a \congR b$.
+Usamos também a notação $a \congR H b$.
 %%}}}
 
 %%{{{ x: mod_m_as_a_special_case_of_mod_H 
@@ -31878,6 +32053,132 @@ e similarmente o $Ha$ seu \dterm{right-coset}.
 Também usamos os termos \dterm{coclasse (lateral) à esquerda/direita}.
 %%}}}
 
+%%{{{ Q: What w \in Ha means? 
+\question.
+O que significa que algum $w \in Ha$?
+Como podemos usá-lo se é dado?
+Como podemos matá-lo se é alvo?
+%%}}}
+\spoiler.
+
+%%{{{ A: what_belonging_to_Ha_means 
+\note Respostas.
+\label{what_belonging_to_Ha_means}%
+Pela definição do conjunto $Ha$ com a notação set-builder,
+$$
+w \in Ha \defiff \lexists {h\in H} {w = ha}.
+$$
+Então ganhando $w \in Ha$ como dado, nos permite ``sejar''
+um tal membro de $H$: \emph{seja $h\in H$ tal que $w \in Ha$}.
+Logo, para matar esse alvo precisamos mostrar como escrever
+nosso $w$ como produto de algum objeto do $H$ e do $a$.
+Ou seja, procuramos algo que encaixa no $\holed?$:
+$$
+w = \munderbrace {\holed?} {\in H} a.
+$$
+Não esqueça: assim que achar um tal objeto que satisfaz
+a equação acima, precisa demonstrar que ele pertence ao $H$.
+%%}}}
+
+%%{{{ warning: only_declare_variables 
+\warning Declare apenas variáveis!.
+\label{only_declare_variables}%
+É comum escrever algo do tipo:
+\quote
+Seja $ha \in Ha$.
+\endquote
+Não escreva assim, pois é perigoso roubar sem querer!
+Em vez disso escreva:
+\quote
+Seja $w \in Ha$.  Logo seja $h \in Ha$ tal que $w = ha$.
+\endquote
+Quando ``sejamos'' algo como um membro arbitrário dum conjunto
+usamos apenas uma variável!  Nem constantes, nem termos que
+involvem operações.  Imagine alguem escrevendo:
+<<seja $3\in\ints$>>, ou <<seja $x^2 \in \reals$>>.
+Não!  A operação $\dhole^2$ já é definida, e logo para
+qualquer real $r$ o real $r^2$ já é definido!
+Para dar um exemplo para quem programou em linguagem similar à C.
+Tu escreverias essas declarações?
+\sourcecode onlydeclarevars.c;
+\endgraf
+Espero que não!
+%%}}}
+
+%%{{{ warning: what_does_Ha_eq_Hb_really_mean 
+\warning.
+\label{what_does_Ha_eq_Hb_really_mean}%
+Vamos supor que temos uns $a,b\in G$ e algum $H = \set{h_1,\dotsc,h_n}$.
+Logo são definidos os
+$$
+\matrix
+\format
+\l &~\c~& \c\; & \c\;  & \c\;  & \c\;  & \c\;    & \c\; & \l \\
+H  & =  & \{   & h_1,  & h_2,  & h_3,  & \dotsc, & h_n  & \}; \\
+Ha & =  & \{   & h_1a, & h_2a, & h_3a, & \dotsc, & h_na & \}; \\
+Hb & =  & \{   & h_1b, & h_2b, & h_3b, & \dotsc, & h_nb & \}.
+\endmatrix
+$$
+\endgraf
+(1) Agora suponha que sabemos que $Ha = Hb$:
+$$
+\matrix
+\format
+\c   &~\c~& \c\; & \c\;  & \c\;  & \c\;  & \c\;    & \c\; & \l \\
+Ha   & =  & \{   & h_1a, & h_2a, & h_3a, & \dotsc, & h_na & \} \\
+\veq & \\
+Hb   & =  & \{   & h_1b, & h_2b, & h_3b, & \dotsc, & h_nb & \}.
+\endmatrix
+$$
+É um \emph{erro grave} concluir que
+$$
+\matrix
+\format
+\c   &~\c~& \c\; & \c\;  & \c\;  & \c\;  & \c\;    & \c\; & \l \\
+Ha   & =  & \{   & h_1a, & h_2a, & h_3a, & \dotsc, & h_na & \} \\
+\veq &    &      & \veq  & \veq  & \veq  & \dotsb, & \veq & \\
+Hb   & =  & \{   & h_1b, & h_2b, & h_3b, & \dotsc, & h_nb & \}.
+\endmatrix
+$$
+A igualdade desses conjuntos nos permite apenas concluir que
+cada $h_ia$ é igual a um dos $h_jb$ e vice versa.  Nada mais!
+\endgraf
+(2) E agora suponha que queremos provar que $Ha = Hb$.
+Pela definição de igualdade de conjuntos, precisamos provar $Ha \subseteq Hb$
+e $Ha \supseteq Hb$.  Mas!  Se a gente conseguir provar
+que realmente para todo $i$, $h_ia = h_ib$, isso seria
+ainda mais forte, e obviamente suficiente para concluir
+que $Ha=Hb$, mas \emph{não necessário}.
+%%}}}
+
+%%{{{ x: What can we conclude if for some i, h_i a = h_i b?
+\exercise.
+O que podemos concluir se no (1) acima para \emph{algum} $i$,
+$h_ia = h_ib$?
+
+\solution
+Que $a = b$ (pela~(GCL))---e logo que \emph{para todo} $i$,
+$h_ia = h_ib$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: every_coclass_is_nonempty 
+\exercise.
+\label{every_coclass_is_nonempty}%
+Nenhuma coclasse de $H$ é vazia.
+
+\solution
+Qualquer coclasse de $H$ tem a forma $Ha$ ou $aH$ para
+algum $a\in G$.  Observe que o proprio $a \in Ha$, pois
+$$
+a = \munderbrace {e} {\in H} a \in Ha,
+$$
+e similarmente $a\in aH$.
+
+\endexercise
+%%}}}
+
 %%{{{ x: Ha_eq_H_iff_a_in_H 
 \exercise.
 \label{Ha_eq_H_iff_a_in_H}%
@@ -31912,10 +32213,155 @@ Sabemos disso pois $H$ sendo subgrupo de $G$ é fechado pelos inversos
 \endexercise
 %%}}}
 
+\blah.
+Uma conseqüência imediata do \ref{Ha_eq_H_iff_a_in_H} é que
+$$
+a \notin H \iff Ha \neq H.
+$$
+Mas assim que souber que $a\notin H$ podemos concluir
+algo bem mais forte que $Ha \neq H$:
+
+%%{{{ x: a_notin_H_implies_H_and_Ha_disjoint 
+\exercise.
+\label{a_notin_H_implies_H_and_Ha_disjoint}%
+O que?  Como?
+
+\hint
+Podemos concluir que:
+\emph{se $a \notin H\subgroup G$ então $H$ e $Ha$ são disjuntos.}
+
+\solution
+Podemos concluir que:
+\emph{se $a \notin H\subgroup G$ então $H$ e $Ha$ são disjuntos:}
+Suponha que $H$ e $Ha$ tem algum membro em comum $h$.
+Vamos chegar numa contradição, provando assim que
+$H\inter Ha=\emptyset$.
+Como $h \in Ha$, logo seja $h_1\in H$ tal que $h = h_1a$.
+Passando o $h_1$ para o outro lado, temos
+$$
+\munderbrace {\ginvp{h_1} h} {\in H} = \munderbrace {a} {\notin H}
+$$
+que é absurdo.
+
+\endexercise
+%%}}}
+
+\blah.
+E se escolher um $b\in G$ fora do $H$ e fora do $Ha$?
+
+%%{{{ x: every_coclass_disjoint_from_previous 
+\exercise.
+\label{every_coclass_disjoint_from_all_others}%
+Mostre que se $a,b \in G$ tais que $b\notin Ha$
+então $Hb$ e $Ha$ são disjuntos.
+(Que $Hb$ e $H$ são disjuntos já sabemos graças
+ao~\ref{a_notin_H_implies_H_and_Ha_disjoint}.)
+
+\solution
+Suponha que $Ha$ e $Hb$ tem algum membro em comum $w$.
+Logo sejam $h_a,h_b\in H$ tais que $w = h_a a$ e $w = h_b b$.
+Logo
+$$
+h_a a = h_b b
+$$
+e passando o $h_b$ para o outro lado temos:
+$$
+\munderbrace {\munderbrace {\ginvp{h_b} h_a} {\in H} a} {\in Ha} = b
+$$
+que contradiz que $b \notin Ha$.
+
+\endexercise
+%%}}}
+
 %%{{{ Q: How many cosets? 
 \question.
 \emph{Dados um grupo $G$ e $H\subgroup G$, quantas coclasses tem o $H$?
 Ou seja, qual é a cardinalidade do conjunto $\setst {Ha} {a\in G}$?}
+%%}}}
+
+\blah.
+Vamos ver a resposta daqui a pouco (\ref{index_of_subgroup}
+e~\ref{lagrange_theorem}).
+
+%%{{{ df: cosetsL_and_cosetsR 
+\definition.
+\label{cosetsL_and_cosetsR}%
+Vamos denotar a família de todas as coclasses esquerdas
+e direitas do $H$ assim:
+$$
+\align
+\cosetsL H &\defeq \setst {aH} {a \in G}; \\
+\cosetsR H &\defeq \setst {Ha} {a \in G}.
+\endalign
+$$
+\footnote{Por que direitas?  Porque sim!
+Vamos nos preocupar com essa pergunta logo.}
+%%}}}
+
+%%{{{ lemma: coclasses_form_a_partition 
+\lemma.
+\label{coclasses_form_a_partition}%
+\ii{partição}%
+Sejam $G$ grupo e $H\subgroup G$.
+A família
+$$
+\cosetsR H \defeq \setst {Ha} {a \in G}
+$$
+de todas as coclasses direitas dum $H\subgroup G$ é uma partição de $G$:
+\beginil
+\item{(P1)} $\Union \cosetsR H \supseteq G$;
+ou seja: para todo $x\in G$, existe coclasse $H'$ com $x \in H'$;
+\item{(P2)} as coclasses no $\cosetsR H$ são disjuntas duas-a-duas;
+\item{(P3)} nenhuma coclasse é vazia ($\emptyset \notin \cosetsR H$).
+\endilnoskip
+\sketch.
+Para o (P1) tomamos um arbitrário $x\in G$ e achamos
+uma coclasse de $H$ que o $x$ esteja dentro.
+O (P3) já provamos no~\ref{every_coclass_is_nonempty}.
+Essencialmente provamos o (P2) também,
+no~\ref{every_coclass_disjoint_from_previous}.
+Mas para variar, demonstramos que para todo $a,b \in G$,
+$$
+Ha \inter Hb \neq \emptyset \implies Ha=Hb.
+$$
+Tome um elemento comum $w\in Ha\inter Hb$.  Logo
+$$
+h_a a = w = h_b b
+\qqquad
+\text{para alguns $h_a, h_b\in H$}.
+$$
+Manipulamos a $h_a a = h_b b$ para mostrar que $Ha = Hb$.
+\qes
+\proof.
+(P1) Como $H$ é um grupo, sabemos que $e\in H$, então para qualquer $x\in G$,
+temos que $x = ex \in Hx$, ou seja todos os elementos de $G$ pertencem em
+alguma coclasse.
+(P3) Toda coclasse direita de $H$, tem a forma $Ha$ para algum $a\in G$,
+e tem pelo menos um elemento: esse mesmo $a$ (a gente provou
+isso no~\ref{every_coclass_is_nonempty}).
+Para o (P2) suponha que $Ha\inter Hb\neq \emptyset$ e tome $w\in Ha\inter Hb$.
+Logo
+$$
+h_aa = w = h_bb
+\qqquad
+\text{para alguns $h_a, h_b\in H$}.
+$$
+Para provar que $Ha = Hb$, mostramos que $Ha\subseteq Hb$ e $Hb\subseteq Ha$.
+Suponha então que $x \in Ha$, logo $x = ha$ para algum $h\in H$.
+Precisamos mostrar que $x \in Hb$.
+Calculamos:
+$$
+\align
+x= ha
+&= h\paren{\ginv {h_a} h_a}a\\
+&= h\ginv {h_a} \paren{h_a a}\\
+&= h\ginv {h_a} \paren{h_b b}\\
+&= \paren{h \ginv {h_a} h_b}b\\
+&\in Hb.
+\endalign
+$$
+A outra direção ($Ha \supseteq Hb$) é similar.
+\qed
 %%}}}
 
 %%{{{ thm: the cosets of H are the quotient set G / congmodR 
@@ -31924,18 +32370,18 @@ Ou seja, qual é a cardinalidade do conjunto $\setst {Ha} {a\in G}$?}
 \ii{relação!de equivalência}%
 Sejam $G$ grupo e $H\subgroup G$.
 A família $\cosetsR H = \setst {Ha} {a\in G}$ é uma partição do $G$
-e sua correspondente relação de equivalência é a congruência $\congR$
+e sua correspondente relação de equivalência é a congruência $\congR H$
 módulo-direito $H$.  Equivalentemente:
 $$
-\quoset G {\congR} \;=\; \cosetsR H
+\quoset G {\congR H} \;=\; \cosetsR H
 $$
-Simetricamente, $\quoset G {\congL} = \cosetsL H$,
+Simetricamente, $\quoset G {\congL H} = \cosetsL H$,
 onde $\cosetsL H = \setst {aH} {a\in G}$.
 \proof.
 Vamos denotar por $\eqclassimp a$ a classe de equivalência de
-$a\in G$ (através da relação $\congR$).
+$a\in G$ (através da relação $\congR H$).
 Queremos provar que
-$\quoset G {\congR} = \cosetsR H$, ou seja
+$\quoset G {\congR H} = \cosetsR H$, ou seja
 $$
 \setst { \eqclassimp a } {a \in G}
 =
@@ -31969,80 +32415,36 @@ e pronto.
 \qed
 %%}}}
 
-%%{{{ x: direct_proof_that_coclasses_form_a_partition 
+%%{{{ Actors 
+\note Atores.
+\label{group_actors}%
+Fixe um $a \in G$.  Isso determina duas funções $G \to G$
+$$
+\xalignat2
+&\lam x {ax} & &\lam x {xa}.
+\intertext{que vamos chamar de $a$-\dterm{ator} esquerdo e direito respectivamente.
+Notações que vamos usar para essas funções são:}
+\lambda_a    & \eqtype G \to G & \rho_{a}  & \eqtype G \to G \\
+\lambda_a(x) & = ax            & \rho_a(x) & = xa.
+\intertext{e uma notação ainda mais curta, supondo que $\cdot$ denota a operação do grupo,}
+(a \cdot)    & \eqtype G \to G & (\cdot a)    & \eqtype G \to G \\
+(a \cdot)(x) & = ax            & (\cdot a)(x) & = xa.
+\endxalignat
+$$
+%%}}}
+
+%%{{{ lemma: group_actors_are_bijective 
+\lemma.
+\label{group_actors_are_bijective}%
+Todos as funções-atores são bijecções.
+\proof \proofname~como o~\ref{group_actors_are_bijective_proof}.
+\qed
+%}}}
+
+%%{{{ x: group_actors_are_bijective_proof 
 \exercise.
-\label{direct_proof_that_coclasses_form_a_partition}%
-\ii{partição}%
-Prove diretamente (sem passar pela relação de equivalência) que
-a família $\cosetsR H$ de todas as coclasses direitas dum
-$H\subgroup G$ é uma partição de $G$:
-\beginil
-\item{(i)}   para todo $x\in G$, existe coclasse $H'$ com $x \in H'$;
-\item{(ii)}  para todas $H',H'' \in \cosetsR H$,
-se $H'\inter H''\neq\emptyset$ então $H' = H''$;
-\item{(iii)} nenhuma coclasse é vazia.
-\endilnoskip
-
-\hint%%{{{
-Para o (i) tome um arbitrário $x\in G$ e ache uma coclasse
-de $H$ que o $x$ esteja dentro.
-Para o (ii) tome um elemento comum $c\in Ha\inter Hb$ 
-e deduza que $Ha=Hb$.
-Para o (iii) observe que toda coclasse de $H$ é um conjunto
-da forma $Ha$ para algum $a \in G$.
-Ache um elemento do $Ha$.
-%%}}}
-
-\hint%%{{{
-Para o (ii), temos um $c$ tal que
-$$
-h_a a = c = h_b b
-\qqquad
-\text{para alguns $h_a, h_b\in H$}.
-$$
-Agora use o $h_a a = h_b = b$ para mostrar que $Ha = Hb$.
-%%}}}
-
-\hint%%{{{
-Para o (ii) aplique uma série de manipulações algébricas num
-arbitrário membro de $Ha$ (que pela definição de $Ha$ vai ter
-a forma $ha$ para algum $h\in H$) até chegar num elemento do $Hb$,
-ou seja, um produto que começa com elementos de $H$ e termina em $b$:
-$$
-Ha \ni ha = \dotsb = \munderbrace {\phantom{hhhh}} {\in H} b.
-$$
-Como temos que $h_aa=h_bb$, seria legal ``criar'' a expressão
-``$h_aa$'' para substituí-la por $h_bb$.
-%%}}}
-
-\solution%%{{{
-Como $H$ é um grupo, sabemos que $e\in H$, então para qualquer $x\in G$,
-temos que $x = ex \in Hx$, ou seja todos os elementos de $G$ pertencem em
-alguma coclasse, e vice versa:
-toda coclasse $Ha$ tem pelo menos um elemento: o próprio $a$.
-Para o (iii) suponha que $Ha\inter Hb\neq \emptyset$ e tome $c\in Ha\inter Hb$.
-Logo
-$$
-h_aa = c = h_bb
-\qqquad
-\text{para alguns $h_a, h_b\in H$}
-$$
-Para provar que $Ha = Hb$, mostramos que $Ha\subseteq Hb$ e $Hb\subseteq Ha$.
-Suponha então que $x \in Ha$, logo $x = ha$ para algum $h\in H$.
-Precisamos mostrar que $x \in Hb$.
-Calculamos:
-$$
-\align
-x= ha
-&= h\paren{\ginv {h_a} h_a}a\\
-&= h\ginv {h_a} \paren{h_a a}\\
-&= h\ginv {h_a} \paren{h_b b}\\
-&= \paren{h \ginv {h_a} h_b}b\\
-&\in Hb.
-\endalign
-$$
-A oura direção ($Ha \supseteq Hb$) é similar.
-%%}}}
+\label{group_actors_are_bijective_proof}%
+Demonstre o~\ref{group_actors_are_bijective}.
 
 \endexercise
 %%}}}
@@ -32080,11 +32482,46 @@ $$
 Espero que tá mais claro agora.
 %%}}}
 
-%%{{{ x: cosets_are_equinumerous 
-\exercise.
+%%{{{ lemma: cosets_are_equinumerous 
+\lemma.
 \label{cosets_are_equinumerous}%
-Prove que todas as coclasses dum $H\subgrp G$ tem a mesma
-quantidade de elementos com o próprio $H$.
+Todas as coclasses dum $H\subgrp G$ têm a mesma
+quantidade de elementos com o próprio $H$ (e logo entre si também).
+\sketch.
+Pra brincar, vamos começar desenhando o $H$ para um caso onde $H$ é finito.
+Seja $n\in\nats = \card{H}$, e sejam $h_1,\dotsc,h_n$ os membros de $H$:
+$$
+\align
+H  &= \set{h_1, h_2, h_3, \dotsc, h_n}.
+\intertext{Para qualquer $a\in G$ temos}
+Ha &= \set{h_1a, h_2a, h_3a, \dotsc, h_na}.
+\endalign
+$$
+Queremos provar que a quantidade dos dois conjuntos acima
+é a mesma.  Primeiramente, como poderia ser diferente?
+Ambos parecem ter $n$ elementos, mas isso não garanta
+cardinalidade $n$ pois podem ter repetições no $Ha$.
+No $H$ não pode, pois definimos o $n$ para ser a cardinalidade de $H$.
+Basta provar então os
+$$
+h_1a, h_2a, h_3a, \dotsc, h_na
+$$
+são distintos dois-a-dois, e logo, são $n$ também.
+Mas isso é imediato:
+$$
+\alignat2
+h_ua = h_va
+&\implies h_u = h_v \by{(GCR)}
+&\implies u = v     \by{pois os $h_i$'s são distintos dois-a-dois}
+\endalignat
+$$
+\qes
+%%}}}
+
+%%{{{ x: 
+\exercise.
+Demonstre que $H$ e $Ha$ têm a mesma cardinalidade
+mostrando uma bijecção de $H$ para $Ha$.
 
 \hint
 Seja $C$ uma coclasse direta (sem perda de generalidade) de $H$,
@@ -32124,6 +32561,12 @@ Temos então $f_{\cdot a}(h) = d$, e logo $f_{\cdot a}$ é sobrejetora no $Ha$.
 \endexercise
 %%}}}
 
+\endsection
+%%}}}
+
+%%{{{ Teorema de Lagrange 
+\section O teorema de Lagrange (LGCJ).
+
 \blah.
 Talvez não é tão óbvio que temos já descoberto um teorema interessante!
 Ele é conhecido como \emph{teorema de \Lagrange[teorema]Lagrange},
@@ -32138,15 +32581,18 @@ e umas perguntas para refletir.
 \tdefined{grupo}[índice de subgrupo]%
 \sdefined {\groupind {\holed G} {\holed H}} {o índice do subgrupo \holed H no grupo \holed G}%
 Sejam $G$ grupo e $H\subgroup G$.
-O \dterm{índice} de $H$ no $G$ é o número de right-cosets de $H$ no $G$.
+O \dterm{índice} de $H$ no $G$ é o número de coclasses direitas de $H$ no $G$.
 Denotamos-lo com os símbolos $\groupind G H$ ou $\altgroupind G H$.
 %%}}}
 
+%%{{{ Q: Why the RIGHT cosets? 
 \question.
 Por que as coclasses direitas?
 O que acontece se considerar a colecção de todas as coclasses esquerdas?
 É uma partição também?
 E se sim, qual é sua relação de equivalência correspondente?
+%%}}}
+\spoiler.
 
 %%{{{ thm: lagrange_theorem 
 \theorem Lagrange.
@@ -32264,6 +32710,213 @@ com o número de coclasses à direita de $H$.
 
 \endexercise
 %%}}}
+
+%%{{{ The idea behind Lagrange 
+\note A idéia atrás do teorema de Lagrange.
+Temos um grupo finito $G$, e um subgrupo $H \subgrp G$.
+Vamos conseguir arrumar \emph{todos os membros de $G$}
+numa tabela:
+$$
+\matrix
+\format
+& \quad\c\quad & \quad\c\quad & \quad\c\quad & \ \ \c\ \  & \quad\c\quad \\
+& \bullet  & \bullet  & \bullet  & \dots   & \bullet\\
+& \bullet  & \bullet  & \bullet  & \dots   & \bullet\\
+& \phantom\bullet \\
+& \vdots   & \vdots   & \vdots   & \ddots  & \vdots \\
+& \phantom\bullet \\
+& \bullet  & \bullet  & \bullet  & \dots   & \bullet
+\endmatrix
+$$
+Sua primeira linha sera feita por todos os membros de $H$.
+Sabendo que $G$ é finito, temos que $H$ também é, e
+logo essa primeira linha será finita também.
+Vamos chamar $n$ a $\gord H$, e logo $h_1,\dots,h_n$
+os $n$ membros de $H$.
+Então a primeira linha tem tamanho $n$, e é a seguinte:
+$$
+\matrix
+\format
+\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
+H\phantom{a''} &:
+& h_1\phantom{a''}
+& h_2\phantom{a''}
+& h_3\phantom{a''}
+& \dots
+& h_n\phantom{a''}\\
+\endmatrix
+$$
+Vamos mostrar como botar o resto dos membros de $G$ nessa tabela.
+Na verdade, tem uma chance que não tem mais elementos para
+botar: isso acontece se $H = G$.  Nesse caso não temos
+mais nada pra fazer, já conseguimos o que queriamos.
+Mas, no caso geral, existem membros de $G$ fora do $H$.
+Seja $a\in G$ um deles, ou seja, $a \notin H$.
+Agora bota todos os elementos seguintes na tabela:
+$$
+\matrix
+\format
+\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
+H\phantom{a''} &:
+& h_1\phantom{a''}
+& h_2\phantom{a''}
+& h_3\phantom{a''}
+& \dots
+& h_n\phantom{a''}\\
+Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
+\endmatrix
+$$
+Agora \emph{afirmamos} sobre os elementos novos que:
+\beginil
+\item{--} eles são realmente $n$, ou seja, distintos dois-a-dois;
+\item{--} eles são realmente novos, ou seja, nenhum deles é igual a algum
+dos membros que já estava na tabela.
+\endil
+Se provar essas afirmações, saberemos que temos exatamente $2n$
+membros de $G$ já arrumados na nossa tabela.
+E depois?
+Caso que $G$ não tenha mais elementos, não temos nada mais pra fazer,
+pois já conseguimos o que queriamos.
+Caso que tenha membros de $G$ fora deles, seja $a'\in G$ um deles,
+ou seja, $a'$ não é nenhum dos membros já listados.
+E agora bota todos os elementos seguintes na tabela:
+$$
+\matrix
+\format
+\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
+H\phantom{a''} &:
+& h_1\phantom{a''}
+& h_2\phantom{a''}
+& h_3\phantom{a''}
+& \dots
+& h_n\phantom{a''}\\
+Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
+Ha'  &:         & h_1 a'  & h_2 a'  & h_3 a'  & \dots   & h_n a'
+\endmatrix
+$$
+Novamente, \emph{afirmamos} sobre os elementos novos que:
+\beginil
+\item{--} eles são realmente $n$;
+\item{--} eles são realmente novos.
+\endil
+\emph{E por aí vai.}
+Sabemos que o processo vai terminar depois duma quantidade finita
+de passos, pois o $G$ é finito.
+Quando terminar então, teriamos conseguido arrumar todos os seus
+membros numa tabela de largura $n$ e altura igual à quantidade
+de coclasses direitas do $H$ no $G$, ou seja,
+altura $m \asseq \groupind G H$.
+$$
+\matrix
+\format
+\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
+H    &:         & h_1     & h_2     & h_3     & \dots   & h_n   \\
+Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
+Ha'  &:         & h_1 a'  & h_2 a'  & h_3 a'  & \dots   & h_n a'\\
+& \phantom\bullet \\
+\phantom h\vdots&\phantom:& \phantom h\vdots& \phantom h\vdots & \phantom h\vdots & \ddots  & \phantom h\vdots\\
+& \phantom\bullet \\
+Ha'' &:         & h_1 a'' & h_2 a'' & h_3 a'' & \dots   & h_n a''
+\endmatrix
+$$
+\endgraf
+A única coisa que basta fazer então, é provar todas as afirmações que
+deixamos sem prova acima.
+Mudando os nomes dos $a, a', \dots, a''$ para $a_2, a_3, \dots, a_m$,
+queremos provar para quaisquer $i,j\in\set{2,\dotsc,m}$ as seguintes:%
+\footnote{Talvez aparece estranha a escolha de índices que começa com ${}_2$,
+mas é muito conveniente aqui, pois o índice final ${}_m$ já seria a
+própria altura da tabela.
+Se ficou triste por a falta do $a_1$, tome $a_1\asseq e$ e vai dar certo:
+a primeira coclasse de $H$ (o próprio $H$), seria o $Ha_1$ nesse caso.
+Mas nada disso é necessário!}
+\beginil
+\item{(1)} $h_1a_i, h_2a_i, \dotsc, h_na_i$ são realmente $n$, ou seja,
+distintos dois-a-dois;
+\item{(2)} $h_1a_i, h_2a_i, \dotsc, h_na_i$ são realmente novos, ou seja:
+\itemitem{(2a)} nenhum deles é igual a algum dos $h_1,h_2,\dotsc,h_n$;
+\itemitem{(2b)} nenhum deles é igual a algum dos $h_1a_j, h_2a_j, \dotsc, h_na_j$
+para $j < i$.
+\endil
+\endgraf
+Nenhuma delas é difícil provar---na verdade, \emph{nos já provamos} todas.%
+\footnote{A~(1) é o~\ref{cosets_are_equinumerous};
+a~(2) é o~(ii) do~\refn{coclasses_form_a_partition}.}
+Mesmo assim, bora prová-las novamente aqui com uns ``one-liners'':
+$$
+\gather
+h_ua_i = h_va_i \implies h_u = h_v \implies u=v;\tag{1}\\
+h_ua_i = h_v    \implies a_i = \ginv{h_u}h_v \implies \text{$a_i \in H$, que é absurdo};\tag{2a}\\
+h_ua_i = h_va_j \implies a_i = \ginv{h_u}h_va_j \implies \text{$a_i \in Ha_j$, que é absurdo}.\tag{2b}
+\endgather
+$$
+Pronto!
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Number theory revisited 
+\section Teoria de números revisitada.
+
+%%{{{ x: the_multiplicative_group_Zp 
+\exercise.
+\label{the_multiplicative_group_Zp}%
+Seja $p$ primo e defina
+$\cal Z_p = \sset {\finord p \setminus \set0} {\ntimes}$
+onde $\ntimes$ é a multiplicação módulo~$p$.
+Mostre que $\cal Z_p$ é um grupo e ache sua ordem.
+
+\endexercise
+%%}}}
+
+%%{{{ x: the_multiplicative_group_Zn 
+\exercise.
+\label{the_multiplicative_group_Zn}%
+Seja $n\in\nats$ com $n>1$ e defina
+$\cal Z_n = \sset {\setst {a \in \finord n} {\gcd a n = 1}} {\ntimes}$
+onde $\ntimes$ é a multiplicação módulo~$n$.
+Mostre que $\cal Z_n$ é um grupo e ache sua ordem.
+
+\endexercise
+%%}}}
+
+\blah.
+Já estamos em posição de ganhar o ``teorema pequeno de Fermat'' e sua
+generalização, o teorema de congruências
+de~\Euler{}Euler~\refn{euler_congruence_theorem}
+como um corolário\Lagrange[teorema!corolário]{} fácil
+das nossas novas ferramentas grupoteóricas.
+
+%%{{{ cor: euler_congruence_theorem_as_corollary_of_lagrange 
+\corollary Teorema de Euler.
+\label{euler_congruence_theorem_as_corollary_of_lagrange}%
+Sejam $a,m\in\ints$ com $\gcd a m = 1$.
+Então
+$$
+a^{\tot m} \cong 1 \pmod m.
+$$
+\sketch.
+Consequência do teorema de~\Lagrange{}Lagrange~\refn{lagrange_theorem}
+graças ao~\ref{the_multiplicative_group_Zn}.
+\qes
+%%}}}
+
+\blah.
+Ainda mais resultados podem ser derivados como
+corolários\Lagrange[teorema!corolário]{} do
+teorema de Lagrange, mas deixo isso para os problemas:
+no~\refn{euclids_theorem_as_corollary_of_lagrange}
+tu ganha o fato que tem uma infinidade de primos
+(\refn{primes_is_infinite}, teorema de~\Euclid{}Euclides);
+e no~\refn{wilsons_theorem_as_corollary_of_lagrange}
+o teorema de~\Wilson[teorema]{}Wilson.
+
+\endsection
+%%}}}
+
+%%{{{ Normal subgroups 
+\section Subgrupos normais.
 
 \blah.
 Vamos agora generalizar a notação que usamos nos cosets de
@@ -32406,213 +33059,6 @@ Realmente, $\ginv x = \ginvp{kh} = \ginv h \ginv k \in HK$.
 \qed
 %%}}}
 %%}}}
-
-%%{{{ The idea behind Lagrange 
-\note A idéia atrás do teorema de Lagrange.
-Temos um grupo finito $G$, e um subgrupo $H \subgrp G$.
-Vamos conseguir arrumar \emph{todos os membros de $G$}
-numa tabela:
-$$
-\matrix
-\format
-& \quad\c\quad & \quad\c\quad & \quad\c\quad & \ \ \c\ \  & \quad\c\quad \\
-& \bullet  & \bullet  & \bullet  & \dots   & \bullet\\
-& \bullet  & \bullet  & \bullet  & \dots   & \bullet\\
-& \phantom\bullet \\
-& \vdots   & \vdots   & \vdots   & \ddots  & \vdots \\
-& \phantom\bullet \\
-& \bullet  & \bullet  & \bullet  & \dots   & \bullet
-\endmatrix
-$$
-Sua primeira linha sera feita por todos os membros de $H$.
-Sabendo que $G$ é finito, temos que $H$ também é, e
-logo essa primeira linha será finita também.
-Vamos chamar $n$ a $\gord H$, e logo $h_1,\dots,h_n$
-os $n$ membros de $H$.
-Então a primeira linha tem tamanho $n$, e é a seguinte:
-$$
-\matrix
-\format
-\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
-H\phantom{a''} &:
-& h_1\phantom{a''}
-& h_2\phantom{a''}
-& h_3\phantom{a''}
-& \dots
-& h_n\phantom{a''}\\
-\endmatrix
-$$
-Vamos mostrar como botar o resto dos membros de $G$ nessa tabela.
-Na verdade, tem uma chance que não tem mais elementos para
-botar: isso acontece se $H = G$.  Nesse caso não temos
-mais nada pra fazer, já conseguimos o que queriamos.
-Mas, no caso geral, existem membros de $G$ fora do $H$.
-Seja $a\in G$ um deles, ou seja, $a \notin H$.
-Agora bota todos os elementos seguintes na tabela:
-$$
-\matrix
-\format
-\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
-H\phantom{a''} &:
-& h_1\phantom{a''}
-& h_2\phantom{a''}
-& h_3\phantom{a''}
-& \dots
-& h_n\phantom{a''}\\
-Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
-\endmatrix
-$$
-Agora \emph{afirmamos} sobre os elementos novos que:
-\beginil
-\item{--} eles são realmente $n$, ou seja, distintos dois-a-dois;
-\item{--} eles são realmente novos, ou seja, nenhum deles é igual a algum
-dos membros que já estava na tabela.
-\endil
-Se provar essas afirmações, saberemos que temos exatamente $2n$
-membros de $G$ já arrumados na nossa tabela.
-E depois?
-Caso que $G$ não tenha mais elementos, não temos nada mais pra fazer,
-pois já conseguimos o que queriamos.
-Caso que tenha membros de $G$ fora deles, seja $a'\in G$ um deles,
-ou seja, $a'$ não é nenhum dos membros já listados.
-E agora bota todos os elementos seguintes na tabela:
-$$
-\matrix
-\format
-\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
-H\phantom{a''} &:
-& h_1\phantom{a''}
-& h_2\phantom{a''}
-& h_3\phantom{a''}
-& \dots
-& h_n\phantom{a''}\\
-Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
-Ha'  &:         & h_1 a'  & h_2 a'  & h_3 a'  & \dots   & h_n a'
-\endmatrix
-$$
-Novamente, \emph{afirmamos} sobre os elementos novos que:
-\beginil
-\item{--} eles são realmente $n$;
-\item{--} eles são realmente novos.
-\endil
-\emph{E por aí vai.}
-Sabemos que o processo vai terminar depois duma quantidade finita
-de passos, pois o $G$ é finito.
-Quando terminar então, teriamos conseguido arrumar todos os seus
-membros numa tabela de largura $n$ e altura igual à quantidade
-de coclasses direitas do $H$ no $G$, ou seja,
-altura $m \asseq \groupind G H$.
-$$
-\matrix
-\format
-\l   &\l\qqquad & \l\quad & \l\quad & \l\quad & \l\quad & \l    \\
-H    &:         & h_1     & h_2     & h_3     & \dots   & h_n   \\
-Ha   &:         & h_1 a   & h_2 a   & h_3 a   & \dots   & h_n a \\
-Ha'  &:         & h_1 a'  & h_2 a'  & h_3 a'  & \dots   & h_n a'\\
-& \phantom\bullet \\
-\phantom h\vdots&\phantom:& \phantom h\vdots& \phantom h\vdots & \phantom h\vdots & \ddots  & \phantom h\vdots\\
-& \phantom\bullet \\
-Ha'' &:         & h_1 a'' & h_2 a'' & h_3 a'' & \dots   & h_n a''
-\endmatrix
-$$
-\endgraf
-A única coisa que basta fazer então, é provar todas as afirmações que
-deixamos sem prova acima.
-Mudando os nomes dos $a, a', \dots, a''$ para $a_2, a_3, \dots, a_m$,
-queremos provar para quaisquer $i,j\in\set{2,\dotsc,m}$ as seguintes:%
-\footnote{Talvez aparece estranha a escolha de índices que começa com ${}_2$,
-mas é muito conveniente aqui, pois o índice final ${}_m$ já seria a
-própria altura da tabela.
-Se ficou triste por a falta do $a_1$, tome $a_1\asseq e$ e vai dar certo:
-a primeira coclasse de $H$ (o próprio $H$), seria o $Ha_1$ nesse caso.
-Mas nada disso é necessário!}
-\beginil
-\item{(1)} $h_1a_i, h_2a_i, \dotsc, h_na_i$ são realmente $n$, ou seja,
-distintos dois-a-dois;
-\item{(2)} $h_1a_i, h_2a_i, \dotsc, h_na_i$ são realmente novos, ou seja:
-\itemitem{(2a)} nenhum deles é igual a algum dos $h_1,h_2,\dotsc,h_n$;
-\itemitem{(2b)} nenhum deles é igual a algum dos $h_1a_j, h_2a_j, \dotsc, h_na_j$
-para $j < i$.
-\endil
-\endgraf
-Nenhuma delas é difícil provar---na verdade, \emph{nos já provamos} todas.%
-\footnote{A~(1) é o~\ref{cosets_are_equinumerous};
-a~(2) é o~(ii) do~\refn{direct_proof_that_coclasses_form_a_partition}.}
-Mesmo assim, bora prová-las novamente aqui com uns ``one-liners'':
-$$
-\gather
-h_ua_i = h_va_i \implies h_u = h_v \implies u=v;\tag{1}\\
-h_ua_i = h_v    \implies a_i = \ginv{h_u}h_v \implies \text{$a_i \in H$, que é absurdo};\tag{2a}\\
-h_ua_i = h_va_j \implies a_i = \ginv{h_u}h_va_j \implies \text{$a_i \in Ha_j$, que é absurdo}.\tag{2b}
-\endgather
-$$
-Pronto!
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Number theory revisited 
-\section Teoria de números revisitada.
-
-%%{{{ x: the_multiplicative_group_Zp 
-\exercise.
-\label{the_multiplicative_group_Zp}%
-Seja $p$ primo e defina
-$\cal Z_p = \sset {\finord p \setminus \set0} {\ntimes}$
-onde $\ntimes$ é a multiplicação módulo~$p$.
-Mostre que $\cal Z_p$ é um grupo e ache sua ordem.
-
-\endexercise
-%%}}}
-
-%%{{{ x: the_multiplicative_group_Zn 
-\exercise.
-\label{the_multiplicative_group_Zn}%
-Seja $n\in\nats$ com $n>1$ e defina
-$\cal Z_n = \sset {\setst {a \in \finord n} {\gcd a n = 1}} {\ntimes}$
-onde $\ntimes$ é a multiplicação módulo~$n$.
-Mostre que $\cal Z_n$ é um grupo e ache sua ordem.
-
-\endexercise
-%%}}}
-
-\blah.
-Já estamos em posição de ganhar o ``teorema pequeno de Fermat'' e sua
-generalização, o teorema de congruências
-de~\Euler{}Euler~\refn{euler_congruence_theorem}
-como um corolário\Lagrange[teorema!corolário]{} fácil
-das nossas novas ferramentas grupoteóricas.
-
-%%{{{ cor: euler_congruence_theorem_as_corollary_of_lagrange 
-\corollary Teorema de Euler.
-\label{euler_congruence_theorem_as_corollary_of_lagrange}%
-Sejam $a,m\in\ints$ com $\gcd a m = 1$.
-Então
-$$
-a^{\tot m} \cong 1 \pmod m.
-$$
-\sketch.
-Consequência do teorema de~\Lagrange{}Lagrange~\refn{lagrange_theorem}
-graças ao~\ref{the_multiplicative_group_Zn}.
-\qes
-%%}}}
-
-\blah.
-Ainda mais resultados podem ser derivados como
-corolários\Lagrange[teorema!corolário]{} do
-teorema de Lagrange, mas deixo isso para os problemas:
-no~\refn{euclids_theorem_as_corollary_of_lagrange}
-tu ganha o fato que tem uma infinidade de primos
-(\refn{primes_is_infinite}, teorema de~\Euclid{}Euclides);
-e no~\refn{wilsons_theorem_as_corollary_of_lagrange}
-o teorema de~\Wilson[teorema]{}Wilson.
-
-\endsection
-%%}}}
-
-%%{{{ Normal subgroups 
-\section Subgrupos normais.
 
 %%{{{ Notation 
 \note Notação.
@@ -33068,7 +33514,7 @@ N \subgrp G
 \lforall {g\in G} {gN\ginv g = N} \\
 \lforall {g\in G} {gN = Ng} \\
 \cosetsL N = \cosetsR N \\
-\congL \;=\; \congR
+\congL N \;=\; \congR N
 \endgathered
 }
 $$
@@ -34567,32 +35013,6 @@ no~\ref{normal_is_kernel}---não pule!
 %%{{{ Problems 
 \problems.
 
-%%{{{ prob: how_come_the_cancellation_laws_hold_in_nongroup_without_inverses 
-\problem.
-\label{how_come_the_cancellation_laws_hold_in_nongroup_without_inverses}%
-Na~\ref{First_consequences_of_group_laws} provamos que as leis de cancelamento
-implicam a existência de únicos inversos.
-Lembre-se que o $\sset {\nats} {+}$ não é um grupo pois não satisfaz a (G3).
-Mesmo assim, no $\sset {\nats} {+}$ ambas as leis de cancelamento são válidas.
-Então, isso implica a existência de inversos únicos!
-Qual o erro aqui?
-
-\hint
-O que precisamos na prova do fato que as leis de cancelamento implicam
-a existência de inversos únicos?
-
-\solution
-Na prova do fato que as leis de cancelamento implicam a existência
-de inversos únicos, \emph{usamos} a (G3) que garanta a existência,
-e provamos a unicidade.  No caso do $\sset {\nats} {+}$ não temos a
-(G3) (existência de inversos).  Então nossa prova nesse caso mostra
-que cada membro de $\sset {\nats} +$ tem \emph{no máximo} um inverso,
-algo que realmente é verdade: o $0$ tem exatamente um, e nenhum dos
-outros tem.
-
-\endproblem
-%%}}}
-
 %%{{{ prob: cancellation_based_group_def_proof 
 \problem.
 \label{cancellation_based_group_def_proof}%
@@ -34605,24 +35025,6 @@ Como podemos usar o fato que um conjunto é finito?
 
 \endproblem
 %%}}}
-
-%%{{{ bust_proof_of_uniqueness_of_identity_in_group 
-\problem.
-\label{bust_proof_of_uniqueness_of_identity_in_group}%
-Considere essa suposta prova da unicidade da identidade~(\ref{uniqueness_of_identity_in_group}):
-\quote
-\indent<<Seja $G$ grupo e suponha que temos identidades $e_1,e_2 \in G$.
-Seja $a\in G$.
-Como $e_1$ é identidade, temos $a \ast \ginv a = e_1$\fact1.
-Como $e_2$ é identidade, também temos $a \ast \ginv a = e_2$\fact2.
-Pelas \byfact1~e~\byfact2, como os lados esquerdos são iguais,
-o lados direitos também são.
-Ou seja, $e_1 = e_2$ que foi o que queremos provar.>>
-\endquote
-Identifique todos os erros nessa tentativa de prova.
-
-\endproblem
-%}}}
 
 %%{{{ prob: hom_abel_with_pointwise_plus 
 \problem.
@@ -34736,130 +35138,6 @@ $$
 &=x\cdot y.  \by{def.~$\phi^{-1}$}
 \endalignat
 $$
-
-\endproblem
-%%}}}
-
-%%{{{ df: group_center 
-\definition Centro.
-\label{group_center}%
-\tdefined{grupo}[centro]%
-\sdefined{Z(\holed G)} {o centro do grupo $\holed G$}%
-Dado um grupo $G$, definimos seu \dterm{centro} $Z(G)$
-como o conjunto de todos os membros de $G$ que ``comutam'' com todos os membros de $G$:
-$$
-Z(G) \defeq \setstt {z \in G} {para todo $g\in G$, $zg = gz$}.
-$$
-%%}}}
-
-%%{{{ prob: center_G_is_a_subgroup 
-\problem.
-\label{center_G_is_a_subgroup}%
-Mostre que dado um grupo $G$, seu centro $Z(G)\subgrp G$.
-
-\solution
-Primeiramente observe que $Z(G)\neq\emptyset$:
-$e \in Z(G)$ pois para todo $g\in G$, $eg=e=ge$ pela definição de $e$.
-Como $\emptyset \neq Z(G) \subseteq G$, precisamos apenas mostrar que:
-\endgraf\noindent
-\proofpart{Fechado pela operação:}
-Sejam $x,y\in Z(G)$.
-Para provar que $xy\in Z(G)$,
-verificamos que o $(xy)$ comuta com todos os elementos de $G$.
-Seja $g\in G$.
-Calculamos:
-$$
-\alignat2
-(xy)g
-&= x(yg)  \by{(G1)}
-&= x(gy)  \by{$y\in Z(G)$}
-&= (xg)y  \by{(G1)}
-&= (gx)y  \by{$x\in Z(G)$}
-&= g(xy). \by{(G1)}
-\endalignat
-$$
-\endgraf\noindent
-\proofpart{Fechado pelos inversos:}
-Seja $x\in Z(G)$.
-Para provar que $\ginv x\in Z(G)$,
-verificamos que o $\ginv x$ comuta com todos os elementos de $G$.
-Seja $g\in G$.
-Calculamos:
-$$
-\alignat2
-\ginv x g
-&= \ginvp{\ginvp{\ginv x g}}         \by{inv.~de~inv.}
-&= \ginvp{\ginv g {\ginvp{\ginv x}}} \by{inv.~de~prod.}
-&= \ginvp{\ginv g x}                 \by{inv.~de~inv.}
-&= \ginvp{x \ginv g}                 \by{$x \in Z(G)$}
-&= \ginvp{\ginv g} \ginv x           \by{inv.~de~prod.}
-&= g \ginv x.                        \by{inv.~de~inv.}
-\endalignat
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ prob: all_subgroups_of_additive_ints 
-\problem.
-\label{all_subgroups_of_additive_ints}%
-No~\ref{some_subgroups_of_additive_ints} tu provaste que para todo $m\in\ints$,
-$m\ints \subgroup \sset \ints +$.  Demonstre que esses são \emph{todos} os
-subgrupos de $\sset \ints +$.  Ou seja: para todo $H \subgroup \sset\ints+$,
-existe $t \in \ints$ tal que $H = t\ints$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: identifier_of_all 
-\problem.
-\label{identifier_of_all}%
-Seja $G$ grupo finito.
-Existe inteiro $N>0$ tal que para todo $a \in G$, $a^N = e$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: weird_convex 
-\problem.
-\label{weird_convex}%
-Seja $Q$ o conjunto de todos os pontos do cíclo com ângulo racional:
-$$
-Q = \setst {\tup{\cos\theta, \sin\theta}} {\theta\in[0,2\pi)\inter\rats}.
-$$
-Considere a seqüência
-$$
-Q = Q_0 \subseteq Q_1 \subseteq Q_2 \subseteq Q_3 \subseteq \dotsb
-$$
-obtenida pela bottom-up construção da~\refn{Bottom_up_and_top_down}.
-(i) Qual conjunto é o convex hull $\generate Q$ do $Q$?
-(ii) Descreva o conjunto $Q_1$.
-(iii) Tem $Q_i = Q_{i+1}$ para algum $i\in\nats$?
-
-\endproblem
-%%}}}
-
-%%{{{ prob: weird_convex_hard 
-\problem.
-\label{weird_convex_hard}%
-No~\ref{weird_convex}, $Q_1 = Q_2$?
-
-\hint
-Não!  O $Q_1$ tem ``buracos'' nele, e o $Q_2$ não tem!
-Tem com achar um tal buraco no $Q_1$.
-
-\hint
-$(0,0) \in Q_2 \setminus Q_2$.  Por quê?
-
-\hint
-Para ``passar pelo $(0,0)$'', uma corda obrigatoriamente
-tem que ser uma diámetro.
-
-\hint
-Por enquanto só podemos responder ``não'' por causa desse
-buraco.  Tem outros buracos?
-Paciência até o~\ref{Cantors_paradise}, onde revisitamos essa
-pergunta nos seus problemas.
 
 \endproblem
 %%}}}
