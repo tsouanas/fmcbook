@@ -31565,6 +31565,50 @@ No~\ref{Lattices} vamos revisitar esse assunto num contexto abstrato.
 %%{{{ Problems intermission 
 \problems Intervalo de problemas.
 
+%%{{{ prob: group_actors_are_bijective_proof 
+\problem.
+\label{group_actors_are_bijective_proof}%
+Sejam $G$ grupo e $a,b\in G$.
+Definimos as funções $f,g,h : G \to G$ pelas
+$$
+\alignat3
+f(x) &= ax  &
+g(x) &= xa  &
+h(x) &= axb.
+\endalignat
+$$
+Prove que as $f,g,h$ são bijecções e ache suas inversas.
+
+\solution
+\proofpart{Injetoridade:}
+$$
+f(x) = f(y)
+\implies ax = ay
+\implies x = y.
+$$
+\proofpart{Sobrejetoridade:}
+Seja $y \in G$.
+Considere o $y\ginv a \in G$.
+Observe que
+$$
+f(y\ginv a)
+= (y\ginv a) a
+= y(\ginv a a)
+= y.
+$$
+A $\finv f$ é definida pela:
+$$
+\finv f (y) = \ginv a y
+$$
+pois, de fato, $f(\ginv a y) = a \ginv a y = y$.
+Similar para a $g$.
+Sobre a $h$, observe que $h = g\of f$ e logo ela é bijetora
+como composição de bijetoras, e sua inversa é dada
+pela~\ref{finv_of_fcompose}.
+
+\endproblem
+%%}}}
+
 %%{{{ prob: how_come_the_cancellation_laws_hold_in_nongroup_without_inverses 
 \problem.
 \label{how_come_the_cancellation_laws_hold_in_nongroup_without_inverses}%
@@ -32249,7 +32293,7 @@ que é absurdo.
 \blah.
 E se escolher um $b\in G$ fora do $H$ e fora do $Ha$?
 
-%%{{{ x: every_coclass_disjoint_from_previous 
+%%{{{ x: every_coclass_disjoint_from_all_others 
 \exercise.
 \label{every_coclass_disjoint_from_all_others}%
 Mostre que se $a,b \in G$ tais que $b\notin Ha$
@@ -32289,13 +32333,11 @@ e~\ref{lagrange_theorem}).
 Vamos denotar a família de todas as coclasses esquerdas
 e direitas do $H$ assim:
 $$
-\align
-\cosetsL H &\defeq \setst {aH} {a \in G}; \\
+\xalignat2
+\cosetsL H &\defeq \setst {aH} {a \in G}; &
 \cosetsR H &\defeq \setst {Ha} {a \in G}.
-\endalign
+\endxalignat
 $$
-\footnote{Por que direitas?  Porque sim!
-Vamos nos preocupar com essa pergunta logo.}
 %%}}}
 
 %%{{{ lemma: coclasses_form_a_partition 
@@ -32319,7 +32361,7 @@ Para o (P1) tomamos um arbitrário $x\in G$ e achamos
 uma coclasse de $H$ que o $x$ esteja dentro.
 O (P3) já provamos no~\ref{every_coclass_is_nonempty}.
 Essencialmente provamos o (P2) também,
-no~\ref{every_coclass_disjoint_from_previous}.
+no~\ref{every_coclass_disjoint_from_all_others}.
 Mas para variar, demonstramos que para todo $a,b \in G$,
 $$
 Ha \inter Hb \neq \emptyset \implies Ha=Hb.
@@ -32415,41 +32457,7 @@ e pronto.
 \qed
 %%}}}
 
-%%{{{ Actors 
-\note Atores.
-\label{group_actors}%
-Fixe um $a \in G$.  Isso determina duas funções $G \to G$
-$$
-\xalignat2
-&\lam x {ax} & &\lam x {xa}.
-\intertext{que vamos chamar de $a$-\dterm{ator} esquerdo e direito respectivamente.
-Notações que vamos usar para essas funções são:}
-\lambda_a    & \eqtype G \to G & \rho_{a}  & \eqtype G \to G \\
-\lambda_a(x) & = ax            & \rho_a(x) & = xa.
-\intertext{e uma notação ainda mais curta, supondo que $\cdot$ denota a operação do grupo,}
-(a \cdot)    & \eqtype G \to G & (\cdot a)    & \eqtype G \to G \\
-(a \cdot)(x) & = ax            & (\cdot a)(x) & = xa.
-\endxalignat
-$$
-%%}}}
-
-%%{{{ lemma: group_actors_are_bijective 
-\lemma.
-\label{group_actors_are_bijective}%
-Todos as funções-atores são bijecções.
-\proof \proofname~como o~\ref{group_actors_are_bijective_proof}.
-\qed
-%}}}
-
-%%{{{ x: group_actors_are_bijective_proof 
-\exercise.
-\label{group_actors_are_bijective_proof}%
-Demonstre o~\ref{group_actors_are_bijective}.
-
-\endexercise
-%%}}}
-
-%%{{{ Does it still seem weird?
+%%{{{ Does it still seem weird? 
 \note.
 Talvez ainda parece estranho:
 o que a afirmação <<$a\ginv b \in H$>> tem a ver com a
@@ -32482,13 +32490,74 @@ $$
 Espero que tá mais claro agora.
 %%}}}
 
-%%{{{ lemma: cosets_are_equinumerous 
+%%{{{ Actors 
+\note Atores.
+Fixe um $a \in G$.  Como tu provaste
+no~\ref{group_actors_are_bijective_proof}, isso determina duas
+funções $G \to G$, que no problema chamei de $f,g$.
+Vamos relembrá-las e dar um nome e notação especial:
+%%}}}
+
+%%{{{ df: group_actors
+\definition Atores.
+\label{group_actors}%
+Sejam $G$ grupo e $a\in G$.  Considere as operações de
+``operar com $a$ pela esquerda'' e pela direita
+$$
+\xalignat2
+&\lam x {ax} & &\lam x {xa}.
+\intertext{que vamos chamar de $a$-\dterm{ator} esquerdo e direito respectivamente.
+As notações que vamos usar para essas funções são:}
+\actorL a     & \eqtype G \to G & \actorR a     & \eqtype G \to G \\
+\actorL a (x) & = ax            & \actorR a (x) & = xa. \\
+\endxalignat
+$$
+Ainda mais, para todo par de membros $a,b\in G$ temos um ator definido pela
+$$
+\align
+\actorS a b     &\eqtype G \to G \\
+\actorS a b (x) &= axb.
+\endalign
+$$
+%%}}}
+
+%%{{{ x: actorS_as_composition_of_L_and_R 
+\exercise.
+\label{actorS_as_composition_of_L_and_R}%
+$\actorS a b = \actorL a \fcom \actorR b = \actorR b \fcom \actorL a$.
+
+\solution
+Sejam $a,b \in G$.
+Calculamos:
+$$
+\alignat2
+\actorS a b x
+&= axb                                    \by {def.~$\actorS a b$}
+&= a(xb)                                  \by {assoc.}
+&= a\paren{ \actorR b x }                 \by {def.~$\actorR b$}
+&= \actorL a {\paren{ \actorR b x }}      \by {def.~$\actorL a$}
+&= \paren{\actorL a \fcom \actorR b} (x). \by {def.~$\fcom$}
+\endalignat
+$$
+Provamos a outra igualdade similarmente.
+
+\endexercise
+%%}}}
+
+%%{{{ lemma: group_actors_are_bijective 
 \lemma.
-\label{cosets_are_equinumerous}%
-Todas as coclasses dum $H\subgrp G$ têm a mesma
+\label{group_actors_are_bijective}%
+Todos as funções-atores são bijecções.
+\proof \proofname~já feita no~\ref{group_actors_are_bijective_proof}.
+\qed
+%}}}
+
+%%{{{ lemma: cosets_are_equinumerous_finite_case 
+\lemma.
+\label{cosets_are_equinumerous_finite_case}%
+Todas as coclasses dum finito $H\subgrp G$ têm a mesma
 quantidade de elementos com o próprio $H$ (e logo entre si também).
 \sketch.
-Pra brincar, vamos começar desenhando o $H$ para um caso onde $H$ é finito.
 Seja $n\in\nats = \card{H}$, e sejam $h_1,\dotsc,h_n$ os membros de $H$:
 $$
 \align
@@ -32502,7 +32571,23 @@ Queremos provar que a quantidade dos dois conjuntos acima
 Ambos parecem ter $n$ elementos, mas isso não garanta
 cardinalidade $n$ pois podem ter repetições no $Ha$.
 No $H$ não pode, pois definimos o $n$ para ser a cardinalidade de $H$.
-Basta provar então os
+Basta provar então que os
+$$
+h_1a, h_2a, h_3a, \dotsc, h_na
+$$
+são distintos dois-a-dois, e logo, são $n$ também.
+\qes
+\proof.
+Seja $n\in\nats = \card{H}$, e sejam $h_1,\dotsc,h_n$ os membros de $H$:
+$$
+\align
+H  &= \set{h_1, h_2, h_3, \dotsc, h_n}.
+\intertext{Para qualquer $a\in G$ temos}
+Ha &= \set{h_1a, h_2a, h_3a, \dotsc, h_na}.
+\endalign
+$$
+Queremos provar que o $Ha$ também tem $n$ elementos.
+Basta provar então que os
 $$
 h_1a, h_2a, h_3a, \dotsc, h_na
 $$
@@ -32515,51 +32600,15 @@ h_ua = h_va
 &\implies u = v     \by{pois os $h_i$'s são distintos dois-a-dois}
 \endalignat
 $$
-\qes
+A demonstração sobre as coclasses esquerdas é similar.
+\qed
 %%}}}
 
-%%{{{ x: 
-\exercise.
-Demonstre que $H$ e $Ha$ têm a mesma cardinalidade
-mostrando uma bijecção de $H$ para $Ha$.
-
-\hint
-Seja $C$ uma coclasse direta (sem perda de generalidade) de $H$,
-e logo seja $a\in G$ tal que $C = Ha$.
-Queres provar que $Ha$ e $H$ têm a mesma quantidade de elementos.
-Tente fazer isso mostrando uma bijecção entre os dois conjuntos.
-
-\hint
-Defina a função $f_{\cdot a} : G \to G$ pela
-$$
-f_{\cdot a} (x) = xa.
-$$
-Mostre que ela é injetora, e que sua restrição no $H$ é sobre no $Ha$.
-
-\solution
-Seja $C$ uma coclasse direta (sem perda de generalidade) de $H$,
-e logo seja $a\in G$ tal que $C = Ha$.
-Queremos provar que $Ha$ e $H$ têm a mesma quantidade de elementos.
-Vamos fazer isso mostrando uma bijecção entre os dois conjuntos.
-Primeiramente observe que a função $f_{\cdot a} : G \to G$
-definida pela
-$$
-f_{\cdot a} (x) = xa
-$$
-é injetora:
-realmente temos
-$$
-f_{\cdot a} (x) = f_{\cdot a} (y)
-\implies xa = ya
-\implies x = y.
-$$
-Basta mostrar que sua restrição no $H$ é sobrejetora no $Ha$.
-Seja $d \in Ha$, e logo pela definição de $Ha$ seja $h \in H$
-tal que $d = ha$.
-Temos então $f_{\cdot a}(h) = d$, e logo $f_{\cdot a}$ é sobrejetora no $Ha$.
-
-\endexercise
-%%}}}
+\blah.
+O~\ref{cosets_are_equinumerous_finite_case} é
+válido até no caso que $H$ é infinito!
+Mas não se preocupe agora com isso,
+deixe para o~\ref{cosets_are_equinumerous}.
 
 \endsection
 %%}}}
@@ -35344,6 +35393,48 @@ Com isso concluimos que na teoria de grupos,
 \problem Teorema de Cayley.
 \label{cayleys_theorem}%
 \TODO Outline Cayley's theorem.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: cosets_are_equinumerous 
+\problem.
+\label{cosets_are_equinumerous}%
+Demonstre o~\ref{cosets_are_equinumerous}
+mesmo quando $H$ é infinito.
+
+\hint
+Sendo o $H$ infinito, basta provar que o $Ha$ também é?
+
+\hint
+Deixe a pergunta da dica anterior para o~\ref{Cantors_paradise}.
+Por enquanto, demonstre uma bijecção entre $H$ e $Ha$.
+
+\hint
+A restrição (\ref{fresto}) no $H$ do $a$-ator direito (\ref{group_actors}).
+
+\hint
+Já sabemos que é injetora (\ref{group_actors_are_bijective}).
+Basta provar que é sobre o $Ha$.
+
+\solution
+Seja $a\in G$.
+Basta provar que $Ha$ e $H$ têm a mesma quantidade de elementos
+(a demonstração sobre as coclasses esquerdas é similar).
+Vamos fazer isso mostrando uma bijecção entre os dois conjuntos.
+Primeiramente observe que a função $\actorR a : G \to G$
+é injetora (\ref{group_actors_are_bijective},
+e logo sua restrição $\actorR a \resto {H}$ também é.
+$$
+\actorR a (x) = \actorR a (y)
+\implies xa = ya
+\implies x = y.
+$$
+Basta mostrar que sua restrição no $H$ é sobrejetora no $Ha$.
+Seja $d \in Ha$, e logo pela definição de $Ha$ seja $h \in H$
+tal que $d = ha$.
+Temos então $\actorR a (h) = d$,
+e logo $\actorR a$ é sobrejetora no $Ha$.
 
 \endproblem
 %%}}}
