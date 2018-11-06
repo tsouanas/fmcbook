@@ -32680,6 +32680,148 @@ Mas não se preocupe agora com isso,
 deixe para o~\ref{cosets_are_equinumerous}.
 %%}}}
 
+\blah.
+Vamos agora generalizar a notação que usamos nos cosets de
+``multiplicação de subgrupo por elemento'' para
+``multiplicação de subgrupo por subgrupo''.
+
+%%{{{ df: HK 
+\definition.
+\label{HK_of_groups}%
+Seja $G$ grupo e $H,K\subgroup G$.  Definimos
+$$
+HK \defeq \setst {hk} {h\in H,\ k\in K}.
+$$
+%%}}}
+
+%%{{{ Q: are HK and KH subgroups of G? 
+\question.
+$HK = KH$?
+$HK \subgroup G$?
+$KH \subgroup G$?
+%%}}}
+
+%%{{{ eg: calculate_HK_KH_S3 
+\example.
+No grupo $\sym 3$, sejam seus subgrupos
+$$
+\xalignat2
+H &\leteq \set{ \id, \phi }
+&
+K &\leteq \set{ \id, \psi\phi }.
+\endxalignat
+$$
+Calcule os $HK$ e $KH$ e decida se $HK=KH$ e se $HK$ e $KH$ são subgrupos de $\sym 3$.
+
+\solution%%{{{
+Pela definição
+$$
+\xalignat2
+HK &= \setst {hk} {h\in H,\ k\in K}
+& 
+KH &= \setst {kh} {h\in H,\ k\in K}
+\\
+&= \set{
+\id\compose\id,
+\id\compose(\psi\compose\phi),
+\phi\compose\id,
+\phi\compose(\psi\compose\phi)
+}
+&
+&= \set{
+\id\compose\id,
+\id\compose\phi,
+(\psi\compose\phi)\compose\id,
+(\psi\compose\phi)\compose\phi)
+}
+\\
+&= \set{ \id, \psi\phi, \phi, \phi\psi\phi }
+&
+&= \set{ \id, \phi, \psi\phi, \psi\phi^2 }
+\\
+&= \set{ \id, \psi\phi, \phi, \psi^2}
+&
+&= \set{ \id, \phi, \psi\phi, \psi }.
+\endxalignat
+$$
+Observamos que $HK\neq KH$ (pois, por exemplo, $\psi \in KH$ mas $\psi \notin HK$).
+E nenhum deles é subgrupo de $\sym 3$.
+Por quê?
+Em invez de fazer o trabalho tedioso e verificar se cada um dos $HK,\,KH$ é um subgrupo do $\sym 3$,
+observamos que cada um tem $4$ elementos---verifique que são \emph{realmente} $4$.
+Mas, graças ao Lagrange~(\refn{lagrange_theorem}) $\sym 3$ não tem subgrupos
+de ordem $4$, pois $4$ não divide o $6$.  Pronto.
+%%}}}
+\endexample
+%%}}}
+
+\blah.
+Então descobrimos que, em geral, nem $HK=KH$, nem $HK\subgroup G$,
+nem $KH\subgroup G$ são garantidos.
+Pode acontecer que $HK \subgroup G$ mas $KH \not\subgroup G$?
+E o que a igualdade $HK=KH$ tem a ver com a ``subgrupidade'' dos $HK$ e $KH$?
+Vamos responder em todas essas perguntas com o teorema seguinte:
+
+%%{{{ thm: HK = KH <=> HK subgrp G 
+\theorem.
+\label{HK_equals_KH_iff_HK_subgroup}
+Seja $G$ grupo e subgrupos $H,K \subgrp G$.  Então:
+$$
+HK = KH
+\iff
+HK \subgrp G
+$$
+\sketch.
+Para a direção \lrdir, precisamos mostrar que $HK$ é fechado
+sobre a operação e fechado sobre os inversos.
+Tomamos aleatórios $h_1k_1,h_2k_2\in HK$ e aplicando as propriedades
+de grupo e nossa hipótese, mostramos que $(h_1k_1)(h_2k_2) \in HK$.
+Similarmente para os inversos:
+consideramos um arbitrário elemento $hk\in HK$ e mostramos que seu
+inverso $\ginvp{hk} \in HK$.
+Aqui, alem da hipótese precisamos o~\ref{inverse_of_product_in_group}.
+Para a direção \rldir, mostramos as ``$\subseteq$'' e ``$\supseteq$''
+separadamente, usando idéias parecidas.
+\qes
+%%{{{ proof 
+\proof.
+\lrdir:
+Precisamos mostrar que $HK$ é fechado sobre a operação e fechado sobre os inversos.
+Tomamos aleatórios $h_1k_1,h_2k_2\in HK$ e calculamos:
+$$
+\alignat2
+(h_1k_1)(h_2k_2)
+&= h_1(k_1h_2)k_2 \by{ass.}
+&= h_1(h_3k_3)k_2\quad\text{para alguns $h_3\in H$ e $k_3 \in K$} \by{$k_1h_2\in KH = HK$}
+&= (h_1h_3)(k_3k_2)\by{ass.}
+&\in HK
+\endalignat
+$$
+Para os inversos temos:
+$$
+\ginvp {h_1k_1} = \ginv{k_1} \ginv{h_1} \in KH = HK.
+$$
+\endgraf
+\rldir:
+Mostramos as ``$\subseteq$'' e ``$\supseteq$'' separadamente.
+``$\subseteq$'':
+Tome $x \in HK$, logo $x^{-1} \in HK$ e $x^{-1} = hk$ \emph{para alguns}
+$h\in H$ e $k\in K$.  Como $H$ e $K$ são sub\emph{grupos} de $G$ seus inversos
+também estão em $H$ e $K$ respectivamente.
+Mas
+$$
+x = \ginvp{\ginv x} = \ginvp{hk} \ginv k \ginv h \in KH.
+$$
+``$\supseteq$'':
+Tome $x \in KH$, logo $x = kh$ \emph{para alguns} $k\in K$, $h\in H$.
+Logo $\ginv k \in K$ e $\ginv h \in H$.
+Como $HK\subgrp G$, basta apenas provar que $\ginv x \in HK$ pois isso
+garantará que $x \in HK$ também.
+Realmente, $\ginv x = \ginvp{kh} = \ginv h \ginv k \in HK$.
+\qed
+%%}}}
+%%}}}
+
 \endsection
 %%}}}
 
@@ -33060,148 +33202,6 @@ o teorema de~\Wilson[teorema]{}Wilson.
 %%{{{ Normal subgroups 
 \section Subgrupos normais.
 
-\blah.
-Vamos agora generalizar a notação que usamos nos cosets de
-``multiplicação de subgrupo por elemento'' para
-``multiplicação de subgrupo por subgrupo''.
-
-%%{{{ df: HK 
-\definition.
-\label{HK_of_groups}%
-Seja $G$ grupo e $H,K\subgroup G$.  Definimos
-$$
-HK \defeq \setst {hk} {h\in H,\ k\in K}.
-$$
-%%}}}
-
-%%{{{ Q: are HK and KH subgroups of G? 
-\question.
-$HK = KH$?
-$HK \subgroup G$?
-$KH \subgroup G$?
-%%}}}
-
-%%{{{ eg: calculate_HK_KH_S3 
-\example.
-No grupo $\sym 3$, sejam seus subgrupos
-$$
-\xalignat2
-H &\leteq \set{ \id, \phi }
-&
-K &\leteq \set{ \id, \psi\phi }.
-\endxalignat
-$$
-Calcule os $HK$ e $KH$ e decida se $HK=KH$ e se $HK$ e $KH$ são subgrupos de $\sym 3$.
-
-\solution%%{{{
-Pela definição
-$$
-\xalignat2
-HK &= \setst {hk} {h\in H,\ k\in K}
-& 
-KH &= \setst {kh} {h\in H,\ k\in K}
-\\
-&= \set{
-\id\compose\id,
-\id\compose(\psi\compose\phi),
-\phi\compose\id,
-\phi\compose(\psi\compose\phi)
-}
-&
-&= \set{
-\id\compose\id,
-\id\compose\phi,
-(\psi\compose\phi)\compose\id,
-(\psi\compose\phi)\compose\phi)
-}
-\\
-&= \set{ \id, \psi\phi, \phi, \phi\psi\phi }
-&
-&= \set{ \id, \phi, \psi\phi, \psi\phi^2 }
-\\
-&= \set{ \id, \psi\phi, \phi, \psi^2}
-&
-&= \set{ \id, \phi, \psi\phi, \psi }.
-\endxalignat
-$$
-Observamos que $HK\neq KH$ (pois, por exemplo, $\psi \in KH$ mas $\psi \notin HK$).
-E nenhum deles é subgrupo de $\sym 3$.
-Por quê?
-Em invez de fazer o trabalho tedioso e verificar se cada um dos $HK,\,KH$ é um subgrupo do $\sym 3$,
-observamos que cada um tem $4$ elementos---verifique que são \emph{realmente} $4$.
-Mas, graças ao Lagrange~(\refn{lagrange_theorem}) $\sym 3$ não tem subgrupos
-de ordem $4$, pois $4$ não divide o $6$.  Pronto.
-%%}}}
-\endexample
-%%}}}
-
-\blah.
-Então descobrimos que, em geral, nem $HK=KH$, nem $HK\subgroup G$,
-nem $KH\subgroup G$ são garantidos.
-Pode acontecer que $HK \subgroup G$ mas $KH \not\subgroup G$?
-E o que a igualdade $HK=KH$ tem a ver com a ``subgrupidade'' dos $HK$ e $KH$?
-Vamos responder em todas essas perguntas com o teorema seguinte:
-
-%%{{{ thm: HK = KH <=> HK subgrp G 
-\theorem.
-\label{HK_equals_KH_iff_HK_subgroup}
-Seja $G$ grupo e subgrupos $H,K \subgrp G$.  Então:
-$$
-HK = KH
-\iff
-HK \subgrp G
-$$
-\sketch.
-Para a direção \lrdir, precisamos mostrar que $HK$ é fechado
-sobre a operação e fechado sobre os inversos.
-Tomamos aleatórios $h_1k_1,h_2k_2\in HK$ e aplicando as propriedades
-de grupo e nossa hipótese, mostramos que $(h_1k_1)(h_2k_2) \in HK$.
-Similarmente para os inversos:
-consideramos um arbitrário elemento $hk\in HK$ e mostramos que seu
-inverso $\ginvp{hk} \in HK$.
-Aqui, alem da hipótese precisamos o~\ref{inverse_of_product_in_group}.
-Para a direção \rldir, mostramos as ``$\subseteq$'' e ``$\supseteq$''
-separadamente, usando idéias parecidas.
-\qes
-%%{{{ proof 
-\proof.
-\lrdir:
-Precisamos mostrar que $HK$ é fechado sobre a operação e fechado sobre os inversos.
-Tomamos aleatórios $h_1k_1,h_2k_2\in HK$ e calculamos:
-$$
-\alignat2
-(h_1k_1)(h_2k_2)
-&= h_1(k_1h_2)k_2 \by{ass.}
-&= h_1(h_3k_3)k_2\quad\text{para alguns $h_3\in H$ e $k_3 \in K$} \by{$k_1h_2\in KH = HK$}
-&= (h_1h_3)(k_3k_2)\by{ass.}
-&\in HK
-\endalignat
-$$
-Para os inversos temos:
-$$
-\ginvp {h_1k_1} = \ginv{k_1} \ginv{h_1} \in KH = HK.
-$$
-\endgraf
-\rldir:
-Mostramos as ``$\subseteq$'' e ``$\supseteq$'' separadamente.
-``$\subseteq$'':
-Tome $x \in HK$, logo $x^{-1} \in HK$ e $x^{-1} = hk$ \emph{para alguns}
-$h\in H$ e $k\in K$.  Como $H$ e $K$ são sub\emph{grupos} de $G$ seus inversos
-também estão em $H$ e $K$ respectivamente.
-Mas
-$$
-x = \ginvp{\ginv x} = \ginvp{hk} \ginv k \ginv h \in KH.
-$$
-``$\supseteq$'':
-Tome $x \in KH$, logo $x = kh$ \emph{para alguns} $k\in K$, $h\in H$.
-Logo $\ginv k \in K$ e $\ginv h \in H$.
-Como $HK\subgrp G$, basta apenas provar que $\ginv x \in HK$ pois isso
-garantará que $x \in HK$ também.
-Realmente, $\ginv x = \ginvp{kh} = \ginv h \ginv k \in HK$.
-\qed
-%%}}}
-%%}}}
-
 %%{{{ Notation 
 \note Notação.
 Observe que definimos os $aH$, $Ha$, e $HK$, num grupo $G$
@@ -33464,6 +33464,79 @@ $$
     &= ga^{k+1}\ginv g.
 \endalignat
 $$
+
+\endexercise
+%%}}}
+
+%%{{{ x: exponentiation_respects_conjugation 
+\exercise.
+\label{exponentiation_respects_conjugation}%
+Se $x,y$ são conjugados, então para todo $n\in\nats$,
+$x^n$ e $y^n$ também são.
+
+\hint
+Lembre o~\ref{conjugation_by_member_respects_powers}.
+
+\solution
+Isso é um corolário imediato
+do~\ref{conjugation_by_member_respects_powers}:
+Como $x,y$ conjugados, temos $x = gy\ginv g$ para algum $g\in G$.
+E agora calculamos:
+$$
+\alignat2
+x^n
+&= \paren{gy\ginv g}^n \\
+&= gy^n\ginv g      \by{pelo \refn{conjugation_by_member_respects_powers}}.
+\endalignat
+$$
+e logo $x^n,y^n$ conjugados também.
+
+\endexercise
+%%}}}
+
+%%{{{ prob: conjugates_have_the_same_order 
+\exercise.
+\label{conjugates_have_the_same_order}%
+Membros da mesma classe de conjugação tem a mesma ordem.
+
+\hint
+Separe os casos em $\gord a = n \in\nats$ e $\gord a = \infty$.
+
+\hint
+Lembre o~\ref{exponentiation_respects_conjugation}
+e o~\ref{conjugacy_class_of_e}.
+
+\solution
+Sejam $a,b$ conjugados.
+\crcase{Caso que $\gord a < \infty$.}
+\crproofpart{Resolução 1.}
+Preciso mostrar:
+(i) $b^n = e$;
+(ii) para todo $m$ com $0<m<n$, $b^m \neq e$.
+\endgraf
+(i) Pelo~\ref{exponentiation_respects_conjugation},
+temos que $a^n$ e $b^n$ são conjugados,
+mas $a^n = e$, e a classe de conjugação de $e$ é o singleton $\set{e}$
+(\ref{conjugacy_class_of_e}).
+Logo $b^n = e$.
+\endgraf
+(ii) Pela mesma observação cada suposto $b^m = e$
+obrigaria $a^m = e$ também.
+Logo $\gord b = n$.
+\crproofpart{Resolução 2.}
+Pelo~\ref{exponentiation_respects_conjugation}
+temos $a^{\gord a}$ conjugado com $b^{\gord a}$.
+Logo $b^{\gord a} = e$ e logo $\gord b \divides \gord a$.
+Similarmente $\gord a \divides \gord b$ e logo $\gord a = \gord b$
+pois ambos são naturais.
+\crcase{Caso que $\gord a = \infty$.}
+Tenho que para todo $n > 0$, $a^n \neq e$,
+e preciso mostrar a mesma coisa sobe os $b^n$.
+De novo, de qualquer suposto contraexemplo $m\in \nats$ com $b^m = e$
+concluimos $a^m = e$ que é absurdo pois $\gord a = \infty$.
+\endgraf
+Para uma resolução mais poderosa e simples,
+veja o~\ref{conjugates_look_alike}.
 
 \endexercise
 %%}}}
@@ -35172,6 +35245,28 @@ Como podemos usar o fato que um conjunto é finito?
 \endproblem
 %%}}}
 
+%%{{{ prob: G abelian iff something with conjugates 
+\problem.
+Ache uma propriedade interessante que tem a ver com conjugados,
+tal que para todo grupo $G$,
+$$
+\text{$G$ abeliano} \iff \text{essa propriedade}.
+$$
+Prove tua afirmação!
+
+\endproblem
+%%}}}
+
+%%{{{ prob: conjugates_look_alike 
+\problem.
+\label{conjugates_look_alike}%
+Pode achar alguma propriedade grupoteórica tal que num grupo $G$,
+dentro duma das suas classes de conjugação vai ter membros que
+satisfazem e membros que não?
+
+\endproblem
+%%}}}
+
 %%{{{ prob: hom_abel_with_pointwise_plus 
 \problem.
 \label{hom_abel_with_pointwise_plus}%
@@ -35306,101 +35401,6 @@ onde $\gconj g$ é a conjugação por $g$ (\ref{conjugation_by_member}).
 \problem.
 \label{inn_normal_aut}%
 $\Inn G \normal \Aut G$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: G abelian iff something with conjugates 
-\problem.
-Ache uma propriedade interessante que tem a ver com conjugados,
-tal que para todo grupo $G$,
-$$
-\text{$G$ abeliano} \iff \text{essa propriedade}.
-$$
-Prove tua afirmação!
-
-\endproblem
-%%}}}
-
-%%{{{ prob: exponentiation_respects_conjugation 
-\problem.
-\label{exponentiation_respects_conjugation}%
-Se $x,y$ são conjugados, então para todo $n\in\nats$,
-$x^n$ e $y^n$ também são.
-
-\hint
-Lembre o~\ref{conjugation_by_member_respects_powers}.
-
-\solution
-Isso é um corolário imediato
-do~\ref{conjugation_by_member_respects_powers}:
-Como $x,y$ conjugados, temos $x = gy\ginv g$ para algum $g\in G$.
-E agora calculamos:
-$$
-\alignat2
-x^n
-&= \paren{gy\ginv g}^n \\
-&= gy^n\ginv g      \by{pelo \refn{conjugation_by_member_respects_powers}}.
-\endalignat
-$$
-e logo $x^n,y^n$ conjugados também.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: conjugates_have_the_same_order 
-\problem.
-\label{conjugates_have_the_same_order}%
-Membros da mesma classe de conjugação tem a mesma ordem.
-
-\hint
-Separe os casos em $\gord a = n \in\nats$ e $\gord a = \infty$.
-
-\hint
-Lembre o~\ref{exponentiation_respects_conjugation}
-e o~\ref{conjugacy_class_of_e}.
-
-\solution
-Sejam $a,b$ conjugados.
-\crcase{Caso que $\gord a < \infty$.}
-\crproofpart{Resolução 1.}
-Preciso mostrar:
-(i) $b^n = e$;
-(ii) para todo $m$ com $0<m<n$, $b^m \neq e$.
-\endgraf
-(i) Pelo~\ref{exponentiation_respects_conjugation},
-temos que $a^n$ e $b^n$ são conjugados,
-mas $a^n = e$, e a classe de conjugação de $e$ é o singleton $\set{e}$
-(\ref{conjugacy_class_of_e}).
-Logo $b^n = e$.
-\endgraf
-(ii) Pela mesma observação cada suposto $b^m = e$
-obrigaria $a^m = e$ também.
-Logo $\gord b = n$.
-\crproofpart{Resolução 2.}
-Pelo~\ref{exponentiation_respects_conjugation}
-temos $a^{\gord a}$ conjugado com $b^{\gord a}$.
-Logo $b^{\gord a} = e$ e logo $\gord b \divides \gord a$.
-Similarmente $\gord a \divides \gord b$ e logo $\gord a = \gord b$
-pois ambos são naturais.
-\crcase{Caso que $\gord a = \infty$.}
-Tenho que para todo $n > 0$, $a^n \neq e$,
-e preciso mostrar a mesma coisa sobe os $b^n$.
-De novo, de qualquer suposto contraexemplo $m\in \nats$ com $b^m = e$
-concluimos $a^m = e$ que é absurdo pois $\gord a = \infty$.
-\endgraf
-Para uma resolução mais poderosa e simples,
-veja o~\ref{conjugates_look_alike}.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: conjugates_look_alike 
-\problem.
-\label{conjugates_look_alike}%
-Pode achar alguma propriedade grupoteórica tal que num grupo $G$,
-dentro duma das suas classes de conjugação vai ter membros que
-satisfazem e membros que não?
 
 \endproblem
 %%}}}
