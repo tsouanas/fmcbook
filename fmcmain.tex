@@ -36127,10 +36127,44 @@ Dado conjunto $X$, o $\sset {\pset X} {\symdiff, \inter}$
 Seja $\cal R$ um anel booleano.
 Prove que:
 $$
-\
 \text{para todo $p\in \cal R$},\quad
 p = -p.
 $$
+
+\hint
+$p + p = (p+p)^2 = \dotsc$
+
+\solution
+Seja $p \in R$.
+Calculamos:
+$$
+\alignat2
+p + p
+&= (p+p)^2               \by {$R$ booleano}
+&= (p+p)(p+p)            \\
+&= (p+p)p + (p+p)q       \\
+&= pp + pp + pp + pp     \\
+&= p^2 + p^2 + p^2 + p^2 \\
+&= p + p + p + p         \by {$R$ booleano}
+&= p + p + (p + p)
+\endalignat
+$$
+e logo $p + p = 0$, ou seja, $p = -p$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: boolean_rings_negative_of_product 
+\exercise.
+\label{boolean_rings_negative_of_product}%
+Seja $\cal R$ um anel booleano.
+Prove que:
+$$
+\text{para todo $p,q\in \cal R$},\quad
+pq = -qp
+$$
+e mostre como isso gera mais uma prova
+do~\ref{boolean_rings_are_idempotent}.
 
 \hint
 Calcule o $(p+q)^2$.
@@ -36153,22 +36187,15 @@ Ou seja
 $$
 \align
 p + q &= p + qp + pq + q\\
-\intertext{e cancelando os $p$ e $q$ ganhamos}
-0 &= qp + pq    \tag{1}
+      &= p + q + (qp + pq)\\
+\intertext{e logo (\ref{cheaper_gid})}
+0     &= qp + pq    \tag{1}
 \endalign
 $$
 ou seja, $pq = -qp$.
 \endgraf
-Seja $a \in R$.
-Calculamos:
-$$
-\alignat2
-0
-&= aa + aa      \by{tome $p\asseq a$ e $q \asseq a$}
-&= a + a.       \by{$\cal R$ é booleano}
-\endalignat
-$$
-logo, $a = -a$.
+Para ganhar o~\ref{boolean_rings_are_idempotent} como
+corolário, é so tomar $q \asseq 1$.
 
 \endexercise
 %%}}}
