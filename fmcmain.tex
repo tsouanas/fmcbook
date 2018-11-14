@@ -33497,7 +33497,7 @@ $$
 \alignat2
 x^n
 &= \paren{gy\ginv g}^n \\
-&= gy^n\ginv g      \by{pelo \refn{conjugation_by_member_respects_powers}}.
+&= gy^n\ginv g.  \by{pelo \refn{conjugation_by_member_respects_powers}}
 \endalignat
 $$
 e logo $x^n,y^n$ conjugados também.
@@ -34739,9 +34739,9 @@ pois, no primeiro caso o $\ginv{}$ é aplicado num membro de $A$,
 e no segundo caso num membro de $B$.
 %%}}}
 
-%%{{{ criterion: in_groups_respecting_products_means_morphism 
+%%{{{ criterion: criterion_for_morphism_in_groups
 \criterion de homomorfismo.
-\label{in_groups_respecting_products_means_morphism}%
+\label{criterion_for_morphism_in_groups}%
 Sejam grupos $\cal A = \sset A {\ast_A}$ e $\cal B = \sset B {\ast_B}$,
 e função $\phi : \cal A \to \cal B$ que preserva a operação, ou seja, tal que
 $$
@@ -34919,6 +34919,48 @@ $$
 $$
 Chamamos o $\ker \phi$ o \dterm{kernel} do $\phi$
 e o $\ima \phi$ o \dterm{image} do $\phi$.
+%%}}}
+
+%%{{{ thm: group_homo_mono_iff_ker_singleton 
+\theorem.
+\label{group_homo_mono_iff_ker_singleton}%
+Sejam $A,B$ grupos e $\phi : A \to B$ homomorfismo.
+$$
+\text{$\phi$ injetora}
+\iff
+\ker\phi = \set{e_A}.
+$$
+\sketch.
+\proofpart{\lrdir}.
+Como $e_A \in \ker\phi$,
+basta provar que todos os membros de $\ker\phi$ são iguais:
+suponha $x,y\in\ker\phi$ e mostre que $x = y$.
+\crproofpart{\rldir}.
+Sejam $x,y \in A$ tais que $\phi(x) = \phi(y)$.
+Operando nessa igualdade e usando o fato que $\phi$ é homomorfismo,
+chegamos no $x=y$, ou seja, $\phi$ é injetora.
+\qes
+\proof.
+\proofpart{\lrdir}.
+Como $e_A \in \ker\phi$,
+basta provar que todos os membros de $\ker\phi$ são iguais.
+Sejam $x,y\in\ker\phi$ então.
+Logo $\phi(x) = e_B = \phi(y)$,
+e como $\phi$ é injetora, concluimos o desejado $x=y$.
+\crproofpart{\rldir}.
+$$
+\stepproof{
+\proofsteptnb {Sejam $x,y \in A$ tais que $\phi(x) = \phi(y)$.}\\
+\thereforetby {$\phi(x) \ginv{\phi(y)} = e_B$}          {$(\ast \ginv{\phi(y)})$}\\
+\thereforetby {$\phi(x) \phi\funparen{\ginv y} = e_B$}  {$\phi$ homo (inv.)}\\
+\thereforetby {$\phi(x \ginv y) = e_B$}                 {$\phi$ homo (op.)}\\
+\thereforetby {$x\ginv y \in \ker\phi$}                 {def.~$\ker\phi$}\\
+\thereforetby {$x\ginv y \in \set{e_A}$}                {hipótese}\\
+\thereforetby {$x\ginv y = e_A$}                        {$\set{e_A}$ singleton}\\
+\thereforetby {$x = y$}                                 {$(\ast y)$}
+}
+$$
+\qed
 %%}}}
 
 %%{{{ x: kernel_subgroup 
@@ -35172,50 +35214,6 @@ Até conseguir provar isso, não podemos considerar a $\Phi$ uma função
 Veja bem a prova do~\ref{first_isomorphism_theorem_groups}.
 %%}}}
 
-%%{{{ thm: group_homo_mono_iff_ker_singleton 
-\theorem.
-\label{group_homo_mono_iff_ker_singleton}%
-Sejam $A,B$ grupos e $\phi : A \to B$ homomorfismo.
-$$
-\text{$\phi$ monomorfismo}
-\iff
-\ker\phi = \set{e_A}.
-$$
-\sketch.
-\proofpart{\lrdir}.
-Como $e_A \in \ker\phi$,
-basta provar que todos os membros de $\ker\phi$ são iguais:
-suponha $x,y\in\ker\phi$ e mostre que $x = y$.
-\crproofpart{\rldir}.
-Já temos que $\phi$ é um homomorfismo, então basta provar
-que $\phi$ é monomorfismo, ou seja, bijetora.
-Sejam então $x,y \in A$ tais que $\phi(x) = \phi(y)$.
-Operando nessa igualdade e usando o fato que $\phi$ é homomorfismo,
-chegamos no $x=y$, ou seja, $\phi$ é injetora.
-\qes
-\proof.
-\proofpart{\lrdir}.
-Como $e_A \in \ker\phi$,
-basta provar que todos os membros de $\ker\phi$ são iguais.
-Sejam $x,y\in\ker\phi$ então.
-Logo $\phi(x) = e_B = \phi(y)$,
-e como $\phi$ é injetora, concluimos o desejado $x=y$.
-\crproofpart{\rldir}.
-$$
-\stepproof{
-\proofsteptnb {Sejam $x,y \in A$ tais que $\phi(x) = \phi(y)$.}\\
-\thereforetby {$\phi(x) \ginv{\phi(y)} = e_B$}          {$(\ast \ginv{\phi(y)})$}\\
-\thereforetby {$\phi(x) \phi\funparen{\ginv y} = e_B$}  {$\phi$ homo (inv.)}\\
-\thereforetby {$\phi(x \ginv y) = e_B$}                 {$\phi$ homo (op.)}\\
-\thereforetby {$x\ginv y \in \ker\phi$}                 {def.~$\ker\phi$}\\
-\thereforetby {$x\ginv y \in \set{e_A}$}                {hipótese}\\
-\thereforetby {$x\ginv y = e_A$}                        {$\set{e_A}$ singleton}\\
-\thereforetby {$x = y$}                                 {$(\ast y)$}
-}
-$$
-\qed
-%%}}}
-
 %%{{{ kernel <==> normal 
 \note Dois lados da mesma moeda.
 Já provamos algo (\ref{kernel_is_normal}) que,
@@ -35424,6 +35422,96 @@ Enxergue bem todos os seus alvos:
 (ii) $\Inn G \subgroup \Aut G$;
 (iii) $\Inn G \normal \Aut G$.
 O que precisas demonstrar para matar cada um deles?
+
+\solution
+Precisamos demonstrar:
+$\Inn G \subseteq \Aut G$;
+$\Inn G \subgroup \Aut G$;
+$\Inn G \normal \Aut G$.
+\crtabproofpart{$\Inn G \subseteq \Aut G$}.
+Seja $f \in \Inn G$.
+Logo seja $g \in G$ tal que $f = \actorS g {\ginv g}$.
+Precisamos mostrar que $f$ é um automorfismo.
+Já demonstramos que é bijetora (\ref{group_actors_are_bijective})
+então basta provar que é um homomorfismo.
+Pelo~\ref{criterion_for_morphism_in_groups}, é suficiente
+mostrar que $f$ respeita a operação.
+Calculamos:
+$$
+\align
+f(x)f(y)
+&= \paren{\actorS g {\ginv g} x}
+   \paren{\actorS g {\ginv g} y} \\
+&= \paren{gx\ginv g}
+   \paren{gy\ginv g} \\
+&= gx\ginv g g y \ginv g \\
+&= gxey \ginv g \\
+&= g(xy) \ginv g \\
+&= f(xy).
+\endalign
+$$
+\crtabproofpart{$\Inn G \subgroup \Aut G$}.
+Vamos usar o~\ref{nonempty_subgroup_criterion}.
+Primeiramente mostramos que $\Inn G \neq \emptyset$:
+de fato, $\id_G \in \Inn G$, pois $\id_G$ é um inner:
+$$
+\id_G = \actorS e {\ginv e}.
+$$
+\crproofpart{$\Inn G$ $\fcom$-fechado}.
+Agora sejam $f_1,f_2 \in \Inn G$.
+Vou demonstrar que
+$f_1\fcom f_2$ é um inner.
+Como $f_1,f_2$ são inners, sejam $g_1,g_2$ tais que
+$$
+\xalignat2
+f_1 & = \actorS {g_1} {\ginv {g_1}} &
+f_2 & = \actorS {g_2} {\ginv {g_2}}.
+\endxalignat
+$$
+Para um arbitrário $x \in G$ temos:
+$$
+\align
+(f_1 \fcom f_2) x
+&= f_1 ( f_2 x ) \\
+&= f_1 ( g_2 x \ginv {g_2} ) \\
+&= g_1 ( g_2 x \ginv {g_2} ) \ginv {g_1} \\
+&= (g_1 g_2) x \paren{\ginv {g_2} \ginv {g_1}} \\
+&= (g_1 g_2) x \ginvp{g_1 g_2}.
+\endalign
+$$
+Ou seja, $f_1\fcom f_2\in\Inn G$.
+\crproofpart{$\Inn G$ $\ginv{}$-fechado}.
+Seja $f \in \Inn G$, e logo seja $g\in G$
+tal que $f = \actorS g {\ginv g}$.
+Observe que $\actorS {\ginv g} g$ é a inversa da $f$,
+e que realmente é um inner, pois
+$$
+\actorS {\ginv g} g = \actorS {\ginv g} {\ginvp {\ginv g}},
+$$
+ou seja, $\ginv f \in \Inn G$.
+\crtabproofpart{$\Inn G$ fechado pelos conjugados}.
+Seja $f \in \Inn G$ e logo seja $g\in G$
+tal que $f = \actorS g {\ginv g}$.
+Vou mostrar que todos os conjugados de $f$ são inners.
+Seja então $\alpha \in \Aut G$.
+Basta provar que $\alpha f \ginv{\alpha} \in \Inn G$.
+Ou seja, basta resolver o
+$$
+\alpha f \ginv{\alpha} = \actorS {\askbox} {\ginv{\askbox}}.
+$$
+Para um arbitrário $x \in G$ temos:
+$$
+\alignat2
+\paren{\alpha \fcom f \fcom \ginv{\alpha}} x
+&= \alpha \funparen{ f \funparen { \finv{\alpha} x } }                               \by {def.~$\fcom$}
+&= \alpha \funparen{ g \ast \paren { \finv \alpha x } \ast \ginv g }                 \by {pela escolha de $g$}
+&= \alpha g \ast \alpha \funparen { \finv \alpha x } \ast \alpha \funparen {\ginv g} \by {$\alpha$ homo: resp.~op.}
+&= \alpha g \ast \paren{\alpha \fcom \finv \alpha} x \ast \alpha \funparen {\ginv g} \by {def.~$\fcom$}
+&= \alpha g \ast x \ast \alpha \funparen {\ginv g}                                   \by {def.~$\finv \alpha$}
+&= \alpha g \ast x \ast \ginvp {\alpha g}                                            \by {$\alpha$ homo: resp.~inv.}
+\endalignat
+$$
+e logo $\alpha f \ginv{\alpha} \in \Inn G$.
 
 \endproblem
 %%}}}
@@ -35682,7 +35770,7 @@ Uma função $\phi : M \to N$ é um \dterm{homomorfismo} sse:
 \exercise.
 \label{in_monoids_preservation_of_oper_does_not_imply_preservation_of_identity}%
 Podemos provar um critérion parecido com
-o~\ref{in_groups_respecting_products_means_morphism} para os monóides?
+o~\ref{criterion_for_morphism_in_groups} para os monóides?
 Ou seja, se $\phi$ preserva a operação do monóide,
 ela necessariamente preserva a identidade também?
 
@@ -36106,7 +36194,7 @@ Como tu definirias o conceito de subanel?
 Pode definir algum critérion parecido com os critéria~\refn{nonempty_subgroup_criterion}
 ou~\refn{finite_subgroup_criterion} para decidir se algo é subanel dum dado anel?
 E o homomorfismo de anel?  Como definirias isso?  E pode definir algum critérion
-parecido com o~\refn{in_groups_respecting_products_means_morphism}?
+parecido com o~\refn{criterion_for_morphism_in_groups}?
 \spoiler.
 %%}}}
 
@@ -36160,7 +36248,7 @@ então ela é um homomorfismo.
 (Ou seja, podemos apagar os itens (i) e (v) na~\ref{ring_homomorphism}.)
 \proof.
 Como $\sset R {+_R,0_R}, \sset S {+_S,0_S}$ são grupos,
-já provamos isso (\ref{in_groups_respecting_products_means_morphism}).
+já provamos isso (\ref{criterion_for_morphism_in_groups}).
 \qed
 %%}}}
 
