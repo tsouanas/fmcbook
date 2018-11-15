@@ -19700,7 +19700,7 @@ Se tu aprendeu numa maneira religiosa algum poeminha
 do tipo ``não cancelarás $0$ nas multiplicações'', esqueça;
 ninguém se importa com que teu padre falou.
 A gente vai voltar nessa questão mais tarde
-(\ref{More_algebraic_structures} (\refn{Rings});
+(\ref{Algebraic_structures} (\refn{Rings});
 \ref{Real_numbers}).}
 Parece ótimo: exatamente o tipo da coisa que estamos procurando.
 Será que podemos já trazer essa sabedoria da $\ntimes$ nos reais
@@ -19723,7 +19723,7 @@ Vamos tentar algo mais cuidadoso e formal:%
 \footnote{Mesmo sendo cedo neste momento para essa abordagem
 creio que o leitor vai conseguir acompanhar a idéia.
 Estudando algebra abstrata nos capítulos~\refn{Group_theory}
-e~\refn{More_algebraic_structures} tudo isso vai aparecer
+e~\refn{Algebraic_structures} tudo isso vai aparecer
 bem tranqüilo e natural.  Prometo.}
 $$
 \alignat2
@@ -35710,8 +35710,8 @@ Para mais sobre isso, veja por exemplo o~\cite{clrs}[\S33.3].
 \endchapter
 %%}}}
 
-%%{{{ chapter: More algebraic structures 
-\chapter Mais estruturas algébricas.
+%%{{{ chapter: Algebraic structures 
+\chapter Estruturas algébricas.
 \label{Algebraic_structures}%
 
 %%{{{ Monoids 
@@ -36233,8 +36233,10 @@ $$
 então ela é um homomorfismo.
 (Ou seja, podemos apagar os itens (i) e (v) na~\ref{ring_homomorphism}.)
 \proof.
-Como $\sset R {+_R,0_R}, \sset S {+_S,0_S}$ são grupos,
-já provamos isso (\ref{criterion_for_morphism_in_groups}).
+Como $\sset R {+_R}, \sset S {+_S}$ são grupos,
+sabemos que se $\phi$ respeita essa operação então
+ela respeita sua identidade e seus inversos necessariamente
+(\ref{criterion_for_morphism_in_groups}).
 \qed
 %%}}}
 
@@ -36436,22 +36438,22 @@ corolário, é so tomar $q \asseq 1$.
 %%{{{ x: boolean_rings_are_commutative 
 \exercise.
 \label{boolean_rings_are_commutative}%
-Cada anel booleano é comutativo.
+Todo anel booleano é comutativo.
 
 \hint
-Use o~\ref{boolean_rings_are_idempotent}.
+Use os \ref{boolean_rings_are_idempotent}
+e~\refn{boolean_rings_negative_of_product}.
 
 \solution
-Sejam $p,q \in R$.
-Queremos mostrar que $pq = qp$.
-Usando o~\ref{boolean_rings_are_idempotent} e
-a~\byfact1~da sua resolução,
-ganhamos
+Sejam $p,q$ membros dum anel booleano.
+Temos
 $$
-pq + pq = 0 = qp + pq
+\alignat2
+pq
+&= -qp  \by {\ref{boolean_rings_negative_of_product}, com $p \asseq p$ e $q \asseq q$}
+&= qp.  \by {\ref{boolean_rings_are_idempotent}, com $p \asseq qp$}
+\endalignat
 $$
-e cancelando os $pq$ na direita chegamos no $pq = qp$.
-Ou seja, o $\cal R$ é comutativo.
 
 \endexercise
 %%}}}
@@ -36486,7 +36488,7 @@ O $4$ também é, pois $3\ntimes 4 = 0$ também.
 \label{real_continuous_functions_zerodivisors}%
 Considere o anel $C[-1,1]$ com as operações~\ii{pointwise}[operação]pointwise
 (veja~\ref{first_ring_examples}).
-Tome as funções $f,g,p,q$ definidas pelas
+Tome as funções $f,g$ definidas pelas
 $$
 \xalignat2
 f(x) &= \knuthcases{
@@ -36586,6 +36588,33 @@ existe $y \in K$, tal que $ay = 1 = ya$.}
 $$
 %%}}}
 
+%%{{{ eg: rats and reals and complex 
+\example.
+Os racionais, os reais, e os complexos, com suas operações canônicas de adição
+e multiplicação são todos corpos.
+\endexample
+%%}}}
+
+%%{{{ noneg: ints and nats 
+\nonexample.
+Os inteiros e os naturais não!
+\endnonexample
+%%}}}
+
+%%{{{ eg: integers_modulo_p_field_example 
+\example.
+\label{integers_modulo_p_field_example}%
+O $\cal Z_p = \sset {\quogrp \ints {p\ints}} {+_p, \ntimes_p}$ onde $p$ primo é um corpo.
+\endexample
+%%}}}
+
+%%{{{ noneg: integers_modulo_n_field_nonexample 
+\nonexample.
+\label{integers_modulo_n_field_nonexample}%
+O $\cal Z_n$ onde $n>1$ e não primo, não é um corpo.
+\endnonexample
+%%}}}
+
 %%{{{ criterion: finite_integral_domain_implies_field 
 \criterion.
 Se $D$ é um domínio de integridade finito então $D$ é um corpo.
@@ -36619,12 +36648,220 @@ que é o que queremos provar.
 \qed
 %%}}}
 
+%%{{{ x: integers_modulo_p_field_iff_p_prime
+\exercise.
+\label{integers_modulo_p_field_iff_p_prime}%
+Prove que o~\ref{integers_modulo_p_field_example}
+realmente é um exemplo de corpo
+e que o~\ref{integers_modulo_n_field_nonexample}
+realmente não é.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Lattices 
 \section Reticulados.
 \label{Lattices_as_algebras}%
+
+%%{{{ Lattice laws 
+\note Leis de reticulado.
+Num reticulado temos duas operações binárias que chamamos
+de \dterm{join} ($\join$) e \dterm{meet} ($\meet$).
+Elas satisfazem as leis de reticulado:
+$$
+\xalignat2
+\text{associatividade} &\ \leftbrace{
+\aligned
+a \join (b \join c) &= (a \join b) \join c \\
+a \meet (b \meet c) &= (a \meet b) \meet c
+\endaligned
+} &
+\rightbrace{
+\aligned
+a \join b &= b \join a \\
+a \meet b &= b \meet a
+\endaligned
+}\ & \text{comutatividade}
+\\
+\text{idempotência} &\ \leftbrace{
+\aligned
+a \join a &= a \\
+a \meet a &= a
+\endaligned
+} &
+\rightbrace{
+\aligned
+a \join (a \meet b) &= a \\
+a \meet (a \join b) &= a
+\endaligned
+}\ & \text{absorpção}
+\endxalignat
+$$
+Observe que sem as leis de absorpção não temos uma estrutura interessante.
+Essas leis nos dizem como as duas operações interagem e oferecem à teoria
+de reticulados sua alma.
+Formalmente, temos:
+%%}}}
+
+%%{{{ df: lattice_as_algebra 
+\definition.
+\label{lattice_as_algebra}%
+\label{bounded_lattice_as_algebra}%
+\tdefined{reticulado}[como álgebra]%
+\tdefined{reticulado}[limitado, como álgebra]%
+Seja $\cal L = \sset L {\join,\meet}$ um conjunto estruturado onde
+$\join,\meet$ são operações binárias que chamamos de \dterm{join}
+e \dterm{meet} respectivamente.
+$\cal L$ é um \dterm{reticulado} (ou \dterm{láttice}) sse:
+$$
+\alignat2
+\pforall {a,b\in L}   &\bracket{a\join b \in L}                         &\tag{LJ0} \\
+\pforall {a,b,c\in L} &\bracket{a\join(b\join c) = (a\join b)\join c}   &\tag{LJ1} \\
+\pforall {a,b\in L}   &\bracket{a\join b = b \join a}                   &\tag{LJ2} \\
+\pforall {a\in L}     &\bracket{a\join a = a}                           &\tag{LJ3} \\
+\pforall {a,b\in L}   &\bracket{a\meet b \in L}                         &\tag{LM0} \\
+\pforall {a,b,c\in L} &\bracket{a\meet(b\meet c) = (a\meet b)\meet c}   &\tag{LM1} \\
+\pforall {a,b\in L}   &\bracket{a\meet b = b \meet a}                   &\tag{LM2} \\
+\pforall {a\in L}     &\bracket{a\meet a = a}                           &\tag{LM3} \\
+\pforall {a,b \in L}  &\bracket{a\join (a \meet b) = a}                 &\tag{LAJ} \\
+\pforall {a,b \in L}  &\bracket{a\meet (a \join b) = a}.                &\tag{LAM} \\
+\intertext{%
+Seja $\cal L = \sset L {\join,\meet,0,1}$ um conjunto estruturado onde
+$\join,\meet$ são operações binárias e $0,1$ constantes, e tal que
+$\cal L$ é um \dterm{reticulado limitado} (ou \dterm{bounded láttice}) sse
+$\sset L {\join,\meet}$ é um reticulado e
+}
+\pforall {a \in L}    &\bracket{a\join 0 = a}                           &\tag{LJB} \\
+\pforall {a \in L}    &\bracket{a\meet 1 = a}.                          &\tag{LJB}
+\endalignat
+$$
+%%}}}
+
+%%{{{ criterion: lattice_without_idem_criterion 
+\criterion.
+\label{lattice_without_idem_criterion}%
+Seja $\cal L = \sset L {\join, \meet}$ conjunto estruturado
+onde $\join$ e $\meet$ satisfazem as leis de:
+associatividade, comutatividade, absorção.
+Então $\cal L$ é um reticulado.
+\proof.
+\ref{abs_and_com_imply_idem}.
+\qed
+%%}}}
+
+%%{{{ x: abs_and_com_imply_idem 
+\exercise.
+\label{abs_and_com_imply_idem}%
+Prove o~\ref{lattice_without_idem_criterion}.
+
+\hint
+$a\join(a\meet(a\join a))$.
+
+\solution
+Seja $a \in L$.
+Calculamos
+$$
+\alignat2
+a \join ( (a\join a) \meet a )
+&= a \join a                        \by{$\meet$-abs.}
+\intertext{e também}
+a \join ( (a\join a) \meet a)
+&=  ( (a\join a) \meet a) \join a   \by{$\join$-com.}
+&=  ( a \meet (a\join a) ) \join a  \by{$\meet$-com.}
+&=  a                               \by{$\join$-abs.}
+\endalignat
+$$
+Logo $a\join a = a$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: two_equiv_ways_to_define_an_order_on_an_algebraic_lattice_teaser 
+\exercise.
+\label{two_equiv_ways_to_define_an_order_on_an_algebraic_lattice_teaser}%
+Seja $\cal L = \sset L {\join,\meet}$ um reticulado pela~\ref{lattice_as_algebra}.
+Prove que:
+$$
+a\join b = b \iff a\meet b = a.
+$$
+
+\solution
+\proofpart{\lrdir}.
+Suponha $b = a \join b$.
+Calculamos
+$$
+\alignat2
+a \meet b
+&= a \meet (a \join b) \by{hipótese}
+&= (a \join b) \meet a \by{$\meet$-com.}
+&= a.                  \by{$\meet$-abs.}
+\endalignat
+$$
+\proofpart{\rldir:}
+Similar.
+
+\endexercise
+%%}}}
+
+%%{{{ df: semilattice 
+\definition.
+\label{semilattice}%
+\label{bounded_semilattice}%
+\tdefined{semirreticulado}%
+\tdefined{semirreticulado}[limitado]%
+Seja $\cal S = \sset S {\dmnd}$ um conjunto estruturado onde
+$\dmnd$ é uma operação binária.
+$\cal S$ é um \dterm{semirreticulado} (ou \dterm{semiláttice}) sse
+sua operação é associativa, comutativa, e idempotente:
+$$
+\alignat2
+\pforall {a,b\in S}   &\bracket{a\dmnd b \in S}                        &\tag{SL0} \\
+\pforall {a,b,c\in S} &\bracket{a\dmnd(b\dmnd c) = (a\dmnd b)\dmnd c}  &\tag{SL1} \\
+\pforall {a,b\in S}   &\bracket{a\dmnd b = b \dmnd a}                  &\tag{SL2} \\
+\pforall {a\in S}     &\bracket{a\dmnd a = a}                          &\tag{SL3} \\
+\intertext{%
+Seja $\cal S = \sset S {\dmnd,\ell}$ um conjunto estruturado tal que
+$\sset S {\dmnd}$ é um semirreticulado e $\ell$ é uma constante.
+$\cal S$ é um \dterm{semirreticulado limitado} (ou \dterm{bounded semiláttice}) sse:
+}
+\pforall {a\in S}     &\bracket{a\dmnd \ell = a}                       &\tag{SLB}
+\endalignat
+$$
+%%}}}
+
+%%{{{ remark: shorter (bounded) lattice definitions using (bounded) semilattices
+\remark Definições mais curtas.
+Com as definições de semirreticulados podemos definir numa maneira mais simples
+o que é um reticulado:
+%%}}}
+
+%%{{{ x: from_semilattice_to_lattice 
+\exercise Definições mais curtas.
+\label{from_semilattice_to_lattice}%
+\tdefined{lattice}%
+Defina os conceitos ``reticulado'' e ``reticulado limitado''
+usando os conceitos ``semirreticulado'' e ``semirreticulado limitado''.
+
+\solution
+O conjunto estruturado $\cal L = \sset L {\join,\meet}$ é um
+\dterm{lattice} sse os conjuntos estruturados
+$\sset L {\join}$ e $\sset L {\meet}$ são semilattices,
+e as leis de absorção são satisfeitas.
+$\cal L = \sset L {\join,\meet}$ é um \dterm{reticulado} sse
+$\sset L \join$ e $\sset L \meet$ são semirreticulados.
+Similarmente $\sset L {\join,\meet,0,1}$ é um reticulado limitado sse
+$\sset L {\join,0}$ e $\sset L {\meet,1}$ são semirreticulados limitados.
+
+\endexercise
+%%}}}
+
+\blah.
+Nosso objetivo aqui é brincar com várias estruturas algébricas, e não
+aprofundar em nenhuma.
+Mas se preocupe não: voltamos a estudar reticulados no~\ref{Lattices}.
 
 \endsection
 %%}}}
@@ -39350,9 +39587,15 @@ existem.
 %%{{{ Lattices as algebraic structures 
 \section Reticulados como estruturas algébricas.
 
-%%{{{ df: lattice_as_algebra 
+\blah.
+No~\ref{Algebraic_structures} introduzimos reticulados
+como uma estrutura algébrica.%
+\footnote{Leia a~\ref{Lattices_as_algebras} se não tá ligado.}
+Aqui a definição novamente:
+
+%%{{{ df: lattice_as_algebra_human 
 \definition.
-\label{lattice_as_algebra}%
+\label{lattice_as_algebra_human}%
 \tdefined{lattice}[como algebra]%
 Seja $\cal L = \sset L {\join, \meet}$ conjunto estruturado
 onde $\join,\meet$ são operadores binários no $L$.
@@ -39365,99 +39608,6 @@ a \join (b \meet a) &= a\\
 a \meet (b \join a) &= a
 \endalign
 $$
-%%}}}
-
-%%{{{ criterion: lattice_without_idem_criterion 
-\criterion.
-\label{lattice_without_idem_criterion}%
-Seja $\cal L = \sset L {\join, \meet}$ conjunto estruturado
-onde $\join$ e $\meet$ satisfazem as leis de:
-associatividade, comutatividade, absorção.
-Então $\cal L$ é um reticulado.
-\proof.
-\ref{abs_and_com_imply_idem}.
-\qed
-%%}}}
-
-%%{{{ x: abs_and_com_imply_idem 
-\exercise.
-\label{abs_and_com_imply_idem}%
-Prove o~\ref{lattice_without_idem_criterion}.
-
-\hint
-$a\join(a\meet(a\join a))$.
-
-\solution
-Seja $a \in L$.
-Calculamos
-$$
-\alignat2
-a \join ( (a\join a) \meet a )
-&= a \join a                        \by{$\meet$-abs.}
-\intertext{e também}
-a \join ( (a\join a) \meet a)
-&=  ( (a\join a) \meet a) \join a   \by{$\join$-com.}
-&=  ( a \meet (a\join a) ) \join a  \by{$\meet$-com.}
-&=  a                               \by{$\join$-abs.}
-\endalignat
-$$
-Logo $a\join a = a$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: two_equiv_ways_to_define_an_order_on_an_algebraic_lattice 
-\exercise.
-\label{two_equiv_ways_to_define_an_order_on_an_algebraic_lattice}%
-Seja $\cal L = \sset L {\join,\meet}$ um láttice pela~\ref{lattice_as_algebra}.
-Prove que:
-$$
-a\join b = b \iff a\meet b = a.
-$$
-
-\solution
-\lrdir:
-Suponha $b = a \join b$.
-Calculamos
-$$
-\alignat2
-a \meet b
-&= a \meet (a \join b) \by{hipótese}
-&= (a \join b) \meet a \by{$\meet$-com.}
-&= a.                  \by{$\meet$-abs.}
-\endalignat
-$$
-\endgraf\noindent
-\rldir:
-Similar.
-
-\endexercise
-%%}}}
-
-%%{{{ df: semilattice 
-\definition.
-\label{semilattice}%
-\tdefined{semilattice}%
-\iisee{semireticulado}{semilattice}%
-Seja $\cal L = \sset L {\diamond}$ conjunto estruturado
-onde $\diamond$ é um operador binário no $L$.
-Chamamos o $L$ um \dterm{semilattice} (ou \dterm{semireticulado})
-sse a operação $\diamond$ é associativa, comutativa, e idempotente.
-%%}}}
-
-%%{{{ x: from_semilattice_to_lattice 
-\exercise.
-\label{from_semilattice_to_lattice}%
-\tdefined{lattice}%
-Defina o conceito ``lattice'' usando o conceito ``semilattice''.
-
-\solution
-O conjunto estruturado $\cal L = \sset L {\join,\meet}$ é um
-\dterm{lattice} sse os conjuntos estruturados
-$\sset L {\join}$ e $\sset L {\meet}$ são semilattices,
-e as leis de absorção são satisfeitas.
-
-\endexercise
 %%}}}
 
 \endsection
