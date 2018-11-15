@@ -35924,26 +35924,49 @@ Para os anéis, nossa guia são os inteiros.
 \label{ring}%
 \tdefined{anel}%
 \tdefined{anel}[comutativo]%
-Seja $\cal R = \sset R {\plus,\times,0,1}$ um conjunto estruturado,
-onde $0,1$ são constantes e $\plus,\times$ são operações binárias.
+Seja $\cal R = \sset R {\plus,\ntimes,0,1}$ um conjunto estruturado,
+onde $\plus,\ntimes$ são operações binárias
+e $0,1$ são constantes.
 $\cal R$ é um \dterm{anel} (ou \dterm{ring}) sse
 $$
 \alignat2
-\pforall {a,b\in R}                 &\bracket{a\plus b \in R}                          &\tag{RA0} \\
-\pforall {a,b,c\in R}               &\bracket{a\plus(b\plus c) = (a\plus b)\plus c}    &\tag{RA1} \\
-\pforall {a \in R}                  &\bracket{0\plus a = a = a\plus 0}                 &\tag{RA2} \\
-\pforall {a\in R} \pexists {y\in R} &\bracket{y\plus a = 0 = a \plus y}                &\tag{RA3} \\
-\pforall {a,b\in R}                 &\bracket{a\plus b = b \plus a}                    &\tag{RA4} \\
-\pforall {a,b\in R}                 &\bracket{a\times b \in R}                         &\tag{RM0} \\
-\pforall {a,b,c\in R}               &\bracket{a\times(b\times c) = (a\times b)\times c}&\tag{RM1} \\
-\pforall {a \in R}                  &\bracket{1\times a = a = a\times 1}               &\tag{RM2} \\
-\pforall {a,b,c \in R}              &\bracket{a\times (b \plus c) = (a\times b) \plus (a \times c)}  &\tag{RDL}\\
-\pforall {a,b,c \in R}              &\bracket{(b \plus c)\times a = (b\times a) \plus (c \times a)}  &\tag{RDR}\\
+\pforall {a,b\in R}                 &\bracket{a\plus b \in R}                              &\tag{RA0} \\
+\pforall {a,b,c\in R}               &\bracket{a\plus(b\plus c) = (a\plus b)\plus c}        &\tag{RA1} \\
+\pforall {a \in R}                  &\bracket{0\plus a = a = a\plus 0}                     &\tag{RA2} \\
+\pforall {a\in R} \pexists {y\in R} &\bracket{y\plus a = 0 = a \plus y}                    &\tag{RA3} \\
+\pforall {a,b\in R}                 &\bracket{a\plus b = b \plus a}                        &\tag{RA4} \\
+\pforall {a,b\in R}                 &\bracket{a\ntimes b \in R}                            &\tag{RM0} \\
+\pforall {a,b,c\in R}               &\bracket{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}&\tag{RM1} \\
+\pforall {a \in R}                  &\bracket{1\ntimes a = a = a\ntimes 1}                 &\tag{RM2} \\
+\pforall {a,b,c \in R}              &\bracket{a\ntimes (b \plus c) = (a\ntimes b) \plus (a \ntimes c)}  &\tag{RDL}\\
+\pforall {a,b,c \in R}              &\bracket{(b \plus c)\ntimes a = (b\ntimes a) \plus (c \ntimes a)}  &\tag{RDR}\\
 \intertext{Caso que também é satisfeita a lei}
-\pforall {a,b\in R}                 &\bracket{a\times b = b \times a}                  &\tag{RM4}
+\pforall {a,b\in R}                 &\bracket{a\ntimes b = b \ntimes a}                    &\tag{RM4}
 \endalignat
 $$
 chamamos o $\cal R$ \dterm{anel comutativo}.
+%%}}}
+
+%%{{{ x: rings_with_different_structures 
+\exercise.
+\label{rings_with_different_structures}%
+Acima escolhemos a maneira ``intermediaria'' de estrutura.
+Qual seria uma estrutura ``mais completa'' para definir o conceito de anel, e qual uma estrutura mais pobre?
+Descreva as aridades dos símbolos usados (a assinatura da estrutura algébrica).
+
+\solution
+A estrutura mais completa:
+$$
+\sset R {+,\ntimes,-,\ginv{},0,1}
+$$
+onde seus símbolos têm as aridades $(2,2,1,1,0,0)$ respectivamente.
+A estrutura mais pobre:
+$$
+\sset R {+,\ntimes}
+$$
+com assinatura $(2,2)$.
+
+\endexercise
 %%}}}
 
 %%{{{ x: ring_definition_using_groups 
@@ -36062,6 +36085,20 @@ $$
 \text{para todo $x\in R$,}\quad
 0x = 0 = x0.
 $$
+\proof.
+Seja $x\in R$.
+Calculamos:
+$$
+\alignat2
+0x
+&= (0 + 0)x  \by {def.~$0$}
+&= 0x + 0x   \by {pela~(RDR)}
+\endalignat
+$$
+Achamos então que $0x$ é uma resolução da $0x + \askbox = 0x$.
+E como o $\sset R +$ é um grupo sabemos então que $0x = 0$
+(\ref{cheaper_gid}) que foi o que queremos provar.
+\qed
 %%}}}
 
 %%{{{ lemma: negation_of_product 
@@ -36069,9 +36106,31 @@ $$
 \label{negation_of_product}%
 Seja $R$ um anel.  Logo,
 $$
-\text{para todos $a,b\in R$,}\quad
+\text{para todo $a,b\in R$,}\quad
 (-a)b = -(ab) = a(-b).
 $$
+\sketch.
+Para provar a primeira igualdade, basta enxergá-la como a afirmação seguinte:
+\emph{o $(-a)b$ é o $+$-inverso do $ab$}.
+Verificamos que $ab + (-a)b = 0$.
+A outra igualdade é similar.
+\qes
+\proof.
+Verificamos que $(-a)b$ realmente é o inverso de $ab$:
+$$
+\alignat2
+ab + (-a)b
+&= (a + (-a))b  \by {pela (RDR)}
+&= 0b           \by {def.~$(-a)$}
+&= 0            \by {\ref{zero_annihilator_in_ring} com $x\asseq b$}
+\endalignat
+$$
+e como a equação $ab + \askbox$ tem resolução única
+(pois o $\sset R +$ é um grupo)
+e o $-(ab)$ também a resolve,
+concluimos que $(-a)b = -(ab)$.
+A outra igualdade é similar.
+\qed
 %%}}}
 
 %%{{{ corollary 
@@ -36101,6 +36160,167 @@ $\sset {\pset X} {\symdiff, \inter}$.
 
 \endexercise
 %%}}}
+
+%%{{{ Q: How would you define subring and ring homomorphism? 
+\question.
+Como tu definirias o conceito de subanel?
+Pode definir algum critérion parecido com os critéria~\refn{nonempty_subgroup_criterion}
+ou~\refn{finite_subgroup_criterion} para decidir se algo é subanel dum dado anel?
+E o homomorfismo de anel?  Como definirias isso?  E pode definir algum critérion
+parecido com o~\refn{criterion_for_morphism_in_groups}?
+\spoiler.
+%%}}}
+
+%%{{{ df: subring 
+\definition Subanel.
+\label{subring}%
+\tdefined{subanel}%
+Seja $\cal R$ um anel.
+O $S\subseteq R$ é um \dterm{subanel} de $\cal R$ sse
+$\sset S {+_R, \cdot_R,0_R, 1_R}$ é um anel.
+%%}}}
+
+%%{{{ criterion: subring_criterion 
+\criterion de subanel.
+\label{subring_criterion}%
+Sejam $R$ anel e $S \subseteq R$.
+O $S$ é um subanel de $R$ sse:
+\item{\rm (i)}  $S$ tem a identidade do $R$: $1_R \in S$;
+\item{\rm (ii)} $S$ é fechado pela adição: para todo $a,b \in S$, $a+b \in S$;
+\item{\rm (iii)}$S$ é fechado pela multiplicação: para todo $a,b \in S$, $ab \in S$;
+\item{\rm (iv)} $S$ é fechado pelos negativos: para todo $a \in S$, $-a\in S$.
+%%}}}
+
+%%{{{ df: ring_homomorphism 
+\definition Homomorfismo.
+\label{ring_homomorphism}%
+\tdefined{homomorfismo}[de anel]%
+Sejam os anéis
+$\cal R = \sset R {+_R, \cdot_R, 0_R, 1_R}$ e
+$\cal S = \sset S {+_S, \cdot_S, 0_S, 1_S}$.
+A~função $\phi : R \to S$ é um homomorfismo sse:
+\item{\rm (i)}   $\phi(0_R) = 0_S$;
+\item{\rm (ii)}  $\phi(1_R) = 1_R$;
+\item{\rm (iii)} para todo $x,y\in R$, $\phi(x+_R y) = \phi(x) +_S \phi(y)$;
+\item{\rm (iv)}  para todo $x,y\in R$, $\phi(x\cdot_R y) = \phi(x) \cdot_S \phi(y)$;
+\item{\rm (v)}   para todo $x\in R$, $\phi(-x) = -(\phi(x))$.
+%%}}}
+
+%%{{{ criterion: ring_homomorphism_criterion 
+\criterion de homomorfismo.
+\label{ring_homomorphism_criterion}%
+Se a função $\phi : \cal R \to \cal S$ satisfaz:
+$$
+\align
+\phi(1_R)           &= 1_S\\
+\phi(x +_R y)       &= \phi(x) +_S \phi(y)\quad\text{para todo $x,y\in R$}\\
+\phi(x \cdot_R y)   &= \phi(x) \cdot_S \phi(y)\quad\text{para todo $x,y \in R$}
+\endalign
+$$
+então ela é um homomorfismo.
+(Ou seja, podemos apagar os itens (i) e (v) na~\ref{ring_homomorphism}.)
+\proof.
+Como $\sset R {+_R,0_R}, \sset S {+_S,0_S}$ são grupos,
+já provamos isso (\ref{criterion_for_morphism_in_groups}).
+\qed
+%%}}}
+
+%%{{{ x: multiplicative_part_of_a_ring_not_a_group 
+\exercise.
+\label{multiplicative_part_of_a_ring_not_a_group}%
+As leis de anel exigem que sua ``parte aditiva'' é um grupo abeliano,
+e sobre sua ``parte multiplicative'' exigem apenas ser um monóide.
+Pode ter anel $\cal R = \sset R {+,\ntimes,0,1}$ cuja parte multiplicative
+realmente forma um grupo?
+Ou seja, tal que $\sset R {\ntimes, 1}$ é um grupo?
+Se sim, mostre um exemplo de tal anel;
+se não, demonstre que não existe tal anel.
+
+\hint
+\ref{zero_annihilator_in_ring}.
+
+\hint
+Não pode.  Exceto se\dots
+
+\solution
+Se é pra ter tal anel $R$, qual seria o inverso de $0$?
+Pelo~\ref{zero_annihilator_in_ring} temos que
+$$
+0 x = 0
+$$
+para todo $x\in R$, e logo para $x \asseq \ginv 0$ também:
+$$
+0 \ginv 0 = 0
+$$
+Mas $0 \ginv 0 = 1$ pela definição de $\ginv 0$, e logo
+$$
+0 = 0 \ginv 0 = 1.
+$$
+Necessariamente então, em tal ring temos $0=1$.
+Pode ter mais membros alem do $0$?
+Não!
+Seja $r\in R$.
+Temos então
+$$
+\alignat2
+r
+&= 1r \by {def.~$1$}
+&= 0r \by {pois 0=1}
+&= 0  \by {pelo~\ref{zero_annihilator_in_ring}}
+\endalignat
+$$
+e logo $R = \set {0_R}$.
+
+\endexercise
+%%}}}
+
+\blah.
+Podemos já provar o equivalente do~\ref{image_subgroup} que encontramos
+nos grupos, para os anéis:
+
+%%{{{ lemma: image_subring 
+\lemma.
+\label{image_subring}%
+Seja $\phi : R \to S$ um homomorfismo de anéis.
+Sua imagem $\ima\phi$ é um subanel de $S$.
+\sketch.
+Usamos o~\ref{subring_criterion} e a definição de $\ima\phi$.
+\qes
+\proof.
+Tome $a,b\in \ima\phi$.  Logo
+$$
+\alignat2
+a &= \phi(a') &\quad&\text{para algum $a' \in R$}\\
+b &= \phi(b') &\quad&\text{para algum $b' \in R$}.
+\endalignat
+$$
+Calculamos:
+$$
+\alignat2
+1_S
+&= \phi(1_R);           \by{$\phi$ homo ($1$)}
+a + b
+&= \phi(a') + \phi(b')  \by{pela escolha dos $a',b'$}
+&= \phi(a'+b');         \by{$\phi$ homo ($+$)}
+-a
+&= -\phi(a')            \by{pela escolha do $a'$}
+&= \phi(-a');           \by{$\phi$ homo ($-$)}
+ab
+&= \phi(a')\phi(b')     \by{pela escolha dos $a',b'$}
+&= \phi(a'b').          \by{$\phi$ homo ($\cdot$)}
+\endalignat
+$$
+Ou seja:  $1_S, a+b, -a, ab \in \ima\phi$ e podemos usar
+o~\ref{subring_criterion}.
+\qed
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Boolean rings 
+\section Aneis booleanos.
+\label{Boolean_rings}%
 
 %%{{{ df: boolean_ring 
 \definition Anel booleano.
@@ -36186,8 +36406,8 @@ Mas como $B$ é booleano temos também $(p+q)^2 = p+q$.
 Ou seja
 $$
 \align
-p + q &= p + qp + pq + q\\
-      &= p + q + (qp + pq)\\
+p + q &= p + qp + pq + q \\
+      &= p + q + (qp + pq) \\
 \intertext{e logo (\ref{cheaper_gid})}
 0     &= qp + pq    \tag{1}
 \endalign
@@ -36223,116 +36443,11 @@ Ou seja, o $\cal R$ é comutativo.
 \endexercise
 %%}}}
 
-%%{{{ Q: How would you define subring and ring homomorphism? 
-\question.
-Como tu definirias o conceito de subanel?
-Pode definir algum critérion parecido com os critéria~\refn{nonempty_subgroup_criterion}
-ou~\refn{finite_subgroup_criterion} para decidir se algo é subanel dum dado anel?
-E o homomorfismo de anel?  Como definirias isso?  E pode definir algum critérion
-parecido com o~\refn{criterion_for_morphism_in_groups}?
-\spoiler.
-%%}}}
-
-%%{{{ df: subring 
-\definition Subanel.
-\label{subring}%
-\tdefined{subanel}%
-Seja $\cal R$ um anel.
-O $S\subseteq R$ é um \dterm{subanel} de $\cal R$ sse
-$\sset S {+_R, \cdot_R,0_R, 1_R}$ é um anel.
-%%}}}
-
-%%{{{ criterion: subring_criterion 
-\criterion de subanel.
-\label{subring_criterion}%
-Sejam $R$ anel e $S \subseteq R$.
-O $S$ é um subanel de $R$ sse:
-\item{\rm (i)}  $S$ tem a identidade do $R$: $1_R \in S$;
-\item{\rm (ii)} $S$ é fechado pela adição: para todo $a,b \in S$, $a+b \in S$;
-\item{\rm (iii)}$S$ é fechado pela multiplicação: para todo $a,b \in S$, $ab \in S$;
-\item{\rm (iv)} $S$ é fechado pelos negativos: para todo $a \in S$, $-a\in S$.
-%%}}}
-
-%%{{{ df: ring_homomorphism 
-\definition Homomorfismo.
-\label{ring_homomorphism}%
-\tdefined{homomorfismo}[de anel]%
-Sejam os anéis
-$\cal R = \sset R {+_R, \cdot_R, 0_R, 1_R}$ e
-$\cal S = \sset S {+_S, \cdot_S, 0_S, 1_S}$.
-A~função $\phi : R \to S$ é um homomorfismo sse:
-\item{\rm (i)}   $\phi(0_R) = 0_S$;
-\item{\rm (ii)}  $\phi(1_R) = 1_R$;
-\item{\rm (iii)} para todo $x,y\in R$, $\phi(x+_R y) = \phi(x) +_S \phi(y)$;
-\item{\rm (iv)}  para todo $x,y\in R$, $\phi(x\cdot_R y) = \phi(x) \cdot_S \phi(y)$;
-\item{\rm (v)}   para todo $x\in R$, $\phi(-x) = -(\phi(x))$.
-%%}}}
-
-%%{{{ criterion: ring_homomorphism_criterion 
-\criterion de homomorfismo.
-\label{ring_homomorphism_criterion}%
-Se a função $\phi : \cal R \to \cal S$ satisfaz:
-$$
-\align
-\phi(1_R)           &= 1_S\\
-\phi(x +_R y)       &= \phi(x) +_S \phi(y)\quad\text{para todo $x,y\in R$}\\
-\phi(x \cdot_R y)   &= \phi(x) \cdot_S \phi(y)\quad\text{para todo $x,y \in R$}
-\endalign
-$$
-então ela é um homomorfismo.
-(Ou seja, podemos apagar os itens (i) e (v) na~\ref{ring_homomorphism}.)
-\proof.
-Como $\sset R {+_R,0_R}, \sset S {+_S,0_S}$ são grupos,
-já provamos isso (\ref{criterion_for_morphism_in_groups}).
-\qed
-%%}}}
-
-\blah.
-Podemos já provar o equivalente do~\ref{image_subgroup} que encontramos nos
-grupos, para os anéis:
-
-%%{{{ lemma: image_subring 
-\lemma.
-\label{image_subring}%
-Seja $\phi : R \to S$ um homomorfismo de anéis.
-Sua imagem $\ima\phi$ é um subanel de $S$.
-\sketch.
-Usamos o~\ref{subring_criterion} e a definição de $\ima\phi$.
-\qes
-\proof.
-Tome $a,b\in \ima\phi$.  Logo
-$$
-\alignat2
-a &= \phi(a') &\quad&\text{para algum $a' \in R$}\\
-b &= \phi(b') &\quad&\text{para algum $b' \in R$}.
-\endalignat
-$$
-Calculamos:
-$$
-\alignat2
-1_S
-&= \phi(1_R);           \by{$\phi$ homo ($1$)}
-a + b
-&= \phi(a') + \phi(b')  \by{pela escolha dos $a',b'$}
-&= \phi(a'+b');         \by{$\phi$ homo ($+$)}
--a
-&= -\phi(a')            \by{pela escolha do $a'$}
-&= \phi(-a');           \by{$\phi$ homo ($-$)}
-ab
-&= \phi(a')\phi(b')     \by{pela escolha dos $a',b'$}
-&= \phi(a'b').          \by{$\phi$ homo ($\cdot$)}
-\endalignat
-$$
-Ou seja:  $1_S, a+b, -a, ab \in \ima\phi$ e podemos usar
-o~\ref{subring_criterion}.
-\qed
-%%}}}
-
 \endsection
 %%}}}
 
 %%{{{ Integral domains 
-\section Domínios integrais.
+\section Domínios de integridade.
 \label{Integral_domains}%
 
 %%{{{ df: zerodivisors 
@@ -36504,7 +36619,7 @@ que é o que queremos provar.
 %%{{{ Problems 
 \problems.
 
-%%{{{ prob 
+%%{{{ prob: N_00 
 \problem.
 Considere o conjunto $\cal N_{00}$ das seqüências infinitas de naturais
 ``eventualmente zero'', ou seja
