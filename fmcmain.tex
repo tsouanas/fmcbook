@@ -36589,7 +36589,7 @@ ou seja sse:
 $$
 \text{para todo $a\in K_{\neq0}$,
 existe $y \in K$, tal que $ay = 1 = ya$.}
-\tag{FM3}
+\tag{FM3*}
 $$
 %%}}}
 
@@ -36935,47 +36935,85 @@ de limites e séries.
 \definition Corpo ordenado.
 \label{ordered_field}%
 \tdefined{corpo}[ordenado]%
-Seja $R$ um conjunto, $0,1\in R$, e $+$ e $\ntimes$ duas operações
-binárias no $R$.
-Seja também $P \subseteq R$.
-Chamamos o $\sset R {+, \ntimes, 0, 1, P}$ um \dterm{corpo ordenado} sse 
+Seja $F$ um conjunto, $0,1\in F$, $+$ e $\ntimes$ duas operações
+binárias no $F$, e $-$ uma operação unária.
+Seja também $P$ uma relação unária no $F$, que identificamos com
+seu gráfico: $P \subseteq F$.
+Seu papel é representar os membros \emph{positivos}.
+Chamamos o $\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, P}$
+um \dterm{corpo ordenado} sse as seguintes leis são satisfeitas:
 $$
 \align
-\pforall {a,b\in R}     &\bracket{a + b \in R}          \tag{FA0}\\
-\pforall {a,b\in R}     &\bracket{a\ntimes b \in R}     \tag{FM0}\\
-\pforall {a,b,c\in R}   &\bracket{a + (b + c) = (a + b) + c}   \tag{FA1}\\
-\pforall {a,b,c\in R}   &\bracket{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}  \tag{FM1}\\
-\pforall {a \in R}      &\bracket{a + 0 = a}            \tag{FA2}\\
-\pforall {a \in R}      &\bracket{a\ntimes 1 = a}       \tag{FM2}\\
-\pforall {a\in R}
-\pexists {y\in R}       &\bracket{a + y = 0}            \tag{FA3}\\
-\pforall {a\in R_{\neq0}}
-\pexists {y\in R}       &\bracket{a \ntimes y = 1}      \tag{FM3}\\
-\pforall {a,b\in R}     &\bracket{a + b = b + a}        \tag{FA4}\\
-\pforall {a,b\in R}     &\bracket{a\ntimes b = b \ntimes a}  \tag{FM4}\\
-\pforall {a,b,c \in R}  &\bracket{a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)} \tag{FD}\\
-\pforall {a,b\in P}     &\bracket{a + b \in P}          \tag{FO1}\\
-\pforall {a,b\in P}     &\bracket{a\ntimes b \in P}     \tag{FO2}\\
-\pforall {x \in R}      &\bracket{\text{exatamente uma: $-x \in P$; $x = 0$; $x \in P$}}  \tag {FO3}\\
+\pforall {a,b\in F}     &\bracket{a + b \in F}                  \tag{FA0}\\
+\pforall {a,b,c\in F}   &\bracket{a + (b + c) = (a + b) + c}    \tag{FA1}\\
+\pforall {a \in F}      &\bracket{a + 0 = a}                    \tag{FA2}\\
+\pforall {a\in F}       &\bracket{a + (-a) = 0}                 \tag{FA3}\\
+\pforall {a,b\in F}     &\bracket{a + b = b + a}                \tag{FA4}\\\\
+\pforall {a,b\in F}     &\bracket{a\ntimes b \in F}             \tag{FM0}\\
+\pforall {a,b,c\in F}   &\bracket{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}  \tag{FM1}\\
+\pforall {a \in F}      &\bracket{a\ntimes 1 = a}               \tag{FM2}\\
+\pforall {a\in F_{\neq0}}
+\pexists {y\in F}       &\bracket{a \ntimes y = 1}              \tag{FM3*}\\
+\pforall {a,b\in F}     &\bracket{a\ntimes b = b \ntimes a}     \tag{FM4}\\\\
+\pforall {a,b,c \in F}  &\bracket{a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}            \tag{FD}\\\\
+\pforall {x \in F}      &\bracket{\text{exatamente uma: $-x \in P$; $x = 0$; $x \in P$}}    \tag{FP3}\\
+\pforall {a,b\in P}     &\bracket{a + b \in P}                  \tag{FPA}\\
+\pforall {a,b\in P}     &\bracket{a\ntimes b \in P}             \tag{FPM}
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: rats_and_reals_are_ordered_fields 
+\example.
+Os $\rats,\reals$ onde $P_\rats = \rats_{>0}$ e $P_\reals = \reals_{>0}$,
+e as operações e os constantes são os usuais.
+\endexample
+%%}}}
+
+%%{{{ noneg: compex_order_field_noneg 
+\nonexample.
+\label{complex_cannot_by_ordered}%
+Os complexos não são (\ref{complex_cannot_by_ordered}).
+\endnonexample
+%%}}}
+
+%%{{{ alternative formalization of ordered fields 
+\note Formalização alternativa.
+Em vez de adicionar a relação unária $P$ em nossa estrutura
+para representar os membros positivos, podemos considerar a
+$$
+\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, <}
+$$
+onde $<$ é uma relação \emph{binária}, cujo papel é representar
+a ordem.
+Nesse caso vamos precisar substituir as leis (FP$\_$) sobre
+o $P$ com leis que afirmam que: $<$ é uma ordem estrita e total:
+$$
+\align
+\pforall {x,y,z \in F}  &\bracket{x<y \mland y<z \implies x<z}  \tag {FOT}\\
+\pforall {x,y \in F}    &\bracket{\text{exatamente uma: $-x \in P$; $x = 0$; $x \in P$}}  \tag {FO3}\\
+\intertext{e que}
+\pforall {a,b,c\in F}   &\bracket{a<b \implies a+c < b+c}  \tag{FOA}\\
+\pforall {a,b\in F}     &\bracket{0<a \mland 0<b \implies 0 < a\ntimes b}  \tag{FOM}
 \endalign
 $$
 %%}}}
 
 \blah.
-Em vez de definir o conjunto $P$ em termos da ordem $>$ assim
+Em vez de definir o conjunto $P$ em termos da ordem $<$ assim
 $$
-P \defeq \setst {x\in R} {x > 0}
+P \defeq \setst {x\in F} {0 < x}
 $$
-optamos para definir a ordem $>$ em termos do conjunto $P$.
+optamos para definir a ordem $<$ em termos do conjunto $P$.
 
 %%{{{ df: gt_in_ordered_fields 
 \definition.
 \label{gt_in_ordered_fields}%
-Definimos a relação binária $>$ no $R$ pela
+Definimos a relação binária $<$ num corpo ordenado $F$ pela
 $$
-x > y \defiff x - y \in P.
+x < y \defiff y - x \in P.
 $$
-Naturalmente definimos as $<, \leq, \geq$ em termos das $>$ e $=$.
+Naturalmente definimos as $>, \leq, \geq$ em termos das $<$ e $=$.
 %%}}}
 
 %%{{{ remark: rats is an ordered field too 
@@ -36999,7 +37037,7 @@ de corpo ordenado.
 %%{{{ thm: ordered_field_trichotomy 
 \theorem Tricotomia.
 \label{ordered_field_trichotomy}%
-Para todo $a,b\in R$, exatamente uma das
+Para todo $a,b\in F$, exatamente uma das
 $$
 a < b;\qquad
 a = b;\qquad
@@ -37077,35 +37115,67 @@ Se $ab > 0$ então $a,b$ são ou ambos positivos ou ambos negativos.
 Se $a < c \mland b < d$ então $a + b < c + d$.
 %%}}}
 
-%%{{{ x 
+%%{{{ x: complex_cannot_be_ordered_in_disguise 
 \exercise.
-Não existe $x\in R$ com $x^2 + 1 = 0$.
+\label{complex_cannot_be_ordered_in_disguise}%
+Não existe $x\in F$ com $x^2 + 1 = 0$.
 
 \endexercise
 %%}}}
 
-%%{{{ x 
+%%{{{ x: sum_of_squares_in_ordered_field 
 \exercise.
-Para todo $a,b\in R$, temos $a^2 + b^2 \geq 0$.
-Ainda mais, $a^2 + b^2 = 0$ sse $a = b = 0$.
+\label{sum_of_squares_in_ordered_field}%
+Para todo $a,b\in F$, temos $a^2 + b^2 \geq 0$.
+Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 
 \endexercise
 %%}}}
 
-%%{{{ x 
+%%{{{ x: order_fields_are_unbounded 
 \exercise.
-O $R$ não tem elemento máximo:
-não existe $M\in R$ tal que $x\leq M$ para todo $x\in R$.
+\label{order_fields_are_unbounded}%
+O $F$ não tem elemento mínimo, nem máximo:
+não existe $m\in F$ tal que $m\leq x$ para todo $x\in F$;
+nem tal que $x \geq m$ para todo $x \in F$.
 
 \endexercise
 %%}}}
 
-%%{{{ x 
+%%{{{ x: only_zero_is_leq_than_all_positives 
 \exercise.
-Se $x$ tem a propriedade que $0 \leq x < \epsilon$ para todo $\epsilon > 0$, então $x = 0$.
+\label{only_zero_is_leq_than_all_positives}%
+Se $x$ tem a propriedade que $0 \leq x < \epsilon$
+para todo $\epsilon > 0$, então $x = 0$.
 
 \endexercise
 %%}}}
+
+%%{{{ Models 
+\note Modelos.
+\tdefined{modelo}%
+Temos dois exemplos principais de corpos ordenados,
+viz.~os reais e os racionais:
+ámbos têm toda a estrutura exigida, e satisfazem todos os axiomas.
+Em palavras mais formais, eles são o que a gente chama
+de \dterm{modelos} de corpos ordenados.
+%%}}}
+
+%%{{{ Q: how_can_we_separate_reals_from_rats
+\question.
+\label{how_can_we_separate_reals_from_rats}%
+Podemos adicionar alguma lei capaz de separar os reais dos racionais?
+Ou seja, chegar numa estrutura com leis mais exigentes, tais que
+os reais vão ser um modelo, mas os racionais não.
+%%}}}
+\spoiler.
+
+\blah.
+Responder nessa pergunta neste momento é um grande desafio.%
+\footnote{Vai desistir de pensar em alguma resposta por causa disso?}
+Mas já estamos prontos para encontrar o que falta para
+a pergunta virar mais fácil~(\refn{Infimum_and_supremum_on_reals})
+e finalmente chegar numa resposta (\refn{Completeness_of_reals}).
 
 \endsection
 %%}}}
@@ -37114,12 +37184,130 @@ Se $x$ tem a propriedade que $0 \leq x < \epsilon$ para todo $\epsilon > 0$, ent
 \section Infimum e supremum.
 \label{Infimum_and_supremum_on_reals}%
 
+%%{{{ df: lower_and_upper_bounds_reals 
+\definition Lower e upper bounds.
+\label{lower_and_upper_bounds_reals}%
+\tdefined{bound}[lower]%
+\tdefined{bound}[upper]%
+\sdefined {\holed x \leq \holed A} {$\holed x$ é um lower bound de $A$}%
+\sdefined {\holed A \leq \holed x} {$\holed x$ é um upper bound de $A$}%
+\sdefined {\lbs {\holed A}} {o conjunto de todos os lower bounds de $\holed A$}%
+\sdefined {\ubs {\holed A}} {o conjunto de todos os upper bounds de $\holed A$}%
+Seja $A\subseteq \reals$.
+Chamamos o $x$ um \dterm{lower bound} de $A$ sse $x \leq a$ para todo $a \in A$,
+e \emph{dualmente} $x$ é um \dterm{upper bound} de $A$ sse $x \geq a$ para todo $a \in A$:
+$$
+\align
+\text{$x$ é um lower bound de $A$} &\defiff \lforall {a\in A} {x \leq a} \\
+\text{$x$ é um upper bound de $A$} &\defiff \lforall {a\in A} {x \leq a}.
+\endalign
+$$
+Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
+$$
+\alignat 2
+x \leq A &\defiff \lforall {a \in A} {x \leq a} &
+A \leq x &\defiff \lforall {a \in A} {a \leq x}.
+\endalignat
+$$
+Denotamos o conjunto de todos os lower bounds de $A$ por $\lbs A$,
+e dualmente usamos $\ubs A$ para o conjunto de todos os seus upper bounds:
+$$
+\alignat 2
+\lbs A &\defeq \setst {x \in \reals} {x \leq A} &
+\ubs A &\defeq \setst {x \in \reals} {A \leq x}.
+\endalignat
+$$
+%%}}}
+
+%%{{{ df: inf_sup_reals 
+\definition infimum; supremum.
+Definimos os $\inf A$ e $\sup A$ pelas:
+$$
+\align
+\text{$x$ é um infimum  de $A$} &\defiff x \leq A \mland \lforall {w \leq A} {w \leq x} \\
+\text{$x$ é um supremum de $A$} &\defiff x \geq A \mland \lforall {w \geq A} {x \leq w}.
+\endalign
+$$
+Mais curtamente:
+$$
+\alignat 2
+\inf A &\defeq \max {\lbs A} &
+\sup A &\defeq \min {\ubs A}.
+\endalignat
+$$
+%%}}}
+
+%%{{{ remark: 
+\remark.
+Observe que pela definição $\inf$ e $\sup$ não são operações
+totais mas \emph{parciais:} ninguém garanta que para qualquer
+$A\subseteq\reals$ existe mesmo um real $x$ que satisfaz as
+condições das definições acima.  Mas se existem, são únicos:
+%%}}}
+
+%%{{{ thm: inf_and_sup_are_unique 
+\theorem.
+\label{inf_and_sup_are_unique}%
+Seja $A \subseteq \reals$.
+Se $A$ tem infimum, ele é único.
+Dualmente, se $A$ tem supremum, ele é único.
+\proof.
+Por fight club: suponha $\ell, \ell'$ são infima, logo $\ell \leq \ell'$
+pois $\ell'$ é maior que qualquer lower bound, e $\ell$ é um lower bound.
+No outro lado $\ell' \leq \ell$ pois $\ell$ é maior que qualquer lowe bound,
+e $\ell'$ é um lower bound.  Logo $\ell \leq \ell'$ e $\ell' \leq \ell$
+e pela antisimetria da $\leq$ temos $\ell = \ell'$.
+\qed
+%%}}}
+
+%%{{{ x: inf_in_set_implies_min 
+\exercise.
+\label{inf_in_set_implies_min}%
+Seja $A \subseteq \reals$.
+Prove que:
+(i) se $\inf A \in A$ então $\inf A = \min A$;
+(ii) a dual da (i).
+
+\endexercise
+%%}}}
+
+%%{{{ x: lbs_and_ubs_are_empty_or_infinite 
+\exercise.
+\label{lbs_and_ubs_are_empty_or_infinite}%
+Seja $A \subseteq \reals$.
+Prove que $\lbs A$ é vazio ou infinito, e a mesma coisa sobre o $\ubs A$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: a_set_with_nats_as_limit_points 
+\exercise.
+\label{a_set_with_nats_as_limit_points}%
+Considere o conjunto
+$$
+A = \setst {m + \frac 1 {2^n}} {m \in \nats, n \in \nats_{>0}}.
+$$
+(i) Visualize o $A$ na linha dos reais, e rascunhe seu desenho.
+(ii) Ache o $\inf A$ e $\sup A$ se são definidos.
+
+\endexercise
+%%}}}
+
+\blah.
+E agora\dots
+Será que podes pensar numa resposta para
+a~\ref{how_can_we_separate_reals_from_rats}?
+\spoiler.
+
 \endsection
 %%}}}
 
 %%{{{ Completude 
 \section Completude.
 \label{Completeness_of_reals}%
+
+\blah.
+Agora temos tudo que precisamos para responder a pergunta
 
 \endsection
 %%}}}
@@ -37208,8 +37396,23 @@ Ou seja, estipulamos o seguinte:
 \endsection
 %%}}}
 
+%%{{{ Pointwise convergence 
+\section Convergência ponto a ponto.
+
+\endsection
+%%}}}
+
 %%{{{ Problems 
 \problems.
+
+%%{{{ prob: complex_cannot_by_ordered 
+\problem.
+\label{complex_cannot_by_ordered}%
+Prove que não pode definir uma ordem no corpo complexos
+tem tal forma que eles viram um corpo ordenado.
+
+\endproblem
+%%}}}
 
 %%{{{ prob: weird_convex_modulized 
 \problem.
