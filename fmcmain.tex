@@ -37376,11 +37376,14 @@ a~\ref{how_can_we_separate_reals_from_rats}?
 \blah.
 Agora temos tudo que precisamos para responder
 a~\ref{how_can_we_separate_reals_from_rats}.
-A resposta com palavras de rua é
+Nossa resposta com palavras de rua é
 \standout
 \emph{os reais não têm ``buracos''}
 \endstandout
-mas precisamos formalizar essa afirmação.
+mas precisamos formalizar essa afirmação.%
+\footnote{No~\ref{Cantors_paradise} encontramos uma outra
+resposta a~\ref{how_can_we_separate_reals_from_rats},
+de natureza completamente diferente.  Paciência!}
 A idéia é exigir que \emph{não falta nenhum supremum}---ou, dualmente,
 nenhum infimum, pois é a mesma coisa:
 uma afirmação acaba implicando a outra.
@@ -37477,27 +37480,158 @@ Vamos revisar pouco a situação com as estruturas que estudamos até agora.
 Como a gente escolha os axiomas (leis) que botamos nas nossas definições?
 As mais leis que eu boto, as mais ferramentas que ganho para matar mais
 teoremas.  Minha teoria vai acabar sendo capaz de provar mais coisas,
-mas o preço que pago para essas armas são interpretações que vão
-parar de ser modelos.
+mas o preço que pago para isso são modelos!
+\endgraf
+Quantos monóides encontramos?  Demais!  Todos os grupos são monóides,
+e a gente já encontrou ainda mais monóides que não são grupos (lembra?).
+E grupos?
+``Menos'', mas muitos também!
+E grupos abelianos?
+Provamos mais teoremas, mas temos menos exemplos de grupos abelianos.
+E aneis?  E aneis comutativos?  E domínios de integridade?
+Cada vez que adicionamos restrições (leis), a teoria correspondente
+cresce, e a colecção de models diminui.
+E corpos?
+Ainda encontramos vários modelos: racionais, reais, complexos, inteiros
+módulo primo $p$, \dots
+\endgraf
+E corpos ordenados?
+Aqui ganhamos muita teoria graças a ordem, mas perdemos os complexos e os
+inteiros módulo $p$, mas ainda temos os reais e os racionais e mais
+uns modelos, mas já estamos percebendo que fica mais e mais difícil
+achar modelos diferentes que satisfazem todas as leis!
+\endgraf
+E agora?
+Adicionamos mais uma lei: o axioma da completude; e assim chegamos nos
+\emph{corpos ordenados completos}.  E agora \emph{chega!}
+Estamos num ponto onde adicionamos tantos axiomas que nosso conceito
+foi tão exigente que perdemos todos os modelos exeto um: os reais!
+Realmente não encontramos outro exemplo, mas isso não quis dizer que
+não existem outros modelos.  Certo?  Certo, mas acontece que nessa
+situação não é o caso: \emph{essencialmente existe apenas um
+único corpo ordenado completo: os reais!}
+%%}}}
 
-\TODO Terminar.
+%%{{{ Q: what does ``essentially'' mean above? 
+\question.
+O que significa a palavra ``essencialmente'' acima?
+%%}}}
+\spoiler.
+
+%%{{{ thm: uniqueness_of_complete_ordered_field 
+\theorem Unicidade.
+\label{uniqueness_of_complete_ordered_field}%
+Se $R,R'$ são corpos ordenados completos então $R,R'$ são isómorfos.
+\sketch.
+Sejam
+$\sset R    {+, \;\ntimes\;, -, 0, 1, <}$ e
+$\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}$
+corpos ordenados completos.
+Precisamos definir um isomorfismo
+$$
+\phi
+\eqtype
+\sset R    {+, \;\ntimes\;, -, 0, 1, <}
+\tolongarrow{\iso}
+\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}.
+$$
+Obviamente botamos
+$$
+\align
+\phi0 &= 0' \\
+\phi1 &= 1'
+\intertext{Isso já determina a $\phi$ no resto dos
+``naturais'' $N\subseteq R$:}
+\phi2 &= \phi(1 + 1) = \phi1 + \phi1 = 1' + 1' = 2' \\
+\phi3 &= \phi(2 + 1) = \phi2 + \phi1 = 2' + 1' = 3' \\
+&\eqvdots \\
+\phi(n+1) &= \phi n + \phi1 = n' + 1' \\
+&\eqvdots
+\endalign
+$$
+ou seja, a $\phi$ necessariamente embute isomorficamente
+o $N\subseteq R$ no $\img \phi N = N' \subseteq R'$:
+$$
+\phi : N \isoto N'.
+$$
+Agora, como $\phi$ é homomorfismo, temos
+$$
+\phi(-x) = \mathord{-'}(\phi x),
+\quad\text{para todo $x\in R$}
+$$
+e logo a $\phi$ necessariamente embute os ``inteiros''
+$Z\subseteq R$ nos ``inteiros'' $Z' \subseteq R'$:
+$$
+\phi : Z \isoto Z'.
+$$
+Definimos a $\phi$ nos ``racionais'' $Q\subseteq R$ assim:
+$$
+\phi(m/n)
+= \phi(m \ntimes \ginv n)
+= \phi m \ntimes' \ginvp{\phi n}
+= \phi m \mathbin{/'} \phi n
+$$
+e logo
+$$
+\phi : Q \isoto Q'.
+$$
+Estamos perto!
+Basta só definir a $\phi$ nos ``buracos'' (nos ``irracionais'')
+de $R$ e pronto!
+\qes
+%}}}
+
+%%{{{ remark: we cannot finish this proof right now 
+\remark.
+Infelizmente, por enquanto não temos todo o armamento para matar
+os detalhes e o que falta no esboço, mas é importante entender
+pelo menos tudo que tá lá.  Voltamos nesse assunto
+no~\ref{Axiomatic_set_theory}~(\refn{Constructing_more_numbers}).
+%%}}}
+
+%%{{{ warning: does_a_complete_ordered_field_exist_warning 
+\warning.
+\label{does_a_complete_ordered_field_exist_warning}%
+Mesmo se aceitar que quaisquer corpos ordenados completos são
+isomorfos (o~\ref{uniqueness_of_complete_ordered_field}), ainda
+temos um ponto que roubamos: para existir único, precisamos duas
+coisas: \emph{pelo menos} um; \emph{no máximo} um.
+O~\refn{uniqueness_of_complete_ordered_field} realmente ofereceu
+a segunda coisa; mas a primeira?
+Qual foi tua resolução
+do~\ref{can_we_prove_that_reals_is_a_complete_ordered_field}
+mesmo?
+Voltamos nesse assunto
+no~\ref{Axiomatic_set_theory}~(\refn{Constructing_more_numbers}).
 %%}}}
 
 \endsection
 %%}}}
 
-%%{{{ The axioms of the reals 
-\section Os axiomas dos números reais.
-\label{Axioms_of_reals}%
+%%{{{ The reals 
+\section Os reais.
+\label{The_reals}%
 
-\blah.
+%%{{{ Calculus, the real deal 
+\note Calculus, real e oficial.
+Como começamos a teoria dos grupos no~\ref{Group_theory}?
+Apresentamos os axiomas dos grupos e continumos investigando
+suas conseqüências.  A colecção dessas conseqüências (teoremas)
+é exatamente o que chamamos de \dterm{teoria}.
+E a \emph{teoria dos aneis} é feita por todos os teoremas
+que seguem pelos axiomas de aneis; etc.~etc.
+E a \emph{teoria dos corpos ordenados completos?}
+Ela não é muito famosa por esse nome, mas com certeza
+tu já ouviste falar dela por seu apelido:
+\dterm{Calculus}, \dterm{análise real}, etc.
 Na abordagem axiomática, não nos importa \emph{definir}\/ ou
-\emph{construir} os objetos que vamos chamar de \emph{numeros reais}.
+\emph{construir} os objetos que vamos chamar de \dterm{numeros reais}.
 Começamos aceitando a existência dum certo conjunto que denotamos
 por $\reals$, suas operações binárias de adição e multiplicação,
-seu zero $0$ e seu um $1$, e seu subconjunto $P$ de números
-\emph{positivos}.
+seu zero $0$ e seu um $1$, e seu subconjunto $P$ cujos membros
+chamamos de \dterm{positivos}.
 Estipulamos os axiomas seguintes.
+%%}}}
 
 %%{{{ ax: closedness 
 \axiom Fechado.
@@ -37539,9 +37673,7 @@ O $P$ é fechado sobre $+$ e $\ntimes$.
 %%{{{ ax: trichotomy 
 \axiom Tricotomia.
 Para todo $x \in \reals$ exatamente uma das afirmações seguintes é válida:
-$-x$ é positivo;
-$x=0$;
-$x$.
+$-x$ é positivo; $x=0$; $x$ é positivo.
 %%}}}
 
 %%{{{ ax: completeness 
@@ -37552,14 +37684,88 @@ tem um supremum, ou seja, existe real $b\in\reals$ tal que $b = \sup A$.
 
 \blah.
 Ou seja, estipulamos o seguinte:
-\endgraf\medskip\noindent
-\centerline{\proclaimstyle O $\reals$ é um corpo ordenado completo.}
+\standout
+\proclaimstyle $\reals$ é um corpo ordenado completo.
+\endstandout
+As conseqüências desses axiomas é o que estudamos em calculus e análise real.
+O resto desse capítulo é um teaserzinho dessa teoria linda demais!
+Como sempre, no fim tenho ponteiros na literatura para mergulhar mais!
+No~\ref{Metric_spaces} voltamos nessa investigação de análise real,
+pois estudamos a teoria dos \emph{espaços métricos}:
+conjuntos equiparados com uma noção de distância, ou seja,
+uma função binária \emph{com valores reais}, satisfazendo certas leis.
 
 \endsection
 %%}}}
 
 %%{{{ Limits 
 \section Limites.
+
+%%{{{ df: epsilon_close 
+\definition perto.
+\label{epsilon_close}%
+Sejam $x,y\in\reals$ e $\epsilon > 0$.
+Dizemos que $x,y$ são $\epsilon$-perto sse $\abs{x-y} < \epsilon$.
+%%}}}
+
+%%{{{ df: limit_of_sequence_of_reals 
+\definition limite.
+\label{limit_of_sequence_of_reals}%
+\tdefined{limite}[reais]%
+Seja $\sequence a n$ uma seqüência de reais e seja $\ell\in\reals$.
+Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
+sse apartir dum membro $a_N$, todos os seus membros
+ficam $\epsilon$-perto do $\ell$.
+Formalmente:
+$$
+\sequence a n \limto \ell
+\defiff
+\pexists {N \in \nats}
+\lforall {i \geq N}
+{\abs{\ell - a_i} < \epsilon}.
+$$
+%%}}}
+
+%%{{{ df: Cauchy_sequence_of_reals 
+\definition Seqüência Cauchy.
+\label{Cauchy_sequence_of_reals}%
+\tdefined{Cauchy}[reais]%
+Seja $\sequence a n$ uma seqüência de reais.
+Dizemos que $\seqn a n$ é \Cauchy[seqüência]\dterm{Cauchy}
+sse para qualquer $\epsilon > 0$ existe um membro da
+seqüência tal que a partir dele, todos os seus membros
+são $\epsilon$-perto entre si (dois a dois).
+Formalmente:
+$$
+\text{$\sequence a n$ é Cauchy}
+\defiff
+\pforall {\epsilon > 0}
+\pexists {N \in \nats}
+\lforall {i,j \geq N}
+{\abs{a_i - a_j} < \epsilon}.
+$$
+%%}}}
+
+%%{{{ Alternating quantifiers
+\note Quantificadores alternantes.
+Provavelmente essa foi a primeira definição que tu encontraste
+que necessitou três alternações de quantificadores:
+$$
+\forall\dots\exists\dots\forall\dots
+$$
+Para cada alteração de quantificação que seja adicionada
+numa afirmação, o processo de digeri-la naturalmente fica
+mais complicado para nossa mente!
+Com experiência, \dterm{matemalhando}, essas definições
+com três quantificadores ficarão mais e mais digeríveis.
+Mesmo com essa experiência, num momento vamos encontrar
+uma afirmação com \emph{quatro} quantificações alternantes,
+e a dificuldade vai voltar e te lembrar dessa dificuldade
+que sentes agora.
+Felizmente, temos as ferramentas formais de lógica matemática
+que nos permitem trabalhar com proposições sem digerí-las
+completamente!
+%%}}}
 
 \endsection
 %%}}}
@@ -37604,8 +37810,8 @@ $Q = \Union_n \set{\tup{\cos n, \sin n}}$?
 \further.
 
 \cite{spivakcalculus},
-\cite{hardypuremath},
-\cite{apostol1}.
+\cite{apostol1},
+\cite{hardypuremath}.
 
 \endfurther
 %%}}}
@@ -44366,6 +44572,7 @@ Prove as duas direções da \bidir\ separadamente.
 
 %%{{{ Constructing more numbers 
 \section Construindo mais números.
+\label{Constructing_more_numbers}%
 
 \blah.
 Tendo construido já os naturais,
@@ -44427,14 +44634,17 @@ Defina formalmente a adição e multiplicação no $\Rats$.
 \TODOthis{Mostrar a construção dos racionais.}
 }
 
+%%{{{ The real numbers (Dedekind cuts) 
 \note Os números reais (Dedekind cuts).
+\label{Constructing_the_reals}%
 \TODOthis{Mostrar a construção dos reais como Dedekind cuts.}
 Uma abordagem alternativa é mostrada no~\ref{construct_reals_as_cauchy}.
+%%}}}
 
 %%{{{ x: construct_complex 
 \exercise.
 \label{construct_complex}%
-Mostre como representar os complexos.
+Mostre como construir os complexos.
 
 \endexercise
 %%}}}
