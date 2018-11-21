@@ -37204,23 +37204,32 @@ $$
 $$
 Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
 $$
-\alignat 2
+\xalignat 2
 x \leq A &\defiff \lforall {a \in A} {x \leq a} &
 A \leq x &\defiff \lforall {a \in A} {a \leq x}.
-\endalignat
+\endxalignat
 $$
 Denotamos o conjunto de todos os lower bounds de $A$ por $\lbs A$,
 e dualmente usamos $\ubs A$ para o conjunto de todos os seus upper bounds:
 $$
-\alignat 2
+\xalignat 2
 \lbs A &\defeq \setst {x \in \reals} {x \leq A} &
 \ubs A &\defeq \setst {x \in \reals} {A \leq x}.
-\endalignat
+\endxalignat
 $$
+Se um $A$ tem pelo menos um upper bound, dizemos que $A$ é \dterm{bounded above};
+e se tem pelo menos um lower bound, \dterm{bounded below}.
 %%}}}
 
 %%{{{ df: inf_sup_reals 
 \definition infimum; supremum.
+\label{inf_sup_reals}%
+\tdefined{infimum}[reais]%
+\tdefined{supremum}[reais]%
+\tdefined{reais}[estendidos]%
+\sdefined {\inf {\holed A}} {o infimum de $\holed A$}%
+\sdefined {\sup {\holed A}} {o supremum de $\holed A$}%
+\sdefined {\overline{\reals}} {os reais estendidos: $\reals\union\set{\minfty,\pinfty}$}
 Definimos os $\inf A$ e $\sup A$ pelas:
 $$
 \align
@@ -37230,19 +37239,24 @@ $$
 $$
 Mais curtamente:
 $$
-\alignat 2
+\xalignat 2
 \inf A &\defeq \max {\lbs A} &
 \sup A &\defeq \min {\ubs A}.
-\endalignat
+\endxalignat
 $$
 %%}}}
 
-%%{{{ remark: 
+%%{{{ remark: inf and sup are partial 
 \remark.
-Observe que pela definição $\inf$ e $\sup$ não são operações
-totais mas \emph{parciais:} ninguém garanta que para qualquer
+Observe que assim, $\inf$ e $\sup$ não são operações totais nos reais,
+mas \emph{parciais:}
+$$
+\inf,\sup \eqtype \pset \reals \parto \reals.
+$$
+Ou seja, ninguém garanta que para qualquer
 $A\subseteq\reals$ existe mesmo um real $x$ que satisfaz as
-condições das definições acima.  Mas se existem, são únicos:
+condições das definições acima.
+Mas se existem, são únicos~(\ref{inf_and_sup_are_unique}):
 %%}}}
 
 %%{{{ thm: inf_and_sup_are_unique 
@@ -37258,6 +37272,36 @@ No outro lado $\ell' \leq \ell$ pois $\ell$ é maior que qualquer lowe bound,
 e $\ell'$ é um lower bound.  Logo $\ell \leq \ell'$ e $\ell' \leq \ell$
 e pela antisimetria da $\leq$ temos $\ell = \ell'$.
 \qed
+%%}}}
+
+%%{{{ The extended reals 
+\note Os reais estendidos.
+\label{extended_reals}%
+Agora, se $A$ não é bounded below e se $A$ não é bounded above escrevemos
+$$
+\xalignat 2
+\inf A &= \minfty &
+\sup A &= \pinfty
+\endxalignat
+$$
+respectivamente.
+Isso é bem justificável se pensar no $\reals$ apenas como um conjunto
+(parcialmente) ordenado enriquecido por dois novos objetos:
+o $\minfty$ e o $\pinfty$ chegando assim no conjunto
+$$
+\set{\minfty}\union\reals\union\set{\pinfty}
+$$
+que ordenamos assim:
+$$
+\minfty < x < \pinfty, \quad\text{para todo $x\in\reals$}.
+$$
+Chamamos os membros do $\reals\union\set{\minfty,\pinfty}$
+de \dterm{reais estendidos} e denotamos esse conjunto por
+$\overline{\reals}$ e $[\minfty,\pinfty]$ também.
+Podemos considerar ambas as operações então como
+$$
+\inf,\sup \eqtype \pset \reals \parto \reals\union\set{\minfty,\pinfty}.
+$$
 %%}}}
 
 %%{{{ x: inf_in_set_implies_min 
@@ -37293,6 +37337,17 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ x: inf_sup_reals_extreme_cases 
+\exercise.
+\label{inf_sup_reals_extreme_cases}%
+Pode acontecer que para algum $A\subseteq\reals$ temos\dots
+(i) $\inf A = \sup A$?
+(ii) $\inf A > \sup A$?
+Se sim, quando?  Se não, por que não?
+
+\endexercise
+%%}}}
+
 \blah.
 E agora\dots
 Será que podes pensar numa resposta para
@@ -37307,7 +37362,75 @@ a~\ref{how_can_we_separate_reals_from_rats}?
 \label{Completeness_of_reals}%
 
 \blah.
-Agora temos tudo que precisamos para responder a pergunta
+Agora temos tudo que precisamos para responder
+a~\ref{how_can_we_separate_reals_from_rats}.
+A resposta com palavras de rua é
+\quotepar
+<<os reais não tem ``buracos''>>
+\endquote
+mas precisamos formalizar essa afirmação.
+A idéia é exigir que \emph{não falta nenhum supremum}---ou, dualmente,
+nenhum infimum, pois é a mesma coisa:
+uma afirmação acaba implicando a outra.
+Mas o que quis dizer que não falta nenhum supremum?
+E, nenhum mesmo?  Não.
+Um conjunto que nem é bounded above não tem chances de ter supremum.
+Vamos exigir suprema de todos os outros então:
+
+%%{{{ df: complete_ordered_field 
+\definition Corpo ordenado completo.
+\label{complete_ordered_field}%
+\tdefined{corpo}[ordenado, completo]%
+Um corpo ordenado $R$ é \dterm{completo} sse
+todos os seus subconjuntos bounded above possuem supremum no $R$
+$$
+\align
+\pforall {A\subseteq R} &\bracket{\text{$A$ é bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
+\endalign
+$$
+%%}}}
+
+%%{{{ remark: now inf and sup are total operations on extended reals
+\remark.
+Assim as operações $\inf$ e $\sup$ virar totais no reais estendidos:
+$$
+\inf,\sup \eqtype \pset\reals \to \reals\union\set{\minfty,\pinfty}.
+$$
+%%}}}
+
+%%{{{ x: rats_is_not_a_complete_ordered_field 
+\exercise.
+Os racionais não formam um corpo ordenado completo.
+Ou seja, ache um $A$ bounded above sem supremum
+no $\rats$.
+
+\endexercise
+%%}}}
+
+%%{{{ thm: bounded_below_subsets_have_infima 
+\theorem.
+\label{bounded_below_subsets_have_infima}%
+Sejam $R$ um corpo ordenado completo e $A \subseteq R$
+bounded below.  Logo $A$ possui infimum no $R$.
+\proof Demontrado no~\ref{bounded_below_subsets_have_infima_proof}.
+\qed
+%%}}}
+
+%%{{{ x: bounded_below_subsets_have_infima_proof 
+\exercise.
+\label{bounded_below_subsets_have_infima_proof}%
+Demonstre o~\ref{bounded_below_subsets_have_infima}.
+
+\hint
+Tu vai precisar usar a lei de completude.
+
+\hint
+Procure definir um subconjunto de $\reals$
+que será garantido ter um supremum, e use
+esse supremum para definir o infimum de $A$.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -38873,8 +38996,8 @@ Números ficam quetinhos nos seus lugares.
 \endgraf
 {(2)}
 O limite duma função também não tende a lugar nenhum.
-Se é definido, é apenas um número real (talvez ``estendido'' para incluir
-como números os $\pminfty$).
+Se é definido, é apenas um número real;
+talvez \emph{estendido} para incluir os $\pminfty$~(\ref{extended_reals}).
 Por exemplo, temos
 $$
 \lim_{x\to\pinfty} 1/x = 0.
