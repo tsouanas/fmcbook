@@ -36997,14 +36997,23 @@ $$
 \pforall {a,b\in F}     &\bracket{0<a \mland 0<b \implies 0 < a\ntimes b}  \tag{FOM}
 \endalign
 $$
+E podemos definir o conjunto $P$ (ou a relação unária $P$, dependente do ponto
+de visto) em termos da ordem $<$, e vice versa, definir a $<$ em termos de $P$:
+$$
+\xalignat 2
+&\gathered
+\sset F {+, \,\ntimes\,, -, 0, 1, P} \\
+x < y \defiff y-x \in P
+\endgathered
+&
+&\gathered
+\sset F {+, \,\ntimes\,, -, 0, 1, <} \\
+x \in P \defiff 0 < x.
+\endgathered
+\endxalignat
+$$
+As duas abordagens são equivalentes.
 %%}}}
-
-\blah.
-Em vez de definir o conjunto $P$ em termos da ordem $<$ assim
-$$
-P \defeq \setst {x\in F} {0 < x}
-$$
-optamos para definir a ordem $<$ em termos do conjunto $P$.
 
 %%{{{ df: gt_in_ordered_fields 
 \definition.
@@ -37329,7 +37338,7 @@ Prove que $\lbs A$ é vazio ou infinito, e a mesma coisa sobre o $\ubs A$.
 \label{a_set_with_nats_as_limit_points}%
 Considere o conjunto
 $$
-A = \setst {m + \frac 1 {2^n}} {m \in \nats, n \in \nats_{>0}}.
+A = \setlst {m + \frac 1 {2^n}} {m \in \nats, n \in \nats_{>0}}.
 $$
 (i) Visualize o $A$ na linha dos reais, e rascunhe seu desenho.
 (ii) Ache o $\inf A$ e $\sup A$ se são definidos.
@@ -37341,9 +37350,12 @@ $$
 \exercise.
 \label{inf_sup_reals_extreme_cases}%
 Pode acontecer que para algum $A\subseteq\reals$ temos\dots
-(i) $\inf A = \sup A$?
-(ii) $\inf A > \sup A$?
-Se sim, quando?  Se não, por que não?
+\beginil
+\item{(i)} $\inf A = \sup A$?
+\item{(ii)} $\inf A > \sup A$?
+\endil
+Se sim, quando?
+Se não, por que não?
 
 \endexercise
 %%}}}
@@ -37365,9 +37377,9 @@ a~\ref{how_can_we_separate_reals_from_rats}?
 Agora temos tudo que precisamos para responder
 a~\ref{how_can_we_separate_reals_from_rats}.
 A resposta com palavras de rua é
-\quote
-\emph{os reais não tem ``buracos''}
-\endquote
+\standout
+\emph{os reais não têm ``buracos''}
+\endstandout
 mas precisamos formalizar essa afirmação.
 A idéia é exigir que \emph{não falta nenhum supremum}---ou, dualmente,
 nenhum infimum, pois é a mesma coisa:
@@ -37390,21 +37402,48 @@ $$
 $$
 %%}}}
 
-%%{{{ remark: now inf and sup are total operations on extended reals
+%%{{{ eg: reals_is_a_complete_ordered_field 
+\example.
+\label{reals_is_a_complete_ordered_field}%
+Os reais $\sset \reals {+, \,\ntimes\,, -, 0, 1, <}$.
+
+\endexample
+%%}}}
+
+%%{{{ x: can_we_prove_that_reals_is_a_complete_ordered_field 
+\exercise.
+\label{can_we_prove_that_reals_is_a_complete_ordered_field}%
+Tem como provar isso?
+Se sim, o que seria uma prova disso?
+Se não, por que não?
+
+\endexercise
+%%}}}
+
+%%{{{ noneg: rats_is_not_a_complete_ordered_field 
+\nonexample.
+\label{rats_is_not_a_complete_ordered_field}%
+Os racionais!
+
+\endnonexample
+%%}}}
+
+%%{{{ x: rats_is_not_a_complete_ordered_field_proof 
+\exercise.
+\label{rats_is_not_a_complete_ordered_field_proof}%
+Prove!
+Ou seja, ache um $A$ bounded above sem supremum
+no $\rats$.
+
+\endexercise
+%%}}}
+
+%%{{{ remark: now inf and sup are total operations on extended reals 
 \remark.
 Assim as operações $\inf$ e $\sup$ virar totais no reais estendidos:
 $$
 \inf,\sup \eqtype \pset\reals \to \reals\union\set{\minfty,\pinfty}.
 $$
-%%}}}
-
-%%{{{ x: rats_is_not_a_complete_ordered_field 
-\exercise.
-Os racionais não formam um corpo ordenado completo.
-Ou seja, ache um $A$ bounded above sem supremum
-no $\rats$.
-
-\endexercise
 %%}}}
 
 %%{{{ thm: bounded_below_subsets_have_infima 
@@ -37430,6 +37469,18 @@ que será garantido ter um supremum, e use
 esse supremum para definir o infimum de $A$.
 
 \endexercise
+%%}}}
+
+%%{{{ Enough! 
+\note Chega!.
+Vamos revisar pouco a situação com as estruturas que estudamos até agora.
+Como a gente escolha os axiomas (leis) que botamos nas nossas definições?
+As mais leis que eu boto, as mais ferramentas que ganho para matar mais
+teoremas.  Minha teoria vai acabar sendo capaz de provar mais coisas,
+mas o preço que pago para essas armas são interpretações que vão
+parar de ser modelos.
+
+\TODO Terminar.
 %%}}}
 
 \endsection
