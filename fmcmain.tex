@@ -36108,6 +36108,13 @@ Prove!
 \endexercise
 %%}}}
 
+%%{{{ df: zero_ring 
+\definition.
+\label{zero_ring}%
+Se num anel $R$ temos $0_R = 1_R$ chamamos o $R$ de \dterm{anel zero}.
+Caso contrário \dterm{anel não-zero}.
+%%}}}
+
 %%{{{ lemma: zero_annihilator_in_ring 
 \lemma Zero aniquila.
 \label{zero_annihilator_in_ring}%
@@ -36130,6 +36137,17 @@ $$
 Achamos então que $0x$ é uma resolução da $0x + \askbox = 0x$.
 E como o $\sset R +$ é um grupo sabemos então que $0x = 0$
 (\ref{cheaper_gid}) que foi o que queremos provar.
+\qed
+%%}}}
+
+%%{{{ corollary: a zero ring is a singleton 
+\corollary.
+Se $R$ é um anel zero, $R$ é um singleton.
+\proof.
+Seja $r \in R$.  Calculamos:
+$$
+r = r1_R = r0_R = 0_R.
+$$
 \qed
 %%}}}
 
@@ -36596,7 +36614,7 @@ $$
 \definition Corpo.
 \label{field}%
 \tdefined{corpo}%
-Seja $\cal K$ um anel comutativo.
+Seja $\cal K$ um anel não-zero e comutativo.
 Chamamos o $\cal K$ um \dterm{corpo} (ou \dterm{field})
 sse todos os seus membros diferentes de $0$ são invertíveis,
 ou seja sse:
@@ -36961,18 +36979,23 @@ Chamamos o $\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, P}$
 um \dterm{corpo ordenado} sse as seguintes leis são satisfeitas:
 $$
 \align
+                        &{0 \neq 1}                             \tag{FNZ}\\
+\\
 \pforall {a,b\in F}     &\bracket{a + b \in F}                  \tag{FA0}\\
 \pforall {a,b,c\in F}   &\bracket{a + (b + c) = (a + b) + c}    \tag{FA1}\\
 \pforall {a \in F}      &\bracket{a + 0 = a}                    \tag{FA2}\\
 \pforall {a\in F}       &\bracket{a + (-a) = 0}                 \tag{FA3}\\
-\pforall {a,b\in F}     &\bracket{a + b = b + a}                \tag{FA4}\\\\
+\pforall {a,b\in F}     &\bracket{a + b = b + a}                \tag{FA4}\\
+\\
 \pforall {a,b\in F}     &\bracket{a\ntimes b \in F}             \tag{FM0}\\
 \pforall {a,b,c\in F}   &\bracket{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}  \tag{FM1}\\
 \pforall {a \in F}      &\bracket{a\ntimes 1 = a}               \tag{FM2}\\
 \pforall {a\in F_{\neq0}}
 \pexists {y\in F}       &\bracket{a \ntimes y = 1}              \tag{FM3*}\\
-\pforall {a,b\in F}     &\bracket{a\ntimes b = b \ntimes a}     \tag{FM4}\\\\
-\pforall {a,b,c \in F}  &\bracket{a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}            \tag{FD}\\\\
+\pforall {a,b\in F}     &\bracket{a\ntimes b = b \ntimes a}     \tag{FM4}\\
+\\
+\pforall {a,b,c \in F}  &\bracket{a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}            \tag{FD}\\
+\\
 \pforall {a \in F}      &\bracket{\text{exatamente uma: $-a \in P$; $a = 0$; $a \in P$}}    \tag{FP3}\\
 \pforall {a,b\in P}     &\bracket{a + b \in P}                  \tag{FPA}\\
 \pforall {a,b\in P}     &\bracket{a\ntimes b \in P}             \tag{FPM}
@@ -37218,8 +37241,7 @@ Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 %%{{{ x: order_fields_are_unbounded 
 \exercise.
 \label{order_fields_are_unbounded}%
-O $F$ não tem mínimo, nem máximo:
-não existe $m\in F$ tal que $m\leq F$ ou $F \geq m$.
+O $F$ não tem nem mínimo, nem máximo.
 
 \endexercise
 %%}}}
@@ -37518,7 +37540,7 @@ Um corpo ordenado $R$ é \dterm{completo} sse
 todos os seus subconjuntos bounded above possuem supremum no $R$
 $$
 \align
-\pforall {A\subseteq R} &\bracket{\text{$A$ é bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
+\pforall {A\subseteq R} &\bracket{\text{$A\neq\emptyset$} \mland \text{$A$ bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
 \endalign
 $$
 %%}}}
