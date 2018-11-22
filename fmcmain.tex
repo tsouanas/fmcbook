@@ -29267,9 +29267,9 @@ De ordem $0$, não: a lei (G2) \emph{manda a existência} de um certo membro do 
 %%{{{ Powers and orders 
 \section Potências e ordens.
 
-%%{{{ df: exp_in_group 
+%%{{{ df: powers_in_group 
 \definition.
-\label{exp_in_group}%
+\label{powers_in_group}%
 \sdefined {{\holed a}^{\holed m}} {$a \ast \dotsb \ast a$ ($m$ vezes)}
 Seja $a$ elemento dum grupo $\sset G {\ast,e}$.
 Definimos suas potências $a^{\ast n}$ onde $n\in\nats$ recursivamente:
@@ -29283,9 +29283,9 @@ Quando a operação $\ast$ é entendida pelo contexto
 escrevemos apenas $a^n$ em vez de $a^{\ast{n}}$.
 %%}}}
 
-%%{{{ x: exp_in_group_altdef 
+%%{{{ x: powers_in_group_altdef 
 \exercise.
-\label{exp_in_group_altdef}
+\label{powers_in_group_altdef}
 Demostre que a definição alternativa de exponenciação ao natural
 $$
 \align
@@ -29448,7 +29448,7 @@ ${\uparrow_1} = {\uparrow_2}$.
 
 \blah.
 Acabou de provar um teorema bem mais geral do que parece
-no enunciado do~\ref{exp_in_group_altdef}!
+no enunciado do~\ref{powers_in_group_altdef}!
 É o seguinte.
 
 %%{{{ thm: associative_with_identity_exp_defs_equiv 
@@ -29468,7 +29468,7 @@ $$
 são equivalentes, ou seja, as duas operações
 definidas são iguais.
 \proof Provado.
-No~\ref{exp_in_group_altdef}, pois as únicas coisas que
+No~\ref{powers_in_group_altdef}, pois as únicas coisas que
 precisamos na sua prova foram exatamente as hipoteses
 desse teorema.
 \qed
@@ -29611,9 +29611,9 @@ Indução.
 \endexercise
 %%}}}
 
-%%{{{ df: negexp_in_group 
+%%{{{ df: negpowers_in_group 
 \definition.
-\label{negexp_in_group}%
+\label{negpowers_in_group}%
 Seja $a$ elemento dum grupo $\sset G {\ast,e}$.
 Definimos para todo $n\in\nats_{>0}$.
 $$
@@ -29621,7 +29621,7 @@ a^{-n} \defeq \paren{a^{-1}}^n
 $$
 %%}}}
 
-%%{{{ x: negexp_in_group_altdef 
+%%{{{ x: negpowers_in_group_altdef 
 \exercise.
 Demostre que a definição alternativa de exponenciação ao inteiro negativo
 $$
@@ -29635,9 +29635,9 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ property: properties_of_exp_in_groups 
+%%{{{ property: properties_of_powers_in_groups 
 \property Potências.
-\label{properties_of_exp_in_groups}%
+\label{properties_of_powers_in_groups}%
 Sejam $G$ grupo, $a \in G$, e $m,n\in\ints$.
 Temos:
 \item{\rm (1)} $a^m \ast a^n = a^{m+n}$;
@@ -30554,14 +30554,14 @@ $$
 \alignat2
 h_1h_2
 &= a^{k_1} a^{k_2}  \by{pelas~\byfact1,\byfact2}
-&= a^{k_1 + k_2}    \by{pela~\ref{properties_of_exp_in_groups}~(1)}
+&= a^{k_1 + k_2}    \by{pela~\ref{properties_of_powers_in_groups}~(1)}
 &\in \generate a.   \by{def.~$\generate a$, pois $k_1+k_2\in\ints$}
 \endalignat
 $$
 \proofpart{Fechado pelos inversos:}
 Seja $h \in \generate a$,
 logo $h = a^k$ para algum $k\in\ints$.
-Pela~\ref{properties_of_exp_in_groups}~(3),
+Pela~\ref{properties_of_powers_in_groups}~(3),
 $$
 \ginv h = \ginvp {a^k} = a^{-k} \in \generate a.
 $$
@@ -35942,7 +35942,7 @@ Para os anéis, nossa guia são os inteiros.
 \label{ring}%
 \tdefined{anel}%
 \tdefined{anel}[comutativo]%
-Seja $\cal R = \sset R {\plus,\ntimes,0,1}$ um conjunto estruturado,
+Seja $\cal R = \sset R {\plus,\,\ntimes,0,1}$ um conjunto estruturado,
 onde $\plus,\ntimes$ são operações binárias
 e $0,1$ são constantes.
 $\cal R$ é um \dterm{anel} (ou \dterm{ring}) sse
@@ -36009,23 +36009,37 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ df: subtraction_in_rings 
+\definition.
+\label{subtraction_in_rings}%
+%%}}}
+
 %%{{{ note: notation 
 \note Notação.
+\label{subtraction_in_rings}%
+\label{multiples_in_rings}%
+\label{powers_in_rings}%
 Dado $x\in R$, denotamos com $(-x)$ o objeto garantido pela~(RA3).
 Seguindo nossa experiência com adição e multiplicação de números,
 adoptamos as mesmas convenções para os anéis: denotamos pela juxtaposição
 a ``multiplicação'' do anel, e consideramos que ela tem precedência contra a ``adição''.
 Note também que como não temos alguma operação binária $-$ de subtraição,
 a expressão $x-y$ num anel não é definida.
-Introduzimos aqui sua definição como açúcar sintáctico:
+Definimos a operação \emph{binária} $-$ num anel $R$ pela
 $$
-x - y  \sugareq  x + (-y)
+x - y \sugareq x + (-y).
 $$
-Similarmente, se $n\in\nats$, usamos:
+Pelo contexto sempre dará pra inferir a aridade do símbolo `$-$';
+então não tem como criar ambigüidade com a operação \emph{unária} $-$,
+mesmo compartilhando o mesmo símbolo.
+Continuando, se $n\in\nats$, usamos:
 $$
 \xalignat2
 nx   &\sugareq \tubrace{x + x + \dotsb + x} {$n$ vezes} &
-x^n  &\sugareq \tubrace{x x \dotsb x} {$n$ vezes}
+x^n  &\sugareq \tubrace{x x \dotsb x} {$n$ vezes}.
+\intertext{Ou seja, lembrando da notação do~\ref{powers_in_group}:}
+nx   &\sugareq x^{+n} &
+x^n  &\sugareq x^{\ntimes n}.
 \endxalignat
 $$
 %%}}}
@@ -36988,6 +37002,7 @@ $$
 x < y \defiff y - x \in P.
 $$
 Naturalmente definimos as $>, \leq, \geq$ em termos das $<$ e $=$.
+Lembre-se a definição da $-$ binária em qualquer anel (\ref{subtraction_in_rings}).
 %%}}}
 
 %%{{{ df: abs_in_ordered_fields 
@@ -37060,6 +37075,17 @@ nas~\refn{Infimum_and_supremum_on_reals}--\refn{Completeness_of_reals}.
 Vamos agora investigar umas conseqüências dessas leis de corpo ordenado.
 Pronto para \emph{descobrir a teoria de corpos ordenados?}
 
+%%{{{ x: ordered_field_negation_of_difference 
+\exercise.
+\label{ordered_field_negation_of_difference}%
+Para todo $a,b\in F$,
+$$
+-(a - b) = b - a.
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ x: ordered_field_trichotomy 
 \exercise Tricotomia.
 \label{ordered_field_trichotomy}%
@@ -37078,9 +37104,7 @@ $$
 \exercise Transitividade.
 \label{ordered_field_transitivity}%
 A $<$ é uma relação transitiva:
-$$
-a < b \mland b < c \implies a < c.
-$$
+$a < b \mland b < c \implies a < c$.
 
 \endexercise
 %%}}}
@@ -37186,8 +37210,7 @@ Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 \exercise.
 \label{order_fields_are_unbounded}%
 O $F$ não tem mínimo, nem máximo:
-não existe $m\in F$ tal que $m\leq F$;
-nem tal que $F \geq m$.
+não existe $m\in F$ tal que $m\leq F$ ou $F \geq m$.
 
 \endexercise
 %%}}}
@@ -37221,7 +37244,7 @@ Sejam $x,y,z\in F$.  Logo:
 $$
 \gather
 \abs{x + y} \leq \abs x + \abs y \\
-\abs{\abs x - \abs y} \leq \abs{x - y} \\
+\bigabs{\abs x - \abs y} \leq \abs{x - y} \\
 \abs{x - z} \leq \abs{x - y} + \abs{y - z}.
 \endgather
 $$
