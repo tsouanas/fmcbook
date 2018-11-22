@@ -36931,6 +36931,9 @@ de limites e séries.
 \section Corpos ordenados.
 \label{Ordered_fields}%
 
+\blah.
+Nessa secção, $F$ vai denotar um arbitrário corpo ordenado:
+
 %%{{{ df: ordered_field 
 \definition Corpo ordenado.
 \label{ordered_field}%
@@ -36987,6 +36990,19 @@ $$
 Naturalmente definimos as $>, \leq, \geq$ em termos das $<$ e $=$.
 %%}}}
 
+%%{{{ df: abs_in_ordered_fields 
+\definition.
+\label{abs_in_ordered_fields}%
+Definimos a operação $\abs{\dhole} : F \to F$ num corpo ordenado $F$ pela
+$$
+\abs x \defeq
+\knuthcases{
+x,  & se $x\geq 0$ \cr
+-x, & se não.
+}
+$$
+%%}}}
+
 %%{{{ alternative formalization of ordered fields 
 \note Formalização alternativa.
 Em vez de adicionar a relação unária $P$ em nossa estrutura
@@ -37036,7 +37052,8 @@ que realmente vai determinar o conjunto $\reals$.
 Mas para entender esse axioma, precisamos primeiro
 entender um outro conceito: o \emph{supremum},
 e seu conceito dual, o \emph{infimum}.
-Faremos isso nas~\refn{Infimum_and_supremum_on_reals}--\refn{Completeness_of_reals}.
+Faremos essas coisas
+nas~\refn{Infimum_and_supremum_on_reals}--\refn{Completeness_of_reals}.
 %%}}}
 
 \blah.
@@ -37180,6 +37197,30 @@ nem tal que $x \geq m$ para todo $x \in F$.
 \label{only_zero_is_leq_than_all_positives}%
 Se $x$ tem a propriedade que $0 \leq x < \epsilon$
 para todo $\epsilon > 0$, então $x = 0$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: ordered_field_abs_lemma 
+\exercise.
+\label{ordered_field_abs_lemma}%
+Sejam $x,y,w\in F$.  Logo
+$$
+\abs x \leq w
+\iff
+-w \leq x \leq w.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: ordered_field_triangular_inequality 
+\exercise Desigualdade triangular.
+\label{ordered_field_triangular_inequality}%
+Sejam $x,y,w\in F$.  Logo
+$$
+\abs{x - z} \leq \abs{x - y} + \abs{y - z}.
+$$
 
 \endexercise
 %%}}}
@@ -37749,6 +37790,34 @@ Sejam $x,y\in\reals$ e $\epsilon > 0$.
 Dizemos que $x,y$ são $\epsilon$-perto sse $\abs{x-y} < \epsilon$.
 %%}}}
 
+%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
+\exercise.
+\label{epsilon_close_is_not_an_equivalence_relation}%
+Dado $\epsilon > 0$, seja $\sim_\epsilon$ a relação definida pela
+$$
+x \sim_\epsilon y
+\defiff
+\text{$x,y$ são $\epsilon$-perto}.
+$$
+Seja $\epsilon > 0$.  A $\sim_\epsilon$ é uma relação de equivalência?
+
+\endexercise
+%%}}}
+
+%%{{{ df: for_sufficiently_large_values_of 
+\definition para valores suficientemente grandes.
+\label{for_sufficiently_large_values_of}%
+Seja $R(n)$ uma afirmação que envolve o natural $n$.
+Dizemos que $R(n)$ \dterm{para valores suficientemente grandes de} $n$
+sse a partir dum natural $n_0$ todos os naturais satisfazem a $R$,
+ou seja, sse
+$$
+\pexists {n_0\in\nats}
+\lforall {i \geq n_0}
+{R(i)}.
+$$
+%%}}}
+
 %%{{{ df: limit_of_sequence_of_reals 
 \definition limite.
 \label{limit_of_sequence_of_reals}%
@@ -37763,8 +37832,62 @@ $$
 \defiff
 \pexists {N \in \nats}
 \lforall {i \geq N}
-{\abs{\ell - a_i} < \epsilon}.
+{\abs{a_i - \ell} < \epsilon}.
 $$
+%%}}}
+
+%%{{{ thm: uniqueness_of_limits_of_reals 
+\theorem Unicidade de limites.
+Uma seqüência não pode ter mais que um limite.
+Formalmente, 
+seja $\seqn a n$ seqüência de reais tal que
+$$
+\xalignat 2
+\seqn a n &\limto \ell_1 &
+\seqn a n &\limto \ell_2.
+\endxalignat
+$$
+Então $\ell_1 = \ell_2$.
+\proof.
+Graças ao~\ref{only_zero_is_leq_than_all_positives} basta provar
+que $\abs{\ell_1 - \ell_2} < \epsilon$ para todo $\epsilon > 0$.
+Seja $\epsilon > 0$ então, e agora observe que para quaisquer
+$\epsilon_1,\epsilon_2>0$ podemos escolher $N_1,N_2$ tais que:
+$$
+\xalignat 2
+\pforall {i \geq N_1} &\bracket{\abs{a_i - \ell_1} < \epsilon_1} &
+\pforall {j \geq N_2} &\bracket{\abs{a_j - \ell_2} < \epsilon_2}.
+\endxalignat
+$$
+Tome $N \asseq \max\set{N_1, N_2}$.
+Logo
+$$
+\xalignat 2
+\abs{a_N - \ell_1} &< \epsilon_1 &
+\abs{a_N - \ell_2} &< \epsilon_2.
+\endxalignat
+$$
+Observando que $\abs{a_N - \ell_1} = \abs{\ell_1 - a_N}$ e somando as desigualdades
+por lados temos
+$$
+\abs{\ell_1 - a_N} + \abs{a_N - \ell_2} < \epsilon_1 + \epsilon_2.
+$$
+Mas
+$$
+\munderbrace {\abs{\ell_1 - a_N + a_N - \ell_2}} {\abs{\ell_1 - \ell_2}}
+\leq \abs{\ell_1 - a_N} + \abs{a_N - \ell_2}
+< \epsilon_1 + \epsilon_2.
+$$
+Lembre-se que isso é válido para quaisquer $\epsilon_1,\epsilon_2>0$, então
+basta selecioná-los para satisfazer $\epsilon_1+\epsilon_2$ (tome pore exemplo
+ambos (menores ou) iguais ao $\epsilon/2$).
+Assim provamos que para todo $\epsilon > 0$,
+$$
+0 \leq \abs{\ell_1 - \ell_2} < \epsilon,
+$$
+ou seja, $\abs{\ell_1 - \ell_2} = 0$, e logo $\ell_1 - \ell_2 = 0$,
+e logo $\ell_1 = \ell_2$, que é o que queremos provar!
+\qed
 %%}}}
 
 %%{{{ df: Cauchy_sequence_of_reals 
