@@ -36009,11 +36009,6 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ df: subtraction_in_rings 
-\definition.
-\label{subtraction_in_rings}%
-%%}}}
-
 %%{{{ note: notation 
 \note Notação.
 \label{subtraction_in_rings}%
@@ -36115,9 +36110,9 @@ Se num anel $R$ temos $0_R = 1_R$ chamamos o $R$ de \dterm{anel zero}.
 Caso contrário \dterm{anel não-zero}.
 %%}}}
 
-%%{{{ lemma: zero_annihilator_in_ring 
-\lemma Zero aniquila.
-\label{zero_annihilator_in_ring}%
+%%{{{ lemma: ring_zero_absorbs 
+\lemma Zero absorve.
+\label{ring_zero_absorbs}%
 Seja $R$ um anel.
 Então:
 $$
@@ -36151,9 +36146,20 @@ $$
 \qed
 %%}}}
 
-%%{{{ lemma: negation_of_product 
+%%{{{ x: ring_negation_of_difference 
+\exercise.
+\label{ring_negation_of_difference}%
+Para todo $a,b\in R$,
+$$
+-(a - b) = b - a.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ lemma: ring_negation_of_product 
 \lemma Negação de produto.
-\label{negation_of_product}%
+\label{ring_negation_of_product}%
 Seja $R$ um anel.  Logo,
 $$
 \text{para todo $a,b\in R$,}\quad
@@ -36172,7 +36178,7 @@ $$
 ab + (-a)b
 &= (a + (-a))b  \by {pela (RDR)}
 &= 0b           \by {def.~$(-a)$}
-&= 0            \by {\ref{zero_annihilator_in_ring} com $x\asseq b$}
+&= 0            \by {\ref{ring_zero_absorbs} com $x\asseq b$}
 \endalignat
 $$
 e como a equação $ab + \askbox$ tem resolução única
@@ -36289,14 +36295,14 @@ Se sim, mostre um exemplo de tal anel;
 se não, demonstre que não existe tal anel.
 
 \hint
-\ref{zero_annihilator_in_ring}.
+\ref{ring_zero_absorbs}.
 
 \hint
 Não pode.  Exceto se\dots
 
 \solution
 Se é pra ter tal anel $R$, qual seria o inverso de $0$?
-Pelo~\ref{zero_annihilator_in_ring} temos que
+Pelo~\ref{ring_zero_absorbs} temos que
 $$
 0 x = 0
 $$
@@ -36318,7 +36324,7 @@ $$
 r
 &= 1r \by {def.~$1$}
 &= 0r \by {pois 0=1}
-&= 0  \by {pelo~\ref{zero_annihilator_in_ring}}
+&= 0  \by {pelo~\ref{ring_zero_absorbs}}
 \endalignat
 $$
 e logo $R = \set {0_R}$.
@@ -36987,16 +36993,15 @@ $$
 \pforall {a\in F}       &\bracket{a + (-a) = 0}                 \tag{FA3}\\
 \pforall {a,b\in F}     &\bracket{a + b = b + a}                \tag{FA4}\\
 \\
-\pforall {a,b\in F}     &\bracket{a\ntimes b \in F}             \tag{FM0}\\
-\pforall {a,b,c\in F}   &\bracket{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}  \tag{FM1}\\
-\pforall {a \in F}      &\bracket{a\ntimes 1 = a}               \tag{FM2}\\
-\pforall {a\in F_{\neq0}}
-\pexists {y\in F}       &\bracket{a \ntimes y = 1}              \tag{FM3*}\\
-\pforall {a,b\in F}     &\bracket{a\ntimes b = b \ntimes a}     \tag{FM4}\\
+\pforall {a,b\in F}     &\bracket{a\ntimes b \in F}                                     \tag{FM0}\\
+\pforall {a,b,c\in F}   &\bracket{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}         \tag{FM1}\\
+\pforall {a \in F}      &\bracket{a\ntimes 1 = a}                                       \tag{FM2}\\
+\pforall {a\in F}       &\bracket{a\neq 0 \implies \lexists {y\in F} {a \ntimes y = 1}} \tag{FM3*}\\
+\pforall {a,b\in F}     &\bracket{a\ntimes b = b \ntimes a}                             \tag{FM4}\\
 \\
-\pforall {a,b,c \in F}  &\bracket{a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}            \tag{FD}\\
+\pforall {a,b,c \in F}  &\bracket{a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}        \tag{FD}\\
 \\
-\pforall {a \in F}      &\bracket{\text{exatamente uma: $-a \in P$; $a = 0$; $a \in P$}}    \tag{FP3}\\
+\pforall {a \in F}      &\bracket{\text{exatamente uma: $-a \in P$; $a = 0$; $a \in P$}}  \tag{FP3}\\
 \pforall {a,b\in P}     &\bracket{a + b \in P}                  \tag{FPA}\\
 \pforall {a,b\in P}     &\bracket{a\ntimes b \in P}             \tag{FPM}
 \endalign
@@ -37106,17 +37111,6 @@ nas~\refn{Infimum_and_supremum_on_reals}--\refn{Completeness_of_reals}.
 \blah.
 Vamos agora investigar umas conseqüências dessas leis de corpo ordenado.
 Pronto para \emph{descobrir a teoria de corpos ordenados?}
-
-%%{{{ x: ordered_field_negation_of_difference 
-\exercise.
-\label{ordered_field_negation_of_difference}%
-Para todo $a,b\in F$,
-$$
--(a - b) = b - a.
-$$
-
-\endexercise
-%%}}}
 
 %%{{{ x: ordered_field_trichotomy 
 \exercise Tricotomia.
