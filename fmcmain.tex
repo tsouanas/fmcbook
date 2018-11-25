@@ -38713,11 +38713,21 @@ Tem como garantir vitória nesse jogo com $S = \ints$?
 %%}}}
 \spoiler.
 
-%%{{{ x: countable_or_uncountable 
+%%{{{ x: binary_union_of_countable_is_countable 
 \exercise.
-\label{countable_or_uncountable}%
-Para cada um dos conjuntos seguintes, decida se é contável ou não.
+\label{binary_union_of_countable_is_countable}%
+A união $C\union D$ de dois conjuntos contáveis $C,D$ é contável.
+
+\endexercise
+%%}}}
+
+%%{{{ Q: uncountable_or_uncountable_guess 
+\question.
+\label{countable_or_uncountable_guess}%
+Para cada um dos conjuntos seguintes, tu jogaria nesse jogo?
+Ou seja, tem estratégia vencedora?
 $$
+\rm
 \align
 I   &= \setst {x\in\reals}   {\text{$x$ é irracional}}\\
 A   &= \setst {x\in\reals}   {\text{$x$ é algébrico}}\\
@@ -38731,10 +38741,12 @@ P   &= (\nats \bijto \nats)\\
 Z   &= \setst {f:\nats\to\nats} {\pexists {n_0\in\nats} \lforall {n\geq n_0} {f(n)=0}}
 \endalign
 $$
-Equivalentemente: o jogador imortal, tem estratégia vencedora com esses conjuntos
-como conjunto-segredo?
+%%}}}
 
-\endexercise
+%%{{{ And the answers? 
+\blah E as respostas?.
+Pense nisso agora, meio-adivinhando, e até o fim desse capítulo tu vai
+saber a resposta para cada um deles!
 %%}}}
 
 %%{{{ lemma: A_is_countable_equiv_statements 
@@ -38817,6 +38829,168 @@ escrito nessa forma.  Como o $\reals$, por exemplo, que sabemos que não pode se
 como $\reals = \set{r_0, r_1, r_2, \dotsc}$, pois é um conjunto incontável!%
 %}}}
 
+\endsection
+%%}}}
+
+%%{{{ Cantor's first diagonal argument 
+\section O primeiro argumento diagonal de Cantor.
+\label{Cantor_first_diagonal_argument}%
+
+%%{{{ And the rationals? 
+\note E os racionais?.
+O fato que $\ints$ é contável não deixou ninguém muito surpreso.
+Mas na maneira que contamos os membros do $\ints$, existe essa
+idéia de ``próximo número'' meio incorporada no próprio conjunto
+pela sua ordem.
+\emph{<<Primeiramente tome o $0$.
+Depois tome o próximo positívo,
+e depois o próximo negativo, e por aí vai.>>}
+Mas o $\rats$ com sua ordem padrão é um conjunto \dterm{denso}:
+entre quaisquer racionais $x,y$ com $x<y$, existe racional $w$
+tal que $x < w < y$.  Vamos dizer que começou no $0$.
+Quem vai depois?  Não existe ``próximo'' para nenhuma direcção!
+Em vez de contar os membros de $\rats$, vamos contar
+os membros de $\nats^2$.  E isso já vai resolver o problema
+de enumerar o $\rats$ facilmente.
+%%}}}
+
+%%{{{ Counting the pairs of nats 
+\note Contando os pares de naturais.
+Naturalmente pensamos no $\nats^2$ numa forma bidimensional
+(até pronunciando o conjunto usamos a palavra ``quadrado'').
+Vamos arrumar então os naturais numa tabela bidimensional
+e infinita assim:
+$$
+\tikzpicture
+\tikzi pairs5x5nats;
+\endtikzpicture
+$$
+Naturalmente, influenciados por nossos hábitos talvez gostariamos
+de contar os membros linha por linha, ou coluna por coluna---só
+que\dots
+\endgraf\bigskip\noindent
+\centerline{Expectativa:}\nobreak
+$$
+\xalignat 2
+&\tikzpicture
+\tikzi pairs5x5nats;
+\foreach \y in {0,...,4} {
+    \node at (-1,-\y) {$S_{\y}$};
+    \draw[->] (-.5,-\y) -- (4.666,-\y);
+}
+\node at (-1, -4.666) {$\vdots$};
+\endtikzpicture
+&
+&\tikzpicture
+\tikzi pairs5x5nats;
+\foreach \x in {0,...,4} {
+    \node at (\x,1) {$S_{\x}$};
+    \draw[->] (\x,.5) -- (\x,-4.5);
+}
+\node at (5, 1) {$\cdots$};
+\endtikzpicture
+\endxalignat
+$$
+\endgraf\bigskip\noindent
+\centerline{Realidade:}\nobreak
+$$
+\xalignat 2
+&\tikzpicture
+\tikzi pairs5x5nats;
+\foreach \y in {0,...,4} {
+    \node at (-1,-\y) {$S_{\y}$};
+}
+\draw[->] (-.5,0) -- (4.666,0);
+\node at (-1, -4.666) {$\vdots$};
+\endtikzpicture
+&
+&\tikzpicture
+\tikzi pairs5x5nats;
+\foreach \x in {0,...,4} {
+    \node at (\x,1) {$S_{\x}$};
+}
+\draw[->] (0,.5) -- (0,-4.5);
+\node at (5, 1) {$\cdots$};
+\endtikzpicture
+\endxalignat
+$$
+O que aconteceu?
+Stratificando nosso espaço nessa maneira, \emph{ficaremos presos}
+no $S_0$ pra sempre!  Se o inimigo no jogo escolher qualquer um dos
+membros fora do $S_0$ a gente nunca vai ganhar!
+%%}}}
+
+%%{{{ Finite strata 
+\note Strata finita.
+Stratificando nosso espaço precisamos tomar cuidado para qualquer
+stratum ser um conjunto \emph{finito}.  Usando a analogia do jogo
+isso garanta vitória, pois ficaremos no primeiro stratum para uma
+quantidade finita de dias, e um belo momento depois de ter contado
+todos os membros do primeiro stratum vamos começar o segundo,
+que (sendo também finito) sabemos que um belo dia já vamos começar
+contar o terceiro; etc., etc.
+%%}}}
+
+%%{{{ Cantor's first diagonal argument 
+\note O primeiro argumento diagonal de Cantor.
+\label{Cantor_stratification_of_pairs}%
+\Cantor[diagonalização]Cantor conseguiu stratificar esse espaço
+apenas virando sua cabeça num ángulo $\pi/4$:
+$$
+\tikzpicture
+\tikzi pairs5x5nats;
+\foreach \y in {0,...,4} {
+    \node[rotate=45] at (-.8,-\y-.8) {$S_{\y}$};
+    \draw[->] (-.5,-\y-.5) -- (\y+.5,.5);
+}
+\node at (-.8, -5.666) {$\vdots$};
+\endtikzpicture
+$$
+Observe que na stratificação de Cantor, \emph{cada stratum é finito}.
+Com sua método de diagonalização Cantor conseguiu algo maravilhoso:
+contou todos dos \emph{racionais}, algo muito chocante, pois a maneira
+que visualizamos esse conjunto é \emph{muito} mais populosa daquela
+dos inteiros ou dos naturais.  Mas chega Cantor e nos ilumina:
+\emph{o $\rats$ parece tão mais populoso porque tu não tá fazendo
+essa dupla abstração, deixando a natureza e ordem te confundir!}
+%%}}}
+
+%%{{{ Gödel's stratification 
+\note A stratificação de Gödel.
+\label{Godel_stratification_of_pairs}%
+\Godel[diagonalização]Gödel muitos anos depois preferiu uma
+stratificação diferente:
+$$
+\tikzpicture
+\tikzi pairs5x5nats;
+\foreach \i in {0,...,4} {
+    \node at (-1,-\i) {$S_{\i}$};
+    \draw[rounded corners=2ex,->] (-.5,-\i) -- (\i,-\i) -- (\i,.5);
+}
+\node at (-1, -4.666) {$\vdots$};
+\endtikzpicture
+$$
+Observe que aqui também cada stratum é finito, e logo serve para
+contar todos os membros do conjunto.
+%%}}}
+
+%%{{{ x: define_both_stratifications_of_pairs 
+\exercise.
+\label{define_both_stratifications_of_pairs}%
+Defina formalmante as stratificações de
+Cantor~(\refn{Cantor_stratification_of_pairs}) e de
+Gödel~(\refn{Godel_stratification_of_pairs}).
+Observe que cada stratum, sendo finito, pode ser representado por um
+conjunto (e não uma tupla) sem problema nenhum.
+Defina curtamente então, usando a notação set-builder os
+$S_n$'s de ambas as stratificações.
+
+\hint
+$S_n = \setst {(x,y)} {\askhole}$.
+
+\endexercise
+%%}}}
+
 %%{{{ no_repetitions_implies_bijection 
 \remark.
 \label{no_repetitions_implies_bijection}%
@@ -38833,6 +39007,36 @@ correspondem em racionais (como o $(0,0)$ por exemplo), ou que são iguais
 com palpites anteriores (como o $(2,4)$ que pulamos por causa do $(1,2)$
 que já adivinhamos).
 %%}}}
+
+%%{{{ thm: countable_union_of_countables_is_countable 
+\theorem.
+Seja $\cal C$ uma colecção contável de conjuntos contáveis.
+Logo $\Union \cal C$ é contável.
+Em outras palavras: união contável de contáveis é contavel.
+\sketch.
+Seja $\seqn C n$ uma enumeração dos membros do $\cal C$:
+$$
+\align
+\cal C &= \set{ C_0, C_1, C_2, \dotsc }.
+\intertext{Sabemos que todos os $C_n$'s são contáveis; logo seja
+$\upseqn {c_n} i$ uma enumeração do $C_n$:}
+C_0 &= \set {c_0^0, c_0^1, c_0^2, c_0^3, \dotsc } \\
+C_1 &= \set {c_1^0, c_1^1, c_1^2, c_1^3, \dotsc } \\
+C_2 &= \set {c_2^0, c_2^1, c_2^2, c_2^3, \dotsc } \\
+    &\eqvdots 
+\endalign
+$$
+e agora é óbvio como usar o primeiro argumento diagonal de Cantor
+e obtenir uma enumeração do $\Union \cal C = \Union_{n=0}^{\infty} C_n$.
+\qes
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Hacking intermission 
+
+\problems Intervalo para hackear.
 
 %%{{{ codeit: EnumPairs 
 \codeit EnumPairs.
@@ -38859,15 +39063,17 @@ imprimindo por exemplo o racional $\frac 1 3$ como o string
 \codeit EnumRats.
 \label{program_enumratsnoreps}
 Modifique o EnumRats para o caso que o jogo proibe
-repetições (mas para o mesmo conjunto $\rats_{\geq0}$). 
+repetições (mas para o mesmo conjunto $\rats_{\geq0}$).
+Use teu código para responder na pergunta:
+\emph{dada a escolha do inimigo, em qual dia o jogador vai adivinhá-la?}
 \endcodeit
 %%}}}
 
 %%{{{ x: amnesiac_player 
 \exercise Jogador amnésico.
 \label{amnesiac_player}%
-Ache uma estratégia para ganhar no jogo com conjunto-segredos o 
-conjunto dos racionais não-negativos, se o jogador tem memória que o 
+Ache uma estratégia para ganhar no jogo com conjunto-segredos o
+conjunto dos racionais não-negativos, se o jogador tem memória que o
 permite lembrar apenas seu último palpite!
 
 \endexercise
@@ -38878,12 +39084,12 @@ permite lembrar apenas seu último palpite!
 \label{nextPair}
 Defina uma função 
 $\namedop{nextPair} : \nats^2 \to \nats^2$
-tal que para cada entrada $(n,m)$ ela retorna o próximo palpite do jogador 
-que acabou de tentar o $(n,m)$, no jogo com conjunto-segredos o $\nats^2$. 
-Considera que sua estratégia começa com o palpite $(0,0)$. 
-Assim, a enumeração representada por a estratégia do jogador seria a: 
+tal que para cada entrada $(n,m)$ ela retorna o próximo palpite do jogador
+que acabou de tentar o $(n,m)$, no jogo com conjunto-segredos o $\nats^2$.
+Considera que sua estratégia começa com o palpite $(0,0)$.
+Assim, a enumeração representada por a estratégia do jogador seria a:
 $$
-    (0,0), f(0,0), f^2(0,0), f^3(0,0), \dotsc,
+(0,0), f(0,0), f^2(0,0), f^3(0,0), \dotsc,
 $$
 ou seja, a seqüência $\set{ f^n (0,0) }_{n}$.
 
@@ -38897,40 +39103,7 @@ Implemente função do~\ref{nextPair}.
 \endcodeit
 %%}}}
 
-\endsection
-%%}}}
-
-%%{{{ Cantor's first diagonal argument 
-\section O primeiro argumento diagonal de Cantor.
-
-\blah.
-O fato que $\ints$ é contável não deixou ninguém muito surpreso.
-Mas na maneira que contamos os membros do $\ints$, existe essa
-idéia de ``próximo número'' meio incorporada no próprio conjunto
-pela sua ordem.
-\emph{<<Primeiramente tome o $0$.
-Depois tome o próximo positívo,
-e depois o próximo negativo, e por aí vai.>>}
-Mas o $\rats$ com sua ordem padrão é um conjunto \dterm{denso}:
-entre quaisquer racionais $x,y \in \rats$ existe outro racional $w$:
-$x < w < y$.
-
-%%{{{ x: rats_is_dense 
-\exercise.
-\label{rats_is_dense}%
-Prove que o $\rats$ com sua ordem padrão é denso.
-
-\endexercise
-%%}}}
-
-\blah.
-Em vez de contar os membros de $\rats$, vamos contar
-os membros de $\nats^2$.  E isso já vai resolver o problema
-de enumerar o $\rats$.
-
-\note Contando os pares de naturais.
-
-\endsection
+\endproblems
 %%}}}
 
 %%{{{ Cantor's second diagonal argument 
@@ -40722,6 +40895,14 @@ Os detalhes estão no~\ref{schroder_bernstein_lattice_proof}.
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ x: rats_is_dense 
+\problem.
+\label{rats_is_dense}%
+Prove que o $\rats$ com sua ordem padrão é denso.
+
+\endproblem
+%%}}}
 
 %%{{{ df: cofinito_em_nats 
 \definition.
