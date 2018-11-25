@@ -38546,17 +38546,20 @@ formalmente os números cardinais, algo que vamos encontrar
 no~\ref{Ordinal_arithmetic}.  Mas sem saber o que são,
 já podemos usá-los deixando claro quais são as propriedades
 que exigimos que eles satisfaçam.
-Um operador de cardinalidade $\card{\dhole}$ deve satisfazer a:
+Um operador de cardinalidade $\card{\dhole}$ deve satisfazer
+pelo menos a:
 $$
-A \eqc B \iff \card{A} = \card{B}.
+A \eqc B \iff \card{A} = \card{B}
 $$
+e possivelmente mais condições ainda.
+Vamos voltar para estudar os detalhes no~\ref{Axiomatic_set_theory}.
 %%}}}
 
 \endsection
 %%}}}
 
 %%{{{ Finite and infinite; countable and uncountable 
-\section Finitos e infinitos; contáveis e incontáveis.
+\section Finitos e infinitos; contáveis e incontáveis; jogos para imortais.
 
 %%{{{ df: finite_set ; infinite_set 
 \definition.
@@ -38605,13 +38608,142 @@ A = \img \pi {\nats} = \set{\pi(0), \pi(1), \pi(2), \dotsc}
 $$
 %%}}}
 
+%%{{{ The enumeration game of Smullyan 
+\note O jogo de enumeração de Smullyan.
+\label{Smullyan_game}%
+\Smullyan{jogo} criou o seguinte jogo que ajuda em entender o conceito
+de conjunto enumerável.  Seja $S$ um conjunto que chamaremos de
+\dterm{conjunto-segredo}.  Tu, o jogador, e eu, o inimigo, começamos
+o jogo e nos dois sabemos qual é o conjunto $S$ desse jogo.
+Eu jogo primeiro, escolhendo um membro $w\in S$.
+Teu objetivo é adivinhar o $w$.
+Todo dia tu tens um palpite, e eu vou responder ``sim'' ou ``não''.
+No dia $i$ então, tu escolhe um membro $s_i \in S$ como um
+palpite fazer exatamente um palpite na forma equacional:
+$$
+w = s_i?
+$$
+onde $s_i$ é teu $i$-ésimo palpite, ou seja, o palpite do dia $i$.
+Tu ganhas se um belo dia tu conseguir adivinhar a minha escolha:
+o $w$ que selecionei no inicio do jogo.
+Um exemplo de jogo então com $S=\nats$ parece assim:
+\dialogue
+\say Eu escolhi meu membro $w \in \nats$.
+\say (Dia 0:) É o 42?
+\say Não.
+\say (Dia 1:) É o 28?
+\say Não.
+\say (Dia 2:) É o 8?
+\say Não.
+\say (Dia 3:) É o 1024?
+\say Não.
+\say (Dia 4:) É o 1024?
+\say Não!
+\say (Dia 5:) É o 12?
+\say Sim.
+\enddialogue
+Quantas tentativas tu tens?
+Um para cada dia, pra sempre!
+Pois é, um detalhe pequeno: vamos supor que nós dois somos imortais.
+E o inimigo não tem o direito de mudar seu palpite!
+O jogo então é baseado no conjunto-segredo $S$.
+O teu objetivo como jogador é adivinhar o $w$ que eu, teu inimigo, escolhi.
+\endgraf
+O teu objetivo como matemático é achar uma
+\ii{estratégia}[vencedora]\emph{estratégia vencedora},
+ou seja, \emph{uma estratégia que garanta vitória} para o jogador.
+Se tal estratégia existe para esse jogo, chamamos o $S$ \dterm{enumerável}.
+Observe que uma estratégia nesse jogo não é nada mais que uma
+\emph{seqüência}
+$$
+s_0, s_1, s_2, s_3, s_4, \dotsc
+$$
+de membros de $S$, que o jogador vai seguir, jogando $s_i$ no $i$-ésimo dia.
+Ela é vencedora sse
+$$
+\pforall {w \in S}
+\lexists {i \in \nats}
+{s_i = w}.
+$$
+Pensando em seqüências do $S$ como funções $s : \nats\to S$ isso quis
+dizer que $s$ é sobrejetora.
+%%}}}
+
+%%{{{ Secret set
+\note Conjunto-segredo: de easy para nightmare.
+Vamos ver se (e como!) tu jogaria nesse jogo com uns $S$
+variando em dificuldade:
+$$
+S = \set {12, -2, 0}.
+$$
+Espero que é óbvio como garantir vitória aqui:
+$$
+0, 12, -2;
+$$
+ou seja, no primeiro dia jogue o $0$; se não foi o escolhido,
+jogue o $12$; se nem isso foi o escolhido, jogue o $-2$ que com
+certeza será o escolhido pois não tem outros membros o $S$.
+$$
+S = \nats.
+$$
+Aqui a situação é pouco mais complicada, mais ainda múito fácil:
+$$
+0, 1, 2, 3, 4, \dotsc;
+$$
+ou seja: no dia $i$, escolha o $i$!
+Não importa quão grande foi o número segredo $w$ que escolhi,
+um belo dia (no $w$-ésimo dia mesmo) tu acertás!
+Próximo!
+$$
+S = \ints.
+$$
+Aqui eu vou adivinhar qualquer inteiro.  O que farás?
+Observe que a última estratégia não funciona mais.
+Se eu escolher qualquer número negativo, tu nunca adivinharás,
+pois tu ``ficarás preso'' para a eternidade adicinhando apenas
+os inteiros não-negativos.
+\emph{O fato que uma estratégia não é vencedora, não quis dizer
+que não existem vencedoras!}
+Aqui realmente existe!
+%%}}}
+
+%%{{{ Q: Can we guarantee victory with S = ints ?
+\question.
+Tem como garantir vitória nesse jogo com $S = \ints$?
+%%}}}
+\spoiler.
+
+%%{{{ x: countable_or_uncountable 
+\exercise.
+\label{countable_or_uncountable}%
+Para cada um dos conjuntos seguintes, decida se é contável ou não.
+$$
+\align
+I   &= \setst {x\in\reals}   {\text{$x$ é irracional}}\\
+A   &= \setst {x\in\reals}   {\text{$x$ é algébrico}}\\
+T   &= \setst {x\in\reals}   {\text{$x$ é transcendental}}\\
+C   &= \setst {z\in\complex} {\modulus z = 1}\\
+P_L &= \setstt {p} {$p$ é um programa da linguagem de programação $L$}\\
+G   &= \graph(f), \quad \text{onde $f : \reals\to\reals$ definida pela $f(x) = x^2$}\\
+D   &= (\nats \to \set{0,2})\\
+S   &= (\nats \to \nats)\\
+P   &= (\nats \bijto \nats)\\
+Z   &= \setst {f:\nats\to\nats} {\pexists {n_0\in\nats} \lforall {n\geq n_0} {f(n)=0}}
+\endalign
+$$
+Equivalentemente: o jogador imortal, tem estratégia vencedora com esses conjuntos
+como conjunto-segredo?
+
+\endexercise
+%%}}}
+
 %%{{{ lemma: A_is_countable_equiv_statements 
 \lemma.
 \label{A_is_countable_equiv_statements}%
 Seja $A$ conjunto.
 O.s.s.e.:
-\item{\rm (1)}   $A$ é contável
-\item{\rm (2)}  $A \leqc \nats$
+\item{\rm (1)} $A$ é contável
+\item{\rm (2)} $A \leqc \nats$
 \item{\rm (3)} $A=\emptyset$ ou $A$ possui enumeração.
 \sketch.
 As direcões $(1)\Rightarrow(2)\Rightarrow(3)$ são conseqüências fáceis
@@ -38685,39 +38817,10 @@ escrito nessa forma.  Como o $\reals$, por exemplo, que sabemos que não pode se
 como $\reals = \set{r_0, r_1, r_2, \dotsc}$, pois é um conjunto incontável!%
 %}}}
 
-%%{{{ x: countable_or_uncountable 
-\exercise.
-\label{countable_or_uncountable}%
-Para cada um dos conjuntos seguintes, decida se é contável ou não.
-$$
-\align
-I &= \setst {x\in\reals}   {\text{$x$ é irracional}}\\
-A &= \setst {x\in\reals}   {\text{$x$ é algébrico}}\\
-T &= \setst {x\in\reals}   {\text{$x$ é transcendental}}\\
-C &= \setst {z\in\complex} {\modulus z = 1}\\
-L &= \set {\text{os programas sintaticamente corretos numa linguagem de programação}}\\
-G &= \graph(f), \quad \text{onde $f : \reals\to\reals$ definida pela $f(x) = x^2$}\\
-D &= (\nats \to \set{0,2})\\
-S &= (\nats \to \nats)\\
-P &= (\nats \bijto \nats)\\
-Z &= \setst {f\in(\nats\to\nats)} {(\exists n_0\in\nats)(\forall n>n_0)\left[\,f(n)=0\,\right]} 
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Games for immortals 
-\section Jogos para imortais.
-\label{Games_for_immortals}%
-
 %%{{{ no_repetitions_implies_bijection 
 \remark.
 \label{no_repetitions_implies_bijection}%
-Para corresponder numa bijecção mesmo, o jogo da~\ref{Games_for_immortals}
+Para corresponder numa bijecção mesmo, o jogo do~\refn{Smullyan_game}
 tem que ser modificado, para proibir repetições do mesmo palpite.
 Observamos que se o jogador tem uma estratégia para ganhar num jogo que
 permite repetições de palpites, ele já pode adaptá-la para ganhar no
@@ -38725,7 +38828,7 @@ jogo com a restrição: ele apenas segue a estratégia do jogo ``livre''
 e quando aparecem palpites que ele já adivinhou, ele pula para o próximo,
 até chegar num palpite que ele não tentou ainda, para tentá-lo.
 Por exemplo, para enumerar os racionais sabendo uma enumeração dos pares
-de inteiros, copiamos a estrategia do $\ints^2$, pulando pares que ou não
+de inteiros, copiamos a estratégia do $\ints^2$, pulando pares que ou não
 correspondem em racionais (como o $(0,0)$ por exemplo), ou que são iguais
 com palpites anteriores (como o $(2,4)$ que pulamos por causa do $(1,2)$
 que já adivinhamos).
