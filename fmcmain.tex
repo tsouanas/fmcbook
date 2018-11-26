@@ -37844,6 +37844,15 @@ uma função binária \emph{com valores reais}, satisfazendo certas leis.
 \endsection
 %%}}}
 
+%%{{{ Geometric_representation_of_reals 
+\section Representação geométrica e digital.
+\label{Geometric_representation_of_reals}%
+
+\TODO Expansão como instruções.
+
+\endsection
+%%}}}
+
 %%{{{ Limits 
 \section Limites.
 
@@ -38066,7 +38075,7 @@ $Q = \Union_n \set{\tup{\cos n, \sin n}}$?
 
 \TODO Terminar as duas histórias.
 
-\note Números salvagens.
+\note Números selvagens.
 \yearof{1682}:
 \Leibniz{}Leibniz demonstra que $\sin$ não é uma
 \ii{função}[algébrica]\dterm{função algébrica}.
@@ -39031,6 +39040,7 @@ e obtenir uma enumeração do $\Union \cal C = \Union_{n=0}^{\infty} C_n$.
 \qes
 %%}}}
 
+%%{{{ Are there uncountable sets? 
 \note Tem incontáveis?.
 Até este momento podemos sentir uns dos sentimentos de \Cantor{}Cantor
 investigando essas infinidades.  Até talvez uma frustração, pois,
@@ -39039,6 +39049,14 @@ contáveis.  Será que todos são?  Os reais estão resistindo ainda,
 mas antes de pensar no primeiro argumento diagonal, os racionais
 também estavam!
 Agora tu provaras que muitos mais conjuntos são realmente contáveis.
+%%}}}
+
+%%{{{ x: strings_from_finite_alphabet_countable 
+\exercise.
+\label{strings_from_finite_alphabet_countable}%
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -39125,7 +39143,7 @@ Não tem como enumerar seus membros!
 Como podemos provar isso?
 Lembrando a definição, basta demonstrar que não existe enumeração
 $$
-[0,1] = {a_0, a_1, a_2, \dots}.
+[0,1] = \set{a_0, a_1, a_2, \dots}.
 $$
 
 %%{{{ A slightly wrong sketch 
@@ -39136,23 +39154,113 @@ $$
 a_0, a_1, a_2, a_3, \dots
 $$
 Tu pega sua lista e escreva a expansão decimal de cada número,
-um número por linha, por exemplo:
+um número por linha; por exemplo:
 $$
+\def\u{\underline}
+\def\b{\phantom0}
 \matrix
 \format
-\r  &~\l &\c &\c &\c &\c &\c &\c &\c &\c &\c \\
-a_0 &= 0.& 3 & 1 & 4 & 8 & 8 & 0 & 1 & 7 & \dots \\
-a_1 &= 0.& 3 & 1 & 4 & 8 & 8 & 0 & 1 & 7 & \dots \\
-a_2 &= 0.& 3 & 1 & 4 & 8 & 8 & 0 & 1 & 7 & \dots \\
-a_3 &= 0.& 3 & 1 & 4 & 8 & 8 & 0 & 1 & 7 & \dots \\
-a_4 &= 0.& 3 & 1 & 4 & 8 & 8 & 0 & 1 & 7 & \dots \\
-a_5 &= 0.& 3 & 1 & 4 & 8 & 8 & 0 & 1 & 7 & \dots \\
-    &\eqvdots
+\r  &~~\c~~&     &\c    &\c     &\c     &\c     &\c     &\c     &\c   &\c \\
+a_0 &=     &0\b. &\b 3  &\b 6   &\b 4   &\b 8   &\b 8   &\b 5   &\b 0 &\b \dots \\
+a_1 &=     &0\b. &\b 2  &\b 1   &\b 8   &\b 9   &\b 8   &\b 0   &\b 5 &\b \dots \\
+a_2 &=     &0\b. &\b 0  &\b 8   &\b 9   &\b 8   &\b 5   &\b 8   &\b 8 &\b \dots \\
+a_3 &=     &0\b. &\b 9  &\b 2   &\b 6   &\b 6   &\b 8   &\b 6   &\b 6 &\b \dots \\
+a_4 &=     &0\b. &\b 2  &\b 3   &\b 4   &\b 6   &\b 0   &\b 5   &\b 7 &\b \dots \\
+    &\eqvdots&
 \endmatrix
 $$
+Nosso objetivo é mostrar um certo número $w \in [0,1]$ que não está nessa lista.
+Vamos definir esse $w$ construindo sua expansão decimal:
+$$
+\def\f{\faded}%
+\def\b{\phantom0}%
+\matrix
+\format
+\r  &~~\c~~ &     &\c    &\c    &\c    &\c    &\c    &\c    &\c    &\c \\
+  w &\defeq &0\b. &\b\f? &\b\f? &\b\f? &\b\f? &\b\f? &\b\f? &\b\f? &\b\dots
+\endmatrix
+$$
+E a idéia é a seguinte:
+traversa a tabela acima diagonalmente, mudando o dígito,
+construindo assim um novo número.
+Os primeiros três passos aqui podem ser os seguintes:
+$$
+\def\n{}%
+\def\u{\underline}%
+\def\a{\alert}%
+\def\f{\faded}%
+\def\b{\phantom0}%
+\xalignat3
+&\matrix
+\format
+\r  &~~\c~~ &     &\c    &\c    &\c    &\c    &\c    &\c    &\c \\
+  w &\defeq &0\b. &\b\a4 &\b\f? &\b\f? &\b\f? &\b\f? &\b\f? &\b\dots \\
+a_0 &=      &0\b. &\b\a3 &\b\f6 &\b\f4 &\b\f8 &\b\f8 &\b\f5 &\b\dots \\
+a_1 &=      &0\b. &\b\f2 &\b\u1 &\b\f8 &\b\f9 &\b\f8 &\b\f0 &\b\dots \\
+a_2 &=      &0\b. &\b\f0 &\b\f8 &\b\u9 &\b\f8 &\b\f5 &\b\f8 &\b\dots \\
+a_3 &=      &0\b. &\b\f9 &\b\f2 &\b\f6 &\b\u6 &\b\f8 &\b\f6 &\b\dots \\
+a_4 &=      &0\b. &\b\f2 &\b\f3 &\b\f4 &\b\f6 &\b\u8 &\b\f5 &\b\dots \\
+    &\eqvdots
+\endmatrix
+&
+&\matrix
+\format
+\r  &~~\c~~ &     &\c    &\c    &\c    &\c    &\c    &\c    &\c\\
+  w &\defeq &0\b. &\b\n4 &\b\a2 &\b\f? &\b\f? &\b\f? &\b\f? &\b\dots \\
+a_0 &=      &0\b. &\b\u3 &\b\f6 &\b\f4 &\b\f8 &\b\f8 &\b\f5 &\b\dots \\
+a_1 &=      &0\b. &\b\f2 &\b\a1 &\b\f8 &\b\f9 &\b\f8 &\b\f0 &\b\dots \\
+a_2 &=      &0\b. &\b\f0 &\b\f8 &\b\u9 &\b\f8 &\b\f5 &\b\f8 &\b\dots \\
+a_3 &=      &0\b. &\b\f9 &\b\f2 &\b\f6 &\b\u6 &\b\f8 &\b\f6 &\b\dots \\
+a_4 &=      &0\b. &\b\f2 &\b\f3 &\b\f4 &\b\f6 &\b\u8 &\b\f5 &\b\dots \\
+    &\eqvdots
+\endmatrix
+&
+&\matrix
+\format
+\r  &~~\c~~ &     &\c    &\c    &\c    &\c    &\c    &\c    &\c\\
+  w &\defeq &0\b. &\b\n4 &\b\n2 &\b\a0 &\b\f? &\b\f? &\b\f? &\b\dots \\
+a_0 &=      &0\b. &\b\u3 &\b\f6 &\b\f4 &\b\f8 &\b\f8 &\b\f5 &\b\dots \\
+a_1 &=      &0\b. &\b\f2 &\b\u1 &\b\f8 &\b\f9 &\b\f8 &\b\f0 &\b\dots \\
+a_2 &=      &0\b. &\b\f0 &\b\f8 &\b\a9 &\b\f8 &\b\f5 &\b\f8 &\b\dots \\
+a_3 &=      &0\b. &\b\f9 &\b\f2 &\b\f6 &\b\u6 &\b\f8 &\b\f6 &\b\dots \\
+a_4 &=      &0\b. &\b\f2 &\b\f3 &\b\f4 &\b\f6 &\b\u8 &\b\f5 &\b\dots \\
+    &\eqvdots
+\endmatrix
+\endxalignat
+$$
+onde para mudar cada dígito, eu fui para o ``próximo''.
+Foi construido assim o
+$$
+\def\b{\phantom0}%
+\matrix
+\format
+\r  &~~\c~~ &     &\c  &\c  &\c  &\c  &\c  &\c \\
+  w &\defeq &0\b. &\b4 &\b2 &\b0 &\b7 &\b9 &\b\dots
+\endmatrix
+$$
+que não está na lista $a_0, a_1, a_2, \dots$.
 %%}}}
 
-\TODO Geometric representation of decimal numbers (maybe on ``reals'' chapter).
+%%{{{ Q: why is w not in the list? 
+\question.
+Por que $w$ não está na lista?
+%%}}}
+\spoiler.
+
+%%{{{ A
+\blah Resposta.
+Realmente $w$ não pode ser nenhum dos $a_0,a_1,a_2,\dots$, ou seja,
+vamos demonstrar que
+$$
+\text{para todo $i\in\nats$,}\quad
+w \neq a_i.
+$$
+Seja $i\in \nats$ então.
+Agora observe que o $w \neq a_i$ pois pela sua construção,
+ele discorda com o $a_i$ no $i$-ésimo dígito.
+Ele discorda com o $a_0$ na primeira posição, com o $a_1$
+na segunda, etc.
+%%}}}
 
 %%{{{ x: why_cant_we_prove_that_rats_is_uncountable 
 \exercise.
@@ -39169,8 +39277,16 @@ Como tu vai provar que o número construido pela método de Cantor realmente é 
 
 %%{{{ Cantor set 
 \section O conjunto de Cantor.
+\label{Cantor_set}%
 
-\TODO Apresentar.
+%%{{{ Cantor dust 
+\note A poeira de Cantor.
+$$
+\tikzpicture
+\tikzi cantorset;
+\endtikzpicture
+$$
+%%}}}
 
 \endsection
 %%}}}
