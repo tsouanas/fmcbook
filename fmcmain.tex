@@ -36059,17 +36059,17 @@ $$
 Todos os seguintes conjuntos são exemplos de anéis:
 $$
 \xalignat7
-&\sset \ints        {+,\ntimes}&
-&\sset \rats        {+,\ntimes}&
-&\sset \reals       {+,\ntimes}&
-&\sset \complex     {+,\ntimes}&
-&\sset {\reals[x]}  {+,\ntimes}&
-&\sset {C[a,b]}     {+,\ntimes}&
+&\sset \ints                {+,\ntimes}&
+&\sset \rats                {+,\ntimes}&
+&\sset \reals               {+,\ntimes}&
+&\sset \complex             {+,\ntimes}&
+&\sset {\polys\reals x}     {+,\ntimes}&
+&\sset {C[a,b]}             {+,\ntimes}&
 &\sset {\reals^{n\times n}} {+,\ntimes}
 \endxalignat
 $$
 onde lembramos que
-$\reals[x]$ é o conjunto de todos os polinómios numa variável $x$ com coeficientes
+$\polys\reals x$ é o conjunto de todos os polinómios numa variável $x$ com coeficientes
 reais,
 e $\reals^{n\times n}$ é o conjunto de todas as matrices reais $n\times n$.
 Temos também
@@ -37963,6 +37963,14 @@ e logo $\ell_1 = \ell_2$, que é o que queremos provar!
 \qed
 %%}}}
 
+%%{{{ x: exp_over_factorial_limit 
+\exercise.
+\label{exp_over_factorial_limit}%
+Demonstre que para todo $a\in\reals$, $\lim_{n\to\infty} \frac {a^n} {\fac n}$.
+
+\endexercise
+%%}}}
+
 %%{{{ df: Cauchy_sequence_of_reals 
 \definition seqüência Cauchy.
 \label{Cauchy_sequence_of_reals}%
@@ -38106,11 +38114,13 @@ Liouville \emph{definiu} seus números com objetivo de achar
 transcendentais.  O $e$ já era definido e estudado muito,
 e sua \emph{raison d'être} não tinha nada a ver com os
 números transcendentais.
-\yearof{1882}--\yearof{1885}:
+\yearof{1882}:
 \vonLindemann{}von~Lindemann prova a transcendentalidade
-dos $e^\alpha$ para $\alpha\neq0$ algébrico e
-\Weierstrass{}Weierstrass generaliza para o teorema
-Lindemann--Weierstrass na teoria de números transcendentais.
+dos $e^\alpha$ para $\alpha\neq0$ algébrico---e logo
+do $\pi$ também (\ref{pi_is_transcendental})---e
+\Weierstrass{}Weierstrass generaliza no \yearof{1885} para o
+teorema conhecido como Lindemann--Weierstrass na teoria de
+números transcendentais.
 
 \yearof{1870}:
 \Cantor{}Cantor!
@@ -39279,8 +39289,8 @@ Como tu vai provar que o número construido pela método de Cantor realmente é 
 \section O conjunto de Cantor.
 \label{Cantor_set}%
 
-%%{{{ Cantor dust 
-\note A poeira de Cantor.
+%%{{{ Cantor set 
+\note O conjunto de Cantor.
 $$
 \tikzpicture
 \tikzi cantorset;
@@ -39294,29 +39304,89 @@ $$
 %%{{{ Some important applications 
 \section Umas aplicações importantes da teoria de Cantor.
 
-\note Os números irracionais.
+%%{{{ corollary: irrats_uncountable 
+\corollary.
+\label{irrats_uncountable}%
+Os irracionais são incontáveis.
+\proof.
+Os racionais são contáveis.  Os reais incontáveis.
+Logo, os irracionais são incontáveis, pois
+$\reals = \rats \union \paren{\reals\setminus\rats}$
+e logo se $\reals\setminus\rats$ fosse contável teriamos
+a contradição do $\reals$ ser contável também
+(\ref{binary_union_of_countable_is_countable}).
+\qed
+%%}}}
 
-\note Os números algebricos.
+%%{{{ And the transcendentals? 
+\note E os transcendentais?.
+Os transcendentais parecem ainda mais selvagens que os irracionais.
+E neste momento temos poquíssimos exemplos: os números de \Liouville{}Liouville
+que foram contruidos exatamente com esse propósito;
+o $e$ que \Hermite{}Hermite acabou de provar que é
+transcendental~(\yearof{1873}) e a transcendentalidade do $\pi$ demorou uns anos.
+Como encontramos transcendentais tão raramente em comparação com os algébricos
+faz sentido pensar que eles são contáveis.%
+\footnote
+{Na verdade, a única razão que temos nesse momento de acreditar
+que o conjunto de transcedentais é infinito são os números Liouville:
+ele realmente conseguiu contruir uma infinidade (incontável) de transcendentais.}
+%%}}}
 
-\note.
+%%{{{ lemma: algebraics_are_countable 
+\lemma.
+\label{algebraics_are_countable}%
+Os algébricos são contáveis.
+\sketch.
+Basta observar que $\polys\rats x \eqc \kstar\rats$, com a correspondência
+$$
+a_0 + a_1 x + a_2 x^2 + \dotsb + a_{n-1} x^{n-1} + a_n x^n
+\leftrightarrow
+\tupp{a_0, a_1, a_2, \dotsc, a_{n-1}, a_n}.
+$$
+Seja $f_0, f_1, f_2, \dotsc$ uma enumeração do $\polys\rats x$.
+Stratificamos então os números algébricos onde o $i$-ésimo stratum é o
+$$
+S_i = \setst {\alpha} {f_i(\alpha) = 0}.
+$$
+Pelo teorema fundamental da Álgebra agora, sabemos que cada $f_i$
+tem no máximo $\deg(f_i)$ raízes, ou seja, todos os strata
+são finitos e pronto!
+\qes
+%%}}}
+
+%%{{{ corollary: transcends_uncountable 
+\corollary.
+\label{transcends_uncountable}%
+Os transcendentais são incontáveis.
+\proof.
+Como os algébricos são contáveis (\ref{algebraics_are_countable}),
+os transcendentais são incontáveis com o mesmo argumento da demonstração
+do~\ref{irrats_uncountable}.
+\qed
+%%}}}
+
+%%{{{ Sky and stars 
+\note Céu de estrelas.
 Sem as descobertas de Cantor, alguém pensaria que isso
 é uma coincidência muito grande e bizarra:
-como aconteceu que a gente definiu um número bem importante,
-e aconteceu que ele tem essa propriedade estranha
-de ser transcendental?
+como aconteceu que a gente definiu um número bem importante
+como o $\pi$ ou o $e$ e aconteceu que ele tem essa propriedade
+estranha de ser transcendental?
 Mas, graças ao Cantor, sabemos melhor:
-de fato, seria bizarro se fosse o contrário!
+\emph{de fato, seria bizarro se fosse o contrário!}
 Pois sabemos agora que, na verdade, as excessões são os
-algebricos e não os transcendentais.
-O estranho seria descobrir que $e$ aconteceu que é
-racional!
+algébricos e não os transcendentais.
+O estranho seria descobrir que $e$ aconteceu que é racional!
 Como piada considere o princípio seguinte:
-\endgraf
-\emph{Seja $x\in\reals$ com $x\neq0,1$.
-Se $x$ é profundamente interessante em matemática,
-então $x$ é transcendental.}
+%%}}}
 
-\note Os números transcendentais.
+%%{{{ joke: transcendentality_principle 
+\joke Princípio de transcendentalidade.
+Seja $x\in\reals$ com $x\neq0,1$.
+Se $x$ é profundamente interessante em matemática,
+então $x$ é transcendental.
+%%}}}
 
 \endsection
 %%}}}
@@ -40234,6 +40304,21 @@ Tem outro(s)?  Quantos?
 
 \hint
 Considere a diámetro horizontal $\setst {(x,0)} {-1 < x < 1}$.
+
+\endproblem
+%%}}}
+
+%%{{{ thm: von_Lindemann_theorem 
+\theorem von Lindemann.
+\label{von_Lindemann_theorem}%
+Para todo $\alpha\neq0$ algébrico, $e^\alpha$ é transcendental.
+%%}}}
+
+%%{{{ prob: pi_is_transcendental 
+\problem.
+\label{pi_is_transcendental}%
+Dado o teorema de~\vonLindemann{}von~Lindemann~\refn{von_Lindemann_theorem}
+demonstre que $\pi$ é transcendental.
 
 \endproblem
 %%}}}
