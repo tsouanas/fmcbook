@@ -39551,16 +39551,59 @@ prove que $\reals \eqc \pset\nats$.
 
 %%{{{ Encodings 
 \section Codificações.
+\label{Encodings}%
 
+%%{{{ Encodings 
+\note Encodings.
+Uma maneira de pensamento para construir injecções seria através
+de codificações (ou \dterm{encodings}).
+Uma \dterm{codificação} de $A$ no $B$ é qualquer injecção
+de $A$ para $B$.
+%%}}}
+
+%%{{{ eg: rats_encoded_as_nats 
+\example.
+Para provar que $\rats\leqc\nats$ basta achar uma maneira de
+codificar cada racional como um natural.  Aqui um jeito fácil:
+dado um racional $q\in \rats$ sejam $m,n$ tais que $q = m/n$
+e $m/n$ irredutível; codificamos
+$$
+\align
+m/n  &\mapsto 1\tunderbrace{00\cdots0}{$m$ vezes}1\tunderbrace{00\cdots0}{$n$ vezes}1.
+\intertext{Assim,}
+1/2  &\mapsto 101001 \\
+10/6 = 5/3 &\mapsto 10000010001 \\
+22/7 &\mapsto 10000000000000000000000100000001
+\endalign
+$$
+etc.
+Observe que para qualquer $n\in\nats$, existem dois casos:
+ou ele serve como codificação para algum $q\in\rats$
+(como o $101001$ acima) ou não (como o $1$, o $2$, o $1011$, etc.).
+Caso que sim, podemos facilmente extrair a informação codificada
+no $n$, voltando para o racional $q$:
+$$
+10001001 \leadsto 3/2.
+$$
+A mesma ideia serve para codificar o $\kstar\nats$:
+\endexample
+%%}}}
+
+%%{{{ x: kstar_nats_encoded_as_nats 
 \exercise.
-Prove que $[0,1) \eqc (\nats\to\nats)$.
+\label{kstar_nats_encoded_as_nats}%
+Prove usando codificação que $\kstar\nats \leqc \nats$.
 
 \endexercise
+%%}}}
 
+%%{{{ x: closed_open_unit_eqc_nats_to_nats_codification 
 \exercise.
-Prove que $\nats \eqc \kstar\nats$.
+\label{closed_open_unit_eqc_nats_to_nats_codification}%
+Prove usando codificação que $[0,1) \eqc (\nats\to\nats)$.
 
 \endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -39844,9 +39887,9 @@ cardinalidades?
 \section As menores infinidades.
 
 \blah.
-Então.  Já sabemos que tem uma quantidade infinita de infinidades diferentes
-graças ao teorema de Cantor.  Já encontramos as cardinalidades dos primeiros
-beths
+Então.  Já sabemos que tem uma quantidade infinita de infinidades
+diferentes graças ao teorema de Cantor.
+Já encontramos as cardinalidades dos primeiros beths
 $$
 \beth_0 < \beth_1 < \beth_2 < \beth_3 < \dotsb
 $$
@@ -39855,6 +39898,7 @@ $$
 \nats \ltc \pset\nats \ltc \pset\pset\nats \ltc \pset\pset\pset\nats \ltc \dotsb
 $$
 
+%%{{{ The equinumerosities so far 
 \note As eqüinumerosidades até agora.
 Temos então provado as:
 $$
@@ -39881,6 +39925,7 @@ $$
 \Delta \eqc \cantorset \eqc \pset\nats \leqc
 (a,b) \eqc [a,b) \eqc (a,b] \eqc [a,b] \eqc (0,1) \eqc \reals.
 $$
+%%}}}
 
 \endsection
 %%}}}
