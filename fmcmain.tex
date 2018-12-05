@@ -42331,6 +42331,97 @@ etc.
 \endsection
 %%}}}
 
+%%{{{ Classes vs. Sets (I) 
+\section Classes vs{.}~Conjuntos (I).
+
+%%{{{ What is a class? 
+\note O que é uma classe?.
+Sem dúvida, a notação $\set{ x \st \text{\lthole} }$
+que temos usado até agora é natural e útil.
+Ela denota a colecção de todos os objetos $x$ que satisfazem
+a condição (ou ``passam o filtro'') que escrevemos no \lthole.
+Dada uma condição definitiva $P$ então consideramos a colecção
+$$
+\set {x \st P(x)}
+$$
+de todos os objetos que a satisfazem.
+Provavelmente vocé já percebeu que eu evitei usar a palavra
+\emph{conjunto}, pois reservamos essa palavra para
+apenas os conjuntos-objetos do nosso universo.
+%%}}}
+
+%%{{{ df: class 
+\definition Classe.
+\tdefined{classe}%
+\tdefined{classe}[própria]%
+\iisee{própria}[classe]{classe própria}%
+Dada uma condição definitiva $P(\dhole)$ definimos a \dterm{classe}
+$$
+\class x {P(x)}
+$$
+como um sinónimo da própria condição $P$!
+Chamamos a classe $P$ \dterm{própria} sse não existe \emph{conjunto}
+$S$ que satisfaz a propriedade:
+$$
+x \in S \iff P(x).
+$$
+%%}}}
+
+%%{{{ eg: sets and proper classes 
+\example.
+Dados conjuntos $a$ e $b$,
+das classes
+$$
+\munderbrace{\class x {x = a}} {\set a}
+\qqquad
+\munderbrace{\class x {x \in a \land x\in b}} {a\inter b}
+\qqquad
+\munderbrace{\class x {x \neq x}} {\emptyset}
+\qqquad
+\class x {x = x}
+$$
+apenas a última é própria.
+As outras são conjuntos mesmo!
+\endexample
+%%}}}
+
+%%{{{ warning: Abuso notacional 
+\warning Abuso notacional.
+É muito comum abusar o símbolo $\in$, escrevendo
+$$
+x \in C
+$$
+mesmo quando $C$ é uma classe própria!
+Nesse caso consideramos o ``$x \in C$'' apenas como uma
+abreviação do $C(x)$.
+Em outras palavras, esse $\in$ não é um símbolo de relação da nossa FOL de
+teoria de conjuntos, mas sim uma abreviação em nossa \emph{metalinguagem},
+no mesmo jeito que $\iff$ também não é, mas o $\liff$ é.
+Quando precisamos enfatizar essa diferença vamos usar um símbolo diferente:
+%%}}}
+
+%%{{{ Notation: inclass 
+\note Notação.
+\label{inclass}%
+\sdefined{\holed x\inclass\holed C}{o objeto \holed x está na classe \holed C}%
+Usamos o símbolo $\inclass$ na metalinguagem como ``pertence''
+quando possivelmente o lado direito é uma classe própria.%
+\footnote{Seguimos aqui o exemplo dos símbolos de equivalência na metalinguágem
+($\Longleftrightarrow$) e na linguagem-objeto de lógica ($\leftrightarrow$).}
+Com essa notação:
+$$
+x\inclass P
+\defiff
+\knuthcases{
+P(x)    & se $P$ é uma classe própria\cr
+x\in P  & se $P$ é um conjunto.
+}
+$$
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ The first axioms of Zermelo 
 \section Os primeiros axiomas de Zermelo.
 
@@ -42924,18 +43015,23 @@ não existe estratégia\ii{estratégia}[vencedora]\ vencedora num jogo
 onde nosso oponente joga primeiro escolhendo um número $n\in\nats$,
 e nosso objetivo é construir pelos axiomas um conjunto
 com cardinalidade $n$.
-Se ele escolher $n=0$ ou uma potência de $2$, temos como ganhar,
-mas caso contrário, não.
+Se ele escolher como $n$ um dos
+$$
+0, 1, 2, 2^2, 2^{2^2}, 2^{2^{2^2}}, \dotsc
+$$
+temos como ganhar, mas caso contrário, não.
 \endgraf
-No outro lado, num jogo onde  nosso objetivo é construir pelos axiomas um
-conjunto com cardinalidade \emph{pelo menos} $n$, como vimos
-no~\ref{arbitrarily_large_finite_sets}, temos uma estratégia vencedora sim:
+No outro lado, num jogo onde  nosso objetivo é construir pelos
+axiomas um conjunto com cardinalidade \emph{pelo menos} $n$,
+como vimos no~\ref{arbitrarily_large_finite_sets},
+temos uma estratégia vencedora sim:
 comece com uma aplicação do Emptyset~(\axref{emptyset})
 para ganhar o $\emptyset$ e aplique iterativamente o
 Powerset~(\axref{powerset}) construindo assim conjuntos de
 cardinalidades $0$ (do próprio $\emptyset$),
-$1$, $2$, $2^2$, $2^{2^2}$, etc., até chegar num conjunto com cardinalidade
-maior-ou-igual ao $n$ escolhido por nosso oponente.
+$1$, $2$, $2^2$, $2^{2^2}$, etc.,
+até chegar num conjunto com cardinalidade maior-ou-igual
+ao~$n$ escolhido por nosso oponente.
 %%}}}
 
 %%{{{ x: how many iterations of powerset do we need to win? 
@@ -43255,97 +43351,6 @@ $
 $.
 
 \endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Classes vs. Sets (I) 
-\section Classes vs{.}~Conjuntos (I).
-
-%%{{{ What is a class? 
-\note O que é uma classe?.
-Sem dúvida, a notação $\set{ x \st \text{\lthole} }$
-que temos usado até agora é natural e útil.
-Ela denota a colecção de todos os objetos $x$ que satisfazem
-a condição (ou ``passam o filtro'') que escrevemos no \lthole.
-Dada uma condição definitiva $P$ então consideramos a colecção
-$$
-\set {x \st P(x)}
-$$
-de todos os objetos que a satisfazem.
-Provavelmente vocé já percebeu que eu evitei usar a palavra
-\emph{conjunto}, pois reservamos essa palavra para
-apenas os conjuntos-objetos do nosso universo.
-%%}}}
-
-%%{{{ df: class 
-\definition Classe.
-\tdefined{classe}%
-\tdefined{classe}[própria]%
-\iisee{própria}[classe]{classe própria}%
-Dada uma condição definitiva $P(\dhole)$ definimos a \dterm{classe}
-$$
-\class x {P(x)}
-$$
-como um sinónimo da própria condição $P$!
-Chamamos a classe $P$ \dterm{própria} sse não existe \emph{conjunto}
-$S$ que satisfaz a propriedade:
-$$
-x \in S \iff P(x).
-$$
-%%}}}
-
-%%{{{ Abuso notacional 
-\note Abuso notacional.
-É muito comum abusar o símbolo $\in$, escrevendo
-$$
-x \in C
-$$
-mesmo quando $C$ é uma classe própria!
-Nesse caso consideramos o ``$x \in C$'' apenas como uma
-abreviação do $C(x)$.
-Em outras palavras, esse $\in$ não é um símbolo de relação da nossa FOL de
-teoria de conjuntos, mas sim uma abreviação em nossa \emph{metalinguagem},
-no mesmo jeito que $\iff$ também não é, mas o $\liff$ é.
-Para enfatizar essa diferença vamos usar um símbolo diferente:
-%%}}}
-
-%%{{{ df: inclass 
-\definition.
-\label{inclass}%
-\sdefined{\holed x\inclass\holed C}{o objeto \holed x está na classe \holed C}%
-Usamos o símbolo $\inclass$ na metalinguagem como ``pertence''
-quando possivelmente o lado direito é uma classe própria.%
-\footnote{Seguimos aqui o exemplo dos símbolos de equivalência na metalinguágem
-($\Longleftrightarrow$) e na linguagem-objeto de lógica ($\leftrightarrow$).}
-Com essa notação:
-$$
-x\inclass P
-\defiff
-\knuthcases{
-P(x)    & se $P$ é uma classe própria\cr
-x\in P  & se $P$ é um conjunto.
-}
-$$
-%%}}}
-
-%%{{{ eg: sets and proper classes 
-\example.
-Dados conjuntos $a$ e $b$,
-das classes
-$$
-\munderbrace{\class x {x = a}} {\set a}
-\qqquad
-\munderbrace{\class x {x \in a \land x\in b}} {a\inter b}
-\qqquad
-\munderbrace{\class x {x \neq x}} {\emptyset}
-\qqquad
-\setst x {x = x}
-$$
-apenas a última é própria.
-As outras são conjuntos mesmo!
-\endexample
 %%}}}
 
 \endsection
