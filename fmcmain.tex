@@ -38445,7 +38445,7 @@ $$
 Seja $t' \in (A'\to B')$.
 Defina a $t \in (A\to B)$ pela
 $$
-    t = g^{-1} \compose t' \compose f
+    t = \finv g \compose t' \compose f
 $$
 e observe que $F(t) = t'$.
 
@@ -38521,7 +38521,7 @@ basta observar que seus valores para a entrada $b\asseq b_0$
 são diferentes.
 \proofpart{Sobrejetoridade.}
 Toma um $f\in (A\to (B\to C))$.
-Defina a $t : ((A\times B) \to C)$
+Defina a $t : (A\times B) \to C$
 pela
 $$
 t(a,b) = (f(a))(b)
@@ -40146,7 +40146,7 @@ $$
 0.4999\dots = 1/2 = 0.5000\dots
 $$
 e logo a $f$ não seria bem-definida sem essa restrição.
-\endgraf
+\endgraf\noindent
 (2) A $f$ não é bijetora!
 Basta só criar um exemplo que sua preimagem seria um número que
 termina em $999\dots$:
@@ -40382,14 +40382,14 @@ Logo o hypergame não é terminante.
 \problem.
 \label{from_hypergame_to_cantors_theorem}%
 Seja conjunto $A$ e suponha que existe injecção $\phi : A \injto \pset A$.
-Para todo $x\in A$, denota com $\sym x$ o $\phi(x)$, ou seja, $\sym x$
+Para todo $x\in A$, denota com $A_x$ o $\phi(x)$, ou seja, $A_x$
 é o subconjunto de $A$ associado com o $x$.
 Seja $a\in A$.  Chame um \dterm{caminho} de $a$ qualquer seqüência
 finita ou infinita $\set{a_i}_i$ de elementos de $A$ que satisfaz:
 $$
 \align
 a_0     &= a\\
-a_{n+1} &\in \sym {a_n}.
+a_{n+1} &\in A_{a_n}.
 \endalign
 $$
 Finalmente, chame um $a\in A$ \dterm{terminante} se todos os caminhos
@@ -40399,14 +40399,48 @@ do teorema de Cantor~\refn{cantor_theorem}.
 
 \hint
 Seja $T \subseteq A$ o conjunto de todos os terminantes elementos de $A$.
-Queremos provar que $T\notin \img \phi A$, ou seja, que para todo $x\in A$,
-$\sym x \neq T$, provando assim que $\phi$ não é bijetora.
+Basta provar que $T\notin \img \phi A$, ou seja, que para todo $x\in A$,
+$A_x \neq T$, provando assim que $\phi$ não é bijetora.
 
 \hint
-Suponha para chegar num absurdo que $T=\sym a$ para algum $a\in A$.
+Suponha para chegar num absurdo que $T=A_a$ para algum $a\in A$.
 
 \hint
 $T = \emptyset$?
+
+\solution
+Seja $T \subseteq A$ o conjunto de todos os terminantes elementos de $A$.
+Basta provar que $T\notin \img \phi A$, ou seja, que para todo $x\in A$,
+$A_x \neq T$, provando assim que $\phi$ não é bijetora.
+Suponha para chegar num absurdo que $T\in \img\phi A$ e logo seja
+$a \in A$ tal que $T=A_a$\fact1.
+Observe que $T\neq\emptyset$, pois se fosse vazio o $a$ seria terminante
+e logo pertenceria ao $T$; absurdo.
+Vamos provar que qualquer caminho de $a$ é terminante.
+Seja $a = a_0, a_1, a_2, \dotsc$ um caminho de $a$.
+Logo $a_1 \in A_a = T$, ou seja $a_1$ é terminante,
+e logo o caminho $a_1, a_2, \dotsc$ é finito!
+Logo o $a_0,a_1,a_2,\dotsc$ também é.
+Mostramos então que o arbitrário caminho de $a$ é finito,
+ou seja, todos são, ou seja, $a$ é terminante\fact2~e logo
+$a \in T$\fact3.
+Mas aqui um caminho infinito de $a$:
+$$
+\align
+a_0 &\asseq a \\
+a_1 &\asseq a \\
+a_2 &\asseq a \\
+a_3 &\asseq a \\
+    &\eqvdots
+\endalign
+$$
+Isso realmente é um caminho de $a$ pois pelos~\byfact1~e~\byfact3,
+$a \in A_a$ e logo substituindo iguais por iguais,
+$a_{n+1} = a \in A_a = A_{a_n}$.
+Concluimos então que $a$ não é terminante, contradizendo o~\byfact2.
+Chegamos assim num absurdo, e logo nossa hipótese que
+$T \in \img \phi A$ não é válida, ou seja, $T \notin \img \phi A$
+e logo $\phi$ não é sobrejetora.
 
 \endproblem
 %%}}}
