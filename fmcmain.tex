@@ -40097,6 +40097,101 @@ Podemos sim dizer (corretamente) que
 %%{{{ Consequences in computability and definability 
 \section Conseqüências em computabilidade e definabilidade.
 
+%%{{{ Aristos vs Blammenos 
+\note Áristos vs Blammenos.
+\label{Aristos_vs_Blammenos}%
+\endgraf\noindent
+\centerline{\scshape Cena 1.}
+\centerline{\it Segunda-feira, madrugada.}
+\centerline{\it Dois amigos, Áristos e Blammenos,}
+\centerline{\it estão estudando para a prova de Fundamentos Matemáticos.}
+\centerline{\it Eles estão tentando resolver o problema seguinte:}
+\standout
+\emph{<<O conjunto $P$ de todos os programas de tipo
+$\Nat\to\Nat$ é contável?>>}
+\endstandout
+\dialogue
+\who {Áristos}
+O conjunto $P$ é contável, e aqui minha prova:
+o conjunto $S$ de todos os strings feitos por um alfabeto finíto
+é contável, e todos os programas possíveis correspondem em apenas
+um subconjunto próprio de $S$ (pois todo programa é um string,
+mas tem strings que não são programas).
+Logo, o $P$ é contável.
+\who {Blammenos}
+Então tu tá afirmando que existe enumeração do $P$?
+Eu vou chegar num absurdo com essa hipótese.
+Suponha $p_0, p_1, p_2, \dotsc$ uma enumeração de $P$.
+Eu defino o programa $p_*$ com o algoritmo bem simples:
+$$
+p_*(n) = p_n(n) + 1.
+$$
+Agora temos $p_* \notin P$, pois para todo $n\in\nats$, $p_* \neq p_n$.
+\who {Á}
+Por quê?
+\who {B}
+Seja $n\in\nats$.
+Eu vou lhe mostrar que $p_* \neq p_n$.
+Calculamos
+$$
+\alignat2
+p_*(n)
+&= p_n(n) + 1   \by{pela def.~$p_*$}
+&\neq p_n(n)
+\endalignat
+$$
+que mostra que $p_* \neq p_n$.
+Ou seja, $p_*$ não é nenhum dos $p_0, p_1, \dotsc$
+que a gente supôs que esses são todos os membros do $P$.
+Cheguei assim num absurdo, logo $P$ é incontáv---
+\who {Á}
+Peraí, tu tá roubando!
+Como teu programa usou essa enumeração $p_0, p_1, \dotsc$?
+Se tu tivesse um algoritmo (programa) que gera essa
+seqüência, tu teria razão.
+\who {B}
+Hmmm\dots\ \ 
+Mas é fácil programar esse algoritmo!
+Concordas que podemos gerar facilmente todos os strings no $S$?
+\who {Á}
+Sim, esse programa que gera os strings, a gente já encontrou na aula.
+\who {B}
+Bem, então meu algoritmo é o seguinte:
+gere todos os strings $s_0, s_1, s_2, \dotsc \in S$,
+mas para cada string que não é um programa, pula para o próximo.
+Esse programa gera sim a seqüência $p_0, p_1, p_2, \dotsc$
+de todos os programas!
+\who {Á}
+Pqp, faz sentido!
+Não consigo achar um erro na tua prova, mas nem na minha!
+\who {B}
+Eu também não consigo achar um erro na tua prova!
+\enddialogue
+%%}}}
+
+%%{{{ Q: Who is right? 
+\question.
+Um conjunto não pode ser contável e incontável,
+então pelo menos um dos dois alunos tá errado.
+Quais são o(s) erro(s)?
+Seguindo as suas idéias o que podemos concluir mesmo?
+%%}}}
+\spoiler.
+
+%%{{{ A 
+\blah Resposta.
+O Blammenos tá errado.
+O problema é que seu programa em algum momento tem que decidir se um string aleatório é um programa válido, e ainda mais, se termina ou não para alguma dada entrada.
+Também não podemos chamar a
+$$
+p_*(n) \neq p_n(n)
+$$
+verdadeira para todo $n \oftype \Nat$,
+pois existe a possibilidade de algum programa não terminar.
+Nesse caso os dois lados são $\bot$ (``bottom'').
+Podemos então concluir que é impossível criar tal programa!
+%%}}}
+
 \TODO Quantos programas?. 
 
 \TODO Quantas funções?.
