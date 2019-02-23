@@ -10582,7 +10582,7 @@ $$
 0,\quad
 S0,\quad
 SS0,\quad
-SSS0\quad
+SSS0.
 $$
 Escrevemos a seqüência de primos então assim:
 $$
@@ -11063,7 +11063,7 @@ tá sendo \emph{copiado e colado} para cada um deles.
 %%}}}
 
 %%{{{ x: solve_the_zero_case_of_case_split 
-\exercise.
+\exercise O primeiro caso.
 \label{solve_the_zero_case_of_case_split}%
 Prove que
 $$
@@ -11098,7 +11098,7 @@ S\paren{(a+m) + y'}
 \askeq
 S(a + (m + y'))
 $$
-e para resolver isso basta ``cortar os $S$s'' e provar que
+e para resolver isso basta ``cortar os $S$'s'' e provar que
 $$
 (a+m) + y' = a + (m + y').
 $$
@@ -11142,42 +11142,42 @@ Queremos provar a afirmação
 $$
 \forall n
 \forall m
-\forall k
-Q(n,m,k)
+\sforall k
+\psi(n,m,k)
 $$
 onde
 $$
-Q(x,y,z) \defiff \bigparen{x + (y + z) = (x + y) + z}.
+\psi(x,y,z) \abbrdefiff x + (y + z) = (x + y) + z.
 $$
-Como ela não está no formato $\forall n P(n)$ não podemos
+Como ela não está no formato $\forall n \phi(n)$ não podemos
 atacá-la diretamente com indução.
 Mas, na verdade, reescrevendo como
 $$
 \forall n
-\munderbrace {\forall m \forall k Q(n,m,k)} {P_1(n)}
+\munderbrace {\forall m \sforall k \psi(n,m,k)} {\phi_1(n)}
 $$
 já percebemos que tem a forma certa.
 Pela lógica podemos trocar a órdem de quantificadores consecutivos
 \emph{do mesmo tipo}, então o que queremos provar é equivalente aos
 $$
 \xalignat3
-\forall n & \munderbrace {\forall m \forall k Q(n,m,k)} {P_1(n)}; &
-\forall m & \munderbrace {\forall n \forall k Q(n,m,k)} {P_2(m)}; &
-\forall k & \munderbrace {\forall n \forall m Q(n,m,k)} {P_3(k)};
+\forall n & \munderbrace {\forall m \sforall k \psi(n,m,k)} {\phi_1(n)}; &
+\forall m & \munderbrace {\forall n \sforall k \psi(n,m,k)} {\phi_2(m)}; &
+\forall k & \munderbrace {\forall n \sforall m \psi(n,m,k)} {\phi_3(k)};
 \endxalignat
 $$
 etc.~(tem ainda mais três opções que não escrevi),
-onde em cada caso o $P_i$ tem uma definição diferente,
-mas o $Q$ tem sempre a mesma.
+onde em cada caso o $\phi_i$ tem uma definição diferente,
+mas o $\psi$ tem sempre a mesma.
 Escolhemos provar a
 $$
-\forall k \munderbrace {\forall n \forall m Q(n,m,k)} {P(k)}.
+\forall k \munderbrace {\forall n \sforall m \psi(n,m,k)} {\phi(k)}.
 $$
 por indução.
 \crproofpart{Base.}
-Precisamos provar o $P(0)$, ou seja:
+Precisamos provar o $\phi(0)$, ou seja:
 $$
-\forall n \forall m Q(n,m,0),
+\forall n \sforall m \psi(n,m,0),
 $$
 ou seja:
 $$
@@ -11191,11 +11191,11 @@ $$
 n + \paren{\underline{m+0}} &= n + m \by {a1)}
 \endalignat
 $$
-Ou seja, a $P(0)$ realmente é verdade.
+Ou seja, a $\phi(0)$ realmente é verdade.
 \crproofpart{Passo indutivo.}
 Precisamos provar a afirmação:
 $$
-\forall x \bracket{P(x) \implies P(Sx)},
+\forall x \bracket{\phi(x) \implies \phi(Sx)},
 $$
 ou seja,
 $$
@@ -11262,12 +11262,12 @@ $$
 Provamos a
 $$
 \forall n
-\munderbrace {\forall m \bigparen{n + m = m + n}} {P(n)}.
+\munderbrace {\forall m \bigparen{n + m = m + n}} {\phi(n)}.
 $$
 \proofpart{Base.}
-Queremos provar o $P(0)$, ou seja, o seguinte:
+Queremos provar o $\phi(0)$, ou seja, o seguinte:
 $$
-\forall m \munderbrace {\bigparen{0 + m = m + 0}} {Q(m)}.
+\forall m \munderbrace {\bigparen{0 + m = m + 0}} {\psi(m)}.
 $$
 Vamos provar por indução!
 \leftindent
@@ -11277,8 +11277,8 @@ são a mesma expressão.
 \crproofpart{Sub-passo indutivo.}
 Precisamos provar que:
 $$
-\forall k \Bigbracket{\munderbrace {0 + k = k + 0} {Q(k)}
-          \implies \munderbrace {0 + Sk = Sk + 0} {Q(Sk)}}.
+\forall k \Bigbracket{\munderbrace {0 + k = k + 0} {\psi(k)}
+          \implies \munderbrace {0 + Sk = Sk + 0} {\psi(Sk)}}.
 $$
 Seja $k\in\nats$ tal que
 $$
@@ -11306,20 +11306,20 @@ $$
 \forall k
 \Bigbracket{
 \munderbrace {\forall m \paren{k + m = m + k}}
-{P(k)}
+{\phi(k)}
 \implies
 \munderbrace {\forall m \paren{Sk + m = m + Sk}}
-{P(Sk)}
+{\phi(Sk)}
 }.
 $$
 Seja $k\in\nats$ tal que
 $$
-\munderbrace {\forall m \paren{k + m = m + k}} {P(k)} \tag{H.I.}
+\munderbrace {\forall m \paren{k + m = m + k}} {\phi(k)} \tag{H.I.}
 $$
 então.
 Basta provar que
 $$
-\munderbrace {\forall m \paren{Sk + m = m + Sk}} {P(Sk)}.
+\munderbrace {\forall m \paren{Sk + m = m + Sk}} {\phi(Sk)}.
 $$
 Seja $m\in\nats$.
 Calculamos:
@@ -11383,12 +11383,12 @@ $$
 Provamos por indução que
 $$
 \forall b
-\munderbrace {\forall a \bigparen{ Sa + b = a + Sb }} {P(b)}.
+\munderbrace {\forall a \bigparen{ Sa + b = a + Sb }} {\phi(b)}.
 $$
 \proofpart{Base.}
 Precisamos provar que
 $$
-\munderbrace {\forall a \bigparen{ Sa + 0 = a + S0 }} {P(0)}.
+\munderbrace {\forall a \bigparen{ Sa + 0 = a + S0 }} {\phi(0)}.
 $$
 Calculamos:
 $$
@@ -11407,25 +11407,25 @@ $$
 \Bigbracket{
 \munderbrace
     {\forall a \bigparen{ Sa + k = a + Sk }}
-    {P(k)}
+    {\phi(k)}
 \implies
 \munderbrace
     {\forall a \bigparen{ Sa + Sk = a + SSk }}
-    {P(Sk)}
+    {\phi(Sk)}
 }.
 $$
 Seja $k\in\nats$ tal que
 $$
 \munderbrace
     {\forall a \bigparen{ Sa + k = a + Sk }}
-    {P(k)}.
+    {\phi(k)}.
 \tag{H.I.}
 $$
 Basta mostrar que
 $$
 \munderbrace
     {\forall a \bigparen{ Sa + Sk = a + SSk }}
-    {P(Sk)}.
+    {\phi(Sk)}.
 $$
 Seja $a\in\nats$.
 Calculamos
