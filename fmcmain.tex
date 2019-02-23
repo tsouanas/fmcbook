@@ -2181,7 +2181,7 @@ Escolhendo que o universo é feito por todas as pessoas
 realmente cada pai é um homem.  Escolhendo interpretar o $R(u,v)$
 como ``$u$ é a mãe de $v$'', a segunda frase se-traduza como
 ``existe pessoa que é mãe de todos'' (que é falso),
-mas a terceira diz ``cada pessoa tem mãe'' (que é verdadeiro).
+mas a terceira diz ``toda pessoa tem mãe'' (que é verdadeiro).
 \endexample
 %%}}}
 
@@ -2778,7 +2778,7 @@ $\sforall x \phi(x)$    & $?^{\phantom?}$                 & <<Seja $u$.>>\cr
 \tablerule
 $\sexists x \phi(x)$    & <<Seja $u$ tal que $\phi(u)$.>> & --\cr
                         & Novos dados: $u$, $\phi(u)$     & Efeito nos dados: --\cr
-                        & Efeito nos alvos: --            & Novo alvo: achar um $u$ tal que $\phi(u)$\cr
+                        & Efeito nos alvos: --            & Novo alvo: $\phi(u)$ (eu escolho o $u$)\cr
 \tablerule
 $\phi \land \psi$       & --                              & ?\cr
                         & Novos dados: $\phi$, $\psi$     &  \cr
@@ -2858,7 +2858,7 @@ Consideramos dois casos:
 \li Caso $n = 3k$   para algum $k\in\ints$.
 \li Caso $n = 3k+1$ para algum $k\in\ints$.
 \endol
-E cada um deles, é fácil provar que realmente $n(n-1)$ é
+Em cada um deles, é fácil provar que realmente $n(n-1)$ é
 um múltiplo de $3$.  Mas claramente temos um erro aqui,
 pois, como um contraexemplo tome o inteiro $2$ e calcule:
 $5(5-1) = 20$, e com certeza $20$ não é um múltiplo de $3$.
@@ -2958,6 +2958,65 @@ não tem como culpá-lo de mentiroso.
 \endsection
 %%}}}
 
+%%{{{ Negation 
+\section Negação.
+
+\TODO Botando negações pra dentro.
+
+\TODO Negando fórmulas atômicas.
+
+\endsection
+%%}}}
+
+%%{{{ Igualdade 
+\section Igualdade.
+
+%%{{{ Laws 
+\note Leis.
+Aceitamos como parte da nossa lógica que a igualdade é:
+\dterm{reflexiva}, \dterm{simétrica}, e \dterm{transitiva}:
+$$
+\Proof{
+\I0---------------- {Refl}
+{$\alpha = \alpha$}
+}
+\qquad
+\Proof{
+\A {$\alpha = \beta$}
+\I1------------------ {Sym}
+ {$\beta = \alpha$}
+}
+\qquad
+\Proof{
+\A {$\alpha = \beta$}
+                       \A {$\beta = \gamma$}
+\I2----------------------------------------- {Trans}
+           {$\alpha = \gamma$}
+}
+$$
+Alem disso, aceitamos a \dterm{lei de substituição:}
+\emph{em qualquer fórmula ou qualquer termo podemos
+substituir um subtermo por um igual
+sem mudar o significado da fórmula ou termo}.
+%%}}}
+
+%%{{{ What did I gain? 
+\note O que eu ganhei?.
+Ganhando como dado o $\alpha = \beta$, tu agora podes
+substituir $\alpha$ por $\beta$ e vice versa em qualquer
+contexto que eles aparecem!
+%%}}}
+
+%%{{{ How to attack? 
+\note Como atacar?.
+Simples: pega um lado, e calcule até chegar no outro!
+As vezes fica difícil enxergar um caminho direto de $\alpha$
+pra $\beta$; nesse caso tente pegar um lado até chegar num ponto $\gamma$; depois pega o outro lado e se conseguir chegar no mesmo ponto $\gamma$, teu alvo já era!
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Reductio ad absurdum 
 \section Reductio ad absurdum.
 
@@ -2983,6 +3042,34 @@ conseqüência é errada também.
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ prob: change_order_of_quantifiers_one_way 
+\problem.
+Sem saber qual afirmação é denotada por $\phi(x,y)$, demonstre as equivalências:
+$$
+\align
+\forall x \sforall y \phi(x,y)
+\askiff
+\forall y \sforall x \phi(x,y).
+\endalign
+$$
+Podes demonstrar ou refutar a outra?
+
+\endproblem
+%%}}}
+
+%%{{{ prob: change_order_of_quantifiers_one_way 
+\problem.
+Sem saber qual afirmação é denotada por $\phi(x,y)$, demonstre \emph{uma} das duas direções da equivalência
+$$
+\forall x \sexists y \phi(x,y)
+\askiff
+\exists y \sforall x \phi(x,y).
+$$
+Podes demonstrar ou refutar a outra?
+
+\endproblem
+%%}}}
 
 \endproblems
 %%}}}
