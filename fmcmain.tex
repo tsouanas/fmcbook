@@ -200,14 +200,15 @@ q &\eqtype \text{um número primo}.
 $$
 %%}}}
 
-%%{{{ What's a tijolo? 
-\note O que é um tijolo?.
+%%{{{ what_is_tijolo 
+\note O que é tijolo?.
+\label{what_is_tijolo}%
 No meu primeiro semestre como professor no Brasil, em algum momento---%
 não lembro porquê---um aluno na sua explicação usou a palavra ``tijolo''.
 O problema é, que eu nunca tinha encontrado essa palavra antes; então
 perguntei ao meu aluno:
 \quote
-<<O que é um tijolo?>>
+<<O que é tijolo?>>
 \endquote
 Neste momento o aluno sentiu um desafio: como você explica o que é um tijolo para um gringo?
 \footnote{O aluno não falava inglês---nem grego!---e logo a gente não tinha
@@ -215,7 +216,7 @@ uma linguagem ``fallback'' para usá-la e tirar minha dúvida.}
 Ele precisou dar uma \emph{definição} dessa palavra.
 A resposta dele foi
 \quote
-\emph{<<Tijolo é um tijolo, ué!>>}
+\emph{<<Tijolo é tijolo, ué!>>}
 \endquote
 \dots E isso não me ajudou muito.
 %%}}}
@@ -265,6 +266,7 @@ ou não essa definição.
 
 %%{{{ Recursive definitions 
 \note Definições recursivas.
+\label{recursive_definitions_teaser}%
 Alguém pode pensar que o problema com as definições circulares é que a palavra
 que estamos definindo apareceu na sua própria definição.
 Isso \emph{não} é o caso!
@@ -3944,7 +3946,7 @@ $$
 \item{(iii)} Prove que para todo $x\in\nats$, $\alpha(2,x) = 2x + 3$.
 \endil
 A função $\alpha$ é conhecida como função de \Ackermann{}Ackermann,
-e vamos encontrá-la novamente bem depois, no~\ref{Recursive_functions}.
+e vamos encontrá-la novamente bem depois, no~\ref{Theory_of_recursive_functions}.
 
 \endproblem
 %%}}}
@@ -10455,10 +10457,10 @@ começamos com a definição seguinte.
 \tdefined{Nat}%
 Definimos os \dterm{numerais $\Nat$} para representar os números naturais
 com uma definição inductiva:
-\beginil
-\item{(N0)} $0$ é um $\Nat$;
-\item{(N1)} Para todo $n$, se $n$ é um $\Nat$, então $Sn$ é um $\Nat$;
-\endil
+\beginul
+\li $0$ é um $\Nat$;
+\li Se $n$ é um $\Nat$, então $Sn$ é um $\Nat$;
+\endul
 Nada mais é um $\Nat$.
 %%}}}
 
@@ -10607,9 +10609,82 @@ na sua definição recursiva:
 Todo esse capítulo é desenvolvido usando apenas essa definição.
 %%}}}
 
-\TODO Variáveis {vs.} metavariáveis nas definições acima.
+%%{{{ x: spot meta vs object on the definitions above 
+\exercise.
+Identifique variáveis {vs.} metavariáveis e símbolos da
+linguagem-objeto {vs.} da metalinguagem nas definições acima.
 
-\TODO Igualdade.
+\endexercise
+%%}}}
+
+%%{{{ canonic_nats 
+\definition Os Nats canônicos.
+\label{canonic_nats}%
+\tdefined{canônico}%
+Chamamos os termos da linguagem $\bnf{Nat}$ os Nats \dterm{canônicos:}
+$$
+0, S0, SS0, SSS0, SSSS0, \dotsc
+$$
+%%}}}
+
+%%{{{ operator_vs_constructor 
+\note Operador {vs.} construtor.
+\tdefined{construtor}%
+Logo vamos definir operações nos Nats ($+$, $\ntimes$, etc.)
+e vamos ter, por exemplo, que
+$$
+S(SS0 + (SSS0 \ntimes SS0)) \is \Nat
+$$
+também, mas obviamente faz sentido perguntar
+\quote
+<<Quanto é $S(SS0 + (SSS0 \ntimes SS0))$?>>
+\endquote
+e a resposta deve ser $SSSSSSSSS0$.
+Mas não faz sentido perguntar
+\quote
+<<Quanto é $SS0$?>>
+\endquote
+Ou seja: esse $S$ (quem vem da palavra ``sucessor'') não representa
+um operador que deve ser aplicado num argumento e que vai retornar um
+resultado com valor.  Não!  Esse $S$ é o que chamamos de \dterm{construtor}
+de valores, ou seja, o $SS0$ já é um valor próprio, um valor final,
+um valor canônico: sem nada mais para ser calculado.
+Por o mesmo motivo não faz sentido perguntar
+\quote
+<<Quanto é $2$?>>
+\endquote
+$2$ é $2$ ué.
+%%}}}
+
+%%{{{ Equality 
+\note Igualdade.
+Naturalmente consideramos todos os valores canônicos como distintos,
+ou seja,
+$$
+n \neq m \implies Sn \neq Sm.
+$$
+%%}}}
+
+%%{{{ Syntactic sugar 
+\note Açúcar sintáctico.
+Eu vou usar os
+$$
+0, 1, 2, 3, \dotsc
+$$
+como outros nomes dos Nats
+$$
+0, S0, SS0, SSS0, \dotsc
+$$
+ou seja, como açúcar sintáctico.
+Mas é importante entender que são apenas isso, um nóme alternativo
+para os termos ``verdadeiros'', então quando eu peço para calcular,
+por exemplo, o $3\ntimes 2$, tu precisas calcular mesmo o
+$$
+SSS0 \ntimes SS0.
+$$
+Espero que tu chegarás no resultado que eu chamaria de $6$, ou seja,
+$SSSSSS0$.
+%%}}}
 
 \endsection
 %%}}}
@@ -10693,7 +10768,32 @@ escrevendo apenas em cada linha o que foi usado.
 \endexample
 %%}}}
 
-\TODO Quando termino?  Termino sempre?.
+%%{{{ When do I stop? 
+\note Quando termino?.
+Termino quando chegar num \emph{valor canônico}.
+Quando eu peço calcular quanto é $SSS0 + SS0$ por exemplo,
+a idéia é achar seu valor canônico, exatamente como acontece
+quando pedimos para uma pessoa achar
+\quote
+<<Quanto é $2+3$?>>
+\endquote
+Uma resposta
+\quote
+<<$2+3=2+3$>>
+\endquote
+não seria aceitável---mesmo assim, é correta, não é?---pois
+a pessoa que perguntamos não achou o valor canόnico (nesse caso $5$).
+%%}}}
+
+%%{{{ Is it always possible to terminate? 
+\note Dá pra terminar sempre?.
+Sempre tem como chegar num valor canônico?
+Por enquanto não sabemos!
+Realmente a $+$ na maneira que foi definida é uma operação
+\dterm{total}, ou seja, sempre termina num valor canônico,
+mas não é algo que deve se preocupar neste momento.
+Estudamos muito esse assunto no~\ref{Theory_of_recursive_functions}.
+%%}}}
 
 %%{{{ x: zero_plus_four_formally 
 \exercise.
@@ -10758,9 +10858,23 @@ $$
 \endexercise
 %%}}}
 
-\TODO Cadê a recursão e por quê não temos problema tipo tijolo?.
-
-\TODO O poder da recursão.
+%%{{{ Where is the recursion and what don't we have a tijolo problem? 
+\note Cadê a recursão e por quê não temos problema tipo tijolo?.
+Estamos definindo a própria operação $+$, e na segunda linha
+da sua definição aparece o $+$ tanto no lado esquerdo, quanto no lado direito.
+Por isso chamamos a definição recursiva.
+Se definimos $+$ em termos dele mesmo, por que não temos o problema
+tipo \emph{tijolo} que discutimos no \ref{what_is_tijolo}?
+(Chegou a hora que tinha prometido no~\refn{recursive_definitions_teaser}.)
+Olhando com mais atenção, percebemos que não definimos o que significa
+\emph{somar} em termos do que significa \emph{somar} mesmo;
+mas definimos sim o que significa \emph{somar os números $n$ e $Sm$}
+em termos do que significa \emph{somar os números $n$ e $m$}.
+No lado direito, uma coisa nos argumentos da nossa operação está
+diminuindo (os $S$'s do segundo argumento) assim evitando o loop
+infinito, chegando finalmente na primeira equação \emph{depois duma
+quantidade finita} de perguntas <<e o que é\dots?>>
+%%}}}
 
 %%{{{ x: nats_double_def 
 \exercise.
@@ -11119,6 +11233,49 @@ $$
 (a+m) + y = a + (m+y)
 $$
 no primeiro caso.
+
+\hint
+Pega um lado e calcule até chegar no outro;
+ou se não conseguir chegar no outro lado,
+trabalhe no outro lado separadamente até
+chegar no mesmo.
+
+\hint
+Calculamos:
+$$
+\alignat2
+(a + m) + y
+&= (a + m) + 0 \by{hipótese do caso}
+&= \dots?
+\endalignat
+$$
+
+\hint
+$$
+\alignat2
+(a + m) + y
+&= (a + m) + 0 \by {hipótese do caso}
+&= a + m       \by {pela~(a1)}
+\intertext{Se travou aqui, sem problema:
+trabalhe no outro lado até chegar em $a + m$:}
+a + (m + y) &= \dots? \\
+&\eqvdots\\
+&= a + m
+\endalignat
+$$
+
+\solution
+Calculamos:
+$$
+\alignat2
+(a + m) + y
+&= (a + m) + 0 \by {hipótese do caso}
+&= a + m       \by {pela~(a1)}
+a + (m + y)
+&= a + (m + 0) \by {hipótese do caso}
+&= a + m       \by {pela~(a1)}
+\endalignat
+$$
 
 \endexercise
 %%}}}
@@ -12073,16 +12230,19 @@ Por que provando $\phi(0)$ e $\lforall {k\in\nats} {\phi(k) \implies \phi(Sk}$
 Estabelecendo esses dois álvos significa que ganhamos como regras de inferência
 as seguintes:
 $$
+\xalignat2
+&
 \Proof {
 \I0------------ {IndZero$_\phi$}
    {$\phi(0)$}
 }
-\qquad
+&&
 \Proof {
 \A {$\phi(n)$}
 \I1------------ {IndSucc$_\phi$}
    {$\phi(Sn)$}
 }
+\endxalignat
 $$
 onde $n$ é uma metavariável pegando valores em todos os naturais,
 e onde eu escolhi esses rótulos talvez estranhos para nomear essas regras.
@@ -12220,6 +12380,119 @@ ou seja, $SSSS0 \not\preceq SS0$.
 \endexample
 %%}}}
 
+\blah.
+Podemos demonstrar que $\preceq$ é uma ordem linear,
+provando cada uma das propriedades como fizemos sobre a
+$\leq$ nos exercícios
+(\refn{natleq_refl},
+\refn{natleq_antisym},
+\refn{natleq_trans},
+\refn{natleq_total})
+mas uma maneira melhor que vai nos permitir ganhar
+muitos mais resultados de graça é provar que $\leq$
+e $\preceq$ são na verdade a mesma relação.
+Ou seja, as definições~\refn{natops_leq_def}
+e~\refn{nats_leq_rec_def} são equivalentes.
+Tu demonstrarás isso no~\ref{rec_and_nonrec_def_of_order_agree}.
+
+\endsection
+%%}}}
+
+%%{{{ Two sides of the same coin 
+\section Dois lados da mesma moeda.
+
+%%{{{ Inductive definition 
+\note Definição inductiva.
+\label{inductive_definitions}%
+Definimos o tipo Nat assim:
+$$
+\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+$$
+Note que o Nat aparece no lado direito também;
+e nesse sentido podemos dizer que essa foi uma definição recursiva.
+Esse tipo de definição chamamos de \dterm{definição inductiva}.
+Ele libera duas ferramentas poderosas:
+definir operações e relações por recursão;
+e provar propriedades por indução.
+%%}}}
+
+%%{{{ inductive_vs_recursive_definitions 
+\beware.
+\label{inductive_vs_recursive_definitions}%
+Muitas vezes ``definição inductiva'' acaba sendo chamada ``definição recursiva''.
+Vários autores, dependendo da área que estão trabalhando adoptam um uso ou
+o outro, ou ambos, ou até diferenciando o que cada um significa.
+Tradicionalmente o slogan seria:
+\standout
+<<define por recursão; demonstre por indução>>.
+\endstandout
+%%}}}
+
+%%{{{ the_power_of_recursion 
+\note O poder da recursão.
+\label{the_power_of_recursion}
+Estamos tentando \emph{definir algo por recursão},
+por exemplo a operação de multiplicação
+(\ref{nats_ntimes_recursive_def}).
+Escrevemos já
+$$
+\align
+n \ntimes 0  &= 0 \\
+n \ntimes Sm &= \text{\lthole}
+\endalign
+$$
+e estamos pensando em como completar nossa definição.
+E a Recursão chega e nos oferece um presente:
+\quote
+<<Para definir o $n \ntimes Sm$, considere o valor do $n \ntimes m$ como dado,
+de graça por mim; e veja se tu consegues definir o valor de $n \ntimes Sm$ com isso.>>
+\endquote
+E é exatamente o que fizemos.
+É isto o \dterm{poder da recursão}.
+%%}}}
+
+%%{{{ the_power_of_induction 
+\note O poder da indução.
+\label{the_power_of_induction}
+Estamos tentando \emph{demonstrar algo por indução}
+por exemplo a associatividade da adição.
+Já provamos a base (o $\phi(0)$), e queremos
+demonstrar o $\phi(Sn)$.
+E a Indução chega e nos oferece um presente:
+\quote
+<<Para provar o $\phi(Sn)$, considere o $\phi(n)$ como dado, de graça por mim;
+e veja se tu consegues provar o $\phi(Sn)$ com isso agora.>>
+\endquote
+E é exatamente o que fizemos.
+É isto o \dterm{poder da indução}.
+Compare com nossa primeira tentativa de demonstrar a associatividade da adição
+(sem indução) onde nossa única maneira de andar era separar em casos,
+mas cada vez que conseguimos matar o ``caso 0'' o ``caso sucessor'' tava
+sempre gerando mais dois casos: um novo ``caso 0'' e um novo ``caso sucessor''.
+E nossos dados não eram suficientes para matar o ``caso sucessor''.
+%%}}}
+
+%%{{{ Where is recursion's principle? 
+\note E a recursão?  Não tem princípio não?.
+Se recursão é indução são dois lados da mesma moeda mesmo,
+e já encontramos e enunciamos o princípio da indução;
+a gente não deveria ter analogamente um princípio da recursão
+também?
+Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois,
+pois precisamos mais ferramentas e maduridade (capítulos
+\ref{Theory_of_recursive_functions} e~\ref{Axiomatic_set_theory}).
+%%}}}
+
+%%{{{ How about non-nats? 
+\note E os não-naturais?.
+Como falei no~\ref{inductive_definitions} o que nos permite
+usar recursão e indução nos naturais é sua definição inductiva.
+Ou seja, podemos usar essas ferramentas em qualquer tipo que
+foi definido assim.  Nos problemas peço a você formalizar
+o princípio da indução como um pequeno ``teaser'' da teoria
+que voltaremos estudar mais no~\ref{Structural_recursion_and_induction}.
+%%}}}
+
 \endsection
 %%}}}
 
@@ -12252,7 +12525,7 @@ $$
 \problem.
 \label{rec_and_nonrec_def_of_order_agree}%
 Na~\ref{natops_leq_def} definimos a ordem $\leq$ nos naturais.
-Na~\ref{nats_leq_rec_def} redefinimos a mesma relação $\leq$ nos naturais.
+Na~\ref{nats_leq_rec_def} definimos a relação $\preceq$ nos naturais.
 Obviamente não podemos dar duas definições diferentes para a mesma coisa.
 Prove que as duas definições sempre concordam:
 $$
@@ -12269,10 +12542,11 @@ $$
 \further.
 
 Recursão e indução vamos ficar usando o tempo todo.
-Especialmente no~\ref{Structural_recursion_and_induction}
+Especialmente nos capítulos~\refn{Structural_recursion_and_induction},
+\refn{Theory_of_recursive_functions}, e~\refn{Axiomatic_set_theory},
 vamos mergulhar na teoria desses assuntos; mas sugiro paciência
 por enquanto, e \emph{ganhar experiência trabalhando} com recursão
-e indução nos próximos capítulos.
+e indução.
 
 Nesse capítulo tivemos nosso primeiro contato com \emph{programação funcional},
 um assunto que vamos estudar no~\ref{Functional_programming}.
@@ -21485,7 +21759,7 @@ Essa é exatamente a conjectura de
 %%}}}
 
 \blah.
-Deixamos esse assunto por enquanto (até o~\ref{Recursive_functions}),
+Deixamos esse assunto por enquanto (até o~\ref{Theory_of_recursive_functions}),
 supondo que temos já um entendimento de como definições recursivas
 funcionam.
 
@@ -42826,9 +43100,9 @@ $$
 \endchapter
 %%}}}
 
-%%{{{ chapter: Theory of recursive functions 
+%%{{{ chapter: Theory_of_recursive_functions 
 \chapter Teoria de funções recursivas.
-\label{Recursive_functions}%
+\label{Theory_of_recursive_functions}%
 
 %%{{{ Problems 
 \problems.
