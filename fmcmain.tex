@@ -944,13 +944,13 @@ para descrever uma linguagem de expressões aritméticas, usando
 a \dterm{gramática} seguinte:
 %%}}}
 
-%%{{{ g: ArExp_grammar_1 
-\grammar ArExp (1).
-\label{ArExp_grammar_1}%
+%%{{{ g: ArEx_grammar_1 
+\grammar ArEx (1).
+\label{ArEx_grammar_1}%
 $$
 \align
-\bnf{ArExp} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
-\bnf{ArExp} &\bnfeq (\bnf{ArExp} + \bnf{ArExp})                \tag{2}
+\bnf{ArEx} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
+\bnf{ArEx} &\bnfeq (\bnf{ArEx} + \bnf{ArEx})                \tag{2}
 \endalign
 $$
 %%}}}
@@ -970,22 +970,22 @@ e finalmente o símbolo `)'.
 A idéia é que o que aparece com ângulos é algo que precisa ser substituido,
 com uma das opções que aparecem no lado direito de alguma regra que começa com ele.
 
-Começando com o $\bnf{ArExp}$ ficamos substituindo até não aparece mais nada em ângulos.
+Começando com o $\bnf{ArEx}$ ficamos substituindo até não aparece mais nada em ângulos.
 Et voilà: neste momento temos criado uma expressão aritmética.
 %%}}}
 
 %%{{{ eg: BNF_first_example 
 \example.
-Use as regras (1)--(2) da~\ref{ArExp_grammar_1} acima para criar uma expressão
+Use as regras (1)--(2) da~\ref{ArEx_grammar_1} acima para criar uma expressão
 aritmética.
 Comece usando a regra (2).
 $$
 \align
-\bnf{ArExp}
-&\leadstoby {(2)} (\bnf{ArExp} + \bnf{ArExp})\\
-&\leadstoby {(1)} (\bnf{ArExp} + 3)\\
-&\leadstoby {(2)} ((\bnf{ArExp} + \bnf{ArExp}) + 3)\\
-&\leadstoby {(1)} ((128 + \bnf{ArExp}) + 3)\\
+\bnf{ArEx}
+&\leadstoby {(2)} (\bnf{ArEx} + \bnf{ArEx})\\
+&\leadstoby {(1)} (\bnf{ArEx} + 3)\\
+&\leadstoby {(2)} ((\bnf{ArEx} + \bnf{ArEx}) + 3)\\
+&\leadstoby {(1)} ((128 + \bnf{ArEx}) + 3)\\
 &\leadstoby {(1)} ((128 + 0) + 3)
 \endalign
 $$
@@ -997,7 +997,7 @@ $$
 Use a mesma gramática (agora sem restrição) para criar uma expressão aritmética.
 $$
 \align
-\bnf{ArExp}
+\bnf{ArEx}
 &\leadstoby {(1)} 17
 \endalign
 $$
@@ -1006,20 +1006,20 @@ $$
 
 %%{{{ x: BNF_with_goal 
 \exercise.
-Mostre como usar a~\ref{ArExp_grammar_1} para gerar a expressão aritmética
+Mostre como usar a~\ref{ArEx_grammar_1} para gerar a expressão aritmética
 $((1 + (2 + 2)) + 3)$.
 
 \solution
 Uma solução é a seguinte:
 $$
 \align
-\bnf{ArExp}
-&\leadstoby {(2)} (\bnf{ArExp} + \bnf{ArExp})\\
-&\leadstoby {(1)} (\bnf{ArExp} + 3)\\
-&\leadstoby {(2)} ((\bnf{ArExp} + \bnf{ArExp}) + 3)\\
-&\leadstoby {(2)} ((\bnf{ArExp} + (\bnf{ArExp} + \bnf{ArExp})) + 3)\\
-&\leadstoby {(1)} ((1 + (\bnf{ArExp} + \bnf{ArExp})) + 3)\\
-&\leadstoby {(1)} ((1 + (2 + \bnf{ArExp})) + 3)\\
+\bnf{ArEx}
+&\leadstoby {(2)} (\bnf{ArEx} + \bnf{ArEx})\\
+&\leadstoby {(1)} (\bnf{ArEx} + 3)\\
+&\leadstoby {(2)} ((\bnf{ArEx} + \bnf{ArEx}) + 3)\\
+&\leadstoby {(2)} ((\bnf{ArEx} + (\bnf{ArEx} + \bnf{ArEx})) + 3)\\
+&\leadstoby {(1)} ((1 + (\bnf{ArEx} + \bnf{ArEx})) + 3)\\
+&\leadstoby {(1)} ((1 + (2 + \bnf{ArEx})) + 3)\\
 &\leadstoby {(1)} ((1 + (2 + 2)) + 3)
 \endalign
 $$
@@ -1047,10 +1047,10 @@ Umas deficiências são:
 \endol
 %%}}}
 
-%%{{{ x: solve_first_problem_of_ArExp 
+%%{{{ x: solve_first_problem_of_ArEx 
 \exercise.
-\label{solve_first_problem_of_ArExp}%
-Apenas alterando a segunda regra da~\ref{ArExp_grammar_1}, resolva a primeira deficiência.
+\label{solve_first_problem_of_ArEx}%
+Apenas alterando a segunda regra da~\ref{ArEx_grammar_1}, resolva a primeira deficiência.
 
 \hint
 Falta só adicionar 3 mais casos na segunda regra, imitando para os outros operadores o caso do $+$.
@@ -1059,12 +1059,12 @@ Falta só adicionar 3 mais casos na segunda regra, imitando para os outros opera
 Temos:
 $$
 \align
-\bnf{ArExp} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
-\bnf{ArExp}
-&\bnfeq (\bnf{ArExp} + \bnf{ArExp})\tag{2}\\
-&\bnfOR (\bnf{ArExp} - \bnf{ArExp})\\
-&\bnfOR (\bnf{ArExp} \ntimes \bnf{ArExp})\\
-&\bnfOR (\bnf{ArExp} \div \bnf{ArExp})
+\bnf{ArEx} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
+\bnf{ArEx}
+&\bnfeq (\bnf{ArEx} + \bnf{ArEx})\tag{2}\\
+&\bnfOR (\bnf{ArEx} - \bnf{ArEx})\\
+&\bnfOR (\bnf{ArEx} \ntimes \bnf{ArEx})\\
+&\bnfOR (\bnf{ArEx} \div \bnf{ArEx})
 \endalign
 $$
 
@@ -1073,18 +1073,18 @@ $$
 
 %%{{{ A second try 
 \note Uma segunda tentativa.
-A solução que encontramos no~\ref{solve_first_problem_of_ArExp}
+A solução que encontramos no~\ref{solve_first_problem_of_ArEx}
 não é a coisa mais elegante do mundo.
 Tem muita repetição que podemos evitar, definindo uma nova regra em nossa gramática:
 %%}}}
 
-%%{{{ g: ArExp_grammar_2 
-\grammar ArExp (2).
-\label{ArExp_grammar_2}%
+%%{{{ g: ArEx_grammar_2 
+\grammar ArEx (2).
+\label{ArEx_grammar_2}%
 $$
 \align
-\bnf{ArExp} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
-\bnf{ArExp} &\bnfeq (\bnf{ArExp} \bnf{BinOp} \bnf{ArExp})\tag{2}\\
+\bnf{ArEx} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
+\bnf{ArEx} &\bnfeq (\bnf{ArEx} \bnf{BinOp} \bnf{ArEx})\tag{2}\\
 \bnf{BinOp} &\bnfeq + \bnfor - \bnfor \ntimes \bnfor \div\tag{3}
 \endalign
 $$
@@ -1096,14 +1096,14 @@ Mas ainda a gramática não refleta bem nossa idéia.
 Podemos melhorá-la, com mais regras e com nomes melhores
 que deixam mais claras nossas intenções:
 
-%%{{{ g: ArExp_grammar_3 
-\grammar ArExp (3).
-\label{ArExp_grammar_3}%
+%%{{{ g: ArEx_grammar_3 
+\grammar ArEx (3).
+\label{ArEx_grammar_3}%
 $$
 \align
-\bnf{ArExp} &\bnfeq \bnf{Num} \bnfor \bnf{OpExp} \tag{0}\\
+\bnf{ArEx}  &\bnfeq \bnf{Num} \bnfor \bnf{OpEx} \tag{0}\\
 \bnf{Num}   &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
-\bnf{OpExp} &\bnfeq (\bnf{ArExp} \bnf{BinOp} \bnf{ArExp})\tag{2}\\
+\bnf{OpEx}  &\bnfeq (\bnf{ArEx} \bnf{BinOp} \bnf{ArEx})\tag{2}\\
 \bnf{BinOp} &\bnfeq + \bnfor - \bnfor \ntimes \bnfor \div\tag{3}
 \endalign
 $$
@@ -1111,7 +1111,7 @@ $$
 
 \blah.
 Falta achar um jeito para remover esses ``$\dotsb$'' ainda,
-mas vamos deixar isso para depois (\ref{remove_dots_from_ArExp_grammar}).
+mas vamos deixar isso para depois (\ref{remove_dots_from_ArEx_grammar}).
 
 %%{{{ Nat_grammar 
 \grammar Nat.
@@ -1199,14 +1199,14 @@ e a metavariável $\tau$ denota tipos da C.
 %%{{{ Abbreviations and syntactic sugar 
 \section Abreviações e açúcar sintáctico.
 
-%%{{{ x: ArExp_outer_parentheses_missing 
+%%{{{ x: ArEx_outer_parentheses_missing 
 \exercise.
-\label{ArExp_outer_parentheses_missing}%
+\label{ArEx_outer_parentheses_missing}%
 Tente gerar a expressão
 $$
 (1 + 5) \ntimes 2
 $$
-usando a~\ref{ArExp_grammar_2}.
+usando a~\ref{ArEx_grammar_2}.
 
 \solution
 Não tem como!
@@ -1217,7 +1217,7 @@ Não tem como!
 %%{{{ Abbreviations 
 \note Abreviações.
 \tdefined{abreviação}%
-Seguindo nossa~\ref{ArExp_grammar_2}, cada vez que escrevemos um operador binário
+Seguindo nossa~\ref{ArEx_grammar_2}, cada vez que escrevemos um operador binário
 começamos e terminamos com `$($' e `$)$' respectivamente.
 Logo, ``$1 + 2$'' nem é uma expressão gerada por essa gramática!
 Mas como é tedioso botar as parenteses mais externas, temos a convenção
@@ -1245,7 +1245,7 @@ Querendo enriquecer uma linguagem com um novo conceito, uma nova operação,
 etc., parece que precisamos aumentar sua sintaxe para adicionar certos
 símbolos e formas para corresponder nessas novas idéias.
 Mas isso não é sempre necessário.
-Por exemplo, suponha que trabalhamos com a linguagem da~\ref{ArExp_grammar_3},
+Por exemplo, suponha que trabalhamos com a linguagem da~\ref{ArEx_grammar_3},
 e queremos usá-la com sua interpretação canônica, onde suas expressões aritméticas
 geradas denotam realmente as operações que conhecemos desde pequenos.
 Agora, queremos adicionar uma operação unária $S$, escrita na forma prefixa,
@@ -1303,10 +1303,10 @@ para eliminar os ``$\dotsb$''.
 \endproblem
 %%}}}
 
-%%{{{ remove_dots_from_ArExp_grammar 
+%%{{{ remove_dots_from_ArEx_grammar 
 \problem.
-\label{remove_dots_from_ArExp_grammar}%
-Com base a~\ref{ArExp_grammar_3} defina uma gramática que gera a mesma linguagem,
+\label{remove_dots_from_ArEx_grammar}%
+Com base a~\ref{ArEx_grammar_3} defina uma gramática que gera a mesma linguagem,
 sem usar ``$\dotsb$''.
 
 \hint
@@ -1315,10 +1315,10 @@ Já resolveu o~\ref{decimal_numerals_BNF_problem}?
 \endproblem
 %%}}}
 
-%%{{{ ArExp_fact_grammar 
+%%{{{ ArEx_fact_grammar 
 \problem.
-\label{ArExp_with_factorial}%
-Aumente tua gramática do~\ref{remove_dots_from_ArExp_grammar} para
+\label{ArEx_with_factorial}%
+Aumente tua gramática do~\ref{remove_dots_from_ArEx_grammar} para
 gerar expressões aritméticas que usam o operador unitário (e postfixo)
 do factorial, que denotamos com $!$, escrevendo por exemplo
 $8!$ para o factorial de $8$.
@@ -1330,10 +1330,10 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ ArExp_fact_vars_grammar 
+%%{{{ ArEx_fact_vars_grammar 
 \problem.
-\label{ArExp_fact_vars_grammar}%
-Aumenta tua gramática do~\ref{ArExp_with_factorial} para
+\label{ArEx_fact_vars_grammar}%
+Aumenta tua gramática do~\ref{ArEx_with_factorial} para
 gerar expressões aritméticas que usam as variáveis
 $$
 x,y,z,
@@ -10530,8 +10530,16 @@ $$
 $$
 %%}}}
 
-%%{{{ eg: SSSS0 is a nat 
-\example.
+%%{{{ x: spot meta vs object on the definitions above 
+\exercise.
+Identifique variáveis {vs.} metavariáveis e símbolos da
+linguagem-objeto {vs.} da metalinguagem nas definições acima.
+
+\endexercise
+%%}}}
+
+%%{{{ eg: SSSS0 is a nat (inference tree) 
+\example (usando árvores).
 Vamos inferir que $SSSS0$ é um $\Nat$ mesmo.
 
 \solution
@@ -10586,6 +10594,40 @@ Leia essa árvore tanto de baixo pra cima, quanto de cima pra baixo!
 \endexercise
 %%}}}
 
+%%{{{ eg: SSSS0 is a nat (grammar) 
+\example (usando a gramática).
+Vamos inferir que $SSSS0 \is \Nat$ de novo, essa vez usando
+a definição com a gramática.
+
+\solution
+Temos:
+$$
+\align
+\bnf{Nat}
+&\leadsto S\bnf{Nat} \\
+&\leadsto SS\bnf{Nat} \\
+&\leadsto SSS\bnf{Nat} \\
+&\leadsto SSSS\bnf{Nat} \\
+&\leadsto SSSS0.
+\endalign
+$$
+\endexample
+%%}}}
+
+%%{{{ Using words 
+\note Usando palavras.
+Podemos inferir que $SSSS0 \is \Nat$ usando palavras tambem, ficando assim
+mais perto da~\ref{Nat}, mas para esse tipo de derivação fica bizarro:
+\quote
+Como $0$ é um Nat (pela primeira cláusula),
+logo $S0$ é um Nat (pela segunda com $n\asseq 0$).
+Logo $SS0$ é um Nat, de novo pela segunda cláusula, essa vez com $n\asseq S0$\dots
+\endquote
+E já cansei de escrever então vou parar aqui.
+Espero que apreciamos a laconicidade e clareza das árvores
+para esse tipo de inferência.
+%%}}}
+
 %%{{{ eg: 0,1,2,3 ; primes 
 \example.
 Aqui os numerais de $\Nat$ que correspondem nos primeiros
@@ -10620,14 +10662,6 @@ Mas uma \emph{vantagem} para a gente nesse caso é sua simplicidade
 na sua definição recursiva:
 \emph{cada $\Nat$ ou é o zero, ou o sucessor de um $\Nat$}.
 Todo esse capítulo é desenvolvido usando apenas essa definição.
-%%}}}
-
-%%{{{ x: spot meta vs object on the definitions above 
-\exercise.
-Identifique variáveis {vs.} metavariáveis e símbolos da
-linguagem-objeto {vs.} da metalinguagem nas definições acima.
-
-\endexercise
 %%}}}
 
 %%{{{ canonic_nats 
