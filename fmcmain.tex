@@ -10893,8 +10893,8 @@ como uma função de $\Nat$ para $\Nat$.
 \endsection
 %%}}}
 
-%%{{{ Proving properties of natural numbers by induction 
-\section Provando propriedades de naturais por indução.
+%%{{{ Proving properties of natural numbers without induction 
+\section Provando propriedades de naturais sem indução.
 \label{Proving_properties_of_nats_by_induction}%
 
 %%{{{ convention about quantifiers 
@@ -11139,6 +11139,166 @@ $$
 a + (m + y^{\prime\prime\cdots\prime}).
 $$
 Obviamente precisamos uma outra técnica para provar esse teorema.
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Induction 
+\section Indução.
+
+%%{{{ Induction scheme 
+\note Schema da indução.
+Suponha que $\phi(x)$ é uma afirmação que depende num $x\in\nats$.
+Em forma de regra de inferência, o princípio da indução é o seguinte:
+$$
+\Proof {
+\A {$\phi(0)$}
+                   \A {$\lforall k {\phi(k)\implies \phi(Sk)}$}
+\I2------------------------------------------------------------ {Ind}
+            {$\lforall n {\phi(n)}$}
+}
+$$
+%%}}}
+
+%%{{{ induction_as_a_new_attack 
+\note Novo ataque.
+\label{induction_as_a_new_attack}%
+Para usar então a indução, precisamos ter algo dessa forma:
+\def\SIZEFIX{\hphantom{\coloredcancel{red}{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}}%
+\proofrepl
+\givens
+\goals
+\gim {\lforall {n \in \ints} {\phi(n)}}
+\gim {\SIZEFIX}
+\endproofrepl
+\proofrepl
+\alert{Indução no $n$.}\cr
+\givens
+\goals
+\gim {\coloredcancel{red}{\lforall {n \in \nats} {\phi(n)}}}
+\gim {\alert{\phi(0)}}
+\gim {\alert{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}
+\gim {\SIZEFIX}
+\endproofrepl
+\proofrepl
+Indução no $n$.\cr
+\alert{\proofpart{Base.}}\cr
+\qquad \alert{$\vdots$}\cr
+\qquad \alert{(prova de $\phi(0)$)}\cr
+\givens
+\gim {\alert{\phi(0)}}
+\goals
+\gim {\faded{\lforall {n \in \nats} {\phi(n)}}}
+\gim {\coloredcancel{red}{\phi(0)}}
+\gim {\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}
+\gim {\SIZEFIX}
+\endproofrepl
+\proofrepl
+Indução no $n$.\cr
+\proofpart{Base.}\cr
+\qquad $\vdots$\cr
+\qquad (prova de $\phi(0)$)\cr
+\alert{\proofpart{Passo indutivo.}}\cr
+\qquad \alert{Seja $k\in\nats$}\cr
+\givens
+\gim {\phi(0)}
+\gim {\alert{k\in\nats}}
+\goals
+\gim {\faded{\lforall {n \in \nats} {\phi(n)}}}
+\gim {\coloredcancel{black}{\phi(0)}}
+\gim {\coloredcancel{red}{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}
+\gim {\alert{\phi(k) \implies \phi(Sk)}}
+\gim {\SIZEFIX}
+\endproofrepl
+\proofrepl
+Indução no $n$.\cr
+\proofpart{Base.}\cr
+\qquad $\vdots$\cr
+\qquad (prova de $\phi(0)$)\cr
+\proofpart{Passo indutivo.}\cr
+\qquad Seja $k\in\nats$ \alert{tal que $\phi(k)$ (H.I.).}\cr
+\givens
+\gim {\phi(0)}
+\gim {k\in\nats}
+\gim {\alert{\phi(k)}}
+\goals
+\gim {\faded{\lforall {n \in \nats} {\phi(n)}}}
+\gim {\coloredcancel{black}{\phi(0)}}
+\gim {\faded{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}
+\gim {\coloredcancel{red}{\phi(k) \implies \phi(Sk)}}
+\gim {\alert{\phi(Sk)}}
+\gim {\SIZEFIX}
+\endproofrepl
+\proofrepl
+Indução no $n$.\cr
+\proofpart{Base.}\cr
+\qquad $\vdots$\cr
+\qquad (prova de $\phi(0)$).\cr
+\proofpart{Passo indutivo.}\cr
+\qquad Seja $k\in\nats$ tal que $\phi(k)$ (H.I.).\cr
+\qquad \alert{$\vdots$}\cr
+\qquad \alert{(prova de $\phi(Sk)$)\quad$\qedsymbol$}\cr
+\givens
+\gim {\phi(0)}
+\gim {k\in\nats}
+\gim {\phi(k)}
+\goals
+\gim {\faded{\lforall {n \in \nats} {\phi(n)}}}
+\gim {\coloredcancel{black}{\phi(0)}}
+\gim {\faded{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}
+\gim {\faded{\phi(k) \implies \phi(Sk)}}
+\gim {\coloredcancel{red}{\phi(Sk)}}
+\gim {\SIZEFIX}
+\endproofrepl
+%%}}}
+
+%%{{{ remark: nothing special about induction once performed 
+\remark.
+Observe que no momento que escrevemos
+\quote
+<<Seja $k \in \nats$ tal que $\phi(k)$ (H.I.).>>
+\endquote
+no~\refn{induction_as_a_new_attack}
+não fizemos nada especial relacionado a indução!
+Isso é o ``ataque padrão'' duma fórmula da forma
+$$
+\lforall {x \in A} {\phi(x) \implies \psi(x)}
+$$
+onde juntamos os passos de atacar o `$\forall$' e o `$\impliessymbol$'
+numa frase só.
+Em geral, podes considerar a indução como um ``feitíço'' que
+quando usado transforma um alvo da forma
+$$
+\lforall {x \in \nats} {\phi(x)}
+$$
+para \emph{dois} novos alvos (com nomes chique):
+$$
+\align
+\text{\proofpart{Base}:}\quad           & \phi(0) \\
+\text{\proofpart{Passo indutivo}:}\quad & \lforall {k\in\nats} {\phi(k) \implies \phi(Sk)}
+\endalign
+$$
+Fora disso, \emph{não tem nada mais mágico} que acontece:
+o feitiço já foi feito e seu efeito já aconteceu.
+E depois?
+Depois \emph{continuamos normalmente para matar esses dois alvos}.
+%%}}}
+
+%%{{{ remark: induction_on_a_variable? 
+\remark Indução numa variável?.
+No~\ref{induction_as_a_new_attack} escrevemos <<Indução no $n$>>.
+Como assim ``no $n$''?  Quem é esse $n$?
+Não tem $n$ no nosso escopo!
+Sim, realmente não faz sentido no pé da letra essa frase,
+mas ajudamos nosso leitor entender qual quantificador estamos atacando
+do nosso alvo, caso que aparecem mais que um.
+Talvez ficaria (pouco) mais correto escrever
+<<Indução no $\forall n$.>>
+(No final das contas, é o quantificador que estamos atacando.)
+De qualquer forma, isso é apenas um ``modo de falar'', e presuponha
+que nosso leitor tem acesso no nome da variável ligada que escolhemos
+quando escrevemos nosso alvo.  (Muitas vezes isso faz parte do enunciado.)
 %%}}}
 
 %%{{{ thm: natadd_is_associative 
@@ -11940,6 +12100,24 @@ $$
 
 %%{{{ Further reading 
 \further.
+
+Vale muito a pena investir em brincar com uma implementação
+como o Coq ou a Agda.  Ambos podem ser vistos tanto como uma
+linguagem de programação funcional, quanto como um \dterm{proof assistant}.
+Dois textos excelentes para inciantes que meu leitor é muito recomendado
+começar desde já estudar são os \cite{piercesf} (que usa Coq)
+e o \cite{wadlerplfa} (que usa Agda).
+
+Nesse capítulo tivemos nosso primeiro contato com \dterm{programação funcional},
+um assunto que vamos estudar no~\ref{Functional_programming}.
+Para o ansioso e animado-para-programar leitor recomendo brincar com uma
+linguagem puramente funcional: Haskell (\cite{lyah}, \cite{birdfphaskell}, \cite{birdthinking}, \cite{huttonhaskell}) ou PureScript (\cite{purescriptbook}).
+
+Recursão e indução vamos ficar usando o tempo todo.
+Especialmente no~\ref{Structural_recursion_and_induction}
+vamos mergulhar na teoria desses assuntos; mas sugiro paciência
+por enquanto, e ganhar \emph{experiência} trabalhando com recursão
+e indução nos próximos capítulos.
 
 \endfurther
 %%}}}
@@ -22798,8 +22976,9 @@ Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Functional programming 
+%%{{{ chapter: Functional_programming 
 \chapter Programação funcional.
+\label{Functional_programming}%
 
 %%{{{ Problems 
 \problems.
@@ -42333,6 +42512,7 @@ Sobre lógica matemática:
 
 %%{{{ chapter: Structural recursion and induction 
 \chapter Recursão e indução estrutural.
+\label{Structural_recursion_and_induction}%
 
 %%{{{ Recursing over formulas 
 \section Recursando nas fórmulas.
