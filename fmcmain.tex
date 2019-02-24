@@ -2976,21 +2976,21 @@ não tem como culpá-lo de mentiroso.
 Aceitamos como parte da nossa lógica que a igualdade é:
 \dterm{reflexiva}, \dterm{simétrica}, e \dterm{transitiva}:
 $$
-\Proof{
+\Proof {
 \I0---------------- {Refl}
 {$\alpha = \alpha$}
 }
 \qquad
-\Proof{
+\Proof {
 \A {$\alpha = \beta$}
 \I1------------------ {Sym}
  {$\beta = \alpha$}
 }
 \qquad
-\Proof{
+\Proof {
 \A {$\alpha = \beta$}
-                       \A {$\beta = \gamma$}
-\I2----------------------------------------- {Trans}
+\A                       {$\beta = \gamma$}
+\I2---------------------------------------- {Trans}
            {$\alpha = \gamma$}
 }
 $$
@@ -8369,27 +8369,6 @@ $N$ não pode ter apenas divisores da forma $4n+1$.
 \endproblem
 %%}}}
 
-%%{{{ prob: WOP_iff_PFI 
-\problem.
-\label{WOP_iff_PFI}%
-$\text{PBO} \iff \text{PIF}$.
-
-\hint
-Nos já provamos a direção \lrdir.
-Para provar a \rldir, considere o predicado
-``todos os conjuntos $A$ com $k\in A$ para algum natural $k\leq n$ têm mínimo'',
-ou o ``todos os conjuntos $A$ com $n\in A$ têm mínimo''.
-
-\hint
-Prove que todos os naturais satisfazem o predicado que tu consideraste.
-(Para um dos dois, tu precisará indução \emph{forte}.)
-
-\solution
-Nos já provamos a direção \lrdir.
-
-\endproblem
-%%}}}
-
 %%{{{ gcd_alternative_definition 
 \problem {Definição alternativa de m.d.c.}.
 \label{gcd_alternative_definition}%
@@ -8452,6 +8431,24 @@ em apenas $4$ pássos.
 Depois cada passo, se o maior termo fosse o $m$, agora é o $\ceil {\frac m 2}$.
 Precisamos tantos passos quantas vezes que podemos dividir o $n$ por $2$ até
 chegar na unidade $1$: precisamos $\ceil {\log_2(n)}$ passos.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: WOP_iff_PFI 
+\problem.
+\label{WOP_iff_PFI}%
+$\text{PBO} \iff \text{PIF}$.
+
+\hint
+Nos já provamos a direção \lrdir.
+Para provar a \rldir, considere o predicado
+``todos os conjuntos $A$ com $k\in A$ para algum natural $k\leq n$ têm mínimo'',
+ou o ``todos os conjuntos $A$ com $n\in A$ têm mínimo''.
+
+\hint
+Prove que todos os naturais satisfazem o predicado que tu consideraste.
+(Para um dos dois, tu precisará indução \emph{forte}.)
 
 \endproblem
 %%}}}
@@ -11146,6 +11143,7 @@ Obviamente precisamos uma outra técnica para provar esse teorema.
 
 %%{{{ Induction 
 \section Indução.
+\label{Induction}%
 
 %%{{{ Induction scheme 
 \note Schema da indução.
@@ -11300,6 +11298,12 @@ De qualquer forma, isso é apenas um ``modo de falar'', e presuponha
 que nosso leitor tem acesso no nome da variável ligada que escolhemos
 quando escrevemos nosso alvo.  (Muitas vezes isso faz parte do enunciado.)
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Proving properties with induction 
+\section Provando propriedades de naturais com indução.
 
 %%{{{ thm: natadd_is_associative 
 \theorem Associatividade da adição.
@@ -11969,12 +11973,12 @@ $$
 %%}}}
 
 \blah.
-Nos exercícios seguintes vamos provar que $\leq$ é uma \emph{ordem linear}.
+Nos exercícios seguintes vamos provar que $\leq$ é uma \dterm{ordem linear}.
 
 %%{{{ x: natleq_refl 
-\exercise.
+\exercise Reflexiva.
 \label{natleq_refl}%
-A $\leq$ é reflexiva, i.e.,
+A $\leq$ é \dterm{reflexiva}, i.e.,
 $$
 \forall n \bigparen{ n \leq n }.
 $$
@@ -11983,9 +11987,9 @@ $$
 %%}}}
 
 %%{{{ x: natleq_antisym 
-\exercise.
+\exercise Antissimétrica.
 \label{natleq_antisym}%
-A $\leq$ é antissimétrica, i.e.,
+A $\leq$ é \dterm{antissimétrica}, i.e.,
 $$
 \forall n \forall m \bigparen{n \leq m  \mland  m \leq n  \implies  m = n}.
 $$
@@ -11994,9 +11998,9 @@ $$
 %%}}}
 
 %%{{{ x: natleq_trans 
-\exercise.
+\exercise Transitiva.
 \label{natleq_trans}%
-A $\leq$ é transitiva, i.e.,
+A $\leq$ é \dterm{transitiva}, i.e.,
 $$
 \forall x \forall y \forall z \bigparen{x \leq y  \mland  y \leq z  \implies  x \leq y}.
 $$
@@ -12005,9 +12009,9 @@ $$
 %%}}}
 
 %%{{{ x: natleq_total 
-\exercise.
+\exercise Total.
 \label{natleq_total}%
-A $\leq$ é total, i.e.,
+A $\leq$ é \dterm{total}, i.e.,
 $$
 \forall x \forall y \bigparen{n \leq m  \mlor  m \leq n}.
 $$
@@ -12021,18 +12025,125 @@ Na verdade, $\leq$ é ainda mais legal: olha no~\ref{natleq_woset}.
 \endsection
 %%}}}
 
+%%{{{ Why accept the induction principle? 
+\section Por que aceitar o princípio da indução?.
+
+%%{{{ Intuition 
+\note Intuição.
+Por que provando $\phi(0)$ e $\lforall {k\in\nats} {\phi(k) \implies \phi(Sk}$
+é suficiente para demonstrar o $\lforall {n\in\nats} {\phi(n)}$?
+Estabelecendo esses dois álvos significa que ganhamos como regras de inferência
+as seguintes:
+$$
+\Proof {
+\I0------------ {IndZero_$\phi$}
+   {$\phi(0)}$
+}
+\qquad
+\Proof {
+\A {$\phi(k)$}
+\I1------------ {IndSucc_$\phi$}
+   {$\phi(Sk)$}
+}
+$$
+onde $k$ é uma metavariável pegando valores em todos os naturais,
+e onde eu escolhi esses rótulos talvez estranhos para nomear essas regras.
+Vamos ver o que podemos demonstar graças essas duas regras agora:
+com certeza temos o próprio $\phi(0)$ pela primeira que não tem
+nenhuma premissa.
+Mas, agora, usando a segunda com $k\asseq 0$ temos uma demonstração
+do $\phi(S0)$:
+$$
+\Proof {
+\I0----------- {IndZero_$\phi$}
+   {$\phi(0)$}
+\I1------------ {IndStep_$\phi$}
+   {$\phi(S0)$}
+}
+$$
+Ou seja, ganhamos o $\phi(S0)$.
+Então podemos usar a regra \rule{IndZero_$\phi$} agora com $k\asseq S0$
+para ganhar o $\phi(SS0)$:
+$$
+\Proof {
+\I0----------- {IndZero_$\phi$}
+   {$\phi(0)$}
+\I1------------ {IndStep_$\phi$}
+   {$\phi(S0)$}
+\I1------------- {IndStep_$\phi$}
+   {$\phi(SS0)$}
+}
+$$
+E por aí vai!
+Olhando para as duas regras 
+$$
+\xalignat2
+&
+\Proof {
+\I0------------ {IndZero_$\phi$}
+   {$\phi(0)}$
+}
+&&
+\Proof {
+\A {$\phi(k)$}
+\I1------------ {IndSucc_$\phi$}
+   {$\phi(Sk)$}
+}
+\intertext{observamos que são bem parecidas com as}
+&
+\Proof {
+\I0----------- {Zero}
+{$0 \is \Nat$}
+}
+&&
+\Proof {
+\A {$n \is \Nat$}
+\I1-------------- {Succ}
+  {$Sn \is \Nat$}
+}
+\endxalignat
+$$
+e logo dado qualquer natural $n$, o desafio de estabelecer que $n$ tem a propriedade $\phi$, acaba sendo o mesmo com o ``desafío'' de estabelecer que $n$ é um natural mesmo!
+Em outras palavras, assim que demonstrar os dois alvos da indução para matar o $\lforall {n\in\nats} {\phi(n)}, temos:
+$$
+n \is \Nat \implies \phi(n).
+$$
+Em outras palavras: todos os naturais tem a propriedade $\phi$.
+%%}}}
+
+%%{{{ Does this blah-blah mean anything? 
+\note Esse bla-bla presta mesmo?.
+O leitor alerto justamente ficaria com dúvidas sobre o texto acima.
+Realmente faz sentido essa descrição e essa intuição, mas todo esse
+``bla-bla'' serve como uma prova mesmo do princípio da indução?
+Serve não.  E por isso que o chamamos de \dterm{princípio}, ou seja
+axioma!  Mas calma:
+dependendo na fundação de matemática que trabalhamos,
+o princípio pode virar teorema mesmo!  No~\ref{Axiomatic_set_theory}
+por exemplo, vamos \emph{demonstrar mesmo} o princípio da indução
+para os naturais.  Mas por enquanto não temos as ferramentas
+nem a maduridade que precisamos para entender essas idéias;
+então paciência.
+O que podes mesmo fazer desde já é demonstrar a equivalência
+desse princípio com um outro, que também é facilmente aceitável:
+o princípio da boa ordem (\ref{WOP_iff_PFI}).
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Defining relations recursively 
 \section Definindo relações recursivamente.
 
 %%{{{ nats_leq_recursive_def 
 \definition Ordem.
 Com que temos já definido podemos definir recursivamente
-uma \emph{relação} no $\nats$.  A relação de ordem $\leq$:
+uma \emph{relação} no $\nats$.  A relação de ordem $\preceq$:
 $$
 \align
-0  \leq m  &\iff \True      \tag{LE1}\\
-Sn \leq 0  &\iff \False     \tag{LE2}\\
-Sn \leq Sm &\iff n \leq m   \tag{LE3}
+0  \preceq m  &\iff \True      \tag{LE1}\\
+Sn \preceq 0  &\iff \False     \tag{LE2}\\
+Sn \preceq Sm &\iff n \preceq m   \tag{LE3}
 \endalign
 $$
 %%}}}
@@ -12040,29 +12151,29 @@ $$
 %%{{{ eg: two_leq_four_but_four_notleq_two 
 \example.
 \label{two_leq_four_but_four_notleq_two}%
-Ache se $SS0 \leq SSSS0$ e se $SSSS0 \leq SS0$.
+Ache se $SS0 \preceq SSSS0$ e se $SSSS0 \preceq SS0$.
 
 \solution
 Calculamos:
 $$
 \alignat2
-SS0 \leq SSSS0
-&\iff S0 \leq SSS0  \by{por (LE3)}
-&\iff 0  \leq SS0   \by{por (LE3)}
+SS0 \preceq SSSS0
+&\iff S0 \preceq SSS0  \by{por (LE3)}
+&\iff 0  \preceq SS0   \by{por (LE3)}
 &\iff \True         \by{por (LE1)}
 \endalignat
 $$
-ou seja, realmente $SS0 \leq SSSS0$.
+ou seja, realmente $SS0 \preceq SSSS0$.
 No outro lado, calculamos
 $$
 \alignat2
-SSSS0 \leq SS0
-&\iff SSS0 \leq S0  \by{por (LE3)}
-&\iff SS0  \leq 0   \by{por (LE3)}
+SSSS0 \preceq SS0
+&\iff SSS0 \preceq S0  \by{por (LE3)}
+&\iff SS0  \preceq 0   \by{por (LE3)}
 &\iff \False        \by{por (LE2)}
 \endalignat
 $$
-ou seja, $SSSS0 \not\leq SS0$.
+ou seja, $SSSS0 \not\preceq SS0$.
 
 \endexample
 %%}}}
@@ -12090,6 +12201,20 @@ Prove que $\leq$ é uma bem-ordem, i.e.,
 $$
 \text{para todo $A \subseteq \nats$,\quad
 se $A \neq \emptyset$ então $A$ tem elemento mínimo}.
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: rec_and_nonrec_def_of_order_agree 
+\problem.
+\label{rec_and_nonrec_def_of_order_agree}%
+Na~\ref{natops_leq_def} definimos a ordem $\leq$ nos naturais.
+Na~\ref{nats_leq_recursive_def} redefinimos a mesma relação $\leq$ nos naturais.
+Obviamente não podemos dar duas definições diferentes para a mesma coisa.
+Prove que as duas definições sempre concordam:
+$$
+\text{para todo $n,m\in\nats$, \quad $n \leq m \iff n \preceq m$.}
 $$
 
 \endproblem
