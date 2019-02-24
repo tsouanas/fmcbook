@@ -1346,6 +1346,40 @@ $$
 \endproblem
 %%}}}
 
+%%{{{ Polish_notation 
+\problem Notação polonesa.
+\label{Polish_notation}%
+\tdefined{Polonesa}[notação]%
+\tdefined{Łukasiewicz}[notação]%
+Demonstre que não podemos simplesmente apagar as parenteses
+da nossa gramática de $\bnf{ArEx}$ sem perder uma propriedade
+importantíssima da nossa linguagem (qual?).
+Experimente com a gramática
+$$
+\align
+\bnf{PolArEx}  &\bnfeq \bnf{Num} \bnfor \bnf{OpEx} \tag{0}\\
+\bnf{Num}      &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
+\bnf{OpEx}     &\bnfeq \bnf{BinOp} \bnf{PolArEx} \bnf{PolArEx}\tag{2}\\
+\bnf{BinOp}    &\bnfeq + \bnfor - \bnfor \ntimes \bnfor \div\tag{3}
+\endalign
+$$
+Escreva uns dos seus termos.
+Supondo que cada símbolo de $\bnf{Num}$ é apenas um símbolo
+(por exemplo o `$15$' é um símbolo atômico e não algo composto dos `$1$' e `$5$'),
+observe que com essa notação (chamada \dterm{notação Polonesa} ou
+\dterm{notação \Lukasiewicz{}Łukasiewicz}) não precisamos de parenteses!
+Como escreverias nessa linguagem as expressões correspondentes às:
+$$
+1 + 2;
+\qquad
+3\ntimes(2 + 4) + 6;
+\qquad
+(2 \ntimes 3) + 3 \ntimes (7 + 8)\,?
+$$
+
+\endproblem
+%%}}}
+
 %%{{{ g: NatList_grammar 
 \grammar.
 \label{NatList_grammar}%
@@ -1698,6 +1732,14 @@ Qual é a melhor tradução dela que conseguimos na linguagem $\zolang$?
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ prob: zolang_Polish 
+\problem.
+\label{zolang_Polish}%
+Defina a linguagem $\zolang$ usando notação Polonesa~(\ref{Polish_notation}).
+
+\endproblem
+%%}}}
 
 \endproblems
 %%}}}
@@ -2402,6 +2444,14 @@ Mas vou deixar essas preocupações para os problemas.
 
 %%{{{ Problems 
 \problems.
+
+%%{{{ prob: folang_Polish 
+\problem.
+\label{folang_Polish}%
+Defina a linguagem FOL usando notação Polonesa~(\ref{Polish_notation}).
+
+\endproblem
+%%}}}
 
 %%{{{ limitation_of_fol_in_math 
 \problem.
@@ -12530,8 +12580,9 @@ pois precisamos mais ferramentas e maduridade (capítulos
 \ref{Theory_of_recursive_functions} e~\ref{Axiomatic_set_theory}).
 %%}}}
 
-%%{{{ How about non-nats? 
+%%{{{ how_about_non_nats 
 \note E os não-naturais?.
+\label{how_about_non_nats}%
 Como falei no~\ref{inductive_definitions} o que nos permite
 usar recursão e indução nos naturais é sua definição inductiva.
 Ou seja, podemos usar essas ferramentas em qualquer tipo que
@@ -12578,6 +12629,22 @@ Prove que as duas definições sempre concordam:
 $$
 \text{para todo $n,m\in\nats$, \quad $n \leq m \iff n \preceq m$.}
 $$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: structural_induction_teaser_prob 
+\problem.
+\label{structural_induction_teaser_prob}%
+Em qual outros (não-Nat) tipos de coisas tu pode enunciar um princípio
+de indução?  Como definarias algo por recursão?
+Tente provar alguma propriedade simples sobre tua escolha.
+
+\hint
+Tente as fórmulas de lógica proposicional e de predicados (FOL) também.
+Podes definir uma função que conta quantos $\lor$ aparecem na sua entrada?
+Podes demonstrar que em cada fórmula bem formada a quantidade de `$($'
+e a quantidade de `$)$' são iguais?
 
 \endproblem
 %%}}}
