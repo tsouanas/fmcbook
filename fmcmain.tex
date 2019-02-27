@@ -11218,9 +11218,15 @@ a associatividade-direita: $a^{b^c}$ é $a \expop (b \expop c)$
 e não $(a \expop b) \expop c$.
 %%}}}
 
-%%{{{ Addition is associative 
-\note A adição é associativa.
-Vamos tentar provar essa afirmação.
+%%{{{ + is associative 
+\proposition.
+A $+$ é associativa.
+%%}}}
+
+%%{{{ natadd_is_associative_failed_proof_attempt 
+\note Tentativa de demonstração.
+\label{natadd_is_associative_failed_proof_attempt}%
+Vamos tentar provar essa proposição.
 Primeiramente, o que a afirmação significa?
 A adição é essa operação $+$ que definimos na~\ref{natops_rec_defs}.
 Vamos tentar escrever essa afirmação numa maneira mais formal
@@ -11324,9 +11330,9 @@ Lembre-se que cada vez que separamos em casos, nosso alvo
 tá sendo \emph{copiado e colado} para cada um deles.
 %%}}}
 
-%%{{{ x: solve_the_zero_case_of_case_split 
+%%{{{ x: solve_the_zero_case_of_case_split_of_natadd_is_associative 
 \exercise O primeiro caso.
-\label{solve_the_zero_case_of_case_split}%
+\label{solve_the_zero_case_of_case_split_of_natadd_is_associative}%
 Prove que
 $$
 (a+m) + y = a + (m+y)
@@ -11383,7 +11389,7 @@ $$
 \note O segundo caso.
 Sabemos que $y$ é o sucessor de algum natural,
 então vamos escolher um nome pra denotá-lo:
-\emph{seja $y'\in\Nat$ tal que $y = Sy'$}\fact1.
+\emph{seja $y'$ natural tal que $y = Sy'$}\fact1.
 Calculamos:
 $$
 \alignat2
@@ -11609,7 +11615,108 @@ $$
 \forall k
 \bigparen{ n + (m + k) = (n + m) + k }.
 $$
-\proof.
+%%{{{ preproof 
+\preproof.
+Vamos demonstrar esse teorema duas vezes.
+É importantíssimo entender a diferença e seguir todos os detalhes.
+Antes de começar, lembre nossa tentativa~\refn{natadd_is_associative_failed_proof_attempt} e como e onde exatamente a gente travou:
+\proofrepl
+Seja $n$ natural.\cr
+Seja $m$ natural.\cr
+Seja $k$ natural.\cr
+Separamos em casos:\cr
+\proofpart{Caso $k=0$:}\cr
+\quad(resolvido no~\ref{solve_the_zero_case_of_case_split_of_natadd_is_associative})\cr
+\proofpart{Caso $k=Sk'$ para algum $k' \is \Nat$:}\cr
+\quad(caimos num caminho infinito aqui)\cr
+\givens
+\gim {n \is \Nat}
+\gim {m \is \Nat}
+\gim {k \is \Nat}
+\goals
+\gim {n + (m + k) = (n + m) + k}
+\endproofrepl
+E como caimos num caminho de sempre separar em dois novos casos sem fim, percebemos que algo deu errado; queremos tentar nossa nova técnica, indução.
+Neste momento na nossa prova, podemos atacar nosso alvo por indução?
+Não!
+Para atacar um alvo por indução ele precisa ter a forma
+$$
+\lforall {x \is \Nat} {\phi(x)}
+$$
+e nosso alvo não é um `$\forall$' mas uma igualdade!
+Vamos fazer uns ``undo'' então na nossa prova e voltar nesse momento:
+\proofrepl
+Seja $n$ natural.\cr
+Seja $m$ natural.\cr
+\strikeout{Seja $k$ natural.}\cr
+\strikeout{Separamos em casos:}\cr
+\givens
+\gim {n \is \Nat}
+\gim {m \is \Nat}
+\goals
+\gim {\sforall k \munderbrace {n + (m + k) = (n + m) + k} {\phi(k)}}
+\endproofrepl
+Agora sim!  Nosso alvo tem uma forma que casa com o padrão que precisamos para aplicar indução.
+Bora ver essa demonstração primeiro então.
+\endpreproof
+%%}}}
+%%{{{ First proof 
+\proof Primeira demonstração.
+Sejam $n, m$ naturais.
+Vamos procar por indução no $k$ que
+$$
+\forall k
+\munderbrace {n + (m + k) = (n + m) + k} {\phi(k)}.
+$$
+\proofpart {Base.}
+Precisamos mostrar que
+$$
+n + (m + 0) = (n + m) + 0.
+$$
+Calculamos:
+\compute
+n + (m + 0)
+&= n + m    \by {pela (a1) com $n \asseq m$}
+(n + m) + 0
+&= n + m    \by {pela (a1) com $n \asseq n + m$}
+\endcompute
+\proofpart {Passo indutivo.}
+Precisamos mostrar que
+$$
+\forall t
+\bigparen {
+\munderbrace {n + (m + t) = (n + m) + t} {\phi(t)}
+\implies
+\munderbrace {n + (m + St) = (n + m) + St} {\phi(St)}
+}
+$$
+Seja $w$ natural tal que
+$$
+n + (m + w) = (n + m) + w.  \tag{H.I.}
+$$
+Precisamos mostrar que
+$$
+n + (m + Sw) = (n + m) + Sw.  \tag{H.I.}
+$$
+Calculamos:
+\compute
+n + (m + Sw)
+&= n + S(m + w)     \by {(a2): $n \asseq m$; $m \asseq w$}
+&= S(n + (m + w))   \by {(a2): $n \asseq n$; $m \asseq m + w$}
+(n + m) + Sw
+&= S((n + m) + w)   \by {(a2): $n \asseq n + m$; $m \asseq w$}
+\endcompute
+Basta então mostrar que
+$$
+S(n + (m + w)) = S((n + m) + w)
+$$
+que realmente temos pela (H.I.).
+\qed
+%%}}}
+%%{{{ preproof 
+\preproof.
+Precisamos discutir o que aconteceu.
+Agora bora ver uma demonstração que também usa indução, mas numa maneira bem diferente:
 Queremos provar a afirmação
 $$
 \forall n
@@ -11621,8 +11728,8 @@ onde
 $$
 \psi(x,y,z) \abbrdefiff x + (y + z) = (x + y) + z.
 $$
-Como ela não está no formato $\forall n \phi(n)$ não podemos
-atacá-la diretamente com indução.
+Talvez parece que ela não está no formato $\sforall n \phi(n)$
+e que não podemos atacá-la diretamente com indução.
 Mas, na verdade, reescrevendo como
 $$
 \forall n
@@ -11646,59 +11753,61 @@ $$
 \forall k \munderbrace {\forall n \sforall m \psi(n,m,k)} {\phi(k)}.
 $$
 por indução.
+Vamos ver o que vai acontecer.
+\endpreproof
+%%}}}
+%%{{{ Second proof 
+\proof Segunda demonstração.
+Por indução no $k$.
 \crproofpart{Base.}
-Precisamos provar o $\phi(0)$, ou seja:
+Precisamos provar que
 $$
-\forall n \sforall m \psi(n,m,0),
+\munderbrace {\forall n \sforall m {n + (m + 0) = (n + m) + 0}} {\phi(0)}.
 $$
-ou seja:
-$$
-\forall n \forall m \bracket{\paren{n+m} + 0 = n + \paren{m+0}}.
-$$
-Sejam $n,m\in\nats$.
+Sejam $n,m$ naturais.
 Calculamos os dois lados:
-$$
-\alignat2
+\compute
 \underline{\paren{n+m} + 0} &= n + m \by {a1)}
 n + \paren{\underline{m+0}} &= n + m \by {a1)}
-\endalignat
-$$
+\endcompute
 Ou seja, a $\phi(0)$ realmente é verdade.
 \crproofpart{Passo indutivo.}
 Precisamos provar a afirmação:
 $$
-\forall x \bracket{\phi(x) \implies \phi(Sx)},
+\forall t \bracket{\phi(t) \implies \phi(St)},
 $$
 ou seja,
 $$
-\forall x
-\bigbracket{\paren{\forall n\forall m \bracket{ (n + m) + x  = n + (m + x) }}
-   \implies \paren{\forall u\forall v \bracket{ (u + v) + Sx = u + (v + Sx)}}}
+\forall t
+\bigbracket{
+\paren{\forall n\forall m \bracket{ (n + m) + t  = n + (m + t) }}
+\implies
+\paren{\forall u\forall v \bracket{ (u + v) + St = u + (v + St)}}
+}
 $$
 onde escolhi nomes diferentes nas variáveis quantificadas apenas para
 enfatizar que são realmente diferentes!
 Bora provar isso então.
-Seja $x\in\nats$ tal que
+Seja $w$ natural tal que
 $$
-\forall n\forall m \bracket{ (n + m) + x = n + (m + x) }. \tag{H.I.}
+\forall n\forall m \bracket{ (n + m) + w = n + (m + w) }. \tag{H.I.}
 $$
 Preciso mostrar que:
 $$
-\forall u\forall v \bracket{ (u + v) + Sx = u + (v + Sx)}
+\forall u\forall v \bracket{ (u + v) + Sw = u + (v + Sw)}
 $$
 Sejam $u,v\in\nats$.
 Calculamos:
-$$
-\alignat2
-\underline{(u + v) + Sx}
-&= S(\underline{(u + v) + x})    \by {a2}
-&= \underline{S(u + (v + x))}    \by {H.I., com $n := u$, $m := v$}
-&= u + (\underline{S(v + x)})    \by {a2}
-&= u + (v + Sx).                 \by {a2}
-\endalignat
-$$
+\compute
+\underline{(u + v) + Sw}
+&= S(\underline{(u + v) + w})  \by {a2}
+&= \underline{S(u + (v + w))}  \by {H.I., com $n := u$, $m := v$}
+&= u + \underline{S(v + w)}    \by {(a2)$^{\leftarrow}$}
+&= u + (v + Sw).               \by {(a2)$^{\leftarrow}$}
+\endcompute
 Isso termina nossa prova.
 \qed
+%%}}}
 %%}}}
 
 %%{{{ Q: How do we choose which forall to attack by induction? 
