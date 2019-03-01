@@ -10576,9 +10576,9 @@ Uma maneira diferente de descrever a mesma idéia é com \dterm{regras de infer�
 Essa abordagem combina bem com as árvores sintácticas:
 escrevemos
 $$
-\Proof{
+\Proofm {
 \I0----------- {}
-{$0 \is \Nat$}
+{0 \is \Nat}
 }
 $$
 e entendemos isso como
@@ -10591,9 +10591,9 @@ pois vamos precisar referir a ela depois.
 Escrevemos seu nome no lado direito da linha de inferência.
 Fica assim:
 $$
-\Proof{
+\Proofm {
 \I0----------- {Zero}
-{$0 \is \Nat$}
+{0 \is \Nat}
 }
 $$
 Olhando pra isso entendemos o seguinte:
@@ -10610,15 +10610,15 @@ de inferência?
 $$
 \xalignat2
 &
-\Proof {
+\Proofm {
 \I0----------- {Zero}
-{$0 \is \Nat$}
+{0 \is \Nat}
 }
 &&
-\Proof {
-\A {$n \is \Nat$}
+\Proofm {
+\A  {n \is \Nat}
 \I1-------------- {Succ}
-  {$Sn \is \Nat$}
+   {Sn \is \Nat}
 }
 \endxalignat
 $$
@@ -10644,38 +10644,38 @@ SSSS0 \is \Nat
 $$
 e usando a regra \rule{Succ}\ podemos \emph{reduzir} esse problema para
 $$
-\Proof {
-\A {$SSS0 \is \Nat$}
+\Proofm {
+\A  {SSS0 \is \Nat}
 \I1----------------- {Succ}
-  {$SSSS0 \is \Nat$}
+   {SSSS0 \is \Nat}
 }
 $$
 Essa árvore tem afirmações ``abertas'' então não terminamos ainda.
 Usando a mesma regra reduzimos o $SSS0 \is \Nat$ para:
 $$
-\Proof {
-\A {$SS0 \is \Nat$}
+\Proofm {
+\A {SS0 \is \Nat}
 \I1---------------- {Succ}
-  {$SSS0 \is \Nat$}
+   {SSS0 \is \Nat}
 \I1----------------- {Succ}
-  {$SSSS0 \is \Nat$}
+   {SSSS0 \is \Nat}
 }
 $$
 e continuando nessa maneira, chegamos finalmente no
 $0 \is \Nat$ que inferimos com a regra \rule{Zero},
 fechando assim a única coisa que tava aberta:
 $$
-\Proof {
-\I0----------- {Zero}
-{$0 \is \Nat$}
-\I1------------ {Succ}
-{$S0 \is \Nat$}
+\Proofm {
+\I0------------ {Zero}
+   {0 \is \Nat}
 \I1------------- {Succ}
-{$SS0 \is \Nat$}
+   {S0 \is \Nat}
 \I1-------------- {Succ}
-{$SSS0 \is \Nat$}
+   {SS0 \is \Nat}
 \I1--------------- {Succ}
-{$SSSS0 \is \Nat$}
+   {SSS0 \is \Nat}
+\I1---------------- {Succ}
+   {SSSS0 \is \Nat}
 }
 $$
 \endexample
@@ -11492,11 +11492,11 @@ Obviamente precisamos uma outra técnica para provar esse teorema.
 Suponha que $\phi(x)$ é uma afirmação que depende num $x\in\nats$.
 Em forma de regra de inferência, o princípio da indução é o seguinte:
 $$
-\Proof {
-\A {$\phi(0)$}
-\A                    {$\lforall k {\phi(k)\implies \phi(Sk)}$}
+\Proofm {
+\A {\phi(0)}
+\A                    {\lforall k {\phi(k)\implies \phi(Sk)}}
 \I2------------------------------------------------------------ {Ind$_\phi$}
-            {$\lforall n {\phi(n)}$}
+            {\lforall n {\phi(n)}}
 }
 $$
 %%}}}
@@ -12482,15 +12482,15 @@ as seguintes:
 $$
 \xalignat2
 &
-\Proof {
+\Proofm {
 \I0------------ {IndZero$_\phi$}
-   {$\phi(0)$}
+    {\phi(0)}
 }
 &&
-\Proof {
-\A {$\phi(n)$}
+\Proofm {
+\A  {\phi(n)}
 \I1------------ {IndSucc$_\phi$}
-   {$\phi(Sn)$}
+    {\phi(Sn)}
 }
 \endxalignat
 $$
