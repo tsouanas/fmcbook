@@ -10797,13 +10797,19 @@ Por o mesmo motivo não faz sentido perguntar
 $2$ é $2$ ué.
 %%}}}
 
-%%{{{ Equality 
-\note Igualdade.
+%%{{{ property: Equality 
+\property Igualdade.
 Naturalmente consideramos todos os valores canônicos como distintos,
-ou seja,
+ou seja, para todos os $x,y\is\Nat$ temos:
 $$
-n \neq m \implies Sn \neq Sm.
+\align
+& 0 \neq Sx \\
+x \neq y &\implies Sx \neq Sy
+\intertext{freqüentemente usada na forma da sua contrapositiva:}
+Sx = Sy &\implies x = y.
+\endalign
 $$
+que nos permite ``cortar os $S$'s'' numa igualdade entre sucessores.
 %%}}}
 
 %%{{{ Syntactic sugar 
@@ -12413,6 +12419,32 @@ Prove que
 $$
 \forall n \forall m \bigparen{ n \leq S m  \iff  n \leq m  \mlor  n = S m}
 $$
+
+\solution
+Sejam $n,m$ naturais.
+\endgraf
+\lrdir:
+Suponha $n \leq S m$.
+Logo seja $u$ tal que $n + u = Sm$.
+Separamos em casos.
+\case{Caso $u=0$.}
+Logo $Sm = n+u = n+0 = n$ e temos o que queremos demonstrar.
+\case{Caso $u=Su'$ para algum $u'$.}
+Logo $Sm = n + Su' = S(n + u')$.
+Agora, como $Sm = S(n + u')$, logo $m = n + u'$.
+Ou seja, $n \leq m$.
+\endgraf
+\rldir:
+Suponha $n \leq m$ ou $n = Sm$.
+Vamos demonstrar que $n \leq Sm$.
+Separamos em casos.
+\case{$n \leq m$}.
+Logo seja $u$ tal que $n + u = m$.
+Logo $S(n + u) = Sm$.
+E pela (a1) temos $n + Su = Sm$, e logo $n \leq Sm$.
+\case{$n = Sm$}.
+Nesse caso imediatamente $n + 0 = Sm$ (pois $n + 0 = n$ pela (a2))
+e logo $n \leq Sm$.
 
 \endexercise
 %%}}}
