@@ -14153,8 +14153,6 @@ algo que vamos começar a apreciar ainda mais, na
 \ref{Translating_from_and_to_the_language_of_sets}.
 %%}}}
 
-\TODO Diagramas de Venn e suas limitações.
-
 \blah.
 Continuamos com mais operações, incluindo nossa primeira operação unária.
 
@@ -14307,6 +14305,141 @@ todas as \dterm{testemunhas}\ii{testemunha}\ que mostram que
 os conjuntos são diferentes.
 O que podes concluir então assim que souberes que $A \symdiff B = \emptyset$?
 (Veja o~\ref{when_A_symdiff_B_is_empty}.)
+%%}}}
+
+%%{{{ Venn_diagrams 
+\note Diagramas de Venn.
+\label{Venn_diagrams}%
+\tdefined{diagrama de Venn}%
+O leitor provavelmente já encontrou os \dterm{diagramas de Venn}\Venn{} na sua vida,
+uma ferramenta muito útil para descrever operações e ajudar em raciocinar sobre
+relações de conjuntos.
+Por exemplo, podemos visualizar as quatro operações binárias que definimos até agora
+assim:
+$$
+\xalignat4
+A\union B:
+&\quad
+\gathered
+\tikzpicture
+\tikzi venn2union;
+\endtikzpicture
+\endgathered
+&
+A\inter B:
+&\quad
+\gathered
+\tikzpicture
+\tikzi venn2inter;
+\endtikzpicture
+\endgathered
+\\
+A \setminus B:
+&\quad
+\gathered
+\tikzpicture
+\tikzi venn2setminus;
+\endtikzpicture
+\endgathered
+&
+A \symdiff B:
+&\quad
+\gathered
+\tikzpicture
+\tikzi venn2symdiff;
+\endtikzpicture
+\endgathered
+\endxalignat
+$$
+E a única operação unária, o complemento, assim:
+$$
+\align
+\compl A:
+&\quad
+\gathered
+\tikzpicture
+\tikzi venn1compl;
+\endtikzpicture
+\endgathered
+\endalign
+$$
+%%}}}
+
+%%{{{ Venn_diagrams_limitations 
+\beware Limitações de Venn.
+Assim que tiver mais que três conjuntos os diagramas de
+Venn perdem sua clareza e logo sua utilidade.
+%%}}}
+
+%%{{{ x: Venn_4_what_is_wrong 
+\exercise.
+\label{Venn_4_what_is_wrong}%
+Um aluno desenhou o seguinte diagrama Venn para representar todas as
+possíveis maneiras que $4$ conjuntos $A,B,C,D$ podem intersectar entre si:
+$$
+\tikzpicture
+\tikzi venn4wrong;
+\endtikzpicture
+$$
+Qual o problema com esse diagrama?
+
+\hint
+$$
+\tikzpicture
+\tikzi venn4wrongmarked;
+\endtikzpicture
+$$
+Contamos $14$ regiões.
+Qual o problema?
+
+\solution
+Temos $4$ conjuntos; e como cada objeto pode ou pertencer ou não pertencer
+a cada um deles, temos no total $2^4=16$ distintas configurações.
+Mas no diagrama do aluno aparecem apenas $14$:
+$$
+\tikzpicture
+\tikzi venn4wrongmarked;
+\endtikzpicture
+$$
+Logo tem duas configurações então que não são representadas por nenhuma parte do diagrama.
+São essas:
+$$
+\gather
+x \in A \mland x \notin B \mland x \in C \mland x \notin D \\
+x \notin A \mland x \in B \mland x \notin C \mland x \in D.
+\endgather
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: Venn_4_correct 
+\exercise.
+\label{Venn_4_correct}%
+Tem como desenhar um correto?
+
+\hint
+Esqueça a idéia de usar $4$ cíclos.
+
+\hint
+Começa assim:
+$$
+\tikzpicture
+\tikzi venn4correcthint;
+\endtikzpicture
+$$
+
+\solution
+Uma maneira de dezenhá-lo seria assim:
+$$
+\tikzpicture
+\tikzi venn4correct;
+\endtikzpicture
+$$
+Se tu achou outra e realmente tem todas as $16$ configurações possíveis,
+tá tranqüilo!
+
+\endexercise
 %%}}}
 
 \endsection
