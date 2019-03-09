@@ -12033,6 +12033,46 @@ $
 \bigparen{(n \ntimes m) \ntimes k = n \ntimes (m \ntimes k)}.
 $
 
+\hint
+Por indução no $k$.
+
+\hint
+Não seria bom ter uma distributividade?
+
+\solution
+Por indução no $k$.
+\crproofpart{Base: $\forall n \forall m \bigparen{(n \ntimes m) \ntimes 0 = n \ntimes (m \ntimes 0)}$.}
+Sejam $n,m$ naturais.
+Calculamos:
+\compute
+(n \ntimes m) \ntimes 0
+&= 0            \by {(m1)}
+n \ntimes (m \ntimes 0)
+&= n \ntimes 0  \by {(m1)}
+&= 0.           \by {(m1)}
+\endcompute
+\proofpart{Passo indutivo.}
+Seja $w$ natural tal que
+$$
+\forall n \forall m \bigparen{(n \ntimes m) \ntimes w = n \ntimes (m \ntimes w)}. \tag{H.I.}
+$$
+Ou seja: ``$w$ na direita associa com todos''.
+Queremos demonstrar que seu sucessor $Sw$ faz a mesma coisa:
+$$
+\forall n \forall m \bigparen{(n \ntimes m) \ntimes Sw = n \ntimes (m \ntimes Sw)}.
+$$
+Sejam $n,m$ naturais.
+Calculamos:
+\compute
+(n \ntimes m) \ntimes Sw
+&= ((n \ntimes m) \ntimes w) + (n \ntimes m)    \by {(m2)}
+n \ntimes (m \ntimes Sw)
+&= n \ntimes ((m \ntimes w) + m)                \by {(m2)}
+&= (n \ntimes (m \ntimes w)) + (n \ntimes m)    \by {(*)}
+&= ((n \ntimes m) \ntimes w) + (n \ntimes m).   \by {(H.I.)}
+\endcompute
+Onde devemos para o (*) demonstrar como lemma a distributividade (esquerda) da $\ntimes$ sobre a $+$ (feito no~\ref{natmult_distributes_over_natadd}).
+
 \endexercise
 %%}}}
 
@@ -12135,7 +12175,7 @@ Sw \ntimes Sp
 \endexercise
 %%}}}
 
-%%{{{ x: natadd_distributive_over_natmult 
+%%{{{ x: natmult_distributes_over_natadd 
 \exercise Distributividade.
 \label{natmult_distributes_over_natadd}%
 $
