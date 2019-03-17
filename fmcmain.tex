@@ -342,8 +342,9 @@ Felizmente as linguagens oferecem ferraments de abstracção para o programador-
 \endsection
 %%}}}
 
-%%{{{ Notation of this text 
+%%{{{ Notation_of_fmcbook 
 \section Notação desse texto.
+\label{Notation_of_fmcbook}%
 
 %%{{{ equal or equivalente 
 \note Igual ou equivalente?.
@@ -437,13 +438,15 @@ afirmações bem definidas.
 \endexample
 %%}}}
 
-$=$ vs $\defeq$ vs $\asseq$ vs $\eqass$.
-$\iff$ vs $\defiff$ vs $\assiff$.
+\TODO
+Explicar o resto dos ``parecidos'':
+$\asseq$, $\eqass$, $\inteq$, $\synasseq$, $\semeq$,
+$\defiff$, $\sugdefiff$, $\sugiff$, etc.
 
 \endsection
 %%}}}
 
-%%{{{ Bound and free variables 
+%%{{{ Bound_and_free_variables 
 \section Variáveis ligades e livres.
 \label{Bound_and_free_variables}%
 \tdefined{variável}[livre]%
@@ -1359,6 +1362,8 @@ $$
 \label{Polish_notation}%
 \tdefined{Polonesa}[notação]%
 \tdefined{Łukasiewicz}[notação]%
+\iiseealso{Polonesa!notação}{Łukasiewicz}%
+{\Lukasiewicz[notação]}%
 Demonstre que não podemos simplesmente apagar as parenteses
 da nossa gramática de $\bnf{ArEx}$ sem perder uma propriedade
 importantíssima da nossa linguagem (qual?).
@@ -1375,7 +1380,7 @@ Escreva uns dos seus termos.
 Supondo que cada símbolo de $\bnf{Num}$ é apenas um símbolo
 (por exemplo o `$15$' é um símbolo atômico e não algo composto dos `$1$' e `$5$'),
 observe que com essa notação (chamada \dterm{notação Polonesa} ou
-\dterm{notação \Lukasiewicz{}Łukasiewicz}) não precisamos de parenteses!
+\dterm{notação Łukasiewicz}) não precisamos de parenteses!
 Como escreverias nessa linguagem as expressões correspondentes às:
 $$
 1 + 2;
@@ -13403,31 +13408,48 @@ usamos igualdade `$=$' como igualdade extensional.
 \label{subconjunto}%
 \tdefined{subconjunto}%
 \tdefined{subconjunto}[próprio]%
-\sdefined{\holed A \subseteq \holed B} {$\holed A$ é um subconjunto de $\holed B$}%
+\sdefined{\holed A \subset \holed B} {$\holed A$ é um subconjunto de $\holed B$}%
 O conjunto $A$ é um \dterm{subconjunto} de $B$ sse todos os membros de
 $A$ pertencem ao $B$.
 Em símbolos:
 $$
 \align
-A \subseteq B
+A \subset B
 &\defiff
 \lforall {x\in A} {x\in B}\\
 &\intiff
 \forall x \paren{ x \in A \limplies x \in B }
 \endalign
 $$
-Se $B$ tem elementos que não pertencem no $A$, chamamos o $A$
-um \dterm{subconjunto próprio} de $B$, e escrevemos $A \subsetneq B$.
+Se $B$ tem elementos que não pertencem ao $A$, chamamos o $A$
+um \dterm{subconjunto próprio} de $B$, e escrevemos $A \psubset B$.
 %%}}}
 
-%%{{{ x: eq_implies_subseteq 
+%%{{{ warning: psubset_vs_nsubset_notation 
+\warning.
+\label{psubset_vs_nsubset_notation}%
+Naturalmente escrevemos $A \nsubset B$ para a negação da $A \subset B$,
+que é diferente da afirmação $A \psubset B$:
+$$
+\align
+A \nsubset B &\intiff \text{$A$ não é um subconjunto de $B$}; \\
+A \psubset B &\intiff \text{$A$ é um subconjunto próprio de $B$}.
+\endalign
+$$
+E se quiser dizer que $A$ não é um subconjunto próprio de $B$?
+Escreva isso mesmo, ou traduza para seu equivalente
+(``$A \nsubset B$ ou $A = B$'')
+pois ninguém merece ler algo do tipo ``$A \smartnot\psubset B$''.
+%%}}}
+
+%%{{{ x: eq_implies_subset 
 \exercise.
-\label{eq_implies_subseteq}%
-$A = B \implies A \subseteq B$.
+\label{eq_implies_subset}%
+$A = B \implies A \subset B$.
 
 \solution
 Suponha $A = B$.
-Vamos mostrar que $A \subseteq B$.
+Vamos mostrar que $A \subset B$.
 Seja $x \in A$.
 Mas como $A = B$, logo $x \in B$ também; que foi o que queremos provar.
 
@@ -13437,19 +13459,19 @@ Mas como $A = B$, logo $x \in B$ também; que foi o que queremos provar.
 %%{{{ x: eq_using_subsets 
 \exercise.
 \label{eq_using_subsets}%
-$A = B \iff A \subseteq B \mland B \subseteq A$
+$A = B \iff A \subset B \mland B \subset A$
 
 \solution
 \proofpart{lrdir}.
-Imediata pelo~\ref{eq_implies_subseteq} (pois a igualdade é simétrica).
+Imediata pelo~\ref{eq_implies_subset} (pois a igualdade é simétrica).
 \crtabproofpart{\rldir}.
-Suponha $A \subseteq B$ e $B \subseteq A$.
+Suponha $A \subset B$ e $B \subset A$.
 Vamos mostrar que $A = B$.
 Seja $x$ um objeto arbitrário.
 Calculamos:
 \compute
-x \in A &\implies x \in B \by {def.~$A \subseteq B$} \\
-x \in B &\implies x \in A \by {def.~$B \subseteq A$}
+x \in A &\implies x \in B \by {def.~$A \subset B$} \\
+x \in B &\implies x \in A \by {def.~$B \subset A$}
 \endcompute
 Ou seja,
 $$
@@ -13466,13 +13488,13 @@ que foi o que queremos demonstrar.
 Defina com uma fórmula o $A\subsetneq B$.
 
 \hint
-Já definimos o $\subseteq$, então podemos usá-lo!
+Já definimos o $\subset$, então podemos usá-lo!
 
 \solution
 $
 A \subsetneq B
 \defiff
-A \subseteq B \land A \neq B.
+A \subset B \land A \neq B.
 $
 \quad
 (Lembre-se que $A \neq B \abbreq \lnot(A = B)$.)
