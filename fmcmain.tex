@@ -446,6 +446,14 @@ $\iff$ vs $\defiff$ vs $\assiff$.
 %%{{{ Bound and free variables 
 \section Variáveis ligades e livres.
 \label{Bound_and_free_variables}%
+\tdefined{variável}[livre]%
+\tdefined{variável}[ligada]%
+\tdefined{variável}[capturada]%
+\tdefined{variável}[dummy]%
+\iisee{capturado}{variável, capturada}%
+\iisee{dummy}{variável, dummy}%
+
+\TODO Explicar.
 
 \endsection
 %%}}}
@@ -13050,21 +13058,22 @@ Z &= \text{o conjunto de todos os números naturais menores que $2^{256!}$}.
 $$
 %%}}}
 
-%%{{{ set_builder 
-\definition Set-builder.
+%%{{{ df: set_builder 
+\definition Set builder.
 \label{set_builder}%
 \label{definite_condition}%
+\tdefined{set builder}%
 \tdefined{set comprehension}%
 \tdefined{condição definitiva}%
 \sdefined {\setst {\holed x} {\text{\thole}}} {o conjunto de todos os $\holed x$ tais que \thole}%
-\iisee{set-builder}{set comprehension}%
+\iiseealso{set!comprehension}{set builder}%
 Uma notação diferente e bem útil é chamada
-\dterm{set comprehension} ou notação \dterm{set-builder},
+notação \dterm{set-builder} (ou \dterm{set comprehension}),
 onde escrevemos
 $$
-\setst x {\text{\thole$x$\thole}}
+\setstt x {\thole$x$\thole}
 $$
-para denotar <<o conjunto de todos os objetos $x$ tais que \thole$x$\thole>>.
+para denotar <<o conjunto de todos os objetos $x$ tais que \thole$x$\thole>>.%
 \footnote{Na literatura aparecem também os símbolos~`\,$:$\,'~e~`\,$;$\,'~em
 vez do~`$\st$'~que usamos aqui.}
 Entendemos que no lado direito escrevemos o \dterm{filtro},
@@ -13087,6 +13096,49 @@ A notação set-builder é bem mais poderosa do que acabamos de mostrar,
 pois nos permite utilisar \emph{termos} mais complexos na sua parte esquerda,
 e não apenas uma variável.
 Vamos investigar isso e mais variações logo na~\ref{full_setbuilder}.
+%%}}}
+
+%%{{{ remark: variable_binder_in_set_builder 
+\remark.
+\label{variable_binder_in_set_builder}%
+\tdefined{variável}[ligada]%
+\tdefined{variável}[livre]%
+Na notação
+$$
+\setstt {\alert{x}} {\thole$x$\thole}
+$$
+temos um \emph{ligador de variável}, pois o $\alert{x}$ no lado esquerdo
+liga todos os $x$'s que aparecem no lado direito livres (e assim viram ligados).
+Por exemplo, o conjunto
+$$
+\setst x {x^2 < xy}
+$$
+depende no $y$ (mas não no $x$).
+%%}}}
+
+%%{{{ beware: variable_capturing_in_set_builder 
+\beware Capturação de variável.
+\tdefined{variável}[capturada]%
+\ii{variável}[dummy]%
+\ii{variável}[capturada]%
+Podemos trocar o ``dummy'' $x$ por qualquer variável
+\emph{que não aparece livre na parte direita},
+tomando cuidado para renomiar as ligadas também.
+Por exemplo
+$$
+\setst {\alert{x}} {\alert{x}^2 < \alert{x}y} \inteq
+\setst {\alert{z}} {\alert{z}^2 < \alert{z}y}
+$$
+Mas
+$$
+\setst {\alert{x}} {\alert{x}^2 < \alert{x}y} \intneq
+\setst {\alert{y}} {\alert{y}^2 < \alert{y}\alert{y}}
+$$
+pois o $y$ que tava livre no ``filtro'' acabou sendo
+\emph{capturado} pelo ligador no set builder:
+dentro dos $\set{\dots}$ perdemos o
+acesso no objeto denotado por $y$ fora.
+O $\setst y {y^2 < yy}$ não depende mais do $y$.
 %%}}}
 
 %%{{{ What we need to specify for each new type 
@@ -15668,6 +15720,9 @@ Isso é um abuso notacional, pois $\tup{}$ também denota a tupla vazia,
 que é o único membro da unit;
 mas o contexto é em geral suficiente para tirar a ambigüidade.
 %%}}}
+
+\TODO Explicar o ``seja $(a,b) \in A \cross B$''.
+Link com os: \ref{only_declare_variables}, \ref{picking_elements_from_indexed_sets}.
 
 \endsection
 %%}}}
@@ -18796,13 +18851,13 @@ Supomos aqui que o domínio e codomínio são claros pelo contexto.
 Chamamos a parte ``\thole$x$\thole'' o \dterm{corpo} da abstracção.
 %%}}}
 
-%%{{{ remark: lambda_is_a_binder & alpha_equiv_first_contact 
+%%{{{ remark: variable_binder_in_lambda & alpha_equiv_first_contact 
 \remark.
-\label{lambda_is_a_binder}%
+\label{variable_binder_in_lambda}%
 \label{alpha_equiv_first_contact}%
 O $\lambda$ é um \emph{ligador de variável}.
 Todos os $x$ que aparecem livres no \thole$x$\thole
-viram ligados com o $x$ do $\lambda x$.
+viram ligados com o $\alert{x}$ do $\lambda \alert{x}$.
 Naturalmente consideramos funções que são diferentes apenas nos
 nomes das variáveis ligadas como iguais.
 Por exemplo:
@@ -19039,11 +19094,12 @@ Então quando temos $A\toarrow f B\toarrow g C$, a composição é
 $A \toarrow {g\of f} C$, que parece o oposto da ordem das setinhas.
 Definimos a notação alternativa
 $$
-f;g \defeq g\of f,
+f \dcom g \defeq g\of f,
 $$
-chamada \dterm{notação diagramática}\ii{composição}[diagramática]\iisee{diagramática}{composição}, pois concorda com as setinhas do diagrama:
+chamada \dterm{notação diagramática}\ii{composição}[diagramática]\iisee{diagramática}{composição},
+pois concorda com as setinhas do diagrama:
 $$
-A \toarrow {f;g} C.
+A \toarrow {f \dcom g} C.
 $$
 Mas vamos principalmente usar a notação $g\of f$ mesmo.
 %%}}}
@@ -23682,8 +23738,8 @@ se um conjunto $A$ é indexado ou não, pois todos são (pelo
 menos por eles mesmo).
 %%}}}
 
-%%{{{ remark: picking_elements_from_indexed_sets 
-\remark Tomando elementos de conjuntos indexados.
+%%{{{ picking_elements_from_indexed_sets 
+\note Tomando elementos de conjuntos indexados.
 \label{picking_elements_from_indexed_sets}%
 {%
 \def\bla{\mathrm{bla}}%
@@ -23715,8 +23771,8 @@ $$
 }
 %%}}}
 
-%%{{{ remark: equality_for_indexed_sets 
-\remark Igualdade entre conjuntos indexados.
+%%{{{ equality_for_indexed_sets 
+\note Igualdade entre conjuntos indexados.
 \label{equality_for_indexed_sets}%
 {%
 \def\bla{\mathrm{bla}}%
@@ -34484,7 +34540,7 @@ $$
 $$
 Esses conjuntos são indexados pelo mesmo conjunto (o $G$),
 logo basta provar que para todo $a\in G$, $\eqclassimp a = Ha$.
-(Veja a~\ref{equality_for_indexed_sets}.)
+(Veja o~\ref{equality_for_indexed_sets}.)
 \crproofpart{\lrdirset:}
 Suponha $x \in \eqclassimp a$.
 Logo $x \cong a \pmod H$, ou seja, $x\ginv a \in H$.
@@ -35622,7 +35678,7 @@ $$
 {%
 \def\bla{\mathrm{bla}}%
 Se a parte sublinhada acima parece estranha,
-lembre-se a~\ref{picking_elements_from_indexed_sets},
+lembre-se o~\ref{picking_elements_from_indexed_sets},
 e releia o fim do~\ref{only_declare_variables}.
 Provando a afirmação
 $$
