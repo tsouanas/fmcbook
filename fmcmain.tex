@@ -14105,8 +14105,12 @@ para \emph{exatamente um} objeto desse tipo (sua saida).
 \note Definindo operações.
 Então como podemos \emph{definir uma operação} nos conjuntos?
 O que precisamos deixar claro?
-Como a saida (ou o ``resultado'') duma operação, no final das contas,
-é um conjunto, basta determinar esse conjunto para quaisquer entradas aceitáveis pela operação.
+\standout
+\emph{Um operador é determinado por seu comportamento.}
+\endstandout
+Então se a ``saida'' (ou o ``resultado'') duma operação
+é um conjunto, basta determinar esse conjunto para quaisquer entradas
+aceitáveis pela operação.
 E como determinamos um conjunto?
 Para começar, podemos usar um dos jeitos que já encontramos para definir um conjunto $A$:
 $$
@@ -14134,6 +14138,30 @@ $$
 Chamamos o $A \union B$ a \dterm{união} dos $A$ e $B$.
 %%}}}
 
+%%{{{ remark: from_x_in_A_union_B_to_A_union_B_to_union 
+\remark.
+Primeiramente esquematicamente:
+$$
+\align
+\alert{x \in A \union B}           &\alertdefiff \text{$x \in A$ ou $x \in B$} \\
+x \in \alert{A \union B}           &\alertdefiff \text{$x \in A$ ou $x \in B$} \\
+x \in A \mathbin{\alert{\union}} B &\alertdefiff \text{$x \in A$ ou $x \in B$}.
+\endalign
+$$
+onde colorifiquei três maneiras de entender o que é que tá sendo definido mesmo.
+\endgraf
+E agora com palavras:
+se eu determinar o que significa que um $x$ arbitrário pertence ao
+$A \union B$, então eu determinei o $A \union B$, pois ele é um conjunto e
+\emph{um conjunto é determinado por seus membros;}
+e como eu fiz isso para quaisquer conjuntos $A,B$ (arbitrários),
+então eu determinei o $\union$, pois ele é um operador e
+\emph{um operador é determinado por seu comportamento}.
+Vamos voltar nesse assunto nos capítulos~\refn{Functions}
+e~\refn{Axiomatic_set_theory} onde estudamos funções e teoria dos
+conjuntos respectivamente.
+%%}}}
+
 %%{{{ df: inter_def 
 \definition.
 \label{inter_def}%
@@ -14152,6 +14180,7 @@ Chamamos o $A\inter B$ a \dterm{intersecção} dos $A$ e $B$.
 Defina a operação $\inter$ usando a notação set-builder.
 
 \solution
+Sejam $A,B$ conjuntos.
 Qualquer uma das definições seguintes serve:
 $$
 \align
@@ -14868,28 +14897,24 @@ $$
 \endexample
 %%}}}
 
-%%{{{ x: from_binary_connectives_to_quantifiers 
+%%{{{ from_binary_connectives_to_quantifiers 
 \note De conectivos binários para quantificadores.
 \label{from_binary_connectives_to_quantifiers}%
 Considere a afirmação:
 $$
-\text{Alex comeu manga ou Babis comeu manga}.
+\text{<<Alex comeu manga ou Babis comeu manga.>>}
 $$
 Naturalmente essa proposição corresponde numa disjunção:
 $$
-\paren{
-\munderbrace {\text{Alex comeu manga}} {\phi(Alex)}
+\munderbrace {\text{Alex comeu manga}} {\phi(\mathrm{Alex})}
 \munderbrace {\text{ou}} {\lor}
-\munderbrace {\text{Babis comeu manga}} {\phi(Babis)}.
-}
+\munderbrace {\text{Babis comeu manga}} {\phi(\mathrm{Babis})}.
 $$
-Dualmente trocando o ``ou'' por ``e'' chegamos numa conjunção:
+Dualmente (trocando o ``ou'' por ``e'') chegamos numa conjunção:
 $$
-\paren{
-\munderbrace {\text{Alex comeu manga}} {\phi(Alex)}
+\munderbrace {\text{Alex comeu manga}} {\phi(\mathrm{Alex})}
 \munderbrace {\text{e}} {\land}
-\munderbrace {\text{Babis comeu manga}} {\phi(Babis)}.
-}
+\munderbrace {\text{Babis comeu manga}} {\phi(\mathrm{Babis})}.
 $$
 E agora a pergunta:
 %%}}}
@@ -14917,7 +14942,13 @@ $$
 \paren{\phi(A) \land \phi(B)} & \iff \lforall {x \in \set{A,B}} {\phi(x)}.
 \endalign
 $$
-
+Com palavras pouco mais humanas:
+$$
+\align
+\text{<<alguem no $\set{A,B}$} & \text{comeu manga>>} \\
+\text{<<todos no $\set{A,B}$}  & \text{comeram manga>>}.
+\endalign
+$$
 %%}}}
 
 %%{{{ Q: How would you define Union and Inter? 
@@ -16499,9 +16530,9 @@ membro do seu produto cartesiano
 $$
 \prod_{i\in\cal I} A_i
 =
-\setstt {\famil a i {\cal I}} {$a_i \in A_i$ para todo $i\in\cal I$}.
+\setstt {\famil a i {\cal I}} {$a_i \in A_i$ para todo $i\in\cal I$}
 $$
-uma família indexada
+é uma família indexada
 $$
 \famil a i {\cal I}
 \qqqqtext{tal que $a_i \in A_i$ para todo $i\in\cal I$},
