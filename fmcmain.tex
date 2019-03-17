@@ -15655,16 +15655,23 @@ mas o contexto é em geral suficiente para tirar a ambigüidade.
 \definition Seqüência.
 \label{sequence}%
 \tdefined{seqüência}%
-\sdefined {\sequence {\holed a} n} {a seqüência ${\holed a}_0,{\holed a}_1,{\holed a}_2,\dotsc$}%
+\sdefined {\sequence {\holed {a_n}} n} {a seqüência ${\holed a}_0,{\holed a}_1,{\holed a}_2,\dotsc$}%
 A generalização de tuplas para seqüências é bem simples.
 Uma $n$-tupla $\tup{a_0,\dotsc,a_{n-1}}$ tem um membro para cada uma das
 $n$ posições $i = 0, \dotsc, n-1$, e nada mais.
 Uma \dterm{seqüência} tem um membro para cada natural $i \in \nats$.
-Usamos a notação $\sequence a n$ para denotar a seqüência
+Usamos a notação $\sequence {a_n} n$ para denotar a seqüência
 $$
 a_0, a_1, a_2, a_3, \dotsc
 $$
 Uma \dterm{seqüência finita} é apenas uma $n$-tupla, para algum $n\in\nats$.
+%%}}}
+
+%%{{{ remark: variable_binder_in_sequences 
+\remark Ligador de variável.
+\label{variable_binder_in_sequences}%
+Na notação $\sequence {a_n} {\alert{n}}$ o $\alert{n}$
+é um \emph{ligador} da variável $n$.
 %%}}}
 
 %%{{{ beware: ambiguous notations for sequences 
@@ -15683,7 +15690,7 @@ membro é o $n$-ésimo membro da seqüência?
 \note.
 No coração de calculus é o estudo de seqüências
 de números reais.  No~\ref{Real_numbers} definimos a noção de \dterm{limite}
-de uma seqüência de reais $\sequence a n$, e no~\ref{Metric_spaces}
+de uma seqüência de reais $\seqn a n$, e no~\ref{Metric_spaces}
 estendemos essa idéia num contexto mais geral e abstrato, onde
 os membros da seqüência não são necessariamente números reais,
 mas membros de um \emph{espaço métrico}.
@@ -15710,7 +15717,7 @@ $\Inter_{n=0}^{\infty} A_n$
 %%{{{ df: Union_Inter_of_sequence 
 \definition.
 \label{Union_Inter_of_sequence}%
-Seja $\sequence A n$ uma seqüência de conjuntos.
+Seja $\seqn A n$ uma seqüência de conjuntos.
 Definimos os operadores unários
 $\Union_{n=0}^{\infty}$ e
 $\Inter_{n=0}^{\infty}$ pelas:
@@ -15727,7 +15734,7 @@ respectivamente.
 %%{{{ x: sequence_of_sets_inclusions_tricky_indices_1 
 \exercise.
 \label{sequence_of_sets_inclusions_tricky_indices_1}%
-Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos tais que
+Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos tais que
 $$
 \text{para todo $n\in\nats$, $A_n \subseteq B_{n+1}$.}
 $$
@@ -15959,7 +15966,7 @@ Veja~\cite[\S10.21~\&~Teorema~10.22]{apostol1}.
 
 %%{{{ Limits of sequences of sets. 
 \note Limites de seqüências de conjuntos.
-Seja $\sequence A n$ uma seqüência de conjuntos.
+Seja $\sequence {A_n} n$ uma seqüência de conjuntos.
 Podemos definir a noção $\lim_n A_n$ de \emph{limite}
 dessa seqüência.  Claramente, não todas as seqüências
 de conjuntos convergem em algum limite.  Investigamos
@@ -16275,7 +16282,7 @@ $$
 &\defiff
 \lforall {i,j \in \cal I} {i\neq j \implies A_i \inter A_j = \emptyset}.
 \intertext{E logo para seqüências também:}
-\text{os conjuntos da $\sequence A n$ são disjuntos dois-a-dois}
+\text{os conjuntos da $\seqn A n$ são disjuntos dois-a-dois}
 &\defiff
 \lforall {i,j \in \nats} {i\neq j \implies A_i \inter A_j = \emptyset}.
 \endalign
@@ -16505,7 +16512,7 @@ A \cross B \cross C = {}
    &\{ \tup{\textrm{salada},   \textrm{pizza},     \textrm{tiramisu}} \\
    & , \tup{\textrm{salada},   \textrm{pizza},     \textrm{yogurte}} \\
    & , \tup{\textrm{salada},   \textrm{carbonara}, \textrm{tiramisu}} \\
-   & , \dotsc \\
+   & \vdots \\
    & , \tup{\textrm{tzatziki}, \textrm{pastitsio}, \textrm{tiramisu}} \\
    & , \tup{\textrm{tzatziki}, \textrm{pastitsio}, \textrm{yogurte}} \}.
 \endalign
@@ -16634,7 +16641,7 @@ Dualize e demonstre o resultado do~\ref{Inter_of_containers_contains}.
 %%{{{ sequence_of_sets_inclusions_tricky_indices_2 
 \problem.
 \label{sequence_of_sets_inclusions_tricky_indices_2}%
-Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos tais que
+Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos tais que
 $$
 \text{para todo número par $m$, $A_m \subseteq B_{m/2}$.}
 $$
@@ -16657,7 +16664,7 @@ Mas $A_{2k} \subseteq B_k$, logo $x \in B_k$.
 %%{{{ sequence_of_sets_inclusions_counterexample 
 \problem.
 \label{sequence_of_sets_proper_inclusions_counterexample}%
-Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos,
+Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos,
 tais que para todo $n\in\nats$,
 $A_n \subsetneq B_n$.
 Podemos concluir alguma das afirmações seguintes?:
@@ -16671,7 +16678,7 @@ $$
 \hint
 Procure contraexemplos:
 para cada afirmação,
-defina duas seqüências $\sequence A n$ e $\sequence B n$
+defina duas seqüências $\seqn A n$ e $\seqn B n$
 que satisfazem a condição do problema, e mesmo assim,
 não é valida a conclusão proposta.
 
@@ -16717,7 +16724,7 @@ $$
 %%{{{ sequence_of_sets_inclusions_tricky_indices_3 
 \problem.
 \label{sequence_of_sets_inclusions_tricky_indices_3}%
-Sejam $\sequence A n$ e $\sequence B n$ duas seqüências de conjuntos tais que
+Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos tais que
 $$
 \text{para todo número primo $p$, $A_p \subseteq B_{2p}$.}
 $$
@@ -16890,7 +16897,7 @@ $$
 %%{{{ set_liminf_limsup_problem 
 \problem.
 \label{set_liminf_limsup_problem}%
-Seja $\sequence A n$ uma seqüência de conjuntos.
+Seja $\seqn A n$ uma seqüência de conjuntos.
 Definimos os conjuntos
 $$
 \xalignat 2
@@ -16938,6 +16945,305 @@ Entenda no teu coração o que tu provaste no~\ref{set_liminf_limsup_problem}.
 Como descreverias os elementos dos $A_*$ e $A^*$?
 Explique com ``palavras da rua'' justificando o resultado obtenido.
 
+\hint
+Comece rascunhando os dois lados, usando `$\dotsb$', etc.
+
+\hint
+Vamos primeiramente analizar o $A_* = \Union_i \Inter_{j\geq i} A_j$.
+É uma união duma seqüência de conjuntos, então faz sentido observar
+pelo menos os primeiros membros dessa seqüência.
+Quais são?
+
+\hint
+Os primeiros membros são:
+$$
+\Inter_{j\geq 0} A_j, \quad
+\Inter_{j\geq 1} A_j, \quad
+\Inter_{j\geq 2} A_j, \quad
+\dotsc
+$$
+Faça a mesma coisa sobre o $A^* = \Inter_i \Union_{j\geq i} A_j$.
+
+\hint
+Cada um desses membros também é uma intersecção ou união duma seqüência.
+Escrava cada uma delas como uma expressão que envolve `$\dotsb$'.
+
+\hint
+Temos:
+$$
+\xalignat2
+A_* &= \Union \set{
+\aligned
+A_0 \inter A_1 \inter A_2 \inter A_3 \inter A_4 \inter {}           & {} \dotsb \\
+           A_1 \inter A_2 \inter A_3 \inter A_4 \inter {}           & {} \dotsb \\
+                      A_2 \inter A_3 \inter A_4 \inter {}           & {} \dotsb \\
+                                     \ddots \phantom{A_4 \inter {}} & \\
+\endaligned
+}
+&
+A^* &= \Inter \set{
+\aligned
+A_0 \union A_1 \union A_2 \union A_3 \union A_4 \union {}           & {} \dotsb \\
+           A_1 \union A_2 \union A_3 \union A_4 \union {}           & {} \dotsb \\
+                      A_2 \union A_3 \union A_4 \union {}           & {} \dotsb \\
+                                     \ddots \phantom{A_4 \union {}} & \\
+\endaligned
+}
+\endxalignat
+$$
+E agora precisamos \emph{entender} as proposições
+$$
+\xalignat2
+x &\in A_* &
+x &\in A^*
+\endxalignat
+$$
+para enxergar se uma implica a outra, etc.
+
+\hint
+O que podemos concluir sobre a \emph{quantidade} dos $A_n$'s que
+$x$ pertence, sabendo a primeira?  O que sabendo a segunda?
+
+\hint
+Em ambos os casos podemos concluir que $x$ pertence a uma quantidade
+infinita de $A_i$'s, então isso não é suficiente para nosso objetivo.
+A segunda proposição realmente é \emph{equivalente} a essa afirmação,
+ou seja:
+$$
+x \in A^* \iff \text{$x$ pertence a uma quantidade infinita de $A_n$'s}.
+$$
+Mas a primeira afirma algo \emph{mais forte}, ou seja, realmente
+$$
+x \in A_* \implies x \in A^*.
+$$
+Mas para enxergar isso precisamos entender qual é toda a informação
+que a proposição `$x \in A^*$' contem:
+$$
+x \in A_* \iff \askdots
+$$
+
+\hint
+Se $x \in A_*$, a quantos dos $A_n$'s pode ser
+que o $x$ \emph{não} pertence?
+E se $x \in A^*$?
+
+\solution
+A idéia é entender o que cada uma das proposições
+$$
+\xalignat2
+x &\in A_* &
+x &\in A^*
+\endxalignat
+$$
+quis dizer, para enxergar se uma implica a outra, etc.
+Como já demonstramos ``mecanicamente'' no~\ref{set_liminf_limsup_problem}
+que $A_* \subseteq A^*$, queremos então chegar na conclusão que
+$$
+x \in A_* \implies x \in A^*
+$$
+num caminho diferente: do coração.
+\endgraf
+Vamos primeiramente analizar o $A_* = \Union_i \Inter_{j\geq i} A_j$.
+É uma união duma seqüência de conjuntos, então faz sentido observar
+pelo menos os primeiros membros dessa seqüência:
+$$
+\Inter_{j\geq 0} A_j, \quad
+\Inter_{j\geq 1} A_j, \quad
+\Inter_{j\geq 2} A_j, \quad
+\dotsc
+$$
+Cada um desses membros também é uma intersecção duma seqüência.
+Vamos escrever numa maneira que deixa os primeiros termos vizíveis:
+$$
+\align
+\Inter_{j\geq 0} A_j &= A_0 \union A_1 \union A_2 \union \dotsb \\
+\Inter_{j\geq 1} A_j &= A_1 \union A_2 \union A_3 \union \dotsb \\
+\Inter_{j\geq 2} A_j &= A_2 \union A_3 \union A_4 \union \dotsb \\
+&\eqvdots
+\endalign
+$$
+Trabalhando dualmente no $A^*$, chegamos nas:
+$$
+\xalignat2
+x &\in \Union \set{
+\aligned
+A_0 \inter A_1 \inter A_2 \inter A_3 \inter A_4 \inter {}           & {} \dotsb \\
+           A_1 \inter A_2 \inter A_3 \inter A_4 \inter {}           & {} \dotsb \\
+                      A_2 \inter A_3 \inter A_4 \inter {}           & {} \dotsb \\
+                                     \ddots \phantom{A_4 \inter {}} & \\
+\endaligned
+}
+&
+x &\in \Inter \set{
+\aligned
+A_0 \union A_1 \union A_2 \union A_3 \union A_4 \union {}           & {} \dotsb \\
+           A_1 \union A_2 \union A_3 \union A_4 \union {}           & {} \dotsb \\
+                      A_2 \union A_3 \union A_4 \union {}           & {} \dotsb \\
+                                     \ddots \phantom{A_4 \union {}} & \\
+\endaligned
+}
+\endxalignat
+$$
+Sabendo a primeira concluimos que $x$ pertence a \emph{pelo menos uma}
+das linhas da esquerda, vamos dizer a $u$-ésima, ou seja
+$$
+x \in A_u \inter A_{u+1} \inter A_{u+2} \inter \dotsb
+$$
+Logo sabemos que
+$$
+\text{$x$ pertence a todos os $A_u, A_{u+1}, A_{u+2}, \dotsc$}.
+$$
+Em outras palavras:
+\emph{a partir dum ponto, $x$ pertence a todos os membros da seqüência original}.
+Provamos então que
+$$
+x \in A_* \implies \text{a partir dum ponto, $x$ pertence a todos os $A_n$'s}.
+$$
+Vamos demonstrar o converso agora.
+Suponha que a partir dum $u\in\nats$, sabemos que $x$ pertence a todos os
+$A_u, A_{u+1}, A_{u+2}, \dotsc$, ou seja,
+$$
+x \in A_u \inter A_{u+1} \inter A_{u+2} \inter \dotsb
+$$
+ou seja, achamos uma linha onde $x$ pertence e logo $x \in A_*$.
+\endgraf
+Agora a segunda proposição ($x \in A^*$)
+concluimos que $x$ pertence a \emph{todas} as linhas
+da direita, ou seja:
+$$
+\alignat 2
+x &\in & A_0 \union A_1 \union A_2 \union A_3 \union A_4 \union {}    & {} \dotsb \\
+x &\in &            A_1 \union A_2 \union A_3 \union A_4 \union {}    & {} \dotsb \\
+x &\in &                       A_2 \union A_3 \union A_4 \union {}    & {} \dotsb \\
+  &\eqvdots
+\endalignat
+$$
+Observe que a $j$-ésima linha afirma que
+\emph{mesmo depois de andar $j$ passos na seqüência,
+ainda terá $A_n$'s com $x$ neles}.
+Sabendo então que cada uma dessas linhas é verdade, podemos concluir
+que $x$ pertence a uma infinidade dos $A_n$'s, e vice versa:
+$$
+x \in A^* \iff \text{$x$ pertence a uma infinidade dos $A_n$'s}.
+$$
+Vamos demonstrar isso.
+\endgraf
+\lrdir:
+Temos como hipótese todas as
+$$
+\alignat 2
+x &\in & A_0 \union A_1 \union A_2 \union A_3 \union A_4 \union {}    & {} \dotsb \\
+x &\in &            A_1 \union A_2 \union A_3 \union A_4 \union {}    & {} \dotsb \\
+x &\in &                       A_2 \union A_3 \union A_4 \union {}    & {} \dotsb \\
+  &\eqvdots
+\endalignat
+$$
+e queremos mostrar que $x$ pertence a uma infinidade dos $A_n$'s.
+Basta mostrar que para qualquer ``desafio'' $v\in\nats$,
+$x$ pertence a algum dos $A_v, A_{v+1}, A_{v+2}, \dotsc$.
+Seja $v\in\nats$ então.
+Olha na $v$-ésima linha e é exatamente o que queremos.
+\endgraf
+\rldir:
+Agora sabendo que $x$ pertence a uma quantidade infinita de $A_n$'s precisamos
+mostrar que
+$$
+\text{para todo $v\in\nats$},
+\quad
+x \in A_v \union A_{v+1} \union A_{v+2} \union dotsb
+$$
+Seja $v\in\nats$ então.
+Para chegar num absurdo, suponha que
+$$
+x \notin A_v \union A_{v+1} \union A_{v+2} \union dotsb
+$$
+ou seja, $x$ não pertence a nenhum dos $A_v, A_{v+1}, A_{v+2}, \dotsc$.
+Mas isso quis dizer que $x$ pertence no máximo em $v$ dos $A_n$'s,
+contradizendo nossa hipótese que $x$ pertence numa infinidade deles.
+\endgraf
+Concluimos então que
+$$
+x \in A^* \iff \text{$x$ pertence a uma infinidade dos $A_n$'s}.
+$$
+Como comparam essas afirmações?
+\beginul
+\li $x\in A_*$: a partir dum ponto, $x$ pertence a todos os $A_n$'s;
+\li $x\in A^*$: $x$ pertence a uma infinidade dos $A_n$'s.
+\endul
+Deve ser óbvio que
+$$
+x \in A_* \implies x \in A^*.
+$$
+E como já entendemos o que cada proposição quis dizer mesmo, podemos
+demonstrar que o converso não é sempre válido (.
+\endgraf
+Para um contraexemplo onde
+$$
+x \in A_* \smartnot{\impliedby} x \in A^*
+$$
+considere a seqüência
+$$
+\align
+A_0 &= \set {0} \\
+A_1 &= \set {0,1} \\
+A_2 &= \set {0} \\
+A_3 &= \set {0,1} \\
+A_4 &= \set {0} \\
+A_5 &= \set {0,1} \\
+    &\eqvdots
+\endalign
+$$
+Observe que os $0,1$ são aqueles que pertencem a uma infinidade dos $A_n$'s.
+Mas apenas o $0$ pertence a todos os $A_n$'s a partir dum certo ponto.
+
+\endproblem
+%%}}}
+
+%%{{{ set_liminf_limsup_problem_not_converse 
+\problem.
+\label{set_liminf_limsup_problem_not_converse}%
+Demonstre que o converso não é sempre válido:
+construe seqüência de conjuntos $\seqn A n$ tal que
+$$
+A_* \subsetneq A^*.
+$$
+Podes construir uma tal que ambos os $A_*, A^*$ são infinitos,
+e onde cada um dos $A_n$'s é um subconjunto finito de $\nats$?
+
+\solution
+Sem a restrição uma tal seqüência seria a
+$$
+\emptyset, \set{1}, \emptyset, \set{1}, \emptyset, \set{1}, \dotsc
+$$
+Assim temos $A_* = \emptyset$ e $A^* = \set{1}$.
+\endgraf
+Para satisfazer a restrição, considere a seqüência:
+$$
+A_n =
+\knuthcases{
+\setstt {k \leq n} {$k$ é primo}, & se $n$ par; \cr
+\setstt {k \leq n} {$k$ é ímpar}, & caso contrário.
+}
+$$
+Seus primeiros termos:
+$$
+\alignat 2
+A_0 &= \emptyset            & A_1 &= \set{1} \\
+A_2 &= \set{2}              & A_3 &= \set{1,3} \\
+A_4 &= \set{2,3}            & A_5 &= \set{1,3,5} \\
+A_6 &= \set{2,3,5}          & A_7 &= \set{1,3,5,7} \\
+A_8 &= \set{2,3,5,7}        & A_9 &= \set{1,3,5,7,9} \\
+    &\eqvdots               &     &\eqvdots
+\endalignat
+$$
+Nesse caso,
+$$
+\alignat2
+A_* &= \set{3, 5, 7, 11, 13, 17, \dotsc}        &= \setstt {n\in\nats} {$n$ é um primo ímpar} \\
+A^* &= \set{1, 2, 3, 5, 7, 9, 11, 13, \dotsc}   &= \setstt {n\in\nats} {$n=2$ ou $n$ ímpar}
+\endalignat
+$$
+
 \endproblem
 %%}}}
 
@@ -16949,10 +17255,10 @@ Os $A_*$ e $A^*$ do \ref{set_liminf_limsup_problem} merecem seus próprios nomes
 \label{set_limits}%
 \tdefined{limite}[de seqüência de conjuntos]%
 \tdefined{limite}[de seqüência de conjuntos]%
-\sdefined{\liminf_n A_n} {o limite inferior da seqüência $\sequence A n$}%
-\sdefined{\limsup_n A_n} {o limite superior da seqüência $\sequence A n$}%
-\sdefined{\lim_n A_n} {o limite da seqüência $\sequence A n$}%
-Seja $\sequence A n$ uma seqüência de conjuntos.
+\sdefined{\liminf_n A_n} {o limite inferior da seqüência $\seqn A n$}%
+\sdefined{\limsup_n A_n} {o limite superior da seqüência $\seqn A n$}%
+\sdefined{\lim_n A_n} {o limite da seqüência $\seqn A n$}%
+Seja $\seqn A n$ uma seqüência de conjuntos.
 Definimos seu \dterm{limite inferior} e seu \dterm{limite superior} pelas:
 $$
 \xalignat2
@@ -16962,28 +17268,28 @@ $$
 $$
 Note que pelo~\ref{set_liminf_limsup_problem} sabemos se um é subconjunto
 de outro ou não.  Mas pode ser que os dois conjuntos são iguais.
-Digamos que a seqüência de conjuntos $\sequence A n$ \dterm{converge} sse
+Digamos que a seqüência de conjuntos $\seqn A n$ \dterm{converge} sse
 $$
 \liminf_n A_n = \limsup_n A_n.
 $$
-Nesse caso, chamamos esse conjunto de \dterm{limite} da $\sequence A n$
+Nesse caso, chamamos esse conjunto de \dterm{limite} da $\seqn A n$
 e usamos a notação $\lim_n A_n$ para denotá-lo.
 %%}}}
 
 %%{{{ df: increasing_decreasing_sequence 
 \definition.
 \label{increasing_decreasing_sequence}%
-Seja $\sequence A n$ uma seqüência de conjuntos.
-Dizemos que $\sequence A n$ é uma \dterm{seqüência crescente} sse
+Seja $\seqn A n$ uma seqüência de conjuntos.
+Dizemos que $\seqn A n$ é uma \dterm{seqüência crescente} sse
 $A_i \subseteq A_{i+1}$ para todo $i\in \nats$.
-Similarmente, $\sequence A n$ é uma \dterm{seqüência decrescente} sse
+Similarmente, $\seqn A n$ é uma \dterm{seqüência decrescente} sse
 $A_i \supseteq A_{i+1}$ para todo $i\in \nats$.
 Rascunhamente:
 $$
 \align
-\text{$\sequence A n$ crescente}
+\text{$\seqn A n$ crescente}
 &\defiff A_0 \subseteq A_1 \subseteq A_2 \subseteq \cdots \\
-\text{$\sequence A n$ decrescente}
+\text{$\seqn A n$ decrescente}
 &\defiff A_0 \supseteq A_1 \supseteq A_2 \supseteq \cdots
 \endalign
 $$
@@ -23637,7 +23943,7 @@ Isso mostra que $f$ é sobrejetora.
 %%{{{ big_intersection_respected_by_img_wrong_proof 
 \problem.
 \label{big_intersection_respected_by_img_wrong_proof}%
-Um aluno ``provou'' que se $f : A \to B$ e $\sequence A n$ é uma
+Um aluno ``provou'' que se $f : A \to B$ e $\seqn A n$ é uma
 seqüência de subconjuntos de $A$, então
 $$
 \img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
@@ -33166,7 +33472,7 @@ dum subconjunto $S\subseteq\reals^2$ usando a abordagem top-down.
 \definition.
 \label{convex_hull_bottom_up}%
 Seja $S\subseteq\reals^2$.
-Definimos a seqüência de conjuntos $\sequence S n$ pela recursão:
+Definimos a seqüência de conjuntos $\seqn S n$ pela recursão:
 $$
 \align
 S_0     &= S \\
@@ -39508,13 +39814,13 @@ $$
 \definition limite.
 \label{limit_of_sequence_of_reals}%
 \tdefined{limite}[reais]%
-Seja $\sequence a n$ uma seqüência de reais e seja $\ell\in\reals$.
+Seja $\seqn a n$ uma seqüência de reais e seja $\ell\in\reals$.
 Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
 sse a partir dum membro $a_N$, todos os seus membros
 ficam $\epsilon$-perto do $\ell$.
 Formalmente:
 $$
-\sequence a n \limto \ell
+\seqn a n \limto \ell
 \defiff
 \pexists {N \in \nats}
 \lforall {i \geq N}
@@ -39588,14 +39894,14 @@ Demonstre que para todo $a\in\reals$, $\lim_{n\to\infty} \frac {a^n} {\fac n}$.
 \definition seqüência Cauchy.
 \label{Cauchy_sequence_of_reals}%
 \tdefined{Cauchy}[reais]%
-Seja $\sequence a n$ uma seqüência de reais.
+Seja $\seqn a n$ uma seqüência de reais.
 Dizemos que $\seqn a n$ é \Cauchy[seqüência]\dterm{Cauchy}
 sse para qualquer $\epsilon > 0$ existe um membro da
 seqüência tal que a partir dele, todos os seus membros
 são $\epsilon$-perto entre si (dois a dois).
 Formalmente:
 $$
-\text{$\sequence a n$ é Cauchy}
+\text{$\seqn a n$ é Cauchy}
 \defiff
 \pforall {\epsilon > 0}
 \pexists {N \in \nats}
@@ -40649,7 +40955,7 @@ $$
 \align
 \cal C &= \set{ C_0, C_1, C_2, \dotsc }.
 \intertext{Sabemos que todos os $C_n$'s são contáveis; logo seja
-$\upseqn {c_n} i$ uma enumeração do $C_n$:}
+$\sequence {c_n^i} i$ uma enumeração do $C_n$:}
 C_0 &= \set {c_0^0, c_0^1, c_0^2, c_0^3, \dotsc } \\
 C_1 &= \set {c_1^0, c_1^1, c_1^2, c_1^3, \dotsc } \\
 C_2 &= \set {c_2^0, c_2^1, c_2^2, c_2^3, \dotsc } \\
