@@ -19053,6 +19053,8 @@ Não vamos usar muito a notação $(x \mapsto \thole)$.
 Pois a notação $\lam x {\thole}$ serve bem melhor para a maioria dos nossos usos.
 %%}}}
 
+\TODO Falar de $\alpha$-equivalência, $\eta$-equivalência, e $\beta$-reducção.
+
 \endsection
 %%}}}
 
@@ -19224,9 +19226,9 @@ de composição ``mais geral''.
 Mas para a gente aqui, vamos supor que para motivos que não
 importam---talvez religiosos, ou um TOC mesmo---\emph{não podemos}
 conectar esse cabo no meio quando os conjuntos são diferentes:
-\quote
+\standout
 \emph{<<Não comporás funções $f$ e $g$ se $\cod f \neq \dom g$!>>}
-\endquote
+\endstandout
 Essa suposta restrição, na verdade não nos restringe---pelo contrário:
 nos ajuda criar composições ``limpas'' sem gambiarras como essa
 ``fita durex'' no cabo conectando o $B$ com o $B'$!
@@ -19494,18 +19496,19 @@ $$
 \label{characteristic_function}%
 \tdefined{função}[característica]%
 \iisee{característica}{função, característica}%
-\sdefined {\chr_{\holed A, \holed X}} {a função característica do $\holed A$ no $\holed X$}%
-Sejam $A,X$ conjuntos com $A\subset X$.
-A \dterm{função característica do $A$ no $X$} é a função
-$\chr_{A,X} : X \to \set{0,1}$ definida pela
+\sdefined {\chrdom {\holed A}, {\holed C}} {a função característica do $\holed C$ no $\holed A$}%
+\sdefined {\chr {\holed C}} {a função característica do $\holed A$ (com domínio implícito)}%
+Sejam $A$ conjunto e $C \subset A$.
+A \dterm{função característica do $C$ no $A$} é a função
+$\chrdom A C : A \to \set{0,1}$ definida pela
 $$
-\chr_{A,X}(x) =
+\chrdom A C (x) =
 \knuthcases{
-1, &se $x\in A$\cr
-0, &se $x\notin A$.
+1, &se $x\in C$\cr
+0, &se $x\notin C$.
 }
 $$
-Escrevemos apenas $\chr_A$ quando o conjunto $X$ é implícito pelo
+Escrevemos apenas $\chr C$ quando o domínio $A$ é implícito pelo
 contexto---e na práctica esse é quase sempre o caso!
 %%}}}
 
@@ -19522,7 +19525,7 @@ e cada valor positivo um ``false'' (com $1$ sendo o padrão deles).
 \emph{A moral da história:}
 sempre verifique a definição da função característica
 usada---e se quiseres usar num texto teu, sempre bota sua definição junto!
-Nesse texto, quando aparece a notação $\chr_A$ sem definição,
+Nesse texto, quando aparece a notação $\chr A$ sem definição,
 denota a função que definimos acima na~\ref{characteristic_function}.
 %%}}}
 
@@ -19548,11 +19551,11 @@ $$
 Usando as funções características de $\rats$ e $\reals\minus\rats$
 podemos definir a $f$ com uma equação só, e ``sem repetição'':
 $$
-f(x) = 2\cbrt{x + \log_2 |x+1|} + x^2 \chr_{\rats}(x) + e^x\chr_{\reals\minus\rats}(x).
+f(x) = 2\cbrt{x + \log_2 |x+1|} + x^2 \chr\rats (x) + e^x \chr{\reals\minus\rats} (x).
 $$
 Isso lembra um
 $$
-f(x) = 2\cbrt{x + \log_2 |x+1|} + (\mathbf{if}~x\in\rats~\mathbf{then}~x^2~\mathbf{else}~e^x)
+f(x) = 2\cbrt{x + \log_2 |x+1|} + \PIF x \in \rats \THEN x^2 \ELSE e^x \FIP.
 $$
 usado em linguagens de programação que suportam if-then-else \emph{expressions}.
 \endexample
@@ -19561,18 +19564,18 @@ usado em linguagens de programação que suportam if-then-else \emph{expressions
 %%{{{ x: char_compose_char 
 \exercise.
 Sejam $A,X$ conjuntos com $A\subset X$.
-Suponha que $\chr_{A,X}\of\chr_{A,X}$ é definida.
+Suponha que $\chrdom X A \of \chrdom X A$ é definida.
 O que podes concluir sobre o $X$?
-Podemos concluir que a $\chr_A\of\chr_A$ é constante ou a identidade?
+Podemos concluir que a $\chr A \of \chr A$ é constante ou a identidade?
 
 \hint
 O fato que uma composição é definida dá informação sobre um domínio
 e um codomínio envolvido.
 
 \solution
-Temos $\chr_A : X \to \set{0,1}$.
-Como a composição $\chr_A \of \chr_A$ é definida,
-concluimos que $\cod(\chr_A) = \dom(\chr_A)$.
+Temos $\chr A : X \to \set{0,1}$.
+Como a composição $\chr A \of \chr A$ é definida,
+concluimos que $\cod(\chr A) = \dom(\chr A)$.
 Ou seja, $X = \set{0,1}$.
 \endgraf
 O $A$ sendo um subconjunto de $\set{0,1}$ so tem 4 possibilidades:
@@ -19590,34 +19593,34 @@ $$
 A = \emptyset &\implies
 \leftbrace{
 \aligned
-(\chr_A \of \chr_A)(0) &= \chr_A(\chr_A(0)) = 0 \\
-(\chr_A \of \chr_A)(1) &= \chr_A(\chr_A(1)) = 0
+(\chr A \of \chr A)(0) &= \chr A(\chr A(0)) = 0 \\
+(\chr A \of \chr A)(1) &= \chr A(\chr A(1)) = 0
 \endaligned
 } \\
 A = \set{0} &\implies
 \leftbrace{
 \aligned
-(\chr_A \of \chr_A)(0) &= \chr_A(\chr_A(0)) = \chr_A(1) = 0 \\
-(\chr_A \of \chr_A)(1) &= \chr_A(\chr_A(1)) = \chr_A(0) = 1
+(\chr A \of \chr A)(0) &= \chr A(\chr A(0)) = \chr A(1) = 0 \\
+(\chr A \of \chr A)(1) &= \chr A(\chr A(1)) = \chr A(0) = 1
 \endaligned
 } \\
 A = \set{1} &\implies
 \leftbrace{
 \aligned
-(\chr_A \of \chr_A)(0) &= \chr_A(\chr_A(0)) = \chr_A(0) = 0 \\
-(\chr_A \of \chr_A)(1) &= \chr_A(\chr_A(1)) = \chr_A(1) = 1
+(\chr A \of \chr A)(0) &= \chr A(\chr A(0)) = \chr A(0) = 0 \\
+(\chr A \of \chr A)(1) &= \chr A(\chr A(1)) = \chr A(1) = 1
 \endaligned
 } \\
 A = X &\implies
 \leftbrace{
 \aligned
-(\chr_A \of \chr_A)(0) &= \chr_A(\chr_A(0)) = 1 \\
-(\chr_A \of \chr_A)(1) &= \chr_A(\chr_A(1)) = 1\,.
+(\chr A \of \chr A)(0) &= \chr A(\chr A(0)) = 1 \\
+(\chr A \of \chr A)(1) &= \chr A(\chr A(1)) = 1\,.
 \endaligned
 }
 \endalign
 $$
-Sobre a $\chr_A\of\chr_A$ então concluimos que
+Sobre a $\chr A\of\chr A$ então concluimos que
 se $A$ é um dos singletons $\set{0}$ ou $\set{1}$ então ela é a identidade.
 Caso contrario, ela é uma constante:
 se $A = \emptyset$, a constante $0$; se $A = X$, a constante $1$.
