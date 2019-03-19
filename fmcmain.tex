@@ -17603,7 +17603,6 @@ Chamamos o ``$A \to B$'' o tipo da $f$, e pronunciamos como
 \exercise.
 Aqui um programa escrito em C:
 \sourcecode typefoo.c;
-\endgraf\noindent
 Qual é o tipo desse $\code{x}$ no corpo da $\code{foo}$?
 Qual o tipo da $\code{foo}$?
 Cuidado: programadores de C (e C++, Java, etc.) tendem errar nessa última questão!
@@ -17733,7 +17732,6 @@ observável.
 Considere as duas funções $\code{f}$ e $\code{g}$ implementadas no programa
 seguinte em Python:
 \sourcecode intext.py;
-\endgraf\noindent
 Suponha que queremos considerar ambas definidas nos inteiros.
 A \emph{extensão} da $\code{f}$ é a mesma com a extensão da $\code{g}$.
 Ou seja, como funções, temos $f = g$.
@@ -18820,7 +18818,6 @@ $$
 Para usar um exemplo de ``nomeamento inútil'' em programação, considere
 as funções seguintes em Python, cada uma programada por um programador diferente:
 \sourcecode uselessnaming.py;
-\endgraf\noindent
 Como funções são iguais, mas o programador que programou $\code{g}$,
 fez algo estranho.
 Decidiu nomear a expressão $\code{2 * x + 1}$ com o nome $\code{r}$,
@@ -19161,6 +19158,9 @@ Para enfatisar quando for necessário escrevemos `$\betastep$' para denotar
 um passo de $\beta$-reducção.
 %%}}}
 
+\blah.
+Tem mais duas regras de $\lambda$-computação: $\alpha$-renomeamento e $\eta$-conversão.
+
 %%{{{ alpha-renaming 
 \note $\alpha$-renomeamento.
 O princípio que nos permite identificar como equivalentes as $\lambda$-expressões
@@ -19171,12 +19171,86 @@ Podemos considerar cada $\lambda$-abstracção um \dterm{$\alpha$-redex};
 denotamos por `$\alphastep$' um passo onde aconteceu um $\alpha$-renomeamento.
 %%}}}
 
+%%{{{ eg: alpharename_code 
+\example em programação.
+\label{alpharename_code}%
+Considere o código seguinte:
+\sourcecode alpharename1.py;
+Aqui parece que o $\code{z}$ é uma variável já declarada e definida
+no escopo exterior.
+Deve ser óbvio que podemos trocar a variável $\code{x}$ por
+qualquer variável que não aparece livre no corpo da $\code{f}$.
+Escolhendo trocá-la por $\code{y}$, por exemplo, chegamos na função
+equivalente:
+\sourcecode alpharename2.py;
+onde semanticamente nada mudou no nosso programa.
+Mas seria errado ter escolhido a $\code{z}$, pois ela capturaria
+a antes-livre $\code{z}$ do corpo da $\code{f}$:
+\sourcecode alpharename3.py;
+Isso não é mais o mesmo programa.
+Antes a função $\code{f}$ poderia ser descrita como
+\standout
+<<a função que retorna o produto da sua entrada com $z$>>;
+\endstandout
+uma descrição que serve para qualquer um dos dois primeiros programas.
+Observe que não usei nem `$x$' nem `$y$' nessa frase,
+mas não teria como descrevé-la sem usar a `$z$'.
+Já a terceira função seria
+\standout
+<<a função que retorna o quadrado da sua entrada>>;
+\endstandout
+algo claramente diferente.
+\endexample
+%%}}}
+
+%%{{{ eg: alpharename_sets 
+\example em conjuntos.
+\label{alpharename_sets}%
+\ii{variável}[capturada]%
+Considere o conjunto seguinte:
+$$
+\setst x {x < z^2}.
+$$
+Obviamente podemos trocar o `$x$' por qualquer variável que não aparece
+livre no filtro `$x < z^2$', por exemplo por `$y$':
+$$
+\setst x {x < z^2}
+=
+\setst y {y < z^2};
+$$
+mas não poderiamos ter escolhido substituir o `$x$' por `$z$',
+pois assim aconteceria \emph{captura de variável}
+(já discutimos isso no~\ref{variable_capturing_in_set_builder}).
+\endexample
+%%}}}
+
 %%{{{ eta-conversion 
 \note $\eta$-conversão.
 Essa é a ideia de \emph{extensionalidade} para o sistema:
 se duas expressões comportam na mesma maneira, as consideramos equivalentes.
 Qualquer expressão da forma $\lam x {f \app x}$ é um \dterm{$\eta$-redex},
 e denotamos por `$\etastep$' o passo onde o substituimos por $f$.
+%%}}}
+
+%%{{{ eg: etawrap_code 
+\example em programação.
+\label{etawrap_code}%
+Considere o código seguinte:
+\sourcecode etawrap.py;
+Espero que é óbvio que essa $\code{f}$, como função, comporta na mesma maneira
+que a própria $\code{g}$.
+\endexample
+%%}}}
+
+%%{{{ x: etawrap_sets 
+\exercise em conjuntos.
+\label{etawrap_sets}%
+Qual seria o equivalente de $\eta$-conversão para os conjuntos?
+
+\solution
+$A = \setst x {x \in A}$.
+
+\endexercise
 %%}}}
 
 %%{{{ eg: alpha beta eta steps 
@@ -19201,8 +19275,6 @@ $$
 $$
 \endexample
 %%}}}
-
-\TODO Explicar.
 
 \endsection
 %%}}}
@@ -23314,6 +23386,7 @@ Funções!  Nesse caso determinamos exatamente para qualquer entrada
 dela, qual seria a função que vai ser retornada.
 Em Python, podemos por exemplo escrever:
 \sourcecode higher.py;
+Ainda bem\dots
 %%}}}
 
 %%{{{ Q: what type of thing is F(25)? 
@@ -23371,6 +23444,7 @@ $$
 Observe que no lado direito aparece uma função anônima.
 Novamente mostrando código em Python, escrevemos:
 \sourcecode higherlam.py;
+Não ficou melhor?
 %%}}}
 
 %%{{{ x: find_expressions_with_given_types_higher_order 
@@ -23543,6 +23617,8 @@ Como fazer isso?
 \label{currying_in_python}%
 Aqui uma resposta, escrita em Python.
 \sourcecode currying.py;
+Para computar a $\code{f(x,y)}$ usando a $\code{F}$,
+usamos a $\code{F(x)(y)}$, ou seja, $\code{(F(x))(y)}$.
 %%}}}
 
 \TODO Explicar o que acontece.
@@ -34474,7 +34550,6 @@ qualquer real $r$ o real $r^2$ já é definido!
 Para dar um exemplo para quem programou em linguagem similar à C.
 Tu escreverias essas declarações?
 \sourcecode onlydeclarevars.c;
-\endgraf\noindent
 Espero que não!
 No outro lado, como o $Ha$ é um conjunto indexado por outro conjunto (o $H$),
 para tomar um arbitrário membro de $Ha$, basta tomar um arbitrário $h\in H$.

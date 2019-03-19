@@ -11,6 +11,3 @@ def F(x):
 # with lambdas
 def F(x):
     return lambda y: f(x,y)
-
-# To compute f(x,y) using F, call F(x)(y)
-# ...which is (F(x))(y) really.
