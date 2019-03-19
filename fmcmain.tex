@@ -19163,7 +19163,8 @@ um passo de $\beta$-reducção.
 %%}}}
 
 \blah.
-Tem mais duas regras de $\lambda$-computação: $\alpha$-renomeamento e $\eta$-conversão.
+Tem mais duas regras de $\lambda$-computação:
+$\alpha$-renomeamento e $\eta$-conversão.
 
 %%{{{ alpha-renaming 
 \note $\alpha$-renomeamento.
@@ -19234,6 +19235,31 @@ Essa é a ideia de \emph{extensionalidade} para o sistema:
 se duas expressões comportam na mesma maneira, as consideramos equivalentes.
 Qualquer expressão da forma $\lam x {f \app x}$ é um \dterm{$\eta$-redex},
 e denotamos por \symquote{$\etastep$} o passo onde o substituimos por $f$.
+%%}}}
+
+%%{{{ pic: eta-wrapping 
+\note $\eta$-wrapping desenhado.
+Começa com uma função $g$; agora pega um embrulho preto e embrulhe;
+e pronto, tu criou uma ``nova'' função.
+Só que não é tão nova né?
+Talvez tu vai rotulá-la como $f$ ou talvez vai escolher um rótulo
+mais honesto, como $\lam x {g \app x}$.
+$$
+\xalignat3
+&\tikzpicture
+\tikzi blackboxfuneta0;
+\endtikzpicture
+&
+&\tikzpicture
+\tikzi blackboxfuneta1;
+\endtikzpicture
+&
+&\tikzpicture
+\tikzi blackboxfuneta2;
+\endtikzpicture
+\endxalignat
+$$
+A $\eta$-conversão nos permite identificar as duas caixas acima.
 %%}}}
 
 %%{{{ eg: etawrap_code 
@@ -19944,7 +19970,8 @@ $$
 \gathered
 \tikzpicture
 \tikzi blackboxfuncompassoc1;
-\endtikzpicture \\
+\endtikzpicture
+\\
 \tikzpicture
 \tikzi blackboxfuncompassoc2;
 \endtikzpicture
@@ -19970,7 +19997,8 @@ $$
 \gathered
 \tikzpicture
 \tikzi blackboxfuncompassoc5;
-\endtikzpicture \\
+\endtikzpicture
+\\
 \tikzpicture
 \tikzi blackboxfuncompassoc6;
 \endtikzpicture
