@@ -18877,6 +18877,27 @@ Supomos aqui que o domínio e codomínio são claros pelo contexto.
 Chamamos a parte ``\thole$x$\thole'' o \dterm{corpo} da abstracção.
 %%}}}
 
+%%{{{ df: barred arrow 
+\definition.
+\label{mapsto}%
+\tdefined{setinha barrada}%
+\sdefined {(\holed x \mapsto \holed{\thole x \thole})} {função anônima}%
+Uma notação diferente usada em matemática para criar funções anônimas
+utiliza a \dterm{setinha barrada} $\mapsto$:
+$$
+\text{escrevemos}\qquad
+(x \mapsto \thole)
+\qqtext{como sinônimo de}
+\lam x {\thole}.
+$$
+%%}}}
+
+%%{{{ remark: we won't use mapsto, we'll use lambdas instead 
+\remark.
+Não vamos usar muito a notação $(x \mapsto \thole)$.
+Pois a notação $\lam x {\thole}$ serve bem melhor para a maioria dos nossos usos.
+%%}}}
+
 %%{{{ remark: variable_binder_in_lambda & alpha_equiv_first_contact 
 \remark.
 \label{variable_binder_in_lambda}%
@@ -18892,8 +18913,8 @@ $$
 $$
 Compare com programação onde uma troca \emph{com cuidado} de variáveis
 resulta em programas e procedimentos equivalêntes.
-Precisamos tomar os mesmos cuidados aqui, mas deixamos esses
-detalhes para o~\ref{Lambda_calculus}.
+Precisamos tomar os mesmos cuidados aqui, e deixamos os
+detalhes formais para o~\ref{Lambda_calculus}.
 %%}}}
 
 %%{{{ remark: comparison with set builder 
@@ -18943,8 +18964,8 @@ E o que podemos fazer com uma expressão dessas?
 Calculamos:
 $$
 \align
-(\lam x {2x+5})(4) &= 2\ntimes 4 + 5 = 13 \\
-(\lam x x)(2)      &= 2 \\
+\plam x {2x+5} (4) &= 2\ntimes 4 + 5 = 13 \\
+\plam x x (2)      &= 2.
 \endalign
 $$
 Em geral omitimos as parenteses no argumento, escrevendo:
@@ -18953,7 +18974,8 @@ $$
 \plam x x \lapp 2, \qquad
 \text{etc.},
 $$
-algo que acontece com funções epônimas também (veja~\ref{function_notation}).
+algo que acontece com funções epônimas também
+(veja~\ref{function_notation}).
 \endexample
 %%}}}
 
@@ -18966,6 +18988,77 @@ $$
 \qqtext{significa}
 \plam x {\paren{x + y + z}}.
 $$
+%%}}}
+
+%%{{{ The soul of lambda-computation 
+\note A alma da $\lambda$-computação.
+Assim que aparecer uma coisa $\heartsuit$ no lado duma
+$\lambda$-abstracção $\plam x {\xlthole}$
+temos uma expressão \dterm{reductível} (chamada \dterm{redex})
+$$
+\plam x {\mubrace {\dots x\dots x\dots} {\tau(x)}} \heartsuit
+$$
+ou seja, podemos fazer um passo computacional:
+\emph{substituir toda a expressão reductível por uma nova expressão
+criada substituindo todas as instâncias livres de $x$ no $\tau(x)$
+por $\heartsuit$, chegando assim no $\tau(\heartsuit)$}.
+Denotando esse passo com um $\step$, temos então
+$$
+\plam x {\mubrace {\xlthole} {\tau(x)}} \heartsuit
+\betastep
+\mubrace {\dots\heartsuit\dots\heartsuit\dots} {\tau(\heartsuit)}.
+$$
+%%}}}
+
+%%{{{ eg: calculate lambda reduction
+\example.
+Calcule a expressão:
+$$
+\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50.
+$$
+\solution
+Procuramos achar \emph{redexes} e achamos dois:
+$$
+\xalignat2
+&\markredex {\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50} &
+&\plam x {2 + \markredex {\plam y {x - y} \lapp 8}} \lapp 50.
+\endxalignat
+$$
+Então temos dois caminhos diferentes para seguir.
+Vamos tentar ambos:
+\compute
+\markredex {\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50}
+&\betastep 2 + \markredex {\plam y {50 - y} \lapp 8} \\
+&\betastep 2 + \paren{50 - 8} \\
+&= 44.
+\endcompute
+Escolhendo o outro caminho, talvez chegamos em algum valor
+diferente.  Vamos ver:
+\compute
+\plam x {2 + \markredex {\plam y {x - y} \lapp 8}} \lapp 50
+&\betastep \plam x {2 + \paren{50 - 8}} \lapp 50 \\
+&\betastep 2 + \paren{50 - 8} \\
+&= 44.
+\endcompute
+Interessante.
+Chegamos no mesmo valor.
+Mas talvez foi coincidência.
+\endexample
+%%}}}
+
+%%{{{ Church--Rosser: No it wasn't 
+\note Church--Rosser: <<Foi não>>.
+{\Church[teorema Church--Rosser]}%
+{\Rosser[teorema Church--Rosser]}%
+Graças ao teorema Church--Rosser que vamos estudar no~\ref{Lambda_calculus}
+sabemos que se existem dois caminhos que chegam em dois valores ``finais'',
+não podem ser valores diferentes.
+Isso não quis dizer que as escolhas não importam,
+pois pode ser que um caminho nem termine!
+Mas se dois caminhos realmente chegarem em valores finais mesmo,
+então chegaram no mesmo valor!%
+\footnote{Essa é uma grande hipersimplificação do teorema de Church--Rosser;
+para a versão ``raiz'', paciência até o~\ref{Lambda_calculus}.}
 %%}}}
 
 %%{{{ x: calculate lambda reductions 
@@ -19000,6 +19093,22 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ x: find_expressions_with_given_abstract_types 
+\exercise.
+Escreva $\lambda$-expressões que podem ser tipadas com os tipos seguintes:
+$$
+\align
+&: A \to A \\
+&: A\cross B \to A \\
+&: A\cross B \to B.
+\endalign
+$$
+Observe que sobre os $A,B$ não tens nenhuma informação.
+Pode achar mais que uma resolução para algum desses desafios?
+
+\endexercise
+%%}}}
+
 %%{{{ x: find_expressions_with_given_types 
 \exercise.
 Escreva $\lambda$-expressões que podem ser tipadas com os tipos seguintes:
@@ -19008,9 +19117,11 @@ $$
 &: \nats \to \nats \\
 &: \nats^2 \to \nats \\
 &: \nats \to \nats^2 \\
-&: \pset\nats\setminus\set{\emptyset} \to \nats.
+&: \pset\nats\setminus\set{\emptyset} \to \nats \\
+&: \pset\nats \to \nats.
 \endalign
 $$
+Tente usar o argumento no corpo dos teus $\lambda$-termos se puder.
 
 \endexercise
 %%}}}
@@ -19030,27 +19141,6 @@ Como a função $\lam x {f \app x}$ comporta?
 $f$.
 
 \endexercise
-%%}}}
-
-%%{{{ df: barred arrow 
-\definition.
-\label{mapsto}%
-\tdefined{setinha barrada}%
-\sdefined {(\holed x \mapsto \holed{\thole x \thole})} {função anônima}%
-Uma notação diferente usada em matemática para criar funções anônimas
-utiliza a \dterm{setinha barrada} $\mapsto$:
-$$
-\text{escrevemos}\qquad
-(x \mapsto \thole)
-\qqtext{como sinônimo de}
-\lam x {\thole}.
-$$
-%%}}}
-
-%%{{{ remark: we won't use mapsto, we'll use lambdas instead 
-\remark.
-Não vamos usar muito a notação $(x \mapsto \thole)$.
-Pois a notação $\lam x {\thole}$ serve bem melhor para a maioria dos nossos usos.
 %%}}}
 
 \TODO Falar de $\alpha$-equivalência, $\eta$-equivalência, e $\beta$-reducção.
