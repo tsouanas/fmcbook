@@ -19002,10 +19002,10 @@ ou seja, podemos fazer um passo computacional:
 \emph{substituir toda a expressão reductível por uma nova expressão
 criada substituindo todas as instâncias livres de $x$ no $\tau(x)$
 por $\heartsuit$, chegando assim no $\tau(\heartsuit)$}.
-Denotando esse passo com um $\step$, temos então
+Denotando esse passo com um $\lamstep$, temos então
 $$
 \plam x {\mubrace {\xlthole} {\tau(x)}} \heartsuit
-\betastep
+\lamstep
 \mubrace {\dots\heartsuit\dots\heartsuit\dots} {\tau(\heartsuit)}.
 $$
 %%}}}
@@ -19028,16 +19028,16 @@ Então temos dois caminhos diferentes para seguir.
 Vamos tentar ambos:
 \compute
 \markredex {\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50}
-&\betastep 2 + \markredex {\plam y {50 - y} \lapp 8} \\
-&\betastep 2 + \paren{50 - 8} \\
+&\lamstep 2 + \markredex {\plam y {50 - y} \lapp 8} \\
+&\lamstep 2 + \paren{50 - 8} \\
 &= 44.
 \endcompute
 Escolhendo o outro caminho, talvez chegamos em algum valor
 diferente.  Vamos ver:
 \compute
 \plam x {2 + \markredex {\plam y {x - y} \lapp 8}} \lapp 50
-&\betastep \plam x {2 + \paren{50 - 8}} \lapp 50 \\
-&\betastep 2 + \paren{50 - 8} \\
+&\lamstep \plam x {2 + \paren{50 - 8}} \lapp 50 \\
+&\lamstep 2 + \paren{50 - 8} \\
 &= 44.
 \endcompute
 Interessante.
