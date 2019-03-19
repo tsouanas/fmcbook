@@ -19313,8 +19313,8 @@ que definimos na~\ref{inclusion_function}.
 \section Funções de graça.
 
 \blah.
-Investigamos aqui umas primeiras funções garantidas para existir assim que
-tivermos alguns outros objetos: um conjunto, uma função, etc.
+Investigamos aqui umas primeiras funções garantidas para existir assim
+que tivermos alguns outros objetos: um conjunto, uma função, etc.
 
 %%{{{ df: identity_function 
 \definition Identidade.
@@ -19759,9 +19759,9 @@ vamos precisar calcular os <<$?$>> do desenho acima, e seguir
 fielmente as definições.
 %%}}}
 
-%%{{{ thm: associativity_of_fcom 
-\theorem.
-\label{associativity_of_fcom}%
+%%{{{ thm: fcom_associativity_law 
+\theorem Lei de associatividade.
+\label{fcom_associativity_law}%
 Sejam
 $$
 A \toarrow f B \toarrow g C \toarrow h D.
@@ -19815,7 +19815,7 @@ Suponha $a\in A$ então, e calcule:
 \qed
 %%}}}
 
-%%{{{ Commutativity
+%%{{{ Commutativity 
 \note Comutatividade.
 É fácil provar que a composição de funções \emph{não é comutativa}.
 Faça isso agora no exercício seguinte!
@@ -19868,8 +19868,11 @@ De fato, quaisquer duas dessas três funções servem como um exemplo nesse caso
 
 %%{{{ Identity 
 \note Identidades.
-Investigamos aqui se a operação de composição possui \emph{identidade}
+Investigamos agora se a operação de composição possui \emph{identidade}
 mas primeiramente vamos lembrar o que isso significa.
+Por enquanto não provamos nada a respeito disso, então trate
+as funções que chamamos de identidades na~\refn{identity_function}
+como uma coincidência.
 %%}}}
 
 %%{{{ Q: what_is_the_identity_of_composition 
@@ -19890,7 +19893,7 @@ para toda função $f$.
 %%}}}
 \spoiler.
 
-%%{{{ x: id_compose_practice
+%%{{{ x: id_compose_practice 
 \exercise.
 \label{id_compose_practice}%
 Sejam $A,B$ conjuntos diferentes, e $f : A \to B$.
@@ -19925,6 +19928,68 @@ Válida: a composição é definida, e se $a\in A$ então:
 
 \endexercise
 %%}}}
+
+%%{{{ thm: fcom_identity_laws  
+\theorem Leis de identidade.
+\label{fcom_identity_laws}%
+Para todo conjunto $A$,
+existe unica função $\idof A : A \to A$ tal que:
+$$
+\align
+\text{para toda $f : A \to B$},&\quad f \of \idof A = f; \\
+\text{para toda $f : B \to A$},&\quad \idof A \of f = f.
+\endalign
+$$
+\sketch.
+Primeiramente verificamos que a identidade do $A$ (\ref{identity_function})
+que ``coincidentalmente'' denotamos por $\idof A$ realmente satisfaz tudo isso.
+Segundamente mostramos que qualquer outra possivel função $\id'$
+com essas propriedades deve ser igual à $\idof A$.
+\qes
+\proof.
+Observe que dado conjunto $A$, a $\idof A$ tem o domínio e codomínio certo.
+Basta então verificar que ela tem as propriedades (i)--(ii) e que ela é única.
+\crproofpart{$\idof A$ tem a primeira propriedade.}
+Seja $f : A \to B$.
+Preciso mostrar que $f \of \idof A = f$.
+Primeiramente verifico que têm o mesmo domínio e---para satisfazer
+até os categoristas---o mesmo codomínio:
+$$
+\align
+\dom (f\of\idof A) &= \dom(\idof A) = A = \dom f; \\
+\cod (f\of\idof A) &= \cod f.
+\endalign
+$$
+Basta ver se tem o mesmo comportamento.
+Seja $x\in A$ então, e calcule:
+\compute
+(f \of \idof A) x
+&= f(\idof A x) \by {def.~$f \of \idof A$}
+&= f(x).        \by {def.~$\idof A$}
+\endcompute
+\proofpart{$\idof A$ tem a segunda propriedade.}
+Similar.
+\crproofpart{$\idof A$ é única.}
+Seja $\id' : A \to A$ função tal que
+$$
+\align
+\text{para toda $f : A \to B$},&\quad f \of \id' = f; \\
+\text{para toda $f : B \to A$},&\quad \id' \of f = f.
+\endalign
+$$
+Preciso mostrar que $\idof A = \id'$.
+Calculamos:
+\compute
+\idof A
+&= \idof A \of \id'  \by {primeira propriedade da $\id'$ com $f \asseq \idof A$}
+&= \id'.             \by {segunda propriedade da $\idof A$ com $f \asseq \id'$}
+\endcompute
+\qed
+%%}}}
+
+\blah.
+Terminamos essa secção sobre composição como uma definição
+interessante uns exercícios para praticar.
 
 %%{{{ df: idempotent_function 
 \definition Idempotente.
@@ -20120,7 +20185,7 @@ f(\dhole,\sqrt2,\cbrt2) &: \reals   \to \reals \\
 f(\dhole,0,0)           &: \reals   \to \reals.
 \endalign
 $$
-A última, por exemplo, é a $\id_\reals$; a penúltima é a $\lam x {x+4}$.
+A última, por exemplo, é a $\idof \reals$; a penúltima é a $\lam x {x+4}$.
 \endexample
 %%}}}
 
@@ -20161,7 +20226,7 @@ por seguindo setas, \emph{se pelo menos um dos dois caminhos tem tamanho
 maior que $1$}, então os dois caminhos são iguais.
 %%}}}
 
-%%{{{ eg: triangle
+%%{{{ eg: triangle 
 \example.
 O que significa que o diagrama seguinte comuta?
 $$
@@ -20174,7 +20239,7 @@ Significa que $h = g\of f$.
 \endexample
 %%}}}
 
-%%{{{ eg: square
+%%{{{ eg: square 
 \example.
 O que significa que o diagrama seguinte comuta?
 $$
@@ -20230,35 +20295,17 @@ Afirmando a comutatividade de certos diagramas vira uma maneira curta de
 afirmar proposições, como por exemplo essas duas leis que já encontramos
 na~\refn{Composition_laws}.
 
-%%{{{ eg: commutative_diagram_id_laws 
+%%{{{ eg: commutative_diagram_associativity_law 
 \example.
-\label{commutative_diagram_id_laws}%
-Como expressar as lei da identidade da~\refn{Composition_laws} usando
-apenas a comutatividade dum diagrama?
-Assim:
-$$
-\cdopt{sep=2cm}
-A   \ar[dr, "f"']\ar[r, "\id_A"] \| A \ar[d, "f"]  \ar[dr, "f"]   \\
-                                 \| B \ar[r, "\id_B"'] \| B
-\endcd
-$$
-\endexample
-%%}}}
-
-%%{{{ x: commutative_diagram_associativity_law 
-\exercise.
 \label{commutative_diagram_associativity_law}%
 Afirme a lei da associatividade da~\refn{Composition_laws}
 usando a comutatividade dum diagrama.
 
-\hint
+\solution
 Sejam $A\toarrow f B \toarrow g C \toarrow h D$.
 Basta desenhar um diagrama cuja comutatividade quis dizer
 $h \of (g \of f) = (h \of g) \of f$.
-
-\solution
-Sejam $A\toarrow f B \toarrow g C \toarrow h D$.
-Então o diagrama seguinte comuta:
+É o seguinte:
 $$
 \cdopt{sep=2cm}
 A   \ar[r, "f"]\ar[rr, bend left=30,  "g\of f"] \|
@@ -20272,6 +20319,27 @@ $$
 \cdopt{sep=2cm}
 A   \ar[r, "f"]\ar[rd, "g\of f"'] \| B \ar[d, "g"]  \ar[dr, "h\of g"] \\
                                   \| C \ar[r, "h"']      \| D
+\endcd
+$$
+Questão de gosto.
+\endexample
+%%}}}
+
+%%{{{ x: commutative_diagram_id_laws 
+\exercise.
+\label{commutative_diagram_id_laws}%
+Como expressar as lei da identidade da~\refn{Composition_laws} usando
+apenas a comutatividade dum diagrama?
+
+\hint
+Use uma $f : A \to B$, e as identidades $\idof A,\idof B$.
+
+\solution
+Assim:
+$$
+\cdopt{sep=2cm}
+A   \ar[dr, "f"']\ar[r, "\idof A"] \| A \ar[d, "f"]  \ar[dr, "f"]   \\
+                                   \| B \ar[r, "\idof B"'] \| B
 \endcd
 $$
 
@@ -20610,9 +20678,9 @@ Como tu definirias os conceitos de função injetora e sobrejetora?
 \tdefined{função}[injetora]%
 \tdefined{função}[sobrejetora]%
 \tdefined{função}[bijetora]%
-\sdefined {\holed f : \holed A \injto \holed B} {$\holed f : \holed A\to \holed B$ é injetora}%
-\sdefined {\holed f : \holed A \surto \holed B} {$\holed f : \holed A\to \holed B$ é sobrejetora}%
-\sdefined {\holed f : \holed A \bijto \holed B} {$\holed f : \holed A\to \holed B$ é bijetora}%
+\sdefined {\holed f : \holed A \injto \holed B} {$\holed f : \holed A\to \holed B$ injetora}%
+\sdefined {\holed f : \holed A \surto \holed B} {$\holed f : \holed A\to \holed B$ sobrejetora}%
+\sdefined {\holed f : \holed A \bijto \holed B} {$\holed f : \holed A\to \holed B$ bijetora}%
 Seja $f : A \to B$.
 Chamamos a $f$ \dterm{injetora} (ou \dterm{injetiva}) sse
 $$
@@ -20627,9 +20695,9 @@ $f$ é injetora e sobrejetora.
 Usamos as notações
 $$
 \align
-f : A \injto B &\defiff \text{$f:A\to B$ é injetora}\\
-f : A \surto B &\defiff \text{$f:A\to B$ é sobrejetora}\\
-f : A \bijto B &\defiff \text{$f:A\to B$ é bijetora}
+f : A \injto B &\defiff \text{$f:A\to B$ injetora}\\
+f : A \surto B &\defiff \text{$f:A\to B$ sobrejetora}\\
+f : A \bijto B &\defiff \text{$f:A\to B$ bijetora}.
 \endalign
 $$
 %%}}}
@@ -22589,9 +22657,9 @@ x^2     &= 64 \\
 10 + 2x &= 2 + x
 }
 $$
-O aluno vai responder que ``o sistema tem uma resolução única:
+O aluno vai responder que
 $$
-x = -8.\text{''}
+\text{<<o sistema tem uma resolução única: $x = -8$>>}
 $$
 e vai ganhar um biscoito.
 Esses sistemas são mais comuns em espaços de dimenções superiores
@@ -29734,7 +29802,7 @@ que para todo $a,b\in \sym 3$, $a \fcom b \in \sym 3$.
 Pela definição do $\sym 3$, isso segue pelo~\ref{fcom_respects_jections}~(3).
 \endgraf\noindent
 {(G1).}
-Já provamos a associatividade da $\fcom$ na~\ref{associativity_of_fcom}.
+Já provamos a associatividade da $\fcom$ na~\ref{fcom_associativity_law}.
 \endgraf\noindent
 {(G2).}
 Facilmente verificamos que a $\idof {\set{1,2,3}}$ é a identidade do
