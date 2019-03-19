@@ -13124,6 +13124,7 @@ depende no $y$ (mas não no $x$).
 
 %%{{{ beware: variable_capturing_in_set_builder 
 \beware Capturação de variável.
+\label{variable_capturing_in_set_builder}%
 \tdefined{variável}[capturada]%
 \ii{variável}[dummy]%
 \ii{variável}[capturada]%
@@ -18255,11 +18256,11 @@ $$
 \text{<<aquele $b$ que {\xlthole}>>} \quad\leadsto\quad \descr b {{\xlthole}}.
 $$
 Essa notação parece bastante com a $\lambda$-notação que encontramos logo
-na~\ref{Lambda_notation}, mas é diferente pois na {\thole} aqui precisamos
+na~\ref{A_touch_of_lambda}, mas é diferente pois na {\thole} aqui precisamos
 algo que denota uma afirmação; na notação lambda algo que denota um objeto.
 Aqui não vamos usar o descritor definitivo~$\descrsym$,
 mas a $\lambda$-notação é importantíssima e ficaremos a usando o tempo todo.
-Paciência até~\refn{Lambda_notation} então.
+Paciência até~\refn{A_touch_of_lambda} então.
 %%}}}
 
 %%{{{ eg: mother_and_son_function_and_wannabe 
@@ -18570,7 +18571,7 @@ $$
 
 \blah.
 Ainda não encontramos a notação mais interessante para definir funções.
-Vamos estudá-la logo; ela merece uma secção própria (\ref{Lambda_notation}).
+Vamos estudá-la logo; ela merece uma secção própria (\ref{A_touch_of_lambda}).
 Antes disso, vamos ver mais uma maneira de definir funções: com buracos!
 
 \endsection
@@ -18767,9 +18768,9 @@ superar essas limitações facilmente!
 \endsection
 %%}}}
 
-%%{{{ The lambda notation 
-\section A notação lambda.
-\label{Lambda_notation}%
+%%{{{ A touch of lambda 
+\section Um toque de lambda.
+\label{A_touch_of_lambda}%
 
 %%{{{ Useless namings 
 \note Nomeamentos inúteis.
@@ -18993,24 +18994,24 @@ $$
 %%{{{ The soul of lambda-computation 
 \note A alma da $\lambda$-computação.
 Assim que aparecer uma coisa $\heartsuit$ no lado duma
-$\lambda$-abstracção $\plam x {\xlthole}$
+$\lambda$-abstracção $\plam x {\dotswithsome x}$
 temos uma expressão \dterm{reductível} (chamada \dterm{redex})
 $$
-\plam x {\mubrace {\dots x\dots x\dots} {\tau(x)}} \heartsuit
+\plam x {\mubrace {\dotswithsome x} {\tau(x)}} \lapp \heartsuit
 $$
 ou seja, podemos fazer um passo computacional:
-\emph{substituir toda a expressão reductível por uma nova expressão
+\emph{substituir o redex inteiro por uma nova expressão
 criada substituindo todas as instâncias livres de $x$ no $\tau(x)$
 por $\heartsuit$, chegando assim no $\tau(\heartsuit)$}.
-Denotando esse passo com um $\lamstep$, temos então
+Denotando esse passo com um `$\lamstep$', temos então
 $$
-\plam x {\mubrace {\xlthole} {\tau(x)}} \heartsuit
+\plam x {\mubrace {\dotswithsome x} {\tau(x)}} \lapp \heartsuit
 \lamstep
-\mubrace {\dots\heartsuit\dots\heartsuit\dots} {\tau(\heartsuit)}.
+\mubrace {\dotswithsome \heartsuit} {\tau(\heartsuit)}.
 $$
 %%}}}
 
-%%{{{ eg: calculate lambda reduction
+%%{{{ eg: calculate lambda reduction 
 \example.
 Calcule a expressão:
 $$
@@ -19029,18 +19030,18 @@ Vamos tentar ambos:
 $$
 \align
 \markredex {\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50}
-&\lamstep 2 + \markredex {\plam y {50 - y} \lapp 8} \\
-&\lamstep 2 + \paren{50 - 8} \\
-&= 44.
+&\lstep 2 + \markredex {\plam y {50 - y} \lapp 8} \\
+&\lstep 2 + \paren{50 - 8} \\
+&\isteq 44.
 \intertext{%
 Escolhendo o outro caminho, talvez chegamos em algum valor
 diferente.
 Vamos ver:
 }
 \plam x {2 + \markredex {\plam y {x - y} \lapp 8}} \lapp 50
-&\lamstep \plam x {2 + \paren{50 - 8}} \lapp 50 \\
-&\lamstep 2 + \paren{50 - 8} \\
-&= 44.
+&\lstep \markredex {\plam x {2 + \paren{50 - 8}} \lapp 50} \\
+&\lstep 2 + \paren{50 - 8} \\
+&\isteq 44.
 \endalign
 $$
 Interessante.
@@ -19098,8 +19099,8 @@ $$
 
 %%{{{ x: find_expressions_with_given_abstract_types 
 \exercise.
-Quando puder, $\lambda$-expressões que podem ser tipadas com os tipos
-seguintes:
+Quando puder, escreva $\lambda$-expressões que podem ser
+tipadas com os tipos seguintes:
 $$
 \align
 &: A \to A \\
@@ -19138,7 +19139,7 @@ Tente usar o argumento no corpo dos teus $\lambda$-termos se puder.
 \exercise.
 \label{eta_conversion_first_encounter}%
 Seja $f : A \to B$.
-Qual nome tu daria para a função $\lam x {f\app x}$?
+Qual nome tu daria para a função $\lam x {f \app x}$?
 Lembre-se que graças as convenções notacionais essa expressão é a mesma com a
 $\lamp x {f(x)}$.
 
@@ -19151,7 +19152,57 @@ $f$.
 \endexercise
 %%}}}
 
-\TODO Falar de $\alpha$-equivalência, $\eta$-equivalência, e $\beta$-reducção.
+%%{{{ beta-reduction 
+\note $\beta$-reducção.
+O nome real desse passo computacional de $\lambda$-cálculo que encontramos
+aqui é \dterm{$\beta$-reducção}, e o redex é formalmente chamado um
+\dterm{$\beta$-redex}.
+Para enfatisar quando for necessário escrevemos `$\betastep$' para denotar
+um passo de $\beta$-reducção.
+%%}}}
+
+%%{{{ alpha-renaming 
+\note $\alpha$-renomeamento.
+O princípio que nos permite identificar como equivalentes as $\lambda$-expressões
+que diferem apenas nas escolhas das suas variáveis ligadas é chamado
+\dterm{$\alpha$-renomeamento} ou \dterm{$\alpha$-conversão} ou
+\dterm{$\alpha$-equivalência}.
+Podemos considerar cada $\lambda$-abstracção um \dterm{$\alpha$-redex};
+denotamos por `$\alphastep$' um passo onde aconteceu um $\alpha$-renomeamento.
+%%}}}
+
+%%{{{ eta-conversion 
+\note $\eta$-conversão.
+Essa é a ideia de \emph{extensionalidade} para o sistema:
+se duas expressões comportam na mesma maneira, as consideramos equivalentes.
+Qualquer expressão da forma $\lam x {f \app x}$ é um \dterm{$\eta$-redex},
+e denotamos por `$\etastep$' o passo onde o substituimos por $f$.
+%%}}}
+
+%%{{{ eg: alpha beta eta steps 
+\example.
+Computamos:
+$$
+\xalignat2
+&\aligned
+\markredex {\plam x {\plam y {y^2} \lapp x}} \lapp 3
+&\estep \markredex {\plam y {y^2}} \lapp 3 \\
+&\astep \markredex {\plam x {x^2} \lapp 3} \\
+&\bstep 3^2.
+\endaligned
+&
+&\aligned
+\markredex {\plam x {\plam y {y^2} \lapp x}} \lapp 3
+&\astep \markredex {\plam y {\plam y {y^2} \lapp y}} \lapp 3 \\
+&\estep \markredex {\plam y {y^2} \lapp 3} \\
+&\bstep 3^2.
+\endaligned
+\endxalignat
+$$
+\endexample
+%%}}}
+
+\TODO Explicar.
 
 \endsection
 %%}}}
@@ -21683,8 +21734,10 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ Q: what changes if f is inj or surj? 
 \question.
 O que muda no~\ref{composition_with_inverse} se $f$ é injetora?  Se é sobrejetora?
+%%}}}
 \spoiler.
 
 %%{{{ jection_iff_composition_with_inverse 
@@ -21698,8 +21751,8 @@ $$
 \endalign
 $$
 \proof.
-As idas tu provarás (agora!) no~\refn{jection_implies_composition_with_inverse}.
-As voltas é o~\ref{jection_iff_composition_with_inverse_proof}.
+As idas tu provarás (agora!)~no~\refn{jection_implies_composition_with_inverse};
+as voltas é o~\ref{jection_iff_composition_with_inverse_proof}.
 \qed
 %%}}}
 
@@ -40692,7 +40745,7 @@ $((A \times B) \to C) \eqc (A \to (B\to C))$.
 Curry!
 
 \hint
-Use lambdas (veja~\ref{Lambda_notation}).
+Use lambdas (veja~\ref{A_touch_of_lambda}).
 
 \solution
 Defina $F : ((A\times B) \to C) \to (A \to (B\to C))$, pela
