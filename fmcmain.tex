@@ -19575,12 +19575,12 @@ que tivermos alguns outros objetos: um conjunto, uma função, etc.
 \definition Identidade.
 \label{identity_function}%
 \tdefined{função}[identidade]%
-\sdefined {\id_{\holed A}} {a identidade do $\holed A$}
+\sdefined {\idof {\holed A}} {a identidade do $\holed A$}
 \iisee{identidade}{função, identidade}%
 Seja $A$ conjunto.
 A função $\lam x x : A \to A$ é chamada
 \dterm{identidade do $A$}.
-Denotamos a identidade do conjunto $A$ por $\id_A : A \to A$ ou $1_A : A \to A$.
+Denotamos a identidade do conjunto $A$ por $\idof A : A \to A$ ou $1_A : A \to A$.
 %%}}}
 
 %%{{{ df: inclusion_function 
@@ -19597,9 +19597,9 @@ i : A \incto B
 $$
 para enfatizar que é uma inclusão mesmo.
 Note que seguindo o ponto de vista categorial (\refn{f_eq_g_catist}),
-se $A \subsetneq B$ então $i \neq \id_A$,
+se $A \subsetneq B$ então $i \neq \idof A$,
 mas seguindo o ponto de vista conjuntista (\refn{f_eq_g_setist}),
-temos $i = \id_A$.
+temos $i = \idof A$.
 %%}}}
 
 %%{{{ df: constant_function 
@@ -20158,10 +20158,10 @@ Para cada uma das igualdades em baixo,
 decida se ela é válida ou não, justificando tua resposta.
 $$
 \xalignat4
-(1)\quad f &= {f \compose \id_A}; &
-(2)\quad f &= {f \compose \id_B}; &
-(3)\quad f &= {\id_A \compose f}; &
-(4)\quad f &= {\id_B \compose f}.
+(1)\quad f &= {f \compose \idof A}; &
+(2)\quad f &= {f \compose \idof B}; &
+(3)\quad f &= {\idof A \compose f}; &
+(4)\quad f &= {\idof B \compose f}.
 \endxalignat
 $$
 
@@ -20169,18 +20169,18 @@ $$
 \noindent (1)
 Válida: a composição é definida, e se $a\in A$ então:
 \compute
-(f \compose \id_A)(a)
-&= f(\id_A(a))  \by {def.~$\compose$}
-&= f(a)         \by {def.~$\id_A$}
+(f \compose \idof A)(a)
+&= f(\idof A(a))  \by {def.~$\compose$}
+&= f(a)         \by {def.~$\idof A$}
 \endcompute
 \endgraf
 \noindent (2) e (3): as composições não são definidas
 \endgraf
 \noindent (4) Similar com (1): a composição é definida e se $a \in A$ então:
 \compute
-(\id_B \compose f)(a)
-&= \id_B(f(a))  \by {def.~$\compose$}
-&= f(a)         \by {def.~$\id_B$}
+(\idof B \compose f)(a)
+&= \idof B(f(a))  \by {def.~$\compose$}
+&= f(a)         \by {def.~$\idof B$}
 \endcompute
 
 \endexercise
@@ -20459,7 +20459,7 @@ e fixando seu primeiro argumento no $0$ criamos a}
 (0 + \bhole) &: \nats \to \nats
 \endalign
 $$
-que é a $\id_\nats$.
+que é a $\idof \nats$.
 \endexample
 %%}}}
 
@@ -20654,7 +20654,7 @@ Seja $f : A \to A$.
 Definimos as \dterm{iterações} de $f$ pela recursão
 $$
 \align
-f^0     &= \id_A \\
+f^0     &= \idof A \\
 f^{n+1} &= f\of f^n
 \endalign
 $$
@@ -20665,12 +20665,12 @@ $$
 Seja $f : A \to A$.  Calculamos:
 \compute
 f^3(x)
-&= (f \of f^2)(x)                    \by {def.~$f^3$}
-&= (f \of (f \of f^1))(x)            \by {def.~$f^2$}
-&= (f \of (f \of (f \of f^0)))(x)    \by {def.~$f^1$}
-&= (f \of (f \of (f \of \id_A)))(x)  \by {def.~$f^0$}
-&\dotseq (f \of f \of f)(x)          \by {ass.~$\of$; lei da~$\id_A$}
-&\dotseq f (f (f (x)))               \by {def.~$\of$}
+&= (f \of f^2)(x)                      \by {def.~$f^3$}
+&= (f \of (f \of f^1))(x)              \by {def.~$f^2$}
+&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$}
+&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$}
+&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$}
+&\dotseq f (f (f (x)))                 \by {def.~$\of$}
 \endcompute
 Em geral omitimos parenteses quando a expressão envolve apenas uma operação
 associativa;
@@ -20706,7 +20706,7 @@ $$
 Poderiamos ter escolhido definir as potências de $f$ pelas:
 $$
 \align
-f^0     &= \id_A \\
+f^0     &= \idof A \\
 f^{n+1} &= f^n \of f
 \endalign
 $$
@@ -21091,8 +21091,8 @@ Para toda $f : A \bijto B$,
 temos:
 $$
 \xxalignat4
-\textrm{(L)} && \finv f \of f &= \id_A &
-f \of \finv f &= \id_B. &&\textrm{(R)}
+\textrm{(L)} && \finv f \of f &= \idof A &
+f \of \finv f &= \idof B. &&\textrm{(R)}
 \endxxalignat
 $$
 \proof.
@@ -21110,13 +21110,13 @@ Calculamos:
 &= \finv f (f(a)) \\
 &= \text{aquele $x\in A$ tal que $f(x) = f(a)$} \\
 &= a           \by {$f$ inj.}
-&= \id_A(a). \\
+&= \idof A(a). \\
 \intertext{Agora tomando $y\in B$ calculamos a outra numa maneira diferente:}
 (f \of \finv f) (b) = y
 &\iff f(\finv f(b)) = y \\
 &\iff \finv f (y) = \finv f(b) \\
 &\iff y = b    \by {$\finv f$ inj.}
-&\iff \id_B(b) = y.
+&\iff \idof B(b) = y.
 \endcompute
 \qed
 %%}}}
@@ -21205,25 +21205,25 @@ inversa~(\ref{finv_inverse_laws}), então $f' = \finv f$.
 Caso que $f'$ satisfaz a (L):
 \compute
 f'
-&= f' \of \id_B            \by {lei da $\id_B$}
+&= f' \of \idof B          \by {lei da $\idof B$}
 &= f' \of (f \of \finv f)  \by {(R) da $\finv f$}
 &= (f' \of f) \of \finv f  \by {assoc.}
-&= \id_A \of \finv f       \by {(L) da $f'$}
-&= \finv f.                \by {lei da $\id_A$}
+&= \idof A \of \finv f     \by {(L) da $f'$}
+&= \finv f.                \by {lei da $\idof A$}
 \intertext{E caso que $f'$ satisfaz a (R):}
 f'
-&= \id_A \of f'            \by {lei da $\id_A$}
+&= \idof A \of f'          \by {lei da $\idof A$}
 &= (\finv f \of f) \of f'  \by {(L) da $\finv f$}
 &= \finv f \of (f \of f')  \by {assoc.}
-&= \finv f \of \id_B       \by {(R) da $f'$}
-&= \finv f.                \by {lei da $\id_B$}
+&= \finv f \of \idof B     \by {(R) da $f'$}
+&= \finv f.                \by {lei da $\idof B$}
 \endcompute
 \qed
 %%}}}
 
 %%{{{ cor: finv_of_id 
 \corollary Inversa da identidade.
-Para todo conjunto $A$, $\finv {\id_A} = \id_A$.
+Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
 %%}}}
 
 %%{{{ df: retractions_sections
@@ -21237,13 +21237,13 @@ Para todo conjunto $A$, $\finv {\id_A} = \id_A$.
 Seja $f : A \to B$.
 Se $r : B \to A$ satisfaz a
 $$
-r \of f = \id_A
+r \of f = \idof A
 $$
 então chamamo-la uma \dterm{retracção} ou uma
 \dterm{inversa-esquerda} da $f$.
 Se $s : B \to A$ satisfaz a
 $$
-f \of s = \id_B
+f \of s = \idof B
 $$
 então chamamo-la uma \dterm{secção} ou uma
 \dterm{inversa-direita} da $f$.
@@ -21263,7 +21263,7 @@ Temos
 $$
 f \of g = f \of h
 \implies r \of f \of g = r \of f \of h
-\implies \id_A \of g = id_A \of h
+\implies \idof A \of g = id_A \of h
 \implies g = h
 $$
 e logo $f$ é injetora pelo~\ref{injection_iff_mono}.
@@ -21280,7 +21280,7 @@ Temos
 $$
 g \of f = h \of f
 \implies g \of f \of s = h \of f \of s
-\implies g \of \id_B = h \of \id_B
+\implies g \of \idof B = h \of \idof B
 \implies g = h
 $$
 e logo $f$ é sobrejetora pelo~\ref{surjection_iff_epic}.
@@ -21297,7 +21297,7 @@ Suponha que $f : A \to B$ e que $r : B \to A$ é uma retracção da $f$.
 Tome $x, x' \in A$ tais que $f(x) = f(x')$.
 Logo $r(f(x)) = r(f(x'))$.
 Logo $(r\of f)(x) = (r\of f)(x')$.
-Como $r$ é retracção, temos $\id_A(x) = \id_A(x')$, ou seja, $x = x'$ e $f$ é injetora.
+Como $r$ é retracção, temos $\idof A(x) = \idof A(x')$, ou seja, $x = x'$ e $f$ é injetora.
 
 \endexercise
 %%}}}
@@ -23066,13 +23066,13 @@ $$
 $$
 Agora o incógnito é uma função $f : \nats\to\nats$.
 Vamos testar uns candidatos consideráveis:
-tome $f \asseq \id_\nats$:
+tome $f \asseq \idof \nats$:
 $$
 \align
 \rsystem{
-\alert {\id_\nats}(0) &= 0\\
-\alert {\id_\nats}(1) &= 1\\
-\alert {\id_\nats}(n) &= \alert {\id_\nats}(n-1) + \alert {\id_\nats}(n-2)
+\alert {\idof \nats}(0) &= 0\\
+\alert {\idof \nats}(1) &= 1\\
+\alert {\idof \nats}(n) &= \alert {\idof \nats}(n-1) + \alert {\idof \nats}(n-2)
 }
 &\iff
 \lsystem{
@@ -23087,7 +23087,7 @@ $3 = 2 + 1$
 mas é muito fácil perceber que essa igualdade não é satisfeita em geral.
 Tome $n\asseq 4$ e já temos problema, pois
 $4 \neq 3 + 2$.
-O candidato $\id_\nats$ então não satisfaz o sistema.
+O candidato $\idof \nats$ então não satisfaz o sistema.
 Próximo!
 Vamos tentar com $f \asseq \succ$, essa vez divulgando a notação
 mais econômica, sem parenteses:
@@ -23106,7 +23106,7 @@ n+1 &= n + (n-1),\quad\text{para todo $n>1$}.
 \endalign
 $$
 Fuen-fuen-fuen!
-Bem, então nem a $\id_\nats$ nem a $\succ$ satisfazem esse sistema.
+Bem, então nem a $\idof \nats$ nem a $\succ$ satisfazem esse sistema.
 \endexample
 %%}}}
 
@@ -28010,8 +28010,8 @@ $$
 Essas traduções são fieis, no sentido de:
 $$
 \xalignat2
-\quotient \of \eqrelize &= \id_{\Part(A)} &
-\eqrelize \of \quotient &= \id_{\EqRel(A)}.
+\quotient \of \eqrelize &= \idof {\Part(A)} &
+\eqrelize \of \quotient &= \idof {\EqRel(A)}.
 \endxalignat
 $$
 De fato, ambas são bijecções, e cada uma é a inversa da outra.
@@ -37874,9 +37874,9 @@ $$
 \crtabproofpart{$\Inn G \subgroup \Aut G$}.
 Vamos usar o~\ref{nonempty_subgroup_criterion}.
 Primeiramente mostramos que $\Inn G \neq \emptyset$:
-de fato, $\id_G \in \Inn G$, pois $\id_G$ é um inner:
+de fato, $\idof G \in \Inn G$, pois $\idof G$ é um inner:
 $$
-\id_G = \actorS e {\ginv e}.
+\idof G = \actorS e {\ginv e}.
 $$
 \crproofpart{$\Inn G$ $\fcom$-fechado}.
 Agora sejam $f_1,f_2 \in \Inn G$.
