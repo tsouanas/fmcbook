@@ -20996,6 +20996,48 @@ $$
 (É a sua contrapositiva.)
 %%}}}
 
+%%{{{ x: double_or_reverse_string_inj_or_surj 
+\exercise.
+\label{double_or_reverse_string_inj_or_surj}%
+Seja~$S$ o conjunto de todos os strings \emph{não vazios}
+dum alfabeto $\Sigma$, com $\card{\Sigma} \geq 2$.
+Considere a função
+$f : S \times \set{0,1} \to S$ definida pela:
+$$
+f(w,i) =
+\knuthcases{
+ww, &se $i = 0$\cr
+w', &se $i = 1$
+}
+$$
+onde $w'$ é o string reverso de $w$,
+e onde denotamos a concatenação de strings por juxtaposição.
+(1) A $f$ é injetora?
+(2) A $f$ é sobrejetora?
+
+\hint
+Quais são o domínio e o codomínio da $f$?
+
+\solution
+\proofpart{(1)}
+Não, $f$ não é injetora.
+Tome uma letra do alfabeto $a\in\Sigma$ e observe que
+$$
+f(a, 0) = aa = f(aa,1).
+$$
+Como $(a,0) \neq (aa,1)$, a $f$ não é injetora.
+\crproofpart{(2)}
+Sim, $f$ é sobrejetora.
+Tome um aleatório string $w\in S$,
+e seja $w'$ o string reverso de $w$.
+Temos
+$$
+f(w',1) = (w')' = w.
+$$
+
+\endexercise 
+%%}}}
+
 %%{{{ df: jection_spaces 
 \definition.
 \label{jection_spaces}%
@@ -21015,7 +21057,8 @@ $$
 %%{{{ x: cardinalities_of_jection_spaces 
 \exercise.
 Ache a cardinalidade dos conjuntos da~\ref{jection_spaces}
-em termos das cardinalidades dos $A$ e $B$.
+em termos das cardinalidades dos $A$ e $B$, supondo que
+são finitas.
 
 \endexercise
 %%}}}
@@ -24241,7 +24284,7 @@ Seja $n = \card A$.
 \endproblem
 %%}}}
 
-%%{{{ constant_function_why_did_we_omit_unique
+%%{{{ constant_function_why_did_we_omit_unique 
 \problem.
 \label{constant_function_why_did_we_omit_unique}%
 Na definição do~\ref{constant_function_different_def}
@@ -24638,60 +24681,21 @@ Logo, $g$ não é injetora.
 \endproblem
 %%}}}
 
-%%{{{ double_or_reverse_string_inj_or_surj 
-\problem.
-\label{double_or_reverse_string_inj_or_surj}%
-Seja~$S$ o conjunto de todos os strings \emph{não vazios}
-dum alfabeto $\Sigma$, com $\card{\Sigma} \geq 2$.
-Considere a função
-$f : S \times \set{0,1} \to S$ definida pela:
-$$
-f(w,i) =
-\knuthcases{
-ww, &se $i = 0$\cr
-w', &se $i = 1$
-}
-$$
-onde $w'$ é o string reverso de $w$,
-e onde denotamos a concatenação de strings por juxtaposição.
-(1) A $f$ é injetora?
-(2) A $f$ é sobrejetora?
-
-\hint
-Quais são o domínio e o codomínio da $f$?
-
-\solution
-(i) Não, $f$ não é injetora.
-Tome uma letra do alfabeto $a\in\Sigma$ e observe que
-$$
-f(a, 0) = aa = f(aa,1).
-$$
-Como $(a,0) \neq (aa,1)$, a $f$ não é injetora.
-\endgraf
-(ii)
-Sim, $f$ é sobrejetora.
-Tome um aletorio string $w\in S$, e seja $w'$ o string reverso de $w$.
-Temos
-$$
-f(w',1) = (w')' = w.
-$$
-
-\endproblem
-%%}}}
-
 %%{{{ projection_inj_or_surj 
 \problem.
 \label{projection_inj_or_surj}%
-Sejam $A\neq\emptyset$ conjunto, $n\in\nats_{>0}$, e $I=\set{ i\in\nats \st i < n}$.
+Sejam $A\neq\emptyset$ conjunto, $n\in\nats_{>0}$,
+e $I = \setst {i\in\nats} {i < n}$.
 Considere a função $\pi : I \times A^n \to A$ definida por
 $$
 \pi(i, \alpha)
 = \pi_i(\alpha)
 \qquad\Bigparen{
-= \text{o $i$-ésimo elemento da tupla $\alpha$}
+= \text{o $i$-ésimo membro da tupla $\alpha$}
 }
 $$
-onde consideramos o primeiro membro duma tupla seu ``$0$-ésimo'' membro, etc.
+onde consideramos o primeiro membro duma tupla seu
+``$0$-ésimo'' membro, etc.
 Investigue a injetoridade e a sobrejetoridade da $\pi$.
 
 \hint
@@ -24705,14 +24709,13 @@ $$
 $$
 
 \solution
+\proofpart{Injetoridade.}
 A injetoridade da $\pi$ depende no $n$:
-\endgraf
-\case{Caso $n>1$}, não é:
+\crcase{Caso $n>1$}, não é:
 pois tomando $a\in A$,
 $$
 \pi(0,\tup{a,\dotsc,a}) = a = \pi(1,\tup{a,\dotsc,a}).
 $$
-\endgraf
 \case{Caso $n=1$}, é:
 tomando $w, w' \in I\times A^n$ com $w\neq w'$, temos
 que $w = \tup{ 0, \tup{a} }$ e $w' = \tup{ 0, \tup{a'} }$
@@ -24720,7 +24723,7 @@ para alguns $a,a'\in A$.
 Agora como $w\neq w'$ concluimos que $a\neq a'$ e logo
 $\pi(0,w) \neq \pi(0,w')$, ou seja, $\pi$ é injetora
 nesse caso.
-\endgraf\noindent
+\crtabproofpart{Sobrejetoridade.}
 A $\pi$ é sobrejetora sim:
 pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
 
