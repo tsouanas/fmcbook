@@ -21056,6 +21056,27 @@ $$
 \endexercise 
 %%}}}
 
+%%{{{ x: touch_of_godel_encoding 
+\exercise.
+\label{touch_of_godel_encoding_pairs}%
+Considere as $g,h : \nats^2 \to \nats$
+definidas pela
+$$
+\alignat2
+g (x,y) &= 2^x 3^y &
+h (x,y) &= 2^x 6^y.
+\endalignat
+$$
+Para cada uma, decida se é injetora, e se é sobrejetora.
+
+\hint
+A $g$ é injetora mais não sobrejetora;
+a $h$ não é nem injetora nem sobrejetora.
+Demonstre tudo isso.
+
+\endexercise
+%%}}}
+
 %%{{{ df: jection_spaces 
 \definition.
 \label{jection_spaces}%
@@ -24350,6 +24371,49 @@ Sem o ``único'', ela vai ser constante sse $B\neq\emptyset$.
 
 \endproblem
 %}}}
+
+%%{{{ prob: touch_of_godel_encoding_strings 
+\problem.
+\label{touch_of_godel_encoding_srings}%
+Seja $\kstar \nats = \Union_n \nats^n$ o conjunto de todos
+os strings finitos feitos por
+Considere as $f : \kstar \nats \to \nats_{>0}$ definida pela
+$$
+f (x_0,\dotsc,x_{n-1}) = \prod_{i=0}^{n-1} p_i^{x_i}
+$$
+onde $\seqn {p_n}n$ é a seqüência dos números primos
+($p_0 = 2$, $p_1 = 3$, $p_2 = 5$, \dots).
+Explique por que (1) $f$ não é injetora; mas demonstre que (2) é sobrejetora.
+(3) O que acontece se substituir os exponentes $x_i$ por $x_i + 1$?
+
+\solution
+\proofpart{(1) $f$ não é injetora}
+pois
+$$
+f(1) = 2 = f(1,0).
+$$
+\proofpart{(2) $f$ é sobrejetora.}
+Seja $y \in \nats_{>0}$.
+Pelo teorema fundamental de aritmética~\refn{fundamental_theorem_of_arithmetic}
+$y$ pode ser escrito como produtório de primos
+$$
+y = q_0^{y_i}
+$$
+\proofpart{(3) Acontece}
+que ganha injetoridade
+(veja o~\ref{encoding_of_finite_sequences} e sua resolução)
+e perde sobrejetoridade:
+nenhuma entrada é mapeada para o $3$, pois o único ímpar
+que realmente está no $\range f$ é o $1$ ($f() = 1$ pela definição
+do produtório vazio); todos os outros pontos do domínio da $f$
+são múltiplos de $2$ pela sua definição.
+Observe que tem números pares que faltam também, por exemplo o
+$$
+10 = 2^1 \ntimes 3^0 \ntimes 5^1.
+$$
+
+\endproblem
+%%}}}
 
 %%{{{ first_contact_with_initial_and_terminal_objects 
 \problem Objetos iniciais e terminais.
