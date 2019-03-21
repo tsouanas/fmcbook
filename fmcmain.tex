@@ -20786,24 +20786,67 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ remark: commutative_diagrams_as_puzzles 
+\remark Um puzzle.
+\label{commutative_diagrams_as_puzzles}%
+Vamos fazer um ``rewind'' no momento exatamente antes de definir
+nossa função de $A \cross B$ para $C \cross D$.
+O diagrama parece como no~\ref{fcross_commutative_diagram}, exceto
+sem a setinha pontilhada no meio.  E esse é o ``missing piece'' do nosso puzzle.
+Procuramos então achar uma \emph{seta} que é \dterm{legal}.
+O que significa ``legal'' aqui?
+\emph{Uma seta que faz o diagrama comutar!}
+%%}}}
+
+%%{{{ x: fcross_practise 
+\exercise.
+\label{fcross_pratise}%
+Para qualquer uma das expressões seguintes, calcule seu valor quando tiver.
+$$
+\alignat2
+(\sin \cross \cos) (\pi)        &= &
+(\outl \cross \succ) (5, 6)     &= \\
+(\sin \cross \cos) (\pi/2, \pi) &= &
+(\idof\nats \cross \succ) (0,1) &= 
+\endalignat
+$$
+Pode ser que umas delas tem type errors, e logo nenhum valor.
+
+\endexercise
+%%}}}
+
+%%{{{ x: fcross_is_total 
+\exercise.
+\label{fcross_is_total}%
+O operador binário $(\dhole\cross\dhole)$ nas funções
+que definimos no~\ref{fcross}, é um operador total?
+
+\solution
+Sim.
+A gente não necessitou nenhuma propriedade especial
+sobre nossas funções $f,g$ na definição.
+
+\endexercise
+%%}}}
+
 %%{{{ df: fpair 
 \definition pair.
 \label{fpair}%
 \tdefined{função}[par]%
-\sdefined {\holed f \times \holed g} {a função-produto e $f$ ``cross'' $g$}%
+\sdefined {\fpair {\holed f} {\holed g}} {a função-par $f$ ``pair'' $g$}%
 Sejam
 $$
 A \fromlongarrow f D \tolongarrow g B
 $$
 Chamamos \dterm{função-par da $f$ ``pair'' $g$},
-que denotamos por $\tup{f,g}$,
+que denotamos por $\fpair f g$,
 a função
 $$
-D \tolongarrow {\tup{f,g}} A\times B
+D \tolongarrow {\fpair f g} A\times B
 $$
 definida pela
 $$
-\tup{f,g}(x) = \tup{f(x), g(x)}.
+\fpair f g (x) = \tup{f(x), g(x)}.
 $$
 %%}}}
 
@@ -20821,6 +20864,14 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ Q: Can you define the pointwise operation function? 
+\question.
+Dadas $f,g : A \to B$, e sabendo que no $B$ é definida uma operação
+binária $\ast : B^2 \to B$, qual função interessante tu podes definir
+de $A$ para $B$?  Qual notação tu gostaria de usar pra ela?
+%%}}}
+\spoiler.
+
 %%{{{ df: pointwise_operation 
 \definition pointwise.
 \label{pointwise_operation}%
@@ -20836,6 +20887,99 @@ $$
 Chamamos a $(\dhole \ast \dhole)$ a \dterm{operação pointwise}
 da $\ast$ no $(A \to B)$.
 %%}}}
+
+%%{{{ note: pointwise_operation_outside_the_forest 
+\note Uma outra maneira de se inspirar.
+\label{pointwise_operation_outside_the_forest}%
+Se tu realmente tentou responder na pergunta acima, provavelmente
+tu chegou nessa mesma definição.  Uma maneira de chegar nela é
+realmente ``entrar na floresta'', e começar brincar com as arvores,
+ate achar o que tu ta procurando.
+Uma outra abordagem seria observar a floresta de longe; por fora.
+Desenhar as setas que tu tens, e ver o que tu podes fazer interessante
+com elas.
+Nesse caso temos $f, g : A \to B$, e também a $\ast : B^2 \to B$.
+Nosso desafio é definir uma função \emph{interessante} $A \tolongarrow ? B$.%
+\footnote{%
+Claramente não é o desafio mais claro que tu já viu na vida,
+mas isso faz parte do próprio desafio!
+}
+Desenhamos então:
+$$
+A \cross A \tolongarrow {f \cross g} B \cross B \tolongarrow {\ast} B.
+$$
+O que \emph{interessante} podemos definir agora?
+Com certeza uma composição tem chances boas de ser interessante,
+só que aqui a
+$$
+\ast \of \paren{f \cross g} : A \cross A \longto B
+$$
+não tem o tipo desejado $A\to B$.
+Agora podemos desistir dessa abordagem e entrar na floresta mesmo
+para brincar com as arvores; \emph{ou podemos perceber que talvez
+falta apenas uma setinha para nos ajudar}.
+Se a gente tivesse uma setinha interessante assim:
+$$
+A \tolongarrow ? A \cross A \tolongarrow {f \cross g} B \cross B \tolongarrow {\ast} B
+$$
+a gente teria um candidáto ótimo para algo interessante, pois
+assim a composição de todas essas setinhas tem o tipo desejado.
+Basta definir uma função interessante então de $A$ para $A\cross A$
+e assim ganhar a
+$$
+A \toxlongarrow {\ast \of (f\cross g) \of ?} B.
+$$
+%%}}}
+
+%%{{{ x: discover_diagonalizer 
+\exercise.
+\label{discover_diagonalizer}%
+Dado conjunto $A$, define uma função interessante de $A$ para $A \cross A$.
+Começa descrevendo sua alma com um $\lambda$; consegue definí-la sem
+descrever explicitamente o seu comportamento?
+
+\solution
+Usando $\lambda$, a função que procuramos é a seguinte:
+$$
+A \tolongarrow {\lam x {\tup{x,x}}} A \cross A.
+$$
+Essa função é a $\fpair {\idof A} {\idof A}$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: pointwise_operation_two_paths_to_solution_same_or_not 
+\exercise.
+\label{pointwise_operation_two_paths_to_solution_same_or_not}%
+Verifique se as duas funções definidas na~\ref{pointwise_operation}
+e no fim do~\ref{pointwise_operation_outside_the_forest}
+(com o~\ref{discover_diagonalizer}) são as mesmas.
+
+\endexercise
+%%}}}
+
+\blah.
+A função que tu definiu no~\ref{discover_diagonalizer} é muito útil
+e freqüentemente usada e sim, tem seu próprio nome e sua própria notação:
+
+%%{{{ df: diagonal_function 
+\definition Função diagonal.
+\label{diagonal_function}%
+\tdefined{função}[diagonal]%
+\sdefined {\diagdom {\holed A}} {a função diagonal do $A$}%
+\sdefined {\diag} {a função diagonal do conjunto implicito pelo contexto}%
+Seja $A$ conjunto.
+Definimos sua \dterm{função diagonal} $\diagdom A : A \to A \times A$
+pela
+$$
+\diagdom A (x) = \tup{x,x}.
+$$
+Equivalentemente:
+$$
+\diagdom A \defeq \fpair {\idof A, \idof A}.
+$$
+Quando o conjunto $A$ é implícito pelo contexto escrevemos apenas $\diag$.
+%}}}
 
 \endsection
 %%}}}
@@ -20990,14 +21134,18 @@ $$
 
 %%{{{ remark: contrapositive of injective 
 \remark.
+\iiseealso{respeitar}{preservar}%
+\iiseealso{preservar}{respeitar}%
+\ii{preservar}[as distincções]%
+\ii{respeitar}[as distincções]%
 A seguinte afirmação equivalente de $f : A \injto B$ é muito útil:
 $$
 \text{para todo $x,y \in A$, se $x\neq y$ então $f(x) \neq f(y)$}.
 $$
 (É a sua contrapositiva.)
-Gostaria de traduzir essa afirmação mais perto ``no nível coração'':
+Vamos traduzir essa afirmação mais perto ``no nível coração'':
 \standout
-<<$f$ \dterm{preserve} as distincções do seu domínio>>
+<<$f$ \dterm{preserve} as distincções do seu domínio.>>
 \endstandout
 Também digamos que $f$ \dterm{respeita} as distincções.
 Assim podemos pensar que uma função injetora embute seu domínio
