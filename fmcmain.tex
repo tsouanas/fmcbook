@@ -19644,8 +19644,8 @@ a~\ref{constant_function}, mas não com a definição do exercício.
 \endexercise
 %}}}
 
-%%{{{ prop: constant_function_definitions_almost_agree 
-\proposition.
+%%{{{ x: constant_function_definitions_almost_agree 
+\exercise.
 \label{constant_function_definitions_almost_agree}%
 Sejam $A \toarrow f B$ com $A \neq \emptyset$.
 Prove que:
@@ -19656,8 +19656,9 @@ $$
 \lforall {x\in A}
 {f(x) = b}.
 $$
-\proof.
-\lrdir:
+
+\solution
+\proofpart{lrdir:}
 Seja $a\in A$ ($A\neq\emptyset$).
 Vamos mostrar que tomando $b\asseq f(a)$ a proposição na direita é satisfeita.
 Observe que o $f(a)\in B$ e satisfaz
@@ -19665,12 +19666,12 @@ $$
 \lforall {x\in A} {f(x) = f(a)}
 $$
 pela definição de constante.
-\endgraf
-\rldir:
+\crproofpart{rldir:}
 Seja $b_0\in B$ tal que para todo $x\in A$, $f(x) = b_0$.
 Agora para todo $x,y \in A$ temos $f(x) = b_0 = f(y)$ pela hipótese,
 ou seja, $f$ é constante.
-\qed
+
+\endexercise
 %%}}}
 
 %%{{{ x: constant_function_which_definition_is_stronger 
@@ -19692,7 +19693,7 @@ valida em geral.
 \exercise.
 \label{gof_constant_does_not_imply}%
 Prove ou refute a afirmação seguinte:
-\emph{se $(g\compose f)$ é constante, então pelo menos uma das $f,g$ também é}.
+\emph{se $(g \of f)$ é constante, então pelo menos uma das $f,g$ também é}.
 
 \hint
 Tente achar contraexemplo desenhando diagramas internos.
@@ -19775,14 +19776,53 @@ O uso de $1$ para representar ``true'' e o $0$ para o ``false'' é aleatório.
 De fato, dependendo de caso, as vezes definimos a função característica
 com esses valores invertidos!  Isso é muito comum em teoria de recursão
 (veja~\cite{kleeneIM} por exemplo), mas não só:
-nos shells de Unix\ii{Unix}[shell], também o valor $0$ representa o ``true''
-e cada valor positivo um ``false'' (com $1$ sendo o padrão deles).
+nos shells de Unix\ii{Unix}[shell]\ii{main},
+também o valor $0$ representa o ``true'' (``deu certo'')
+e cada valor positivo o ``false'' (``deu errado'').%
+\footnote{%
+Nesse caso essa escolha é obviamente melhor, pois sabendo que ``deu certo'',
+em geral não perguntamos <<por que deu certo?>>; mas se der errado, queremos
+saber uma informação sobre o motivo que deu errado: talvez um arquivo não
+existe, talvez uma conexão não pode ser feita, talvez faltou uma permissão,
+etc., e cada um desses casos vai retornar um valor positivo diferente.
+\endgraf
+Esse ``retornar'' que eu tô me referindo aqui é o proprio $\code{return}$
+que muitas vezes estudando programação o aluno acaba memorizando como
+``regrinha'' que sua $\code{main}$ precisa terminar com um
+``$\code{return 0}$''.  Por quê?  E pra quem que ta retornando isso?
+Para o próprio sistema operacional.  No final das contas, foi ele que
+chamou essa $\code{main}$.
+}
 \endgraf
 \emph{A moral da história:}
 sempre verifique a definição da função característica
 usada---e se quiseres usar num texto teu, sempre bota sua definição junto!
 Nesse texto, quando aparece a notação $\chr A$ sem definição,
 denota a função que definimos acima na~\ref{characteristic_function}.
+%%}}}
+
+%%{{{ x: explain_unix_shell_connectives 
+\exercise Para os Unixeiros.
+\label{explain_unix_shell_connectives}%
+{\ii{Unix}[shell]}%
+Num shell de Unix (cujo ``prompt'' denoto aqui por \sq{$\code{\#}$})
+escrevemos:
+\shell
+\code{\# cmd1 \&\& cmd2} && \\
+\code{\# cmd1 || cmd2}   &&
+\endshell
+onde $\code{cmd1}$ e $\code{cmd2}$ são dois comandos.
+Explique o comportamento sabendo que $\code{\&\&}$ é um
+operador lógico de conjunção e que $\code{||}$ é um operador
+lógico de conjunção.
+Conclua que o shell de Unix é ``apenas'' um calculador de valores de verdade
+nesse sentido.  Todas as coisas que vão acontecer executando isso ``no mundo real''
+são nada mais que \dterm{side-effects} enquanto calculando os seus comandos,
+para achar seus valores de verdade.
+Como posso dar para o shell a ordem
+<<executa o $\code{cmd1}$ e depois o $\code{cmd2}$>>?
+
+\endexercise
 %%}}}
 
 %%{{{ remark: replacing_cases_by_characteristic_functions 
