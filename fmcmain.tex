@@ -17602,9 +17602,13 @@ Chamamos o ``$A \to B$'' o tipo da $f$, e pronunciamos como
 <<função de $A$ para $B$>>.
 %%}}}
 
-%%{{{ x: what_is_the_type_of_foo 
+%%{{{ x: what_is_the_type_of_foo_for_C_programmers 
 \exercise.
+\label{what_is_the_type_of_foo_for_C_programmers}%
 Aqui um programa escrito em C:
+\iipl C
+\iipl C++
+\iipl Java
 \sourcecode typefoo.c;
 Qual é o tipo desse $\code{x}$ no corpo da $\code{foo}$?
 Qual o tipo da $\code{foo}$?
@@ -17732,8 +17736,9 @@ observável.
 %%{{{ Programs vs. functions 
 \note Programas vs.~funções.
 \label{programs_vs_functions}%
-Considere as duas funções $\code{f}$ e $\code{g}$ implementadas no programa
-seguinte em Python:
+\iipl Python
+Considere as duas funções $\code{f}$ e $\code{g}$ implementadas
+no programa seguinte em Python:
 \sourcecode intext.py;
 Suponha que queremos considerar ambas definidas nos inteiros.
 A \emph{extensão} da $\code{f}$ é a mesma com a extensão da $\code{g}$.
@@ -18818,8 +18823,10 @@ $$
 \text{<<a área dum triângulo com base $b$ e altura $h$ é $a$, onde $a = bh/2$>>.}
 $$
 \endgraf
-Para usar um exemplo de ``nomeamento inútil'' em programação, considere
-as funções seguintes em Python, cada uma programada por um programador diferente:
+Para usar um exemplo de ``nomeamento inútil'' em programação,
+considere as funções seguintes em Python,
+cada uma programada por um programador diferente:
+\iipl Python
 \sourcecode uselessnaming.py;
 Como funções são iguais, mas o programador que programou $\code{g}$,
 fez algo estranho.
@@ -19065,8 +19072,9 @@ então chegaram no mesmo valor!%
 para a versão ``raiz'', paciência até o~\ref{Lambda_calculus}.}
 %%}}}
 
-%%{{{ x: calculate lambda reductions 
+%%{{{ x: calculate_lambda_expressions 
 \exercise.
+\label{calculate_lambda_expressions}%
 Calcule os seguintes:
 \beginol
 \li $\plam x x \lapp 5$;
@@ -19074,12 +19082,13 @@ Calcule os seguintes:
 \li $\plam z x \lapp 5$;
 \li $\plam x {x+1} \lapp 41$;
 \li $\plam x {2 + \plam y {3y} \lapp 5} \lapp 3$;
-\li $\plam x {2 + \plam y {3y} (x^2) } \lapp 3$;
-\li $\plam x {2 + \plam y {xy} \lapp 4 } \lapp 3$.
+\li $\plam x {2 + \plam y {3y} \lapp (x^2) } \lapp 3$;
+\li $\plam x {2 + \plam y {xy} \lapp 4 } \lapp 3$;
+\li $\lam x {\plam x {x + 1} \lapp 1 \ntimes \plam y {xy} \lapp 4}$. % <- cited as "last"
 \endol
 Em cada passo, sublinhe o redex que tu escolheu para reduzir.
 Não se preocupe se uns deles parecem errados ou bizarros,
-nem se tu errar calculando uns deles.
+nem se tu errar calculando uns deles; mas verifique tuas respostas.
 
 \solution
 Calculamos:
@@ -19088,19 +19097,30 @@ $$
 \redex {\plam x x \lapp 5}      &\lstep 5 \\
 \redex {\plam y {42} \lapp 5}   &\lstep 42 \\
 \redex {\plam z x \lapp 5}      &\lstep x \\
-\redex {\plam x {x+1} \lapp 41} &\lstep 41 + 1 = 42 \\
+\redex {\plam x {x+1} \lapp 41} &\lstep 41 + 1 \\
+&\isteq 42 \\
 \redex {\plam x {2 + \plam y {3y} \lapp 5} \lapp 3}
 &\lstep 2 + \redex{\plam y {3y} \lapp 5} \\
-&\lstep 2 + 3\ntimes 5
-= 17 \\
+&\lstep 2 + 3\ntimes 5 \\
+&\isteq 17 \\
 \redex {\plam x {2 + \plam y {3y} (x^2)} \lapp 3}
 &\lstep 2 + \redex {\plam y {3y} \lapp (3^2)} \\
-&\lstep 2 + 3 \ntimes 3^2 = 29 \\
+&\lstep 2 + 3 \ntimes 3^2 \\
+&\isteq 29 \\
 \plam x {2 + \redex {\plam y {xy} \lapp 4}} \lapp 3
 &\lstep \redex {\plam x {2 + x\ntimes 4} \lapp 3} \\
-&\lstep 2 + 3 \ntimes 4 = 14.
+&\lstep 2 + 3 \ntimes 4 \\
+&\isteq 14 \\
+\lam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
+&\lstep \lam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
+&\lstep \lam x {(1 + 1) \ntimes x \ntimes 4)} \\
+&\isteq \lam x {8x}.
 \endalign
 $$
+Se o último cálculo parece insatisfatório, é apenas
+por causa de um preconceito teu que favorece os objetos
+de tipo ``número'' contra os objetos de tipo ``função''.
+Mais sobre isso no~\ref{first_class_citizens}.
 
 \endexercise
 %%}}}
@@ -19110,19 +19130,25 @@ $$
 Quando puder, escreva $\lambda$-expressões que podem ser
 tipadas com os tipos seguintes:
 $$
-\align
+\xalignat2
+&\aligned
 &: A \to A \\
 &: A\cross B \to A \\
 &: A\cross B \to B \\
 &: A\cross A \to A \\
 &: A \to A \cross A \\
-&: A \to A \cross B \\
+&: A \to A \cross B
+\endaligned
+&
+&\aligned
 &: A \cross B \to B \cross A \\
 &: A \union B \to A \\
 &: A \to A \union B \\
 &: A \cross B \to A \union B \\
-&: A \union B \to A \cross B.
-\endalign
+&: A \union B \to A \cross B \\
+&: \paren{\pfcross A B \union \pfcross C D} \to \pfcross {(A \union C)} {(B \union D)}.
+\endaligned
+\endxalignat
 $$
 Observe que sobre os $A,B$ tu não tens nenhuma informação.
 Pode achar mais que uma resolução para algum desses desafios?
@@ -19139,7 +19165,8 @@ $$
 &: \nats^2 \to \nats \\
 &: \nats \to \nats^2 \\
 &: \pset\nats\setminus\set{\emptyset} \to \nats \\
-&: \pset\nats \to \nats.
+&: \pset\nats \to \nats \\
+&: \psetfin\nats \to \nats.
 \endalign
 $$
 Tente usar o argumento no corpo dos teus $\lambda$-termos se puder.
@@ -23728,15 +23755,18 @@ F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren
 
 %%{{{ Returning functions 
 \note Retornando funções.
-Até agora encontramos exemplos onde funções recebem como argumentos outras funções,
-mas aindo não conhecemos alguma função que \emph{retorna função}.
-Ou sera que conhecemos?
-Seguem uns exemplos de operadores de ordem superior que você talves já
-encontrou e até usou na tua vida.
+Até agora encontramos exemplos onde funções recebem como
+argumentos outras funções, mas ainda não conhecemos alguma
+função que \emph{retorna função}.
+Ou será que conhecemos?
+Se tu resolveu o~\ref{calculate_lambda_expressions},
+tu já encontrou esse caso, na sua última expressão.
+Seguem uns exemplos de operadores de ordem superior que
+você talvez já encontrou e até usou na tua vida.
 %%}}}
 
-%%{{{ Defining higher-order functions 
-\note Definindo funções de ordem superior.
+%%{{{ eg: Defining a higher-order functions 
+\example Definindo uma função de ordem superior.
 Considere a função $F : \reals \to (\reals \to \reals)$ definda pela
 $$
 F(w) = \text{aquela função $g : \reals \to \reals$ que quando recebe um $x$, retorna $w + x$}.
@@ -23749,8 +23779,10 @@ Que tipo de objetos a função $F$ retorna?
 Funções!  Nesse caso determinamos exatamente para qualquer entrada
 dela, qual seria a função que vai ser retornada.
 Em Python, podemos por exemplo escrever:
+\iipl Python
 \sourcecode higher.py;
 Ainda bem\dots
+\endexample
 %%}}}
 
 %%{{{ Q: what type of thing is F(25)? 
@@ -23797,7 +23829,8 @@ $25 + 3 = 28$.
 %%{{{ With lambdas 
 \note Com lambdas.
 \ii{função!anônima}%
-Observe que na definição de $F(w)$, apareceu a frase ``aquela função $f$\dots''.
+Observe que na definição de $F(w)$, apareceu a frase
+``aquela função $f$\dots''.
 Assim baptizamos temporariamente essa função com um nome (``$f$'') à toa:
 apenas para referir a ela e retorná-la.
 Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
@@ -23807,6 +23840,7 @@ F(w) = \lam x {w + x} \quad \eqtype \reals \to \reals
 $$
 Observe que no lado direito aparece uma função anônima.
 Novamente mostrando código em Python, escrevemos:
+\iipl Python
 \sourcecode higherlam.py;
 Não ficou melhor?
 %%}}}
@@ -23858,15 +23892,66 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ first_class_citizens 
+\note First-class citizens.
+\label{first_class_citizens}%
+{\ii{cidadão da primeira classe}}%
+{\iisee{first-class citizen}{cidadão}}%
+O slogan aqui é que funções são \emph{first-class citizens}.
+Trabalhando no~\ref{calculate_lambda_expressions}, o último cálculo
+chega no valor seguinte:
+$$
+\align
+\plam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
+&\lstep \plam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
+&\lstep \plam x {(1 + 1) \ntimes x \ntimes 4)} \\
+&\isteq \plam x {8x}.
+\endalign
+$$
+Como falei na resolução, se esse ``resultado'' (valor final)
+não parece satisfatório, é por causa de um preconceito teu que
+favorece os objetos de tipo ``número'' contra os objetos de tipo
+``função''.
+Os números têm o direito de ser valores finais; e as funções
+também têm!  Esse ``preconceito'' é bastante alimentado por causa
+de varias linguagens de programação que realmente não tratam
+as funções em termos iguais com os outros tipos.
+\iipl C
+\iipl C++
+\iipl Java
+Em C, C++, ou Java, por exemplo, não é possível passar como
+argumentos funções, nem retorná-las; mas claramente números
+podem ser argumentos e também podem ser retornados como saida
+de funções.
+\iipl Haskell
+\iipl PureScript
+\iipl Idris
+\iipl Agda
+\iipl Racket
+\iipl Clojure
+\iipl Scala
+\iipl Python
+No outro lado, linguagens como Haskell, PureScript, Idris,
+Agda, Racket, Clojure, Scala, Python, etc., adoptam o slogan
+\standout
+\emph{<<functions are first-class citizens>>}
+\endstandout
+ou seja, lá temos funções de ordem superior---e logo, felicidade.
+%%}}}
+
 \blah.
-Funções de ordem superior não é algo tão desconhecido como talvez aparece.
+Funções de ordem superior não é algo tão desconhecido
+como talvez aparece.
 O leitor já está acostumado com os operadores nos exemplos seguintes:
 
 %%{{{ eg: higher_order_example_composition 
 \example Composição.
 \label{higher_order_example_composition}%
 Sejam conjuntos $A,B,C$.
-O operador da composição $\of$ (que decoramos com $_{A,B,C}$ aqui para especificar o domínio e codomínio dele) é o seguinte:
+O operador da composição $\of$
+(que decoramos aqui com $_{A,B,C}$ para especificar
+o domínio e codomínio dele e dos seus argumentos)
+é o seguinte:
 $$
 \dhole\of_{A,B,C}\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
 $$
@@ -23979,6 +24064,7 @@ Como fazer isso?
 %%{{{ Answer in Python 
 \note Resposta em Python.
 \label{currying_in_python}%
+\iipl Python
 Aqui uma resposta, escrita em Python.
 \sourcecode currying.py;
 Para computar a $\code{f(x,y)}$ usando a $\code{F}$,
