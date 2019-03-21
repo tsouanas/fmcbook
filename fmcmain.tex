@@ -17821,9 +17821,9 @@ Aplique a $\cod$ nos $\sin_1,\sin_2,\sin_3$ do \ref{what_about_the_codomain_1}.
 Aplicando essa definição de $\cod$ nas $\sin_1,\sin_2,\sin_3$ do \ref{what_about_the_codomain_1},
 temos que
 $$
-\cod{\sin_1}
-= \cod{\sin_2}
-= \cod{\sin_3}
+\cod (\sin_1)
+= \cod (\sin_2)
+= \cod (\sin_3)
 $$
 mesmo que claramente não foi essa a nossa intenção.
 
@@ -19019,16 +19019,16 @@ $$
 Procuramos achar \emph{redexes} e achamos dois:
 $$
 \xalignat2
-&\markredex {\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50} &
-&\plam x {2 + \markredex {\plam y {x - y} \lapp 8}} \lapp 50.
+&\redex {\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50} &
+&\plam x {2 + \redex {\plam y {x - y} \lapp 8}} \lapp 50.
 \endxalignat
 $$
 Então temos dois caminhos diferentes para seguir.
 Vamos tentar ambos:
 $$
 \align
-\markredex {\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50}
-&\lstep 2 + \markredex {\plam y {50 - y} \lapp 8} \\
+\redex {\plam x {2 + \plam y {x - y} \lapp 8} \lapp 50}
+&\lstep 2 + \redex {\plam y {50 - y} \lapp 8} \\
 &\lstep 2 + \paren{50 - 8} \\
 &\isteq 44.
 \intertext{%
@@ -19036,8 +19036,8 @@ Escolhendo o outro caminho, talvez chegamos em algum valor
 diferente.
 Vamos ver:
 }
-\plam x {2 + \markredex {\plam y {x - y} \lapp 8}} \lapp 50
-&\lstep \markredex {\plam x {2 + \paren{x - 8}} \lapp 50} \\
+\plam x {2 + \redex {\plam y {x - y} \lapp 8}} \lapp 50
+&\lstep \redex {\plam x {2 + \paren{x - 8}} \lapp 50} \\
 &\lstep 2 + \paren{50 - 8} \\
 &\isteq 44.
 \endalign
@@ -19075,6 +19075,7 @@ Calcule os seguintes:
 \li $\plam x {2 + \plam y {3y} (x^2) } \lapp 3$;
 \li $\plam x {2 + \plam y {xy} \lapp 4 } \lapp 3$.
 \endol
+Em cada passo, sublinhe o redex que tu escolheu para reduzir.
 Não se preocupe se uns deles parecem errados ou bizarros,
 nem se tu errar calculando uns deles.
 
@@ -19082,13 +19083,20 @@ nem se tu errar calculando uns deles.
 Calculamos:
 $$
 \align
-\plam x x \lapp 5 &= 5 \\
-\plam y {42} \lapp 5 &= 42 \\
-\plam z x \lapp 5 &= x \\
-\plam x {x+1} \lapp 41 &= 41 + 1 = 42 \\
-\plam x {2 + \plam y {3y} \lapp 5} \lapp 3 &= 2 + \plam y {3y} \lapp 5 = 2 + 3\ntimes 5 = 17 \\
-\plam x {2 + \plam y {3y} (x^2) } \lapp 3 &= 2 + \plam y {3y} (3^2) = 2 + 3\ntimes 3^2 = 29 \\
-\plam x {2 + \plam y {xy} \lapp 4 } \lapp 3 &= \plam x {2 + x\ntimes 4} \lapp 3 = 2 + 3 \ntimes 4 = 14.
+\redex {\plam x x \lapp 5}      &\lstep 5 \\
+\redex {\plam y {42} \lapp 5}   &\lstep 42 \\
+\redex {\plam z x \lapp 5}      &\lstep x \\
+\redex {\plam x {x+1} \lapp 41} &\lstep 41 + 1 = 42 \\
+\redex {\plam x {2 + \plam y {3y} \lapp 5} \lapp 3}
+&\lstep 2 + \redex{\plam y {3y} \lapp 5} \\
+&\lstep 2 + 3\ntimes 5
+= 17 \\
+\redex {\plam x {2 + \plam y {3y} (x^2)} \lapp 3}
+&\lstep 2 + \redex {\plam y {3y} \lapp (3^2)} \\
+&\lstep 2 + 3 \ntimes 3^2 = 29 \\
+\plam x {2 + \redex {\plam y {xy} \lapp 4}} \lapp 3
+&\lstep \redex {\plam x {2 + x\ntimes 4} \lapp 3} \\
+&\lstep 2 + 3 \ntimes 4 = 14.
 \endalign
 $$
 
@@ -19290,16 +19298,16 @@ Computamos a mesma expressão usando dois caminhos diferentes:
 $$
 \xalignat2
 &\aligned
-\markredex {\plam x {\plam y {y^2} \lapp x}} \lapp 3
-&\estep \markredex {\plam y {y^2}} \lapp 3 \\
-&\astep \markredex {\plam x {x^2} \lapp 3} \\
+\redex {\plam x {\plam y {y^2} \lapp x}} \lapp 3
+&\estep \redex {\plam y {y^2}} \lapp 3 \\
+&\astep \redex {\plam x {x^2} \lapp 3} \\
 &\bstep 3^2.
 \endaligned
 &
 &\aligned
-\markredex {\plam x {\plam y {y^2} \lapp x}} \lapp 3
-&\astep \markredex {\plam y {\plam y {y^2} \lapp y}} \lapp 3 \\
-&\estep \markredex {\plam y {y^2} \lapp 3} \\
+\redex {\plam x {\plam y {y^2} \lapp x}} \lapp 3
+&\astep \redex {\plam y {\plam y {y^2} \lapp y}} \lapp 3 \\
+&\estep \redex {\plam y {y^2} \lapp 3} \\
 &\bstep 3^2.
 \endaligned
 \endxalignat
