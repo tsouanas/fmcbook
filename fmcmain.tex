@@ -19077,14 +19077,14 @@ para a versão ``raiz'', paciência até o~\ref{Lambda_calculus}.}
 \label{calculate_lambda_expressions}%
 Calcule os seguintes:
 \beginol
-\li $\plam x x \lapp 5$;
-\li $\plam y {42} \lapp 5$;
-\li $\plam z x \lapp 5$;
-\li $\plam x {x+1} \lapp 41$;
-\li $\plam x {2 + \plam y {3y} \lapp 5} \lapp 3$;
-\li $\plam x {2 + \plam y {3y} \lapp (x^2) } \lapp 3$;
-\li $\plam x {2 + \plam y {xy} \lapp 4 } \lapp 3$;
-\li $\lam x {\plam x {x + 1} \lapp 1 \ntimes \plam y {xy} \lapp 4}$. % <- cited as "last"
+\li $\plam x x \la 5$;
+\li $\plam y {42} \la 5$;
+\li $\plam z x \la 5$;
+\li $\plam x {x+1} \la 41$;
+\li $\plam x {2 + \plam y {3y} \la 5} \la 3$;
+\li $\plam x {2 + \plam y {3y} \lap {x^2} } \la 3$;
+\li $\plam x {2 + \plam y {xy} \la 4 } \la 3$;
+\li $\lam x {\plam x {x + 1} \la 1 \ntimes \plam y {xy} \la 4}$. % <- cited as "last"
 \endol
 Em cada passo, sublinhe o redex que tu escolheu para reduzir.
 Não se preocupe se uns deles parecem errados ou bizarros,
@@ -19094,25 +19094,25 @@ nem se tu errar calculando uns deles; mas verifique tuas respostas.
 Calculamos:
 $$
 \align
-\redex {\plam x x \lapp 5}      &\lstep 5 \\
-\redex {\plam y {42} \lapp 5}   &\lstep 42 \\
-\redex {\plam z x \lapp 5}      &\lstep x \\
-\redex {\plam x {x+1} \lapp 41} &\lstep 41 + 1 \\
+\redex {\plam x x \la 5}      &\lstep 5 \\
+\redex {\plam y {42} \la 5}   &\lstep 42 \\
+\redex {\plam z x \la 5}      &\lstep x \\
+\redex {\plam x {x+1} \la 41} &\lstep 41 + 1 \\
 &\isteq 42 \\
-\redex {\plam x {2 + \plam y {3y} \lapp 5} \lapp 3}
-&\lstep 2 + \redex{\plam y {3y} \lapp 5} \\
+\redex {\plam x {2 + \plam y {3y} \la 5} \la 3}
+&\lstep 2 + \redex{\plam y {3y} \la 5} \\
 &\lstep 2 + 3\ntimes 5 \\
 &\isteq 17 \\
-\redex {\plam x {2 + \plam y {3y} (x^2)} \lapp 3}
-&\lstep 2 + \redex {\plam y {3y} \lapp (3^2)} \\
+\redex {\plam x {2 + \plam y {3y} (x^2)} \la 3}
+&\lstep 2 + \redex {\plam y {3y} \lap {3^2}} \\
 &\lstep 2 + 3 \ntimes 3^2 \\
 &\isteq 29 \\
-\plam x {2 + \redex {\plam y {xy} \lapp 4}} \lapp 3
-&\lstep \redex {\plam x {2 + x\ntimes 4} \lapp 3} \\
+\plam x {2 + \redex {\plam y {xy} \la 4}} \la 3
+&\lstep \redex {\plam x {2 + x\ntimes 4} \la 3} \\
 &\lstep 2 + 3 \ntimes 4 \\
 &\isteq 14 \\
-\lam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
-&\lstep \lam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
+\lam x {\plam x {x + 1} \la 1 \ntimes \redex {\plam y {xy} \la 4}}
+&\lstep \lam x {\redex {\plam x {x + 1} \la 1} \ntimes x\ntimes 4} \\
 &\lstep \lam x {(1 + 1) \ntimes x \ntimes 4)} \\
 &\isteq \lam x {8x}.
 \endalign
@@ -21062,7 +21062,7 @@ Quando o conjunto $A$ é implícito pelo contexto escrevemos apenas $\diag$.
 \endsection
 %%}}}
 
-%%{{{ Injections, Surjections, Bijections 
+%%{{{ Injections, surjections, bijections 
 \section Injetoras, sobrejetoras, bijetoras.
 
 %%{{{ noneg: not_injective 
@@ -22013,8 +22013,8 @@ Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
 \section Uma viagem real.
 \label{A_real_trip}%
 
-%%{{{ the trip 
-\note.
+%%{{{ Let's trip 
+\note Bora viajar.
 Começamos na~\ref{Composition_laws} procurar conexões entre
 a composição e a multiplicação e realmente achamos muitas
 similaridades e essa influência já se tornou muito útil.
@@ -22049,7 +22049,7 @@ $f\ntimes x$ e $f\ntimes y$.
 Bem.
 O que podemos concluir sabendo que
 $$
-f x = f y ?
+f \fa x = f \fa y ?
 $$
 Caso $f\neq0$, podemos cancelá-lo:
 $$
@@ -23801,7 +23801,7 @@ mais econômica, sem parenteses:
 \rsystem{
 \alert {\succ}\fa 0 &= 0\\
 \alert {\succ}\fa 1 &= 1\\
-\alert {\succ}\fa n &= \alert {\succ}\fap {n-1} + \alert {\succ}\fap {n-2}
+\alert {\succ}\fa n &= \alert {\succ} \fap {n-1} + \alert {\succ} \fap {n-2}
 }
 &\iff
 \lsystem{
@@ -23866,9 +23866,9 @@ poeminho mágico para dar a\dots
 Seja $\fib:\nats\to\nats$ definda pelas
 $$
 \text{(FIB)}\ \lsystem{
-\fib\fa 0 &= 0\\
-\fib\fa 1 &= 1\\
-\fib\fa n &= \fib\fap {n-1} + \fib\fap {n-2}, \quad\text{para todo $n>1$}.
+\fib \fa 0 &= 0\\
+\fib \fa 1 &= 1\\
+\fib \fa n &= \fib\fap {n-1} + \fib\fap {n-2}, \quad\text{para todo $n>1$}.
 }
 $$
 \mistake
