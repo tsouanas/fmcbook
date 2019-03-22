@@ -21344,6 +21344,85 @@ são finitas.
 \endexercise
 %%}}}
 
+%%{{{ x: fcom_respects_jections 
+\exercise Composição respeita ``-jetividade''.
+\label{fcom_respects_jections}%
+Sejam $f : A\to B$ e $g : B \to C$.
+Prove:
+\item{(1)} Se $f$ e $g$ são injetoras, então $g\fcom f$ também é;
+\item{(2)} Se $f$ e $g$ são sobrejetoras, então $g\fcom f$ também é;
+\item{(3)} Se $f$ e $g$ são bijetoras, então $g\fcom f$ também é.
+
+\endexercise
+%%}}}
+
+%%{{{ x: converse_to_gof_bij_conclusions 
+\exercise.
+Se $g\compose f$ é bijetora, o que podemos concluir sobre as $f,g$?  Justifique.
+
+\endexercise
+%%}}}
+
+%%{{{ x: converse_to_gof_bij_conclusions 
+\exercise.
+Se $f$ é injetora e $g$ sobrejetora, a $g\compose f$ é necessariamente bijetora?
+
+\solution
+Não.
+Aqui um contraexemplo:
+$$
+\tikzpicture
+\draw (0,0) ellipse (-.75cm and 1.25cm);
+\draw (3,0) ellipse (-.75cm and 1.25cm);
+\draw (6,0) ellipse (-.75cm and 1.25cm);
+\draw (0,-.5) node {$\bullet$};
+\draw (3,.5)  node {$\bullet$};
+\draw (3,-.5) node {$\bullet$};
+\draw (6,.5)  node {$\bullet$};
+\draw (6,-.5) node {$\bullet$};
+\draw[|->] (0.2,-.5) -- (2.8,-.5);
+\draw[|->] (3.2,-.5) -- (5.8,-.5);
+\draw[|->] (3.2,.5) -- (5.8,.5);
+\draw[->]  (0.5,1.5) -- (2.5,1.5);
+\draw[->]  (3.5,1.5) -- (5.5,1.5);
+\draw (0,1.5) node {$A$};
+\draw (3,1.5) node {$B$};
+\draw (6,1.5) node {$C$};
+\draw (1.5,1.20) node {$f$};
+\draw (4.5,1.20) node {$g$};
+\endtikzpicture
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: x_mapsto_singleton_x_properties 
+\exercise.
+\label{x_mapsto_singleton_x_properties}%
+Sejam $A\neq\emptyset$ um conjunto e $f : A \to \pset A$ definida pela equação
+$$
+f(a) = \set a.
+$$
+Investigue:
+(i) A $f$ é injetora?
+(ii) A $f$ é sobrejetora?
+
+\solution
+\noindent
+(i) Sim: se $x,y\in A$, então
+$$
+f(x) = f(y)
+    \implies \set x = \set y
+    \implies x = y.
+$$
+\endgraf
+\noindent
+(ii) Não: para todo $a\in A$ temos
+$f(a) = \set a \neq \emptyset \in \pset A$.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -22500,11 +22579,11 @@ Vamos começar dando uma olhada novamente numa propriedade
 de funções, a injetoridade.
 Pela sua definição, $f$ é injetora exatamente quando
 $$
-\text{para todo $x,y$, $f\fa x = f\fa y \implies x=y$}.
+\text{para todo $x,y$,} \quad f\fa x = f\fa y \implies x=y.
 $$
 Isso até parece pouco com ``cancelação'':
 $$
-\cancel f\fa x = \cancel f\fa y \implies x = y.
+\cancel {\,f\,} x = \cancel {\,f\,} y \implies x = y.
 $$
 Queremos investigar se e quando podemos cancelar uma
 função quando operada com composições:
@@ -22519,9 +22598,9 @@ g \of f = f \of h &\askimplies g = h.
 $$
 Vamos voltar no
 $$
-\cancel f\fa x = \cancel f\fa y \implies x = y.
+\cancel f\fa x = \cancel f\fa y \implies x = y
 $$
-e agora vamos supor que os $f,x,y$ são números reais!
+mas agora vamos fingir que os $f,x,y$ são números reais!
 E logo as expressões $f x$ e $f y$ denotam apenas os produtos
 $f\ntimes x$ e $f\ntimes y$.
 Bem.
@@ -22529,7 +22608,7 @@ O que podemos concluir sabendo que
 $$
 f x = f y ?
 $$
-Se $f\neq0$ podemos cancelá-lo:
+Caso $f\neq0$, podemos cancelá-lo:
 $$
 \cancel f x = \cancel f y
 $$
@@ -22537,7 +22616,7 @@ chegando assim na
 $$
 x = y.
 $$
-É que se $f=0$ então $f$ não é cancelável.%
+Caso $f=0$, a $f$ não é cancelável.%
 \footnote{Por que não?
 Se tu aprendeu numa maneira religiosa algum poeminha
 do tipo ``não cancelarás $0$ nas multiplicações'', esqueça;
@@ -22552,7 +22631,7 @@ O que seria nosso ``zero'' nas funções?
 Uma resposta boba seria <<a função constante 0>>.
 Com certeza para funções numéricas
 a função constante $\kon 0 = \lam x 0$ não é nada de cancelavel.
-(Veja~\ref{constant_zero_is_not_cancellable}.)
+(Veja~\ref{kon_is_not_cancellable_in_general}.)
 Por que boba então?
 Pois dizendo isso já perdemos a generalidade:
 \emph{queremos algo descrevível para qualquer
@@ -22617,9 +22696,9 @@ nas funções, cada conjunto $A$ chega com sua própria $1_A$!
 essas noções ``inenxergáveis'' no mundo dos reais.}
 %%}}}
 
-%%{{{ x: constant_zero_is_not_cancellable 
+%%{{{ x: kon_is_not_cancellable_in_general 
 \exercise.
-\label{constant_zero_is_not_cancellable}%
+\label{kon_is_not_cancellable_in_general}%
 Demonstre que uma função constante $\kon b : A \to B$
 não é sempre cancelável.  Quando é?  E por qual lado?
 
@@ -22648,7 +22727,7 @@ $$
 f\of g = f \of h \implies g = h
 $$
 para todas as $g,h$ tais que as composições acima são definidas.
-Digamos então que $f$ é \dterm{$\of$-cancelável pela esquerda}:
+Digamos então que $f$ é \dterm{$\of$-cancelável pela esquerda}.
 \sketch.
 A direção {\lrdir} é o~\ref{injection_iff_mono_lrproof}.
 Para a direção {\rldir}, tome $b,b'\in B$ tais que $f(b)=f(b')$.
@@ -22663,9 +22742,8 @@ em tal maneira que o diagrama comuta (tem que definir mesmo as $g,h$).
 Usamos agora a hipótese para concluir que $b=b'$.
 \qes
 \proof.
-\lrdir: \ref{injection_iff_mono_lrproof}.
-\endgraf
-\rldir:
+\proofpart{\lrdir:} \ref{injection_iff_mono_lrproof}.
+\crproofpart{\rldir:}
 Suponha $b,b' \in B$ tais que $f(b) = f(b')$.
 Basta mostrar que $b = b'$.
 Temos então o diagrama interno seguinte:
@@ -22705,6 +22783,25 @@ Logo as $g,h$ concordam no $0$, ou seja, $b = b'$.
 \qed
 %%}}}
 
+%%{{{ x: injection_iff_mono_lrproof 
+\exercise.
+\label{injection_iff_mono_lrproof}%
+Prove a direção {\lrdir} do~\ref{injection_iff_mono}.
+
+\solution
+Suponha então que $f\of g = f\of h$.
+Vamos mostrar que $g = h$.
+Seja $x \in A$.
+Pela hipótese,
+$$
+(f\of g)(x) = (f\of h)(x)
+$$
+logo $f(g(x)) = f(h(x))$
+e como $f$ injetora, chegamos no desejado $g(x) = h(x)$.
+
+\endexercise
+%%}}}
+
 %%{{{ thm: surjection_iff_epic 
 \theorem.
 \label{surjection_iff_epic}%
@@ -22714,7 +22811,7 @@ $$
 g\of f = h\of f \implies g = h
 $$
 para todas as $g,h$ tais que as composições acima são definidas.
-Digamos então que $f$ é \dterm{$\of$-cancelável pela direita}:
+Digamos então que $f$ é \dterm{$\of$-cancelável pela direita}.
 \sketch.
 A direção {\lrdir} é o~\ref{surjection_iff_epic_lrproof}.
 Para a direção {\rldir}, tomamos $c \in C$ e procuramos achar
@@ -22777,52 +22874,6 @@ $f(b) = c$ como desejamos.
 \qed
 %%}}}
 
-%%{{{ x: injection_surjection_commutative_diagrams 
-\exercise.
-\label{injection_surjection_commutative_diagrams}%
-Descreva as propriedades dos teoremas
-\refn{injection_iff_mono}--\refn{surjection_iff_epic}
-usando diagramas comutativos.
-
-\solution
-A função $f$ é injetora sse em todo diagrama comutativo da forma
-$$
-\cdopt{sep=2cm}
-A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
-\endcd
-$$
-temos $g=h$.
-\endgraf
-A função $f$ é sobrejetora sse em todo diagrama comutativo da forma
-$$
-\cdopt{sep=2cm}
-B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
-\endcd
-$$
-temos $g=h$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: injection_iff_mono_lrproof 
-\exercise.
-\label{injection_iff_mono_lrproof}%
-Prove a direção {\lrdir} do~\ref{injection_iff_mono}.
-
-\solution
-Suponha então que $f\of g = f\of h$.
-Vamos mostrar que $g = h$.
-Seja $x \in A$.
-Pela hipótese,
-$$
-(f\of g)(x) = (f\of h)(x)
-$$
-logo $f(g(x)) = f(h(x))$
-e como $f$ injetora, chegamos no desejado $g(x) = h(x)$.
-
-\endexercise
-%%}}}
-
 %%{{{ x: surjection_iff_epic_lrproof 
 \exercise.
 \label{surjection_iff_epic_lrproof}%
@@ -22842,93 +22893,39 @@ Logo $g = h$.
 \endexercise
 %%}}}
 
-%%{{{ x: fcom_respects_jections 
-\exercise Composição respeita ``-jetividade''.
-\label{fcom_respects_jections}%
-Sejam $f : A\to B$ e $g : B \to C$.
-Prove:
-\item{(1)} Se $f$ e $g$ são injetoras, então $g\fcom f$ também é;
-\item{(2)} Se $f$ e $g$ são sobrejetoras, então $g\fcom f$ também é;
-\item{(3)} Se $f$ e $g$ são bijetoras, então $g\fcom f$ também é.
-
-\endexercise
-%%}}}
-
-%%{{{ x: converse_to_gof_bij_conclusions 
+%%{{{ x: injection_surjection_commutative_diagrams 
 \exercise.
-Se $g\compose f$ é bijetora, o que podemos concluir sobre as $f,g$?  Justifique.
-
-\endexercise
-%%}}}
-
-%%{{{ x: converse_to_gof_bij_conclusions 
-\exercise.
-Se $f$ é injetora e $g$ sobrejetora, a $g\compose f$ é necessariamente bijetora?
+\label{injection_surjection_commutative_diagrams}%
+Descreva as propriedades dos teoremas
+\refn{injection_iff_mono}--\refn{surjection_iff_epic}
+usando diagramas comutativos.
 
 \solution
-Não.
-Aqui um contraexemplo:
+\proofpart{A função $f$ é injetora sse} em todo diagrama comutativo da forma
 $$
-\tikzpicture
-\draw (0,0) ellipse (-.75cm and 1.25cm);
-\draw (3,0) ellipse (-.75cm and 1.25cm);
-\draw (6,0) ellipse (-.75cm and 1.25cm);
-\draw (0,-.5) node {$\bullet$};
-\draw (3,.5)  node {$\bullet$};
-\draw (3,-.5) node {$\bullet$};
-\draw (6,.5)  node {$\bullet$};
-\draw (6,-.5) node {$\bullet$};
-\draw[|->] (0.2,-.5) -- (2.8,-.5);
-\draw[|->] (3.2,-.5) -- (5.8,-.5);
-\draw[|->] (3.2,.5) -- (5.8,.5);
-\draw[->]  (0.5,1.5) -- (2.5,1.5);
-\draw[->]  (3.5,1.5) -- (5.5,1.5);
-\draw (0,1.5) node {$A$};
-\draw (3,1.5) node {$B$};
-\draw (6,1.5) node {$C$};
-\draw (1.5,1.20) node {$f$};
-\draw (4.5,1.20) node {$g$};
-\endtikzpicture
+\cdopt{sep=2cm}
+A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
+\endcd
 $$
+temos $g=h$.
+\crproofpart{A função $f$ é sobrejetora sse} em todo diagrama comutativo da forma
+$$
+\cdopt{sep=2cm}
+B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
+\endcd
+$$
+temos $g=h$.
 
 \endexercise
 %%}}}
 
-%%{{{ x: x_mapsto_singleton_x_properties 
-\exercise.
-\label{x_mapsto_singleton_x_properties}%
-Sejam $A\neq\emptyset$ um conjunto e $f : A \to \pset A$ definida pela equação
-$$
-f(a) = \set a.
-$$
-Investigue:
-(i) A $f$ é injetora?
-(ii) A $f$ é sobrejetora?
-
-\solution
-\noindent
-(i) Sim: se $x,y\in A$, então
-$$
-f(x) = f(y)
-    \implies \set x = \set y
-    \implies x = y.
-$$
-\endgraf
-\noindent
-(ii) Não: para todo $a\in A$ temos
-$f(a) = \set a \neq \emptyset \in \pset A$.
-
-\endexercise
-%%}}}
-
-%%{{{ remark: we could have worked via multiplication earlier 
-\remark.
-Já definimos os conceitos de inversa e de identidade
-antes de fazer essa viagem real que fizemos aqui.
+\blah.
+Já tivemos definido os conceitos de inversa e de identidade
+antes de fazer essa viagem que fizemos aqui.
 Mas com essa experiência podemos voltar e repensar
 em mais motivações e influências para chegar nesses
-conceitos.  Pode viajar a vontade!
-%%}}}
+conceitos, e mais provas para demonstrar nossos
+teoremas.  Pode viajar a vontade!
 
 \endsection
 %%}}}
