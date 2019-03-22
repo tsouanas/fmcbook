@@ -19125,8 +19125,9 @@ Mais sobre isso no~\ref{first_class_citizens}.
 \endexercise
 %%}}}
 
-%%{{{ x: find_expressions_with_given_abstract_types 
+%%{{{ x: find_expressions_with_given_types_abstract 
 \exercise.
+\label{find_expressions_with_given_types_abstract}%
 Quando puder, escreva $\lambda$-expressões que podem ser
 tipadas com os tipos seguintes:
 $$
@@ -19158,6 +19159,7 @@ Pode achar mais que uma resolução para algum desses desafios?
 
 %%{{{ x: find_expressions_with_given_types 
 \exercise.
+\label{find_expressions_with_given_types}%
 Escreva $\lambda$-expressões que podem ser tipadas com os tipos seguintes:
 $$
 \align
@@ -22628,8 +22630,8 @@ Quais os tipos das $\img f {\dhole}$ e $\pre f {\dhole}$?
 \solution
 $$
 \align
-\img f {\dhole} &: \pset X \to \pset Y \\
-\pre f {\dhole} &: \pset Y \to \pset X
+\img f {\dhole} &\eqtype \pset X \to \pset Y \\
+\pre f {\dhole} &\eqtype \pset Y \to \pset X
 \endalign
 $$
 
@@ -24123,21 +24125,43 @@ você talvez já encontrou e até usou na tua vida.
 
 %%{{{ eg: Defining a higher-order functions 
 \example Definindo uma função de ordem superior.
-Considere a função $F : \reals \to (\reals \to \reals)$ definda pela
+\ii{função!anônima}%
+Considere a função $F : \nats \to (\nats \to \nats)$ definda pela
 $$
-F(w) = \text{aquela função $g : \reals \to \reals$ que quando recebe um $x$, retorna $w + x$}.
-$$
+\align
+F(w) &= \text{aquela função $g : \nats \to \nats$ que quando recebe um $x$, retorna $w + x$}.
+\intertext{%
 Ou, equivalentemente:
-$$
-F(w) = \text{aquela função $g : \reals \to \reals$ definida pela g(x) = w + x}.
-$$
+}
+F(w) &= \text{aquela função $g : \nats \to \nats$ definida pela $g(x) = w + x$}.
+\intertext{%
 Que tipo de objetos a função $F$ retorna?
 Funções!  Nesse caso determinamos exatamente para qualquer entrada
 dela, qual seria a função que vai ser retornada.
-Em Python, podemos por exemplo escrever:
+Observe que na definição de $F(w)$, apareceu a frase
+``aquela função $g$\dots''.
+Assim baptizamos temporariamente essa função com um nome (``$g$'') à toa:
+apenas para referir a ela e retorná-la.
+Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
+e (logo) mais legível:
+}
+F(w) &= \lam x {w + x} \eqtype \nats \to \nats.
+\endalign
+$$
+Observe que no lado direito aparece uma função anônima.
+\endexample
+%%}}}
+
+%%{{{ eg: in Python 
+\example em Python.
 \iipl Python
+Em Python podemos (ainda bem\dots)~por exemplo escrever:
 \sourcecode higher.py;
-Ainda bem\dots
+que corresponde na primeira maneira de definir a $F$, criando e nomeando
+a função para ser retornada.
+Podemos com $\lambda$ também:
+\sourcecode higherlam.py;
+Não ficou melhor?
 \endexample
 %%}}}
 
@@ -24149,8 +24173,8 @@ Que tipo de coisa é o $F(25)$?
 
 %%{{{ Answer 
 \note.
-Antes de responder nessa pergunta, vamos responder numa outra, ainda mais específica:
-o que \emph{é} o $F(25)$?
+Antes de responder nessa pergunta, vamos responder numa outra,
+ainda mais específica: quem \emph{é} o $F(25)$?
 Ou seja:
 $$
 F(25) = \dots?\dots
@@ -24158,13 +24182,13 @@ $$
 Não precisamos pensar nada profundo!
 Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
 $$
-F(25) = \text{aquela função $g : \reals \to \reals$ que quando recebe um $x\in\reals$, retorna o número $25 + x$}.
+F(25) = \text{aquela função $g : \nats \to \nats$ que quando recebe um $x\in\nats$, retorna o número $25 + x$}.
 $$
 Ou seja,
 $$
-F(25) : \reals\to\reals.
+F(25) : \nats\to\nats.
 $$
-Sendo função, podemos chamá-la com um argumento do certo tipo, por exemplo como o $3\in\reals$, e evaluá-la:
+Sendo função, podemos chamá-la com um argumento do certo tipo, por exemplo como o $3\in\nats$, e evaluá-la:
 $$
 \paren{F(25)}(3) = 28.
 $$
@@ -24182,25 +24206,6 @@ $25 + 3 = 28$.
 \endexercise
 %%}}}
 
-%%{{{ With lambdas 
-\note Com lambdas.
-\ii{função!anônima}%
-Observe que na definição de $F(w)$, apareceu a frase
-``aquela função $f$\dots''.
-Assim baptizamos temporariamente essa função com um nome (``$f$'') à toa:
-apenas para referir a ela e retorná-la.
-Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
-e (logo) mais legível:
-$$
-F(w) = \lam x {w + x} \quad \eqtype \reals \to \reals
-$$
-Observe que no lado direito aparece uma função anônima.
-Novamente mostrando código em Python, escrevemos:
-\iipl Python
-\sourcecode higherlam.py;
-Não ficou melhor?
-%%}}}
-
 %%{{{ x: find_expressions_with_given_types_higher_order 
 \exercise.
 \label{find_expressions_with_given_types_higher_order}%
@@ -24208,12 +24213,12 @@ Escreva $\lambda$-expressões que podem ser consideradas como funções com os
 tipos seguintes:
 $$
 \align
-F_1&: \reals \to \reals \\
-F_2&: \reals \to (\reals \to \reals) \\
-F_3&: (\reals \to \reals) \to \reals \\
-F_4&: (\reals \to \reals) \to (\reals \to \reals) \\
-F_5&: (\reals^2 \to \reals) \to \reals \\
-F_6&: (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
+F_1&\eqtype \reals \to \reals \\
+F_2&\eqtype \reals \to (\reals \to \reals) \\
+F_3&\eqtype (\reals \to \reals) \to \reals \\
+F_4&\eqtype (\reals \to \reals) \to (\reals \to \reals) \\
+F_5&\eqtype (\reals^2 \to \reals) \to \reals \\
+F_6&\eqtype (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
 \endalign
 $$
 
@@ -24231,14 +24236,11 @@ diferentes que tu consegues.
 Cuidado: para uns deles não é possível achar nenhuma!
 $$
 \align
-&: A \to A \\
-&: (A \times B) \to A \\
-&: (A \times B) \to B \\
-&: (A \times B) \to (B \times A) \\
 &: A \to B \\
 &: A \to (B \to A) \\
 &: A \to (B \to B) \\
 &: (A \to A) \to A \\
+&: A \to (A \to A) \\
 &: A \to \bigparen{B \to \paren{(A\to B) \times (A\union C) \times \nats}} \\
 &: (A \to (B \to C) \to ((A\times B)\to C)) \\
 &: ((A\times B)\to C) \to (A \to (B \to C))
@@ -24296,8 +24298,7 @@ ou seja, lá temos funções de ordem superior---e logo, felicidade.
 %%}}}
 
 \blah.
-Funções de ordem superior não é algo tão desconhecido
-como talvez aparece.
+Funções de ordem superior não é algo tão desconhecido como talvez parece.
 O leitor já está acostumado com os operadores nos exemplos seguintes:
 
 %%{{{ eg: higher_order_example_composition 
@@ -24461,7 +24462,7 @@ da $f$, ou sua versão currificada.
 
 %%{{{ Q: How can we define the generic curry and uncurry functions? 
 \question.
-Usando a notação-$\lambda$ como podemos definir funções
+Usando a $\lambda$-notação como podemos definir funções
 $\curry, \uncurry$ para a situação mais genérica onde
 a função de dois argumentos é do tipo $(A \times B) \to C$?
 %%}}}
@@ -24541,7 +24542,7 @@ Deixo a definição da $\uncurry$ pra ti:
 
 %%{{{ x: uncurry_using_lambdas 
 \exercise.
-Usando a notação-$\lambda$ defina a $\uncurry$.
+Usando a $\lambda$-notação defina a $\uncurry$.
 
 \hint
 Queremos definir a
@@ -24580,7 +24581,7 @@ e preciso escolher como denotar a sua entrada.
 E aqui tenho duas abordagens razoáveis:
 ou escolher alguma variável como $w,t,\vec w, \vec t$, etc.,
 onde ela terá o tipo $A\times B$;
-ou usar a notação-$\lambda$ de aridades maiores escrevendo
+ou usar a $\lambda$-notação de aridades maiores escrevendo
 $\tup{a,b}$ para a arbitrária entrada dessa função.
 Vamos escolher segunda opção (se quiser, pode escolher a primeira).
 Continue!
