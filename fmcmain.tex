@@ -21867,9 +21867,9 @@ e logo $\finvp{\finv f} = f$.
 \endexercise
 %%}}}
 
-%%{{{ thm: finv_inverse_laws 
+%%{{{ thm: finv_laws 
 \theorem Leis da inversa.
-\label{finv_inverse_laws}%
+\label{finv_laws}%
 Para toda $f : A \bijto B$,
 temos:
 $$
@@ -21906,6 +21906,32 @@ Agora tomando $y\in B$ calculamos a outra numa maneira diferente:
 \qed
 %%}}}
 
+%%{{{ thm: finv_is_unique_atleastonelaw_if_f_bij 
+\theorem Unicidade da função inversa.
+\label{finv_is_unique_atleastonelaw_if_f_bij}%
+Seja $f : A \bijto B$.
+Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis da
+inversa~(\ref{finv_laws}), então $f' = \finv f$.
+\proof.
+Caso que $f'$ satisfaz a (L):
+\compute
+f'
+&= f' \of \idof B          \by {lei da $\idof B$}
+&= f' \of (f \of \finv f)  \by {(R) da $\finv f$}
+&= (f' \of f) \of \finv f  \by {assoc.}
+&= \idof A \of \finv f     \by {(L) da $f'$}
+&= \finv f.                \by {lei da $\idof A$}
+\intertext{E caso que $f'$ satisfaz a (R):}
+f'
+&= \idof A \of f'          \by {lei da $\idof A$}
+&= (\finv f \of f) \of f'  \by {(L) da $\finv f$}
+&= \finv f \of (f \of f')  \by {assoc.}
+&= \finv f \of \idof B     \by {(R) da $f'$}
+&= \finv f.                \by {lei da $\idof B$}
+\endcompute
+\qed
+%%}}}
+
 %%{{{ x: finv_of_fcompose 
 \exercise Inversa da composição.
 \label{finv_of_fcompose}%
@@ -21913,7 +21939,7 @@ Sejam $
 \cd
 A \ar[r, tail, two heads, "f"] \| B \ar[r, tail, two heads, "g"] \| C
 \endcd
-$.
+$\!.
 Descreva a $\finvp{g\of f}$ em termos das $\finv f$ e $\finv g$ e prove
 tua afirmação.
 
@@ -21978,32 +22004,6 @@ Calculamos:
 \endcompute
 
 \endexercise
-%%}}}
-
-%%{{{ thm: finv_is_unique 
-\theorem Unicidade da função inversa.
-\label{finv_is_unique}%
-Seja $f : A \bijto B$.
-Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis da
-inversa~(\ref{finv_inverse_laws}), então $f' = \finv f$.
-\proof.
-Caso que $f'$ satisfaz a (L):
-\compute
-f'
-&= f' \of \idof B          \by {lei da $\idof B$}
-&= f' \of (f \of \finv f)  \by {(R) da $\finv f$}
-&= (f' \of f) \of \finv f  \by {assoc.}
-&= \idof A \of \finv f     \by {(L) da $f'$}
-&= \finv f.                \by {lei da $\idof A$}
-\intertext{E caso que $f'$ satisfaz a (R):}
-f'
-&= \idof A \of f'          \by {lei da $\idof A$}
-&= (\finv f \of f) \of f'  \by {(L) da $\finv f$}
-&= \finv f \of (f \of f')  \by {assoc.}
-&= \finv f \of \idof B     \by {(R) da $f'$}
-&= \finv f.                \by {lei da $\idof B$}
-\endcompute
-\qed
 %%}}}
 
 %%{{{ cor: finv_of_id 
@@ -22380,6 +22380,7 @@ teoremas.  Pode viajar a vontade!
 
 %%{{{ Retracções, secções 
 \section Retracções, secções.
+\label{Retractions_sections}%
 
 %%{{{ df: retractions_sections 
 \definition Retracções, secções.
@@ -22473,6 +22474,21 @@ a $f$ é sobrejetora pois mapeia $s(b) \mapstoarrow f b$.
 \endexercise
 %%}}}
 
+\TODO Como chegar na definição alternativa.
+% Exceto um detalhe que ainda falta verificar:
+
+%%{{{ x: finv_altdef_missing_detail 
+\exercise.
+\label{finv_altdef_missing_detail}%
+O que mais falta demonstrar?
+Apenas enuncie o que é, sem demonstrar.
+
+\hint
+A $\finv f$ foi definida apenas quando $f$ é bijetora.
+
+\endexercise
+%%}}}
+
 %%{{{ x: retraction_and_section_implies_inverse 
 \exercise.
 Seja $f : A \to B$ tal que $r,s : A \from B$ são retracção
@@ -22480,7 +22496,7 @@ e secção da $f$ respectivamente.
 Podemos concluir a afirmação seguinte?:
 $$
 \text{$f$ é bijetora}
-\qquad\mland\qquad
+\quad\mland\quad
 \text{$r = s = \finv f$}.
 $$
 Se sim, prove; se não, refute.
@@ -22501,7 +22517,7 @@ $$
 Como $f$ tem retracção, ela é injetora;
 e como ela tem secção, ela é sobrejetora;
 logo $f$ é bijetora e a $\finv f$ é definida.
-Aplicamos então o~\ref{finv_is_unique} com $f'\asseq r$
+Aplicamos então o~\ref{finv_is_unique_atleastonelaw_if_f_bij} com $f'\asseq r$
 e com $f'\asseq s$ e ganhamos:
 $$
 r = \finv f = s.
