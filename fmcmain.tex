@@ -22006,135 +22006,6 @@ f'
 Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
 %%}}}
 
-%%{{{ df: retractions_sections
-\definition Retracções, secções.
-\label{retractions_sections}%
-\label{retraction}%
-\tdefined{função}[retracção]%
-\tdefined{função}[secção]%
-\tdefined{função}[inversa-esquerda]%
-\tdefined{função}[inversa-direita]%
-Seja $f : A \to B$.
-Se $r : B \to A$ satisfaz a
-$$
-r \of f = \idof A
-$$
-então chamamo-la uma \dterm{retracção} ou uma
-\dterm{inversa-esquerda} da $f$.
-Se $s : B \to A$ satisfaz a
-$$
-f \of s = \idof B
-$$
-então chamamo-la uma \dterm{secção} ou uma
-\dterm{inversa-direita} da $f$.
-%%}}}
-
-\blah.
-Ganhamos imediatamente dois corolários fáceis dos teoremas
-\refn{injection_iff_mono}--\refn{surjection_iff_epic}.
-
-%%{{{ cor: retraction_implies_injection 
-\corollary.
-\label{retraction_implies_injection}%
-Se $f : A \to B$ tem retracção, então $f$ é injetora.
-\proof.
-Seja $r$ uma retracção da $f$.
-Temos
-$$
-f \of g = f \of h
-\implies r \of f \of g = r \of f \of h
-\implies \idof A \of g = id_A \of h
-\implies g = h
-$$
-e logo $f$ é injetora pelo~\ref{injection_iff_mono}.
-\qed
-%%}}}
-
-%%{{{ cor: section_implies_surjection 
-\corollary.
-\label{section_implies_surjection}%
-Se $f : A \to B$ tem secção, então $f$ é sobrejetora.
-\proof.
-Seja $s$ uma secção da $f$.
-Temos
-$$
-g \of f = h \of f
-\implies g \of f \of s = h \of f \of s
-\implies g \of \idof B = h \of \idof B
-\implies g = h
-$$
-e logo $f$ é sobrejetora pelo~\ref{surjection_iff_epic}.
-\qed
-%%}}}
-
-%%{{{ x: retraction_implies_injection_elementary_proof 
-\exercise.
-\label{retraction_implies_injection_elementary_proof}%
-Prove o~\ref{retraction_implies_injection} elementariamente
-(sem o~\refn{injection_iff_mono}).
-
-\solution
-Suponha que $f : A \to B$ e que $r : B \to A$ é uma retracção da $f$.
-Tome $x, x' \in A$ tais que $f(x) = f(x')$.
-Logo $r(f(x)) = r(f(x'))$.
-Logo $(r\of f)(x) = (r\of f)(x')$.
-Como $r$ é retracção, temos $\idof A(x) = \idof A(x')$, ou seja, $x = x'$ e $f$ é injetora.
-
-\endexercise
-%%}}}
-
-%%{{{ x: section_implies_surjection_elementary_proof 
-\exercise.
-\label{section_implies_surjection_elementary_proof}%
-Prove o~\ref{section_implies_surjection} elementariamente
-(sem o~\refn{surjection_iff_epic}).
-
-\solution
-Suponha que $f : A \to B$ e que $s : B \to A$ é uma secção da $f$.
-Tome $b \in B$.
-Logo $s(b) \in A$, e como $s$ secção, temos $f(s(b)) = b$, ou seja
-a $f$ é sobrejetora pois mapeia $s(b) \mapstoarrow f b$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: retraction_and_section_implies_inverse 
-\exercise.
-Seja $f : A \to B$ tal que $r,s : A \from B$ são retracção
-e secção da $f$ respectivamente.
-Podemos concluir a afirmação seguinte?:
-$$
-\text{$f$ é bijetora}
-\qquad\mland\qquad
-\text{$r = s = \finv f$}.
-$$
-Se sim, prove; se não, refute.
-
-\hint
-Primeiramente observe:
-$$
-\rightbrace{
-\aligned
-\text{$f$ tem retracção} &\implies   \text{$f$ é injetora} \\
-\text{$f$ tem secção}    &\implies   \text{$f$ é sobrejetora}
-\endaligned
-}
-\implies \text{$f$ bijetora}.
-$$
-
-\solution
-Como $f$ tem retracção, ela é injetora;
-e como ela tem secção, ela é sobrejetora;
-logo $f$ é bijetora e a $\finv f$ é definida.
-Aplicamos então o~\ref{finv_is_unique} com $f'\asseq r$ e com $f'\asseq s$
-ganhamos:
-$$
-r = \finv f = s.
-$$
-
-\endexercise
-%%}}}
-
 \endsection
 %%}}}
 
@@ -22498,6 +22369,141 @@ Mas com essa experiência podemos voltar e repensar
 em mais motivações e influências para chegar nesses
 conceitos, e mais provas para demonstrar nossos
 teoremas.  Pode viajar a vontade!
+
+\endsection
+%%}}}
+
+%%{{{ Retracções, secções 
+\section Retracções, secções.
+
+%%{{{ df: retractions_sections 
+\definition Retracções, secções.
+\label{retractions_sections}%
+\label{retraction}%
+\tdefined{função}[retracção]%
+\tdefined{função}[secção]%
+\tdefined{função}[inversa-esquerda]%
+\tdefined{função}[inversa-direita]%
+Seja $f : A \to B$.
+Se $r : B \to A$ satisfaz a
+$$
+r \of f = \idof A
+$$
+então chamamo-la uma \dterm{retracção} ou uma
+\dterm{inversa-esquerda} da $f$.
+Se $s : B \to A$ satisfaz a
+$$
+f \of s = \idof B
+$$
+então chamamo-la uma \dterm{secção} ou uma
+\dterm{inversa-direita} da $f$.
+%%}}}
+
+\blah.
+Ganhamos imediatamente dois corolários fáceis dos teoremas
+\refn{injection_iff_mono}--\refn{surjection_iff_epic}.
+
+%%{{{ cor: retraction_implies_injection 
+\corollary.
+\label{retraction_implies_injection}%
+Se $f : A \to B$ tem retracção, então $f$ é injetora.
+\proof.
+Seja $r$ uma retracção da $f$.
+Temos
+$$
+f \of g = f \of h
+\implies r \of f \of g = r \of f \of h
+\implies \idof A \of g = id_A \of h
+\implies g = h
+$$
+e logo $f$ é injetora pelo~\ref{injection_iff_mono}.
+\qed
+%%}}}
+
+%%{{{ cor: section_implies_surjection 
+\corollary.
+\label{section_implies_surjection}%
+Se $f : A \to B$ tem secção, então $f$ é sobrejetora.
+\proof.
+Seja $s$ uma secção da $f$.
+Temos
+$$
+g \of f = h \of f
+\implies g \of f \of s = h \of f \of s
+\implies g \of \idof B = h \of \idof B
+\implies g = h
+$$
+e logo $f$ é sobrejetora pelo~\ref{surjection_iff_epic}.
+\qed
+%%}}}
+
+%%{{{ x: retraction_implies_injection_elementary_proof 
+\exercise.
+\label{retraction_implies_injection_elementary_proof}%
+Prove o~\ref{retraction_implies_injection} elementariamente
+(sem o~\refn{injection_iff_mono}).
+
+\solution
+Suponha que $f : A \to B$ e que $r : B \to A$ é uma retracção da $f$.
+Tome $x, x' \in A$ tais que $f(x) = f(x')$.
+Logo $r(f(x)) = r(f(x'))$.
+Logo $(r\of f)(x) = (r\of f)(x')$.
+Como $r$ é retracção, temos $\idof A(x) = \idof A(x')$, ou seja, $x = x'$ e $f$ é injetora.
+
+\endexercise
+%%}}}
+
+%%{{{ x: section_implies_surjection_elementary_proof 
+\exercise.
+\label{section_implies_surjection_elementary_proof}%
+Prove o~\ref{section_implies_surjection} elementariamente
+(sem o~\refn{surjection_iff_epic}).
+
+\solution
+Suponha que $f : A \to B$ e que $s : B \to A$ é uma secção da $f$.
+Tome $b \in B$.
+Logo $s(b) \in A$, e como $s$ secção, temos $f(s(b)) = b$, ou seja
+a $f$ é sobrejetora pois mapeia $s(b) \mapstoarrow f b$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: retraction_and_section_implies_inverse 
+\exercise.
+Seja $f : A \to B$ tal que $r,s : A \from B$ são retracção
+e secção da $f$ respectivamente.
+Podemos concluir a afirmação seguinte?:
+$$
+\text{$f$ é bijetora}
+\qquad\mland\qquad
+\text{$r = s = \finv f$}.
+$$
+Se sim, prove; se não, refute.
+
+\hint
+Primeiramente observe:
+$$
+\rightbrace{
+\aligned
+\text{$f$ tem retracção} &\implies   \text{$f$ é injetora} \\
+\text{$f$ tem secção}    &\implies   \text{$f$ é sobrejetora}
+\endaligned
+}
+\implies \text{$f$ bijetora}.
+$$
+
+\solution
+Como $f$ tem retracção, ela é injetora;
+e como ela tem secção, ela é sobrejetora;
+logo $f$ é bijetora e a $\finv f$ é definida.
+Aplicamos então o~\ref{finv_is_unique} com $f'\asseq r$
+e com $f'\asseq s$ e ganhamos:
+$$
+r = \finv f = s.
+$$
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
