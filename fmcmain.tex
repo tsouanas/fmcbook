@@ -664,6 +664,7 @@ Todos os números \emph{naturais}, cuja totalidade simbolizamos com $\nats$.
 
 %%{{{ Arithmetic expressions: syntax vs. semantics 
 \section Expressões aritméticas: sintaxe vs.~semântica.
+\label{arithmetic_expressions_syntax_vs_semantics}%
 
 %%{{{ A first example expression 
 \note.
@@ -759,8 +760,9 @@ Mas como expressões, são diferentes, e logo sem essa convenção,
 $a + b + c$ não representaria nenhuma expressão de aritmética!
 %%}}}
 
-%%{{{
+%%{{{ x: syneq or semeq? 
 \exercise.
+\label{syneq_or_semeq}%
 Sejam $a,b,c$ números naturais.
 Usando $=$ para igualdade semântica e $\syneq$ para igualdade
 sintáctica, decida para cada uma das afirmações seguintes
@@ -17524,7 +17526,7 @@ Consideramos então que a função $f$ associa \emph{para todo} elemento $a \in 
 \definition.
 \label{function_notation}%
 \sdefined {\sholed f : \sholed A \to \sholed B} {$f$ é uma função de $A$ para $B$}%
-\sdefined {\sholed A \toarrow {\sholed f} \sholed B} {$f$ é uma função de $A$ para $B$}%
+\sdefined {\sholed A \toby {\sholed f} \sholed B} {$f$ é uma função de $A$ para $B$}%
 \sdefined {\dom {\sholed f}} {o domínio da função $f$}%
 \sdefined {\cod {\sholed f}} {o codomínio da função $f$}%
 \tdefined{ponto}[de conjunto]%
@@ -17532,12 +17534,12 @@ Escrevemos
 $$
 f : A \to B
 \qqqqtext{e sinonimamente}
-A \toarrow f B
+A \toby f B
 $$
 para dizer que \emph{$f$ é uma função de $A$ para $B$},
 e escrevemos
 $$
-x \mapstoarrow f y
+x \mapstoby f y
 $$
 para dizer que \emph{$f$ mapeia o $x$ para o $y$}.
 Definimos também as operações $\dom$ e $\cod$
@@ -17568,7 +17570,7 @@ declarados os conjuntos $A,B$, a mesma frase entendemos com um implícito
 ``sejam conjuntos $A,B$ e funções \dots''.
 Do mesmo jeito, a frase
 $$
-\text{<<{Sejam $A \toarrow f B \toarrow g C$.}>>}
+\text{<<{Sejam $A \toby f B \toby g C$.}>>}
 $$
 pode ser equivalente à frase
 $$
@@ -17661,8 +17663,8 @@ E graças a outra frase, ``para todo $x\in A$'', sabemos que tem
 \endgraf
 Resumindo: para todo $x\in\dom f$,
 \beginil
-\item{(1)} existe pelo menos um $y\in\cod f$ tal que $x \mapstoarrow f y$ (\dterm{totalidade});
-\item{(2)} existe no máximo  um $y\in\cod f$ tal que $x \mapstoarrow f y$ (\dterm{determinabilidade}).
+\item{(1)} existe pelo menos um $y\in\cod f$ tal que $x \mapstoby f y$ (\dterm{totalidade});
+\item{(2)} existe no máximo  um $y\in\cod f$ tal que $x \mapstoby f y$ (\dterm{determinabilidade}).
 \endil
 Quando o (1) acontece dizemos que \emph{a $f$ é definida em todo o seu domínio}.
 %%}}}
@@ -18001,7 +18003,7 @@ Digamos que $f=g$ sse
 Podemos pensar então que tem duas religiões, que vamos chamar
 aqui de Conjuntista e de Categorista.  Cada um tem sua idéia
 do que se trata uma função.
-Note que cada um vai ler as notações $f : A \to B$ e $A \toarrow f B$
+Note que cada um vai ler as notações $f : A \to B$ e $A \toby f B$
 numa maneira diferente:
 $$
 \align
@@ -18086,7 +18088,7 @@ nele.
 %%{{{ eg: internal_diagram_example 
 \example.
 \label{internal_diagram_example}%
-Aqui um diagrama interno de duas funções $A \toarrow f B \toarrow g C$:
+Aqui um diagrama interno de duas funções $A \toby f B \toby g C$:
 $$
 \tikzpicture
 \tikzi internaldiagram;
@@ -18161,7 +18163,7 @@ Nesse caso usamos \dterm{diagramas externos}.
 O diagrama externo da configuração do~\ref{internal_diagram_example}
 é o seguinte:
 $$
-A \tolongarrow f B \tolongarrow g C.
+A \tolongby f B \tolongby g C.
 $$
 \endexample
 %%}}}
@@ -19365,7 +19367,7 @@ para enfatizar que não tem nada (literalmente) errado nisso.
 \note Composição com black boxes.
 Suponha que temos uma configuração de conjuntos e funções assim:
 $$
-A \toarrow f B \toarrow g C.
+A \toby f B \toby g C.
 $$
 Note então que a saida da $f$ pode ser usada como entrada para
 a $g$:
@@ -19397,7 +19399,7 @@ Formalmente, chegamos na definição seguinte.
 \tdefined{função}[composição]%
 \iisee{composição!de funções}{função, composição}%
 Sejam
-$A \toarrow f B \toarrow g C$.
+$A \toby f B \toby g C$.
 Definimos a função $g\of f : A\to C$ pela
 $$
 \paren{g\of f}(x) \defeq g\paren{f(x)}.
@@ -19418,8 +19420,8 @@ a $f$ (ou ``da $g$ com $f$'', ou até ``$g$ \emph{de} $f$'').
 \label{gof_not_fog}%
 \label{digramatic_notation}%
 Escrevemos $g\of f$ e não $f\of g$ para a composição na~\ref{fcompose}!
-Então quando temos $A\toarrow f B\toarrow g C$, a composição é
-$A \toarrow {g\of f} C$, que parece o oposto da ordem das setinhas.
+Então quando temos $A\toby f B\toby g C$, a composição é
+$A \toby {g\of f} C$, que parece o oposto da ordem das setinhas.
 Definimos a notação alternativa
 $$
 f \dcom g \defeq g\of f,
@@ -19427,7 +19429,7 @@ $$
 chamada \dterm{notação diagramática}\ii{composição}[diagramática]\iisee{diagramática}{composição},
 pois concorda com as setinhas do diagrama:
 $$
-A \toarrow {f \dcom g} C.
+A \toby {f \dcom g} C.
 $$
 Mas vamos principalmente usar a notação $g\of f$ mesmo.
 %%}}}
@@ -19435,7 +19437,7 @@ Mas vamos principalmente usar a notação $g\of f$ mesmo.
 %%{{{ x: when_is_fog_defined 
 \exercise.
 \label{when_is_fog_defined}%
-Sejam $A \toarrow f B \toarrow g C$.
+Sejam $A \toby f B \toby g C$.
 Qual função é a $f \of g$?
 
 \solution
@@ -19450,7 +19452,7 @@ $A = C$.
 \note Definindo funções como composições.
 Como $\of$ é uma operação de funções, ganhamos então mais uma maneira
 de definir funções.
-Dadas componíveis funções $A \toarrow f B \toarrow g C$ podemos
+Dadas componíveis funções $A \toby f B \toby g C$ podemos
 definir uma função $h : A \to C$ apenas escrevendo:
 $$
 \text{<<Seja $h = g\of f$.>>}
@@ -19606,11 +19608,98 @@ que definimos na~\ref{inclusion_function}.
 \endexercise
 %%}}}
 
+%%{{{ lazier_clearer_functional_notation 
+\note Mais preguiça (clareza) na notação funcional.
+\label{lazier_clearer_functional_notation}%
+{\ii{juxtaposição}}%
+{\ii{notação}[funcional]}%
+Como tu já se acostumou---eu espero---as vezes denotamos a aplicação duma
+função no seu argumento silenciosamente, ou seja, por \dterm{juxtaposição:}
+escrevemos $f x$ em vez do (mais comum em matemática clássica) $f(x)$.
+Agora que temos \emph{uma operação padrão} entre funções queremos
+pegar emprestada a mesma preguiça e denotar por juxtaposição a
+composição também:
+$$
+\msqq{fg}
+\qqtext{quis dizer}
+\msqq{f \of g}.
+$$
+Com essa convenção, o que seria o
+\sqq{$f g x$}?
+Acontece que ambas as interpretações
+$$
+\msqq{(f g) x}
+\qqtext{ou}
+\msqq{f (g x)}
+$$
+são iguais nesse caso (deu sorte \emph{extensional}\/),
+mas \emph{intensionalmente} falando elas correspondem
+nas notações tradicionais
+$$
+\msqq{(f \of g) (x)}
+\qqtext{e}
+\msqq{f (g(x))}
+$$
+respectivamente.
+E até pior---nossa preguiça não tem fim---entre números também
+temos uma operação padrão que denotamos por juxtaposição:
+$$
+xy
+\qqtext{é o produto}
+x\ntimes y.
+$$
+E supondo que $f,g:\reals\to\reals$ e $x,y\in\reals$,
+a expressão
+$$
+\msqq{g f x y}
+$$
+denota o que?
+Sem parenteses, nada, por isso vamos escrever
+$$
+\msqq{g \fa f \fa (xy)}
+\qqtext{ou}
+\msqq{(gf)(xy)}
+$$
+que denotam o
+$$
+(g \of f)(x\ntimes y)
+\qqtext{que é igual ao}
+g (f (x\ntimes y))
+$$
+pela definição da $\of$.
+Eu vou ficar misturando a notação mais tradicional e a notação mais
+``funcional'' dependendo do contexto e assim vamos se acostumar com ambas.
+%%}}}
+
+\blah.
+Bora ver uns examplos para resumir:
+
+%%{{{ eg 
+\example.
+Sejam $f,g,h:\reals\to\reals$ e $x,y,z\in\reals$.
+Usando \sq{$\syneq$} para igualdade sintáctica e \sq{$=$} para igualdade
+semántica (veja~\ref{arithmetic_expressions_syntax_vs_semantics}) temos:
+$$
+\align
+fx         &\syneq f(x) \\
+(fg)x      &\syneq (f\of g)(x) = f(g(x))\\
+f(gx)      &\syneq f(g(x)) \\
+fgh        &\syneq (f\of g\of h) \\
+f(ghx)     &\syneq f ((g\of h)(x)) = f(g(h(x))) \\
+(fg)h(xy)  &\syneq ((f\of g) \of h)(x\ntimes y)
+                   = (f\of g)(h(x\ntimes y)) = f(g(h(x\ntimes y))).
+\endalign
+$$
+Espero que ficou claro.
+\endexample
+%%}}}
+
 \endsection
 %%}}}
 
-%%{{{ Functions for free 
+%%{{{ Functions_for_free 
 \section Funções de graça.
+\label{Functions_for_free}%
 
 \blah.
 Investigamos aqui umas primeiras funções garantidas para existir assim
@@ -19691,7 +19780,7 @@ a~\ref{constant_function}, mas não com a definição do exercício.
 %%{{{ x: constant_function_definitions_almost_agree 
 \exercise.
 \label{constant_function_definitions_almost_agree}%
-Sejam $A \toarrow f B$ com $A \neq \emptyset$.
+Sejam $A \toby f B$ com $A \neq \emptyset$.
 Prove que:
 $$
 \text{$f$ constante}
@@ -19821,8 +19910,8 @@ De fato, dependendo de caso, as vezes definimos a função característica
 com esses valores invertidos!  Isso é muito comum em teoria de recursão
 (veja~\cite{kleeneIM} por exemplo), mas não só:
 nos shells de Unix\ii{Unix}[shell]\ii{main},
-também o valor $0$ representa o ``true'' (``deu certo'')
-e cada valor positivo o ``false'' (``deu errado'').%
+também o valor $0$ representa o ``true'' (ou ``deu certo'')
+e cada valor positivo o ``false'' (ou ``deu errado'').%
 \footnote{%
 Nesse caso essa escolha é obviamente melhor, pois sabendo que ``deu certo'',
 em geral não perguntamos <<por que deu certo?>>; mas se der errado, queremos
@@ -20061,21 +20150,21 @@ Mas intuição nunca provou nada sozinha, então bora provar essas afirmações!
 \note Associatividade.
 Suponha que temos funções
 $$
-A \toarrow f B \toarrow g C \toarrow h D.
+A \toby f B \toby g C \toby h D.
 $$
 Podemos entao formar as composições $g\of f$ e $h\of g$.
 Temos então:
 $$
-A \toarrow {g\of f} C \toarrow h D
+A \toby {g\of f} C \toby h D
 \qqquad
-A \toarrow f B \toarrow {h\of g} D.
+A \toby f B \toby {h\of g} D.
 $$
 Compondo as funções do primeiro diagrama criamos a função $h\of(g\of f)$,
 e compondo aquelas do segundo criamos a $(h\of g)\of f$:
 $$
-A \tolongarrow {h\of (g\of f)} D
+A \tolongby {h\of (g\of f)} D
 \qqquad
-A \tolongarrow {(h\of g)\of f} D.
+A \tolongby {(h\of g)\of f} D.
 $$
 Queremos saber se as duas funções são iguais.
 Vamos pensar sobre isso usando black boxes.
@@ -20134,7 +20223,7 @@ fielmente as definições.
 \label{fcom_associativity_law}%
 Sejam
 $$
-A \toarrow f B \toarrow g C \toarrow h D.
+A \toby f B \toby g C \toby h D.
 $$
 Então
 $$
@@ -20520,7 +20609,7 @@ Vamos agora ver a mesma idéia usando buracos, sem black boxes.
 \note Aplicação parcial usando buracos.
 Considere uma função $f$ de aridade 3:
 $$
-A \times B \times C \tolongarrow f D.
+A \times B \times C \tolongby f D.
 $$
 Lembre-se que
 $$
@@ -20672,7 +20761,7 @@ Afirme a lei da associatividade da~\refn{Composition_laws}
 usando a comutatividade dum diagrama.
 
 \solution
-Sejam $A\toarrow f B \toarrow g C \toarrow h D$.
+Sejam $A\toby f B \toby g C \toby h D$.
 Basta desenhar um diagrama cuja comutatividade quis dizer
 $h \of (g \of f) = (h \of g) \of f$.
 É o seguinte:
@@ -20868,15 +20957,15 @@ a adição nos naturais.
 Sejam
 $$
 \gather
-A \tolongarrow f B\\
-C \tolongarrow g D
+A \tolongby f B\\
+C \tolongby g D
 \endgather
 $$
 Chamamos \dterm{função-produto da $f$ ``cross'' $g$},
 que denotamos por $f \cross g$,
 a função
 $$
-A \times C \tolongarrow {f\cross g} B \times D
+A \times C \tolongby {f\cross g} B \times D
 $$
 definida pela
 $$
@@ -20948,13 +21037,13 @@ sobre nossas funções $f,g$ na definição.
 \sdefined {\fpair {\sholed f} {\sholed g}} {a função-par $f$ ``pair'' $g$}%
 Sejam
 $$
-A \fromlongarrow f D \tolongarrow g B
+A \fromlongby f D \tolongby g B
 $$
 Chamamos \dterm{função-par da $f$ ``pair'' $g$},
 que denotamos por $\fpair f g$,
 a função
 $$
-D \tolongarrow {\fpair f g} A\times B
+D \tolongby {\fpair f g} A\times B
 $$
 definida pela
 $$
@@ -21019,7 +21108,7 @@ mas isso faz parte do próprio desafio!
 }
 Desenhamos então:
 $$
-\phantom{A \tolongarrow ? {}} A \cross A \tolongarrow {f \cross g} B \cross B \tolongarrow {\ast} B.
+\phantom{A \tolongby ? {}} A \cross A \tolongby {f \cross g} B \cross B \tolongby {\ast} B.
 $$
 O que \emph{interessante} podemos definir agora?
 Com certeza uma composição tem chances boas de ser interessante,
@@ -21033,7 +21122,7 @@ para brincar com as arvores; \emph{ou podemos perceber que talvez
 falta apenas uma setinha para nos ajudar}.
 Se a gente tivesse uma setinha interessante assim:
 $$
-A \alert{{}\tolongarrow ?{}} A \cross A \tolongarrow {f \cross g} B \cross B \tolongarrow {\ast} B,
+A \alert{{}\tolongby ?{}} A \cross A \tolongby {f \cross g} B \cross B \tolongby {\ast} B,
 $$
 a gente teria um candidáto ótimo para algo interessante, pois
 assim a composição de todas essas setinhas tem o tipo desejado.
@@ -21054,7 +21143,7 @@ descrever explicitamente o seu comportamento?
 \solution
 Usando $\lambda$, a função que procuramos é a seguinte:
 $$
-A \tolongarrow {\lam x {\tup{x,x}}} A \cross A.
+A \tolongby {\lam x {\tup{x,x}}} A \cross A.
 $$
 Essa função é a $\fpair {\idof A} {\idof A}$.
 
@@ -21516,7 +21605,7 @@ Mas isso é, supondo que $A\neq\emptyset$.
 O que acontece se $A=\emptyset$ e $B\neq\emptyset$?
 Botando esse ``único'' na definição, uma função
 $$
-\emptyset\toarrow f B
+\emptyset\toby f B
 $$
 vai ser constante sse $B$ é um singleton.
 Sem o ``único'', ela vai ser constante sse $B\neq\emptyset$.
@@ -21606,7 +21695,7 @@ pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
 %%{{{ epimono_factorization_teaser 
 \problem.
 \label{epimono_factorization_teaser}%
-Sejam $A \toarrow f B$.
+Sejam $A \toby f B$.
 Então existem: injecção $m$, surjecção $e$, e conjunto $C$
 tais que o diagrama seguinte comuta:
 $$
@@ -21721,7 +21810,7 @@ $A \bijto \pset A$ e nenhuma função $\pset A \bijto A$.
 Na verdade basta apenas demonstrar apenas uma das duas afirmações,
 pois quando temos uma função bijetora de $A$ para $\pset A$
 também temos ``de graça'' uma bijetora de $\pset A$ para $A$:
-sua \emph{inversa}, que vamos conhecer logo, na~\ref{Inverses_pointful}.
+sua \emph{inversa}, que vamos conhecer logo, na~\ref{Inverse_functions}.
 Mas como conseguimos então \emph{demonstrar} que não existe bijecção
 entre o $A$ e o $\pset A$?
 Isso eu vou te deixar pensar.
@@ -21833,9 +21922,9 @@ compatibilidade para a $f\union g$ ser bem definida.
 \endproblems
 %%}}}
 
-%%{{{ Inverses_pointful---``from the inside'' 
-\section Inversas com pontos---``por dentro''.
-\label{Inverses_pointful}%
+%%{{{ Inverse_functions 
+\section Funções inversas.
+\label{Inverse_functions}%
 
 \blah.
 Informalmente, para construir a inversa duma função
@@ -21851,7 +21940,7 @@ Vamos estudar essa ideia formalmente agora.
 Seja função bijetora $f : A \bijto B$.
 Definimos a função $\finv f : B \to A$ pela
 $$
-\finv f (y) \defeq \text{aquele $x\in A$ tal que $f(x) = y$}.
+\finv f (y) \defeq \text{aquele $x\in A$ que $x \mapstoby f y$}.
 $$
 Ou, \emph{equivalentemente}, pela
 $$
@@ -21859,7 +21948,7 @@ $$
 $$
 Com outra notação:
 $$
-y \mapstoarrow {\finv f} x \defiff x \mapstoarrow f y.
+y \mapstoby {\finv f} x \defiff x \mapstoby f y.
 $$
 Chamamos a $\finv f$ a \dterm{função inversa} da $f$.
 %%}}}
@@ -21891,7 +21980,7 @@ que possivelmente nos permite enxergar a situação numa maneira diferente.
 Similarmente, usando a notação das setinhas barradas podemos enxergar
 a equivalência assim:
 $$
-x \mapsfromarrow {\finv f} y \defiff x \mapstoarrow f y.
+x \mapsfromby {\finv f} y \defiff x \mapstoby f y.
 $$
 %%}}}
 
@@ -21964,65 +22053,81 @@ e logo $\finvp{\finv f} = f$.
 \endexercise
 %%}}}
 
-%%{{{ thm: finv_laws 
-\theorem Leis da inversa.
-\label{finv_laws}%
-Para toda $f : A \bijto B$,
-temos:
+%%{{{ x: finv_laws_pointful 
+\exercise Leis da inversa (com pontos).
+\label{finv_laws_pointful}%
+Seja $f: A \bijto B$.
+Podo todo $a\in A$ e todo $b\in B$, temos:
 $$
 \xxalignat4
-\textrm{(L)} && \finv f \of f &= \idof A &
-f \of \finv f &= \idof B. &&\textrm{(R)}
+\textrm{(L)} && \finv f (f a) &= a &
+f (\finv f b) &= b. &&\textrm{(R)}
 \endxxalignat
 $$
-\proof.
-Como $\finv f : B \to A$, temos
-$$
-\xxalignat4
-\textrm{\phantom{(L)}}&& \finv f \of f &: A \to A &
-f \of \finv f &: B \to B. &&\textrm{\phantom{(R)}}
-\endxxalignat
-$$
-Sejam $a\in A$ e $b\in B$.
+(Esqueça o ``com pontos'' no rótulo desse exercício;
+vai fazer sentido depois.)
+
+\solution
+Seja $a\in A$ e $b\in B$.
 Calculamos:
 \compute
-(\finv f \of f) (a)
-&= \finv f (f(a)) \\
-&= \text{aquele $x\in A$ tal que $f(x) = f(a)$} \\
-&= a           \by {$f$ inj.}
-&= \idof A(a).
+\finv f (f(a))
+&= \text{aquele $x\in A$ que $f(x) = f(a)$} \\
+&= a.          \by {$f$ inj.}
 \endcompute
 Agora tomando $y\in B$ calculamos a outra numa maneira diferente:
 \compute
-(f \of \finv f) (b) = y
-&\iff f(\finv f(b)) = y \\
-&\iff \finv f (b) = \finv f(y) \\
+f(\finv f(b)) = y
+&\iff \finv f (b) = \finv f (y) \\
 &\iff b = y    \by {$\finv f$ inj.~(\refn{finv_is_bij})}
 &\iff \idof B (b) = y.
 \endcompute
-\qed
-%%}}}
-
-%%{{{ x: cd_finv_laws 
-\exercise.
-\label{cd_finv_laws}%
-Como expressar as leis da inversa (\refn{fcom_identity_laws})
-usando apenas a comutatividade dum diagrama?
-
-\hint
-A forma do diagrama parece com o diagrama das
-leis de identidade (\ref{cd_id_laws}).
-
-\solution
-Assim:
-$$
-\cdopt{sep=2cm}
-A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
-                               \| A \ar[r, "f"'] \| B
-\endcd
-$$
 
 \endexercise
+%%}}}
+
+%%{{{ x: finv_of_id 
+\exercise Inversa da identidade.
+Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
+
+\solution
+Temos $\idof A, \finv{\idof A} : A \bijto A$ então basta
+verificar que comportam igualmente.
+\crproofalt{Jeito 1.}
+Seja $a \in A$ então e calculamos:
+\compute
+\finv{\idof A} a
+&= \text{aquele $v\in A$ que $\idof A v = a$}  \by {def.~$\finv{\idof A}$}
+&= a                                           \by {def.~$\idof A$}
+&= \idof A a.                                  \by {def.~$\idof A$}
+\endcompute
+\proofalt{Jeito 2.}
+Sejam $a,a'\in A$.
+Calculamos:
+\compute
+\finv{\idof A} a = v
+&\iff a = \idof A v     \by {def.~$\finv{\idof A}$}
+&\iff a = v             \by {def.~$\idof A$}
+&\iff \idof A a = v.    \by {def.~$\idof A$}
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ finv_of_fcompose_error 
+\note Inversa da composição: um erro.
+\label{finv_of_fcompose_error}%
+Queremos descrever a inversa duma composição de bijecções em termos
+das inversas dessas bijecções.
+Ou seja, temos
+Um erro comum é afirmar que $\finvp{g\of f} = \finv g \of \finv f$.
+Pense em funções como ``processos'' e na $g\of f$ como o processo
+<<faça $f$ e depois faça $g$>>.
+Como exemplo, considere $f$ o <<bota tua cueca>> e $g$ o
+<<boa teu shorts>>.
+Logo $g\of f$ é o processo <<bota tua cueca e depois bota teu shorts>>.
+Assim, qual processo seria o $\finv g \of \finv f$?
+Se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
 %%}}}
 
 %%{{{ finv_of_fcompose_error 
@@ -22101,41 +22206,41 @@ Calculamos:
 \endexercise
 %%}}}
 
-%%{{{ x: finv_of_id 
-\exercise Inversa da identidade.
-Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
-
-\solution
-
-\endexercise
-%%}}}
-
 %%{{{ x: finv_atleastonelaw_if_f_bij 
 \exercise Basta uma lei.
 \label{finv_atleastonelaw_if_f_bij}%
 Seja $f : A \bijto B$.
-Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis da
-inversa~(\ref{finv_laws}), então $f' = \finv f$.
+Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis
+do~\ref{finv_laws_pointful}, então $f'$ é a própria $\finv f$.
 
 \solution
-Caso que $f'$ satisfaz a (L):
+Sejam $b\in B$, $a\in A$.
+Caso que $f'$ satisfaz a (L)
+calculamos:
 \compute
-f'
-&= f' \of \idof B          \by {lei da $\idof B$}
-&= f' \of (f \of \finv f)  \by {(R) da $\finv f$}
-&= (f' \of f) \of \finv f  \by {assoc.}
-&= \idof A \of \finv f     \by {(L) da $f'$}
-&= \finv f.                \by {lei da $\idof A$}
+\finv f b = a
+&\iff b = f a               \by {def.~$\finv f$}
+&\iff f' b = f' (f a)       \by {$f'$ inj.}
+&\iff f' b = (f' f) \fa a   \by {def.~$(f'f)$}
+&\iff f' b = a.             \by {(L) da $f'$ (com $w \asseq a$)}
 \intertext{E caso que $f'$ satisfaz a (R):}
-f'
-&= \idof A \of f'          \by {lei da $\idof A$}
-&= (\finv f \of f) \of f'  \by {(L) da $\finv f$}
-&= \finv f \of (f \of f')  \by {assoc.}
-&= \finv f \of \idof B     \by {(R) da $f'$}
-&= \finv f.                \by {lei da $\idof B$}
+f' b = a
+&\iff f (f' b) = f a        \by {$f$ inj.}
+&\iff (f f') \fa b = f a    \by {def.~$(f f')$}
+&\iff b = f a               \by {(R) da $f'$ (com $w \asseq b$)}
+&\iff \finv f b = a.        \by {def.~$\finv f$}
 \endcompute
 
 \endexercise
+%%}}}
+
+%%{{{ Boring, innit? 
+\note É chato, né?.
+Mergulhar nos domínios e codomínios das funções, mexendo com os
+bichinhos que tem lá, tanto para enunciar teoremas quanto para
+demonstrá-los espero que foi uma experiência não exatamente divertida.
+Logo vamos ver uma outra maneira para enunciar e demonstrar
+essas propriedades, ``de longe'', sem olhar os detalhes internos.
 %%}}}
 
 \endsection
@@ -22163,6 +22268,8 @@ $$
 \text{$f$ sobrejetora} & \defiff & \pforall {b \in B} & \pexists {a \in A} & \bracket{\;f \fa a = b\;}.
 \endmatrix
 $$
+Consegues ver algo irritante?
+\spoiler.
 Injetoridade e sobrejetoridade têm cara de conceitos que
 deveriam ser intimamente relacionados.
 Simétricos, duais, espelhados, sei lá o que,
@@ -22178,7 +22285,7 @@ e no pior---melhor?---dos casos te deixar acordado até encontrar
 definições desses dois conceitos que realmente são intimamente
 relacionadas.
 \endgraf
-E agora calma---podes dormir tranqüilamente---pois vamos chegar
+Agora calma---podes dormir tranqüilamente---pois vamos chegar
 nessa satisfacção logo, na~\ref{A_trip}.
 %%}}}
 
@@ -22334,13 +22441,12 @@ Consegues prová-los?
 %%{{{ thm: injection_iff_mono 
 \theorem.
 \label{injection_iff_mono}%
-Sejam $B \toarrow f C$.
-A $f$ é injetora sse ela é \dterm{cancelável pela esquerda:}
+Sejam $B \toby f C$.
+A $f$ é injetora sse ela é \dterm{$\of$-cancelável pela esquerda:}
 $$
 f\of g = f \of h \implies g = h
 $$
 para todas as $g,h$ tais que as composições acima são definidas.
-Digamos então que $f$ é \dterm{$\of$-cancelável pela esquerda}.
 \sketch.
 A direção {\lrdir} é o~\ref{injection_iff_mono_lrproof}.
 Para a direção {\rldir}, tome $b,b'\in B$ tais que $f(b)=f(b')$.
@@ -22418,8 +22524,8 @@ e como $f$ injetora, chegamos no desejado $g(x) = h(x)$.
 %%{{{ thm: surjection_iff_epic 
 \theorem.
 \label{surjection_iff_epic}%
-Sejam $B \toarrow f C$.
-A $f$ é sobrejetora sse \dterm{ela é cancelável pela direita:}
+Sejam $B \toby f C$.
+A $f$ é sobrejetora sse ela é \dterm{$\of$-cancelável pela direita:}
 $$
 g\of f = h\of f \implies g = h
 $$
@@ -22506,22 +22612,33 @@ Logo $g = h$.
 \endexercise
 %%}}}
 
-%%{{{ x: injection_surjection_commutative_diagrams 
-\exercise.
-\label{injection_surjection_commutative_diagrams}%
-Descreva as propriedades dos teoremas
-\refn{injection_iff_mono}--\refn{surjection_iff_epic}
+%%{{{ df: mono_epi_functions
+\definition mono, epi.
+\tdefined{função}[mono]%
+\tdefined{função}[epi]%
+\iisee{mônica}{função, mono}%
+\iisee{épica}{função, epí}%
+Dizemos que $f$ é uma função \dterm{mônica}
+(ou simplesmente que $f$ é uma \dterm{mono}) sse $f$ é $\of$-cancelável pela esquerda.
+Dizemos que $f$ é uma função \dterm{épica}
+(ou simplesmente que $f$ é uma \dterm{epí}) sse $f$ é $\of$-cancelável pela esquerda.
+%%}}}
+
+%%{{{ x: mono_epi_commutative_diagrams 
+\exercise Mono e epi com diagramas comutativos.
+\label{mono_epi_commutative_diagrams}%
+Descreva as propriedades das definições de mono e epi
 usando diagramas comutativos.
 
 \solution
-\proofpart{A função $f$ é injetora sse} em todo diagrama comutativo da forma
+\proofpart{A função $f$ é mônica sse} em todo diagrama comutativo da forma
 $$
 \cdopt{sep=2cm}
 A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
 \endcd
 $$
 temos $g=h$.
-\crproofpart{A função $f$ é sobrejetora sse} em todo diagrama comutativo da forma
+\crproofpart{A função $f$ é épica sse} em todo diagrama comutativo da forma
 $$
 \cdopt{sep=2cm}
 B  \ar[r, "f"] \|  C   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| D
@@ -22547,9 +22664,72 @@ nossas frescuras.
 \endsection
 %%}}}
 
-%%{{{ Retracções, secções 
-\section Retracções, secções.
-\label{Retractions_sections}%
+%%{{{ Functions_pointfree_style 
+\section Funções estilo pointfree---``de fora''.
+\label{Functions_pointfree_style}%
+
+\TODO terminar, arrumar e talvez juntar com a anterior.
+
+%%{{{ thm: finv_laws 
+\theorem Leis da inversa.
+\label{finv_laws}%
+Para toda $f : A \bijto B$,
+temos:
+$$
+\xxalignat4
+\textrm{(L)} && \finv f \of f &= \idof A &
+f \of \finv f &= \idof B. &&\textrm{(R)}
+\endxxalignat
+$$
+\proof.
+Como $\finv f : B \to A$, temos
+$$
+\xxalignat4
+\textrm{\phantom{(L)}}&& \finv f \of f &: A \to A &
+f \of \finv f &: B \to B. &&\textrm{\phantom{(R)}}
+\endxxalignat
+$$
+Sejam $a\in A$ e $b\in B$.
+Calculamos:
+\compute
+(\finv f \of f) (a)
+&= \finv f (f(a)) \\
+&= \text{aquele $x\in A$ que $f(x) = f(a)$} \\
+&= a           \by {$f$ inj.}
+&= \idof A(a).
+\endcompute
+Agora tomando $y\in B$ calculamos a outra numa maneira diferente:
+\compute
+(f \of \finv f) (b) = y
+&\iff f(\finv f(b)) = y \\
+&\iff \finv f (b) = \finv f(y) \\
+&\iff b = y    \by {$\finv f$ inj.~(\refn{finv_is_bij})}
+&\iff \idof B (b) = y.
+\endcompute
+\qed
+%%}}}
+
+%%{{{ x: cd_finv_laws 
+\exercise.
+\label{cd_finv_laws}%
+Como expressar as leis da inversa (\refn{fcom_identity_laws})
+usando apenas a comutatividade dum diagrama?
+
+\hint
+A forma do diagrama parece com o diagrama das
+leis de identidade (\ref{cd_id_laws}).
+
+\solution
+Assim:
+$$
+\cdopt{sep=2cm}
+A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
+                               \| A \ar[r, "f"'] \| B
+\endcd
+$$
+
+\endexercise
+%%}}}
 
 %%{{{ df: retractions_sections 
 \definition Retracções, secções.
@@ -22557,21 +22737,23 @@ nossas frescuras.
 \label{retraction}%
 \tdefined{função}[retracção]%
 \tdefined{função}[secção]%
-\tdefined{função}[inversa-esquerda]%
-\tdefined{função}[inversa-direita]%
+\tdefined{função}[inversa esquerda]%
+\tdefined{função}[inversa direita]%
 Seja $f : A \to B$.
 Se $r : B \to A$ satisfaz a
 $$
 r \of f = \idof A
 $$
 dizemos que $r$ é uma \dterm{retracção} ou uma
-\dterm{inversa-esquerda} da $f$.
+\dterm{$\of$-inversa esquerda} da $f$.
 Se $s : B \to A$ satisfaz a
 $$
 f \of s = \idof B
 $$
 dizemos que $s$ é uma \dterm{secção} ou uma
-\dterm{inversa-direita} da $f$.
+\dterm{$\of$-inversa direita} da $f$.
+Observe que no primeiro caso, $f$ é uma secção da $r$;
+e no segundo caso $f$ é uma retracção da $s$.
 %%}}}
 
 \blah.
@@ -22623,7 +22805,8 @@ Suponha que $f : A \to B$ e que $r : B \to A$ é uma retracção da $f$.
 Tome $x, x' \in A$ tais que $f(x) = f(x')$.
 Logo $r(f(x)) = r(f(x'))$.
 Logo $(r\of f)(x) = (r\of f)(x')$.
-Como $r$ é retracção, temos $\idof A(x) = \idof A(x')$, ou seja, $x = x'$ e $f$ é injetora.
+Como $r$ é retracção, temos $\idof A(x) = \idof A(x')$,
+ou seja, $x = x'$ e $f$ é injetora.
 
 \endexercise
 %%}}}
@@ -22638,7 +22821,7 @@ Prove o~\ref{section_implies_surjection} elementariamente
 Suponha que $f : A \to B$ e que $s : B \to A$ é uma secção da $f$.
 Tome $b \in B$.
 Logo $s(b) \in A$, e como $s$ secção, temos $f(s(b)) = b$, ou seja
-a $f$ é sobrejetora pois mapeia $s(b) \mapstoarrow f b$.
+a $f$ é sobrejetora pois mapeia $s(b) \mapstoby f b$.
 
 \endexercise
 %%}}}
@@ -22691,6 +22874,34 @@ e com $f'\asseq s$ e ganhamos:
 $$
 r = \finv f = s.
 $$
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_atleastonelaw_if_f_bij_pointless 
+\exercise Basta uma lei: agora sem pontos.
+\label{finv_atleastonelaw_if_f_bij_pointless}%
+Seja $f : A \bijto B$.
+Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis da
+inversa~(\ref{finv_laws}), então $f' = \finv f$.
+
+\solution
+Caso que $f'$ satisfaz a (L):
+\compute
+f'
+&= f' \of \idof B          \by {lei da $\idof B$}
+&= f' \of (f \of \finv f)  \by {(R) da $\finv f$}
+&= (f' \of f) \of \finv f  \by {assoc.}
+&= \idof A \of \finv f     \by {(L) da $f'$}
+&= \finv f.                \by {lei da $\idof A$}
+\intertext{E caso que $f'$ satisfaz a (R):}
+f'
+&= \idof A \of f'          \by {lei da $\idof A$}
+&= (\finv f \of f) \of f'  \by {(L) da $\finv f$}
+&= \finv f \of (f \of f')  \by {assoc.}
+&= \finv f \of \idof B     \by {(R) da $f'$}
+&= \finv f.                \by {lei da $\idof B$}
+\endcompute
 
 \endexercise
 %%}}}
@@ -23801,7 +24012,9 @@ são funcões, e também pois sua saida também é uma função.
 Suponha $f : A \to B$ e seja $a \in A$.
 Quando escrevemos $f\fa a$ (ou $f(a)$), estamos denotando a aplicação da $f$ no $a$.
 Essa aplicação é uma operação de ordem superior também.
-O símbolo da aplicação é invisível, ou seja, a aplicação é denotada pela juxtaposição da função e do seu argumento.
+O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
+pela juxtaposição da função e do seu argumento (já discutimos isso
+no~\ref{lazier_clearer_functional_notation}).
 Em vez de escrever algo do tipo
 $$
 \namedfun{apply}(f, a)
@@ -25399,7 +25612,7 @@ Que mais tu poderias fazer para tua implementação ser uma implementação boa?
 Podemos representar a $f : A \ndeto B$ pela função
 $\bar f : A \to \pset B\setminus\set{\emptyset}$ definida pela
 $$
-\bar f(x) = \setst {y\in B} {x\mapstoarrow f y}.
+\bar f(x) = \setst {y\in B} {x\mapstoby f y}.
 $$
 Sejam~$f : A \ndeto B$ e~$g : B \ndeto C$ funções não-deterministas.
 Logo temos $\bar f : A \to \pset B\setminus\set{\emptyset}$
@@ -25714,9 +25927,9 @@ R : A \relto B
 \qqqquad
 R : B \relfrom A
 \qqqquad
-A \reltoarrow R B
+A \reltoby R B
 \qqqquad
-B \relfromarrow R A.
+B \relfromby R A.
 $$
 Todo isso quis dizer apenas que $R$ é uma relação binária entre $A$ e $B$.
 Ou seja, tudo isso é sinónimo com o $R : \reltype{A,B}$.
@@ -29022,7 +29235,7 @@ De fato, $c \gtrdot a$, pois os $q,r$ preferem $c$ que $a$.
 %%{{{ prob: dom_trans_cod_not_trans 
 \problem.
 \label{dom_trans_cod_not_trans}%
-Sejam $A \toarrow f B$ e $\leadsto$ uma relação transitiva no $A$.
+Sejam $A \toby f B$ e $\leadsto$ uma relação transitiva no $A$.
 Definimos a relação $R$ no $B$ pela
 $$
 b \rel R b'
@@ -29057,10 +29270,10 @@ $$
 Defina a $f:A\to B$ pelas
 $$
 \align
-1 &\mapstoarrow f 5 \\
-2 &\mapstoarrow f 6 \\
-3 &\mapstoarrow f 6 \\
-4 &\mapstoarrow f 7.
+1 &\mapstoby f 5 \\
+2 &\mapstoby f 6 \\
+3 &\mapstoby f 6 \\
+4 &\mapstoby f 7.
 \endalign
 $$
 Primeiramente observe que realmente $\leadsto$ é transitiva.
@@ -30369,8 +30582,8 @@ Vamos voltar no momento que estamos calculando o $\phi\fcom\psi$.
 Já temos calculado as imagens de $1$ e $2$:
 $$
 \align
-1 &\mapstoarrow {\psi} 2 \mapstoarrow {\phi} 1\\
-2 &\mapstoarrow {\psi} 3 \mapstoarrow {\phi} 3
+1 &\mapstoby {\psi} 2 \mapstoby {\phi} 1\\
+2 &\mapstoby {\psi} 3 \mapstoby {\phi} 3
 \endalign
 $$
 Estamos então aqui:
@@ -30383,7 +30596,7 @@ $$
 $$
 Agora podemos continuar no mesmo jeito, para calcular a imagem de $3$:
 $$
-3 \mapstoarrow {\psi} 1 \mapstoarrow {\phi} 2
+3 \mapstoby {\psi} 1 \mapstoby {\phi} 2
 $$
 e assim chegar no
 $$
@@ -30410,9 +30623,9 @@ Calcule a $\psi\com\psi^2$ e justifique que ela é igual à $\psi^2\com\psi$.
 Calculamos:
 $$
 \align
-1 &\mapstoarrow {\psi^2} 3 \mapstoarrow \psi 1\\
-2 &\mapstoarrow {\psi^2} 1 \mapstoarrow \psi 2\\
-3 &\mapstoarrow {\psi^2} 2 \mapstoarrow \psi 3
+1 &\mapstoby {\psi^2} 3 \mapstoby \psi 1\\
+2 &\mapstoby {\psi^2} 1 \mapstoby \psi 2\\
+3 &\mapstoby {\psi^2} 2 \mapstoby \psi 3
 \endalign
 $$
 ou seja, $\psi\com\psi^2 = \id$.
@@ -40640,7 +40853,7 @@ $$
 \phi
 \eqtype
 \sset R    {+, \;\ntimes\;, -, 0, 1, <}
-\tolongarrow{\iso}
+\tolongby{\iso}
 \sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}.
 $$
 Obviamente botamos
@@ -42662,7 +42875,7 @@ Facilmente ela é injetora (\ref{the_singletonizer_is_injective}).
 
 %%{{{ proof idea with depressive members 
 \note A linda idéia da sua prova.
-Suponha que temos um conjunto $A$, e uma função $A \toarrow \pi \pset A$.
+Suponha que temos um conjunto $A$, e uma função $A \toby \pi \pset A$.
 Vamos provar que a $\pi$ não pode ser sobrejetora---e logo, nem bijetora.
 Para entender a idéia melhor, vamos desenhar um exemplo.
 Imagina então que o $A$ parece como no desenho abaixo,
@@ -43281,10 +43494,10 @@ $$
 tal que
 $$
 \align
-1    &\mapstoarrow f 1/2 \\
-1/2  &\mapstoarrow f \askhole \\
+1    &\mapstoby f 1/2 \\
+1/2  &\mapstoby f \askhole \\
      &\eqvdots \\
-\askhole  &\mapstoarrow f \askhole
+\askhole  &\mapstoby f \askhole
 \endalign
 $$
 
@@ -47277,7 +47490,7 @@ f(a)
 \text{aquele único $b\in B$ tal que $\tup{a,b}\in f$.}
 $$
 Lembre-se que escrevemos
-$f : A \to B$ ou $A \toarrow f B$ para dizer que
+$f : A \to B$ ou $A \toby f B$ para dizer que
 $f$ é uma função de $A$ para $B$, etc.
 (Veja~\ref{function_notation}.)
 Formalmente definimos o predicado
