@@ -13530,7 +13530,7 @@ Seguindo uma práctica comum que envolve símbolos ``direcionais'' de relações
 binárias como os $\rightarrow$, $\leq$, $\subset$, etc., introduzimos os:
 $$
 \xalignat2
-A \supseteq B  & \defiff B \subset A &
+A \supset    B & \defiff B \subset A &
 A \supsetneq B & \defiff B \subsetneq A
 \endxalignat
 $$
@@ -14762,10 +14762,10 @@ Mas para provar formalmente a afirmação, mostramos as duas direções
 $$
 \xalignat3
 A \symdiff B &\subset (A \setminus B) \union (B \setminus A) && \mland &
-A \symdiff B &\supseteq (A \setminus B) \union (B \setminus A)
+A \symdiff B &\supset (A \setminus B) \union (B \setminus A)
 \endxalignat
 $$
-separadamente, usando as definições de $\subset$ e $\supseteq$.
+separadamente, usando as definições de $\subset$ e $\supset$.
 \qes
 %%}}}
 
@@ -14783,7 +14783,7 @@ Novamente, começamos pensando nos dois lados e suas intensões:
 <<em pelo menos um dos dois, mas não nos dois>> na direita.
 As duas frases são equivalentes, mas vamos mostrar formalmente
 a igualdade desses conjuntos, mostrando novamente as
-``$\subset$'' e ``$\supseteq$'' separadamente.
+``$\subset$'' e ``$\supset$'' separadamente.
 \qes
 %%}}}
 
@@ -15201,7 +15201,7 @@ Prove que $C \subset \Inter \scr A$.
 Seja $c \in C$.
 Para mostrar que $c \in \Inter \scr A$, seja $A \in \scr A$ e agora
 basta mostrar que $c \in A$.
-Mas pela definição de $\scr A$ sabemos que $A \supseteq C$.
+Mas pela definição de $\scr A$ sabemos que $A \supset C$.
 Logo $c \in A$.
 
 \endexercise
@@ -15231,6 +15231,50 @@ mais externo de chaves; a $\Inter$ também mas jogando fora bem mais elementos
 (aqueles que não pertencem em todos os membros do seu argumento); e o $\pset$
 bote todas as chaves em todas as combinações possíveis para ``o nível mais
 próximo''.
+%%}}}
+
+%%{{{ x: scr_A_might_not_contain_union 
+\exercise.
+\label{scr_A_might_not_contain_union}%
+Sejam $A$ conjunto e $\scr A \subset \pset A$ tal que
+$$
+\Union \scr A = A.
+$$
+A afirmação
+$$
+A \in \scr A
+$$
+é verdadeira?
+Se sim, demonstre; se não, refute;
+se os dados não são suficientes para concluir,
+mostre um exemplo e um contraexemplo.
+
+\hint
+Depende: ache um exemplo e contra exemplo.
+
+\solution
+\proofpart{Exemplo.}
+Tome
+$$
+\align
+A        &= \set {1, 2} \\
+\scr A   &= \set {\set{1}, \set{1, 2} } \subset \pset A.
+\endalign
+$$
+Observe que realmente $\Union \scr A = A$
+e que $A \in \scr A$.
+\crproofpart{Contraexemplo.}
+Tome
+$$
+\align
+A        &= \set {1, 2} \\
+\scr A   &= \set {\set{1}, \set{2} } \subset \pset A.
+\endalign
+$$
+Observe que realmente $\Union \scr A = A$
+mas mesmo assim $A \notin \scr A$.
+
+\endexercise
 %%}}}
 
 %%{{{ x: card_of_set_its_Union_and_its_Inter_comparison 
@@ -16368,7 +16412,7 @@ $$
 \Inter_{j\in\cal J} {A_j}
 \endxalignat
 $$
-das opções: \sq{$=$}, \sq{$\subset$}, \sq{$\supseteq$}, etc.
+das opções: \sq{$=$}, \sq{$\subset$}, \sq{$\supset$}, etc.
 Investigue.
 
 \endexercise
@@ -16744,6 +16788,29 @@ $$
 $$
 O que podes concluir sobre o $\scr A$?
 
+\solution
+Vou demonstrar que $\scr A$ tem exatamente um membro ($\scr A$ é um singleton).
+\crtabproofpart{$\scr A$ tem pelo menos um membro.}
+Se $\scr A$ fosse vazio não teriamos
+$\Union \scr {A} = \Inter \scr {A}$,
+pois o primeiro é o vazio e o segundo o universo.
+\crtabproofpart{$\scr A$ tem no máximo um membro.}
+Sejam $A,B \in \scr A$.
+Vou mostrar que $A=B$.
+\crproofpart{\lrdirset}:
+Para qualquer $x$ temos:
+\compute
+x \in A
+&\implies x \in \Union \scr A   \by {$A \in \scr A$ e def.~$\Union\scr A$}
+&\implies x \in \Inter \scr A   \by {$\Union \scr A = \Inter \scr A$}
+&\implies x \in B               \by {$B \in \scr A$ e def.~$\Inter\scr A$}
+\endcompute
+\proofpart{A {\rldirset}} é similar.
+\crproofalt{Alternativa usando reductio ad absurdum.}
+Para chegar numa contradição suponha que $A \neq B$.
+Logo seja $t \in A \symdiff B$, ou seja $t$ pertence a um dos $A,B$ mas não ao outro.
+Logo $t \in \Union \scr A$ e $t \notin \Inter \scr A$, absurdo.
+
 \endproblem
 %%}}}
 
@@ -16879,6 +16946,171 @@ Calcule os conjuntos:
 \solution
 (i) $[0,1]$;
 (ii) $\emptyset$.
+
+\endproblem
+%%}}}
+
+%%{{{ bounded_Union_and_Iter_def_and_prop 
+\problem.
+\label{bounded_Union_and_Iter_def_and_prop}%
+Seja $\set{A_n}_n$ seqüência (infinita) de conjuntos.
+Defina recursivamente uma seqüência de conjuntos $\set{D_n}_n$
+tal que (informalmente):
+$$
+\text{$D_k = A_0 \union A_1 \union \dotsb \union A_{k-1}$ para todo $k\in\nats$}.
+$$
+Em outras palavras,
+precisas definir formalmente a operação $\Union_{i=0}^{k-1} \dhole$
+para qualquer $k\in\nats$.
+Demonstre que para todo $n\in\nats$,
+$$
+\munderbrace {\Union_{i=0}^{n-1} A_n} {D_n} \subset \Union_{m=0}^{\infty} A_m.
+$$
+O que muda se trocar de uniões para intersecções?
+
+\solution
+\proofpart{Definição da $D_n$} por recursão:
+$$
+\align
+D_0     &= \emptyset \\
+D_{n+1} &= D_n \union A_n.
+\endalign
+$$
+\proofpart{Demonstração da afirmação} por indução no $n$.
+\crtabproofpart{Base:} $D_0 \subset \Union_{m=0}^{\infty} A_m$.
+Imediato pois $D_0 = \emptyset$.
+\crtabproofpart{Passo indutivo.}
+Seja $w \in \nats$ tal que
+$$
+D_w \subset \Union_{m=0}^{\infty} A_m.    \tag{H.I.}
+$$
+Preciso provar que
+$$
+D_{w+1} \subset \Union_{m=0}^{\infty} A_m.
+$$
+Seja $d \in D_{w+1}$.
+Basta mostrar que
+$$
+d \in \Union_{m=0}^{\infty} A_m,
+$$
+ou seja, que $d$ pertence a algum dos $A_m$'s.
+Pela definição de $D_{w+1} = D_w \union A_w$, temos
+que
+$d \in D_w$
+ou
+$d \in A_w$.
+Separo em casos:
+\crcase{Caso $d \in D_w$.}
+Imediatamente pela (H.I.)
+$$
+d \in D_w \subset \Union_{m=0}^{\infty} A_m.
+$$
+\case{Caso $d \in A_w$.}
+Imediato.
+\crproofpart{O que muda trocando de uniões para intersecções:}
+(1) a intersecção vazia tem de ser o $\universet$ em vez do $\emptyset$,
+pois $\universet$ é a identidade da $\inter$ binária;
+(2) o $\subset$ da afirmação tem de mudar pra $\supset$;
+(3) a base da indução também é imediata pois $\universet$
+é superconjunto de qualquer conjunto;
+(4) o passo indutivo muda numa maneira mais interessante:
+nosso alvo é mostrar que um arbitrario membro $a$ que pertence
+a intersecção infinita dos $A_i$'s pertence ao $D_{w+1}$ tambem,
+dado que qualquer membro dela pertence ao $D_w$;
+e temos então ambas as coisas que precisamos
+(o $a \in D_w$ pela (H.I.) e o $a \in A_w$
+pois $a$ pertence a todos os $A_i$'s).
+
+\endproblem
+%%}}}
+
+%%{{{ df: chain_in_sets 
+\definition.
+\label{chain_in_sets}%
+Seja $\scr A$ uma família de conjuntos.
+Chamamos a $\scr A$ de \dterm{$\subset$-chain} sse
+$$
+\text{para todo $A,B\in \scr A$, temos $A\subset B$ ou $B \subset A$}.
+$$
+%%}}}
+
+%%{{{ chain_first_encounter 
+\problem.
+\label{chain_first_encounter}%
+Seja $\scr C$ uma $\subset$-chain e seja $T = \Union \scr C$.
+A afirmação
+$$
+\text{$\scr C \union \set{T}$ é uma chain}
+$$
+é verdadeira?
+Se sim, demonstre; se não, refute;
+se os dados não são suficientes para concluir, mostre um exemplo e um contraexemplo.
+
+\hint
+A airmação é verdadeira.  Demonstre.
+
+\solution
+Vou demonstrar que $\scr C \union \set {T}$ é uma chain.
+\endgraf
+Sejam $A,B \in \scr C \union \set T$.
+Preciso mostrar que $A \subset B$ ou $B\subset A$.
+Vou separar em casos dependendo de se os $A,B$ pertencem à $\scr C$ ou ao $\set{T}$.
+\crtabcase{Caso ambos pertencem à $\scr C$.}
+Como $\scr C$ é chain, temos imediatamente $A\subset B$ ou $B \subset A$.
+\crtabcase{Caso exatamente um pertence à $\scr C$.}
+Chame $C$ aquele que pertence à $\scr C$.
+O outro pertence ao $\set{T}$ e logo é o próprio $T = \Union \scr C$.
+Vou mostrar que $C \subset T$.
+Seja $c \in C$.
+Preciso mostrar que $c$ pertence em algum dos membros do $\scr C$,
+que acontece pois $C \in \scr{C}$.
+\crtabcase{Caso nenhum pertence à $\scr C$.}
+Ou seja, ambos pertencem ao $\set{T}$; ou seja $A = B = T$; e logo $A\subset B$
+e pronto.
+
+\endproblem
+%%}}}
+
+%%{{{ chain_first_encounter_interesting_example 
+\problem.
+\label{chain_first_encounter_interesting_example}%
+Uma chain $\scr C$ que atende as hipotéses do~\ref{chain_first_encounter}
+pode ter a propriedade que
+$$
+\Union\scr C \in \scr C.
+$$
+Mostre um exemplo duma chain infinita $\scr C$ cujos membros são todos
+conjuntos infinitos, e tal que $\Union\scr C \notin \scr C$.
+Dá pra garantir (com a mesma $\scr C$) que $\Inter\scr C\notin \scr C$ também?
+Demonstre tuas afirmações!
+
+\hint
+Procure uma $\scr C \subset \pset \reals$.
+
+\hint
+Intervalos não triviais (com pelo menos $2$ membros) de reais
+com certeza são infinitos.
+
+\solution
+\proofpart{Defino a $\scr C$} pela
+$$
+\scr C \defeq \setst {(-a,a)} {a \in \reals_{>0}}
+$$
+onde $(-a,a)$ denota o intervalo aberto de
+reais $\setst {x\in\reals} {-a < x < a}$.
+Realmente temos
+$$
+\xalignat2
+\Union\scr C &= \reals    \notin \scr C; &
+\Inter\scr C &= \emptyset \notin \scr C.
+\endxalignat
+$$
+\proofpart{Demonstração que $\emptyset,\reals\notin\scr C$.}
+Seja $C \in \scr C$, e logo seja $a_C \in \reals$ tal que $C = (-a_C,a_C)$.
+Como $a_C+1 \notin C$ e $a_C+1 \in \reals$, temos $C \neq \reals$.
+Como $0 \in C$, temos $C \neq \emptyset$.
+Demonstrei então que o arbitrário membro da $\scr C$ não pode ser
+nem o $\emptyset$ nem o $\reals$ e logo nenhum dos dois pertence à $\scr C$.
 
 \endproblem
 %%}}}
@@ -17406,14 +17638,14 @@ Seja $\seqn A n$ uma seqüência de conjuntos.
 Dizemos que $\seqn A n$ é uma \dterm{seqüência crescente} sse
 $A_i \subset A_{i+1}$ para todo $i\in \nats$.
 Similarmente, $\seqn A n$ é uma \dterm{seqüência decrescente} sse
-$A_i \supseteq A_{i+1}$ para todo $i\in \nats$.
+$A_i \supset A_{i+1}$ para todo $i\in \nats$.
 Rascunhamente:
 $$
 \align
 \text{$\seqn A n$ crescente}
 &\defiff A_0 \subset A_1 \subset A_2 \subset \cdots \\
 \text{$\seqn A n$ decrescente}
-&\defiff A_0 \supseteq A_1 \supseteq A_2 \supseteq \cdots
+&\defiff A_0 \supset A_1 \supset A_2 \supset \cdots
 \endalign
 $$
 Uma seqüência é \dterm{monótona} (ou \dterm{monotônica}) sse
@@ -20880,10 +21112,16 @@ botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
 \endexample
 %%}}}
 
-%%{{{ eg: succ3_is_plus_3 
-\example.
+%%{{{ x: succ3_is_plus_3 
+\exercise.
+\label{succ3_is_plus_3}%
+Como definarias numa maneira simples a função $\succ^3$ para alguém
+que não sabe (e sequer quer saber) o que são as iterações duma função?
+
+\solution
 Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
-\endexample
+
+\endexercise
 %%}}}
 
 %%{{{ beware: notation of functions with exponents 
@@ -21182,6 +21420,80 @@ $$
 $$
 Quando o conjunto $A$ é implícito pelo contexto escrevemos apenas $\diag$.
 %}}}
+
+\blah.
+Com o que já temos na nossa disposição podemos definir umas funções
+interessantes apenas usando composições, e \emph{diretamente} definindo
+a função (sem utilizar um ponto do seu domínio nem a $\lambda$-notação).
+Olha:
+
+%%{{{ eg: two_x_plus_one 
+\example.
+\label{two_x_plus_one}%
+Defina a função $f = \lam x {2x+1} : \nats\to\nats$ diretamente como
+composição de funções sem usar $\lambda$-notação.
+Desenha o diagrama externo da configuração e confirme tua resolução.
+\solution
+Temos as funções
+$$
+\cdopt{sep=1.666cm}
+\nats
+\ar[r, "\dsize\diag"]   \| \nats\cross\nats
+\ar[r, "\dsize\ntimes"] \| \nats
+\ar[r, "\dsize\succ"]   \| \nats.
+\endcd
+$$
+Assim defino
+$$
+f = \paren{{\succ} \of \mathord{\nplus} \of {\diagdom\nats}} : \nats \to \nats
+$$
+e tomando um $x\in\nats$ calculo:
+\compute
+f(x)
+&= \paren{\succ \of \mathord{\nplus} \of \diag} (x) \by {def.~$f$}
+&= \succ(\mathord{\nplus}(\diag(x)))                \by {def.~$\of$}
+&= \succ(\mathord{\nplus}(x,x))                     \by {def.~$\diag$}
+&= \succ(2x)                                        \\
+&= 2x+1                                             \by {def.~$\succ$}
+\endcompute
+confirmando assim que minha definição foi correta.
+\endexample
+%%}}}
+
+%%{{{ x: two_x_squared_pointfree 
+\exercise.
+\label{two_x_squared_pointfree}%
+Faça a mesma coisa para a função $f = \lam x {2x^2} : \nats\to\nats$.
+
+\solution
+Temos as funções
+$$
+\cd
+\nats
+\ar[r, "\diag"]   \| \nats\cross\nats
+\ar[r, "\ntimes"] \| \nats
+\ar[r, "\diag"]   \| \nats\cross\nats
+\ar[r, "+"]       \| \nats.
+\endcd
+$$
+Assim defino
+$$
+f = \paren{{+} \of \diagdom\nats \of {\ntimes} \of \diagdom\nats} : \nats \to \nats
+$$
+e tomando um $x\in\nats$ confirmo:
+\compute
+f(x)
+&= \paren{\mathord{+} \of \diag \of \mathord{\ntimes} \of \diag} (x) \by {def.~$f$}
+&= \mathord{+}(\diag(\mathord{\ntimes}(\diag(x))))                   \by {def.~$\of$}
+&= \mathord{+}(\diag(\mathord{\ntimes}(x,x)))                        \by {def.~$\diag$}
+&= \mathord{+}(\diag(x^2))                                           \\
+&= \mathord{+}(x^2,x^2)                                              \by {def.~$\diag$}
+&= x^2 + x^2                                                         \\
+&= 2x^2.
+\endcompute
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -21919,6 +22231,72 @@ compatibilidade para a $f\union g$ ser bem definida.
 \endproblem
 %%}}}
 
+%%{{{ prob: succiter_for_dummies 
+\problem.
+\label{succiter_for_dummies}%
+Supondo que teu leitor não sabe o que são as iterações duma função
+(\ref{function_iterations}) e que \emph{sequer quer saber},
+defina a função $\succ^n$ numa maneira simples.
+Demonstre tua afirmação, que a $\succ^n$ (oficial) realmente é igual
+à função que tu escreveste para teu leitor.
+
+\hint
+Fez o~\ref{succ3_is_plus_3} né?
+
+\hint
+Basta provar que para todo $n\in\nats$
+$$
+\lforall {x\in\nats} {\succ^n(x) = x + n}
+$$
+e como $\succ^n$ (oficial) foi definida recursivamente,
+como tu vai provar isso?
+
+\hint
+Indução!
+
+\solution
+Seja $n\in\nats$.
+A $\succ^n : \nats\to\nats$ é a função definida pela
+$$
+    \succ^n(x) = x + n.
+$$
+Basta demonstrar que para todo $n\in\nats$
+$$
+\lforall {x\in\nats} {\succ^n(x) = x + n}
+$$
+algo que vou provar por indução no $n$.
+\crproofpart{Base.}
+Seja $x\in\nats$.
+Calculamos:
+\compute
+\succ^0 (x)
+&= \idof\nats (x)   \by {pela def.~da $\succ^0$}
+&= x                \by {pela def.~da $1_A$}
+&= x + 0.           \by {pelo ensino fundamental}
+\endcompute
+\crproofpart{Passo indutivo.}
+Suponha $k\in\nats$ tal que
+$$
+\lforall {x\in\nats} {\succ^k(x) = x + k}. \tag{H.I.}
+$$
+Basta provar que
+$$
+\lforall {y\in\nats} {\succ^{k+1}(y) = y + (k+1)}.
+$$
+Seja $y\in\nats$ então.
+Calculamos:
+\compute
+\succ^{k+1}(y)
+&= \paren{\succ\of\succ^{k}}(y) \by {pela def.~de $\succ^{k+1}$}
+&= \succ\big( \succ^k(y) \big)  \by {pela def.~de $\succ\of \succ^k$}
+&= \succ(y + k)                 \by {pela HI com $x := y$}
+&= (y + k) + 1                  \by {pela def.~de $\succ$}
+&= y + (k + 1).                 \by {pelo ensino fundamental}
+\endcompute
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -22130,22 +22508,6 @@ Assim, qual processo seria o $\finv g \of \finv f$?
 Se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
 %%}}}
 
-%%{{{ finv_of_fcompose_error 
-\note Inversa da composição: um erro.
-\label{finv_of_fcompose_error}%
-Queremos descrever a inversa duma composição de bijecções em termos
-das inversas dessas bijecções.
-Ou seja, temos
-Um erro comum é afirmar que $\finvp{g\of f} = \finv g \of \finv f$.
-Pense em funções como ``processos'' e na $g\of f$ como o processo
-<<faça $f$ e depois faça $g$>>.
-Como exemplo, considere $f$ o <<bota tua cueca>> e $g$ o
-<<boa teu shorts>>.
-Logo $g\of f$ é o processo <<bota tua cueca e depois bota teu shorts>>.
-Assim, qual processo seria o $\finv g \of \finv f$?
-Se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
-%%}}}
-
 %%{{{ x: finv_of_fcompose 
 \exercise Inversa da composição.
 \label{finv_of_fcompose}%
@@ -22246,9 +22608,9 @@ essas propriedades, ``de longe'', sem olhar os detalhes internos.
 \endsection
 %%}}}
 
-%%{{{ A trip 
-\section Uma viagem.
-\label{A_trip}%
+%%{{{ An_epic_trip 
+\section Uma viagem épica.
+\label{An_epic_trip}%
 
 %%{{{ mathematical_OCD: Something irritating 
 \note Algo irritante.
@@ -22286,7 +22648,7 @@ definições desses dois conceitos que realmente são intimamente
 relacionadas.
 \endgraf
 Agora calma---podes dormir tranqüilamente---pois vamos chegar
-nessa satisfacção logo, na~\ref{A_trip}.
+nessa satisfacção logo, na~\ref{An_epic_trip}.
 %%}}}
 
 %%{{{ Let's trip 
@@ -22618,17 +22980,18 @@ Logo $g = h$.
 \tdefined{função}[epi]%
 \iisee{mônica}{função, mono}%
 \iisee{épica}{função, epí}%
+Seja $f : A \to B$.
 Dizemos que $f$ é uma função \dterm{mônica}
 (ou simplesmente que $f$ é uma \dterm{mono}) sse $f$ é $\of$-cancelável pela esquerda.
 Dizemos que $f$ é uma função \dterm{épica}
-(ou simplesmente que $f$ é uma \dterm{epí}) sse $f$ é $\of$-cancelável pela esquerda.
+(ou simplesmente que $f$ é uma \dterm{epí}\/) sse $f$ é $\of$-cancelável pela direita.
 %%}}}
 
 %%{{{ x: mono_epi_commutative_diagrams 
 \exercise Mono e epi com diagramas comutativos.
 \label{mono_epi_commutative_diagrams}%
-Descreva as propriedades das definições de mono e epi
-usando diagramas comutativos.
+Descreva as propriedades das definições de mono e
+epi~(\refn{mono_epi_functions}) usando diagramas comutativos.
 
 \solution
 \proofpart{A função $f$ é mônica sse} em todo diagrama comutativo da forma
@@ -23298,7 +23661,7 @@ Prove as afirmações:
 $$
 \align
 A &\subset \pre f {\img f A}\\
-B &\supseteq \img f {\pre f B}.
+B &\supset \img f {\pre f B}.
 \endalign
 $$
 
@@ -23310,7 +23673,7 @@ Suponha $a\in A$.
 Logo $f(a) \in \img f A$ pela definição da função-imagem,
 e logo $a \in \pre f {\img f A}$ pela definição da função-preimagem.
 \endgraf\indent
-\proofpart{{\proofname} de $B \supseteq \img f {\pre f B}$.}
+\proofpart{{\proofname} de $B \supset \img f {\pre f B}$.}
 Suponha $y_0 \in \img f {\pre f B}$.
 Logo tome $x_0 \in \pre f B$ tal que $y_0 = f(x_0)$\fact1.
 Pela definição da função-preimagem $f(x_0) \in B$,
@@ -23457,6 +23820,10 @@ Logo $b \in \img f {\pre f B}$.
 \endexercise
 %%}}}
 
+\blah.
+Vamos ver agora como essas operações comportam
+em combinação com as operações de conjuntos.
+
 %%{{{ x: operations_respected_by_img 
 \exercise.
 \label{operations_respected_by_img}%
@@ -23478,7 +23845,7 @@ Das duas $\askeq$, são válidas as inclusões:
 $$
 \align
 \img f {A\inter B} &\subset \img f A \inter \img f B\\
-\img f {A\minus B} &\supseteq \img f A \minus \img f B
+\img f {A\minus B} &\supset \img f A \minus \img f B
 \endalign
 $$
 Prove; e mostre contraexemplos que demonstram que as reversas
@@ -23509,7 +23876,7 @@ Mas $d \in A$ e $d \in B$, ou seja $y \in \img f A$ e $y \in \img f B$,
 e logo $y \in \img f A \inter \img f B$.
 \endgraf
 Vamos provar a
-$\img f {A\minus B} \supseteq \img f A \minus \img f B$ agora.
+$\img f {A\minus B} \supset \img f A \minus \img f B$ agora.
 Tome $y \in \img f A \minus \img f B$ então, ou seja
 $y \in \img f A$ e $y \notin \img f B$.
 Traduzindo:
@@ -23617,7 +23984,7 @@ até sem a hipótese que $f$ é injetora.
 Basta então provar as duas inclusões:
 $$
 \align
-\img f {A\inter B} &\supseteq \img f A \inter \img f B\\
+\img f {A\inter B} &\supset \img f A \inter \img f B\\
 \img f {A\minus B} &\subset \img f A \minus \img f B.
 \endalign
 $$
@@ -23628,11 +23995,11 @@ para qualquer função, então para nossa injetora $f$ também.
 Basta então provar as duas inclusões:
 $$
 \align
-\img f {A\inter B} &\supseteq \img f A \inter \img f B\\
+\img f {A\inter B} &\supset \img f A \inter \img f B\\
 \img f {A\minus B} &\subset \img f A \minus \img f B.
 \endalign
 $$
-\proofpart{{\proofname} de $\img f {A\inter B} \supseteq \img f A \inter \img f B$}:
+\proofpart{{\proofname} de $\img f {A\inter B} \supset \img f A \inter \img f B$}:
 Suponha $y \in \img f A \inter \img f B$.
 Logo $y \in \img f A$ e $y \in \img f B$.
 Tome então $a\in A$ tal que $f(a) = y$ e $b \in B$ tal que $f(b) = y$.
@@ -25190,7 +25557,7 @@ mas verifique se alguma das duas inclusões
 O que muda se $f$ é injetora?
 
 \solution
-Sempre temos $\img f F = F$ e $\pre f F \supseteq F$.
+Sempre temos $\img f F = F$ e $\pre f F \supset F$.
 Se $f$ é injetora, ganhamos a $\pre f F \subset F$ também.
 \endgraf
 \proofpart{{\proofname} de $\img f F \subset F$.}
@@ -25199,13 +25566,13 @@ Logo tome $p\in F$ tal que $f(p) = y$\fact1 (pela definição da função-imagem
 Logo $p$ é um fixpoint da $f$, ou seja, $f(p) = p$\fact2.
 Juntando as {\byfact1} e~{\byfact2}, ganhamos $p = y$, ou seja $y$ é um fixpoint da $f$, e logo $y\in F$.
 \endgraf
-\proofpart{{\proofname} de $\img f F \supseteq F$.}
+\proofpart{{\proofname} de $\img f F \supset F$.}
 Seja $p \in F$.
 Logo $f(p) \in \img f F$ (pela definição da função-imagem).
 Mas $p$ é um fixpoint da $f$ (pois $p\in F$), ou seja $f(p) = p$.
 Logo $p \in \img f F$.
 \endgraf
-\proofpart{{\proofname} de $\pre f F \supseteq F$.}
+\proofpart{{\proofname} de $\pre f F \supset F$.}
 Seja $p \in F$, ou seja $p$ é um fixpoint da $f$.
 Logo $f(p) = p \in F$, e logo $p \in \pre f F$.
 \endgraf
@@ -25329,7 +25696,7 @@ e provar
 $$
 x\in A \iff x \in B,
 \qqqtext{ou seja,}
-A \subset B \mland A \supseteq B.
+A \subset B \mland A \supset B.
 $$
 Mas, vendo eles como \emph{conjuntos indexados por o $C$},
 podemos matar o alvo $A=B$ numa maneira alternativa, aplicando
@@ -25572,6 +25939,101 @@ $a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
 {\rldirset}.
 Similar: é só seguir os passos da {\lrdirset} em reverso.
 }
+
+\endproblem
+%%}}}
+
+%%{{{ f_surj_iff_pre_f_inj 
+\problem.
+\label{f_surj_iff_pre_f_inj}%
+Seja $f : A \to B$.
+Considere a afirmação seguinte:
+$$
+\text{$f(\dhole)$ sobrejetora}
+\askiff
+\text{$\pre f {\dhole}$ injetora}.
+$$
+Para cada uma das direções responda\dots
+(1) ``sim'', e prove;
+(2) ``não'', e refute; ou
+(3) ``depende'', e mostre dois exemplos:
+um onde a implicação é valida, e outro onde não é.
+
+\hint
+Ambas as implicações são válidas.
+(Observe que $f(\dhole)$ é a própria $f$.)
+
+\solution
+Ambas as direcções são válidas.
+\crtabproofpart{\lrdir}:
+Suponha $f$ sobrejetora e sejam $Y,Y'$ no $\dom(\pre f {\dhole})$
+tais que $Y\neq Y'$.
+(Temos então $Y,Y'\subset B$.)
+Basta provar que $\pre f {Y} \neq \pre f {Y'}$.
+Como $Y\neq Y'$, sem perda de generalidade, seja $d \in Y \setminus Y'$.
+Como $f$ é sobrejetora, seja $a_d \in A$ tal que $f(a_d) = d$.
+Observe que $f(a_d) \in Y$ e que $f(a_d) \notin Y'$.
+Logo $a_d \in \pre f Y$ e $a_d \notin \pre f {Y'}$,
+pela definição da $\pre f {\dhole}$.
+Logo $\pre f Y \neq \pre f Y'$.
+\crtabproofpart{\rldir}:
+Vou provar a contrapositiva da afirmação.
+Suponha então que $f$ não é sobrejetora.
+Vou demonstrar que $\pre f {\dhole}$ não é injetora.
+Basta então achar dois membros distintos no seu domínio
+mapeados no mesmo objeto.
+Como $f$ não é sobrejetora, seja $t\in B$ tal que
+$t \notin \range(f)$, ou seja, tal que
+para todo $a \in A$, $f(a) \neq t$.
+Agora considere os: $\emptyset$ e $\set{t}$.
+Ambos são subconjuntos de $B$, e eles são distintos,
+mas mesmo assim
+$$
+\pre f {\emptyset} = \emptyset = \pre f {\set{t}}.
+$$
+Ou seja, a $\pre f {\dhole}$ não é injetora.
+
+\endproblem
+%}}}
+
+%%{{{ succiter_for_dummies_returns 
+\problem.
+\label{succiter_for_dummies_returns}%
+(Continuação do~\ref{succiter_for_dummies}.)
+Qual é (a extensão d)o conjunto
+$$
+\Inter_{n=0}^\infty \img {\succ^n} {\nats}\,?
+$$
+Prove tua afirmação.
+
+\hint
+$\Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$.
+
+\hint
+Suponha que tem $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$
+e chegue numa contradicção.
+
+\solution
+Eu vou demonstrar que
+$$
+\Inter_{n=0}^\infty \img {\succ^n} {\nats}=\emptyset.
+$$
+Para chegar num absurdo,
+suponha que $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats}$.
+Logo, para todo $n\in\nats$, $w \in \img {\succ^n} {\nats}$.
+Logo, para todo $n\in\nats$, existe $m\in\nats$ tal que $\succ^n(m) = w$.
+Mas $\succ^n(m) = n + m$ (\ref{succiter_for_dummies}).
+Ou seja:
+$$
+\text{para todo $n\in\nats$, existe $m\in\nats$ tal que $n + m = w$}.
+$$
+Ou seja,
+$$
+\text{para todo $n\in\nats$, $n \leq w$ (\ref{natops_leq_def})}. \tag{*}
+$$
+Ou seja, $w$ é o máximo do $\nats$; absurdo pois $\nats$ não tem máximo!
+\crproofalt{Alternativamente,}
+bote $n := w+1$ na (*) para chegar no absurdo $w + 1 \leq w$.
 
 \endproblem
 %%}}}
@@ -26932,7 +27394,7 @@ onde os quantificadores quantificam sobre o $X$.
 
 %%{{{ eg 
 \example.
-As relações $=$, $\leq$, $\geq$, nos números e $=$, $\subset$, $\supseteq$ nos conjuntos são todas reflexivas.
+As relações $=$, $\leq$, $\geq$, nos números e $=$, $\subset$, $\supset$ nos conjuntos são todas reflexivas.
 Também reflexivas são as relações
 \trel{\thole\ nasceu no mesmo pais que \thole},
 \trel{\thole\ tem o mesmo primeiro nome com \thole}, etc.,
@@ -26973,7 +27435,7 @@ $<$, $\subsetneq$, $>$, $\supsetneq$,
 etc.
 \endgraf\noindent
 Antissimétricas:
-$\leq$, $\subset$, $\geq$, $\supseteq$, $=$,
+$\leq$, $\subset$, $\geq$, $\supset$, $=$,
 \trel{a palavra \thole\ aparece, mas não depois da palavra \thole\ no dicionário},
 etc.
 \endexample
@@ -28075,7 +28537,7 @@ $$
 \label{union_scr_A_subset_already_known}%
 Podemos trocar o~(P1) da~\ref{partition} por
 $$
-\text{(P1$'$)}\quad\Union \scr A \supseteq A \ ?
+\text{(P1$'$)}\quad\Union \scr A \supset A \ ?
 $$
 
 \hint
@@ -28085,7 +28547,7 @@ Será que já sabemos a outra ``direção'' da igualdade?
 Sim!
 Pois como $\scr A$ é uma família de subconjuntos de $A$,
 já sabemos que $\Union \scr A \subset A$.
-Logo, afirmar $\Union \scr A = A$ ou afirmar $\Union \scr A \supseteq A$
+Logo, afirmar $\Union \scr A = A$ ou afirmar $\Union \scr A \supset A$
 nesse caso é a mesma coisa.
 Escolhemos o (P1) pois fica mais natural (e porque se retirar a hipótese
 que $\scr A \subset \pset A$, o (P1) vira necessário).
@@ -28930,11 +29392,11 @@ Observe que esta convenção é a oposta que seguimos nas funções, onde um ple
 \emph{função} quis dizer \emph{função total}.
 %%}}}
 
-%%{{{ eg: subset and supseteq are orders 
+%%{{{ eg: subset and supset are orders 
 \example.
 Dado qualquer conjunto $X$, seus subconjuntos
 são parcialmente ordenados tanto por $\subset$
-quanto por $\supseteq$.
+quanto por $\supset$.
 \endexample
 %%}}}
 
@@ -34395,13 +34857,13 @@ $$
 \label{generated_subgroup_top_down_informally}%
 Começamos considerando o próprio $G$ como um possível candidato para ser
 o subgrupo de $G$ gerado por o conjunto $A$.  No final das contas,
-$G \subgroup G$, e também $G \supseteq A$.
+$G \subgroup G$, e também $G \supset A$.
 Mas no~$G$ existe possível ``lixo'': membros fora do~$A$ cuja presença não
 foi justificada como necessária pelas leis de grupo.
 Precisamos filtrar esse lixo, para ficar apenas com os membros ``necessários''.
 Quais são esses membros?
 Bem, se conseguir formar um subgrupo $H \subgroup G$
-tal que $H\supseteq A$ e que \emph{não} tem alguns dos membros,
+tal que $H\supset A$ e que \emph{não} tem alguns dos membros,
 isso quis dizer que eles não são realmente necessários; ou seja, é lixo.
 Então quem fica mesmo?
 Ficam apenas aqueles que pertencem a \emph{todos} os subgrupos de $G$
@@ -34420,7 +34882,7 @@ que \emph{nesse caso} acaba sendo equivalente.
 O que tudo isso quis dizer?
 Queremos definir o $\generate A$ como
 \emph{aquele} conjunto $\overline A$ que satisfaz:
-(i) $A \supseteq \overline A \subgroup G$; e
+(i) $A \supset \overline A \subgroup G$; e
 (ii) para todo $K$ tal que $A \subset K \subgroup G$,
 temos $\overline A \subgroup K$.
 Observe que nada muda se trocar o $\subgroup$ por $\subset$ na última condição,
@@ -34544,7 +35006,7 @@ $$
 Seja $\scr H = \setst { H \subgroup G } { A \subset H }$.
 Provamos cada direção separadamente:
 Para a {\lrdirset}, tome um arbitrário membro $\alpha \in \generate A$
-e um arbitrário $H \subgroup G$ tal que $H \supseteq A$,
+e um arbitrário $H \subgroup G$ tal que $H \supset A$,
 e mostre que $\alpha\in H$.
 Para a {\rldirset}, tome um $\alpha$ que pertence a todos
 os subgrupos de $G$ que contêm o $A$ e mostre que
@@ -35441,7 +35903,7 @@ cada $h_ia$ é igual a um dos $h_jb$ e vice versa.  Nada mais!
 \endgraf
 (2) E agora suponha que queremos provar que $Ha = Hb$.
 Pela definição de igualdade de conjuntos, precisamos provar $Ha \subset Hb$
-e $Ha \supseteq Hb$.  Mas!  Se a gente conseguir provar
+e $Ha \supset Hb$.  Mas!  Se a gente conseguir provar
 que realmente para todo $i$, $h_ia = h_ib$, isso seria
 ainda mais forte, e obviamente suficiente para concluir
 que $Ha=Hb$, mas \emph{não necessário}.
@@ -35605,7 +36067,7 @@ e $\cosetsR H$ é uma partição do $G$.
 \sketch.
 Para a $\cosetsR H$, por exemplo, precisamos demonstrar:
 \beginil
-\item{(P1)} $\Union \cosetsR H \supseteq G$;
+\item{(P1)} $\Union \cosetsR H \supset G$;
 ou seja: para todo $x\in G$, existe coclasse $H'$ com $x \in H'$;
 \item{(P2)} as coclasses no $\cosetsR H$ são disjuntas duas-a-duas;
 \item{(P3)} nenhuma coclasse é vazia ($\emptyset \notin \cosetsR H$).
@@ -35632,7 +36094,7 @@ Vamos demonstrar que $\cosetsR H$ é uma partição do $G$.
 A demonstração que $\cosetsL H$ também é, é similar.
 Precisamos provar:
 \beginil
-\item{(P1)} $\Union \cosetsR H \supseteq G$;
+\item{(P1)} $\Union \cosetsR H \supset G$;
 ou seja: para todo $x\in G$, existe coclasse $H'$ com $x \in H'$;
 \item{(P2)} as coclasses no $\cosetsR H$ são disjuntas duas-a-duas;
 \item{(P3)} nenhuma coclasse é vazia ($\emptyset \notin \cosetsR H$).
@@ -35664,7 +36126,7 @@ x= ha
 &\in Hb.
 \endalign
 $$
-A outra direção ($Ha \supseteq Hb$) é similar.
+A outra direção ($Ha \supset Hb$) é similar.
 \qed
 %%}}}
 
@@ -36030,7 +36492,7 @@ Similarmente para os inversos:
 consideramos um arbitrário elemento $hk\in HK$ e mostramos que seu
 inverso $\ginvp{hk} \in HK$.
 Aqui, alem da hipótese precisamos o~\ref{inverse_of_product_in_group}.
-Para a direção \rldir, mostramos as ``$\subset$'' e ``$\supseteq$''
+Para a direção \rldir, mostramos as ``$\subset$'' e ``$\supset$''
 separadamente, usando idéias parecidas.
 \qes
 %%{{{ proof 
@@ -36051,7 +36513,7 @@ $$
 $$
 \endgraf
 \rldir:
-Mostramos as ``$\subset$'' e ``$\supseteq$'' separadamente.
+Mostramos as ``$\subset$'' e ``$\supset$'' separadamente.
 ``$\subset$'':
 Tome $x \in HK$, logo $x^{-1} \in HK$ e $x^{-1} = hk$ \emph{para alguns}
 $h\in H$ e $k\in K$.  Como $H$ e $K$ são sub\emph{grupos} de $G$ seus inversos
@@ -36060,7 +36522,7 @@ Mas
 $$
 x = \ginvp{\ginv x} = \ginvp{hk} \ginv k \ginv h \in KH.
 $$
-``$\supseteq$'':
+``$\supset$'':
 Tome $x \in KH$, logo $x = kh$ \emph{para alguns} $k\in K$, $h\in H$.
 Logo $\ginv k \in K$ e $\ginv h \in H$.
 Como $HK\subgrp G$, basta apenas provar que $\ginv x \in HK$ pois isso
@@ -36716,7 +37178,7 @@ g a^0 \ginv g &= g e \ginv g = g \ginv g = e.
 $$
 Agora seja $k\in\nats$ tal que
 $$
- (ga\ginv g)^k = g a^k \ginv g. \tag{H.I.}
+(ga\ginv g)^k = g a^k \ginv g. \tag{H.I.}
 $$
 Calculamos
 \compute
@@ -44691,7 +45153,7 @@ $$
     B &\subset \Inter_{i=0}^\infty A_i\\
 \intertext{e complementando os dois lado,}
 \nats\setminus B
-    &\supseteq \nats\setminus\Inter_{i=0}^\infty A_i\\
+    &\supset \nats\setminus\Inter_{i=0}^\infty A_i\\
     &= \Union_{i=0}^\infty(\nats\setminus A_i)\\
     &= \Union_{i=0}^\infty(\set{0,2,\dotsc, 2n-2})\\
     &= 2\nats.
@@ -48814,7 +49276,7 @@ Calculamos:
 \proofpart{Passo indutivo:}
 Seja $k \in \Nats_1$ tal que
 $$
-\text{para todo $n \in \Nats_1$, $\phi(n +_1 k) = \phi(n) +_1 \phi(k)$.}\tag{H.I.}
+\text{para todo $n \in \Nats_1$, $\phi(n +_1 k) = \phi(n) +_1 \phi(k)$.} \tag{H.I.}
 $$
 Vamos provar que
 $$
