@@ -18397,7 +18397,7 @@ Nesse caso usamos \dterm{diagramas externos}.
 O diagrama externo da configuração do~\ref{internal_diagram_example}
 é o seguinte:
 $$
-A \tolongby f B \tolongby g C.
+A \longtoby f B \longtoby g C.
 $$
 \endexample
 %%}}}
@@ -20396,9 +20396,9 @@ $$
 Compondo as funções do primeiro diagrama criamos a função $h\of(g\of f)$,
 e compondo aquelas do segundo criamos a $(h\of g)\of f$:
 $$
-A \tolongby {h\of (g\of f)} D
+A \longtoby {h\of (g\of f)} D
 \qqquad
-A \tolongby {(h\of g)\of f} D.
+A \longtoby {(h\of g)\of f} D.
 $$
 Queremos saber se as duas funções são iguais.
 Vamos pensar sobre isso usando black boxes.
@@ -20605,18 +20605,18 @@ $$
 \noindent (1)
 Válida: a composição é definida, e se $a\in A$ então:
 \compute
-(f \compose \idof A)(a)
-&= f(\idof A(a))  \by {def.~$\compose$}
-&= f(a)         \by {def.~$\idof A$}
+(f \of \idof A)(a)
+&= f(\idof A (a))  \by {def.~$f\of\idof A$}
+&= f(a).           \by {def.~$\idof A$}
 \endcompute
 \endgraf
 \noindent (2) e (3): as composições não são definidas
 \endgraf
 \noindent (4) Similar com (1): a composição é definida e se $a \in A$ então:
 \compute
-(\idof B \compose f)(a)
-&= \idof B(f(a))  \by {def.~$\compose$}
-&= f(a)         \by {def.~$\idof B$}
+(\idof B \of f)(a)
+&= \idof B (f(a))  \by {def.~$\idof B\of f$}
+&= f(a).           \by {def.~$\idof B$}
 \endcompute
 
 \endexercise
@@ -20843,7 +20843,7 @@ Vamos agora ver a mesma idéia usando buracos, sem black boxes.
 \note Aplicação parcial usando buracos.
 Considere uma função $f$ de aridade 3:
 $$
-A \times B \times C \tolongby f D.
+A \times B \times C \longtoby f D.
 $$
 Lembre-se que
 $$
@@ -21197,15 +21197,15 @@ a adição nos naturais.
 Sejam
 $$
 \gather
-A \tolongby f B\\
-C \tolongby g D
+A \longtoby f B\\
+C \longtoby g D
 \endgather
 $$
 Chamamos \dterm{função-produto da $f$ ``cross'' $g$},
 que denotamos por $f \cross g$,
 a função
 $$
-A \times C \tolongby {f\cross g} B \times D
+A \times C \longtoby {f\cross g} B \times D
 $$
 definida pela
 $$
@@ -21277,13 +21277,13 @@ sobre nossas funções $f,g$ na definição.
 \sdefined {\fpair {\sholed f} {\sholed g}} {a função-par $f$ ``pair'' $g$}%
 Sejam
 $$
-A \fromlongby f D \tolongby g B
+A \longfromby f D \longtoby g B
 $$
 Chamamos \dterm{função-par da $f$ ``pair'' $g$},
 que denotamos por $\fpair f g$,
 a função
 $$
-D \tolongby {\fpair f g} A\times B
+D \longtoby {\fpair f g} A\times B
 $$
 definida pela
 $$
@@ -21348,7 +21348,7 @@ mas isso faz parte do próprio desafio!
 }
 Desenhamos então:
 $$
-\phantom{A \tolongby ? {}} A \cross A \tolongby {f \cross g} B \cross B \tolongby {\ast} B.
+\phantom{A \longtoby ? {}} A \cross A \longtoby {f \cross g} B \cross B \longtoby {\ast} B.
 $$
 O que \emph{interessante} podemos definir agora?
 Com certeza uma composição tem chances boas de ser interessante,
@@ -21362,14 +21362,14 @@ para brincar com as arvores; \emph{ou podemos perceber que talvez
 falta apenas uma setinha para nos ajudar}.
 Se a gente tivesse uma setinha interessante assim:
 $$
-A \alert{{}\tolongby ?{}} A \cross A \tolongby {f \cross g} B \cross B \tolongby {\ast} B,
+A \alert{{}\longtoby ?{}} A \cross A \longtoby {f \cross g} B \cross B \longtoby {\ast} B,
 $$
 a gente teria um candidáto ótimo para algo interessante, pois
 assim a composição de todas essas setinhas tem o tipo desejado.
 Basta definir uma função interessante então de $A$ para $A\cross A$
 e assim ganhar a
 $$
-A \toxlongarrow {\ast \of \pfcross f g \of \alert ?} B.
+A \xlongtoby {\ast \of \pfcross f g \of \alert ?} B.
 $$
 %%}}}
 
@@ -21383,7 +21383,7 @@ descrever explicitamente o seu comportamento?
 \solution
 Usando $\lambda$, a função que procuramos é a seguinte:
 $$
-A \tolongby {\lam x {\tup{x,x}}} A \cross A.
+A \longtoby {\lam x {\tup{x,x}}} A \cross A.
 $$
 Essa função é a $\fpair {\idof A} {\idof A}$.
 
@@ -22310,7 +22310,7 @@ Calculamos:
 Informalmente, para construir a inversa duma função
 pegamos o seu diagrama interno, e viramos todas
 as setinhas barradas para a direção oposta.
-Vamos estudar essa ideia formalmente agora.
+Vamos estudar essa idéia formalmente agora.
 
 %%{{{ df: finverse 
 \definition Função inversa.
@@ -22613,6 +22613,8 @@ essas propriedades, ``de longe'', sem olhar os detalhes internos.
 %%{{{ An_epic_trip 
 \section Uma viagem épica.
 \label{An_epic_trip}%
+
+\TODO terminar, arrumar e talvez juntar com a próxima.
 
 %%{{{ mathematical_OCD: Something irritating 
 \note Algo irritante.
@@ -22978,6 +22980,7 @@ Logo $g = h$.
 
 %%{{{ df: mono_epi_functions
 \definition mono, epi.
+\label{mono_epi_functions}%
 \tdefined{função}[mono]%
 \tdefined{função}[epi]%
 \iisee{mônica}{função, mono}%
@@ -23035,49 +23038,42 @@ nossas frescuras.
 
 \TODO terminar, arrumar e talvez juntar com a anterior.
 
-%%{{{ thm: finv_laws 
-\theorem Leis da inversa.
-\label{finv_laws}%
-Para toda $f : A \bijto B$,
-temos:
+%%{{{ function_laws 
+\note Leis de funções (com equações).
+\label{function_laws}%
+As configurações na esquerda implicam as identidades na direita:
 $$
-\xxalignat4
-\textrm{(L)} && \finv f \of f &= \idof A &
-f \of \finv f &= \idof B. &&\textrm{(R)}
-\endxxalignat
+\align
+A \toby f B \toby g C \toby h D
+& \;\;\implies\;\;
+(h \of g) \of f = h \of (g \of f)
+\tag{F-Ass}\\
+A \toby f B
+& \;\;\implies\;\;
+\leftbrace{
+\aligned
+f \of \idof A &= f \\
+\idof B \of f &= f
+\endaligned
+}
+\tag{F-Id} \\
+A \bijtoby f B
+& \;\;\implies\;\;
+\leftbrace{
+\aligned
+\finv f \of f &= \idof A \\
+f \of \finv f &= \idof B
+\endaligned
+}
+\tag{F-Inv}
+\endalign
 $$
-\proof.
-Como $\finv f : B \to A$, temos
-$$
-\xxalignat4
-\textrm{\phantom{(L)}}&& \finv f \of f &: A \to A &
-f \of \finv f &: B \to B. &&\textrm{\phantom{(R)}}
-\endxxalignat
-$$
-Sejam $a\in A$ e $b\in B$.
-Calculamos:
-\compute
-(\finv f \of f) (a)
-&= \finv f (f(a)) \\
-&= \text{aquele $x\in A$ que $f(x) = f(a)$} \\
-&= a           \by {$f$ inj.}
-&= \idof A(a).
-\endcompute
-Agora tomando $y\in B$ calculamos a outra numa maneira diferente:
-\compute
-(f \of \finv f) (b) = y
-&\iff f(\finv f(b)) = y \\
-&\iff \finv f (b) = \finv f(y) \\
-&\iff b = y    \by {$\finv f$ inj.~(\refn{finv_is_bij})}
-&\iff \idof B (b) = y.
-\endcompute
-\qed
 %%}}}
 
 %%{{{ x: cd_finv_laws 
 \exercise.
 \label{cd_finv_laws}%
-Como expressar as leis da inversa (\refn{fcom_identity_laws})
+Como expressar as leis da inversa (F-Inv)
 usando apenas a comutatividade dum diagrama?
 
 \hint
@@ -23206,6 +23202,32 @@ A $\finv f$ foi definida apenas quando $f$ é bijetora.
 \endexercise
 %%}}}
 
+%%{{{ thm: finv_atleastonelaw_if_f_bij_pointless 
+\theorem Basta uma lei: agora sem pontos.
+\label{finv_atleastonelaw_if_f_bij_pointless}%
+Seja $f : A \bijto B$.
+Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis da
+inversa~(\ref{function_laws}), então $f' = \finv f$.
+\proof.
+Caso que $f'$ satisfaz a (L):
+\compute
+f'
+&= f' \of \idof B          \by {lei da $\idof B$}
+&= f' \of (f \of \finv f)  \by {(R) da $\finv f$}
+&= (f' \of f) \of \finv f  \by {assoc.}
+&= \idof A \of \finv f     \by {(L) da $f'$}
+&= \finv f.                \by {lei da $\idof A$}
+\intertext{E caso que $f'$ satisfaz a (R):}
+f'
+&= \idof A \of f'          \by {lei da $\idof A$}
+&= (\finv f \of f) \of f'  \by {(L) da $\finv f$}
+&= \finv f \of (f \of f')  \by {assoc.}
+&= \finv f \of \idof B     \by {(R) da $f'$}
+&= \finv f.                \by {lei da $\idof B$}
+\endcompute
+\qed
+%%}}}
+
 %%{{{ x: retraction_and_section_implies_inverse 
 \exercise.
 Seja $f : A \to B$ tal que $r,s : A \from B$ são retracção
@@ -23239,34 +23261,6 @@ e com $f'\asseq s$ e ganhamos:
 $$
 r = \finv f = s.
 $$
-
-\endexercise
-%%}}}
-
-%%{{{ x: finv_atleastonelaw_if_f_bij_pointless 
-\exercise Basta uma lei: agora sem pontos.
-\label{finv_atleastonelaw_if_f_bij_pointless}%
-Seja $f : A \bijto B$.
-Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis da
-inversa~(\ref{finv_laws}), então $f' = \finv f$.
-
-\solution
-Caso que $f'$ satisfaz a (L):
-\compute
-f'
-&= f' \of \idof B          \by {lei da $\idof B$}
-&= f' \of (f \of \finv f)  \by {(R) da $\finv f$}
-&= (f' \of f) \of \finv f  \by {assoc.}
-&= \idof A \of \finv f     \by {(L) da $f'$}
-&= \finv f.                \by {lei da $\idof A$}
-\intertext{E caso que $f'$ satisfaz a (R):}
-f'
-&= \idof A \of f'          \by {lei da $\idof A$}
-&= (\finv f \of f) \of f'  \by {(L) da $\finv f$}
-&= \finv f \of (f \of f')  \by {assoc.}
-&= \finv f \of \idof B     \by {(R) da $f'$}
-&= \finv f.                \by {lei da $\idof B$}
-\endcompute
 
 \endexercise
 %%}}}
@@ -24259,7 +24253,8 @@ $$
 De onde chegou esse $28$?
 
 \solution
-Seguindo a definição da $F(25)$ ela é a função que recebendo um valor (agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
+Seguindo a definição da $F(25)$ ela é a função que recebendo um valor
+(agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
 $25 + 3 = 28$.
 
 \endexercise
@@ -24378,8 +24373,11 @@ são funcões, e também pois sua saida também é uma função.
 
 %%{{{ eg: higher_order_example_apply 
 \example Apply.
+\label{higher_order_example_apply}%
+\tdefined{função}[aplicação]%
 Suponha $f : A \to B$ e seja $a \in A$.
-Quando escrevemos $f\fa a$ (ou $f(a)$), estamos denotando a aplicação da $f$ no $a$.
+Quando escrevemos \sqq{$f\fa a$} (ou \sqq{$f(a)$}),
+estamos denotando a \dterm{aplicação} da $f$ no $a$.
 Essa aplicação é uma operação de ordem superior também.
 O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
 pela juxtaposição da função e do seu argumento (já discutimos isso
@@ -41317,7 +41315,7 @@ $$
 \phi
 \eqtype
 \sset R    {+, \;\ntimes\;, -, 0, 1, <}
-\tolongby{\iso}
+\longtoby{\iso}
 \sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}.
 $$
 Obviamente botamos
