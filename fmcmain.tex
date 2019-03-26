@@ -18091,7 +18091,9 @@ range:
 %%{{{ df: range 
 \definition.
 \tdefined{função}[range]%
+\iiseealso{função!range}{função, imagem}%
 \sdefined {\range {\sholed f}} {o range da função $f$}%
+\sdefined {\ima {\sholed f}} {a imagem da função $f$}%
 Seja $f : A \to B$ função.
 Seu \dterm{range} é conjunto
 $$
@@ -18100,6 +18102,7 @@ $$
 \setstt y {$f(x) = y$ para algum $x \in A$}.
 $$
 Observe que $\range f \subset B$.
+Usamos também a notação $\ima f$, o chamando de \dterm{imagem} da $f$.
 %%}}}
 
 %%{{{ x: what about these types for sin? 
@@ -19959,19 +19962,30 @@ Denotamos a identidade do conjunto $A$ por $\idof A : A \to A$ ou $1_A : A \to A
 \definition Inclusão.
 \label{inclusion_function}%
 \tdefined{função}[inclusão]%
-\sdefined {\sholed f : \sholed A \incto \sholed B} {a inclusão do $A$ no $B$}%
+\sdefined {\incofin {\sholed A} {\sholed B}} {a inclusão do $A$ no $B$}%
+\sdefined {\sholed i : \sholed A \subset \sholed B} {$i$ é a inclusão do $A$ no $B$ (ou uma injecção)}%
+\sdefined {\sholed i : \sholed A \incto \sholed B}  {$i$ é a inclusão do $A$ no $B$ (ou uma injecção)}%
 Sejam $A,B$ conjuntos com $A\subset B$.
 A função $\lam x x : A \to B$ é chamada \dterm{inclusão do $A$ no $B$}.
-Frequentemente usamos os nomes $i,\iota$ para denotar uma inclusão
-e escrevemos
+Usamos o $\inc$ para denotar uma inclusão e escrevemos
 $$
-i : A \incto B
+\inc : A \incto B
+\qqqtext{ou até}
+\inc : A \subset B
 $$
 para enfatizar que é uma inclusão mesmo.
+Decoramos a notação escrevendo $\incofin A B$ quando essa informação
+não é implícita pelo contexto.
+Todos os $i,\imath,\iota$ são símbolos freqüentemente usados para
+denotar inclusões.
+%%}}}
+
+%%{{{ remark: inclusion is not id 
+\remark.
 Note que seguindo o ponto de vista categorial (\refn{f_eq_g_catist}),
-se $A \subsetneq B$ então $i \neq \idof A$,
+se $A \subsetneq B$ então $\incofin A B \neq \idof A$,
 mas seguindo o ponto de vista conjuntista (\refn{f_eq_g_setist}),
-temos $i = \idof A$.
+temos $\incofin A B = \idof A$.
 %%}}}
 
 %%{{{ df: constant_function 
@@ -22368,8 +22382,8 @@ Então existem: injecção $m$, surjecção $e$, e conjunto $C$
 tais que o diagrama seguinte comuta:
 $$
 \cdopt{sep=1cm}
-A   \ar[rr, "f"]\ar[dr, twoheadrightarrow, "e"']\|  \| B \\
-                                                \| C \ar[ur, rightarrowtail, "m"']
+A \ar[rr, "f"]\ar[dr, twoheadrightarrow, "e"'] \| \| B \\
+                                                  \| C \ar[ur, rightarrowtail, "m"']
 \endcd
 $$
 Em outras palavras, mostre que qualquer função $f : A \to B$
@@ -22378,6 +22392,29 @@ $$
 f = m \of e
 $$
 onde $e$ é uma função sobrejetora e $m$ uma função injetora.
+
+\hint
+Para garantir que $e$ é sobrejetora escolher como $C$ 
+o próprio $\range(f)$.
+
+\solution
+Sejam
+$$
+\align
+C &= \range(f) \\
+e &= \lam x {f x} : A \to C \\
+m &= \inc : C \incto B
+\endalign
+$$
+Basta demonstrar que $f = m \of e$.
+Seja $x \in A$.
+Calculamos:
+\compute
+(m \of e) x
+&= m (e x)  \by {def.~$m \of e$}
+&= m (f x)  \by {def.~$e$}
+&= f x.     \by {def.~$m$}
+\endcompute
 
 \endproblem
 %%}}}
@@ -23196,7 +23233,7 @@ a juxtaposição não denota a $\of$, mas a $\apply$!
 \blah.
 Influenciados por toda essa viagem chegamos nuns resultados
 muito importantes e interessantes sobre a injetoridade,
-a sobrejetoridade, e os cancelamentos (esquedos e direitos)
+a sobrejetoridade, e os cancelamentos (esquerdos e direitos)
 das funções.
 
 %%{{{ Q: guess the theory that's about to come 
