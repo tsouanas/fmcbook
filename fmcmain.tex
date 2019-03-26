@@ -24460,6 +24460,68 @@ essas antiderivadas como definimos aqui.
 \endsection
 %%}}}
 
+%%{{{ Partial functions 
+\section Funções parciais.
+\label{Partial_functions}%
+
+\blah.
+A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente}
+definida no $A$, não nos permite considerer naturalmente situações onde
+um certo programa, por exemplo, retorna valores para certas entradas
+aceitáveis, e para as outras não:
+talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
+ou simplesmente não termina com uma saida---não importa o porquê.
+Definimos então o conceito de \emph{função parcial}, que é exatamente
+isso: funções que para certas entradas aceitáveis delas, possivelmente
+\dterm{divergem}.
+
+%%{{{ df: partial_function 
+\definition.
+\label{partial_function}%
+\tdefined{função}[parcial]%
+\sdefined {\sholed f : \sholed A \parto \sholed B} {$f$ é uma função parcial de $A$ para $B$}%
+\sdefined {(\sholed A \parto \sholed B)} {o conjunto das funções parciais de $A$ para $B$}%
+Sejam $A,B$ conjuntos.
+Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse:
+$$
+\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
+$$
+Nesse caso, chamamos \dterm{domínio} o conjunto
+$$
+\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
+$$
+e \dterm{codomínio} o $B$ mesmo.
+Escrevemos $f : A \parto B$ para ``$f$ é uma função parcial de $A$ para $B$''.
+Naturalmente denotamos o conjunto de todas as funções parciais de $A$ para $B$ por
+$$
+(A \parto B) \defeq \setst f {f : A \parto B}.
+$$
+%%}}}
+
+%%{{{ remark: total vs partial: default 
+\remark.
+Com essas definições cada função total é uma função parcial.
+Escrevemos esse ``total'' quando queremos enfatizar, mas normalmente
+``função'' sem o adjetivo ``parcial'' significa ``função total''.
+Claramente, quando trabalhamos principalmente com funções parciais,
+seguimos a convenção oposta.
+%%}}}
+
+%%{{{ remark: partial function conditions 
+\remark Condições.
+Encontramos então aqui o que acontece se apagar a primeira das
+condições~\refn{functionhood_conditions}:
+\beginil
+\item{}\strikeout{(1)~totalidade};
+\item{}(2)~determinabilidade.
+\endil
+e ficar só com a (2).
+No~\ref{Relations} vamos estudar também o caso onde apagamos ambas as condições.
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Currying 
 \section Currificação.
 \label{Currying}%
@@ -25416,68 +25478,6 @@ Essa é exatamente a conjectura de
 Deixamos esse assunto por enquanto (até o~\ref{Theory_of_recursive_functions}),
 supondo que temos já um entendimento de como definições recursivas
 funcionam.
-
-\endsection
-%%}}}
-
-%%{{{ Partial functions 
-\section Funções parciais.
-\label{Partial_functions}%
-
-\blah.
-A restrição que uma função $f : A \to B$ precisa ser \emph{totalmente}
-definida no $A$, não nos permite considerer naturalmente situações onde
-um certo programa, por exemplo, retorna valores para certas entradas
-aceitáveis, e para as outras não:
-talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
-ou simplesmente não termina com uma saida---não importa o porquê.
-Definimos então o conceito de \emph{função parcial}, que é exatamente
-isso: funções que para certas entradas aceitáveis delas, possivelmente
-\dterm{divergem}.
-
-%%{{{ df: partial_function 
-\definition.
-\label{partial_function}%
-\tdefined{função}[parcial]%
-\sdefined {\sholed f : \sholed A \parto \sholed B} {$f$ é uma função parcial de $A$ para $B$}%
-\sdefined {(\sholed A \parto \sholed B)} {o conjunto das funções parciais de $A$ para $B$}%
-Sejam $A,B$ conjuntos.
-Chamamos a $f$ uma \dterm{função parcial} de $A$ para $B$ sse:
-$$
-\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
-$$
-Nesse caso, chamamos \dterm{domínio} o conjunto
-$$
-\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
-$$
-e \dterm{codomínio} o $B$ mesmo.
-Escrevemos $f : A \parto B$ para ``$f$ é uma função parcial de $A$ para $B$''.
-Naturalmente denotamos o conjunto de todas as funções parciais de $A$ para $B$ por
-$$
-(A \parto B) \defeq \setst f {f : A \parto B}.
-$$
-%%}}}
-
-%%{{{ remark: total vs partial: default 
-\remark.
-Com essas definições cada função total é uma função parcial.
-Escrevemos esse ``total'' quando queremos enfatizar, mas normalmente
-``função'' sem o adjetivo ``parcial'' significa ``função total''.
-Claramente, quando trabalhamos principalmente com funções parciais,
-seguimos a convenção oposta.
-%%}}}
-
-%%{{{ remark: partial function conditions 
-\remark Condições.
-Encontramos então aqui o que acontece se apagar a primeira das
-condições~\refn{functionhood_conditions}:
-\beginil
-\item{}\strikeout{(1)~totalidade};
-\item{}(2)~determinabilidade.
-\endil
-e ficar só com a (2).
-No~\ref{Relations} vamos estudar também o caso onde apagamos ambas as condições.
-%%}}}
 
 \endsection
 %%}}}
