@@ -21231,29 +21231,37 @@ são funcões, e também pois sua saida também é uma função.
 \endexample
 %%}}}
 
-%%{{{ eg: higher_order_example_apply 
-\example Apply.
-\label{higher_order_example_apply}%
+%%{{{ df: apply_operation 
+\definition Apply.
+\label{apply_operation}%
 \tdefined{função}[aplicação]%
+\tdefined{função}[apply]%
+\sdefined {\apply} {a operação de aplicar uma função num objeto}%
 Suponha $f : A \to B$ e seja $a \in A$.
 Quando escrevemos \sqq{$f\fa a$} (ou \sqq{$f(a)$}),
 estamos denotando a \dterm{aplicação} da $f$ no $a$.
-Essa aplicação é uma operação de ordem superior também.
 O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
 pela juxtaposição da função e do seu argumento (já discutimos isso
 no~\ref{lazier_clearer_functional_notation}).
-Em vez de escrever algo do tipo
-$$
-\namedfun{apply}(f, a)
-$$
-escrevemos simplesmente $f\fa a$ ou $f(a)$.
+Definimos aqui uma função $\apply$ que faz exatamente isso:
+aplica seu primeiro argumento (uma função) no seu segundo argumento
+(um ponto do domínio do primeiro argumento)..
 Como fizemos na composição, decoramos essa operação com $_{A,B}$
-para estudar o domínio e codomínio de cada caso.
-Então dados conjuntos $A,B$ temos
+para esclarecer os conjuntos envolvidos.
+Então dados conjuntos $A,B$ temos a função
 $$
-\namedfun{apply}_{A,B} : \bigparen{(A \to B) \times A} \to B
+\apply_{A,B} : \bigparen{(A \to B) \times A} \to B
 $$
-que é claramente uma operação de ordem superior.
+definida pela
+$$
+\apply_{A,B}(f, a) = f(a).
+$$
+%%}}}
+
+%%{{{ eg: higher_order_example_apply 
+\example.
+Dados conjuntos $A,B$, a $\apply_{A,B}$ é claramente uma
+operação de ordem superior.
 \endexample
 %%}}}
 
@@ -23069,11 +23077,11 @@ A gente vai voltar nessa questão mais tarde
 \endgraf
 Parece ótimo: exatamente o tipo da coisa que estamos procurando!
 Será que podemos já trazer essa sabedoria da $\ntimes$
-nos números para a $\fcom$ nas funções?
+nos números para a $\of$ nas funções?
 O que seria nosso ``zero'' nas funções?
 Uma resposta boba seria <<a função constante 0>>.
 Com certeza para funções numéricas
-a função constante $\kon 0 = \lam x 0$ não é nada de cancelavel.
+a função constante $\kon 0 = \lam x 0$ não é nada de cancelável.
 (Veja~\ref{kon_is_not_cancellable_in_general}.)
 Por que boba então?
 Pois dizendo isso já perdemos a generalidade:
@@ -23127,8 +23135,8 @@ não consegue diferenciar entre essas afirmações.
 Ou seja, por causa da riquesa das leis que temos
 na multiplicação nos números, certas distinções desaparecem,
 ``se desabam''---algo que podemos pensar como pobresa também!
-E vice versa, com menos leis, ganhamos mais distinções---riquesa!
-No mundo de números reais, um certo $x$ ou tem inverso
+E vice versa: com menos leis ganhamos mais distinções---riquesa!
+No mundo dos reais, um certo $x$ ou tem inverso
 ou não.  De qual lado inverso?  Não faz sentido perguntar
 isso nos números pois o lado não importa.
 Quando importa, não vamos falar apenas sobre ``inverso'' mas sim sobre
@@ -23136,17 +23144,53 @@ Quando importa, não vamos falar apenas sobre ``inverso'' mas sim sobre
 Similarmente, nos números só tem uma $1$ para considerar;
 nas funções, cada conjunto $A$ chega com sua própria $1_A$!
 \emph{O mundo das funções é suficientemente rico para enxergar
-essas noções ``inenxergáveis'' no mundo dos números!}
+essas noções inenxergáveis no mundo dos números!}
 %%}}}
 
 %%{{{ x: kon_is_not_cancellable_in_general 
 \exercise.
 \label{kon_is_not_cancellable_in_general}%
-Demonstre que uma função constante $\kon b : A \to B$
-não é sempre cancelável.  Quando é?  E por qual lado?
+Demonstre que a função constante $\kon 0 : \reals \to \reals$
+em geral não é cancelável nem pela direita nem pela esquerda.
+
+\solution
+\proofpart{Incancelável pela esquerda.}
+Tome por exemplo as
+$$
+\cdopt{sep=2cm}
+\reals \ar[r, shift left, "\sin"]\ar[r, shift right, "\cos"']
+\| \reals \ar[r, "\kon 0"]
+\| \reals
+\endcd
+$$
+que obviamente comuta; ou seja $\kon 0 \sin = \kon 0 \cos (= \kon 0)$)
+mas mesmo assim $\sin \neq \cos$.
+\crproofpart{Incancelável pela direita.}
+Tome por exemplo as
+$$
+\cdopt{sep=2cm}
+\reals \ar[r, "\kon 0"]
+\|\reals \ar[r, shift left, "\sin"]\ar[r, shift right, "\id"']
+\|\reals
+\endcd
+$$
+que obviamente comuta; ou seja $\sin \kon 0 = \id \kon 0 (= \kon 0)$)
+mas mesmo assim $\sin \neq \id$.
 
 \endexercise
 %%}}}
+
+\note.
+Olhe de novo na implicação que tem na definição da injetora:
+$$
+f \fa x = f \fa y \implies x = y. \tag{L-canc}
+$$
+Lembra muito do que acabamos de demonstrar, mas nosso objetivo
+foi investigar a composição $\of$ usando a multiplicação $\ntimes$.
+Quando escrevi a (L-canc) em números a juxtaposição denotou
+a $\ntimes$.  Mas na definição da injetora que temos,
+a juxtaposição não denota a $\of$, mas a $\apply$!
+(Veja~\
 
 \blah.
 Influenciados por toda essa viagem chegamos nuns resultados
@@ -33818,14 +33862,12 @@ Precisamos verificar as leis (G0)--(G3) para o $\sset H {\ast}$.
 Os (1) e (2) garantam as (G0) e (G3) respectivamente,
 e o fato que $G$ é grupo garanta a (G1) também.
 Basta verificar a (G2), ou seja, que $e\in H$:
-$$
-\stepproof{
-\proofsteptby {Tome $a\in H$.}      {$H\neq\emptyset$\,} \\
-\thereforemby {\ginv a \in H}       {pela (ii)} \\
-\thereforemby {a\ast \ginv a \in H} {pela (i)} \\
+\stepproof
+\proofsteptby {Tome $a\in H$.}      {$H\neq\emptyset$\,}
+\thereforemby {\ginv a \in H}       {pela (ii)}
+\thereforemby {a\ast \ginv a \in H} {pela (i)}
 \thereforemby {e \in H}             {def.~$\ginv a$}
-}
-$$
+\endstepproof
 \qed
 %%}}}
 
@@ -34132,19 +34174,17 @@ Temos $H_1\inter H_2 \subset G$.
 Observe primeiramente que $H_1\inter H_2\neq \emptyset$,
 pois $e\in H_1$ e $e\in H_2$ (os dois sendo subgrupos de $G$).
 Agora mostramos que o $H_1\inter H_2$ é fechado pela operação:
-$$
-\stepproof{
-\proofsteptnb {$a,b \in H_1\inter H_2$}\\
-\thereforetby {$a,b \in H_1$ e $a,b\in H_2$} {def.~$\inter$}\\
-\thereforetby {$ab  \in H_1$ e $ab\in H_2$}  {$H_1$ e $H_2$ grupos}\\
+\stepproof
+\proofsteptnb {$a,b \in H_1\inter H_2$}
+\thereforetby {$a,b \in H_1$ e $a,b\in H_2$} {def.~$\inter$}
+\thereforetby {$ab  \in H_1$ e $ab\in H_2$}  {$H_1$ e $H_2$ grupos}
 \thereforetby {$ab  \in H_1\inter H_2$}      {def.~$\inter$}
 \intertext{e pelos inversos:}
-\proofsteptnb {$a \in H_1\inter H_2$}\\
-\thereforetby {$a      \in H_1$ e $a\in H_2$}      {def.~$\inter$}\\
-\thereforetby {$a^{-1} \in H_1$ e $a^{-1}\in H_2$} {$H_1$ e $H_2$ grupos}\\
+\proofsteptnb {$a \in H_1\inter H_2$}
+\thereforetby {$a      \in H_1$ e $a\in H_2$}      {def.~$\inter$}
+\thereforetby {$a^{-1} \in H_1$ e $a^{-1}\in H_2$} {$H_1$ e $H_2$ grupos}
 \thereforetby {$a^{-1} \in H_1\inter H_2$}         {def.~$\inter$}
-}
-$$
+\endstepproof
 e o resultado segue graças ao~\ref{nonempty_subgroup_criterion}.
 %%}}}
 
@@ -34160,19 +34200,17 @@ no~\ref{intersection_of_subgroups_is_a_subgroup}.
 \quote
 <<Como $H \leteq H_1\inter H_2 \subset G$,
 precisamos mostrar que $H$ é fechado sobre a operação:
-$$
-\stepproof{
-\proofsteptnb {$a,b \in H_1\union H_2$}\\
-\thereforetby {$a,b \in H_1$ ou $a,b\in H_2$} {def.~$\union$}\\
-\thereforetby {$ab \in H_1$ ou $ab\in H_2$  } {$H_1$ e $H_2$ grupos}\\
-\thereforetby {$ab \in H_1\union H_2$       } {def.~$\union$}
+\stepproof
+\proofsteptnb {$a,b \in H_1\union H_2$}
+\thereforetby {$a,b \in H_1$ ou $a,b\in H_2$}   {def.~$\union$}
+\thereforetby {$ab \in H_1$ ou $ab\in H_2$}     {$H_1$ e $H_2$ grupos}
+\thereforetby {$ab \in H_1\union H_2$}          {def.~$\union$}
 \intertext{e sobre os inversos:}
-\proofsteptnb {$a \in H_1\union H_2$}\\
-\thereforetby {$a \in H_1$ ou $a\in H_2$          } {def.~$\union$}\\
-\thereforetby {$a^{-1} \in H_1$ ou $a^{-1}\in H_2$} {$H_1$ e $H_2$ grupos}\\
-\thereforetby {$a^{-1} \in H_1\union H_2$         } {def.~$\union$}
-}
-$$
+\proofsteptnb {$a \in H_1\union H_2$}
+\thereforetby {$a \in H_1$ ou $a\in H_2$}           {def.~$\union$}
+\thereforetby {$a^{-1} \in H_1$ ou $a^{-1}\in H_2$} {$H_1$ e $H_2$ grupos}
+\thereforetby {$a^{-1} \in H_1\union H_2$}          {def.~$\union$}
+\endstepproof
 Logo, $H_1 \union H_2 \subgroup G$.>>
 \endquote
 \item{(ii)} Prove que a proposição não é válida.
@@ -35161,7 +35199,7 @@ $$
 \align
 \generate S &= \Inter \setstt {C} {$C$ é subbicho de $B$ que contem o $S$}.
 \intertext{Curtamente: dados $S \subset B$, temos}
-\generate S &= \Inter_{S \subset C \leq B} C,
+\generate S &= \Inter_{\mathclap{S \subset C \leq B}} C,
 \endalign
 $$
 onde $\leq$ aqui significa ``subbicho''.
@@ -38703,18 +38741,16 @@ Sejam $x,y\in\ker\phi$ então.
 Logo $\phi(x) = e_B = \phi(y)$,
 e como $\phi$ é injetora, concluimos o desejado $x=y$.
 \crproofpart{\rldir}.
-$$
-\stepproof{
-\proofsteptnb {Sejam $x,y \in A$ tais que $\phi(x) = \phi(y)$.}\\
-\thereforetby {$\phi(x) \ginv{\phi(y)} = e_B$}          {$(\ast \ginv{\phi(y)})$}\\
-\thereforetby {$\phi(x) \phi\funparen{\ginv y} = e_B$}  {$\phi$ homo (inv.)}\\
-\thereforetby {$\phi(x \ginv y) = e_B$}                 {$\phi$ homo (op.)}\\
-\thereforetby {$x\ginv y \in \ker\phi$}                 {def.~$\ker\phi$}\\
-\thereforetby {$x\ginv y \in \set{e_A}$}                {hipótese}\\
-\thereforetby {$x\ginv y = e_A$}                        {$\set{e_A}$ singleton}\\
+\stepproof
+\proofsteptnb {Sejam $x,y \in A$ tais que $\phi(x) = \phi(y)$.}
+\thereforetby {$\phi(x) \ginv{\phi(y)} = e_B$}          {$(\ast \ginv{\phi(y)})$}
+\thereforetby {$\phi(x) \phi\funparen{\ginv y} = e_B$}  {$\phi$ homo (inv.)}
+\thereforetby {$\phi(x \ginv y) = e_B$}                 {$\phi$ homo (op.)}
+\thereforetby {$x\ginv y \in \ker\phi$}                 {def.~$\ker\phi$}
+\thereforetby {$x\ginv y \in \set{e_A}$}                {hipótese}
+\thereforetby {$x\ginv y = e_A$}                        {$\set{e_A}$ singleton}
 \thereforetby {$x = y$}                                 {$(\ast y)$}
-}
-$$
+\endstepproof
 \qed
 %%}}}
 
@@ -47489,17 +47525,15 @@ b\in B
 \tup{a,b} = \kurpair a b \in \mathord{?}
 $$
 Vamos ver:
-$$
-\stepproof{
-\proofsteptnb {Suponha $a\in A$ e $b\in B$.}\\
-\thereforetby {$a,b \in A\union B$}                               {def.~$\union$}\\
-\thereforetby {$\set {a}, \set{a,b} \subset A \union B$}        {def.~$\subset$}\\
-\thereforetby {$\set {a}, \set{a,b} \in \pset\paren{A \union B}$} {def.~$\pset$}\\
-\thereforetby {$\kurpair a b \subset \pset\paren{A \union B}$}  {def.~$\subset$}\\
-\thereforetby {$\kurpair a b \in \pset\pset\paren{A \union B}$}   {def.~$\pset$}\\
+\stepproof
+\proofsteptnb {Suponha $a\in A$ e $b\in B$.}
+\thereforetby {$a,b \in A\union B$}                               {def.~$\union$}
+\thereforetby {$\set {a}, \set{a,b} \subset A \union B$}          {def.~$\subset$}
+\thereforetby {$\set {a}, \set{a,b} \in \pset\paren{A \union B}$} {def.~$\pset$}
+\thereforetby {$\kurpair a b \subset \pset\paren{A \union B}$}    {def.~$\subset$}
+\thereforetby {$\kurpair a b \in \pset\pset\paren{A \union B}$}   {def.~$\pset$}
 \thereforetby {$\tup {a, b} \in \pset\pset\paren{A \union B}$}    {def.~$\tup{a,b}$}
-}
-$$
+\endstepproof
 Tome então $W\asseq \pset\pset\paren{A \union B}$
 e defina
 $$
