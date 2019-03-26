@@ -21431,75 +21431,7 @@ Quando o conjunto $A$ é implícito pelo contexto escrevemos apenas $\diag$.
 Com o que já temos na nossa disposição podemos definir umas funções
 interessantes apenas usando composições, e \emph{diretamente} definindo
 a função (sem utilizar um ponto do seu domínio nem a $\lambda$-notação).
-Olha:
-
-%%{{{ eg: two_x_plus_one 
-\example.
-\label{two_x_plus_one}%
-Defina a função $f = \lam x {2x+1} : \nats\to\nats$ diretamente como
-composição de funções sem usar $\lambda$-notação.
-Desenha o diagrama externo da configuração e confirme tua resolução.
-\solution
-Temos as funções
-$$
-\cdopt{sep=1.666cm}
-\nats
-\ar[r, "\dsize\diag"]   \| \nats\cross\nats
-\ar[r, "\dsize\ntimes"] \| \nats
-\ar[r, "\dsize\succ"]   \| \nats.
-\endcd
-$$
-Assim defino
-$$
-f = \paren{{\succ} \of \mathord{\nplus} \of {\diagdom\nats}} : \nats \to \nats
-$$
-e tomando um $x\in\nats$ calculo:
-\compute
-f(x)
-&= \paren{\succ \of \mathord{\nplus} \of \diag} (x) \by {def.~$f$}
-&= \succ(\mathord{\nplus}(\diag(x)))                \by {def.~$\of$}
-&= \succ(\mathord{\nplus}(x,x))                     \by {def.~$\diag$}
-&= \succ(2x)                                        \\
-&= 2x+1                                             \by {def.~$\succ$}
-\endcompute
-confirmando assim que minha definição foi correta.
-\endexample
-%%}}}
-
-%%{{{ x: two_x_squared_pointfree 
-\exercise.
-\label{two_x_squared_pointfree}%
-Faça a mesma coisa para a função $f = \lam x {2x^2} : \nats\to\nats$.
-
-\solution
-Temos as funções
-$$
-\cd
-\nats
-\ar[r, "\diag"]   \| \nats\cross\nats
-\ar[r, "\ntimes"] \| \nats
-\ar[r, "\diag"]   \| \nats\cross\nats
-\ar[r, "+"]       \| \nats.
-\endcd
-$$
-Assim defino
-$$
-f = \paren{{+} \of \diagdom\nats \of {\ntimes} \of \diagdom\nats} : \nats \to \nats
-$$
-e tomando um $x\in\nats$ confirmo:
-\compute
-f(x)
-&= \paren{\mathord{+} \of \diag \of \mathord{\ntimes} \of \diag} (x) \by {def.~$f$}
-&= \mathord{+}(\diag(\mathord{\ntimes}(\diag(x))))                   \by {def.~$\of$}
-&= \mathord{+}(\diag(\mathord{\ntimes}(x,x)))                        \by {def.~$\diag$}
-&= \mathord{+}(\diag(x^2))                                           \\
-&= \mathord{+}(x^2,x^2)                                              \by {def.~$\diag$}
-&= x^2 + x^2                                                         \\
-&= 2x^2.
-\endcompute
-
-\endexercise
-%%}}}
+Vamos investigar isso no~\ref{Pointfree_style}.
 
 \endsection
 %%}}}
@@ -23042,6 +22974,12 @@ nossas frescuras.
 
 \TODO terminar, arrumar e talvez juntar com a anterior.
 
+%%{{{ Defining concepts 
+\note Definindo conceitos.
+%%}}}
+
+\TODO Elaborar.
+
 %%{{{ function_laws 
 \note Leis de funções (com equações).
 \label{function_laws}%
@@ -23092,6 +23030,80 @@ A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
                                \| A \ar[r, "f"'] \| B
 \endcd
 $$
+
+\endexercise
+%%}}}
+
+%%{{{ Defining functions 
+\note Definindo funções.
+%%}}}
+
+\TODO Elaborar.
+
+%%{{{ eg: two_x_plus_one 
+\example.
+\label{two_x_plus_one}%
+Defina a função $f = \lam x {2x+1} : \nats\to\nats$ diretamente como
+composição de funções sem usar $\lambda$-notação.
+Desenha o diagrama externo da configuração e confirme tua resolução.
+\solution
+Temos as funções
+$$
+\cdopt{sep=1.666cm}
+\nats
+\ar[r, "\dsize\diag"]   \| \nats\cross\nats
+\ar[r, "\dsize\ntimes"] \| \nats
+\ar[r, "\dsize\succ"]   \| \nats.
+\endcd
+$$
+Assim defino
+$$
+f = \paren{{\succ} \of \mathord{\nplus} \of {\diagdom\nats}} : \nats \to \nats
+$$
+e tomando um $x\in\nats$ calculo:
+\compute
+f(x)
+&= \paren{\succ \of \mathord{\nplus} \of \diag} (x) \by {def.~$f$}
+&= \succ(\mathord{\nplus}(\diag(x)))                \by {def.~$\of$}
+&= \succ(\mathord{\nplus}(x,x))                     \by {def.~$\diag$}
+&= \succ(2x)                                        \\
+&= 2x+1                                             \by {def.~$\succ$}
+\endcompute
+confirmando assim que minha definição foi correta.
+\endexample
+%%}}}
+
+%%{{{ x: two_x_squared_pointfree 
+\exercise.
+\label{two_x_squared_pointfree}%
+Faça a mesma coisa para a função $f = \lam x {2x^2} : \nats\to\nats$.
+
+\solution
+Temos as funções
+$$
+\cd
+\nats
+\ar[r, "\diag"]   \| \nats\cross\nats
+\ar[r, "\ntimes"] \| \nats
+\ar[r, "\diag"]   \| \nats\cross\nats
+\ar[r, "+"]       \| \nats.
+\endcd
+$$
+Assim defino
+$$
+f = \paren{{+} \of \diagdom\nats \of {\ntimes} \of \diagdom\nats} : \nats \to \nats
+$$
+e tomando um $x\in\nats$ confirmo:
+\compute
+f(x)
+&= \paren{\mathord{+} \of \diag \of \mathord{\ntimes} \of \diag} (x) \by {def.~$f$}
+&= \mathord{+}(\diag(\mathord{\ntimes}(\diag(x))))                   \by {def.~$\of$}
+&= \mathord{+}(\diag(\mathord{\ntimes}(x,x)))                        \by {def.~$\diag$}
+&= \mathord{+}(\diag(x^2))                                           \\
+&= \mathord{+}(x^2,x^2)                                              \by {def.~$\diag$}
+&= x^2 + x^2                                                         \\
+&= 2x^2.
+\endcompute
 
 \endexercise
 %%}}}
@@ -23268,6 +23280,23 @@ $$
 
 \endexercise
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Categories 
+\section Categorias.
+\label{Categories_a_first_taste}%
+
+\blah.
+Podemos \emph{finalmente} introduzir pouca da linguagem e das
+idéias principais das \emph{categorias} para ter na nossa disposição
+antes de chegar no~\ref{Category_theory} onde vamos fazer mesmo
+nossos primeiros passos na teoria das categorias.
+
+\note O que é uma categoria?.
+
+\TODO Escrever.
 
 \endsection
 %%}}}
