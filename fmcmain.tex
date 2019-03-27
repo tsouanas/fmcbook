@@ -19988,46 +19988,107 @@ mas seguindo o ponto de vista conjuntista (\refn{f_eq_g_setist}),
 temos $\incofin A B = \idof A$.
 %%}}}
 
-%%{{{ df: constant_function 
-\definition Constante.
-\label{constant_function}%
-\tdefined{função}[constante]%
-Seja $f : A\to B$.
-Chamamos a função $f$ \dterm{constante} sse ela mapeia todos
-os membros do seu domínio para o mesmo objeto.
-Formulamente,
-$$
-\text{$f : A \to B$ constante}
-\defiff
-\lforall {x, y \in A} {f(x) = f(y)}.
-$$
-Dados conjuntos $A,B$, e $b\in B$, definimos a função constante
-$$
-\kondom A b : A \to B
-\qtext{com}
-\kondom A b (x) = b.
-$$
-Quando o $A$ é implícito pelo contexto, escrevemos apenas $\kon b$.
+%%{{{ x: composition_of_inclusions 
+\exercise.
+\label{composition_of_inclusions}%
+Verifique que composição de inclusões é inclusão.
+
+\hint
+$A \subset B \mland B \subset C \implies A \subset C$.
+
+\endexercise
 %%}}}
 
-%%{{{ x: constant_function_different_def 
+%%{{{ df: constant_function ; stable_function
+\definition Constante; invariável.
+\label{constant_function}%
+\label{steady_function}%
+\tdefined{função}[constante]%
+\tdefined{função}[invariável]%
+\iisee{função!steady}{função, invariável}%
+Dados conjuntos $A,B$, e $b\in B$, definimos a função
+$\kondom A b : A \to B$ pela
+$$
+\kondom A b (x) = b.
+$$
+A $\kondom A b$ é chamada
+\dterm{função constante (do $A$ para $B$) com valor $b$}.
+Quando o $A$ é implícito pelo contexto, escrevemos apenas $\kon b$.
+Dizemos que uma função $f : A \to B$ é \dterm{constante}
+sse ela é constante com valor $b$ para algum $b \in B$:
+$$
+\align
+\text{$f : A \to B$ constante}
+&\defiff
+\lexists {b \in B} {f = \kon b}.
+\intertext{%
+Chamamos uma função de \dterm{invariável} (ou \dterm{steady})
+sse ela mapeia todos os membros do seu domínio para o mesmo objeto.
+Formulamente,
+}
+\text{$f : A \to B$ invariável}
+&\defiff
+\lforall {x, y \in A} {f(x) = f(y)}.
+\endalign
+$$
+%%}}}
+
+%%{{{ beware: constant_may_mean_something_different 
+\beware O termo ``constante''.
+\label{constant_may_mean_something_different}%
+Muitos textos usam o termo ``constante'' para descrever o que
+chamamos de ``invariável'' (ou ``steady'').
+Na maioria dos casos não existe confusão, pois as duas definições
+concordam.  Mas precisamos tomar cuidado, como tu vai descobrir
+agora fazendo o~\ref{constant_notiff_steady}.
+%%}}}
+
+%%{{{ x: constant_notiff_steady 
 \exercise.
-\label{constant_function_different_def}%
-As vezes aparece como definição de função constante a seguinte:
-\emph{A função $f : A \to B$ é constante sse existe $b\in B$ tal que
-para todo $x \in A$, $f(x) = b$.}
+\label{constant_notiff_steady}%
+As vezes aparece como definição de constante a seguinte:
+\emph{<<A função $f : A \to B$ é constante sse mapeia todos
+os membros do seu domínio para o mesmo objeto.>>}
 Essa definição é equivalente com a~\ref{constant_function}?
+Ou seja, com nossa terminologia aqui:
+$$
+\text{$f$ invariável}
+\askiff
+\text{$f$ constante}.
+$$
+(Verifique ámbas as direcções.)
 
 \hint
 $\emptyset$.
 
 \solution
 Não.
-Por exemplo a função vazia $f : \emptyset\to\emptyset$ é constante com
-a~\ref{constant_function}, mas não com a definição do exercício.
+Por exemplo a função vazia $f : \emptyset\to\emptyset$ é invariável
+mas não constante.
+Mas realmente temos que
+$$
+\text{$f$ invariável}
+\impliedby
+\text{$f$ constante}:
+$$
+Suponha $f : A \to B$ constante, e logo
+seja $b\in B$ tal que $f = \kon b$.
+Sejam $x,y \in A$ e calculamos:
+$$
+f(x) = \kon b (x) = b = \kon b (y) = f(y)
+$$
+e logo $f$ é invariável.
 
 \endexercise
 %}}}
+
+%%{{{ x: constant_with_more_than_one_value 
+\exercise.
+Uma função $f : A \to B$ pode ser constante com valor $b$
+e com valor $b'$ também, com $b \neq b'$?
+
+\endexercise
+%%}}}
 
 %%{{{ x: constant_function_definitions_almost_agree 
 \exercise.
@@ -20068,7 +20129,7 @@ da~\ref{constant_function_definitions_almost_agree} é valida ainda?
 \solution
 Sim, a {\rldir}.
 Observe \emph{bem} que na prova dessa direção não precisamos $A\neq\emptyset$.
-E pelo~\ref{constant_function_different_def} já sabemos que a {\lrdir} não é
+E pelo~\ref{constant_notiff_steady} já sabemos que a {\lrdir} não é
 valida em geral.
 
 \endexercise
@@ -20121,7 +20182,7 @@ pois toda função satisfaz essa afirmação mais forte
 \endgraf
 O problema é que os quantificadores estão na ordem errada!
 Simplesmente trocando a ordem deles, chegamos numa
-definição equivalente à do~\ref{constant_function_different_def}:
+definição equivalente à do~\ref{constant_notiff_steady}:
 $$
 \text{$f:A\to B$ constante}
 \defiff
@@ -22253,7 +22314,7 @@ Seja $n = \card A$.
 %%{{{ constant_function_why_did_we_omit_unique 
 \problem.
 \label{constant_function_why_did_we_omit_unique}%
-Na definição do~\ref{constant_function_different_def}
+Na definição do~\ref{constant_notiff_steady}
 não escrevemos ``existe único'', mas apenas ``existe''.
 O que mudaria com esse ``único''?
 Prove tua afirmação.
@@ -22277,7 +22338,7 @@ $$
 \text{para todo $x \in A$,}& f(x) = b'
 \endalign
 $$
-Logo se $x\in A$, temos
+Logo tomando um $x\in A$, temos
 $$
 b = f(x) = b',
 $$
@@ -22289,8 +22350,10 @@ Botando esse ``único'' na definição, uma função
 $$
 \emptyset\toby f B
 $$
-vai ser constante sse $B$ é um singleton.
+vai ser constante com valor $b$ sse $B$ é um singleton
+e $b$ é seu único membro.
 Sem o ``único'', ela vai ser constante sse $B\neq\emptyset$.
+Veja também o exercício 
 
 \endproblem
 %}}}
@@ -23057,8 +23120,9 @@ Agora calma---podes dormir tranqüilamente---pois vamos chegar
 nessa satisfacção logo.
 %%}}}
 
-%%{{{ Let's trip 
+%%{{{ let_us_trip_1 
 \note Bora viajar.
+\label{let_us_trip_1}%
 Começamos na~\ref{Composition_laws} procurar conexões entre
 a composição e a multiplicação e realmente achamos muitas
 similaridades e essa influência já se tornou muito útil.
@@ -23217,16 +23281,36 @@ mas mesmo assim $\sin \neq \id$.
 \endexercise
 %%}}}
 
+%%{{{ let_us_trip_2 
 \note.
+\label{let_us_trip_2}%
 Olhe de novo na implicação que tem na definição da injetora:
 $$
 f \fa x = f \fa y \implies x = y. \tag{L-canc}
 $$
-Lembra muito do que acabamos de demonstrar, mas nosso objetivo
+Ela lembra muito do que acabamos de demonstrar, mas nosso objetivo
 foi investigar a composição $\of$ usando a multiplicação $\ntimes$.
-Quando escrevi a (L-canc) em números a juxtaposição denotou
-a $\ntimes$.  Mas na definição da injetora que temos,
+Quando escrevi a (L-canc) em números, a juxtaposição denotou
+a $\ntimes$ mesmo; mas na definição da injetora que temos,
 a juxtaposição não denota a $\of$, mas a $\apply$!
+Então vamos ver o que acontece se mudar para a $\of$, obviamente
+tomando cuidado para usar objetos dos certos tipos:
+$$
+f \of g = f \of h \askimplies g = h
+$$
+que escrevemos por juxtaposição sem confusão:
+$$
+f \of g = f \of h \askimplies g = h.
+$$
+Vamos tentar imitar a demonstração anterior:
+\compute
+f g = f h
+&\implies {\finv f} (f g) = {\finv f} (f h) \by {??}
+&\implies ({\finv f} f) g = ({\finv f} f) h \by {(F-Ass)}
+&\implies \idone A g = \idone A h           \by {(F-Inv)}
+&\implies g = h                             \by {(F-Id)}
+\endcompute
+%%}}}
 
 \TODO Continuar.
 
@@ -25866,6 +25950,24 @@ nossos primeiros passos na teoria das categorias.
 %%{{{ Problems 
 \problems.
 
+%%{{{ cancellable_stereo 
+\problem.
+\label{cancellable_stereo}%
+Sabemos que bijecções tem inversa e logo são canceláveis
+pela esquerda, e também canceláveis pela direita.
+Mas no~\refn{let_us_trip_1} da viagem da~\refn{An_epic_trip}
+encontramos mais uma versão de cancelável: ``cancelável stereo'',
+que---para motivos óbvios---desconsideramos na discussão.
+Existe bijecção $f$ e funções $g,h$ tais que
+$$
+f \of g = f \of h \nimplies g = h\, ?
+$$
+Se sim mostre um exemplo.
+Se não, refute mesmo a afirmação.
+
+\endproblem
+%%}}}
+
 %%{{{ jection_iff_composition_with_inverse_proof
 \problem.
 \label{jection_iff_composition_with_inverse_proof}%
@@ -26306,6 +26408,28 @@ tem resolução, então ela é única.
 \endproblem
 %%}}}
 
+%%{{{ fcom_respects_jections_pointfree 
+\problem.
+\label{fcom_respects_jections_pointfree}%
+Demonstre que a composição respeita injetividade e sobrejetividade
+num estilo pointfree (\ref{fcom_respects_jections}).
+Ou seja, tu vai ter que usar as ``versões pointfree'' dessas noções.
+
+\endproblem
+%%}}}
+
+%%{{{ define_constant_function_pointfree 
+\problem.
+\label{define_constant_function_pointfree}%
+Descreva a afirmação <<$f$ é contante>> numa maneira pointfree.
+
+\hint
+Vai precisar de usar um singleton, $\set{\ast}$, não importa
+qual é o seu único membro.
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -26318,7 +26442,7 @@ algo que não fazemos nesse texto.
 Muitos livros seguem essa abordagem, então o leitor é conselhado
 tomar o cuidado necessário enquanto estudando esses assuntos.
 
-Um livro excelente para auto-estudo é o~\cite[Par.~I~\&~II]{babylawvere}.
+Um livro excelente para auto-estudo é o~\cite{babylawvere}.
 \emph{Não pule seus exercícios e problemas!}
 
 \endfurther
