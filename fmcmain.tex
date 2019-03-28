@@ -19179,11 +19179,12 @@ superar essas limitações facilmente!
 %%{{{ Useless namings 
 \note Nomeamentos inúteis.
 \label{useless_namings}%
-Imagine que precisamos identificar uma certa função dum conjunto $A$ prum
-conjunto $B$, e depois de muitos cálculos e usando várias outras funções
-e objetos dados pelo nosso problema, concluimos com a frase:
-\emph{<<\dots a função desejada é aquela função que recebendo como entrada
-um número $x$, ela retorna o $2x+5$.>>}.
+Imagine que precisamos identificar uma certa função dum conjunto
+$A$ prum conjunto $B$, e depois de muitos cálculos e usando várias
+outras funções e objetos dados pelo nosso problema,
+concluimos com a frase:
+\emph{<<\dots a função desejada é aquela função que recebendo
+como entrada um número $x$, ela retorna o $2x+5$.>>}.
 Vamos isolar esta subfrase:
 $$
 \text{aquela função que recebendo como entrada um $x$, retorna o \thole$x$\thole}.
@@ -19265,7 +19266,7 @@ $$
 %%}}}
 
 %%{{{ df: lambda_abstraction 
-\definition.
+\definition lambda abstracção.
 \label{lambda_abstraction}%
 \tdefined{$\lambda$-abstracção}%
 \tdefined{$\lambda$-abstracção}[corpo]%
@@ -19398,21 +19399,21 @@ $$
 
 %%{{{ The soul of lambda-computation 
 \note A alma da $\lambda$-computação.
-Assim que aparecer uma coisa $\heartsuit$ no lado duma
+Assim que aparecer uma coisa $\heart$ no lado duma
 $\lambda$-abstracção $\plam x {\dotswithsome x}$
 temos uma expressão \dterm{reductível} (chamada \dterm{redex})
 $$
-\plam x {\mubrace {\dotswithsome x} {\tau(x)}} \lapp \heartsuit
+\plam x {\mubrace {\dotswithsome x} {\tau(x)}} \lapp \heart
 $$
 ou seja, podemos fazer um passo computacional:
 \emph{substituir o redex inteiro por uma nova expressão
 criada substituindo todas as instâncias livres de $x$ no $\tau(x)$
-por $\heartsuit$, chegando assim no $\tau(\heartsuit)$}.
+por $\heart$, chegando assim no $\tau(\heart)$}.
 Denotando esse passo com um \sq{$\lamstep$}, temos então
 $$
-\plam x {\mubrace {\dotswithsome x} {\tau(x)}} \lapp \heartsuit
+\plam x {\mubrace {\dotswithsome x} {\tau(x)}} \lapp \heart
 \lamstep
-\mubrace {\dotswithsome \heartsuit} {\tau(\heartsuit)}.
+\mubrace {\dotswithsome \heart} {\tau(\heart)}.
 $$
 %%}}}
 
@@ -21457,11 +21458,12 @@ são funcões, e também pois sua saida também é uma função.
 %%}}}
 
 %%{{{ df: apply_operation 
-\definition Apply.
+\definition apply.
 \label{apply_operation}%
 \tdefined{função}[aplicação]%
 \tdefined{função}[apply]%
-\sdefined {\apply} {a operação de aplicar uma função num objeto}%
+\sdefined {\applydc {\holed A} {\holed B}} {a operação de aplicar uma função de tipo $A\to B$ nu objeto de tipo $A$}%
+\sdefined {{\holed f} \at {\holed x}} {notação infixa para o $\apply (f,x)$}%
 Suponha $f : A \to B$ e seja $a \in A$.
 Quando escrevemos \sqq{$f\fa a$} (ou \sqq{$f(a)$}),
 estamos denotando a \dterm{aplicação} da $f$ no $a$.
@@ -21469,23 +21471,27 @@ O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
 pela juxtaposição da função e do seu argumento (já discutimos isso
 no~\ref{lazier_clearer_functional_notation}).
 Definimos aqui uma função $\apply$ que faz exatamente isso:
-aplica seu primeiro argumento (uma função) no seu segundo argumento
-(um ponto do domínio do primeiro argumento)..
-Como fizemos na composição, decoramos essa operação com $_{A,B}$
-para esclarecer os conjuntos envolvidos.
-Então dados conjuntos $A,B$ temos a função
+aplica seu primeiro argumento (uma função) no seu segundo
+(um ponto do domínio do primeiro argumento).
+Como fizemos na composição, decoramos essa operação
+para esclarecer os conjuntos envolvidos:
+dados conjuntos $A,B$ temos a
 $$
-\apply_{A,B} : \bigparen{(A \to B) \times A} \to B
+\applydc A B : \bigparen{(A \to B) \times A} \to B
 $$
 definida pela
 $$
-\apply_{A,B}(f, a) = f(a).
+\applydc A B (f, a) = f(a).
+$$
+Usamos também a notação infixa
+$$
+f \at x \sugdefeq \apply (f, x).
 $$
 %%}}}
 
 %%{{{ eg: higher_order_example_apply 
 \example.
-Dados conjuntos $A,B$, a $\apply_{A,B}$ é claramente uma
+Dados conjuntos $A,B$, a $\applydc A B$ é claramente uma
 operação de ordem superior.
 \endexample
 %%}}}
@@ -21493,21 +21499,36 @@ operação de ordem superior.
 %%{{{ eg: higher_order_example_derivation 
 \example Derivação.
 \label{higher_order_example_derivation}%
-Considere o operador da derivação
-$$
-D(\dhole) : C^\infty \to C^\infty
-$$
-onde $C^\infty$ é o conjunto de todas as funções infinitamente deriváveis.
+Considere o operador da derivação $D$
 Por exemplo, se $f(x) = x^3 + 5x$, temos
 $$
-D(f) = g
-$$
-onde $g(x) = 3x^2 + 5$.
+\align
+D(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
+\intertext{%
 Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
-$$
-D(f) = \lam x {3x^2 + 5}
+}
+D(f) &= \lam x {3x^2 + 5}
+\endalign
 $$
 sim.
+Qual o típo da $D$?
+Ela recebe e retorna funções de reais para reais, mas não podemos
+tipá-la
+$$
+\align
+D(\dhole) &: (\reals\to\reals) \to (\reals\to\reals)
+\intertext{%
+pois estariamos perdendo a totalidade da $D$:
+existem funções no $(\reals\to\reals)$ que não são deriváveis.
+Ainda mais, seria legal poder iterar o $D$ (\ref{function_iterations})
+indefinitamente; e logo tipamos
+}
+D(\dhole) &: C^\infty \to C^\infty
+\endalign
+$$
+onde $C^\infty$ é o conjunto de todas as funções infinitamente
+deriváveis: são deriváveis, e suas derivadas também são, e suas
+derivadas também, etc.
 \endexample
 %%}}}
 
@@ -23218,8 +23239,6 @@ essas propriedades, ``de longe'', sem olhar os detalhes internos.
 \section Uma viagem épica.
 \label{An_epic_trip}%
 
-\TODO terminar, arrumar e talvez juntar com a próxima.
-
 %%{{{ mathematical_OCD: Something irritating 
 \note Algo irritante.
 \label{mathematical_OCD}%
@@ -23460,15 +23479,50 @@ f g = f h
 &\implies \idone A g = \idone A h           \by {(F-Inv)}
 &\implies g = h                             \by {(F-Id)}
 \endcompute
+O que precisamos no \sqq{??} acima?
+%%}}}
+\spoiler.
+
+%%{{{ let_us_trip_3 
+\note.
+\label{let_us_trip_3}%
+Uma resposta ``de preguiça'' seria <<preciso $f$ bijetora>>.
+Claro que isso é \emph{suficiente}, mas é \emph{necessário}
+também?  Começamos pensanso que <<$f$ injetora>> é algo que
+corresponde nesse cancelamento aí, então sera que basta só
+isso?
+Mas parece que precisei a existência de $\finv f$,
+ou seja, precisamos que $f$ seja invertível.  Ou não?
+Lembre que o inverso $\finv f$ de $f$ é um objeto que
+satisfaz \emph{ambas} as
+$$
+\xxalignat3
+&\text{LInv} & \finv f f &= \idone A;  & f \finv f &= \idone B & \text{RInv}
+\endxxalignat
+$$
+mas, olhando de novo para nosso caminho, a gente precisou
+apenas a (LInv).
+Então não necessitamos mesmo que $f$ tem um inverso $\finv f$;
+basta ter um inverso-esquerdo $\labL f$ e a prova rola:
+\compute
+f g = f h
+&\implies {\labL f} (f g) = {\labL f} (f h) \by {$f$ é L-invertível}
+&\implies ({\labL f} f) g = ({\labL f} f) h \by {(F-Ass)}
+&\implies \idone A g = \idone A h           \by {(F-LInv)}
+&\implies g = h                             \by {(F-Id)}
+\endcompute
+Já temos descoberto umas idéias interessantes:
+L-cancelável e L-invertível, e obviamente temos as noções
+laterais de R-cancelável e R-invertível.
 %%}}}
 
 \TODO Continuar.
 
 \blah.
 Influenciados por toda essa viagem chegamos nuns resultados
-muito importantes e interessantes sobre a injetoridade,
-a sobrejetoridade, e os cancelamentos (esquerdos e direitos)
-das funções.
+muito importantes e interessantes sobre as ``jetoridades''
+(`in-' e `sobre-'); as invertibilidades laterais;
+e os cancelabilidades laterais das funções.
 
 %%{{{ Q: guess the theory that's about to come 
 \question.
@@ -23476,6 +23530,34 @@ Quais resultados tu acha que vamos provar?
 Consegues prová-los?
 %%}}}
 \spoiler.
+
+%%{{{ A 
+\blah Resposta.
+Pare ser o seguinte:
+$$
+\matrix
+\format
+\l & \c & \l & \c & \l & \c & \l \\
+\text{$f$ mono} & \defiff & \text{$f$ L-cancelável} & \askiff & \text{$f$ L-invertível} & \askiff & \text{$f$ injetora} \\
+\text{$f$ epí}  & \defiff & \text{$f$ R-cancelável} & \askiff & \text{$f$ R-invertível} & \askiff & \text{$f$ sobrejetora}.
+\endmatrix
+$$
+Sim, tem esses nomes ``chique'' mesmo:
+%%}}}
+
+%%{{{ df: mono_epi_functions
+\definition mono, epi.
+\label{mono_epi_functions}%
+\tdefined{função}[mono]%
+\tdefined{função}[epi]%
+\iisee{mônica}{função, mono}%
+\iisee{épica}{função, epí}%
+Seja $f : A \to B$.
+Dizemos que $f$ é uma função \dterm{mônica}
+(ou simplesmente que $f$ é uma \dterm{mono}) sse $f$ é $\of$-cancelável pela esquerda.
+Dizemos que $f$ é uma função \dterm{épica}
+(ou simplesmente que $f$ é uma \dterm{epí}\/) sse $f$ é $\of$-cancelável pela direita.
+%%}}}
 
 %%{{{ thm: injection_iff_mono 
 \theorem.
@@ -23649,20 +23731,6 @@ temos $g(f(b)) = h(f(b))$; e, pela escolha de $b$, $g(c) = h(c)$.
 Logo $g = h$.
 
 \endexercise
-%%}}}
-
-%%{{{ df: mono_epi_functions
-\definition mono, epi.
-\label{mono_epi_functions}%
-\tdefined{função}[mono]%
-\tdefined{função}[epi]%
-\iisee{mônica}{função, mono}%
-\iisee{épica}{função, epí}%
-Seja $f : A \to B$.
-Dizemos que $f$ é uma função \dterm{mônica}
-(ou simplesmente que $f$ é uma \dterm{mono}) sse $f$ é $\of$-cancelável pela esquerda.
-Dizemos que $f$ é uma função \dterm{épica}
-(ou simplesmente que $f$ é uma \dterm{epí}\/) sse $f$ é $\of$-cancelável pela direita.
 %%}}}
 
 %%{{{ x: mono_epi_commutative_diagrams 
@@ -24315,7 +24383,7 @@ $$
 \pre f Y \askeq
 \knuthcases{
 \pre {\alert{(f)}} {\alertb Y}
-&= a preimagem de $\alertb Y$ através da função $\alert{f}$\cr
+&= a preimagem de $\alertb Y$ através da função $\alert{f}$ \cr
 & \cr
 \img {\alert{(\finv f)}} {\alertb Y}
 &= a imagem de $\alertb Y$ através da função $\alert{\finv f}$
@@ -24337,13 +24405,41 @@ da~\ref{img_and_pre}:
 explique o que precisas provar, e prove!
 
 \hint
-Precisamos provar que no caso que $f:A\bijto B$ as duas interpretações do
-símbolo $\pre f Y$ \emph{denotam o mesmo objeto}.
+Precisamos provar que no caso que $f:A\bijto B$ as duas
+interpretações do símbolo $\pre f Y$ \emph{denotam o mesmo objeto}.
 
 \hint
-Temporariamente mude tua notação para ajudar teus olhos distinguir entre as duas interpretações melhor.
-Use, por exemplo, $f_{-1}$ para denotar a função inversa da $f$, ou, alternativamente, bota parenteses
-$(f^{-1})$ para enfatizar que estás denotando a função inversa da $f$.
+Temporariamente mude tua notação para ajudar teus olhos distinguir
+entre as duas interpretações melhor.
+Use, por exemplo, $f_{-1}\bracket{\dhole}$ para denotar
+a preimagem através da $f$.
+Assim teu alvo fica enxergável:
+$$
+\lforall {Y \subset B} {\img {\finv f} Y = f_{-1}\bracket Y}.
+$$
+
+\solution
+Seja $f : A \bijto B$.
+Introduzimos temporariamente a notação
+$$
+f_{-1}\bracket Y \defeq \text{a $f$-preimagem de $Y$}.
+$$
+Com essa notação precisamos demonstrar que
+$$
+\text{para todo $Y\subset B$,}\quad
+\img {\finv f} Y = f_{-1}\bracket Y
+$$
+Seja $Y \subset B$.
+\crtabproofpart{\lrdirset}.
+Seja $x \in \img {\finv f} Y$\fact1.
+Para mostrar que $x \in f_{-1}\bracket Y$ basta verificar que $f(x) \in Y$\fact1.
+Seja $y_x \in Y$ tal que $\finv f y_x = x$ (pela~\byfact1).
+Logo $y_x = f(x)$ pela definição de $\finv f$ e logo pertence ao $Y$
+pela~\byfact2.
+\crtabproofpart{\rldirset}.
+Seja $x \in f_{-1}\bracket Y$\fact1.
+Como $f x \in Y$ (pelo~\byfact1) e $f x \mapstoby {\finv f} x$
+(pela definição da $\finv f$), logo $x \in \img {\finv f} Y$.
 
 \endexercise
 %%}}}
@@ -24357,8 +24453,15 @@ $$
 \img f {\set{x}} = \set{f(x)}.
 $$
 
-\endexercise
+\solution
+Verdade:
+$$
+\img f {\set{x}}
+= \setst {f(z)} {z \in \set{x}}
+= \set{f(x)}.
+$$
 
+\endexercise
 %%}}}
 
 %%{{{ x: is any of img f, pre f, guaranteed to be inj or surj? 
@@ -24954,10 +25057,9 @@ a função de dois argumentos é do tipo $(A \times B) \to C$?
 %%}}}
 \spoiler.
 
-\TODO First show wrong-type attempt.
-
-%%{{{ Answer 
-\blah Resposta.
+%%{{{ how_to_construct_curry_inhabitant 
+\note Resposta.
+\label{how_to_construct_curry_inhabitant}%
 Primeiramente vamos nos preocupar com os tipos dessas funções.
 São assim:
 $$
@@ -25028,7 +25130,7 @@ Deixo a definição da $\uncurry$ pra ti:
 
 %%{{{ x: uncurry_using_lambdas 
 \exercise.
-Usando a $\lambda$-notação defina a $\uncurry$.
+Defina a $\uncurry$.
 
 \hint
 Queremos definir a
@@ -25134,7 +25236,104 @@ $$
 \endexercise
 %%}}}
 
+%%{{{ type_inference_tree_for_curry 
+\note Arvore de inferência de tipo.
+A última parte da argumentação acima corresponde na arvore de inferência
+seguinte:
+$$
+\Proofm{
+\A {f \is A \cross B \to C}      \A {x \is A}  \A {y \is B}
+                               \I2------------------------- {}
+                                   {(x,y) \is A \cross B}
+\I2------------------------------------------------------- {}
+                        {f(x,y) \is C}
+}
+$$
+Verifique cada passo, e acostume-se com essa forma!
+%%}}}
+
+%%{{{ x: type_inference_tree_for_uncurry 
+\exercise Acostume-se mesmo.
+\label{type_inference_tree_for_uncurry}%
+Construa a arvore que corresponde na última parte da
+tua resolução do~\ref{uncurry_using_lambdas} caso que
+tu não fez isso já enquanto o resolvendo.
+
+\solution
+$$
+\Proofm{
+\A {f \is A \to (B \to C)}     \A {t \is A \cross B}
+                               \I1------------------ {}
+                                   {\outl t \is A}
+\I2------------------------------------------------- {}
+               {f (\outl t) \is B\to C}
+                                               \A {t \is A \cross B}
+                                               \I1------------------ {}
+                                                   {\outr t \is B}
+\I2---------------------------------------------------------------- {}
+                     {f (\outl t) (\outr t) \is C}
+}
+$$
+
+\endexercise
+%%}}}
+
 \TODO Elaborate.
+
+\note Associatividade sintáctica.
+Considere que temos uma operação binária $\heart$.
+A frase
+$$
+\text{<<$\heart$ é associativa>>}
+$$
+é uma \emph{afirmação matemática}.
+Algo que pode ser demonstrado, suposto, etc.
+No outro lado, considere as frases seguintes:
+$$
+\xalignat2
+&\gathered
+\text{<<$\heart$ é associativa na esquerda>>}\\
+\text{<<$\heart$ associa na esquerda>>}\\
+\text{<<$\heart$ é L-associativa>>}
+\endgathered
+&
+&\gathered
+\text{<<$\heart$ é associativa na direita>>}\\
+\text{<<$\heart$ associa na direita>>}\\
+\text{<<$\heart$ é R-associativa>>}
+\endgathered
+\endxalignat
+$$
+Nenhuma dessas frases é algo que podemos demonstrar
+
+
+
+%%{{{ notational_abuse_curried 
+\warning.
+\label{notational_abuse_curried}%
+As vezes abusarei essa idéia e escrever o nome duma função
+currificada mas usá-la como se ela não fosse; e vice-versa.
+Por exemplo, defini (\refn{apply_operation}) a $\applydc A B$
+como uma função
+$$
+\applydc A B : \pfcross {(A \to B)} A \to B.
+$$
+Ou seja, para chamá-la escrevemos
+$$
+\applydc A B (f,a).
+$$
+Mas abusando a notação posso consider o mesmo símbolo
+$\applydc A B$ para denotar sua currificação
+$$
+\applydc A B : {(A \to B)} \to A \to B
+$$
+que \emph{é uma função diferente sim}, nesse caso escrevendo
+$$
+\applydc A B \fa f \fa a.
+$$
+Tudo isso apenas no caso que pelo contexto tá claríssimo qual
+das duas funções tá sendo denotada.
+%%}}}
 
 \endsection
 %%}}}
@@ -34232,7 +34431,7 @@ do~\ref{nonempty_subgroup_criterion} assim:
 $$
 \Proofm {
 \A     {h\in H}
- \I1---------------- {}
+\I1---------------- {}
      {\ginv h\in H}
 \A                        {h \in H}
 \I2---------------------------------- {}
@@ -46076,7 +46275,7 @@ f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$
 f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
 f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
 \intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
-f((A \heartsuit B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartsuit \in \set{\limplies,\land,\lor}$)}
+f((A \heart B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heart \in \set{\limplies,\land,\lor}$)}
 \endalignat
 $$
 Aplicando nossa função na fórmula dada calculamos:
@@ -49111,28 +49310,28 @@ que temos sobre ele não tira nenhum objeto como possível membro dele!
 Realmente, os únicos elementos \emph{garantidos} no $I$ são aqueles que escrevemos
 acima como membros do $I_*$, mas o $I$ pode ter mais: pode ter ``lixo'', como esse:
 $$
-I_{\spadesuit,\heartsuit} \pseudodefeq \set {
+I_{\spade,\heart} \pseudodefeq \set {
 \emptyset,
-\spadesuit,
-\heartsuit,
+\spade,
+\heart,
 \setsucc\emptyset,
 \setsucc{\setsucc\emptyset},
 \setsucc{\setsucc{\setsucc{\emptyset}}},
 \dotsc
 }.
 $$
-Aqui os $\spadesuit$ e $\heartsuit$ denotam dois objetos do nosso universo,
+Aqui os $\spade$ e $\heart$ denotam dois objetos do nosso universo,
 talvez nem são conjuntos, talvez denotam os próprios símbolos
-``$\spadesuit$'' e ``$\heartsuit$'', talvez somos nos, eu e tu, etc.
+``$\spade$'' e ``$\heart$'', talvez somos nos, eu e tu, etc.
 Para a gente, é o lixo.%
 \footnote{Sem ofensa.}
 \endgraf
 Na verdade, esse último conjunto não pode ser o nosso $I$, pois ele não
 satisfaz a condição do~(\axref{infinity}) pois
 $$
-\spadesuit \in I
+\spade \in I
 \qqtext{mas}
-\setsucc\spadesuit \notin I.
+\setsucc\spade \notin I.
 $$
 Podemos então entender melhor nosso $I$.
 Ele é um superconjunto do $I_*$---isto é garantido pelo~(\axref{infinity}) mesmo.
@@ -49141,17 +49340,17 @@ ele obrigatoriamente tem uma infinidade de conjuntos para cada um deles:
 $$
 \set {
 \emptyset,
-\spadesuit,
-\heartsuit,
+\spade,
+\heart,
 \setsucc{\emptyset},
-\setsucc{\spadesuit},
-\setsucc{\heartsuit},
+\setsucc{\spade},
+\setsucc{\heart},
 \setsucc{\setsucc\emptyset},
-\setsucc{\setsucc{\spadesuit}},
-\setsucc{\setsucc{\heartsuit}},
+\setsucc{\setsucc{\spade}},
+\setsucc{\setsucc{\heart}},
 \setsucc{\setsucc{\setsucc{\emptyset}}},
-\setsucc{\setsucc{\setsucc{\spadesuit}}},
-\setsucc{\setsucc{\setsucc{\heartsuit}}},
+\setsucc{\setsucc{\setsucc{\spade}}},
+\setsucc{\setsucc{\setsucc{\heart}}},
 \dotsc
 }.
 $$
