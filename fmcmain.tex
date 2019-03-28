@@ -20535,30 +20535,17 @@ $$
 Também é usada a notação $\resfunsub f X$.
 %%}}}
 
-%%{{{ x: type_of_restriction_op_with_hole 
+%%{{{ x: type_of_f_resto_X 
 \exercise.
-\label{type_of_restriction_op_with_hole}%
+\label{type_of_f_resto_X}%
 Sejam $f : A\to B$ e $X\subset A$.
-Ache o tipo dos:
+Ache o tipo do
 $$
-\align
-f\resto X       &\eqtype ?\\
-f\resto \dhole  &\eqtype ?\\
-(\dhole\resto X)\resto(A \to B)
-                &\eqtype ?
-\endalign
+f\resto X \eqtype ?
 $$
 
 \solution
-Temos
-$$
-\align
-f\resto X       &\eqtype X \to B\\
-f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
-(\dhole\resto X)\resto (A \to B)
-                &\eqtype \paren{(A \to B) \to (X \to B)}
-\endalign
-$$
+$f\resto X \eqtype X \to B$.
 
 \endexercise
 %%}}}
@@ -21438,7 +21425,8 @@ ou seja, lá temos funções de ordem superior---e logo, felicidade.
 %%}}}
 
 \blah.
-Funções de ordem superior não é algo tão desconhecido como talvez parece.
+Funções de ordem superior não é algo tão desconhecido como
+talvez parece.
 O leitor já está acostumado com os operadores nos exemplos seguintes:
 
 %%{{{ eg: higher_order_example_composition 
@@ -21494,6 +21482,32 @@ $$
 Dados conjuntos $A,B$, a $\applydc A B$ é claramente uma
 operação de ordem superior.
 \endexample
+%%}}}
+
+%%{{{ x: type_of_restriction_op_with_hole 
+\exercise.
+\label{type_of_restriction_op_with_hole}%
+Sejam $f : A\to B$ e $X\subset A$.
+Ache o tipo dos:
+$$
+\align
+f\resto \dhole  &\eqtype ?\\
+(\dhole\resto X)\resto(A \to B)
+                &\eqtype ?
+\endalign
+$$
+
+\solution
+Temos
+$$
+\align
+f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
+(\dhole\resto X)\resto (A \to B)
+                &\eqtype \paren{(A \to B) \to (X \to B)}
+\endalign
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ eg: higher_order_example_derivation 
@@ -25958,7 +25972,16 @@ Mas calma, daqui uns capítulos estaremos!
 Atrás desse fato fica o poderoso
 Teorema\ii{teorema}[de recursão]\ de Recursão~\refn{recursion_theorem}.
 Mas pelo menos deve ser fácil provar que tem \emph{no máximo}
-uma resolução (\ref{fib_system_has_at_most_one_solution}).
+uma resolução:
+%%}}}
+
+%%{{{ x: fib_system_has_at_most_one_solution 
+\exercise.
+\label{fib_system_has_at_most_one_solution}%
+Prove que se o sistema (FIB) da~\ref{fibonacci_dangerous_def}
+tem resolução, então ela é única.
+
+\endexercise
 %%}}}
 
 %%{{{ x: why_each_of_the_non_definitions_fails 
@@ -26786,15 +26809,6 @@ E se $m$ é $1$ módulo $6$?
 A única potência de $2$ que é $1$ módulo $6$ é o próprio $1$,
 e logo qualquer outro inteiro que é $1$ módulo $6$ não
 pode ser uma potência de $2$.
-
-\endproblem
-%%}}}
-
-%%{{{ fib_system_has_at_most_one_solution 
-\problem.
-\label{fib_system_has_at_most_one_solution}%
-Prove que se o sistema (FIB) da~\ref{fibonacci_dangerous_def}
-tem resolução, então ela é única.
 
 \endproblem
 %%}}}
