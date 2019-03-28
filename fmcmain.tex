@@ -16428,6 +16428,138 @@ Investigue.
 \endsection
 %%}}}
 
+%%{{{ Indexed_sets_vs_indexed_families 
+\section Conjuntos indexádos \vs famílias indexadas.
+\label{Indexed_sets_vs_indexed_families}%
+
+%%{{{ df: indexed_set 
+\definition Conjuntos indexados.
+\label{indexed_set}%
+\tdefined{conjunto}[indexado por conjunto]%
+Quando usamos um conjunto $B$ para ``indexar'' um conjunto $A$,
+chamamos o $A$ um \dterm{conjunto indexado por $B$}.
+Temos então:
+$$
+A = \setst {\dots b \dots} {b \in B}.
+$$
+%%}}}
+
+%%{{{ remark: every_set_can_be_indexed 
+\remark.
+\label{every_set_can_be_indexed}%
+Todo conjunto $A$ pode ser indexado por ele mesmo, pois
+$$
+A = \setst {a} {a \in A}.
+$$
+Em outras palavras, o ``conjunto indexado'' não é um tipo
+diferente do tipo ``conjunto''.  Não faz sentido nos perguntar
+se um conjunto $A$ é indexado ou não, pois todos são
+(pelo menos por eles mesmo).
+%%}}}
+
+%%{{{ picking_elements_from_indexed_sets 
+\note Tomando elementos de conjuntos indexados.
+\label{picking_elements_from_indexed_sets}%
+{%
+\def\bla{\mathrm{bla}}%
+Suponha que temos um conjunto $A$ indexado
+por um conjunto $B\neq\emptyset$:
+$$
+A = \setst {\bla(b)} {b\in B}.
+$$
+Como podemos ``tomar um arbitrario membro de $A$''?
+Claramente podemos dizer: ``seja $a \in A$'', algo válido
+para qualquer conjunto $A \neq \emptyset$.
+Mas nesse caso, ``sejando'' um $b\in B$, determinamos
+um membro de $A$: o $\bla(b)$.
+Assim, se provarmos algo sobre o $\bla(b)$,
+isso é suficiente para concluir que todos os elementos
+de $A$ satisfazem esse algo.
+Imagine então que queremos provar que
+$$
+A \subset C.
+$$
+Podemos seguir o caminho padrão, provando
+$$
+\lforall {a \in A} {a \in C}
+$$
+mas, temos mais um caminho para seguir nesse caso:
+provar que
+$$
+\lforall {b \in B} {\bla(b) \in C}.
+$$
+}
+%%}}}
+
+%%{{{ equality_for_indexed_sets 
+\note Igualdade entre conjuntos indexados.
+\label{equality_for_indexed_sets}%
+{%
+\def\bla{\mathrm{bla}}%
+\def\blu{\mathrm{blu}}%
+Para mostrar que dois \emph{conjuntos}
+indexados pelo mesmo conjunto são iguais, é \emph{suficiente}
+mostrar que são iguais como famílias---mas não \emph{necessário}:
+veja~\ref{equal_as_fam_not_necessary_for_equal_as_sets}.
+\endgraf
+Por exemplo, sejam $A,B$ conjuntos indexados pelo mesmo conjunto $C$:
+$$
+\xalignat2
+A &= \setst {\bla(c)} {c \in C} &
+B &= \setst {\blu(c)} {c \in C}.
+\endxalignat
+$$
+Suponha que queremos provar $A=B$.
+O caminho orthódoxo seria seguir a definição de igualdade de conjuntos
+e provar
+$$
+x\in A \iff x \in B,
+\qqqtext{ou seja,}
+A \subset B \mland A \supset B.
+$$
+Mas, vendo eles como \emph{conjuntos indexados por o $C$},
+podemos matar o alvo $A=B$ numa maneira alternativa, aplicando
+a definição de igualdade de famílias indexadas.
+No final das contas, parecem famílias indexadas por o mesmo conjunto
+de índices (o $C$).
+Então provando a afirmação
+$$
+\lforall {c \in C} {\bla(c) = \blu(c)}
+$$
+é \emph{suficiente} para demonstrar que $A=B$.
+}
+%%}}}
+
+%%{{{ beware: equal_as_fam_not_necessary_for_equal_as_sets 
+\beware Suficiente mas não necessário!.
+\label{equal_as_fam_not_necessary_for_equal_as_sets}%
+Observe que mostramos algo ainda mais forte: não é apenas
+que $A=B$ como conjuntos, mas como \emph{famílias} indexadas também,
+ou seja, \emph{concordam em todo índice}.
+Mas: pode ser que como famílias
+não são iguais, mas como conjuntos, são, como o exemplo
+seguinte mostra:
+%%}}}
+
+%%{{{ eg: equal_as_fam_not_necessary_for_equal_as_sets_example 
+\example.
+\label{equal_as_fam_not_necessary_for_equal_as_sets_example}%
+Considere os
+$$
+\xalignat2
+A &= \setst {x + 1} {x \in \ints} &
+B &= \setst {x - 1} {x \in \ints}.
+\endxalignat
+$$
+São dois conjuntos indexados pelo mesmo conjunto $\ints$.
+Obviamente $A=B$, mas para nenhum índice $x \in \ints$ temos
+$x + 1 = x - 1$.
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Pairwise-disjointness 
 \section Disjuntos dois-a-dois.
 
@@ -18374,7 +18506,7 @@ f(\mathrm b) &= \mathrm d
 \aligned
 g(\mathrm c) &= \mathrm u\\
 g(\mathrm d) &= \mathrm v\\
-g(\mathrm e) &= \mathrm v
+g(\mathrm e) &= \mathrm v.
 \endaligned
 $$
 Observe que os $\mathrm a, \mathrm b, \mathrm c$, etc.~\emph{não são variáveis},
@@ -25444,18 +25576,18 @@ mas uma função no $(\nats\to\nats)$}.
 
 %%{{{ eg: fibs again 
 \example.
-Considere o sistema que usamos para definir a função fibonacci
-no~\ref{fact_and_fib_recursive_eg}.
+Considere o sistema que usamos para definir a função $b$
+do~\ref{fact_and_fib_recursive_eg}.
 $$
 \system{
-\alert f(0) &= 0\\
-\alert f(1) &= 1\\
-\alert f(n) &= \alert f(n-1) + \alert f(n-2), \quad\text{para todo $n>1$}.
+\alert b(0) &= 0 \\
+\alert b(1) &= 1 \\
+\alert b(n) &= \alert b(n-1) + \alert b(n-2), \quad\text{para todo $n>1$}.
 }
 $$
-Agora o incógnito é uma função $f : \nats\to\nats$.
+Agora o incógnito é uma função $b : \nats\to\nats$.
 Vamos testar uns candidatos consideráveis:
-tome $f \asseq \idof \nats$:
+tome $b \asseq \idof \nats$:
 $$
 \align
 \rsystem{
@@ -25478,7 +25610,7 @@ Tome $n\asseq 4$ e já temos problema, pois
 $4 \neq 3 + 2$.
 O candidato $\idof \nats$ então não satisfaz o sistema.
 Próximo!
-Vamos tentar com $f \asseq \succ$, essa vez divulgando a notação
+Vamos tentar com $b \asseq \succ$, essa vez divulgando a notação
 mais econômica, sem parenteses:
 }
 \rsystem{
@@ -25535,13 +25667,14 @@ podemos escrever, por exemplo,
 E nada muda com sistemas cujos incognitos são funções!
 E por que mudaria?  No final das contas é a existência
 e unicidade de algo que nos permite definí-lo!
-\endgraf
+%%}}}
+
+\blah.
 Voltamos agora para o sistema que usamos para definir
-a função fibonacci.
+a função $b$ do~\ref{fact_and_fib_recursive_eg}.
 Realmente esse sistema tem uma resolução única
 (a função fibonacci), e logo posso escrever esse
 poeminho mágico para dar a\dots
-%%}}}
 
 %%{{{ df: fibonacci_dangerous_def 
 \definition.
@@ -25576,8 +25709,9 @@ de provar isso!
 
 %%{{{ We can't prove existence yet; assume it and prove uniqueness 
 \note.
-Infelizmente, cara $\fib$, não estamos prontos neste momento para provar
-que esse sistema tem \emph{pelo menos} uma resolução!%
+{\Fibonacci[função]}%
+Infelizmente, caro Fibonacci, não estamos prontos neste momento
+para provar que esse sistema tem \emph{pelo menos} uma resolução!%
 \footnote{%
 Mas calma, daqui uns capítulos estaremos!
 }
@@ -25784,12 +25918,17 @@ $a$ é um fixpoint também e logo $a\in F$.
 \endexercise
 %%}}}
 
+\blah.
+Ok, eu sei: parece estranho dedicar uma secção só pra isso.
+Mas os fixpoints vão fazer um papel importantíssimo depois,
+e logo queria destacá-los desde já.  Paciência.
+
 \endsection
 %%}}}
 
-%%{{{ Indexed_sets_and_indexed_families 
-\section Conjuntos indexados e famílias indexadas.
-\label{Indexed_sets_and_indexed_families}%
+%%{{{ Implementations_seq_fam 
+\section Novas implementações: seqüências e famílias.
+\label{Implementations_seq_fam}%
 
 %%{{{ indexed_families_as_functions 
 \note Famílias indexadas como funções.
@@ -25806,31 +25945,18 @@ a definição de igualdade que já tivemos
 (\ref{equality_for_indexed_families}).
 %%}}}
 
-%%{{{ indexed_sets 
-\note Conjuntos indexados.
-\label{indexed_sets}%
+%%{{{ indexed_sets_adult_version 
+\note Conjuntos indexados: versão adulta.
+\label{indexed_sets_adult_version}%
 \tdefined{conjunto}[indexado por conjunto]%
-Quando usamos um conjunto $B$ para ``indexar'' um conjunto $A$,
-chamamos o $A$ um \dterm{conjunto indexado por $B$}.
+Já conhecemos o quesignifica que um conjunto $A$ é indexedo
+por um conjunto $B$~(\ref{indexed_set}).
 Isso praticamente quis dizer que o $A$ pode ser escrito na forma
 $$
 A = \setst {\dots b \dots} {b \in B},
 $$
 ou, mais ``adultamente'' e plenamente:
-temos uma função sobrejetora $f : B \surto A$.
-%%}}}
-
-%%{{{ remark: every_set_can_be_indexed 
-\remark.
-\label{every_set_can_be_indexed}%
-Todo conjunto $A$ pode ser indexado por ele mesmo, pois
-$$
-A = \setst {a} {a \in A}.
-$$
-Em outras palavras, o ``conjunto indexado'' não é um tipo
-diferente do tipo ``conjunto''.  Não faz sentido nos perguntar
-se um conjunto $A$ é indexado ou não, pois todos são (pelo
-menos por eles mesmo).
+\emph{temos uma função sobrejetora $f : B \surto A$}.
 %%}}}
 
 %%{{{ picking_elements_from_indexed_sets 
@@ -25875,7 +26001,7 @@ $$
 Para mostrar que dois \emph{conjuntos}
 indexados pelo mesmo conjunto são iguais, é \emph{suficiente}
 mostrar que são iguais como famílias---mas não \emph{necessário}:
-veja~\ref{equal_as_fun_not_necessary_for_equal_as_isets}.
+veja~\ref{equal_as_fam_not_necessary_for_equal_as_sets}.
 \endgraf
 Por exemplo, sejam $A,B$ conjuntos indexados pelo mesmo conjunto $C$:
 $$
@@ -25906,26 +26032,6 @@ que $A=B$ como conjuntos, mas como \emph{famílias} indexadas também,
 ou seja, eles concordam em todo índice.
 }
 %%}}}
-
-%%{{{ beware: equal_as_fun_not_necessary_for_equal_as_isets 
-\beware.
-\label{equal_as_fun_not_necessary_for_equal_as_isets}%
-A afirmação que usei acima para provar que $A=B$, é uma afirmação
-\emph{mais forte} que a $A=B$.  Ou seja, pode ser que como funções
-não são iguais, mas como conjuntos indexados, são.
-Por exemplo, considere os
-$$
-\xalignat2
-A &= \setst {x + 1} {x \in \ints} &
-B &= \setst {x - 1} {x \in \ints}.
-\endxalignat
-$$
-São dois conjuntos indexados pelo mesmo conjunto $\ints$.
-Obviamente $A=B$, mas para nenhum índice $x \in \ints$ temos
-$x + 1 = x - 1$.
-%%}}}
-
-\TODO Mudar grande parte dessa secção no fim do~\ref{Sets}.
 
 \endsection
 %%}}}
@@ -26267,35 +26373,61 @@ bote $n := w+1$ na (*) para chegar no absurdo $w + 1 \leq w$.
 \endproblem
 %%}}}
 
+%%{{{ implement_partial_functions 
+\problem Implementação: funções parciais.
+\label{implement_partial_functions}%
+\tdefined{função}[partial]%
+Pense numa maneira de \emph{implementar} o tipo das
+\dterm{funções parciais} (\ref{Partial_functions})
+usando conceitos (tipos) que encontramos até agora:
+conjuntos, tuplas, seqüências, famílias indexadas, funções, etc.
+\endgraf
+Para implementar um conceito não basta apenas definir o que são os
+objetos desse tipo em termos de já conhecidos.
+Precisamos implementar também a interface desejada, em termos de
+operações e relações que já temos em nossa disposição.
+
+\hint
+Cada função parcial $f : A \parto B$ pode ser representada
+como uma função total $f : A \to B'$ onde $B'$ é um outro
+conjunto.
+Qual $B'$ serve?
+
+\hint
+Uma idéia seria adicionar no $B$ um objeto ``fresco'' para representar
+a falta de valor; outra idéia seria tomar como $B'$ um subconjunto do $\pset B$.
+Qual?
+
+\hint
+A primeira idéia não precisa de mais dicas.
+Sobre a segunda: $B' \asseq \setst {X \subset B} {\card X \leq 1}$.
+
+\endproblem
+%%}}}
+
 %%{{{ implement_nondeterministic_functions 
-\problem Funções não-deterministas.
+\problem Implementação: funções não-determinísticas.
 \label{implement_nondeterministic_functions}%
-\tdefined{função}[não-determinista]%
-Na~\ref{Partial_functions} definimos um conceito mais geral de ``função'':
+\tdefined{função}[não-determinística]%
+Na~\ref{Partial_functions} definimos um conceito mais geral de
+``função'':
 as \emph{funções parciais}, onde apagamos a primeira das
 condições~\refn{functionhood_conditions}:
 \beginil
 \item{}\strikeout{(1)~totalidade};
 \item{}(2)~determinabilidade.
 \endil
-Neste problema, pense numa maneira de usar funções (mesmo), para
-representar \dterm{funções não-deterministas}, ou seja, ``funções''
-que não respeitam necessariamente a determinabilidade; apenas a totalidade:
+Neste problema, encontramos \dterm{funções não-determinísticas}, ou seja,
+``funções'' que não respeitam necessariamente a determinabilidade;
+apenas a totalidade.  Ou seja, agora apagamos a outra condição:
 \beginil
 \item{}(1)~totalidade;
 \item{}\strikeout{(2)~determinabilidade}.
 \endil
-Precisas então \dterm{implementar} o conceito de função não-determinista
-usando conceitos (tipos) que encontramos até agora: conjuntos, tuplas,
-seqüências, famílias indexadas, e funções.
-Para implementar um conceito não basta apenas definir o que são os
-objetos desse tipo em termos de já conhecidos.
-Precisamos implementar também a interface desejada, em termos de operações e
-relações que já temos em nossa disposição.
-Nesse caso:
+O objetivo desse problema é \emph{implementar o tipo de função não-determinística}.
 \endgraf
-Como definarias a composição $g \ast f$ de duas funções não-deterministas?
-Use a notação $f : A \ndeto B$ para <<$f$ é uma função não-determinista
+Como definarias a composição $g \cdot f$ de duas funções não-determinísticas?
+Use a notação $f : A \ndeto B$ para <<$f$ é uma função não-determinística
 de $A$ para $B$>>.
 Que mais tu poderias fazer para tua implementação ser uma implementação boa?
 
@@ -26305,19 +26437,19 @@ $\bar f : A \to \pset B\setminus\set{\emptyset}$ definida pela
 $$
 \bar f(x) = \setst {y\in B} {x\mapstoby f y}.
 $$
-Sejam~$f : A \ndeto B$ e~$g : B \ndeto C$ funções não-deterministas.
+Sejam~$f : A \ndeto B$ e~$g : B \ndeto C$ funções não-determinísticas.
 Logo temos $\bar f : A \to \pset B\setminus\set{\emptyset}$
 e          $\bar g : B \to \pset C\setminus\set{\emptyset}$.
 Definimos sua composição
-$g\ast f : A \ndeto C$ pela
+$g\cdot f : A \ndeto C$ pela
 $$
-(\overline{g\ast f})(x) = \Union \img {\bar g} {\bar f (x)}.
+(\overline{g\cdot f})(x) = \Union \img {\bar g} {\bar f (x)}.
 $$
 O que mais seria legal definir e mostrar para nossa implementação?
-Bem, seria bom definir pelo menos a identidade não-determinista
+Bem, seria bom definir pelo menos a identidade não-determinística
 $id_A : A \ndeto A$, e investigar se as leis que provamos sobre
 o caso de funções que conectam composição e identidades estão válidas
-para nossas funções não-deterministas também.
+para nossas funções não-determinísticas também.
 
 \endproblem
 %%}}}
@@ -28156,7 +28288,7 @@ a propriedade.
 Imagine que nesse caso, nossa escolha não seria justa para a setinha
 não-escolhida (ou para a setinha escolhida, dependendo o ponto de vista).
 Formar o fecho duma relação deve ser uma operação, e sendo isso deve
-ser determinista.
+ser determinística.
 Imagina entao que temos uma propriedade estranha, dizendo que:
 $$
 x \rel R x \mland y \rel R y \implies x \rel R y \mlor y \rel R x.
@@ -48317,13 +48449,14 @@ que é conjunto.
 \exercise.
 \label{partial_function_formally_defined_as_function}%
 Ache um outro jeito para definir funções parciais como funções.
+(Talvez tu já pensou nisso no~\ref{implement_partial_functions}.)
 Verifique que dados conjuntos $a,b$ a classe
-$(a \parto b)$
-também é um conjunto.
+$(a \parto b)$ também é um conjunto.
 
 \hint
+(Resolva primeiro o~\ref{implement_partial_functions}.)
 Cada função parcial $f : A \parto B$ pode ser representada
-como uma função total $f : A \parto B'$ onde $B'$ é um outro
+como uma função total $f : A \to B'$ onde $B'$ é um outro
 conjunto.
 Qual $B'$ serve?
 
