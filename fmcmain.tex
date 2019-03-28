@@ -31,6 +31,8 @@ Olhando para matemática de longe podemos enxergar dois tipos principais:
 \emph{proposições} (também \emph{afirmações}) e \emph{objetos} (também
 \emph{individuais}).
 
+\TODO $f : A \to B$, $A \subset B$, $x = y$: not always propositions.
+
 \endsection
 %%}}}
 
@@ -15377,8 +15379,9 @@ Outra convençao comum é usar uma fonte em ``negrito'', por exemplo
 $\mathbf{a} = \tup{a_1,a_2,a_3}$, $\mathbf{u} = \tup{u_0,u_1}$, etc.
 %%}}}
 
-%%{{{ Interface and equality 
+%%{{{ tuples_interface_and_equality 
 \note Interface e igualdade.
+\label{tuples_interface_and_equality}%
 Precisamos: (1) descrever qual é o ``interface primitivo'' desse novo
 tipo, em tal forma que deixamos claro o que precisamos definir
 para determinar uma tupla; e (2) o que significa $=$ entre tuplas.
@@ -15386,13 +15389,14 @@ Nossa única interface dada uma tupla de tamanho $n$, é que podemos
 pedir seu $i$-ésimo elemento, onde $0 \leq i < n$.
 Conversamente, para definir uma tupla de tamanho $n$, basta
 determinar todos os objetos (distintos ou não) nas suas $n$ posições.
-Consideramos que duas tuplas são iguais se elas
+Consideramos que duas tuplas são iguais sse elas
 ``concordam em cada posição''.
 Sem aspas, chegamos nas definições:
 %%}}}
 
-%%{{{ df: projections 
+%%{{{ df: tuple_projections 
 \definition Projecções.
+\label{tuple_projections}%
 Definimos as operações $\pi_i$ chamadas \dterm{projecções}, tais que
 para todos os $x,y$, temos
 $$
@@ -15433,9 +15437,9 @@ tanto com isso pois pelo contexto vai sempre ser claro qual é a
 notação seguida.
 %%}}}
 
-%%{{{ df: tuple_equality 
+%%{{{ df: tuples_equality 
 \definition Igualdade.
-\label{tuple_equality}%
+\label{tuples_equality}%
 Definimos
 $$
 \align
@@ -15851,6 +15855,19 @@ Aqui não vamos usar nenhuma dessas, pois introduzem ambigüidades possivelmente
 singleton cujo único membro é a seqüência inteira, ou o singleton cujo único
 membro é o $n$-ésimo membro da seqüência?
 \endul
+%%}}}
+
+%%{{{ df: sequences_equality 
+\definition Igualdade.
+\label{sequences_equality}%
+Sejam
+$\sequence {a_n} n$,
+$\sequence {b_n} n$,
+seqüências.
+Chamamo-nas iguais sse
+$$
+\lforall {n\in\nats} {a_n = b_n}.
+$$
 %%}}}
 
 %%{{{ Limits of sequences 
@@ -16303,9 +16320,9 @@ $$
 Sabendo a definição de igualdade entre tuplas, definir
 igualdade entre famílias indexadas é fácil.
 
-%%{{{ df: equality_for_indexed_families 
+%%{{{ df: indexed_families_equality 
 \definition Igualdade.
-\label{equality_for_indexed_families}%
+\label{indexed_families_equality}%
 Sejam
 $\family {a_i} {i\in \cal I}$,
 $\family {b_i} {i\in \cal I}$
@@ -16491,9 +16508,9 @@ $$
 }
 %%}}}
 
-%%{{{ equality_for_indexed_sets 
+%%{{{ indexed_sets_equality 
 \note Igualdade entre conjuntos indexados.
-\label{equality_for_indexed_sets}%
+\label{indexed_sets_equality}%
 {%
 \def\bla{\mathrm{bla}}%
 \def\blu{\mathrm{blu}}%
@@ -16879,6 +16896,7 @@ sobrecarregando a notação $\set{\dots}$ se é claro pelo contexto
 que é um multiset e não um conjunto.
 
 \note Igualdade.
+\label{multisets_equality}
 Consideramos os multisets $M$ e $M'$ iguais sse para todo $x$,
 $$
 \text{$x$ pertence $n$ vezes ao $M$}
@@ -24330,6 +24348,27 @@ $(f^{-1})$ para enfatizar que estás denotando a função inversa da $f$.
 \endexercise
 %%}}}
 
+%%{{{ x: img_f_singleton_x_eq_singleton_f_x 
+\exercise.
+\label{img_f_singleton_x_eq_singleton_f_x}%
+Verdade ou fálso?:
+para toda função $f$ e todo $x$ no seu domínio temos
+$$
+\img f {\set{x}} = \set{f(x)}.
+$$
+
+\endexercise
+
+%%}}}
+
+%%{{{ x: is any of img f, pre f, guaranteed to be inj or surj? 
+\exercise.
+É alguma das $\img f {\dhole}$, $\pre f {\dhole}$ garantidamente
+injetora ou sobrejetora?
+
+\endexercise
+%%}}}
+
 %%{{{ x: bij_iff_all_pre_are_singletons 
 \exercise.
 \label{bij_iff_all_pre_are_singletons}%
@@ -25094,6 +25133,8 @@ $$
 
 \endexercise
 %%}}}
+
+\TODO Elaborate.
 
 \endsection
 %%}}}
@@ -25930,107 +25971,93 @@ e logo queria destacá-los desde já.  Paciência.
 \section Novas implementações: seqüências e famílias.
 \label{Implementations_seq_fam}%
 
-%%{{{ indexed_families_as_functions 
-\note Famílias indexadas como funções.
-\label{indexed_families_as_functions}%
+%%{{{ Q: Can you implement sequences and indexed families? 
+\question.
+Suponha que alguem robou de ti os típos (primitivos) de seqüências e de famílias
+indexadas.  Dá para se virar sem esses?  Ou seja, tem como definí-los em termos
+dos outros tipos que tu (ainda) tens?
+%%}}}
+\spoiler.
+
+%%{{{ A 
+\blah Resposta.
 Agora que sabemos o que é uma função, podemos apreciar
-que qualquer família $F = \famst {a_i} {i \in \cal I}$
-indexada por um conjunto $\cal I$ \emph{comporta como uma função}
-com domínio $\cal I$ e codomínio o conjunto de todos membros da $F$.
-Com esse ponto de vista, quando são duas \emph{famílias} indexadas 
-iguais?  Os conjuntos de índices têm que ser iguais, e para todo
-índice as famílias tem que concordar.
-Ou seja, esse ponto de vista é razoável pois concorda com
-a definição de igualdade que já tivemos
-(\ref{equality_for_indexed_families}).
+que qualquer seqüência $\seqn a n$
+\emph{pode ser representada por uma função} com domínio $\nats$
+e codomínio o conjunto de todos membros da $\seqn a n$.
+Similarmente, uma família $\famst {a_i} {i \in \cal I}$
+indexada por um conjunto $\cal I$ \emph{pode ser representada por uma função}
+com domínio $\cal I$ e codomínio o conjunto de todos membros da $\family {a_i} i$.
 %%}}}
 
-%%{{{ indexed_sets_adult_version 
-\note Conjuntos indexados: versão adulta.
+%%{{{ impl: indexed_families_as_functions 
+\implementation Famílias indexadas como funções.
+\label{indexed_families_as_functions}%
+Chamamos qualquer $a : \nats \to A$.
+de \dterm{família indexada por $\cal I$}.
+Introduzimos como açúcar sintáctico o
+$$
+a_n \sugdefeq a(n).
+$$
+Com esse ponto de vista, quando duas \emph{seqüências} são iguais?
+Elas precisam concordar em cada $n \in \dom a$;
+e esse ponto de vista atende a especificação pois concorda com
+a definição de igualdade do típo que estamos implementando
+(\ref{sequences_equality}).
+%%}}}
+
+%%{{{ impl: indexed_families_as_functions 
+\implementation Famílias indexadas como funções.
+\label{indexed_families_as_functions}%
+Chamamos qualquer $a : \cal I \to A$.
+de \dterm{família indexada por $\cal I$}.
+Introduzimos como açúcar sintáctico o
+$$
+a_i \sugdefeq a(i).
+$$
+Com esse ponto de vista, quando duas \emph{famílias} indexadas são iguais?
+Os conjuntos de índices têm que ser iguais, e as famílias precisam
+concordar em cada índice.
+Esse ponto de vista atende a especificação pois concorda com
+a definição de igualdade do típo que estamos implementando
+(\ref{indexed_families_equality}).
+%%}}}
+
+%%{{{ x: implement_tuples 
+\exercise.
+Implemente as tuplas;
+tome cuidado para deixar claro como usá-las;
+lembre-se o~\refn{tuples_interface_and_equality} da~\ref{Tuples}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: implement_multisets 
+\exercise.
+\label{implement_multisets}%
+Implemente os multiset (\refn{Multisets});
+tome cuidado para deixar claro como usá-las;
+lembre-se o~\refn{multisets_equality}.
+
+\endexercise
+%%}}}
+
+%%{{{ df: indexed_sets_adult_version 
+\definition Conjuntos indexados: versão adulta.
 \label{indexed_sets_adult_version}%
 \tdefined{conjunto}[indexado por conjunto]%
-Já conhecemos o quesignifica que um conjunto $A$ é indexedo
+Já conhecemos o quesignifica que um conjunto $A$ é indexado
 por um conjunto $B$~(\ref{indexed_set}).
 Isso praticamente quis dizer que o $A$ pode ser escrito na forma
 $$
 A = \setst {\dots b \dots} {b \in B},
 $$
 ou, mais ``adultamente'' e plenamente:
-\emph{temos uma função sobrejetora $f : B \surto A$}.
-%%}}}
-
-%%{{{ picking_elements_from_indexed_sets 
-\note Tomando elementos de conjuntos indexados.
-\label{picking_elements_from_indexed_sets}%
-{%
-\def\bla{\mathrm{bla}}%
-Suponha que temos um conjunto $A$ indexado
-por um conjunto $B\neq\emptyset$:
 $$
-A = \setst {\bla(b)} {b\in B}.
+\text{$A$ é indexado por $B$}
+\defiff
+\text{existe função sobrejetora $f : B \surto A$}.
 $$
-Como podemos ``tomar um arbitrario membro de $A$''?
-Claramente podemos dizer: ``seja $a \in A$'', algo válido
-para qualquer conjunto $A \neq \emptyset$.
-Mas nesse caso, ``sejando'' um $b\in B$, determinamos
-um membro de $A$: o $\bla(b)$.
-Assim, se provarmos algo sobre o $\bla(b)$,
-isso é suficiente para concluir que todos os elementos
-de $A$ satisfazem esse algo.
-Imagine então que queremos provar que
-$$
-A \subset C.
-$$
-Podemos seguir o caminho padrão, provando
-$$
-\lforall {a \in A} {a \in C}
-$$
-mas, temos mais um caminho para seguir nesse caso: provar que
-$$
-\lforall {b \in B} {\bla(b) \in C}.
-$$
-}
-%%}}}
-
-%%{{{ equality_for_indexed_sets 
-\note Igualdade entre conjuntos indexados.
-\label{equality_for_indexed_sets}%
-{%
-\def\bla{\mathrm{bla}}%
-\def\blu{\mathrm{blu}}%
-Para mostrar que dois \emph{conjuntos}
-indexados pelo mesmo conjunto são iguais, é \emph{suficiente}
-mostrar que são iguais como famílias---mas não \emph{necessário}:
-veja~\ref{equal_as_fam_not_necessary_for_equal_as_sets}.
-\endgraf
-Por exemplo, sejam $A,B$ conjuntos indexados pelo mesmo conjunto $C$:
-$$
-\xalignat2
-A &= \setst {\bla(c)} {c \in C} &
-B &= \setst {\blu(c)} {c \in C}.
-\endxalignat
-$$
-Suponha que queremos provar $A=B$.
-O caminho orthodoxo seria seguir a definição de igualdade de conjuntos
-e provar
-$$
-x\in A \iff x \in B,
-\qqqtext{ou seja,}
-A \subset B \mland A \supset B.
-$$
-Mas, vendo eles como \emph{conjuntos indexados por o $C$},
-podemos matar o alvo $A=B$ numa maneira alternativa, aplicando
-a definição de igualdade de funções.  No final das contas,
-parecem funções com domínios iguais (o $C$).
-Então provando a afirmação
-$$
-\lforall {c \in C} {\bla(c) = \blu(c)}
-$$
-é suficiente para o $A=B$.
-Observe que mostramos algo ainda mais forte: não é apenas
-que $A=B$ como conjuntos, mas como \emph{famílias} indexadas também,
-ou seja, eles concordam em todo índice.
-}
 %%}}}
 
 \endsection
@@ -26330,6 +26357,39 @@ Ou seja, a $\pre f {\dhole}$ não é injetora.
 
 \endproblem
 %}}}
+
+%%{{{ Halmos_advice_f_surj_iff_pre_f_inj 
+\problem Don't just read it; fight it.
+\label{Halmos_advice_f_surj_iff_pre_f_inj}
+Ache a coisa mais óbvia para se perguntar depois
+do~\label{f_surj_iff_pre_f_inj}; pergunte-se; responda (demonstra ou refuta).
+
+\hint
+$$
+f(\dhole)
+\brace{%
+\gathered
+\text{injetora} \\
+\text{sobrejetora}
+\endgathered
+}
+\askiff
+\brace{%
+\gathered
+\img f \dhole \\
+\pre f \dhole
+\endgathered
+}
+\brace{%
+\gathered
+\text{injetora} \\
+\text{sobrejetora}
+\endgathered
+}
+$$
+
+\endproblem
+%%}}}
 
 %%{{{ succiter_for_dummies_returns 
 \problem.
@@ -36532,7 +36592,7 @@ $$
 $$
 Esses conjuntos são indexados pelo mesmo conjunto (o $G$),
 logo basta provar que para todo $a\in G$, $\eqclassimp a = Ha$.
-(Veja o~\ref{equality_for_indexed_sets}.)
+(Veja o~\ref{indexed_sets_equality}.)
 \crproofpart{\lrdirset:}
 Suponha $x \in \eqclassimp a$.
 Logo $x \cong a \pmod H$, ou seja, $x\ginv a \in H$.
