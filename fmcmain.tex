@@ -25155,6 +25155,7 @@ Deixo a definição da $\uncurry$ pra ti:
 
 %%{{{ x: uncurry_using_lambdas 
 \exercise.
+\label{uncurry_using_lambdas}%
 Defina a $\uncurry$.
 
 \hint
@@ -25305,11 +25306,13 @@ $$
 
 \TODO Elaborate.
 
+%%{{{ syntactic_associativity 
 \note Associatividade sintáctica.
-Considere que temos uma operação binária $\heart$.
+\label{syntactic_associativity}%
+Considere que temos uma operação binária $\heartop$.
 A frase
 $$
-\text{<<$\heart$ é associativa>>}
+\text{<<$\heartop$ é associativa>>}
 $$
 é uma \emph{afirmação matemática}.
 Algo que pode ser demonstrado, suposto, etc.
@@ -25317,21 +25320,32 @@ No outro lado, considere as frases seguintes:
 $$
 \xalignat2
 &\gathered
-\text{<<$\heart$ é associativa na esquerda>>}\\
-\text{<<$\heart$ associa na esquerda>>}\\
-\text{<<$\heart$ é L-associativa>>}
+\text{<<$\heartop$ é associativa na esquerda>>}\\
+\text{<<$\heartop$ associa na esquerda>>}\\
+\text{<<$\heartop$ é L-associativa>>}
 \endgathered
 &
 &\gathered
-\text{<<$\heart$ é associativa na direita>>}\\
-\text{<<$\heart$ associa na direita>>}\\
-\text{<<$\heart$ é R-associativa>>}
+\text{<<$\heartop$ é associativa na direita>>}\\
+\text{<<$\heartop$ associa na direita>>}\\
+\text{<<$\heartop$ é R-associativa>>}
 \endgathered
 \endxalignat
 $$
-Nenhuma dessas frases é algo que podemos demonstrar
-
-
+Nenhuma dessas frases é algo que podemos demonstrar!
+O que significam então?
+Apenas uma convenção sintáctica, que dá significado
+às expressões como a \sqq{$x \heartop y \heartop z$}
+que sem uma associatividade sintáctica não denotam
+absolutamente nada (pois têm um erro de aridade).
+As frases acima então correspondem respectivamente nas:
+$$
+\xalignat2
+x \heartop y \heartop z &\syndefeq (x \heartop y) \heartop z &
+x \heartop y \heartop z &\syndefeq x \heartop (y \heartop z).
+\endxalignat
+$$
+%%}}}
 
 %%{{{ notational_abuse_curried 
 \warning.
@@ -46302,7 +46316,7 @@ f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$
 f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
 f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
 \intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
-f((A \heart B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heart \in \set{\limplies,\land,\lor}$)}
+f((A \heartop B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartop \in \set{\limplies,\land,\lor}$)}
 \endalignat
 $$
 Aplicando nossa função na fórmula dada calculamos:
