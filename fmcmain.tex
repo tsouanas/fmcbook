@@ -19810,10 +19810,13 @@ Chamamos a $g\of f$ a \dterm{composição} da $g$ \emph{seguindo}
 a $f$ (ou ``da $g$ com $f$'', ou até ``$g$ \emph{de} $f$'').
 %%}}}
 
-%%{{{ beware: gof_not_fog 
+%%{{{ beware: gof_not_fog ; diagrammatic_notation 
 \beware.
 \label{gof_not_fog}%
-\label{digramatic_notation}%
+\label{diagrammatic_notation}%
+\tdefined{composição}[diagramática]%
+{\iisee{diagramática}{composição, diagramática}}%
+{\iisee{notação!diagramática}{composição, diagramática}}%
 Escrevemos $g\of f$ e não $f\of g$ para a composição na~\ref{fcompose}!
 Então quando temos $A\toby f B\toby g C$, a composição é
 $A \toby {g\of f} C$, que parece o oposto da ordem das setinhas.
@@ -19821,8 +19824,8 @@ Definimos a notação alternativa
 $$
 f \dcom g \defeq g\of f,
 $$
-chamada \dterm{notação diagramática}\ii{composição}[diagramática]\iisee{diagramática}{composição},
-pois concorda com as setinhas do diagrama:
+chamada \dterm{notação diagramática}
+pois concorda com a posição das setinhas do diagrama:
 $$
 A \toby {f \dcom g} C.
 $$
@@ -20117,14 +20120,17 @@ Denotamos a identidade do conjunto $A$ por $\idof A : A \to A$ ou $1_A : A \to A
 \label{inclusion_function}%
 \tdefined{função}[inclusão]%
 \sdefined {\incofin {\sholed A} {\sholed B}} {a inclusão do $A$ no $B$}%
-\sdefined {\sholed i : \sholed A \subset \sholed B} {$i$ é a inclusão do $A$ no $B$ (ou uma injecção)}%
-\sdefined {\sholed i : \sholed A \incto \sholed B}  {$i$ é a inclusão do $A$ no $B$ (ou uma injecção)}%
+\sdefined {\sholed i : \sholed A \subsetto \sholed B} {$i$ é a inclusão do $A$ no $B$}%
+\sdefined {\sholed i : \sholed A \subset \sholed B} {$A \subsetto B$ (notação alternativa)}%
+\sdefined {\sholed i : \sholed A \incto \sholed B} {$i$ é a inclusão do $A$ no $B$ (ou uma injecção)}%
 Sejam $A,B$ conjuntos com $A\subset B$.
 A função $\lam x x : A \to B$ é chamada \dterm{inclusão do $A$ no $B$}.
 Usamos o $\inc$ para denotar uma inclusão e escrevemos
 $$
 \inc : A \incto B
-\qqqtext{ou até}
+\qqtext{ou}
+\inc : A \subsetto B
+\qqtext{ou até}
 \inc : A \subset B
 $$
 para enfatizar que é uma inclusão mesmo.
@@ -20132,6 +20138,13 @@ Decoramos a notação escrevendo $\incofin A B$ quando essa informação
 não é implícita pelo contexto.
 Todos os $i,\imath,\iota$ são símbolos freqüentemente usados para
 denotar inclusões.
+%%}}}
+
+%%{{{ beware: incto might be some other injection 
+\beware.
+A notação $A \incto B$ não sempre denota a própria inclusão; pode ser usada
+para denotar uma \emph{injecção} (\refn{Jections}) diferente dependendo do
+contexto.
 %%}}}
 
 %%{{{ remark: inclusion is not id 
@@ -20431,7 +20444,7 @@ Como posso dar para o shell a ordem
 Um dos usos comuns de funções características é definir funções num jeito mais
 curto, aproveitando os fato que $0x = 0$ e $1x = x$ para todo $x\in\reals$.
 Esse uso lembra das expressões $\namedfun{if-then-else}$ que usamos
-\emph{evitando} um ``if branching'' em linguagens de programação.
+em linguagens de programação.
 %%}}}
 
 %%{{{ eg: replacing_cases_by_characteristic_functions_example 
@@ -20453,8 +20466,32 @@ Isso lembra um
 $$
 f(x) = 2\cbrt{x + \log_2 |x+1|} + \PIF x \in \rats \THEN x^2 \ELSE e^x \FIP.
 $$
-usado em linguagens de programação que suportam if-then-else \emph{expressions}.
+usado em linguagens de programação que suportam \dterm{if-then-else expressions}.
 \endexample
+%%}}}
+
+%%{{{ warning: expressions_vs_statemets 
+\warning expressions \vs statements.
+\label{expressions_vs_statemets}%
+\iipl C
+\iipl Haskell
+Uma \dterm{if-then-else expression} não é a mesma coisa com o
+\dterm{if-branching statement} encontrado em muitas linguagens de
+programação imperativas.  A idéia é que uma expressão denota um
+valor; um statement é apenas uma ordem para ser executada.
+A linguagem C por exemplo tem ambas mas o que escrevemos em C
+com ``\code{if}\dots''~corresponde no branching \emph{statement}.
+Nunca faria sentido em C, por exemplo, multiplicar um
+\emph{if statement} por um número.
+A \emph{expressão} if-then-else de C corresponde no seu único
+operador ternário, com a sintaxe (bizarra)
+$$
+\text{\code(\thole\code?\thole\code:\thole\code)}.
+$$
+Em Haskell, no outro lado, escrevemos mesmo
+$$
+\text{\code{if}\thole\code{then}\thole\code{else}\thole}.
+$$
 %%}}}
 
 %%{{{ x: char_compose_char 
@@ -20542,13 +20579,34 @@ Também é usada a notação $\resfunsub f X$.
 \exercise.
 \label{type_of_f_resto_X}%
 Sejam $f : A\to B$ e $X\subset A$.
-Ache o tipo do
+Ache o tipo de:
 $$
 f\resto X \eqtype ?
 $$
 
 \solution
 $f\resto X \eqtype X \to B$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: type_of_f_resto_X 
+\exercise restrição sem pontos.
+\label{type_of_f_resto_X}%
+Sejam $A,B$ conjuntos e $X\subset A$.
+Defina a função $f \resto X$ sem usar nenhuma referência aos membros desses conjuntos.
+Na~\ref{fresto}, por exemplo, usamos esse $x$ para representar um mebro de $A$.
+(Esqueça o ``sem pontos'' no rótulo desse exercício;
+vai fazer sentido depois:~\refn{Functions_pointfree_style}.)
+
+\hint
+Defina como composição de funções conhecidas.
+
+\hint
+Inclusão.
+
+\solution
+$f\resto X = \incofin X A \of f$.
 
 \endexercise
 %%}}}
@@ -22126,8 +22184,9 @@ Vamos investigar isso no~\ref{Pointfree_style}.
 \endsection
 %%}}}
 
-%%{{{ Injections, surjections, bijections 
-\section Injetoras, sobrejetoras, bijetoras.
+%%{{{ Jections : Injections, surjections, bijections 
+\section Injecções, sobrejecções, bijecções.
+\label{Jections}%
 
 %%{{{ noneg: not_injective 
 \nonexample.
@@ -22262,15 +22321,16 @@ Chamamos a $f$ \dterm{sobrejetora} (ou \dterm{sobrejetiva}) sse
 $$
 \text{para todo $b \in B$, existe $a\in A$ tal que $f(a) = b$}.
 $$
+Chamamos a $f$ \dterm{bijetora} (ou \dterm{bijetiva}, ou \dterm{correspondência}), sse
+$f$ é injetora e sobrejetora.
 Formulamente,
 $$
 \align
 \text{$f$ injetora}    &\defiff \lforall {x,y \in A} {f(x) = f(y) \implies x = y}; \\
-\text{$f$ sobrejetora} &\defiff \pforall {b \in B} \lexists {a \in A} {f(a) = b}.
+\text{$f$ sobrejetora} &\defiff \pforall {b \in B} \lexists {a \in A} {f(a) = b}; \\
+\text{$f$ bijetora}    &\defiff \text{$f$ injetora} \mland \text{$f$ sobrejetora}.
 \endalign
 $$
-Chamamos a $f$ \dterm{bijetora} (ou \dterm{bijetiva}, ou \dterm{correspondência}), sse
-$f$ é injetora e sobrejetora.
 Usamos as notações
 $$
 \align
@@ -23783,6 +23843,41 @@ $$
 temos $g=h$.
 
 \endexercise
+%%}}}
+
+%%{{{ df: isomorphic_sets 
+\definition conjuntos isómorfos.
+\label{isomorphic_sets}%
+\tdefined{isomorfismo}[de conjuntos]%
+\sdefined {\sholed A \iso \sholed B} {os conjuntos $A,B$ são isómorfos}%
+\sdefined {\sholed f : \sholed A \isoto \sholed B} {$f$ é um isomorfismo do $A$ para o $B$}%
+\sdefined {\sholed f : \sholed A \iso \sholed B} {$f : A \isoto B$ (notação alternativa)}%
+Sejam $A,B$ conjuntos.
+Chamamos os $A,B$ \dterm{conjuntos isómorfos} (ou \dterm{isomórficos})
+sse existe bijecção $f : A \bijto B$.
+Nesse caso chamamos a $f$ um \dterm{isomorfismo de conjuntos}.
+Escrevemos $A \iso B$, e também
+$f : A \iso B$ ou $f : A \isomorphismto B$ para denotar que
+$f$ é um isomorfismo do conjunto $A$ para o conjunto $B$.
+%%}}}
+
+%%{{{ remark: etymology_of_isomorphic 
+\remark etimologia.
+\label{etymology_of_isomorphic}%
+As palavras vêm do grego \emph{ίσο}
+que significa ``igual'' e \emph{μορφή} que significa ``forma''.
+Isómorfos então são aqueles que têm a mesma forma; ``a mesma cara''.
+Mas o que significa forma, cara?
+Depende do contexto!
+Aqui nos conjuntos, podemos pensar que $A\iso B$ quis dizer
+que os $A$ e $B$ só podem variar nos \emph{nomes} usados para
+seus membros e em nada mais: um isomorfismo seria um renomeamento,
+uma tradução \emph{fiel} de $A$ para $B$.  Podemos considerar
+então o $B$ como uma \emph{cópia} do $A$ onde apenas re-rotulámos
+seus membros.
+Começando no~\ref{Group_theory} vamos estudar tipos de coisas
+onde sua forma é bem mais rica que isso, e lá ``isómorfos'' vai
+acabar sendo uma noção bem mais forte.
 %%}}}
 
 \blah.
@@ -30298,11 +30393,11 @@ do $\quoset {\reals} {\sim}$.
 \problem.
 \label{preorders_are_idempotent}%
 Seja $R$ uma preordem num conjunto $A$.
-Prove que $R$ é \dterm{idempotente}, ou seja, $R = R\of R$.
+Prove que $R$ é \dterm{idempotente}, ou seja, $R = R \rcom R$.
 
 \solution
 \def\R{\rel R}%
-\def\RR{\rel {(R\of R)}}%
+\def\RR{\rel {(R \rcom R)}}%
 Vamos provar as duas direções separadamente.
 \crproofpart{$x \R y \implies x \RR y$:}
 Suponha $x \R y$.
@@ -30310,7 +30405,7 @@ Como $\R$ é reflexiva, logo $x \R x$.
 Pelas $x \R x$ e $x \R y$ concluimos que $x \RR y$.
 \crproofpart{$x \RR y \implies x \R y$:}
 Suponha $x \RR y$.
-Logo $x \R w$ e $w \R y$ para algum $w \in A$ (pela def.~de $\of$),
+Logo $x \R w$ e $w \R y$ para algum $w \in A$ (pela def.~de $\rcom$),
 e logo pela transitividade da $\R$ temos $x \R y$.
 
 \endproblem
@@ -30321,7 +30416,7 @@ e logo pela transitividade da $\R$ temos $x \R y$.
 \label{when_is_rop_irreflexive}%
 Seja $S$ uma relação binária num conjunto $A$ tal que
 $$
-\text{$\paren{S\of \rop S}$ é irreflexiva}.
+\text{$\paren{S \rcom \rop S}$ é irreflexiva}.
 $$
 Qual é o gráfico da $S$?
 Prove tua resposta.
@@ -30334,8 +30429,8 @@ $\graph(S) = \emptyset$.
 \endgraf
 Pois, supondo que tem membros, tome $(x,y) \in \graph(S)$, e agora:
 $x \rel S y$ e logo $y \rop S x$ (pela def.~de $\rop S$).
-Logo $x \relp{S\of \rop S} x$, que contradiza
-a irreflexividade da $S \of \rop S$.
+Logo $x \relp{S \rcom \rop S} x$, que contradiza
+a irreflexividade da $S \rcom \rop S$.
 
 \endproblem
 %%}}}
@@ -31050,8 +31145,8 @@ Seja $k\in\nats$ tal que
 a \ton k b &\ifflabel {HI} a + k = b.
 \intertext{Calculamos:}
 a \ton {k+1} b
-&\iff a \rel{(\ton k\of\to)} b                \by {def.~$\ton{k+1}$}
-&\iff \lexists w {a \ton k w \mland w \to b}  \by {def.~$\of$}
+&\iff a \rel{(\ton k\rcom\to)} b              \by {def.~$\ton{k+1}$}
+&\iff \lexists w {a \ton k w \mland w \to b}  \by {def.~$\rcom$}
 &\iff \lexists w {a + k = w \mland w + 1 = b} \by {HI; def.~de~$\to$}
 &\iff {(a + k) + 1 = b} \\
 &\iff {a + (k + 1) = b}.
@@ -38632,7 +38727,6 @@ dum triângulo equilateral, tal que ele vira um grupo?
 \definition Os grupos dihedrais.
 \label{dih_n}%
 \tdefined{grupo}[dihedral]%
-\tdefined{diagramática}[notação]%
 \iisee{dihedral}{grupo dihedral}
 O \dterm{grupo dihedral} $\dih n$ (também $\dihalt n$)
 é o grupo das simetrias dum $n$-gono regular, com operação
@@ -38641,10 +38735,10 @@ transformações---ou seja, funções):
 $B \fcom A$ é a simetria que criamos aplicando primeiramente
 a $A$ e depois a $B$.%
 \footnote{Alternativamente escrevemos isso como
-$A \dcom B$ (\dterm{notação diagramática}).
-Tendo esclarecido qual das $\fcom$ e $\dcom$ usamos,
-com a mesma preguiça notacional que temos seguido
-em vários outros grupos escrevemos apenas $AB$,
+$A \dcom B$ (notação diagramática,~\refn{diagrammatic_notation}).
+Tendo esclarecido qual das~$\fcom$ e~$\dcom$ usamos---e com
+a mesma preguiça notacional que temos elaborado
+em vários outros casos até agora---escrevemos apenas $AB$,
 denotando assim a operação do grupo apenas com juxtaposição.}
 %%}}}
 
@@ -38765,12 +38859,13 @@ mas podemos já dar uma primeira resposta informal:
 \note Então são iguais?.
 Não!
 A palavra certa para esse caso é \dterm{isómorfos} ou
-\dterm{isomórficos}.  As palavras vem do grego \emph{ίσο}
-que significa ``igual'' e \emph{μορφή} que significa ``forma''.
-Isómorfos então são aqueles que tem a mesma forma.
-Eles têm exatamente as mesmas \emph{propriedades grupoteóricas}.
-Escrevemos $\cal A \iso \cal B$ quando $\cal A$ e $\cal B$
-são isómorfos.
+\dterm{isomórficos}, que já encontramos no contexto de
+conjuntos~(\ref{isomorphic_sets}).
+Lembre-se que isómorfos são aqueles que têm a mesma forma
+(\ref{etymology_of_isomorphic}), mas também que o que significa
+``forma'' depende do contexto.
+Aqui seria \emph{a estrutura de grupos}.
+Grupos isómorfos têm exatamente as mesmas \emph{propriedades grupoteóricas}.
 %%}}}
 
 %%{{{ Group-theoretic properties 
