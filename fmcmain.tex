@@ -4383,7 +4383,7 @@ $$
 Onde entendemos que:
 \beginol
 \li os $n$ objetos são distíntos;
-\li não podemos os repetir.
+\li não podemos repetí-los.
 \endol
 Observe que as permutações totais são apenas casos especiais de $r$-permutações.
 Na literatura encontramos $r$-permutações também com o nome \dterm{arranjos},
@@ -20475,7 +20475,7 @@ usado em linguagens de programação que suportam \dterm{if-then-else expression
 \label{expressions_vs_statemets}%
 \iipl C
 \iipl Haskell
-Uma \dterm{if-then-else expression} não é a mesma coisa com o
+Uma \dterm{if-then-else expression} não é a mesma coisa com um
 \dterm{if-branching statement} encontrado em muitas linguagens de
 programação imperativas.  A idéia é que uma expressão denota um
 valor; um statement é apenas uma ordem para ser executada.
@@ -25409,8 +25409,15 @@ A frase
 $$
 \text{<<$\heartop$ é associativa>>}
 $$
-é uma \emph{afirmação matemática}.
-Algo que pode ser demonstrado, suposto, etc.
+é uma \emph{afirmação matemática:}
+$$
+\text{para todo $x,y,z$},
+\quad
+(x \heartop y) \heartop z
+=
+x \heartop (y \heartop z).
+$$
+Isso é algo que pode ser demonstrado, suposto, refutado, etc.
 No outro lado, considere as frases seguintes:
 $$
 \xalignat2
@@ -25427,7 +25434,7 @@ $$
 \endgathered
 \endxalignat
 $$
-Nenhuma dessas frases é algo que podemos demonstrar!
+Nenhuma dessas frases é algo que podemos demonstrar, refutar, ou supor!
 O que significam então?
 Apenas uma convenção sintáctica, que dá significado
 às expressões como a \sqq{$x \heartop y \heartop z$}
@@ -25471,13 +25478,42 @@ das duas funções tá sendo denotada.
 
 \TODO notação de ``aridades maiores'' currificada.
 
-\TODO Aplicação parcial, criando funções a partir da exp,
+%%{{{ human_eyes_and_ho_types 
+\note Olhos humanos e os tipos higher-order.
+\label{human_eyes_and_ho_types}%
+%%}}}
 
-\TODO flip.
+\TODO Escrever.
 
-\TODO duas maneiras de ler o tipo da flip.
+%%{{{ partial_application_and_currying 
+\note Aplicação parcial e currificação.
+\label{partial_application_and_currying}%
+%%}}} 
 
-\TODO map.
+\TODO Escrever.
+
+%%{{{ eg: powTwo 
+\example powTwo.
+\label{powTwo}%
+Definimos a função $\namedfun{powTwo} : \nats\to\reals$ pela
+$$
+\namedfun{powTwo} = \namedfun{exp} \fa 2.
+$$
+Assim $powTwo\fa 0 = 1$, $\namedfun{powTwo} \fa 10 = 1024$, etc.
+\endexample
+%%}}}
+
+%%{{{ remark: looks_like_cancellation 
+\remark Parece cancelamento.
+\label{looks_like_cancellation}%
+%%}}}
+
+\TODO Escrever.
+
+\blah.
+Já entramos bastante to território de programação funcional;
+paramos aqui agora, e voltamos re-visitar e expandir tudo isso
+no~\ref{Functional_programming}.
 
 \endsection
 %%}}}
@@ -26970,6 +27006,44 @@ Descreva a afirmação <<$f$ é contante>> numa maneira pointfree.
 \hint
 Vai precisar de usar um singleton, $\set{\ast}$, não importa
 qual é o seu único membro.
+
+\endproblem
+%%}}}
+
+%%{{{ flip_definition 
+\problem flip.
+\label{flip_definition}%
+No \ref{powTow} da~\refn{Currying} definimos a função $\namedfun{powTwo}$
+diretamente como aplicação parcial da função $\namedfun{exp}$
+$$
+\namedfun{powTwo} = \namedfun{exp} 2
+$$
+evitando o uso de pontos ou lambdas:
+$$
+\xalignat2
+\namedfun{powTwo} n &= \namedfun{exp} 2 n; &
+\namedfun{powTwo} &= \lam n {\namedfun{exp} 2 n}.
+\endxalignat
+$$
+Similarmente podemos definir a função que corresponde seqüência das potências
+de qualquer outro número real.
+Mas parece que não podemos criar com a mesma laconicidade (apenas como
+aplicação parcial) uma função $\namedfun{square}$ ou $\namedfun{cube}$,
+pois os argumentos da $\namedfun{exp}$ estão ``na ordem errada''.
+O objetivo desse problema é fazer exatamente isso.
+\endgraf
+Defina uma função de ordem superior $\namedfun{flip}$, que recebe qualquer
+função binária currificada, e retorna a função binária currificada que
+comporta no mesmo jeito mas recebendo seus argumentos na ordem oposta.
+Por exemplo:
+$$
+\xalignat2
+\namedfun{exp} 2 3 &= 8; &
+\paren{\namedfun{flip} \fa \namedfun{exp}} 2 3 &= 9
+\endxalignat
+$$
+Começa escrevendo o tipo da $\namedfun{flip}$ e o lendo com as duas
+maneiras diferentes que discutimos na~\ref{human_eyes_and_ho_types}.
 
 \endproblem
 %%}}}
