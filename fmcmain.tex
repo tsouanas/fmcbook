@@ -26135,10 +26135,30 @@ e unicidade de algo que nos permite definí-lo!
 
 \blah.
 Voltamos agora para o sistema que usamos para definir
-a função $b$ do~\ref{fact_and_fib_recursive_eg}.
-Realmente esse sistema tem uma resolução única
-(a função fibonacci), e logo posso escrever esse
-poeminho mágico para dar a\dots
+as funções $a,b$ do~\ref{fact_and_fib_recursive_eg}.
+
+%%{{{ Q: Do you know of a solution to a or b's systems ?
+\question.
+Tu conhece alguma função que satisfaz o sistema da $a$?
+Alguma que satisfaz o sistema da $b$?
+%%}}}
+\spoiler.
+
+%%{{{ A: Common answer 
+\blah Resposta comum.
+\emph{Possivelmente} o leitor respondeu
+\quote
+<<Sim:
+o factorial para o primeiro, e a função fibonacci para o segundo.>>
+\endquote
+ou algo similar.
+Só que: eu esqueci quais são essas funções.
+Pode lembrar pra mim, por exemplo, qual é essa função ``fibonacci''
+que tu tá afirmando que é uma resolução do sistema da $b$?
+\quote
+<<Claro.  Vou escrever esse poeminho mágico para dar a sua\dots>>
+\endquote
+%%}}}
 
 %%{{{ df: fibonacci_dangerous_def 
 \definition.
@@ -26165,6 +26185,7 @@ Tem problema?
 Usamos a própria coisa que queremos definir (a função fibonacci)
 para justificar sua própria definição (ou seja, para argumentar
 que o sistema (FIB) tem resolução única)!
+(E sobre o factorial seria a mesma coisa.)
 Como a $\fib$ foi definida pelas equações recursivas do (FIB),
 sua definição \emph{depende da existência e unicidade da
 resolução do sistema}, então não podemos usá-la antes
@@ -26190,6 +26211,51 @@ uma resolução:
 \label{fib_system_has_at_most_one_solution}%
 Prove que se o sistema (FIB) da~\ref{fibonacci_dangerous_def}
 tem resolução, então ela é única.
+
+\hint
+Por ``fight club'':
+suponha que $f,f'$ são resoluções do sistema (FIB);
+demonstre que $f=f'$.
+
+\hint
+Ou seja, basta demonstrar que para todo $n\in\nats$, $f n = f'n$.
+
+\hint
+Indução!
+
+\hint
+Vai precisar de duas bases.
+
+\solution
+Sejam $f,f'$ resoluções do sistema (FIB).
+Vou provar por indução que:
+$$
+\lforall {n\in \nats} {f n = f'n}.
+$$
+Vou provar duas bases, ganhando assim 2 hipoteses indutivas.
+\crproofpart{Base 0:}
+Calculamos:
+\compute
+f(0)  &= 1 \by {$f$ resolução de (FIB)}
+f'(0) &= 1 \by {$f'$ resolução de (FIB)}
+\endcompute
+\crproofpart{Base 1:}
+Mesma coisa: $f(1) = 1 = f'(1)$.
+\crproofpart{Passo indutivo.}
+Seja $k\in \nats$ tal que $f,f'$ concordam nos pontos $k-1$ e $k-2$:
+$$
+\xxalignat4
+\text{(H.I.1)} & & f(k-1) &= f'(k-1) & f(k-2) &= f'(k-2). & & \text{(H.I.2)}
+\endxxalignat
+$$
+Preciso demonstrar que elas concordam no ponto $k$ também:
+\compute
+f(k)
+&= f(k-1) + f(k-2)   \by {$f$ resolução de (FIB)}
+&= f'(k-1) + f'(k-2) \by {(H.I.1) e (H.I.2)}
+&= f'(k).            \by {$f'$ resolução de (FIB)}
+\endcompute
+Pronto.
 
 \endexercise
 %%}}}
@@ -26513,8 +26579,24 @@ Podemos \emph{finalmente} introduzir pouca da linguagem e das
 idéias principais das \emph{categorias} para ter na nossa disposição
 antes de chegar no~\ref{Category_theory} onde vamos fazer mesmo
 nossos primeiros passos na teoria das categorias.
+O que é uma categoria?
 
-\note O que é uma categoria?.
+%%{{{ df: category_first_def 
+\definition categoria.
+\label{category_first_def}%
+Uma \dterm{categoria} $\cat C$ é composta por duas colecções de coisas:
+\beginul
+\li $\Obj {\cat C}$: os \dterm{objetos} da $\cat C$, que denotamos por $A,B,C,\dots$;
+\li $\Arr {\cat C}$: as \dterm{setas} da $\cat C$, que denotamos por $f,g,h,\dots$;
+\endul
+Tais que:
+para toda seta $f \in Arr{\cat C}$, são determinados dois objetos:
+o \dterm{source} da $f$ e o \dterm{target} da $f$, denotados por
+$\src f$ e $\tgt f$ respectivamente.
+Escrevemos $f : A \to B$ para afirmar que $f$ é uma seta, e que $\src f = A$ e $\tgt f = B$.
+%%}}}
+
+\TODO Terminar a definição.
 
 \TODO Escrever.
 
