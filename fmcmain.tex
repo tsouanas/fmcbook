@@ -28208,14 +28208,14 @@ Demonstramos assim que as duas relações são diferentes.
 %%{{{ x: id_of_rcom 
 \exercise.
 \label{id_of_rcom}%
-Considere a $\rcom$ como uma operação nas relações binárias num conjunto $A$.
-Ela tem \dterm{identidade}?  Ou seja, existe alguma relação binária $E$ no $A$,
+Considere a $\rcom$ como uma operação binária nas relações binárias num conjunto $A$.
+Ela tem \dterm{identidade}?  Ou seja, existe alguma relação binária $I$ no $A$,
 tal que
 $$
 \text{para toda relação $R$ no $A$,}\quad
-E \rcom R = R = R \rcom E\,?
+I \rcom R = R = R \rcom I\,?
 $$
-Se sim, defina essa relação $E$ e prove que realmente é.
+Se sim, defina essa relação $I$ e prove que realmente é.
 Se não, prove que não existe.
 
 \hint
@@ -28224,36 +28224,36 @@ a relação trivial $\True$ satisfeita por todos os pares de elementos de $A$:
 $$
 \text{ou}
 \knuthcases{
-x \rel E y \defiff \True\cr
-x \rel E y \defiff x = y
+x \rel I y \defiff \True\cr
+x \rel I y \defiff x = y
 }
 $$
 
 \solution
-Existe sim: a $E$ é a igualdade $=$.
+Existe sim: a $I$ é a igualdade $=$ no $A$.
 Vamos mostrar que para todos $a,b \in A$
 $$
-a \rel R b \iff a \rel{(E \rcom R)} b.
+a \rel R b \iff a \rel{(I \rcom R)} b.
 $$
 Tratamos cada direção separadamente.
 \endgraf
 \lrdir.
 Suponha que $a \rel R b$.
 Precisamos mostrar que
-existe $w\in A$ tal que $a \rel E w$ e $w \rel R b$.
-Tome $w \asseq a$.  Realmente temos $a \rel E a$ (pois $E$ é a igualdade),
+existe $w\in A$ tal que $a \rel I w$ e $w \rel R b$.
+Tome $w \asseq a$.  Realmente temos $a \rel I a$ (pois $I$ é a igualdade),
 e $a \rel R b$ que é nossa hipótese.
 \endgraf
 \rldir.
-Suponha que $a \rel {(E \rcom R)} b$.
-Logo, existe $w\in A$ tal que $a \rel E w$\fact1 e $w \rel R b$\fact2.
-Mas, como $E$ é a igualdade, o único $w$ que satisfaz a~\reffact1 é o próprio~$a$.
+Suponha que $a \rel {(I \rcom R)} b$.
+Logo, existe $w\in A$ tal que $a \rel I w$\fact1 e $w \rel R b$\fact2.
+Mas, como $I$ é a igualdade, o único $w$ que satisfaz a~\reffact1 é o próprio~$a$.
 Ou seja, $w = a$.
 Substituindo na~\byfact2, ganhamos o desejado $a \rel R b$.
 \endgraf
 A outra equivalência,
 $$
-a \rel R b \iff a \rel{(R \rcom E)} b,
+a \rel R b \iff a \rel{(R \rcom I)} b,
 $$
 é similar.
 
@@ -28393,6 +28393,21 @@ $$
 \example.
 Nos reais, a $\mathop{<}\union\mathop{=}$ é a relação $\leq$,
 e a $\mathop{\leq}\inter\mathop{\geq}$ é a relação $=$.
+Substituindo o ``é a relação'' com o símbolo \sq{$=$} que usamos
+normalmente a gente acabaria escrevendo essas coisas horrorosas:
+$$
+\xalignat2
+\mathord{\mathop{<}\union\mathop{=}} &= \mathord{\leq} &
+\mathord{\mathop{\leq}\inter\mathop{\geq}} &= \mathord{=}.
+\intertext{%
+Isso fica \emph{muito} esquisito no olho para parsear;
+botando parenteses ajuda:
+}
+\paren{\mathord{\paren{\mathop{<}}\union\paren{\mathop{=}}}} &= \paren{\mathord{\leq}} &
+\paren{\mathord{\paren{\mathop{\leq}}\inter\paren{\mathop{\geq}}}} &= \paren{\mathord{=}}.
+\endxalignat
+$$
+Tente sempre escrever na maneira mais legível e entendível.
 \endexample
 %%}}}
 
