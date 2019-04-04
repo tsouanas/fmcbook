@@ -25570,6 +25570,102 @@ no~\ref{Functional_programming}.
 \endsection
 %%}}}
 
+%%{{{ Implementations_seq_fam 
+\section Novas implementações: seqüências e famílias.
+\label{Implementations_seq_fam}%
+
+%%{{{ Q: Can you implement sequences and indexed families? 
+\question.
+Suponha que alguem robou de ti os típos (primitivos) de seqüências e de famílias
+indexadas.  Dá para se virar sem esses?  Ou seja, tem como definí-los em termos
+dos outros tipos que tu (ainda) tens?
+%%}}}
+\spoiler.
+
+%%{{{ A 
+\blah Resposta.
+Agora que sabemos o que é uma função, podemos apreciar
+que qualquer seqüência $\seqn a n$
+\emph{pode ser representada por uma função} com domínio $\nats$
+e codomínio o conjunto de todos membros da $\seqn a n$.
+Similarmente, uma família $\famst {a_i} {i \in \cal I}$
+indexada por um conjunto $\cal I$ \emph{pode ser representada por uma função}
+com domínio $\cal I$ e codomínio o conjunto de todos membros da $\family {a_i} i$.
+%%}}}
+
+%%{{{ impl: sequences_as_functions 
+\implementation Seqüências como funções.
+\label{sequences_as_functions}%
+Chamamos qualquer $a : \nats \to A$.
+de \dterm{seqüência}.
+Introduzimos como açúcar sintáctico o
+$$
+a_n \sugdefeq a(n).
+$$
+Com esse ponto de vista, quando duas \emph{seqüências} são iguais?
+Elas precisam concordar em cada $n \in \dom a$;
+e esse ponto de vista atende a especificação pois concorda com
+a definição de igualdade do típo que estamos implementando
+(\ref{sequences_equality}).
+%%}}}
+
+%%{{{ impl: indexed_families_as_functions 
+\implementation Famílias indexadas como funções.
+\label{indexed_families_as_functions}%
+Chamamos qualquer $a : \cal I \to A$.
+de \dterm{família indexada por $\cal I$}.
+Introduzimos como açúcar sintáctico o
+$$
+a_i \sugdefeq a(i).
+$$
+Com esse ponto de vista, quando duas \emph{famílias} indexadas são iguais?
+Os conjuntos de índices têm que ser iguais, e as famílias precisam
+concordar em cada índice.
+Esse ponto de vista atende a especificação pois concorda com
+a definição de igualdade do típo que estamos implementando
+(\ref{indexed_families_equality}).
+%%}}}
+
+%%{{{ x: implement_tuples 
+\exercise.
+Implemente as tuplas;
+tome cuidado para deixar claro como usá-las;
+lembre-se o~\refn{tuples_interface_and_equality} da~\ref{Tuples}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: implement_multisets 
+\exercise.
+\label{implement_multisets}%
+Implemente os multiset (\refn{Multisets});
+tome cuidado para deixar claro como usá-las;
+lembre-se o~\refn{multisets_equality}.
+
+\endexercise
+%%}}}
+
+%%{{{ df: indexed_sets_adult_version 
+\definition Conjuntos indexados: versão adulta.
+\label{indexed_sets_adult_version}%
+\tdefined{conjunto}[indexado por conjunto]%
+Já conhecemos o quesignifica que um conjunto $A$ é indexado
+por um conjunto $B$~(\ref{indexed_set}).
+Isso praticamente quis dizer que o $A$ pode ser escrito na forma
+$$
+A = \setst {\dots b \dots} {b \in B},
+$$
+ou, mais ``adultamente'' e plenamente:
+$$
+\text{$A$ é indexado por $B$}
+\defiff
+\text{existe função sobrejetora $f : B \surto A$}.
+$$
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Recursive definitions 
 \section Definições recursivas.
 \label{Recursive_definitions_as_systems}%
@@ -26473,107 +26569,65 @@ e logo queria destacá-los desde já.  Paciência.
 \endsection
 %%}}}
 
-%%{{{ Implementations_seq_fam 
-\section Novas implementações: seqüências e famílias.
-\label{Implementations_seq_fam}%
-
-%%{{{ Q: Can you implement sequences and indexed families? 
-\question.
-Suponha que alguem robou de ti os típos (primitivos) de seqüências e de famílias
-indexadas.  Dá para se virar sem esses?  Ou seja, tem como definí-los em termos
-dos outros tipos que tu (ainda) tens?
-%%}}}
-\spoiler.
-
-%%{{{ A 
-\blah Resposta.
-Agora que sabemos o que é uma função, podemos apreciar
-que qualquer seqüência $\seqn a n$
-\emph{pode ser representada por uma função} com domínio $\nats$
-e codomínio o conjunto de todos membros da $\seqn a n$.
-Similarmente, uma família $\famst {a_i} {i \in \cal I}$
-indexada por um conjunto $\cal I$ \emph{pode ser representada por uma função}
-com domínio $\cal I$ e codomínio o conjunto de todos membros da $\family {a_i} i$.
-%%}}}
-
-%%{{{ impl: sequences_as_functions 
-\implementation Seqüências como funções.
-\label{sequences_as_functions}%
-Chamamos qualquer $a : \nats \to A$.
-de \dterm{seqüência}.
-Introduzimos como açúcar sintáctico o
-$$
-a_n \sugdefeq a(n).
-$$
-Com esse ponto de vista, quando duas \emph{seqüências} são iguais?
-Elas precisam concordar em cada $n \in \dom a$;
-e esse ponto de vista atende a especificação pois concorda com
-a definição de igualdade do típo que estamos implementando
-(\ref{sequences_equality}).
-%%}}}
-
-%%{{{ impl: indexed_families_as_functions 
-\implementation Famílias indexadas como funções.
-\label{indexed_families_as_functions}%
-Chamamos qualquer $a : \cal I \to A$.
-de \dterm{família indexada por $\cal I$}.
-Introduzimos como açúcar sintáctico o
-$$
-a_i \sugdefeq a(i).
-$$
-Com esse ponto de vista, quando duas \emph{famílias} indexadas são iguais?
-Os conjuntos de índices têm que ser iguais, e as famílias precisam
-concordar em cada índice.
-Esse ponto de vista atende a especificação pois concorda com
-a definição de igualdade do típo que estamos implementando
-(\ref{indexed_families_equality}).
-%%}}}
-
-%%{{{ x: implement_tuples 
-\exercise.
-Implemente as tuplas;
-tome cuidado para deixar claro como usá-las;
-lembre-se o~\refn{tuples_interface_and_equality} da~\ref{Tuples}.
-
-\endexercise
-%%}}}
-
-%%{{{ x: implement_multisets 
-\exercise.
-\label{implement_multisets}%
-Implemente os multiset (\refn{Multisets});
-tome cuidado para deixar claro como usá-las;
-lembre-se o~\refn{multisets_equality}.
-
-\endexercise
-%%}}}
-
-%%{{{ df: indexed_sets_adult_version 
-\definition Conjuntos indexados: versão adulta.
-\label{indexed_sets_adult_version}%
-\tdefined{conjunto}[indexado por conjunto]%
-Já conhecemos o quesignifica que um conjunto $A$ é indexado
-por um conjunto $B$~(\ref{indexed_set}).
-Isso praticamente quis dizer que o $A$ pode ser escrito na forma
-$$
-A = \setst {\dots b \dots} {b \in B},
-$$
-ou, mais ``adultamente'' e plenamente:
-$$
-\text{$A$ é indexado por $B$}
-\defiff
-\text{existe função sobrejetora $f : B \surto A$}.
-$$
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Coproduct; sum; disjoint union 
 \section Coproduto; somatório; união disjunta.
 \label{Coproduct}
 
 \TODO Escrever.
+
+%%{{{ Q: Whose fault is it? 
+\question.
+Quem é o culpado?
+%%}}}
+\spoiler.
+
+%%{{{ A: The union! 
+\note Resposta.
+A união!
+O conjunto que $\union$ construiu, ο $A\union B$, não é útil aqui.
+Nem se compara com o $A \cross B$, em questão de
+utilidade e elegância.
+Será que podemos descobrir um outro operador binário
+que comportaria numa maneira tão legal como o $\cross$?
+%%}}}
+
+\TODO Escrever.
+
+%%{{{ constructing the coproduct 
+\note Contruindo o coproduto.
+$$
+\tikzpicture
+\tikzi disjunion0;
+\endtikzpicture
+$$
+unindo:
+$$
+\tikzpicture
+\tikzi disjunion1;
+\endtikzpicture
+$$
+Em vez disso, vamos criar cópias $A',B'$ dos $A,B$ numa maneira
+que garanta que os $A',B'$ são disjuntos.
+Por exemplo, pintamos todos os membros de $A$ azuis e de $B$ vermelhos:
+$$
+\tikzpicture
+\tikzi disjunion2;
+\endtikzpicture
+$$
+Os conjuntos agora são disjuntos: $\alertB 4 \neq \alertR 4$, etc.
+%%}}}
+
+\TODO Escrever.
+
+\note Nível coração: escolhedores.
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
+%%{{{ From a solution to a problem to a theory 
+\section Duma resolução para um problema para uma teoria.
 
 %%{{{ from a solution to a problem 
 \note Duma resolução para o problema.
@@ -26592,9 +26646,9 @@ tem uma propriedade \emph{muito interessante:}
 para cada \dterm{impostor} $\tupp{F,f_1,f_2}$:
 $$
 \cdopt{sep=1cm}
-                                                                  \| \| \| A \\
-F \ar[urrr, bend left=24, "f_1"] \ar[drrr, bend right=30, "f_2"'] \| \| \|   \\
-                                                                  \| \| \| B
+                                                              \| A \\
+F \ar[ur, bend left=15, "f_1"] \ar[dr, bend right=15, "f_2"'] \|   \\
+                                                              \| B
 \endcd
 \quad\implies\quad
 \cdopt{sep=1cm}
@@ -26620,9 +26674,9 @@ $$
 tais que para todo $\tupp{F,f_1,f_2}$,
 $$
 \cdopt{sep=1cm}
-                                                                  \| \| \| A \\
-F \ar[urrr, bend left=24, "f_1"] \ar[drrr, bend right=30, "f_2"'] \| \| \|   \\
-                                                                  \| \| \| B
+                                                              \| A \\
+F \ar[ur, bend left=15, "f_1"] \ar[dr, bend right=15, "f_2"'] \|   \\
+                                                              \| B
 \endcd
 \quad\implies\quad
 \cdopt{sep=1cm}
@@ -26639,10 +26693,6 @@ $$
 Observe que realmente o $\tupp{\alertR{A\cross B}, \alertR\outl, \alertR\outr}$
 é uma resolução desse problema.
 %%}}}
-
-\TODO Escrever.
-
-\note Nível coração: escolhedores.
 
 \TODO Escrever.
 
