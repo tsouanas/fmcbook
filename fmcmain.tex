@@ -22001,15 +22001,15 @@ a adição nos naturais.
 Sejam
 $$
 \gather
-A \longtoby f B\\
-C \longtoby g D
+A \longtoby f C\\
+B \longtoby g D
 \endgather
 $$
 Chamamos \dterm{função-produto da $f$ ``cross'' $g$},
 que denotamos por $f \cross g$,
 a função
 $$
-A \times C \longtoby {f\cross g} B \times D
+A \times B \longtoby {f\cross g} C \times D
 $$
 definida pela
 $$
@@ -22020,11 +22020,11 @@ $$
 %%{{{ x: fcross_commutative_diagram 
 \exercise.
 \label{fcross_commutative_diagram}%
-Bote nomes e direções onde faltam e prove que o diagrama comuta:
+Bote nomes e direcções onde faltam e prove que o diagrama comuta:
 $$
 \cdopt{sep=2cm}
-A \ar[d, "f"']   \|  A\times C \ar[l, dash, ""]\ar[r, dash, ""]\ar[d, dotted, ""]   \| C \ar[d, "g"]  \\
-B                \|  B\times D \ar[l, dash, ""]\ar[r, dash, ""]                     \| D
+A \ar[d, "f"']   \|  A\times B \ar[l, dash, ""]\ar[r, dash, ""]\ar[d, dotted, ""]   \| B \ar[d, "g"]  \\
+C                \|  C\times D \ar[l, dash, ""]\ar[r, dash, ""]                     \| D
 \endcd
 $$
 
@@ -22098,7 +22098,7 @@ $$
 %%{{{ x: fpair_commutative_diagram 
 \exercise.
 \label{fpair_commutative_diagram}%
-Bote nomes e direções onde faltam e prove que o diagrama comuta:
+Bote nomes e direcções onde faltam e prove que o diagrama comuta:
 $$
 \cdopt{sep=2cm}
 A \| A\times B \ar[l, dash, ""]\ar[r, dash, ""] \| B \\
@@ -22956,17 +22956,16 @@ pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
 %%}}}
 
 %%{{{ funion 
-\problem União de funções.
-Sejam $f : A \to B$ e $g : C \to D$.
-Queremos definir a $f\union g : A\union C \to B\union D$,
+\problem união de funções.
+Sejam $f : A \to C$ e $g : B \to D$.
+Queremos definir a $f\union g : A\union B \to C\union D$,
 consultando as $f$ e $g$, numa maneira parecida com aquela da
 definição de $f\cross g$ (\refn{fcross}).
 Uma definição razoável deve fazer o diagrama seguinte comutar:
 $$
-\cdopt{column sep=2cm,row sep=1cm}
-A \ar[d, hook] \ar[r, "f"]   \| B \ar[d, hook] \\
-A\union C \ar[r, dashed, "f\union g"] \| B\union D \\
-C \ar[u, hook] \ar[r, "g"']  \| D \ar[u, hook]
+\cdopt{sep=2cm}
+A \ar[d, "f"']\ar[r, hook] \| A\union B \ar[d, dashed, ""] \| B \ar[l,hook']\ar[d, "g"] \\
+C \ar[r,hook]              \| C\union D                    \| D \ar[l,hook']
 \endcd
 $$
 Explique quais são as condições necessárias para definir
@@ -22977,13 +22976,13 @@ Chame as $f$ e $g$ \dterm{compatíveis} sse:
 $$
 \text{para todo $x\in\dom f \inter \dom g$, $f(x) = g(x)$}.
 $$
-Agora dadas \emph{compatíveis} $f : A \to B$ e $g : C \to D$, definimos a
-$f \union g : A\union C \to B\union D$ pela
+Agora dadas compatíveis $f : A \to C$ e $g : B \to D$,
+definimos a $f \union g : A\union B \to C\union D$ pela
 $$
-(f\union g)(x) =
+(f \union g)(x) =
 \knuthcases{
-f(x), & se $x \in A$\cr
-g(x), & se $x \in C$.
+f(x), & se $x \in A$ \cr
+g(x), & se $x \in B$.
 }
 $$
 Equivalentemente, podemos definir a $f\union g$ definindo seu gráfico:
@@ -22992,6 +22991,11 @@ $$
 $$
 Observe que nas duas maneiras precisamos a condição de
 compatibilidade para a $f\union g$ ser bem definida.
+\crproofalt{Resolução alternativa:}
+Usamos a mesma definição mas exigimos que os $A,C$ são disjuntos.
+A primeira resolução consegue definir a $f \union g$ em mais casos
+que essa, mas no outro lado, essa seria aceitável também; e é mais
+simples e ``arrumada''.
 
 \endproblem
 %%}}}
@@ -23076,7 +23080,7 @@ as setinhas barradas para a direção oposta.
 Vamos estudar essa idéia formalmente agora.
 
 %%{{{ df: finverse 
-\definition Função inversa.
+\definition função inversa.
 \label{finverse}%
 \tdefined{função}[inversa]%
 \sdefined {\finv {\sholed f}} {a função inversa da $f$}%
@@ -26589,7 +26593,7 @@ para cada \dterm{impostor} $\tupp{F,f_1,f_2}$:
 $$
 \cdopt{sep=1cm}
                                                                   \| \| \| A \\
-F \ar[urrr, bend left=30, "f_1"] \ar[drrr, bend right=30, "f_2"'] \| \| \|   \\
+F \ar[urrr, bend left=24, "f_1"] \ar[drrr, bend right=30, "f_2"'] \| \| \|   \\
                                                                   \| \| \| B
 \endcd
 \quad\implies\quad
@@ -26597,8 +26601,8 @@ F \ar[urrr, bend left=30, "f_1"] \ar[drrr, bend right=30, "f_2"'] \| \| \|   \\
                                    \| \|                                  \| A \\
 F
 \ar[rr, dotted, "\unique"]
-\ar[urrr, bend left=30,  "f_1"]
-\ar[drrr, bend right=30, "f_2"']   \| \| A\cross B
+\ar[urrr, bend left=24,  "f_1"]
+\ar[drrr, bend right=24, "f_2"']   \| \| A\cross B
                                          \ar[ur, bend left=15, "\outl"]
                                          \ar[dr, bend right=15, "\outr"'] \|   \\
                                    \| \|                                  \| B
@@ -26617,7 +26621,7 @@ tais que para todo $\tupp{F,f_1,f_2}$,
 $$
 \cdopt{sep=1cm}
                                                                   \| \| \| A \\
-F \ar[urrr, bend left=30, "f_1"] \ar[drrr, bend right=30, "f_2"'] \| \| \|   \\
+F \ar[urrr, bend left=24, "f_1"] \ar[drrr, bend right=30, "f_2"'] \| \| \|   \\
                                                                   \| \| \| B
 \endcd
 \quad\implies\quad
@@ -26625,14 +26629,15 @@ F \ar[urrr, bend left=30, "f_1"] \ar[drrr, bend right=30, "f_2"'] \| \| \|   \\
                                    \| \|                                     \| A \\
 F
 \ar[rr, dotted, "\alertB\unique"]
-\ar[urrr, bend left=30,  "f_1"]
-\ar[drrr, bend right=30, "f_2"']   \| \| \alertR?
+\ar[urrr, bend left=24,  "f_1"]
+\ar[drrr, bend right=24, "f_2"']   \| \| \alertR?
                                          \ar[ur, bend left=15, "\alertR?"]
                                          \ar[dr, bend right=15, "\alertR?"'] \|   \\
                                    \| \|                                     \| B
 \endcd
 $$
-Observe que realmente o $\tupp{A\cross B, \outl, \outr}$ é uma resolução desse problema.
+Observe que realmente o $\tupp{\alertR{A\cross B}, \alertR\outl, \alertR\outr}$
+é uma resolução desse problema.
 %%}}}
 
 \TODO Escrever.
@@ -26792,7 +26797,7 @@ Isso mostra que $f$ é sobrejetora.
 %%{{{ big_intersection_respected_by_img_wrong_proof 
 \problem.
 \label{big_intersection_respected_by_img_wrong_proof}%
-Um aluno ``provou'' que se $f : A \to B$ e $\seqn A n$ é uma
+Um aluno ``demonstrou'' que se $f : A \to B$ e $\seqn A n$ é uma
 seqüência de subconjuntos de $A$, então
 $$
 \img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
@@ -26864,7 +26869,7 @@ $$
 $$
 onde na $\askeq$ prove que a igualdade em geral não é válida,
 mas uma das~{\lrdirset}~e~{\rldirset} é.
-Prove-a, e, supondo que $f$ é injetora, prove a outra também.
+A demonstre, e, supondo que $f$ é injetora, demonstre a outra também.
 }
 
 \solution
