@@ -26587,8 +26587,21 @@ A união!
 O conjunto que $\union$ construiu, ο $A\union B$, não é útil aqui.
 Nem se compara com o $A \cross B$, em questão de
 utilidade e elegância.
+Alem disso---caso que os conjuntos são finitos por enquanto---%
+com o produto tivemos a lei bacana
+$$
+\align
+\card{A \cross B} &= \card A \ntimes \card B.
+\intertext{%
+A união não é tão legal, pois não consegue garantir igualdade
+mas apenas
+}
+\card{A \union B} &\leq \card A + \card B.
+\endalign
+$$
+Decepção de novo!
 Será que podemos descobrir um outro operador binário
-que comportaria numa maneira tão legal como o $\cross$?
+que comportaria numa maneira tão legal como o~$\cross$?
 %%}}}
 
 \TODO Escrever.
@@ -26608,13 +26621,62 @@ $$
 $$
 Em vez disso, vamos criar cópias $A',B'$ dos $A,B$ numa maneira
 que garanta que os $A',B'$ são disjuntos.
-Por exemplo, pintamos todos os membros de $A$ azuis e de $B$ vermelhos:
+Por exemplo, pintamos todos os membros de $A$ azuis e de $B$ vermelhos:%
+\footnote{%
+Leitores sem acesso nessas cores neste texto vão ficar confusos aqui;
+mas paciência pois uma definição formal tá chegando já já; uma que
+não necessita telas e impressoras (e olhos?)~chiques.
+}
 $$
 \tikzpicture
 \tikzi disjunion2;
 \endtikzpicture
 $$
-Os conjuntos agora são disjuntos: $\alertB 4 \neq \alertR 4$, etc.
+Os conjuntos agora são disjuntos
+(observe que $\alertB 4 \neq \alertR 4$ e $\alertB5 \neq \alertR 5$)
+então vamos simplesmente uní-los:
+$$
+\tikzpicture
+\tikzi disjunion3;
+\endtikzpicture
+$$
+e nesse caso vamos tomar $A \disjunion B \asseq A' \union B'$.
+Observe que esse processo descrito aqui garanta mesmo que
+\compute
+\card{A \disjunion B}
+&= \card{A' \union B'}      \by {def.~$A\disjunion B$}
+&= \card {A'} + \card {B'}  \by {$A',B'$ disjuntos}
+&= \card A + \card B.       \by {$\card A = \card A'$ e $\card B = \card B'$}
+\endcompute
+%%}}}
+
+%%{{{ the or one? 
+\note ``O'' ou ``um''?.
+A descrição acima envolve um passo bem ambiguo:
+a \emph{contruição das cópias} $A', B'$.
+Com certeza existem muitas maneiras diferentes de conseguir essas
+cópias e a gente so descreveu uma---inclusive nem formalmente, mas
+dá pra fazer (\ref{formal_equivalent_of_painting}).
+Precisamos escolher uma pra realmente definir nosso operador.
+%%}}}
+
+%%{{{ x: formal_equivalent_of_painting 
+\exercise.
+\label{formal_equivalent_of_painting}%
+Ache algo matematicamente formal que podes usar em vez do informal
+pintar os membros do $A$ de azul e do $B$ de vermelho''.
+
+\solution
+Em vez de cores, tagamos cada membro do $A$ com um $0$ e cada
+membro do $B$ com um $1$:
+$$
+\alignat2
+A' &\asseq \set{0} \cross A = \setst {(0,a)} {a \in A} &
+B' &\asseq \set{1} \cross B = \setst {(1,b)} {b \in B}.
+\endalignat
+$$
+
+\endexercise
 %%}}}
 
 \TODO Escrever.
