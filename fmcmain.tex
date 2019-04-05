@@ -16844,9 +16844,9 @@ $\card{A\times B} = ?$
 \endexercise
 %%}}}
 
-%%{{{ choosers 
+%%{{{ choosers_product 
 \note Escolhedores.
-\label{choosers}%
+\label{choosers_product}%
 \tdefined{escolhedor}[produto]%
 Vou tentar dar um ponto de vista ``no nível coração'' sobre o produto duma família.
 Vamos começar com o produto cartesiano ``normal'' (ou seja, aquele que forma $n$-tuplas mesmo).
@@ -22957,6 +22957,7 @@ pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
 
 %%{{{ funion 
 \problem união de funções.
+\label{funion}%
 Sejam $f : A \to C$ e $g : B \to D$.
 Queremos definir a $f\union g : A\union B \to C\union D$,
 consultando as $f$ e $g$, numa maneira parecida com aquela da
@@ -26683,23 +26684,91 @@ $$
 \endexercise
 %%}}}
 
-\TODO Escrever.
+%%{{{ df: coproduct 
+\definition coproduto.
+\tdefined{coproduto}%
+\tdefined{sum type}%
+\tdefined{união disjunta}%
+\sdefined {\sholed A \coprod \sholed B} {o coproduto de $A$ e $B$}
+\sdefined {\sholed A \plus \sholed B} {o sum type de $A$ e $B$}
+\sdefined {\sholed A \disjunion \sholed B} {a união disjunta de $A$ e $B$}
+Sejam $A,B$ conjuntos.
+Definimos o \dterm{coproduto}
+$$
+A \coprod B \defeq \paren{\set{0} \cross A} \union \paren{\set{1} \cross B}.
+$$
+Generalizmos para qualquer família indexada $\famil A i {\cal I}$:
+$$
+\tsize\Coprod_i A_i \defeq \Union_i \paren{\set{i} \cross A_i}.
+$$
+Também usamos os termos \dterm{união disjunta} e \dterm{sum type},
+e as notações correspondentes $A \dunion B$ e $A \plus B$ para
+os casos binários e $\Dunion_i A_i$ e $\Sum_i A_i$ para
+famílias.
+%%}}}
 
-\note coprodúto de família indexada.
-A idéia do coproduto obviamente generaliza para seqüências
-e famílias indexadas, numa maneira \emph{dual} do produto.
-
-
+%%{{{ choosers_coproduct 
 \note Nível coração: escolhedores.
 \tdefined{escolhedor}[coproduto]%
 Seja $\famil A i {\cal I}$ família de conjuntos.
-Lembre-se que enxergamos (\refn{choosers}) cada membro
+Lembre-se que enxergamos (\refn{choosers_product}) cada membro
 do produto $\Prod_i A_i$ como um escolhedor:
 ele escolhe exatamente um membro \emph{de cada $A_i$}.
 Podemos enxergar um membro do coproduto como um escolhedor
 também.
+Mas antes disso, vamos ver se podemos enxergar o arbitrário
+membro do $\Union_i A_i$ como escolhedor.
+Sim: o $a\in\Union_i A_i$ representa o escolhedor que escolha
+o $a$ de todos os membros que pertencem em qualquer um dos $A_i$'s.
+No coproduto a situação é mais informativa e interessante:
+o arbitrário membro do $\Coprod_i A_i$ parece assim:
+$(j, a)$, onde $j\in\cal I$ e $a \in A_j$.
+Ou seja, parece uma escolha rotulada, que selecionou um membro do
+conjunto com seu rótulo e nada mais.
+Vamos comparar três escolhedores $P,C,U$ então:
+$$
+\xalignat3
+\vphantom{\Coprod_i}
+P &\tsize\in \Prod_i A_i &
+C &\tsize\in \Coprod_i A_i &
+U &\tsize\in \Union_i A_i.
+\endxalignat
+$$
+Podemos perguntar ao $P$:
+\dialogue
+\say Qual foi tua escolha do $A_j$?
+\say Do $A_j$ escolhi o $u$.
+\say E do $A_k$?
+\say Do $A_k$ escolhi o $v$.
+\enddialogue
+etc., e vamos ter uma resposta para cada um dos $A_i$'s.
+Ao $C$ perguntamos:
+\dialogue
+\say Quem tu escolheu?
+\say Escolhi o $x$ por dentro do $A_w$.
+\enddialogue
+E ao $U$ perguntamos:
+\dialogue
+\say Quem tu escolheu?
+\say Escolhi o $x$.
+\say Donde?
+\say Como assim?
+\say Onde tu achou esse $x$, em qual dos $A_i$'s?
+\say Sei-lá!  Foi num deles.  Não lembro.  Não quero dizer.
+\enddialogue
+%%}}}
 
-\TODO Escrever.
+%%{{{ x: fpair_for_union_and_coprod 
+\exercise.
+\label{fpair_for_union_and_coprod}%
+Imite a idéia da construcção do $\fpair f g$ (\ref{fpair}) que baseamos no
+$\cross$ para construir algo parecido baseado no $\union$ e algo baseado
+no $\coprod$.
+Qual dos dois parece comportar melhor?
+(Nossa referência de comportamento aqui é a construcção baseada no $\cross$.)
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
