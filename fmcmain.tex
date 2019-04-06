@@ -28645,6 +28645,22 @@ Sejam $R,S$ relações binárias tais que a $R\rcom S$ é definida.
 Descreva a $\ropp{R\rcom S}$ em termos das $\rop R$ e $\rop S$
 e prove tua afirmação.
 
+\hint
+${\ropp{R \rcom S}} = {\rop S \rcom \rop R}$.
+Demonstre!
+
+\solution
+Vou demonstrar que $\ropp{R \rcom S} = \rop S \rcom \rop R$.
+Calculo:
+\compute
+x \ropp{RS} y
+&\iff y \rel{RS} x                                              \by {def.~$\ropp{RS}$}
+&\iff \text{existe $w$ tal que $y \rel R w \mland w \rel S x$}  \by {def.~$RS$}
+&\iff \text{existe $w$ tal que $w \rop R y \mland x \rop S w$}  \by {def.~$\rop R$ e~$\rop S$}
+&\iff \text{existe $w$ tal que $x \rop S w \mland w \rop R y$}  \\
+&\iff x \rel{{\rop S}{\rop R}} y.                               \by {def.~${\rop S}{\rop R}$}
+\endcompute
+
 \endexercise
 %%}}}
 
@@ -29438,7 +29454,6 @@ Descreva as relações seguintes:
 \item{$\rtranscl{\to}$}: seu fecho reflexivo-transitivo;
 \item{$\rtranscl{\leftrightarrow}$}: seu fecho reflexivo-transitivo-simétrico.
 \endgraf\noindent
-Descreva o conjunto quociente $\quoset{\nats}{\rtranscl{\leftrightarrow}}$.
 
 \endexercise
 %%}}}
@@ -29448,8 +29463,7 @@ Descreva o conjunto quociente $\quoset{\nats}{\rtranscl{\leftrightarrow}}$.
 \label{isPred_in_reals}%
 Considere a relação $\to$ definida pela mesma equação como
 no~\ref{isPred}, mas essa vez no conjunto $\reals$.
-Descreva os mesmos fechos e o
-$\quoset{\reals}{\rtranscl{\leftrightarrow}}$.
+Descreva os mesmos fechos.
 
 \endexercise
 %%}}}
@@ -29477,13 +29491,12 @@ Queremos identificar as propriedades que uma relação desse tipo tem que ter:
 \item{(i)} Reflexividade: não importa qual foi o critério que escolhemos
 para ``equivaler'' os objetos, cada objeto com certeza vai ``concordar''
 com ele mesmo nesse critério.
-\item{(ii)} Simetría: pela natureza da nossa intuição é claro que
+\item{(ii)} Transitividade:
+se $a$ e $b$ concordam no assunto escolhido, e $b$ e $c$ também,
+com certeza $a$ e $c$ devem concordar também.
+\item{(iii)} Simetría: pela natureza da nossa intuição é claro que
 para decidir se dois elementos serão equivalentes ou não, não precisamos
-os considerar numa certa ordem.
-\item{(iii)} Transitividade:
-Se $a$ e $b$ viram equivalentes, e $b$ e $c$ também, isso quis dizer
-que não podemos distinguir entre $a$ e $b$, nem entre $b$ e $c$;
-segue que $a$ e $c$ também serão equivalentes.
+considerá-los numa ordem específica.
 \endgraf
 \noindent Chegamos assim na definição seguinte:
 %%}}}
@@ -29817,6 +29830,614 @@ Logo $a\in\eqclassimp b$, e logo $a\sim b$ pela definição de $\eqclassimp b$.
 \endsection
 %%}}}
 
+%%{{{ Problems intermission 
+\problems Intervalo de problemas.
+
+%%{{{ prob: preorders_are_idempotent 
+\problem.
+\label{preorders_are_idempotent}%
+Seja $R$ uma preordem num conjunto $A$.
+Prove que $R$ é \dterm{idempotente}, ou seja, $R = R \rcom R$.
+
+\solution
+\def\R{\rel R}%
+\def\RR{\rel {(R \rcom R)}}%
+Vamos provar as duas direções separadamente.
+\crproofpart{$x \R y \implies x \RR y$:}
+Suponha $x \R y$.
+Como $\R$ é reflexiva, logo $x \R x$.
+Pelas $x \R x$ e $x \R y$ concluimos que $x \RR y$.
+\crproofpart{$x \RR y \implies x \R y$:}
+Suponha $x \RR y$.
+Logo $x \R w$ e $w \R y$ para algum $w \in A$ (pela def.~de $\rcom$),
+e logo pela transitividade da $\R$ temos $x \R y$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: when_is_rop_irreflexive 
+\problem.
+\label{when_is_rop_irreflexive}%
+Seja $S$ uma relação binária num conjunto $A$ tal que
+$$
+\text{$\paren{S \rcom \rop S}$ é irreflexiva}.
+$$
+Qual é o gráfico da $S$?
+Prove tua resposta.
+
+\hint
+Supondo que $x \rel S y$, o que tu consegues concluir?
+
+\solution
+$\graph(S) = \emptyset$.
+\endgraf
+Pois, supondo que tem membros, tome $(x,y) \in \graph(S)$, e agora:
+$x \rel S y$ e logo $y \rop S x$ (pela def.~de $\rop S$).
+Logo $x \relp{S \rcom \rop S} x$, que contradiza
+a irreflexividade da $S \rcom \rop S$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: rcom_does_not_respect_transitivity 
+\problem.
+\label{rcom_does_not_respect_transitivity}%
+Sejam $R,S$ relações binárias e transitivas no $A$.
+Podemos concluir que $R \rcom S$ também é transitiva?
+Se sim, demonstre; se não, mostre um contraexemplo.
+
+\hint
+Não.  Para achar um contraexemplo desenha as
+setinhas das relações envolvidas para construir
+os desejados $x,y,z$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: condorcet_paradox 
+\problem Condorcet.
+\label{condorcet_paradox}%
+\Condorcet[parádoxo]%
+Seja $P\neq\emptyset$ um conjunto de pessoas e
+$C\neq\emptyset$ um conjunto de candidatos.
+Seja $\gtrdot$ a relação binária no $C$ definida pela
+$$
+x \gtrdot y \defiff \text{a maioria da população do $P$ prefere $x$ do que $y$}.
+$$
+Podemos concluir que $\gtrdot$ é transitiva?
+Responde ``sim'' e prove; ou ``não'' e mostre um contraexemplo.
+
+\hint
+Já jogou ``pedra--papel--tesoura''?
+
+\solution
+Não.  Sejam $P = \set{p,q,r}$ e $C = \set{a,b,c}$.
+Considere que as pessoas do $P$ em ordem de preferência de melhor para pior têm:
+$$
+\align
+    p:\ & a, b, c \\
+    q:\ & c, a, b \\
+    r:\ & b, c, a.
+\endalign
+$$
+Assim temos:
+$$
+\alignat2
+a &\gtrdot b, \by {pois os $p,q$ preferem $a$ que $b$}
+b &\gtrdot c, \by {pois os $p,r$ preferem $b$ que $c$}
+\endalignat
+$$
+mas $a \smartnot\gtrdot c$ pois apenas o $p$ prefere $a$ que $c$.
+De fato, $c \gtrdot a$, pois os $q,r$ preferem $c$ que $a$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: dom_trans_cod_not_trans 
+\problem.
+\label{dom_trans_cod_not_trans}%
+Sejam $A \toby f B$ e $\leadsto$ uma relação transitiva no $A$.
+Definimos a relação $R$ no $B$ pela
+$$
+b \rel R b'
+\defiff
+\text{existem $a, a' \in A$ tais que $f(a) = b$, $f(a') = b'$, e $a \leadsto a'$}.
+$$
+Podemos concluir que $R$ também é transitiva?
+Se sim, demonstre; se não, mostre um contraexemplo.
+
+\hint
+Não.
+
+\hint
+A $f$ não é necessariamente injetora.
+
+\solution
+Não, e vamos ver um contraexemplo.
+Considere:
+$$
+\align
+A &= \set{1,2,3,4} \\
+B &= \set{5,6,7}
+\endalign
+$$
+e a $\leadsto$ relacionando apenas os:
+$$
+\align
+1 &\leadsto 2 \\
+3 &\leadsto 4.
+\endalign
+$$
+Defina a $f:A\to B$ pelas
+$$
+\align
+1 &\mapstoby f 5 \\
+2 &\mapstoby f 6 \\
+3 &\mapstoby f 6 \\
+4 &\mapstoby f 7.
+\endalign
+$$
+Primeiramente observe que realmente $\leadsto$ é transitiva.
+Vamos verificar que: $5 \rel R 6$ e $6 \rel R 7$ mas mesmo assim
+$5 \not\rel R 7$.
+Os testemunhos de $5 \rel R 6$ são os $1$ e $2$; e
+os testemunhos de $6 \rel R 7$ são os $3$ e $4$.
+Mas os únicos candidados para testemunhos de $5 \rel R 7$
+são os $1$ e $4$, e $1 \not\leadsto 4$; e logo $5 \not\rel R 7$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: dom_trans_cod_trans_if_inj 
+\problem.
+\label{dom_trans_cod_trans_if_inj}%
+O que muda no~\ref{dom_trans_cod_not_trans} se
+adicionar a hipótese que $f$ é injetora?
+Prove tua afirmação.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: explain_succ_rel 
+\problem.
+\label{explain_succ_rel}%
+Seja a relação $\to$ no $\nats$ definida pela
+$$
+a \to b \defiff a + 1 = b.
+$$
+Dê uma definição simples da relação $\to^n$ para quem não sabe
+nem de iterações nem de composições de relações (e sequer quer aprender essas noções).
+Prove tua afirmação, que a relação $\to^n$ é igual à relação que tu definiu.
+
+\hint
+Seja $n\in\nats$.  Temos:
+$$
+a \rel{\to^n} b \iff a + n = b.
+$$
+Agora prove que isso é válido para todo $a,b,n\in\nats$.
+
+\solution
+Seja $n\in\nats$.  Temos:
+$$
+a \rel{\to^n} b \iff a + n = b.
+$$
+Sejam $a,b\in\nats$.
+Vou provar por indução que para todo $n\in\nats$,
+$$
+a \ton n b  \iff  a + n = b.
+$$
+\proofpart{Base.}
+Temos
+\compute
+a \ton 0 b
+&\iff a = b \by {pela def.~$\ton 0$}
+&\iff a + 0 = b.
+\intertext{
+\proofpart{Passo Indutivo.}
+Seja $k\in\nats$ tal que
+}
+a \ton k b &\ifflabel {HI} a + k = b.
+\intertext{Calculamos:}
+a \ton {k+1} b
+&\iff a \rel{(\ton k\rcom\to)} b              \by {def.~$\ton{k+1}$}
+&\iff \lexists w {a \ton k w \mland w \to b}  \by {def.~$\rcom$}
+&\iff \lexists w {a + k = w \mland w + 1 = b} \by {HI; def.~de~$\to$}
+&\iff {(a + k) + 1 = b} \\
+&\iff {a + (k + 1) = b}.
+\endcompute
+
+\endproblem
+%%}}}
+
+%%{{{ prob: agree_on_at_least_half_relation 
+\problem.
+Sejam conjunto $A$ com $\card A=1$, e $n\in\nats$ com $n\geq 2$.
+No $A^n$ defina:
+$$
+a \sim b
+\defiff
+\card{ \setst {i\in\finord n} {a_i = b_i} } \geq n/2,
+$$
+onde
+$a \eqass \tup{ a_0, \dotsc, a_{n-1}}$
+e
+$b \eqass \tup{ b_0, \dotsc, b_{n-1}}$.
+A $\sim$ é uma relação de equivalência?
+
+\solution
+Não é.
+Sejam $s,t,u\in A$ distintos dois-a-dois.
+Tome
+$$
+\align
+a &\leteq \tup{ s,s,\dots,s,t,t,\dotsc,t }\\
+b &\leteq \tup{ s,s,\dots,s,u,u,\dotsc,u }\\
+c &\leteq \tup{ t,t,\dots,t,u,u,\dotsc,u }
+\endalign
+$$
+como contraexemplo, pois temos
+$a \sim b$ e $b \sim c$ mas $a\not\sim c$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: simh_simv_apph_appv 
+\problem.
+\label{simh_simv_apph_appv}%
+\def\simh{\mathrel{\sim}}%
+\def\simv{\mathrel{\wr}}%
+\def\apph{\mathrel{\approx}}%
+\def\appv{\mathrel{\wr\mkern-1mu\wr}}%
+Considere as relações seguintes no $(\ints\to\ints)$:
+$$
+\align
+f \simh g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x+u) } \\
+f \apph g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x+u) } \\
+f \simv g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x)+u } \\
+f \appv g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x)+u }.
+\endalign
+$$
+Para cada uma dessas relações, decida se é:
+(ir)reflexiva; transitiva; (a(nti)s)simétrica.
+
+\hint
+Primeiramente tente entender (visualizar) essas relações.
+
+\solution
+{%
+\def\simh{\mathrel{\sim}}%
+\def\simv{\mathrel{\wr}}%
+\def\apph{\mathrel{\approx}}%
+\def\appv{\mathrel{\wr\mkern-1mu\wr}}%
+Primeiramente tentamos entender essas relações bem informalmente.
+As $\simh$ e $\apph$ envolvem um movimento horizontal,
+e as $\simv$ e $\appv$ um movimento vertical.
+Especificamente $f \simh g$ [$f \simv g$]
+sse $f$ e $g$ são a mesma função depois de um ``shift'' horizontal
+[vertical] para qualquer direção.
+As $\apph$ e $\appv$ são parecidas so que $f \apph g$
+[$f \appv g$] sse a $f$ ``coincide'' com a $g$ depois de um
+``shift'' da $f$ para a direita [para baixo] $0$ ou mais ``posições''.
+\endgraf\medskip
+\crtabproofpart{Reflexividade.}
+Todas são reflexivas, algo que mostramos tomando $u \asseq 0$.
+Vamos ver em detalhe apenas para a $\simh$.
+\crproofpart{Reflexividade da $\apph$.}
+\endgraf\noindent
+    Seja $f : \ints\to\ints$.
+    Temos para todo $x\in \ints$, $f(x) = f(x + 0)$, e como $0\in\nats$,
+    logo $f\apph f$.
+\endgraf\medskip
+\crtabproofpart{Transitividade.}
+Todas são transitivas, e parecida em todas:
+usando nossas hipoteses ganhamos dois números $i,j$ e o número que procuramos
+acaba sendo o $i + j$.
+Vamos ver em detalhe apenas para a $\appv$:
+\crproofpart{Transitividade da $\appv$.}
+\endgraf\noindent
+    Sejam $f,g,h: \ints\to\ints$ tais que $f\simh g$ e $g\simh h$.
+    Sejam então $i,j\in\ints$ tais que:
+    $$
+    \align
+    \text{para todo $x\in \ints$, }&f(x) = g(x+i) \tag{1} \\
+    \text{para todo $x\in \ints$, }&g(x) = h(x+j).\tag{2}
+    \endalign
+    $$
+    Seja $z\in\ints$ e calcule:
+    \compute
+    f(z)
+    &= g(z+i)       \by {pela (1) com $x \asseq z$}
+    &= h((z+i)+j)   \by {pela (2) com $x \asseq z+i$}
+    &= h(z+(i+j)).
+    \endcompute
+    Ou seja, o inteiro $i+j$ mostra que $f\simh h$.
+Já provamos então que todas essas relações são preordens!
+Vamos pesquisar sobre as outras propriedades agora.
+\endgraf\medskip
+\crtabproofpart{(A(nti)s)simetria.}
+As $\simh$ e $\simv$ são simétricas, algo que mostramos para as
+duas no mesmo jeito: nossa hipótese fornece um $i\in\ints$
+que satisfaz algo, e o inteiro que procuramos acaba sendo o $-i$.
+As $\appv$ é antissimétrica, mas a $\apph$ não satisfaz nenhuma
+dessas propriedades.
+Vamos provar a simetria da $\simh$, a antisimmetria da $\appv$,
+e refutar a simetria e a antissimetria da $\apph$.
+\crproofpart{Simetria da $\simh$.}
+\endgraf\noindent
+    Sejam $f,g : \ints\to\ints$ tais que $f\simh g$.
+    Então seja $i\in\ints$ tal que
+    para todo $x\in \ints$, $f(x) = g(x+i)$\fact1.
+    Observe que para todo $x\in\ints$, temos:
+    \compute
+    g(x)
+    &= g(x+(i-i)) \\
+    &= g((x-i)+i) \\
+    &= f(x-i).    \by {pela~\byfact1~com $x\asseq x-i$}
+    \endcompute
+    Ou seja, o $-i\in\ints$ mostra que $g\simh f$.
+\crproofpart{Antisimmetria da $\appv$.}
+\endgraf\noindent
+    Sejam $f,g : \ints\to\ints$ tais que $f\appv g$ e $g\appv f$.
+    Sejam então $i,j\in\nats$ tais que para todo $x\in \ints$
+    $f(x) = g(x)+i$ e $g(x) = f(x)+j$.
+    Seja $x\in\ints$ e calcule:
+    $$
+    f(x) = g(x)+i = f(x) + j + i.
+    $$
+    Logo $i+j = 0$, e sendo ambos naturais, temos $i=j=0$.
+    Ou seja, para todo $x\in\ints$, $f(x) = g(x)$, e logo $f=g$.
+\crtabproofpart{A $\appv$ não é nem relação de equivalência nem de ordem.}
+\crproofpart{Refutação da simetria da $\apph$.}
+    \endgraf\noindent
+    Como contraexemplo tome as funções $f,g : \ints\to\ints$
+    definidas pelas:
+    $$
+    \xalignat2
+    f(0) &= 1                   & g(1) &= 1 \\
+    f(x) &= 0 \quad (x \neq 0)  & g(x) &= 0 \quad (x \neq 1)
+    \endxalignat
+    $$
+    Observe que realmente $f \apph g$ pois temos
+    que para todo $x \in \ints$, $f(x) = g(x+1)$.
+    Mas $g\not\apph f$.  Suponha que tem $u\in\nats$
+    tal que para todo $x\in\ints$, $g(x) = f(x + u)$.
+    Basta ou achar um absurdo.
+    Pela nossa hipótese, $g(1) = f(1 + u)$.
+    Mas $g(1) = 1$, ou seja $f(1+u) = 1$.
+    Pela definição da $f$ então $u+1 = 0$,
+    Absurdo, pois o $0$ não é sucessor de nenhum natural.
+\crproofpart{Refutação da antissimetria da $\apph$.}
+    \endgraf\noindent
+    Como contraexemplo tome as funções $f,g : \ints\to\ints$
+    definidas pelas:
+    $$
+    \xalignat2
+    f(x) &=
+    \knuthcases{
+    0, & se $x$ é par; \cr
+    1, & se $x$ é ímpar;
+    }
+    &
+    g(x) &=
+    \knuthcases{
+    1, & se $x$ é par; \cr
+    0, & se $x$ é ímpar;
+    }
+    \endxalignat
+    $$
+    Observe que realmente $f \apph g$ (tome $u \asseq 1$)
+    e $g \apph f$ (tome $u \asseq 1$ de novo).
+    Mesmo assim, $f\neq g$.
+    Logo $\apph$ não é uma relação antisimmétrica.
+\endgraf\medskip
+Concluimos então que:
+as $\simh$ e $\simv$ são relações de equivalência,
+a $\appv$ é uma relação de ordem,
+e a $\apph$ apenas uma preordem.
+}
+
+\endproblem
+%%}}}
+
+%%{{{ prob: simz_sime_simo_simi 
+\problem.
+\label{simz_sime_simo_simi}%
+\def\simz{\rel{\stackrel{{}_{\mathrmsmall z}}=}}%
+\def\sime{\rel{\stackrel{{}_{\mathrmsmall e}}=}}%
+\def\simo{\rel{\stackrel{{}_{\mathrmsmall o}}=}}%
+\def\simi{\rel{\stackrel{\infty}=}}%
+Defina as relações seguintes no $(\nats\to\nats)$ assim:
+$$
+\align
+f\simz g&\defiff f(0)    = g(0) \\
+f\sime g&\defiff f(2n)   = g(2n)  \ \text{para todo $n\in\nats$} \\
+f\simo g&\defiff f(2k+1) = g(2k+1)\ \text{para todo $k\in\nats$} \\
+f\simi g&\defiff f(n)    = g(n)   \ \text{para uma infinidade de $n\in\nats$.}
+\endalign
+$$
+\beginil
+\item{(i)}
+Para cada uma da $\simz,\sime,\simo,\simi$, decida se é uma relação de
+equivalência ou não.
+\item{(ii)}
+Prove ou refute a afirmação seguinte:
+\emph{a relação $(\sime\rcom\simo)$ é a relação trivial $\mathsf{True}$.}
+\endil
+
+\hint
+{%
+\def\simi{\rel{\stackrel{\infty}=}}%
+Ache um contraexemplo para a $\simi$.  As outras, são.
+}
+
+\solution
+{%
+\def\simz{\rel{\stackrel{{}_{\mathrm z}}=}}%
+\def\sime{\rel{\stackrel{{}_{\mathrm e}}=}}%
+\def\simo{\rel{\stackrel{{}_{\mathrm o}}=}}%
+\def\simi{\rel{\stackrel{\infty}=}}%
+(i)
+A $\simi$ não é.  Considere o seguinte contraexemplo.
+Sejam as $\alpha, \beta, \gamma : \nats\to\nats$ (como seqüências):
+$$
+\align
+\alpha &= \tup{0,1,0,1,0,1,\dotsc}\\
+\beta  &= \tup{0,2,0,2,0,2,\dotsc}\\
+\gamma &= \tup{1,2,1,2,1,2,\dotsc}.
+\endalign
+$$
+Trivialmente, $\alpha\simi\beta$ e $\beta\simi\gamma$ mas $\alpha\not\simi\gamma$.
+\endgraf\noindent
+(ii)
+Correto.
+Sejam $f, g \in (\nats\to\nats)$.
+Vamos mostrar que $f(\sime\rcom\simo)g$.
+Pela definição da $\rcom$ temos:
+$$
+f \rel{(\sime\rcom\simo)} g
+\iff \text{existe $h \in (\nats\to\nats)$ tal que $f \sime h$ e $h\simo g$}.
+$$
+A função $h : \nats\to\nats$ definida pela
+$$
+h(n) = \knuthcases{
+f(n), &se $n$ par\cr
+g(n), &se $n$ ímpar
+}
+$$
+satisfaz as $f \sime h\simo g$ pela sua construção.
+Logo, $f \rel{(\sime\rcom\simo)} g$.
+}
+
+\endproblem
+%%}}}
+
+%%{{{ prob: cofinite_cameo_appearance 
+\problem.
+\label{cofinite_cameo_appearance}%
+No conjunto $(\reals\to\reals)$ definimos:
+$$
+\align
+f \approx g &\defiff \text{o conjunto $\setst {x \in \reals} {f(x) = g(x)}$ é infinito};\\
+f \sim    g &\defiff \text{o conjunto $\setst {x \in \reals} {f(x) \neq g(x)}$ é finito}.
+\endalign
+$$
+Prove que:
+\item{(i)} uma delas é relação de equivalência;
+\item{(ii)} a outra não é.
+
+\hint
+Se um subconjunto $X\subset\reals$ é infinito, isso não quis dizer
+que $\reals\setminus X$ é finito!
+
+\hint
+A $\sim$ é a relação de equivalência.
+
+\hint
+A $\approx$ não é transitiva.  Refute!
+
+\solution%%{{{
+A $\sim$ é uma relação de equivalência:
+\crproofpart{Reflexiva.}
+Seja $f : \reals\to\reals$.
+Calculamos:
+$$
+\setst {x \in \reals} {f(x) \neq f(x)} = \emptyset,
+$$
+que, sendo finito, mostra que $f\sim f$.
+\crproofpart{Simétrica.}
+Trivial, pois para quaisquer $f,g : \reals\to\reals$ temos
+$$
+\setst {x \in \reals} {f(x) \neq g(x)}
+=
+\setst {x \in \reals} {g(x) \neq f(x)}
+$$
+e logo um é finito sse o outro é finito.
+\crproofpart{Transitiva.}
+Sejam $f,g,h:\reals\to\reals$ tais que $f\sim g$ e $g\sim h$.
+Logo:
+$$
+\align
+A &\defeq \text{$\setst {x \in \reals} {f(x) \neq g(x)}$ finíto} \tag{1} \\
+B &\defeq \text{$\setst {x \in \reals} {g(x) \neq h(x)}$ finíto} \tag{2}.
+\endalign
+$$
+Seja $w \in \reals$.
+Vamos provar que
+$$
+w \notin A \union B \implies f(w) = h(w).
+$$
+Calculamos:
+\compute
+f(w) &= g(w)    \by {pois $w \notin A$}
+     &= h(w).   \by {pois $w \notin B$}
+\endcompute
+Contrapositivamente,
+$$
+f(w) \neq h(w) \implies w \in A \union B.
+$$
+Mas $A\union B$ é finito,
+(sendo uma união finita de conjuntos finitos)
+e mostramos que
+$$
+\setst {x \in \reals} {f(x) \neq h(x)} \subset A\union B
+$$
+e logo também finito, ou seja, $f\sim h$.
+\crproofpart{A $\approx$ não é uma relação de equivalência.}
+Vamos refutar a sua transitividade.
+Como contraexemplo, tome as $f,g,h : \reals\to\reals$ definidas pelas:
+$$
+\alignat3
+    f(x) &= 1 &
+    g(x) &= \cos(x) &
+    h(x) &= -1.
+\endalignat
+$$
+Observe que $f \approx g$ pois concordam nos pontos $2k\pi$ para todo $k\in\ints$.
+Também $g \approx h$ pois concordam nos pontos $(2k+1)\pi$ para todo $k\in\ints$.
+Mesmo assim, $f \not\approx h$ pois não concordam em ponto nenhum.
+%%}}}
+
+\endproblem
+%%}}}
+
+%%{{{ prob: implementing_functions_as_relations_and_vice_versa 
+\problem Implementando funções como relações e vice versa.
+\label{implementing_functions_as_relations_and_vice_versa}%
+Já encontramos a idéia de \emph{implementação} de algum
+conceito matemático no~\ref{Functions}
+(\refn{Implementations_seq_fam}, \refn{implement_partial_functions},
+\refn{implement_nondeterministic_functions}).
+Como tu definiria funções como relações, e como relações como funções?
+Dê apenas um esboço da tua idéia, sem entrar em muitos detalhes.
+
+\solution
+Seguem umas idéias.
+\crproofpart{Função como relação.}
+Sejam $A,B$ conjuntos.
+Uma relação $f$ de $A$ para $B$
+tal que $f$ é \emph{left-total} e \emph{right-unique}
+(veja o glossário~\refn{relations_glossary})
+é chamada uma \dterm{função de $A$ para $B$}.
+Escrevemos $f(x) = y$ em vez de $f(x,y)$ ou de $x \rel f y$
+e para todo $a\in A$ denotamos com $f(a)$ o único $b\in B$
+tal que $a \rel f b$.
+\crproofpart{Relação binária como função.}
+Sejam $A,B$ conjuntos.
+Uma função $R : A \to \pset B$ é chamada uma \dterm{relação de $A$ para $B$}.
+Escrevemos $a \rel R b$ quando $b \in R(a)$,
+e $a \not\rel R b$ quando $b \notin R(a)$.
+\crproofpart{Relação geral como função.}
+Seja $W$ conjunto.
+Uma função $R : W \to \bools$ é chamada uma \dterm{relação no $W$}.
+Escrevemos $R(w)$ como afirmação, quando $R(w) = \True$, e $\lnot R(w)$
+ou ``não $R(w)$'' quando $R(w) = \False$.
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ Partitions 
 \section Partições.
 \label{Partitions}%
@@ -29827,10 +30448,10 @@ Logo $a\in\eqclassimp b$, e logo $a\sim b$ pela definição de $\eqclassimp b$.
 Voltamos de novo para nosso conjunto $A$ do~\refn{idea_of_equivalence},
 mas essa vez sem uma predeterminada propriedade para focar.
 Essa vez vamos dividir os elementos do $A$ em \dterm{classes},
-tais que cada membro do $A$ pertencerá em \emph{exatamente uma delas},
+tais que cada membro do $A$ pertencerá a \emph{exatamente uma delas},
 e cada uma delas terá pelo menos um membro do $A$.
 E nem vamos justificar essa separação, explicando o como ou o porquê.
-Esse tipo de colecção de classes vamos definir agora.
+Esse tipo de colecção de classes vamos definir agora:
 %%}}}
 
 %%{{{ df: partition 
@@ -30459,6 +31080,15 @@ com que tu ``identificaria'' o $\quoset \ints {\cong_m}$?
 \endexercise
 %%}}}
 
+%%{{{ x: isPred_quoset 
+\exercise.
+\label{isPred_quoset}
+Descreva o conjunto quociente
+$\quoset{\nats}{\rtranscl{\leftrightarrow}}$ do~\ref{isPred}.
+
+\endexercise
+%%}}}
+
 \blah.
 Já vimos que cada relação de equivalência determina uma partição:
 seu conjunto quociente.
@@ -30472,7 +31102,7 @@ Mas essa intuição razoável é enganosa!
 Vamos investigar agora o caminho de volta: mostrar que cada
 partição $\scr A$ também determina uma relação de equivalência
 $\sim_{\scr A}$, e sim, a partição $\scr A$ é um conjunto quociente:
-o $\quoset {A} {\sim_{\scr A}}$!
+o $\quoset A {\sim_{\scr A}}$!
 
 %%{{{ x: from_partition_to_eqrel 
 \exercise De partição para equivalência.
@@ -30886,8 +31516,9 @@ e lógicas de ordem superior (\ref{Mathematical_logic}).
 %%{{{ Problems 
 \problems.
 
-%%{{{ prob 
+%%{{{ prob: rats_via_eqrel_no_ints 
 \problem.
+\label{from_ints_to_rats_via_eqrel}%
 Defina no $\ints\times\ints_{\neq0}$ a relação
 $$
 \tup{a,b} \approx \tup{c,d}
@@ -30901,8 +31532,9 @@ $\quoset {\ints\times\ints_{\neq0}} {\approx} \pseudoeq ?$
 \endproblem
 %%}}}
 
-%%{{{ prob 
+%%{{{ prob: like_vitali_rel 
 \problem.
+\label{like_vitali_rel}%
 Defina no $\rats$ a relação
 $$
 r \sim s \defiff r-s\in\ints.
@@ -30913,179 +31545,15 @@ classes do $\quoset {\rats} {\sim}$.
 \endproblem
 %%}}}
 
-%%{{{ prob 
+%%{{{ prob: vitali_rel 
 \problem.
+\label{vitali_rel}%
 Defina no $\reals$ a relação
 $$
 x \sim y \defiff x-y\in\rats.
 $$
 Prove que $\sim$ é uma relação de equivalência e descreva as classes
 do $\quoset {\reals} {\sim}$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: preorders_are_idempotent 
-\problem.
-\label{preorders_are_idempotent}%
-Seja $R$ uma preordem num conjunto $A$.
-Prove que $R$ é \dterm{idempotente}, ou seja, $R = R \rcom R$.
-
-\solution
-\def\R{\rel R}%
-\def\RR{\rel {(R \rcom R)}}%
-Vamos provar as duas direções separadamente.
-\crproofpart{$x \R y \implies x \RR y$:}
-Suponha $x \R y$.
-Como $\R$ é reflexiva, logo $x \R x$.
-Pelas $x \R x$ e $x \R y$ concluimos que $x \RR y$.
-\crproofpart{$x \RR y \implies x \R y$:}
-Suponha $x \RR y$.
-Logo $x \R w$ e $w \R y$ para algum $w \in A$ (pela def.~de $\rcom$),
-e logo pela transitividade da $\R$ temos $x \R y$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: when_is_rop_irreflexive 
-\problem.
-\label{when_is_rop_irreflexive}%
-Seja $S$ uma relação binária num conjunto $A$ tal que
-$$
-\text{$\paren{S \rcom \rop S}$ é irreflexiva}.
-$$
-Qual é o gráfico da $S$?
-Prove tua resposta.
-
-\hint
-Supondo que $x \rel S y$, o que tu consegues concluir?
-
-\solution
-$\graph(S) = \emptyset$.
-\endgraf
-Pois, supondo que tem membros, tome $(x,y) \in \graph(S)$, e agora:
-$x \rel S y$ e logo $y \rop S x$ (pela def.~de $\rop S$).
-Logo $x \relp{S \rcom \rop S} x$, que contradiza
-a irreflexividade da $S \rcom \rop S$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: rcom_does_not_respect_transitivity 
-\problem.
-\label{rcom_does_not_respect_transitivity}%
-Sejam $R,S$ relações binárias e transitivas no $A$.
-Podemos concluir que $R \rcom S$ também é transitiva?
-Se sim, demonstre; se não, mostre um contraexemplo.
-
-\hint
-Não.  Para achar um contraexemplo desenha as
-setinhas das relações envolvidas para construir
-os desejados $x,y,z$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: condorcet_paradox 
-\problem Condorcet.
-\label{condorcet_paradox}%
-\Condorcet[parádoxo]%
-Seja $P\neq\emptyset$ um conjunto de pessoas e
-$C\neq\emptyset$ um conjunto de candidatos.
-Seja $\gtrdot$ a relação binária no $C$ definida pela
-$$
-x \gtrdot y \defiff \text{a maioria da população do $P$ prefere $x$ do que $y$}.
-$$
-Podemos concluir que $\gtrdot$ é transitiva?
-Responde ``sim'' e prove; ou ``não'' e mostre um contraexemplo.
-
-\hint
-Já jogou ``pedra--papel--tesoura''?
-
-\solution
-Não.  Sejam $P = \set{p,q,r}$ e $C = \set{a,b,c}$.
-Considere que as pessoas do $P$ em ordem de preferência de melhor para pior têm:
-$$
-\align
-    p:\ & a, b, c \\
-    q:\ & c, a, b \\
-    r:\ & b, c, a.
-\endalign
-$$
-Assim temos:
-$$
-\alignat2
-a &\gtrdot b, \by {pois os $p,q$ preferem $a$ que $b$}
-b &\gtrdot c, \by {pois os $p,r$ preferem $b$ que $c$}
-\endalignat
-$$
-mas $a \smartnot\gtrdot c$ pois apenas o $p$ prefere $a$ que $c$.
-De fato, $c \gtrdot a$, pois os $q,r$ preferem $c$ que $a$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: dom_trans_cod_not_trans 
-\problem.
-\label{dom_trans_cod_not_trans}%
-Sejam $A \toby f B$ e $\leadsto$ uma relação transitiva no $A$.
-Definimos a relação $R$ no $B$ pela
-$$
-b \rel R b'
-\defiff
-\text{existem $a, a' \in A$ tais que $f(a) = b$, $f(a') = b'$, e $a \leadsto a'$}.
-$$
-Podemos concluir que $R$ também é transitiva?
-Se sim, demonstre; se não, mostre um contraexemplo.
-
-\hint
-Não.
-
-\hint
-A $f$ não é necessariamente injetora.
-
-\solution
-Não, e vamos ver um contraexemplo.
-Considere:
-$$
-\align
-A &= \set{1,2,3,4} \\
-B &= \set{5,6,7}
-\endalign
-$$
-e a $\leadsto$ relacionando apenas os:
-$$
-\align
-1 &\leadsto 2 \\
-3 &\leadsto 4.
-\endalign
-$$
-Defina a $f:A\to B$ pelas
-$$
-\align
-1 &\mapstoby f 5 \\
-2 &\mapstoby f 6 \\
-3 &\mapstoby f 6 \\
-4 &\mapstoby f 7.
-\endalign
-$$
-Primeiramente observe que realmente $\leadsto$ é transitiva.
-Vamos verificar que: $5 \rel R 6$ e $6 \rel R 7$ mas mesmo assim
-$5 \not\rel R 7$.
-Os testemunhos de $5 \rel R 6$ são os $1$ e $2$; e
-os testemunhos de $6 \rel R 7$ são os $3$ e $4$.
-Mas os únicos candidados para testemunhos de $5 \rel R 7$
-são os $1$ e $4$, e $1 \not\leadsto 4$; e logo $5 \not\rel R 7$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: dom_trans_cod_trans_if_inj 
-\problem.
-\label{dom_trans_cod_trans_if_inj}%
-O que muda no~\ref{dom_trans_cod_not_trans} se
-adicionar a hipótese que $f$ é injetora?
-Prove tua afirmação.
 
 \endproblem
 %%}}}
@@ -31134,164 +31602,6 @@ A bijetoridade da $\tilde f$ não precisa de dicas!
 \endproblem
 %%}}}
 
-%%{{{ prob: simh_simv_apph_appv 
-\problem.
-\label{simh_simv_apph_appv}%
-\def\simh{\mathrel{\sim}}%
-\def\simv{\mathrel{\wr}}%
-\def\apph{\mathrel{\approx}}%
-\def\appv{\mathrel{\wr\mkern-1mu\wr}}%
-Considere as relações seguintes no $(\ints\to\ints)$:
-$$
-\align
-f \simh g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x+u) } \\
-f \apph g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x+u) } \\
-f \simv g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x)+u } \\
-f \appv g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x)+u }.
-\endalign
-$$
-Para cada uma dessas relações, decida se é:
-(ir)reflexiva; transitiva; (a(nti)s)simétrica.
-
-\hint
-Primeiramente tente entender (visualizar) essas relações.
-
-\solution
-{%
-\def\simh{\mathrel{\sim}}%
-\def\simv{\mathrel{\wr}}%
-\def\apph{\mathrel{\approx}}%
-\def\appv{\mathrel{\wr\mkern-1mu\wr}}%
-Primeiramente tentamos entender essas relações bem informalmente.
-As $\simh$ e $\apph$ envolvem um movimento horizontal,
-e as $\simv$ e $\appv$ um movimento vertical.
-Especificamente $f \simh g$ [$f \simv g$]
-sse $f$ e $g$ são a mesma função depois de um ``shift'' horizontal
-[vertical] para qualquer direção.
-As $\apph$ e $\appv$ são parecidas so que $f \apph g$
-[$f \appv g$] sse a $f$ ``coincide'' com a $g$ depois de um
-``shift'' da $f$ para a direita [para baixo] $0$ ou mais ``posições''.
-\endgraf\medskip
-\crtabproofpart{Reflexividade.}
-Todas são reflexivas, algo que mostramos tomando $u \asseq 0$.
-Vamos ver em detalhe apenas para a $\simh$.
-\crproofpart{Reflexividade da $\apph$.}
-\endgraf\noindent
-    Seja $f : \ints\to\ints$.
-    Temos para todo $x\in \ints$, $f(x) = f(x + 0)$, e como $0\in\nats$,
-    logo $f\apph f$.
-\endgraf\medskip
-\crtabproofpart{Transitividade.}
-Todas são transitivas, e parecida em todas:
-usando nossas hipoteses ganhamos dois números $i,j$ e o número que procuramos
-acaba sendo o $i + j$.
-Vamos ver em detalhe apenas para a $\appv$:
-\crproofpart{Transitividade da $\appv$.}
-\endgraf\noindent
-    Sejam $f,g,h: \ints\to\ints$ tais que $f\simh g$ e $g\simh h$.
-    Sejam então $i,j\in\ints$ tais que:
-    $$
-    \align
-    \text{para todo $x\in \ints$, }&f(x) = g(x+i) \tag{1} \\
-    \text{para todo $x\in \ints$, }&g(x) = h(x+j).\tag{2}
-    \endalign
-    $$
-    Seja $z\in\ints$ e calcule:
-    \compute
-    f(z)
-    &= g(z+i)       \by {pela (1) com $x \asseq z$}
-    &= h((z+i)+j)   \by {pela (2) com $x \asseq z+i$}
-    &= h(z+(i+j)).
-    \endcompute
-    Ou seja, o inteiro $i+j$ mostra que $f\simh h$.
-Já provamos então que todas essas relações são preordens!
-Vamos pesquisar sobre as outras propriedades agora.
-\endgraf\medskip
-\crtabproofpart{(A(nti)s)simetria.}
-As $\simh$ e $\simv$ são simétricas, algo que mostramos para as
-duas no mesmo jeito: nossa hipótese fornece um $i\in\ints$
-que satisfaz algo, e o inteiro que procuramos acaba sendo o $-i$.
-As $\appv$ é antissimétrica, mas a $\apph$ não satisfaz nenhuma
-dessas propriedades.
-Vamos provar a simetria da $\simh$, a antisimmetria da $\appv$,
-e refutar a simetria e a antissimetria da $\apph$.
-\crproofpart{Simetria da $\simh$.}
-\endgraf\noindent
-    Sejam $f,g : \ints\to\ints$ tais que $f\simh g$.
-    Então seja $i\in\ints$ tal que
-    para todo $x\in \ints$, $f(x) = g(x+i)$\fact1.
-    Observe que para todo $x\in\ints$, temos:
-    \compute
-    g(x)
-    &= g(x+(i-i)) \\
-    &= g((x-i)+i) \\
-    &= f(x-i).    \by {pela~\byfact1~com $x\asseq x-i$}
-    \endcompute
-    Ou seja, o $-i\in\ints$ mostra que $g\simh f$.
-\crproofpart{Antisimmetria da $\appv$.}
-\endgraf\noindent
-    Sejam $f,g : \ints\to\ints$ tais que $f\appv g$ e $g\appv f$.
-    Sejam então $i,j\in\nats$ tais que para todo $x\in \ints$
-    $f(x) = g(x)+i$ e $g(x) = f(x)+j$.
-    Seja $x\in\ints$ e calcule:
-    $$
-    f(x) = g(x)+i = f(x) + j + i.
-    $$
-    Logo $i+j = 0$, e sendo ambos naturais, temos $i=j=0$.
-    Ou seja, para todo $x\in\ints$, $f(x) = g(x)$, e logo $f=g$.
-\crtabproofpart{A $\appv$ não é nem relação de equivalência nem de ordem.}
-\crproofpart{Refutação da simetria da $\apph$.}
-    \endgraf\noindent
-    Como contraexemplo tome as funções $f,g : \ints\to\ints$
-    definidas pelas:
-    $$
-    \xalignat2
-    f(0) &= 1                   & g(1) &= 1 \\
-    f(x) &= 0 \quad (x \neq 0)  & g(x) &= 0 \quad (x \neq 1)
-    \endxalignat
-    $$
-    Observe que realmente $f \apph g$ pois temos
-    que para todo $x \in \ints$, $f(x) = g(x+1)$.
-    Mas $g\not\apph f$.  Suponha que tem $u\in\nats$
-    tal que para todo $x\in\ints$, $g(x) = f(x + u)$.
-    Basta ou achar um absurdo.
-    Pela nossa hipótese, $g(1) = f(1 + u)$.
-    Mas $g(1) = 1$, ou seja $f(1+u) = 1$.
-    Pela definição da $f$ então $u+1 = 0$,
-    Absurdo, pois o $0$ não é sucessor de nenhum natural.
-\crproofpart{Refutação da antissimetria da $\apph$.}
-    \endgraf\noindent
-    Como contraexemplo tome as funções $f,g : \ints\to\ints$
-    definidas pelas:
-    $$
-    \xalignat2
-    f(x) &=
-    \knuthcases{
-    0, & se $x$ é par; \cr
-    1, & se $x$ é ímpar;
-    }
-    &
-    g(x) &=
-    \knuthcases{
-    1, & se $x$ é par; \cr
-    0, & se $x$ é ímpar;
-    }
-    \endxalignat
-    $$
-    Observe que realmente $f \apph g$ (tome $u \asseq 1$)
-    e $g \apph f$ (tome $u \asseq 1$ de novo).
-    Mesmo assim, $f\neq g$.
-    Logo $\apph$ não é uma relação antisimmétrica.
-\endgraf\medskip
-Concluimos então que:
-as $\simh$ e $\simv$ são relações de equivalência,
-a $\appv$ é uma relação de ordem,
-e a $\apph$ apenas uma preordem.
-}
-
-\endproblem
-%%}}}
-
 %%{{{ word_on_the_street_for_order_of_limit_depending_quantifiers 
 \note Com palavras da rua.
 \label{word_on_the_street_for_order_of_limit_depending_quantifiers}%
@@ -31317,9 +31627,9 @@ as afirmações acima com palavras de rua ficam assim:
 $$
 \align
 \pexists {n\in\nats} \lforall {x \geq n} { \text{$x$ é legal} }
-&\text{<<A partir dum ponto, todos são legais>>} \\
+&\quad\text{<<A partir dum ponto, todos são legais.>>} \\
 \pforall {n\in\nats} \lexists {x \geq n} { \text{$x$ é legal} }
-&\text{<<Sempre vai ter legais>>}.
+&\quad\text{<<Sempre vai ter legais.>>}
 \endalign
 $$
 Assim, ambas nos permitem concluir que tem uma infinidade de legais.
@@ -31371,78 +31681,6 @@ f \felt g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) < g(x) }
 $$
 Para cada uma das relações acima, decida se ela tem ou não cada uma das propriedades de uma ordem total,
 e de uma ordem estrita.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: simz_sime_simo_simi 
-\problem.
-\label{simz_sime_simo_simi}%
-\def\simz{\rel{\stackrel{{}_{\mathrmsmall z}}=}}%
-\def\sime{\rel{\stackrel{{}_{\mathrmsmall e}}=}}%
-\def\simo{\rel{\stackrel{{}_{\mathrmsmall o}}=}}%
-\def\simi{\rel{\stackrel{\infty}=}}%
-Defina as relações seguintes no $(\nats\to\nats)$ assim:
-$$
-\align
-f\simz g&\defiff f(0)    = g(0) \\
-f\sime g&\defiff f(2n)   = g(2n)  \ \text{para todo $n\in\nats$} \\
-f\simo g&\defiff f(2k+1) = g(2k+1)\ \text{para todo $k\in\nats$} \\
-f\simi g&\defiff f(n)    = g(n)   \ \text{para uma infinidade de $n\in\nats$.}
-\endalign
-$$
-\beginil
-\item{(i)}
-Para cada uma da $\simz,\sime,\simo,\simi$, decida se é uma relação de
-equivalência ou não.
-\item{(ii)}
-Prove ou refute a afirmação seguinte:
-\emph{a relação $(\sime\rcom\simo)$ é a relação trivial $\mathsf{True}$.}
-\endil
-
-\hint
-{%
-\def\simi{\rel{\stackrel{\infty}=}}%
-Ache um contraexemplo para a $\simi$.  As outras, são.
-}
-
-\solution
-{%
-\def\simz{\rel{\stackrel{{}_{\mathrm z}}=}}%
-\def\sime{\rel{\stackrel{{}_{\mathrm e}}=}}%
-\def\simo{\rel{\stackrel{{}_{\mathrm o}}=}}%
-\def\simi{\rel{\stackrel{\infty}=}}%
-(i)
-A $\simi$ não é.  Considere o seguinte contraexemplo.
-Sejam as $\alpha, \beta, \gamma : \nats\to\nats$ (como seqüências):
-$$
-\align
-\alpha &= \tup{0,1,0,1,0,1,\dotsc}\\
-\beta  &= \tup{0,2,0,2,0,2,\dotsc}\\
-\gamma &= \tup{1,2,1,2,1,2,\dotsc}.
-\endalign
-$$
-Trivialmente, $\alpha\simi\beta$ e $\beta\simi\gamma$ mas $\alpha\not\simi\gamma$.
-\endgraf\noindent
-(ii)
-Correto.
-Sejam $f, g \in (\nats\to\nats)$.
-Vamos mostrar que $f(\sime\rcom\simo)g$.
-Pela definição da $\rcom$ temos:
-$$
-f \rel{(\sime\rcom\simo)} g
-\iff \text{existe $h \in (\nats\to\nats)$ tal que $f \sime h$ e $h\simo g$}.
-$$
-A função $h : \nats\to\nats$ definida pela
-$$
-h(n) = \knuthcases{
-f(n), &se $n$ par\cr
-g(n), &se $n$ ímpar
-}
-$$
-satisfaz as $f \sime h\simo g$ pela sua construção.
-Logo, $f \rel{(\sime\rcom\simo)} g$.
-}
 
 \endproblem
 %%}}}
@@ -31608,193 +31846,6 @@ descreva o $\quoset {(\nats\to\reals)} {\sim}$.
 \endproblem
 %%}}}
 
-%%{{{ prob 
-\problem.
-Sejam conjunto $A$ com $\card A=1$, e $n\in\nats$ com $n\geq 2$.
-No $A^n$ defina:
-$$
-a \sim b
-\defiff
-\card{ \set{ i\in\finord n \st a_i = b_i } } \geq n/2,
-$$
-onde
-$a \eqass \tup{ a_0, \dotsc, a_{n-1}}$
-e
-$b \eqass \tup{ b_0, \dotsc, b_{n-1}}$.
-A $\sim$ é uma relação de equivalência?
-
-\solution
-Não é.
-Sejam $s,t,u\in A$ distintos dois-a-dois.
-Tome
-$$
-\align
-a &\leteq \tup{ s,s,\dots,s,t,t,\dotsc,t }\\
-b &\leteq \tup{ s,s,\dots,s,u,u,\dotsc,u }\\
-c &\leteq \tup{ t,t,\dots,t,u,u,\dotsc,u }
-\endalign
-$$
-como contraexemplo, pois temos
-$a \sim b$ e $b \sim c$ mas $a\not\sim c$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: explain_succ_rel 
-\problem.
-\label{explain_succ_rel}%
-Seja a relação $\to$ no $\nats$ definida pela
-$$
-a \to b \defiff a + 1 = b.
-$$
-Dê uma definição simples da relação $\to^n$ para quem não sabe
-nem de iterações nem de composições de relações (e sequer quer aprender essas noções).
-Prove tua afirmação, que a relação $\to^n$ é igual à relação que tu definiu.
-
-\hint
-Seja $n\in\nats$.  Temos:
-$$
-a \rel{\to^n} b \iff a + n = b.
-$$
-Agora prove que isso é válido para todo $a,b,n\in\nats$.
-
-\solution
-Seja $n\in\nats$.  Temos:
-$$
-a \rel{\to^n} b \iff a + n = b.
-$$
-Sejam $a,b\in\nats$.
-Vou provar por indução que para todo $n\in\nats$,
-$$
-a \ton n b  \iff  a + n = b.
-$$
-\proofpart{Base.}
-Temos
-\compute
-a \ton 0 b
-&\iff a = b \by {pela def.~$\ton 0$}
-&\iff a + 0 = b.
-\intertext{
-\proofpart{Passo Indutivo.}
-Seja $k\in\nats$ tal que
-}
-a \ton k b &\ifflabel {HI} a + k = b.
-\intertext{Calculamos:}
-a \ton {k+1} b
-&\iff a \rel{(\ton k\rcom\to)} b              \by {def.~$\ton{k+1}$}
-&\iff \lexists w {a \ton k w \mland w \to b}  \by {def.~$\rcom$}
-&\iff \lexists w {a + k = w \mland w + 1 = b} \by {HI; def.~de~$\to$}
-&\iff {(a + k) + 1 = b} \\
-&\iff {a + (k + 1) = b}.
-\endcompute
-
-\endproblem
-%%}}}
-
-%%{{{ prob: cofinite_cameo_appearance 
-\problem.
-\label{cofinite_cameo_appearance}%
-No conjunto $(\reals\to\reals)$ definimos:
-$$
-\align
-f \approx g &\defiff \text{o conjunto $\setst {x \in \reals} {f(x) = g(x)}$ é infinito};\\
-f \sim    g &\defiff \text{o conjunto $\setst {x \in \reals} {f(x) \neq g(x)}$ é finito}.
-\endalign
-$$
-Prove que:
-\item{(i)} uma delas é relação de equivalência;
-\item{(ii)} a outra não é.
-
-\hint
-Se um subconjunto $X\subset\reals$ é infinito, isso não quis dizer
-que $\reals\setminus X$ é finito!
-
-\hint
-A $\sim$ é a relação de equivalência.
-
-\hint
-A $\approx$ não é transitiva.  Refute!
-
-\solution%%{{{
-A $\sim$ é uma relação de equivalência:
-\crproofpart{Reflexiva.}
-Seja $f : \reals\to\reals$.
-Calculamos:
-$$
-\setst {x \in \reals} {f(x) \neq f(x)} = \emptyset,
-$$
-que, sendo finito, mostra que $f\sim f$.
-\crproofpart{Simétrica.}
-Trivial, pois para quaisquer $f,g : \reals\to\reals$ temos
-$$
-\setst {x \in \reals} {f(x) \neq g(x)}
-=
-\setst {x \in \reals} {g(x) \neq f(x)}
-$$
-e logo um é finito sse o outro é finito.
-\crproofpart{Transitiva.}
-Sejam $f,g,h:\reals\to\reals$ tais que $f\sim g$ e $g\sim h$.
-Logo:
-$$
-\align
-A &\defeq \text{$\setst {x \in \reals} {f(x) \neq g(x)}$ finíto} \tag{1} \\
-B &\defeq \text{$\setst {x \in \reals} {g(x) \neq h(x)}$ finíto} \tag{2}.
-\endalign
-$$
-Seja $w \in \reals$.
-Vamos provar que
-$$
-w \notin A \union B \implies f(w) = h(w).
-$$
-Calculamos:
-\compute
-f(w) &= g(w)    \by {pois $w \notin A$}
-     &= h(w).   \by {pois $w \notin B$}
-\endcompute
-Contrapositivamente,
-$$
-f(w) \neq h(w) \implies w \in A \union B.
-$$
-Mas $A\union B$ é finito,
-(sendo uma união finita de conjuntos finitos)
-e mostramos que
-$$
-\setst {x \in \reals} {f(x) \neq h(x)} \subset A\union B
-$$
-e logo também finito, ou seja, $f\sim h$.
-\crproofpart{A $\approx$ não é uma relação de equivalência.}
-Vamos refutar a sua transitividade.
-Como contraexemplo, tome as $f,g,h : \reals\to\reals$ definidas pelas:
-$$
-\alignat3
-    f(x) &= 1 &
-    g(x) &= \cos(x) &
-    h(x) &= -1.
-\endalignat
-$$
-Observe que $f \approx g$ pois concordam nos pontos $2k\pi$ para todo $k\in\ints$.
-Também $g \approx h$ pois concordam nos pontos $(2k+1)\pi$ para todo $k\in\ints$.
-Mesmo assim, $f \not\approx h$ pois não concordam em ponto nenhum.
-%%}}}
-
-\endproblem
-%%}}}
-
-%%{{{ prob: cyclic_and_euclidean_closures 
-\problem Fecho cíclico, fechos euclideanos.
-\label{cyclic_and_euclidean_closures}%
-\tdefined{fecho!cíclico}%
-\tdefined{fecho!left-euclideano}%
-\tdefined{fecho!right-euclideano}%
-\sdefined {\cclo {\sholed R}} {o fecho cíclico da $R$}%
-\sdefined {\reclo {\sholed R}} {o fecho right-euclideano da $R$}%
-\sdefined {\leclo {\sholed R}} {o fecho left-euclideano da $R$}%
-Seja $R$ uma relação num conjunto $A$.
-Defina seus fechos: cíclico~($\cclo R$), left-euclideano~($\leclo R$), right-euclideano~($\reclo R$).
-
-\endproblem
-%%}}}
-
 %%{{{ prob: smiles_and_frowns 
 \problem.
 \label{smiles_and_frowns}%
@@ -31879,36 +31930,17 @@ Mas $0 \not\Frown 2$, pois $1$ é inteiro e $1\in(0,2)$.
 \endproblem
 %%}}}
 
-%%{{{ prob: implementing_functions_as_relations_and_vice_versa 
-\problem Implementando funções como relações e vice versa.
-\label{implementing_functions_as_relations_and_vice_versa}%
-Já encontramos a idéia de \emph{implementação} de algum
-conceito matemático no~\ref{Functions}
-(veja novamente o~\ref{implement_nondeterministic_functions}).
-Como tu definiria funções como relações, e como relações como funções?
-Dê apenas um esboço da tua idéia, sem entrar em muitos detalhes.
-
-\solution
-Seguem umas idéias.
-\crproofpart{Função como relação.}
-Sejam $A,B$ conjuntos.
-Uma relação $f$ de $A$ para $B$
-tal que $f$ é \emph{left-total} e \emph{right-unique}
-(veja o glossário~\refn{relations_glossary})
-é chamada uma \dterm{função de $A$ para $B$}.
-Escrevemos $f(x) = y$ em vez de $f(x,y)$ ou de $x \rel f y$
-e para todo $a\in A$ denotamos com $f(a)$ o único $b\in B$
-tal que $a \rel f b$.
-\crproofpart{Relação binária como função.}
-Sejam $A,B$ conjuntos.
-Uma função $R : A \to \pset B$ é chamada uma \dterm{relação de $A$ para $B$}.
-Escrevemos $a \rel R b$ quando $b \in R(a)$,
-e $a \not\rel R b$ quando $b \notin R(a)$.
-\crproofpart{Relação geral como função.}
-Seja $W$ conjunto.
-Uma função $R : W \to \bools$ é chamada uma \dterm{relação no $W$}.
-Escrevemos $R(w)$ como afirmação, quando $R(w) = \True$, e $\lnot R(w)$
-ou ``não $R(w)$'' quando $R(w) = \False$.
+%%{{{ prob: cyclic_and_euclidean_closures 
+\problem Fecho cíclico, fechos euclideanos.
+\label{cyclic_and_euclidean_closures}%
+\tdefined{fecho!cíclico}%
+\tdefined{fecho!left-euclideano}%
+\tdefined{fecho!right-euclideano}%
+\sdefined {\cclo {\sholed R}} {o fecho cíclico da $R$}%
+\sdefined {\reclo {\sholed R}} {o fecho right-euclideano da $R$}%
+\sdefined {\leclo {\sholed R}} {o fecho left-euclideano da $R$}%
+Seja $R$ uma relação num conjunto $A$.
+Defina seus fechos: cíclico~($\cclo R$), left-euclideano~($\leclo R$), right-euclideano~($\reclo R$).
 
 \endproblem
 %%}}}
