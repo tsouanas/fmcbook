@@ -27640,7 +27640,7 @@ e $\namedrel{Read}$ são ambas entre pessoas e livros.
 
 %%{{{ eg: equalities 
 \example Igualdades.
-Para cada tipo, sua igualdade $=$ é uma relação, de aridade $2$.
+Para cada tipo, sua igualdade é uma relação, de aridade $2$.
 Nos números naturais por exemplo, se $n,m\in\nats$, $n = m$ é uma afirmação:
 $$
 \align
@@ -27818,8 +27818,8 @@ Digamos que $R=S$ sse para todo $x\in A\union C$, e todo $y \in B\union D$, temo
 %%{{{ x: R_eq_S 
 \exercise Igualdade.
 \label{R_eq_S}%
-Defina a igualdade para o caso mais geral onde as relações $R$ e $S$ são relações de aridade qualquer,
-em conjuntos quaisquer.
+Defina a igualdade para o caso mais geral onde as relações
+$R$ e~$S$ são relações de aridade qualquer, em conjuntos quaisquer.
 
 \endexercise
 %%}}}
@@ -28501,8 +28501,8 @@ Se sim, defina essa relação $I$ e prove que realmente é.
 Se não, prove que não existe.
 
 \hint
-Sem pensar, dois candidatos prováveis para considerar seriam a igualdade e
-a relação trivial $\True$ satisfeita por todos os pares de elementos de $A$:
+Sem pensar, dois candidatos prováveis para considerar seriam a igualdade no $A$
+e a relação trivial $\True$ satisfeita por todos os pares de elementos de $A$:
 $$
 \text{ou}
 \knuthcases{
@@ -28512,10 +28512,10 @@ x \rel I y \defiff x = y
 $$
 
 \solution
-Existe sim: a $I$ é a igualdade $=$ no $A$.
+Existe sim: a $I$ é a igualdade $\eqof A$ no $A$.
 Vamos mostrar que para todos $a,b \in A$
 $$
-a \rel R b \iff a \rel{(I \rcom R)} b.
+a \rel R b \iff a \relp{I \rcom R} b.
 $$
 Tratamos cada direção separadamente.
 \endgraf
@@ -28527,7 +28527,7 @@ Tome $w \asseq a$.  Realmente temos $a \rel I a$ (pois $I$ é a igualdade),
 e $a \rel R b$ que é nossa hipótese.
 \endgraf
 \rldir.
-Suponha que $a \rel {(I \rcom R)} b$.
+Suponha que $a \relp{I \rcom R} b$.
 Logo, existe $w\in A$ tal que $a \rel I w$\fact1 e $w \rel R b$\fact2.
 Mas, como $I$ é a igualdade, o único $w$ que satisfaz a~\reffact1 é o próprio~$a$.
 Ou seja, $w = a$.
@@ -28535,7 +28535,7 @@ Substituindo na~\byfact2, ganhamos o desejado $a \rel R b$.
 \endgraf
 A outra equivalência,
 $$
-a \rel R b \iff a \rel{(R \rcom I)} b,
+a \rel R b \iff a \relp{R \rcom I} b,
 $$
 é similar.
 
@@ -28550,7 +28550,7 @@ podemos já definir as suas potências.
 \exercise Potências.
 \label{R_exp_n}%
 Defina formalmente as ``potências'' $R^n$ duma dada relação binária $R$
-num conjunto, informalmente definida por:
+num conjunto $A$, informalmente definida por:
 $$
 x \relp{R^n} y \pseudodefiff
 x \rel{\Big(\tunderbrace{R \rcom\dotsb\rcom R}{$n$ vezes}\Big)} y,
@@ -28568,18 +28568,18 @@ Já fez o~\ref{id_of_rcom}, né?
 Definimos:
 $$
 \align
-x\mathrel{\paren{R^{0}}}y   &\defiff x=y\\
-x\mathrel{\paren{R^{n+1}}}y &\defiff x\mathrel{\paren{R\rcompose {R^n}}}y
+x \relp{R^0} y     &\defiff x=y \\
+x \relp{R^{n+1}} y &\defiff x \relp{R \rcom {R^n}} y
 \endalign
 $$
-Ou, direitamente, em estilo ``point-free'':
+ou, direitamente, em estilo ``point-free'':
 $$
 \align
-R^0     &\defeq \Eq\\
+R^0     &\defeq \Eq \\
 R^{n+1} &\defeq R^n \rcom R,
 \endalign
 $$
-onde escrevemos $\Eq$ para a relação de igualdade $=$.
+onde escrevemos $\Eq$ para a relação $\eqof A$ de igualdade no $A$.
 
 \endexercise
 %%}}}
