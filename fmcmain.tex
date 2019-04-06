@@ -20643,9 +20643,9 @@ $f\resto X \eqtype X \to B$.
 \endexercise
 %%}}}
 
-%%{{{ x: type_of_f_resto_X 
+%%{{{ x: fresto_pointfree 
 \exercise restrição sem pontos.
-\label{type_of_f_resto_X}%
+\label{fresto_pointfree}%
 Sejam $A,B$ conjuntos e $X\subset A$.
 Defina a função $f \resto X$ sem usar nenhuma referência aos membros desses conjuntos.
 Na~\ref{fresto}, por exemplo, usamos esse $x$ para representar um mebro de $A$.
@@ -29293,6 +29293,28 @@ dadas setinhas $(0,1)$ e $(1,0)$ qual das duas tu vai escolher para retirar?
 \endexercise
 %%}}}
 
+%%{{{ x: order_of_closures_matters 
+\exercise.
+\label{order_of_closures_matters}%
+Seja $R$ relação num conjunto $A$.
+Podemos concluir alguma das afirmações seguintes?:
+\beginil
+\item{(i)}   $t(r(R)) \askeq r(t(R))$
+\item{(ii)}  $t(s(R)) \askeq s(t(R))$
+\item{(iii)} $r(s(R)) \askeq s(r(R))$
+\endil
+Aqui $r, s, t$ são os fechos reflexivo, simétrico, transitivo respectivamente.
+
+\hint
+Use diagramas internos.
+
+\hint
+Tente achar um contraexemplo para o (ii).
+Qual a dificuldade de achar contraexemplo para o (i) e qual para o (iii)?
+
+\endexercise
+%%}}}
+
 %%{{{ Q: How would you define the reflexive and symmetric closures of R? 
 \question.
 Como tu definarias formalmente o fecho reflexivo e o fecho simétrico duma relação $R$?
@@ -29407,27 +29429,6 @@ Também usamos as notações $\tclo R$ para o $\tclosure R$
 e $\rtclo R$ para o $\rtclosure R$.
 %%}}}
 
-%%{{{ x: order_of_closures_matters 
-\exercise.
-\label{order_of_closures_matters}%
-Seja $R$ relação num conjunto $A$.
-Podemos concluir alguma das afirmações seguintes?:
-\beginil
-\item{(i)}  $t(r(R)) \askeq r(t(R))$
-\item{(ii)} $t(s(R)) \askeq s(t(R)$
-\endil
-Aqui $r, s, t$ são os fechos reflexivo, simétrico, transitivo respectivamente.
-
-\hint
-Use diagramas internos.
-
-\hint
-Tente achar um contraexemplo para o (ii).
-Qual a dificuldade de achar contraexemplo para o (i)?
-
-\endexercise
-%%}}}
-
 %%{{{ x: find_reflexive_transitive_closure_of_pgoesto 
 \exercise.
 \label{find_reflexive_transitive_closure_of_pgoesto}%
@@ -29509,6 +29510,10 @@ considerá-los numa ordem específica.
 Seja $A$ conjunto e $\sim$ uma relação binária no $A$.
 Chamamos $\sim$ uma \dterm{relação de equivalência} sse ela é
 reflexiva, simétrica, e transitiva.
+Definimos também o
+$$
+\eqrelspace A \defeq \setstt {R \in \relspace{A,A}} {$R$ é uma relação de equivalência}.
+$$
 %%}}}
 
 %%{{{ eg: eqrel_eg_eq 
@@ -29783,6 +29788,24 @@ Quando a relação de equivalência é implicita pelo contexto
 denotamos a $\eqclass a \sim$ apenas por $\eqclassimp a$.
 %%}}}
 
+%%{{{ x: type_of_eqclass_hole 
+\exercise.
+\label{type_of_eqclass_hole}%
+Seja $\sim$ uma relação de equivalência num conjunto $A$, e seja $a \in A$.
+Qual o tipo das $\eqclassimp \dhole$ e $\eqclass a \dhole$?
+
+\solution
+Temos:
+$$
+\xalignat2
+\eqclassimp \dhole         &: A \to \pset A &
+\eqclass    a \dhole       &: \eqreltype A \to \pset A.
+\endxalignat
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ x: equivalent_statements_to_x_equiv_y 
 \exercise.
 Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $a,b\in X$.
@@ -29793,7 +29816,7 @@ Mostre que as afirmações seguintes são equivalentes:
 
 \solution
 \proofpart{Vamos demonstrar primeiro a ``(i)\bidir(iii)''.}
-\crtabproofpart{lrdir.}
+\crtabproofpart{\lrdir.}
 Suponha que $a \sim b$.
 Precisamos achar um elemento que pertence nos dois conjuntos
 $\eqclassimp a$ e $\eqclassimp b$.
@@ -31625,11 +31648,10 @@ quantifica todos os naturais \emph{começando com esse $n$}.
 Tu já fez o~\ref{set_liminf_limsup_problem_heart_level}, certo?
 Seria bom achar aqui mais uma maneira de entender essa situação,
 explicando os dois significados \emph{com palavras de rua}.
-A situação aqui é parecida.
-Temos:
+A situação aqui é parecida:
 $$
 \gather
-\pexists {n\in\nats} \lforall {x \geq n} { \text{algo} }\\
+\pexists {n\in\nats} \lforall {x \geq n} { \text{algo} }\phantom.\\
 \pforall {n\in\nats} \lexists {x \geq n} { \text{algo} }.
 \endgather
 $$
@@ -37973,8 +37995,9 @@ $$
 
 %%{{{ Corollaries as exercises 
 \note Corolários.
+{\Lagrange[teorema!corolário]}%
 Graças ao teorema de Lagrange~\refn{lagrange_theorem}
-ganhamos muitos corolários\Lagrange[teorema!corolário]{} diretamente,
+ganhamos muitos corolários diretamente,
 como tu vai verificar agora resolvendo os exercícios seguintes:
 %%}}}
 
