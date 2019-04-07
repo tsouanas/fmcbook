@@ -28306,23 +28306,57 @@ $$
 \label{comparison_of_statements_about_reading_books}%
 A relação $R$ de $\cal P$ para $\cal W$ definida pela
 $$
-R(x,y) \defiff \text{a pessoa $x$ leu a palavra $y$ num livro}
+R(p,w) \defiff \text{a pessoa $p$ leu a palavra $w$ num livro}
 $$
-é a mesma relação com a $\Author\rcom\Read$?
+é a mesma relação com a $\Read\rcom\Contains$?
 Em outras palavras:
 $$
-R \askeq \Author\rcom\Read
+R \askeq \Read\rcom\Contains
 $$
 
 \hint
 As afirmações:
 $$
 \gather
-\text{a pessoa $x$ leu a palavra $y$ num livro}\\
-\text{a pessoa $x$ leu um livro onde a palavra $y$ aparece}
+\text{a pessoa $p$ leu a palavra $w$ num livro}\\
+\text{a pessoa $p$ leu um livro onde a palavra $w$ aparece}
 \endgather
 $$
 estão afirmando a mesma coisa?
+
+\solution
+Não.
+Pode ser que a pessoa leu uma palavra $w$ num livro $b$ mas nunca chegou
+a ler um livro inteiro que contem a $w$.
+Nesse caso temos apenas
+$$
+p \relp{\Read\rcom\Contains} w \implies p \rel R y
+$$
+pois se $p$ leu um livro que tem a palavra $w$ com certeza $p$ leu $w$ num livro.
+
+\endexercise
+%%}}}
+
+\blah.
+Já observamos que não podemos compor as $\Author$ e $\Read$ em nenhuma ordem,
+mas podemos aplicar o operador $\rop\dhole$ e compor depois:
+
+%%{{{ x: using_rop_to_compose 
+\exercise.
+\label{using_rop_to_compose}%
+Como definarias as relações $\Author\rcom{\rop\Read}$ e
+$\Read\rcom{\rop\Author}$?
+São iguais?
+
+\solution
+Temos:
+$$
+\align
+x \relp{\Author\rcom{\rop\Read}} y &\iff \text{$x$ escreveu um livro que $y$ leu}\\
+x \relp{\Read\rcom{\rop\Author}} y &\iff \text{$x$ leu um livro que $y$ escreveu}.
+\endalign
+$$
+Não são iguais: uma é a oposta da outra.
 
 \endexercise
 %%}}}
