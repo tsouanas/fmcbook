@@ -4435,7 +4435,7 @@ $$
 Onde entendemos que:
 \beginol
 \li os $n$ objetos são distíntos;
-\li não podemos repetí-los.
+\li não podemos repeti-los.
 \endol
 Observe que as permutações totais são apenas casos especiais de $r$-permutações.
 Na literatura encontramos $r$-permutações também com o nome \dterm{arranjos},
@@ -18466,7 +18466,7 @@ para satisfazer os dois:
 %%}}}
 
 %%{{{ df: f_eq_g 
-\definition Igualdade.
+\definition igualdade (agnóstica).
 \label{f_eq_g}%
 Sejam $f,g : A\to B$ funções.
 Definimos
@@ -22182,7 +22182,7 @@ $$
 \exercise.
 \label{discover_diagonalizer}%
 Dado conjunto $A$, define uma função interessante de $A$ para $A \cross A$.
-Começa descrevendo sua alma com um $\lambda$; consegue definí-la sem
+Começa descrevendo sua alma com um $\lambda$; consegue defini-la sem
 descrever explicitamente o seu comportamento?
 
 \solution
@@ -25268,7 +25268,7 @@ $$
 f : (A\times B) \to C.
 $$
 E eu quero construir uma função de tipo $A\to (B \to C)$.
-Para definí-la preciso deixar claro o seu comportamento então:
+Para defini-la preciso deixar claro o seu comportamento então:
 $$
 \curry(f) = \lam {\alert{\dots?}} {\dots}
 $$
@@ -25579,7 +25579,7 @@ no~\ref{Functional_programming}.
 %%{{{ Q: Can you implement sequences and indexed families? 
 \question.
 Suponha que alguem robou de ti os típos (primitivos) de seqüências e de famílias
-indexadas.  Dá para se virar sem esses?  Ou seja, tem como definí-los em termos
+indexadas.  Dá para se virar sem esses?  Ou seja, tem como defini-los em termos
 dos outros tipos que tu (ainda) tens?
 %%}}}
 \spoiler.
@@ -25694,7 +25694,7 @@ b(n) &= b(n-1) + b(n-2), \quad\text{para todo $n>1$}.
 $$
 Muitas vezes deixamos as frases ``para todo $n>0$'' como
 implícitas pelo contexto---mas entenda que elas precisam estar lá,
-e \emph{estão} lá mesmo quando escolhemos omití-las.
+e \emph{estão} lá mesmo quando escolhemos omiti-las.
 \endexample
 %%}}}
 
@@ -26236,7 +26236,7 @@ podemos escrever, por exemplo,
 <<seja $t\in\reals$ \emph{uma} resolução do sistema tal>>.
 E nada muda com sistemas cujos incognitos são funções!
 E por que mudaria?  No final das contas é a existência
-e unicidade de algo que nos permite definí-lo!
+e unicidade de algo que nos permite defini-lo!
 %%}}}
 
 \blah.
@@ -26639,7 +26639,7 @@ $$
 $$
 Os conjuntos agora são disjuntos
 (observe que $\alertB 4 \neq \alertR 4$ e $\alertB5 \neq \alertR 5$)
-então vamos simplesmente uní-los:
+então vamos simplesmente uni-los:
 $$
 \tikzpicture
 \tikzi disjunion3;
@@ -27595,7 +27595,7 @@ objetos matemáticos---sobre isso, paciência até o~\ref{Axiomatic_set_theory}.
 %%{{{ eg: leq_geq_lt_gt_example 
 \example.
 \label{leq_geq_lt_gt_example}%
-Nos numeros reais, estamos bem acostumados com as relações de ordem
+Nos números, estamos bem acostumados com as relações de ordem
 ($\leq$, $\geq$, $<$, $>$).
 Nos inteiros já estudamos bastante a relação binária de ``divide''
 ($\dhole\divides\dhole$) e a relação ternária de ``congruência modular''
@@ -27606,20 +27606,54 @@ Nos inteiros já estudamos bastante a relação binária de ``divide''
 %%{{{ eg: mother_parents_love_example 
 \example.
 \label{mother_parents_love_example}%
-No conjunto $\cal P$ de pessoas, conhecemos várias relações também.
-Por exemplo
+No nossa vida, conhecemos várias relações também:
 $$
 \align
 \Mother (x,y)     &\defiff \text{$x$ é a mãe de $y$}\\
 \Parents (x,y,z)  &\defiff \text{$x$ e $y$ são os pais de $z$}\\
-\Love (x,y)       &\defiff \text{$x$ ama $y$}
+\Love (x,y)       &\defiff \text{$x$ ama $y$}.
 \endalign
 $$
 \endexample
 %%}}}
 
+%%{{{ Black boxes 
+\note Black boxes.
+\label{blackbox_rel}%
+\tdefined{black box}[de relação]%
+\iisee{relação!como black box}{black box}%
+Visualizamos uma relação $R$ de aridade $n$ como um black box com $n$ entradas
+e uma lâmpada que pisca sim ou não (como o black box dum conjunto), dependendo
+de se os objetos-entradas $x_1,\dotsc,x_n$ são relacionados pela $R$.
+Nesse caso dizemos que os $x_1,\dotsc,x_n$ \dterm{satisfazem} a $R$
+e escrevemos
+$$
+R(x_1,\dotsc,x_n)
+$$
+para denotar isso e, quando $R$ é binária, em vez de escrever
+$R(x,y)$ preferimos usar o $R$ com notação \emph{infixa}:
+$$
+x \rel R y \syndefiff R(x,y).
+$$
+Podemos então visualizar uma relação binária assim:
+$$
+\tikzpicture
+\tikzi blackboxrel;
+\endtikzpicture
+$$
+Como nas funções, se suas entradas são rotuladas ou não é questão de
+religião: para o Conjuntista o black box parece como esse em cima,
+e para o Categorista como esse em baixo:
+$$
+\tikzpicture
+\tikzi blackboxrelcat;
+\endtikzpicture
+$$
+Ele escreveria $R : \reltype{A,B}$ para deixar claro o tipo dessa relação.
+%%}}}
+
 \blah.
-Relações podem ``relacionar'' tipos diferentes.
+Relações podem relacionar tipos diferentes:
 
 %%{{{ eg: born_author_read_example 
 \example.
@@ -27656,20 +27690,24 @@ Fixando um objeto de nosso tipo, por exemplo o natural $0\in\nats$
 em qualquer um dos dois lados da igualdade (vamos fixar na direita nesse exemplo),
 chegamos numa relação de aridade $1$:
 $$
-\bhole = 0
-$$
+\align
+\bhole &= 0
+\intertext{%
 onde aplicando a relação para qualquer $x\in\nats$ chegamos na afirmação
-$$
-x = 0.
+}
+x &= 0.
+\endalign
 $$
 \endexample
 %%}}}
 
-%%{{{ The ``type'' of a relation 
-\note O ``tipo'' de uma relação.
+%%{{{ The type of a relation 
+\definition O tipo duma relação.
+\tdefined{tipo}[duma relação]%
+\sdefined {\sholed R : \reltype{\sholed{A_1,\dotsc,A_n}}} {$R$ é uma relação entre os conjuntos $A_1,\dotsc,A_n$}%
 Com cada relação associamos o seu \dterm{tipo} (pedimos emprestada aqui
-a terminologia usada em funções) que é apenas a informação de tipo
-para cada uma das suas entradas.
+a terminologia usada em funções) que é apenas a informação de qual é o tipo
+de cada uma das suas entradas.
 Escrevemos
 $$
 R : \reltype{A_1,\dotsc,A_n}
@@ -27696,7 +27734,7 @@ Relações de aridade $2$ são as mais comuns, e usamos certa notação
 e terminologia especialmente só para elas.
 Nesse caso, podemos ver o conceito de relação como uma generalização de função,
 onde nos livramos das duas condições do~\refn{functionhood_conditions}.
-Por isso, quando temos uma relação no $A\times B$
+Por isso, quando temos uma relação no $\relspace{A,B}$
 usamos a frase <<relação \emph{de} $A$ \emph{para} $B$>>.
 Vamos criar uma notação parecida com aquala das funções para dizer que $R$
 é uma relação do conjunto $A$ para o conjunto $B$.
@@ -27710,10 +27748,8 @@ A \reltoby R B
 \qqqquad
 B \relfromby R A.
 $$
-Todo isso quis dizer apenas que $R$ é uma relação binária entre $A$ e $B$.
+Tudo isso quis dizer apenas que $R$ é uma relação binária entre $A$ e $B$.
 Ou seja, tudo isso é sinónimo com o $R : \reltype{A,B}$.
-Também, em vez de escrever $R(x,y)$, escrevemos as vezes
-o $R$ com notação \emph{infixa}: $x \rel R y$.
 %%}}}
 
 %%{{{ beware: this notation is not standard 
@@ -27727,20 +27763,26 @@ A notação ``$\relto$'' definida no~\refn{funlike_notation_for_relations}
 \label{setlike_notation_for_relations}%
 Vestindo nosso chapéu de conjuntista, abusamos a notação e escrevemos
 também $\tupp{x,y} \in R$ para dizer que $R(x,y)$.
-E para afirmar que $R$ é uma relação ``de tipo'' $A\times B$, escrevemos
-até $R \subset A\times B$.
+E para afirmar que $R : \reltype{A,B}$, escrevemos
+até $R \subset A \cross B$.
 É importante entender bem neste momento que essas são apenas
 \emph{notações}.  Uma relação $R$ \emph{não é} um conjunto,
-então nada pertence a ela, e similarmente ela não é subconjunto
-de ninguém!
+então nada pertence a ela, e conseqüentemente ela não é
+subconjunto de ninguém!
 Mesmo assim escrevemos coisas como
-$\namedrel{Author} \subset \cal P \times \cal B$
-e
-$\namedrel{Parents} \subset \cal P^3$
-\emph{entendendo} como: ``a $\namedrel{Author}$ é uma relação binária
-entre $\cal P$ e $\cal B$'' e ``a $\namedrel{Parents}$ é uma relação
-ternária entre membros de $\cal P$''.
-Mais uma vez: relações \emph{não são} conjuntos.
+$$
+\xalignat2
+\namedrel{Author}  &\subset \cal P \cross \cal B &
+\namedrel{Parents} &\subset \cal P^3
+\intertext{%
+\emph{entendendo} como:
+}
+\namedrel{Author}  &\eqtype \reltype{\cal P, \cal B} &
+\namedrel{Parents} &\eqtype \reltype{\cal P, \cal P, \cal P}.
+\endxalignat
+$$
+É muito conveniente tratar relações \emph{como se fossem} conjuntos
+---mas mais uma vez: relações \emph{não são} conjuntos.
 %%}}}
 
 %%{{{ x: repeat_after_me_relations_are_not_sets 
@@ -27757,38 +27799,21 @@ Relações \emph{não são} conjuntos!
 \endexercise
 %%}}}
 
-%%{{{ Black boxes 
-\note Black boxes.
-\label{blackbox_rel}%
-\tdefined{black box}[de relação]%
-\iisee{relação!como black box}{black box}%
-Visualizamos uma relação $R$ de aridade $n$ como um black box com $n$ entradas
-e uma lâmpada que pisca ou não, dependendo de se os objetos-entradas
-$x_1,\dotsc,x_n$ são relacionados pela $R$.
-Nesse caso dizemos que os $x_1,\dotsc,x_n$ \dterm{satisfazem} a $R$.
-Podemos então visualizar uma relação binária $R : \reltype{A,B}$ assim:
-$$
-\tikzpicture
-\tikzi blackboxrel;
-\endtikzpicture
-$$
-%%}}}
-
 \blah.
-Cada vez que introduzimos um tipo novo, precisamos definir quando dois objetos
-desse tipo são iguais.  Vamos fazer isso agora.  Novamente, vamos optar para
-identificar relações cujos comportamentos são indistinguíveis usando apenas
-as suas interfaces.
+Cada vez que introduzimos um tipo novo, precisamos definir quando dois
+objetos desse tipo são iguais.  Vamos fazer isso agora.
+Novamente, vamos optar para identificar relações cujos comportamentos
+são indistinguíveis usando apenas as suas interfaces.
 
 %%{{{ df: R_eq_S_bin_on_single_set_case 
-\definition Igualdade.
+\definition igualdade.
 \label{R_eq_S_bin_on_single_set_case}%
 Sejam $R,S$ relações binárias num conjunto $A$.
 Definimos
 $$
 R=S
 \defiff
-\text {para todos $x,y \in A$, temos:\ \ $x \rel R y \iff x \rel S y$}.
+\lforall {x,y \in A} {x \rel R y \iff x \rel S y}.
 $$
 %%}}}
 
@@ -27802,24 +27827,25 @@ e no~\ref{R_eq_S} tu vai estender essa definição para
 os casos mais gerais.
 
 %%{{{ x: R_eq_S_bin_on_different_sets_case 
-\exercise Igualdade.
+\exercise igualdade.
 \label{R_eq_S_bin_on_different_sets_case}%
-Como tu estenderia a~\ref{R_eq_S_bin_on_single_set_case} para o caso onde as
-$R,S$ não são relações num conjunto só?
-Ou seja, tendo relações binárias~$R,S$, a~$R$ de~$A$ para~$B$, e a~$S$ de~$C$
-para~$D$, como tu definirias a igualdade~$R=S$ nesse caso?
+Como tu estenderia a~\ref{R_eq_S_bin_on_single_set_case}
+para o caso que as $R,S$ não são relações num conjunto só?
+Ou seja, tendo relações binárias~$R,S$, a~$R$ de~$A$ para~$B$,
+e a~$S$ de~$C$ para~$D$, como tu definirias a igualdade~$R=S$ nesse caso?
 
 \solution
-Digamos que $R=S$ sse para todo $x\in A\union C$, e todo $y \in B\union D$, temos $x \rel R y \iff x \rel S y$.
+Digamos que $R=S$ sse para todo $x\in A\union C$,
+e todo $y \in B\union D$, temos $x \rel R y \iff x \rel S y$.
 
 \endexercise
 %%}}}
 
 %%{{{ x: R_eq_S 
-\exercise Igualdade.
+\exercise igualdade (agnóstica).
 \label{R_eq_S}%
-Defina a igualdade para o caso mais geral onde as relações
-$R$ e~$S$ são relações de aridade qualquer, em conjuntos quaisquer.
+Defina a igualdade para o caso mais geral de relações,
+numa maneira ``agnóstica'' como fizemos nas funções (\ref{f_eq_g}).
 
 \endexercise
 %%}}}
@@ -27855,7 +27881,7 @@ Para capturar a extensão duma relação, definimos o seu gráfico,
 na mesma forma que definimos no caso de funções~(\ref{function_graph}).
 
 %%{{{ df: relation_graph 
-\definition.
+\definition gráfico.
 \label{relation_graph}%
 \label{truth_set}%
 \tdefined{relação!gráfico}%
@@ -27863,10 +27889,10 @@ na mesma forma que definimos no caso de funções~(\ref{function_graph}).
 \iisee{gráfico}{relação, gráfico}%
 \iisee{gráfico}{função, gráfico}%
 \sdefined {\graph{\sholed R}} {o gráfico da relação $R$}%
-Dado relação $R$ de $A$ para $B$, o \dterm{gráfico da $R$}
-é o conjunto
+Dado relação $R : \reltype{A_1,\dotsc,A_n}$,
+o \dterm{gráfico da $R$} é o conjunto
 $$
-\graph R \defeq \setst {(x,y)} {x \rel R y},
+\graph R \defeq \setst {\vec a \in A_1\cross\dotsb\cross A_n} {R(\vec a)},
 $$
 também conhecido como \dterm{truth set} da $R$.
 %%}}}
@@ -27876,7 +27902,7 @@ também conhecido como \dterm{truth set} da $R$.
 Agora temos uma maneira formal para afirmar que $R$ e $T$ tem
 a mesma extensão: $\graph R = \graph T$.
 E agora a notação conjuntista do~\refn{setlike_notation_for_relations}
-vira literalmente correta se substituir as relações por seus gráficos.
+vira literalmente até correta se substituir as relações por seus gráficos.
 %%}}}
 
 \endsection
@@ -27926,14 +27952,18 @@ experiência com funções no~\ref{Functions}.
 %%}}}
 
 %%{{{ eg: with formulas 
-\example Com fórmulas.
+\example formulamente.
 Considere os conjuntos $\cal P$ de todas as pessoas
 e $\cal B$ de todos os livros.
 Sejam as relações
-$P\subset \ints$,
-$R\subset \ints \times \ints$,
-$Q\subset \cal P \times \cal B$, e
-$M\subset \ints^3$,
+$$
+\xalignat4
+P &: \reltype {\ints}, &
+R &: \reltype {\ints, \ints}, &
+Q &: \reltype {\cal P \times \cal B}, &
+M &: \reltype {\ints,\ints,\ints},
+\endxalignat
+$$
 definidas pelas fórmulas:
 $$
 \align
@@ -28174,28 +28204,39 @@ Todas as relações que consideramos nessa secção serão binárias.
 \definition.
 \label{ropposite}%
 \tdefined{relação}[oposta]%
-\iisee{relação!dual}{oposta}%
-\iisee{relação!inversa}{oposta}%
-\sdefined {\rop {\sholed R}} {a relação oposta da $R$}%
-\sdefined {\rinv {\sholed R}} {a relação oposta da $R$ (notação alternativa)}%
 \tdefined{relação}[dual]%
+\sdefined {\rop {\sholed R}} {a relação oposta da $R$}%
+{\iisee{relação!dual}{oposta}}%
+{\iisee{relação!inversa}{oposta}}%
 Seja $R$ uma relação de $A$ para $B$.
-Definimos a sua \dterm{relação oposta} $\rop R$ de $B$ para $A$ pela:
+Definimos a sua \dterm{relação oposta} (ou \dterm{relação dual})
+$\rop R$ de $B$ para $A$ pela:
 $$
 x \rop R y \defiff y \rel R x.
 $$
-Também é conhecida como \dterm{relação inversa} ou \dterm{relação dual}.
-A notação mais comum para essa relação é a $\rinv R$.
+Também é conhecida como a \emph{relação inversa da $R$},
+e a galera que a chama assim usa notação $\rinv R$,
+\emph{mas não vamos usá-la nesse texto}---explicarei o porquê
+no~\ref{rinv_is_not_inverse}.
 %%}}}
 
-%%{{{ cor: rop_is_an_involution 
-\corollary.
+%%{{{ x: rop_is_an_involution 
+\exercise.
 \label{rop_is_an_involution}%
 \tdefined{involução}%
 A operação $\rop{\dhole}$ é uma \dterm{involução}:
 $$
-\text{para toda relação binária $R$, $\ropp {\rop R} = R$.}
+\text{para toda relação binária $R$, $\ropp {\rop R} = R$}.
 $$
+
+\solution
+$
+x \ropp{\rop R} y
+\iff y \rop R x
+\iff x \rel R y
+$.
+
+\endexercise
 %%}}}
 
 %%{{{ eg: opposite_relations_of_common_orders 
@@ -28666,10 +28707,11 @@ x \ropp{RS} y
 %%}}}
 
 %%{{{ df: union_and_inter_of_rels 
-\definition.
+\definition união; intersecção.
 \label{union_and_inter_of_rels}%
 Sejam $R,S\subset A\times B$ relações binárias.
-Definimos as relações $R\union S$ e $R\inter S$ pelas
+Definimos as relações $R\union S$ e $R\inter S$ no $\relspace{A,B}$
+pelas
 $$
 \align
 x \relp{R\union S} y &\defiff x \rel R y \mlor  x \rel S y \\
@@ -28677,13 +28719,23 @@ x \relp{R\inter S} y &\defiff x \rel R y \mland x \rel S y.
 \endalign
 $$
 Observe que, identificando as relações com seus gráficos,
-as $R\union S$ e $R\inter S$ acabam sendo a união
+as $R \union S$ e $R \inter S$ acabam sendo a união
 e intersecção deles mesmo:
 $$
 \align
 \graphP {R\union S} &= \graph R \union \graph S \\
 \graphP {R\inter S} &= \graph R \inter \graph S.
 \endalign
+$$
+Claramente generalizamos para famílias de relações $\scr R$,
+e assim temos as relações
+$$
+\xalignat2
+\tsize \Union \scr R &: \reltype{A,B} &
+\tsize x \relp{\Union \scr R} y & \iff \lexists {R \in \scr R} {x \rel R y} \\
+\tsize \Inter \scr R &: \reltype{A,B} &
+\tsize x \relp{\Inter \scr R} y & \iff \lforall {R \in \scr R} {x \rel R y}.
+\endxalignat
 $$
 %%}}}
 
@@ -28999,6 +29051,7 @@ já desenhadas.
 
 %%{{{ Closures 
 \section Fechos.
+\label{Closures}%
 
 \blah.
 Antes de definir formalmente o conceito importante de fechos,
@@ -29470,6 +29523,13 @@ Descreva os mesmos fechos.
 \endexercise
 %%}}}
 
+%%{{{ bottom_up_top_down_closures 
+\note Bottom-up \vs top-down.
+\label{bottom_up_top_down_closures}
+%%}}}
+
+\TODO Escrever.
+
 \endsection
 %%}}}
 
@@ -29791,16 +29851,25 @@ denotamos a $\eqclass a \sim$ apenas por $\eqclassimp a$.
 %%{{{ x: type_of_eqclass_hole 
 \exercise.
 \label{type_of_eqclass_hole}%
-Seja $\sim$ uma relação de equivalência num conjunto $A$, e seja $a \in A$.
-Qual o tipo das $\eqclassimp \dhole$ e $\eqclass a \dhole$?
+Sejam $A$ conjunto, $a\in A$, e $\sim$ relação de equivalência no $A$.
+Considere as funções seguintes definidas com buracos:
+$$
+\xalignat3
+\eqclass {\dhole} {\sim}   &: \ \askdots &
+\eqclass {a} {\dhole}      &: \ \askdots &
+\eqclass {\dhole} {\dhole} &: \ \askdots
+\endxalignat
+$$
+Escreva tipos válidos para essas funções.
 
 \solution
-Temos:
+Escrevemos os tipos:
 $$
-\xalignat2
-\eqclassimp \dhole         &: A \to \pset A &
-\eqclass    a \dhole       &: \eqreltype A \to \pset A.
-\endxalignat
+\align
+\eqclass {\dhole} {\sim}   &: A \to \pset A \\
+\eqclass {a} {\dhole}      &: E \to \pset A \\
+\eqclass {\dhole} {\dhole} &: \paren{A \cross \eqreltype A} \to \pset A.
+\endalign
 $$
 
 \endexercise
@@ -29808,6 +29877,7 @@ $$
 
 %%{{{ x: equivalent_statements_to_x_equiv_y 
 \exercise.
+\label{equivalent_statements_to_x_equiv_y}%
 Sejam $\sim$ uma relação de equivalência num conjunto $X$, e $a,b\in X$.
 Mostre que as afirmações seguintes são equivalentes:
 \item{(i)} $a\sim b$;
@@ -29815,7 +29885,7 @@ Mostre que as afirmações seguintes são equivalentes:
 \item{(iii)} $\eqclassimp a \inter \eqclassimp b \neq \emptyset$.
 
 \solution
-\proofpart{Vamos demonstrar primeiro a ``(i)\bidir(iii)''.}
+\proofpart{Vamos demonstrar primeiro a {\rm ((i)\tiff(iii))}.}
 \crtabproofpart{\lrdir.}
 Suponha que $a \sim b$.
 Precisamos achar um elemento que pertence nos dois conjuntos
@@ -29832,7 +29902,7 @@ ou seja $w \sim a$ e $w \sim b$ pela definição de classe de equivalência.
 Pela simetría da $\sim$ temos $a \sim w$.
 Agora como $a\sim w$ e $w \sim b$, pela transitividade da $\sim$ ganhamos
 o desejado $a \sim b$.
-\crproofpart{Agora vamos demonstrar a ``(i)\bidir(ii)''.}
+\crproofpart{Agora vamos demonstrar a {\rm ((i)\tiff(ii))}.}
 \crtabproofpart{\lrdir.}
 Suponha que $a \sim b$.
 Tome $x\in \eqclassimp a$.
@@ -30782,16 +30852,7 @@ $$
 Escreva tipos válidos para essas funções.
 
 \solution
-Escrevemos os tipos
-$$
-\align
-\eqclass {\dhole} {\sim}   &: A \to \pset A  \\
-\eqclass {a} {\dhole}      &: E \to \pset A \\
-\eqclass {\dhole} {\dhole} &: A \times E \to \pset A \\
-\quoset  {A} {\dhole}      &: E \to \pset\pset A
-\endalign
-$$
-onde $E$ é o conjunto de todas as relações de equivalência no $A$.
+$\quoset  {A} {\dhole} : \eqreltype A \to \pset\pset A$.
 
 \endexercise
 %%}}}
@@ -42801,7 +42862,7 @@ Ela não é muito famosa por esse nome, mas com certeza
 tu já ouviste falar dela por seu apelido:
 \dterm{Calculus}, \dterm{análise real}, etc.
 Na abordagem axiomática, não nos importa \emph{definir}\/ ou
-\emph{construir} os objetos que vamos chamar de \dterm{numeros reais}.
+\emph{construir} os objetos que vamos chamar de \dterm{números reais}.
 Começamos aceitando a existência dum certo conjunto que denotamos
 por $\reals$, suas operações binárias de adição e multiplicação,
 seu zero $0$ e seu um $1$, e seu subconjunto $P$ cujos membros
@@ -43038,7 +43099,7 @@ uma afirmação com \emph{quatro} quantificações alternantes,
 e a dificuldade vai voltar e te lembrar dessa dificuldade
 que sentes agora.
 Felizmente, temos as ferramentas formais de lógica matemática
-que nos permitem trabalhar com proposições sem digerí-las
+que nos permitem trabalhar com proposições sem digeri-las
 completamente!
 %%}}}
 
@@ -44458,7 +44519,7 @@ sendo bijecções levam suas entradas para saidas equinúmeras.
 
 %%{{{ x: (0,1) =c (0,2) 
 \exercise.
-Mostre as seguintes equinumerosidades entre os seguintes intervalos de reais:
+Mostre as seguintes eqüinumerosidades entre os seguintes intervalos de reais:
 \beginol
 \li $(0,1) \eqc (0,2)$;
 \li $(0,2) \eqc (3,5)$;
@@ -44479,7 +44540,7 @@ das resoluções delas, resultará na resolução da tua tarefa inicial.
 
 %%{{{ x: (α,β) =c (0,1) 
 \exercise.
-Mostre as seguintes equinumerosidades entre os seguintes intervalos de reais,
+Mostre as seguintes eqüinumerosidades entre os seguintes intervalos de reais,
 $$
 (\alpha,\beta) \eqc (0,1)
 $$
@@ -45316,7 +45377,7 @@ e logo $f$ não é sobrejetora!
 %%{{{ prob: change_of_ends_of_intervals_without_bernstein 
 \problem Sem Bernstein.
 \label{change_of_ends_of_intervals_without_bernstein}%
-Mostre pela definição a equinumerosidade
+Mostre pela definição a eqüinumerosidade
 $$
 (a,b) \eqc [a,b) \eqc [a,b];
 $$
@@ -49027,7 +49088,7 @@ para concluir que a propriedade não é satisfeita.)
 \endgraf
 A prova que acabamos de escrever tem um roubo sutil,
 que é muito fácil corrigir, mas difícil identificar!
-Para corrigí-lo, basta tomar o conjunto $\emptyset$
+Para corrigi-lo, basta tomar o conjunto $\emptyset$
 onde tomamos um arbitrário conjunto $o$, e a prova
 vira correta!
 O \ref{find_the_crime_of_foundation} pede identificar
@@ -49288,8 +49349,6 @@ Tente dar a definição mais curta, elegante, e flexível possível!
 
 \endexercise
 %%}}}
-
-\TODO Fechos: top-down revisitado.
 
 \endsection
 %%}}}
