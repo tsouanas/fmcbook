@@ -30445,7 +30445,7 @@ f \approx g &\defiff \text{o conjunto $\setst {x \in \reals} {f(x) = g(x)}$ é i
 f \sim    g &\defiff \text{o conjunto $\setst {x \in \reals} {f(x) \neq g(x)}$ é finito}.
 \endalign
 $$
-Prove que:
+Demonstre que:
 \item{(i)} uma delas é relação de equivalência;
 \item{(ii)} a outra não é.
 
@@ -30455,9 +30455,11 @@ que $\reals\setminus X$ é finito!
 
 \hint
 A $\sim$ é a relação de equivalência.
+Demonstre.
 
 \hint
-A $\approx$ não é transitiva.  Refute!
+A $\approx$ não é transitiva.
+Refute!
 
 \solution%%{{{
 A $\sim$ é uma relação de equivalência:
@@ -31014,11 +31016,17 @@ $$
 \pi : A \surto Q
 \taglabel{QS1}{quoset_determining_surjection_1}
 $$
-tal que
+tal que $\sim = \frel \pi$ (\ref{kernel_coimage}), ou seja, tal que
 $$
 x \sim y \iff \pi(x) = \pi(y).
 \taglabel{QS2}{quoset_determining_surjection_2}
 $$
+\sketch.
+\proofpart{\lrdir.}
+O $Q$ é o $\quoset A \sim$ e a $\pi$ é a ``projecção canônica'' $\eqclass \dhole \sim$.
+\proofpart{\rldir.}
+Demonstrado no~\ref{frel_is_an_eqrel}.
+\qes
 %%}}}
 
 %%{{{ df: general_quotient_and_determining_surjection 
@@ -31199,12 +31207,20 @@ na terceira casa sfera com seu raio.
 %%{{{ x: quoset_of_congruence_mod_m 
 \exercise.
 \label{quoset_of_congruence_mod_m}%
-Seja $m\in\nats$.
+Seja $m\in\nats_{>1}$.
 Já provou no~\ref{congruence_mod_m_is_an_eqrel} que a relação de
 congruência módulo $m$ é uma relação de equivalência.
+Vamos denotá-la \sq{$\cong_m$}.
 Então: qual é o seu conjunto quociente?
 Também: seguindo a idéia do~\ref{some_eqclasses_geometrically_and_algebrically},
 com que tu ``identificaria'' o $\quoset \ints {\cong_m}$?
+
+\endexercise
+%%}}}
+
+%%{{{ x: cong_0_and_cong_1 
+\exercise.
+Continuando: quais são as relações $\cong_0$ e $\cong_1$?
 
 \endexercise
 %%}}}
@@ -31442,6 +31458,45 @@ Com os dados da~\ref{kernel_coimage} mostre que $\frel f$
 O que podemos dizer se $f$ é injetora?
 Se ela é sobrejetora?
 
+\solution
+\proofpart{$\frel f$ é uma relação de equivalência.}
+Cada uma das três propriedades é uma conseqüência direta da
+propriedade correspondende da igualdade.  Em detalhe:
+\crproofpart{Reflexiva.}
+Seja $x\in X$.
+Temos $x \frel f x$ pois $f(x) = f(x)$ (reflexividade da $=$).
+\crproofpart{Transitiva.}
+Sejam $a,b,c \in X$ tais que $a \frel f b$ e $b \frel f c$.
+Logo $f(a) = f(b)$ e $f(b) = f(c)$.
+Logo $f(a) = f(c)$ (transitividade da $=$), ou seja, $a \frel f c$.
+\crproofpart{Simétrica.}
+Sejam $a, b \in X$ tais que $a \frel f b$, e logo $f(a) = f(b)$
+e logo $f(b) = f(a)$ (simetria da $=$), ou seja, $b \frel f a$.
+\crtabproofpart{Descrição do conjunto quociente.}
+O conjunto quociente ``é'' a imagem $\ima f$.
+Caso que $f$ é injetora a relação acaba sendo a igualdade e logo
+o ocnjunto quociente acaba sendo o próprio $\dom f$.
+Caso que $f$ é sobrejetora nada demais muda,
+só que agora $\ima f = \cod f$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: gen_frel_is_an_eqrel 
+\exercise.
+\label{gen_frel_is_an_eqrel}%
+Seja $f : A \to B$ e seja $\sim_B$ uma relação de equivalência no $B$.
+Defina a $\frel {f,\sim_B}$ no $A$ pela
+$$
+x_1 \frel {f,\sim_B} x_2 \defiff f(x_1) \sim_B f(x_2).
+$$
+A $\frel {f,\sim_B}$ é uma relação de equivalência?
+
+\solution
+A $\frel {f,\sim_B}$ é uma relação de equivalência sim.
+Isso já foi demonstrado, pois a resolução do~\ref{frel_is_an_eqrel}
+usou apenas o fato que a igualdade é uma relação de equivalência.
+
 \endexercise
 %%}}}
 
@@ -31534,19 +31589,18 @@ e precisamos o adjetivo ``fraca'' para referir a uma ordem (fraca).
 %%}}}
 
 %%{{{ x: weak_fromto_strong_orders 
-\exercise De fraca para estrita, ida e volta.
+\exercise De fraca para estrita; ida e volta.
 \label{weak_fromto_strong_orders}%
-Seja $A$ conjunto.
 (1)
-Seja $\leq$ uma ordem no $A$.
+Seja $\leq$ ordem num conjunto $A$.
 Defina a relação $<$ no $A$ pela:
 $$
 x < y \defiff x \leq y \mland x \neq y.
 $$
 Prove que $<$ é uma ordem estrita.
-\endgraf
+\endgraf\noindent
 (2)
-Seja $<$ uma ordem estrita no $A$, e
+Seja $<$ ordem estrita num conjunto $A$, e
 defina a relação $\leq$ no $A$ pela:
 $$
 x \leq y \defiff x < y \mlor x = y.
@@ -31775,8 +31829,9 @@ Por exemplo, sempre vai ter números pares, mas sempre vai ter números
 Os problemas seguintes brincam com essas idéias.
 %%}}}
 
-%%{{{ prob 
+%%{{{ prob: efeq_vs_feeq 
 \problem.
+\label{efeq_vs_feeq}%
 \def\efeq{\rel{\buildrel{{}_{\exists\forall}} \over =}}%
 \def\feeq{\rel{\buildrel{{}_{\forall\exists}} \over =}}%
 Defina no $(\nats\to\nats)$ as relações seguintes:
@@ -31786,14 +31841,15 @@ f \efeq g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) = g(x) }\\
 f \feeq g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) = g(x) }
 \endalign
 $$
-Para cada uma das relações acima, decida se ela é relação de equivalência (prove ou refute).
+Para cada uma das relações acima, decida se ela é relação de equivalência (demonstre ou refute).
 Se é, descreva seu conjunto quociente.
 
 \endproblem
 %%}}}
 
-%%{{{ prob 
+%%{{{ prob: efle_vs_fele_and_eflt_vs_felt 
 \problem.
+\label{efle_vs_fele_and_eflt_vs_felt}%
 \def\efle{\rel{\buildrel{{}_{\exists\forall}} \over \leq}}%
 \def\fele{\rel{\buildrel{{}_{\forall\exists}} \over \leq}}%
 \def\eflt{\rel{\buildrel{{}_{\exists\forall}} \over <}}%
@@ -31807,8 +31863,8 @@ f \eflt g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) < g(x) } \\
 f \felt g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) < g(x) }
 \endalign
 $$
-Para cada uma das relações acima, decida se ela tem ou não cada uma das propriedades de uma ordem total,
-e de uma ordem estrita.
+Para cada uma das relações acima, decida se ela tem ou não cada uma
+das propriedades de uma ordem total, e de uma ordem estrita.
 
 \endproblem
 %%}}}
@@ -45467,6 +45523,46 @@ f\simo g&\defiff f(2k+1) = g(2k+1)\ \text{para todo $k\in\nats$}.
 \endalign
 $$
 Qual é a cardinalidade do $\eqclass f {\sime} \inter \eqclass f {\simo}$?
+
+\endproblem
+%%}}}
+
+%%{{{ prob: define three eqrels such that quosets have certain cards 
+\problem.
+No conjunto dos reais $\reals$, defina três relações de equivalência
+$\sim_1$, $\sim_2$, $\sim_3$, diferentes da igualdade $\eqof \reals$,
+da vazia, e da trivial $\mathsf{True}$, tais que:
+$$
+\xalignat3
+\quoset \reals {\sim_1} &\ltc \nats &
+\quoset \reals {\sim_2} &\eqc \nats &
+\quoset \reals {\sim_3} &\gtc \nats.
+\endxalignat
+$$
+Para cada uma, descreva seu conjunto quociente.
+
+\hint
+Cada relação de equivalência corresponde numa partição e vice-versa,
+então basta definir três partições.
+
+\solution
+Cada relação de equivalência corresponde numa partição e vice-versa,
+então descrevemos as três partições diretamente:
+$$
+\align
+\scr C_1 &= \set   {(\minfty,0), \set{0}, (0,\pinfty)} \\
+\scr C_2 &= \setst {[n,n+1)} {n\in\ints} \\
+\scr C_3 &= \setst {\set{a}} {a\in\reals\setminus\rats} \union \set{\rats}.
+\endalign
+$$
+Sem usar partições poderiamos definir as relações diretamente assim:
+$$
+\align
+x \sim_1 y &\defiff \text{$x=y$ ou $xy>0$} \\
+x \sim_2 y &\defiff \floor x = \floor y \\
+x \sim_3 y &\defiff \text{$x = y$ ou $x,y\in\rats$}.
+\endalign
+$$
 
 \endproblem
 %%}}}
