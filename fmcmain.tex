@@ -29583,6 +29583,127 @@ Descreva os mesmos fechos.
 \endsection
 %%}}}
 
+%%{{{ Order relations 
+\section Relações de ordem.
+\label{Order_relations}%
+
+%%{{{ df: order_relation 
+\definition Ordem.
+\label{order_relation}%
+Seja $R$ uma relação binária num conjunto $A$.
+Chamamos a $R$ \dterm{ordem parcial} sse ela é reflexiva, transitiva, e antissimétrica.
+Se ela também é total, a chamamos de \dterm{ordem total}.
+%%}}}
+
+%%{{{ beware: total-partial default, relations vs functions 
+\beware.
+Quando usamos apenas o termo \emph{ordem}, entendemos como \emph{ordem parcial}.
+Observe que esta convenção é a oposta que seguimos nas funções, onde um pleno
+\emph{função} quis dizer \emph{função total}.
+%%}}}
+
+%%{{{ eg: subset and supset are orders 
+\example.
+Dado qualquer conjunto $X$, seus subconjuntos
+são parcialmente ordenados tanto por $\subset$
+quanto por $\supset$.
+\endexample
+%%}}}
+
+%%{{{ eg: common orders are orders 
+\example.
+As $\leq$ e $\geq$ comuns são ordens totais nos $\nats,\ints,\rats,\reals$.
+\endexample
+%%}}}
+
+%%{{{ divides_is_not_an_order_on_ints 
+\exercise.
+\label{divides_is_not_an_order_on_ints}%
+A relação $\divides$ nos inteiros é uma relação de ordem?
+
+\hint
+O que podemos concluir se $a\divides b$ e $b\divides a$?
+
+\endexercise
+%%}}}
+
+%%{{{ divides_is_a_partial_order_on_nats 
+\example.
+A relação $\divides$ no $\nats$ é uma ordem parcial.
+(Provaste isso no~\ref{divides_is_almost_a_partial_order}.)
+\endexample
+%%}}}
+
+%%{{{ df: strict_order 
+\definition Ordem estrita.
+\label{strict_order}%
+\tdefined{ordem}[estrita]%
+Seja $R$ uma relação binária num conjunto $A$.
+Chamamos a $R$ \dterm{ordem estrita} sse ela é irreflexiva, transitiva, e assimétrica.
+Se ela também é tricotômica, chamamos-la \dterm{ordem estrita total}.
+%%}}}
+
+%%{{{ remark: default adjective 
+\remark Adjetivo implícito.
+\tdefined{ordem}[fraca]%
+Quando queremos enfatizar que uma relação é uma ordem e não uma ordem estrita,
+usamos o termo \dterm{fraca}.  Similarmente com as funções (totais vs.~parciais),
+Dependendo do contexto o \emph{adjetivo implícito} pode mudar.
+Quando focamos em ordens estritas, ``ordem'' vira sinônimo de ``ordem estrita''
+e precisamos o adjetivo ``fraca'' para referir a uma ordem (fraca).
+%%}}}
+
+%%{{{ x: weak_fromto_strong_orders 
+\exercise De fraca para estrita; ida e volta.
+\label{weak_fromto_strong_orders}%
+(1)
+Seja $\leq$ ordem num conjunto $A$.
+Defina a relação $<$ no $A$ pela:
+$$
+x < y \defiff x \leq y \mland x \neq y.
+$$
+Prove que $<$ é uma ordem estrita.
+\endgraf\noindent
+(2)
+Seja $<$ ordem estrita num conjunto $A$, e
+defina a relação $\leq$ no $A$ pela:
+$$
+x \leq y \defiff x < y \mlor x = y.
+$$
+Prove que $\leq$ é uma ordem.
+
+\endexercise
+%%}}}
+
+%%{{{ df: preorder_relation 
+\definition Preordem.
+\label{preorder_relation}%
+\tdefined{preordem}%
+\iisee{quasiordem}{preordem}%
+Uma relação binária $R$ num conjunto $A$ é chamada \dterm{preordem} (ou \dterm{quasiordem}) sse ela é reflexiva e transitiva.
+%%}}}
+
+%%{{{ eg: divides_is_a_preorder_on_ints 
+\example.
+\label{divides_is_a_preorder_on_ints}%
+Como provamos no~\ref{divides_is_almost_a_partial_order},
+a relação $\divides$ nos inteiros é uma preordem.
+\endexample
+%%}}}
+
+\blah.
+No~\ref{why_called_preorder} tu vai justificar o nome ``preordem'',
+mostrando que cada preordem $R$ fornece uma ordem $R'$.
+
+\blah.
+Paramos \emph{por enquanto} o estudo de relações de ordem;
+pois voltaremos a estudá-las depois (capítulos~\refn{Posets},
+\refn{Wellorderings_and_transfinite_induction},
+\refn{Ordinal_arithmetic}, e~\refn{Denotational_semantics}).
+
+\endsection
+%%}}}
+
 %%{{{ Equivalence relations 
 \section Relações de equivalência.
 \label{Equivalence_relations}%
@@ -30542,6 +30663,28 @@ Mesmo assim, $f \not\approx h$ pois não concordam em ponto nenhum.
 \endproblem
 %%}}}
 
+%%{{{ prob: efle_vs_fele_and_eflt_vs_felt 
+\problem.
+\label{efle_vs_fele_and_eflt_vs_felt}%
+\def\efle{\rel{\buildrel{{}_{\exists\forall}} \over \leq}}%
+\def\fele{\rel{\buildrel{{}_{\forall\exists}} \over \leq}}%
+\def\eflt{\rel{\buildrel{{}_{\exists\forall}} \over <}}%
+\def\felt{\rel{\buildrel{{}_{\forall\exists}} \over <}}%
+Defina no $(\reals\to\reals)$ as relações seguintes:
+$$
+\align
+f \efle g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) \leq g(x) } \\
+f \fele g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) \leq g(x) } \\
+f \eflt g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) < g(x) } \\
+f \felt g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) < g(x) }
+\endalign
+$$
+Para cada uma das relações acima, decida se ela tem ou não cada uma
+das propriedades de uma ordem total, e de uma ordem estrita.
+
+\endproblem
+%%}}}
+
 %%{{{ prob: implementing_functions_as_relations_and_vice_versa 
 \problem Implementando funções como relações e vice versa.
 \label{implementing_functions_as_relations_and_vice_versa}%
@@ -31239,6 +31382,20 @@ com que tu ``identificaria'' o $\quoset \ints {\cong_m}$?
 \exercise.
 Continuando: quais são as relações $\cong_0$ e $\cong_1$?
 
+\hint
+Uma é a igualdade e outra é a trivial $\True$.
+Qual é qual?  Demonstre.
+
+\solution
+Temos:
+$$
+\align
+a \cong_0 b &\iff 0 \divides a - b \iff a - b = 0 \iff a = b \\
+a \cong_1 b &\iff 1 \divides a - b \iff \True.
+\endalign
+$$
+Ou seja:  $(\cong_0) = (\eqof \ints)$ e $(\cong_1) = (\True)$.
+
 \endexercise
 %%}}}
 
@@ -31535,121 +31692,6 @@ $f : A \to B$ (esclarecendo também quais são os $A,B$).
 \endsection
 %%}}}
 
-%%{{{ Order relations 
-\section Relações de ordem.
-\label{Order_relations}%
-
-%%{{{ df: order_relation 
-\definition Ordem.
-\label{order_relation}%
-Seja $R$ uma relação binária num conjunto $A$.
-Chamamos a $R$ \dterm{ordem parcial} sse ela é reflexiva, transitiva, e antissimétrica.
-Se ela também é total, a chamamos de \dterm{ordem total}.
-%%}}}
-
-%%{{{ beware: total-partial default, relations vs functions 
-\beware.
-Quando usamos apenas o termo \emph{ordem}, entendemos como \emph{ordem parcial}.
-Observe que esta convenção é a oposta que seguimos nas funções, onde um pleno
-\emph{função} quis dizer \emph{função total}.
-%%}}}
-
-%%{{{ eg: subset and supset are orders 
-\example.
-Dado qualquer conjunto $X$, seus subconjuntos
-são parcialmente ordenados tanto por $\subset$
-quanto por $\supset$.
-\endexample
-%%}}}
-
-%%{{{ eg: common orders are orders 
-\example.
-As $\leq$ e $\geq$ comuns são ordens totais nos $\nats,\ints,\rats,\reals$.
-\endexample
-%%}}}
-
-%%{{{ divides_is_not_an_order_on_ints 
-\exercise.
-\label{divides_is_not_an_order_on_ints}%
-A relação $\divides$ nos inteiros é uma relação de ordem?
-
-\hint
-O que podemos concluir se $a\divides b$ e $b\divides a$?
-
-\endexercise
-%%}}}
-
-%%{{{ divides_is_a_partial_order_on_nats 
-\example.
-A relação $\divides$ no $\nats$ é uma ordem parcial.
-(Provaste isso no~\ref{divides_is_almost_a_partial_order}.)
-\endexample
-%%}}}
-
-%%{{{ df: strict_order 
-\definition Ordem estrita.
-\label{strict_order}%
-\tdefined{ordem}[estrita]%
-Seja $R$ uma relação binária num conjunto $A$.
-Chamamos a $R$ \dterm{ordem estrita} sse ela é irreflexiva, transitiva, e assimétrica.
-Se ela também é tricotômica, chamamos-la \dterm{ordem estrita total}.
-%%}}}
-
-%%{{{ remark: default adjective 
-\remark Adjetivo implícito.
-\tdefined{ordem}[fraca]%
-Quando queremos enfatizar que uma relação é uma ordem e não uma ordem estrita,
-usamos o termo \dterm{fraca}.  Similarmente com as funções (totais vs.~parciais),
-Dependendo do contexto o \emph{adjetivo implícito} pode mudar.
-Quando focamos em ordens estritas, ``ordem'' vira sinônimo de ``ordem estrita''
-e precisamos o adjetivo ``fraca'' para referir a uma ordem (fraca).
-%%}}}
-
-%%{{{ x: weak_fromto_strong_orders 
-\exercise De fraca para estrita; ida e volta.
-\label{weak_fromto_strong_orders}%
-(1)
-Seja $\leq$ ordem num conjunto $A$.
-Defina a relação $<$ no $A$ pela:
-$$
-x < y \defiff x \leq y \mland x \neq y.
-$$
-Prove que $<$ é uma ordem estrita.
-\endgraf\noindent
-(2)
-Seja $<$ ordem estrita num conjunto $A$, e
-defina a relação $\leq$ no $A$ pela:
-$$
-x \leq y \defiff x < y \mlor x = y.
-$$
-Prove que $\leq$ é uma ordem.
-
-\endexercise
-%%}}}
-
-%%{{{ df: preorder_relation 
-\definition Preordem.
-\label{preorder_relation}%
-\tdefined{preordem}%
-\iisee{quasiordem}{preordem}%
-Uma relação binária $R$ num conjunto $A$ é chamada \dterm{preordem} (ou \dterm{quasiordem}) sse ela é reflexiva e transitiva.
-%%}}}
-
-%%{{{ eg: divides_is_a_preorder_on_ints 
-\example.
-\label{divides_is_a_preorder_on_ints}%
-Como provamos no~\ref{divides_is_almost_a_partial_order},
-a relação $\divides$ nos inteiros é uma preordem.
-\endexample
-%%}}}
-
-\blah.
-No~\ref{why_called_preorder} tu vai justificar o nome ``preordem'',
-mostrando que cada preordem $R$ fornece uma ordem $R'$.
-
-\endsection
-%%}}}
-
 %%{{{ Recursive definitions 
 \section Relações recursivas.
 
@@ -31860,28 +31902,6 @@ f \feeq g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) = g(x) }
 $$
 Para cada uma das relações acima, decida se ela é relação de equivalência (demonstre ou refute).
 Se é, descreva seu conjunto quociente.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: efle_vs_fele_and_eflt_vs_felt 
-\problem.
-\label{efle_vs_fele_and_eflt_vs_felt}%
-\def\efle{\rel{\buildrel{{}_{\exists\forall}} \over \leq}}%
-\def\fele{\rel{\buildrel{{}_{\forall\exists}} \over \leq}}%
-\def\eflt{\rel{\buildrel{{}_{\exists\forall}} \over <}}%
-\def\felt{\rel{\buildrel{{}_{\forall\exists}} \over <}}%
-Defina no $(\reals\to\reals)$ as relações seguintes:
-$$
-\align
-f \efle g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) \leq g(x) } \\
-f \fele g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) \leq g(x) } \\
-f \eflt g &\defiff \pexists {n\in\nats} \lforall {x \geq n} { f(x) < g(x) } \\
-f \felt g &\defiff \pforall {n\in\nats} \lexists {x \geq n} { f(x) < g(x) }
-\endalign
-$$
-Para cada uma das relações acima, decida se ela tem ou não cada uma
-das propriedades de uma ordem total, e de uma ordem estrita.
 
 \endproblem
 %%}}}
@@ -32142,6 +32162,23 @@ Mas $0 \not\Frown 2$, pois $1$ é inteiro e $1\in(0,2)$.
 \sdefined {\leclo {\sholed R}} {o fecho left-euclideano da $R$}%
 Seja $R$ uma relação num conjunto $A$.
 Defina seus fechos: cíclico~($\cclo R$), left-euclideano~($\leclo R$), right-euclideano~($\reclo R$).
+
+\endproblem
+%%}}}
+
+%%{{{ prob: tclosure_recursive_def 
+\problem.
+Seja $R$ relação binária num conjunto $A$.
+Dê uma definição recursiva do fecho transitivo $\tclosure R$.
+
+\solution
+Definimos:
+$$
+x \tclosure R y
+\defiff
+x \rel R y \mlor \lexists {w \in A} {x \rel R w \mland w \tclosure R y}.
+$$
+Pense para visualizar como isso ``funciona''.
 
 \endproblem
 %%}}}
