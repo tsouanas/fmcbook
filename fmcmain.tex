@@ -15136,8 +15136,8 @@ Podes adivinhar definições que concordam com todos esses exemplos no
 
 \blah.
 Observe pela definição de $\union$ temos
-$$
-\align
+%%{{{ pre-Union_def
+\compute
 x \in A \union B
 &\iff x \in A \mlor  x \in B \\
 &\iff \text{$x$ pertence a algum dos $A, B$} \\
@@ -15147,8 +15147,8 @@ x \in A \inter B
 &\iff x \in A \mland x \in B \\
 &\iff \text{$x$ pertence a cada um dos $A, B$} \\
 &\iff \lforall {X \in \set{A,B}} {x \in X}.
-\endalign
-$$
+\endcompute
+%%}}}
 Chegamos assim na resposta formal:
 
 %%{{{ df: Union_def 
@@ -15252,9 +15252,9 @@ Calcule os $\Union\set{A}$ e $\Inter\set{A}$.
 \endexercise
 %%}}}
 
-%%{{{ x: Inter_of_containers_contains 
+%%{{{ x: Inter_of_supsets_supset 
 \exercise.
-\label{Inter_of_containers_contains}%
+\label{Inter_of_supsets_supset}%
 Sejam $C$ conjunto e $\scr A$ família de conjuntos tais que todos
 contêm o $C$ (ou seja, $C$ é um subconjunto de cada membro da $\scr A$).
 Prove que $C \subset \Inter \scr A$.
@@ -17027,7 +17027,7 @@ Logo $t \in \Union \scr A$ e $t \notin \Inter \scr A$, absurdo.
 %%{{{ dualize_and_prove_Inter_of_containters_contains 
 \problem.
 \label{dualize_and_prove_Inter_of_containters_contains}%
-Dualize e demonstre o resultado do~\ref{Inter_of_containers_contains}.
+Dualize e demonstre o resultado do~\ref{Inter_of_supsets_supset}.
 
 \endproblem
 %%}}}
@@ -22169,7 +22169,7 @@ Se a gente tivesse uma setinha interessante assim:
 $$
 A \alert{{}\longtoby ?{}} A \cross A \longtoby {f \cross g} B \cross B \longtoby {\ast} B,
 $$
-a gente teria um candidáto ótimo para algo interessante, pois
+a gente teria um candidato ótimo para algo interessante, pois
 assim a composição de todas essas setinhas tem o tipo desejado.
 Basta definir uma função interessante então de $A$ para $A\cross A$
 e assim ganhar a
@@ -29595,12 +29595,152 @@ para saber se uma setinha $(x,y)$ está no fecho ou não, é só
 perguntar se ela vai ``entrar'' um belo dia ou não.
 %%}}}
 
-%%{{{ bottom_up_top_down_closures 
-\note Bottom-up \vs top-down.
-\label{bottom_up_top_down_closures}
+\endsection
 %%}}}
 
-\TODO Escrever.
+%%{{{ Bottom_up_top_down_closures 
+\section Bottom-up \vs top-down.
+\label{Bottom_up_top_down_closures}
+
+\blah.
+Vamos fingir para essa discussão que relações são mesmo
+os conjuntos das suas setinhas (ou seja, seus gráficos)
+pois vai facilitar a fala informal e uma notação conjuntista
+que vou usar.  Espero que tu já fez
+o~\ref{repeat_after_me_relations_are_not_sets}, e logo
+tu entenderás bem a discussão seguinte tanto no nível informal
+quanto nos detalhes ``verdadeiros'' por trás.  Vamo lá!
+
+%%{{{ top_down_closure 
+\note Top-down.
+\label{top_down_closure}%
+Imagine que para algum motivo gostamos muito duma propriedade de
+relações da forma
+\standout
+<<se \emph{algo}, então tem que ter essas certas setinhas>>.
+\endstandout
+(Pense em transitividade como exemplo ``padrão'' aqui.)
+Vamos chamar as relações que tem nossa propriedade de \dterm{legais}.
+Começamos com um conjunto $A$ uma relação nele $R$ bugada,
+possivelmente ilegal.
+(Isso quis dizer que não tem a propriedade escolhida.)
+Procuramos \emph{a} relação $\overline R$ para chamar
+de fecho ``legal'' da $R$; esse fecho deve satisfazer:
+\beginil
+\item{(L1)} $\overline R \supset R$;
+\item{(L2)} $\overline R$ é legal;
+\endil
+e deve ser ``a melhor'' entre todas as relações $L$ que
+satisfazem ambas essas condições.
+Mas o que significa \emph{melhor}, e o que nos faz acreditar
+que existe \emph{a} melhor?
+Aqui melhor quis dizer que a $\overline R$ deve ser \emph{fiel}
+na $R$, no sentido de não conter setas desnecessárias, setas
+não fornecidas/necessidadas por causa da relação original $R$.
+Como vamos descobrir, tal $\overline R$ existe mesmo, e vamos
+definí-la numa maneira extremamente elegante e legal!
+\endgraf
+A primeira coisa importante para perceber é que
+\emph{já sabemos que pelo menos uma relação satisfaz ambas as
+condições (L1)--(L2) acima:} a relação cheia, trivial $\True$
+do $A$.  Vamo chamá-la de $G$ (pense ``Grande'').
+Com certeza $G \supset R$, pois como poderia não ser?
+$G$ é a relação cheia, ela tem todas as setinhas, então
+com certeza as setinhas da $R$ também.
+Pelo mesmo motivo e pela natureza da própria propriedade
+temos certeza que $G$ também goza da (L2): ela é legal.
+\endgraf
+Bem, temos uma candidata; mas estamos procurando a melhor,
+pois essa pode ter \dterm{lixo}.  Procuramos uma maneira
+de jogar fora todo o lixo da $G$.
+\endgraf
+Uma idéia ruim para conseguir isso seria seguinte:
+pega uma setinha $\alpha$ do $G\setminus R$ e veja se removendo
+essa $\alpha$, tu quebras a ``legaldade''.
+Qual o problema com essa abordagem?
+Bem: vai que tu pegou uma setinha mesmo e que observou
+que ela não pode ser jogada fora, pois duas outras setinhas
+estão a obrigando ficar.  Mas, por que confiar nessas outras setinhas?
+Talvez elas mesmas também fazem parte do lixo, e deveriam ser jogadas
+foras também.  Mas então, como escolher onde começar e investigar?
+Não vamos escolher nenhum canto para começar; vamos usar uma maneira
+bem simples e jogar todo o lixo fora num instante só!
+\endgraf
+Vamos definir a colecção de todos os candidatos:
+$$
+\scr L_R \defeq
+\setst {L : \reltype{A,A}} {L \supset R \mland \text{$L$ é legal}}.
+$$
+Primeiramente observe que sabemos que essa colecção não é vazia,
+pois se fosse a gente teria um problema grande---tu vai entender logo qual.
+Realmente, a $G$ é uma das candidatas, então $G \in \scr L_R$ e logo
+$\scr L_R \neq \emptyset$.
+Agora observe que cada candidato $L \in \scr L_R$ satisfaz
+$$
+G \supset L \supset R.
+$$
+Ambas são imediates pela definição do $\scr L_R$.
+Tem então dois casos extremos (onde $L$ é uma das $G,R$) mas no caso
+geral $L$ fica estritamente entre as relações $G$ e $R$.
+Estamos finalmente prontos para a definição linda que prometi.
+\endgraf
+Definimos
+$$
+\overline R = \Inter \scr L_R.
+$$
+Afirmo que:
+\beginil
+\item{(1)} $\overline R \supset R$;
+\item{(2)} $\overline R$ é legal;
+\item{(3)} $\overline R$ é a melhor: não tem lixo nenhum.
+\endil
+\endgraf
+Antes de demonstrar esses pontos, primeiramente quero te preocupar
+com uma outra perguta:
+%%}}}
+
+%%{{{ Q: How do you know that the arrow you deleted is not needed? 
+\question.
+Alguém poderia reclamar que certas das setinhas que foram jogadas
+fora nesse processo, por exemplo essa aqui em baixo, foram injustamente
+tiradas, e talvez eram essenciais, ou seja, necessárias mesmo para
+a legaldade da relação.  O que responderias?  Como podemos convencer
+essa pessoa que a setinha não foi realmente necessária?
+%%}}}
+\spoiler.
+
+%%{{{ A 
+\note Resposta.
+Observe que essa setinha pertence a uma das candidatas do $\scr L_R$,
+mas tem outras candidatas que não têm essa setinha nelas e mesmo assim
+conseguem ser legais!  Ou seja, com certeza essa setinha não pode ser
+necessária mesmo para a legaldade da relação que estamos procurando!
+%%}}}
+
+%%{{{ What's missing? 
+\note O que falta?.
+Basta demonstrar as (1)--(3) agora.
+A primeira \emph{deve ser óbvia} para o leitor que já passou pelo~\ref{Sets}
+(até se ele pulou---foi sem querer né?---o~\ref{Inter_of_supsets_suspset},
+que é exatamente isso).
+As outras duas, tu demonstrarás agora:
+%%}}}
+
+%%{{{ x: top_down_closure_prove_2 
+\exercise.
+\label{top_down_closure_prove_2}%
+Demonstre a (2) do~\ref{top_down_closure}
+
+\endexercise
+%%}}}
+
+%%{{{ x: top_down_closure_prove_3 
+\exercise.
+\label{top_down_closure_prove_3}%
+Demonstre a (3) do~\ref{top_down_closure}
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
@@ -30708,7 +30848,7 @@ das propriedades de uma ordem total, e de uma ordem estrita.
 %%}}}
 
 %%{{{ prob: implementing_functions_as_relations_and_vice_versa 
-\problem Implementando funções como relações e vice versa.
+\problem implementando funções como relações e vice versa.
 \label{implementing_functions_as_relations_and_vice_versa}%
 Já encontramos a idéia de \emph{implementação} de algum
 conceito matemático no~\ref{Functions}
@@ -31442,7 +31582,7 @@ $\sim_{\scr A}$, e sim, a partição $\scr A$ é um conjunto quociente:
 o $\quoset A {\sim_{\scr A}}$!
 
 %%{{{ x: from_partition_to_eqrel 
-\exercise De partição para equivalência.
+\exercise de partição para equivalência.
 \label{from_partition_to_eqrel}%
 Seja $A$ conjunto e $\scr A$ partição dele.
 Escreva claramente como definir uma relação de equivalência $\sim_{\scr A}$
@@ -36556,7 +36696,7 @@ $A \subset \Inter \scr H$.
 \solution
 Pela definição da $\scr H$, para todo $H \in \scr H$ temos $A \subset H$.
 Logo $A \subset \Inter \scr H$.
-Isso deveria ser óbvio, e resolvido desde~\ref{Inter_of_containers_contains}.
+Isso deveria ser óbvio, e resolvido desde~\ref{Inter_of_supsets_supset}.
 
 \endexercise
 %%}}}
