@@ -28956,6 +28956,20 @@ no $\nats$, que não é assimétrica, pois é reflexiva.
 \endexercise
 %%}}}
 
+%%{{{ x: rop_of_symmetric 
+\exercise.
+\label{rop_of_symmetric}%
+Seja $R : \reltype{X,X}$.
+Logo
+$$
+\text{$R$ simétrica}
+\iff
+R = \rop R.
+$$
+
+\endexercise
+%%}}}
+
 %%{{{ Transitions 
 \note Transições.
 \tdefined{relação!transitiva}%
@@ -30334,6 +30348,61 @@ Se sim, demonstre; se não, mostre um contraexemplo.
 Não.  Para achar um contraexemplo desenha as
 setinhas das relações envolvidas para construir
 os desejados $x,y,z$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: rop_iter_R_eq_iter_rop_R 
+\problem.
+\label{rop_iter_R_eq_iter_rop_R}%
+Seja $R:\reltype{X,X}$.
+Demonstre que para todo $n\in\nats$,
+$$
+\ropp{R^n} = \paren{\rop R}^n.
+$$
+
+\hint
+Indução.
+
+\solution
+Por indução.
+\crproofpart{Base.}
+Calculamos:
+\compute
+\ropp{R^0}
+&= \ropp{\eqof X}     \by {def.~$R^0$}
+&= (\eqof X)          \by {pelo~\ref{rop_of_symmetric}}
+&= \paren{\rop R}^0.  \by {def.~$\paren{\rop R}^0$}
+\endcompute
+\crproofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que $\ropp{R^k} = \paren{\rop R}^k$\fact{HI}.
+Calculamos:
+\compute
+\ropp{R^{k+1}}
+&=\ropp{R R^k}              \by {def.~$R^{k+1}$}
+&=\ropp{R^k R}              \by {Lemma}
+&=\rop R \ropp{R^k}         \by {\ref{rop_of_rcompose}}
+&=\rop R \paren{\rop R}^k   \by {HI}
+&=\paren{\rop R}^{k+1}      \by {def.~$R^{k+1}$}
+\endcompute
+Onde devemos demonstrar o Lemma:
+{\proclaimstyle
+para todo $t\in\nats$, $R^t R = R R^t$.}
+\crproofpart{Demonstração do Lemma.}
+Por indução.
+\crproofpart{Base: $R^0 R \askeq R R^0$.}
+Imediato pois $R^0 = (\eqof X)$ e $\eqof X$ é uma $\rcom$-identidade (\ref{id_of_rcom}).
+\crproofpart{Passo indutivo.}
+Seja $w \in \nats$ tal que $R^w R = R R^w$\fact{HI}.
+Calculamos:
+\compute
+R^{w+1} R
+&= (R^w R) R  \by {def.~$R^{w+1}$}
+&= (R R^w) R  \by {HI}
+&= R (R^w R)  \by {assoc.~$\rcom$ (\refn{associativity_of_rcom})}
+&= R (R R^w)  \by {HI}
+&= R R^{w+1}. \by {def.~$R^{w+1}$}
+\endcompute
 
 \endproblem
 %%}}}
