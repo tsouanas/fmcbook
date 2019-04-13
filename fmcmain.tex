@@ -28470,10 +28470,10 @@ Veja também o~\ref{gof_not_fog}.
 %%{{{ prop: associativity_of_rcom 
 \property.
 \label{associativity_of_rcom}%
-Sejam as relações binárias:
-$R$ de $A$ para $B$;
-$S$ de $B$ para $C$; e
-$T$ de $C$ para $D$.
+Sejam conjuntos $A,B,C,D$ e relações binárias
+$R : \reltype{A,B}$,
+$S : \reltype{B,C}$, e
+$T : \reltype{C,D}$.
 Então
 $$
 (R\rcom S)\rcom T = R \rcom (S\rcom T),
@@ -28482,32 +28482,27 @@ e logo podemos escrever apenas $R\rcom S\rcom T$.
 \sketch.
 Supomos $a \in A$ e $d\in D$, e mostramos a equivalência
 $$
-a \rel{((R\rcom S)\rcom T)} d
+a \relp{(R\rcom S)\rcom T} d
 \iff
-a \rel{(R\rcom (S\rcom T))} d.
+a \relp{R\rcom (S\rcom T)} d.
 $$
-aplicando a definição de $\rcom$ e leis da lógica.
 \qes
 \proof.
-{%
-\def\R{\rel R}%
-\def\S{\rel S}%
-\def\T{\rel T}%
-\def\RS{\relp {R\rcom S}}%
-\def\ST{\relp {S\rcom T}}%
-Suponha $a\in A$ e $d\in D$.  Temos:
-\compute
-a \rel{((R\rcom S)\rcom T)} d
-&\iff \lexists {c\in C} { a \RS c \;\land\; c \T d }                                                    \by {def.~de $\rcom$}
-&\iff \lexists {c\in C} { \lexists {b\in B} {a \R b \;\land\; b \S c } \;\land\; c \T d }               \by {def.~de $\rcom$}
-&\iff \lexists {c\in C} { \lexists {b\in B} { \paren{ a \R b \;\land\; b \S c } \;\land\; c \T d } }    \by {lógica}
-&\iff \lexists {b\in B} { \lexists {c\in C} { \paren { a \R b \;\land\; b \S c } \;\land\; c \T d } }   \by {lógica}
-&\iff \lexists {b\in B} { \lexists {c\in C} { a \R b \;\land\; \paren{ b \S c \;\land\; c \T d } } }    \by {lógica}
-&\iff \lexists {b\in B} { a \R b \;\land\; \lexists {c\in C} {  b \S c \;\land\; c \T d } }             \by {lógica}
-&\iff \lexists {b\in B} { a \R b \;\land\; { b \ST d } }                                                \by {def.~de $\rcom$}
-&\iff a \rel{(R\rcom(S\rcom T))} d.                                                                     \by {def.~de $\rcom$}
-\endcompute
-}
+Demonstrarei em detalhe a
+$$
+a \relp{(R\rcom S)\rcom T} d
+\implies
+a \relp{R\rcom (S\rcom T)} d.
+$$
+A {\rldir} é similar.  Temos:
+\stepproof
+\proofsteptnb {Suponha $a\in A$ e $d\in D$ tais que $a \rel{(RS)T} d$.}
+\thereforetnb {Seja $c \in C$ tal que $a \rel {RS} c\fact1 \mland c \rel T d\fact2$.}
+\thereforetby {Seja $b \in B$ tal que $a \rel R b\fact3 \mland b \rel S c\fact4$.}
+              {pelo~\byfact1}
+\thereforetby {$b \rel {ST} d$\fact5.} {pelos~\byfact4 e~\byfact2}
+\thereforetby {$a \rel {R(ST)} d$.}    {pelos~\byfact3 e~\byfact5}
+\endstepproof
 \qed
 %%}}}
 
