@@ -26883,7 +26883,8 @@ Tais que:
 para toda seta $f \in Arr{\cat C}$, são determinados dois objetos:
 o \dterm{source} da $f$ e o \dterm{target} da $f$, denotados por
 $\src f$ e $\tgt f$ respectivamente.
-Escrevemos $f : A \to B$ para afirmar que $f$ é uma seta, e que $\src f = A$ e $\tgt f = B$.
+Escrevemos $f : A \to B$ para afirmar que $f$ é uma seta,
+e que $\src f = A$ e $\tgt f = B$.
 %%}}}
 
 \TODO Terminar a definição.
@@ -26918,6 +26919,33 @@ tem produtos?  Se sim, dados dois objetos nela $A,B$, qual
 seria o seu produto $A\cross B$?
 
 \endexercise
+%%}}}
+
+%%{{{ df: initial_terminal_objects 
+\definition iniciais, terminais.
+\label{initial_terminal_objects}%
+Numa categoria $\cat C$, um objeto $S$ é \dterm{inicial} sse
+para todo objeto $X$, existe única seta $S \toby ! X$.
+Similarmente, um objeto $T$ é \dterm{terminal} sse
+para todo objeto $X$, existe única seta $X \toby ! T$.
+Sinônimos de terminal: \dterm{final}, \dterm{terminador};
+sinônimos de inicial: \dterm{coterminal}, \dterm{coterminador}.
+%%}}}
+
+\remark.
+As vezes usamos o termo ``terminal'' para significar
+tanto ``inicial'' quanto ``final''.
+As idéia é que  o contexto deixa claro qual dos dois é.
+
+%%{{{ eg: initial_and_terminal_of_Set 
+\example.
+\label{initial_and_terminal_of_Set}%
+A categoria $\Set$ possui iniciais?  Terminais?  Quais?
+\solution
+Sim e sim.
+Demonstraste isso no~\ref{first_contact_with_initial_and_terminal_objects}:
+$\emptyset$ é seu único inicial; e cada singleton é um final.
+\endexample
 %%}}}
 
 \TODO Escrever.
@@ -40419,23 +40447,73 @@ Sejam grupos $\cal A$ e $\cal B$, e $\phi : \cal A \to \cal B$ um homomorfismo.
 Usamos os termos:
 $$
 \align
-\text{$\phi$ monomorfismo} &\defiff \text{$\phi$ injetora}\\
-\text{$\phi$ epimorfismo}  &\defiff \text{$\phi$ sobrejetora}\\
-\text{$\phi$ isomorfismo}  &\defiff \text{$\phi$ monomorfismo~\&~epimorfismo}\\
-\text{$\phi$ isomorfismo}  &\defiff \text{$\phi$ é invertível}\\
-                           &\iff    \text{existe morfismo $\finv\phi : \cal B \to \cal A$ tal que $\finv\phi\phi = \idof B$ e $\phi\finv\phi = \idof B$}\\
-\text{$\phi$ endomorfismo} &\defiff \text{$\dom\phi = \cod\phi$}\\
-\text{$\phi$ automorfismo} &\defiff \text{$\phi$ endomorfismo~\&~isomorfismo}
+\text{$\phi$ monomorfismo}       &\defiff \text{$\phi$ L-cancelável}\\
+\text{$\phi$ epimorfismo}        &\defiff \text{$\phi$ R-cancelável}\\
+\text{$\phi$ split monomorfismo} &\defiff \text{$\phi$ L-invertível}\\
+\text{$\phi$ split epimorfismo}  &\defiff \text{$\phi$ R-invertível}\\
+\text{$\phi$ isomorfismo}        &\defiff \text{$\phi$ é invertível}\\
+                                 &\intiff \lexists {\finv\phi : \cal B \to \cal A}
+                                                   {\finv\phi\phi = \idof A \mland \phi\finv\phi = \idof B}\\
+\text{$\phi$ endomorfismo}       &\defiff \text{$\dom\phi = \cod\phi$}\\
+\text{$\phi$ automorfismo}       &\defiff \text{$\phi$ endomorfismo~\&~isomorfismo}
 \endalign
 $$
-{Rascunho:}
+onde ``cancelável'' e ``invertível'' significam com respeito a
+operação da composição $\fcom$.
+%%}}}
+
+%%{{{ x: mono_splitmono_inj_in_Group 
+\exercise.
+\label{mono_splitmono_inj_in_Group}%
+Investigue:
+$$
+\text{$\phi$ mono}
+\askiff \text{$\phi$ split mono}
+\askiff \text{$\phi$ injetiva}
+$$
+Como a situação compara com os resultados de funções entre conjuntos
+(veja~\refn{An_epic_trip})?
+
+\endexercise
+%%}}}
+
+%%{{{ x: epi_splitepi_surj_in_Group 
+\exercise.
+\label{epi_splitepi_surj_in_Group}%
+Investigue:
+$$
+\text{$\phi$ epí}
+\askiff \text{$\phi$ split epí}
+\askiff \text{$\phi$ sobrejetiva}
+$$
+Como a situação compara com os resultados de funções entre conjuntos?
+
+\endexercise
+%%}}}
+
+%%{{{ x: iso_bim_bij_in_Group 
+\exercise.
+\label{iso_bim_bij_in_Group}%
+Investigue:
+$$
+\text{$\phi$ iso}
+\askiff \text{$\phi$ mono} + \text{$\phi$ epí}
+\askiff \text{$\phi$ bijetiva}
+$$
+Como a situação compara com os resultados de funções entre conjuntos?
+
+\endexercise
+%%}}}
+
+%%{{{ sketch_of_morphism_adjectives_in_Group 
+\note Rascunho de morfismos de grupos.
+\label{sketch_of_morphism_adjectives_in_Group}%
+Temos então:
 $$
 \align
 \text{mono} &= \text{injetora}\\
 \text{epí}  &= \text{sobre}\\
-\text{iso}  &= \text{mono $+$ epí}\\
-\text{endo} &= \text{$\phi : \cal A \to \cal A$}\\
-\text{auto} &= \text{endo $+$ iso}
+\text{iso}  &= \text{bijetora} = \text{mono $+$ epí}
 \endalign
 $$
 %%}}}
@@ -40475,10 +40553,13 @@ Finalmente podemos definir o que significa que dois grupos são isómorfos!
 \label{isomorphic_groups}%
 \tdefined{grupo}[isomórficos]%
 Sejam grupos $G$ e $G'$.
-Chamamos o $G$ \dterm{isomórfico} com o $G'$ sse
+Chamamos o $G$ \dterm{isomórfico} (ou \dterm{isómorfo}) ao $G'$ sse
 existe isomorfismo $\phi : G \to G'$.
-Escrevemos $G \iso G'$.
-Escrevemos também $\phi : G \iso G'$ para ``$\phi$ é um isomorfismo de $G$ para $G'$''.
+Nesse caso chamamos o $\phi$ \dterm{isomorfismo de grupos}.
+Como introduzimos na~\ref{isomorphic_sets}
+escrevemos $G \iso G'$ para dizer que os $G,G'$ são isómorfos,
+e também $\phi : G \isoto G'$ ou até $\phi : G \iso G'$ para
+``$\phi$ é um isomorfismo de $G$ para $G'$''.
 %%}}}
 
 %%{{{ x: isomorphic_is_an_equivalence_relation 
@@ -40526,6 +40607,45 @@ $\sset \ints +$ e $\sset \rats +$.
 \endgraf
 Usando uma outra propriedade grupoteórica para diferenciar
 os dois grupos seria observar que um é cíclico, mas o outro não é.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Category of groups 
+\section A categoria dos grupos.
+
+\secintro
+Temos uns objetos que nos interessam: os grupos.
+Temos umas setas interessantes entre esses objetos: os morfimos.
+Será que temos uma categoria (\ref{category_first_def})?
+
+%%{{{ df: Group_cat 
+\definition categoria dos grupos.
+\label{Group_cat}%
+Denotamos por $\Group$ a categoria dos grupos:
+\beginul
+\li $\Obj \Group$: todos os grupos;
+\li $\Arr \Group$: todos os homomorsfismos de grupos.
+\endul
+onde obviamente $\src\phi$ e $\tgt\phi$ denotam o $\dom\phi$ e $\cod\phi$.
+%%}}}
+
+%%{{{ x: Group_is_a_category 
+\exercise.
+\label{Group_is_a_category}%
+Demonstre que $\Group$ realmente é uma categoria.
+
+\endexercise
+%%}}}
+
+%%{{{ x: initial_and_terminal_of_Group 
+\exercise.
+\label{initial_and_terminal_of_Group}%
+A categoria $\Group$ possui objetos iniciais?  Objetos terminais?  Quais?
+(\ref{initial_terminal_objects}).
 
 \endexercise
 %%}}}
