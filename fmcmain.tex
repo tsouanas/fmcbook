@@ -26802,9 +26802,9 @@ A\cross B \ar[ur, bend left=15, "\outl"] \ar[dr, bend right=15, "\outr"'] \|   \
                                                                           \| B
 \endcd
 $$
-Esse bicho junto com suas duas setinhas, $\tupp{A\cross B, \outl, \outr}$
+Esse bicho junto com suas duas setinhas, $\tupp{\outl, A\cross B, \outr}$
 tem uma propriedade \emph{muito interessante:}
-para cada \dterm{impostor} $\tupp{F,f_1,f_2}$:
+para cada \dterm{impostor} $\tupp{f_1,F,f_2}$:
 $$
 \cdopt{sep=1cm}
                                                               \| A \\
@@ -26832,7 +26832,7 @@ $$
                                                                                \| B
 \endcd
 $$
-tais que para todo $\tupp{F,f_1,f_2}$,
+tais que para todo $\tupp{f_1,F,f_2}$,
 $$
 \cdopt{sep=1cm}
                                                               \| A \\
@@ -26851,7 +26851,7 @@ F
                                    \| \|                                     \| B
 \endcd
 $$
-Observe que realmente o $\tupp{\alertR{A\cross B}, \alertR\outl, \alertR\outr}$
+Observe que realmente o $\tupp{\alertR\outl, \alertR{A\cross B}, \alertR\outr}$
 é uma resolução desse problema.
 %%}}}
 
@@ -26879,8 +26879,8 @@ Uma \dterm{categoria} $\cat C$ é composta por duas colecções de coisas:
 \li $\Obj {\cat C}$: os \dterm{objetos} da $\cat C$, que denotamos por $A,B,C,\dots$;
 \li $\Arr {\cat C}$: as \dterm{setas} da $\cat C$, que denotamos por $f,g,h,\dots$;
 \endul
-Tais que:
-para toda seta $f \in Arr{\cat C}$, são determinados dois objetos:
+tais que:
+para toda seta $f$ do $\Arr {\cat C}$, são determinados dois objetos:
 o \dterm{source} da $f$ e o \dterm{target} da $f$, denotados por
 $\src f$ e $\tgt f$ respectivamente.
 Escrevemos $f : A \to B$ para afirmar que $f$ é uma seta,
@@ -26911,16 +26911,6 @@ Deixe claro o que precisas demonstrar mesmo; e demonstre.
 \endexercise
 %%}}}
 
-%%{{{ x: does_cat_ints_with_leq_have_products 
-\exercise.
-\label{does_cat_ints_with_leq_have_products}%
-A categoria $\cat Z_\leq$ do~\ref{cat_ints_with_leq}
-tem produtos?  Se sim, dados dois objetos nela $A,B$, qual
-seria o seu produto $A\cross B$?
-
-\endexercise
-%%}}}
-
 %%{{{ df: initial_terminal_objects 
 \definition iniciais, terminais.
 \label{initial_terminal_objects}%
@@ -26941,11 +26931,107 @@ As idéia é que  o contexto deixa claro qual dos dois é.
 \example.
 \label{initial_and_terminal_of_Set}%
 A categoria $\Set$ possui iniciais?  Terminais?  Quais?
+
 \solution
 Sim e sim.
 Demonstraste isso no~\ref{first_contact_with_initial_and_terminal_objects}:
-$\emptyset$ é seu único inicial; e cada singleton é um final.
+$\emptyset$ é seu único objeto inicial; e cada singleton é um final.
 \endexample
+%%}}}
+
+%%{{{ df: product_in_category 
+\definition produto.
+\label{product_in_category}%
+Sejam $A,B$ objetos numa categoria $\cat C$.
+Uma tripla $\tupp{p_1,P,p_2}$ é um \dterm{produto} dos $A,B$, sse:
+\beginul
+\li $A \fromby {p_1} P \toby {p_2} B$;
+\li para toda tripla $\tupp{f_1,F,f_2}$ com $A \fromby {f_1} F \toby {f_2} B$,
+existe única seta $!$ que faz o diagrama
+$$
+\cdopt{sep=1cm}
+                                  \| \|                                \| A \\
+F
+\ar[rr, dotted, "\unique"]
+\ar[urrr, bend left=24,  "f_1"]
+\ar[drrr, bend right=24, "f_2"']  \| \| P
+                                        \ar[ur, bend left=15,  "p_1"]
+                                        \ar[dr, bend right=15, "p_2"'] \| \\
+                                  \| \|                                \| B
+\endcd
+$$
+comutar.
+Quando as setas são óbvias usamos apenas o objeto $P$ para representar
+a tripla $\tupp{p_1,P,p_2}$.
+\endul
+%%}}}
+
+%%{{{ x: product_is_a_product 
+\exercise o produto é um produto.
+\label{product_is_a_product}%
+Dados conjuntos $A,B$ na $\Set$, demonstre que $A\cross B$
+é um produto.
+Entenda que literalmente o produto não é o $A \cross B$,
+mas a tripla $\tupp{\outl, A \cross B, \outr}$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: products_are_not_unique 
+\exercise produtos não são únicos.
+\label{products_are_not_unique}%
+Dados conjuntos $A,B$ na $\Set$, ache um outro conjunto,
+alem do $A \cross B$ que também é produto dos $A,B$.
+Pode achar mais?
+
+\endexercise
+%%}}}
+
+%%{{{ x: products_are_unique_up_to_unique_isomorphism 
+\exercise são únicos a menos de isomorfismo.
+\label{products_are_unique_up_to_unique_isomorphism}%
+Demonstre que em qualquer categoria, dois produtos dos $A,B$
+são necessariamente isómorfos.
+
+\endexercise
+%%}}}
+
+%%{{{ remark: another way to design the diagram 
+\remark.
+Outras maneira para desenhar o diagrama em cima são as seguintes:
+$$
+\cdopt{sep=1cm}
+A \| P
+     \ar[l, "p_1"']
+     \ar[r, "p_2"]             \| B \\
+  \| F
+     \ar[ul, "f_1"]
+     \ar[ur, "f_2"']
+     \ar[u, dotted, "\unique"] \|
+\endcd
+\qqquad
+\cdopt{sep=1cm}
+  \| P
+     \ar[dl, "p_1"']
+     \ar[dr, "p_2"]            \|   \\
+A \| F
+     \ar[l, "f_1"]
+     \ar[r, "f_2"']
+     \ar[u, dotted, "\unique"] \| B
+\endcd
+$$
+Obviamente é a mesma coisa.  Use qualquer delas, ou qualquer outra
+equivalente.
+%%}}}
+
+%%{{{ x: does_cat_ints_with_leq_have_products 
+\exercise.
+\label{does_cat_ints_with_leq_have_products}%
+A categoria $\cat Z_\leq$ do~\ref{cat_ints_with_leq}
+tem produtos?  Se sim, dados dois objetos nela $A,B$, qual
+seria o seu produto $A\cross B$?
+
+\endexercise
 %%}}}
 
 \TODO Escrever.
@@ -40637,6 +40723,54 @@ onde obviamente os $\src\phi$ e $\tgt\phi$ denotam os $\dom\phi$ e $\cod\phi$ re
 \exercise.
 \label{Group_is_a_category}%
 Demonstre que $\Group$ realmente é uma categoria.
+
+\endexercise
+%%}}}
+
+%%{{{ eg: initial_and_terminal_of_Group 
+\example.
+\label{products_of_Group}%
+A categoria $\Group$ possui produtos (\refn{product_in_category})?
+
+\solution
+Sim.
+Dados dois objetos $G,H$ o
+$\tupp{\outl, G \cross H, \outr}$ (\refn{direct_product_of_groups}) é um produto
+dos $G,H$.
+Primeiramente precisamos demonstrar que $G \cross H$ realmente é um objeto
+da $\Group$, ou seja, um grupo;
+tu demonstraste isso no~\ref{direct_product_of_groups_is_a_group}.
+Agora falta verificar que dados $\tupp{f_1, F, f_2}$:
+$$
+\cdopt{sep=1cm}
+                                 \| \|                                  \| G \\
+F
+\ar[rr, dotted, "\unique"]
+\ar[urrr, bend left=24,  "f_1"]
+\ar[drrr, bend right=24, "f_2"'] \| \| G \cross H
+                                       \ar[ur, bend left=15, "\outl"]
+                                       \ar[dr, bend right=15, "\outr"'] \| \\
+                                 \| \|                                  \| H
+\endcd
+$$
+Defina o $!$ pela
+$$
+! = f_1 \fcross f_2.
+$$
+Isso realmente é o único que faz o diagrama comutar
+(verificamos isso no~\ref{product_is_a_product})
+então só basta demonstrar uma coisa.
+\endexample
+%%}}}
+
+%%{{{ x: what more is needed to prove? 
+\exercise.
+Qual?
+Enuncie e demonstre!
+
+\hint
+Basta demonstrar que $! : F \to G \cross H$ é um homomorfismo mesmo.
+Demonstre!
 
 \endexercise
 %%}}}
