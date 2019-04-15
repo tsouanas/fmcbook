@@ -33232,7 +33232,7 @@ Seguindo a abstracção do~\refn{abstracting_the_notion_of_group},
 chegamos numa primeira definição:
 
 %%{{{ df: group_def_wordy 
-\definition.
+\definition Grupo.
 \label{group_def_wordy}%
 \tdefined{grupo}%
 Um conjunto $G$ com uma operação binária $\ast$ é um \dterm{grupo}
@@ -33247,9 +33247,9 @@ cada elemento de $G$ possui $\ast$-\emph{inverso}.
 Lembrando a~\ref{closed_associative_identity_inverse},
 tentamos esclarecer pouco essa definição:
 
-%%{{{ pseudodf: group (0) 
-\pseudodefinition Grupo (0).
-\label{group_def_classic}%
+%%{{{ pseudodf: group_def_2_classic 
+\pseudodefinition Grupo.
+\label{group_def_2_classic}%
 \tdefined{grupo}%
 Um conjunto $G$ com uma operação binária $\ast$ no $G$ é um \dterm{grupo} sse
 as leis seguintes
@@ -33322,9 +33322,9 @@ Para entender melhor as quatro leis de grupo, as escrevemos novamente,
 essa vez sem deixar nenhum quantificador como implícito,
 e começando com um \emph{conjunto estruturado} com uma operação binária:
 
-%%{{{ pseudodf: group (1) 
-\pseudodefinition Grupo (1).
-\label{group_def_struct_1}%
+%%{{{ pseudodf: group_def_2 
+\pseudodefinition Grupo (2).
+\label{group_def_2}%
 Um conjunto estruturado $\ssetfont G = \sset G {\ast}$ é um \dterm{grupo} sse
 $$
 \alignat2
@@ -33341,8 +33341,8 @@ chamamos o~$y$ da~(G3) o \dterm{inverso} de~$a$.
 
 %%{{{ x: check_group_def_classic_and_group_def_struct_1 
 \exercise.
-Tá tudo certo com as definições~\refn{group_def_classic}
-e~\refn{group_def_struct_1}?
+Tá tudo certo com as definições~\refn{group_def_2_classic}
+e~\refn{group_def_2}?
 
 \hint
 Quem é esse $e$ que aparece no (G3)?
@@ -33368,9 +33368,9 @@ grupos de abelianos:
 \definition Grupo abeliano.
 \label{abelian_group}%
 \tdefined{grupo!abeliano}%
-Um grupo $\sset G {\ast}$ é \dterm{abeliano}
+Um grupo é \dterm{abeliano}
 (também: \dterm{comutativo})
-sse sua operação $\ast$ é comutativa:
+sse sua operação é comutativa:
 $$
 \alignat2
 \pforall {a,b\in G}    &\bracket{a\ast b = b\ast a}.   &\tag{GA}
@@ -33509,9 +33509,9 @@ Agora vamos dar mais uma definição de grupo, essa vez usando um conjunto
 estruturado de tipo diferente: alem de ter uma operação binária,
 tem uma constante também:
 
-%%{{{ df: group (2) 
-\definition Grupo (2).
-\label{group_def_struct_2}%
+%%{{{ df: group_def_20 
+\definition Grupo (2,0).
+\label{group_def_20}%
 \tdefined{grupo}%
 Um conjunto estruturado $\ssetfont G = \sset G {\ast, e}$ é um grupo sse
 $$
@@ -33524,9 +33524,9 @@ $$
 $$
 %%}}}
 
-%%{{{ x: check_group_def_struct_2 
+%%{{{ x: check_group_def_20 
 \exercise.
-Tá tudo certo com a~\ref{group_def_struct_2}?
+Tá tudo certo com a~\ref{group_def_20}?
 
 \solution
 Sim!
@@ -33545,26 +33545,35 @@ No~\ref{uniqueness_of_identity_in_group} vamos provar que cada grupo tem identid
 e a partir dessa prova, vamos ganhar o direito de usar o artigo definido ``a''.
 %%}}}
 
-%%{{{ x: group (4) 
-\exercise Grupo (4).
-Defina \dterm{grupo} como um conjunto estruturado
-$\sset G {\ast, {}^{-1}, e}$.
-Comece escrevendo as aridades da assinatura.
+%%{{{ Q: can you define group (2,1,0)? 
+\question.
+Já encontramos definições de grupo como conjunto estruturado com assinaturas
+de aridades $(2)$ e $(2,0)$.
+Como definarias com assinatura de aridades $(2,1,0)$?
+%%}}}
+\spoiler.
 
-\solution
+%%{{{ df: group_def_210 
+\definition Grupo (2,1,0).
+\label{group_def_210}%
 Um conjunto estruturado $\ssetfont G = \sset G {\ast, {}^{-1}, e}$
 onde $\ast$ é uma operação binária, ${}^{-1}$ unária, e $e$ uma constante
-é um \dterm{grupo} sse
+é um \dterm{grupo} sse:
+\beginil
+\item{(G0)} $G$ é $\ast$-fechado;
+\item{(G1)} $\ast$ é associativa;
+\item{(G2)} $e$ é uma $\ast$-identidade;
+\item{(G3)} para todo $a \in G$, $\ginv a$ é um $\ast$-inverso do $a$.
+\endil
+Formulamente:
 $$
 \alignat2
-\pforall {a,b\in G}    &\bracket{a\ast b \in G}                    &\tag{G0} \\
-\pforall {a,b,c\in G}  &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} &\tag{G1} \\
+\pforall {a,b \in G}   &\bracket{a\ast b \in G}                    &\tag{G0} \\
+\pforall {a,b,c \in G} &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} &\tag{G1} \\
 \pforall {a \in G}     &\bracket{e\ast a = a = a\ast e}            &\tag{G2} \\
-\pforall {a\in G}      &\bracket{a^{-1}\ast a = e = a \ast a^{-1}} &\tag{G3} 
+\pforall {a \in G}     &\bracket{a^{-1}\ast a = e = a \ast a^{-1}} &\tag{G3} 
 \endalignat
 $$
-
-\endexercise
 %%}}}
 
 %%{{{ df: order of group 
@@ -33954,8 +33963,14 @@ Até realmente demonstrar as leis
 de can\-ce\-la\-men\-to~(\refn{cancellation_laws_in_group}) não temos
 a unicidade dos inversos~(\refn{uniqueness_of_inverses_in_group}).
 Dado um elemento $a$ dum grupo $G$ não podemos ainda falar \emph{do}
-inverso do $a$, nem usar a notação $\ginv a$ (seria mal-definida), etc.
-Crucialmente, não podemos usar nada disso em nossa prova do~\refn{cancellation_laws_in_group};
+inverso do $a$, nem usar a notação $\ginv a$ (seria mal-definida), etc.%
+\footnote{%
+Na verdade, se a gente usa como definição de grupo a \refn{group_def_210},
+temos como usar a notação $\ginv a$ sim, mas ainda não podemos afirmar que
+$\ginv a$ é \emph{a} inversa do $a$.  \emph{Uma}, sim.
+}
+Crucialmente, não podemos usar nada disso em nossa prova
+do~\refn{cancellation_laws_in_group};
 caso contrário criamos uma loope de dependências.
 ``Forward dependencies'' são perigosos exatamente por causa disso,
 e nós as evitamos mesmo.%
