@@ -34766,56 +34766,6 @@ Explique o porquê.
 \endexercise
 %%}}}
 
-%%{{{ x: onesided_group_def_proof 
-\exercise.
-\label{onesided_group_def_proof}%
-Prove o~\ref{onesided_group_def}.
-Cuidado: lembre-se o~\ref{onesided_group_def_catch}.
-
-\hint
-Para evitar as chances de ``roubar'' sem querer,
-use uma notação adaptada às novas leis:
-chame $e_r$ a identidade-direita grantida pela (G2R);
-$a_{R}$ para os inversos-direitos grantidos pela (G3R); e
-$a_{L}$ para os inversos-esquerdos garantidos pela (G3L).
-
-\hint
-Precisas mostrar as (G2)--(G3).
-Ou seja, verificar que o $e_r$ é uma identidade-esquerda,
-$$
-\align
-\pforall {a\in G} & \bracket{e_r \ast a = a}           \tag{G2'}\\
-\intertext{e que para todo $a\in G$,
-seu inverso-direito $a_{R}$ é um inverso-esquerdo também:}
-\pforall {a\in G} &\bracket{a_{R} \ast a = e}.          \tag{G3'}
-\endalign
-$$
-
-\hint
-Para provar as (G2') e (G3'),
-tome um $a\in G$ e comece com:
-$$
-\xalignat2
-e \ast a &= (a \ast a_R) \ast a  & e \ast a &= (e \ast a) \ast e\\
-         &= \dotsb               &          &= e \ast (a \ast e)\\
-         &                       &          &= e \ast (a \ast (\;?\;))\\
-         &                       &          &= \dotsc
-\endxalignat
-$$
-
-\hint
-Espero que já conseguiu a (G2').
-Para a (G3'), qual produto podes botar no lugar do $(\;?\;)$ da dica anterior?
-Sabendo que (G2R) é válida, faz sentido substituí-lo com um termo
-$\paren{x \ast x_R}$ para algum $x\in G$, mas qual seria esse $x$?
-\emph{Não precisamos adivinhar ainda!}
-Continue assim com um $x$ não-especificado por enquanto,
-e logo tu vai chegar numa expressão que vai te ajudar escolher teu $x$ para
-continuar.
-
-\endexercise
-%%}}}
-
 %%{{{ x: splitsided_group_notdef 
 \exercise.
 \label{splitsided_group_notdef}%
@@ -37565,7 +37515,7 @@ outros tem.
 \endproblem
 %%}}}
 
-%%{{{ bust_proof_of_uniqueness_of_identity_in_group 
+%%{{{ prob: bust_proof_of_uniqueness_of_identity_in_group 
 \problem.
 \label{bust_proof_of_uniqueness_of_identity_in_group}%
 Considere essa suposta prova da unicidade da identidade~(\ref{uniqueness_of_identity_in_group}):
@@ -37582,6 +37532,126 @@ Identifique todos os erros nessa tentativa de prova.
 
 \endproblem
 %}}}
+
+%%{{{ prob: onesided_group_def_proof 
+\problem.
+\label{onesided_group_def_proof}%
+Demonstre o~\ref{onesided_group_def}.
+Cuidado: lembre-se o~\ref{onesided_group_def_catch}.
+
+\hint
+Para evitar as chances de ``roubar'' sem querer,
+use uma notação adaptada às novas leis:
+chame $\idr$ a identidade-direita grantida pela (G2R);
+$\invl a$ para os inversos-direitos grantidos pela (G3R); e
+$\invr a$ para os inversos-esquerdos garantidos pela (G3L).
+
+\hint
+Precisas mostrar as (G2)--(G3).
+Ou seja, verificar que o $\idr$ é uma identidade-esquerda,
+$$
+\align
+\pforall {a\in G} & \bracket{\idr a = a}            \tag{G2'}\\
+\intertext{e que para todo $a\in G$,
+seu inverso direito $\invr a$ é um inverso esquerdo também:}
+\pforall {a\in G} &\bracket{\invr a \ast a = \idr}. \tag{G3'}
+\endalign
+$$
+
+\hint
+Para demonstrar a (G2') tome um $a\in G$ e comece com:
+\compute
+\idr \gop a
+&= (\idr \gop a) \gop \idr \\
+&= \idr \gop (a \gop \idr) \\
+&= \idr \gop (a \gop (\; \alert? \gop \invr{\alert?}\;)) \by {qual membro de $G$ serve aqui?}
+&\eqvdots \\
+&= a
+\endcompute
+Para a (G3'), o lemma seguinte pode ajudar:
+$$
+\lforall {g \in G} {gg = g \implies g = \idr}.
+$$
+Use isso para demonstrar que um inverso direito é esquerdo também.
+
+\hint
+Para a (G2'), qual produto podes botar no lugar do $(\;?\;)$ da dica anterior?
+Sabendo que (G2R) é válida, faz sentido substituí-lo com um termo
+$\paren{x \invr x}$ para algum $x\in G$, mas qual seria esse $x$?
+\emph{Não precisamos adivinhar ainda!}
+Continue assim com um $x$ não-especificado por enquanto,
+e logo tu vai chegar numa expressão que vai te ajudar escolher teu $x$ para
+continuar, pois tu vai querer que esse $x$ ``anula'' a coisa que aparecerá
+na sua esquerda.
+\endgraf
+Para a (G3'), teu objetivo é demonstrar que dado qualquer $a \in G$,
+$\invr a a = \idr$; e o Lemma te oferece um critério para
+decidir que algo é o $\idr$.  Use!
+
+\solution
+\proofpart{Demonstração da (G2').}
+Preciso demonstrar que a identidade direita $\idr$
+é uma identidade esquerda.  Seja $a \in G$.
+Basta verificar que $\idr a \askeq a$.
+Calculamos:
+\compute
+\idr a
+&= \idr a \idr                       \by {def.~$\idr$}
+&= \idr a (\invr a \invr {\invr a})  \by {def.~$\invr {\invr a}$}
+&= \idr (a \invr a) \invr {\invr a}  \\
+&= \idr \idr \invr {\invr a}         \by {def.~$\invr a$}
+&= (\idr \idr) \invr {\invr a}       \\
+&= \idr \invr {\invr a}              \by {def.~$\idr$}
+&= (a \invr a) \invr {\invr a}       \by {def.~$\invr a$}
+&= a (\invr a \invr {\invr a})       \\
+&= a \idr                            \by {def.~$\invr {\invr a}$}
+&= a.                                \by {def.~$\idr$}
+\endcompute
+onde botei parenteses apenas para ajudar a leitura;
+seu uso sendo opcional graças a (G1).
+\endgraf
+Para demonstrar o (G3'), eu vou usar o Lemma:
+$$
+\lforall {g \in G} {gg = g \implies g = \idr}.
+$$
+\proofpart{Demonstração do Lemma.}
+Seja $g\in G$.  Temos
+\compute
+gg = g
+&\implies (gg)\invr g = g \invr g  \by {$(\gop g)$}
+&\implies g(g\invr g) = \idr       \by {(G1); def.~$\invr g$}
+&\implies g \idr = \idr            \by {def.~$\invr g$}
+&\implies g = \idr                 \by {def.~$\idr$}
+\endcompute
+\proofpart{Demonstração da (G3').}
+Vou demonstrar que para todo $a \in G$, o $\invr a$ é um inverso
+esquerdo do $a$.  Seja $a \in G$ então; preciso mostrar que
+$\invr a a \askeq \invr \gid$.
+Verificamos que $(\invr a a)(\invr a a) = (\invr a a)$:
+\compute
+(\invr a a)(\invr a a)
+&= \invr a (a\invr a) a  \by {(G1)}
+&= \invr a (\idr) a      \by {def.~$\invr a$}
+&= (\invr a \idr) a      \by {(G1)}
+&= \invr a a.            \by {def.~$\idr$}
+\endcompute
+e logo pelo Lemma concluimos que $(\invr a a) = \idr$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: cancellation_based_group_def_proof 
+\problem.
+\label{cancellation_based_group_def_proof}%
+(1) Prove o~\ref{cancellation_based_group_def}.
+\endgraf\noindent
+(2) Podemos apagar um dos (GCL), (GCR) das hipoteses?
+
+\hint
+Como podemos usar o fato que um conjunto é finito?
+
+\endproblem
+%%}}}
 
 %%{{{ prob: Futurama 
 \problem Futurama.
@@ -41312,19 +41382,6 @@ no~\ref{normal_is_kernel}---não pule!
 
 %%{{{ Problems 
 \problems.
-
-%%{{{ prob: cancellation_based_group_def_proof 
-\problem.
-\label{cancellation_based_group_def_proof}%
-(1) Prove o~\ref{cancellation_based_group_def}.
-\endgraf\noindent
-(2) Podemos apagar um dos (GCL), (GCR) das hipoteses?
-
-\hint
-Como podemos usar o fato que um conjunto é finito?
-
-\endproblem
-%%}}}
 
 %%{{{ prob: G abelian iff something with conjugates 
 \problem.
