@@ -25340,7 +25340,7 @@ $$
 $$
 então sabemos já como começar: basta definir o
 $$
-\uncurry(\alert{\dots?}
+\uncurry(\alert{\dots?}\phantom)
 $$
 Peraí: qual seria uma opção boa para denotar esse argumento?
 
@@ -33277,13 +33277,13 @@ são satisfeitas.
 \tdefined{lei}%
 \tdefined{leis de grupo}%
 \ii{axioma!vs.~lei}%
-As (G0)--(G3) são conhecidas como as \dterm{leis de grupos},
-ou os \dterm{axiomas de grupos}.
-Vamos evitar usar a palavra \emph{axioma} com esse sentido,
-optando para a palavra \emph{lei} mesmo, pois chamamos
-``axioma'' algo que aceitamos como verdade em noso univérso
-(mais sobre isso no~\ref{Axiomatic_set_theory}), mas nesse
-caso não estamos afirmando a veracidade das (G0)--(G3).
+As (G0)--(G3) são conhecidas como \dterm{as leis de grupos},
+ou \dterm{os axiomas de grupos}.
+Tentarei evitar---mas não sempre!---usar a palavra \emph{axioma}
+com esse sentido, optando para a palavra \emph{lei} mesmo,
+pois chamamos de ``axioma'' algo que aceitamos como verdade em
+nosso univérso (mais sobre isso no~\ref{Axiomatic_set_theory}),
+mas nesse caso não estamos afirmando a veracidade das (G0)--(G3).
 Faz apenas parte do que significa ``ser grupo''.
 Se um conjunto estruturado satisfaz todas as leis,
 bem, ele ganha o direito de ser chamado um ``grupo''.
@@ -34733,18 +34733,23 @@ Veja~\ref{how_come_the_cancellation_laws_hold_in_nongroup_without_inverses}.
 %%}}}
 
 %%{{{ criterion: onesided_group_def 
-\criterion Unilateral definição de grupo.
+\criterion Definição unilateral ``one-sided'' de grupo.
 \label{onesided_group_def}%
 Seja $\ssetfont G = \sset G {\ast,e}$ um conjunto estruturado que satisfaz:
 $$
 \align
-\pforall {a,b\in G}                 &\bracket{a\ast b \in G}                    \tag{G0}  \\
-\pforall {a,b,c\in G}               &\bracket{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1}  \\
-\pforall {a \in G}                  &\bracket{a\ast e = a}                      \tag{G2R} \\
+\pforall {a,b\in G}                 &\bracket{a \ast b \in G}                    \tag{G0}  \\
+\pforall {a,b,c\in G}               &\bracket{a \ast (b \ast c) = (a \ast b) \ast c} \tag{G1}  \\
+\pforall {a \in G}                  &\bracket{a \ast e = a}                      \tag{G2R} \\
 \pforall {a\in G} \pexists {y\in G} &\bracket{a \ast y = e}                     \tag{G3R} \\
+\intertext{%
+Então $\ssetfont G$ é um grupo.
+Similarmente se adicionar as
+}
+\pforall {a \in G}                  &\bracket{e \ast a = a}                      \tag{G2L} \\
+\pforall {a\in G} \pexists {y\in G} &\bracket{y \ast a = e}                     \tag{G3L}
 \endalign
 $$
-Então $\ssetfont G$ é um grupo.
 \proof.
 \ref{onesided_group_def_proof}.
 \qed
@@ -34772,7 +34777,7 @@ Explique o porquê.
 Podemos substituir a (G3R) do~\ref{onesided_group_def} por
 $$
 \align
-\pforall {a\in G} \pexists {a'\in G}  &\bracket{a' \ast a = e} \tag{G3L} \\
+\pforall {a\in G} \pexists {a'\in G}  &\bracket{a' \ast a = e} \tag{G3L}
 \endalign
 $$
 e ainda concluir que $\ssetfont G$ é grupo?
@@ -34874,6 +34879,175 @@ Assim concluimos nossa prova.
 \endsection
 %%}}}
 
+%%{{{ Choosing_the_axioms 
+\section Escolhendo os axiomas.
+\label{Choosing_the_axioms}%
+
+\blah.
+Como escolhemos as leis~(G0)--(G3)?
+Por que essas?
+Por que não botamos a~(GA)?
+Por que botamos a~(G3)?
+Vamos discutir pouco sobre essas perguntas.
+
+%%{{{ More theorems or more models? 
+\note Mais teoremas ou mais modelos?.
+Óbvio que adicionando mais leis na definição de grupo,
+a gente poderia demonstrar mais teoremas.
+Mas o que ganhamos em teoremas, perdemos em generalidade
+da nossa teoria: menos coisas vão acabar sendo \dterm{modelos}
+dos nossos axiomas, e logo esse bocado de teoremas que
+vamos conseguir demonstrar não poderá ser aproveitado
+em muitos contextos diferentes.
+Adicionando a~(GA) nos axiomas de grupo por exemplo,
+os $\sym n$ iam parar de ser grupos, e não teriamos
+nenhum teorema ``de graça'' pra eles.
+Como eu afirmei na introdução desse capítulo,
+a escolha~(G0)--(G3) tem um equilibrio muito bom entre
+riquesa da teoria e diversidade de modelos.
+Faz sentido tirar o~(G3)?
+Claro que sim; chegamos numa estrutura com mais modelos
+(e menos teoremas), que com certeza vale a pena estudar.
+O nome dessa estrutura é \dterm{monóide}, que estudamos
+no~\refn{Algebraic_structures}.
+%%}}}
+
+%%{{{ Avoid redundancies 
+\note Evite redundâncias.
+Vamos dizer que estamos escolhendo as leis para a definição de grupo.
+Já escolhemos as~(G0)--(G3), mas queremos que em cada grupo seja
+possível cancelar pela esquerda~(GCL) e pela direita~(GCR).
+Mesmo assim, não faz sentido adiconar as~(GCL)--(GCR) como leis,
+pois como a gente descobriu no~\ref{cancellation_laws_in_group},
+ámbas são \emph{teoremas} da teoria dos~(G0)--(G3).
+Similarmente, escolhemos os axiomas~(G2) e~(G3) que garantam
+a existência \emph{duma} identidade e para cada membro \emph{dum}
+inverso, em vez de botar como leis as proposições mais fortes
+que afirmam as \emph{unicidades} deles também.
+Por quê?
+A resposta é parecida: se for possível, preferimos limitar
+nossos axiomas nas versões mais fracas possíveis para elaborar
+nossa teoria.
+Nesse caso, a gente também descobriu que mesmo com os~(G2)--(G3)
+as unicidades são garantidas na nossa teoria, agora como
+\emph{teoremas}~(\refn{uniqueness_of_identity_in_group}
+e~\refn{uniqueness_of_inverses_in_group}).
+%%}}}
+
+%%{{{ Clarity and intuitiveness
+\note Clareza e intuitividade \vs mão-de-vaca.
+No outro lado, optamos para botar as leis~(G2)--(G3),
+em vez do par mais fraco~(G2L)--(G3L),
+ou do~(G2R)--(G3R), que como tu sabes---ou como tu
+vai descobrir quando finalmente resolver
+o~\ref{onesided_group_def_proof}---qualquer
+um par poderia substituir o par~(G2)--(G3), sem
+afetar a teoria pois os~(G2)--(G3) viram teoremas
+nesse caso~(\ref{onesided_group_def}).
+Por que não escolher como axiomas dos grupos os
+(G0),(G1),(G2L),(G3L) então?
+Aqui é mais difícil justificar essa escolha, mas
+não é menos importante.
+Queremos achar um \emph{equilíbrio} entre a
+economia, fraqueza, e quantidade dos axiomas num
+lado, e a clareza e intuitividade no outro.
+Não queremos exagerar nem no lado de clareza
+sendo redundantes, nem no lado de economia,
+sendo mão-de-vaca.
+Escolhendo as~(G2L)--(G3L) como axiomas, daria
+um toque asimétrico na definição do que é um grupo.
+Pelas leis apareceria (erroneamente) que a operação
+dum grupo trata seus dois lados em maneiras diferentes,
+prejudicando ou favorecendo um em comparação com o outro.
+Botamos então como leis as~(G2)--(G3) e demonstramos
+como \emph{critérion}~(\refn{onesided_group_def}) que
+assim que os~(G0),(G1),(G2L),(G3L) são satisfeitos,
+temos um grupo (e similarmente para os~(G2R)--(G3R)).
+Também é bom ter \emph{modularidade} entre nossos
+axiomas, em tal forma que facilita tirar um, botar
+outro, e chegar numa teoria diferente mas
+interessante também.
+Continuando no mesmo exemplo da definição unilateral
+de grupos, suponha que tiramos o~(G3L), que é
+nosso axioma de L-inversos.
+Onde chegamos?
+Numa estrutura verdadeiramente L-lateral---esquisito!
+%%}}}
+
+%%{{{ proving_the_unprovability 
+\note Demonstrando a indemonstabilidade.
+\label{proving_the_unprovability}%
+Alguém poderia pensar (ra\-zo\-avel\-mente) que a inclusão
+do~(G3) nos axiomas de grupos foi desnecessária.
+A gente deveria derivá-lo como conseqüência do resto dos axiomas,
+na mesma maneira que demonstramos tantas outras proposições.
+Aceitando o desafio começamos pensar para achar uma
+demonstração do~(G3) a partir dos~(G0)--(G2).
+E o tempo passa, passa, e passa\dots
+\endgraf
+E não conseguimos demonstrar.
+\emph{Isso não quis dizer que o~(G3) é indemonstrável!}
+Talvez amanha a gente terá uma idéia nova e conseguir demonstrá-lo;
+ou talvez amanhã um rapaz mais esperto vai achar uma demonstração.
+Mas, nesse caso, não vai não.
+Pois podemos \emph{demonstrar} que o~(G3) é realmente
+\emph{indemonstrável} pelos~(G0)--(G2).
+%%}}}
+
+%%{{{ proving_the_unprovability_method 
+\exercise.
+\label{proving_the_unprovability_method}%
+Como?
+O que seria um argumento convencente sobre isso?
+E em geral, como podemos demonstrar
+a indemonstrabilidade duma proposição $\psi$
+a partir dumas proposições $\phi_1,\dots,\phi_n$?
+Depois de deixar claro tua estratégia demonstre
+que~(G3) realmente não é demonstrável pelos
+(G0)--(G2), e que~(GA) não é demonstrável pelos
+(G0)--(G3).
+
+\hint
+Basta achar um \emph{modelo} (ou seja, algo que
+satisfaz as leis) que não satisfaz a proposição
+que queremos mostrar sua indemonstrabilidade.
+Qual modelo tu escolheria para o~(G3) e qual
+para o~(GA)?
+
+\hint
+Para a~(G3) basta achar um \dterm{monóide}
+(ou seja, algo que satisfaz as~(G0)--(G2))
+que não é um grupo;
+para a~(GA) basta achar um grupo que não
+seja abeliano.
+
+\solution
+Basta achar um \emph{modelo} (ou seja, algo que
+satisfaz as leis) que não satisfaz a proposição
+que queremos mostrar sua indemonstrabilidade.
+\crproofpart{Para a~(G3)}
+tome o $S$ do~\ref{strings_with_concat_is_not_a_group}
+que ja verificámos que não satisfaz a~(G3), e que
+tu já demonstrou~(\ref{verify_all_group_laws_for_strings})
+que ele goza das outras:~(G0)--(G2).
+\crproofpart{Para a~(GA)}
+tome o $\sym 3$, que é grupo mas não abeliano
+($\phi\psi\neq\psi\phi$).
+
+\endexercise
+%%}}}
+
+\blah.
+Não se preocupe demais com essas questões; com mais experiência
+e maduridade tu vai reconhecer e apreciar os motívos dessas escolhas,
+e tu elaborarás teu próprio gosto, instinto, e talento, para escolher
+axiomas.
+Mas chega!
+Voltamos a estudar a teoria dos grupos agora.
+
+\endsection
+%%}}}
+
 %%{{{ Cayley tables 
 \section Tabelas Cayley.
 \label{Cayley_tables}%
@@ -34892,7 +35066,8 @@ Seguindo nossa definição de igualdade (extensional) entre funções,
 precisamos deixar claro para qualquer $\tup{x,y}\in G\times G$,
 seu único valor $x \ast y \in G$.
 Vamos brincar com os casos mais simples.
-Se $\card G = 0$, não tem como virar um grupo, graças ao~(G2).
+Se $\card G = 0$, não tem como virar um grupo,
+pois todo grupo tem pelo menos um membro: sua identidade.
 Se $\card G = 1$, só tem uma operação possível, pois não existe
 nenhuma opção para o valor $e \ast e$: necessariamente $e \ast e = e$.
 E essa opção realmente vira-se o $\sset G \ast$ um grupo (trivial).
@@ -37534,7 +37709,7 @@ Identifique todos os erros nessa tentativa de prova.
 %}}}
 
 %%{{{ prob: onesided_group_def_proof 
-\problem.
+\problem leis unilaterais de grupo.
 \label{onesided_group_def_proof}%
 Demonstre o~\ref{onesided_group_def}.
 Cuidado: lembre-se o~\ref{onesided_group_def_catch}.
@@ -37589,6 +37764,8 @@ $\invr a a = \idr$; e o Lemma te oferece um critério para
 decidir que algo é o $\idr$.  Use!
 
 \solution
+Vamos demonstrar em detalhe o critério unilateral direito.
+A demonstração do esquerdo é simétricamente análoga.
 \proofpart{Demonstração da (G2').}
 Preciso demonstrar que a identidade direita $\idr$
 é uma identidade esquerda.  Seja $a \in G$.
