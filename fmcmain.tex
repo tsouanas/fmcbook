@@ -33885,8 +33885,9 @@ O que acabamos de ganhar?
 
 %%{{{ A: The right to use the definite article 
 \blah Resposta.
-Ganhamos o direito de usar o artigo definido: para cada grupo~$\cal G$ falar
-\emph{da}~identidade do~$\cal G$, em vez \emph{duma}~identidade do~$\cal G$.
+Ganhamos o direito de usar o artigo definido:
+para cada grupo~$\cal G$ falar \emph{da}~identidade do~$\cal G$,
+em vez \emph{duma}~identidade do~$\cal G$.
 Observe que dado algum $a\in \cal G$ ainda não podemos falar sobre
 \emph{o}~inverso de~$a$, mas apenas sobre \emph{um}~inverso de~$a$,
 pois por enquanto a~(G3) garanta que pelo menos um inverso existe.
@@ -34129,32 +34130,99 @@ que não precisa das leis de cancelamento.
 \endexercise
 %%}}}
 
-%%{{{ ginv_is_a_function 
-\note Inverso.
-\label{ginv_is_a_function}%
+%%{{{ remark: what is your group structure? 
+\remark Qual a estrutura dos teus grupos?.
+Suponha que na nossa estrutura não temos a operação unária de ${}^{-1}$.
 Provando finalmente a unicidade dos inversos
-(\refn{uniqueness_of_inverses_in_group}) ganhamos em cada
+(\refn{uniqueness_of_inverses_in_group}) ganhamos então em cada
 grupo $G$ uma \emph{função} (unária) de inverso
 $$
 \ginvt : G \to G.
 $$
-Sua \emph{totalidade} era já garantida pela~(G3);
+Sua \emph{totalidade} já era garantida pela~(G3), que nesse caso é a:
+$$
+\alignat2
+\pforall {a\in G} \pexists {y\in G} &\bracket{y\ast a = e = a \ast y}          &\tag{G3}\\
+\intertext{%
 e agora acabamos de ganhar sua \emph{determinabilidade} com
 o~\ref{uniqueness_of_inverses_in_group}.
 Ou seja: \emph{função!}
 Podemos finalmente definir uma notação para denotar o inverso
 de qualquer $a\in G$.
-Bora!
+Similarmente, se na nossa estrutura não temos a constante $e$,
+então provando a unicidade da identidade ganhamos o direito de
+definir uma notação para \emph{a} identidade dum grupo $G$.
+Cuidado, pois agora a (G2) tá apenas afirmando a existência
+\emph{duma} identidade:
+}
+\pexists {e\in G} \pforall {a \in G}&\bracket{e\ast a = a = a\ast e}           &\tag{G2}
+\endalignat
+$$
+mas graças ao \ref{uniqueness_of_identity_in_group} sabemos
+que é única então podemos definir uma notação pra ela.
+Vamos fazer essas duas coisas agora:
 %%}}}
 
-%%{{{ df: ginv 
-\definition.
+%%{{{ df: gid 
+\definition identidade para estruturas incompletas.
+\label{gid}%
+\sdefined {\gidof {\sholed G}} {a identidade do grupo $G$}%
+\sdefined {\gid} {a identidade dum grupo implicito pelo contexto}%
+Seja $\sset G \ast$ grupo.
+Denotamos a única identidade de $G$ por
+$\gidof G$, ou simplesmente $\gid$ se o grupo $G$ já é
+implícito pelo contexto.
+%%}}}
+
+%%{{{ df: ginv ; gid 
+\definition inversos para estruturas incompletas.
 \label{ginv}%
-\sdefined {\ginv {\sholed a}} {o inverso de $a$ num grupo}
-Seja $\sset G \ast$ grupo.  Para qualquer $a\in G$, definimos o
+\sdefined {\ginv {\sholed a}} {o inverso de $a$ num grupo}%
+Seja $\sset G \ast$ ou $\sset G {\ast,e}$ grupo.
+Para qualquer $a\in G$, definimos o
 $$
 \ginv a \defeq \text{o único inverso de $a$ no $G$}.
 $$
+%%}}}
+
+%%{{{ beware: choice_of_group_structure_justifications 
+\beware a escolha de estrutura: escrevendo justificativas.
+\label{choice_of_group_structure_justifications}
+Um matemático tá trabalhando com grupos $\sset G \ast$,
+e ta querendo justificar que
+$$
+a \ast \gidof G = a.
+$$
+Qual seria a justificativa que ele vai escrever?
+Ele não pode dizer <<pela (G2)>>, pois a (G2)
+ta afirmando apenas a existência duma identidade;
+ela não ta afirmando nada sobre esse $\gidof G$ ali.
+A justificativa dele seria:
+\standout
+<<pela definição do $\gidof G$>> ou <<pela escolha do $\gidof G$>>.
+\endstandout
+No outro lado, um matemático que trabalha com grupos
+cuja estrutura já tem a constante $e$ nela, ou seja,
+com grupos $\sset G {\ast, e}$ ou $\sset G {\ast, {}^{-1}, e}$,
+justificaria o mesmo passo assim:
+\standout
+<<pela (G2R)>>.
+\endstandout
+Similarmente sobre a justificativa de uma igualdade como a
+$$
+\ginv a \ast a = \gidof G.
+$$
+Um matemático que trabalha com $\sset G {\ast, {}^{-1}, e}$
+justificaria com um simples
+\standout
+<<pela (G3L)>>.
+\endstandout
+Mas para os matemáticos que não tem a operação de inverso
+na sua estrutura, a justificativa seria
+\standout
+<<pela definição do $\ginv a$>>.
+\endstandout
+Nesse texto vou usar ámbas as abordagens.
 %%}}}
 
 \blah.
