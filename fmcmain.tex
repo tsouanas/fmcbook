@@ -34746,7 +34746,7 @@ Então $\ssetfont G$ é um grupo.
 Similarmente se adicionar as
 }
 \pforall {a \in G}                  &\bracket{e \ast a = a}                      \tag{G2L} \\
-\pforall {a\in G} \pexists {y\in G} &\bracket{y \ast a = e}                     \tag{G3L}
+\pforall {a\in G} \pexists {y\in G} &\bracket{y \ast a = e}                      \tag{G3L}
 \endalign
 $$
 \proof.
@@ -34760,8 +34760,8 @@ $$
 Verifique que mesmo se conseguir provar as
 $$
 \align
-\pforall {a \in G}                    &\bracket{e\ast a = a}                      \tag{G2L} \\
-\pforall {a\in G} \pexists {a'\in G}  &\bracket{a' \ast a = e}                    \tag{G3L} 
+\pforall {a \in G}                    &\bracket{e \ast a = a}   \tag{G2L} \\
+\pforall {a \in G} \pexists {y \in G} &\bracket{y \ast a = e}   \tag{G3L}
 \endalign
 $$
 isso não nos permite deduzir trivialmente as (G2) e (G3)!
@@ -34776,7 +34776,7 @@ Explique o porquê.
 Podemos substituir a (G3R) do~\ref{onesided_group_def} por
 $$
 \align
-\pforall {a\in G} \pexists {a'\in G}  &\bracket{a' \ast a = e} \tag{G3L}
+\pforall {a \in G} \pexists {y \in G} &\bracket{y \ast a = e}   \tag{G3L}
 \endalign
 $$
 e ainda concluir que $\ssetfont G$ é grupo?
@@ -35026,36 +35026,59 @@ E em geral, como podemos demonstrar
 a indemonstrabilidade duma proposição $\psi$
 a partir dumas proposições $\phi_1,\dots,\phi_n$?
 Depois de deixar claro tua estratégia demonstre
-que~(G3) realmente não é demonstrável pelos
-(G0)--(G2), e que~(GA) não é demonstrável pelos
-(G0)--(G3).
+que realmente:
+\beginul
+\li (GA) não é demonstrável pelos (G0)--(G3);
+\li (G3) não é demonstrável pelos (G0)--(G2);
+\li (G2) não é demonstrável pelos (G0)--(G1);
+\li (G1) não é demonstrável pelo  (G0).
+\endul
 
 \hint
 Basta achar um \emph{modelo} (ou seja, algo que
 satisfaz as leis) que não satisfaz a proposição
 que queremos mostrar sua indemonstrabilidade.
-Qual modelo tu escolheria para o~(G3) e qual
-para o~(GA)?
+Qual modelo tu escolheria para cada uma delas?
 
 \hint
-Para a~(G3) basta achar um \dterm{monóide}
+Para a~(GA) basta achar um grupo que não
+seja abeliano;
+para a~(G3) basta achar um \dterm{monóide}
 (ou seja, algo que satisfaz as~(G0)--(G2))
 que não é um grupo;
-para a~(GA) basta achar um grupo que não
-seja abeliano.
+para a~(G2) basta achar um \dterm{semigrupo}
+(ou seja, algo que satisfaz as~(G0)--(G1))
+que não é um monóide;
+para a~(G1) basta achar um \dterm{magma}
+(ou seja, algo que satisfaz a~(G0))
+que não é um semigrupo.
 
 \solution
 Basta achar um \emph{modelo} (ou seja, algo que
 satisfaz as leis) que não satisfaz a proposição
 que queremos mostrar sua indemonstrabilidade.
+\crproofpart{Para a~(GA)}
+tome o $\sym 3$, que é grupo mas não abeliano
+($\phi\psi\neq\psi\phi$).
 \crproofpart{Para a~(G3)}
 tome o $S$ do~\ref{strings_with_concat_is_not_a_group}
 que ja verificámos que não satisfaz a~(G3), e que
 tu já demonstrou~(\ref{verify_all_group_laws_for_strings})
 que ele goza das outras:~(G0)--(G2).
-\crproofpart{Para a~(GA)}
-tome o $\sym 3$, que é grupo mas não abeliano
-($\phi\psi\neq\psi\phi$).
+\crproofpart{Para a~(G2)}
+considere um conjunto $A = \set{a,b}$ com operação $\ast$
+a $\outl$:
+$$
+x \ast y = x.
+$$
+Facilmente o $\sset A \ast$ satisfaz as (G0)--(G1) mas
+não possui identidade.
+\crproofpart{Para a~(G1)}
+tome o $\nats$ com a exponenciação: o conjunto obviamente
+é fechado, mas a operação não é associativa:
+$$
+2^(1^2) \neq (2^1)^2.
+$$
 
 \endexercise
 %%}}}
