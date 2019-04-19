@@ -33816,6 +33816,117 @@ Ele é abeliano?
 %%}}}
 
 \blah.
+Lembre que já usamos $\times$ entre \emph{conjuntos} $A,B$ para formar seu
+produto cartesiano $A \times B$; e também entre \emph{funções} $f : A \to B$,
+$g : C \to D$ para formar seu produto
+$f \times g : (A\times C) \to (B \times D)$.
+Vamos agora sobrecarregar ainda mais esse $\times$:
+
+%%{{{ df: direct_product_of_groups 
+\definition Produtos diretos.
+\label{direct_product_of_groups}%
+Sejam $\cal G_1 = \sset {G_1} {\ast_1}$ e $\cal G_2 = \sset {G_2} {\ast_2}$ grupos.
+Definimos o grupo
+$$
+\cal G_1 \times \cal G_2 = \sset {G_1 \times G_2} {\ast},
+$$
+onde $\ast$ é a operação definida pela
+$$
+\tup{x_1, x_2} \ast \tup{y_1, y_2} = \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2}.
+$$
+%%}}}
+
+%%{{{ x: direct_product_of_groups_is_a_group 
+\exercise.
+\label{direct_product_of_groups_is_a_group}%
+Prove que realmente é um grupo.
+
+\solution
+{%
+\def\xx{\tup{x_1,x_2}}%
+\def\yy{\tup{y_1,y_2}}%
+\def\zz{\tup{z_1,z_2}}%
+Precisamos verificar as leis (G0)--(G3).
+\crproofpart{(G0).}
+Tome $\xx, \yy \in G_1\times G_2$.
+Calculamos
+\compute
+\xx \ast \yy
+&= \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2} \by {def.~$\ast$}
+&\in G_1 \times G_2.                    \by {$G_1$ e $G_2$ fechados pelas suas operações}
+\endcompute
+e logo $G_1\times G_2$ é $\ast$-fechado.
+\crproofpart{(G1).}
+Tome $\xx, \yy, \zz \in G_1\times G_2$.
+Calculamos:
+$$
+\align
+\paren{\xx \ast \yy} \ast \zz
+&= \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2} \ast \zz \\
+&= \tup{\paren{x_1 \ast_1 y_1} \ast_1 z_1, \paren{x_2 \ast_2 y_2} \ast_2 z_2} \\
+&= \tup{x_1 \ast_1 \paren{y_1 \ast_1 z_1}, x_2 \ast_2 \paren{y_2 \ast_2 z_2}} \\
+&= \xx \ast \paren{\tup{y_1 \ast_1 z_1, y_2 \ast_2 z_2}} \\
+&= \xx \ast \paren{\yy \ast \zz}.
+\endalign
+$$
+\proofpart{(G2).}
+Afirmação: o $\tup{e_1,e_2}\in G_1\times G_2$ é a $\ast$-identidade.
+Prova da afirmação: tome $\xx \in G_1\times G_2$ e calcule:
+$$
+\tup{e_1, e_2} \ast \xx
+= \tup{e_1 \ast_1 x_1, e_2 \ast_2 x_2}
+= \xx
+= \tup{x_1 \ast_1 e_1, x_2 \ast_2 e_2}
+= \xx \ast \tup{e_1, e_2}.
+$$
+\proofpart{(G3).}
+Seja $\xx \in G_1 \times G_2$.
+Afirmação: o $\tup{\ginv{x_1}, \ginv{x_2}}$ é o $\ast$-inverso dele.
+Realmente temos:
+$$
+\align
+\xx \ast \tup{\ginv{x_1}, \ginv{x_2}}
+&= \tup{x_1 \ast_1 \ginv{x_1}, x_2 \ast_2 \ginv{x_2}}
+ = \tup{e_1, e_2} \\
+\tup{\ginv{x_1}, \ginv{x_2}} \ast \xx
+&= \tup{\ginv{x_1} \ast_1 x_1, \ginv{x_2} \ast_2 x_2}
+ = \tup{e_1, e_2}
+\endalign
+$$
+Assim concluimos nossa prova.
+}
+
+\endexercise
+%%}}}
+
+%%{{{ df: gop 
+\definition grupo oposto.
+\label{gop}%
+{%
+\def\G{{\ssetfont G}}%
+Seja $\G = \sset G {\ast, \ginv{}, \gid}$ grupo.
+Definimos no $\carrier\G$ a operação binária $\ast'$ pela:
+$$
+x \ast' y = y \ast x.
+$$
+Chamamos o $\sset G {\ast'}$ de \dterm{grupo oposto do $\G$},
+e o denotamos por $\gop\G$.
+}
+%%}}}
+
+%%{{{ x: gop_is_a_group 
+\exercise.
+\label{gop_is_a_group}%
+{%
+\def\G{{\ssetfont G}}%
+Justifique o nome escolhido na~\ref{gop}:
+demonstre que o $\gop\G$ é um grupo.
+}
+
+\endexercise
+%%}}}
+
+\blah.
 Chegam os exemplos por enquanto.
 Vamos começar ver a \emph{teoria} de grupos, investigando propriedades que
 todos os grupos necessariamente têm.
@@ -34813,90 +34924,6 @@ como L-identidade:
 $$
 \idr \ast a = \idr \neq a.
 $$
-
-\endexercise
-%%}}}
-
-\blah.
-Lembre que já usamos $\times$ entre \emph{conjuntos} $A,B$ para formar seu
-produto cartesiano $A \times B$; e também entre \emph{funções} $f : A \to B$,
-$g : C \to D$ para formar seu produto
-$f \times g : (A\times C) \to (B \times D)$.
-Vamos agora sobrecarregar ainda mais esse $\times$:
-
-%%{{{ df: direct_product_of_groups 
-\definition Produtos diretos.
-\label{direct_product_of_groups}%
-Sejam $\cal G_1 = \sset {G_1} {\ast_1}$ e $\cal G_2 = \sset {G_2} {\ast_2}$ grupos.
-Definimos o grupo
-$$
-\cal G_1 \times \cal G_2 = \sset {G_1 \times G_2} {\ast},
-$$
-onde $\ast$ é a operação definida pela
-$$
-\tup{x_1, x_2} \ast \tup{y_1, y_2} = \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2}.
-$$
-%%}}}
-
-%%{{{ x: direct_product_of_groups_is_a_group 
-\exercise.
-\label{direct_product_of_groups_is_a_group}%
-Prove que realmente é um grupo.
-
-\solution
-{%
-\def\xx{\tup{x_1,x_2}}%
-\def\yy{\tup{y_1,y_2}}%
-\def\zz{\tup{z_1,z_2}}%
-Precisamos verificar as leis (G0)--(G3).
-\crproofpart{(G0).}
-Tome $\xx, \yy \in G_1\times G_2$.
-Calculamos
-\compute
-\xx \ast \yy
-&= \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2} \by {def.~$\ast$}
-&\in G_1 \times G_2.                    \by {$G_1$ e $G_2$ fechados pelas suas operações}
-\endcompute
-e logo $G_1\times G_2$ é $\ast$-fechado.
-\crproofpart{(G1).}
-Tome $\xx, \yy, \zz \in G_1\times G_2$.
-Calculamos:
-$$
-\align
-\paren{\xx \ast \yy} \ast \zz
-&= \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2} \ast \zz \\
-&= \tup{\paren{x_1 \ast_1 y_1} \ast_1 z_1, \paren{x_2 \ast_2 y_2} \ast_2 z_2} \\
-&= \tup{x_1 \ast_1 \paren{y_1 \ast_1 z_1}, x_2 \ast_2 \paren{y_2 \ast_2 z_2}} \\
-&= \xx \ast \paren{\tup{y_1 \ast_1 z_1, y_2 \ast_2 z_2}} \\
-&= \xx \ast \paren{\yy \ast \zz}.
-\endalign
-$$
-\proofpart{(G2).}
-Afirmação: o $\tup{e_1,e_2}\in G_1\times G_2$ é a $\ast$-identidade.
-Prova da afirmação: tome $\xx \in G_1\times G_2$ e calcule:
-$$
-\tup{e_1, e_2} \ast \xx
-= \tup{e_1 \ast_1 x_1, e_2 \ast_2 x_2}
-= \xx
-= \tup{x_1 \ast_1 e_1, x_2 \ast_2 e_2}
-= \xx \ast \tup{e_1, e_2}.
-$$
-\proofpart{(G3).}
-Seja $\xx \in G_1 \times G_2$.
-Afirmação: o $\tup{\ginv{x_1}, \ginv{x_2}}$ é o $\ast$-inverso dele.
-Realmente temos:
-$$
-\align
-\xx \ast \tup{\ginv{x_1}, \ginv{x_2}}
-&= \tup{x_1 \ast_1 \ginv{x_1}, x_2 \ast_2 \ginv{x_2}}
- = \tup{e_1, e_2} \\
-\tup{\ginv{x_1}, \ginv{x_2}} \ast \xx
-&= \tup{\ginv{x_1} \ast_1 x_1, \ginv{x_2} \ast_2 x_2}
- = \tup{e_1, e_2}
-\endalign
-$$
-Assim concluimos nossa prova.
-}
 
 \endexercise
 %%}}}
@@ -37870,10 +37897,10 @@ $$
 \hint
 Para demonstrar a (G2') tome um $a\in G$ e comece com:
 \compute
-\idr \gop a
-&= (\idr \gop a) \gop \idr \\
-&= \idr \gop (a \gop \idr) \\
-&= \idr \gop (a \gop (\; \alert? \gop \invr{\alert?}\;)) \by {qual membro de $G$ serve aqui?}
+\idr \go a
+&= (\idr \go a) \go \idr \\
+&= \idr \go (a \go \idr) \\
+&= \idr \go (a \go (\; \alert? \go \invr{\alert?}\;)) \by {qual membro de $G$ serve aqui?}
 &\eqvdots \\
 &= a
 \endcompute
@@ -37929,7 +37956,7 @@ $$
 Seja $g\in G$.  Temos
 \compute
 gg = g
-&\implies (gg)\invr g = g \invr g  \by {$(\gop g)$}
+&\implies (gg)\invr g = g \invr g  \by {$(\go g)$}
 &\implies g(g\invr g) = \idr       \by {(G1); def.~$\invr g$}
 &\implies g \idr = \idr            \by {def.~$\invr g$}
 &\implies g = \idr                 \by {def.~$\idr$}
@@ -41309,7 +41336,7 @@ dos $G,H$.
 Primeiramente precisamos demonstrar que $G \cross H$ realmente é um objeto
 da $\GROUP$, ou seja, um grupo;
 tu demonstraste isso no~\ref{direct_product_of_groups_is_a_group}.
-Agora falta verificar que dados $\tupp{f_1, F, f_2}$:
+Agora falta verificar que dados $\tupp{f_1, F, f_2}$,
 $$
 \cdopt{sep=1cm}
                                  \| \|                                  \| G \\
@@ -41322,13 +41349,22 @@ F
                                  \| \|                                  \| H
 \endcd
 $$
-Defina o $!$ pela
+Sim, isso é uma frase completa, com seu verbo e tudo mais.%
+\footnote{%
+<<\dots dados $\tupp{f_1,F,f_2}$, existe única seta $F \toby! G \cross H$
+que faz o diagrama seguinte comutar.>>
+Mais uma vez que percebemos a veracidade do ditado
+$$
+\text{$1$ diagrama comutativo} = \text{$1,000$ palavras}.
+$$
+}
+Defina a $!$ pela
 $$
 ! = \fcross {f_1} {f_2}.
 $$
 Isso realmente é o único que faz o diagrama comutar---tu
 já verificaste isso no~\ref{product_is_a_product},
-certo?---então só basta demonstrar uma coisa.
+certo?---então só basta demonstrar uma coisa pra terminar.
 \endexample
 %%}}}
 
@@ -41349,6 +41385,7 @@ Demonstre!
 \label{initial_and_terminal_of_Group}%
 A categoria $\GROUP$ possui objetos iniciais?  Terminais?  Quais?
 (\ref{initial_terminal_objects}.)
+E, esqueci: a $\SET$ tem?
 
 \endexercise
 %%}}}
