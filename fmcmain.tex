@@ -33660,6 +33660,7 @@ O $\sset S +$ onde $+$ é a \emph{concatenação} de strings \emph{não} é um g
 
 %%{{{ x: verify_all_group_laws_for_strings 
 \exercise.
+\label{verify_all_group_laws_for_strings}%
 Para cada uma das leis~(G0)--(GA), decida se é
 satisfeita pelo $\sset S +$ do~\ref{strings_with_concat_is_not_a_group}.
 Se é, prove; se não é, refute!
@@ -34970,14 +34971,13 @@ afetar a teoria pois os~(G2)--(G3) viram teoremas
 nesse caso~(\ref{onesided_group_def}).
 Por que não escolher como axiomas dos grupos os
 (G0),(G1),(G2L),(G3L) então?
-Aqui é mais difícil justificar essa escolha, mas
-não é menos importante.
+Aqui é mais difícil justificar essa escolha.
 Queremos achar um \emph{equilíbrio} entre a
 economia, fraqueza, e quantidade dos axiomas num
-lado, e a clareza e intuitividade no outro.
+lado; e a clareza e intuitividade no outro.
 Não queremos exagerar nem no lado de clareza
-sendo redundantes, nem no lado de economia,
-sendo mão-de-vaca.
+(sendo redundantes), nem no lado de economia
+(sendo mão-de-vaca).
 Escolhendo as~(G2L)--(G3L) como axiomas, daria
 um toque asimétrico na definição do que é um grupo.
 Pelas leis apareceria (erroneamente) que a operação
@@ -34987,6 +34987,87 @@ Botamos então como leis as~(G2)--(G3) e demonstramos
 como \emph{critérion}~(\refn{onesided_group_def}) que
 assim que os~(G0),(G1),(G2L),(G3L) são satisfeitos,
 temos um grupo (e similarmente para os~(G2R)--(G3R)).
+Nossas leis escolhidas ((G0)--(G3)) estão falando
+claramente para nosso coração.  Cada um é simples;
+descreve uma propriedade simples e significante.
+Imagine se alguém definir que o
+$\sset G {\ast, \ginv{}, \gid}$ é um \dterm{grupo}
+sse
+satisfaz uma lei única e bizarra, como a
+$$
+\lforall
+{a,b,c \in G}
+{\paren{\ginvp{c \ast \ginvp{a \ast b}} \ast (c \ast \ginv b)} \ast \ginvp{\ginv b \ast b} = a}.
+\tag{GKUN}
+$$
+Dá pra entender no teu coração qualquer coisa sobre
+o $G$ e sua alma?
+Dá pra entender, olhando par essa lei única,
+se sua operação tem identidade?  Se ela é associativa?
+Pelo incrível que aparece, eu nem tô brincando sobre
+a lei (GKUN).  Realmente, \Kunen{}Kunen construiu o
+(GKUN) e demonstrou que a teoria do (GKUN) sozinho
+e a mesma da teoria dos (G0)+(G1)+(G2)+(G3)
+(veja~\cite{kunensinglegroup})!
+Ou seja,
+$$
+\rightbrace{
+\gathered
+\text{$\sset G {\ast, \ginv{}, \gid}$ satisfaz a} \\
+\text{(GKUN)}
+\endgathered
+}
+\wowiff
+\leftbrace{
+\gathered
+\text{$\sset G {\ast, \ginv{}, \gid}$ satisfaz as} \\
+\text{(G0),(G1),(G2),(G3)}.
+\endgathered
+}
+$$
+%%}}}
+
+%%{{{ x: group_implies_kunen 
+\exercise.
+\label{group_implies_kunen}%
+Demonstre que se $\sset G {\ast, \ginv {}, \gid}$ é um grupo,
+então ele satisfaz a (GKUN).
+
+\hint
+Sejam $a,b,c \in G$.
+Calcule:
+\compute
+\paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \ginvp{\ginv b b}
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b \ginvp{\ginv b}) \obvious
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b b) \\
+&\eqvdots
+&= a
+\endcompute
+
+\solution
+Sejam $a,b,c \in G$.
+Calculamos:
+\compute
+\paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \ginvp{\ginv b b}
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b \ginvp{\ginv b}) \obvious
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b b) \\
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \gid \\
+&= \ginvp{c \ginvp{a b}} (c \ginv b) \\
+&= \paren{\ginvp{\ginvp{a b}} \ginv c} (c \ginv b) \\
+&= \paren{(a b) \ginv c} (c \ginv b) \\
+&= (a b) (\ginv c c) \ginv b \\
+&= (a b) e \ginv b \\
+&= (a b) \ginv b \\
+&= a (b \ginv b) \\
+&= a e \\
+&= a.
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ Modularity 
+\note Modularidade.
 Também é bom ter \emph{modularidade} entre nossos
 axiomas, em tal forma que facilita tirar um, botar
 outro, e chegar numa teoria diferente mas
