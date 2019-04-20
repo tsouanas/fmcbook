@@ -21571,11 +21571,11 @@ O leitor já está acostumado com os operadores nos exemplos seguintes:
 \label{higher_order_example_composition}%
 Sejam conjuntos $A,B,C$.
 O operador da composição $\of$
-(que decoramos aqui com $_{A,B,C}$ para especificar
+(cuja notação decoramos aqui para especificar
 o domínio e codomínio dele e dos seus argumentos)
 é o seguinte:
 $$
-\dhole\of_{A,B,C}\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
+\dhole\oflab ABC\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
 $$
 Observe que ele é um operador de ordem superior, pois seus (dois) argumentos
 são funcões, e também pois sua saida também é uma função.
@@ -26903,14 +26903,64 @@ Uma \dterm{categoria} $\cat C$ é composta por duas colecções de coisas:
 \li $\Arr {\cat C}$: as \dterm{setas} da $\cat C$, que denotamos por $f,g,h,\dots$;
 \endul
 tais que:
-para toda seta $f$ do $\Arr {\cat C}$, são determinados dois objetos:
-o \dterm{source} da $f$ e o \dterm{target} da $f$, denotados por
-$\src f$ e $\tgt f$ respectivamente.
-Escrevemos $f : A \to B$ para afirmar que $f$ é uma seta,
-e que $\src f = A$ e $\tgt f = B$.
+\beginol
+\li Para toda seta $f$ do $\Arr {\cat C}$, são determinados dois objetos:
+    o \dterm{source} da $f$ e o \dterm{target} da $f$, denotados por
+    $\src f$ e $\tgt f$ respectivamente.
+    Escrevemos $f : A \to B$ para afirmar que $f$ é uma seta,
+    e que $\src f = A$ e $\tgt f = B$.
+    Denotamos por $\Hom(A,B)$ a colecção de todas as setas de $A$ para $B$.
+\li Para cada objeto $A$ da $\cat C$ é determinada uma seta $\oneof A : A \to A$
+    chamada \dterm{a identidade do $A$}.
+\li Dados objetos $A,B,C$ e setas $A \toby f B \toby g C$ é determinada uma seta
+    $g \of f : A \to C$ chamada \dterm{a composição da $g,f$}
+    (ou \dterm{``$g$ de $f$''}\/; ou \dterm{``$g$ seguindo $f$''}\/)
+    que freqüentemente denotamos por $gf$ ou $f \dcom g$.
+    Ou seja, dados quaisquer objetos $A,B,C$ temos um operador de composição
+    $$
+    \oflab ABC : \Hom(B,C) \times \Hom(A,B) \to \Hom(A,C).
+    $$
+\endol
+Tudo isso é o que temos numa categoria.
+Mas apenas \emph{ter} tudo isso não é suficiente.
+Essas coisas todas devem satisfazer as \dterm{leis de categoria:}
+\beginul
+\li
+Para todas as setas $A \toby f B \toby g C \toby h D$ temos:
+$$
+(hg)f = h(gf). \tag{C-Ass}
+$$
+\li
+Para toda seta $A \toby f B$ temos:
+$$
+f \oneof A = f = \oneof B f. \tag{C-Id}
+$$
+\endil
 %%}}}
 
-\TODO Terminar a definição.
+%%{{{ remark: operations from the definition of a category 
+\remark.
+Observe que a~\ref{category_first_def} está nos dando operações:
+$$
+\cd
+\Arr{\cat C}
+\ar[r, shift left, "\src"]
+\ar[r, shift right, "\tgt"'] \| \Obj{\cat C}.
+\endcd
+$$
+E também
+$$
+\cd
+\Obj{\cat C} \ar[r, "\id"] \| \Arr{\cat C} \\
+A   \ar[r, maps to, "\id"] \| \oneof A
+\endcd
+\qquad
+\cd
+\Hom(B,C) \cross \Hom(A,B) \ar[r, "\of"]          \| \Hom(A,C) \\
+\tup{g,f}                  \ar[r, maps to, "\of"] \| gf
+\endcd
+$$
+%%}}}
 
 %%{{{ eg: SET 
 \example conjuntos.
@@ -27005,22 +27055,52 @@ Nesse caso chamamos os objetos $A,B$ isómorfos ou isomórficos
 e as vezes escrevemos $f : A \isoto B$.
 %%}}}
 
-%%{{{ df: initial_terminal_objects 
+%%{{{ df: initial_terminal_null_objects 
 \definition iniciais, terminais.
-\label{initial_terminal_objects}%
+\label{initial_terminal_null_objects}%
 Numa categoria $\cat C$, um objeto $S$ é \dterm{inicial} sse
 para todo objeto $X$, existe única seta $S \toby ! X$.
 Similarmente, um objeto $T$ é \dterm{terminal} sse
 para todo objeto $X$, existe única seta $X \toby ! T$.
 Sinônimos de terminal: \dterm{final}, \dterm{terminador};
 sinônimos de inicial: \dterm{coterminal}, \dterm{coterminador}.
+Um objeto inicial e terminal é chamado \dterm{nulo}.
 %%}}}
 
-%%{{{ remark: some use terminal for either term 
-\remark.
-As vezes usamos o termo ``terminal'' para significar
-tanto ``inicial'' quanto ``final''.
-As idéia é que  o contexto deixa claro qual dos dois é.
+%%{{{ x: null_unique_up_to_iso 
+\exercise.
+\label{null_unique_up_to_iso}%
+Todos os objetos nulos duma categoria $\cat C$
+são isómorfos.
+Em outras palavras, se $\cat C$ tem objeto nulo,
+ele é \emph{único a menos de isomorfismos}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: zero_arrow 
+\exercise seta zero.
+\label{zero_arrow}%
+Seja $Z$ um objeto nulo duma categoria $\cat C$.
+Dados quaisquer objetos $A,B$ existe uma única seta
+que ``passa pelo $Z$'':
+$$
+A \toby! Z \toby! B
+$$
+(a composição das setas acima)
+onde entendemos que os $!$ nas setas indicam que
+essa seta é \emph{a única seta} desse objeto para
+aquele objeto.
+
+\endexercise
+%%}}}
+
+%%{{{ beware: some use terminal for either term 
+\beware.
+Na literatura as vezes aparece o termo ``terminal'' para
+significar tanto ``inicial'' quanto ``final''.
+Se o contexto deixa claro qual dos dois é, procure
+a definição.
 %%}}}
 
 %%{{{ eg: initial_and_terminal_of_SET 
