@@ -35242,9 +35242,9 @@ e a mesma da teoria dos (G1)+(G2)+(G3)
 (veja~\cite{kunensinglegroup})!
 Ou seja:
 $$
-\text{$\sset G {\ast, \ginv{}, \gid}$ satisfaz a (GKUN)}
+\text{$\ssetfont G$ satisfaz a (GKUN)}
 \wowiff
-\text{$\sset G {\ast, \ginv{}, \gid}$ é grupo}.
+\text{$\ssetfont G$ é grupo}.
 $$
 Considerei aqui a (G0) como automaticamente garantida
 (e logo redundante) pelo fato de ter uma operação (total)
@@ -36183,7 +36183,7 @@ $N\neq\emptyset$ e $\gord a < \infty$.
 \lemma.
 \label{a_has_exactly_gord_a_powers}%
 Sejam $G$ grupo e $a\in G$, e suponha $\gord a = n\in\nats$.
-Existem exatamente $n$ potências diferentes de $a$.
+Existem exatamente $n$ distintas potências de $a$.
 \sketch.
 As potências de $a$ são as:
 $$
@@ -36203,8 +36203,7 @@ e usando a definição de $\gord a$ provamos:
 \proofpart{Existência:} os $a^0,\dotsc,a^{n-1}$ são distintos dois-a-dois.
 \endgraf\noindent
 Ou seja: para todo $i,j\in \set{0,\dotsc,n-1}$ com $i\neq j$, temos $a^i \neq a^j$.
-\endgraf
-\proofpart{Unicidade:} para todo $M\in\ints$ o $a^M$ é um dos $a^0,\dotsc,a^{n-1}$.
+\crtabproofpart{Unicidade:} para todo $M\in\ints$ o $a^M$ é um dos $a^0,\dotsc,a^{n-1}$.
 \endgraf\noindent
 Sabemos diretamente pela sua definição que $a^0 = e$, e que $a^n = e$, pois $\gord a = n$.
 Com pouca imaginação chegamos na idéia que a cadeia de membros
@@ -36246,8 +36245,9 @@ e &= a^{j-i}
 \endalign
 $$
 pelo~\ref{cheaper_gid}.
-Achamos então uma potência de $a$ igual à identidade $e$: $a^{j-i} = e$.
-Como $0 < j-i < n$, isso contradiza a definição de $n$ como a ordem de $a$:
+Achamos então uma potência de $a$ igual à identidade $e$:
+$a^{j-i} = e$.  Como $0 < j-i < n$, isso contradiza a definição
+de $n$ como a ordem de $a$:
 $n = \gord a$.
 Logo $a^i \neq a^j$, que foi o que queremos provar.
 \endgraf\noindent
@@ -36273,6 +36273,41 @@ a^M
 $$
 e como $0\leq r < n$, provamos o que queriamos provar.
 \qed
+%%}}}
+
+%%{{{ x: a_has_exactly_gord_a_powers_without_reductio 
+\exercise.
+\label{a_has_exactly_gord_a_powers_without_reductio}%
+Leia a demonstração do~\ref{a_has_exactly_gord_a_powers}
+e escreva uma que não usa \emph{reductio ad absurdum}.
+
+\solution
+Sejam $i,j \in \set{0,\dotsc,n-1}$ tais que $a^i = a^j$.
+Preciso mostrar que $i=j$.
+Sem perda de generalidade suponha que $i \leq j$, ou seja:
+$$
+0 \leq i \leq j < n.
+$$
+Agora temos
+$$
+\align
+\munderbrace{aa\dotsb a} i &= \munderbrace{aa\dotsb aaa\dotsb a} j
+\intertext{E como $i \leq j$, quebramos o lado direito assim:}
+\munderbrace{aa\dotsb a} i &= \munderbrace{\moverbrace{aa\dotsb a} i \moverbrace{aa\dotsb a} {j-i}} j
+\intertext{Ou seja,}
+a^i &= a^i a^{j-i}
+\intertext{e logo}
+e &= a^{j-i}
+\endalign
+$$
+pelo~\ref{cheaper_gid}.
+Achamos então uma potência de $a$ igual à identidade $e$:
+$a^{j-i} = e$.
+Logo $j-i \geq n$ ou $j-i = 0$, pela definição da $\gord a$.
+A primeira alternativa é impossível pela escolha dos $i,j$,
+e logo concluimos que $j-i=0$, ou seja, $i=j$.
+
+\endexercise
 %%}}}
 
 \question.
@@ -36434,7 +36469,7 @@ Como $H$ é um grupo, necessariamente $e\in H$.
 \exercise.
 \label{some_subgroups_of_additive_ints}%
 Prove que para todo $m$, $m\ints \subgroup \sset \ints +$,
-onde $m\ints \defeq \setst {km} {k \in ints}$.
+onde $m\ints \defeq \setst {km} {k \in \ints}$.
 
 \endexercise
 %%}}}
