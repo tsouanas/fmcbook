@@ -33411,8 +33411,8 @@ tentamos esclarecer pouco essa definição:
 \pseudodefinition Grupo.
 \label{group_def_2_classic}%
 \tdefined{grupo}%
-Um conjunto $G$ com uma operação binária $\ast$ no $G$ é um \dterm{grupo} sse
-as leis seguintes
+Um conjunto $G$ com uma operação binária $\ast$ no $G$ é um \dterm{grupo}
+sse as leis seguintes
 $$
 \gather
 a,b \in G \implies a\ast b \in G                                             \tag{G0} \\
@@ -33499,8 +33499,9 @@ chamamos o~$y$ da~(G3) o \dterm{inverso} de~$a$.
 \mistake
 %%}}}
 
-%%{{{ x: check_group_def_classic_and_group_def_struct_1 
+%%{{{ x: check_group_def_classic_and_group_def_2 
 \exercise.
+\label{check_group_def_classic_and_group_def_2}%
 Tá tudo certo com as definições~\refn{group_def_2_classic}
 e~\refn{group_def_2}?
 
@@ -33767,6 +33768,53 @@ Mas para um $m$ arbitrário, existe grupo de ordem $m$?
 \ref{Number_theory_congruences}.
 
 \endexercise
+%%}}}
+
+%%{{{ remark: G0_is_redundant 
+\remark Uma lei que não é lei.
+Talvez resolvendo os exercícios~\refn{check_group_def_classic_and_group_def_2}
+e~\refn{check_group_def_20},
+tu já percebeste algo redundante na~\ref{group_def_2}:
+\emph{pra que essa (G0)?}
+O $\sset G \ast$ é um conjunto estruturado cuja estrutura tem uma
+\emph{operação binária}, ou seja uma \emph{função}
+$$
+\ast : G \cross G \to G.
+$$
+Logo, a (G0) não tem absolutamente nada pra oferecer:
+\emph{necessariamente}
+$$
+\lforall {a,b \in G} {a \ast b \in G}
+$$
+pois $\ast : G \cross G \to G$.
+Observe que se relaxar a definição de conjunto estruturado
+para permitir operações \emph{parciais} (\ref{partial_function})
+o (G0) vira lei necessária mesmo e afirma simplesmente
+que $\ast$ é total.
+Mas nosso padrão de operação foi operação total mesmo,
+e, nesse sentido, \emph{as leis de grupo} são as (G1)--(G3).%
+\footnote{%
+E por isso denotei a primeira com \sq{0}, não foi questão
+de começar a conta com o primeiro Nat.
+}
+\emph{Mesmo assim}, é comum encontrar a (G0) como axioma
+de grupo, e se tirá-la não ganhamos nada mesmo.
+Suponha que tu trabalhas com a (G0) como lei que faz parte
+da tua definição de grupo; e teu amigo trabalha apenas com
+as (G1)--(G3).
+Inicialmente parece que teu amigo vai ter menos trabalho
+pra fazer quando precisar demonstrar que um $\sset G \ast$
+é um grupo.
+Mas não é assim: a definição começa com um
+\emph{conjunto estruturado} cuja estrutura inclui a operaçã
+binária $\ast$.
+Ou seja, para demonstrar que $\sset G \ast$ é um grupo
+ele vai precisar demonstrar que $\ast$ realmente é uma operação
+$$
+\ast : G \cross G \to G
+$$
+ou seja, (G0), ou seja, ele não vai ter menos trabalho;
+se preocupe não!
 %%}}}
 
 \endsection
@@ -35205,6 +35253,8 @@ A volta é muito fácil, e tu demonstrarás agora
 no~\ref{group_implies_kunen}; deixo o converso para
 o~\ref{kunen_implies_group}.
 %%}}}
+
+\TODO Clarificar single axioms; elaborar e mostrar mais.
 
 %%{{{ x: group_implies_kunen 
 \exercise.
@@ -38138,29 +38188,6 @@ e logo pelo Lemma concluimos que $(\invr a a) = \idr$.
 
 \hint
 Como podemos usar o fato que um conjunto é finito?
-
-\endproblem
-%%}}}
-
-%%{{{ problem: kunen_implies_group 
-\problem axioma de Kunen.
-\label{kunen_implies_group}%
-{\Kunen[axioma de grupo]}%
-Na~\ref{Choosing_the_axioms} (\refn{clarity_and_intuitiveness})
-encontramos a definição ``single-axiom'' de Kunen:
-$$
-\lforall
-{a,b,c \in G}
-{\paren{\ginvp{c \ast \ginvp{a \ast b}} \ast (c \ast \ginv b)} \ast \ginvp{\ginv b \ast b} = a}
-\tag{GKUN}
-$$
-e já demonstraste no~\ref{group_implies_kunen} que (GKUN) é uma
-conseqüência das leis de grupo.
-Demonstre o converso:
-qualquer conjunto estruturado $\sset G {\ast, \ginv{}, \gid}$
-que satisfaz a (GKUN), é um grupo.
-Considere a (G0) como garantida pela estrutura do conjunto
-estruturado.
 
 \endproblem
 %%}}}
