@@ -37378,9 +37378,9 @@ Provar $A_n \subset A_{n+1}$ para todo $n\in\nats$ é imediato
 por indução.  Para a afirmação principal,
 que $\generate A = \Union_{n=0}^{\infty} A_n$,
 provamos cada direção separadamente:
-Para a {\lrdirset}, tome um arbitrário membro $\alpha \in \generate A$
-e ache $w\in\nats$ tal que $\alpha \in A_w$.
-Para a {\rldirset}, basta provar que cada um dos $A_0, A_1, A_2, \dots$
+para a {\lrdirset}, tome um arbitrário membro $\alpha \in \generate A$
+e ache $w\in\nats$ tal que $\alpha \in A_w$;
+para a {\rldirset}, basta provar que cada um dos $A_0, A_1, A_2, \dots$
 é subconjunto de $\generate A$.  Podes---alias, deves---usar indução.
 \qes
 %%}}}
@@ -37442,10 +37442,10 @@ $$
                                \I1------------------ {}
                                    {a^3 \in A_8}
 \I2-------------------------------------------------- {}
-                {a^3 b^{-8} \in A_8}
+                {a^3 b^{-8} \in A_9}
 }
 $$
-Então já sabemos que o $n\asseq 8$ é suficiente e logo concluimos
+Então já sabemos que o $n\asseq 9$ é suficiente e logo concluimos
 que $a^3 b^{-8} \in \Union_n A_n$.
 \endexample
 %%}}}
@@ -37453,7 +37453,7 @@ que $a^3 b^{-8} \in \Union_n A_n$.
 %%{{{ x: tree_for_a_member_of_generate_A_justifications 
 \exercise.
 \label{tree_for_a_member_of_generate_A_justifications}%
-Justifique cada uma das linhas de inferência da árvore
+Justifique as linhas de inferência da árvore
 do~\ref{tree_for_a_member_of_generate_A}.
 
 \solution
@@ -37461,39 +37461,53 @@ A parte esquerda parece assim:
 $$
 \Proofm {
    \A {b \in A}
-\I1-------------- {}
+\I1-------------- {(1)}
     {b \in A_0}
-               \A {b \in A}
-            \I1-------------- {}
-                {b \in A_0}
-\I2--------------- {}
-    {b^2 \in A_1}
-               \A {b \in A}
-            \I1-------------- {}
-                {b \in A_0}
-            \I1-------------- {}
-                {b \in A_1}
-\I2--------------- {}
-    {b^3 \in A_2}
-               \A {\vdots}
-            \I1-------------- {}
-                {b \in A_2}
-\I2--------------- {}
-    {b^4 \in A_3}
-\I1--------------- {}
-       {\vdots}
-\I1--------------- {}
-    {b^7 \in A_6}
-               \A {\vdots}
-            \I1-------------- {}
-                {b \in A_6}
-\I2--------------- {}
-    {b^8 \in A_7}
-\I1----------------- {}
-    {b^{-8} \in A_8}
+                    \A {b \in A}
+                 \I1-------------- {(2)}
+                     {b \in A_0}
+\I2---------------------------- {(3)}
+         {b^2 \in A_1}
+                          \A {b \in A}
+                       \I1-------------- {(4)}
+                           {b \in A_0}
+                       \I1-------------- {(5)}
+                           {b \in A_1}
+   \I2------------------------------- {(6)}
+              {b^3 \in A_2}
+                                            \A {\vdots}
+                                         \I1-------------- {(7)}
+                                             {b \in A_2}
+\I2------------------------------------------------------ {(8)}
+                   {b^4 \in A_3}
+              \I1--------------- {*}
+                     {\vdots}
+              \I1--------------- {*}
+                  {b^7 \in A_6}
+                                         \A {\vdots}
+                                     \I1-------------- {(9)}
+                                         {b \in A_6}
+              \I2----------------------------------- {(10)}
+                            {b^8 \in A_7}
+                     \I1--------------------- {(11)}
+                           {b^{-8} \in A_8}
 }
 $$
-Onde explicamos a regra inferida (*):
+Onde as justificativas são:
+\beginil
+\item{(1):} def.~$A_0$
+\item{(2):} def.~$A_0$
+\item{(3):} def.~$A_1$~(G0)
+\item{(4):} def.~$A_0$
+\item{(5):} $A_0 \subset A_1$ (\refn{generated_subgroup_bottom_up_formally})
+\item{(6):} def.~$A_2$~(G0)
+\item{(7):} $A \subset A_2$ (\refn{generated_subgroup_bottom_up_formally})
+\item{(8):} def.~$A_3$~(G0)
+\item{(9):} $A \subset A_6$ (\refn{generated_subgroup_bottom_up_formally})
+\item{(10):} def.~$A_7$~(G0)
+\item{(11):} def.~$A_8$~(G3)
+\endil
+Nas (*) usamos a regra inferida:
 $$
 \Proofm {
      \A {x^k \in A_m}
@@ -37506,10 +37520,11 @@ $$
                  \A {x \in A_0}
                 \I1------------- {$A_0\subset A_k$}
                     {x \in A_k}
-\I2----------------------------- {}
+\I2----------------------------- {def.~$A_{k+1}$: (G0)}
         {x^2 \in A_{k+1}}
 }
 $$
+O resto da arvore é justificado numa maneira parecida.
 
 \endexercise
 %%}}}
@@ -37823,9 +37838,7 @@ Ache todos os membros geradores de $\sset {\ints_6} {+_6}$.
 Ele tem dois.
 
 \solution
-$$
-\generate 1 = \generate 5 = \ints_6.
-$$
+$\generate 1 = \generate 5 = \ints_6$.
 
 \endexercise
 %%}}}
