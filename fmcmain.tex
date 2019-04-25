@@ -12537,6 +12537,55 @@ Calculamos:
 \endexercise
 %%}}}
 
+%%{{{ x: law_of_natexp_3 
+\exercise Lei de exponenciação 3.
+\label{law_of_natexp_3}%
+$
+\forall n
+\bigparen{S0^n = S0}
+$
+
+\hint
+Indução no $n$.
+
+\hint
+\proofpart{Base: $S0^0 \askeq S0$}.
+
+\hint
+\proofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+S0^k = S0.\tag{H.I.}
+$$
+Agora precisas provar que
+$$
+S0^{Sk} = S0.
+$$
+
+\solution
+Por indução no $n$.
+\crproofpart{Base: $S0^0 \askeq S0$.}
+Imediato pela definição de $S0^0$.
+\crproofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+S0^k = S0.\tag{H.I.}
+$$
+Basta demonstrar que
+$$
+S0^{Sk} = S0.
+$$
+Calculamos:
+\compute
+(S0)^{Sk}
+&= S0 \ntimes S0^k              \by {(e2),   $n\asseq S0$, $m\asseq k$}
+&= S0^k                         \by {$S0$ é identidade da $\ntimes$ (\ref{natmult_identity})}
+&= S0.                          \by {(H.I.)}
+\endcompute
+
+\endexercise
+%%}}}
+
 %%{{{ df: natops_leq_def 
 \definition.
 \label{natops_leq_def}%
@@ -22003,11 +22052,13 @@ no~\ref{function_iterations}
 satisfaz as leis:
 \beginol
 \item{\rm (1)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
-\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$.
+\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
+\item{\rm (3)} $\lforall {n\in\nats} {\id^n = \id}$.
 \endol
 \proof Já demonstrado.
-Provamos por indução as duas leis nos exercícios~\refn{law_of_natexp_1}
-e~\refn{law_of_natexp_2} (se tu não resolveu, volte a resolver).
+Provamos por indução as três leis nos exercícios~\refn{law_of_natexp_1},
+\refn{law_of_natexp_2}, e~\refn{law_of_natexp_3}---se tu não resolveu,
+volte a resolver!
 Verifique que nossas provas precisaram apenas a \emph{associatividade}
 e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
 então podemos substituir a multiplicação por a nossa $\of$.
@@ -35919,12 +35970,13 @@ no~\ref{associative_with_identity_exp_defs_equiv}
 satisfaz as leis:
 \beginol
 \item{\rm (1)} $\pforall {n,m\in\nats} \lforall {a \in A} {a^{m+n}        = a^m \ast a^n}$;
-\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {a \in A} {a^{m\ntimes n} = (a^m)^n}$.
+\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {a \in A} {a^{m\ntimes n} = (a^m)^n}$;
+\item{\rm (3)} $\lforall {n\in\nats}   {\gid^n = \gid}$.
 \endol
 \proof Já demonstrado.
 Como observamos no~\ref{properties_of_function_iterations} também,
-quando provamos por indução as leis nos exercícios~\refn{law_of_natexp_1}
-e~\refn{law_of_natexp_2},
+quando provamos por indução as leis nos exercícios~\refn{law_of_natexp_1},
+\refn{law_of_natexp_2}, e~\refn{law_of_natexp_3},
 usamos apenas a \emph{associatividade} e a \emph{identidade} da
 multiplicação e \emph{não usamos sua definição}.
 Logo a mesma demonstração serve aqui, trocando a multiplicação por nossa $\ast$.
@@ -36079,11 +36131,12 @@ Sejam $G$ grupo, $a \in G$, e $m,n\in\ints$.
 Temos:
 \item{\rm (1)} $a^m \ast a^n = a^{m+n}$;
 \item{\rm (2)} $(a^m)^n = a^{m\ntimes n}$;
-\item{\rm (3)} $\ginv a = \ginvp {a^n} = \paren{\ginv a}^n$.
+\item{\rm (3)} $\gid^n = \gid$;
+\item{\rm (4)} $\ginvp {a^n} = \paren{\ginv a}^n$.
 \sketch.
-Demonstramos a (3) primeiro para $m,n\in\nats$ por
-indução---as (1) e (2) já provamos~(\ref{properties_of_exp_in_general}).
-Depois consideramos os casos de inteiros negativos para as três leis.
+Demonstramos a (4) primeiro para $m,n\in\nats$ por
+indução---as (1)--(3) já provamos~(\ref{properties_of_exp_in_general}).
+Depois consideramos os casos de inteiros negativos para as quatro leis.
 \qes
 %%}}}
 
@@ -36320,9 +36373,11 @@ e logo concluimos que $j-i=0$, ou seja, $i=j$.
 \endexercise
 %%}}}
 
+%%{{{ Q: a^m = e => ? ; o(a) = infty => ? 
 \question.
 Se $a^m = e$ para algum $m\in\ints$, o que podemos concluir sobre o $m$ e a $\gord a$?
 Se $\gord a = \infty$, o que podemos concluir sobre todas as potências de $a$?
+%%}}}
 \spoiler.
 
 %%{{{ lm: a_exp_m_is_e_iff_gord_a_divides_m 
@@ -36334,15 +36389,19 @@ $$
 a^m = e \iff \gord a \divides m.
 $$
 \proof.
-\rldir:
+\proofpart{\rldir:}
 Como $\gord a \divides m$,
 temos $m = k\gord a$ para algum $k\in\ints$.
 Calculamos:
 $$
-a^m = a^{k\gord a} = a^{\gord a k} = \paren{a^{\gord a}}^k = e^k = e.
+a^m
+= a^{k\gord a}
+= a^{\gord a k}
+= \paren{a^{\gord a}}^k
+= \gid^k
+= \gid.
 $$
-\endgraf
-\lrdir:
+\proofpart{\lrdir:}
 Para provar que $\gord a \divides m$,
 aplicamos o~\ref{euclidean_division} da divisão de Euclides\Euclid[lema da divisão],
 dividindo o $m$ por $\gord a$, e ganhando assim inteiros $q$ e $r$ tais que
@@ -36359,12 +36418,13 @@ e
 = a^{\gord a q + r}
 = a^{\gord a q} \ast a^r
 = \paren{a^{\gord a}}^q \ast a^r
-= e^q \ast a^r
-= e \ast a^r
+= \gid^q \ast a^r
+= \gid \ast a^r
 = a^r.
 $$
-Ou seja, $a^r = e$ com $0\leq r < \gord a$, então pela definição de $\gord a$
-como o mínimo inteiro positivo $n$ que satisfaz a $a^n = e$,
+Ou seja, $a^r = \gid$ com $0\leq r < \gord a$,
+então pela definição de $\gord a$
+como o mínimo inteiro positivo $n$ que satisfaz a $a^n = \gid$,
 o $r$ não pode ser positivo.
 Logo $r=0$ e $\gord a \divides m$.
 \qed
