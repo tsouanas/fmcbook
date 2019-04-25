@@ -41674,162 +41674,6 @@ os dois grupos seria observar que um é cíclico, mas o outro não é.
 \endsection
 %%}}}
 
-%%{{{ Categories_and_groups 
-\section Pouco de cats---categorias e grupos.
-\label{Categories_and_groups}%
-
-\secintro
-Temos uns objetos que nos interessam: os grupos.
-Temos umas setas interessantes entre esses objetos: os morfimos.
-Será que temos uma categoria (\ref{category_first_def})?
-
-%%{{{ df: GROUP 
-\definition.
-\label{GROUP}%
-\sdefined {\GROUP} {a categoria dos grupos e seus homomorfismos}%
-Denotamos por $\GROUP$ a categoria dos grupos:
-\beginul
-\li $\Obj \GROUP$: todos os grupos;
-\li $\Arr \GROUP$: todos os homomorsfismos de grupos.
-\endul
-onde obviamente os $\src\phi$ e $\tgt\phi$ denotam os $\dom\phi$ e $\cod\phi$ respectivamente.
-%%}}}
-
-%%{{{ x: GROUP_is_a_cat 
-\exercise.
-\label{GROUP_is_a_cat}%
-Demonstre que $\GROUP$ realmente é uma categoria.
-
-\endexercise
-%%}}}
-
-%%{{{ eg: products_of_Group 
-\example.
-\label{products_of_Group}%
-A categoria $\GROUP$ possui produtos?  (\ref{product_in_category}.)
-
-\solution
-Sim.
-Dados dois objetos $G,H$ o
-$\tupp{\outl, G \cross H, \outr}$ (\refn{direct_product_of_groups}) é um produto
-dos $G,H$.
-Primeiramente precisamos demonstrar que $G \cross H$ realmente é um objeto
-da $\GROUP$, ou seja, um grupo;
-tu demonstraste isso no~\ref{direct_product_of_groups_is_a_group}.
-Agora falta verificar que dados $\tupp{f_1, F, f_2}$,%
-\footnote{%
-Sim, isso é uma frase completa, com seu verbo e tudo mais:
-<<\dots dados $\tupp{f_1,F,f_2}$, existe única seta $! : F \to G \cross H$
-que faz o diagrama seguinte comutar: \dots>>
-Mais uma vez que percebemos a veracidade do ditado
-$$
-\text{1 diagrama comutativo} = \text{1{,}000 palavras}.
-$$
-}
-$$
-\cdopt{sep=1cm}
-                                 \| \|                                  \| G \\
-F
-\ar[rr, dotted, "\unique"]
-\ar[urrr, bend left=24,  "f_1"]
-\ar[drrr, bend right=24, "f_2"'] \| \| G \cross H
-                                       \ar[ur, bend left=15, "\outl"]
-                                       \ar[dr, bend right=15, "\outr"'] \| \\
-                                 \| \|                                  \| H
-\endcd
-$$
-Defina a $!$ pela
-$$
-! = \fpair {f_1} {f_2}.
-$$
-Isso realmente é o único que faz o diagrama comutar---tu
-já verificaste isso no~\ref{product_is_a_product},
-certo?---então só basta demonstrar uma coisa pra terminar.
-\endexample
-%%}}}
-
-%%{{{ x: what more is needed to prove? 
-\exercise.
-Qual?
-Enuncie e demonstre!
-
-\hint
-Basta demonstrar que $! : F \to G \cross H$ é um homomorfismo mesmo.
-Demonstre!
-
-\endexercise
-%%}}}
-
-%%{{{ x: initial_and_terminal_of_Group 
-\exercise.
-\label{initial_and_terminal_of_Group}%
-A categoria $\GROUP$ possui objetos iniciais?  Terminais?  Quais?
-(\ref{initial_terminal_null_objects}.)
-E, esqueci: a $\SET$ tem?
-
-\endexercise
-%%}}}
-
-%%{{{ df: Abel_cat 
-\definition.
-\label{Abel_cat}%
-\sdefined {\ABEL} {a categoriados grupos abelianos e seus homomorfismos}%
-Denotamos por $\ABEL$ a categoria dos grupos:
-\beginul
-\li $\Obj \ABEL$: todos os grupos abelianos;
-\li $\Arr \ABEL$: todos os homomorsfismos de grupos abelianos.
-\endul
-onde novamente os $\src\phi$ e $\tgt\phi$ são as coisas óbvias.
-%%}}}
-
-%%{{{ x: ABEL_is_a_cat 
-\exercise.
-\label{ABEL_is_a_cat}%
-Verifique que $\ABEL$ realmente é uma categoria.
-
-\endexercise
-%%}}}
-
-\blah.
-É fácil verificar que a $\ABEL$ também possui produtos:
-essencialmente o mesmo argumento da $\GROUP$ passa aqui também.
-Mas a situação é bastante diferente olhando para os \emph{coprodutos}
-(\ref{coproduct_in_category}).
-
-%%{{{ products_and_coproducts_in_Group_complicated
-\note Coprodutos de grupos.
-\label{products_and_coproducts_in_Group_complicated}%
-Os coprodutos na~$\GROUP$\dots~meio complicado.
-Vamos voltar nesse assunto no~\ref{Category_theory};
-mas por enquanto observe que o conjunto $G \disjunion H$
-que usamos para o coproduto $G \coprod H$ na $\SET$ não
-possui uma estrutura de grupo óbvia para servir como coproduto
-dos $G,H$.  Qual seria sua identidade, por exemplo, e, antes
-de chegar em conseguir perguntar isso, qual seria sua operação?
-No outro lado é fácil demonstrar que $\ABEL$ possui
-coprodutos---e tu nem imagina quais são!
-%%}}}
-
-%%{{{ x: coproducts_in_Abel 
-\exercise.
-\label{coproducts_in_Abel}%
-Dados objetos (grupos abelianos) $G,H$, ache um coproduto deles.
-Tu ficarás surpreso.
-
-\hint
-Que tipo de coisa é o coproduto literalmente?
-
-\hint
-Na $\ABEL$, o $G\cross H$ serve como objeto tanto de produto,
-quanto de coproduto!
-Demonstre!
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Kernel, Image 
 \section Kernel, Image.
 \label{Kernel_Image}%
@@ -42160,6 +42004,162 @@ Ou seja, em teoria dos grupos os conceitos de ``kernel''
 e de ``subgrupo normal'' são apenas dois lados da mesma moeda.
 Deixo os \emph{detalhes importantes} pra ti,
 no~\ref{normal_is_kernel}---não pule!
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Categories_and_groups 
+\section Pouco de cats---categorias e grupos.
+\label{Categories_and_groups}%
+
+\secintro
+Temos uns objetos que nos interessam: os grupos.
+Temos umas setas interessantes entre esses objetos: os morfimos.
+Será que temos uma categoria (\ref{category_first_def})?
+
+%%{{{ df: GROUP 
+\definition.
+\label{GROUP}%
+\sdefined {\GROUP} {a categoria dos grupos e seus homomorfismos}%
+Denotamos por $\GROUP$ a categoria dos grupos:
+\beginul
+\li $\Obj \GROUP$: todos os grupos;
+\li $\Arr \GROUP$: todos os homomorsfismos de grupos.
+\endul
+onde obviamente os $\src\phi$ e $\tgt\phi$ denotam os $\dom\phi$ e $\cod\phi$ respectivamente.
+%%}}}
+
+%%{{{ x: GROUP_is_a_cat 
+\exercise.
+\label{GROUP_is_a_cat}%
+Demonstre que $\GROUP$ realmente é uma categoria.
+
+\endexercise
+%%}}}
+
+%%{{{ eg: products_of_Group 
+\example.
+\label{products_of_Group}%
+A categoria $\GROUP$ possui produtos?  (\ref{product_in_category}.)
+
+\solution
+Sim.
+Dados dois objetos $G,H$ o
+$\tupp{\outl, G \cross H, \outr}$ (\refn{direct_product_of_groups}) é um produto
+dos $G,H$.
+Primeiramente precisamos demonstrar que $G \cross H$ realmente é um objeto
+da $\GROUP$, ou seja, um grupo;
+tu demonstraste isso no~\ref{direct_product_of_groups_is_a_group}.
+Agora falta verificar que dados $\tupp{f_1, F, f_2}$,%
+\footnote{%
+Sim, isso é uma frase completa, com seu verbo e tudo mais:
+<<\dots dados $\tupp{f_1,F,f_2}$, existe única seta $! : F \to G \cross H$
+que faz o diagrama seguinte comutar: \dots>>
+Mais uma vez que percebemos a veracidade do ditado
+$$
+\text{1 diagrama comutativo} = \text{1{,}000 palavras}.
+$$
+}
+$$
+\cdopt{sep=1cm}
+                                 \| \|                                  \| G \\
+F
+\ar[rr, dotted, "\unique"]
+\ar[urrr, bend left=24,  "f_1"]
+\ar[drrr, bend right=24, "f_2"'] \| \| G \cross H
+                                       \ar[ur, bend left=15, "\outl"]
+                                       \ar[dr, bend right=15, "\outr"'] \| \\
+                                 \| \|                                  \| H
+\endcd
+$$
+Defina a $!$ pela
+$$
+! = \fpair {f_1} {f_2}.
+$$
+Isso realmente é o único que faz o diagrama comutar---tu
+já verificaste isso no~\ref{product_is_a_product},
+certo?---então só basta demonstrar uma coisa pra terminar.
+\endexample
+%%}}}
+
+%%{{{ x: what more is needed to prove? 
+\exercise.
+Qual?
+Enuncie e demonstre!
+
+\hint
+Basta demonstrar que $! : F \to G \cross H$ é um homomorfismo mesmo.
+Demonstre!
+
+\endexercise
+%%}}}
+
+%%{{{ x: initial_and_terminal_of_Group 
+\exercise.
+\label{initial_and_terminal_of_Group}%
+A categoria $\GROUP$ possui objetos iniciais?  Terminais?  Quais?
+(\ref{initial_terminal_null_objects}.)
+E, esqueci: a $\SET$ tem?
+
+\endexercise
+%%}}}
+
+%%{{{ df: Abel_cat 
+\definition.
+\label{Abel_cat}%
+\sdefined {\ABEL} {a categoriados grupos abelianos e seus homomorfismos}%
+Denotamos por $\ABEL$ a categoria dos grupos:
+\beginul
+\li $\Obj \ABEL$: todos os grupos abelianos;
+\li $\Arr \ABEL$: todos os homomorsfismos de grupos abelianos.
+\endul
+onde novamente os $\src\phi$ e $\tgt\phi$ são as coisas óbvias.
+%%}}}
+
+%%{{{ x: ABEL_is_a_cat 
+\exercise.
+\label{ABEL_is_a_cat}%
+Verifique que $\ABEL$ realmente é uma categoria.
+
+\endexercise
+%%}}}
+
+\blah.
+É fácil verificar que a $\ABEL$ também possui produtos:
+essencialmente o mesmo argumento da $\GROUP$ passa aqui também.
+Mas a situação é bastante diferente olhando para os \emph{coprodutos}
+(\ref{coproduct_in_category}).
+
+%%{{{ products_and_coproducts_in_Group_complicated
+\note Coprodutos de grupos.
+\label{products_and_coproducts_in_Group_complicated}%
+Os coprodutos na~$\GROUP$\dots~meio complicado.
+Vamos voltar nesse assunto no~\ref{Category_theory};
+mas por enquanto observe que o conjunto $G \disjunion H$
+que usamos para o coproduto $G \coprod H$ na $\SET$ não
+possui uma estrutura de grupo óbvia para servir como coproduto
+dos $G,H$.  Qual seria sua identidade, por exemplo, e, antes
+de chegar em conseguir perguntar isso, qual seria sua operação?
+No outro lado é fácil demonstrar que $\ABEL$ possui
+coprodutos---e tu nem imagina quais são!
+%%}}}
+
+%%{{{ x: coproducts_in_Abel 
+\exercise.
+\label{coproducts_in_Abel}%
+Dados objetos (grupos abelianos) $G,H$, ache um coproduto deles.
+Tu ficarás surpreso.
+
+\hint
+Que tipo de coisa é o coproduto literalmente?
+
+\hint
+Na $\ABEL$, o $G\cross H$ serve como objeto tanto de produto,
+quanto de coproduto!
+Demonstre!
+
+\endexercise
 %%}}}
 
 \endsection
