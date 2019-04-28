@@ -3972,7 +3972,7 @@ Prove que $a=\pm1$ e $b=\pm1$.
 Seja $A\subset\nats$ tal que $0\in A$ e $n+1\in A$ para todo $n\in A$.
 $A=\nats$.
 \sketch.
-Caso contrário, existeriam ``contraexemplos'', ou seja, naturais que não pertencem no $A$.
+Caso contrário, existeriam ``contraexemplos'', ou seja, naturais que não pertencem ao $A$.
 Aplique a PBO para escolher o menor tal contraexemplo, e chega num absurdo.
 \qes
 %%}}}
@@ -15915,7 +15915,7 @@ mas o contexto é em geral suficiente para tirar a ambigüidade.
 %%}}}
 
 \TODO Explicar o ``seja $(a,b) \in A \cross B$''.
-Link com os: \ref{only_declare_variables}, \ref{picking_elements_from_indexed_sets}.
+Link com os itens: \ref{only_declare_variables}, \ref{picking_elements_from_indexed_sets}.
 
 \endsection
 %%}}}
@@ -16576,8 +16576,8 @@ se um conjunto $A$ é indexado ou não, pois todos são
 (pelo menos por eles mesmo).
 %%}}}
 
-%%{{{ picking_elements_from_indexed_sets 
-\note Tomando elementos de conjuntos indexados.
+%%{{{ remark: picking_elements_from_indexed_sets 
+\remark Tomando elementos de conjuntos indexados.
 \label{picking_elements_from_indexed_sets}%
 {%
 \def\bla{\mathrm{bla}}%
@@ -32902,12 +32902,12 @@ no~\ref{Axiomatic_set_theory}.
 \chapter Conjuntos estruturados.
 \label{Structured_sets}%
 
+\TODO Elaborar.
+
 %%{{{ Concept, notation, equality 
 \section Conceito, notação, igualdade.
 Já encontramos a idéia de estrutura (interna) dum
 conjunto~(foi no~\ref{blackbox_set}).
-
-\TODO Elaborar.
 
 %%{{{ notational_abuse_stuctured_sets 
 \note Abuso notacional.
@@ -32988,6 +32988,15 @@ E realmente definimos esse resultado para ser a identidade da operação.
 
 %%{{{ Structured sets with relations 
 \section Conjuntos estruturados com relações.
+
+%%{{{ df: rel_fechado 
+\definition.
+\label{rel_fechado}%
+Seja $R$ uma relação num conjunto $A$ e $X \subset A$.
+Chamamos o $X$ de \dterm{$R$-fechado}
+sse para todo $x \in X$, e todo $a \in A$
+com $x \rel R a$, temos $a \in X$ também.
+%%}}}
 
 \endsection
 %%}}}
@@ -37047,9 +37056,8 @@ Chamamos o
 $$
 \align
 \generate{a}
-&\defeq
-\set{a^m\st m\in\ints}\\
-&=\set{\dotsc,a^{-2},a^{-1},a^0,a^1,a^2,\dotsc}
+&\defeq \setst {a^m} {m\in\ints}\\
+&= \set{\dotsc,a^{-2},a^{-1},a^0,a^1,a^2,\dotsc}
 \endalign
 $$
 o \dterm{subgrupo de $G$ gerado por $a$}.
@@ -38106,6 +38114,205 @@ No~\ref{Lattices} vamos revisitar esse assunto num contexto abstrato.
 \endsection
 %%}}}
 
+%%{{{ Group_conjugation 
+\section Conjugação de grupo.
+\label{Group_conjugation}%
+
+%%{{{ df: conjugates_of_group_element 
+\definition Conjugados.
+\label{conjugates_of_group_element}%
+\tdefined{conjugado}[de elemento de grupo]%
+Seja $G$ grupo e $a\in G$.
+Para qualquer $g\in G$, o $ga\ginv g$ é chamado
+um \dterm{conjugado} de $a$.
+%%}}}
+
+%%{{{ df: conjugation_of_group 
+\definition conjugação.
+\tdefined{conjugação}[de grupo]%
+\sdefined {\gconjrel} {conjugação de grupo}%
+\iisee{relação!conjugação}{conjugação}%
+Seja $G$ um grupo.
+A \dterm{conjugação do $G$}
+é a relação ${\gconjrel} : \reltype{G,G}$ definida pela
+$$
+\align
+a \gconjrel b
+&\defiff \text{$a$ é um conjugado de $b$}\\
+&\intiff \lexists {g\in G} {a = gb\ginv g}.
+\endalign
+$$
+%%}}}
+
+%%{{{ x: gconjrel_is_an_eqrel 
+\exercise.
+\label{gconjrel_is_an_eqrel}%
+Seja $G$ grupo.  A conjugação $\gconjrel$ do $G$
+é uma relação de equivalência.
+
+\solution
+\proofpart{Reflexividade:}
+Seja $a \in G$.
+Procuramos $g\in G$ tal que $a = ga\ginv g$.
+Como $a = e a \ginv e$, temos que realmente $a \gconjrel a$.
+\endgraf
+\proofpart{Simetria:}
+Sejam $a,b \in G$ tais que $a \gconjrel b$.
+Daí, seja $x\in G$ tal que $a = xb\ginv x$.
+Operando pela esquerda com $\ginv x$ e pela direita com $x$, temos:
+$$
+\ginv x a x = \ginv x x b \ginv x x = b.
+$$
+Mas $x = \ginvp {\ginv x}$, ou seja
+$b = \ginv x a \ginvp{\ginv x}$
+e logo $b \gconjrel a$.
+\endgraf
+\proofpart{Transitividade:}
+Sejam $a,b,c \in G$ tais que $a \gconjrel b$ e $b \gconjrel c$.
+Daí, sejam $x,y \in G$ tais que:
+\compute
+a &= x b \ginv x \\
+b &= y c \ginv y.
+\intertext{Substituindo a segunda na primeira, temos}
+a &= x \paren{ y c \ginv y } \ginv x                \\
+  &= \paren{ xy } c \paren{ \ginv y \ginv x} \by {ass.}
+  &= \paren{ xy } c \ginvp{ xy }.            \by {inverso de produto (\refn{inverse_of_product_in_group})}
+\endcompute
+Ou seja, $a \gconjrel c$.
+
+\endexercise
+%%}}}
+
+%%{{{ df: conjugacy_class 
+\definition Classe de conjugação.
+\label{conjugacy_class}%
+\tdefined{classe de conjugação}%
+\sdefined {\gcl {\sholed a}} {a classe de conjugação de $a$}%
+Seja $G$ grupo e $a\in G$.
+A \dterm{classe de conjugação} de $a$ é o conjunto
+$$
+\gcl a \defeq \setst {ga\ginv g} {g \in G},
+$$
+ou seja, $\gcl a$ é a classe de equivalência do $a$
+através da relação <<é um conjugado de>>.
+%%}}}
+
+%%{{{ x: conjugacy_class_of_e 
+\exercise.
+\label{conjugacy_class_of_e}%
+Seja $G$ grupo.
+Calcule a $\gcl e$.
+
+\hint
+$\gcl e = \set{e}$.
+Por quê?
+
+\endexercise
+%%}}}
+
+%%{{{ x: conjugacy_classes_of_S3 
+\exercise.
+\label{conjugacy_classes_of_S3}%
+Ache todas as classes de conjugação de $\sym 3$.
+
+\hint
+Já achou uma no \ref{conjugacy_class_of_e}.
+
+\endexercise
+%%}}}
+
+%%{{{ df: conjugation_by_member 
+\definition Conjugação por membro.
+\label{conjugation_by_member}%
+\tdefined{conjução}[por $g$]%
+\sdefined {\gconj {\sholed g}} {a operação da conjugação por $g$}%
+Seja $G$ grupo e $g\in G$.
+Definimos a função $\gconj g : G \to G$ pela
+$$
+\gconj g x = gx\ginv g.
+$$
+Chamamos a $\gconj g$ a \dterm{conjugação por $g$} ou mais curtamente,
+\dterm{$g$-conjugação}.
+Observe que a operação
+$\gconj g$ é a $\actorS g {\ginv g}$.
+%%}}}
+
+%%{{{ x: conjugation_by_member_respects_powers 
+\exercise.
+\label{conjugation_by_member_respects_powers}%
+Sejam $G$ grupo e $g,a\in G$.
+Para todo $n\in\nats$, $\paren{ga\ginv g}^n = g a^n \ginv g$.
+Em outras palavras, a conjugação por membro respeita as potências:
+$$
+\gconj g (a^n) = \paren{\gconj g a}^n
+$$
+para todo $n\in\nats$.
+
+\hint
+Indução.
+
+\solution
+Provamos por indução.
+Observe que
+$$
+\align
+(ga\ginv g)^0 &= e \\
+g a^0 \ginv g &= g e \ginv g = g \ginv g = e.
+\endalign
+$$
+Agora seja $k\in\nats$ tal que
+$$
+(ga\ginv g)^k = g a^k \ginv g. \tag{H.I.}
+$$
+Calculamos
+\compute
+(ga\ginv g)^{k+1}
+    &= (ga\ginv g)^k (ga\ginv g) \\
+    &= (ga^k\ginv g) (ga\ginv g) \by {pela H.I.}
+    &= ga^k(\ginv g g)a\ginv g \\
+    &= ga^ka\ginv g \\
+    &= ga^{k+1}\ginv g.
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ x: exponentiation_respects_conjugation 
+\exercise.
+\label{exponentiation_respects_conjugation}%
+Se $x,y$ são conjugados, então para todo $n\in\nats$,
+$x^n$ e $y^n$ também são.
+
+\hint
+Lembre o~\ref{conjugation_by_member_respects_powers}.
+
+\solution
+Isso é um corolário imediato
+do~\ref{conjugation_by_member_respects_powers}:
+Como $x,y$ conjugados, temos $x = gy\ginv g$ para algum $g\in G$.
+E agora calculamos:
+\compute
+x^n
+&= \paren{gy\ginv g}^n \\
+&= gy^n\ginv g.  \by {pelo \refn{conjugation_by_member_respects_powers}}
+\endcompute
+e logo $x^n,y^n$ conjugados também.
+
+\endexercise
+%%}}}
+
+\blah.
+A idéia de conjugação deve aparecer meio aleatória
+pra ti neste momento, mas não tanto como logo depois
+da definição (agora pelo menos tu já demonstrou
+muitas propriedades interessantes).
+Logo vamos descobrir que os subgrupos que são
+\emph{fechados pela conjugação} (ou \emph{fechados pelos conjugados}\/)
+são muito interessantes.  Paciência.
+
+\endsection
+%%}}}
+
 %%{{{ Problems intermission 
 \problems Intervalo de problemas.
 
@@ -38478,6 +38685,53 @@ pergunta nos seus problemas.
 \endproblem
 %%}}}
 
+%%{{{ prob: conjugates_have_the_same_order 
+\problem.
+\label{conjugates_have_the_same_order}%
+Membros da mesma classe de conjugação tem a mesma ordem.
+
+\hint
+Separe os casos em $\gord a = n \in\nats$ e $\gord a = \infty$.
+
+\hint
+Lembre o~\ref{exponentiation_respects_conjugation}
+e o~\ref{conjugacy_class_of_e}.
+
+\solution
+Sejam $a,b$ conjugados.
+\crcase{Caso que $\gord a < \infty$.}
+\crproofpart{Resolução 1.}
+Preciso mostrar:
+(i) $b^n = e$;
+(ii) para todo $m$ com $0<m<n$, $b^m \neq e$.
+\endgraf
+(i) Pelo~\ref{exponentiation_respects_conjugation},
+temos que $a^n$ e $b^n$ são conjugados,
+mas $a^n = e$, e a classe de conjugação de $e$ é o singleton $\set{e}$
+(\ref{conjugacy_class_of_e}).
+Logo $b^n = e$.
+\endgraf
+(ii) Pela mesma observação cada suposto $b^m = e$
+obrigaria $a^m = e$ também.
+Logo $\gord b = n$.
+\crproofpart{Resolução 2.}
+Pelo~\ref{exponentiation_respects_conjugation}
+temos $a^{\gord a}$ conjugado com $b^{\gord a}$.
+Logo $b^{\gord a} = e$ e logo $\gord b \divides \gord a$.
+Similarmente $\gord a \divides \gord b$ e logo $\gord a = \gord b$
+pois ambos são naturais.
+\crcase{Caso que $\gord a = \infty$.}
+Tenho que para todo $n > 0$, $a^n \neq e$,
+e preciso mostrar a mesma coisa sobe os $b^n$.
+De novo, de qualquer suposto contraexemplo $m\in \nats$ com $b^m = e$
+concluimos $a^m = e$ que é absurdo pois $\gord a = \infty$.
+\endgraf
+Para uma resolução mais poderosa e simples,
+veja o~\ref{conjugates_look_alike}.
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -38489,7 +38743,7 @@ pergunta nos seus problemas.
 \note.
 A relação de equivalência que definimos no~\ref{congruence_mod_H_teaser}
 não é tão desconhecida como talvez apareceu ser.
-Vamos redefini-la com seu próprio nome e sua própria notação:
+Vamos investigar.
 %%}}}
 
 %%{{{ congruence mod H 
@@ -38505,9 +38759,20 @@ Usamos também a notação $a \congR H b$.
 %%{{{ x: mod_m_as_a_special_case_of_mod_H 
 \exercise.
 \label{mod_m_as_a_special_case_of_mod_H}%
-Explique a notação da~\ref{congruence_mod_H} a comparando com a
+Justifique a notação da~\ref{congruence_mod_H} a comparando com a
 congruência módulo algum inteiro da~\ref{congruence}.
 Ou seja, mostre como a definição nos inteiros é apenas um caso especial da definição nos grupos.
+
+\hint
+Tome $G \asseq \sset\ints+$ e $H \asseq \sset{m\ints}+$.
+E agora?  O que cada uma das
+$$
+\xalignat2
+a \cong b &\pmod m &
+a \cong b &\pmod H
+\endxalignat
+$$
+tá dizendo nesse caso?
 
 \endexercise
 %%}}}
@@ -38788,9 +39053,11 @@ aH &\defeq \setst {ah} {h\in H}
 Ha &\defeq \setst {ha} {h\in H}.
 \endxalignat
 $$
-Chamamos o $aH$ o \dterm{left-coset} do $H$ através de $a$,
-e similarmente o $Ha$ seu \dterm{right-coset}.
-Também usamos os termos \dterm{coclasse (lateral) à esquerda/direita}.
+Chamamos o $aH$ a \dterm{coclasse esquerda} do $A$ através de $a$,
+do $H$ através de $a$, e similarmente o $Ha$ sua \dterm{coclasse direita}.
+Também usamos os termos
+\dterm{coclasse (lateral) à esquerda/direita},
+e também chamamos as coclasses de \dterm{cosets}.
 %%}}}
 
 %%{{{ Q: What w \in Ha means? 
@@ -38821,17 +39088,19 @@ a equação acima, precisa demonstrar que ele pertence ao $H$.
 %%}}}
 
 %%{{{ warning: only_declare_variables 
-\warning Declare apenas variáveis!.
+\warning Declare apenas variáveis no conjunto!.
 \label{only_declare_variables}%
 É comum escrever algo do tipo:
 \quote
 Seja $ha \in Ha$.
 \endquote
 Não escreva assim, pois é perigoso roubar sem querer!
-Em vez disso escreva:
+Em vez disso, podes escrever:
 \quote
 Seja $w \in Ha$.  Logo seja $h \in H$ tal que $w = ha$.
 \endquote
+É provável que esse $w$ tem um papel ``bobo'' aí, e realmente
+podemos evitá-lo (
 Quando ``sejamos'' algo como um membro arbitrário dum conjunto
 usamos apenas uma variável!  Nem constantes, nem termos que
 involvem operações.  Imagine alguem escrevendo:
@@ -38842,8 +39111,14 @@ Para dar um exemplo para quem programou em linguagem similar à C.
 Tu escreverias essas declarações?
 \sourcecode onlydeclarevars.c;
 Espero que não!
+%%}}}
+
+%%{{{ remark: picking_in_Ha_via_H 
+\remark ou, até melhor, no seu conjunto de índices!.
+\label{picking_in_Ha_via_H}%
 No outro lado, como o $Ha$ é um conjunto indexado por outro conjunto (o $H$),
 para tomar um arbitrário membro de $Ha$, basta tomar um arbitrário $h\in H$.
+(Lembra da~\ref{picking_elements_from_indexed_sets}?)
 Escrevendo então
 \quote
 Seja $h \in H$.
@@ -39040,6 +39315,8 @@ $$
 \cosetsR H &\defeq \setst {Ha} {a \in G}.
 \endxalignat
 $$
+Observe que ambos os $\cosetsL H,\cosetsR H$ são indexados
+pelo mesmo conjunto $G$.
 %%}}}
 
 %%{{{ lemma: coclasses_form_a_partition 
@@ -39120,7 +39397,7 @@ A outra direção ($Ha \supset Hb$) é similar.
 
 %%{{{ thm: cosets_of_H_eq_quoset_G_congmodR 
 \theorem.
-\label{cosets_of_H_eq_quoset_G_congmodR}
+\label{cosets_of_H_eq_quoset_G_congmodR}%
 \ii{partição}%
 \ii{relação!de equivalência}%
 Sejam $G$ grupo e $H\subgroup G$.
@@ -39234,6 +39511,26 @@ Voltando ao~\ref{cosets_of_H_eq_quoset_G_congmodR},
 simetricamente temos
 $\quoset G {\congL H} = \cosetsL H$,
 onde $\cosetsL H = \setst {aH} {a\in G}$.
+%%}}}
+
+%%{{{ x: a_ginvb_smells_like_division 
+\exercise.
+\label{a_ginvb_smells_like_division}%
+A operação $\tup{a,b} \mapsto a\ginv b$ tá aparecendo mais e mais.
+Como tu chamaria essa operação binária?
+
+\solution
+Um nome que faz sentido pensar aqui seria \emph{divisão}, se pensar
+multiplicativamente; e \emph{subtraição}, se pensar aditivamente.
+Mas pra ser mais específicos ainda deveriamos mudar incluir como
+adjectivo o lado: \emph{divisão direita} ou \emph{subtraição direita}.
+Como assim divisão/subtraição ``direita''?  Nunca escutamos isso
+antes, mas isso é porque nossa operação (multiplicação de números
+ou adição de números) foi comutativa, então $a\ginv b$ e $\ginv b a$
+eram sempre o mesmo número.  Mas aqui no contexto geral de grupo
+podem ser diferentes, então faz sentido incluir os lados mesmo!
+
+\endexercise
 %%}}}
 
 %%{{{ Does it still seem weird? 
@@ -39388,7 +39685,7 @@ deixe para o~\ref{cosets_are_equinumerous}.
 %%}}}
 
 \blah.
-Vamos agora generalizar a notação que usamos nos cosets de
+Vamos agora generalizar a notação que usamos as coclasses de
 ``multiplicação de subgrupo por elemento'' para
 ``multiplicação de subgrupo por subgrupo''.
 
@@ -39399,6 +39696,14 @@ Seja $G$ grupo e $H,K\subgroup G$.  Definimos
 $$
 HK \defeq \setst {hk} {h\in H,\ k\in K}.
 $$
+%%}}}
+
+%%{{{ x: group_juxtaposition_is_associative 
+\exercise.
+Demonstre que a operação denotada por juxtaposição
+no~\ref{HK} é associativa.
+
+\endexercise
 %%}}}
 
 %%{{{ Q: are HK and KH subgroups of G? 
@@ -39526,7 +39831,7 @@ Realmente, $\ginv x = \ginvp{kh} = \ginv h \ginv k \in HK$.
 \endsection
 %%}}}
 
-%%{{{ "Lagrange" theorem 
+%%{{{ Lagrange theorem 
 \section O teorema ``de Lagrange''.
 \label{Lagrange_theorem}%
 
@@ -39543,9 +39848,10 @@ e relevante.
 \label{index_of_subgroup}%
 \tdefined{grupo}[índice de subgrupo]%
 \sdefined {\groupind {\sholed G} {\sholed H}} {o índice do subgrupo $H$ no grupo $G$}%
+\sdefined {\altgroupind {\sholed G} {\sholed H}} {$\groupind G H$ (notação alternativa)}%
 Sejam $G$ grupo e $H\subgroup G$.
 O \dterm{índice} de $H$ no $G$ é o número de coclasses direitas de $H$ no $G$.
-Denotamos-lo com os símbolos $\groupind G H$ ou $\altgroupind G H$.
+O denotamos com os símbolos $\groupind G H$ ou $\altgroupind G H$.
 %%}}}
 
 %%{{{ remark: it doesn't matter if you choose cosetsL or cosetsR 
@@ -39560,7 +39866,10 @@ como tu provarás agora:
 \label{number_of_cosets_independend_of_side}%
 Sejam $G$ grupo, $H\subgrp G$.
 Prove que o número de coclasses à esquerda de $H$ é o mesmo
-com o número de coclasses à direita de $H$.
+com o número de coclasses à direita de $H$:
+$$
+\card{\cosetsL H} = \card{\cosetsR H}.
+$$
 
 \endexercise
 %%}}}
@@ -39844,7 +40153,7 @@ distintos dois-a-dois;
 para $j < i$.
 \endil
 \endgraf
-Nenhuma delas é difícil provar---na verdade, \emph{nos já provamos} todas.%
+Nenhuma delas é difícil pra provar---na verdade, \emph{nos já demonstramos} todas.%
 \footnote{A~(1) é o~\ref{cosets_are_equinumerous_finite_case};
 a~(2) é o~(ii) do~\refn{coclasses_form_a_partition}.}
 Mesmo assim, bora prová-las novamente aqui com uns ``one-liners'':
@@ -39864,6 +40173,22 @@ Pronto!
 Não seja tentado para aplicar o ``converso''.
 Sabendo que $d \divides \gord G$, \emph{não podemos concluir}
 que o $G$ possui subgrupos de ordem $d$.
+%%}}}
+
+%%{{{ x: dividing_the_additive_group_of_ints 
+\exercise dividindo o grupo aditivo dos inteiros.
+\label{dividing_the_additive_group_of_ints}%
+Qual é o índice do $\sset {4\ints} + \subgrp \sset \ints +$?  Generalize para o $m\ints$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: dividing_the_additive_group_of_reals 
+\exercise dividindo o grupo aditivo dos reais.
+\label{dividing_the_additive_group_of_reals}%
+Qual o $\groupind {\sset \ints +} {\sset \reals +}$?
+
+\endexercise
 %%}}}
 
 \endsection
@@ -39929,8 +40254,13 @@ o teorema de~\Wilson[teorema]{}Wilson.
 \endsection
 %%}}}
 
-%%{{{ Normal subgroups 
-\section Subgrupos normais.
+%%{{{ The quotient group 
+\section O grupo quociente.
+\label{The_quotient_group}%
+
+\note Assim que tiver um subgrupo\dots.
+
+\TODO Explicar.
 
 %%{{{ Notation 
 \note Notação.
@@ -39943,9 +40273,8 @@ até usar notação como a seguinte abominação:
 $$
 g_1ABg_2B\ginv{g_3}Ag_1CB
 \defeq
-\set{
-g_1abg_2b'\ginv{g_3}a'g_1cb''
-\st
+\setst {g_1abg_2b'\ginv{g_3}a'g_1cb''}
+{
 a, a' \in A,\ 
 b, b', b'' \in B,\ 
 c \in C
@@ -39959,8 +40288,7 @@ elementos e subconjuntos de $G$ são subconjuntos de $G$ se usamos
 pelo menos um subconjunto de $G$ na expressão:
 $$
 \xalignat2
-g_1abg_5ab' &\in G
-&
+g_1abg_5ab' &\in G &
 g_1aBg_5ab' &\subset G.
 \endxalignat
 $$
@@ -39968,10 +40296,8 @@ Finalmente, \emph{confira} que graças à associatividade da operação do grupo
 não precisamos botar parenteses:
 $$
 g_1ABg_2B\ginv{g_3}Ag_1CB
-=
-g_1A(Bg_2B)\ginv{g_3}(Ag_1CB)
-=
-(g_1A)(Bg_2)(B\ginv{g_3})(Ag_1)(CB)
+= g_1A(Bg_2B)\ginv{g_3}(Ag_1CB)
+= (g_1A)(Bg_2)(B\ginv{g_3})(Ag_1)(CB)
 = \dotsb
 $$
 etc.
@@ -40022,12 +40348,25 @@ K \psi^2 = \set { \psi^2, \phi\psi }.
 $$
 Finalmente achamos todas:
 $$
-\xalignat4
-\text{esquerdas:} &  & K &= \set {\id, \psi\phi }  &   \psi K &= \set{\psi, \phi\psi}  &  \phi K   &= \set{ \phi, \psi^2 }   \\
-\text{direitas:}  &  & K &= \set {\id, \psi\phi }  &   K\psi  &= \set{\phi, \psi}      &  K\psi^2  &= \set{ \psi^2, \phi\psi }.
+\xalignat2
+\cosetsL K &= \set {
+\aligned
+     K &= \set {\id, \psi\phi} \\
+\psi K &= \set {\psi, \phi\psi} \\
+\phi K &= \set {\phi, \psi^2}
+\endaligned
+} & 
+\cosetsR K &= \set {
+\aligned
+K       &= \set {\id, \psi\phi} \\
+K\psi   &= \set {\phi, \psi} \\
+K\psi^2 &= \set {\psi^2, \phi\psi}
+\endaligned
+}.
 \endxalignat
 $$
-Para responder na pergunta, precisamos comparar as duas \emph{colecções}, ou seja a pergunta é:
+Para responder na pergunta, precisamos comparar as duas
+\emph{colecções}, ou seja a pergunta é:
 $$
 \set{ K, \psi K, \phi K }
 \askeq
@@ -40043,235 +40382,18 @@ com cada um dos conjuntos $K, K\psi, K\psi^2$.
 %%{{{ x: cosets_of_H_N_subgroup_S3 
 \exercise.
 \label{cosets_of_H_N_subgroup_S3}%
-Calcule todos os left e right cosets dos
+Calcule todas as coclasses esquerdas e direitas dos
 $$
 \xalignat3
 H &\leteq \set{ \id, \phi }&
 N &\leteq \set{ \id, \psi, \psi^2 }
 \endxalignat
 $$
-Quantos right-cosets diferentes cada um deles tem?
-Quantos left?  Explique sua resposta.
-Os conjuntos de todos os right-cosets de $H$ é igual
-com o conjunto de todos os left-cosets de $H$?
-Similarmente para os $K$ e $N$.
-
-\endexercise
-%%}}}
-
-%%{{{ df: conjugates_of_group_element 
-\definition Conjugados.
-\label{conjugates_of_group_element}%
-\tdefined{conjugado}[de elemento de grupo]%
-Seja $G$ grupo e $a\in G$.
-Para qualquer $g\in G$, o $ga\ginv g$ é chamado
-um \dterm{conjugado} de $a$.
-%%}}}
-
-%%{{{ x: gconjrel_is_an_eqrel
-\exercise.
-\label{gconjrel_is_an_eqrel}%
-Seja $G$ um grupo.
-A relação $\gconjrel$ definida pela
-$$
-\align
-a \gconjrel b
-&\defiff \text{$a$ é um conjugado de $b$}\\
-&\iff \lexists {g\in G} {a = gb\ginv g}
-\endalign
-$$
-é uma relação de equivalência.
-
-\solution
-\proofpart{Reflexividade:}
-Seja $a \in G$.
-Procuramos $g\in G$ tal que $a = ga\ginv g$.
-Como $a = e a \ginv e$, temos que realmente $a \gconjrel a$.
-\endgraf
-\proofpart{Simetria:}
-Sejam $a,b \in G$ tais que $a \gconjrel b$.
-Daí, seja $x\in G$ tal que $a = xb\ginv x$.
-Operando pela esquerda com $\ginv x$ e pela direita com $x$, temos:
-$$
-\ginv x a x = \ginv x x b \ginv x x = b.
-$$
-Mas $x = \ginvp {\ginv x}$, ou seja
-$b = \ginv x a \ginvp{\ginv x}$
-e logo $b \gconjrel a$.
-\endgraf
-\proofpart{Transitividade:}
-Sejam $a,b,c \in G$ tais que $a \gconjrel b$ e $b \gconjrel c$.
-Daí, sejam $x,y \in G$ tais que:
-\compute
-a &= x b \ginv x \\
-b &= y c \ginv y.
-\intertext{Substituindo a segunda na primeira, temos}
-a &= x \paren{ y c \ginv y } \ginv x                \\
-  &= \paren{ xy } c \paren{ \ginv y \ginv x} \by {ass.}
-  &= \paren{ xy } c \ginvp{ xy }.            \by {inverso de produto (\refn{inverse_of_product_in_group})}
-\endcompute
-Ou seja, $a \gconjrel c$.
-
-\endexercise
-%%}}}
-
-%%{{{ df: conjugacy_class 
-\definition Classe de conjugação.
-\label{conjugacy_class}%
-\tdefined{classe de conjugação}%
-\sdefined {\gcl {\sholed a}} {a classe de conjugação de $a$}%
-Seja $G$ grupo e $a\in G$.
-A \dterm{classe de conjugação} de $a$ é o conjunto
-$$
-\gcl a \defeq \setst {ga\ginv g} {g \in G},
-$$
-ou seja, $\gcl a$ é a classe de equivalência do $a$
-através da relação <<é um conjugado de>>.
-%%}}}
-
-%%{{{ x: conjugacy_class_of_e 
-\exercise.
-\label{conjugacy_class_of_e}%
-Seja $G$ grupo.
-Calcule a $\gcl e$.
-
-\hint
-$\gcl e = \set{e}$.
-Por quê?
-
-\endexercise
-%%}}}
-
-%%{{{ x: conjugacy_classes_of_S3 
-\exercise.
-\label{conjugacy_classes_of_S3}%
-Ache todas as classes de conjugação de $\sym 3$.
-
-\hint
-Já achou uma no \ref{conjugacy_class_of_e}.
-
-\endexercise
-%%}}}
-
-%%{{{ df: conjugation_by_member 
-\definition Conjugação por membro.
-\label{conjugation_by_member}%
-Seja $G$ grupo e $g\in G$.
-Definimos a função $\gconj g : G \to G$ pela
-$$
-\gconj g (x) = gx\ginv g.
-$$
-Chamamos a $\gconj g$ a \dterm{conjugação por $g$}.
-%%}}}
-
-%%{{{ x: conjugation_by_member_respects_powers 
-\exercise.
-\label{conjugation_by_member_respects_powers}%
-Sejam $G$ grupo e $g,a\in G$.
-Para todo $n\in\nats$, $\paren{ga\ginv g}^n = g a^n \ginv g$.
-Em outras palavras, a conjugação por membro respeita as potências:
-$$
-\gconj g (a^n) = 
-\paren{\gconj g (a)}^n
-$$
-para todo $n\in\nats$.
-
-\hint
-Indução.
-
-\solution
-Provamos por indução.
-Observe que
-$$
-\align
-(ga\ginv g)^0 &= e \\
-g a^0 \ginv g &= g e \ginv g = g \ginv g = e.
-\endalign
-$$
-Agora seja $k\in\nats$ tal que
-$$
-(ga\ginv g)^k = g a^k \ginv g. \tag{H.I.}
-$$
-Calculamos
-\compute
-(ga\ginv g)^{k+1}
-    &= (ga\ginv g)^k (ga\ginv g) \\
-    &= (ga^k\ginv g) (ga\ginv g) \by {pela H.I.}
-    &= ga^k(\ginv g g)a\ginv g \\
-    &= ga^ka\ginv g \\
-    &= ga^{k+1}\ginv g.
-\endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ x: exponentiation_respects_conjugation 
-\exercise.
-\label{exponentiation_respects_conjugation}%
-Se $x,y$ são conjugados, então para todo $n\in\nats$,
-$x^n$ e $y^n$ também são.
-
-\hint
-Lembre o~\ref{conjugation_by_member_respects_powers}.
-
-\solution
-Isso é um corolário imediato
-do~\ref{conjugation_by_member_respects_powers}:
-Como $x,y$ conjugados, temos $x = gy\ginv g$ para algum $g\in G$.
-E agora calculamos:
-\compute
-x^n
-&= \paren{gy\ginv g}^n \\
-&= gy^n\ginv g.  \by {pelo \refn{conjugation_by_member_respects_powers}}
-\endcompute
-e logo $x^n,y^n$ conjugados também.
-
-\endexercise
-%%}}}
-
-%%{{{ prob: conjugates_have_the_same_order 
-\exercise.
-\label{conjugates_have_the_same_order}%
-Membros da mesma classe de conjugação tem a mesma ordem.
-
-\hint
-Separe os casos em $\gord a = n \in\nats$ e $\gord a = \infty$.
-
-\hint
-Lembre o~\ref{exponentiation_respects_conjugation}
-e o~\ref{conjugacy_class_of_e}.
-
-\solution
-Sejam $a,b$ conjugados.
-\crcase{Caso que $\gord a < \infty$.}
-\crproofpart{Resolução 1.}
-Preciso mostrar:
-(i) $b^n = e$;
-(ii) para todo $m$ com $0<m<n$, $b^m \neq e$.
-\endgraf
-(i) Pelo~\ref{exponentiation_respects_conjugation},
-temos que $a^n$ e $b^n$ são conjugados,
-mas $a^n = e$, e a classe de conjugação de $e$ é o singleton $\set{e}$
-(\ref{conjugacy_class_of_e}).
-Logo $b^n = e$.
-\endgraf
-(ii) Pela mesma observação cada suposto $b^m = e$
-obrigaria $a^m = e$ também.
-Logo $\gord b = n$.
-\crproofpart{Resolução 2.}
-Pelo~\ref{exponentiation_respects_conjugation}
-temos $a^{\gord a}$ conjugado com $b^{\gord a}$.
-Logo $b^{\gord a} = e$ e logo $\gord b \divides \gord a$.
-Similarmente $\gord a \divides \gord b$ e logo $\gord a = \gord b$
-pois ambos são naturais.
-\crcase{Caso que $\gord a = \infty$.}
-Tenho que para todo $n > 0$, $a^n \neq e$,
-e preciso mostrar a mesma coisa sobe os $b^n$.
-De novo, de qualquer suposto contraexemplo $m\in \nats$ com $b^m = e$
-concluimos $a^m = e$ que é absurdo pois $\gord a = \infty$.
-\endgraf
-Para uma resolução mais poderosa e simples,
-veja o~\ref{conjugates_look_alike}.
+Quantas coclasses direitas diferentes cada um deles tem?
+Quantas esquerdas?  Explique sua resposta.
+A família $\cosetsR H$ de todas as coclasses direitas de $H$ é igual
+à família $\cosetsL H$ de todas as esquerdas?
+Similarmente para as $K$ e $N$.
 
 \endexercise
 %%}}}
@@ -40284,118 +40406,12 @@ veja o~\ref{conjugates_look_alike}.
 \iisee{normal}{subgrupo normal}%
 Seja $G$ grupo e $N\subgroup G$.
 O $N$ é um \dterm{subgrupo normal} de $G$
-sse $N$ é fechado sobre os conjugados.
+sse a família das suas coclasses esquerdas
+e a das suas coclasses direitas são iguais.
 Em símbolos,
 $$
-\align
-N \normal G
-&\defiff
-\pforall {n\in N}
-\lforall{g\in G}
-{ gn\ginv g \in N }\\
-&\iff
-\pforall {g\in G}
-\munderbrace {
-\lforall{n\in N}
-{ gn\ginv g \in N }
-} 
-{ gN\ginv g \subset N }.
-\endalign
+N \normal G \defiff \cosetsL N = \cosetsR N.
 $$
-%%}}}
-
-%%{{{ explain the underlined 
-\note.
-{%
-\def\bla{\mathrm{bla}}%
-Se a parte sublinhada acima parece estranha,
-lembre-se o~\ref{picking_elements_from_indexed_sets},
-e releia o fim do~\ref{only_declare_variables}.
-Provando a afirmação
-$$
-\align
-\pforall {n\in N} &\bracket{\text{algo sobre o $gn\ginv g$}}
-\intertext{ganhamos que todos os membros do $gN\ginv g$ satisfazem
-esse algo, pois o conjunto $gN\ginv g$ é indexado por o $N$.
-Aqui o algo é o <<pertencer ao $N$>>.
-Ou seja:}
-\pforall {n\in N} &\bracket{gn\ginv g \in N}
-\endalign
-$$
-afirma que todos os membros de $gN\ginv g$ pertencem no $N$,
-ou seja, $gN\ginv g \subset N$.
-}
-%%}}}
-
-\blah.
-Seguem umas definições alternativas.
-
-%%{{{ criterion: normal_subgroup_altdef_gNginvg_eq_N 
-\criterion.
-\label{normal_subgroup_altdef_gNginvg_eq_N}%
-\ii{subgrupo!normal}%
-Sejam $G$ grupo, e $N\subgroup G$.
-$$
-N\normal G
-\iff
-\lforall{g\in G}
-{gN\ginv g = N}.
-$$
-\sketch.
-A \rldir\ é trivial, pois o que precisamos provar ($N \normal G$) é obviamente uma afirmação mais fraca da nossa hipótese.
-Para a \lrdir, suponha $N \normal G$ e seja $g\in G$.  Já temos a inclusão $gN\ginv g \subset N$, então só basta provar
-a $N \subset gN\ginv g$.  Seja $n \in N$.
-Como $n \in N$ e $N$ normal, temos $\ginv g n \ginvp{\ginv g} \in N$.
-Logo
-$$
-\munderbrace {g \paren{\ginv g n \ginvp{\ginv g}} \ginv g} {=n} \in gN\ginv g.
-$$
-\qes
-%%}}}
-
-%%{{{ beware: g n g^{-1} \neq n 
-\beware.
-Se tivemos $N \normal G$ temos sim que $gn\ginv g \in N$ para todo $n\in N$,
-mas isso \emph{não garanta} que $gn\ginv g = n$ não!
-Sabemos que para todo $n\in N$, temos $gn\ginv g = n'$ \emph{para algum}
-$n' \in N$, mas nada nos permite concluir que esse $n'$ é nosso $n$.
-Isso quis dizer que em geral não podemos demonstrar que
-$$
-\align
-\famst {gn\ginv g} {n\in N} &= \famst {n} {n\in N}
-\intertext{como famílias indexadas por o mesmo conjunto $N$, mas mesmo
-assim conseguimos provar que os \emph{conjuntos} são iguais sim:}
-\setst {gn\ginv g} {n\in N} &= \setst {n} {n\in N},
-\intertext{ou seja,}
-gN\ginv g &= N.
-\endalign
-$$
-%%}}}
-
-%%{{{ x: gnginvg_neq_n 
-\exercise.
-\label{gnginvg_neq_n}%
-Ache um contraexemplo que mostra que não necessariamente
-$gn\ginv g = n$, mesmo com $n\in N \normal G$.
-
-\endexercise
-%%}}}
-
-%%{{{ criterion: normal_subgroup_altdef_gN_eq_Ng 
-\criterion.
-\label{normal_subgroup_altdef_gN_eq_Ng}%
-\ii{subgrupo!normal}%
-Sejam $G$ grupo, e $N\subgroup G$.
-$$
-N\normal G
-\iff
-\lforall{g\in G}
-{gN = Ng}.
-$$
-\sketch.
-Para a \lrdir, tome $g\in G$ e $x \in gN$.
-Assim $x = gn$ para algum $n\in N$.
-\qes
 %%}}}
 
 %%{{{ x: cosets_of_subgroup_of_index_2 
@@ -40416,74 +40432,23 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ ex: inter_of_subgroup_and_normal_is_normal_in_subgroup 
-\exercise.
-\label{inter_of_subgroup_and_normal_is_normal_in_subgroup}%
-Se $H\subgroup G$ e $N\normal G$, então $H\inter N \normal H$.
+\note Algo dessatisfatório.
 
-\hint
-Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
-(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
-e~\refn{subgroup_is_an_order}).
-Para mostrar que $H \inter N \normal H$,
-tente provar que $H\inter N$ é fechado pelos conjugados no $H$.
+\TODO Escrever sobre não-congruência.
 
-\solution
-Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
-(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
-e~\refn{subgroup_is_an_order}).
-Basta mostrar que $H \inter N \normal H$,
-ou seja, que $H\inter N$ é fechado pelos conjugados no $H$.
-Tome $x \in H\inter N$ e $h\in H$.
-Temos:
-\compute
-h x \ginv h &\in H  \by {$H \subgroup G$}
-h x \ginv h &\in N  \by {$N \normal G$}
-\endcompute
-Logo $hx\ginv h \in H\inter N$.
+%%{{{ What is congruence? 
+\note o que é congruência mesmo?.
+%%}}} 
 
-\endexercise
-%%}}}
-
-%%{{{ Criteria 
-\note Critéria.
-Para resumir, sabemos que podemos usar qualquer uma das afirmações
-seguintes como definição de $N \normal G$:
-$$
-N \normal G
-\defiff
-N \subgrp G
-\ +\ 
-\text{qualquer uma das:}\ \ 
-\leftbrace{
-\gathered
-\text{$N$ é fechado pelos conjugados} \\
-\lforall {g\in G} {gN\ginv g \subset N} \\
-\lforall {g\in G} {gN\ginv g = N} \\
-\lforall {g\in G} {gN = Ng} \\
-\cosetsL N = \cosetsR N \\
-\congL N \;=\; \congR N
-\endgathered
-}
-$$
-onde $\cosetsL N$ e $\cosetsR N$ são as colecções de left
-e right cosets de $N$ respectivamente (\ref{cosetsL_and_cosetsR}),
-e $\congL N$ e $\congR N$ as congruências módulo-esqeurdo e módulo-direito $N$
-respectivamente (\ref{congruence_mod_H}).
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ The quotient group 
-\section O grupo quociente.
-\label{The_quotient_group}%
+\TODO Mencionar e linkar com o \ref{Universal_algebra}.
 
 %%{{{ The quotient group 
 \note.
-Acabamos de identificar certos subgrupos dum grupo $G$---que chamamos \dterm{normais}---com uma propriedade legal:
+Acabamos de identificar certos subgrupos dum grupo $G$---que chamamos
+\dterm{normais}---com uma propriedade legal:
 a colecção de todas as suas coclasses esquerdas e a mesma com
 a colecção de todas as suas coclasses direitas.
+(Na verdade a situação é bem mais legal que isso---continue lendo.)
 Começando então com um $N\normal G$, podemos falar \emph{da} partição
 correspodente de $G$, sem specificar se estamos considerando a colecção
 das coclasses esquerdas ou das direitas.
@@ -40504,7 +40469,7 @@ $$
 \endtikzpicture
 $$
 Identificamos nele um subgrupo normal $N\normal G$.
-Assim que fizermos isso, todo o $G$ se-arruma
+Assim que fizermos isso, todo o $G$ se arruma
 graças à partição de todas as coclasses de $N$:
 $$
 \gathered
@@ -40532,11 +40497,29 @@ $$
 \quogrp G N = \setst {Ng} {g \in G}
 $$
 Observe que esse conjunto é o
-\ii{conjunto}[quociente]{}\emph{conjunto quociente} de $G$
+{\ii{conjunto}[quociente]}\emph{conjunto quociente} de $G$
 através da relação de congruência módulo $N$.%
 \footnote{Lembra-se que dada qualquer relação de equivalência
 num conjunto, definimos seu conjunto quociente?
 Veja a~\ref{quoset}.}
+%%}}}
+
+%%{{{ So what? 
+\note E daí?.
+Isso é verdade mesmo se o $N$ não fosse normal:
+podemos definir os (dois) conjuntos quocientes
+$\quoset G {\congL N}$ e $\quoset G {\congR N}$.
+Mas assim estamos esquecendo \emph{a alma} do $G$:
+o $G$ é um \emph{grupo}.
+Desde o~\ref{Relations} (\refn{quoset}) sabemos que podemos
+dividir um \emph{conjunto} (por uma relação de equivalência)
+e o resultado (quociente) é novamente o mesmo tipo de coisa:
+\emph{conjunto}.
+Aqui dividimos um \emph{grupo} e o quociente foi o que?
+A melhor coisa que podemos dizer é\dots~\emph{conjunto!}
+Péssimo!  O resultado perdeu seu alma!
+Por isso os subgrupos normais são \emph{muito} legais:
+o quociente retenha a alma do grupo original!
 %%}}}
 
 %%{{{ Q: How can we turn the quotient set into a group? 
@@ -40721,6 +40704,242 @@ $$
 $$
 e pronto.
 \qed
+%%}}}
+
+\blah.
+Seria importante se convencer que essa coisa legal realmente não
+é compartilhada por subgrupos não-normais.  Faça agora o:
+
+%%{{{ x: not_normal_subgroup_makes_soulless_quoset 
+\exercise.
+\label{not_normal_subgroup_makes_soulless_quoset}%
+Mostre que para $H \not\normal G$ as $\congL H$ e $\congR H$
+não são congruências e logo nenhum dos $\quoset G {\congL H}$
+$\quoset G {\congR H}$ pode virar um grupo com a alma do $G$.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Normal_subgroups 
+\section Subgrupos normais.
+\label{Normal_subgroups}%
+
+\secintro
+Na~\ref{The_quotient_group} definimos os
+\emph{subgrupos normais} como aqueles cujas
+coclasses esquerdas e direitas formam a
+mesma partição.
+Aqui encontramos umas definições equivalentes
+que superficialmente parecem bastante diferentes.
+
+%%{{{ Alternative definitions of normal 
+\note Definições alternativas de normal.
+Podemos usar qualquer uma das afirmações
+seguintes como definição de $N \normal G$;
+são todas equivalentes:
+$$
+N \normal G
+\defiff
+N \subgrp G
+\mland
+\text{qualquer uma das:}\ \ 
+\leftbrace{
+\aligned
+\text{(i)}~   & \cosetsL N = \cosetsR N \\
+\text{(ii)}~  & \congL N \;=\; \congR N \\
+\text{(iii)}~ & \text{$N$ é fechado pelos conjugados} \\
+\text{(iv)}~  & \lforall {g\in G} {gN\ginv g \subset N} \\
+\text{(v)}~   & \lforall {g\in G} {gN\ginv g = N} \\
+\text{(vi)}~  & \lforall {g\in G} {gN = Ng}.
+\endaligned
+}
+$$
+lembrando que $\cosetsL N$ e $\cosetsR N$ são as colecções de left
+e right cosets de $N$ respectivamente (\ref{cosetsL_and_cosetsR}),
+e $\congL N$ e $\congR N$ as congruências módulo-esqeurdo e
+módulo-direito $N$ respectivamente (\ref{congruence_mod_H}).
+Se demonstrar tudo isso seria massa pois:
+cada vez que vamos ter como dado que $N \normal G$, a gente
+vai ganhar \emph{toda} essa afirmação de graça; e dualmente,
+cada vez que vamos querer demonstrar que $N \normal G$, a gente
+vai ter a liberdade de escolher qualquer uma dessas e pronto!
+%%}}}
+
+%%{{{ x: which_normal_altdef_will_never_be_our_goal 
+\exercise.
+\label{which_normal_altdef_will_never_be_our_goal}%
+Qual dessas não faria sentido escolher nunca querendo demonstrar
+que $N \normal G$?
+
+\hint
+A $\lforall {g\in G} {gN\ginv g = N}$.  Por quê?
+
+\solution
+A $\lforall {g\in G} {gN\ginv g = N}$, pois escolhendo
+a $\lforall {g\in G} {gN\ginv g \subset N}$, a gente teria
+menos trabalho pra fazer.
+
+\endexercise
+%%}}}
+
+%%{{{ closed_under_conj_meaning 
+\note Fechado pelos que?.
+\tdefined{fechado}[pelos conjugados]%
+O que significa \emph{fechado pelos conjugados?}
+Significa \emph{fechado pela relação de conjugação};
+em símbolos:
+$$
+\align
+\pforall {n \in N} & \bracket{\text{todos os conjugados do $n$ pertencem ao $N$}} \\
+\intertext{ou seja,}
+\pforall {n \in N} &
+\lforall {g \in G}
+{ gn\ginv g \in N }.
+\endalign
+$$
+%%}}}
+
+%%{{{ remark: swap the quantifiers 
+\remark.
+$$
+\pforall {n\in N}
+\lforall {g\in G}
+{ gn\ginv g \in N }
+\iff
+\pforall {g\in G}
+\munderbrace {
+\lforall{n\in N}
+{ gn\ginv g \in N }
+}
+{ gN\ginv g \subset N }.
+$$
+%%}}}
+
+%%{{{ explain the underlined 
+\note.
+{%
+\def\bla{\mathrm{bla}}%
+Se a parte sublinhada acima parece estranha,
+lembre-se como tomamos membros arbitrários dum conjunto
+indexado (\ref{picking_elements_from_indexed_sets}
+e~\ref{only_declare_variables}).
+Provando a afirmação
+$$
+\align
+\pforall {n\in N} &\bracket{\text{algo sobre o $gn\ginv g$}}
+\intertext{ganhamos que todos os membros do $gN\ginv g$ satisfazem
+esse algo, pois o conjunto $gN\ginv g$ é indexado por o $N$.
+Aqui o algo é o <<pertencer ao $N$>>.
+Ou seja:}
+\pforall {n\in N} &\bracket{gn\ginv g \in N}
+\endalign
+$$
+afirma que todos os membros de $gN\ginv g$ pertencem ao $N$,
+ou seja, $gN\ginv g \subset N$.
+}
+%%}}}
+
+\blah.
+Seguem umas definições alternativas.
+
+%%{{{ criterion: normal_subgroup_altdef_gNginvg_eq_N 
+\criterion.
+\label{normal_subgroup_altdef_gNginvg_eq_N}%
+\ii{subgrupo!normal}%
+Sejam $G$ grupo, e $N\subgroup G$.
+$$
+N\normal G
+\iff
+\lforall{g\in G}
+{gN\ginv g = N}.
+$$
+\sketch.
+A \rldir\ é trivial, pois o que precisamos provar ($N \normal G$) é obviamente uma afirmação mais fraca da nossa hipótese.
+Para a \lrdir, suponha $N \normal G$ e seja $g\in G$.  Já temos a inclusão $gN\ginv g \subset N$, então só basta provar
+a $N \subset gN\ginv g$.  Seja $n \in N$.
+Como $n \in N$ e $N$ normal, temos $\ginv g n \ginvp{\ginv g} \in N$.
+Logo
+$$
+\munderbrace {g \paren{\ginv g n \ginvp{\ginv g}} \ginv g} {=n} \in gN\ginv g.
+$$
+\qes
+%%}}}
+
+%%{{{ beware: g n g^{-1} \neq n 
+\beware.
+Se tivemos $N \normal G$ temos sim que $gn\ginv g \in N$ para todo $n\in N$,
+mas isso \emph{não garanta} que $gn\ginv g = n$ não!
+Sabemos que para todo $n\in N$, temos $gn\ginv g = n'$ \emph{para algum}
+$n' \in N$, mas nada nos permite concluir que esse $n'$ é nosso $n$.
+Isso quis dizer que em geral não podemos demonstrar que
+$$
+\align
+\famst {gn\ginv g} {n\in N} &= \famst {n} {n\in N}
+\intertext{como famílias indexadas por o mesmo conjunto $N$, mas mesmo
+assim conseguimos provar que os \emph{conjuntos} são iguais sim:}
+\setst {gn\ginv g} {n\in N} &= \setst {n} {n\in N},
+\intertext{ou seja,}
+gN\ginv g &= N.
+\endalign
+$$
+%%}}}
+
+%%{{{ x: gnginvg_neq_n 
+\exercise.
+\label{gnginvg_neq_n}%
+Ache um contraexemplo que mostra que não necessariamente
+$gn\ginv g = n$, mesmo com $n\in N \normal G$.
+
+\endexercise
+%%}}}
+
+%%{{{ criterion: normal_subgroup_altdef_gN_eq_Ng 
+\criterion.
+\label{normal_subgroup_altdef_gN_eq_Ng}%
+\ii{subgrupo!normal}%
+Sejam $G$ grupo, e $N\subgroup G$.
+$$
+N\normal G
+\iff
+\lforall{g\in G}
+{gN = Ng}.
+$$
+\sketch.
+Para a \lrdir, tome $g\in G$ e $x \in gN$.
+Assim $x = gn$ para algum $n\in N$.
+\qes
+%%}}}
+
+%%{{{ x: inter_of_subgroup_and_normal_is_normal_in_subgroup 
+\exercise.
+\label{inter_of_subgroup_and_normal_is_normal_in_subgroup}%
+Se $H\subgroup G$ e $N\normal G$, então $H\inter N \normal H$.
+
+\hint
+Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
+(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
+e~\refn{subgroup_is_an_order}).
+Para mostrar que $H \inter N \normal H$,
+tente provar que $H\inter N$ é fechado pelos conjugados no $H$.
+
+\solution
+Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
+(veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
+e~\refn{subgroup_is_an_order}).
+Basta mostrar que $H \inter N \normal H$,
+ou seja, que $H\inter N$ é fechado pelos conjugados no $H$.
+Tome $x \in H\inter N$ e $h\in H$.
+Temos:
+\compute
+h x \ginv h &\in H  \by {$H \subgroup G$}
+h x \ginv h &\in N  \by {$N \normal G$}
+\endcompute
+Logo $hx\ginv h \in H\inter N$.
+
+\endexercise
 %%}}}
 
 \endsection
@@ -40950,7 +41169,7 @@ dum triângulo equilateral, tal que ele vira um grupo?
 \definition Os grupos dihedrais.
 \label{dih_n}%
 \tdefined{grupo}[dihedral]%
-\iisee{dihedral}{grupo dihedral}
+\iisee{dihedral}{grupo dihedral}%
 O \dterm{grupo dihedral} $\dih n$ (também $\dihalt n$)
 é o grupo das simetrias dum $n$-gono regular, com operação
 a composição $\fcom$ (vendo as simetrias como
@@ -48418,7 +48637,8 @@ reticulados com relação de ordem $\subset$.
 \proofpartstyle{Sobre o $\scr L_1$.}
 Sejam $A, B \in \scr L_1$.
 Pela definição então $\nats\setminus A$ e $\nats\setminus B$ são finitos.
-Vou mostrar que $A\union B$ e $A\inter B$ são cofinitos, e logo pertencem no $\scr L_1$ também.
+Vou mostrar que $A\union B$ e $A\inter B$ são cofinitos, e logo pertencem ao
+$\scr L_1$ também.
 Calculamos 
 $$
 \align
@@ -48436,7 +48656,7 @@ Separamos em casos:
 \case{Caso ambos finitos:}
 Facilmente $A\union B$ e $A \inter B$ são finitos também,
 como intersecção e união de conjuntos finitos.
-Logo ambos pertencem no $\scr L_2$.
+Logo ambos pertencem ao $\scr L_2$.
 \endgraf
 \case{Caso ambos cofinitos:}
 Provamos isso na demonstração sobre o $\scr L_1$.
@@ -51184,7 +51404,7 @@ $$
 \proof.
 Basta achar um conjunto onde todas as relações de $a$ para $b$
 pertencem.
-Pela definição de relação, todas pertencem no $\pset(a\times b)$.
+Pela definição de relação, todas pertencem ao $\pset(a\times b)$.
 De fato, ainda mais é verdade:
 $$
 (a \relto b)
