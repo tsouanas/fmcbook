@@ -9250,7 +9250,7 @@ seja $x\in\ints$ tal que $x \bmod 4 = 2$.  Logo $x = 4k + 2 = 2(2k + 1)$ para al
 \note Notação.
 Talvez ficaria mais intuitivo (e menos confúso), usar uma notação como a
 $$
-a \cong_m b \defiff m \divides a - b
+a \congmod m b \defiff m \divides a - b
 $$
 que aparece mais fiel na sua semántica.
 Mas a notação que é usada internacionalmente é aquela que nós definimos
@@ -30384,7 +30384,7 @@ Essa relação de equivalência é um caso especial da próxima.
 Seja $m\in\nats$.
 Prove que a relação binária nos inteiros definida pela
 $$
-a \cong_m b \defiff a \cong b \pmod m
+a \congmod m b \defiff a \cong b \pmod m
 $$
 é uma relação de equivalência.
 
@@ -32034,17 +32034,17 @@ na terceira casa sfera com seu raio.
 Seja $m\in\nats_{>1}$.
 Já provou no~\ref{congruence_mod_m_is_an_eqrel_again} que a relação de
 congruência módulo $m$ é uma relação de equivalência.
-Vamos denotá-la \sq{$\cong_m$}.
+Vamos denotá-la \sq{$\congmod m$}.
 Então: qual é o seu conjunto quociente?
 Também: seguindo a idéia do~\ref{some_eqclasses_geometrically_and_algebrically},
-com que tu ``identificaria'' o $\quoset \ints {\cong_m}$?
+com que tu ``identificaria'' o $\quoset \ints {\congmod m}$?
 
 \endexercise
 %%}}}
 
 %%{{{ x: cong_0_and_cong_1 
 \exercise.
-Continuando: quais são as relações $\cong_0$ e $\cong_1$?
+Continuando: quais são as relações $\congmod 0$ e $\congmod 1$?
 
 \hint
 Uma é a igualdade e outra é a trivial $\True$.
@@ -32054,11 +32054,11 @@ Qual é qual?  Demonstre.
 Temos:
 $$
 \align
-a \cong_0 b &\iff 0 \divides a - b \iff a - b = 0 \iff a = b \\
-a \cong_1 b &\iff 1 \divides a - b \iff \True.
+a \congmod 0 b &\iff 0 \divides a - b \iff a - b = 0 \iff a = b \\
+a \congmod 1 b &\iff 1 \divides a - b \iff \True.
 \endalign
 $$
-Ou seja:  $(\cong_0) = (\eqof \ints)$ e $(\cong_1) = (\True)$.
+Ou seja:  $(\congmod 0) = (\eqof \ints)$ e $(\congmod 1) = (\True)$.
 
 \endexercise
 %%}}}
@@ -32190,6 +32190,7 @@ Por que isso resolve o~\ref{how_many_equivalence_relations_on_3}?
 
 %%{{{ Summary 
 \note Resumo.
+\label{eqrel_quoset_partition_summary}%
 \DefFun quotient
 \DefFun eqrelize
 \DefOp EqRel
@@ -38732,6 +38733,29 @@ veja o~\ref{conjugates_look_alike}.
 \endproblem
 %%}}}
 
+%%{{{ prob: G abelian iff something with conjugates 
+\problem.
+Ache uma propriedade interessante que tem a ver com conjugados,
+tal que para todo grupo $G$,
+$$
+\text{$G$ abeliano} \iff \text{essa propriedade}.
+$$
+Prove tua afirmação!
+
+\hint
+Num grupo abeliano, o que podes afirmar se $a \gconjrel b$?
+(A próxima dica já tem a resposta, depois disso vai faltar
+só demonstrá-la.)
+
+\hint
+$$
+\text{$G$ abeliano} \iff (\gconjrel) = (\eqof G)
+$$
+Demonstre!
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -39184,9 +39208,9 @@ $h_ia = h_ib$.
 \endexercise
 %%}}}
 
-%%{{{ x: every_coclass_is_nonempty 
+%%{{{ x: every_coset_is_nonempty 
 \exercise.
-\label{every_coclass_is_nonempty}%
+\label{every_coset_is_nonempty}%
 Nenhuma coclasse de $H$ é vazia.
 
 \solution
@@ -39270,9 +39294,9 @@ que é absurdo.
 \blah.
 E se escolher um $b\in G$ fora do $H$ e fora do $Ha$?
 
-%%{{{ x: every_coclass_disjoint_from_all_others 
+%%{{{ x: every_coset_disjoint_from_all_others 
 \exercise.
-\label{every_coclass_disjoint_from_all_others}%
+\label{every_coset_disjoint_from_all_others}%
 Mostre que se $a,b \in G$ tais que $b\notin Ha$
 então $Hb$ e $Ha$ são disjuntos.
 (Que $Hb$ e $H$ são disjuntos já sabemos graças
@@ -39319,9 +39343,9 @@ Observe que ambos os $\cosetsL H,\cosetsR H$ são indexados
 pelo mesmo conjunto $G$.
 %%}}}
 
-%%{{{ lemma: coclasses_form_a_partition 
+%%{{{ lemma: cosets_form_a_partition 
 \lemma.
-\label{coclasses_form_a_partition}%
+\label{cosets_form_a_partition}%
 \ii{partição}%
 Sejam $G$ grupo e $H\subgroup G$.
 A família de todas as coclasses direitas de $H$
@@ -39339,9 +39363,9 @@ ou seja: para todo $x\in G$, existe coclasse $H'$ com $x \in H'$;
 \endilnoskip
 Para o (P1) tomamos um arbitrário $x\in G$ e achamos
 uma coclasse de $H$ que o $x$ esteja dentro.
-O (P3) já provamos no~\ref{every_coclass_is_nonempty}.
+O (P3) já provamos no~\ref{every_coset_is_nonempty}.
 Essencialmente provamos o (P2) também,
-no~\ref{every_coclass_disjoint_from_all_others}.
+no~\ref{every_coset_disjoint_from_all_others}.
 Mas para variar, demonstramos que para todo $a,b \in G$,
 $$
 Ha \inter Hb \neq \emptyset \implies Ha=Hb.
@@ -39369,7 +39393,7 @@ temos que $x = ex \in Hx$, ou seja todos os elementos de $G$ pertencem em
 alguma coclasse.
 (P3) Toda coclasse direita de $H$, tem a forma $Ha$ para algum $a\in G$,
 e tem pelo menos um elemento: esse mesmo $a$ (a gente provou
-isso no~\ref{every_coclass_is_nonempty}).
+isso no~\ref{every_coset_is_nonempty}).
 Para o (P2) suponha que $Ha\inter Hb\neq \emptyset$ e tome $w\in Ha\inter Hb$.
 Logo
 $$
@@ -40155,7 +40179,7 @@ para $j < i$.
 \endgraf
 Nenhuma delas é difícil pra provar---na verdade, \emph{nos já demonstramos} todas.%
 \footnote{A~(1) é o~\ref{cosets_are_equinumerous_finite_case};
-a~(2) é o~(ii) do~\refn{coclasses_form_a_partition}.}
+a~(2) é o~(ii) do~\refn{cosets_form_a_partition}.}
 Mesmo assim, bora prová-las novamente aqui com uns ``one-liners'':
 $$
 \gather
@@ -40167,12 +40191,12 @@ $$
 Pronto!
 %%}}}
 
-%%{{{ warning: converse_of_lagrange_invalid 
+%%{{{ warning: converse_of_lagrange_is_invalid 
 \warning.
-\label{converse_of_lagrange_invalid}%
+\label{converse_of_lagrange_is_invalid}%
 Não seja tentado para aplicar o ``converso''.
 Sabendo que $d \divides \gord G$, \emph{não podemos concluir}
-que o $G$ possui subgrupos de ordem $d$.
+que o $G$ possui subgrupos de ordem $d$ (\ref{converse_of_lagrange_is_invalid_proof})
 %%}}}
 
 %%{{{ x: dividing_the_additive_group_of_ints 
@@ -40260,7 +40284,7 @@ o teorema de~\Wilson[teorema]{}Wilson.
 
 \note Assim que tiver um subgrupo\dots.
 
-\TODO Explicar.
+\TODO Elaborar.
 
 %%{{{ Notation 
 \note Notação.
@@ -40339,7 +40363,7 @@ $$
 $$
 Basta calcular as coclasses direitas agora.  Para a primeira, escolhemos de novo o $\psi$, já que observamos que $\psi\notin K$.  Calculamos:
 $$
-K \psi = \set { \psi, \psi\phi\psi } = \set { \psi, \phi }
+K \psi = \set { \psi, \psi\phi\psi } = \set { \psi, \phi }.
 $$
 Qual seria o representante ta próxima?  Aqui não pode ser novamente o $\phi$, pois o $\phi$ apareceu no $K\psi$.
 Escolhemos um dos dois restantes então, vamos tomar o $\psi^2$, e junto com o último restante ele forma a última coclasse direita:
@@ -40351,15 +40375,15 @@ $$
 \xalignat2
 \cosetsL K &= \set {
 \aligned
-     K &= \set {\id, \psi\phi} \\
-\psi K &= \set {\psi, \phi\psi} \\
+     K &= \set {\id, \psi\phi}, \\
+\psi K &= \set {\psi, \phi\psi}, \\
 \phi K &= \set {\phi, \psi^2}
 \endaligned
 } & 
 \cosetsR K &= \set {
 \aligned
-K       &= \set {\id, \psi\phi} \\
-K\psi   &= \set {\phi, \psi} \\
+K       &= \set {\id, \psi\phi}, \\
+K\psi   &= \set {\phi, \psi}, \\
 K\psi^2 &= \set {\psi^2, \phi\psi}
 \endaligned
 }.
@@ -40414,6 +40438,14 @@ N \normal G \defiff \cosetsL N = \cosetsR N.
 $$
 %%}}}
 
+%%{{{ x: subgroup_of_abelian_is_normal 
+\exercise.
+\label{subgroup_of_abelian_is_normal}%
+Se $H \subgroup G$ num $G$ abeliano, então $H \normal G$.
+
+\endexercise
+%%}}}
+
 %%{{{ x: cosets_of_subgroup_of_index_2 
 \exercise.
 \label{cosets_of_subgroup_of_index_2}%
@@ -40432,21 +40464,11 @@ $$
 \endexercise
 %%}}}
 
-\note Algo dessatisfatório.
-
-\TODO Escrever sobre não-congruência.
-
-%%{{{ What is congruence? 
-\note o que é congruência mesmo?.
-%%}}} 
-
-\TODO Mencionar e linkar com o \ref{Universal_algebra}.
-
 %%{{{ The quotient group 
 \note.
 Acabamos de identificar certos subgrupos dum grupo $G$---que chamamos
 \dterm{normais}---com uma propriedade legal:
-a colecção de todas as suas coclasses esquerdas e a mesma com
+a colecção de todas as suas coclasses esquerdas é a mesma com
 a colecção de todas as suas coclasses direitas.
 (Na verdade a situação é bem mais legal que isso---continue lendo.)
 Começando então com um $N\normal G$, podemos falar \emph{da} partição
@@ -40540,29 +40562,54 @@ qual seria o seu inverso?
 Sejam $G$ grupo e $N \normal G$.
 O conjunto
 $$
-\setst { Na } { a \in G }
+\quoset G {\congmod N}
 \quad
 \bigparen{ =
-\setst { aN } { a \in G }
+\munderbrace {\setst { aN } { a \in G }} {\cosetsL N}
+=
+\munderbrace {\setst { Na } { a \in G }} {\cosetsR N}
 }
 $$
 com operação a $\ast$ definida pela
 $$
-H \ast K \defeq HK
+Na \ast Nb \defeq N(ab) \mistake
 $$
 é chamado o \dterm{grupo quociente de $G$ módulo $N$},
 e é denotado por $\quogrp G N$.
 %%}}}
 
-%%{{{ lemma: operation_for_coclasses_of_normal 
+%%{{{ Q: Everything alright with quogrp ? 
+\question.
+Tá tudo bem com a~\ref{quogrp}?
+%%}}}
+\spoiler.
+
+%%{{{ A: No: you must prove that it is well-defined: 
+\blah Resposta.
+A operação $\ast$ não é automaticamente ``bem definida'':
+precisamos demonstrar que realmente o lado direito não
+depende na escolha dos representantes $a$ e $b$.
+Falei ``precisamos''?  Quis dizer \emph{precisas}.
+Agora:
+%%}}}
+
+%%{{{ x: nop_is_well_defined 
+\exercise.
+\label{nop_is_well_defined}%
+Demonstre que a $\ast$ definida acima é bem definida.
+
+\endexercise
+%%}}}
+
+%%{{{ lemma: operation_for_cosets_of_normal 
 \lemma.
-\label{operation_for_coclasses_of_normal}%
+\label{operation_for_cosets_of_normal}%
 Sejam $G$ grupo, $N \normal G$, e $a,b \in G$.
 $$
-(Na)(Nb) = N(ab)
+(Na)\ast(Nb) = (Na)(Nb) \quad \Bigparen{= \setst {uv} {u \in Na, v \in Nb}}
 $$
 \sketch.
-Mostramos cada direção da
+Como $(Na)\ast(Nb) = N(ab)$, mostramos cada direção da
 $$
 g \in (Na)(Nb) \iff g \in N(ab)
 $$
@@ -40632,7 +40679,7 @@ Vamos provar isso agora.
 Sejam $G$ grupo e $N\normal G$.
 O $\quogrp G N$ é um grupo.
 \sketch.
-Usando o~\ref{operation_for_coclasses_of_normal} verificamos
+Usando o~\ref{operation_for_cosets_of_normal} verificamos
 as leis de grupo (G0)--(G3) para o $\quogrp G N$.
 \crproofpart{(G0):}
 Sejam $A,B \in \quogrp G N$.
@@ -40653,19 +40700,19 @@ Aqui o candidato que faz sentido considerar, seria o $N(\ginv a)$,
 onde $a$ é qualquer membro de $A$.
 \qes
 \proof.
-Usando o~\ref{operation_for_coclasses_of_normal} verificamos
+Usando o~\ref{operation_for_cosets_of_normal} verificamos
 as leis de grupo (G0)--(G3) para o $\quogrp G N$.
 \crproofpart{(G0):}
 Sejam $A,B \in \quogrp G N$, e sejam $a,b \in G$ tais que
 $A = Na$ e $B = Nb$.
-Agora graças ao~\ref{operation_for_coclasses_of_normal} temos:
+Agora graças ao~\ref{operation_for_cosets_of_normal} temos:
 $$
 (Na)(Nb) = N(ab) \in \quogrp G N
 $$
 \proofpart{(G1):}
 Sejam $A,B,C \in \quogrp G N$, e logo sejam $a,b,c\in G$ tais que
 $A = Na$, $B = Nb$, e $C = Nc$.
-Usando novamente o~\ref{operation_for_coclasses_of_normal} calculamos:
+Usando novamente o~\ref{operation_for_cosets_of_normal} calculamos:
 $$
 \bigparen{(Na)(Nb)}(Nc)
 = \bigparen{N(ab)}(Nc)
@@ -40681,7 +40728,7 @@ Para provar essa afirmação precisamos mostrar que para todo $A \in \quogrp G N
 temos $NA = A = AN$.
 Realmente, seja $A \in \quogrp G N$.
 Logo $A = Na$ para algum $a\in G$.
-Novamente usando o~\ref{operation_for_coclasses_of_normal} calculamos:
+Novamente usando o~\ref{operation_for_cosets_of_normal} calculamos:
 $$
 (Ne)(Na) = N(ea) = Na = A = Na = N(ae) = (Na)(Ne).
 $$
@@ -40692,7 +40739,7 @@ Para provar essa afirmação precisamos verificar que:
 $$
 N(\ginv a) A = N = A N(\ginv a).
 $$
-Usando o~\ref{operation_for_coclasses_of_normal} calculamos
+Usando o~\ref{operation_for_cosets_of_normal} calculamos
 $$
 \bigparen{N(\ginv a)}(Na)
 = N(\ginv a a)
@@ -40720,6 +40767,54 @@ $\quoset G {\congR H}$ pode virar um grupo com a alma do $G$.
 \endexercise
 %%}}}
 
+%%{{{ Congruences 
+\note Congruências.
+\label{congruences}%
+Teve mais algo dessatisfatório com as relações $\congL H$
+e $\congR H$ baseadas num $H \subgroup G$, mesmo que ambas
+são relações de equivalência sim!  Eles não são garantidas
+pra ser\dots~\emph{congruências:}
+%%}}}
+
+%%{{{ df: congruence_in_group 
+\definition.
+\label{congruence_in_group}%
+Uma relação de equivalência $\sim$ num grupo $\ssetfont G = \sset G {\ast, \ginv{}, \gid}$
+é uma \dterm{congruência} de $G$ sse $\sim$ é \dterm{compatível com a estrutura} do $\ssetfont G$:
+$$
+\align
+\pforall {a,a',b,b' \in G} & \bracket {a \sim b \mland a' \sim b' \implies a \ast a' \sim b \ast b'} \\
+\pforall {a,b \in G}       & \bracket {a \sim b \implies \ginv a \sim \ginv b} \\
+                           & \gid \sim \gid.
+\endalign
+$$
+%%}}}
+
+%%{{{ remark: automaticly compatible with gid 
+\remark.
+Observe que a última linha não oferece absolutamente nada na definição
+de \emph{congruência} pois a $\sim$ sendo relação de equivalência é reflexiva.
+%%}}}
+
+%%{{{ corollary: congmod_N_is_a_congruence 
+\corollary.
+Se $N \normal G$ então $\congmod N$ é uma congruência.
+\proof Demonstrado no \ref{nop_is_well_defined}.
+\qed
+%%}}}
+
+\blah.
+No \ref{Universal_algebra} estudamos mais congruências num
+contexto mais geral, não apenas para grupos.
+
+%%{{{ x: congL_and_congR_not_congruences 
+\exercise.
+Mostre grupo $G$ e $H \subgroup G$ tais que $\congL H$ e $\congR H$
+não são congruências.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -40729,17 +40824,17 @@ $\quoset G {\congR H}$ pode virar um grupo com a alma do $G$.
 
 \secintro
 Na~\ref{The_quotient_group} definimos os
-\emph{subgrupos normais} como aqueles cujas
-coclasses esquerdas e direitas formam a
-mesma partição.
-Aqui encontramos umas definições equivalentes
-que superficialmente parecem bastante diferentes.
+\emph{subgrupos normais} como aqueles cujas coclasses
+esquerdas e direitas formam a mesma partição.
+Aqui encontramos umas definições equivalentes que
+superficialmente parecem bastante diferentes.
 
-%%{{{ Alternative definitions of normal 
-\note Definições alternativas de normal.
-Podemos usar qualquer uma das afirmações
-seguintes como definição de $N \normal G$;
-são todas equivalentes:
+%%{{{ df: normal_equivalent_definitions 
+\definition definições de normal.
+\label{normal_equivalent_definitions}%
+\tdefined{subgrupo}{normal}%
+As afirmações seguintes são equivalentes (e logo cada
+uma pode servir como definição de $N \normal G$):
 $$
 N \normal G
 \defiff
@@ -40753,7 +40848,7 @@ N \subgrp G
 \text{(iii)}~ & \text{$N$ é fechado pelos conjugados} \\
 \text{(iv)}~  & \lforall {g\in G} {gN\ginv g \subset N} \\
 \text{(v)}~   & \lforall {g\in G} {gN\ginv g = N} \\
-\text{(vi)}~  & \lforall {g\in G} {gN = Ng}.
+\text{(vi)}~  & \lforall {g\in G} {gN = Ng},
 \endaligned
 }
 $$
@@ -40761,7 +40856,8 @@ lembrando que $\cosetsL N$ e $\cosetsR N$ são as colecções de left
 e right cosets de $N$ respectivamente (\ref{cosetsL_and_cosetsR}),
 e $\congL N$ e $\congR N$ as congruências módulo-esqeurdo e
 módulo-direito $N$ respectivamente (\ref{congruence_mod_H}).
-Se demonstrar tudo isso seria massa pois:
+Se demonstrar tudo isso---algo que vamos fazer junto logo---seria
+massa pois:
 cada vez que vamos ter como dado que $N \normal G$, a gente
 vai ganhar \emph{toda} essa afirmação de graça; e dualmente,
 cada vez que vamos querer demonstrar que $N \normal G$, a gente
@@ -40802,8 +40898,13 @@ $$
 $$
 %%}}}
 
-%%{{{ remark: swap the quantifiers 
-\remark.
+%%{{{ remark: closed_under_conjugation_swap_quantifiers 
+\remark trocando a ordem dos quantificadores.
+\label{closed_under_conjugation_swap_quantifiers}%
+{%
+\def\bla{\mathrm{bla}}%
+Observe que podemos trocar a ordem dos quantificadores
+pois são do mesmo tipo:
 $$
 \pforall {n\in N}
 \lforall {g\in G}
@@ -40816,14 +40917,9 @@ $$
 }
 { gN\ginv g \subset N }.
 $$
-%%}}}
-
-%%{{{ explain the underlined 
-\note.
-{%
-\def\bla{\mathrm{bla}}%
-Se a parte sublinhada acima parece estranha,
-lembre-se como tomamos membros arbitrários dum conjunto
+Vamos dar uma olhada detalhada agora,
+caso que a parte sublinhada acima pareceu estranha.
+Lembre-se como tomamos membros arbitrários dum conjunto
 indexado (\ref{picking_elements_from_indexed_sets}
 e~\ref{only_declare_variables}).
 Provando a afirmação
@@ -40842,30 +40938,42 @@ ou seja, $gN\ginv g \subset N$.
 }
 %%}}}
 
-\blah.
-Seguem umas definições alternativas.
-
-%%{{{ criterion: normal_subgroup_altdef_gNginvg_eq_N 
-\criterion.
-\label{normal_subgroup_altdef_gNginvg_eq_N}%
+%%{{{ thm: normal_equivalent_definitions_are_equivalent 
+\theorem.
+\label{normal_equivalent_definitions_are_equivalent}%
 \ii{subgrupo!normal}%
 Sejam $G$ grupo, e $N\subgroup G$.
-$$
-N\normal G
-\iff
-\lforall{g\in G}
-{gN\ginv g = N}.
-$$
-\sketch.
-A \rldir\ é trivial, pois o que precisamos provar ($N \normal G$) é obviamente uma afirmação mais fraca da nossa hipótese.
-Para a \lrdir, suponha $N \normal G$ e seja $g\in G$.  Já temos a inclusão $gN\ginv g \subset N$, então só basta provar
+Os (i)--(vi) da~\ref{normal_equivalent_definitions} são
+equivalentes.
+\proof.
+\proofpart{(i)\tiff(ii).}
+Demonstrado no~\ref{Relations} (veja \ref{eqrel_quoset_partition_summary}).
+\crproofpart{(iii)\tiff(iv).}
+Demonstrado no~\ref{closed_under_conjugation_swap_quantifiers}.
+\crproofpart{(iv)\tiff(v).}
+A {\rldir} é trivial, pois o que precisamos provar
+($N \normal G$) é obviamente uma afirmação mais fraca da nossa hipótese.
+Para a {\lrdir}, suponha $N \normal G$ e seja $g\in G$.
+Já temos a inclusão $gN\ginv g \subset N$, então só basta provar
 a $N \subset gN\ginv g$.  Seja $n \in N$.
 Como $n \in N$ e $N$ normal, temos $\ginv g n \ginvp{\ginv g} \in N$.
 Logo
 $$
 \munderbrace {g \paren{\ginv g n \ginvp{\ginv g}} \ginv g} {=n} \in gN\ginv g.
 $$
-\qes
+\crproofpart{(iii)\timplies(vi)}
+Tome $n \in N$; assim $gn\ginv g$ é
+um arbitrário membro do $gN\ginv g$.
+Basta mostrar que $gn\ginv g \in N$.
+Mas $gn \in gN = Ng$ e logo $gn = n'g$ para algum
+$n' \in N$.
+Calculamos:
+$$
+gn\ginv g = n'g \ginv g = n' \in N.
+$$
+\crproofpart{As outras implicações são pra ti:}
+\ref{normal_equivalent_definitions_are_equivalent_rest_of_proof}.
+\qed
 %%}}}
 
 %%{{{ beware: g n g^{-1} \neq n 
@@ -40896,21 +41004,13 @@ $gn\ginv g = n$, mesmo com $n\in N \normal G$.
 \endexercise
 %%}}}
 
-%%{{{ criterion: normal_subgroup_altdef_gN_eq_Ng 
-\criterion.
-\label{normal_subgroup_altdef_gN_eq_Ng}%
-\ii{subgrupo!normal}%
-Sejam $G$ grupo, e $N\subgroup G$.
-$$
-N\normal G
-\iff
-\lforall{g\in G}
-{gN = Ng}.
-$$
-\sketch.
-Para a \lrdir, tome $g\in G$ e $x \in gN$.
-Assim $x = gn$ para algum $n\in N$.
-\qes
+%%{{{ x: normal_equivalent_definitions_are_equivalent_rest_of_proof 
+\exercise.
+\label{normal_equivalent_definitions_are_equivalent_rest_of_proof}%
+Demonstre o que falta para estabelecer que todas
+as (i)--(vi) são equivalentes.
+
+\endexercise
 %%}}}
 
 %%{{{ x: inter_of_subgroup_and_normal_is_normal_in_subgroup 
@@ -42388,25 +42488,12 @@ Demonstre!
 %%{{{ Problems 
 \problems.
 
-%%{{{ prob: G abelian iff something with conjugates 
+%%{{{ prob: converse_of_lagrange_is_invalid_proof 
 \problem.
-Ache uma propriedade interessante que tem a ver com conjugados,
-tal que para todo grupo $G$,
-$$
-\text{$G$ abeliano} \iff \text{essa propriedade}.
-$$
-Prove tua afirmação!
-
-\hint
-Num grupo abeliano, o que podes afirmar se $a \gconjrel b$?
-(A próxima dica já tem a resposta, depois disso vai faltar
-só demonstrá-la.)
-
-\hint
-$$
-\text{$G$ abeliano} \iff (\gconjrel) = (\eqof G)
-$$
-Demonstre!
+\label{converse_of_lagrange_is_invalid_proof}%
+Justifique o~\ref{converse_of_lagrange_is_invalid}:
+mostre grupo $G$ e um divisor $d \divides \gord G$
+tal que $G$ não possui nenhum grupo de ordem $d$.
 
 \endproblem
 %%}}}
