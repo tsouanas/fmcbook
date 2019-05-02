@@ -40314,49 +40314,79 @@ o teorema de~\Wilson[teorema]{}Wilson.
 \section O grupo quociente.
 \label{The_quotient_group}%
 
+%%{{{ As soon as you've got a subgroup 
 \note Assim que tiver um subgrupo\dots.
-
-\TODO Elaborar.
-
-%%{{{ Notation 
-\note Notação.
-Observe que definimos os $aH$, $Ha$, e $HK$, num grupo $G$
-para \emph{subgrupos} $H,K\subgroup G$.
-Mas não usamos nenhuma propriedade de subgrupo mesmo.
-Podemos realmente estender essa notação para arbitrários
-\emph{subconjuntos} de $G$, e, por que não,
-até usar notação como a seguinte abominação:
+Vamos começar com um certo grupo $G$, bagunçado assim:
 $$
-g_1ABg_2B\ginv{g_3}Ag_1CB
-\defeq
-\setst {g_1abg_2b'\ginv{g_3}a'g_1cb''}
-{
-a, a' \in A,\ 
-b, b', b'' \in B,\ 
-c \in C
-}
+\tikzpicture
+\tikzi quogrpbefore;
+\endtikzpicture
 $$
-dados $g_1,g_2,g_3\in G$ e $A,B,C\subset G$.
-Observe primeiramente que \emph{precisamos} usar variáveis diferentes
-para cada instância de elemento de $A$, etc.
-Observe também que todos esses objetos que escrevemos juxtaposicionando
-elementos e subconjuntos de $G$ são subconjuntos de $G$ se usamos
-pelo menos um subconjunto de $G$ na expressão:
+Identificamos nele um subgrupo $H \subgroup G$:
+$$
+\tikzpicture
+\tikzi quogrpsubgroup;
+\endtikzpicture
+$$
+Assim que fizermos isso, o grupo toda se arruma em
+dua maneiras, uma a partir das coclasses esquerdas
+e uma a partir das direitas:
 $$
 \xalignat2
-g_1abg_5ab' &\in G &
-g_1aBg_5ab' &\subset G.
+\cosetsL H &=
+\gathered
+\tikzpicture
+\tikzi quogrpLpartitionedmistake;
+\endtikzpicture
+\endgathered
+&
+\cosetsR H &=
+\gathered
+\tikzpicture
+\tikzi quogrpRpartitioned;
+\endtikzpicture
+\endgathered
 \endxalignat
 $$
-Finalmente, \emph{confira} que graças à associatividade da operação do grupo $G$,
-não precisamos botar parenteses:
+%%}}}
+
+%%{{{ Q: what is wrong with the picture above? 
+\question.
+Tem algo errado na figura acima.
+O que é?
+%%}}}
+\spoiler.
+
+%%{{{ A: we should have used different names 
+\blah Resposta.
+Não sabemos que cada um dos representantes que desenhamos
+na partição $\cosetsL H$ vai acabar sendo um representante
+da correspodente coclasse direita.  Pode ser, por exemplo
+que o $q \in Hp$, e logo $Hp = Hq$.  Para formar a partição
+escolhemos cada vez um membro fora das coclasses que já
+formamos, mas ninguém garanta que andando pelas coclasses
+esquerdas e esclohendo os $p,q,r,s,t,u,v$, vamos conseguir
+escolher os mesmos como representantes das coclasses
+direitas.
+Em geral então, a imagem deve ser alterada para usar
+nomes diferentes nos representantes, por exemplo:
 $$
-g_1ABg_2B\ginv{g_3}Ag_1CB
-= g_1A(Bg_2B)\ginv{g_3}(Ag_1CB)
-= (g_1A)(Bg_2)(B\ginv{g_3})(Ag_1)(CB)
-= \dotsb
+\xalignat2
+\cosetsL H &=
+\gathered
+\tikzpicture
+\tikzi quogrpLpartitioned;
+\endtikzpicture
+\endgathered
+&
+\cosetsR H &=
+\gathered
+\tikzpicture
+\tikzi quogrpRpartitioned;
+\endtikzpicture
+\endgathered
+\endxalignat
 $$
-etc.
 %%}}}
 
 %%{{{ eg: cosets_of_K_subgroup_S3 
@@ -40454,6 +40484,47 @@ Similarmente para as $K$ e $N$.
 \endexercise
 %%}}}
 
+%%{{{ Notation 
+\note Notação.
+Observe que definimos os $aH$, $Ha$, e $HK$, num grupo $G$
+para \emph{subgrupos} $H,K\subgroup G$.
+Mas não usamos nenhuma propriedade de subgrupo mesmo.
+Podemos realmente estender essa notação para arbitrários
+\emph{subconjuntos} de $G$, e, por que não,
+até usar notação como a seguinte abominação:
+$$
+g_1ABg_2B\ginv{g_3}Ag_1CB
+\defeq
+\setst {g_1abg_2b'\ginv{g_3}a'g_1cb''}
+{
+a, a' \in A,\ 
+b, b', b'' \in B,\ 
+c \in C
+}
+$$
+dados $g_1,g_2,g_3\in G$ e $A,B,C\subset G$.
+Observe primeiramente que \emph{precisamos} usar variáveis diferentes
+para cada instância de elemento de $A$, etc.
+Observe também que todos esses objetos que escrevemos juxtaposicionando
+elementos e subconjuntos de $G$ são subconjuntos de $G$ se usamos
+pelo menos um subconjunto de $G$ na expressão:
+$$
+\xalignat2
+g_1abg_5ab' &\in G &
+g_1aBg_5ab' &\subset G.
+\endxalignat
+$$
+Finalmente, \emph{confira} que graças à associatividade da operação do grupo $G$,
+não precisamos botar parenteses:
+$$
+g_1ABg_2B\ginv{g_3}Ag_1CB
+= g_1A(Bg_2B)\ginv{g_3}(Ag_1CB)
+= (g_1A)(Bg_2)(B\ginv{g_3})(Ag_1)(CB)
+= \dotsb
+$$
+etc.
+%%}}}
+
 %%{{{ df: normal_subgroup 
 \definition Subgrupo normal.
 \label{normal_subgroup}%
@@ -40522,7 +40593,7 @@ $$
 \tikzi quogrpbefore;
 \endtikzpicture
 $$
-Identificamos nele um subgrupo normal $N\normal G$.
+Agora identificamos nele um subgrupo \emph{normal} $N\normal G$.
 Assim que fizermos isso, todo o $G$ se arruma
 graças à partição de todas as coclasses de $N$:
 $$
