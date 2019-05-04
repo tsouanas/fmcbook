@@ -35245,276 +35245,6 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Choosing_the_axioms 
-\section Escolhendo os axiomas.
-\label{Choosing_the_axioms}%
-
-\blah.
-Como escolhemos as leis~(G0)--(G3)?
-Por que essas?
-Por que não botamos a~(GA)?
-Por que botamos a~(G3)?
-Vamos discutir pouco sobre essas perguntas.
-
-%%{{{ More theorems or more models? 
-\note Mais teoremas ou mais modelos?.
-Óbvio que adicionando mais leis na definição de grupo,
-a gente poderia demonstrar mais teoremas.
-Mas o que ganhamos em teoremas, perdemos em generalidade
-da nossa teoria: menos coisas vão acabar sendo \dterm{modelos}
-dos nossos axiomas, e logo esse bocado de teoremas que
-vamos conseguir demonstrar não poderá ser aproveitado
-em muitos contextos diferentes.
-Adicionando a~(GA) nos axiomas de grupo por exemplo,
-os $\sym n$ iam parar de ser grupos, e não teriamos
-nenhum teorema ``de graça'' pra eles.
-Como eu afirmei na introdução desse capítulo,
-a escolha~(G0)--(G3) tem um equilibrio muito bom entre
-riquesa da teoria e diversidade de modelos.
-Faz sentido tirar o~(G3)?
-Claro que sim; chegamos numa estrutura com mais modelos
-(e menos teoremas), que com certeza vale a pena estudar.
-O nome dessa estrutura é \dterm{monóide}, que estudamos
-no~\refn{Algebraic_structures}.
-%%}}}
-
-%%{{{ Avoid redundancies 
-\note Evite redundâncias.
-Vamos dizer que estamos escolhendo as leis para a definição de grupo.
-Já escolhemos as~(G0)--(G3), mas queremos que em cada grupo seja
-possível cancelar pela esquerda~(GCL) e pela direita~(GCR).
-Mesmo assim, não faz sentido adiconar as~(GCL)--(GCR) como leis,
-pois como a gente descobriu no~\ref{cancellation_laws_in_group},
-ámbas são \emph{teoremas} da teoria dos~(G0)--(G3).
-Similarmente, escolhemos os axiomas~(G2) e~(G3) que garantam
-a existência \emph{duma} identidade e para cada membro \emph{dum}
-inverso, em vez de botar como leis as proposições mais fortes
-que afirmam as \emph{unicidades} deles também.
-Por quê?
-A resposta é parecida: se for possível, preferimos limitar
-nossos axiomas nas versões mais fracas possíveis para elaborar
-nossa teoria.
-Nesse caso, a gente também descobriu que mesmo com os~(G2)--(G3)
-as unicidades são garantidas na nossa teoria, agora como
-\emph{teoremas}~(\refn{uniqueness_of_identity_in_group}
-e~\refn{uniqueness_of_inverses_in_group}).
-%%}}}
-
-%%{{{ Clarity and intuitiveness 
-\note Clareza e intuitividade \vs mão-de-vaca.
-\label{clarity_and_intuitiveness}%
-No outro lado, optamos para botar as leis~(G2)--(G3),
-em vez do par mais fraco~(G2L)--(G3L),
-ou do~(G2R)--(G3R), que como tu sabes---ou como tu
-vai descobrir quando finalmente resolver
-o~\ref{onesided_group_def_proof}---qualquer
-um par poderia substituir o par~(G2)--(G3), sem
-afetar a teoria pois os~(G2)--(G3) viram teoremas
-nesse caso~(\ref{onesided_group_def}).
-Por que não escolher como axiomas dos grupos os
-(G0),(G1),(G2L),(G3L) então?
-Aqui é mais difícil justificar essa escolha.
-Queremos achar um \emph{equilíbrio} entre a
-economia, fraqueza, e quantidade dos axiomas num
-lado; e a clareza e intuitividade no outro.
-Não queremos exagerar nem no lado de clareza
-(sendo redundantes), nem no lado de economia
-(sendo mão-de-vaca).
-Escolhendo as~(G2L)--(G3L) como axiomas, daria
-um toque asimétrico na definição do que é um grupo.
-Pelas leis apareceria (erroneamente) que a operação
-dum grupo trata seus dois lados em maneiras diferentes,
-prejudicando ou favorecendo um em comparação com o outro.
-Botamos então como leis as~(G2)--(G3) e demonstramos
-como \emph{critérion}~(\refn{onesided_group_def}) que
-assim que os~(G0),(G1),(G2L),(G3L) são satisfeitos,
-temos um grupo (e similarmente para os~(G2R)--(G3R)).
-Nossas leis escolhidas ((G0)--(G3)) estão falando
-claramente para nosso coração.  Cada um é simples;
-descreve uma propriedade simples e significante.
-Imagine se alguém definir que o
-$\sset G {\ast, \ginv{}, \gid}$ é um \dterm{grupo}
-sse
-satisfaz uma lei única e bizarra, como a
-$$
-\lforall
-{a,b,c \in G}
-{\paren{\ginvp{c \ast \ginvp{a \ast b}} \ast (c \ast \ginv b)} \ast \ginvp{\ginv b \ast b} = a}.
-\tag{GKUN}
-$$
-Dá pra entender no teu coração qualquer coisa sobre
-o $G$ e sua alma?
-Dá pra entender, olhando par essa lei única,
-se sua operação tem identidade?  Se ela é associativa?
-Pelo incrível que aparece, eu nem tô brincando sobre
-a lei (GKUN).  Realmente, \Kunen{}Kunen construiu o
-(GKUN) e demonstrou que a teoria do (GKUN) sozinho
-e a mesma da teoria dos (G1)+(G2)+(G3)
-(veja~\cite{kunensinglegroup})!
-Ou seja:
-$$
-\text{$\ssetfont G$ satisfaz a (GKUN)}
-\wowiff
-\text{$\ssetfont G$ é grupo}.
-$$
-Considerei aqui a (G0) como automaticamente garantida
-(e logo redundante) pelo fato de ter uma operação (total)
-na minha estrutura.
-A volta é muito fácil, e tu demonstrarás agora
-no~\ref{group_implies_kunen}; deixo o converso para
-o~\ref{kunen_implies_group}.
-%%}}}
-
-\TODO Clarificar single axioms; elaborar e mostrar mais.
-
-%%{{{ x: group_implies_kunen 
-\exercise.
-\label{group_implies_kunen}%
-Demonstre a {\rldir}.
-
-\hint
-Sejam $a,b,c \in G$.
-Calcule:
-\compute
-\paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \ginvp{\ginv b b}
-&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b \ginvp{\ginv b}) \obvious
-&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b b) \\
-&\eqvdots
-&= a
-\endcompute
-
-\solution
-Sejam $a,b,c \in G$.
-Calculamos:
-\compute
-\paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \ginvp{\ginv b b}
-&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b \ginvp{\ginv b}) \obvious
-&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b b) \\
-&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \gid \\
-&= \ginvp{c \ginvp{a b}} (c \ginv b) \\
-&= \paren{\ginvp{\ginvp{a b}} \ginv c} (c \ginv b) \\
-&= \paren{(a b) \ginv c} (c \ginv b) \\
-&= (a b) (\ginv c c) \ginv b \\
-&= (a b) e \ginv b \\
-&= (a b) \ginv b \\
-&= a (b \ginv b) \\
-&= a e \\
-&= a.
-\endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ Modularity 
-\note Modularidade.
-Também é bom ter \emph{modularidade} entre nossos
-axiomas, em tal forma que facilita tirar um, botar
-outro, e chegar numa teoria diferente mas
-interessante também.
-Continuando no mesmo exemplo da definição unilateral
-de grupos, suponha que tiramos o~(G3L), que é
-nosso axioma de L-inversos.
-Onde chegamos?
-Numa estrutura verdadeiramente L-lateral---esquisito!
-%%}}}
-
-%%{{{ proving_the_unprovability 
-\note Demonstrando a indemonstabilidade.
-\label{proving_the_unprovability}%
-Alguém poderia pensar (ra\-zo\-avel\-mente) que a inclusão
-do~(G3) nos axiomas de grupos foi desnecessária.
-A gente deveria derivá-lo como conseqüência do resto dos axiomas,
-na mesma maneira que demonstramos tantas outras proposições.
-Aceitando o desafio começamos pensar para achar uma
-demonstração do~(G3) a partir dos~(G0)--(G2).
-E o tempo passa, passa, e passa\dots
-\endgraf
-E não conseguimos demonstrar.
-\emph{Isso não quis dizer que o~(G3) é indemonstrável!}
-Talvez amanha a gente terá uma idéia nova e conseguir demonstrá-lo;
-ou talvez amanhã um rapaz mais esperto vai achar uma demonstração.
-Mas, nesse caso, não vai não.
-Pois podemos \emph{demonstrar} que o~(G3) é realmente
-\emph{indemonstrável} pelos~(G0)--(G2).
-%%}}}
-
-%%{{{ proving_the_unprovability_method 
-\exercise.
-\label{proving_the_unprovability_method}%
-Como?
-O que seria um argumento convencente sobre isso?
-E em geral, como podemos demonstrar
-a indemonstrabilidade duma proposição $\psi$
-a partir dumas proposições $\phi_1,\dots,\phi_n$?
-Depois de deixar claro tua estratégia demonstre
-que realmente:
-\beginul
-\li (GA) não é uma conseqüência dos (G0)--(G3);
-\li (G3) não é uma conseqüência dos (G0)--(G2);
-\li (G2) não é uma conseqüência dos (G0)--(G1);
-\li (G1) não é uma conseqüência do  (G0).
-\endul
-
-\hint
-Basta achar um \emph{modelo} (ou seja, algo que
-satisfaz as leis) que não satisfaz a proposição
-que queremos mostrar sua indemonstrabilidade.
-Qual modelo tu escolheria para cada uma delas?
-
-\hint
-Para a~(GA) basta achar um grupo que não
-seja abeliano;
-para a~(G3) basta achar um \dterm{monóide}
-(ou seja, algo que satisfaz as~(G0)--(G2))
-que não é um grupo;
-para a~(G2) basta achar um \dterm{semigrupo}
-(ou seja, algo que satisfaz as~(G0)--(G1))
-que não é um monóide;
-para a~(G1) basta achar um \dterm{magma}
-(ou seja, algo que satisfaz a~(G0))
-que não é um semigrupo.
-
-\solution
-Basta achar um \emph{modelo} (ou seja, algo que
-satisfaz as leis) que não satisfaz a proposição
-que queremos mostrar sua indemonstrabilidade.
-\crproofpart{Para a~(GA)}
-tome o $\sym 3$, que é grupo mas não abeliano
-($\phi\psi\neq\psi\phi$).
-\crproofpart{Para a~(G3)}
-tome o $S$ do~\ref{strings_with_concat_is_not_a_group}
-que ja verificámos que não satisfaz a~(G3), e que
-tu já demonstrou~(\ref{verify_all_group_laws_for_strings})
-que ele goza das outras:~(G0)--(G2).
-\crproofpart{Para a~(G2)}
-considere um conjunto $A = \set{a,b}$ com operação $\ast$
-a $\outl$:
-$$
-x \ast y = x.
-$$
-Facilmente o $\sset A \ast$ satisfaz as (G0)--(G1) mas
-não possui identidade.
-\crproofpart{Para a~(G1)}
-tome o $\nats$ com a exponenciação: o conjunto obviamente
-é fechado, mas a operação não é associativa:
-$$
-2^(1^2) \neq (2^1)^2.
-$$
-
-\endexercise
-%%}}}
-
-\blah.
-Não se preocupe demais com essas questões; com mais experiência
-e maduridade tu vai reconhecer e apreciar os motivos dessas escolhas,
-e tu elaborarás teu próprio gosto, instinto, e talento, para escolher
-axiomas.
-Mas chega!
-Voltamos a estudar a teoria dos grupos agora.
-
-\endsection
-%%}}}
-
 %%{{{ Cayley tables 
 \section Tabelas Cayley.
 \label{Cayley_tables}%
@@ -36510,6 +36240,276 @@ do~\ref{nonzero_power_is_gid_implies_finite_order} obtemos que não existe
 nenhum inteiro $m\neq 0$ tal que $a^m=e$.  Logo $r-s = 0$, ou seja $r = s$.
 \qed
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Choosing_the_axioms 
+\section Escolhendo os axiomas.
+\label{Choosing_the_axioms}%
+
+\blah.
+Como escolhemos as leis~(G0)--(G3)?
+Por que essas?
+Por que não botamos a~(GA)?
+Por que botamos a~(G3)?
+Vamos discutir pouco sobre essas perguntas.
+
+%%{{{ More theorems or more models? 
+\note Mais teoremas ou mais modelos?.
+Óbvio que adicionando mais leis na definição de grupo,
+a gente poderia demonstrar mais teoremas.
+Mas o que ganhamos em teoremas, perdemos em generalidade
+da nossa teoria: menos coisas vão acabar sendo \dterm{modelos}
+dos nossos axiomas, e logo esse bocado de teoremas que
+vamos conseguir demonstrar não poderá ser aproveitado
+em muitos contextos diferentes.
+Adicionando a~(GA) nos axiomas de grupo por exemplo,
+os $\sym n$ iam parar de ser grupos, e não teriamos
+nenhum teorema ``de graça'' pra eles.
+Como eu afirmei na introdução desse capítulo,
+a escolha~(G0)--(G3) tem um equilibrio muito bom entre
+riquesa da teoria e diversidade de modelos.
+Faz sentido tirar o~(G3)?
+Claro que sim; chegamos numa estrutura com mais modelos
+(e menos teoremas), que com certeza vale a pena estudar.
+O nome dessa estrutura é \dterm{monóide}, que estudamos
+no~\refn{Algebraic_structures}.
+%%}}}
+
+%%{{{ Avoid redundancies 
+\note Evite redundâncias.
+Vamos dizer que estamos escolhendo as leis para a definição de grupo.
+Já escolhemos as~(G0)--(G3), mas queremos que em cada grupo seja
+possível cancelar pela esquerda~(GCL) e pela direita~(GCR).
+Mesmo assim, não faz sentido adiconar as~(GCL)--(GCR) como leis,
+pois como a gente descobriu no~\ref{cancellation_laws_in_group},
+ámbas são \emph{teoremas} da teoria dos~(G0)--(G3).
+Similarmente, escolhemos os axiomas~(G2) e~(G3) que garantam
+a existência \emph{duma} identidade e para cada membro \emph{dum}
+inverso, em vez de botar como leis as proposições mais fortes
+que afirmam as \emph{unicidades} deles também.
+Por quê?
+A resposta é parecida: se for possível, preferimos limitar
+nossos axiomas nas versões mais fracas possíveis para elaborar
+nossa teoria.
+Nesse caso, a gente também descobriu que mesmo com os~(G2)--(G3)
+as unicidades são garantidas na nossa teoria, agora como
+\emph{teoremas}~(\refn{uniqueness_of_identity_in_group}
+e~\refn{uniqueness_of_inverses_in_group}).
+%%}}}
+
+%%{{{ Clarity and intuitiveness 
+\note Clareza e intuitividade \vs mão-de-vaca.
+\label{clarity_and_intuitiveness}%
+No outro lado, optamos para botar as leis~(G2)--(G3),
+em vez do par mais fraco~(G2L)--(G3L),
+ou do~(G2R)--(G3R), que como tu sabes---ou como tu
+vai descobrir quando finalmente resolver
+o~\ref{onesided_group_def_proof}---qualquer
+um par poderia substituir o par~(G2)--(G3), sem
+afetar a teoria pois os~(G2)--(G3) viram teoremas
+nesse caso~(\ref{onesided_group_def}).
+Por que não escolher como axiomas dos grupos os
+(G0),(G1),(G2L),(G3L) então?
+Aqui é mais difícil justificar essa escolha.
+Queremos achar um \emph{equilíbrio} entre a
+economia, fraqueza, e quantidade dos axiomas num
+lado; e a clareza e intuitividade no outro.
+Não queremos exagerar nem no lado de clareza
+(sendo redundantes), nem no lado de economia
+(sendo mão-de-vaca).
+Escolhendo as~(G2L)--(G3L) como axiomas, daria
+um toque asimétrico na definição do que é um grupo.
+Pelas leis apareceria (erroneamente) que a operação
+dum grupo trata seus dois lados em maneiras diferentes,
+prejudicando ou favorecendo um em comparação com o outro.
+Botamos então como leis as~(G2)--(G3) e demonstramos
+como \emph{critérion}~(\refn{onesided_group_def}) que
+assim que os~(G0),(G1),(G2L),(G3L) são satisfeitos,
+temos um grupo (e similarmente para os~(G2R)--(G3R)).
+Nossas leis escolhidas ((G0)--(G3)) estão falando
+claramente para nosso coração.  Cada um é simples;
+descreve uma propriedade simples e significante.
+Imagine se alguém definir que o
+$\sset G {\ast, \ginv{}, \gid}$ é um \dterm{grupo}
+sse
+satisfaz uma lei única e bizarra, como a
+$$
+\lforall
+{a,b,c \in G}
+{\paren{\ginvp{c \ast \ginvp{a \ast b}} \ast (c \ast \ginv b)} \ast \ginvp{\ginv b \ast b} = a}.
+\tag{GKUN}
+$$
+Dá pra entender no teu coração qualquer coisa sobre
+o $G$ e sua alma?
+Dá pra entender, olhando par essa lei única,
+se sua operação tem identidade?  Se ela é associativa?
+Pelo incrível que aparece, eu nem tô brincando sobre
+a lei (GKUN).  Realmente, \Kunen{}Kunen construiu o
+(GKUN) e demonstrou que a teoria do (GKUN) sozinho
+e a mesma da teoria dos (G1)+(G2)+(G3)
+(veja~\cite{kunensinglegroup})!
+Ou seja:
+$$
+\text{$\ssetfont G$ satisfaz a (GKUN)}
+\wowiff
+\text{$\ssetfont G$ é grupo}.
+$$
+Considerei aqui a (G0) como automaticamente garantida
+(e logo redundante) pelo fato de ter uma operação (total)
+na minha estrutura.
+A volta é muito fácil, e tu demonstrarás agora
+no~\ref{group_implies_kunen}; deixo o converso para
+o~\ref{kunen_implies_group}.
+%%}}}
+
+\TODO Clarificar single axioms; elaborar e mostrar mais.
+
+%%{{{ x: group_implies_kunen 
+\exercise.
+\label{group_implies_kunen}%
+Demonstre a {\rldir}.
+
+\hint
+Sejam $a,b,c \in G$.
+Calcule:
+\compute
+\paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \ginvp{\ginv b b}
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b \ginvp{\ginv b}) \obvious
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b b) \\
+&\eqvdots
+&= a
+\endcompute
+
+\solution
+Sejam $a,b,c \in G$.
+Calculamos:
+\compute
+\paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \ginvp{\ginv b b}
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b \ginvp{\ginv b}) \obvious
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} (\ginv b b) \\
+&= \paren{\ginvp{c \ginvp{a b}} (c \ginv b)} \gid \\
+&= \ginvp{c \ginvp{a b}} (c \ginv b) \\
+&= \paren{\ginvp{\ginvp{a b}} \ginv c} (c \ginv b) \\
+&= \paren{(a b) \ginv c} (c \ginv b) \\
+&= (a b) (\ginv c c) \ginv b \\
+&= (a b) e \ginv b \\
+&= (a b) \ginv b \\
+&= a (b \ginv b) \\
+&= a e \\
+&= a.
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ Modularity 
+\note Modularidade.
+Também é bom ter \emph{modularidade} entre nossos
+axiomas, em tal forma que facilita tirar um, botar
+outro, e chegar numa teoria diferente mas
+interessante também.
+Continuando no mesmo exemplo da definição unilateral
+de grupos, suponha que tiramos o~(G3L), que é
+nosso axioma de L-inversos.
+Onde chegamos?
+Numa estrutura verdadeiramente L-lateral---esquisito!
+%%}}}
+
+%%{{{ proving_the_unprovability 
+\note Demonstrando a indemonstabilidade.
+\label{proving_the_unprovability}%
+Alguém poderia pensar (ra\-zo\-avel\-mente) que a inclusão
+do~(G3) nos axiomas de grupos foi desnecessária.
+A gente deveria derivá-lo como conseqüência do resto dos axiomas,
+na mesma maneira que demonstramos tantas outras proposições.
+Aceitando o desafio começamos pensar para achar uma
+demonstração do~(G3) a partir dos~(G0)--(G2).
+E o tempo passa, passa, e passa\dots
+\endgraf
+E não conseguimos demonstrar.
+\emph{Isso não quis dizer que o~(G3) é indemonstrável!}
+Talvez amanha a gente terá uma idéia nova e conseguir demonstrá-lo;
+ou talvez amanhã um rapaz mais esperto vai achar uma demonstração.
+Mas, nesse caso, não vai não.
+Pois podemos \emph{demonstrar} que o~(G3) é realmente
+\emph{indemonstrável} pelos~(G0)--(G2).
+%%}}}
+
+%%{{{ proving_the_unprovability_method 
+\exercise.
+\label{proving_the_unprovability_method}%
+Como?
+O que seria um argumento convencente sobre isso?
+E em geral, como podemos demonstrar
+a indemonstrabilidade duma proposição $\psi$
+a partir dumas proposições $\phi_1,\dots,\phi_n$?
+Depois de deixar claro tua estratégia demonstre
+que realmente:
+\beginul
+\li (GA) não é uma conseqüência dos (G0)--(G3);
+\li (G3) não é uma conseqüência dos (G0)--(G2);
+\li (G2) não é uma conseqüência dos (G0)--(G1);
+\li (G1) não é uma conseqüência do  (G0).
+\endul
+
+\hint
+Basta achar um \emph{modelo} (ou seja, algo que
+satisfaz as leis) que não satisfaz a proposição
+que queremos mostrar sua indemonstrabilidade.
+Qual modelo tu escolheria para cada uma delas?
+
+\hint
+Para a~(GA) basta achar um grupo que não
+seja abeliano;
+para a~(G3) basta achar um \dterm{monóide}
+(ou seja, algo que satisfaz as~(G0)--(G2))
+que não é um grupo;
+para a~(G2) basta achar um \dterm{semigrupo}
+(ou seja, algo que satisfaz as~(G0)--(G1))
+que não é um monóide;
+para a~(G1) basta achar um \dterm{magma}
+(ou seja, algo que satisfaz a~(G0))
+que não é um semigrupo.
+
+\solution
+Basta achar um \emph{modelo} (ou seja, algo que
+satisfaz as leis) que não satisfaz a proposição
+que queremos mostrar sua indemonstrabilidade.
+\crproofpart{Para a~(GA)}
+tome o $\sym 3$, que é grupo mas não abeliano
+($\phi\psi\neq\psi\phi$).
+\crproofpart{Para a~(G3)}
+tome o $S$ do~\ref{strings_with_concat_is_not_a_group}
+que ja verificámos que não satisfaz a~(G3), e que
+tu já demonstrou~(\ref{verify_all_group_laws_for_strings})
+que ele goza das outras:~(G0)--(G2).
+\crproofpart{Para a~(G2)}
+considere um conjunto $A = \set{a,b}$ com operação $\ast$
+a $\outl$:
+$$
+x \ast y = x.
+$$
+Facilmente o $\sset A \ast$ satisfaz as (G0)--(G1) mas
+não possui identidade.
+\crproofpart{Para a~(G1)}
+tome o $\nats$ com a exponenciação: o conjunto obviamente
+é fechado, mas a operação não é associativa:
+$$
+2^(1^2) \neq (2^1)^2.
+$$
+
+\endexercise
+%%}}}
+
+\blah.
+Não se preocupe demais com essas questões; com mais experiência
+e maduridade tu vai reconhecer e apreciar os motivos dessas escolhas,
+e tu elaborarás teu próprio gosto, instinto, e talento, para escolher
+axiomas.
+Mas chega!
+Voltamos a estudar a teoria dos grupos agora.
 
 \endsection
 %%}}}
