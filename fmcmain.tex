@@ -40709,16 +40709,64 @@ O problema é que a operação $\ast$ que estamos
 tentando definir não tem acesso nos $a,b$ das suas entradas $Ha,Hb$
 respectivamente, e logo o seu valor $Ha \ast Hb$ não pode depender
 das escolhas desses representantes.
-Voltando no desenho anterior a situação fica mais clara:
+Voltando no desenho anterior a situação ficará mais clara;
+vou pintar todos os membros da $Ha$ de vermelho e todos os
+membros da $Hb$ de azul:
 $$
 \tikzpicture
 \tikzi quogrppartitionednonames;
 \tikzi quogrpLpartitioned;
+\tikzi quogrppartitioned2colors;
 \endtikzpicture
 $$
+Querendo usar a ``definição'' da operação $\ast$ acima
+escolhemos o $a \in Ha$ e o $b \in Hb$ e procuramos
+o $a \ast_G b$; vamos dizer que achamos aqui no $Hg$:
+$$
+\tikzpicture
+\tikzi quogrppartitionednonames;
+\tikzi quogrpLpartitioned;
+\tikzi quogrppartitioned2colors;
+\node[text=green] at (ab) {$\bullet$};
+\node at (ab) {\pointL {ab}};
+\endtikzpicture
+$$
+agora escolhendo \emph{outros representantes} $a',b'$ das
+$Ha,Hb$
+(onde pelo menos uma das $a'\neq a$ e $b'\neq b$ é válida)
+procuramos o $a' \ast_G b'$.  O que acontece se ele
+não pertence à mesma coclasse $Hg$?:
+$$
+\tikzpicture
+\tikzi quogrppartitionednonames;
+\tikzi quogrpLpartitioned;
+\tikzi quogrppartitioned2colors;
+\node[text=magenda] at (ab0) {$\bullet$};
+\node at (ab0) {\pointL {a'b'}};
+\endtikzpicture
+$$
+Assim a $\ast$ \emph{não é bem definida} (e logo
+o $\quoset G {\congL H}$ não tem nenhuma chance de
+virar grupo com ela.
+É exatamente isso que aproveitamos nos subgrupos \emph{normais:}
+eles não deixam isso acontecer, pois garantam que
+o produto de quaisquer representantes das $Ha,Hb$ vai sempre
+cair dentro da mesma coclasse, e logo apenas a $Hg$ será pintada
+roxa aqui no nosso desenho
+$$
+\tikzpicture
+\tikzi quogrppartitionednonames;
+\tikzi quogrpLpartitioned;
+\tikzi quogrppartitioned3colors;
+\node at (ab2) {\pointL {a'b'}};
+\node at (ab) {\pointL {ab}};
+\endtikzpicture
+$$
+e logo aqui teriamos
+$$
+Ha \ast Hb = Hg.
+$$
 %%}}}
-
-\TODO Colorir e elaborar.
 
 %%{{{ Q: How can we turn the quotient set into a group? 
 \question.
@@ -42649,7 +42697,7 @@ Será que temos uma categoria (\ref{category_first_def})?
 Denotamos por $\GROUP$ a categoria dos grupos:
 \beginul
 \li $\Obj \GROUP$: todos os grupos;
-\li $\Arr \GROUP$: todos os homomorsfismos de grupos.
+\li $\Arr \GROUP$: todos os homomorsfismos de grupos;
 \endul
 onde obviamente os $\src\phi$ e $\tgt\phi$ denotam os $\dom\phi$ e $\cod\phi$ respectivamente.
 %%}}}
@@ -42729,14 +42777,14 @@ E, esqueci: a $\SET$ tem?
 \endexercise
 %%}}}
 
-%%{{{ df: Abel_cat 
+%%{{{ df: ABEL 
 \definition.
-\label{Abel_cat}%
-\sdefined {\ABEL} {a categoriados grupos abelianos e seus homomorfismos}%
-Denotamos por $\ABEL$ a categoria dos grupos:
+\label{ABEL}%
+\sdefined {\ABEL} {a categoria dos grupos abelianos e seus homomorfismos}%
+Denotamos por $\ABEL$ a categoria dos grupos abelianos:
 \beginul
 \li $\Obj \ABEL$: todos os grupos abelianos;
-\li $\Arr \ABEL$: todos os homomorsfismos de grupos abelianos.
+\li $\Arr \ABEL$: todos os homomorsfismos de grupos abelianos;
 \endul
 onde novamente os $\src\phi$ e $\tgt\phi$ são as coisas óbvias.
 %%}}}
