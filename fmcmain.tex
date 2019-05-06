@@ -40328,7 +40328,7 @@ o teorema de~\Wilson[teorema]{}Wilson.
 \endsection
 %%}}}
 
-%%{{{ The quotient group 
+%%{{{ The_quotient_group 
 \section O grupo quociente.
 \label{The_quotient_group}%
 
@@ -40703,45 +40703,50 @@ Suponha então que temos um $H \subgrp G$.
 Gostariamos de definir a operação $\ast$ no
 $\quoset G {\congL H}$ em tal forma que
 $$
-Ha \ast Hb \pseudodefeq H(a \ast_G b).
+aH \ast bH \pseudodefeq (a \ast_G b)H.
 $$
 O problema é que a operação $\ast$ que estamos
-tentando definir não tem acesso nos $a,b$ das suas entradas $Ha,Hb$
-respectivamente, e logo o seu valor $Ha \ast Hb$ não pode depender
+tentando definir não tem acesso nos $a,b$ das suas entradas $aH,bH$
+respectivamente, e logo o seu valor $aH \ast bH$ não pode depender
 das escolhas desses representantes.
 Voltando no desenho anterior a situação ficará mais clara;
-vou pintar todos os membros da $Ha$ de vermelho e todos os
-membros da $Hb$ de azul:
+vou pintar todos os membros da $aH$ de vermelho e todos os
+membros da $bH$ de azul:
 $$
-\tikzpicture
+\tikzpicture[scale=2]
 \tikzi quogrppartitionednonames;
-\tikzi quogrpLpartitioned;
 \tikzi quogrppartitioned2colors;
+\tikzi quogrpLpartitioned;
 \endtikzpicture
 $$
 Querendo usar a ``definição'' da operação $\ast$ acima
-escolhemos o $a \in Ha$ e o $b \in Hb$ e procuramos
-o $a \ast_G b$; vamos dizer que achamos aqui no $Hg$:
+escolhemos o $a \in aH$ e o $b \in bH$ e procuramos
+o $a \ast_G b$; vamos dizer que achamos aqui no $gH$:
 $$
-\tikzpicture
+\tikzpicture[scale=2]
 \tikzi quogrppartitionednonames;
-\tikzi quogrpLpartitioned;
 \tikzi quogrppartitioned2colors;
-\node[text=green] at (ab) {$\bullet$};
+\tikzi quogrpLpartitioned;
+\node[text=magenta] at (ab) {$\bullet$};
 \node at (ab) {\pointL {ab}};
 \endtikzpicture
 $$
 agora escolhendo \emph{outros representantes} $a',b'$ das
-$Ha,Hb$
+$aH,bH$
 (onde pelo menos uma das $a'\neq a$ e $b'\neq b$ é válida)
 procuramos o $a' \ast_G b'$.  O que acontece se ele
-não pertence à mesma coclasse $Hg$?:
+não pertence à mesma coclasse $gH$?
+Talvez caiu na $cH$:
 $$
-\tikzpicture
+\tikzpicture[scale=2]
 \tikzi quogrppartitionednonames;
-\tikzi quogrpLpartitioned;
 \tikzi quogrppartitioned2colors;
-\node[text=magenda] at (ab0) {$\bullet$};
+\tikzi quogrpLpartitioned;
+\node at (a2)  {\pointL {a'}};
+\node at (b2)  {\pointL {b'}};
+\node[text=magenta] at (ab)  {$\bullet$};
+\node[text=magenta] at (ab0) {$\bullet$};
+\node at (ab)  {\pointL {ab}};
 \node at (ab0) {\pointL {a'b'}};
 \endtikzpicture
 $$
@@ -40750,21 +40755,23 @@ o $\quoset G {\congL H}$ não tem nenhuma chance de
 virar grupo com ela.
 É exatamente isso que aproveitamos nos subgrupos \emph{normais:}
 eles não deixam isso acontecer, pois garantam que
-o produto de quaisquer representantes das $Ha,Hb$ vai sempre
-cair dentro da mesma coclasse, e logo apenas a $Hg$ será pintada
+o produto de quaisquer representantes das $aH,bH$ vai sempre
+cair dentro da mesma coclasse, e logo apenas a $gH$ será pintada
 roxa aqui no nosso desenho
 $$
-\tikzpicture
+\tikzpicture[scale=2]
 \tikzi quogrppartitionednonames;
-\tikzi quogrpLpartitioned;
 \tikzi quogrppartitioned3colors;
+\tikzi quogrpLpartitioned;
+\node at (a2)  {\pointL {a'}};
+\node at (b2)  {\pointL {b'}};
 \node at (ab2) {\pointL {a'b'}};
-\node at (ab) {\pointL {ab}};
+\node at (ab)  {\pointL {ab}};
 \endtikzpicture
 $$
 e logo aqui teriamos
 $$
-Ha \ast Hb = Hg.
+aH \ast bH = gH \quad \bigparen{= (ab)H}.
 $$
 %%}}}
 
