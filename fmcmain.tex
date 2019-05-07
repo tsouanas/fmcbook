@@ -291,7 +291,7 @@ nada pois seu texto não conseguiu descrever nenhum conceito.
 \TODO Elaborate.
 
 %%{{{ What is ``well-defined''? 
-\note O que é ``bem definido''?.
+\note O que é ``bem-definido''?.
 %%}}}
 
 \TODO Explain and examples, point to fun chap.
@@ -439,7 +439,7 @@ A segunda linha \emph{é uma afirmação}:
 afirma que as duas proposições nos seus lados são equivalentes.
 Ou seja, é algo que pode ser provado, ou refutado.
 E para usar o \sq{$\iffsymbol$} com certeza seus dois lados precisam ser
-afirmações bem definidas.
+afirmações bem-definidas.
 \endexample
 %%}}}
 
@@ -6649,7 +6649,7 @@ c+v=\ell, \ 0\leq c \leq 20, \ 0\leq v \leq 6, \ c,v\in\nats
 \bigg\}.
 $$
 Note que como o conjunto acima é finito,
-a adição é comutativa e associativa; logo, nosso somatório é bem definido.
+a adição é comutativa e associativa; logo, nosso somatório é bem-definido.
 
 \endproblem
 %%}}}
@@ -7532,7 +7532,7 @@ $
 
 %%{{{ x 
 \exercise.
-A~\ref{a_gcd} tem um erro: o símbolo $\gcd a b$ não foi bem definido!
+A~\ref{a_gcd} tem um erro: o símbolo $\gcd a b$ não foi bem-definido!
 O que precisamos provar para definir realmente o símbolo $\gcd a b$?
 
 \solution
@@ -13243,7 +13243,7 @@ $$
 Mas como podemos formalizar o que é uma \dterm{condição definitiva}?
 Bem, concordamos escrever apenas algo que podemos (se precisarmos e se quisermos)
 descrever usando uma fórmula de FOL $\phi(x)$ onde possivelmente aparece
-a variável $x$ livre e todos os símbolos da FOL tem interpretações bem definidas.%
+a variável $x$ livre e todos os símbolos da FOL tem interpretações bem-definidas.%
 \footnote{Pouco mais sobre isso no~\ref{fol_filter_by_fraenkel_and_skolem}.}
 Chegamos então na forma
 $$
@@ -17416,7 +17416,7 @@ $$
 A = A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n.
 $$
 Observe que como a operação $\symdiff$ é associativa e comutativa,
-o $A$ é bem definido.
+o $A$ é bem-definido.
 Prove que:
 $$
 A = \setstt a {$a$ pertence a uma quantidade ímpar de $A_i$'s}.
@@ -18198,6 +18198,7 @@ $$
 \label{functionhood_conditions}%
 \tdefined{função}[totalidade]%
 \tdefined{função}[determinabilidade]%
+{\iisee{univocidade}{determinabilidade}}%
 Na~\ref{function_primitive} aparece a frase
 ``o símbolo $f(x)$ é definido''.
 Com isso entendemos que não existe ambigüidade, ou seja, para uma entrada $x$,
@@ -18211,6 +18212,7 @@ Resumindo: para todo $x\in\dom f$,
 \item{(2)} existe no máximo  um $y\in\cod f$ tal que $x \mapstoby f y$ (\dterm{determinabilidade}).
 \endil
 Quando o (1) acontece dizemos que \emph{a $f$ é definida em todo o seu domínio}.
+Usamos o termo \dterm{univocidade} como sinônimo de ``determinabilidade''.
 %%}}}
 
 %%{{{ Arity and tuples 
@@ -18764,8 +18766,8 @@ O que precisamos fazer para definir corretamente uma função?
 
 %%{{{ A: We must make clear what its values are for all of its domain. 
 \note Resposta.
-Precisamos deixar claro qual é o seu domínio e o seu valor para cada ponto no
-seu domínio.
+Precisamos deixar claro qual é o seu domínio e o seu valor
+para cada ponto no seu domínio (totalidade e determinabilidade).
 Se consideramos que o codomínio da função faz parte dela também
 (veja conversa na~\refn{Function_contept}), precisamos deixar
 claro seu codomínio também---aqui sempre faremos isso.
@@ -18795,6 +18797,64 @@ $$
 Em geral, cada polinómio de $n$ variáveis,
 pode ser visto como uma função de aridade $n$.
 \endexample
+%%}}}
+
+%%{{{ not_well_defined_function_danger_argument_name_dependence
+\beware depender de nomes de argumentos.
+\label{not_well_defined_function_danger_argument_name_dependence}%
+Quando definimos uma função vale a pena pensar como programador
+que está tentando programar essa função, ou até assumir o papel
+da própria função que vai receber seus argumentos e vai precisar
+decidir qual seria o seu valor.
+Imagine alguém programando uma função $\code{foo}$
+de $\code{int}$ para $\code{int}$ numa linguagem de programação.
+O programador e sua função não têm como saber o \emph{nome}
+que o chamador da função vai usar quando chamando-la.
+Em algum ponto ela pode ser chamada pelo $\code{foo(42)}$
+passando assim diretamente o \emph{literal} $\code{42}$,
+ou, depois de umas atribuições como $\code{int a = 42; int num = 42;}$,
+chamá-la $\code{foo(a)}$ ou $\code{foo(num)}$.
+Não tem como programar a função depender nesses nomes.
+Por exemplo:
+<<se for chamada com nome que começa com vogal, retorna o inteiro 0;
+caso contrário, retorna o inteiro 1>>;
+ou
+<<retorna o tamanho do nome do teu argumento>>
+(querendo retornar $\code{1}$ caso que for chamada pelo $\code{foo(a)}$,
+e $\code{3}$ caso que for chamada pelo $\code{foo(num)}$).
+%%}}}
+
+%%{{{ noneg: not_well_defined_function_choice_dependence_noneg 
+\nonexample.
+\label{not_well_defined_function_choice_dependence_noneg}%
+Seja $f : \ints \to \ints$ definida pela
+$$
+f(x+y) = y.
+$$
+\endnonexample
+%%}}}
+
+%%{{{ not_well_defined_function_danger_choice_dependence 
+\beware depender de escolhas.
+\label{not_well_defined_function_danger_choice_dependence}%
+Por que o~\ref{not_well_defined_function_choice_dependence_noneg}
+é um nãœxemplo mesmo?
+Imagine que definimos uma
+``função'' $f$ pela
+$$
+f(x+y) = y.
+$$
+O que seria o $f(2+3)$?  $3$?  Por que não $0$?
+No final das contas,
+$$
+2 + 3 = 5 + 0 = 4 + 1 = 12 + (-5) = \dots
+$$
+e $f$ não tem como saber o jeito que tu imaginou ``quebrar''
+sua entrada em dois somantes!
+A $f$ está olhando ao seu argumento (aqui o $5$) e está tentando
+decidir qual seria o seu valor nesse ponto!  E não tem como saber
+pois, consultando a sua ``definição'' o resultado vai depender
+da escolha desses $x$ e $y$.
 %%}}}
 
 %%{{{ Definitive description 
@@ -18919,7 +18979,7 @@ n, & otherwise.\cr
 }\\
 \endalign
 $$
-são realmente duas funções bem definidas e diferentes.
+são realmente duas funções bem-definidas e diferentes.
 %%}}}
 
 %%{{{ x: prove that they are different 
@@ -18971,10 +19031,10 @@ Qual é a sobreposição dos casos que aparecem na definição da $h$ e quais os
 valores da $h$ seguindo cada um deles?
 
 \solution
-A $h$ realmente é bem definida, mas isso não é imediatamente óbvio,
+A $h$ realmente é bem-definida, mas isso não é imediatamente óbvio,
 pois os dois primeiros casos na sua definição não são distintos,
 e os valores que cada um escolhe para a $h$ são aparentemente diferentes.
-Para provar que a $h$ é uma função bem definida 
+Para provar que a $h$ é uma função bem-definida 
 precisamos ver quais são os membros do seu codomínio que satisfazem
 mais que um caso (aqui os dois primeiros casos, pois o terceiro é o ``caso contrário'')
 e verificar que o valor da $h$ para esses membros são os mesmos, independente
@@ -18988,7 +19048,7 @@ e seguindo o segundo caso temos
 $$
 h(2) = 2^2 = 4.
 $$
-Logo, a $h$ realmente é uma função bem definida.
+Logo, a $h$ realmente é uma função bem-definida.
 
 \endexercise
 %%}}}
@@ -19032,10 +19092,10 @@ satisfaz a $\phi(x,v)$.
 \footnote{Pode olhar também na definição formal disso,~\refn{functionlike}.}
 %%}}}
 
-%%{{{ x: welldefined_functionlike
+%%{{{ x: welldefined_functionlike 
 \exercise.
 \label{welldefined_functionlike}%
-As ``funções'' abaixo são bem definidas?
+As ``funções'' abaixo são bem-definidas?
 $$
 \xalignat2
 f &: \reals_{\geq0} \to \reals &
@@ -19053,17 +19113,17 @@ $$
 Justifique tuas refutações.
 
 \solution
-A $f$ não é bem definida: perdemos a unicidade; pois, por exemplo, como $1^2 = 1 = (-1)^2$, o $f(1)$ fica sem valor unicamente determinado.
+A $f$ não é bem-definida: perdemos a unicidade; pois, por exemplo, como $1^2 = 1 = (-1)^2$, o $f(1)$ fica sem valor unicamente determinado.
 \endgraf
-A $g$ não é bem definida: perdemos a totalidade; pois para o $2\in\nats$
+A $g$ não é bem-definida: perdemos a totalidade; pois para o $2\in\nats$
 por exemplo, não existe nenhum $y\in\nats$ com $y^2 = 2$.
 \endgraf
-A $h$ realmente é bem definida, conhecida como ``floor''.
+A $h$ realmente é bem-definida, conhecida como ``floor''.
 \endgraf
-A $u$ não é bem definida: perdemos a unicidade; por exemplo o
+A $u$ não é bem-definida: perdemos a unicidade; por exemplo o
 $u(1,5)$ fica sem valor determinado, pois $2$ é primo e $2 \divides 6$ mas $3$ também é primo e $3\divides 6$.
 \endgraf
-A $v$ também não é bem definida: perdemos a totalidade; por exemplo o
+A $v$ também não é bem-definida: perdemos a totalidade; por exemplo o
 $v(0,1)$ fica sem valor nenhum, pois nenhum primo divide o $0+1=1$.
 
 \endexercise
@@ -22960,7 +23020,7 @@ g(X) = \knuthcases{
 }
 $$
 mas sem a informação que o $A$ é bem ordenado a $g$ não seria
-bem definida.
+bem-definida.
 Por enquanto: um conjunto é chamado \dterm{bem ordenado} sse todo
 $\emptyset\subsetneq X \subset A$ possui elemento mínimo.
 No~\ref{Wellorderings_and_transfinite_induction}
@@ -23107,7 +23167,7 @@ $$
 \graph (f\union g) \defeq \graph f \union \graph g.
 $$
 Observe que nas duas maneiras precisamos a condição de
-compatibilidade para a $f\union g$ ser bem definida.
+compatibilidade para a $f\union g$ ser bem-definida.
 \crproofalt{Resolução alternativa:}
 Usamos a mesma definição mas exigimos que os $A,C$ são disjuntos.
 A primeira resolução consegue definir a $f \union g$ em mais casos
@@ -23249,9 +23309,9 @@ $$
 %%}}}
 
 %%{{{ x: finv_is_well_defined 
-\exercise A inversa é bem definida.
+\exercise A inversa é bem-definida.
 \label{finv_is_well_defined}%
-Prove que a função $\finv f$ foi bem definida.
+Prove que a função $\finv f$ foi bem-definida.
 O que precisas provar?
 
 \solution
@@ -25788,7 +25848,7 @@ $$
 \blah.
 Já encontramos várias definições recursivas.
 Agora vamos analizar com que precisamos tomar cuidado para garantir
-que nossas ``funções'' realmente são funções bem definidas.
+que nossas ``funções'' realmente são funções bem-definidas.
 Vamos começar lembrando como exemplo duas funções recursivas famosas demais.
 
 %%{{{ eg: fact_and_fib_recursive_eg 
@@ -25813,7 +25873,7 @@ e \emph{estão} lá mesmo quando escolhemos omiti-las.
 
 \blah.
 Agora, assuma que tu aceita ambas as $a,b : \nats\to\nats$ do
-exemplo assima como funções \emph{bem definidas}, e continue lendo.
+exemplo assima como funções \emph{bem-definidas}, e continue lendo.
 
 %%{{{ mutual_recursion 
 \note Recursão mutual.
@@ -25878,7 +25938,7 @@ Aqui nas chamadas recursivas não é o próprio argumento que é
 ``cada vez menor''---pelo contrário: as chamadas recursivas
 estão sendo cada vez com argumento maior!
 Mesmo assim, a recursão ``sempre termina'', e a $f$ realmente
-é bem definida.
+é bem-definida.
 Calculamos como exemplo uns valores:
 $$
 \align
@@ -32533,12 +32593,12 @@ Ache o que, e prove.
 
 \hint
 Precisas mostrar que:
-(1) a $\tilde f$ é bem definida;
+(1) a $\tilde f$ é bem-definida;
 (2) a $\tilde f$ é uma bijecção.
 
 \hint
 (1)
-Para mostrar que $\tilde f$ é bem definida, precisa mostrar que
+Para mostrar que $\tilde f$ é bem-definida, precisa mostrar que
 a escolha do representante da classe não afeta o valor da função.
 Ou seja, tome $a, a'\in A$ e mostre que:
 $$
@@ -40709,6 +40769,9 @@ O problema é que a operação $\ast$ que estamos
 tentando definir não tem acesso nos $a,b$ das suas entradas $aH,bH$
 respectivamente, e logo o seu valor $aH \ast bH$ não pode depender
 das escolhas desses representantes.
+Ou seja, \emph{não temos como demonstrar que $\ast$ é bem-definida},
+e logo \emph{não podemos usar a igualdade acima como definição 
+de operação}---por isso o $\pseudodefeq$.
 Voltando no desenho anterior a situação ficará mais clara;
 vou pintar todos os membros da $aH$ de vermelho e todos os
 membros da $bH$ de azul:
@@ -40750,7 +40813,7 @@ $$
 \node at (ab0) {\pointL {a'b'}};
 \endtikzpicture
 $$
-Assim a $\ast$ \emph{não é bem definida} (e logo
+Assim a $\ast$ \emph{não é bem-definida} (e logo
 o $\quoset G {\congL H}$ não tem nenhuma chance de
 virar grupo com ela.
 É exatamente isso que aproveitamos nos subgrupos \emph{normais:}
@@ -40773,6 +40836,53 @@ e logo aqui teriamos
 $$
 aH \ast bH = gH \quad \bigparen{= (ab)H}.
 $$
+%%}}}
+
+%%{{{ beware: not_well_defined_function_danger_quogrp 
+\beware.
+\label{not_well_defined_function_danger_quogrp}%
+Caso que o problema não é óbvio, primeiramente volte a
+re-estudar os: \ref{not_well_defined_function_danger_argument_name_dependence} e~\ref{not_well_defined_function_danger_choice_dependence}.
+Agora observe que o $aH$ é na verdade é um membro $a$ de $G$
+\emph{operado} com um subgrupo $H$ de $G$ que resulta
+num certo subconjunto de $G$.
+\endgraf
+Aqui, as entradas da $\ast$ são coclasses esquerdas de $H$,
+por exemplo podem ser as
+$$
+\xalignat2
+aH &\eqass \set{a,a_1,a_2,a_3,a_4,a_5}
+bH &\eqass \set{b,b_1,b_2,b_3,b_4,b_5}
+\endxalignat
+$$
+e agora
+$$
+\set{a,a_1,a_2,a_3,a_4,a_5}
+\ast
+\set{b,b_1,b_2,b_3,b_4,b_5}
+= ?
+$$
+Observe que aqui temos
+$$
+\xalignat2
+aH &= a_1H = \dotsb = a_5H
+bH &= b_1H = \dotsb = b_5H.
+\endxalignat
+$$
+Parece então que tentamos definir a $\ast$ pela
+$$
+A \ast B = ab,\quad
+\text{onde $a$ é algum membro de $A$ e $b$ de $B$}
+$$
+mas para essa ser uma definição de função mesmo
+temos uma tarefa para fazer:
+\emph{precisamos provar que seu valor $A \ast B$
+não depende das escolhas desses ``representantes'' $a$ e $b$}
+(\ref{not_well_defined_function_danger_choice_dependence}).
+Até conseguir provar isso, não podemos considerar a $\ast$ uma função
+\ii{função}[bem-definida]\emph{bem-definida}.
+Vamos voltar se preocupar com o mesmo tipo de coisa logo
+no~\ref{not_well_defined_function_danger_firstiso}.
 %%}}}
 
 %%{{{ Q: How can we turn the quotient set into a group? 
@@ -40819,7 +40929,7 @@ Tá tudo bem com a~\ref{quogrp}?
 
 %%{{{ A: No: you must prove that it is well-defined: 
 \blah Resposta.
-A operação $\ast$ não é automaticamente ``bem definida'':
+A operação $\ast$ não é automaticamente ``bem-definida'':
 precisamos demonstrar que realmente o lado direito não
 depende na escolha dos representantes $a$ e $b$.
 Falei ``precisamos''?  Quis dizer \emph{precisas}.
@@ -40829,7 +40939,7 @@ Agora:
 %%{{{ x: nop_is_well_defined 
 \exercise.
 \label{nop_is_well_defined}%
-Demonstre que a $\ast$ definida acima é bem definida.
+Demonstre que a $\ast$ definida acima é bem-definida.
 
 \endexercise
 %%}}}
@@ -40979,7 +41089,19 @@ e pronto.
 
 \blah.
 Seria importante se convencer que essa coisa legal realmente não
-é compartilhada por subgrupos não-normais.  Faça agora o:
+é compartilhada por subgrupos não-normais.
+Faça agora o:
+
+%%{{{ x: not_normal_subgroup_makes_soulless_quoset 
+\exercise.
+\label{not_normal_subgroup_makes_soulless_quoset}%
+Mostre que para qualquer $H \not\normal G$ as $\congL H$ e
+$\congR H$ não são congruências e logo nenhum dos
+$\quoset G {\congL H}$ $\quoset G {\congR H}$ pode virar
+um grupo com a alma do $G$.
+
+\endexercise
+%%}}}
 
 %%{{{ Congruences 
 \note Congruências.
@@ -41026,17 +41148,6 @@ contexto mais geral, não apenas para grupos.
 \label{congL_and_congR_not_congruences_counterexample}%
 Mostre grupo $G$ e $H \subgroup G$ tais que $\congL H$ e $\congR H$
 não são congruências.
-
-\endexercise
-%%}}}
-
-%%{{{ x: not_normal_subgroup_makes_soulless_quoset 
-\exercise.
-\label{not_normal_subgroup_makes_soulless_quoset}%
-Mostre que para qualquer $H \not\normal G$ as $\congL H$ e
-$\congR H$ não são congruências e logo nenhum dos
-$\quoset G {\congL H}$ $\quoset G {\congR H}$ pode virar
-um grupo com a alma do $G$.
 
 \endexercise
 %%}}}
@@ -42002,8 +42113,8 @@ sse ela \emph{preserve a estrutura de $\cal A$ no $\cal B$}.
 
 %%{{{ Preserving the structure 
 \note Preservando a estrutura.
-\tdefined{preservar}%
-\tdefined{respeitar}%
+\tdefined{preservar}[estrutura]%
+\tdefined{respeitar}[estrutura]%
 Antes de entender o que significa <<preservar uma estrutura>>, vamos
 lembrar: o que é a estrutura dum grupo?
 É sua alma: num grupo temos a sua operação (binária), podemos pegar inversos (operação unária),
@@ -42012,8 +42123,8 @@ Ou seja, \dterm{preservar a estrutura} faz sentido significar as três coisas se
 $$
 \xalignat2
 &\text{preservar a operação:}   & \phi(x \ast_A y)    &= \phi(x) \ast_B \phi(y)   \tag{i}   \\
-&\text{preservar a identidade:} & \phi(e_A)           &= e_B                      \tag{ii}  \\
-&\text{preservar os inversos:}  & \phi(\ginvt_A (x))  &= \ginvt_B\paren{\phi(x)}. \tag{iii}
+&\text{preservar os inversos:}  & \phi(\ginvt_A (x))  &= \ginvt_B\paren{\phi(x)}  \tag{ii}  \\
+&\text{preservar a identidade:} & \phi(e_A)           &= e_B.                     \tag{iii}
 \endxalignat
 $$
 Também usamos o termo \dterm{respeitar}, muitas vezes como sinônimo de
@@ -42085,7 +42196,7 @@ $$
 Então, dependendo na estrutura que escolhemos para nossa definição
 de grupo, precisamos definir ``morfismo'' em forma diferente:
 No caso de estrutura $\sset A {\ast_A}$ o morfismo deve satisfazer
-o~(i); no caso de $\sset A {\ast_A, e_A}$, os~(i)--(ii), e no caso
+o~(i); no caso de $\sset A {\ast_A, e_A}$, os~(i)~e~(iii), e no caso
 de $\sset A {\ast_A, \ginvt_A, e_A}$ todos os~(i)--(iii).
 \emph{Parece então que chegamos no primeiro ponto onde a estrutura
 escolhida na definição de grupo será crucial.}
@@ -42103,21 +42214,27 @@ para decidir se alguma função é um homomorfismo.
 \definition Homomorfismo.
 \label{group_homomorphism}%
 \tdefined{homomorfismo}%
-Sejam $\cal A = \sset A {\ast_A,e_A}$ e $\cal B = \sset B {\ast_B,e_B}$ grupos.
-A função $\phi : A \to B$ é um \dterm{homomorfismo} de $\cal A$ para $\cal B$
-sse ela respeita a identidade, a operação, e os inversos do $A$:
+\sdefined
+    {\phi : {\sholed {\cal A}} \to {\sholed {\cal B}}}
+    {$\phi$ é um homomorfismo do $\cal A$ para o $\cal B$}%
+\sdefined
+    {\phi : {\sholed A} \homto {\sholed B}}
+    {$\phi$ é um homomorfismo do $A$ para o $B$}%
+Sejam $\cal A = \sset A {\ast_A,\ginvtof A,\gidof A}$ e
+$\cal B = \sset B {\ast_B,\ginvtof B,\gidof B}$ grupos.
+A função $\phi : A \to B$ é um \dterm{homomorfismo} do
+$\cal A$ para o $\cal B$ sse ela respeita a operação,
+os inversos, e a identidade:
 $$
 \alignat2
-&&\phi(e_A)      &= e_B\\
-&\text{para todo $x,y\in A$},\quad &
-\phi(x \ast_A y) &= \phi(x) \ast_B \phi(y)\\
-&\text{para todo $x\in A$},\quad &
-\phi(\ginv x)    &= \ginvp{\phi(x)}.
+&\text{para todo $x,y\in A$},\quad & \phi(x \ast_A y)   &= (\phi x) \ast_B (\phi y) \\
+&\text{para todo $x\in A$},\quad   & \phi(\ginvtof A x) &= \ginvtof B \funparen{\phi x} \\
+&&\phi e_A       &= e_B.
 \endalignat
 $$
 As vezes escrevemos $\phi : \cal A \to \cal B$ (em vez de $\phi:A\to B$)
 para enfatizar que o $\phi$ nos leva do \emph{grupo} $\cal A$ para o
-\emph{grupo} $\cal B$.
+\emph{grupo} $\cal B$; ou também $\phi : A \homto B$.
 %%}}}
 
 %%{{{ note: safe juxtaposition 
@@ -42131,7 +42248,7 @@ $$
 sem ambigüidade nenhuma:
 o $xy$ que aparece no lado esquerdo,
 só pode denotar o $x \ast_A y$, pois $x,y \in A$.
-No outro lado, o $\phi(x) \phi(y)$ só pode denotar o $\phi(x) \ast_B \phi(y)$,
+No outro lado, o $(\phi x) (\phi y)$ só pode denotar o $\phi(x) \ast_B \phi(y)$,
 pois $\phi(x),\phi(y) \in B$.
 A mesma coisa acontece com os inversos:
 $\phi(\ginv x)$ só pode denotar ``a imagem do inverso (no $A$) de $x$'',
@@ -42143,28 +42260,30 @@ e no segundo caso num membro de $B$.
 %%{{{ criterion: criterion_for_morphism_in_groups
 \criterion de homomorfismo.
 \label{criterion_for_morphism_in_groups}%
-Sejam grupos $\cal A = \sset A {\ast_A,\ginvtof A,\gidof A}$ e $\cal B = \sset B {\ast_B,\ginvtof B,\gidof B}$ 
-e função $\phi : A \to B$ que preserva a operação, ou seja, tal que
+Sejam grupos $\cal A = \sset A {\ast_A,\ginvtof A,\gidof A}$
+e $\cal B = \sset B {\ast_B,\ginvtof B,\gidof B}$
+e função $\phi : A \to B$ que preserva a operação, ou seja,
+tal que
 $$
 \quad\text{para todo $x,y\in A$},\quad
-\phi(x \ast_A y) = \phi(x) \ast_B \phi(y).
+\phi(x \ast_A y) = (\phi x) \ast_B (\phi y).
 $$
 Então $\phi$ é um homomorfismo.
 \sketch.
 Precisamos provar o que falta:
 $$
 \alignat2
-&&\phi(e_A)      &= e_B              \tag{i}  \\
+&&\phi e_A       &= e_B              \tag{iii}  \\
 &\text{para todo $x\in A$},\quad &
-\phi(\ginv x)    &= \ginvp{\phi(x)}. \tag{ii}
+\phi(\ginv x)    &= \ginvp{\phi x}.  \tag{ii}
 \endalignat
 $$
-Para o~(i), calculamos $\phi(e_A) = \phi(e_A) \phi(e_A)$
+Para o~(iii), calculamos $\phi(e_A) = \phi(e_A) \phi(e_A)$
 para concluir que $e_B = \phi(e_A)$;
 para o~(ii), mostramos que o $\phi(\ginv x)$ satisfaz a
-propriedade característica de ser inverso de $\phi(x)$:
+propriedade característica de ser inverso de $\phi x$:
 $$
-\phi(\ginv x) \phi(x) = e_B.
+\phi(\ginv x) \phi(x) \askeq e_B.
 $$
 \qes
 %%}}}
@@ -42172,13 +42291,15 @@ $$
 %%{{{ df: group_morphisms 
 \definition -morfismos.
 \label{group_morphisms}%
-\tdefined{morfismo}%
-\tdefined{homomorfismo}%
-\tdefined{epimorfismo}%
-\tdefined{monomorfismo}%
-\tdefined{isomorfismo}%
-\tdefined{endomorfismo}%
-\tdefined{automorfismo}%
+\tdefined{morfismo}[grupo]%
+\tdefined{homomorfismo}[(grupo)]%
+\tdefined{epimorfismo}[(grupo)]%
+\tdefined{monomorfismo}[(grupo)]%
+\tdefined{epimorfismo}[split (grupo)]%
+\tdefined{monomorfismo}[split (grupo)]%
+\tdefined{isomorfismo}[(grupo)]%
+\tdefined{endomorfismo}[(grupo)]%
+\tdefined{automorfismo}[(grupo)]%
 Sejam grupos $\cal A$ e $\cal B$, e $\phi : \cal A \to \cal B$ um homomorfismo.
 Usamos os termos:
 $$
@@ -42597,7 +42718,7 @@ para qualquer coclasse $Kx$ do $K$ (essas são as suas entradas).
 \endgraf
 O problema é que $\Phi$ não parece \emph{bem-definida}, pois seu valor
 pode depender na escolha do representante $x$ da coclasse---veja
-o~\ref{not_well_defined_function_danger} caso que o problema
+o~\ref{not_well_defined_function_danger_firstiso} caso que o problema
 com essa definição não é claro.
 Precisamos melhorar essa definição e provar que:
 (a) realmente defina uma \emph{função} $\Phi$;
@@ -42606,49 +42727,29 @@ Precisamos melhorar essa definição e provar que:
 \qes
 %%}}}
 
-%%{{{ beware: not_well_defined_function_danger 
+%%{{{ beware: not_well_defined_function_danger_firstiso 
 \beware.
-\label{not_well_defined_function_danger}%
-Caso que o perigo descrito no esboço acima não é óbvio, vamos
-pensar como um programador querendo definir essa função $\Phi$.
+\label{not_well_defined_function_danger_firstiso}%
+Caso que o perigo descrito no esboço acima não é óbvio,
+primeiramente volte re-estudar os
+\ref{not_well_defined_function_danger_quogrp},
+\ref{not_well_defined_function_danger_argument_name_dependence},
+e~%
+\ref{not_well_defined_function_danger_choice_dependence}.
+\endgraf
+Agora vamos pensar como um programador querendo definir essa
+função $\Phi$.
 Sua função, quando chamada, recebe uma coclasse, ou seja,
 um conjunto com certos elementos membros.
-Ela não sabe qual foi o nome que o chamador escolheu para essa
-coclasse.
-Imagine alguém programando uma função $\code{foo}$
-de $\code{int}$ para $\code{int}$ numa linguagem de programação.
-O programador e sua função não têm como saber o \emph{nome}
-que o chamador da função vai usar quando chamando-la.
-Em algum ponto ela pode ser chamada pelo $\code{foo(42)}$
-passando assim diretamente o \emph{literal} $\code{42}$,
-ou, depois de umas atribuições como $\code{int a = 42; int num = 42;}$,
-chamá-la $\code{foo(a)}$ ou $\code{foo(num)}$.
-Não tem como programar a função depender nesses nomes.
-Por exemplo:
-<<se for chamada com nome que começa com vogal, retorna o inteiro 0;
-caso contrário, retorna o inteiro 1>>;
-ou
-<<retorna o tamanho do nome do teu argumento>>
-(querendo retornar $\code{1}$ caso que for chamada pelo $\code{foo(a)}$,
-e $\code{3}$ caso que for chamada pelo $\code{foo(num)}$).
-\endgraf
+Ela não sabe qual foi o nome que o chamador escolheu para essa coclasse
+(\ref{not_well_defined_function_danger_argument_name_dependence}).
 Até pior, e para corresponder ainda melhor com nosso caso, observe
 que o $Kx$ é na verdade uma operação entre um subgrupo $K$ e um membro
-$x$ que resulta num subconjunto de $G$.  Se o perigo de definir
-a $\Phi$ nesse jeito não é ainda óbvio, imagine que definimos uma
-``função'' $f$ pela
-$$
-f(x+y) = y.
-$$
-O que seria o $f(2+3)$?  $3$?  Por que não $0$?
-No final das contas,
-$$
-2 + 3 = 5 = 5 + 0 = 4 + 1 = 12 + (-5) = \dots
-$$
-e $f$ não tem como saber o jeito que tu imaginou ``quebrar''
-sua entrada em dois somantes!
+$x$ que resulta num subconjunto de $G$.
+Mas a $\Phi$ \emph{não tem acesso nesse $x$}
+(\ref{not_well_defined_function_danger_choice_dependence}).
 \endgraf
-Mesmo se definir ela pela
+Mesmo se defini-la pela
 $$
 \Phi(C) = \phi(c),\quad
 \text{onde $c$ é algum membro de $C$}
@@ -47735,11 +47836,11 @@ como uma prova de $(0,1)^2 \eqc (0,1)$.
 (2) Qual o erro de Cantor?
 
 \hint
-(1) Precisamos disso para que $f$ seja bem definida (por quê?).
+(1) Precisamos disso para que $f$ seja bem-definida (por quê?).
 (2) A $f$ não é bijetora!  (Por quê?)
 
 \solution
-(1) Precisamos disso para que $f$ seja bem definida.
+(1) Precisamos disso para que $f$ seja bem-definida.
 Sem essa restricção, para onde $f$ manda o $\tup{1/2,1/3}$?
 O $1/3$ realmente \emph{determina} os $b_j$'s, mas o $1/2$
 não determina os $a_i$'s pois:
@@ -51295,7 +51396,7 @@ $$
 \exercise.
 \label{kurpair_satisfies_tup0}%
 Mostre pelos axiomas que o operador $\tup{\dhole, \dhole}$ de Kuratowski
-é bem definido, ou seja: dados objetos $x,y$, o $\tup{x,y}$ é conjunto.
+é bem-definido, ou seja: dados objetos $x,y$, o $\tup{x,y}$ é conjunto.
 
 \endexercise
 %%}}}
@@ -51417,7 +51518,7 @@ Mostre pelos axiomas que a operação $\tup{\dhole,\dhole}$ definida pela
 $$
 \tup{x,y} \defeq \bigset{ \set{ \emptyset, \set{x} }, \set{ \set{ y } } }
 $$
-é uma implementação bem definida de par ordenado
+é uma implementação bem-definida de par ordenado
 (ou seja, dados $x,y$ o $\tup{x,y}$ é um conjunto sim)
 que satisfaz as~\ref{spec_tup1}~\&~\ref{spec_tup2}.%
 \footnote{Wiener definiu essa operação uns anos \emph{antes} da definição de Kuratowski.}
