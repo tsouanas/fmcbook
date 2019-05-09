@@ -42149,7 +42149,7 @@ no final das contas, trabalhar com um grupo $\cal A$ é
 %%}}}
 
 %%{{{ pseudodf: group_homomorphism_first_attempt 
-\pseudodefinition Homomorfismo.
+\pseudodefinition homomorfismo.
 \label{group_homomorphism_first_attempt}%
 Sejam $\cal A, \cal B$ grupos.
 A função $\phi : A \to B$ é um \dterm{homomorfismo} de $\cal A$ para $\cal B$
@@ -42256,9 +42256,9 @@ para decidir se alguma função é um homomorfismo.
 %%}}}
 
 %%{{{ df: group_homomorphism 
-\definition Homomorfismo.
+\definition homomorfismo.
 \label{group_homomorphism}%
-\tdefined{homomorfismo}%
+\tdefined{homomorfismo}[de grupos]%
 \sdefined
     {\phi : {\sholed {\cal A}} \to {\sholed {\cal B}}}
     {$\phi$ é um homomorfismo do $\cal A$ para o $\cal B$}%
@@ -43362,6 +43362,17 @@ $$
 Naturalmente, se a $\cdot$ é comutativa chamamos $M$ de \dterm{monóide comutativo}.
 %%}}}
 
+%%{{{ eg: any group is a monoid 
+\example.
+Qualquer grupo $\cal G = \sset G {\ast_G, \ginv{}, \gidof G}$
+é um monóide $\sset G {\ast_G, \gidof G}$.
+\endexample
+%%}}}
+
+\blah.
+Mais interessantes agora seriam exemplos de monóides
+que não são grupos:
+
 %%{{{ eg: nats with addition 
 \example.
 Os naturais com adição formam um monóide.
@@ -43383,6 +43394,27 @@ O $\kstar \Sigma$ com a operação a concatenação de strings,
 \endexample
 %%}}}
 
+%%{{{ Q: How would you define the submonoid relation? 
+\question.
+Como tu definirias a relação de submonóide?
+%%}}}
+\spoiler.
+
+%%{{{ df: submonoid 
+\definition submonóide.
+\label{submonoid}%
+\tdefined{submonóide}%
+Seja $\cal M = \sset M {\cdot_M,\epsilon_M}$ monóide
+e $H \subset M$.
+O $H$ é um submonóide de $M$ sse $\epsilon_M \in H$
+e $\cal M$ é $\cdot_M$-fechado.
+Literalmente não é o $H$ que é submonóide, mas o conjunto
+estruturado
+$$
+\cal H \asseq \text{$\sset H {{{\cdot_M} \restosub {N \times N}}, \epsilon_M}$}.
+$$
+%%}}}
+
 %%{{{ Q: How would you define homomorphism between monoids? 
 \question.
 Como tu definirias o homomorfismo entre monóides?
@@ -43390,9 +43422,9 @@ Como tu definirias o homomorfismo entre monóides?
 \spoiler.
 
 %%{{{ df: monoid_homomorphism 
-\definition Homomorfismo.
+\definition homomorfismo.
 \label{monoid_homomorphism}%
-\tdefined{homomorfismo}[de monóide]
+\tdefined{homomorfismo}[de monóide]%
 Sejam $\cal M = \sset M {\cdot_M,\epsilon_M}$
 e $\cal N = \sset N {\cdot_N,\epsilon_N}$ monóides.
 Uma função $\phi : M \to N$ é um \dterm{homomorfismo} sse:
@@ -43400,6 +43432,81 @@ Uma função $\phi : M \to N$ é um \dterm{homomorfismo} sse:
 \li $\phi(\epsilon_M) = \epsilon_N$;
 \li para todo $x,y\in M$,\quad $\phi(x \cdot_M y) = \phi(x) \cdot_N \phi(y)$.
 \endol
+%%}}}
+
+%%{{{ eg 
+\example.
+Considere os monóides $\cal N = \sset \nats {0, +}$ e
+$\cal B = \sset B {\concat,\epsilon}$, onde:
+$B$ é o conjunto de todos os strings (finitos) binários,
+ou seja, $B=\kstar{\set{\digit 0,\digit 1}}$;
+$\epsilon$ é o string vazio ``$\,$'';
+$\concat$ a concatenação.
+A $\phi : \cal N \to \cal B$ definida recursivamente pelas
+$$
+\align
+\phi(0)     &= \epsilon\\
+\phi(n+1)   &= \phi(n) \concat \digit0
+\endalign
+$$
+é um homomorfismo.
+A $\namedfun{length} : \cal B \to \cal N$ que retorna o tamanho da sua entrada é um homomorfismo.
+\endexample
+%%}}}
+
+%%{{{ noneg 
+\nonexample.
+Com o contexto do exemplo anterior, a $\psi : \cal N \to \cal B$
+definida recursivamente pelas:
+$$
+\align
+\psi(0)     &= \epsilon\\
+\psi(n+1)   &=
+\knuthcases{
+\psi(n) \concat \digit0, & se $\psi(n)$ não termina com $\digit0$\cr
+\psi(n) \concat \digit1, & caso contrário
+}
+\endalign
+$$
+não é um homomorfismo.
+\endnonexample
+%%}}}
+
+%%{{{ x: why? 
+\exercise.
+Por quê?
+
+\solution
+Temos:
+$$
+\psi(1+1)
+= \digit0\digit1
+\neq \digit0\digit0
+= \psi(1)\concat\psi(1).
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ beware: not everything comes for free 
+\beware.
+No~\ref{Group_theory} assim que definimos o que significa homomorfismo
+de grupos~(\refn{group_homomorphism}) demonstramos
+o~\ref{criterion_for_morphism_in_groups} que nos permite concluir
+que uma função entre grupos é homomorfismo assim que
+souber que ela respeita a operação.
+Isso quis dizer que temos esse critério nos monóides também?
+Primeiramente olhamos para a demonstração
+do~\ref{criterion_for_morphism_in_groups} para ver se
+ela ``passa'' nos monóides também:
+se ela usou apenas os (G0)--(G2), então passa.
+Não é o caso: \emph{essa} demonstração necessitou o (G3)
+pois usou os inversos.
+Então isso quis dizer que perdemos esse critério nos monóides?
+\emph{Não!}
+O que perdemos foi a demonstração; mas talvez existe
+outra que segura o mesmo teorema, e que não necessita os inversos.
+Será?
 %%}}}
 
 %%{{{ x: in_monoids_preservation_of_oper_does_not_imply_preservation_of_identity 
@@ -43412,13 +43519,18 @@ ela necessariamente preserva a identidade também?
 
 \hint
 Não!
-Mas como podemos provar que não tem como provar isso?
+Mas como podemos demonstrar que não tem como demonstrar isso?
+
+\hint
+Procure um contraexemplo:
+monóides $\cal M, \cal N$ e função $\phi : M \to N$ tais que
+$\phi$ preserva a operação do monóide mas não a identidade.
 
 \endexercise
 %%}}}
 
-%%{{{ x: monoid_morphism_criterion 
-\exercise Critérion.
+%%{{{ criterion: monoid_morphism_criterion 
+\criterion.
 \label{monoid_morphism_criterion}%
 Uma função sobrejetora $\phi : M \surto N$ tal que
 $$
@@ -43426,6 +43538,14 @@ $$
 \phi(x \cdot_M y) = \phi(x) \cdot_N \phi(y)
 $$
 é um homomorfismo.
+\proof Demonstrarás agora no~\ref{monoid_morphism_criterion_proof}.
+\qed
+%%}}}
+
+%%{{{ x: monoid_morphism_criterion_proof 
+\exercise Critérion.
+\label{monoid_morphism_criterion_proof}%
+Demonstre o~\ref{monoid_morphism_criterion}.
 
 \hint
 Precisamos provar que $\phi(\epsilon_M) = \epsilon_N$.
@@ -43485,60 +43605,6 @@ seja $m \in M$ tal que $\phi(m) = e_N$; e agora
 &= \phi(m)              \by {def.~$e_M$}
 &= e_N.                 \by {pela escolha de $m$}
 \endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ eg 
-\example.
-Considere os monóides $\cal N = \sset \nats {0, +}$ e
-$\cal B = \sset B {\concat,\epsilon}$, onde:
-$B$ é o conjunto de todos os strings (finitos) binários,
-ou seja, $B=\kstar{\set{\digit 0,\digit 1}}$;
-$\epsilon$ é o string vazio ``$\,$'';
-$\concat$ a concatenação.
-A $\phi : \cal N \to \cal B$ definida recursivamente pelas
-$$
-\align
-\phi(0)     &= \epsilon\\
-\phi(n+1)   &= \phi(n) \concat \digit0
-\endalign
-$$
-é um homomorfismo.
-A $\namedfun{length} : \cal B \to \cal N$ que retorna o tamanho da sua entrada é um homomorfismo.
-\endexample
-%%}}}
-
-%%{{{ noneg 
-\nonexample.
-Com o contexto do exemplo anterior, a $\psi : \cal N \to \cal B$
-definida recursivamente pelas:
-$$
-\align
-\psi(0)     &= \epsilon\\
-\psi(n+1)   &=
-\knuthcases{
- \psi(n) \concat \digit0, & se $\psi(n)$ não termina com $\digit0$\cr
- \psi(n) \concat \digit1, & caso contrário
-}
-\endalign
-$$
-não é um homomorfismo.
-\endnonexample
-%%}}}
-
-%%{{{ x: why? 
-\exercise.
-Por quê?
-
-\solution
-Temos:
-$$
-\psi(1+1)
-= \digit0\digit1
-\neq \digit0\digit0
-= \psi(1)\concat\psi(1).
-$$
 
 \endexercise
 %%}}}
@@ -43863,7 +43929,7 @@ O $S$ é um subanel de $R$ sse:
 %%}}}
 
 %%{{{ df: ring_homomorphism 
-\definition Homomorfismo.
+\definition homomorfismo.
 \label{ring_homomorphism}%
 \tdefined{homomorfismo}[de anel]%
 Sejam os anéis
