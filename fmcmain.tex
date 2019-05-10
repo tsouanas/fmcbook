@@ -3174,7 +3174,7 @@ ou
 \quote
 <<Meu cliente é inocente, porque ele é inocente.>>
 \endquote
-dependendo de qual direcção da tradução escolhemos aplicar.
+dependendo de qual direção da tradução escolhemos aplicar.
 Esse advogado não deveria ter muito sucesso no seu futuro assim!%
 \footnote{Infelizmente muitas pessoas caem por esse tipo de argumento
 na vida real, onde políticos, pastores, e advogados como o não-tão-fictício
@@ -36844,9 +36844,9 @@ $H\subgroup G$.
 \qed
 %%}}}
 
-%%{{{ criterion: subgroup_single_check_criterion 
-\criterion Subgrupo.
-\label{subgroup_single_check_criterion}%
+%%{{{ criterion: subgroup_one_test 
+\criterion subgrupo: ``one-test''.
+\label{subgroup_one_test}%
 Se $G$ é um grupo e $\emptyset\neq H \subset G$ tal que
 $$\text{para todo $a,b\in H$},\ a\ginv b\in H,$$
 então $H\subgroup G$.  Em símbolos:
@@ -36861,7 +36861,7 @@ $$
 H \subgroup G
 $$
 \proof.
-\ref{subgroup_single_check_criterion_proof}.
+\ref{subgroup_one_test_proof}.
 \qed
 %%}}}
 
@@ -36871,10 +36871,10 @@ Em todos esses critérios, as direções {\rldir} também são válidas
 (e suas demonstrações devem ser óbvias).
 %%}}}
 
-%%{{{ x: subgroup_single_check_criterion_proof 
+%%{{{ x: subgroup_one_test_proof 
 \exercise.
-\label{subgroup_single_check_criterion_proof}%
-Prove o~\ref{subgroup_single_check_criterion}.
+\label{subgroup_one_test_proof}%
+Prove o~\ref{subgroup_one_test_criterion}.
 
 \hint
 Prove primeiro que $H$ é fechado pelos inversos, tomando um $h\in H$
@@ -41358,6 +41358,22 @@ $$
 \qed
 %%}}}
 
+\blah.
+Um corolário bem útil da (vi) é o seguinte:
+
+%%{{{ cor: normal_commutes_with_every_subset_via_subset_product 
+\corollary.
+\label{normal_commutes_with_every_subset_via_subset_product}%
+Sejam $G$ grupo, $N \normal G$.
+Para todo $A \subset G$, $AN = NA$.
+\proof.
+Numa linha só:
+$$
+AN = \Union_{a \in A} aN = \Union_{a \in A} Na = NA.
+$$
+\qed
+%%}}}
+
 %%{{{ beware: g n g^{-1} \neq n 
 \beware.
 Se tivemos $N \normal G$ temos sim que $gn\ginv g \in N$ para todo $n\in N$,
@@ -41374,6 +41390,12 @@ assim conseguimos provar que os \emph{conjuntos} são iguais sim:}
 \intertext{ou seja,}
 gN\ginv g &= N.
 \endalign
+$$
+Parecidamente, sabendo que $gN=Ng$ e tendo um $n\in N$, \emph{não}
+podemos concluir que $gn=ng$, mas pelo menos sabemos que
+$$
+gn = n'g,
+\quad\text{para algum $n' \in N$}.
 $$
 %%}}}
 
@@ -41396,31 +41418,57 @@ são equivalentes.
 \endexercise
 %%}}}
 
+%%{{{ x: subset_product_of_subgroup_and_normal_is_subgroup 
+\exercise.
+\label{subset_product_of_subgroup_and_normal_is_subgroup}%
+Se $S \subgroup G$ e $N\normal G$, então $SN \subgroup S$.
+
+\hint
+\proofalt{Maneira 1:}
+imediato pelos:
+\ref{HK_equals_KH_iff_HK_subgroup} e~\ref{normal_commutes_with_every_subset_via_subset_product}.
+\crproofalt{Maneira 2:}
+Use o ``one-test''~\ref{subgroup_one_test}.
+Observe que
+$SN$ é indexado pelo conjuto $S\times N$ e logo basta tomar
+um arbitrário par $\tup{s,n} \in S \times N$ para ganhar
+um arbitrário membro do $SN$: o $sn$.
+
+\hint
+Se escolheste investigar a segunda maneira da dica anterior:
+\endgraf
+Tome $s_1,s_2 \in S$ e $n_1,n_2 \in N$; assim o $s_1n_1$
+e $s_2n_2$ são dois arbitrários membros do $SN$.
+Basta demonstrar que $(s_1n_1)\ginvp{s_2n_2} \in SN$.
+
+\endexercise
+%%}}}
+
 %%{{{ x: inter_of_subgroup_and_normal_is_normal_in_subgroup 
 \exercise.
 \label{inter_of_subgroup_and_normal_is_normal_in_subgroup}%
-Se $H\subgroup G$ e $N\normal G$, então $H\inter N \normal H$.
+Se $S \subgroup G$ e $N\normal G$, então $S \inter N \normal S$.
 
 \hint
-Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
+Temos $S \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
 (veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
 e~\refn{subgroup_is_an_order}).
-Para mostrar que $H \inter N \normal H$,
-tente provar que $H\inter N$ é fechado pelos conjugados no $H$.
+Para mostrar que $S \inter N \normal S$,
+tente provar que $S\inter N$ é fechado pelos conjugados no $S$.
 
 \solution
-Temos $H \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
+Temos $S \inter N \subgroup N \subgroup G$ como intersecção de subgrupos
 (veja exercícios~\refn{intersection_of_subgroups_is_a_subgroup}
 e~\refn{subgroup_is_an_order}).
-Basta mostrar que $H \inter N \normal H$,
-ou seja, que $H\inter N$ é fechado pelos conjugados no $H$.
-Tome $x \in H\inter N$ e $h\in H$.
+Basta mostrar que $S \inter N \normal S$,
+ou seja, que $S\inter N$ é fechado pelos conjugados no $S$.
+Tome $x \in S\inter N$ e $h\in S$.
 Temos:
 \compute
-h x \ginv h &\in H  \by {$H \subgroup G$}
+h x \ginv h &\in S  \by {$S \subgroup G$}
 h x \ginv h &\in N  \by {$N \normal G$}
 \endcompute
-Logo $hx\ginv h \in H\inter N$.
+Logo $hx\ginv h \in S \inter N$.
 
 \endexercise
 %%}}}
@@ -46569,7 +46617,7 @@ Caso que $A$ infinito, temos $A\eqc\nats\subset\nats$ e logo $A \leqc \nats$.
 Suponha que $A\neq\emptyset$.
 Vamos construir uma enumeração do $A$, ou seja, uma $\pi : \nats \surjto A$.
 Pela hipótese, seja $N_0 \subset \nats$ tal que $A \eqc N_0$.
-E logo temos uma bijeção $f : N_0 \bijto A$.
+E logo temos uma bijecção $f : N_0 \bijto A$.
 Seja $a_0 \in A$ ($A\neq\emptyset$) e defina a função $\pi : \nats \to A$ pela
 $$
 \pi(x) =
@@ -46640,7 +46688,7 @@ e depois o próximo negativo, e por aí vai.>>}
 Mas o $\rats$ com sua ordem padrão é um conjunto \dterm{denso}:
 entre quaisquer racionais $x,y$ com $x<y$, existe racional $w$
 tal que $x < w < y$.  Vamos dizer que começou no $0$.
-Quem vai depois?  Não existe ``próximo'' para nenhuma direcção!
+Quem vai depois?  Não existe ``próximo'' para nenhuma direção!
 Em vez de contar os membros de $\rats$, vamos contar
 os membros de $\nats^2$.  E isso já vai resolver o problema
 de enumerar o $\rats$ facilmente.
