@@ -45671,10 +45671,44 @@ uma função binária \emph{com valores reais}, satisfazendo certas leis.
 \section Limites.
 
 %%{{{ df: epsilon_close 
-\definition perto.
+\definition epsilon perto.
 \label{epsilon_close}%
+A distância entre dois $x,y\in\reals$ é calculada por $\abs{x-y}$.
 Sejam $x,y\in\reals$ e $\epsilon > 0$.
-Dizemos que $x,y$ são $\epsilon$-perto sse $\abs{x-y} < \epsilon$.
+Dizemos que
+$$
+\text{$x$ é $\epsilon$-perto do $y$}
+\defiff
+\abs{x-y} < \epsilon.
+$$
+Observe que a relação é simétrica (\ref{epsilon_close_is_symmetric})
+e logo podemos escrever também:
+$$
+\text{$x,y$ são $\epsilon$-perto}.
+$$
+%%}}}
+
+%%{{{ x: epsilon_close_is_symmetric 
+\exercise.
+\label{epsilon_close_is_symmetric}%
+Dado $\epsilon > 0$, seja $\sim_\epsilon$ a relação definida pela
+$$
+x \sim_\epsilon y
+\defiff
+\text{$x$ é $\epsilon$-perto do $y$}.
+$$
+Demonstre que $\sim_\epsilon$ é simétrica.
+
+\hint
+Olha:
+$$
+\abs{x - y}
+= \abs{-(y - x)}
+= \abs{y - x}
+$$
+Dá pra justificar ambas as $=$?
+
+\endexercise
 %%}}}
 
 %%{{{ x: epsilon_close_is_not_an_equivalence_relation 
@@ -45686,7 +45720,8 @@ x \sim_\epsilon y
 \defiff
 \text{$x,y$ são $\epsilon$-perto}.
 $$
-Seja $\epsilon > 0$.  A $\sim_\epsilon$ é uma relação de equivalência?
+Seja $\epsilon > 0$.
+A $\sim_\epsilon$ é uma relação de equivalência?
 
 \endexercise
 %%}}}
@@ -45798,10 +45833,10 @@ Formalmente:
 $$
 \text{$\seqn a n$ é Cauchy}
 \defiff
-\pforall {\epsilon > 0}
-\pexists {N \in \nats}
-\lforall {i,j \geq N}
-{\abs{a_i - a_j} < \epsilon}.
+\pforall  {\epsilon > 0}
+\pexists  {N \in \nats}
+\lforallt {i,j \geq N}
+{$a_i,a_j$ são $\epsilon$-perto}.
 $$
 %%}}}
 
@@ -45842,25 +45877,13 @@ Chamamos
 $$
 \text{$f$ contínua no $x_0$}
 \defiff
-\pforall {\epsilon > 0}
-\pexists {\delta > 0}
-\lforall {x \in X}
-{\abs{x - x_0} < \delta \implies \abs{f(x) - f(x_0)} < \epsilon}
+\pforall  {\epsilon > 0}
+\pexists  {\delta > 0}
+\lforall  {x \in X}
+{\text{$x$ é $\delta$-perto de $x_0$} \implies \text{$f x$ é $\epsilon$-perto de $f x_0$}}
 $$
 Dizemos que $f$ é \dterm{contínua} sse ela é contínua em
 cada ponto do seu domínio.
-%%}}}
-
-%%{{{ df: near 
-\definition perto.
-\label{near}%
-A distância entre dois $x,y\in\reals$ é calculada por $\abs{x-y}$.
-Para qualquer $\alpha > 0$ vamos dizer que
-$$
-\text{$x,y$ são \dterm{$\alpha$-perto}}
-\defiff
-\abs{x-y} < \alpha.
-$$
 %%}}}
 
 %%{{{ Continuity as a game 
