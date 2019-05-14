@@ -36874,7 +36874,7 @@ Em todos esses critérios, as direções {\rldir} também são válidas
 %%{{{ x: subgroup_one_test_proof 
 \exercise.
 \label{subgroup_one_test_proof}%
-Prove o~\ref{subgroup_one_test_criterion}.
+Prove o~\ref{subgroup_one_test}.
 
 \hint
 Prove primeiro que $H$ é fechado pelos inversos, tomando um $h\in H$
@@ -42613,7 +42613,7 @@ os dois grupos seria observar que um é cíclico, mas o outro não é.
 \label{Kernel_Image}%
 
 %%{{{ df: kernel 
-\definition Kernel.
+\definition kernel, image.
 \label{kernel}%
 \tdefined{kernel de homomorfismo}%
 \tdefined{image de homomorfismo}%
@@ -43557,8 +43557,8 @@ Sejam $\cal M = \sset M {\cdot_M,\epsilon_M}$
 e $\cal N = \sset N {\cdot_N,\epsilon_N}$ monóides.
 Uma função $\phi : M \to N$ é um \dterm{homomorfismo} sse:
 \beginol
-\li $\phi(\epsilon_M) = \epsilon_N$;
 \li para todo $x,y\in M$,\quad $\phi(x \cdot_M y) = \phi(x) \cdot_N \phi(y)$.
+\li $\phi(\epsilon_M) = \epsilon_N$;
 \endol
 %%}}}
 
@@ -44138,6 +44138,22 @@ e logo $R = \set {0_R}$.
 \endexercise
 %%}}}
 
+%%{{{ df: kernel_image_in_rings 
+\definition kernel, image.
+\label{kernel_image_in_rings}%
+Seja $\phi : R \to S$ homomorfismo de aneis.
+$$
+\alignat2
+\ker\phi
+&\defeq \pre \phi {\set{0_S}} &
+\quad\big(&= \setst {r \in R} {\phi(r) = 0_B} \ \big)\\
+\ima\phi
+&\defeq \img \phi R &
+\quad\big(&= \setst {s \in S} {\lexists {r\in R} {\phi(r) = s}} \ \big)
+\endalignat
+$$
+%%}}}
+
 \blah.
 Podemos já provar o equivalente do~\ref{image_subgroup} que encontramos
 nos grupos, para os anéis:
@@ -44175,6 +44191,21 @@ ab
 Ou seja:  $1_S, a+b, -a, ab \in \ima\phi$ e podemos usar
 o~\ref{subring_criterion}.
 \qed
+%%}}}
+
+%%{{{ Q: Is the kernel cooler than just a subring? 
+\question.
+Será que o kernel é algo mais-legal-que-subanel na mesma
+forma que aconteceu nos grupos?
+%%}}}
+\spoiler.
+
+%%{{{ x: 
+\exercise.
+Seja $\phi : R \homto S$.
+O que consegues demonstrar entre o $\ker\phi$ e o $R$?
+
+\endexercise
 %%}}}
 
 \endsection
@@ -44377,8 +44408,15 @@ sse
 $$
 \text{para todo $a,x,y \in D$,}\quad
 ax = ay \mland a \neq 0 \implies x=y.
-\tag{CL}
+\tag{RCL}
 $$
+que é equivalente à
+$$
+\text{para todo $a,x,y \in D$,}\quad
+xa = ya \mland a \neq 0 \implies x=y.
+\tag{RCR}
+$$
+pois esse anel é comutativo.
 %%}}}
 
 %%{{{ criterion: integral_domain_equiv_cancellation_domain 
@@ -44390,18 +44428,16 @@ $$
 \text{$D$ é um domínio de integridade} \iff \text{$D$ é um domínio de cancelamento}.
 $$
 \proof.
-\lrdir:
-    Sejam $a,x,y \in D$ tais que $a \neq 0$ e $ax = ay$.
-    Logo $ax - ay = 0$.
-    Logo $a(x-y) = 0$.
-    Pela hipótese (NZD) então $x-y = 0$,
-    ou seja $x = y$.
-\endgraf\noindent
-\rldir:
-    Sejam $x,y \in D$ tais que $xy = 0$ e $x \neq 0$.
-    Queremos $y = 0$.
-    Temos $xy = 0 = x0$ (pois $0 = 0x$ em todo anel).
-    Ou seja $xy = x0$, e como $x\neq 0$, usando a (CL) concluimos $y=0$.
+\proofpart{\lrdir:}
+Sejam $a,x,y \in D$ tais que $a \neq 0$ e $ax = ay$.
+Logo $ax - ay = 0$.
+Logo $a(x-y) = 0$.
+Pela hipótese (NZD) então $x-y = 0$, ou seja $x = y$.
+\crproofpart{\rldir:}
+Sejam $x,y \in D$ tais que $xy = 0$ e $x \neq 0$.
+Queremos $y = 0$.
+Temos $xy = 0 = x0$ (pois $0 = 0x$ em todo anel).
+Ou seja $xy = x0$, e como $x\neq 0$, usando a (RCL) concluimos $y=0$.
 \qed
 %%}}}
 
@@ -44473,7 +44509,7 @@ dd_1, dd_2, \dotsc, dd_n.
 $$
 Observe que:
 $$
-dd_i = dd_j \impliesbecause{(CL)} d_i = d_j \implies i = j.
+dd_i = dd_j \impliesbecause{(RCL)} d_i = d_j \implies i = j.
 $$
 Ou seja,
 $$
