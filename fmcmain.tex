@@ -44861,19 +44861,6 @@ Naturalmente definimos as $>, \leq, \geq$ em termos das $<$ e $=$.
 Lembre-se a definição da $-$ binária em qualquer anel (\ref{subtraction_in_rings}).
 %%}}}
 
-%%{{{ df: abs_in_ordered_fields 
-\definition.
-\label{abs_in_ordered_fields}%
-Definimos a operação $\abs{\dhole} : F \to F$ num corpo ordenado $F$ pela
-$$
-\abs x \defeq
-\knuthcases{
-x,  & se $x\geq 0$ \cr
--x, & se não.
-}
-$$
-%%}}}
-
 %%{{{ alternative_formalization_of_ordered_fields 
 \note Formalização alternativa.
 \label{alternative_formalization_of_ordered_fields}%
@@ -45067,6 +45054,19 @@ Se $x$ tem a propriedade que $0 \leq x < \epsilon$
 para todo $\epsilon > 0$, então $x = 0$.
 
 \endexercise
+%%}}}
+
+%%{{{ df: abs_in_ordered_fields 
+\definition.
+\label{abs_in_ordered_fields}%
+Definimos a operação $\abs{\dhole} : F \to F$ num corpo ordenado $F$ pela
+$$
+\abs x \defeq
+\knuthcases{
+x,  & se $x\geq 0$ \cr
+-x, & se não.
+}
+$$
 %%}}}
 
 %%{{{ x: ordered_field_abs_lemma 
@@ -45403,7 +45403,7 @@ no $\rats$.
 
 %%{{{ remark: now inf and sup are total operations on extended reals 
 \remark.
-Assim as operações $\inf$ e $\sup$ virar totais no reais estendidos:
+Assim as operações $\inf$ e $\sup$ virar totais nos reais estendidos:
 $$
 \inf,\sup \eqtype \pset\reals \to \reals\union\set{\minfty,\pinfty}.
 $$
@@ -45668,12 +45668,17 @@ uma função binária \emph{com valores reais}, satisfazendo certas leis.
 \endsection
 %%}}}
 
-%%{{{ Limits 
+%%{{{ Limits_of_reals 
 \section Limites.
+\label{Limits_of_reals}%
 
-%%{{{ df: epsilon_close 
-\definition epsilon perto.
-\label{epsilon_close}%
+%%{{{ df: epsilon_close_ball_hood 
+\definition epsilon: -perto, -bola, -vizinhança.
+\label{epsilon_close_ball_hood}%
+\tdefined{perto}[de real]%
+\tdefined{bola}[de real]%
+\tdefined{vizinhança}[de real]%
+\sdefined {\ball {\sholed \epsilon} {\sholed {x_0}}} {a $\epsilon$-bola do $x_0$}%
 A distância entre dois $x,y\in\reals$ é calculada por $\abs{x-y}$.
 Sejam $x,y\in\reals$ e $\epsilon > 0$.
 Dizemos que
@@ -45687,6 +45692,22 @@ e logo podemos escrever também:
 $$
 \text{$x,y$ são $\epsilon$-perto}.
 $$
+Dado um ponto $x_0\in\reals$, o conjunto de todos os pontos que
+são $\epsilon$-perto do $x_0$ é chamada \dterm{$\epsilon$-bola}
+ou \dterm{$\epsilon$-vizinhança} do $x_0$:
+$$
+\ball \epsilon {x_0}
+\defeq
+\setstt {x \in \reals} {$x,x_0$ são $\epsilon$-perto}.
+$$
+Também chamamos de \dterm{bola com centro $x_0$ e raio $\epsilon$}.
+%%}}}
+
+%%{{{ eg 
+\example.
+Os $1$ e $2/3$ são $1/2$-perto;
+a $1/3$-bola do $\sqrt 2$ é o intervalo $(\sqrt2 - 1/3, \sqrt2 + 1/3)$.
+\endexample
 %%}}}
 
 %%{{{ x: epsilon_close_is_symmetric 
@@ -45745,6 +45766,7 @@ $$
 \definition limite.
 \label{limit_of_sequence_of_reals}%
 \tdefined{limite}[reais]%
+\sdefined {{\sholed {\seqn a n}} \limto {\sholed \ell}} {a seqüência $\seqn a n$ tende ao $\ell$}%
 Seja $\seqn a n$ uma seqüência de reais e seja $\ell\in\reals$.
 Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
 sse a partir dum membro $a_N$, todos os seus membros
@@ -45757,6 +45779,63 @@ $$
 \lforallt {i \geq N}
 {$a_i$ é $\epsilon$-perto de $\ell$}.
 $$
+%%}}}
+
+\TODO Sobre a notação $\lim_n a_n$.
+
+%%{{{ remark: n nought 
+\remark.
+É muito comum usar o nome \sq{$n_0$} onde usei o
+\sq{$N$} na~\ref{limit_of_sequence_of_reals}.
+%%}}}
+
+%%{{{ Continuity as a game 
+\note Continuidade como jogo.
+\label{continuity_game}%
+%%}}}
+
+\TODO Escrever.
+
+%%{{{ eg: ones tends to one 
+\example.
+A seqüência $1, 1, 1, \dotsc$ tende ao limite $1$.
+
+\solution
+Seja $\epsilon>0$.
+O desafio é achar $N \in \nats$ tal que a partir de $N$,
+todos os membros da seqüência são $\epsilon$-perto de $1$.
+Tome $N \asseq 0$, e seja $n \leq N$.
+Obviamente o $n$-ésimo termo da seqüência é $\epsilon$-perto
+do $1$ pois, ele é igual ao $1$ mesmo e logo a distância
+deles é $0$, e logo menor que $\epsilon$.
+Observe que qualquer escolha de $N$ aqui seria correta!
+\endexample
+%%}}}
+
+%%{{{ x: alternating_zero_one_does_not_have_a_limit 
+\exercise.
+\label{alternating_zero_one_does_not_have_a_limit}%
+A seqüência $0,1,0,1,\dotsc$, formalmente definida pela
+$$
+a_n = \knuthcases{
+0, & se $n$ par \cr
+1, & caso contrário.
+}
+$$
+tende a algum limite?
+Se sim, ache e demonstre; se não, refute.
+
+\hint
+Não tende a limite nenhum!
+Como podemos demonstrar isso?
+
+\hint
+Demonstre que para qualquer possível limite $\ell \in \reals$,
+$$
+\seqn a n \ntendsto \ell.
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ thm: uniqueness_of_limits_of_reals 
