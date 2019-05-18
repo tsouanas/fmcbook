@@ -45271,7 +45271,7 @@ de \dterm{reais estendidos} e denotamos esse conjunto por
 $\overline{\reals}$ e $[\minfty,\pinfty]$ também.
 Podemos considerar ambas as operações então como
 $$
-\inf,\sup \eqtype \pset \reals \parto \reals\union\set{\minfty,\pinfty}.
+\inf,\sup \eqtype \pset \reals \parto [\minfty,\pinfty].
 $$
 %%}}}
 
@@ -45765,7 +45765,7 @@ Não!
 %%}}}
 
 %%{{{ df: for_sufficiently_large_values_of 
-\definition para valores suficientemente grandes.
+\definition <<para valores suficientemente grandes>>.
 \label{for_sufficiently_large_values_of}%
 Seja $R(n)$ uma afirmação que envolve o natural $n$.
 Dizemos que $R(n)$ \dterm{para valores suficientemente grandes de} $n$
@@ -45806,8 +45806,30 @@ como sinônimo de $\seqn a n \limto \ell$.
 
 %%{{{ remark: n nought 
 \remark.
-É muito comum usar o nome \sq{$n_0$} onde usei o
-\sq{$N$} na~\ref{limit_of_sequence_of_reals}.
+É muito comum usar o nome \sq{$n_0$}
+onde usei o \sq{$N$} na~\ref{limit_of_sequence_of_reals}.
+O \sq{$n_0$} é freqüêntemente lido ``$n$ nought'' em inglês.
+%%}}}
+
+%%{{{ Alternating quantifiers
+\note Quantificadores alternantes.
+Provavelmente essa foi a primeira definição que tu encontraste
+que necessitou três alternações de quantificadores:
+$$
+\forall\dots\exists\dots\forall\dots
+$$
+Para cada alteração de quantificação que seja adicionada
+numa afirmação, o processo de digeri-la naturalmente fica
+mais complicado para nossa mente!
+Com experiência, \dterm{matemalhando}, essas definições
+com três quantificadores ficarão mais e mais digeríveis.
+Mesmo com essa experiência, num momento vamos encontrar
+uma afirmação com \emph{quatro} quantificações alternantes,
+e a dificuldade vai voltar e te lembrar dessa dificuldade
+que sentes agora.
+Felizmente, temos as ferramentas formais de lógica matemática
+que nos permitem trabalhar com proposições sem digeri-las
+completamente!
 %%}}}
 
 %%{{{ x: limit_of_sequence_of_reals_uniqueness_needed 
@@ -45844,13 +45866,6 @@ $\ell = \ell'$, contradizendo nossa hipótese.
 
 \endexercise
 %%}}}
-
-%%{{{ Continuity as a game 
-\note Continuidade como jogo.
-\label{continuity_game}%
-%%}}}
-
-\TODO Escrever.
 
 %%{{{ eg: ones tends to one 
 \example.
@@ -46017,6 +46032,34 @@ por quais números?
 \endexercise
 %%}}}
 
+%%{{{ thm: convergent_implies_bounded_in_reals 
+\theorem.
+\label{convergent_implies_bounded_in_reals}%
+Toda seqüência convergente $\seqn a n$ é bounded.
+\sketch.
+Seja $\seqn a n$ tal que $\seqn a n \limto \ell$.
+Logo, usando $\epsilon \asseq 1$ seja $N\in\nats$
+tal que a partir do $a_N$, todos os $a_n$'s são
+$1$-perto de $\ell$.
+Observe que o conjunto $\set{a_0, \dotsc, a_{N-1}}$
+é finito, e logo possui mínimo $m$ e máximo $M$:
+$$
+m \leq a_0, \dotsc, a_{N-1} \leq M.
+$$
+Agora, observe que a seqüência é bounded below pelo
+$\min \set{ m , \ell - 1 }$ e similarmente bounded above pelo
+$\max \set{ M , \ell + 1 }$.
+\qes
+%%}}}
+
+%%{{{ thm: monotone_and_bounded_implies_convergent 
+\theorem.
+\label{monotone_and_bounded_implies_convergent}%
+Uma seqüência monótona e bounded é convergente.
+%%}}}
+
+\TODO sketch.
+
 %%{{{ df: Cauchy_sequence_of_reals 
 \definition seqüência Cauchy.
 \label{Cauchy_sequence_of_reals}%
@@ -46037,25 +46080,41 @@ $$
 $$
 %%}}}
 
-%%{{{ Alternating quantifiers
-\note Quantificadores alternantes.
-Provavelmente essa foi a primeira definição que tu encontraste
-que necessitou três alternações de quantificadores:
-$$
-\forall\dots\exists\dots\forall\dots
-$$
-Para cada alteração de quantificação que seja adicionada
-numa afirmação, o processo de digeri-la naturalmente fica
-mais complicado para nossa mente!
-Com experiência, \dterm{matemalhando}, essas definições
-com três quantificadores ficarão mais e mais digeríveis.
-Mesmo com essa experiência, num momento vamos encontrar
-uma afirmação com \emph{quatro} quantificações alternantes,
-e a dificuldade vai voltar e te lembrar dessa dificuldade
-que sentes agora.
-Felizmente, temos as ferramentas formais de lógica matemática
-que nos permitem trabalhar com proposições sem digeri-las
-completamente!
+%%{{{ thm: convergent_implies_Cauchy_in_reals 
+\theorem.
+\label{convergent_implies_Cauchy_in_reals}%
+Se uma seqüência de reais é convergente, então ela é Cauchy.
+%%}}}
+
+%%{{{ thm: Cauchy_implies_bounded_in_reals 
+\theorem.
+\label{Cauchy_implies_bounded_in_reals}%
+Se uma seqüência de reais é Cauchy, então é bounded.
+%%}}}
+
+%%{{{ thm: Cauchy_with_conv_subseq_implies_convergent_in_reals 
+\theorem.
+\label{Cauchy_with_conv_subseq_implies_convergent_in_reals}
+Se uma seqüência de reais é Cauchy e possui subseqüência
+convergente, então é convergente.
+%%}}}
+
+%%{{{ thm: Bolzano_Weierstrass_theorem 
+\theorem Bolzano--Weierstrass.
+\label{Bolzano_Weierstrass_theorem}%
+Toda seqüência bounded de reais possui subseqüência convergente.
+%%}}}
+
+%%{{{ cor: Cauchy_implies_convergent_in_reals 
+\corollary.
+\label{Cauchy_implies_convergent_in_reals}
+Uma seqüência de reais é Cauchy sse é convergente.
+%%}}}
+
+%%{{{ cor: bounded_implies_Cauchy_subseq_in_reals.
+\corollary.
+\label{bounded_implies_Cauchy_subseq_in_reals}%
+Toda seqüência bounded possui subseqüência Cauchy.
 %%}}}
 
 \endsection
@@ -46078,7 +46137,11 @@ $$
 \pforall {\epsilon > 0}
 \pexists {\delta > 0} \\
 \lforall {x \in X}
-{\text{$x$ é $\delta$-perto de $x_0$} \implies \text{$f x$ é $\epsilon$-perto de $f x_0$}}.
+{
+\text{$x,x_0$ são $\delta$-perto}
+\implies
+\text{$f x, f x_0$ são $\epsilon$-perto}
+}.
 \endmultline
 $$
 Dizemos que $f$ é \dterm{contínua} sse ela é contínua em
@@ -46138,6 +46201,22 @@ não é um upper bound.
 de $w = a$ e $w = b$: imediato pois $fw = 0$ e $fa,fb\neq 0$.
 \crproofpart{Caso $fb < 0 < fa$:} similar.
 \qes
+%%}}}
+
+%%{{{ criterion: continuous_iff_preserves_limits 
+\criterion continua sse preserva os limites.
+\label{continuous_iff_preserves_limits}%
+Seja $f : A \to \reals$.
+$$
+\text{$f$ contínua}
+\iff
+\text{$f$ preserva os limítes}
+$$
+onde \dterm{$f$ preserva os límites} significa que
+para toda seqüência convergente $\seqn a n$
+$$
+f\funparen{ \liml_n x_n } = \liml_n (f x_n).
+$$
 %%}}}
 
 \endsection
