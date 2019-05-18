@@ -45710,16 +45710,34 @@ a $1/3$-bola do $\sqrt 2$ é o intervalo $(\sqrt2 - 1/3, \sqrt2 + 1/3)$.
 \endexample
 %%}}}
 
-%%{{{ x: epsilon_close_is_symmetric 
+%%{{{ x: epsilon_close_is_reflexive 
 \exercise.
-\label{epsilon_close_is_symmetric}%
+\label{epsilon_close_is_reflexive}%
 Dado $\epsilon > 0$, seja $\sim_\epsilon$ a relação definida pela
 $$
 x \sim_\epsilon y
 \defiff
 \text{$x$ é $\epsilon$-perto do $y$}.
 $$
-Demonstre que $\sim_\epsilon$ é simétrica.
+Demonstre que $\sim_\epsilon$ é reflexiva.
+
+\hint
+$$
+\abs{x - x} = 0
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: epsilon_close_is_symmetric 
+\exercise.
+\label{epsilon_close_is_symmetric}%
+Dado $\epsilon > 0$, a $\sim_\epsilon$
+do~\ref{epsilon_close_is_reflexive} é simétrica,
+e logo podemos escrever frases como
+$$
+\text{<<os $x,y$ são $\epsilon$-perto>>}.
+$$
 
 \hint
 Olha:
@@ -45736,14 +45754,12 @@ Dá pra justificar ambas as $=$?
 %%{{{ x: epsilon_close_is_not_an_equivalence_relation 
 \exercise.
 \label{epsilon_close_is_not_an_equivalence_relation}%
-Dado $\epsilon > 0$, seja $\sim_\epsilon$ a relação definida pela
-$$
-x \sim_\epsilon y
-\defiff
-\text{$x,y$ são $\epsilon$-perto}.
-$$
 Seja $\epsilon > 0$.
-A $\sim_\epsilon$ é uma relação de equivalência?
+A $\sim_\epsilon$ do~\ref{epsilon_close_is_reflexive}
+é uma relação de equivalência?
+
+\hint
+Não!
 
 \endexercise
 %%}}}
@@ -45775,18 +45791,58 @@ Ou seja:
 $$
 \seqn a n \limto \ell
 \defiff
+\pforall  {\epsilon > 0}
 \pexists  {N \in \nats}
 \lforallt {i \geq N}
 {$a_i$ é $\epsilon$-perto de $\ell$}.
 $$
+Escrevemos
+$$
+\liml_n a_n = \ell
+$$
+como sinônimo de $\seqn a n \limto \ell$.
+\mistake
 %%}}}
-
-\TODO Sobre a notação $\lim_n a_n$.
 
 %%{{{ remark: n nought 
 \remark.
 É muito comum usar o nome \sq{$n_0$} onde usei o
 \sq{$N$} na~\ref{limit_of_sequence_of_reals}.
+%%}}}
+
+%%{{{ x: limit_of_sequence_of_reals_uniqueness_needed 
+\exercise.
+\label{limit_of_sequence_of_reals_uniqueness_needed}%
+Qual o problema com a~\ref{limit_of_sequence_of_reals}
+
+\hint
+O problema fica na
+$$
+\liml_n a_n = \ell.
+$$
+Qual é?
+
+\solution
+Precisamos demonstrar a unicidade dos limites para usar
+o símbolo \sq{$=$} da \emph{igualdade}.  Pois, se uma
+seqüência tende a dois limites
+$$
+\xalignat2
+\seqn a n &\limto \ell &
+\seqn a n &\limto \ell'
+\endxalignat
+$$
+com $\ell = \ell'$, então escrevendo
+$$
+\xalignat2
+\liml_n a_n &= \ell
+\liml_n a_n &= \ell'
+\endxalignat
+$$
+teriamos (pela simetria e transitividade da igualdade)
+$\ell = \ell'$, contradizendo nossa hipótese.
+
+\endexercise
 %%}}}
 
 %%{{{ Continuity as a game 
@@ -45811,6 +45867,16 @@ deles é $0$, e logo menor que $\epsilon$.
 Observe que qualquer escolha de $N$ aqui seria correta!
 \endexample
 %%}}}
+
+\blah.
+Como tu já resolveste
+o~\ref{limit_of_sequence_of_reals_uniqueness_needed} (né?)
+tu sabes que precisamos demonstrar a unicidade dos limites.
+E a existência?
+A existência não é garantida (vamos descobrir isso agora
+no~\ref{alternating_zero_one_does_not_have_a_limit}),
+então precisamos tomar cuidado com o símbolo $\lim$:
+é um operador \emph{parcial}.
 
 %%{{{ x: alternating_zero_one_does_not_have_a_limit 
 \exercise.
@@ -49702,6 +49768,20 @@ Logo depois do desenvolvemento da teoria de conjuntos de
 \Cantor{}Cantor, no ano \yearof{1906} \Frechet{}Fréchet introduziu
 os \dterm{espaços métricos} na sua tese de doutorado~\cite{frechetthesis}.
 Nesse capítulo estudamos as primeiras idéias básicas.
+%%}}}
+
+%%{{{ Distances 
+\section Distáncias.
+\label{Distances}%
+
+\endsection
+%%}}}
+
+%%{{{ Open_sets_and_neighborhoods_in_metric_spaces 
+\section Conjuntos abertos.
+\label{Open_sets_and_neighborhoods_in_metric_spaces}%
+
+\endsection
 %%}}}
 
 %%{{{ Categories_and_metric_spaces 
