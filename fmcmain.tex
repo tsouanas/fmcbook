@@ -50035,12 +50035,246 @@ Nesse capítulo estudamos as primeiras idéias básicas.
 \section Distáncias.
 \label{Distances}%
 
+%%{{{ pseudodf: metric_space 
+\pseudodefinition espaço métrico.
+\label{metric_space_pseudodef}%
+Um \dterm{espaço métrico} é um conjunto equipado com uma
+noção de \dterm{distância} entre quaisquer dois membros dele
+em tal forma que:
+\beginil
+\item{(METR)} a distância de cada ponto para ele mesmo é $0$;
+\item{(METD)} a distância entre pontos distintos é positiva;
+\item{(METS)} a distância de $x$ para $y$ é a mesma da de $y$ para $x$;
+\item{(METT)} as distâncias satisfazem a disegualdade triangular.
+\endil
+%%}}}
+
+\blah.
+Bora formalizar:
+
+%%{{{ df: metric_space 
+\definition espaço métrico.
+\label{metric_space}%
+Seja $X$ conjunto.
+Uma função $d : X^2 \to \reals$ é chamada
+\dterm{métrica} no $X$ sse:
+$$
+\align
+&d(x,x) = 0                   \tag{METR} \\
+&d(x,y) = 0 \iff x = y        \tag{METD} \\
+&d(x,y) = d(y,x) \iff x = y   \tag{METS} \\
+&d(x,y) \leq d(x,w) + d(w,y). \tag{METT}
+\endalign
+$$
+Chamamos a última \dterm{disegualdade triangular},
+e dados pontos $x,y \in X$ chamamos o valor $d(x,y)$
+de $d$-\dterm{distância} entre os $x,y$,
+omitindo o prefixo \sq{$d$-} quando a métrica é implicita
+pelo contexto.
+Um conjunto estruturado $\sset X d$ onde $d$ é uma métrica no $X$
+é chamado \dterm{espaço métrico}.
+%%}}}
+
+%%{{{ df: pseudometric 
+\definition pseudométrica.
+\label{pseudometric}%
+Uma função $d : X^2 \to \reals$ que satisfaz as
+(METC),(METS),(METT) da~\ref{metric_space} é chamada
+\dterm{pseudométrica}.
+%%}}}
+
+%%{{{ eg: metric_space_eg_reals 
+\example.
+\label{metric_space_eg_reals}%
+Os reais $\sset \reals d$ onde
+$$
+d(x,y) = \abs{x - y}.
+$$
+\endexample
+%%}}}
+
+%%{{{ eg: metric_space_eg_discrete 
+\example.
+\label{metric_space_eg_discrete}%
+Seja $X$ conjunto e defina a função $d : X^2 \to reals$ pela
+$$
+d(x,y) =
+\knuthcases{
+0, & se $x = 0$ \cr
+1, & caso contrário.
+}
+$$
+O $\sset X d$ é um espaço métrico.
+\endexample
+%%}}}
+
+\blah.
+Esse espaço é bastante importante e merece seu próprio nome:
+
+%%{{{ df: discrete_metric 
+\definition discreto.
+\label{discrete_metric}%
+Dado conjunto $X$, a \dterm{métrica discreta} nele é a função
+$d : X^2 \to \reals$ definida pela
+$$
+d(x,y) =
+\knuthcases{
+0, & se $x = 0$ \cr
+1, & caso contrário.
+}
+$$
+O $\sset X d$ é chamado \dterm{espaço métrico discreto}.
+%%}}}
+
+%%{{{ eg: metric_space_eg_plane 
+\example.
+\label{metric_space_eg_plane}%
+O plano euclideano $\sset {\reals^2} d$ onde
+$$
+d(x,y) = \sqrt{ (x_1-y_1)^2 + (x_2 - y_2)^2 }.
+$$
+\endexample
+%%}}}
+
+%%{{{ x: explain_euclidean_metric_of_plane 
+\exercise.
+Donde chegou essa $d$ do~\ref{metric_space_eg_plane}?
+
+\hint
+De \Pythagoras{}Pythagoras.
+Como?
+Demonstre!
+
+\endexercise
+%%}}}
+
+%%{{{ x: explain_euclidean_metric_of_plane 
+\exercise.
+Qual seria a métrica ``standard'' do $\reals^3$?
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Examples and nonexamples 
+\section Exemplos e nãœxemplos.
+
 \endsection
 %%}}}
 
 %%{{{ Open_sets_and_neighborhoods_in_metric_spaces 
 \section Conjuntos abertos.
 \label{Open_sets_and_neighborhoods_in_metric_spaces}%
+
+%%{{{ open_in_metric 
+\definition.
+\label{open_in_metric}%
+Um conjunto $A \subset X$ é \dterm{aberto} (ou \dterm{open})
+sse todo $a \in A$ tem bola contida no $A$:
+$$
+\text{$A$ aberto}
+\defiff
+\pforall {a \in A}
+\lexists {\epsilon > 0}
+         {\ball \epsilon a \subset A}.
+$$
+%%}}}
+
+%%{{{ x: trivial_opens_in_metric 
+\exercise.
+\label{trivial_opens_in_metric}%
+Em todo espaço métrico $\sset X d$,
+$X$ e $\emptyset$ são abertos.
+
+\endexercise
+%%}}}
+
+%%{{{ x: balls_are_open 
+\exercise.
+Cada bola $\ball \epsilon x$ é um conjunto aberto.
+
+\endexercise
+%%}}}
+
+%%{{{ df: nbhd_in_metric 
+\definition.
+\label{nbhd_in_metric}%
+Sejam $A \subset X$ e $x \in X$.
+Dizemos que $A$ é uma \dterm{vizinhança} (ou \dterm{neighborhood},
+ou \dterm{nbhd}) de $x$ sse $A$ contenha uma bola de $a$:
+$$
+\text{$A$ vizinhança de $a$}
+\defiff
+\lexists
+{\epsilon > 0}
+{\ball \epsilon a \subset A}
+$$
+%%}}}
+
+%%{{{ x: nbhd_does_not_imply_open 
+\exercise.
+Demonstre ou refute a afirmação:
+<<cada vizinhança é um conjunto aberto>>.
+
+\hint
+A afirmação é falsa.
+Ache uma vizinhança $N_x$ dum ponto $x$ tal que $N_x$
+não é aberto.
+Dá pra achar nos reais.
+
+\endexercise
+%%}}}
+
+%%{{{ property: binary_intersections_opens_are_open 
+\property.
+\label{binary_intersections_of_opens_are_open}%
+Intersecção finita de abertos é aberto.
+%%}}}
+
+%%{{{ cor: finite_intersections_of_opens_are_open 
+\corollary.
+\label{finite_intersections_of_opens_are_open}%
+Intersecções finitas de abertos são abertas.
+%%}}}
+
+%%{{{ property: arbitrary_unions_of_opens_are_opens 
+\property.
+\label{arbitrary_unions_of_opens_are_opens}
+Uniões arbitrárias de abertos são abertas.
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Closed_sets_in_metric_spaces 
+\section Conjuntos fechados.
+\label{Closed_sets_in_metric_spaces}%
+
+\endsection
+%%}}}
+
+%%{{{ Continuity 
+\section Continuidade.
+
+\endsection
+%%}}}
+
+%%{{{ Connectedness 
+\section Conexividade.
+
+\endsection
+%%}}}
+
+%%{{{ Completeness 
+\section Completude.
+
+\endsection
+%%}}}
+
+%%{{{ Compactedness 
+\section Conexividade.
 
 \endsection
 %%}}}
