@@ -46162,7 +46162,7 @@ Seja $f : A \to \reals$ contínua no $a$ com $fa \neq 0$.
 Logo existe $\ball \delta a$ tal que f não muda sinal nela.
 \sketch.
 \proofpart{Caso $fa > 0$.}
-Usamos a continuidade da $f$ no $a$ com $\epsilon \asseq (fa)/2$,
+Usamos a continuidade da $f$ no $a$ com $\epsilon \asseq fa$,
 assim ganhando um $\delta > 0$ tal que
 todos os $\delta$-perto de $a$ são mapeados $\epsilon$-perto
 de $fa$.  Logo todos são positivos.
@@ -46233,11 +46233,61 @@ $$
 %%{{{ Series 
 \section Séries.
 
+%%{{{ df: series_of_reals 
+\definition.
+\label{series_of_reals}%
+Seja $\seqn a n$ uma seqüência de reais.
+Considere os números
+$$
+\align
+s_0 &= 0 \\
+s_1 &= a_0 \\
+s_2 &= a_0 + a_1 \\
+s_3 &= a_0 + a_1 + a_2 \\
+    &\eqvdots \\
+s_n &= \Sum_{i=0}^{n-1} a_i \\
+    &\eqvdots
+\endalign
+$$
+dos \dterm{somatórios parciais} (ou \dterm{iniciais})
+da $\seqn a n$.
+Escrevemos
+$$
+\Sum_{n=0}^{\infty} a_n
+\qqtext{como sinônimo de}
+\munderbrace
+  {\liml_n \paren{\sum_{i=0}^{n-1} a_i}}
+  {\liml_n s_n}
+$$
+e naturalmente usamos frases como
+<<a \dterm{série $\Sum a_n$ converge}>>, etc.
+Dizemos que a série $\Sum a_n$ \dterm{diverge} sse
+$\seqn s n \limto \pinfty$ ou se a $\seqn s n$ não possui limite.
+%%}}}
+
 \endsection
 %%}}}
 
 %%{{{ Pointwise convergence 
 \section Convergência pointwise (ponto a ponto).
+
+%%{{{ pointwise_limit_in_real_functions 
+\definition.
+\label{pointwise_limit_in_real_functions}%
+Seja $\seqn f n$ uma seqüência \emph{de funções}
+no $(A\to\reals)$.
+Observe que para cada $x \in A$, é determinada uma
+seqüência \emph{de reais} pelos valores das
+$f_n$'s nesse ponto: $\sequence {f_nx} n$.
+Se cada uma delas converge a algum real definimos
+o \dterm{limite pointwise} da $\seqn f n$ para
+ser a função $f : A \to \reals$ definida pela
+$$
+f x = \liml_n {(f_n x)}.
+$$
+Dizemos que $\seqn f n$ \dterm{converge pointwise}
+(ou \dterm{ponto a ponto}) à $f$.
+%%}}}
 
 \endsection
 %%}}}
