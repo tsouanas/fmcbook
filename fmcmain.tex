@@ -15979,6 +15979,18 @@ Na notação $\sequence {a_n} {\alert{n}}$ o $\alert{n}$
 é um \emph{ligador} da variável $n$.
 %%}}}
 
+%%{{{ warning: notational abuse 
+\warning abuso notacional.
+Quando escrevemos uma seqüência $\seqn a n$ onde pelo contexto
+esperamos ver um conjunto, entendemos a $\seqn a n$ como o conjunto
+$\setst {a_n} {n \in \nats}$.
+Por exemplo, escrevemos
+$$
+\seqn a n \subset A \syndefiff \setst {a_n} {n \in \nats} \subset A,
+$$
+etc.
+%%}}}
+
 %%{{{ beware: ambiguous notations for sequences 
 \beware.
 Em certos textos aparece a notação $a_n$ ou $\set{a_n}$ para denotar uma inteira seqüência.
@@ -33002,8 +33014,8 @@ no~\ref{Axiomatic_set_theory}.
 Já encontramos a idéia de estrutura (interna) dum
 conjunto~(foi no~\ref{blackbox_set}).
 
-%%{{{ notational_abuse_structured_sets 
-\note Abuso notacional.
+%%{{{ warning: notational_abuse_structured_sets 
+\warning abuso notacional.
 \label{notational_abuse_structured_sets}%
 Suponha $\ssetfont A = \sset A {\dotsc}$ é algum conjunto estruturado.
 Tecnicamente falando, escrever ``$a\in \ssetfont A$'' seria errado.
@@ -33614,8 +33626,8 @@ bem, ele ganha o direito de ser chamado um ``grupo''.
 Se não, beleza, ele não é um grupo.
 %%}}}
 
-%%{{{ notational_abuse_groups 
-\note Abuso notacional.
+%%{{{ warning: notational_abuse_groups 
+\warning abuso notacional.
 \label{notational_abuse_groups}%
 Lembra-se o abuso notacional que introduzímos
 no~\refn{notational_abuse_structured_sets}:
@@ -45835,7 +45847,7 @@ completamente!
 %%{{{ x: limit_of_sequence_of_reals_uniqueness_needed 
 \exercise.
 \label{limit_of_sequence_of_reals_uniqueness_needed}%
-Qual o problema com a~\ref{limit_of_sequence_of_reals}
+Qual o problema com a~\ref{limit_of_sequence_of_reals}?
 
 \hint
 O problema fica na
@@ -50155,6 +50167,76 @@ Qual seria a métrica ``standard'' do $\reals^3$?
 \endexercise
 %%}}}
 
+\blah.
+Em qualquer espaço métrico, podemos definir a noção de
+$\epsilon$-perto:
+
+%%{{{ df: epsilon_close_in_metric 
+\definition epsilon: -perto.
+\label{epsilon_close_in_metric}%
+Sejam $x,y\in X$ e $\epsilon > 0$.
+Dizemos que
+$$
+\text{$x,y$ são $\epsilon$-perto}
+\defiff
+d(x,y) < \epsilon.
+$$
+%%}}}
+
+\blah.
+Assim ganhamos de graça a definição de limite.
+Literalmente copiamos a~\ref{limit_of_sequence_of_reals}:
+
+%%{{{ df: limit_in_metric 
+\definition limite.
+\label{limit_in_metric}%
+\tdefined{limite}[espaço métrico]%
+\sdefined {{\sholed {\seqn a n}} \limto {\sholed \ell}} {a seqüência $\seqn a n$ tende ao $\ell$}%
+Seja $\seqn a n$ uma seqüência num espaço métrico $\sset X d$.
+Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
+sse a partir dum membro $a_N$, todos os seus membros
+ficam $\epsilon$-perto do $\ell$.
+Ou seja:
+$$
+\seqn a n \limto \ell
+\defiff
+\pforall  {\epsilon > 0}
+\pexists  {N \in \nats}
+\lforallt {i \geq N}
+{$a_i$ é $\epsilon$-perto de $\ell$}.
+$$
+Escrevemos
+$$
+\liml_n a_n = \ell
+$$
+como sinônimo de $\seqn a n \limto \ell$.
+\mistake
+%%}}}
+
+%%{{{ beware: we need to prove uniqueness again 
+\beware.
+Lembra do erro da~\ref{limit_of_sequence_of_reals}
+que descobreste no~\ref{limit_of_sequence_of_reals_uniqueness_needed}?
+Pois é, junto com a definição, copiamos seu errinho também,
+mas não ganhamos de graça sua resolução,
+pois a demonstração de unicidade de limites
+(\ref{uniqueness_of_limits_of_reals})
+usou a definição de <<$\epsilon$-perto>> dos reais,
+e aqui isso mudou.
+Então sim, tu tens um trabalho pra fazer agora:
+%%}}}
+
+%%{{{ x: uniqueness_of_limits_in_metric 
+\exercise Unicidade de limites (espaços métricos).
+\label{uniqueness_of_limits_in_metric}%
+Demonstre a unicidade dos limites.
+
+\hint
+Olhe para a demonstração do~\ref{uniqueness_of_limits_of_reals}.
+
+\endexercise
+%%}}}
+
 \endsection
 %%}}}
 
@@ -50165,7 +50247,7 @@ Qual seria a métrica ``standard'' do $\reals^3$?
 %%}}}
 
 %%{{{ Open_sets_and_neighborhoods_in_metric_spaces 
-\section Conjuntos abertos.
+\section Conjuntos abertos e fechados.
 \label{Open_sets_and_neighborhoods_in_metric_spaces}%
 
 %%{{{ open_in_metric 
@@ -50201,15 +50283,15 @@ Cada bola $\ball \epsilon x$ é um conjunto aberto.
 %%{{{ df: nbhd_in_metric 
 \definition.
 \label{nbhd_in_metric}%
-Sejam $A \subset X$ e $x \in X$.
+Sejam $N \subset X$ e $a \in X$.
 Dizemos que $A$ é uma \dterm{vizinhança} (ou \dterm{neighborhood},
-ou \dterm{nbhd}) de $x$ sse $A$ contenha uma bola de $a$:
+ou \dterm{nbhd}) de $x$ sse $N$ contenha uma bola de $a$:
 $$
-\text{$A$ vizinhança de $a$}
+\text{$N$ vizinhança de $a$}
 \defiff
 \lexists
 {\epsilon > 0}
-{\ball \epsilon a \subset A}
+{\ball \epsilon a \subset N}
 $$
 %%}}}
 
@@ -50245,12 +50327,47 @@ Intersecções finitas de abertos são abertas.
 Uniões arbitrárias de abertos são abertas.
 %%}}}
 
-\endsection
+%%{{{ df: limit_point 
+\definition limit point.
+Seja $A \subset X$ e $\ell \in X$.
+Chamamos o $\ell$ um \dterm{limit point} de $A$ sse
+existe seqüência $\seqn a n \subset A$ que tende ao $\ell$:
+$$
+\seqn a n \limto \ell.
+$$
 %%}}}
 
-%%{{{ Closed_sets_in_metric_spaces 
-\section Conjuntos fechados.
-\label{Closed_sets_in_metric_spaces}%
+%%{{{ df: closed_in_metric 
+\definition.
+\label{closed_in_metric}%
+Um conjunto $A \subset X$ é \dterm{fechado} sse
+$A$ é fechado pela operação de limites, ou seja,
+sse todos os limit points do $A$ estão no $A$,
+ou seja:
+$$
+\text{$A$ fechado}
+\defiff
+\lforall
+{\ell \in X}
+{\text{$\ell$ limit point de $A$} \implies \ell \in A}.
+$$
+%%}}}
+
+%%{{{ criterion: closed_iff_complement_of_open 
+\criterion.
+Um conjunto $A \subset X$ é fechado sse
+seu complemento $X \setminus A$ é aberto.
+%%}}}
+
+%%{{{ df: punctured_in_metric 
+\definition puncturados.
+\label{punctured_in_metric}%
+Chamamos a $\ball \epsilon a \setminus \set{a}$ de
+\dterm{bola puncturada} do $a$.
+Similarmente, se e $N$ é uma vizinhança de $a$,
+chamamos o $N \setminus \set{a}$ de
+\dterm{vizinhança puncturada} de $a$.
+%%}}}
 
 \endsection
 %%}}}
@@ -51178,8 +51295,8 @@ As outras são conjuntos mesmo!
 \endexample
 %%}}}
 
-%%{{{ warning: Abuso notacional 
-\warning Abuso notacional.
+%%{{{ warning: notational abuse 
+\warning abuso notacional.
 É muito comum abusar o símbolo $\in$, escrevendo
 $$
 x \in C
