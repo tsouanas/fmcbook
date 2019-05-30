@@ -49280,1940 +49280,6 @@ demonstração de Cantor no~\cite{grayaboutcantor}.
 \endchapter
 %%}}}
 
-%%{{{ chapter: Posets; Lattices; Boolean algebras 
-\chapter Posets; Reticulados; Álgebras booleanas.
-\label{Posets}%
-\label{Lattices}%
-\label{Boolean_algebras}%
-
-%%{{{ Concept, notation, properties 
-\section Conceito, notação, propriedades.
-
-\TODO Conceito.
-
-%%{{{ df: poset 
-\definition poset.
-\label{poset}%
-\tdefined{poset}%
-Chamamos o conjunto estruturado $\cal P = \sset P \leq$
-um \dterm{poset} (ou conjunto parcialmente ordenado),
-sse $\leq$ é uma relação de ordem parcial:
-$$
-\gather
-x \leq x\\
-x \leq y \mland y \leq z \implies x \leq z\\
-x \leq y \mland y \leq x \implies x = y
-\endgather
-$$
-%%}}}
-
-%%{{{ Notational abuse 
-\note Abusos notacionais.
-Extendemos o ``tipo'' do predicado $\dhole\leq\dhole$ de elementos de $P$
-para elementos e/ou subconjuntos de $P$, definindo:
-$$
-\align
-a \leq Y &\defiff a \leq y, \quad\text{para todo $y\in Y$};\\
-X \leq b &\defiff x \leq b, \quad\text{para todo $x\in X$};\\
-X \leq Y &\defiff x \leq y, \quad\text{para todo $x\in X$ e $y\in Y$}.
-\endalign
-$$
-%%}}}
-
-\blah.
-Nas definições seguintes nosso contexto é um poset $\sset P \leq$.
-
-%%{{{ df: incomparable 
-\definition.
-\label{incomparable}%
-\tdefined{incomparável}%
-Se $x \nleq y$ e $y \nleq x$ chamamos $x$ e $y$ \dterm{incomparáveis}.
-Denotamos assim:
-$$
-x \incomp y \defiff x \nleq y \mland y \nleq x.
-$$
-%%}}}
-
-%%{{{ df: chain_antichain 
-\definition.
-\label{chain_antichain}%
-\tdefined{cadeia}%
-\tdefined{anticadeia}%
-Seja $X\subset P$.
-Chamamos o $X$ uma \dterm{cadeia} sse todos os seus elementos são comparáveis.
-No caso oposto, onde todos são comparáveis apenas com eles mesmo,
-chamamos o $X$ \dterm{anticadeia}.  Simbolicamente:
-$$
-\align
-\text{cadeia:}\quad&       x, y \in X  \implies  x \leq y \mlor y\leq x;\\
-\text{anticadeia:}\quad&   x, y \in X  \mland x \leq y \implies x = y.
-\endalign
-$$
-%%}}}
-
-%%{{{ df: covby 
-\definition.
-\label{covby}%
-\tdefined{cobertura}%
-\sdefined {\sholed x \covby \sholed y} {o $x$ é coberto por o $y$}%
-Se $x\leq y$ e não existe nenhum $z$ estritamente entre os $x$ e $y$
-falamos que $y$ \dterm{cobre} o $x$.  Simbolicamente:
-$$
-x\covby y \defiff x \leq y \mland \lnot\exists z (x < z < y).
-$$
-%%}}}
-
-%%{{{ Diagramas Hasse 
-\note Diagramas Hasse.
-\tdefined{Hasse}[diagrama]%
-Já encontramos diagramas \Hasse{}Hasse no \ref{Group_theory}
-(\refn{hasse_diagrams_first_encounter},
-\refn{hasse_dih_3}, \refn{hasse_dih_4})
-onde desenhamos os Hasse duns posets de subgrupos.
-%%}}}
-
-\beware.
-Diagramas Hasse podem aparecer bastante diferentes mesmo
-sendo do mesmo poset.
-
-%%{{{ eg: cube_and_not_so_cube 
-\example.
-\label{cube_and_not_so_cube}%
-\tdefined{reticulado}[cubo]%
-Aqui duas formas de desenhar diagramas Hasse para o
-$\sset{\pset\set{0,1,2}}{\subset}$:
-$$
-\xalignat2
-&\tikzpicture
-\node (max) at (0,4)  {$\set{0,1,2}$};
-\node (a)   at (-2,2) {$\set{0,1}$};
-\node (b)   at (0,2)  {$\set{0,2}$};
-\node (c)   at (2,2)  {$\set{1,2}$};
-\node (d)   at (-2,0) {$\set 0$};
-\node (e)   at (0,0)  {$\set 1$};
-\node (f)   at (2,0)  {$\set 2$};
-\node (min) at (0,-2) {$\emptyset$};
-\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
-(e) -- (min) -- (f) -- (c) -- (max)
-(d) -- (b);
-\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
-\endtikzpicture
-&
-&\tikzpicture
-\node (max) at (0,4)       {$\set{0,1,2}$};
-\node (a)   at (-2,2.666)  {$\set{1,2}$};
-\node (b)   at (0,2.666)   {$\set{0,2}$};
-\node (c)   at (2,2.666)   {$\set{0,1}$};
-\node (d)   at (-2,-0.666) {$\set 0$};
-\node (e)   at (0,-0.666)  {$\set 1$};
-\node (f)   at (2,-0.666)  {$\set 2$};
-\node (min) at (0,-2)      {$\emptyset$};
-\draw (min) -- (d) -- (c) -- (max) -- (a) -- (f) -- (min);
-\draw (min) -- (e);
-\draw (max) -- (b);
-\draw (a) -- (e) -- (c);
-\draw (d) -- (b) -- (f);
-\endtikzpicture
-\endxalignat
-$$
-Esse poset é chamado \dterm{cubo} por motivos óbvios se olhar
-na seu primeiro diagrama, e não-tão-óbvios olhando para o segundo!
-\endexample
-%%}}}
-
-%%{{{ df: min_max 
-\definition.
-\label{min_max}%
-\tdefined{mínimo}%
-\tdefined{máximo}%
-\sdefined {\min {\sholed A}} {o mínimo de $A$}%
-\sdefined {\max {\sholed A}} {o máximo de $A$}%
-Seja $A\subset P$.
-Chamamos o $m$ o \dterm{mínimo} de $A$ sse $m\leq a$ para todo $a\in A$.
-\emph{Dualmente} chamamos o $m\in A$ o \dterm{máximo} de $A$ sse $a\leq m$ para todo $a\in A$.
-Denotamos o mínimo de $A$, se existe, por $\min A$ e seu máximo, se existe, por $\max A$.
-\mistake
-%%}}}
-
-%%{{{ x: uniqueness_of_min_max 
-\exercise.
-\label{uniqueness_of_min_max}%
-Qual o erro na definição acima?
-Ache-o e corrija-o.
-
-\endexercise
-%%}}}
-
-%%{{{ df: bottom_top 
-\definition.
-\label{bottom_top}%
-\label{zero_one_in_poset}%
-\label{zero_one}%
-\label{bounded_poset}%
-\tdefined{bottom}%
-\tdefined{top}%
-\tdefined{zero}[dum poset]%
-\tdefined{one}[dum poset]%
-\tdefined{bounded}[por cima]%
-\tdefined{bounded}[por baixo]%
-\sdefined {\bot_{\sholed P}} {o bottom (o mínimo elemento dum poset)}%
-\sdefined {\top_{\sholed P}} {o top (o máximo elemento dum poset)}%
-\sdefined {0_{\sholed P}} {o zero (o mínimo elemento dum poset)}%
-\sdefined {1_{\sholed P}} {o um (o máximo elemento dum poset)}%
-Se o próprio $P\subset P$ possui elemento
-mínimo, o chamamos de \dterm{bottom} de $P$,
-e se possui
-máximo, o chamamos de \dterm{top} de $P$.
-Usamos as notações $\bot_P$ e $\top_P$ respectivamente,
-esquecendo o $_P$ quando é implícito pelo contexto.
-Sinônimos de bottom e top são os \dterm{zero} e \dterm{um} respectivamente,
-usando as notações $0_P$ e $1_P$.
-Se um poset possui bottom, ele é chamado \dterm{bounded por baixo},
-e se ele possui top, ele é chamado \dterm{bounded por cima}.
-Caso que seja bounded por cima e por baixo, o chamamos apenas de
-\dterm{bounded}.
-%%}}}
-
-%%{{{ df: minimal_maximal 
-\definition.
-\label{minimal_maximal}%
-\tdefined{minimal}%
-\tdefined{maximal}%
-Chamamos o $x$ um elemento \dterm{minimal} de $P$
-sse nenhum elemento está embaixo dele, e, \emph{dualmente}
-chamamos o $x$ \dterm{maximal} de $P$ sse nenhum elemento
-está acima dele.  Simbolicamente:
-$$
-\align
-\text{$x$ minimal de $P$}&\defiff  \lforall {y \in P} {y \leq x \implies x = y};\\
-\text{$x$ maximal de $P$}&\defiff  \lforall {y \in P} {x \leq y \implies x = y}.
-\endalign
-$$
-%%}}}
-
-%%{{{ df: ubs_lbs 
-\definition.
-\label{ubs_lbs}%
-\tdefined{upper bound}%
-\tdefined{lower bound}%
-\sdefined {\ubs {\sholed A}} {o conjunto dos upper bounds de $A$}%
-\sdefined {\lbs {\sholed A}} {o conjunto dos lower bounds de $A$}%
-Sejam $A\subset P$ e $m\in P$.
-O $m$ é um \dterm{upper bound} de $A$ sse $x \leq m$ para todo $x\in A$.
-Dualmente, o $m$ é um \dterm{lower bound} de $A$ sse $m \leq x$ para todo $x \in A$.
-Usamos a notação
-$$
-\align
-\ubs A &\defeq \setstt {m\in P} {$m$ é um upper bound de $A$}\\
-\lbs A &\defeq \setstt {m\in P} {$m$ é um lower bound de $A$}.
-\endalign
-$$
-%%}}}
-
-%%{{{ eg: ubs_lbs_in_reals_example 
-\example.
-\label{ubs_lbs_in_reals_example}%
-No $\reals$, considere seu subconjunto $(1,2]$.
-Uns upper bounds dele são os reais $2, 5, \sqrt{12}, 8000$.
-No outro ladom uns lower bounds dele são os $-400, -\pi, 0, 1/2, 0.8, 1$.
-\endexample
-%%}}}
-
-%%{{{ df: lub_glb 
-\definition.
-\label{lub_glb}%
-\tdefined{greatest lower bound}%
-\tdefined{least upper bound}%
-\tdefined{supremum}%
-\tdefined{infimum}%
-\sdefined {\sup{\sholed A}} {o supremum de $A$}%
-\sdefined {\inf{\sholed A}} {o infimum de $A$}%
-\sdefined {\lub{\sholed A}} {o least upper bound de $A$}%
-\sdefined {\glb{\sholed A}} {o greatest lower bound de $A$}%
-\sdefined {\Join{\sholed A}} {o join de $A$}%
-\sdefined {\Meet{\sholed A}} {o meet de $A$}%
-Se os $\ubs A$ e $\lbs A$ tem elemento mínimo e máximo respectivamente,
-definimos
-$$
-\align
-\lub A &\defeq \min\ubs A\\
-\glb A &\defeq \max\lbs A.
-\endalign
-$$
-Naturalmente chamamos o $\lub A$ o \dterm{least upper bound} de $A$,
-e o $\glb A$ o \dterm{greatest lower bound} de $A$.
-Usamos \emph{muitos} sinônimos, resumidos aqui:
-$$
-\xalignat3
-\sup A &\ \text{(supremum)}   & \lub A &\ \text{(least upper bound)}    & \Join A &\ \text{(join)}\\
-\inf A &\ \text{(infimum)}    & \glb A &\ \text{(greatest lower bound)} & \Meet A &\ \text{(meet)}
-\endxalignat
-$$
-%%}}}
-
-%%{{{ eg: inf_and_sup_of_openclosed_interval 
-\example.
-\label{inf_and_sup_of_openclosed_interval}%
-O $A=(1,2]$ do~\ref{ubs_lbs_in_reals_example} tem
-$\inf A = 1$ e $\sup A = 2$.
-Observe que $\sup A \in A$ mas $\inf A \notin A$.
-\endexample
-%%}}}
-
-%%{{{ x: when_glb_and_lub_is_min_and_max 
-\exercise.
-\label{when_glb_and_lub_is_min_and_max}%
-O que podemos concluir quando $\glb A \in A$ e quando $\lub A \in A$?
-
-\endexercise
-%%}}}
-
-%%{{{ df: downset_upset_downs  
-\definition.
-\label{downset_upset_downs}%
-\tdefined{downset}%
-\tdefined{upset}%
-\sdefined {\downs{\sholed P}} {o conjunto de downsets de $P$}%
-Chamamos o $A\subset P$ um \dterm{downset} no $P$
-sse o $A$ é ``fechado para baixo'', e \emph{dualmente},
-o chamamos \dterm{upset} sse ele é ``fechado para cima''.
-Formalmente,
-$$
-\align
-\text{$A$ downset} &\defiff {a \in A \mland x \leq a \implies x\in A};\\
-\text{$A$ upset}   &\defiff {a \in A \mland a \leq x \implies x\in A}.
-\endalign
-$$
-Dado um poset $P$, usamos $\downs P$ para denotar o conjunto de todos os seus
-downsets.  Simbolicamente,
-$$
-\downs P \defeq \set{ D \subset P \st \text{$D$ é um downset de $P$} }.
-$$
-%%}}}
-
-%%{{{ df: down_up 
-\definition.
-\label{down_up}%
-\sdefined {\down {\sholed a}} {o down de $a$}%
-\sdefined {\up {\sholed a}} {o up de $a$}%
-Definimos para qualquer $a\in P$ os conjuntos
-$$
-\align
-\down a &\defeq \setst {x \in P} {x \leq a}\\
-\up a   &\defeq \setst {x \in P} {a \leq x}
-\intertext{e generalizamos essas operações de elementos $a\in P$ para subconjuntos $A\subset P$ assim:}
-\down A &\defeq \setstt {x \in P} {$x \leq a$ para algum $a \in A$}\\
-\up A   &\defeq \setstt {x \in P} {$a \leq x$ para algum $a \in A$}.
-\endalign
-$$
-Observe que $\down x = \down{\set x}$ e $\up x = \up{\set x}$.
-Diretamente pelas definições também temos:
-$$
-\xalignat2
-\down A &= \Union_{a\in A} {\down a}&
-\up A &= \Union_{a\in A} {\up a}
-\endxalignat
-$$
-%%}}}
-
-%%{{{ x: down_is_downset_up_is_upset 
-\exercise.
-\label{down_is_downset_up_is_upset}%
-Sejam $P$ poset e $A \in P$.
-Prove que $\down A$ é um downset e $\up A$ um upset.
-
-\endexercise
-%%}}}
-
-%%{{{ x: equivalent_statements_to_x_leq_y 
-\exercise.
-\label{equivalent_statements_to_x_leq_y}%
-Sejam $P$ um poset, $x,y\in P$.
-Prove que as afirmações
-\beginil
-\item{(i)}   $x \leq y$;
-\item{(ii)}  $\down x \subset \down y$;
-\item{(iii)} para todo downset $D$ de $P$ com $y \in D$, temos $x\in D$.
-\endil
-são equivalentes.
-
-\solution
-Vamos provar usando um caminho ``round-robin'':
-\crtabproofpart{$\textrm{(i)}\Rightarrow\textrm{(ii)}$.}
-Seja $a \in \down x$.  Logo $a \leq x$, e como $x\leq y$ (hipótese),
-pela transitividade da $\leq$ temos $a \leq y$.  Logo $a\in \down y$.
-Ou seja, $\down x \subset \down y$.
-\crtabproofpart{$\textrm{(ii)}\Rightarrow\textrm{(iii)}$.}
-Seja $D$ downset de $P$ com $y \in D$.
-Logo $\down y \subset D$.
-Pela hipótese $\down x \subset \down y$ e logo $\down x \subset D$.
-Como $x \in \down x$, então $x \in D$.
-\crtabproofpart{$\textrm{(iii)}\Rightarrow\textrm{(i)}$.}
-Observe que $\down y$ é um downset tal que $y$ pertence nele.
-Logo $x \in \down y$ (pela hipótese).
-Logo $x \leq y$ (pela def.~de $\down y$).
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Operations and constructions 
-\section Operações e construções.
-
-%TODO (Construções de conjutos ordenados)
-%TODO (Dualidade)
-%TODO (Ordens canônicas, ordens lexicográficas)
-
-\endsection
-%%}}}
-
-%%{{{ Mappings 
-\section Mapeamentos.
-
-%%{{{ df: monotone_embedding_isomorphism 
-\definition.
-\label{monotone_embedding_isomorphism}%
-\tdefined{monótona}%
-\tdefined{order-embedding}%
-\tdefined{order-isomorfismo}%
-\tdefined{isomorfismo}[de ordem]%
-Sejam $\sset P {\leq_P}$ e $\sset Q {\leq_Q}$ posets
-e $\phi : P \to Q$.
-Definimos
-$$
-\align
-\text{$\phi$ monótona}
-&\defiff x\leq_P y \implies \phi(x) \leq_Q \phi(y)\\
-\text{$\phi$ order-embedding}
-&\defiff \text{$\phi$ injetora} \mland x\leq_P y \iff \phi(x) \leq_Q \phi(y)\\
-\text{$\phi$ order-isomorfismo}
-&\defiff \text{$\phi$ bijetora} \mland x\leq_P y \iff \phi(x) \leq_Q \phi(y)
-\endalign
-$$
-%%}}}
-
-%%{{{ criterion: order_embedding_criterion 
-\criterion.
-\label{order_embedding_criterion}%
-Se $\phi : P \to Q$ tal que
-$$
-x \leq_P y \iff \phi(x) \leq_Q \phi(y)
-$$
-então $\phi$ é um order-embedding.
-Segue que se $\phi$ é sobrejetora, ela é um order-isomorfismo.
-\proof.
-Basta provar que $\phi$ é injetora.
-Tome $x,y \in P$.
-Temos
-\compute
-\phi(x) = \phi(y)
-&\implies \phi(x) \leq_Q \phi(y) \mland \phi(y) \leq_Q \phi(x)  \by {\ref{converse_of_antisymmetry}}
-&\implies x \leq_P y \mland y \leq_P x                          \by {pela hipótese}
-&\implies x = y.                                                \by {transitividade}
-\endcompute
-\qed
-%%}}}
-
-%%{{{ x: converse_of_antisymmetry 
-\exercise Converso de antisimetria.
-\label{converse_of_antisymmetry}%
-Justifique o primeiro passo (a primeira implicação) na prova do~\ref{order_embedding_criterion}.
-
-\endexercise
-%%}}}
-
-%%{{{ x: downsets_of_poset_iso_downsets_of_dual 
-\exercise.
-\label{downsets_of_poset_iso_downsets_of_dual}%
-Defina um $\phi : \downsets P \iso \downsets { \dual P }$.
-
-\solution
-$\phi(X) = P\setminus X$
-
-\endexercise
-%%}}}
-
-%%{{{ x: downsets_of_disjunion_iso_product_of_downsets 
-\exercise.
-\label{downsets_of_disjunion_iso_product_of_downsets}%
-Defina um
-$\psi : \downsets { P_1 \disjunion P_2 } \iso \downsets {P_1} \times \downsets {P_2}$.
-
-\solution
-$\psi(D) = \tup{ D \inter P_1, D \inter P_2 }$
-
-\endexercise
-%%}}}
-
-%%{{{ x: posets_of_divisors 
-\exercise.
-\label{posets_of_divisors}%
-Para $n\in\nats$, definimos o poset
-${\cal D}_n \defeq \sset {D_n} {\divides}$
-onde $D_n \defeq \set{ d \in \nats \st d \divides n }$.
-\item{(i)}
-Desenha o diagrama Hasse de ${\cal D}_{30}$.
-\item{(ii)}
-Ache conjunto $A$ tal que ${\cal D}_{30} \iso \sset {\pset A} {\subset}$
-e defina um isomorfismo $\phi : D_{30} \to \pset A$.
-\item{(iii)}
-Existe conjunto $B$ tal que ${\cal D}_0 \iso \sset {\pset B} {\subset}$?
-Se sim, ache o $B$ e defina um isomorfismo
-$\phi : D_0 \to {\pset B}$;
-se não, prove que é impossível.
-
-\solution%%{{{
-\noindent (i)
-Primeiramente calculamos: $D_{30} = \set{1, 2, 3, 5, 6, 10, 15, 30}$.
-$$
-\tikzpicture
-\node (max) at (0,4)  {$30$};
-\node (a)   at (-2,2) {$6$};
-\node (b)   at (0,2)  {$10$};
-\node (c)   at (2,2)  {$15$};
-\node (d)   at (-2,0) {$2$};
-\node (e)   at (0,0)  {$3$};
-\node (f)   at (2,0)  {$5$};
-\node (min) at (0,-2) {$1$};
-\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
-(e) -- (min) -- (f) -- (c) -- (max)
-(d) -- (b);
-\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
-\endtikzpicture
-$$
-\endgraf
-\noindent (ii)
-Tome o $A = \set{2,3,5}$ e defina a função $\phi : \pset A \to D_{30}$
-pelas equações:
-$$
-\align
-\phi(30) &= A\\
-\phi(15) &= \set{3,5}\\
-\phi(10) &= \set{2,5}\\
-\phi(6)  &= \set{2,3}\\
-\phi(2)  &= \set{2}\\
-\phi(3)  &= \set{3}\\
-\phi(5)  &= \set{5}\\
-\phi(1)  &= \emptyset
-\endalign
-$$
-Seu diagrama Hasse parece assim:
-$$
-\tikzpicture
-\node (max) at (0,4)  {$\set{2,3,5}$};
-\node (a)   at (-2,2) {$\set{2,3}$};
-\node (b)   at (0,2)  {$\set{2,5}$};
-\node (c)   at (2,2)  {$\set{3,5}$};
-\node (d)   at (-2,0) {$\set 2$};
-\node (e)   at (0,0)  {$\set 3$};
-\node (f)   at (2,0)  {$\set 5$};
-\node (min) at (0,-2) {$\emptyset$};
-\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
-(e) -- (min) -- (f) -- (c) -- (max)
-(d) -- (b);
-\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
-\endtikzpicture
-$$
-\noindent
-Obs: qualquer conjunto $A$ com $|A|=3$ serve!
-Uma avantagem desse é que podemos bem elegantemente definir a bijecção
-inversa, mandando cada subconjunto de $\set{2,3,5}$ para seu produtório!
-\endgraf
-\noindent (iii)
-Não existe, pois $D_0 = \nats$ (contável)
-e logo não pode ser equinúmero com o powerset de nenhum conjunto $B$.
-\endgraf
-\noindent (iv)
-Verdade, a função $\phi : D_0 \to \set{D_n \st n\in \nats}$ definida pela
-$$
-\phi(n) = D_n
-$$
-é um isomorfismo, pois:
-$$
-n \divides m \iff D_n \subset D_m.
-$$
-%%}}}
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Lattices as posets 
-\section Reticulados como posets.
-
-%%{{{ df: lattice_as_poset 
-\definition.
-\label{lattice_as_poset}%
-\tdefined{lattice}[como poset]%
-\iisee{lattice}{reticulado}
-Um poset $\cal L = \sset L {\leq}$
-é um \dterm{lattice} (ou \dterm{reticulado}) sse 
-para todo $x,y \in L$, os $\sup\set{x,y}$ e $\inf\set{x,y}$
-existem.
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Lattices as algebraic structures 
-\section Reticulados como estruturas algébricas.
-
-\blah.
-No~\ref{Algebraic_structures} introduzimos reticulados
-como uma estrutura algébrica.%
-\footnote{Leia a~\ref{Lattices_as_algebras} se não tá ligado.}
-Aqui a definição novamente:
-
-%%{{{ df: lattice_as_algebra_human 
-\definition.
-\label{lattice_as_algebra_human}%
-\tdefined{lattice}[como algebra]%
-Seja $\cal L = \sset L {\join, \meet}$ conjunto estruturado
-onde $\join,\meet$ são operadores binários no $L$.
-Chamamos o $L$ um \dterm{lattice} (ou \dterm{reticulado}) sse
-as operações $\join,\meet$ são associativas, comutativas,
-e idempotentes, e satisfazem as leis seguintes \emph{de absorção}:
-$$
-\align
-a \join (b \meet a) &= a\\
-a \meet (b \join a) &= a
-\endalign
-$$
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Complete lattices 
-\section Reticulados completos.
-
-%%{{{ df: complete_lattice 
-\definition.
-\label{complete_lattice}%
-Um reticulado $L$ é um \dterm{reticulado completo} sse
-para todo $S\subset L$ ambos os $\Join S$ e $\Meet S$ são definidos.
-%%}}}
-
-%%{{{ x: every_complete_lattice_is_bounded 
-\exercise.
-\label{every_complete_lattice_is_bounded}%
-Todo reticulado completo é bounded.
-
-\endexercise
-%%}}}
-
-%%{{{ remark: what do we gain in a complete lattice 
-\remark.
-Já provamos que num reticulado $L$ os joins e meets existem para qualquer
-subconjunto \emph{não vazio e finito} dele.
-Então num reticulado \emph{completo}, sabemos disso para o vazio
-e para os subconjuntos infinitos também.
-%%}}}
-
-\TODO generalize o~\ref{set_limits} para qualquer reticulado completo.
-
-\endsection
-%%}}}
-
-%%{{{ Fixpoints 
-\section Fixpoints.
-
-%%{{{ df: fixpoint 
-\definition fixpoint.
-\tdefined{fixpoint}%
-\tdefined{fixpoint}[least]%
-\tdefined{fixpoint}[greatest]%
-\sdefined {\fixpoints {\sholed f}} {o conjunto dos fixpoints de $f$}%
-\sdefined {\lfp {\sholed f}} {o menor fixpoint de $f$}%
-\sdefined {\gfp {\sholed f}} {o maior fixpoint de $f$}%
-Seja $f : X \to X$.
-Chamamos o $x_0\in X$ um \dterm{fixpoint} de $f$ sse
-$f(x_0) = x_0$.
-Usamos a notação
-$$
-\fixpoints f
-\defeq
-\setstt { x \in \dom f } {$x$ é um fixpoint de $f$}
-$$
-e se $X$ é um poset e $\fixpoints F$ tem mínimo e máximo botamos
-$$
-\alignat2
-\lfp f &\defeq \min(\fixpoints f)  \called {o \dterm{menor fixpoint} de $f$}
-\gfp f &\defeq \max(\fixpoints f). \called {o \dterm{maior fixpoint} de $f$}
-\endalignat
-$$
-%%}}}
-
-%%{{{ df: prefixpoint_postfixpoint 
-\definition prefixpoints, postfixpoints.
-\label{prefixpoint_postfixpoint}%
-\tdefined{prefixpoint}%
-\tdefined{postfixpoint}%
-Sejam $P$ poset e $F : P \to P$ e seja $p \in P$.
-Chamamos o $p$ de \dterm{prefixpoint da $F$}
-sse $Fp \leq p$.  Dualmente $p$ é um \dterm{postfixpoint da $F$}
-sse $p \leq Fp$.
-%%}}}
-
-%%{{{ thm: knaster_tarski_fixpoint 
-\theorem Knaster--Tarski.
-\label{knaster_tarski_fixpoint}%
-\Knaster{}\Tarski{}%
-\ii{teorema}[Knaster--Tarski fixpoint]%
-Seja $L$ reticulado completo e $F : L \to L$ monótona.
-Então $F$ tem um fixpoint.
-\sketch.
-Sejam
-$$
-\xalignat2
-D &\asseq \setst { x \in L } { x \leq Fx } &
-U &\asseq \setst { x \in L } { Fx \leq x }.
-\endxalignat
-$$
-os conjuntos de todos os postfixpoints e prefixpoints
-da $F$ respecitivamente.
-Considere o conjunto $\fixpoints F$.
-Observe que $\fixpoints F = D \inter U$.
-Vamos provar que o $\Join D$ é um fixpoint de $F$.
-(O $\Meet U$ é similar.)
-Precisamos $\Join D = F(\Join D)$.
-Vamos provar $\Join D \leq F(\Join D)$ primeiro
-e depois $F(\Join D) \leq \Join D$.
-\proofpart{$\Join D \leq F(\Join D)$:}
-Como $\Join D$ é o least upper bound de $D$,
-basta provar $F(\Join D)$ é um upper bound de $D$.
-\proofpart{$F(\Join D) \leq \Join D$:}
-Aqui como $\Join D$ é um upper bound de $D$,
-basta mostrar que $F(\Join D)$ é um membro de $D$.
-(Nessa parte podemos e vamos usar a $\Join D \leq F(\Join D)$
-que acabamos de provar!)
-\qes
-\proof.
-Seja
-$D \asseq \setst { x \in L } { x \leq Fx }$.
-Vamos provar que $\Join D$ é um fixpoint de $F$,
-ou seja $F(\Join D) = \Join D$.
-Quebramos a prova em duas partes:
-\proofpart{$\Join D \leq F(\Join D)$:}
-Basta mostrar que $F(\Join D)$ é um upper bound de $D$.
-Tome $d \in D$.
-Logo $d \leq Fd$\fact1~(pela definição de $D$)
-e também $d \leq \Join D$\fact2,
-pois $\Join D$ é um upper bound de $D$.
-Como $F$ é monótona, da \byfact2~ganhamos
-$Fd \leq F(\Join D)$\fact3.
-Juntando (transitividade) as \byfact1~e~\byfact3:
-$$
-d \leq Fd \leq F(\Join D)
-$$
-ou seja, $d \leq F(\Join D)$ e como $d$ foi arbitrário elemento de $D$,
-concluimos que $F(\Join D)$ é um upper bound de $D$.
-Logo $\Join D \leq F(\Join D)$.
-\proofpart{$F(\Join D) \leq \Join D$:}
-Basta provar que $F(\Join D) \in D$, pois $\Join D$ é um upper bound de $D$.
-Como já provamos que $\Join D \leq F(\Join D)$, ganhamos a
-$F(\Join D) \leq F(F(\Join D))$ (pela monotonicidade da $F$).
-Ou seja, o $F(\Join D)$ satisfaz a definição de $D$, e logo pertence nele:
-$F(\Join D) \in D$.
-Como $\Join D$ é um upper bound de $D$, temos $F(\Join D) \leq \Join D$.
-\qed
-%%}}}
-
-%%{{{ remark: the full Knaster--Tarski theorem 
-\remark.
-O teorema Knaster--Tarski fala que ainda mais é verdade:
-o $\fixpoints F\subset L$ é um reticulado completo
-(\ref{knaster_tarski_fixpoint_full}).
-%%}}}
-
-\TODO explicar e desenhar.
-
-%%{{{ cor: real_f_monotone_on_closed_interval_has_lfp_and_gfp 
-\corollary.
-\label{real_f_monotone_on_closed_interval_has_lfp_and_gfp}%
-Sejam $a,b\in\reals$ com $a\leq b$,
-e função $f : [a,b] \to [a,b]$ monótona.
-Logo $f$ tem um máximo e um mínimo fixpoint.
-%%}}}
-
-%%{{{ remark: we do not need f to be continuous 
-\remark.
-Observe que no~\ref{real_f_monotone_on_closed_interval_has_lfp_and_gfp}
-não precisamos da $f$ ser continua.
-%%}}}
-
-%%{{{ note: a new proof of Schröder--Bernstein 
-\note Uma nova prova de Schröder--Bernstein.
-Ganhamos também como corolário o teorema Schröder--Bernstein
-(\refn{schroder_bernstein})!
-Os detalhes estão no~\ref{schroder_bernstein_lattice_proof}.
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Irreducible elements 
-\section Elementos irredutíveis.
-
-\endsection
-%%}}}
-
-%%{{{ Boolean algebras 
-\section Álgebras booleanas.
-
-\Boole{}
-
-\endsection
-%%}}}
-
-%%{{{ Heyting algebras 
-\section Álgebras Heyting.
-
-\Heyting{}
-
-\endsection
-%%}}}
-
-%%{{{ Categories_and_posets 
-\section Pouco de cats---categorias e posets.
-\label{Categories_and_posets}%
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-%%{{{ x: rats_is_dense 
-\problem.
-\label{rats_is_dense}%
-Prove que o $\rats$ com sua ordem padrão é denso.
-
-\endproblem
-%%}}}
-
-%%{{{ df: cofinito_em_nats 
-\definition.
-\label{cofinito_em_nats}%
-\tdefined{cofinito}%
-Chamamos um $A\subset \nats$ \dterm{cofinito} sse
-seu complemento $\nats\setminus A$ é finito.
-%%}}}
-
-%%{{{ prob: family_of_cofinite_lattice 
-\problem.
-\label{family_of_cofinite_lattice}%
-\tdefined{reticulado}[de conjuntos]%
-Mostre que as famílias
-$$
-\align
-\scr L_1 &\asseq \set{ A \subset \nats \st \text{$A$ é cofinito} }\\
-\scr L_2 &\asseq \set{ A \subset \nats \st \text{$A$ é finito ou cofinito} }
-\endalign
-$$
-são \dterm{reticulados de conjuntos}, ou seja,
-reticulados com relação de ordem $\subset$.
-
-\solution
-\proofpartstyle{Sobre o $\scr L_1$.}
-Sejam $A, B \in \scr L_1$.
-Pela definição então $\nats\setminus A$ e $\nats\setminus B$ são finitos.
-Vou mostrar que $A\union B$ e $A\inter B$ são cofinitos, e logo pertencem ao
-$\scr L_1$ também.
-Calculamos 
-$$
-\align
-\nats\setminus(A\union B) &=\paren{\nats\setminus A} \inter \paren{\nats\setminus B}\\
-\nats\setminus(A\inter B) &=\paren{\nats\setminus A} \union \paren{\nats\setminus B},
-\endalign
-$$
-logo os dois conjuntos no lado esquerdo são finitos como intersecção e união de
-finitos respectivamente.
-\endgraf
-\proofpartstyle{Sobre o $\scr L_2$.}
-Sejam $A, B \in \scr L_2$.
-Separamos em casos:
-\endgraf
-\case{Caso ambos finitos:}
-Facilmente $A\union B$ e $A \inter B$ são finitos também,
-como intersecção e união de conjuntos finitos.
-Logo ambos pertencem ao $\scr L_2$.
-\endgraf
-\case{Caso ambos cofinitos:}
-Provamos isso na demonstração sobre o $\scr L_1$.
-\endgraf
-\case{Caso contrário:}
-Temos um dos $A,B$ finito e o outro cofinito.
-Sem perda de generalidade, suponha que $A$ finito, $B$ cofinito.
-O $A\inter B$ é trivialmente finito como intersecção de finito com qualquer conjunto.
-Logo $A\inter B \in \scr L_2$.
-O $A\union B$ é cofinito, pois
-$$
-\nats\setminus(A \union B) = \paren{\nats\setminus A} \inter \paren{\nats\setminus B}
-$$
-que é finito para o mesmo motivo (intersecção com o $\nats\setminus B$ que é finito).
-Logo $A\union B \in \scr L_2$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: family_of_cofinite_not_complete_lattice 
-\problem.
-\label{family_of_cofinite_not_complete_lattice}%
-Mostre que nenhum dos $\scr L_1,\scr L_2$ do~\ref{family_of_cofinite_lattice}
-é completo.
-
-\hint
-Seja $A_n \asseq \nats\setminus\set{0,2,\dotsc, 2n - 2}$ o $\nats$ sem os
-primeiros $n$ números pares.
-Mostre que:
-\emph{se $B \subset A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
-
-\solution
-Vamos provar primeiramente a afirmação seguinte:
-\emph{se $B \subset A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
-\endgraf
-\proofstyle{{\proofname} da afirmação:}
-Suponha que para todo $n\in\nats$, $B \subset A_n$.
-Logo
-$$
-\align
-    B &\subset \Inter_{i=0}^\infty A_i\\
-\intertext{e complementando os dois lado,}
-\nats\setminus B
-    &\supset \nats\setminus\Inter_{i=0}^\infty A_i\\
-    &= \Union_{i=0}^\infty(\nats\setminus A_i)\\
-    &= \Union_{i=0}^\infty(\set{0,2,\dotsc, 2n-2})\\
-    &= 2\nats.
-\endalign
-$$
-Como $2\nats$ é infinito, o $B$ não é cofinito.
-\endgraf
-Agora voltamos a provar que nenhum dos $\scr L_1, \scr L_2$ é completo.
-Considere o conjunto
-$$
-\cal S \asseq \set { A_0, A_1, A_2, \dotsc }
-$$
-Observe que
-$\cal S \subset \scr L_1, \scr L_2$
-pois todos os seus elementos são claramente cofinitos.
-Mesmo assim, o $\Inter \cal S$ não é cofinito
-$\Inter \cal S$ é o conjunto de todos os ímpares)
-e logo não pertence em nenhum dos $\scr L_1, L_2$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: knaster_tarski_fixpoint_full 
-\problem Teorema Knaster--Tarski completo.
-\label{knaster_tarski_fixpoint_full}%
-No contexto do~\ref{knaster_tarski_fixpoint}, prove que
-o subconjunto $\fixpoints F \subset L$ é um reticulado completo.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: banach_decomposition_theorem 
-\problem Teorema de decomposição de Banach.
-\label{banach_decomposition_theorem}%
-
-\endproblem
-%%}}}
-
-%%{{{ prob: schroder_bernstein_lattice_proof 
-\problem Teorema de Schröder--Bernstein.
-\label{schroder_bernstein_lattice_proof}%
-Sejam $f : A \injto B$ e $g : B \injto A$ funções injetoras.
-Usando o teorema fixpoint de Knaster--Tarski~\refn{knaster_tarski_fixpoint}
-prove que existe função bijetora $h : A \bijto B$.
-
-\hint
-O $\sset{\pset A}{\subset}$ é um reticulado completo.
-
-\hint
-Considere a função $F : \pset A \to \pset A$ definida pela
-$$
-F(X) = A \setminus \paren{ \img g {B \setminus {\img f X}} }.
-$$
-Mostre que ela é monótona.
-
-\hint
-Pelo teorema Knaster--Tarski~\refn{knaster_tarski_fixpoint}
-a $F$ tem um fixpoint $C \subset A$, e
-$$
-C = F(C)
-\iff
-C = A \setminus \paren{ \img g {B \setminus {\img f C}} }
-\iff
-A \setminus C = \img g {B \setminus {\img f C}}.
-$$
-
-\hint
-Defina a desejada $h : A \bijto B$ por casos:
-$$
-h(x) = \knuthcases{
-\dots, & se $x \in C$ \cr
-\dots, & se $x \in A\setminus C$.
-}
-$$
-
-\endproblem
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{DaveyPriestley},
-\cite{gratzerlatticefirst},
-\cite{gratzerlatticefoundation}.
-
-\cite[Cap.~6]{ynmnst}.
-
-\cite[Cap.~2]{corilascar1},
-\cite[Cap.~4]{bellmachover},
-\cite{halmosboolean}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Metric spaces 
-\chapter Espaços métricos.
-\label{Metric_spaces}%
-
-%%{{{ intro 
-\chapintro
-Logo depois do desenvolvemento da teoria de conjuntos de
-\Cantor{}Cantor, no ano \yearof{1906} \Frechet{}Fréchet introduziu
-os \dterm{espaços métricos} na sua tese de doutorado~\cite{frechetthesis}.
-Nesse capítulo estudamos as primeiras idéias básicas.
-%%}}}
-
-%%{{{ Distances 
-\section Distáncias.
-\label{Distances}%
-
-%%{{{ pseudodf: metric_space 
-\pseudodefinition espaço métrico.
-\label{metric_space_pseudodef}%
-Um \dterm{espaço métrico} é um conjunto equipado com uma
-noção de \dterm{distância} entre quaisquer dois membros dele
-em tal forma que:
-\beginil
-\item{(METR)} a distância de cada ponto para ele mesmo é $0$;
-\item{(METD)} a distância entre pontos distintos é positiva;
-\item{(METS)} a distância de $x$ para $y$ é a mesma da de $y$ para $x$;
-\item{(METT)} as distâncias satisfazem a disegualdade triangular.
-\endil
-%%}}}
-
-\blah.
-Bora formalizar:
-
-%%{{{ df: metric_space 
-\definition espaço métrico.
-\label{metric_space}%
-Seja $X$ conjunto.
-Uma função $d : X^2 \to \reals$ é chamada
-\dterm{métrica} no $X$ sse:
-$$
-\align
-&d(x,x) = 0                   \tag{METR} \\
-&x \neq y \implies d(x,y) > 0 \tag{METD} \\
-&d(x,y) = d(y,x) \iff x = y   \tag{METS} \\
-&d(x,y) \leq d(x,w) + d(w,y). \tag{METT}
-\endalign
-$$
-Chamamos a última \dterm{disegualdade triangular},
-e dados pontos $x,y \in X$ chamamos o valor $d(x,y)$
-de $d$-\dterm{distância} entre os $x,y$,
-omitindo o prefixo \sq{$d$-} quando a métrica é implicita
-pelo contexto.
-Um conjunto estruturado $\sset X d$ onde $d$ é uma métrica no $X$
-é chamado \dterm{espaço métrico}.
-%%}}}
-
-%%{{{ df: pseudometric 
-\definition pseudométrica.
-\label{pseudometric}%
-Uma função $d : X^2 \to \reals$ que satisfaz as
-(METR), (METS), e (METT) da~\ref{metric_space}
-é chamada \dterm{pseudométrica}.
-%%}}}
-
-%%{{{ eg: metric_space_eg_reals 
-\example.
-\label{metric_space_eg_reals}%
-Os reais $\sset \reals d$ onde
-$$
-d(x,y) = \abs{x - y}.
-$$
-\endexample
-%%}}}
-
-%%{{{ eg: metric_space_eg_discrete 
-\example.
-\label{metric_space_eg_discrete}%
-Seja $X$ conjunto e defina a função $d : X^2 \to \reals$ pela
-$$
-d(x,y) =
-\knuthcases{
-0, & se $x = 0$ \cr
-1, & caso contrário.
-}
-$$
-O $\sset X d$ é um espaço métrico.
-\endexample
-%%}}}
-
-\blah.
-Esse espaço é bastante importante e merece seu próprio nome:
-
-%%{{{ df: discrete_metric 
-\definition discreto.
-\label{discrete_metric}%
-Dado conjunto $X$, a \dterm{métrica discreta} nele é a função
-$d : X^2 \to \reals$ definida pela
-$$
-d(x,y) =
-\knuthcases{
-0, & se $x = y$ \cr
-1, & caso contrário.
-}
-$$
-O $\sset X d$ é chamado \dterm{espaço métrico discreto}.
-%%}}}
-
-%%{{{ eg: metric_space_eg_plane 
-\example.
-\label{metric_space_eg_plane}%
-O plano euclideano $\sset {\reals^2} d$ onde
-$$
-d(\tup{x_1,x_2},\tup{y_1,y_2}) = \sqrt{ (x_1-y_1)^2 + (x_2 - y_2)^2 }.
-$$
-\endexample
-%%}}}
-
-%%{{{ x: explain_euclidean_metric_of_plane 
-\exercise.
-Donde chegou essa $d$ do~\ref{metric_space_eg_plane}?
-
-\hint
-De \Pythagoras{}Pythagoras.
-Como?
-Demonstre!
-
-\endexercise
-%%}}}
-
-%%{{{ x: explain_euclidean_metric_of_plane 
-\exercise.
-Qual seria a métrica ``standard'' do $\reals^3$?
-
-\endexercise
-%%}}}
-
-\blah.
-Em qualquer espaço métrico, podemos definir a noção de
-$\epsilon$-perto:
-
-%%{{{ df: epsilon_close_in_metric 
-\definition epsilon: -perto.
-\label{epsilon_close_in_metric}%
-Sejam $x,y\in X$ e $\epsilon > 0$.
-Dizemos que
-$$
-\text{$x,y$ são $\epsilon$-perto}
-\defiff
-d(x,y) < \epsilon.
-$$
-%%}}}
-
-\blah.
-Assim ganhamos de graça a definição de limite.
-Literalmente copiamos a~\ref{limit_of_sequence_of_reals}:
-
-%%{{{ df: limit_in_metric 
-\definition limite.
-\label{limit_in_metric}%
-\tdefined{limite}[espaço métrico]%
-\sdefined {{\sholed {\seqn a n}} \limto {\sholed \ell}} {a seqüência $\seqn a n$ tende ao $\ell$}%
-Seja $\seqn a n$ uma seqüência num espaço métrico $\sset X d$.
-Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
-sse a partir dum membro $a_N$, todos os seus membros
-ficam $\epsilon$-perto do $\ell$.
-Ou seja:
-$$
-\seqn a n \limto \ell
-\defiff
-\pforall  {\epsilon > 0}
-\pexists  {N \in \nats}
-\lforallt {i \geq N}
-{$a_i$ é $\epsilon$-perto de $\ell$}.
-$$
-Escrevemos
-$$
-\liml_n a_n = \ell
-$$
-como sinônimo de $\seqn a n \limto \ell$.
-\mistake
-%%}}}
-
-%%{{{ beware: we need to prove uniqueness again 
-\beware.
-Lembra do erro da~\ref{limit_of_sequence_of_reals}
-que descobreste no~\ref{limit_of_sequence_of_reals_uniqueness_needed}?
-Pois é, junto com a definição, copiamos seu errinho também,
-mas não ganhamos de graça sua resolução,
-pois a demonstração de unicidade de limites
-(\ref{uniqueness_of_limits_of_reals})
-usou a definição de <<$\epsilon$-perto>> dos reais,
-e aqui isso mudou.
-Então sim, tu tens um trabalho pra fazer agora:
-%%}}}
-
-%%{{{ x: uniqueness_of_limits_in_metric 
-\exercise Unicidade de limites (espaços métricos).
-\label{uniqueness_of_limits_in_metric}%
-Demonstre a unicidade dos limites.
-
-\hint
-Olhe para a demonstração do~\ref{uniqueness_of_limits_of_reals}.
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Examples and nonexamples 
-\section Exemplos e nãœxemplos.
-
-\endsection
-%%}}}
-
-%%{{{ Open_sets_and_neighborhoods_in_metric_spaces 
-\section Conjuntos abertos e fechados.
-\label{Open_sets_and_neighborhoods_in_metric_spaces}%
-
-%%{{{ open_in_metric 
-\definition.
-\label{open_in_metric}%
-Um conjunto $A \subset X$ é \dterm{aberto} (ou \dterm{open})
-sse todo $a \in A$ tem bola contida no $A$:
-$$
-\text{$A$ aberto}
-\defiff
-\pforall {a \in A}
-\lexists {\epsilon > 0}
-         {\ball \epsilon a \subset A}.
-$$
-%%}}}
-
-%%{{{ x: trivial_opens_in_metric 
-\exercise.
-\label{trivial_opens_in_metric}%
-Em todo espaço métrico $\sset X d$,
-$X$ e $\emptyset$ são abertos.
-
-\endexercise
-%%}}}
-
-%%{{{ x: balls_are_open 
-\exercise.
-Cada bola $\ball \epsilon x$ é um conjunto aberto.
-
-\endexercise
-%%}}}
-
-%%{{{ df: nbhd_in_metric 
-\definition.
-\label{nbhd_in_metric}%
-Sejam $N \subset X$ e $a \in X$.
-Dizemos que $A$ é uma \dterm{vizinhança} (ou \dterm{neighborhood},
-ou \dterm{nbhd}) de $x$ sse $N$ contenha uma bola de $a$:
-$$
-\text{$N$ vizinhança de $a$}
-\defiff
-\lexists
-{\epsilon > 0}
-{\ball \epsilon a \subset N}
-$$
-%%}}}
-
-%%{{{ x: nbhd_does_not_imply_open 
-\exercise.
-Demonstre ou refute a afirmação:
-<<cada vizinhança é um conjunto aberto>>.
-
-\hint
-A afirmação é falsa.
-Ache uma vizinhança $N_x$ dum ponto $x$ tal que $N_x$
-não é aberto.
-Dá pra achar nos reais.
-
-\endexercise
-%%}}}
-
-%%{{{ property: binary_intersections_opens_are_open 
-\property.
-\label{binary_intersections_of_opens_are_open}%
-Intersecção finita de abertos é aberto.
-%%}}}
-
-%%{{{ cor: finite_intersections_of_opens_are_open 
-\corollary.
-\label{finite_intersections_of_opens_are_open}%
-Intersecções finitas de abertos são abertas.
-%%}}}
-
-%%{{{ property: arbitrary_unions_of_opens_are_opens 
-\property.
-\label{arbitrary_unions_of_opens_are_opens}
-Uniões arbitrárias de abertos são abertas.
-%%}}}
-
-%%{{{ df: punctured_in_metric 
-\definition puncturados.
-\label{punctured_in_metric}%
-Chamamos a $\ball \epsilon a \setminus \set{a}$ de
-\dterm{bola puncturada} do $a$.
-Similarmente, se e $N$ é uma vizinhança de $a$,
-chamamos o $N \setminus \set{a}$ de
-\dterm{vizinhança puncturada} de $a$.
-%%}}}
-
-%%{{{ df: limit_point 
-\definition limit point.
-Sejam $A \subset X$ e $\ell \in X$.
-Chamamos o $\ell$ um \dterm{limit point} de $A$ sse
-existe seqüência $\seqn a n \subset A\setminus\set{\ell}$
-que tende ao $\ell$:
-$$
-\seqn a n \limto \ell.
-$$
-%%}}}
-
-%%{{{ criterion: limit_point_of_A_if_each_punctured_intersects_A 
-\criterion.
-Sejam $A \subset X$ e $\ell \in X$.
-$$
-\text{$\ell$ limit point de $A$}
-\iff
-\text{toda bola puncturada de $\ell$ intersecta o $A$}.
-$$
-%%}}}
-
-%%{{{ df: closed_in_metric 
-\definition.
-\label{closed_in_metric}%
-Um conjunto $A \subset X$ é \dterm{fechado} sse
-$A$ é fechado pela operação de limites, ou seja,
-sse todos os limit points do $A$ estão no $A$,
-ou seja:
-$$
-\text{$A$ fechado}
-\defiff
-\lforall
-{\ell \in X}
-{\text{$\ell$ limit point de $A$} \implies \ell \in A}.
-$$
-%%}}}
-
-%%{{{ criterion: closed_iff_complement_of_open 
-\criterion.
-Um conjunto $A \subset X$ é fechado sse
-seu complemento $X \setminus A$ é aberto.
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Continuity 
-\section Continuidade.
-
-\endsection
-%%}}}
-
-%%{{{ Connectedness 
-\section Conexividade.
-
-\endsection
-%%}}}
-
-%%{{{ Completeness 
-\section Completude.
-
-\endsection
-%%}}}
-
-%%{{{ Compactedness 
-\section Compacidade.
-
-\endsection
-%%}}}
-
-%%{{{ Categories_and_metric_spaces 
-\section Pouco de cats---categorias e espaços métricos.
-\label{Categories_and_metric_spaces}%
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{simmonstopology},
-\cite{kolmogorovfomin},
-\cite{carothersreal}.
-
-``Baby Rudin''~\cite{babyrudin}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: General topology 
-\chapter Topologia geral.
-\label{General_topology}%
-
-%%{{{ What is a topology? 
-\section O que é uma topologia.
-
-\endsection
-%%}}}
-
-%%{{{ Topology constructions 
-\section Construções de topologias.
-
-\endsection
-%%}}}
-
-%%{{{ Bases and subbases 
-\section Bases e subbases.
-
-\endsection
-%%}}}
-
-%%{{{ Continuity 
-\section Continuidade.
-
-\endsection
-%%}}}
-
-%%{{{ Connectedness 
-\section Conectividade.
-
-\endsection
-%%}}}
-
-%%{{{ Compactness 
-\section Compactividade.
-
-\endsection
-%%}}}
-
-%%{{{ Hausdorff and separation axioms 
-\section Hausdorff e axiomas de separação.
-
-\endsection
-%%}}}
-
-%%{{{ Categories_and_topological_spaces 
-\section Pouco de cats---categorias e espaços topológicos.
-\label{Categories_and_topological_spaces}%
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{janichtopology},
-\cite{simmonstopology},
-\cite{munkrestopology},
-\cite{willardtopology}.
-
-\cite{vickerstopology},
-\cite{escardosynthetic}.
-
-\cite{johnstonestone}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Graph theory 
-\chapter Teoria de grafos.
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-Umas introduções extensas são
-o clássico~\cite{bondymurty1976}
-e o mais novo~\cite{ChartrandZhang}.
-Depois continua com~\cite{diestelgraph}
-e~\cite{bondymurty2011}.
-Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Lambda calculus 
-\chapter Lambda calculus.
-\label{Lambda_calculus}%
-
-%%{{{ The untyped lambda calculus 
-\section O $\lambda$-calculus não-tipado.
-
-\endsection
-%%}}}
-
-%%{{{ Faithfully representing mathematics 
-\section Representando matemática fielmente.
-
-\endsection
-%%}}}
-
-%%{{{ Programming 
-\section Programmando.
-
-\endsection
-%%}}}
-
-%%{{{ Recursion and fixpoints 
-\section Recursão e fixpoints.
-
-\endsection
-%%}}}
-
-%%{{{ Functional programming revisited 
-\section Programação funcional revisitada.
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-%%{{{ prob: what_does_this_lambda_term_with_minus_do 
-\problem.
-\label{what_does_this_lambda_term_with_minus_do}%
-Suponha que já temos definido um $\lambda$-term $\Lmac{minus}$,
-que comporta corretamente, no sentido que:
-$$
-\align
-\Lmac{minus}\ {\Lnum n}\ {\Lnum m}
-&\Lfinto \knuthcases{
-  \Lnum {n - m},   &se $n \geq m$\cr
-  \Lnum {0},       &se $n < m$.
-}
-\endalign
-$$
-Explique o comportamento do termo
-$$
-\Lmac f  \asseq  \Llam n {n\ (\Lmac{minus}\ {\Lnum 1})\ {\Lnum 0}}
-$$
-quando for aplicado para um numeral de \Church[numeral]{}Church $\Lnum k$:
-qual é a função $f : \nats\to\nats$ que o termo $\Lmac f$ computa?
-
-\hint
-Cuidado com \Curry[currificação]{}Curry.
-
-\endproblem
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{nederpeltgeuvers},
-\cite{lecturesch}.
-\cite{hindleyseldinlambdacl},
-\cite{krivinelambda}.
-\cite{barendregtlambda}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Combinatory logic 
-\chapter Lógica combinatória.
-\label{Combinatory_logic}%
-
-%%{{{ Our first combinators 
-\section Nossos primeiros combinadores.
-
-%%{{{ df: first_combinators 
-\definition.
-\label{first_combinators}%
-$$
-\xalignat4
-    \cI\,x    &\Cto x     &   \cB\,x\,y\,z &\Cto x\,(y\,z) &   \cS\,x\,y\,z &\Cto x\,z\,(y\,z)&\cR\,x\,y\,z &\Cto y\,z\,x\\\\
-    \cK\,x\,y &\Cto x     &   \cBp\,x\,y\,z&\Cto y\,(x\,z) &   \cW\,x\,y    &\Cto x\,y\,y     &\cV\,x\,y\,z &\Cto z\,x\,y\\\\
-    \cM\,x    &\Cto x\,x  &   \cC\,x\,y\,z &\Cto x\,z\,y   &                                
-\endxalignat
-$$
-%%}}}
-
-%%{{{ x: some_equiv_to_I 
-\exercise.
-\label{some_equiv_to_I}%
-Mostre que o combinador
-$\C S\ \C K\ (\C W\ (\C I\ \C B))$ comporta como o $\C I$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: another_equiv_to_I 
-\exercise.
-\label{another_equiv_to_I}%
-Mostre que o combinator
-$\C C\ (\C W\ \C K)\ \C K\ \C W$ comporta como o $\C I$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: CL_define_Bp 
-\exercise.
-\label{CL_define_Bp}%
-Defina o $\cBp$ dos $\cI$, $\cM$, $\cB$, $\cC$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: CL_define_R 
-\exercise.
-\label{CL_define_R}%
-Defina o $\cR$ dos $\cI$, $\cK$, $\cM$, $\cB$, $\cBp$, $\cC$, $\cS$, $\cW$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: CL_define_V 
-\exercise.
-\label{CL_define_V}%
-Defina o $\cV$ dos $\cI$, $\cK$, $\cM$, $\cB$, $\cBp$, $\cC$, $\cS$, $\cW$, $\cR$.
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{mockingbird},
-\cite{bimbocl},
-\cite{hindleyseldinlambdacl}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Mathematical logic 
-\chapter Lógica matemática.
-\label{Mathematical_logic}%
-
-%%{{{ Semantics: worlds and models 
-\section Semântica: mundos e modelos.
-
-\note Mundos em $\zolang$: valuação e sua extenção recursiva.
-
-\note Tautologias na $\zolang$.
-
-\note Mundos em $\folang$: estruturas, e valuação de variáveis.
-
-\note Tautologias na $\folang$.
-
-\note Emulando constantes por funções.
-
-\note Emulando funções por relações.
-
-\note Modelos.
-
-\note Como provar que duas formulas da $\folang$ (não) são equivalentes.
-
-\note Independência de axiomas: o 5o axioma de Euclides.
-
-\endsection
-%%}}}
-
-%%{{{ Complete sets of connectives 
-\section Conjuntos de conectivos completos.
-
-\endsection
-%%}}}
-
-%%{{{ Classical and intuitionistic logic 
-\section Lógica clássica e intuicionista.
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-Sobre lógica matemática:
-\cite{kleeneIM},
-\cite{curryfoundations};
-\cite{kleenelogic},
-\cite{smullyanfol};
-\cite{corilascar1}~\&~\cite{corilascar2},
-\cite{shoenfieldlogic},
-\cite{bellmachover}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Structural_recursion_and_induction 
-\chapter Recursão e indução estrutural.
-\label{Structural_recursion_and_induction}%
-
-%%{{{ Recursing over formulas 
-\section Recursando nas fórmulas.
-
-%%{{{ eg: bincon_count 
-\example.
-\label{bincon_count}%
-Defina uma função $f : \zolang \to \nats$ que calcula o número
-de conectivos binários que aparecem na sua entrada.
-Use-lá para calcular os conectivos binários da expressão
-$$
-\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
-$$
-
-\solution
-Seguindo a definição de $\zolang$, cada um dos seus elementos
-é formado por uma de certas regras.  Basta escrever então como
-calcular o número desejado para cada um desses casos:
-$$
-\alignat2
-f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
-f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
-f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
-f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
-f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
-\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
-f((A \heartop B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartop \in \set{\limplies,\land,\lor}$)}
-\endalignat
-$$
-Aplicando nossa função na fórmula dada calculamos:
-\compute
-f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
-&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \by {por BC$_{\lnot}$}
-&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \by {por BC$_{\limplies}$}
-&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \by {por BC$_{P}$}
-&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \by {por BC$_{\land}$}
-&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \by {por BC$_{P}$}
-&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \by {por BC$_{\lnot}$}
-&= 0 + 1 + ( 0 + 1 + 0 )                        \by {por BC$_{P}$}
-&= 2
-\endcompute
-
-\endexample
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{aczelinductive},
-\cite{ynminduction}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Computability_and_complexity 
-\chapter Computabilidade e complexidade.
-\label{Computability_and_complexity}%
-
-%%{{{ A surprisingly difficult question 
-\section Uma questão surpresamente difícil.
-
-\endsection
-%%}}}
-
-%%{{{ Models of computation 
-\section Modelos de computação.
-
-\endsection
-%%}}}
-
-%%{{{ Decision problems 
-\section Problemas de decisão.
-
-\endsection
-%%}}}
-
-%%{{{ The halting problem 
-\section O problema da parada.
-
-\endsection
-%%}}}
-
-%%{{{ Asymptotic notation 
-\section A notação assintótica.
-
-\endsection
-%%}}}
-
-%%{{{ Analysis of algorithms 
-\section Análise de algorítmos.
-
-\endsection
-%%}}}
-
-%%{{{ Computational complexity 
-\section Complexidade computacional.
-
-\endsection
-%%}}}
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{cutlandcomputability},
-\cite{kleeneIM},
-\cite{rogersrecursive}.
-
-\cite{kozenac}, \cite{kozentc}.
-
-\cite{daviscu}, \cite{davisccl}, \cite{alicebook}.
-
-\cite[Cap.~7]{bellmachover}.
-
-\cite{dpv},
-\cite{jonescomputability}.
-\cite{gareyjohnson}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Theory_of_recursive_functions 
-\chapter Teoria de funções recursivas.
-\label{Theory_of_recursive_functions}%
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite[Part~III]{kleeneIM},
-\cite{shoenfieldrecursion},
-\cite{ynmrandc},
-\cite{rogersrecursive}.
-
-\cite[Cap.~6--8]{bellmachover}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Formal languages 
-\chapter Linguagens formais.
-
-%%{{{ Problems 
-\problems.
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite{alicebook},
-\cite{kozenac},
-\cite[Part~2]{davisccl}.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
 %%{{{ chapter: Axiomatic set theory 
 \chapter Teoria axiomática dos conjuntos.
 \label{Axiomatic_set_theory}%
@@ -55596,6 +53662,1940 @@ $$
 \cite{cohensetch},
 \cite{kunen1980},
 \cite{jechset}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Posets; Lattices; Boolean algebras 
+\chapter Posets; Reticulados; Álgebras booleanas.
+\label{Posets}%
+\label{Lattices}%
+\label{Boolean_algebras}%
+
+%%{{{ Concept, notation, properties 
+\section Conceito, notação, propriedades.
+
+\TODO Conceito.
+
+%%{{{ df: poset 
+\definition poset.
+\label{poset}%
+\tdefined{poset}%
+Chamamos o conjunto estruturado $\cal P = \sset P \leq$
+um \dterm{poset} (ou conjunto parcialmente ordenado),
+sse $\leq$ é uma relação de ordem parcial:
+$$
+\gather
+x \leq x\\
+x \leq y \mland y \leq z \implies x \leq z\\
+x \leq y \mland y \leq x \implies x = y
+\endgather
+$$
+%%}}}
+
+%%{{{ Notational abuse 
+\note Abusos notacionais.
+Extendemos o ``tipo'' do predicado $\dhole\leq\dhole$ de elementos de $P$
+para elementos e/ou subconjuntos de $P$, definindo:
+$$
+\align
+a \leq Y &\defiff a \leq y, \quad\text{para todo $y\in Y$};\\
+X \leq b &\defiff x \leq b, \quad\text{para todo $x\in X$};\\
+X \leq Y &\defiff x \leq y, \quad\text{para todo $x\in X$ e $y\in Y$}.
+\endalign
+$$
+%%}}}
+
+\blah.
+Nas definições seguintes nosso contexto é um poset $\sset P \leq$.
+
+%%{{{ df: incomparable 
+\definition.
+\label{incomparable}%
+\tdefined{incomparável}%
+Se $x \nleq y$ e $y \nleq x$ chamamos $x$ e $y$ \dterm{incomparáveis}.
+Denotamos assim:
+$$
+x \incomp y \defiff x \nleq y \mland y \nleq x.
+$$
+%%}}}
+
+%%{{{ df: chain_antichain 
+\definition.
+\label{chain_antichain}%
+\tdefined{cadeia}%
+\tdefined{anticadeia}%
+Seja $X\subset P$.
+Chamamos o $X$ uma \dterm{cadeia} sse todos os seus elementos são comparáveis.
+No caso oposto, onde todos são comparáveis apenas com eles mesmo,
+chamamos o $X$ \dterm{anticadeia}.  Simbolicamente:
+$$
+\align
+\text{cadeia:}\quad&       x, y \in X  \implies  x \leq y \mlor y\leq x;\\
+\text{anticadeia:}\quad&   x, y \in X  \mland x \leq y \implies x = y.
+\endalign
+$$
+%%}}}
+
+%%{{{ df: covby 
+\definition.
+\label{covby}%
+\tdefined{cobertura}%
+\sdefined {\sholed x \covby \sholed y} {o $x$ é coberto por o $y$}%
+Se $x\leq y$ e não existe nenhum $z$ estritamente entre os $x$ e $y$
+falamos que $y$ \dterm{cobre} o $x$.  Simbolicamente:
+$$
+x\covby y \defiff x \leq y \mland \lnot\exists z (x < z < y).
+$$
+%%}}}
+
+%%{{{ Diagramas Hasse 
+\note Diagramas Hasse.
+\tdefined{Hasse}[diagrama]%
+Já encontramos diagramas \Hasse{}Hasse no \ref{Group_theory}
+(\refn{hasse_diagrams_first_encounter},
+\refn{hasse_dih_3}, \refn{hasse_dih_4})
+onde desenhamos os Hasse duns posets de subgrupos.
+%%}}}
+
+\beware.
+Diagramas Hasse podem aparecer bastante diferentes mesmo
+sendo do mesmo poset.
+
+%%{{{ eg: cube_and_not_so_cube 
+\example.
+\label{cube_and_not_so_cube}%
+\tdefined{reticulado}[cubo]%
+Aqui duas formas de desenhar diagramas Hasse para o
+$\sset{\pset\set{0,1,2}}{\subset}$:
+$$
+\xalignat2
+&\tikzpicture
+\node (max) at (0,4)  {$\set{0,1,2}$};
+\node (a)   at (-2,2) {$\set{0,1}$};
+\node (b)   at (0,2)  {$\set{0,2}$};
+\node (c)   at (2,2)  {$\set{1,2}$};
+\node (d)   at (-2,0) {$\set 0$};
+\node (e)   at (0,0)  {$\set 1$};
+\node (f)   at (2,0)  {$\set 2$};
+\node (min) at (0,-2) {$\emptyset$};
+\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
+(e) -- (min) -- (f) -- (c) -- (max)
+(d) -- (b);
+\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
+\endtikzpicture
+&
+&\tikzpicture
+\node (max) at (0,4)       {$\set{0,1,2}$};
+\node (a)   at (-2,2.666)  {$\set{1,2}$};
+\node (b)   at (0,2.666)   {$\set{0,2}$};
+\node (c)   at (2,2.666)   {$\set{0,1}$};
+\node (d)   at (-2,-0.666) {$\set 0$};
+\node (e)   at (0,-0.666)  {$\set 1$};
+\node (f)   at (2,-0.666)  {$\set 2$};
+\node (min) at (0,-2)      {$\emptyset$};
+\draw (min) -- (d) -- (c) -- (max) -- (a) -- (f) -- (min);
+\draw (min) -- (e);
+\draw (max) -- (b);
+\draw (a) -- (e) -- (c);
+\draw (d) -- (b) -- (f);
+\endtikzpicture
+\endxalignat
+$$
+Esse poset é chamado \dterm{cubo} por motivos óbvios se olhar
+na seu primeiro diagrama, e não-tão-óbvios olhando para o segundo!
+\endexample
+%%}}}
+
+%%{{{ df: min_max 
+\definition.
+\label{min_max}%
+\tdefined{mínimo}%
+\tdefined{máximo}%
+\sdefined {\min {\sholed A}} {o mínimo de $A$}%
+\sdefined {\max {\sholed A}} {o máximo de $A$}%
+Seja $A\subset P$.
+Chamamos o $m$ o \dterm{mínimo} de $A$ sse $m\leq a$ para todo $a\in A$.
+\emph{Dualmente} chamamos o $m\in A$ o \dterm{máximo} de $A$ sse $a\leq m$ para todo $a\in A$.
+Denotamos o mínimo de $A$, se existe, por $\min A$ e seu máximo, se existe, por $\max A$.
+\mistake
+%%}}}
+
+%%{{{ x: uniqueness_of_min_max 
+\exercise.
+\label{uniqueness_of_min_max}%
+Qual o erro na definição acima?
+Ache-o e corrija-o.
+
+\endexercise
+%%}}}
+
+%%{{{ df: bottom_top 
+\definition.
+\label{bottom_top}%
+\label{zero_one_in_poset}%
+\label{zero_one}%
+\label{bounded_poset}%
+\tdefined{bottom}%
+\tdefined{top}%
+\tdefined{zero}[dum poset]%
+\tdefined{one}[dum poset]%
+\tdefined{bounded}[por cima]%
+\tdefined{bounded}[por baixo]%
+\sdefined {\bot_{\sholed P}} {o bottom (o mínimo elemento dum poset)}%
+\sdefined {\top_{\sholed P}} {o top (o máximo elemento dum poset)}%
+\sdefined {0_{\sholed P}} {o zero (o mínimo elemento dum poset)}%
+\sdefined {1_{\sholed P}} {o um (o máximo elemento dum poset)}%
+Se o próprio $P\subset P$ possui elemento
+mínimo, o chamamos de \dterm{bottom} de $P$,
+e se possui
+máximo, o chamamos de \dterm{top} de $P$.
+Usamos as notações $\bot_P$ e $\top_P$ respectivamente,
+esquecendo o $_P$ quando é implícito pelo contexto.
+Sinônimos de bottom e top são os \dterm{zero} e \dterm{um} respectivamente,
+usando as notações $0_P$ e $1_P$.
+Se um poset possui bottom, ele é chamado \dterm{bounded por baixo},
+e se ele possui top, ele é chamado \dterm{bounded por cima}.
+Caso que seja bounded por cima e por baixo, o chamamos apenas de
+\dterm{bounded}.
+%%}}}
+
+%%{{{ df: minimal_maximal 
+\definition.
+\label{minimal_maximal}%
+\tdefined{minimal}%
+\tdefined{maximal}%
+Chamamos o $x$ um elemento \dterm{minimal} de $P$
+sse nenhum elemento está embaixo dele, e, \emph{dualmente}
+chamamos o $x$ \dterm{maximal} de $P$ sse nenhum elemento
+está acima dele.  Simbolicamente:
+$$
+\align
+\text{$x$ minimal de $P$}&\defiff  \lforall {y \in P} {y \leq x \implies x = y};\\
+\text{$x$ maximal de $P$}&\defiff  \lforall {y \in P} {x \leq y \implies x = y}.
+\endalign
+$$
+%%}}}
+
+%%{{{ df: ubs_lbs 
+\definition.
+\label{ubs_lbs}%
+\tdefined{upper bound}%
+\tdefined{lower bound}%
+\sdefined {\ubs {\sholed A}} {o conjunto dos upper bounds de $A$}%
+\sdefined {\lbs {\sholed A}} {o conjunto dos lower bounds de $A$}%
+Sejam $A\subset P$ e $m\in P$.
+O $m$ é um \dterm{upper bound} de $A$ sse $x \leq m$ para todo $x\in A$.
+Dualmente, o $m$ é um \dterm{lower bound} de $A$ sse $m \leq x$ para todo $x \in A$.
+Usamos a notação
+$$
+\align
+\ubs A &\defeq \setstt {m\in P} {$m$ é um upper bound de $A$}\\
+\lbs A &\defeq \setstt {m\in P} {$m$ é um lower bound de $A$}.
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: ubs_lbs_in_reals_example 
+\example.
+\label{ubs_lbs_in_reals_example}%
+No $\reals$, considere seu subconjunto $(1,2]$.
+Uns upper bounds dele são os reais $2, 5, \sqrt{12}, 8000$.
+No outro ladom uns lower bounds dele são os $-400, -\pi, 0, 1/2, 0.8, 1$.
+\endexample
+%%}}}
+
+%%{{{ df: lub_glb 
+\definition.
+\label{lub_glb}%
+\tdefined{greatest lower bound}%
+\tdefined{least upper bound}%
+\tdefined{supremum}%
+\tdefined{infimum}%
+\sdefined {\sup{\sholed A}} {o supremum de $A$}%
+\sdefined {\inf{\sholed A}} {o infimum de $A$}%
+\sdefined {\lub{\sholed A}} {o least upper bound de $A$}%
+\sdefined {\glb{\sholed A}} {o greatest lower bound de $A$}%
+\sdefined {\Join{\sholed A}} {o join de $A$}%
+\sdefined {\Meet{\sholed A}} {o meet de $A$}%
+Se os $\ubs A$ e $\lbs A$ tem elemento mínimo e máximo respectivamente,
+definimos
+$$
+\align
+\lub A &\defeq \min\ubs A\\
+\glb A &\defeq \max\lbs A.
+\endalign
+$$
+Naturalmente chamamos o $\lub A$ o \dterm{least upper bound} de $A$,
+e o $\glb A$ o \dterm{greatest lower bound} de $A$.
+Usamos \emph{muitos} sinônimos, resumidos aqui:
+$$
+\xalignat3
+\sup A &\ \text{(supremum)}   & \lub A &\ \text{(least upper bound)}    & \Join A &\ \text{(join)}\\
+\inf A &\ \text{(infimum)}    & \glb A &\ \text{(greatest lower bound)} & \Meet A &\ \text{(meet)}
+\endxalignat
+$$
+%%}}}
+
+%%{{{ eg: inf_and_sup_of_openclosed_interval 
+\example.
+\label{inf_and_sup_of_openclosed_interval}%
+O $A=(1,2]$ do~\ref{ubs_lbs_in_reals_example} tem
+$\inf A = 1$ e $\sup A = 2$.
+Observe que $\sup A \in A$ mas $\inf A \notin A$.
+\endexample
+%%}}}
+
+%%{{{ x: when_glb_and_lub_is_min_and_max 
+\exercise.
+\label{when_glb_and_lub_is_min_and_max}%
+O que podemos concluir quando $\glb A \in A$ e quando $\lub A \in A$?
+
+\endexercise
+%%}}}
+
+%%{{{ df: downset_upset_downs  
+\definition.
+\label{downset_upset_downs}%
+\tdefined{downset}%
+\tdefined{upset}%
+\sdefined {\downs{\sholed P}} {o conjunto de downsets de $P$}%
+Chamamos o $A\subset P$ um \dterm{downset} no $P$
+sse o $A$ é ``fechado para baixo'', e \emph{dualmente},
+o chamamos \dterm{upset} sse ele é ``fechado para cima''.
+Formalmente,
+$$
+\align
+\text{$A$ downset} &\defiff {a \in A \mland x \leq a \implies x\in A};\\
+\text{$A$ upset}   &\defiff {a \in A \mland a \leq x \implies x\in A}.
+\endalign
+$$
+Dado um poset $P$, usamos $\downs P$ para denotar o conjunto de todos os seus
+downsets.  Simbolicamente,
+$$
+\downs P \defeq \set{ D \subset P \st \text{$D$ é um downset de $P$} }.
+$$
+%%}}}
+
+%%{{{ df: down_up 
+\definition.
+\label{down_up}%
+\sdefined {\down {\sholed a}} {o down de $a$}%
+\sdefined {\up {\sholed a}} {o up de $a$}%
+Definimos para qualquer $a\in P$ os conjuntos
+$$
+\align
+\down a &\defeq \setst {x \in P} {x \leq a}\\
+\up a   &\defeq \setst {x \in P} {a \leq x}
+\intertext{e generalizamos essas operações de elementos $a\in P$ para subconjuntos $A\subset P$ assim:}
+\down A &\defeq \setstt {x \in P} {$x \leq a$ para algum $a \in A$}\\
+\up A   &\defeq \setstt {x \in P} {$a \leq x$ para algum $a \in A$}.
+\endalign
+$$
+Observe que $\down x = \down{\set x}$ e $\up x = \up{\set x}$.
+Diretamente pelas definições também temos:
+$$
+\xalignat2
+\down A &= \Union_{a\in A} {\down a}&
+\up A &= \Union_{a\in A} {\up a}
+\endxalignat
+$$
+%%}}}
+
+%%{{{ x: down_is_downset_up_is_upset 
+\exercise.
+\label{down_is_downset_up_is_upset}%
+Sejam $P$ poset e $A \in P$.
+Prove que $\down A$ é um downset e $\up A$ um upset.
+
+\endexercise
+%%}}}
+
+%%{{{ x: equivalent_statements_to_x_leq_y 
+\exercise.
+\label{equivalent_statements_to_x_leq_y}%
+Sejam $P$ um poset, $x,y\in P$.
+Prove que as afirmações
+\beginil
+\item{(i)}   $x \leq y$;
+\item{(ii)}  $\down x \subset \down y$;
+\item{(iii)} para todo downset $D$ de $P$ com $y \in D$, temos $x\in D$.
+\endil
+são equivalentes.
+
+\solution
+Vamos provar usando um caminho ``round-robin'':
+\crtabproofpart{$\textrm{(i)}\Rightarrow\textrm{(ii)}$.}
+Seja $a \in \down x$.  Logo $a \leq x$, e como $x\leq y$ (hipótese),
+pela transitividade da $\leq$ temos $a \leq y$.  Logo $a\in \down y$.
+Ou seja, $\down x \subset \down y$.
+\crtabproofpart{$\textrm{(ii)}\Rightarrow\textrm{(iii)}$.}
+Seja $D$ downset de $P$ com $y \in D$.
+Logo $\down y \subset D$.
+Pela hipótese $\down x \subset \down y$ e logo $\down x \subset D$.
+Como $x \in \down x$, então $x \in D$.
+\crtabproofpart{$\textrm{(iii)}\Rightarrow\textrm{(i)}$.}
+Observe que $\down y$ é um downset tal que $y$ pertence nele.
+Logo $x \in \down y$ (pela hipótese).
+Logo $x \leq y$ (pela def.~de $\down y$).
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Operations and constructions 
+\section Operações e construções.
+
+%TODO (Construções de conjutos ordenados)
+%TODO (Dualidade)
+%TODO (Ordens canônicas, ordens lexicográficas)
+
+\endsection
+%%}}}
+
+%%{{{ Mappings 
+\section Mapeamentos.
+
+%%{{{ df: monotone_embedding_isomorphism 
+\definition.
+\label{monotone_embedding_isomorphism}%
+\tdefined{monótona}%
+\tdefined{order-embedding}%
+\tdefined{order-isomorfismo}%
+\tdefined{isomorfismo}[de ordem]%
+Sejam $\sset P {\leq_P}$ e $\sset Q {\leq_Q}$ posets
+e $\phi : P \to Q$.
+Definimos
+$$
+\align
+\text{$\phi$ monótona}
+&\defiff x\leq_P y \implies \phi(x) \leq_Q \phi(y)\\
+\text{$\phi$ order-embedding}
+&\defiff \text{$\phi$ injetora} \mland x\leq_P y \iff \phi(x) \leq_Q \phi(y)\\
+\text{$\phi$ order-isomorfismo}
+&\defiff \text{$\phi$ bijetora} \mland x\leq_P y \iff \phi(x) \leq_Q \phi(y)
+\endalign
+$$
+%%}}}
+
+%%{{{ criterion: order_embedding_criterion 
+\criterion.
+\label{order_embedding_criterion}%
+Se $\phi : P \to Q$ tal que
+$$
+x \leq_P y \iff \phi(x) \leq_Q \phi(y)
+$$
+então $\phi$ é um order-embedding.
+Segue que se $\phi$ é sobrejetora, ela é um order-isomorfismo.
+\proof.
+Basta provar que $\phi$ é injetora.
+Tome $x,y \in P$.
+Temos
+\compute
+\phi(x) = \phi(y)
+&\implies \phi(x) \leq_Q \phi(y) \mland \phi(y) \leq_Q \phi(x)  \by {\ref{converse_of_antisymmetry}}
+&\implies x \leq_P y \mland y \leq_P x                          \by {pela hipótese}
+&\implies x = y.                                                \by {transitividade}
+\endcompute
+\qed
+%%}}}
+
+%%{{{ x: converse_of_antisymmetry 
+\exercise Converso de antisimetria.
+\label{converse_of_antisymmetry}%
+Justifique o primeiro passo (a primeira implicação) na prova do~\ref{order_embedding_criterion}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: downsets_of_poset_iso_downsets_of_dual 
+\exercise.
+\label{downsets_of_poset_iso_downsets_of_dual}%
+Defina um $\phi : \downsets P \iso \downsets { \dual P }$.
+
+\solution
+$\phi(X) = P\setminus X$
+
+\endexercise
+%%}}}
+
+%%{{{ x: downsets_of_disjunion_iso_product_of_downsets 
+\exercise.
+\label{downsets_of_disjunion_iso_product_of_downsets}%
+Defina um
+$\psi : \downsets { P_1 \disjunion P_2 } \iso \downsets {P_1} \times \downsets {P_2}$.
+
+\solution
+$\psi(D) = \tup{ D \inter P_1, D \inter P_2 }$
+
+\endexercise
+%%}}}
+
+%%{{{ x: posets_of_divisors 
+\exercise.
+\label{posets_of_divisors}%
+Para $n\in\nats$, definimos o poset
+${\cal D}_n \defeq \sset {D_n} {\divides}$
+onde $D_n \defeq \set{ d \in \nats \st d \divides n }$.
+\item{(i)}
+Desenha o diagrama Hasse de ${\cal D}_{30}$.
+\item{(ii)}
+Ache conjunto $A$ tal que ${\cal D}_{30} \iso \sset {\pset A} {\subset}$
+e defina um isomorfismo $\phi : D_{30} \to \pset A$.
+\item{(iii)}
+Existe conjunto $B$ tal que ${\cal D}_0 \iso \sset {\pset B} {\subset}$?
+Se sim, ache o $B$ e defina um isomorfismo
+$\phi : D_0 \to {\pset B}$;
+se não, prove que é impossível.
+
+\solution%%{{{
+\noindent (i)
+Primeiramente calculamos: $D_{30} = \set{1, 2, 3, 5, 6, 10, 15, 30}$.
+$$
+\tikzpicture
+\node (max) at (0,4)  {$30$};
+\node (a)   at (-2,2) {$6$};
+\node (b)   at (0,2)  {$10$};
+\node (c)   at (2,2)  {$15$};
+\node (d)   at (-2,0) {$2$};
+\node (e)   at (0,0)  {$3$};
+\node (f)   at (2,0)  {$5$};
+\node (min) at (0,-2) {$1$};
+\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
+(e) -- (min) -- (f) -- (c) -- (max)
+(d) -- (b);
+\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
+\endtikzpicture
+$$
+\endgraf
+\noindent (ii)
+Tome o $A = \set{2,3,5}$ e defina a função $\phi : \pset A \to D_{30}$
+pelas equações:
+$$
+\align
+\phi(30) &= A\\
+\phi(15) &= \set{3,5}\\
+\phi(10) &= \set{2,5}\\
+\phi(6)  &= \set{2,3}\\
+\phi(2)  &= \set{2}\\
+\phi(3)  &= \set{3}\\
+\phi(5)  &= \set{5}\\
+\phi(1)  &= \emptyset
+\endalign
+$$
+Seu diagrama Hasse parece assim:
+$$
+\tikzpicture
+\node (max) at (0,4)  {$\set{2,3,5}$};
+\node (a)   at (-2,2) {$\set{2,3}$};
+\node (b)   at (0,2)  {$\set{2,5}$};
+\node (c)   at (2,2)  {$\set{3,5}$};
+\node (d)   at (-2,0) {$\set 2$};
+\node (e)   at (0,0)  {$\set 3$};
+\node (f)   at (2,0)  {$\set 5$};
+\node (min) at (0,-2) {$\emptyset$};
+\draw (min) -- (d) -- (a) -- (max) -- (b) -- (f)
+(e) -- (min) -- (f) -- (c) -- (max)
+(d) -- (b);
+\draw[preaction={draw=white, -,line width=6pt}] (a) -- (e) -- (c);
+\endtikzpicture
+$$
+\noindent
+Obs: qualquer conjunto $A$ com $|A|=3$ serve!
+Uma avantagem desse é que podemos bem elegantemente definir a bijecção
+inversa, mandando cada subconjunto de $\set{2,3,5}$ para seu produtório!
+\endgraf
+\noindent (iii)
+Não existe, pois $D_0 = \nats$ (contável)
+e logo não pode ser equinúmero com o powerset de nenhum conjunto $B$.
+\endgraf
+\noindent (iv)
+Verdade, a função $\phi : D_0 \to \set{D_n \st n\in \nats}$ definida pela
+$$
+\phi(n) = D_n
+$$
+é um isomorfismo, pois:
+$$
+n \divides m \iff D_n \subset D_m.
+$$
+%%}}}
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Lattices as posets 
+\section Reticulados como posets.
+
+%%{{{ df: lattice_as_poset 
+\definition.
+\label{lattice_as_poset}%
+\tdefined{lattice}[como poset]%
+\iisee{lattice}{reticulado}
+Um poset $\cal L = \sset L {\leq}$
+é um \dterm{lattice} (ou \dterm{reticulado}) sse 
+para todo $x,y \in L$, os $\sup\set{x,y}$ e $\inf\set{x,y}$
+existem.
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Lattices as algebraic structures 
+\section Reticulados como estruturas algébricas.
+
+\blah.
+No~\ref{Algebraic_structures} introduzimos reticulados
+como uma estrutura algébrica.%
+\footnote{Leia a~\ref{Lattices_as_algebras} se não tá ligado.}
+Aqui a definição novamente:
+
+%%{{{ df: lattice_as_algebra_human 
+\definition.
+\label{lattice_as_algebra_human}%
+\tdefined{lattice}[como algebra]%
+Seja $\cal L = \sset L {\join, \meet}$ conjunto estruturado
+onde $\join,\meet$ são operadores binários no $L$.
+Chamamos o $L$ um \dterm{lattice} (ou \dterm{reticulado}) sse
+as operações $\join,\meet$ são associativas, comutativas,
+e idempotentes, e satisfazem as leis seguintes \emph{de absorção}:
+$$
+\align
+a \join (b \meet a) &= a\\
+a \meet (b \join a) &= a
+\endalign
+$$
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Complete lattices 
+\section Reticulados completos.
+
+%%{{{ df: complete_lattice 
+\definition.
+\label{complete_lattice}%
+Um reticulado $L$ é um \dterm{reticulado completo} sse
+para todo $S\subset L$ ambos os $\Join S$ e $\Meet S$ são definidos.
+%%}}}
+
+%%{{{ x: every_complete_lattice_is_bounded 
+\exercise.
+\label{every_complete_lattice_is_bounded}%
+Todo reticulado completo é bounded.
+
+\endexercise
+%%}}}
+
+%%{{{ remark: what do we gain in a complete lattice 
+\remark.
+Já provamos que num reticulado $L$ os joins e meets existem para qualquer
+subconjunto \emph{não vazio e finito} dele.
+Então num reticulado \emph{completo}, sabemos disso para o vazio
+e para os subconjuntos infinitos também.
+%%}}}
+
+\TODO generalize o~\ref{set_limits} para qualquer reticulado completo.
+
+\endsection
+%%}}}
+
+%%{{{ Fixpoints 
+\section Fixpoints.
+
+%%{{{ df: fixpoint 
+\definition fixpoint.
+\tdefined{fixpoint}%
+\tdefined{fixpoint}[least]%
+\tdefined{fixpoint}[greatest]%
+\sdefined {\fixpoints {\sholed f}} {o conjunto dos fixpoints de $f$}%
+\sdefined {\lfp {\sholed f}} {o menor fixpoint de $f$}%
+\sdefined {\gfp {\sholed f}} {o maior fixpoint de $f$}%
+Seja $f : X \to X$.
+Chamamos o $x_0\in X$ um \dterm{fixpoint} de $f$ sse
+$f(x_0) = x_0$.
+Usamos a notação
+$$
+\fixpoints f
+\defeq
+\setstt { x \in \dom f } {$x$ é um fixpoint de $f$}
+$$
+e se $X$ é um poset e $\fixpoints F$ tem mínimo e máximo botamos
+$$
+\alignat2
+\lfp f &\defeq \min(\fixpoints f)  \called {o \dterm{menor fixpoint} de $f$}
+\gfp f &\defeq \max(\fixpoints f). \called {o \dterm{maior fixpoint} de $f$}
+\endalignat
+$$
+%%}}}
+
+%%{{{ df: prefixpoint_postfixpoint 
+\definition prefixpoints, postfixpoints.
+\label{prefixpoint_postfixpoint}%
+\tdefined{prefixpoint}%
+\tdefined{postfixpoint}%
+Sejam $P$ poset e $F : P \to P$ e seja $p \in P$.
+Chamamos o $p$ de \dterm{prefixpoint da $F$}
+sse $Fp \leq p$.  Dualmente $p$ é um \dterm{postfixpoint da $F$}
+sse $p \leq Fp$.
+%%}}}
+
+%%{{{ thm: knaster_tarski_fixpoint 
+\theorem Knaster--Tarski.
+\label{knaster_tarski_fixpoint}%
+\Knaster{}\Tarski{}%
+\ii{teorema}[Knaster--Tarski fixpoint]%
+Seja $L$ reticulado completo e $F : L \to L$ monótona.
+Então $F$ tem um fixpoint.
+\sketch.
+Sejam
+$$
+\xalignat2
+D &\asseq \setst { x \in L } { x \leq Fx } &
+U &\asseq \setst { x \in L } { Fx \leq x }.
+\endxalignat
+$$
+os conjuntos de todos os postfixpoints e prefixpoints
+da $F$ respecitivamente.
+Considere o conjunto $\fixpoints F$.
+Observe que $\fixpoints F = D \inter U$.
+Vamos provar que o $\Join D$ é um fixpoint de $F$.
+(O $\Meet U$ é similar.)
+Precisamos $\Join D = F(\Join D)$.
+Vamos provar $\Join D \leq F(\Join D)$ primeiro
+e depois $F(\Join D) \leq \Join D$.
+\proofpart{$\Join D \leq F(\Join D)$:}
+Como $\Join D$ é o least upper bound de $D$,
+basta provar $F(\Join D)$ é um upper bound de $D$.
+\proofpart{$F(\Join D) \leq \Join D$:}
+Aqui como $\Join D$ é um upper bound de $D$,
+basta mostrar que $F(\Join D)$ é um membro de $D$.
+(Nessa parte podemos e vamos usar a $\Join D \leq F(\Join D)$
+que acabamos de provar!)
+\qes
+\proof.
+Seja
+$D \asseq \setst { x \in L } { x \leq Fx }$.
+Vamos provar que $\Join D$ é um fixpoint de $F$,
+ou seja $F(\Join D) = \Join D$.
+Quebramos a prova em duas partes:
+\proofpart{$\Join D \leq F(\Join D)$:}
+Basta mostrar que $F(\Join D)$ é um upper bound de $D$.
+Tome $d \in D$.
+Logo $d \leq Fd$\fact1~(pela definição de $D$)
+e também $d \leq \Join D$\fact2,
+pois $\Join D$ é um upper bound de $D$.
+Como $F$ é monótona, da \byfact2~ganhamos
+$Fd \leq F(\Join D)$\fact3.
+Juntando (transitividade) as \byfact1~e~\byfact3:
+$$
+d \leq Fd \leq F(\Join D)
+$$
+ou seja, $d \leq F(\Join D)$ e como $d$ foi arbitrário elemento de $D$,
+concluimos que $F(\Join D)$ é um upper bound de $D$.
+Logo $\Join D \leq F(\Join D)$.
+\proofpart{$F(\Join D) \leq \Join D$:}
+Basta provar que $F(\Join D) \in D$, pois $\Join D$ é um upper bound de $D$.
+Como já provamos que $\Join D \leq F(\Join D)$, ganhamos a
+$F(\Join D) \leq F(F(\Join D))$ (pela monotonicidade da $F$).
+Ou seja, o $F(\Join D)$ satisfaz a definição de $D$, e logo pertence nele:
+$F(\Join D) \in D$.
+Como $\Join D$ é um upper bound de $D$, temos $F(\Join D) \leq \Join D$.
+\qed
+%%}}}
+
+%%{{{ remark: the full Knaster--Tarski theorem 
+\remark.
+O teorema Knaster--Tarski fala que ainda mais é verdade:
+o $\fixpoints F\subset L$ é um reticulado completo
+(\ref{knaster_tarski_fixpoint_full}).
+%%}}}
+
+\TODO explicar e desenhar.
+
+%%{{{ cor: real_f_monotone_on_closed_interval_has_lfp_and_gfp 
+\corollary.
+\label{real_f_monotone_on_closed_interval_has_lfp_and_gfp}%
+Sejam $a,b\in\reals$ com $a\leq b$,
+e função $f : [a,b] \to [a,b]$ monótona.
+Logo $f$ tem um máximo e um mínimo fixpoint.
+%%}}}
+
+%%{{{ remark: we do not need f to be continuous 
+\remark.
+Observe que no~\ref{real_f_monotone_on_closed_interval_has_lfp_and_gfp}
+não precisamos da $f$ ser continua.
+%%}}}
+
+%%{{{ note: a new proof of Schröder--Bernstein 
+\note Uma nova prova de Schröder--Bernstein.
+Ganhamos também como corolário o teorema Schröder--Bernstein
+(\refn{schroder_bernstein})!
+Os detalhes estão no~\ref{schroder_bernstein_lattice_proof}.
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Irreducible elements 
+\section Elementos irredutíveis.
+
+\endsection
+%%}}}
+
+%%{{{ Boolean algebras 
+\section Álgebras booleanas.
+
+\Boole{}
+
+\endsection
+%%}}}
+
+%%{{{ Heyting algebras 
+\section Álgebras Heyting.
+
+\Heyting{}
+
+\endsection
+%%}}}
+
+%%{{{ Categories_and_posets 
+\section Pouco de cats---categorias e posets.
+\label{Categories_and_posets}%
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+%%{{{ x: rats_is_dense 
+\problem.
+\label{rats_is_dense}%
+Prove que o $\rats$ com sua ordem padrão é denso.
+
+\endproblem
+%%}}}
+
+%%{{{ df: cofinito_em_nats 
+\definition.
+\label{cofinito_em_nats}%
+\tdefined{cofinito}%
+Chamamos um $A\subset \nats$ \dterm{cofinito} sse
+seu complemento $\nats\setminus A$ é finito.
+%%}}}
+
+%%{{{ prob: family_of_cofinite_lattice 
+\problem.
+\label{family_of_cofinite_lattice}%
+\tdefined{reticulado}[de conjuntos]%
+Mostre que as famílias
+$$
+\align
+\scr L_1 &\asseq \set{ A \subset \nats \st \text{$A$ é cofinito} }\\
+\scr L_2 &\asseq \set{ A \subset \nats \st \text{$A$ é finito ou cofinito} }
+\endalign
+$$
+são \dterm{reticulados de conjuntos}, ou seja,
+reticulados com relação de ordem $\subset$.
+
+\solution
+\proofpartstyle{Sobre o $\scr L_1$.}
+Sejam $A, B \in \scr L_1$.
+Pela definição então $\nats\setminus A$ e $\nats\setminus B$ são finitos.
+Vou mostrar que $A\union B$ e $A\inter B$ são cofinitos, e logo pertencem ao
+$\scr L_1$ também.
+Calculamos 
+$$
+\align
+\nats\setminus(A\union B) &=\paren{\nats\setminus A} \inter \paren{\nats\setminus B}\\
+\nats\setminus(A\inter B) &=\paren{\nats\setminus A} \union \paren{\nats\setminus B},
+\endalign
+$$
+logo os dois conjuntos no lado esquerdo são finitos como intersecção e união de
+finitos respectivamente.
+\endgraf
+\proofpartstyle{Sobre o $\scr L_2$.}
+Sejam $A, B \in \scr L_2$.
+Separamos em casos:
+\endgraf
+\case{Caso ambos finitos:}
+Facilmente $A\union B$ e $A \inter B$ são finitos também,
+como intersecção e união de conjuntos finitos.
+Logo ambos pertencem ao $\scr L_2$.
+\endgraf
+\case{Caso ambos cofinitos:}
+Provamos isso na demonstração sobre o $\scr L_1$.
+\endgraf
+\case{Caso contrário:}
+Temos um dos $A,B$ finito e o outro cofinito.
+Sem perda de generalidade, suponha que $A$ finito, $B$ cofinito.
+O $A\inter B$ é trivialmente finito como intersecção de finito com qualquer conjunto.
+Logo $A\inter B \in \scr L_2$.
+O $A\union B$ é cofinito, pois
+$$
+\nats\setminus(A \union B) = \paren{\nats\setminus A} \inter \paren{\nats\setminus B}
+$$
+que é finito para o mesmo motivo (intersecção com o $\nats\setminus B$ que é finito).
+Logo $A\union B \in \scr L_2$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: family_of_cofinite_not_complete_lattice 
+\problem.
+\label{family_of_cofinite_not_complete_lattice}%
+Mostre que nenhum dos $\scr L_1,\scr L_2$ do~\ref{family_of_cofinite_lattice}
+é completo.
+
+\hint
+Seja $A_n \asseq \nats\setminus\set{0,2,\dotsc, 2n - 2}$ o $\nats$ sem os
+primeiros $n$ números pares.
+Mostre que:
+\emph{se $B \subset A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
+
+\solution
+Vamos provar primeiramente a afirmação seguinte:
+\emph{se $B \subset A_n$ para todo $n\in \nats$, então $B$ não é cofinito}.
+\endgraf
+\proofstyle{{\proofname} da afirmação:}
+Suponha que para todo $n\in\nats$, $B \subset A_n$.
+Logo
+$$
+\align
+    B &\subset \Inter_{i=0}^\infty A_i\\
+\intertext{e complementando os dois lado,}
+\nats\setminus B
+    &\supset \nats\setminus\Inter_{i=0}^\infty A_i\\
+    &= \Union_{i=0}^\infty(\nats\setminus A_i)\\
+    &= \Union_{i=0}^\infty(\set{0,2,\dotsc, 2n-2})\\
+    &= 2\nats.
+\endalign
+$$
+Como $2\nats$ é infinito, o $B$ não é cofinito.
+\endgraf
+Agora voltamos a provar que nenhum dos $\scr L_1, \scr L_2$ é completo.
+Considere o conjunto
+$$
+\cal S \asseq \set { A_0, A_1, A_2, \dotsc }
+$$
+Observe que
+$\cal S \subset \scr L_1, \scr L_2$
+pois todos os seus elementos são claramente cofinitos.
+Mesmo assim, o $\Inter \cal S$ não é cofinito
+$\Inter \cal S$ é o conjunto de todos os ímpares)
+e logo não pertence em nenhum dos $\scr L_1, L_2$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: knaster_tarski_fixpoint_full 
+\problem Teorema Knaster--Tarski completo.
+\label{knaster_tarski_fixpoint_full}%
+No contexto do~\ref{knaster_tarski_fixpoint}, prove que
+o subconjunto $\fixpoints F \subset L$ é um reticulado completo.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: banach_decomposition_theorem 
+\problem Teorema de decomposição de Banach.
+\label{banach_decomposition_theorem}%
+
+\endproblem
+%%}}}
+
+%%{{{ prob: schroder_bernstein_lattice_proof 
+\problem Teorema de Schröder--Bernstein.
+\label{schroder_bernstein_lattice_proof}%
+Sejam $f : A \injto B$ e $g : B \injto A$ funções injetoras.
+Usando o teorema fixpoint de Knaster--Tarski~\refn{knaster_tarski_fixpoint}
+prove que existe função bijetora $h : A \bijto B$.
+
+\hint
+O $\sset{\pset A}{\subset}$ é um reticulado completo.
+
+\hint
+Considere a função $F : \pset A \to \pset A$ definida pela
+$$
+F(X) = A \setminus \paren{ \img g {B \setminus {\img f X}} }.
+$$
+Mostre que ela é monótona.
+
+\hint
+Pelo teorema Knaster--Tarski~\refn{knaster_tarski_fixpoint}
+a $F$ tem um fixpoint $C \subset A$, e
+$$
+C = F(C)
+\iff
+C = A \setminus \paren{ \img g {B \setminus {\img f C}} }
+\iff
+A \setminus C = \img g {B \setminus {\img f C}}.
+$$
+
+\hint
+Defina a desejada $h : A \bijto B$ por casos:
+$$
+h(x) = \knuthcases{
+\dots, & se $x \in C$ \cr
+\dots, & se $x \in A\setminus C$.
+}
+$$
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{DaveyPriestley},
+\cite{gratzerlatticefirst},
+\cite{gratzerlatticefoundation}.
+
+\cite[Cap.~6]{ynmnst}.
+
+\cite[Cap.~2]{corilascar1},
+\cite[Cap.~4]{bellmachover},
+\cite{halmosboolean}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Metric spaces 
+\chapter Espaços métricos.
+\label{Metric_spaces}%
+
+%%{{{ intro 
+\chapintro
+Logo depois do desenvolvemento da teoria de conjuntos de
+\Cantor{}Cantor, no ano \yearof{1906} \Frechet{}Fréchet introduziu
+os \dterm{espaços métricos} na sua tese de doutorado~\cite{frechetthesis}.
+Nesse capítulo estudamos as primeiras idéias básicas.
+%%}}}
+
+%%{{{ Distances 
+\section Distáncias.
+\label{Distances}%
+
+%%{{{ pseudodf: metric_space 
+\pseudodefinition espaço métrico.
+\label{metric_space_pseudodef}%
+Um \dterm{espaço métrico} é um conjunto equipado com uma
+noção de \dterm{distância} entre quaisquer dois membros dele
+em tal forma que:
+\beginil
+\item{(METR)} a distância de cada ponto para ele mesmo é $0$;
+\item{(METD)} a distância entre pontos distintos é positiva;
+\item{(METS)} a distância de $x$ para $y$ é a mesma da de $y$ para $x$;
+\item{(METT)} as distâncias satisfazem a disegualdade triangular.
+\endil
+%%}}}
+
+\blah.
+Bora formalizar:
+
+%%{{{ df: metric_space 
+\definition espaço métrico.
+\label{metric_space}%
+Seja $X$ conjunto.
+Uma função $d : X^2 \to \reals$ é chamada
+\dterm{métrica} no $X$ sse:
+$$
+\align
+&d(x,x) = 0                   \tag{METR} \\
+&x \neq y \implies d(x,y) > 0 \tag{METD} \\
+&d(x,y) = d(y,x) \iff x = y   \tag{METS} \\
+&d(x,y) \leq d(x,w) + d(w,y). \tag{METT}
+\endalign
+$$
+Chamamos a última \dterm{disegualdade triangular},
+e dados pontos $x,y \in X$ chamamos o valor $d(x,y)$
+de $d$-\dterm{distância} entre os $x,y$,
+omitindo o prefixo \sq{$d$-} quando a métrica é implicita
+pelo contexto.
+Um conjunto estruturado $\sset X d$ onde $d$ é uma métrica no $X$
+é chamado \dterm{espaço métrico}.
+%%}}}
+
+%%{{{ df: pseudometric 
+\definition pseudométrica.
+\label{pseudometric}%
+Uma função $d : X^2 \to \reals$ que satisfaz as
+(METR), (METS), e (METT) da~\ref{metric_space}
+é chamada \dterm{pseudométrica}.
+%%}}}
+
+%%{{{ eg: metric_space_eg_reals 
+\example.
+\label{metric_space_eg_reals}%
+Os reais $\sset \reals d$ onde
+$$
+d(x,y) = \abs{x - y}.
+$$
+\endexample
+%%}}}
+
+%%{{{ eg: metric_space_eg_discrete 
+\example.
+\label{metric_space_eg_discrete}%
+Seja $X$ conjunto e defina a função $d : X^2 \to \reals$ pela
+$$
+d(x,y) =
+\knuthcases{
+0, & se $x = 0$ \cr
+1, & caso contrário.
+}
+$$
+O $\sset X d$ é um espaço métrico.
+\endexample
+%%}}}
+
+\blah.
+Esse espaço é bastante importante e merece seu próprio nome:
+
+%%{{{ df: discrete_metric 
+\definition discreto.
+\label{discrete_metric}%
+Dado conjunto $X$, a \dterm{métrica discreta} nele é a função
+$d : X^2 \to \reals$ definida pela
+$$
+d(x,y) =
+\knuthcases{
+0, & se $x = y$ \cr
+1, & caso contrário.
+}
+$$
+O $\sset X d$ é chamado \dterm{espaço métrico discreto}.
+%%}}}
+
+%%{{{ eg: metric_space_eg_plane 
+\example.
+\label{metric_space_eg_plane}%
+O plano euclideano $\sset {\reals^2} d$ onde
+$$
+d(\tup{x_1,x_2},\tup{y_1,y_2}) = \sqrt{ (x_1-y_1)^2 + (x_2 - y_2)^2 }.
+$$
+\endexample
+%%}}}
+
+%%{{{ x: explain_euclidean_metric_of_plane 
+\exercise.
+Donde chegou essa $d$ do~\ref{metric_space_eg_plane}?
+
+\hint
+De \Pythagoras{}Pythagoras.
+Como?
+Demonstre!
+
+\endexercise
+%%}}}
+
+%%{{{ x: explain_euclidean_metric_of_plane 
+\exercise.
+Qual seria a métrica ``standard'' do $\reals^3$?
+
+\endexercise
+%%}}}
+
+\blah.
+Em qualquer espaço métrico, podemos definir a noção de
+$\epsilon$-perto:
+
+%%{{{ df: epsilon_close_in_metric 
+\definition epsilon: -perto.
+\label{epsilon_close_in_metric}%
+Sejam $x,y\in X$ e $\epsilon > 0$.
+Dizemos que
+$$
+\text{$x,y$ são $\epsilon$-perto}
+\defiff
+d(x,y) < \epsilon.
+$$
+%%}}}
+
+\blah.
+Assim ganhamos de graça a definição de limite.
+Literalmente copiamos a~\ref{limit_of_sequence_of_reals}:
+
+%%{{{ df: limit_in_metric 
+\definition limite.
+\label{limit_in_metric}%
+\tdefined{limite}[espaço métrico]%
+\sdefined {{\sholed {\seqn a n}} \limto {\sholed \ell}} {a seqüência $\seqn a n$ tende ao $\ell$}%
+Seja $\seqn a n$ uma seqüência num espaço métrico $\sset X d$.
+Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
+sse a partir dum membro $a_N$, todos os seus membros
+ficam $\epsilon$-perto do $\ell$.
+Ou seja:
+$$
+\seqn a n \limto \ell
+\defiff
+\pforall  {\epsilon > 0}
+\pexists  {N \in \nats}
+\lforallt {i \geq N}
+{$a_i$ é $\epsilon$-perto de $\ell$}.
+$$
+Escrevemos
+$$
+\liml_n a_n = \ell
+$$
+como sinônimo de $\seqn a n \limto \ell$.
+\mistake
+%%}}}
+
+%%{{{ beware: we need to prove uniqueness again 
+\beware.
+Lembra do erro da~\ref{limit_of_sequence_of_reals}
+que descobreste no~\ref{limit_of_sequence_of_reals_uniqueness_needed}?
+Pois é, junto com a definição, copiamos seu errinho também,
+mas não ganhamos de graça sua resolução,
+pois a demonstração de unicidade de limites
+(\ref{uniqueness_of_limits_of_reals})
+usou a definição de <<$\epsilon$-perto>> dos reais,
+e aqui isso mudou.
+Então sim, tu tens um trabalho pra fazer agora:
+%%}}}
+
+%%{{{ x: uniqueness_of_limits_in_metric 
+\exercise Unicidade de limites (espaços métricos).
+\label{uniqueness_of_limits_in_metric}%
+Demonstre a unicidade dos limites.
+
+\hint
+Olhe para a demonstração do~\ref{uniqueness_of_limits_of_reals}.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Examples and nonexamples 
+\section Exemplos e nãœxemplos.
+
+\endsection
+%%}}}
+
+%%{{{ Open_sets_and_neighborhoods_in_metric_spaces 
+\section Conjuntos abertos e fechados.
+\label{Open_sets_and_neighborhoods_in_metric_spaces}%
+
+%%{{{ open_in_metric 
+\definition.
+\label{open_in_metric}%
+Um conjunto $A \subset X$ é \dterm{aberto} (ou \dterm{open})
+sse todo $a \in A$ tem bola contida no $A$:
+$$
+\text{$A$ aberto}
+\defiff
+\pforall {a \in A}
+\lexists {\epsilon > 0}
+         {\ball \epsilon a \subset A}.
+$$
+%%}}}
+
+%%{{{ x: trivial_opens_in_metric 
+\exercise.
+\label{trivial_opens_in_metric}%
+Em todo espaço métrico $\sset X d$,
+$X$ e $\emptyset$ são abertos.
+
+\endexercise
+%%}}}
+
+%%{{{ x: balls_are_open 
+\exercise.
+Cada bola $\ball \epsilon x$ é um conjunto aberto.
+
+\endexercise
+%%}}}
+
+%%{{{ df: nbhd_in_metric 
+\definition.
+\label{nbhd_in_metric}%
+Sejam $N \subset X$ e $a \in X$.
+Dizemos que $A$ é uma \dterm{vizinhança} (ou \dterm{neighborhood},
+ou \dterm{nbhd}) de $x$ sse $N$ contenha uma bola de $a$:
+$$
+\text{$N$ vizinhança de $a$}
+\defiff
+\lexists
+{\epsilon > 0}
+{\ball \epsilon a \subset N}
+$$
+%%}}}
+
+%%{{{ x: nbhd_does_not_imply_open 
+\exercise.
+Demonstre ou refute a afirmação:
+<<cada vizinhança é um conjunto aberto>>.
+
+\hint
+A afirmação é falsa.
+Ache uma vizinhança $N_x$ dum ponto $x$ tal que $N_x$
+não é aberto.
+Dá pra achar nos reais.
+
+\endexercise
+%%}}}
+
+%%{{{ property: binary_intersections_opens_are_open 
+\property.
+\label{binary_intersections_of_opens_are_open}%
+Intersecção finita de abertos é aberto.
+%%}}}
+
+%%{{{ cor: finite_intersections_of_opens_are_open 
+\corollary.
+\label{finite_intersections_of_opens_are_open}%
+Intersecções finitas de abertos são abertas.
+%%}}}
+
+%%{{{ property: arbitrary_unions_of_opens_are_opens 
+\property.
+\label{arbitrary_unions_of_opens_are_opens}
+Uniões arbitrárias de abertos são abertas.
+%%}}}
+
+%%{{{ df: punctured_in_metric 
+\definition puncturados.
+\label{punctured_in_metric}%
+Chamamos a $\ball \epsilon a \setminus \set{a}$ de
+\dterm{bola puncturada} do $a$.
+Similarmente, se e $N$ é uma vizinhança de $a$,
+chamamos o $N \setminus \set{a}$ de
+\dterm{vizinhança puncturada} de $a$.
+%%}}}
+
+%%{{{ df: limit_point 
+\definition limit point.
+Sejam $A \subset X$ e $\ell \in X$.
+Chamamos o $\ell$ um \dterm{limit point} de $A$ sse
+existe seqüência $\seqn a n \subset A\setminus\set{\ell}$
+que tende ao $\ell$:
+$$
+\seqn a n \limto \ell.
+$$
+%%}}}
+
+%%{{{ criterion: limit_point_of_A_if_each_punctured_intersects_A 
+\criterion.
+Sejam $A \subset X$ e $\ell \in X$.
+$$
+\text{$\ell$ limit point de $A$}
+\iff
+\text{toda bola puncturada de $\ell$ intersecta o $A$}.
+$$
+%%}}}
+
+%%{{{ df: closed_in_metric 
+\definition.
+\label{closed_in_metric}%
+Um conjunto $A \subset X$ é \dterm{fechado} sse
+$A$ é fechado pela operação de limites, ou seja,
+sse todos os limit points do $A$ estão no $A$,
+ou seja:
+$$
+\text{$A$ fechado}
+\defiff
+\lforall
+{\ell \in X}
+{\text{$\ell$ limit point de $A$} \implies \ell \in A}.
+$$
+%%}}}
+
+%%{{{ criterion: closed_iff_complement_of_open 
+\criterion.
+Um conjunto $A \subset X$ é fechado sse
+seu complemento $X \setminus A$ é aberto.
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Continuity 
+\section Continuidade.
+
+\endsection
+%%}}}
+
+%%{{{ Connectedness 
+\section Conexividade.
+
+\endsection
+%%}}}
+
+%%{{{ Completeness 
+\section Completude.
+
+\endsection
+%%}}}
+
+%%{{{ Compactedness 
+\section Compacidade.
+
+\endsection
+%%}}}
+
+%%{{{ Categories_and_metric_spaces 
+\section Pouco de cats---categorias e espaços métricos.
+\label{Categories_and_metric_spaces}%
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{simmonstopology},
+\cite{kolmogorovfomin},
+\cite{carothersreal}.
+
+``Baby Rudin''~\cite{babyrudin}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: General topology 
+\chapter Topologia geral.
+\label{General_topology}%
+
+%%{{{ What is a topology? 
+\section O que é uma topologia.
+
+\endsection
+%%}}}
+
+%%{{{ Topology constructions 
+\section Construções de topologias.
+
+\endsection
+%%}}}
+
+%%{{{ Bases and subbases 
+\section Bases e subbases.
+
+\endsection
+%%}}}
+
+%%{{{ Continuity 
+\section Continuidade.
+
+\endsection
+%%}}}
+
+%%{{{ Connectedness 
+\section Conectividade.
+
+\endsection
+%%}}}
+
+%%{{{ Compactness 
+\section Compactividade.
+
+\endsection
+%%}}}
+
+%%{{{ Hausdorff and separation axioms 
+\section Hausdorff e axiomas de separação.
+
+\endsection
+%%}}}
+
+%%{{{ Categories_and_topological_spaces 
+\section Pouco de cats---categorias e espaços topológicos.
+\label{Categories_and_topological_spaces}%
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{janichtopology},
+\cite{simmonstopology},
+\cite{munkrestopology},
+\cite{willardtopology}.
+
+\cite{vickerstopology},
+\cite{escardosynthetic}.
+
+\cite{johnstonestone}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Graph theory 
+\chapter Teoria de grafos.
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+Umas introduções extensas são
+o clássico~\cite{bondymurty1976}
+e o mais novo~\cite{ChartrandZhang}.
+Depois continua com~\cite{diestelgraph}
+e~\cite{bondymurty2011}.
+Finalmente, um nível ainda mais avançado, \cite{bollobasmodern}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Lambda calculus 
+\chapter Lambda calculus.
+\label{Lambda_calculus}%
+
+%%{{{ The untyped lambda calculus 
+\section O $\lambda$-calculus não-tipado.
+
+\endsection
+%%}}}
+
+%%{{{ Faithfully representing mathematics 
+\section Representando matemática fielmente.
+
+\endsection
+%%}}}
+
+%%{{{ Programming 
+\section Programmando.
+
+\endsection
+%%}}}
+
+%%{{{ Recursion and fixpoints 
+\section Recursão e fixpoints.
+
+\endsection
+%%}}}
+
+%%{{{ Functional programming revisited 
+\section Programação funcional revisitada.
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+%%{{{ prob: what_does_this_lambda_term_with_minus_do 
+\problem.
+\label{what_does_this_lambda_term_with_minus_do}%
+Suponha que já temos definido um $\lambda$-term $\Lmac{minus}$,
+que comporta corretamente, no sentido que:
+$$
+\align
+\Lmac{minus}\ {\Lnum n}\ {\Lnum m}
+&\Lfinto \knuthcases{
+  \Lnum {n - m},   &se $n \geq m$\cr
+  \Lnum {0},       &se $n < m$.
+}
+\endalign
+$$
+Explique o comportamento do termo
+$$
+\Lmac f  \asseq  \Llam n {n\ (\Lmac{minus}\ {\Lnum 1})\ {\Lnum 0}}
+$$
+quando for aplicado para um numeral de \Church[numeral]{}Church $\Lnum k$:
+qual é a função $f : \nats\to\nats$ que o termo $\Lmac f$ computa?
+
+\hint
+Cuidado com \Curry[currificação]{}Curry.
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{nederpeltgeuvers},
+\cite{lecturesch}.
+\cite{hindleyseldinlambdacl},
+\cite{krivinelambda}.
+\cite{barendregtlambda}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Combinatory logic 
+\chapter Lógica combinatória.
+\label{Combinatory_logic}%
+
+%%{{{ Our first combinators 
+\section Nossos primeiros combinadores.
+
+%%{{{ df: first_combinators 
+\definition.
+\label{first_combinators}%
+$$
+\xalignat4
+    \cI\,x    &\Cto x     &   \cB\,x\,y\,z &\Cto x\,(y\,z) &   \cS\,x\,y\,z &\Cto x\,z\,(y\,z)&\cR\,x\,y\,z &\Cto y\,z\,x\\\\
+    \cK\,x\,y &\Cto x     &   \cBp\,x\,y\,z&\Cto y\,(x\,z) &   \cW\,x\,y    &\Cto x\,y\,y     &\cV\,x\,y\,z &\Cto z\,x\,y\\\\
+    \cM\,x    &\Cto x\,x  &   \cC\,x\,y\,z &\Cto x\,z\,y   &                                
+\endxalignat
+$$
+%%}}}
+
+%%{{{ x: some_equiv_to_I 
+\exercise.
+\label{some_equiv_to_I}%
+Mostre que o combinador
+$\C S\ \C K\ (\C W\ (\C I\ \C B))$ comporta como o $\C I$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: another_equiv_to_I 
+\exercise.
+\label{another_equiv_to_I}%
+Mostre que o combinator
+$\C C\ (\C W\ \C K)\ \C K\ \C W$ comporta como o $\C I$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: CL_define_Bp 
+\exercise.
+\label{CL_define_Bp}%
+Defina o $\cBp$ dos $\cI$, $\cM$, $\cB$, $\cC$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: CL_define_R 
+\exercise.
+\label{CL_define_R}%
+Defina o $\cR$ dos $\cI$, $\cK$, $\cM$, $\cB$, $\cBp$, $\cC$, $\cS$, $\cW$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: CL_define_V 
+\exercise.
+\label{CL_define_V}%
+Defina o $\cV$ dos $\cI$, $\cK$, $\cM$, $\cB$, $\cBp$, $\cC$, $\cS$, $\cW$, $\cR$.
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{mockingbird},
+\cite{bimbocl},
+\cite{hindleyseldinlambdacl}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Mathematical logic 
+\chapter Lógica matemática.
+\label{Mathematical_logic}%
+
+%%{{{ Semantics: worlds and models 
+\section Semântica: mundos e modelos.
+
+\note Mundos em $\zolang$: valuação e sua extenção recursiva.
+
+\note Tautologias na $\zolang$.
+
+\note Mundos em $\folang$: estruturas, e valuação de variáveis.
+
+\note Tautologias na $\folang$.
+
+\note Emulando constantes por funções.
+
+\note Emulando funções por relações.
+
+\note Modelos.
+
+\note Como provar que duas formulas da $\folang$ (não) são equivalentes.
+
+\note Independência de axiomas: o 5o axioma de Euclides.
+
+\endsection
+%%}}}
+
+%%{{{ Complete sets of connectives 
+\section Conjuntos de conectivos completos.
+
+\endsection
+%%}}}
+
+%%{{{ Classical and intuitionistic logic 
+\section Lógica clássica e intuicionista.
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+Sobre lógica matemática:
+\cite{kleeneIM},
+\cite{curryfoundations};
+\cite{kleenelogic},
+\cite{smullyanfol};
+\cite{corilascar1}~\&~\cite{corilascar2},
+\cite{shoenfieldlogic},
+\cite{bellmachover}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Structural_recursion_and_induction 
+\chapter Recursão e indução estrutural.
+\label{Structural_recursion_and_induction}%
+
+%%{{{ Recursing over formulas 
+\section Recursando nas fórmulas.
+
+%%{{{ eg: bincon_count 
+\example.
+\label{bincon_count}%
+Defina uma função $f : \zolang \to \nats$ que calcula o número
+de conectivos binários que aparecem na sua entrada.
+Use-lá para calcular os conectivos binários da expressão
+$$
+\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
+$$
+
+\solution
+Seguindo a definição de $\zolang$, cada um dos seus elementos
+é formado por uma de certas regras.  Basta escrever então como
+calcular o número desejado para cada um desses casos:
+$$
+\alignat2
+f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
+f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
+f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
+f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
+f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
+\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
+f((A \heartop B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartop \in \set{\limplies,\land,\lor}$)}
+\endalignat
+$$
+Aplicando nossa função na fórmula dada calculamos:
+\compute
+f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
+&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \by {por BC$_{\lnot}$}
+&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \by {por BC$_{\limplies}$}
+&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \by {por BC$_{P}$}
+&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \by {por BC$_{\land}$}
+&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \by {por BC$_{P}$}
+&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \by {por BC$_{\lnot}$}
+&= 0 + 1 + ( 0 + 1 + 0 )                        \by {por BC$_{P}$}
+&= 2
+\endcompute
+
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{aczelinductive},
+\cite{ynminduction}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Computability_and_complexity 
+\chapter Computabilidade e complexidade.
+\label{Computability_and_complexity}%
+
+%%{{{ A surprisingly difficult question 
+\section Uma questão surpresamente difícil.
+
+\endsection
+%%}}}
+
+%%{{{ Models of computation 
+\section Modelos de computação.
+
+\endsection
+%%}}}
+
+%%{{{ Decision problems 
+\section Problemas de decisão.
+
+\endsection
+%%}}}
+
+%%{{{ The halting problem 
+\section O problema da parada.
+
+\endsection
+%%}}}
+
+%%{{{ Asymptotic notation 
+\section A notação assintótica.
+
+\endsection
+%%}}}
+
+%%{{{ Analysis of algorithms 
+\section Análise de algorítmos.
+
+\endsection
+%%}}}
+
+%%{{{ Computational complexity 
+\section Complexidade computacional.
+
+\endsection
+%%}}}
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{cutlandcomputability},
+\cite{kleeneIM},
+\cite{rogersrecursive}.
+
+\cite{kozenac}, \cite{kozentc}.
+
+\cite{daviscu}, \cite{davisccl}, \cite{alicebook}.
+
+\cite[Cap.~7]{bellmachover}.
+
+\cite{dpv},
+\cite{jonescomputability}.
+\cite{gareyjohnson}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Theory_of_recursive_functions 
+\chapter Teoria de funções recursivas.
+\label{Theory_of_recursive_functions}%
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite[Part~III]{kleeneIM},
+\cite{shoenfieldrecursion},
+\cite{ynmrandc},
+\cite{rogersrecursive}.
+
+\cite[Cap.~6--8]{bellmachover}.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Formal languages 
+\chapter Linguagens formais.
+
+%%{{{ Problems 
+\problems.
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite{alicebook},
+\cite{kozenac},
+\cite[Part~2]{davisccl}.
 
 \endfurther
 %%}}}
