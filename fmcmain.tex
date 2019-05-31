@@ -9094,7 +9094,7 @@ $$
 Principalmente, o lado direito, $b \pmod m$, nem é definido, então não tem significado,
 e nem faz sentido afirmar algo sobre ele.
 Prestando mais atenção, percebemos que o $\hole \cong \hole$ também não foi definido!
-O que nos definimos foi o:
+O que nós definimos foi o:
 $$
 \holed u \cong \holed v \pmod {\holed w}
 $$
@@ -25763,9 +25763,10 @@ no~\ref{Functional_programming}.
 
 %%{{{ Q: Can you implement sequences and indexed families? 
 \question.
-Suponha que alguem robou de ti os típos (primitivos) de seqüências e de famílias
-indexadas.  Dá para se virar sem esses?  Ou seja, tem como defini-los em termos
-dos outros tipos que tu (ainda) tens?
+Suponha que alguem robou de ti os típos (primitivos) de seqüências
+e de famílias indexadas.  Dá para se virar sem esses?
+Ou seja, tem como defini-los em termos dos outros tipos
+que tu (ainda) tens?
 %%}}}
 \spoiler.
 
@@ -50250,10 +50251,39 @@ Ainda mais, pelo menos um dos seus subconjuntos não pertence nele.
 Tome um conjunto $A$.
 Usamos a mesma idéia do paradoxo de Russell\Russell[de paradoxo para teorema],
 só que essa vez não consideramos \emph{todos} os conjuntos que não
-pertencem neles mesmo, mas apenas aqueles que pertencem ao $A$.
-Concluimos que $\russell A \notin A$ pois o caso $\russell A \in A$ chega 
-no mesmo absurdo de Russell.
+pertencem neles mesmo, mas apenas aqueles que pertencem ao $A$:
+$$
+\russell A \defeq \setst {x \in A} {x \notin x}.
+$$
+Concluimos que $\russell A \notin A$ pois o caso $\russell A \in A$
+chega no mesmo absurdo de Russell.
 \qes
+%%}}}
+
+\blah.
+Destacamos agora o operador que definimos
+no~\ref{russell_paradox_to_theorem}:
+
+%%{{{ df: russell_operator 
+\definition.
+\label{russell_operator}%
+Seja $a$ conjunto.  Definimos o operador $\russell\dhole$ pela
+$$
+\russell a \defeq \setst {x \in a} {x \notin x}.
+$$
+Chamamos o $\russell\dhole$ de \dterm{operador Russell}{\Russell[operador]}.
+%%}}}
+
+%%{{{ property: russell_operator_property 
+\property.
+\label{russell_operator_property}%
+O operador Russell retorna um objeto (um conjunto)
+que não pertence à sua entrada:
+$$
+\lforall a {\russell a \notin a}.
+$$
+\proof Demonstrado no~\ref{russells_paradox_to_theorem}.
+\qed
 %%}}}
 
 %%{{{ Univ is not a set 
@@ -50800,7 +50830,7 @@ Nosso trabalho então será:
 \emph{representar fielmente} esses tipos e conceitos como conjuntos.
 Para conseguir isto:
 (1) \emph{definimos} os conceitos e objetos como conjuntos;
-(2) \emph{provamos} que nossa implementação realmente atende as especificações.
+(2) \emph{demonstramos} que nossa implementação realmente atende as especificações.
 Muitas vezes vamos até oferecer uma \emph{garantia de unicidade}
 para mostrar para nosso cliente-matemático que ele não precisa
 procurar outras implementações alternativas da nossa concorrência,
@@ -50816,8 +50846,9 @@ Depois relaxamos um pouco deixando uns detalhes tediosos como
 \endsection
 %%}}}
 
-%%{{{ Constructing the tuples 
+%%{{{ Constructing_the_tuples 
 \section Construindo as tuplas.
+\label{Constructing_the_tuples}%
 
 %%{{{ Specification 
 \note Especificação.
@@ -50848,13 +50879,13 @@ $$
 Lembrando a idéia de tupla como black\ii{black box}[de tupla]\ box,
 a interface que desejamos consiste em duas operações,
 as \emph{projecções}
-$\first$ e $\second$ tais que
+$\outl$ e $\outr$ tais que
 $$
-\first \tup{x,y} = x
+\outl \tup{x,y} = x
 \qqqquad
 \text e
 \qqqquad
-\second \tup{x,y} = y.
+\outr \tup{x,y} = y.
 $$
 Queremos definir também um predicado $\Pair(\dhole)$
 para afirmar que um certo objeto representa um par ordenado.
@@ -50869,14 +50900,14 @@ z = \tup {x,y}
 $$
 Finalmente, precisamos e confirmamos:
 $$
-\Pair(z) \iff z = \tup{ \first(z), \second(z) }.
+\Pair(z) \iff z = \tup{ \outl(z), \outr(z) }.
 $$
 Anotamos também que assim que definir \emph{funções} dentro
 da teoria de conjuntos, vamos mostrar a existência das funções
 $$
 \xalignat2
-\pi_0 &\eqtype A\times B \to A &  \pi_1&\eqtype A\times B \to B\\
-\pi_0\tup{x,y} &= x            &  \pi_1\tup{x,y} &= y
+\outl &\eqtype A\times B \to A &  \outr&\eqtype A\times B \to B\\
+\outl\tup{x,y} &= x            &  \outr\tup{x,y} &= y
 \endxalignat
 $$
 para todos os conjuntos $A$ e $B$.
@@ -51231,8 +51262,9 @@ $\tup{x,y} \in w$.
 \endsection
 %%}}}
 
-%%{{{ Constructing the disjoint union 
+%%{{{ Constructing_the_disjoint_union 
 \section Construindo a união disjunta.
+\label{Constructing_the_disjoint_union}%
 
 %%{{{ Specification 
 \note Especificação.
@@ -51281,8 +51313,9 @@ de índices $I$.
 \endsection
 %%}}}
 
-%%{{{ Constructing the relations 
+%%{{{ Constructing_the_relations 
 \section Construindo as relações.
+\label{Constructing_the_relations}%
 
 %%{{{ Specification 
 \note Especificação.
@@ -51459,7 +51492,7 @@ Tente dar a definição mais curta, elegante, e flexível possível!
 \endsection
 %%}}}
 
-%%{{{ Constructing the functions 
+%%{{{ Constructing_the_functions 
 \section Construindo as funções.
 \label{Constructing_the_functions}%
 
@@ -51646,15 +51679,13 @@ Qual $B'$ serve?
 
 \hint
 Duas idéias razoáveis:
-\endgraf\noindent
-\proofstyle{Idéia 1:}
+\crproofalt{Idéia 1:}
 Dados conjuntos $A,B$, escolha (como?)\ um objeto fora do $B$
 para representar a ``diverjão'', ou valor ``não-definido''.
 Lembra-se que $\russell B \notin B$, algo que
 temos graças ao \ref{russells_paradox_to_theorem}.
 Então tome $B' \asseq B \union \russell B$.
-\endgraf\noindent
-\proofstyle{Idéia 2:}
+\crproofalt{Idéia 2:}
 Tome
 $$
 B'
@@ -51751,22 +51782,56 @@ que escolhemos nessa direção é realmente finita.
 \endsection
 %%}}}
 
-%%{{{ Constructing_the_sequences_and_indexed_families 
-\section Construindo as seqüências e famílias indexadas.
-\label{Constructing_the_sequences_and_indexed_families}%
+%%{{{ Constructing_more_familiar_types 
+\section Construindo mais tipos familiares.
+\label{Constructing_more_damiliar_types}%
+
+%%{{{ x: constructing_indexed_families 
+\exercise famílias indexadas.
+Construa as famílias indexadas na teoria dos conjuntos.
+
+\endexercise
+%%}}}
+
+%%{{{ x: why_do_we_not_gain_sequences_by_indexed_families_for_free 
+\exercise.
+\label{why_do_we_not_gain_sequences_by_indexed_families_for_free}%
+<<Como podemos implementar cada seqüência como uma família
+indexada pelo conjunto de indices $\cal I \asseq \nats$,
+e como acabamos de construir as famílias indexadas por
+qualquer conjunto de indices $\cal I$, logo já temos
+construido as seqüências também dentro da teoria dos
+conjuntos.>>
+Concordas?
+
+\hint
+Esse $\nats$ aí é o que mesmo?
+
+\endexercise
+%%}}}
+
+%%{{{ Q: what about groups, monoids, rings, fields, etc.? 
+\question.
+Ainda falta muita coisa: grupos, monóides, aneis, corpos, etc.
+Como podemos construí-los na teoria dos conjuntos?
+%%}}}
+\spoiler.
+
+%%{{{ x: constructing_structured_sets 
+\exercise.
+Construa o conceito de conjunto estruturado na teoria dos conjuntos.
+
+\hint
+Apague o $\cdot$ do $;$ ué.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ Constructing_the_structured_sets 
-\section Construindo os conjuntos estruturados.
-\label{Constructing_the_structured_sets}%
-
-\endsection
-%%}}}
-
-%%{{{ Cardinal arithmetic 
-\section Aritmética cardinal.
+%%{{{ Cardinal_arithmetic 
+\section Cardinais e sua aritmética.
 \label{Cardinal_arithmetic}%
 
 \endsection
@@ -51775,14 +51840,37 @@ que escolhemos nessa direção é realmente finita.
 %%{{{ Classes vs. Sets (II) 
 \section Classes vs{.}~Conjuntos (II).
 
-\note Relações e funções ``grandes demais''.
-\tdefined{predicado}%
-\tdefined{class-relação}%
+\blah.
+Pelas nossas definições de relação e de função, observe
+que nem $\dhole\subset\dhole$ é uma relação unária,
+nem $\pset\dhole$ é uma função unária.
 
-\TODO Explicar.
+%%{{{ x: Singleton_and_pset_are_too_big 
+\exercise.
+Por que não?
+
+\endexercise
+%%}}}
+
+\blah.
+Então certas coisas que \emph{parecem como} relações na verdade
+são ``grandes demais'' para ser relações mesmo (segundo nossa
+definição de relação dentro da teoria dos conjuntos), e similarmente
+sobre funções.  Vamos chamá-las de predicados ou relações-classes,
+e de operadores ou funções-classes:
+
+%%{{{ df: classrelation 
+\definition relação-classe.
+\label{classrelation}%
+\tdefined{predicado}%
+\tdefined{relação-classe}%
+Qualquer fórmula com $n$ buracos determina um
+\dterm{predicado} $n$-ário, que chamamos também de
+\dterm{relação-classe} $n$-ária.
+%%}}}
 
 %%{{{ df: functionlike 
-\definition.
+\definition function-like, função-classe.
 \label{functionlike}%
 Uma fórmula $\Phi(x,y)$ é \dterm{function-like}, sse:
 $$
@@ -52186,7 +52274,7 @@ O axioma Infinity~(\axref{infinity}) é o segundo dos nossos axiomas
 que garanta diretamente a existência dum certo objeto;
 o primeiro foi o Emptyset~(\axref{emptyset}).%
 \footnote{Pois todos os outros começam com quantificadores universais.}
-Assim que aceitamos o Emptyset, nos definimos o símbolo $\emptyset$
+Assim que aceitamos o Emptyset, nós definimos o símbolo $\emptyset$
 para ser \emph{o} conjunto vazio.
 Para poder fazer isso precisamos \emph{provar} a unicidade
 do conjunto vazio~(\ref{uniqueness_of_emptyset}).
