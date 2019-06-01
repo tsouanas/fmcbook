@@ -49691,7 +49691,7 @@ apenas os conjuntos-objetos do nosso universo.
 \iisee{própria}[classe]{classe própria}%
 Dada uma condição definitiva $P(\dhole)$ definimos a \dterm{classe}
 $$
-\class x {P(x)}
+\classst x {P(x)}
 $$
 como um sinónimo da própria condição $P$!
 Chamamos a classe $P$ \dterm{própria} sse não existe \emph{conjunto}
@@ -49706,13 +49706,13 @@ $$
 Dados conjuntos $a$ e $b$,
 das classes
 $$
-\munderbrace{\class x {x = a}} {\set a}
+\munderbrace{\classst x {x = a}} {\set a}
 \qqquad
-\munderbrace{\class x {x \in a \land x\in b}} {a\inter b}
+\munderbrace{\classst x {x \in a \land x\in b}} {a\inter b}
 \qqquad
-\munderbrace{\class x {x \neq x}} {\emptyset}
+\munderbrace{\classst x {x \neq x}} {\emptyset}
 \qqquad
-\class x {x = x}
+\classst x {x = x}
 $$
 apenas a última é própria.
 As outras são conjuntos mesmo!
@@ -50340,14 +50340,14 @@ Definimos assim o operador $\pset\dhole$.
 \label{powersingleton}%
 Seja $a$ conjunto.  Mostre que a classe
 $$
-\class { \set x } { x \in a }
+\classst { \set x } { x \in a }
 $$
 de todos os singletons de elementos de $a$ é conjunto.
 
 \solution
 Queremos mostrar que dado conjunto $a$, a classe
 $$
-\class { \set x } { x \in a }
+\classst { \set x } { x \in a }
 $$
 é conjunto.
 Basta só achar um conjunto $W$ tal que todos os $\set x \in W$.
@@ -50562,7 +50562,7 @@ $$
 \label{finite_set_constructor}%
 Dados $a_1, a_2, \dotsc, a_n$ (onde $n\in\nats$) existe conjunto único
 cujos membros são exatamente os $a_1$, $a_2$, \dots, $a_n$.
-\proof Provarás no~\ref{finite_set_constructor_proof}.
+\proof Demonstrarás no~\ref{finite_set_constructor_proof}.
 \qed
 %%}}}
 
@@ -50875,7 +50875,7 @@ Dados conjuntos $A$ e $B$ queremos que
 $$
 \text{a \emph{classe}}
 \quad
-A\times B = \class z {
+A\times B = \classst z {
 \pexists {x \in A}
 \lexists {y \in B}
 {z = \tup {x,y}}
@@ -51024,7 +51024,7 @@ O operador $\tup{\dhole, \dhole}$ de Kuratowski satisfaz a~\ref{spec_tup2}.
 Sejam $A,B$ conjuntos.
 Precisamos mosrar que a classe
 $$
-A\times B = \class z {
+A\times B = \classst z {
 \pexists {x \in A}
 \lexists {y \in B}
 {z = \tup {x,y}}
@@ -51133,7 +51133,7 @@ $$
 Sejam $A,B$ conjuntos.
 Queremos mosrar que a classe
 $$
-A\times B = \class {\tup{x,y}} {
+A\times B = \classst {\tup{x,y}} {
 x\in A
 \mland
 y\in B
@@ -51365,7 +51365,7 @@ $$
 Formalmente definimos o predicado
 $$
 \Relation(r,a,b)
-\abbrdefeq
+\sugdefiff
 r \subset (a \times b).
 $$
 %%}}}
@@ -51436,9 +51436,9 @@ $$
 \label{a_relto_b_is_a_set}%
 Dados conjuntos $a,b$, a classe
 $$
-(a \relto b)
+\relspace{a,b}
 \defeq
-\classt R {$R$ é uma relação de $a$ para $b$}
+\classstt R {$R$ é uma relação de $a$ para $b$}
 $$
 é um conjunto.
 \proof.
@@ -51447,7 +51447,7 @@ pertencem.
 Pela definição de relação, todas pertencem ao $\pset(a\times b)$.
 De fato, ainda mais é verdade:
 $$
-(a \relto b)
+\relspace{a,b}
 =
 \pset(a\times b)
 $$
@@ -51555,7 +51555,7 @@ $f$ é uma função de $A$ para $B$, etc.
 Formalmente definimos o predicado
 $$
 \Function(f,a,b)
-\sugareq
+\sugdefiff
 \Relation(f,a,b)
 \land
 \pforall {x \in a}
@@ -51571,7 +51571,7 @@ Dados conjuntos $a,b$, a classe
 $$
 (a \to b)
 \defeq
-\class f {f : A \to B}
+\classst f {f : A \to B}
 $$
 é um conjunto.
 \proof.
@@ -51579,9 +51579,9 @@ Fácil:
 $$
 (a \to b)
 =
-\setst {f \in (a \relto b)} {f : A \to B}
+\setst {f \in \relspace{a,b}} {f : A \to B}
 $$
-que é conjunto graças ao operador $(\dhole\relto\dhole)$
+que é conjunto graças ao operador $\relspace{\dhole,\dhole}$
 (\ref{a_relto_b_is_a_set}) e ao axioma da separação~\axref{separation}.
 \qed
 %%}}}
@@ -51654,7 +51654,7 @@ Dados conjuntos $a,b$, a classe
 $$
 (a \parto b)
 \defeq
-\class f {f : A \parto B}
+\classst f {f : A \parto B}
 $$
 é um conjunto.
 
@@ -51663,7 +51663,7 @@ Fácil, como na prova da~\ref{a_to_b_is_a_set}:
 $$
 (a \parto b)
 =
-\setst {f \in (a \relto b)} {f : A \parto B}
+\setst {f \in \relspace{a,b}} {f : A \parto B}
 $$
 que é conjunto.
 
@@ -51735,7 +51735,7 @@ Ela é \dterm{própria} se $f\subsetneq F$.
 Seja $F : A \to B$.
 Prove que a classe
 $$
-\class f { \text{$f$ é uma aproximação da $F$} }
+\classst f { \text{$f$ é uma aproximação da $F$} }
 $$
 é um conjunto.
 
@@ -52089,8 +52089,8 @@ nos $\set h$ e $t$ ganhamos o desejado conjunto.
 \label{one_class_set_the_other_proper_problem}%
 Sejam $a,b$ conjuntos.
 Mostre pelos axiomas \axref{extensionality}--\axref{unionset} que:
-\item{(i)}  a classe $\class {\set{x,\set y}} {x \in a \land y \in b}$ é conjunto;
-\item{(ii)} a classe $\classt {\set{x,y}} {$x,y$ conjuntos com $x\neq y$}$ é própria.
+\item{(i)}  a classe $\classst {\set{x,\set y}} {x \in a \land y \in b}$ é conjunto;
+\item{(ii)} a classe $\classstt {\set{x,y}} {$x,y$ conjuntos com $x\neq y$}$ é própria.
 
 \hint
 (ii) Absurdo.
@@ -52105,14 +52105,14 @@ Sejam $a,b$ conjuntos.
 Mostre pelos axiomas \axref{extensionality}--\axref{unionset} que as classes
 $$
 \align
-C &= \class {\set{x, \set{x,y}}} {x \in a \land y \in b} \\
-D &= \class {\set{x,y}} {
+C &= \classst {\set{x, \set{x,y}}} {x \in a \land y \in b} \\
+D &= \classst {\set{x,y}} {
           \paren{ x \in a \lor x \in \Union a }
           \land
           \paren{y \in b \lor y \subset b}
     } \\
 \intertext{são conjuntos, mas não a classe}
-Z &= \class {\Inter\Inter z} {z \neq \emptyset \land \Inter z \neq \emptyset}.
+Z &= \classst {\Inter\Inter z} {z \neq \emptyset \land \Inter z \neq \emptyset}.
 \endalign
 $$
 
@@ -52475,7 +52475,7 @@ dicionário ``função'' é um certo tipo de conjunto de pares.
 Botamos então
 $$
 \align
-\Succ &\pseudodefeq \class {\tup{n,m}} { m = \setsucc n }
+\Succ &\pseudodefeq \classst {\tup{n,m}} { m = \setsucc n }
 \intertext{e agora só basta achar um conjunto que tem todos esses pares
 como membros.  Fácil:}
 \Succ &\defeq \setst {\tup{n,m}\in \Nats\times \Nats} { m = \setsucc n }.
@@ -53121,7 +53121,7 @@ $$
 $$
 (MS2) Para cada conjunto $A$, a classe
 $$
-\classt M {$M$ é multiset e $\forall x(x \inbag M \limplies x \in A)$}
+\classstt M {$M$ é multiset e $\forall x(x \inbag M \limplies x \in A)$}
 $$
 de todos os multisets formados por membros de $A$ é um conjunto.
 \item{(i)}
@@ -53201,8 +53201,9 @@ precisamos os operadores $\pset$, $\times$, $\parto$, $\setminus$, e o próprio 
 \endproblems
 %%}}}
 
-%%{{{ More axioms 
+%%{{{ More_axioms 
 \section Mais axiomas.
+\label{More_axioms}%
 
 %%{{{ Credits 
 \note Créditos.
@@ -53237,7 +53238,7 @@ colecção deles como conjunto!
 {\rm Para cada função-classe $\Phi(\dhole)$, o seguinte:}
 Para todo conjunto $a$, a classe
 $
-\classimg \Phi a \defeq \class {\Phi(x)} {x \in a}
+\classimg \Phi a \defeq \classst {\Phi(x)} {x \in a}
 $
 é um conjunto.
 $$
@@ -53423,7 +53424,7 @@ como uma implementação de par ordenado.
 \endsection
 %%}}}
 
-%%{{{ Axioms of choice 
+%%{{{ Axioms_of_choice 
 \section Axiomas de escolha.
 \label{Axioms_of_choice}%
 
