@@ -10359,12 +10359,11 @@ d\in\nats
 $$
 %%}}}
 
-%%{{{ thm: gcd_as_linear_combination & gcd_divides_any_linear_combination 
-\theorem.
-\label{gcd_as_linear_combination}%
-\label{gcd_divides_any_linear_combination}%
+%%{{{ lemma: bezout_lemma 
+\lemma Bezout.
+\label{bezout_lemma}%
 \tdefined{combinação linear}%
-Sejam $a,b\in\ints$.
+{\Bezout[lemma]}Sejam $a,b\in\ints$.
 Então existe $d\in\nats$ que satisfaz a definição de $\gcd a b$,
 ele pode ser escrito como \dterm{combinação linear}
 dos $a$ e $b$, com coeficientes inteiros; ou seja,
@@ -10407,8 +10406,8 @@ $$
 $a\divides b \implies \gcd a b = a$.
 Especificamente, $\gcd a 0 = a$.
 \sketch.
-Precisamos apenas verificar as condições da definição de m.d.c., que seguem por
-as propriedades de $\divides$ que já provamos.
+Precisamos apenas verificar as condições da definição de m.d.c.,
+que seguem por as propriedades de $\divides$ que já provamos.
 \qes
 %%}}}
 
@@ -10978,6 +10977,28 @@ Usando o algoritmo estendido de Euclides, escreve:
 
 \endexercise
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Efficiency of Euclid 
+\section Eficiência de Euclides.
+\label{Efficiency_of_Euclid}%
+Quão eficiente é o algoritmo de Euclides?
+
+\TODO Sobre eficiência, operações primitivas, oráculos.
+
+\TODO Fibonacci e Euclides.
+
+\lemma.
+
+\TODO Eficiência de Euclides.
+
+\endsection
+%%}}}
+
+%%{{{ Diophantine equations 
+\section Equações de Diophantus.
 
 \endsection
 %%}}}
@@ -11574,6 +11595,8 @@ Qual foi tua resposta no~\ref{canonical_representation_with_int_exponents}?
 %%{{{ The idea behind congruence relation 
 \section A idéia da relação de congruência.
 
+\TODO pintar com cores, metafora de times.
+
 \blah.
 Vamos fixar um inteiro positivo $m\in\nats$.
 Graças à divisão de Euclides~(\refn{euclidean_division}),
@@ -12062,6 +12085,12 @@ Se $a = b$, então $a\cong b\pmod m$ para qualquer inteiro $m\in\nats$.
 \endsection
 %%}}}
 
+%%{{{ Exponentiation 
+\section Exponenciação.
+
+\endsection
+%%}}}
+
 %%{{{ Divisibility criteria 
 \section Critéria de divisibilidade.
 \label{Divisibility_criteria}%
@@ -12303,7 +12332,7 @@ Precisamos mostrar as duas direções do \bidir.
 \endgraf
 \lrdir:
 Escrevemos o $\gcd a m = 1$ como combinação\ii{combinação linear} linear dos $a$ e $m$
-(sabemos que é possivel por \ref{gcd_as_linear_combination}, e, até melhor construtível
+(sabemos que é possivel por \ref{bezout_lemma}, e, até melhor construtível
 graças ao algoritmo estendido de Euclides,~\ref{extended_euclidean_algorithm}):
 $$
 \alignat 2
@@ -12327,7 +12356,7 @@ $$
 1 = um - ba,
 $$
 a combinação linear dos $a$ e $m$.
-Pelo~\ref{gcd_divides_any_linear_combination}, $\gcd a m \divides 1$,
+Pelo~\ref{bezout_lemma}, $\gcd a m \divides 1$,
 logo $\gcd a m = 1$.
 \qed
 %%}}}
@@ -13052,6 +13081,8 @@ Então $41^{75} \bmod 3 = 2$.
 \endexercise
 %%}}}
 
+\TODO Nova maneira de achar inversos.
+
 \endsection
 %%}}}
 
@@ -13061,14 +13092,16 @@ Então $41^{75} \bmod 3 = 2$.
 \endsection
 %%}}}
 
-%%{{{ Exponentiation 
-\section Exponenciação.
+%%{{{ Residue systems 
+\section Sistemas de resíduos.
+\label{Residue_systems}%
 
 \endsection
 %%}}}
 
 %%{{{ Enter Euler 
 \section Euler entra.
+\label{Enter_Euler}%
 
 %%{{{ df: euler_phi_function 
 \definition Função totiente de Euler.
@@ -40868,8 +40901,8 @@ Mostre que $\cal Z_n$ é um grupo e ache sua ordem.
 %%}}}
 
 \blah.
-Já estamos em posição de ganhar o ``teorema pequeno de Fermat'' e sua
-generalização, o teorema de congruências
+Já estamos em posição de ganhar o ``teorema pequeno de Fermat''
+e sua generalização, o teorema de congruências
 de~\Euler{}Euler~\refn{euler_congruence_theorem}
 como um corolário\Lagrange[teorema!corolário]{} fácil
 das nossas novas ferramentas grupoteóricas.
