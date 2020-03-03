@@ -100,9 +100,9 @@ A frase
 $$
 \text{<<Se $\namedhole A$, (então) $\namedhole B$.>>}
 $$
-é uma afirmação que a proposição $A$ implica a proposição $B$.
+é uma afirmação: que a proposição $A$ implica a proposição $B$.
 Ou seja, não está afirmando que a proposição $A$ é verdade (nem que é falsa),
-e também nada sobre a $B$.
+e também nada sobre a vericidade da $B$.
 No outro lado, a frase
 $$
 \text{<<Como $\namedhole A$, (logo) $\namedhole B$.>>}
@@ -110,6 +110,9 @@ $$
 é uma \emph{argumentação}.
 Seu escritor já usa como fato conhecido que $A$ é verdade,
 e alem disso, ele tá afirmando que $B$ também é verdade por causa disso.
+Em outras palavras, o escritor está \emph{inferindo} a $B$ a partir das
+afirmações $A$ e $A \implies B$ que ele deixa como implícito que o
+leitor aceita ambas.
 
 \endexercise
 %%}}}
@@ -320,17 +323,127 @@ Felizmente as linguagens oferecem ferraments de abstracção para o programador-
 %%{{{ Theorems and friends 
 \section Teoremas e seus amigos.
 
-\TODO Elaborar.
+%%{{{ theorems 
+\note Teoremas.
+\tdefined{theorem}%
+Chamamos de \dterm{teorema} uma proposição que já foi demonstrada
+por alguém.
+Então: que tipo de coisa é um teorema?  É uma proposição.
+E ainda mais, sabemos que essa proposição é verdade, pois já possui
+uma demonstração.
+Uma proposição $P$ que não conseguimos demonstrar ainda, talvez um belo dia
+alguém vai demonstrar e assim vamos falar do teorema $P$, ou pode ser
+que alguém refute, e logo sabemos que não se-trata dum teorema.
+Mas por enquanto, não sabemos se $P$ é um teorema ou não.
+%%}}}
+
+%%{{{ Lemma, theorem, corollary 
+\note Lemma, teorema, corolário.
+\label{lemma_corollary}%
+\tdefined{lemma}%
+\tdefined{corollary}%
+Matematicamente falando então não existe diferença essencial entre lemma e teorema,
+nem entre teorema e corolário;
+mas cuidado no seu uso pois nosso objetivo em matemática é \emph{comunicar},
+e chamando um teorema de lema ou de corolário comunica algo diferente.
+Pense que estamos tentando demonstrar uma proposição que consideramos importante,
+e provavelmente não vai ser muito simples demonstrá-la.
+Chamamos de \dterm{lemma} um teorema que demonstramos para usar em demonstrar
+nosso teorema.  E assim que demonstrar nosso teorema, talvez para divulgá-lo
+e falar da importância dele, consideramos varias proposições que são
+conseqüências (faceis) do nosso teorema principal.
+Esses são os \dterm{corolários} dele.
+Para resumir: 
+%%}}}
+
+%%{{{ conjecture 
+\note Conjectura.
+\tdefined{conjectura}%
+Uma proposição interessante que alguém afirmou e tentou demonstrar
+sem conseguir, é uma \dterm{conjectura}.  Em qualquer momento
+pode ser que alguém consegue demonstrar: nesse caso a proposição
+vai ganhar o direito de ser chamada um teorema.
+Similarmente, ipode ser que alguém consegue refutar:
+nesse caso a proposição é mais uma conjectura, pois já sabemos
+a resposta (negativa) sobre sua vericidade.
+Já no~\ref{Number_theory} vamos conhecer umas conjecturas que têm
+atrapalhado (ou, divertido)
+O que talvez parece estranho---e eu espero pelo menos um pouco incrível
+para meu leitor---é que existe mais uma possibilidade para
+``resolver'' uma tal \dterm{questão em aberto}:
+pode ser que alguém \emph{demonstra que não tem como demonstrá-la
+nem como refutá-la!}
+Mas é cedo demais para analizar mais isso; paciência pois durante
+esse texto vamos ver vários tais exemplos dessa situação e acabar
+entendendo bem a situação.
+%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ And what is ...?  And why ...? 
-\section E o que é \dots?  E por que \dots?.
+%%{{{ Axioms and primitive notions 
+\section Axiômas e noções primitivas.
 
+%%{{{ an "annoying" child 
 \note Uma criança ``chata''.
+Imagine tentando convencer uma criança sobre alguma proposiação $P$:
+\dialogue
+\say $P$
+\say por que $P$?
+\say $P$ pois $Q$.
+\say E por que $Q$?
+\say $Q$ pois $R$.
+\say E por que $R$?
+\enddialogue
+Quem conversou com uma criança sabe que não tem como ganhar nesse
+jogo.  Não tem como justificar tudo: esse dialogo continuando
+nessa forma nunca vai terminar.
+A idéia é que nosso ``oponente'' ou ``inimigo'' (nesse exemplo a criança)
+vai continuar duvidando qualquer uma das novas proposições que usamos
+em nossa argumentação, \emph{até finalmente chegar em algo que concorda
+aceitar}.  Talvez no exemplo da criança chegando numa afirmação do tipo
+<<comer sorvete é bom>> faria o dialogo terminar:
+\dialogue
+\say \dots pois comer sorvete é bom.
+\say Ah sim, faz sentido.
+\enddialogue
+%%}}}
 
-\note Geometria euclideana.
+%%{{{ Euclidean geometry 
+\note Um exemplo: geometria euclideana.
+\label{euclidean_geometry_example}%
+\tdefined{geometria!euclideana}%
+\Euclid{}Euclides na Grécia antiga elaborou, investigou,
+e estabeleceu o que chamamos de \dterm{geometria euclideana}.
+Uma das mais importantes idéias que temos desde então é a percepção
+que precisamos deixar claro quais são nossos axiomas, e trabalhar
+para elaborar nossa teoria, investigando suas conseqüências: os teoremas.
+Similarmente, separamos as noções primitivas que aceitamos sem definir
+formalmente, e as usando continuamos em aumentar mais e mais nosso vocabulário.
+As noções primitivas da geometria euclideana são os \dterm{pontos} e as \dterm{linhas}
+(retas).  E também a relação entre pontos e linhas seguinte:
+<<o ponto {\lthole} pertence à linha {\lthole}>>.
+Não definimos o que significa ser um ponto; nem ser uma linha; nem o que
+significa que um ponto pertence àlguma linha.
+De fato, Euclides tentou dar uma intuição, uma descrição informal sobre suas noções
+primitivas em vez de escrever algo do tipo
+\quote
+essas aqui são noções primitivas, não me perguntem o que significam; aceitam.
+\endquote
+A partir dessas noções primitivas, podemos \emph{definir} conceitos interessantes.
+Por exemplo, em vez de adicionar como primitiva a noção de linhas parallelas,
+podemos realmente definir o que significa ser parallela, numa maneira que
+a criançá chata do exemplo acima um belo momento cairia apenas em noções
+primitivas e não teria como continuar com seus <<e o que é\dots?>>
+%%}}}
+
+%%{{{ x: define_parallel_line 
+\exercise.
+\label{define_parallel_line}%
+Defina o que significa \dterm{ser parallelas}.
+
+\endexercise
+%%}}}
 
 \endsection
 %%}}}
