@@ -45,19 +45,27 @@ Olhando para matemática de longe podemos enxergar dois tipos principais:
 \tdefined{type error}%
 Um \dterm{type error} ocorre quando usamos uma expressão cujo tipo é
 incompatível com o tipo esperado pelo contexto.
+Esse tipo de erro é muito comum quando começamos aprender matemática
+e infelizmente é completamente destruidor: com um type error nosso texto
+\emph{nem compila}, nem chega a dizer algo para ter chances de ser avaliado
+para sua corretude.  Um texto com type errors não chega a ter significado nenhum.
 %%}}}
 
 %%{{{ Logical 
 \note De lógica.
+
 %%}}}
 
 %%{{{ Mathematical 
 \note De matemática.
+Usando propriedades inválidas, erros em cálculos,
 %%}}}
 
 %%{{{ Semantic 
 \note De semântica.
 Isso acontece quando o que escrevemos realmente quis dizer algo, mas não é o que temos na nossa cabeça.
+É quando um programador escreveu seu cógido e ele compilou ``com sucesso'', mas o programa que foi criado não faz o que ele queria.
+Isso acontece muito dando definições; vamos discutir isso na~\ref{Definitions}.
 %%}}}
 
 %%{{{ if_vs_since 
@@ -135,6 +143,7 @@ afirmações ``a baixo'' da tese: as proposições em quais a tese depende.
 
 %%{{{ Definitions 
 \section Definições.
+\label{Definitions}%
 
 \blah.
 Tanto em matemática quanto fora de matemática, para facilitar nosso pensamento
@@ -277,15 +286,93 @@ vamos trabalhar com recursão.
 \note Erros em definições.
 Pode ser que para algum erro uma suposta definição acaba não definindo
 nada pois seu texto não conseguiu descrever nenhum conceito.
+Ou, pode ser que acabou definindo algo mesmo, só que esse algo não é
+o que queriamos definir!
 %%}}}
 
-\TODO Elaborate.
+%%{{{ eg: wrong_def_par_that_does_not_compile 
+\example definição errada que nem compila.
+\label{wrong_def_par_that_compiles}%
+Considere a definição seguinte:
+\quote
+Definição.
+Seja $n$ um inteiro.
+Chamamos o $n$ de \dterm{par} se e somente se $n = 2k$.
+\endquote
+Essa definição \emph{nem compila}.
+Por quê?
+\solution
+O compilador reclamaria com a mensagem
+\quote
+Usou \sq{$k$} mas \sq{$k$} não está declarado aqui.
+\endquote
+Para esclarecer mais a situação, vamos testar se $6$ é um número par.
+Temos
+$$
+\text{$6$ é par}
+\intiff
+\text{6 = 2k}.
+$$
+Ou seja, basta verificar se realmente $6 \askeq 2k$.
+Mas nessa afirmação está sendo referido um objeto $k$ que nunca foi
+declarado (nem definido).  \emph{Quem é esse $k$?}
+Ninguém sabe, não faz sentido então afirmar nada que envolve $k$.
+
+\endexample
+%%}}}
+
+%%{{{ eg: wrong_def_par_that_compiles 
+\example definição errada que compila.
+\label{wrong_def_par_that_compiles}%
+Considere a definição seguinte:
+\quote
+Definição.  Seja $n$ um inteiro.  Chamamos o $n$ de \dterm{par} se e somente se
+$n = 2k$ para qualquer inteiro $k$.
+\endquote
+Essa definição ``compila''.
+Mas o conceito que foi definido não é o que o seu escritor tinha no coração dele.
+\endexample
+%%}}}
+
+%%{{{ x: check_wrong_def_of_par_that_compiles 
+\exercise.
+\label{check_wrong_def_of_par_that_compiles}%
+Por quê?
+Qual o problema com a definição do~\ref{wrong_definition_of_par_that_compiles}?
+Como podemos consertar?
+
+\solution
+Essa definição não aceita objetos que deveria aceitar.
+Por exemplo, o $2$ não é um número par segundo essa definição,
+pois, lembrando:
+$$
+\text{$6$ é par} \intiff \text{para todo inteiro $k$, $6=2k$}.
+$$
+Para \emph{refutar} a afirmação que $6$ é par então, basta achar
+um inteiro $k$ tal que $6 \neq 2k$.
+Tome $k \asseq 1$ e observe que $6 \neq 2\ntimes 1$ e pronto,
+o $6$ acabou sendo um número não par!
+Para consertar a definição basta trocar o ``para todo''
+por ``para algum''!
+
+\endexercise
+%%}}}
 
 %%{{{ What is ``well-defined''? 
 \note O que é ``bem-definido''?.
+Essa frase deixa muita gente confusa em matemática.
+Realmente fica estranho pedir para teu leitor demonstrar, por exemplo,
+que um tal símbolo, notação, função, não foi bem-definida.
+Como assim?
+Se não foi bem-definida, como que estamos usando sua notação então?
+A idéia nesse caso seria explicar exatamente o porquê que o compilador
+reclamaria na sua definição.  Em geral, o erro fica na falta de determinicidade:
+\emph{fingimos} que determinamos um certo objeto que nomeamos numa certa forma,
+mas na verdade deixamos muita liberdade (ambigüidade) no nosso leitor,
+pois vários objetos satisfazem essa condição, então nossa descrição \emph{não
+determinou} um objeto.  No outro extremo, pode ser que nenhum objeto satisfaz
+a condição, então é como se a gente tentou dar nome para algo que nem existe.
 %%}}}
-
-\TODO Explain and examples, point to fun chap.
 
 %%{{{ The importance of definitions 
 \note A importância das definições.
@@ -2606,6 +2693,7 @@ então tua prova realmente estabelece a veracidade dos teus alvos.
 
 %%{{{ where's the compiler? 
 \note Cadê o compilador?.
+\label{where_is_the_compiler}%
 Um dos maiores problemas em nossos primeiros contatos com
 matemática \emph{de verdade}, é ``roubar sem querer''.
 Em programação, o compilador assume bastante um papel de
