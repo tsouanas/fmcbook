@@ -15688,9 +15688,9 @@ Demonstre a segunda igualdade da~\ref{set_de_morgan}.
 \endexercise
 %%}}}
 
-%%{{{ warning: set_proof_using_formulas 
+%%{{{ warning: set_de_morgan_using_formulas 
 \warning Não escreva assim!.
-\label{set_proof_using_formulas}%
+\label{set_de_morgan_using_formulas}%
 Uma outra maneira de demonstrar a~\ref{set_de_morgan},
 é calcular usando fórmulas e leis de lógica:
 \compute
@@ -15710,7 +15710,8 @@ C \setminus (A \union B)
 (C \setminus A) \inter (C \setminus B)
 $
 pela definição de igualdade de conjuntos.
-E a demonstração da outra igualdade é similar, pois é a sua proposição \ii{dualidade}\emph{dual}:
+E a demonstração da outra igualdade é de graça,
+pois é a sua proposição \ii{dualidade}\emph{dual}:
 trocamos apenas os $\union$ com os $\inter$, e os $\lor$ com os $\land$!
 \emph{Mas não fique muito empolgado com essa demonstração--cálculo:}
 uma demonstração duma proposição é um texto, legível, que um humano consegue
@@ -16951,25 +16952,21 @@ C \setminus {\Union_{n=0}^\infty A_n} &= \Inter_{n=0}^{\infty} \paren{C \setminu
 C \setminus {\Inter_{n=0}^\infty A_n} &= \Union_{n=0}^{\infty} \paren{C \setminus A_n}.
 \endalign
 $$
-\proof \proofname~(usando fórmulas).
+\proof.
 Sejam $C$ conjunto e $\set{ A_n }_n$ seqüência de conjuntos.
-Calculamos
-\compute
-x \in C \setminus \Unionl_{n=0}^{\infty}A_n
-&\iff x \in C \land \lnot \biggparen{x \in \Unionl_{n=0}^{\infty}A_n}   \by {def.~$\setminus$}
-&\iff x \in C \land \lnot (\exists n\in\nats)[x \in A_n]  \by {def.~$\Unionl_{n=0}^{\infty}$}
-&\iff x \in C \land (\forall n\in\nats)[x \notin A_n]     \by {De Morgan}
-&\iff (\forall n\in\nats)[x \in C \land x \notin A_n]     \by {lógica}
-&\iff (\forall n\in\nats)[x \in C \setminus A_n]          \by {def.~$\setminus$}
-&\iff x \in \Interl_{n=0}^{\infty}(C \setminus A_n).      \by {def.~$\Interl_{n=0}^{\infty}$}
-\endcompute
-A prova da outra igualdade é similar:
-é só trocar os $\Union$ com os $\Inter$, e os $\exists$ com os $\forall$!
+Mostramos as duas inclusões separadamente:
+\crproofpart{\lrdirset}:
+Tome $x \in C \setminus \Union_{n=0}^{\infty}A_n$,
+ou seja, $x \in A_k$ para algum $k\in \nats$,
+e logo $x \notin C \setminus A_k$ e daí
+$x \notin \Inter_n \paren{C \setminus A_n}$
+(pois não pertence no seu $k$-ésimo conjunto)
+\crproofpart{\rldirset}: Deixo pra ti (\ref{set_de_morgan_gen_exercise}).
 \qed
 %%}}}
 
 \blah.
-Observe a semelhança entre essa prova e a prova da~\ref{set_de_morgan}:
+Observe a semelhança entre essa prova e a prova da~\ref{set_de_morgan},
 até nas justificativas de cada passo!
 Realmente, a~\ref{set_de_morgan_gen} é uma generalização
 da~\refn{set_de_morgan}, algo que tu provarás no exercício seguinte:
@@ -16978,7 +16975,7 @@ da~\refn{set_de_morgan}, algo que tu provarás no exercício seguinte:
 \exercise.
 \label{set_de_morgan_gen_indeed}%
 O que precisamos fazer para ganhar a~\ref{set_de_morgan} como um corolário
-da~\refn{set_de_morgan_gen}?
+da~\ref{set_de_morgan_gen}?
 
 \hint
 Quais são os dados que precisamos ter per aplicar a~\ref{set_de_morgan_gen}?
@@ -17002,21 +16999,32 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ x: set_de_morgan_gen_nat_lang 
+%%{{{ x: set_de_morgan_gen_exercise 
 \exercise.
-Escreva uma prova em linguagem natural da~\ref{set_de_morgan_gen}.
+\label{set_de_morgan_gen_exercise}%
+Termine a demonstração da~\ref{set_de_morgan_gen}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: set_de_morgan_gen_using_formulas 
+\exercise.
+Tente escrever uma prova da~\ref{set_de_morgan_gen} usando fórmulas
+como no~\ref{set_de_morgan_using_formulas}.
 
 \solution
-Mostramos as duas inclusões separadamente:
-\endgraf
-\lrdirset:
-Tome $x \in C \setminus \Union_{n=0}^{\infty}A_n$,
-ou seja, $x \in A_k$ para algum $k\in \nats$,
-e logo $x \notin C \setminus A_k$ e daí
-$x \notin \Inter_n \paren{C \setminus A_n}$
-(pois não pertence no seu $k$-ésimo conjunto)
-\endgraf
-A inclusão inversa \rldirset\ é similar.
+Calculamos
+\compute
+x \in C \setminus \Unionl_{n=0}^{\infty}A_n
+&\iff x \in C \land \lnot \biggparen{x \in \Unionl_{n=0}^{\infty}A_n}   \by {def.~$\setminus$}
+&\iff x \in C \land \lnot (\exists n\in\nats)[x \in A_n]  \by {def.~$\Unionl_{n=0}^{\infty}$}
+&\iff x \in C \land (\forall n\in\nats)[x \notin A_n]     \by {De Morgan}
+&\iff (\forall n\in\nats)[x \in C \land x \notin A_n]     \by {$n$ não livre em $x\in C$}
+&\iff (\forall n\in\nats)[x \in C \setminus A_n]          \by {def.~$\setminus$}
+&\iff x \in \Interl_{n=0}^{\infty}(C \setminus A_n).      \by {def.~$\Interl_{n=0}^{\infty}$}
+\endcompute
+A prova da outra igualdade é de graça pois é sua dual:
+é só trocar os $\Union$ com os $\Inter$, e os $\exists$ com os $\forall$!
 
 \endexercise
 %%}}}
