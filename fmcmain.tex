@@ -15653,44 +15653,20 @@ Realmente $A \subsetneq B$ e $A \subsetneq C$, mas mesmo assim $A = B\inter C$.
 %%}}}
 
 %%{{{ prop: set_de_morgan 
-\proposition.
+\proposition leis de De Morgan para conjuntos.
 \label{set_de_morgan}%
-\ii{dualidade}%
-Para todos os conjuntos $A,B,C$,
+\DeMorgan[leis para conjuntos]{}%
+Para quaisquer conjuntos $A,B,C$,
 $$
 \align
 C \setminus (A \union B) &= (C \setminus A) \inter (C \setminus B)\\
 C \setminus (A \inter B) &= (C \setminus A) \union (C \setminus B).
 \endalign
 $$
-\proof \proofname~(usando fórmulas).
-Sejam $A,B,C$ conjuntos.  Temos:
-\compute
-x \in C \setminus (A \union B)
-&\iff x \in C \land \lnot (x \in A \union B)                       \by {def.~$\setminus$}
-&\iff x \in C \land \lnot (x \in A \lor x \in B)                   \by {def.~$\union$}
-&\iff x \in C \land (x \notin A \land x \notin B)                  \by {De Morgan}
-&\iff (x \in C \land x \notin A) \land (x \in C \land x \notin B)  \by {lógica}
-&\iff (x \in C \setminus A) \land (x \in C \setminus B)            \by {def.~$\setminus$}
-&\iff x \in (C \setminus A) \inter (C \setminus B)                 \by {def.~$\inter$}
-\endcompute
-Logo
-$
-C \setminus (A \union B)
-=
-(C \setminus A) \inter (C \setminus B)
-$
-pela definição de igualdade de conjuntos.
-A prova da outra igualdade é similar:
-trocamos apenas os $\union$ com os $\inter$, e os $\lor$ com os $\land$!
-\qed
-%%}}}
-
-%%{{{ x: set_de_morgan_nat_lang 
-\exercise.
-Escreva uma prova em linguagem natural da~\ref{set_de_morgan}.
-
-\solution
+\proof.
+Sejam $A,B,C$ conjuntos.
+Vamos demonstrar a primeira igualdade e deixar a segunda como
+exercício~(\refn{set_de_morgan_exercise}).
 Mostramos as duas inclusões separadamente:
 \endgraf
 \lrdirset:
@@ -15701,8 +15677,45 @@ similarmente $x\in C\setminus B$.
 Logo chegamos no desejado $x\in (C\setminus A) \inter (C\setminus B)$.
 \endgraf
 A inclusão inversa \rldirset\ é similar.
+\qed
+%%}}}
+
+%%{{{ x: set_de_morgan_exercise 
+\exercise.
+\label{set_de_morgan_exercise}%
+Demonstre a segunda igualdade da~\ref{set_de_morgan}.
 
 \endexercise
+%%}}}
+
+%%{{{ warning: set_proof_using_formulas 
+\warning Não escreva assim!.
+\label{set_proof_using_formulas}%
+Uma outra maneira de demonstrar a~\ref{set_de_morgan},
+é calcular usando fórmulas e leis de lógica:
+\compute
+x \in C \setminus (A \union B)
+&    \iff x \in C \land \lnot (x \in A \union B)                       \by {def.~$\setminus$}
+&    \iff x \in C \land \lnot (x \in A \lor x \in B)                   \by {def.~$\union$}
+&    \iff x \in C \land (x \notin A \land x \notin B)                  \by {De Morgan}
+&    \iff (x \in C \land x \in C) \land (x \notin A \land x \notin B)  \by {idempotência de $\land$}
+&\dotsiff (x \in C \land x \notin A) \land (x \in C \land x \notin B)  \by {assoc.~e comut.~de~$\land$}
+&    \iff (x \in C \setminus A) \land (x \in C \setminus B)            \by {def.~$\setminus$}
+&    \iff x \in (C \setminus A) \inter (C \setminus B).                \by {def.~$\inter$}
+\endcompute
+Logo
+$
+C \setminus (A \union B)
+=
+(C \setminus A) \inter (C \setminus B)
+$
+pela definição de igualdade de conjuntos.
+E a demonstração da outra igualdade é similar, pois é a sua proposição \ii{dualidade}\emph{dual}:
+trocamos apenas os $\union$ com os $\inter$, e os $\lor$ com os $\land$!
+\emph{Mas não fique muito empolgado com essa demonstração--cálculo:}
+uma demonstração duma proposição é um texto, legível, que um humano consegue
+seguir, entender, e verificar;
+exatamente como fizemos na~\ref{set_proof_using_formulas}.
 %%}}}
 
 %%{{{ prop: symdiff_altdef1 
