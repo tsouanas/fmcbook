@@ -16413,44 +16413,47 @@ Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pert
 \section Tuplas.
 \label{Tuples}%
 
-\secintro.
+%%{{{ secintro 
+\secintro
 Até agora temos trabalhado bastante com conjuntos,
 e sabemos que podemos perguntar um conjunto se qualquer
 objeto é um membro dele ou não, mas um conjunto não pode
 nos dar uma informação de ordem (\ref{order_and_multiplicity}).
-Se temos os dois primeiros ganhadores dum campeanato
-num conjunto $W$, não temos como saber quem ganhou o
+Imagine que temos os dois primeiros ganhadores dum campeanato
+num conjunto $W$; não temos como saber quem ganhou o
 ouro e quem o prata.
-Precisamos um outro tipo nesse caso, que podemos perguntar
-\emph{em vez de se tal objeto pertence},
+Precisamos um outro tipo nesse caso, cuja interface é
+perguntar
+\emph{<<quem é teu primeiro objeto?>>}~e
+\emph{<<quem é teu segundo objeto?>>}~também.
+Oi, tuplas!
+%%}}}
 
 \blah.
 Vamos primeiramente entender a idéia de \dterm{par ordenado},
-ou $2$-tupla, ou (por enquanto) simplesmente \dterm{tupla}.
+ou $2$-tupla, ou---por enquanto---simplesmente \dterm{tupla}.
 O que é?
-Um par de objetos (não necessariamente distintos)
-onde um deles é considerado primeiro e o outro segundo.
-Só isso mesmo.
-Naturalmente, podemos generalizar a idéia de par ordenado,
-cujo tamanho é $2$, para um conceito correspondente de tamanho $n$,
-onde $n$ é qualquer número natural.  Oi, tuplas!
+\emph{Dois objetos (não necessariamente distintos)
+onde um deles é considerado primeiro e o outro segundo.}
+Só isso mesmo!
+Vamos denotar o par ordenado dos objetos $a$ e $b$ (nessa ordem)
+por $\tupa{a, b}$ ou $\tupp{a, b}$.
 
-%%{{{ Notation and terminology 
-\note Notação e terminologia.
-Denotamos o par ordenado dos objetos $a$ e $b$ pelo $\tupa{a, b}$
-ou $\tupp{a, b}$.
+%%{{{ tuples_towards_interface_equality_notation 
+\note Interface, igualdade, notação.
+\label{tuples_towards_interface_equality_notation}%
+Precisamos: descrever qual é o ``interface primitivo'' desse novo
+tipo, \emph{em tal forma que deixamos claro o que precisamos definir
+para determinar uma tupla}.
+Tendo isso vamos também definir o que significa $=$ entre tuplas.
+Pensando em black boxes ajudou nos conjuntos; que tal tentar agora também?
 %%}}}
 
-%%{{{ tuples_interface_and_equality 
-\note Interface e igualdade.
-\label{tuples_interface_and_equality}%
-Precisamos: (1) descrever qual é o ``interface primitivo'' desse novo
-tipo, em tal forma que deixamos claro o que precisamos definir
-para determinar uma tupla; e (2) o que significa $=$ entre tuplas.
-Consideramos que duas tuplas são iguais sse elas
-``concordam em cada posição''.
-Sem aspas, chegamos nas definições:
+%%{{{ Q: How would you describe a black box for tuples? 
+\question.
+Como descreverias um black box de tupla?
 %%}}}
+\spoiler.
 
 %%{{{ Black boxes for tuples 
 \note Tupla como black box.
@@ -16474,7 +16477,9 @@ e cada vez que apertamos um botão cria um objeto: apertando o primeiro
 sai o objeto $a$, apertando o segundo sai o $b$.
 Na segunda não tem nenhum botão nem entradas, mas só duas saidas:
 na primeira sempre sai o $a$, na segunda o $b$.
-Como nos black boxes de conjuntos, os black boxes de tuplas também são deterministas: apertando o mesmo botão sempre sai o mesmo objeto (na primeira versão), e olhando para o mesmo cabo-saida sempre sai o mesmo objeto.
+Como nos black boxes de conjuntos, os black boxes de tuplas também são
+deterministas: apertando o mesmo botão sempre sai o mesmo objeto
+(na primeira versão), e olhando para o mesmo cabo-saida sempre sai o mesmo objeto.
 No outro lado, existe uma grande diferença: um black box de conjunto
 \emph{recebe} um objeto e \emph{vira uma proposição;} um black box de tupla
 \emph{não recebe nenhum objeto} (apenas escolhemos se queremos extrair o
@@ -16482,28 +16487,16 @@ primeiro ou o segundo componente dele, e ele \emph{retorna} mesmo esse
 \emph{objeto}.
 %%}}}
 
-%%{{{ tuple_projections 
-\note Interface: projecções.
-\label{tuple_projections}%
-As operações primitivas de tuplas são as $\proj 0$ e $\proj 1$,
+%%{{{ tuple_interface 
+\note Interface.
+\label{tuple_interface}%
+As operações primitivas de tuplas são as operações unárias
+$\proj 0$ e $\proj 1$,
 chamadas \dterm{projecções}.
 Nada mais!
-%%}}}
-
-%%{{{ tuple_projections 
-\note Equações fundamentais.
-\label{tuple_fundamental_equations}%
-As 
-chamadas \dterm{projecções}.
-
-
-tais que para todos os $x,y$, temos
-$$
-\xalignat2
-\proj 0 \tup{x,y} &= x &
-\proj 1 \tup{x,y} &= y
-\endxalignat
-$$
+Para qualquer tupla $t$,
+$\proj 0 t$ é seu primeiro componente e
+$\proj 1 t$ o seu segundo.
 %%}}}
 
 %%{{{ remark: Alternative notations 
@@ -16514,14 +16507,113 @@ $$
 \qquad
 \pproj0 {\dhole},\ \pproj1 {\dhole},\ \dotsc;
 \qquad
-\fst,\ \snd;
+\outl,\ \outr;
 \qquad
-\outl,\ \outr.
+\fst,\ \snd.
 $$
 Em vez de decorar os símbolos das projecções com índices começando
 no $0$, as vezes é mais útil começar no $1$.  Mas não se preocupe
 tanto com isso pois pelo contexto vai sempre ser claro qual é a
 notação seguida.
+%%}}}
+
+%%{{{ Q: How to determine a tuple 
+\question.
+O que preciso fazer para ter o direito de dizer que eu determinei uma tupla?
+%%}}}
+
+%%{{{ A 
+\blah Resposta.
+Preciso ter dois objetos, numa ordem.
+Querendo ou não, é isto que é uma tupla.
+Vamos ver isso em mais detalhe.
+%%}}}
+
+%%{{{ tuple_determine 
+\note Como determinar.
+\label{tuple_determine}%
+A partir da interface de tuplas (\refn{tuple_interface}),
+é claro que para determinar uma tupla $\alert t$ precisamos
+definir como ela comporta, ou seja, isto:
+\quote
+Seja $\alert t$ a tupla definida pelas
+$$
+\align
+\proj 0 {\alert t} &\alertdefeq x \\
+\proj 1 {\alert t} &\alertdefeq y.
+\endalign
+$$
+\endquote
+Observe que aqui os $x$ e $y$ supostamente já são objetos
+bem-definidos.
+Em vez de escrever tudo isso, usamos direitamente
+a notação-construtor de tuplas:
+%%}}}
+
+%%{{{ tuple_constructor 
+\definition Construtor de tupla.
+\label{tuple_constructor}%
+\tdefined{construtor!de tuplas}%
+Sejam $x,y$ objetos.
+Denotamos por $\tup{x,y}$ a tupla definida pelas
+$$
+\xalignat2
+\proj 0 {\tup{x,y}} &= x & \proj 1 {\tup{x,y}} &= y
+\endxalignat
+$$
+Consideramos então o $\tup{\dhole,\dhole}$ como um
+\dterm{construtor de tuplas}.
+%%}}}
+
+%%{{{ warning: dont_redefine_the_constructor_of_tuples 
+\warning.
+\label{dont_redefine_the_constructor_of_tuples}%
+Acabamos de \emph{definir} o símbolo $\tup{x,y}$ para quaisquer $x,y$.
+Não é apenas que <<não precisa>>, ainda mais: é que \emph{não podes}
+re-definir isso.  Se tu tens dois objetos $x$ e $y$, não tenta justificar
+nem introduzir para teu leitor o que é o $\tup{x,y}$.
+Ele já sabe, a partir da \ref{tuple_constructor}.
+Ele também sabe o que significa somar;
+tu não escreverias
+\quote
+Seja $x+y$ inteiro tal que ele é a soma dos $x$ e $y$.
+\endquote
+Certo?
+%}}}
+
+%%{{{ tuple_fundamental_equations 
+\note Equações fundamentais.
+\label{tuple_fundamental_equations}%
+Considere que temos $x,y$, dois objetos.
+Podemos então formar a tupla $\tup{x,y}$ deles,
+e depois usar as projecções $\proj 0$ e $\proj 1$ nessa tupla.
+O que cada uma delas vai retornar para nos?
+$$
+\xalignat2
+\proj 0 \tup{x,y} &= x &
+\proj 1 \tup{x,y} &= y
+\endxalignat
+$$
+Conversamente agora, considere que temos uma tupla $t$.
+E nela usamos as projecções $\proj 0$ e $\proj 1$,
+e botamos esses valores (e nessa ordem) para construir
+uma tupla. Onde chegamos?
+Olhe isso; e olhe isso bem:
+$$
+t = \tup{ \proj 0 t , \proj 1 t }.
+$$
+%%}}}
+
+%%{{{ Q: How would you describe equality for tuples? 
+\question.
+Como definarias igualdade entre tuplas?
+%%}}}
+\spoiler.
+
+%%{{{ A: informal answer 
+\blah Resposta informal.
+Duas tuplas são iguais sse ``concordam em cada posição''.
+Sem aspas, chegamos nos seguintes:
 %%}}}
 
 %%{{{ df: tuples_equality 
@@ -16538,21 +16630,6 @@ $$
 \defiff
 x = x' \mland y = y'.
 $$
-%%}}}
-
-%%{{{ construtor de tuplas
-\note Notação de construtor.
-\label{tuple_constructor}%
-\tdefined{construtor!de tuplas}%
-Sejam $x,y$ objetos.
-Denotamos por $\tup{x,y}$ a tupla definida pelas
-$$
-\xalignat2
-\proj 0 {\tup{x,y}} &= x & \proj 1 {\tup{x,y}} &= y
-\endxalignat
-$$
-Consideramos então o $\tup{\dhole,\dhole}$ como um
-\dterm{construtor de tuplas}.
 %%}}}
 
 %%{{{ df: cartesian_product 
@@ -16687,6 +16764,18 @@ $$
 
 \endexercise
 %%}}}
+
+\blah.
+Naturalmente, podemos generalizar a idéia de par ordenado,
+cujo tamanho é $2$, para um conceito correspondente de tamanho $n$,
+para qualquer número natural $n$.
+
+\endsection
+%%}}}
+
+%%{{{ More_tuples 
+\section Mais tuplas.
+\label{More_tuples_more_products}%
 
 % 3-tuples
 
@@ -26829,7 +26918,7 @@ a definição de igualdade do típo que estamos implementando
 \exercise.
 Implemente as tuplas;
 tome cuidado para deixar claro como usá-las;
-lembre-se o~\refn{tuples_interface_and_equality} da~\ref{Tuples}.
+lembre-se o que elaboramos nas secções~\refn{Tuples} e~\refn{More_tuples}.
 
 \endexercise
 %%}}}
