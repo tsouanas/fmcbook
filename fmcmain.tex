@@ -6003,7 +6003,7 @@ e logo $n \leq Sm$.
 %%}}}
 
 \blah.
-Nos exercícios seguintes vamos provar que $\leq$ é uma \dterm{ordem linear}.
+Nos exercícios seguintes vamos provar que $\leq$ é uma \dterm{ordem linear}, i.e.:
 
 %%{{{ x: natleq_refl 
 \exercise Reflexiva.
@@ -15637,11 +15637,10 @@ Uma outra maneira de demonstrar a~\ref{set_de_morgan},
 é calcular usando fórmulas e leis de lógica:
 \compute
 x \in C \setminus (A \union B)
-&    \iff x \in C \land \lnot (x \in A \union B)                       \by {def.~$\setminus$}
+&    \iff x \in C \land \lnot (x \in A \union B)                       \by {def.~$C \setminus (A \union B)$}
 &    \iff x \in C \land \lnot (x \in A \lor x \in B)                   \by {def.~$\union$}
 &    \iff x \in C \land (x \notin A \land x \notin B)                  \by {De Morgan}
-&    \iff (x \in C \land x \in C) \land (x \notin A \land x \notin B)  \by {idempotência de $\land$}
-&\dotsiff (x \in C \land x \notin A) \land (x \in C \land x \notin B)  \by {assoc.~e comut.~de~$\land$}
+&\dotsiff (x \in C \land x \notin A) \land (x \in C \land x \notin B)  \by {idemp.,~assoc.,~comut~de~$\land$}
 &    \iff (x \in C \setminus A) \land (x \in C \setminus B)            \by {def.~$\setminus$}
 &    \iff x \in (C \setminus A) \inter (C \setminus B).                \by {def.~$\inter$}
 \endcompute
@@ -15896,8 +15895,9 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Big union; big intersections 
+%%{{{ Big_union_Big_intersection 
 \section União grande; intersecção grande.
+\label{Big_union_Big_intersection}%
 
 %%{{{ intro 
 \blah.
@@ -16258,14 +16258,179 @@ $\Inter\scr A \subset W \subset \Union\scr B$.)
 \endsection
 %%}}}
 
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+
+%%{{{ equal_Union_and_Inter 
+\problem.
+\label{equal_Union_and_Inter}%
+Seja $\scr A$ família de conjuntos tal que
+$$
+\Union \scr A = \Inter \scr A.
+$$
+O que podes concluir sobre o $\scr A$?
+
+\solution
+Vou demonstrar que $\scr A$ tem exatamente um membro ($\scr A$ é um singleton).
+\crtabproofpart{$\scr A$ tem pelo menos um membro.}
+Se $\scr A$ fosse vazio não teriamos
+$\Union \scr {A} = \Inter \scr {A}$,
+pois o primeiro é o vazio e o segundo o universo.
+\crtabproofpart{$\scr A$ tem no máximo um membro.}
+Sejam $A,B \in \scr A$.
+Vou mostrar que $A=B$.
+\crproofpart{\lrdirset}:
+Para qualquer $x$ temos:
+\compute
+x \in A
+&\implies x \in \Union \scr A   \by {$A \in \scr A$ e def.~$\Union\scr A$}
+&\implies x \in \Inter \scr A   \by {$\Union \scr A = \Inter \scr A$}
+&\implies x \in B               \by {$B \in \scr A$ e def.~$\Inter\scr A$}
+\endcompute
+\proofpart{A {\rldirset}} é similar.
+\crproofalt{Alternativa usando reductio ad absurdum.}
+Para chegar numa contradição suponha que $A \neq B$.
+Logo seja $t \in A \symdiff B$, ou seja $t$ pertence a um dos $A,B$ mas não ao outro.
+Logo $t \in \Union \scr A$ e $t \notin \Inter \scr A$, absurdo.
+
+\endproblem
+%%}}}
+
+%%{{{ dualize_and_prove_Inter_of_containters_contains 
+\problem.
+\label{dualize_and_prove_Inter_of_containters_contains}%
+Dualize e demonstre o resultado do~\ref{Inter_of_supsets_supset}.
+
+\endproblem
+%%}}}
+
+%%{{{ arbitrary_finite_symdiff 
+\problem.
+\label{arbitrary_finite_symdiff}%
+Sejam $n\in\nats$ com $n\geq 2$ e $n$ conjuntos
+$A_1, A_2, \dotsc, A_n$.
+Seja
+$$
+A = A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n.
+$$
+Observe que como a operação $\symdiff$ é associativa e comutativa,
+o $A$ é bem-definido.
+Prove que:
+$$
+A = \setstt a {$a$ pertence a uma quantidade ímpar de $A_i$'s}.
+$$
+
+\hint
+Indução.
+
+\solution
+Provamos por indução que para todo inteiro $n \geq 2$,
+$$
+A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n
+= \setstt a {$a$ pertence numa quantidade ímpar de $A_i$'s}.
+$$
+\proofpart{Base ($n=2$):}
+$x \in A_1 \symdiff A_2 \iff \text{$x$ pertence a uma quantidade ímpar dos $A_1,A_2$}$ (óbvio).
+\endgraf
+\proofpart{Passo indutivo:}
+Seja $k\in\nats$ tal que 
+$$
+A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k
+= \set{ a \st \text{$a$ pertence a uma quantidade ímpar de $A_i$'s}}.\tag{H.I.}
+$$
+Precisamos mostrar que:
+$$
+A_1 \symdiff \dotsb \symdiff A_{k+1}
+= \set{ a \st \text{$a$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$'s}}.
+$$
+\endgraf
+(\lrdirset):
+Suponha que $x\in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_{k+1}$,
+ou seja, $x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
+Pela definição de $\symdiff$, temos dois casos:
+\endgraf
+\case{Caso 1:}
+$x \in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\notin A_{k+1}$.\CR
+Pela H.I., $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$,
+e não ao $A_{k+1}$, então a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
+\endgraf
+\case{Caso 2:}
+$x \notin A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\in A_{k+1}$.\CR
+Pela H.I., $x$ pertence a uma quantidade par dos $A_1,\dotsc,A_k$ e também ao
+$A_{k+1}$, então a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
+\endgraf
+\bigskip
+\endgraf
+(\rldirset):
+Suponha que $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
+Separamos em dois casos:
+\endgraf
+\case{Caso 1:} $x \in A_{k+1}$.\CR
+Logo $x$ pertence a uma quantidade par dos $A_1,\dotsc,A_k$
+e logo
+$x\notin A_1\symdiff\dotsb\symdiff A_k$ (pela H.I.). 
+Ou seja,
+$x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
+\endgraf
+\case{Caso 2:} $x \notin A_{k+1}$.\CR
+Nesse caso $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$
+e pela H.I.~temos que $x\in A_1\symdiff\dotsb\symdiff A_k$.
+De novo,
+$x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
+
+\endproblem
+%%}}}
+
+%%{{{ arbitrary_finite_symdiff_gen 
+\problem.
+\label{arbitrary_finite_symdiff_gen}%
+O que devemos mudar (e como) no~\ref{arbitrary_finite_symdiff} e sua resolução,
+se apagar o ``$n \geq 2$''?
+
+\hint
+O que significa $A_1\symdiff\dotsb\symdiff A_n$ nesse caso?
+Por quê?
+
+\solution
+Precisamos verificar que a expressão $A_1\symdiff\dotsb\symdiff A_n$
+faz sentido no caso que $n=0$, ou seja, definir razoavelmente a
+diferença simétrica de uma seqüência vazia de conjuntos.
+Formalmente verificamos que
+$\emptyset\symdiff C = C = C\symdiff\emptyset$ para qualquer
+conjunto $C$:
+$\emptyset$ é o elemento neutro da operação $\symdiff$,
+e logo o valor próprio da expressão acima.
+\endgraf
+Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pertence numa quantidade ímpar dos (zero) $A_i$'s, que é óbvio.
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ Tuples 
 \section Tuplas.
 \label{Tuples}%
 
+\secintro.
+Até agora temos trabalhado bastante com conjuntos,
+e sabemos que podemos perguntar um conjunto se qualquer
+objeto é um membro dele ou não, mas um conjunto não pode
+nos dar uma informação de ordem (\ref{order_and_multiplicity}).
+Se temos os dois primeiros ganhadores dum campeanato
+num conjunto $W$, não temos como saber quem ganhou o
+ouro e quem o prata.
+Precisamos um outro tipo nesse caso, que podemos perguntar
+\emph{em vez de se tal objeto pertence},
+
 \blah.
-Começamos com a idéia de \dterm{par ordenado}, ou seja,
-um par de objetos onde um deles é considerado primeiro
-e o outro segundo.
+Vamos primeiramente entender a idéia de \dterm{par ordenado},
+ou $2$-tupla, ou (por enquanto) simplesmente \dterm{tupla}.
+O que é?
+Um par de objetos (não necessariamente distintos)
+onde um deles é considerado primeiro e o outro segundo.
+Só isso mesmo.
 Naturalmente, podemos generalizar a idéia de par ordenado,
 cujo tamanho é $2$, para um conceito correspondente de tamanho $n$,
 onde $n$ é qualquer número natural.  Oi, tuplas!
@@ -16274,18 +16439,6 @@ onde $n$ é qualquer número natural.  Oi, tuplas!
 \note Notação e terminologia.
 Denotamos o par ordenado dos objetos $a$ e $b$ pelo $\tupa{a, b}$
 ou $\tupp{a, b}$.
-Em geral, usamos as notações $\tupa{a_0, a_1, \dotsc, a_{n-1}}$
-e~$\tupp{a_0, a_1, \dotsc, a_{n-1}}$ para tuplas de tamanho~$n$.
-Às vezes é mais legível usar índices começando com $1$---tanto faz.
-Quando queremos enfatizar o tamanho da tupla, falamos de
-\dterm{$n$-tupla}.
-Assim, um par ordenado é uma $2$-tupla.
-\emph{Às vezes} escolhemos como nome duma tupla uma variável
-decorada com uma setinha em cima dela, e usando a mesma
-letra com índices para seus membros, por exemplo
-$\vec x = \tup{x_0,x_1,\dotsc,x_n}$, $\vec w = \tup{w_1,w_2}$, etc.
-Outra convençao comum é usar uma fonte em ``negrito'', por exemplo
-$\mathbf{a} = \tup{a_1,a_2,a_3}$, $\mathbf{u} = \tup{u_0,u_1}$, etc.
 %%}}}
 
 %%{{{ tuples_interface_and_equality 
@@ -16294,36 +16447,61 @@ $\mathbf{a} = \tup{a_1,a_2,a_3}$, $\mathbf{u} = \tup{u_0,u_1}$, etc.
 Precisamos: (1) descrever qual é o ``interface primitivo'' desse novo
 tipo, em tal forma que deixamos claro o que precisamos definir
 para determinar uma tupla; e (2) o que significa $=$ entre tuplas.
-Nossa única interface dada uma tupla de tamanho $n$, é que podemos
-pedir seu $i$-ésimo elemento, onde $0 \leq i < n$.
-Conversamente, para definir uma tupla de tamanho $n$, basta
-determinar todos os objetos (distintos ou não) nas suas $n$ posições.
 Consideramos que duas tuplas são iguais sse elas
 ``concordam em cada posição''.
 Sem aspas, chegamos nas definições:
 %%}}}
 
-%%{{{ df: tuple_projections 
-\definition Projecções.
+%%{{{ Black boxes for tuples 
+\note Tupla como black box.
+\label{blackbox_tuple}%
+\tdefined{black box}[de tupla]%
+\iisee{tupla!como black box}{black box}%
+Aqui duas maneiras equivalentes de visualizar uma tupla como black box:
+$$
+\xalignat2
+&\tikzpicture
+\tikzi blackboxtuple;
+\endtikzpicture
+&
+&\tikzpicture
+\tikzi blackboxtuplebuttons;
+\endtikzpicture
+\endxalignat
+$$
+Na primeira, o black box duma tupla $\tup{a,b}$ tem dois butões, e uma saida,
+e cada vez que apertamos um botão cria um objeto: apertando o primeiro
+sai o objeto $a$, apertando o segundo sai o $b$.
+Na segunda não tem nenhum botão nem entradas, mas só duas saidas:
+na primeira sempre sai o $a$, na segunda o $b$.
+Como nos black boxes de conjuntos, os black boxes de tuplas também são deterministas: apertando o mesmo botão sempre sai o mesmo objeto (na primeira versão), e olhando para o mesmo cabo-saida sempre sai o mesmo objeto.
+No outro lado, existe uma grande diferença: um black box de conjunto
+\emph{recebe} um objeto e \emph{vira uma proposição;} um black box de tupla
+\emph{não recebe nenhum objeto} (apenas escolhemos se queremos extrair o
+primeiro ou o segundo componente dele, e ele \emph{retorna} mesmo esse
+\emph{objeto}.
+%%}}}
+
+%%{{{ tuple_projections 
+\note Interface: projecções.
 \label{tuple_projections}%
-Definimos as operações $\pi_i$ chamadas \dterm{projecções}, tais que
-para todos os $x,y$, temos
+As operações primitivas de tuplas são as $\proj 0$ e $\proj 1$,
+chamadas \dterm{projecções}.
+Nada mais!
+%%}}}
+
+%%{{{ tuple_projections 
+\note Equações fundamentais.
+\label{tuple_fundamental_equations}%
+As 
+chamadas \dterm{projecções}.
+
+
+tais que para todos os $x,y$, temos
 $$
 \xalignat2
 \proj 0 \tup{x,y} &= x &
 \proj 1 \tup{x,y} &= y
-\endxalignat
-$$
-e similarmente para tuplas de tamanho $n$.
-Quando o $n$ não é implícito pelo contexto, decoramos
-esses símbolos com essa informação para evitar confusão.
-Por exemplo:
-$$
-\xalignat4
-\projfrom 2 1 \tup{x,y}                 &= y ; &
-\projfrom 3 1 \tup{x_1,x_2,x_3}         &= x_2 ; &
-\projfrom 5 4 \tup{x_2,x_3,y_1,x_8,y_0} &= y_0 ; &
-\text{etc.}
 \endxalignat
 $$
 %%}}}
@@ -16349,153 +16527,33 @@ notação seguida.
 %%{{{ df: tuples_equality 
 \definition Igualdade.
 \label{tuples_equality}%
+Sejam $s,t$ tuplas.
 Definimos
 $$
-\align
+s = t \defiff \proj 0 s = \proj 0 t \mland \proj 1 s = \proj 1 t.
+$$
+Com a notação que usamos para tuplas, escrevemos o (talvez) mais amigável:
+$$
 \tup{x,y} = \tup{x',y'}
-&\defiff
-x = x' \mland y = y'
-\intertext{Generalizando,}
-\tup{a_1,\dotsc,a_n} = \tup{b_1,\dotsc,b_m}
-&\defiff
-m = n
-\mland
-\text{$a_i = b_i$ para todo $i\in\set{0,\dotsc,n}$}
-\endalign
-$$
-%%}}}
-
-%%{{{ Do we need bigger tuples? 
-\note Precisamos tuplas maiores?.
-Introduzimos então esse novo \emph{tipo primitivo} de $2$-tuplas.
-E se precisar uma tripla?  Precisamos escolher se vamos aceitar
-mais tipos como primitivos ($3$-tuplas (triplas), $4$-tuplas,
-(quadruplas), $5$-tuplas (quintuplas), etc., etc.) ou não.
-\endgraf
-Caso que sim, vamos precisar uma $n$-upla para cada $n\in\nats$.
-E precisamos definir a igualdade para cada um desses tipos,
-algo que fazemos facilmente com:
-$$
-\tup{x_1, \dots, x_n}
-=
-\tup{x'_1, \dots, x'_n}
 \defiff
-x_1 = x'_1
-\mland \cdots \mland
-x_n = x'_n.
-$$
-Naturalmente dizemos que uma $n$-tupla $t$ é \emph{determinada
-por os objetos em cada uma das suas $n$ posições}.
-Então para definir uma $n$-tupla basta só definir as
-$$
-\projfrom n 0 t,
-\projfrom n 1 t,
-\dotsc,
-\projfrom n {n-1} t.
-$$
-\endgraf
-E caso contrário?  Será que podemos utilizar apenas as $2$-tuplas
-para conseguir o que nossos amigos que trabalham com $n$-tuplas como
-tipos primitivos conseguem?
-A resposta é sim.
-Vamos investigar.
-%%}}}
-
-%%{{{ Q: How would you define $n$-tuples for n > 2, given 2-tuples? 
-\question.
-Como tu definarias os tipos de $n$-tuplas para $n>2$, dado um tipo
-de $2$-tuplas?
-%%}}}
-\spoiler.
-
-%%{{{ x: tuples_of_size_2_are_good_for_3 
-\exercise.
-\label{tuples_of_size_3_are_good_for_3}%
-Mostre que com a definição de
-$$
-\tup{x,y,z} \defeq \tup{x,\tup{y,z}}
-$$
-conseguimos a igualdade \emph{desejada}
-$$
-\tup{x,y,z} = \tup{x',y',z'}
-\iff x = x' \mland y = y' \mland z = z'.
-$$
-Cuidado: é um \sq{$\iffsymbol$} acima, não um \sq{$\defiffsymbol$}!
-Ou seja, definindo as $3$-tuplas nessa maneira, querendo
-ou não, a igualdade entre seus objetos já é definida!
-Não teriamos o direito de defini-la novamente!
-
-\solution
-Calculamos
-\compute
-\tup{x,y,z} = \tup{x',y',z'}
-&\sugariff \tup{x,{y,z}} = \tup{x',\tup{y',z'}} \\
-&\iff x = x' \mland \tup{y,z} = \tup{y',z'}     \by {def.~de~$=$~para $2$-tuplas}
-&\iff x = x' \mland y = y' \mland z = z'.       \by {def.~de~$=$~para $2$-tuplas}
-\endcompute
-que é exatamente o que desejamos mostrar!
-
-\endexercise
-%%}}}
-
-%%{{{ df: n_tuples_based_on_2_tuples 
-\definition.
-\label{n_tuples_based_on_2_tuples}%
-Seja $n\in\nats$ com $n > 2$.
-Dados $n$ objetos $x_1,x_2,\dotsc,x_n$ definimos a $n$-tupla
-$$
-\tup{x_1, x_2, \dotsc, x_n}
-\defeq
-\tup{x_1, \tup{x_2, \dotsc, x_n}}.
+x = x' \mland y = y'.
 $$
 %%}}}
 
-%%{{{ Tuples of extreme sizes 
-\note Tuplas de tamanhos extremos.
-O que seria uma $1$-tupla?
-E, pior ainda, o que seria uma $0$-tupla?
-E uma tupla infinita?
-Vamos responder apenas na primeira pergunta agora.
-Os outros dois casos vamos discutir logo depois:
-sobre a(s?)\ $0$-tupla(s?)\ aqui e na \refn{Cartesian_product}
-onde introduzimos o \emph{produto cartesiano};
-e sobre tuplas infinitas nas \refn{Sequences} e
-\refn{Indexed_families} onde conhecemos \emph{seqüências}
-e \emph{famílias indexadas} respectivamente.
-%%}}}
-
-%%{{{ df: tuples_of_size_1 
-\definition Tuplas de tamanho 1.
-\label{tuples_of_size_1}%
-Observe que escolhendo definir a $1$-tupla como
+%%{{{ construtor de tuplas
+\note Notação de construtor.
+\label{tuple_constructor}%
+\tdefined{construtor!de tuplas}%
+Sejam $x,y$ objetos.
+Denotamos por $\tup{x,y}$ a tupla definida pelas
 $$
-\tup{x} \defeq x
+\xalignat2
+\proj 0 {\tup{x,y}} &= x & \proj 1 {\tup{x,y}} &= y
+\endxalignat
 $$
-atende nossas exigências:
-$$
-\tup{x} = \tup{y} \iff
-x = y
-$$
-que é exatamente a igualdade desejada.
-Ou seja, para nossos objectivos podemos \emph{identificar os objetos}
-$\tup{x}$ e $x$.
+Consideramos então o $\tup{\dhole,\dhole}$ como um
+\dterm{construtor de tuplas}.
 %%}}}
-
-%%{{{ The empty tuple 
-\note A tupla vazia.
-Seguindo nossa intuição com as tuplas dos outros tamanhos,
-o que seria uma $0$-tupla?
-Bem, para determinar um objeto $\vec t$ desse tipo, precisamos
-definir suas\dots\ $0$ projecções.
-Logo existe uma única $0$-tupla, que denotamos por $\tup{}$ mesmo.
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Cartesian product 
-\section Produto cartesiano.
-\label{Cartesian_product}%
 
 %%{{{ df: cartesian_product 
 \definition.
@@ -16560,7 +16618,7 @@ A\times B = B \times A \implies A=B.
 $$
 
 \hint
-Se conseguiu refutar, tá errado.
+Se conseguiu demonstrar, tá errado.
 Eu imagino que em algum ponto tu ``sejou'' algum objeto
 em algum conjunto que não podia!
 Lembra a~\ref{how_do_we_use_nonempty}?
@@ -16604,6 +16662,88 @@ do~\ref{when_cartesian_commutes}.
 \endexercise
 %}}}
 
+%%{{{ x: calculate_set_extensions 
+\exercise.
+\label{calculate_set_extensions}%
+Calcule as extensões dos conjuntos:
+$$
+\set{\set{\emptyset}}\cross\pset\emptyset;
+\qqqquad
+\set{\set{\emptyset}}\symdiff\Union\emptyset
+$$
+
+\solution
+Calculamos:
+$$
+\align
+\set{\set{\emptyset}}\cross \pset\emptyset &
+= \set{\set{\emptyset}}\cross\set{\emptyset}
+= \set{(\set{\emptyset},\emptyset)} \\
+\set{\set{\emptyset}}\symdiff\Union\emptyset &
+= \set{\set{\emptyset}}\symdiff\emptyset
+= \set{\set{\emptyset}}
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+% 3-tuples
+
+%{{{ friend_with_3_tuples 
+\note 3-tuplas.
+\label{friend_with_3_tuples}%
+Tudo ótimo até agora nesse capítulo (né?):
+Introduzimos dois \emph{típos primitivos:} conjuntos e tuplas
+junto com operações neles, e tudo mais.
+chega nosso amigo da outra turma que mostra para nos um tipo primitivo deles,
+a 3-tupla:
+\quote
+Cara, 3-tuplas têm $3$ projecções em ves de $2$,
+denotamos por $\tup{x,y,z}$, definimos
+igualdade por
+$$
+\tup{x,y,z} = \tup{x',y',z'}
+\defiff
+x=x'
+\mland
+y=y'
+\mland
+z=z'
+$$
+e as equações fundamentais são as óbvias.
+\endquote
+%%}}}
+
+%%{{{ triple_projections 
+\note Interface.
+O interface duma $3$-tupla, consiste em $3$ projecções:
+$\projfrom 3 0$, $\projfrom 3 1$, $\projfrom 3 2$.
+para tuplas de tamanho $n$.
+Quando o $n$ não é implícito pelo contexto, decoramos
+esses símbolos com essa informação para evitar confusão.
+Por exemplo:
+$$
+\xalignat4
+\projfrom 2 1 \tup{x,y}                 &= y ; &
+\projfrom 3 1 \tup{x_1,x_2,x_3}         &= x_2 ; &
+\projfrom 5 4 \tup{x_2,x_3,y_1,x_8,y_0} &= y_0 ; &
+\text{etc.}
+\endxalignat
+$$
+%%}}}
+
+%%{{{ x: fundamental_equations_3_tuple 
+\exercise.
+\label{fundamental_equations_3_tuple}%
+Quais são essas <<óbvias>> equações fundamentais do amigo
+do~\ref{friend_with_3_tuples}?
+
+\endexercise
+%%}}}
+
+% n-tuplas
+
 %%{{{ pseudodf: set_exp 
 \pseudodefinition.
 Sejam $A$ conjunto e $n\in\nats$ com $n\geq 2$.
@@ -16612,11 +16752,29 @@ A^n \pseudodefeq \setstt {\tup{a_1,\dotsc,a_n}} {$a_i \in A$ para todo $1\leq i\
 $$
 %%}}}
 
+Nossa única interface dada uma tupla de tamanho $n$, é que podemos
+pedir seu $i$-ésimo elemento, onde $0 \leq i < n$.
+Conversamente, para definir uma tupla de tamanho $n$, basta
+determinar todos os objetos (distintos ou não) nas suas $n$ posições.
+Usamos as notações $\tupa{a_0, a_1, \dotsc, a_{n-1}}$
+e~$\tupp{a_0, a_1, \dotsc, a_{n-1}}$ para tuplas de tamanho~$n$.
+Às vezes é mais legível usar índices começando com $1$---tanto faz.
+Quando queremos enfatizar o tamanho da tupla, falamos de
+\dterm{$n$-tupla}.
+
+Assim, um par ordenado é uma $2$-tupla.
+\emph{As vezes} escolhemos como nome duma tupla uma variável
+decorada com uma setinha em cima dela, e usando a mesma
+letra com índices para seus membros, por exemplo
+$\vec x = \tup{x_0,x_1,\dotsc,x_n}$, $\vec w = \tup{w_1,w_2}$, etc.
+Outra convençao comum é usar uma fonte em ``negrito'', por exemplo
+$\mathbf{a} = \tup{a_1,a_2,a_3}$, $\mathbf{u} = \tup{u_0,u_1}$, etc.
+
 %%{{{ messy quantifier 
 \note.
 Na definição acima aparece a frase ``para todo $1\leq i\leq n$''.
 Qual é a variável ligada com esse ``para todo''?
-Bem, $2$ é um constante, e $n$ já foi declarado, então entendemos que a
+Bem, $1$ é um constante, e $n$ já foi declarado, então entendemos que a
 frase corresponde na quantificação:
 $$
 \lforall {i\in\nats} {1\leq i \leq n \implies a_i \in A}.
@@ -16681,7 +16839,7 @@ $$
 $$
 \emph{são iguais?}
 Depende.
-Queremos considerá-las como se fossem iguais, pois
+Podemos considerá-las como se fossem iguais, pois
 qualquer uma delas serve para satisfazer a especificação de tuplas:
 podemos definir as $i$-ésimas projecções para cada uma,
 e a igualdade vai acabar sendo satisfeita usando uma delas
@@ -16721,8 +16879,183 @@ que é o único membro da unit;
 mas o contexto é em geral suficiente para tirar a ambigüidade.
 %%}}}
 
-\TODO Explicar o ``seja $(a,b) \in A \cross B$''.
-Link com os itens: \ref{only_declare_variables}, \ref{picking_elements_from_indexed_sets}.
+\remark.
+Sabemos que para ``sejar'' algum membro dum conjunto $A$ (sabendo claramente que $A$ não é vazio)
+escrevemos algo do tipo
+\quote
+Seja $x \in A$.
+\endquote
+onde precisamos tomar cuidado escolhendo um \emph{nome fresco de variável} para denotar esse objeto.
+Como $A \times B$ também é um conjunto, e também supondo que não é vazio, obviamente faz sentido escrever
+\quote
+Seja $x \in A\times B$.
+\endquote
+A partir disso, pela definição do $A\times B$, que tipo de objeto é esse $x$?
+Uma tupla cujo primeiro componente pertence a $A$, e o segundo ao $B$;
+pois todos os membros de $A\times B$ são tais tuplas.
+E o que podemos fazer com esse $x$ então?
+Bem, é uma 2-tupla, e logo podemos projectar: $\proj 0 x$ e $\proj 1 x$ são objetos já definidos que podemos usar.
+O que mais podemos fazer?
+Lembrando a notação de set-builder que permite termos (\refn{full_setbuilder}),
+percebemos que a \ref{cartesian_product} do próprio
+$A \times B$ usou tal set-builder:
+$$
+A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}.
+$$
+A partir da definição dessa notação (\ref{rich_set_builder_sugar}) temos
+$$
+x \in A \times B \intiff \pexists {a \in A} \lexists {b \in B} {x = \tup{a,b}}.
+$$
+Para voltar na nossa pergunta de <<o que podemos fazer com esse $x$>> então:
+\quote
+Seja $x \in A\times B$.
+Logo sejam $a\in A$ e $b \in B$ tais que $x = \tup{a,b}$.
+\endquote
+
+\TODO cite
+\ref{only_declare_variables}, \ref{picking_elements_from_indexed_sets}.
+
+%%{{{ Do we need bigger tuples? 
+\note Precisamos tuplas maiores?.
+Introduzimos então esse novo \emph{tipo primitivo} de $2$-tuplas.
+E se precisar uma tripla?  Precisamos escolher se vamos aceitar
+mais tipos como primitivos ($3$-tuplas (triplas), $4$-tuplas,
+(quadruplas), $5$-tuplas (quintuplas), etc., etc.) ou não.
+\endgraf
+Caso que sim, vamos precisar uma $n$-tupla para cada $n\in\nats$.
+E precisamos definir a igualdade para cada um desses tipos,
+algo que fazemos facilmente com:
+$$
+\tup{x_1, \dots, x_n}
+=
+\tup{x'_1, \dots, x'_n}
+\defiff
+x_1 = x'_1
+\mland \cdots \mland
+x_n = x'_n.
+$$
+Naturalmente dizemos que uma $n$-tupla $t$ é \emph{determinada
+por os objetos em cada uma das suas $n$ posições}.
+Então para definir uma $n$-tupla basta só definir as
+$$
+\projfrom n 0 t,
+\projfrom n 1 t,
+\dotsc,
+\projfrom n {n-1} t.
+$$
+\endgraf
+E caso contrário?  Será que podemos utilizar apenas as $2$-tuplas
+para conseguir o que nossos amigos que trabalham com $n$-tuplas como
+tipos primitivos conseguem?
+A resposta é sim.
+Vamos investigar.
+%%}}}
+
+%%{{{ df: equality_of_n_tuples 
+\definition igualdade.
+\label{equality_of_n_tuples}%
+Seja $n\in\nats$ e sejam $s,t$ $n$-tuplas.
+Definimos
+$$
+\align
+s = t
+&\defiff \lforall {1 \leq i \leq n} {\projfrom n i s = \projfrom n i t},
+\intertext{ou, usando a notação $\tup{\dhole,\dotsc,\dhole}$, temos:}
+\tup{s_1,\dotsc,s_n} = \tup{t_1,\dotsc,t_n}
+&\defiff \text{para todo $i\in\set{1,\dotsc,n}$, $s_i=t_i$.}
+\endalign
+$$
+%%}}}
+
+%%{{{ Q: How would you define $n$-tuples for n > 2, given 2-tuples? 
+\question.
+Como tu definarias os tipos de $n$-tuplas para $n>2$, dado um tipo
+de $2$-tuplas?
+%%}}}
+\spoiler.
+
+%%{{{ x: tuples_of_size_2_are_good_for_3 
+\exercise.
+\label{tuples_of_size_3_are_good_for_3}%
+Mostre que com a definição de
+$$
+\tup{x,y,z} \defeq \tup{x,\tup{y,z}}
+$$
+conseguimos a igualdade \emph{desejada}
+$$
+\tup{x,y,z} = \tup{x',y',z'}
+\iff x = x' \mland y = y' \mland z = z'.
+$$
+Cuidado: é um \sq{$\iffsymbol$} acima, não um \sq{$\defiffsymbol$}!
+Ou seja, definindo as $3$-tuplas nessa maneira, querendo
+ou não, a igualdade entre seus objetos já é definida!
+Não teriamos o direito de defini-la novamente!
+
+\solution
+Calculamos
+\compute
+\tup{x,y,z} = \tup{x',y',z'}
+&\sugariff \tup{x,{y,z}} = \tup{x',\tup{y',z'}} \\
+&\iff x = x' \mland \tup{y,z} = \tup{y',z'}     \by {def.~de~$=$~para $2$-tuplas}
+&\iff x = x' \mland y = y' \mland z = z'.       \by {def.~de~$=$~para $2$-tuplas}
+\endcompute
+que é exatamente o que desejamos mostrar!
+
+\endexercise
+%%}}}
+
+%%{{{ df: n_tuples_based_on_2_tuples 
+\definition.
+\label{n_tuples_based_on_2_tuples}%
+Seja $n\in\nats$ com $n > 2$.
+Dados $n$ objetos $x_1,x_2,\dotsc,x_n$ definimos a $n$-tupla
+$$
+\tup{x_1, x_2, \dotsc, x_n}
+\defeq
+\tup{x_1, \tup{x_2, \dotsc, x_n}}.
+$$
+%%}}}
+
+% tuples of extreme sizes
+
+%%{{{ Tuples of extreme sizes 
+\note Tuplas de tamanhos extremos.
+O que seria uma $1$-tupla?
+E, pior ainda, o que seria uma $0$-tupla?
+E uma tupla infinita?
+Vamos responder apenas na primeira pergunta agora.
+Os outros dois casos vamos discutir logo depois:
+sobre a(s?)\ $0$-tupla(s?) aqui mesmo;
+e sobre tuplas infinitas nas \refn{Sequences} e
+\refn{Indexed_families} onde conhecemos \emph{seqüências}
+e \emph{famílias indexadas} respectivamente.
+%%}}}
+
+%%{{{ df: tuples_of_size_1 
+\definition Tuplas de tamanho 1.
+\label{tuples_of_size_1}%
+Observe que escolhendo definir a $1$-tupla como
+$$
+\tup{x} \defeq x
+$$
+atende nossas exigências:
+$$
+\tup{x} = \tup{y} \iff
+x = y
+$$
+que é exatamente a igualdade desejada.
+Ou seja, para nossos objectivos podemos \emph{identificar os objetos}
+$\tup{x}$ e $x$.
+%%}}}
+
+%%{{{ The empty tuple 
+\note A tupla vazia.
+Seguindo nossa intuição com as tuplas dos outros tamanhos,
+o que seria uma $0$-tupla?
+Bem, para determinar um objeto $\vec t$ desse tipo, precisamos
+definir suas\dots\ $0$ projecções.
+Logo existe uma única $0$-tupla, que denotamos por $\tup{}$ mesmo.
+%%}}}
 
 \endsection
 %%}}}
@@ -16782,12 +17115,13 @@ membro é o $n$-ésimo membro da seqüência?
 \definition Igualdade.
 \label{sequences_equality}%
 Sejam
-$\sequence {a_n} n$,
-$\sequence {b_n} n$
+$\seqn a n$,
+$\seqn b n$
 seqüências.
-Chamamo-nas iguais sse
+Definimos sua igualdade por
 $$
-\lforall {n\in\nats} {a_n = b_n}.
+\seqn a n = \seqn b n
+\defiff \lforall {n\in\nats} {a_n = b_n}.
 $$
 %%}}}
 
@@ -16886,8 +17220,7 @@ $$
 \proposition.
 \label{set_de_morgan_gen}%
 \ii{dualidade}%
-Para todo conjunto $C$ e cada seqüência de conjuntos
-$\set{ A_n }_n$,
+Para todo conjunto $C$ e cada seqüência de conjuntos $\seqn A n$,
 $$
 \align
 C \setminus {\Union_{n=0}^\infty A_n} &= \Inter_{n=0}^{\infty} \paren{C \setminus A_n}\\
@@ -16895,23 +17228,60 @@ C \setminus {\Inter_{n=0}^\infty A_n} &= \Union_{n=0}^{\infty} \paren{C \setminu
 \endalign
 $$
 \proof.
-Sejam $C$ conjunto e $\set{ A_n }_n$ seqüência de conjuntos.
-Mostramos as duas inclusões separadamente:
+Sejam $C$ conjunto e $\seqn A n$ seqüência de conjuntos.
+\endgraf
+Mostramos as duas inclusões da primeira igualdade separadamente:
 \crproofpart{\lrdirset}:
-Tome $x \in C \setminus \Union_{n=0}^{\infty}A_n$,
-ou seja, $x \in A_k$ para algum $k\in \nats$,
-e logo $x \notin C \setminus A_k$ e daí
-$x \notin \Inter_n \paren{C \setminus A_n}$
-(pois não pertence no seu $k$-ésimo conjunto)
-\crproofpart{\rldirset}: Deixo pra ti (\ref{set_de_morgan_gen_exercise}).
+Seja $x \in C \setminus \Union_n A_n$, ou seja,
+$x \in C$\fact1 e $x\notin \Union_n A_n$\fact2.
+Vamos demonstrar que $x \in \Inter_n \paren{C \setminus A_n}$,
+ou seja, que para todo $u\in \nats$, $x \in C \setminus A_u$.
+Seja $u\in\nats$.
+Basta demonstrar então duas coisas: $x \in C$ e $x \notin A_u$.
+A primeira já temos (é a~\byfact1).
+A segunda é direta conseqüêcia da~\byfact2:
+$x$ não pertence a nenhum dos $A$'s, então nem ao $A_u$.
+\crproofpart{\rldirset}: Deixo pra ti (\ref{set_de_morgan_gen_exercise_1rl}).
+\endgraf
+Temos mais uma igualdade para demonstrar, novamente em duas partes:
+\crproofpart{\lrdirset}:
+Seja $x \in C \setminus {\Inter_n A_n}$,
+ou seja $x \in C$\fact1 e $x \notin {\Inter_n A_n}$\fact2.
+Vamos demonstrar que $x \in \Union_n \paren{C \setminus A_n}$,
+ou seja procuramos $w$ tal que $x \in C \setminus A_w$,
+ou seja, tal que $x \in C$ e $x \notin A_w$.
+Observe que nosso primeiro alvo não tem nada a ver com $w$,
+e na verdade já temos: é o~\byfact1.
+Agora usando a~\byfact2 achamos o desejado natural:
+seja $w\in\nats$ tal que $x \notin A_w$.
+\crproofpart{\rldirset}: Deixo pra ti também (\ref{set_de_morgan_gen_exercise_2rl}).
 \qed
 %%}}}
 
 \blah.
-Observe a semelhança entre essa prova e a prova da~\ref{set_de_morgan},
-até nas justificativas de cada passo!
-Realmente, a~\ref{set_de_morgan_gen} é uma generalização
-da~\refn{set_de_morgan}, algo que tu provarás no exercício seguinte:
+Bora terminar a demonstração da~\ref{set_de_morgan_gen}:
+
+%%{{{ x: set_de_morgan_gen_exercise_1rl 
+\exercise.
+\label{set_de_morgan_gen_exercise_1rl}%
+Demonstre a primeira {\rldirset} que deixamos na demonstração da~\ref{set_de_morgan_gen}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: set_de_morgan_gen_exercise_2rl 
+\exercise.
+\label{set_de_morgan_gen_exercise_2rl}%
+E a segunda.
+
+\endexercise
+%%}}}
+
+\blah.
+Tu provavelmente adivinhaste:
+a~\ref{set_de_morgan_gen} é uma generalização
+da~\refn{set_de_morgan}, algo que---que surpresa!---tu
+demonstrarás no exercício seguinte:
 
 %%{{{ x: set_de_morgan_gen_indeed 
 \exercise.
@@ -16941,14 +17311,6 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ x: set_de_morgan_gen_exercise 
-\exercise.
-\label{set_de_morgan_gen_exercise}%
-Termine a demonstração da~\ref{set_de_morgan_gen}.
-
-\endexercise
-%%}}}
-
 %%{{{ x: set_de_morgan_gen_using_formulas 
 \exercise.
 Tente escrever uma prova da~\ref{set_de_morgan_gen} usando fórmulas
@@ -16965,6 +17327,8 @@ x \in C \setminus \Unionl_{n=0}^{\infty}A_n
 &\iff (\forall n\in\nats)[x \in C \setminus A_n]          \by {def.~$\setminus$}
 &\iff x \in \Interl_{n=0}^{\infty}(C \setminus A_n).      \by {def.~$\Interl_{n=0}^{\infty}$}
 \endcompute
+(Observe a semelhança entre essa prova e a prova da~\ref{set_de_morgan},
+até nas justificativas de cada passo!)
 A prova da outra igualdade é de graça pois é sua dual:
 é só trocar os $\Union$ com os $\Inter$, e os $\exists$ com os $\forall$!
 
@@ -16983,8 +17347,7 @@ $$
 
 \solution
 A afirmação é verdadeira.
-\endgraf
-{\lrdirset}:
+\crproofpart{\lrdirset}:
 Suponha $x \in A \union \Inter_{n=0}^{\infty} B_n$.
 Logo $x\in A$ ou $x \in \Inter_{n=0}^{\infty} B_n$.
 \case{Caso $x\in A$.}
@@ -16992,8 +17355,7 @@ Temos que para todo $n\in\nats$, $x\in A\union B_n$ (pois $x \in A$), e logo $x 
 \case{Caso $x\in \Inter_{n=0}^{\infty} B_n$.}
 Seja $n\in\nats$.  Preciso mostrar que $x \in A \union B_n$,
 que é verdade pois $x \in B_n$ pela hipótese do caso.
-\endgraf
-{\rldirset}:
+\crproofpart{\rldirset}:
 Suponha $x \in \Inter_{n=0}^\infty \paren{A \union B_n}$.
 Logo $x \in A \union B_n$ para todo $n \in \nats$.
 \case{Caso $x\in A$,} o resultado é imediato
@@ -17037,6 +17399,44 @@ $$
 Ou seja: $\Union_n A_n = \nats$ e $\Inter_n B_n = \emptyset$.
 Equivalentemente ganhamos a segunda imediatamente pela primeira
 e a~\ref{set_de_morgan_gen}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: nested_indexed_Inters 
+\exercise.
+\label{nested_indexed_Inters}%
+Seja $\set{A_n}_n$ uma seqüência (infinita) de conjuntos.
+A afirmação
+$$
+\Inter_{n=0}^{\infty} \Inter_{m=n}^{\infty} A_m
+=
+\Inter_{n=0}^{\infty} A_n
+$$
+é verdadeira?
+Se sim, demonstre; se não, refute; se os dados não são suficientes para concluir, mostre um exemplo e um contraexemplo.
+
+\hint
+Cuidado com os ligadores de variáveis na notação dos operadores grandes limitados.
+
+\solution
+Resposta: sim!
+\crproofpart{\lrdirset}:
+    Seja $x \in \Inter_{n=0}^{\infty} \Inter_{m=n}^{\infty} A_m$.
+    Pela hipótese, para todo $n\in\nats$, $x \in \Inter_{m=n}^{\infty} A_m$ (def.~$\Inter_{n=0}^{\infty} \Inter_{m=n}^{\infty} A_m$).
+    Logo (com $n := 0$) temos o desejado $x \in \Inter_{m=0}^{\infty} A_m$.
+\crproofpart{\rldirset}:
+    Seja $x\in\Inter_{n=0}^{\infty} A_n$, ou seja, $x$ pertence a todos os $A_n$'s.
+    Preciso mostrar que
+    $$
+    x \in \Inter_{n=0}^{\infty} \Inter_{m=n}^{\infty} A_m.
+    $$
+    Seja $w \in \nats$ então, e agora basta mostrar que
+    $$
+    x \in \Inter_{m=w}^{\infty} A_m.
+    $$
+    Seja $m\geq w$ então.
+    Preciso mostrar que $x \in A_m$; que segue imediatamentea pela hipótese (tomando $n := m$).
 
 \endexercise
 %%}}}
@@ -17835,77 +18235,8 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Problems 
+%%{{{ PROBLEMS 
 \problems.
-
-%%{{{ calculate_set_extensions 
-\problem.
-\label{calculate_set_extensions}%
-Calcule as extensões dos conjuntos:
-$$
-\set{\set{\emptyset}}\cross\pset\emptyset;
-\qqqquad
-\set{\set{\emptyset}}\symdiff\Union\emptyset
-$$
-
-\solution
-Calculamos:
-$$
-\align
-\set{\set{\emptyset}}\cross \pset\emptyset &
-= \set{\set{\emptyset}}\cross\set{\emptyset}
-= \set{(\set{\emptyset},\emptyset)} \\
-\set{\set{\emptyset}}\symdiff\Union\emptyset &
-= \set{\set{\emptyset}}\symdiff\emptyset
-= \set{\set{\emptyset}}
-\endalign
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ equal_Union_and_Inter 
-\problem.
-\label{equal_Union_and_Inter}%
-Seja $\scr A$ família de conjuntos tal que
-$$
-\Union \scr A = \Inter \scr A.
-$$
-O que podes concluir sobre o $\scr A$?
-
-\solution
-Vou demonstrar que $\scr A$ tem exatamente um membro ($\scr A$ é um singleton).
-\crtabproofpart{$\scr A$ tem pelo menos um membro.}
-Se $\scr A$ fosse vazio não teriamos
-$\Union \scr {A} = \Inter \scr {A}$,
-pois o primeiro é o vazio e o segundo o universo.
-\crtabproofpart{$\scr A$ tem no máximo um membro.}
-Sejam $A,B \in \scr A$.
-Vou mostrar que $A=B$.
-\crproofpart{\lrdirset}:
-Para qualquer $x$ temos:
-\compute
-x \in A
-&\implies x \in \Union \scr A   \by {$A \in \scr A$ e def.~$\Union\scr A$}
-&\implies x \in \Inter \scr A   \by {$\Union \scr A = \Inter \scr A$}
-&\implies x \in B               \by {$B \in \scr A$ e def.~$\Inter\scr A$}
-\endcompute
-\proofpart{A {\rldirset}} é similar.
-\crproofalt{Alternativa usando reductio ad absurdum.}
-Para chegar numa contradição suponha que $A \neq B$.
-Logo seja $t \in A \symdiff B$, ou seja $t$ pertence a um dos $A,B$ mas não ao outro.
-Logo $t \in \Union \scr A$ e $t \notin \Inter \scr A$, absurdo.
-
-\endproblem
-%%}}}
-
-%%{{{ dualize_and_prove_Inter_of_containters_contains 
-\problem.
-\label{dualize_and_prove_Inter_of_containters_contains}%
-Dualize e demonstre o resultado do~\ref{Inter_of_supsets_supset}.
-
-\endproblem
-%%}}}
 
 %%{{{ sequence_of_sets_inclusions_tricky_indices_2 
 \problem.
@@ -18038,14 +18369,14 @@ Calcule os conjuntos:
 %%{{{ bounded_Union_and_Iter_def_and_prop 
 \problem.
 \label{bounded_Union_and_Iter_def_and_prop}%
-Seja $\set{A_n}_n$ seqüência (infinita) de conjuntos.
-Defina recursivamente uma seqüência de conjuntos $\set{D_n}_n$
+Seja $\seqn A n$ seqüência (infinita) de conjuntos.
+Defina recursivamente uma seqüência de conjuntos $\seqn D n$
 tal que (informalmente):
 $$
-\text{$D_k = A_0 \union A_1 \union \dotsb \union A_{k-1}$ para todo $k\in\nats$}.
+\text{para todo $k\in\nats$, $D_k = A_0 \union A_1 \union \dotsb \union A_{k-1}$}.
 $$
 Em outras palavras,
-precisas definir formalmente a operação $\Union_{i=0}^{k-1} \dhole$
+precisas definir formalmente a operação união unária \dterm{limitada} $\Union_{i=0}^{k-1} \dhole$
 para qualquer $k\in\nats$.
 Demonstre que para todo $n\in\nats$,
 $$
@@ -18196,108 +18527,6 @@ Como $a_C+1 \notin C$ e $a_C+1 \in \reals$, temos $C \neq \reals$.
 Como $0 \in C$, temos $C \neq \emptyset$.
 Demonstrei então que o arbitrário membro da $\scr C$ não pode ser
 nem o $\emptyset$ nem o $\reals$ e logo nenhum dos dois pertence à $\scr C$.
-
-\endproblem
-%%}}}
-
-%%{{{ arbitrary_finite_symdiff 
-\problem.
-\label{arbitrary_finite_symdiff}%
-Sejam $n\in\nats$ com $n\geq 2$ e $n$ conjuntos
-$A_1, A_2, \dotsc, A_n$.
-Seja
-$$
-A = A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n.
-$$
-Observe que como a operação $\symdiff$ é associativa e comutativa,
-o $A$ é bem-definido.
-Prove que:
-$$
-A = \setstt a {$a$ pertence a uma quantidade ímpar de $A_i$'s}.
-$$
-
-\hint
-Indução.
-
-\solution
-Provamos por indução que para todo inteiro $n \geq 2$,
-$$
-A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n
-= \setstt a {$a$ pertence numa quantidade ímpar de $A_i$'s}.
-$$
-\proofpart{Base ($n=2$):}
-$x \in A_1 \symdiff A_2 \iff \text{$x$ pertence a uma quantidade ímpar dos $A_1,A_2$}$ (óbvio).
-\endgraf
-\proofpart{Passo indutivo:}
-Seja $k\in\nats$ tal que 
-$$
-A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k
-= \set{ a \st \text{$a$ pertence a uma quantidade ímpar de $A_i$'s}}.\tag{H.I.}
-$$
-Precisamos mostrar que:
-$$
-A_1 \symdiff \dotsb \symdiff A_{k+1}
-= \set{ a \st \text{$a$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$'s}}.
-$$
-\endgraf
-(\lrdirset):
-Suponha que $x\in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_{k+1}$,
-ou seja, $x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
-Pela definição de $\symdiff$, temos dois casos:
-\endgraf
-\case{Caso 1:}
-$x \in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\notin A_{k+1}$.\CR
-Pela H.I., $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$,
-e não ao $A_{k+1}$, então a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
-\endgraf
-\case{Caso 2:}
-$x \notin A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\in A_{k+1}$.\CR
-Pela H.I., $x$ pertence a uma quantidade par dos $A_1,\dotsc,A_k$ e também ao
-$A_{k+1}$, então a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
-\endgraf
-\bigskip
-\endgraf
-(\rldirset):
-Suponha que $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
-Separamos em dois casos:
-\endgraf
-\case{Caso 1:} $x \in A_{k+1}$.\CR
-Logo $x$ pertence a uma quantidade par dos $A_1,\dotsc,A_k$
-e logo
-$x\notin A_1\symdiff\dotsb\symdiff A_k$ (pela H.I.). 
-Ou seja,
-$x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
-\endgraf
-\case{Caso 2:} $x \notin A_{k+1}$.\CR
-Nesse caso $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$
-e pela H.I.~temos que $x\in A_1\symdiff\dotsb\symdiff A_k$.
-De novo,
-$x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
-
-\endproblem
-%%}}}
-
-%%{{{ arbitrary_finite_symdiff_gen 
-\problem.
-\label{arbitrary_finite_symdiff_gen}%
-O que devemos mudar (e como) no~\ref{arbitrary_finite_symdiff} e sua resolução,
-se apagar o ``$n \geq 2$''?
-
-\hint
-O que significa $A_1\symdiff\dotsb\symdiff A_n$ nesse caso?
-Por quê?
-
-\solution
-Precisamos verificar que a expressão $A_1\symdiff\dotsb\symdiff A_n$
-faz sentido no caso que $n=0$, ou seja, definir razoavelmente a
-diferença simétrica de uma seqüência vazia de conjuntos.
-Formalmente verificamos que
-$\emptyset\symdiff C = C = C\symdiff\emptyset$ para qualquer
-conjunto $C$:
-$\emptyset$ é o elemento neutro da operação $\symdiff$,
-e logo o valor próprio da expressão acima.
-\endgraf
-Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pertence numa quantidade ímpar dos (zero) $A_i$'s, que é óbvio.
 
 \endproblem
 %%}}}
