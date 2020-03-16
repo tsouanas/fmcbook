@@ -15549,7 +15549,7 @@ tá tranqüilo!
 %%}}}
 
 %%{{{ Proving equalities and inclusions 
-\section Provando igualdades e inclusões.
+\section Demonstrando igualdades e inclusões.
 
 %%{{{ x: simple_inclusion_practice_proof 
 \exercise.
@@ -16129,14 +16129,14 @@ Logo $c \in A$.
 \exercise.
 \label{Inter_is_contained_in_every_member}%
 Seja $\scr A$ família não vazia de conjuntos.
-Prove que $\Inter \scr A$ é contido em todo membro da $\scr A$.
+Prove que $\Inter \scr A$ está contido em todo membro da $\scr A$.
 
 \solution
 Seja $A \in \scr A$.
-Para provar que $\Inter \scr A \subset A$, tome $x \in \Inter \scr A$.
-Basta mostrar que $x \in A$.
-Logo $x$ pertence a todos os membros da $\scr A$, e logo $x \in A$ também,
-que foi o que precisamos provar.
+Para demonstrar que $\Inter \scr A \subset A$,
+tome $x \in \Inter \scr A$\fact1.
+Agora basta mostrar que $x \in A$.
+Pela \byfact1, $x$ pertence a todos os membros da $\scr A$, e logo $x \in A$ também.
 
 \endexercise
 %%}}}
@@ -16296,9 +16296,9 @@ Logo $t \in \Union \scr A$ e $t \notin \Inter \scr A$, absurdo.
 \endproblem
 %%}}}
 
-%%{{{ dualize_and_prove_Inter_of_containters_contains 
+%%{{{ dualize_and_prove_Inter_of_supsets_supset 
 \problem.
-\label{dualize_and_prove_Inter_of_containters_contains}%
+\label{dualize_and_prove_Inter_of_supsets_supset}%
 Dualize e demonstre o resultado do~\ref{Inter_of_supsets_supset}.
 
 \endproblem
@@ -16331,8 +16331,7 @@ A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n
 $$
 \proofpart{Base ($n=2$):}
 $x \in A_1 \symdiff A_2 \iff \text{$x$ pertence a uma quantidade ímpar dos $A_1,A_2$}$ (óbvio).
-\endgraf
-\proofpart{Passo indutivo:}
+\crtabproofpart{Passo indutivo:}
 Seja $k\in\nats$ tal que 
 $$
 A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k
@@ -16343,36 +16342,31 @@ $$
 A_1 \symdiff \dotsb \symdiff A_{k+1}
 = \set{ a \st \text{$a$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$'s}}.
 $$
-\endgraf
-(\lrdirset):
+\proofpart{\lrdirset}:
 Suponha que $x\in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_{k+1}$,
 ou seja, $x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
 Pela definição de $\symdiff$, temos dois casos:
-\endgraf
-\case{Caso 1:}
+\crtabcase{Caso 1:}
 $x \in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\notin A_{k+1}$.\CR
 Pela H.I., $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$,
 e não ao $A_{k+1}$, então a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
-\endgraf
-\case{Caso 2:}
+\crtabcase{Caso 2:}
 $x \notin A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\in A_{k+1}$.\CR
 Pela H.I., $x$ pertence a uma quantidade par dos $A_1,\dotsc,A_k$ e também ao
 $A_{k+1}$, então a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
 \endgraf
 \bigskip
 \endgraf
-(\rldirset):
+\proofpart{\rldirset}:
 Suponha que $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
 Separamos em dois casos:
-\endgraf
-\case{Caso 1:} $x \in A_{k+1}$.\CR
+\crtabcase{Caso 1:} $x \in A_{k+1}$.\CR
 Logo $x$ pertence a uma quantidade par dos $A_1,\dotsc,A_k$
 e logo
 $x\notin A_1\symdiff\dotsb\symdiff A_k$ (pela H.I.). 
 Ou seja,
 $x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
-\endgraf
-\case{Caso 2:} $x \notin A_{k+1}$.\CR
+\crtabcase{Caso 2:} $x \notin A_{k+1}$.\CR
 Nesse caso $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$
 e pela H.I.~temos que $x\in A_1\symdiff\dotsb\symdiff A_k$.
 De novo,
@@ -16427,10 +16421,8 @@ perguntar
 \emph{<<quem é teu primeiro objeto?>>}~e
 \emph{<<quem é teu segundo objeto?>>}~também.
 Oi, tuplas!
-%%}}}
-
-\blah.
-Vamos primeiramente entender a idéia de \dterm{par ordenado},
+\endgraf
+Nessa secção vamos estudar a idéia de \dterm{par ordenado},
 ou \dterm{$2$-tupla}, ou---por enquanto---apenas \dterm{tupla}.
 O que é?
 \emph{Dois objetos (não necessariamente distintos)
@@ -16438,6 +16430,7 @@ onde um deles é considerado primeiro e o outro segundo.}
 Só isso mesmo!
 Vamos denotar o par ordenado dos objetos $a$ e $b$ (nessa ordem)
 por $\tupa{a, b}$ ou $\tupp{a, b}$.
+%%}}}
 
 %%{{{ tuples_towards_interface_equality_notation 
 \note Interface, igualdade, notação.
@@ -16538,10 +16531,10 @@ definir como ela comporta, ou seja, isto:
 \quote
 Seja $\alert t$ a tupla definida pelas
 $$
-\align
-\proj 0 {\alert t} &\alertdefeq x \\
+\xalignat2
+\proj 0 {\alert t} &\alertdefeq x &
 \proj 1 {\alert t} &\alertdefeq y.
-\endalign
+\endxalignat
 $$
 \endquote
 Observe que aqui os $x$ e $y$ supostamente já são objetos
@@ -16662,24 +16655,21 @@ $$
 A \times (B \union C) = (A \times B) \union (A\times C).
 $$
 Mostramos as duas inclusões separadamente:
-\endgraf
-\lrdirset:
+\crproofpart{\lrdirset:}
 Seja $w \in A \times (B\union C)$.
 Logo $w = \tup{a,d}$ para algum $a \in A$ e algum $d\in B\union C$ (def.~$\times$).
 Logo $d\in B$ ou $d \in C$ (def.~$\union$).
 Caso $d \in B$, temos $w = \tup{a,d} \in A \times B$ (def.~$\times$).
 Caso $d \in C$, temos $w = \tup{a,d} \in A \times C$ (def.~$\times$).
 Nos dois casos concluimos que $w \in (A \times B) \union (A\times C)$ pela definição de $\union$.
-\endgraf
-\rldirset:
+\crproofpart{\rldirset:}
 Seja $w \in (A \times B) \union (A\times C)$.
 Logo $w\in (A\times B)$ ou $w \in (A\times C)$ (def.~$\union$).
 Caso $w \in (A \times B)$, temos $w = \tup{a,b}$ para algum $a\in A$ e algum $b\in B$ (def.$\times$).
 Logo $b \in B\union C$ (pois $b\in B$) (def.~$\union$).
 Logo pela definição de $\times$ temos o desejado $w = \tup{a,b} \in A \times (B\union C)$.
 O caso $w \in (A \times C)$ é similar.
-\endgraf
-A igualdade
+\crproofpart{A igualdade}
 $$
 A \times (B \inter C) = (A \times B) \inter (A\times C)
 $$
@@ -16770,7 +16760,7 @@ $$
 \blah.
 Naturalmente, podemos generalizar a idéia de par ordenado,
 cujo tamanho é $2$, para um conceito correspondente de tamanho $n$,
-para qualquer número natural $n$.
+para qualquer número natural $n$.  Vamo lá!
 
 \endsection
 %%}}}
@@ -16970,7 +16960,9 @@ que é o único membro da unit;
 mas o contexto é em geral suficiente para tirar a ambigüidade.
 %%}}}
 
+%%{{{ remark: let_pair_in_product 
 \remark.
+\label{let_pair_in_product}%
 Sabemos que para ``sejar'' algum membro dum conjunto $A$ (sabendo claramente que $A$ não é vazio)
 escrevemos algo do tipo
 \quote
@@ -16999,9 +16991,23 @@ x \in A \times B \intiff \pexists {a \in A} \lexists {b \in B} {x = \tup{a,b}}.
 $$
 Para voltar na nossa pergunta de <<o que podemos fazer com esse $x$>> então:
 \quote
-Seja $x \in A\times B$.
+Seja $x \in A\times B$.\CR
 Logo sejam $a\in A$ e $b \in B$ tais que $x = \tup{a,b}$.
 \endquote
+Tudo bem até agora.
+Mas essa declaração do $x$ parece inútil.
+Pra que poluir nosso escopo com esse objeto
+se a único coisa que planejamos fazer com ele
+é extrair seus componentes para usá-los?
+Não seria melhor escrever
+\quote
+Seja $\tup{a,b} \in A\times B$.
+\endquote
+assim ganhando diretamente os $a,b$ sem o bobo $x$?
+Seria, mas\dots
+%%}}}
+
+\TODO terminar.
 
 \TODO cite
 \ref{only_declare_variables}, \ref{picking_elements_from_indexed_sets}.
@@ -17429,7 +17435,7 @@ A prova da outra igualdade é de graça pois é sua dual:
 %%{{{ x: distributivity over a sequence of sets 
 \exercise.
 Prove ou refute:
-para todo conjunto $A$ e toda seqüência de conjuntos $\set{B_n}_n$
+para todo conjunto $A$ e toda seqüência de conjuntos $\seqn B n$
 $$
 A \union \Inter_{n=0}^{\infty} B_n
 =
@@ -17449,7 +17455,7 @@ que é verdade pois $x \in B_n$ pela hipótese do caso.
 \crproofpart{\rldirset}:
 Suponha $x \in \Inter_{n=0}^\infty \paren{A \union B_n}$.
 Logo $x \in A \union B_n$ para todo $n \in \nats$.
-\case{Caso $x\in A$,} o resultado é imediato
+\case{Caso $x\in A$,} o resultado é imediato.
 \case{Caso $x\notin A$.}
 Seja $m\in \nats$.
 Vou mostrar que $x\in B_m$.
@@ -17460,7 +17466,7 @@ exatamente o que precisamos provar.
 \endexercise
 %%}}}
 
-%%{{{ x: running_intervals_on_nats 
+%%{{{ x: running_intervals_on_nats
 \exercise.
 \label{running_intervals_on_nats}%
 Para $n\in\nats$, defina os conjuntos de naturais
@@ -17497,7 +17503,7 @@ e a~\ref{set_de_morgan_gen}.
 %%{{{ x: nested_indexed_Inters 
 \exercise.
 \label{nested_indexed_Inters}%
-Seja $\set{A_n}_n$ uma seqüência (infinita) de conjuntos.
+Seja $\seqn A n$ uma seqüência (infinita) de conjuntos.
 A afirmação
 $$
 \Inter_{n=0}^{\infty} \Inter_{m=n}^{\infty} A_m
@@ -17514,7 +17520,7 @@ Cuidado com os ligadores de variáveis na notação dos operadores grandes limit
 Resposta: sim!
 \crproofpart{\lrdirset}:
     Seja $x \in \Inter_{n=0}^{\infty} \Inter_{m=n}^{\infty} A_m$.
-    Pela hipótese, para todo $n\in\nats$, $x \in \Inter_{m=n}^{\infty} A_m$ (def.~$\Inter_{n=0}^{\infty} \Inter_{m=n}^{\infty} A_m$).
+    Pela hipótese, para todo $n\in\nats$, $x \in \Inter_{m=n}^{\infty} A_m$ (def.~$\Inter_{n=0}^{\infty}$).
     Logo (com $n := 0$) temos o desejado $x \in \Inter_{m=0}^{\infty} A_m$.
 \crproofpart{\rldirset}:
     Seja $x\in\Inter_{n=0}^{\infty} A_n$, ou seja, $x$ pertence a todos os $A_n$'s.
@@ -18642,7 +18648,7 @@ $$
 C_0     & \asseq & A_0 \inter A_1 \inter A_2 \inter A_3 \inter \dotsb & \subset    & A_0    & \subset    & A_0 \union A_1 \union A_2 \union A_3 \union \dotsb & \eqass & D_0 \\
 C_1     & \asseq &            A_1 \inter A_2 \inter A_3 \inter \dotsb & \subset    & A_1    & \subset    &            A_1 \union A_2 \union A_3 \union \dotsb & \eqass & D_1 \\
 C_2     & \asseq &                       A_2 \inter A_3 \inter \dotsb & \subset    & A_2    & \subset    &                       A_2 \union A_3 \union \dotsb & \eqass & D_2 \\
-        & \vdots &                     \ddots \phantom{\inter \dotsb} & \vdots       & \vdots & \vdots       &                     \ddots \phantom{\union \dotsb} & \eqass & \vdots \\
+        & \vdots &                     \ddots \phantom{\inter \dotsb} & \vdots       & \vdots & \vdots       &                     \ddots \phantom{\union \dotsb} &        & \vdots \\
 \endmatrix
 $$
 
