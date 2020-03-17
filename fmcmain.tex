@@ -16765,11 +16765,9 @@ para qualquer número natural $n$.  Vamo lá!
 \endsection
 %%}}}
 
-%%{{{ More_tuples 
-\section Mais tuplas.
-\label{More_tuples_more_products}%
-
-% 3-tuples
+%%{{{ Type_implementation_triples 
+\section Implementação de tipo: 3-tuplas.
+\label{Type_implementation_triples}%
 
 %{{{ friend_with_3_tuples 
 \note 3-tuplas.
@@ -16780,9 +16778,20 @@ junto com operações neles, e tudo mais.
 chega nosso amigo da outra turma que mostra para nos um tipo primitivo deles,
 a 3-tupla:
 \quote
-Cara, 3-tuplas têm $3$ projecções em ves de $2$,
-denotamos por $\tup{x,y,z}$, definimos
-igualdade por
+Cara, 3-tuplas têm $3$ projecções em ves de $2$, que denotamos por
+$$
+\projfrom 3 0, \quad
+\projfrom 3 1, \quad
+\projform 3 2A.
+$$
+A própria tupla com
+$$
+\projfrom 3 0 = x, \quad
+\projfrom 3 1 = y, \quad
+\projform 3 2 = z
+$$
+denotamos por $\tup{x,y,z}$,
+e definimos igualdade por
 $$
 \tup{x,y,z} = \tup{x',y',z'}
 \defiff
@@ -16792,26 +16801,17 @@ y=y'
 \mland
 z=z'
 $$
-e as equações fundamentais são as óbvias.
+e as equações oundamentais são as óbvias.
+Lembrando a conversa no início da secção,
+com 3-tuplas consigo saber quem ganhou o bronze também!
 \endquote
 %%}}}
 
 %%{{{ triple_projections 
-\note Interface.
+\note Interface de 3-tupla.
+\label{triple_projections}%
 O interface duma $3$-tupla, consiste em $3$ projecções:
 $\projfrom 3 0$, $\projfrom 3 1$, $\projfrom 3 2$.
-para tuplas de tamanho $n$.
-Quando o $n$ não é implícito pelo contexto, decoramos
-esses símbolos com essa informação para evitar confusão.
-Por exemplo:
-$$
-\xalignat4
-\projfrom 2 1 \tup{x,y}                 &= y ; &
-\projfrom 3 1 \tup{x_1,x_2,x_3}         &= x_2 ; &
-\projfrom 5 4 \tup{x_2,x_3,y_1,x_8,y_0} &= y_0 ; &
-\text{etc.}
-\endxalignat
-$$
 %%}}}
 
 %%{{{ x: fundamental_equations_3_tuple 
@@ -16823,16 +16823,50 @@ do~\ref{friend_with_3_tuples}?
 \endexercise
 %%}}}
 
-% n-tuplas
+%%{{{ x: tuples_of_size_2_are_good_for_3 
+\exercise.
+\label{tuples_of_size_3_are_good_for_3}%
+Mostre que com a definição de
+$$
+\tup{x,y,z} \defeq \tup{x,\tup{y,z}}
+$$
+conseguimos a igualdade \emph{desejada}
+$$
+\tup{x,y,z} = \tup{x',y',z'}
+\iff x = x' \mland y = y' \mland z = z'.
+$$
+Cuidado: é um \sq{$\iffsymbol$} acima, não um \sq{$\defiffsymbol$}!
+Ou seja, definindo as $3$-tuplas nessa maneira, querendo
+ou não, a igualdade entre seus objetos já é definida!
+Não teriamos o direito de defini-la novamente!
 
-%%{{{ pseudodf: set_exp 
-\pseudodefinition.
-Sejam $A$ conjunto e $n\in\nats$ com $n\geq 2$.
-$$
-A^n \pseudodefeq \setstt {\tup{a_1,\dotsc,a_n}} {$a_i \in A$ para todo $1\leq i\leq n$}.
-$$
+\solution
+Calculamos
+\compute
+\tup{x,y,z} = \tup{x',y',z'}
+&\sugariff \tup{x,{y,z}} = \tup{x',\tup{y',z'}} \\
+&\iff x = x' \mland \tup{y,z} = \tup{y',z'}     \by {def.~de~$=$~para $2$-tuplas}
+&\iff x = x' \mland y = y' \mland z = z'.       \by {def.~de~$=$~para $2$-tuplas}
+\endcompute
+que é exatamente o que desejamos mostrar!
+
+\endexercise
 %%}}}
 
+\blah.
+Não faz sentido nenhum se limitar em 2-tuplas e 3-tuplas.
+Partiu $n$-tuplas para qualquer $n\in\nats$!
+
+\endsection
+%%}}}
+
+%%{{{ n_tuples 
+\section n-tuplas.
+\label{n_tuples}%
+
+%%{{{ n_tuples_interface_notation 
+\note n-tuplas: interface e notação.
+\label{n_tuples_interface_notation}%
 Nossa única interface dada uma tupla de tamanho $n$, é que podemos
 pedir seu $i$-ésimo elemento, onde $0 \leq i < n$.
 Conversamente, para definir uma tupla de tamanho $n$, basta
@@ -16842,14 +16876,39 @@ e~$\tupp{a_0, a_1, \dotsc, a_{n-1}}$ para tuplas de tamanho~$n$.
 Às vezes é mais legível usar índices começando com $1$---tanto faz.
 Quando queremos enfatizar o tamanho da tupla, falamos de
 \dterm{$n$-tupla}.
-
-Assim, um par ordenado é uma $2$-tupla.
-\emph{As vezes} escolhemos como nome duma tupla uma variável
+Em geral, para tuplas de tamanho $n$, usamos a notação
+$\projfrom n i$ para a $i$-ésima projecção.
+Por exemplo:
+$$
+\xalignat4
+\projfrom 2 1 \tup{x,y}                 &= y ; &
+\projfrom 3 1 \tup{x_1,x_2,x_3}         &= x_2 ; &
+\projfrom 5 4 \tup{x_2,x_3,y_1,x_8,y_0} &= y_0 ; &
+\text{etc.}
+\endxalignat
+$$
+Quando o $n$ é implícito pelo contexto, não se preocupamos
+com ele.  Obviamente então $\proj 1$ da \sqq{$\proj 1 \tup{x,y,z}$}
+denota a $\projfrom 3 1$ mesmo, mas a $\proj 1 $ da \sqq{$\proj 1 \tup{x,y}$}
+denota a $\projfrom 2 1$.
+Até agora temos chamado de ``tupla'' o par ordenado.
+Na verdade, um par ordenado é uma $2$-tupla.
+\endgraf
+As vezes escolhemos como nome duma tupla uma variável
 decorada com uma setinha em cima dela, e usando a mesma
 letra com índices para seus membros, por exemplo
 $\vec x = \tup{x_0,x_1,\dotsc,x_n}$, $\vec w = \tup{w_1,w_2}$, etc.
 Outra convençao comum é usar uma fonte em ``negrito'', por exemplo
 $\mathbf{a} = \tup{a_1,a_2,a_3}$, $\mathbf{u} = \tup{u_0,u_1}$, etc.
+%%}}}
+
+%%{{{ pseudodf: set_exp 
+\pseudodefinition.
+Sejam $A$ conjunto e $n\in\nats$ com $n\geq 2$.
+$$
+A^n \pseudodefeq \setstt {\tup{a_1,\dotsc,a_n}} {$a_i \in A$ para todo $1\leq i\leq n$}.
+$$
+%%}}}
 
 %%{{{ messy quantifier 
 \note.
@@ -16870,7 +16929,7 @@ Para $n\in\nats$ com $n\geq 1$ definimos as \dterm{potências} de $A$ recursivam
 $$
 \align
 A^1 &= A\\
-A^n &= A^{n-1} \times A \qquad \text{($n \geq 2$)}.
+A^n &= A^{n-1} \times A \qquad \text{(para $n \geq 2$)}.
 \endalign
 $$
 %%}}}
@@ -17070,36 +17129,6 @@ Como tu definarias os tipos de $n$-tuplas para $n>2$, dado um tipo
 de $2$-tuplas?
 %%}}}
 \spoiler.
-
-%%{{{ x: tuples_of_size_2_are_good_for_3 
-\exercise.
-\label{tuples_of_size_3_are_good_for_3}%
-Mostre que com a definição de
-$$
-\tup{x,y,z} \defeq \tup{x,\tup{y,z}}
-$$
-conseguimos a igualdade \emph{desejada}
-$$
-\tup{x,y,z} = \tup{x',y',z'}
-\iff x = x' \mland y = y' \mland z = z'.
-$$
-Cuidado: é um \sq{$\iffsymbol$} acima, não um \sq{$\defiffsymbol$}!
-Ou seja, definindo as $3$-tuplas nessa maneira, querendo
-ou não, a igualdade entre seus objetos já é definida!
-Não teriamos o direito de defini-la novamente!
-
-\solution
-Calculamos
-\compute
-\tup{x,y,z} = \tup{x',y',z'}
-&\sugariff \tup{x,{y,z}} = \tup{x',\tup{y',z'}} \\
-&\iff x = x' \mland \tup{y,z} = \tup{y',z'}     \by {def.~de~$=$~para $2$-tuplas}
-&\iff x = x' \mland y = y' \mland z = z'.       \by {def.~de~$=$~para $2$-tuplas}
-\endcompute
-que é exatamente o que desejamos mostrar!
-
-\endexercise
-%%}}}
 
 %%{{{ df: n_tuples_based_on_2_tuples 
 \definition.
@@ -17640,7 +17669,7 @@ Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
 \endsection
 %%}}}
 
-%%{{{ Indexed families 
+%%{{{ Indexed_families 
 \section Famílias indexadas.
 \label{Indexed_families}%
 
@@ -18104,8 +18133,9 @@ dessas palavras são diferentes que aquelas que eu usei aqui.)
 \endsection
 %%}}}
 
-%%{{{ Generalized cartesian product 
+%%{{{ Generalized_cartesian_product 
 \section Produto cartesiano generalizado.
+\label{Generalized_cartesian_product}%
 
 %%{{{ idea 
 \note.
