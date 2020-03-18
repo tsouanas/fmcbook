@@ -16400,6 +16400,97 @@ Na prova, a base muda para $n=0$, onde devemos apenas provar que nenhum $a$ pert
 \endproblem
 %%}}}
 
+%%{{{ df: chain_in_sets 
+\definition.
+\label{chain_in_sets}%
+Seja $\scr A$ uma família de conjuntos.
+Chamamos a $\scr A$ de \dterm{$\subset$-chain} sse
+$$
+\text{para todo $A,B\in \scr A$, temos $A\subset B$ ou $B \subset A$}.
+$$
+%%}}}
+
+%%{{{ chain_first_encounter 
+\problem.
+\label{chain_first_encounter}%
+Seja $\scr C$ uma $\subset$-chain e seja $T = \Union \scr C$.
+A afirmação
+$$
+\text{$\scr C \union \set{T}$ é uma chain}
+$$
+é verdadeira?
+Se sim, demonstre; se não, refute;
+se os dados não são suficientes para concluir, mostre um exemplo e um contraexemplo.
+
+\hint
+A airmação é verdadeira.  Demonstre.
+
+\solution
+Vou demonstrar que $\scr C \union \set {T}$ é uma chain.
+\endgraf
+Sejam $A,B \in \scr C \union \set T$.
+Preciso mostrar que $A \subset B$ ou $B\subset A$.
+Vou separar em casos dependendo de se os $A,B$ pertencem à $\scr C$ ou ao $\set{T}$.
+\crcase{Caso ambos pertencem à $\scr C$.}
+Como $\scr C$ é chain, temos imediatamente $A\subset B$ ou $B \subset A$.
+\crcase{Caso exatamente um pertence à $\scr C$.}
+Chame $C$ aquele que pertence à $\scr C$.
+O outro pertence ao $\set{T}$ e logo é o próprio $T = \Union \scr C$.
+Vou mostrar que $C \subset T$.
+Seja $c \in C$.
+Preciso mostrar que $c$ pertence em algum dos membros do $\scr C$,
+que acontece pois $C \in \scr{C}$.
+\crcase{Caso nenhum pertence à $\scr C$.}
+Ou seja, ambos pertencem ao $\set{T}$; ou seja $A = B = T$; e logo $A\subset B$
+e pronto.
+
+\endproblem
+%%}}}
+
+%%{{{ chain_first_encounter_interesting_example 
+\problem.
+\label{chain_first_encounter_interesting_example}%
+Uma chain $\scr C$ que atende as hipotéses do~\ref{chain_first_encounter}
+pode ter a propriedade que
+$$
+\Union\scr C \in \scr C.
+$$
+Mostre um exemplo duma chain infinita $\scr C$ cujos membros são todos
+conjuntos infinitos, e tal que $\Union\scr C \notin \scr C$.
+Dá pra garantir (com a mesma $\scr C$) que $\Inter\scr C\notin \scr C$ também?
+Demonstre tuas afirmações!
+
+\hint
+Procure uma $\scr C \subset \pset \reals$.
+
+\hint
+Intervalos não triviais (com pelo menos $2$ membros) de reais
+com certeza são infinitos.
+
+\solution
+\proofpart{Defino a $\scr C$} pela
+$$
+\scr C \defeq \setst {(-a,a)} {a \in \reals_{>0}}
+$$
+onde $(-a,a)$ denota o intervalo aberto de
+reais $\setst {x\in\reals} {-a < x < a}$.
+Realmente temos
+$$
+\xalignat2
+\Union\scr C &= \reals    \notin \scr C; &
+\Inter\scr C &= \emptyset \notin \scr C.
+\endxalignat
+$$
+\proofpart{Demonstração que $\emptyset,\reals\notin\scr C$.}
+Seja $C \in \scr C$, e logo seja $a_C \in \reals$ tal que $C = (-a_C,a_C)$.
+Como $a_C+1 \notin C$ e $a_C+1 \in \reals$, temos $C \neq \reals$.
+Como $0 \in C$, temos $C \neq \emptyset$.
+Demonstrei então que o arbitrário membro da $\scr C$ não pode ser
+nem o $\emptyset$ nem o $\reals$ e logo nenhum dos dois pertence à $\scr C$.
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -16766,19 +16857,19 @@ para qualquer número natural $n$.  Vamo lá!
 %%}}}
 
 %%{{{ Type_implementation_triples 
-\section Implementação de tipo: 3-tuplas.
+\section Implementação de tipo: triplas.
 \label{Type_implementation_triples}%
 
-%{{{ friend_with_3_tuples 
-\note 3-tuplas.
+%{{{ friend_with_triples 
+\note triples.
 \label{friend_with_3_tuples}%
 Tudo ótimo até agora nesse capítulo (né?):
 Introduzimos dois \emph{típos primitivos:} conjuntos e tuplas
 junto com operações neles, e tudo mais.
 chega nosso amigo da outra turma que mostra para nos um tipo primitivo deles,
-a 3-tupla:
+a tripla:
 \quote
-Cara, 3-tuplas têm $3$ projecções em ves de $2$, que denotamos por
+Cara, triplas têm $3$ projecções em ves de $2$, que denotamos por
 $$
 \projfrom 3 0, \quad
 \projfrom 3 1, \quad
@@ -16803,24 +16894,76 @@ z=z'
 $$
 e as equações oundamentais são as óbvias.
 Lembrando a conversa no início da secção,
-com 3-tuplas consigo saber quem ganhou o bronze também!
+com triplas consigo saber quem ganhou o bronze também!
 \endquote
 %%}}}
 
 %%{{{ triple_projections 
-\note Interface de 3-tupla.
+\note Interface de tripla.
 \label{triple_projections}%
-O interface duma $3$-tupla, consiste em $3$ projecções:
+O interface duma tripla, consiste em $3$ projecções:
 $\projfrom 3 0$, $\projfrom 3 1$, $\projfrom 3 2$.
 %%}}}
 
-%%{{{ x: fundamental_equations_3_tuple 
+%%{{{ x: fundamental_equations_triple 
 \exercise.
-\label{fundamental_equations_3_tuple}%
+\label{fundamental_equations_triple}%
 Quais são essas <<óbvias>> equações fundamentais do amigo
-do~\ref{friend_with_3_tuples}?
+do~\ref{friend_with_triples}?
+
+\hint
+Inspire-se a roubar o~\ref{tuple_fundamental_equations}.
+
+\solution
+As projecções e o construtor $\tup{\dhole,\dhole,\dhole}$
+devem satisfazer:
+$$
+\xalignat3
+\projfrom3 0 \tup{x,y,z} &= x &
+\projfrom3 1 \tup{x,y,z} &= y &
+\projfrom3 2 \tup{x,y,z} &= z;
+\endxalignat
+$$
+$$
+t = \tup{ \projfrom 3 0 t , \projfrom 3 1 t , \projfrom 3 2 t }.
+$$
 
 \endexercise
+%%}}}
+
+%%{{{ triple_equality 
+\note Igualdade.
+\label{triple_equality}%
+Sejam $\tup{x,y,z},\tup{x',y',z'}$ 3-tuplas.
+Definimos
+$$
+\tup{x,y,z} = \tup{x',y',z'}
+\defiff x = x' \mland y = y' \mland z = z'.
+$$
+%%}}}
+
+%%{{{ implementation_of_primitive_type 
+\note Implementação de tipo primitivo.
+\label{implementation_of_primitive_type}%
+\ii{tipo!primitivo}%
+Nosso amigo nos apresentou esse tipo primitivo dele:
+descreveu seu interface, introduziu sua notação, definiu igualdade,
+e pronto.  Podemos copiar essa idéia e fazer a mesma coisa.
+Em vez disso, vamos tentar algo diferente:
+\dterm{implementar} o tipo de triplas!
+O que significa mesmo ``implementar''?
+Vamos tratar tudo que ele falou como uma \dterm{especificação}
+dum tipo desejado, que nos vamos \emph{definir} em termos de outros
+tipos já conhecidos.
+Cuidado: nossa implementação deve \dterm{atender a especificação}.
+%%}}}
+
+\blah.
+Então \emph{definimos} mesmo as triplas assim:
+
+%%{{{ df:
+\definition
+asd
 %%}}}
 
 %%{{{ x: tuples_of_size_2_are_good_for_3 
@@ -17190,20 +17333,24 @@ Logo existe uma única $0$-tupla, que denotamos por $\tup{}$ mesmo.
 \section Seqüências.
 \label{Sequences}%
 
-%%{{{ df: sequence 
-\definition Seqüência.
+\blah.
+A generalização de tuplas para seqüências é bem simples.
+Uma $n$-tupla $\tup{a_0,\dotsc,a_{n-1}}$ tem um componente para cada uma das
+$n$ posições $i = 0, \dotsc, n-1$, e nada mais.  Uma se
+
+%%{{{ prim: sequence 
+\primitive Seqüência.
 \label{sequence}%
 \tdefined{seqüência}%
 \sdefined {\sequence {\sholed {a_n}} n} {a seqüência $a_0,a_1,a_2,\dotsc$}%
-A generalização de tuplas para seqüências é bem simples.
-Uma $n$-tupla $\tup{a_0,\dotsc,a_{n-1}}$ tem um membro para cada uma das
-$n$ posições $i = 0, \dotsc, n-1$, e nada mais.
-Uma \dterm{seqüência} tem um membro para cada natural $i \in \nats$.
-Usamos a notação $\sequence {a_n} n$ para denotar a seqüência
+Uma \dterm{seqüência} tem um componente para cada natural $i \in \nats$.
+Usamos a notação $\seqn a n$ para denotar a seqüência cujos primeiros termos são
 $$
 a_0, a_1, a_2, a_3, \dotsc
 $$
-Uma \dterm{seqüência finita} é apenas uma $n$-tupla, para algum $n\in\nats$.
+O interface de seqüências então é uma infinidade de perguntas-projecções,
+uma para cada natural, que costumamos denotar apenas por índices subscritos mesmo,
+como fizemos em cima.
 %%}}}
 
 %%{{{ remark: variable_binder_in_sequences 
@@ -17213,6 +17360,12 @@ Na notação $\sequence {a_n} {\alert{n}}$ o $\alert{n}$
 é um \emph{ligador} da variável $n$.
 %%}}}
 
+%%{{{ remark: seq = infinite; finite seq = tuple 
+\remark.
+O que chamamos de seqüência é também conhecido como \dterm{seqüência infinita}.
+Uma \dterm{seqüência finita} é apenas uma $n$-tupla, para algum $n\in\nats$.
+%%}}}
+
 %%{{{ warning: notational abuse 
 \warning abuso notacional.
 Quando escrevemos uma seqüência $\seqn a n$ onde pelo contexto
@@ -17220,7 +17373,9 @@ esperamos ver um conjunto, a entendemos como uma denotação do
 conjunto $\setst {a_n} {n \in \nats}$.
 Por exemplo, escrevemos
 $$
-\seqn a n \subset A \syndefiff \setst {a_n} {n \in \nats} \subset A,
+\seqn a n \subset A \abusedefiff \setst {a_n} {n \in \nats} \subset A,
+\qquad
+\frac 1 2 \in \seqn a n \abusedefiff \frac 1 2 \in \setst {a_n} {n \in \nats},
 $$
 etc.
 %%}}}
@@ -17230,12 +17385,19 @@ etc.
 Em certos textos aparece a notação $a_n$ ou $\set{a_n}$ para denotar uma inteira seqüência.
 Aqui não vamos usar nenhuma dessas, pois introduzem ambigüidades possivelmente perigosas:
 \beginul
-\li Se encontrar o termo $a_n$, é a seqüência inteira ou apenas o $n$-ésimo membro dela?
-\li Se encontrar o termo $\set{a_n}$, ele denota a seqüência inteira, o
-singleton cujo único membro é a seqüência inteira, ou o singleton cujo único
+\li Se encontrar a expressão \sq{$a_n$}, é a seqüência inteira ou apenas o $n$-ésimo membro dela?
+\li Se encontrar a expressão \sq{$\set{a_n}$}, ele denota a seqüência inteira,
+o singleton cujo único membro é a seqüência inteira, ou o singleton cujo único
 membro é o $n$-ésimo membro da seqüência?
 \endul
 %%}}}
+
+%%{{{ Q: how_would_you_define_equality_of_sequence 
+\question.
+\label{how_would_you_define_equality_of_sequence}%
+Como definarias igualdade para seqüências?
+%%}}}
+\spoiler.
 
 %%{{{ df: sequences_equality 
 \definition Igualdade.
@@ -17252,7 +17414,7 @@ $$
 %%}}}
 
 %%{{{ Limits of sequences 
-\note.
+\note Seqüências e limites.
 No coração de calculus é o estudo de seqüências
 de números reais.  No~\ref{Real_numbers} definimos a noção de \dterm{limite}
 de uma seqüência de reais $\seqn a n$, e no~\ref{Metric_spaces}
@@ -17264,7 +17426,7 @@ Nada mais por enquanto---paciência!
 
 %%{{{ Sequences of sets 
 \note Seqüências de conjuntos.
-Mais interessante para a gente neste momento são \emph{seqüências de conjuntos}.
+Mais interessantes para a gente neste momento são \emph{seqüências de conjuntos}.
 %%}}}
 
 %%{{{ Q: how_would_you_define_Union_of_sequence 
@@ -17293,7 +17455,12 @@ x \in \Inter_{n=0}^{\infty} A_n &\defiff \lforall {n \in \nats} {x \in A_n}.
 \endalign
 $$
 Às vezes usamos a notações mais curtas: $\Union_n A_n$ e $\Inter_n A_n$
-respectivamente.
+respectivamente, mas cuidado:
+$\Union A_n$ é a união (grande) do conjunto $A_n$,
+que é o $n$-ésimo membro da seqüência de conjuntos $\seqn A n$.
+No outro lado, $\Union_n A_n$ é a união da seqüência,
+ou seja o $\Union_{n=0}^{\infty}A_n$.
+Mesmo cuidado sobre intersecções.
 %%}}}
 
 %%{{{ x: sequence_of_sets_inclusions_tricky_indices_1 
@@ -17322,7 +17489,54 @@ $x \in \Union_{n=0}^{\infty} B_n$, pois $m+1\in\nats$.
 \endexercise
 %%}}}
 
-%%{{{ Union_Inter_of_sequences_as_sugar 
+%%{{{ x: sequence_of_sets_inclusions_tricky_indices_2 
+\exercise.
+\label{sequence_of_sets_inclusions_tricky_indices_2}%
+Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos tais que
+$$
+\text{para todo número par $m$, $A_m \subset B_{m/2}$.}
+$$
+Prove que:
+$$
+\Inter_{n=0}^\infty A_n \subset \Inter_{n=0}^{\infty} B_n.
+$$
+
+\solution
+Suponha $x \in \Inter_{n=0}^\infty A_n$.
+Preciso mostrar que $x \in \Inter_{n=0}^{\infty} B_n$,
+ou seja, provar que $x\in B_k$ para todo $k\in\nats$.
+Seja $k \in \nats$.
+Como $x \in \Inter_{n=0}^{\infty}A_n$, temos $x \in A_{2k}$.
+Mas $A_{2k} \subset B_k$, logo $x \in B_k$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: sequence_of_sets_inclusions_tricky_indices_3 
+\exercise.
+\label{sequence_of_sets_inclusions_tricky_indices_3}%
+Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos tais que
+$$
+\text{para todo número primo $p$, $A_p \subset B_{2p}$.}
+$$
+Prove ou refute:
+$$
+\Inter_{n=0}^\infty A_n \subset \Union_{n=28}^{\infty} B_n.
+$$
+
+\solution
+Suponha $x \in \Inter_{n=0}^\infty A_n$.\fact1
+Preciso mostrar que $x \in \Union_{n=28}^{\infty} B_n$,
+ou seja, achar um inteiro $m\geq 28$ tal que $x\in B_m$.
+Pela {\byfact1} temos $x\in A_{17}$; e como $17$ é primo,
+$A_{17}\subset B_{34}$ (pela hipótese).
+Logo $x \in B_{34}$.
+Então realmente $x \in \Union_{n=28}^{\infty} B_n$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: Union_Inter_of_sequences_as_sugar 
 \exercise.
 \label{Union_Inter_of_sequences_as_sugar}%
 Na~\ref{Union_Inter_of_sequence} definimos \emph{elementariamente}
@@ -17666,7 +17880,195 @@ Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
 \endexercise
 %%}}}
 
+%%{{{ x: epsilon-dependent and n-dependent intersections 
+\exercise.
+Para todo real $\epsilon>0$ e todo $n\in\nats$,
+sejam os intervalos de reais
+$$
+\align
+I_\epsilon &= [0,1 + \epsilon)\\
+U_n &= [n,+\infty).
+\endalign
+$$
+Calcule os conjuntos:
+(i) $\Inter \set {I_\epsilon \st \epsilon>0}$;
+(ii) $\Inter_{n=2}^{\infty} U_n$.
+
+\solution
+(i) $[0,1]$;
+(ii) $\emptyset$.
+
+\endexercise
+%%}}}
+
 \endsection
+%%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+
+%%{{{ prob: sequence_of_sets_inclusions_counterexample 
+\problem.
+\label{sequence_of_sets_proper_inclusions_counterexample}%
+Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos,
+tais que para todo $n\in\nats$,
+$A_n \subsetneq B_n$.
+Podemos concluir alguma das afirmações seguintes?:
+$$
+\xalignat2
+\Union_{n=0}^\infty A_n &\subsetneq \Union_{n=0}^{\infty} B_n &
+\Inter_{n=0}^\infty A_n &\subsetneq \Inter_{n=0}^{\infty} B_n
+\endxalignat
+$$
+
+\hint
+Procure contraexemplos:
+para cada afirmação,
+defina duas seqüências $\seqn A n$ e $\seqn B n$
+que satisfazem a condição do problema, e mesmo assim,
+não é valida a conclusão proposta.
+
+\solution
+Vamos construir um contraexemplo para cada afirmação.
+\endgraf
+Considere as seqüências de conjuntos seguintes:
+para todo $n\in\nats$ define
+$$
+A_n \eqass (-n,n)
+\qqqquad
+\aligned
+B_0     &\asseq \emptyset\\
+B_{n+1} &\asseq [-n,n].
+\endaligned
+$$
+Observe que, realmente, para todo $n\in\nats$ temos $A_n \subsetneq B_{n+1}$:
+$$
+A_n = (-n,n) \subsetneq [-n,n] = B_{n+1}.
+$$
+Mesmo assim,
+$$
+\Union_{n=0}^\infty A_n = \reals = \Union_{n=0}^{\infty} B_n.
+$$
+\endgraf
+Para refutar a segunda afirmação, considere
+as seqüências de conjuntos seguintes:
+para todo $n\in\nats$ defina
+$$
+A_n \eqass \setst {k \in \nats}  {k > n}
+\qquad\qquad
+B_n \eqass \setst {k \in \nats}  {k \geq n}
+$$
+Observe que, realmente, para todo $n\in\nats$ temos $A_n \subsetneq B_n$.
+Mesmo assim,
+$$
+\Inter_{n=0}^\infty A_n = \emptyset = \Inter_{n=0}^{\infty} B_n.
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ bounded_Union_and_Iter_def_and_prop 
+\problem.
+\label{bounded_Union_and_Iter_def_and_prop}%
+Seja $\seqn A n$ seqüência (infinita) de conjuntos.
+Defina recursivamente uma seqüência de conjuntos $\seqn D n$
+tal que (informalmente):
+$$
+\text{para todo $k\in\nats$, $D_k = A_0 \union A_1 \union \dotsb \union A_{k-1}$}.
+$$
+Em outras palavras,
+precisas definir formalmente a operação união unária \dterm{limitada} $\Union_{i=0}^{k-1} \dhole$
+para qualquer $k\in\nats$.
+Demonstre que para todo $n\in\nats$,
+$$
+\munderbrace {\Union_{i=0}^{n-1} A_n} {D_n} \subset \Union_{m=0}^{\infty} A_m.
+$$
+O que muda se trocar de uniões para intersecções?
+
+\solution
+\proofpart{Definição da $D_n$} por recursão:
+$$
+\align
+D_0     &= \emptyset \\
+D_{n+1} &= D_n \union A_n.
+\endalign
+$$
+\proofpart{Demonstração da afirmação} por indução no $n$.
+\crtabproofpart{Base:} $D_0 \subset \Union_{m=0}^{\infty} A_m$.
+Imediato pois $D_0 = \emptyset$.
+\crtabproofpart{Passo indutivo.}
+Seja $w \in \nats$ tal que
+$$
+D_w \subset \Union_{m=0}^{\infty} A_m.    \tag{H.I.}
+$$
+Preciso provar que
+$$
+D_{w+1} \subset \Union_{m=0}^{\infty} A_m.
+$$
+Seja $d \in D_{w+1}$.
+Basta mostrar que
+$$
+d \in \Union_{m=0}^{\infty} A_m,
+$$
+ou seja, que $d$ pertence a algum dos $A_m$'s.
+Pela definição de $D_{w+1} = D_w \union A_w$, temos
+que
+$d \in D_w$
+ou
+$d \in A_w$.
+Separo em casos:
+\crcase{Caso $d \in D_w$.}
+Imediatamente pela (H.I.)
+$$
+d \in D_w \subset \Union_{m=0}^{\infty} A_m.
+$$
+\case{Caso $d \in A_w$.}
+Imediato.
+\crproofpart{O que muda trocando de uniões para intersecções:}
+(1) a intersecção vazia tem de ser o $\universet$ em vez do $\emptyset$,
+pois $\universet$ é a identidade da $\inter$ binária;
+(2) o $\subset$ da afirmação tem de mudar pra $\supset$;
+(3) a base da indução também é imediata pois $\universet$
+é superconjunto de qualquer conjunto;
+(4) o passo indutivo muda numa maneira mais interessante:
+nosso alvo é mostrar que um arbitrario membro $a$ que pertence
+a intersecção infinita dos $A_i$'s pertence ao $D_{w+1}$ tambem,
+dado que qualquer membro dela pertence ao $D_w$;
+e temos então ambas as coisas que precisamos
+(o $a \in D_w$ pela (H.I.) e o $a \in A_w$
+pois $a$ pertence a todos os $A_i$'s).
+
+\endproblem
+%%}}}
+
+%%{{{ sandwiching_a_set_sequence 
+\problem Sanduichando uma seqüência de conjuntos.
+\label{sandwiching_a_set_sequence}%
+Seja $\seqn A n$ uma seqüência de conjuntos.
+Demonstre que para todo $k\in\nats$,
+$$
+\Inter_{i=k}^{\infty} {A_i}
+\subset
+A_k
+\subset
+\Union_{i=k}^{\infty} {A_i}.
+$$
+Ou seja, temos:
+$$
+\matrix
+\format
+\c      & \;\c\; & \r                                                 & \quad\c\quad & \c     & \quad\c\quad & \r                                                 & \;\c\; & \c  \\
+C_0     & \asseq & A_0 \inter A_1 \inter A_2 \inter A_3 \inter \dotsb & \subset    & A_0    & \subset    & A_0 \union A_1 \union A_2 \union A_3 \union \dotsb & \eqass & D_0 \\
+C_1     & \asseq &            A_1 \inter A_2 \inter A_3 \inter \dotsb & \subset    & A_1    & \subset    &            A_1 \union A_2 \union A_3 \union \dotsb & \eqass & D_1 \\
+C_2     & \asseq &                       A_2 \inter A_3 \inter \dotsb & \subset    & A_2    & \subset    &                       A_2 \union A_3 \union \dotsb & \eqass & D_2 \\
+        & \vdots &                     \ddots \phantom{\inter \dotsb} & \vdots       & \vdots & \vdots       &                     \ddots \phantom{\union \dotsb} &        & \vdots \\
+\endmatrix
+$$
+
+\endproblem
+%%}}}
+
+\endproblems
 %%}}}
 
 %%{{{ Indexed_families 
@@ -17984,7 +18386,7 @@ Suponha que queremos provar $A=B$.
 O caminho orthódoxo seria seguir a definição de igualdade de conjuntos
 e provar
 $$
-x\in A \iff x \in B,
+\lforall x {x\in A \iff x \in B},
 \qqqtext{ou seja,}
 A \subset B \mland A \supset B.
 $$
@@ -18364,326 +18766,6 @@ $$
 
 %%{{{ PROBLEMS 
 \problems.
-
-%%{{{ sequence_of_sets_inclusions_tricky_indices_2 
-\problem.
-\label{sequence_of_sets_inclusions_tricky_indices_2}%
-Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos tais que
-$$
-\text{para todo número par $m$, $A_m \subset B_{m/2}$.}
-$$
-Prove que:
-$$
-\Inter_{n=0}^\infty A_n \subset \Inter_{n=0}^{\infty} B_n.
-$$
-
-\solution
-Suponha $x \in \Inter_{n=0}^\infty A_n$.
-Preciso mostrar que $x \in \Inter_{n=0}^{\infty} B_n$,
-ou seja, provar que $x\in B_k$ para todo $k\in\nats$.
-Seja $k \in \nats$.
-Como $x \in \Inter_{n=0}^{\infty}A_n$, temos $x \in A_{2k}$.
-Mas $A_{2k} \subset B_k$, logo $x \in B_k$.
-
-\endproblem
-%%}}}
-
-%%{{{ sequence_of_sets_inclusions_counterexample 
-\problem.
-\label{sequence_of_sets_proper_inclusions_counterexample}%
-Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos,
-tais que para todo $n\in\nats$,
-$A_n \subsetneq B_n$.
-Podemos concluir alguma das afirmações seguintes?:
-$$
-\xalignat2
-\Union_{n=0}^\infty A_n &\subsetneq \Union_{n=0}^{\infty} B_n &
-\Inter_{n=0}^\infty A_n &\subsetneq \Inter_{n=0}^{\infty} B_n
-\endxalignat
-$$
-
-\hint
-Procure contraexemplos:
-para cada afirmação,
-defina duas seqüências $\seqn A n$ e $\seqn B n$
-que satisfazem a condição do problema, e mesmo assim,
-não é valida a conclusão proposta.
-
-\solution
-Vamos construir um contraexemplo para cada afirmação.
-\endgraf
-Considere as seqüências de conjuntos seguintes:
-para todo $n\in\nats$ define
-$$
-A_n \eqass (-n,n)
-\qqqquad
-\aligned
-B_0     &\asseq \emptyset\\
-B_{n+1} &\asseq [-n,n].
-\endaligned
-$$
-Observe que, realmente, para todo $n\in\nats$ temos $A_n \subsetneq B_{n+1}$:
-$$
-A_n = (-n,n) \subsetneq [-n,n] = B_{n+1}.
-$$
-Mesmo assim,
-$$
-\Union_{n=0}^\infty A_n = \reals = \Union_{n=0}^{\infty} B_n.
-$$
-\endgraf
-Para refutar a segunda afirmação, considere
-as seqüências de conjuntos seguintes:
-para todo $n\in\nats$ defina
-$$
-A_n \eqass \setst {k \in \nats}  {k > n}
-\qquad\qquad
-B_n \eqass \setst {k \in \nats}  {k \geq n}
-$$
-Observe que, realmente, para todo $n\in\nats$ temos $A_n \subsetneq B_n$.
-Mesmo assim,
-$$
-\Inter_{n=0}^\infty A_n = \emptyset = \Inter_{n=0}^{\infty} B_n.
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ sequence_of_sets_inclusions_tricky_indices_3 
-\problem.
-\label{sequence_of_sets_inclusions_tricky_indices_3}%
-Sejam $\seqn A n$ e $\seqn B n$ duas seqüências de conjuntos tais que
-$$
-\text{para todo número primo $p$, $A_p \subset B_{2p}$.}
-$$
-Prove ou refute:
-$$
-\Inter_{n=0}^\infty A_n \subset \Union_{n=28}^{\infty} B_n.
-$$
-
-\solution
-Suponha $x \in \Inter_{n=0}^\infty A_n$.\fact1
-Preciso mostrar que $x \in \Union_{n=28}^{\infty} B_n$,
-ou seja, achar um inteiro $m\geq 28$ tal que $x\in B_m$.
-Pela {\byfact1} temos $x\in A_{17}$; e como $17$ é primo,
-$A_{17}\subset B_{34}$ (pela hipótese).
-Logo $x \in B_{34}$.
-Então realmente $x \in \Union_{n=28}^{\infty} B_n$.
-
-\endproblem
-%%}}}
-
-%%{{{ epsilon-dependent and n-dependent intersections 
-\problem.
-Para todo real $\epsilon>0$ e todo $n\in\nats$,
-sejam os intervalos de reais
-$$
-\align
-I_\epsilon &= [0,1 + \epsilon)\\
-U_n &= [n,+\infty).
-\endalign
-$$
-Calcule os conjuntos:
-(i) $\Inter \set {I_\epsilon \st \epsilon>0}$;
-(ii) $\Inter_{n=2}^{\infty} U_n$.
-
-\solution
-(i) $[0,1]$;
-(ii) $\emptyset$.
-
-\endproblem
-%%}}}
-
-%%{{{ bounded_Union_and_Iter_def_and_prop 
-\problem.
-\label{bounded_Union_and_Iter_def_and_prop}%
-Seja $\seqn A n$ seqüência (infinita) de conjuntos.
-Defina recursivamente uma seqüência de conjuntos $\seqn D n$
-tal que (informalmente):
-$$
-\text{para todo $k\in\nats$, $D_k = A_0 \union A_1 \union \dotsb \union A_{k-1}$}.
-$$
-Em outras palavras,
-precisas definir formalmente a operação união unária \dterm{limitada} $\Union_{i=0}^{k-1} \dhole$
-para qualquer $k\in\nats$.
-Demonstre que para todo $n\in\nats$,
-$$
-\munderbrace {\Union_{i=0}^{n-1} A_n} {D_n} \subset \Union_{m=0}^{\infty} A_m.
-$$
-O que muda se trocar de uniões para intersecções?
-
-\solution
-\proofpart{Definição da $D_n$} por recursão:
-$$
-\align
-D_0     &= \emptyset \\
-D_{n+1} &= D_n \union A_n.
-\endalign
-$$
-\proofpart{Demonstração da afirmação} por indução no $n$.
-\crtabproofpart{Base:} $D_0 \subset \Union_{m=0}^{\infty} A_m$.
-Imediato pois $D_0 = \emptyset$.
-\crtabproofpart{Passo indutivo.}
-Seja $w \in \nats$ tal que
-$$
-D_w \subset \Union_{m=0}^{\infty} A_m.    \tag{H.I.}
-$$
-Preciso provar que
-$$
-D_{w+1} \subset \Union_{m=0}^{\infty} A_m.
-$$
-Seja $d \in D_{w+1}$.
-Basta mostrar que
-$$
-d \in \Union_{m=0}^{\infty} A_m,
-$$
-ou seja, que $d$ pertence a algum dos $A_m$'s.
-Pela definição de $D_{w+1} = D_w \union A_w$, temos
-que
-$d \in D_w$
-ou
-$d \in A_w$.
-Separo em casos:
-\crcase{Caso $d \in D_w$.}
-Imediatamente pela (H.I.)
-$$
-d \in D_w \subset \Union_{m=0}^{\infty} A_m.
-$$
-\case{Caso $d \in A_w$.}
-Imediato.
-\crproofpart{O que muda trocando de uniões para intersecções:}
-(1) a intersecção vazia tem de ser o $\universet$ em vez do $\emptyset$,
-pois $\universet$ é a identidade da $\inter$ binária;
-(2) o $\subset$ da afirmação tem de mudar pra $\supset$;
-(3) a base da indução também é imediata pois $\universet$
-é superconjunto de qualquer conjunto;
-(4) o passo indutivo muda numa maneira mais interessante:
-nosso alvo é mostrar que um arbitrario membro $a$ que pertence
-a intersecção infinita dos $A_i$'s pertence ao $D_{w+1}$ tambem,
-dado que qualquer membro dela pertence ao $D_w$;
-e temos então ambas as coisas que precisamos
-(o $a \in D_w$ pela (H.I.) e o $a \in A_w$
-pois $a$ pertence a todos os $A_i$'s).
-
-\endproblem
-%%}}}
-
-%%{{{ df: chain_in_sets 
-\definition.
-\label{chain_in_sets}%
-Seja $\scr A$ uma família de conjuntos.
-Chamamos a $\scr A$ de \dterm{$\subset$-chain} sse
-$$
-\text{para todo $A,B\in \scr A$, temos $A\subset B$ ou $B \subset A$}.
-$$
-%%}}}
-
-%%{{{ chain_first_encounter 
-\problem.
-\label{chain_first_encounter}%
-Seja $\scr C$ uma $\subset$-chain e seja $T = \Union \scr C$.
-A afirmação
-$$
-\text{$\scr C \union \set{T}$ é uma chain}
-$$
-é verdadeira?
-Se sim, demonstre; se não, refute;
-se os dados não são suficientes para concluir, mostre um exemplo e um contraexemplo.
-
-\hint
-A airmação é verdadeira.  Demonstre.
-
-\solution
-Vou demonstrar que $\scr C \union \set {T}$ é uma chain.
-\endgraf
-Sejam $A,B \in \scr C \union \set T$.
-Preciso mostrar que $A \subset B$ ou $B\subset A$.
-Vou separar em casos dependendo de se os $A,B$ pertencem à $\scr C$ ou ao $\set{T}$.
-\crcase{Caso ambos pertencem à $\scr C$.}
-Como $\scr C$ é chain, temos imediatamente $A\subset B$ ou $B \subset A$.
-\crcase{Caso exatamente um pertence à $\scr C$.}
-Chame $C$ aquele que pertence à $\scr C$.
-O outro pertence ao $\set{T}$ e logo é o próprio $T = \Union \scr C$.
-Vou mostrar que $C \subset T$.
-Seja $c \in C$.
-Preciso mostrar que $c$ pertence em algum dos membros do $\scr C$,
-que acontece pois $C \in \scr{C}$.
-\crcase{Caso nenhum pertence à $\scr C$.}
-Ou seja, ambos pertencem ao $\set{T}$; ou seja $A = B = T$; e logo $A\subset B$
-e pronto.
-
-\endproblem
-%%}}}
-
-%%{{{ chain_first_encounter_interesting_example 
-\problem.
-\label{chain_first_encounter_interesting_example}%
-Uma chain $\scr C$ que atende as hipotéses do~\ref{chain_first_encounter}
-pode ter a propriedade que
-$$
-\Union\scr C \in \scr C.
-$$
-Mostre um exemplo duma chain infinita $\scr C$ cujos membros são todos
-conjuntos infinitos, e tal que $\Union\scr C \notin \scr C$.
-Dá pra garantir (com a mesma $\scr C$) que $\Inter\scr C\notin \scr C$ também?
-Demonstre tuas afirmações!
-
-\hint
-Procure uma $\scr C \subset \pset \reals$.
-
-\hint
-Intervalos não triviais (com pelo menos $2$ membros) de reais
-com certeza são infinitos.
-
-\solution
-\proofpart{Defino a $\scr C$} pela
-$$
-\scr C \defeq \setst {(-a,a)} {a \in \reals_{>0}}
-$$
-onde $(-a,a)$ denota o intervalo aberto de
-reais $\setst {x\in\reals} {-a < x < a}$.
-Realmente temos
-$$
-\xalignat2
-\Union\scr C &= \reals    \notin \scr C; &
-\Inter\scr C &= \emptyset \notin \scr C.
-\endxalignat
-$$
-\proofpart{Demonstração que $\emptyset,\reals\notin\scr C$.}
-Seja $C \in \scr C$, e logo seja $a_C \in \reals$ tal que $C = (-a_C,a_C)$.
-Como $a_C+1 \notin C$ e $a_C+1 \in \reals$, temos $C \neq \reals$.
-Como $0 \in C$, temos $C \neq \emptyset$.
-Demonstrei então que o arbitrário membro da $\scr C$ não pode ser
-nem o $\emptyset$ nem o $\reals$ e logo nenhum dos dois pertence à $\scr C$.
-
-\endproblem
-%%}}}
-
-%%{{{ sandwiching_a_set_sequence 
-\problem Sanduichando uma seqüência de conjuntos.
-\label{sandwiching_a_set_sequence}%
-Seja $\seqn A n$ uma seqüência de conjuntos.
-Demonstre que para todo $k\in\nats$,
-$$
-\Inter_{i=k}^{\infty} {A_i}
-\subset
-A_k
-\subset
-\Union_{i=k}^{\infty} {A_i}.
-$$
-Ou seja, temos:
-$$
-\matrix
-\format
-\c      & \;\c\; & \r                                                 & \quad\c\quad & \c     & \quad\c\quad & \r                                                 & \;\c\; & \c  \\
-C_0     & \asseq & A_0 \inter A_1 \inter A_2 \inter A_3 \inter \dotsb & \subset    & A_0    & \subset    & A_0 \union A_1 \union A_2 \union A_3 \union \dotsb & \eqass & D_0 \\
-C_1     & \asseq &            A_1 \inter A_2 \inter A_3 \inter \dotsb & \subset    & A_1    & \subset    &            A_1 \union A_2 \union A_3 \union \dotsb & \eqass & D_1 \\
-C_2     & \asseq &                       A_2 \inter A_3 \inter \dotsb & \subset    & A_2    & \subset    &                       A_2 \union A_3 \union \dotsb & \eqass & D_2 \\
-        & \vdots &                     \ddots \phantom{\inter \dotsb} & \vdots       & \vdots & \vdots       &                     \ddots \phantom{\union \dotsb} &        & \vdots \\
-\endmatrix
-$$
-
-\endproblem
-%%}}}
 
 %%{{{ set_liminf_limsup_problem 
 \problem.
