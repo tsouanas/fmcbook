@@ -699,8 +699,14 @@ $\defiff$, $\sugdefiff$, $\sugiff$, etc.
 \tdefined{variável}[ligada]%
 \tdefined{variável}[capturada]%
 \tdefined{variável}[dummy]%
+\tdefined{variável}[sombreamento]%
 \iisee{capturado}{variável, capturada}%
 \iisee{dummy}{variável, dummy}%
+
+\TODO Explicar.
+
+\note Sombreamento.
+\label{variable_shadowing}%
 
 \TODO Explicar.
 
@@ -3592,6 +3598,37 @@ na vida real qualquer uma das duas pode acabar sendo ``esquecida''.
 
 %%{{{ Let and prove vs. Prove that all 
 \note Seja e demonstre \vs demonstre que todos.
+%%}}}
+
+%%{{{ warning: only_declare_variables 
+\warning Declare apenas variáveis.
+\label{only_declare_variables}%
+Não podemos ``sejar'' algo que envolve um termo.
+Não faz sentido escrever
+\quote
+Seja $x+y$ natural.
+\endquote
+por exemplo.
+Novamente: depois dum ``seja'' segue uma variável,
+inclusive fresca para evitar sombreamento (\refn{variable_shadowing}).
+Voltando no exemplo da soma, não faria sentido escrever:
+\quote
+Sejam $x,y$ naturais.
+Seja $x+y$ a soma dos $x$ e $y$.
+\endquote
+Não!
+Já definimos a operação binária $+$ entre naturais, então
+não podemos ``sejar'' a expressão \sq{$x+y$}.
+Quando ``sejamos'' algo como um membro arbitrário dum conjunto
+usamos apenas uma variável!  Nem constantes, nem termos que
+involvem operações.  Imagine alguem escrevendo:
+<<seja $3\in\ints$>>, ou <<seja $x^2 \in \reals$>>.
+Não!  A operação $\dhole^2$ já é definida, e logo para
+qualquer real $r$ o real $r^2$ já é definido!
+Para dar um exemplo para quem programou em linguagem similar à C.
+Tu escreverias essas declarações?
+\sourcecode onlydeclarevars.c;
+Espero que não!
 %%}}}
 
 \TODO complete and provide math and life examples.
@@ -16514,7 +16551,8 @@ perguntar
 Oi, tuplas!
 \endgraf
 Nessa secção vamos estudar a idéia de \dterm{par ordenado},
-ou \dterm{$2$-tupla}, ou---por enquanto---apenas \dterm{tupla}.
+ou \dterm{dupla}, ou \dterm{$2$-tupla},
+ou---por enquanto---apenas \dterm{tupla}.
 O que é?
 \emph{Dois objetos (não necessariamente distintos)
 onde um deles é considerado primeiro e o outro segundo.}
@@ -16623,8 +16661,8 @@ definir como ela comporta, ou seja, isto:
 Seja $\alert t$ a tupla definida pelas
 $$
 \xalignat2
-\proj 0 {\alert t} &\alertdefeq x &
-\proj 1 {\alert t} &\alertdefeq y.
+\proj 0 \app {\alert t} &\alertdefeq x &
+\proj 1 \app {\alert t} &\alertdefeq y.
 \endxalignat
 $$
 \endquote
@@ -16684,7 +16722,7 @@ e botamos esses valores (e nessa ordem) para construir
 uma tupla. Onde chegamos?
 Olhe isso; e olhe isso bem:
 $$
-t = \tup{ \proj 0 t , \proj 1 t }.
+t = \tup{ \proj 0 \app t , \proj 1 \app t }.
 $$
 %%}}}
 
@@ -16848,10 +16886,108 @@ $$
 \endexercise
 %%}}}
 
-\blah.
-Naturalmente, podemos generalizar a idéia de par ordenado,
-cujo tamanho é $2$, para um conceito correspondente de tamanho $n$,
-para qualquer número natural $n$.  Vamo lá!
+%%{{{ remark: let_pair_in_product 
+\remark.
+\label{let_pair_in_product}%
+Sabemos que para ``sejar'' algum membro dum conjunto $A$ (sabendo claramente que $A$ não é vazio)
+escrevemos algo do tipo
+\quote
+Seja $x \in A$.
+\endquote
+onde precisamos tomar cuidado escolhendo um \emph{nome fresco de variável} para denotar esse objeto.
+Como $A \times B$ também é um conjunto, e também supondo que não é vazio, obviamente faz sentido escrever
+\quote
+Seja $x \in A\times B$.
+\endquote
+A partir disso, pela definição do $A\times B$, que tipo de objeto é esse $x$?
+Uma tupla cujo primeiro componente pertence a $A$, e o segundo ao $B$;
+pois todos os membros de $A\times B$ são tais tuplas.
+E o que podemos fazer com esse $x$ então?
+Bem, é uma 2-tupla, e logo podemos projectar: $\proj 0 x$ e $\proj 1 x$ são objetos já definidos que podemos usar.
+O que mais podemos fazer?
+Lembrando a notação de set-builder que permite termos (\refn{full_setbuilder}),
+percebemos que a \ref{cartesian_product} do próprio
+$A \times B$ usou tal set-builder:
+$$
+A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}.
+$$
+A partir da definição dessa notação (\ref{rich_set_builder_sugar}) temos
+$$
+x \in A \times B \intiff \pexists {a \in A} \lexists {b \in B} {x = \tup{a,b}}.
+$$
+Para voltar na nossa pergunta de <<o que podemos fazer com esse $x$>> então:
+\quote
+Seja $x \in A\times B$.\CR
+Logo sejam $a\in A$ e $b \in B$ tais que $x = \tup{a,b}$.
+\endquote
+Tudo bem até agora.
+Mas essa declaração do $x$ parece inútil.
+Pra que poluir nosso escopo com esse objeto
+se a único coisa que planejamos fazer com ele
+é extrair seus componentes para usá-los?
+Não seria melhor escrever
+\quote
+Seja $\tup{a,b} \in A\times B$.
+\endquote
+assim ganhando diretamente os $a,b$ sem o bobo $x$?
+Seria, mas\dots
+já aprendemos que declaramos apenas variáveis (\ref{only_declare_variables}), né?
+\endgraf
+Mas já que $\tup{\dhole,\dhole}$ é um \emph{construtor} de tuplas
+podemos considerar a linha
+\quote
+Seja $\tup{a,b} \in A\times B$.
+\endquote
+Como abreviação das linhas
+\quote
+Seja $a \in A$.
+Seja $b \in B$.
+\endquote
+E sobre o $\tup{a,b}$?  Como que vamos introduzí-lo para usá-lo?
+Nem precisamos nem podemos!
+Como já temos agora os objetos $a,b$, querendo ou não a tupla $\tup{a,b}$
+já é definida e podemos usá la.
+Isso vai ficar ainda mais claro daqui a pouco
+(no~\ref{picking_elements_from_indexed_sets})
+onde discutimos o que significa
+\emph{tomar um arbitrário membro dum conjunto indexado}.
+%%}}}
+
+%%{{{ Do we need bigger tuples? 
+\note Precisamos tuplas maiores?.
+Introduzimos então esse novo \emph{tipo primitivo} de $2$-tuplas.
+E se precisar uma tripla?  Precisamos escolher se vamos aceitar
+mais tipos como primitivos ($3$-tuplas (triplas), $4$-tuplas,
+(quadruplas), $5$-tuplas (quintuplas), etc., etc.) ou não.
+\endgraf
+Caso que sim, vamos precisar uma $n$-tupla para cada $n\in\nats$.
+E precisamos definir a igualdade e o intreface para cada um desses tipos,
+algo que fazemos facilmente:
+$$
+\tup{x_1, \dots, x_n}
+=
+\tup{x'_1, \dots, x'_n}
+\defiff
+x_1 = x'_1
+\mland \cdots \mland
+x_n = x'_n
+$$
+e naturalmente dizemos que uma $n$-tupla $t$ é \emph{determinada
+por os objetos em cada uma das suas $n$ posições}.
+Então para definir uma $n$-tupla basta só definir as
+$$
+\projfrom n 0 t,
+\projfrom n 1 t,
+\dotsc,
+\projfrom n {n-1} t.
+$$
+\endgraf
+E caso contrário?  Será que podemos utilizar apenas as $2$-tuplas
+para conseguir o que nossos amigos que trabalham com $n$-tuplas como
+tipos primitivos conseguem?
+A resposta é sim.
+Vamos investigar primeiramente para caso $n\asseq 3$ de triplas.
+%%}}}
 
 \endsection
 %%}}}
@@ -16860,8 +16996,16 @@ para qualquer número natural $n$.  Vamo lá!
 \section Implementação de tipo: triplas.
 \label{Type_implementation_triples}%
 
+%%{{{ secintro 
+\secintro
+Nessa secção temos nosso primeiro contato com a idéia fundamental---literalmente---%
+de \emph{implementação}.
+Nosso objetivo aqui é só isso: brincar um pouco para entender o conceito.
+Bem depois, no~\ref{Axiomatic_set_theory} vamos mergulhar mais profundamente.
+%%}}}
+
 %{{{ friend_with_triples 
-\note triples.
+\note Um amigo com triplas.
 \label{friend_with_triples}%
 Tudo ótimo até agora nesse capítulo (né?):
 Introduzimos dois \emph{típos primitivos:} conjuntos e tuplas
@@ -16869,20 +17013,20 @@ junto com operações neles, e tudo mais.
 chega nosso amigo da outra turma que mostra para nos um tipo primitivo deles,
 a tripla:
 \quote
-Cara, triplas têm $3$ projecções em ves de $2$, que denotamos por
+<<Cara, triplas têm $3$ projecções em ves de $2$, que denotamos por
 $$
 \projfrom 3 0, \quad
 \projfrom 3 1, \quad
 \projfrom 3 2.
 $$
-A própria tupla com
+A própria tupla $t$ com
 $$
-\projfrom 3 0 = x, \quad
-\projfrom 3 1 = y, \quad
-\projfrom 3 2 = z
+\projfrom 3 0 \app t = x, \quad
+\projfrom 3 1 \app t = y, \quad
+\projfrom 3 2 \app t = z
 $$
 denotamos por $\tup{x,y,z}$,
-e definimos igualdade por
+e definimos igualdade pela
 $$
 \tup{x,y,z} = \tup{x',y',z'}
 \defiff
@@ -16892,15 +17036,15 @@ y=y'
 \mland
 z=z'
 $$
-e as equações oundamentais são as óbvias.
-Lembrando a conversa no início da secção,
-com triplas consigo saber quem ganhou o bronze também!
+e as equações fundamentais são as óbvias.
+Lembra da conversa no começo da~\ref{Tuples}?
+Com triplas consigo saber quem ganhou o bronze também!>>
 \endquote
 %%}}}
 
-%%{{{ triple_projections 
-\note Interface de tripla.
-\label{triple_projections}%
+%%{{{ triple_interface 
+\note Interface.
+\label{triple_interface}%
 O interface duma tripla, consiste em $3$ projecções:
 $\projfrom 3 0$, $\projfrom 3 1$, $\projfrom 3 2$.
 %%}}}
@@ -16931,17 +17075,6 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ df: triple_equality 
-\definition Igualdade.
-\label{triple_equality}%
-Sejam $\tup{x,y,z},\tup{x',y',z'}$ triplas.
-Definimos
-$$
-\tup{x,y,z} = \tup{x',y',z'}
-\defiff x = x' \mland y = y' \mland z = z'.
-$$
-%%}}}
-
 %%{{{ implementation_of_primitive_type 
 \note Implementação de tipo primitivo.
 \label{implementation_of_primitive_type}%
@@ -16959,7 +17092,7 @@ Cuidado: nossa implementação deve \dterm{atender a especificação}.
 %%}}}
 
 \blah.
-Então \emph{definimos} mesmo as triplas assim:
+Então \emph{implementamos}---ou seja, definimos mesmo---as triplas assim:
 
 %%{{{ df: triple_implementation 
 \definition Tripla.
@@ -16972,6 +17105,91 @@ $$
 Ou seja, a tripla dos objetos $x,y,z$ nessa ordem
 é a tupla cujo primeiro componente é o $x$
 e cujo segundo componente é a tupla $\tup{y,z}$.
+Definimos igualdade entre triplas pela
+$$
+\tup{x,y,z} = \tup{x',y',z'}
+\defiff x = x' \mland y = y' \mland z = z'.
+$$
+\mistake
+%%}}}
+
+%%{{{ Q: We just cheated!  How?
+\question.
+Acabamos de roubar.  Como?
+%%}}}
+\spoiler.
+
+%%{{{ beware: thou_shalt_not_redefine 
+\beware Não redefinirás.
+\label{thou_shalt_not_redefine}%
+A partir do momento que \emph{definimos} triplas
+(pra ser certas 2-tuplas) não temos o direito de
+\emph{redefinir} igualdade entre triplas, pois,
+simplesmente, agora triplas \emph{são} 2-tuplas,
+e a igualdade entre 2-tuplas já foi definida,
+e logo a igualdade
+$$
+\tup{x,y,z} = \tup{x',y',z'}
+$$
+já tem significado: os objetos nos seus dois
+lados são 2-tuplas, e logo a igualdade acima
+\emph{realmente é} a seguinte:
+$$
+\tup{x,y,z} = \tup{x',y',z'}
+\means
+\tup{x,\tup{y,z}} = \tup{x',\tup{y',z'}}.
+$$
+%%}}}
+
+%%{{{ implementator_duties 
+\note Deveres do implementador.
+\label{implementor_duties}
+O que \emph{devemos} fazer para implementar mesmo um tipo
+dada uma especificação?
+Devemos demonstrar que nossa implementação atende a especificação.
+E note que nossa implementação não é completa ainda, pois
+precisamos \emph{definir} o interface também.
+Para nosso amigo as operações $\projfrom30, \projfrom31, \projfrom32$
+são \emph{primitivas}.  Ele não as definiu, pelo contrario:
+determinado seus comportamentos, ele determina uma tripla.
+Mas aqui queremos implementar as triplas, então devemos definir
+essas projecções!
+Bora terminar esses deveres agora.
+%%}}}
+
+%%{{{ x: implement_triple_interface 
+\exercise.
+\label{implement_triple_interface}%
+Complete a implementação de triplas: defina as três projecções.
+
+\hint
+Já que definimos triplas em termos de duplas,
+para definir o interface de triplas vamos precisar
+usar o interface de duplas, ou seja, as projecções
+$\proj0,\proj1$.
+
+\hint
+Seja $t$ tripla.  Definimos
+$$
+\xalignat3
+\projfrom30 t &= \askdots &
+\projfrom31 t &= \askdots &
+\projfrom32 t &= \askdots
+\endxalignat
+$$
+
+\solution
+Seja $t$ tripla.
+Definimos
+$$
+\xalignat3
+\projfrom30 t &= \proj0 t &
+\projfrom31 t &= \proj0 \paren{\proj1 t} &
+\projfrom32 t &= \proj1 \paren{\proj1 t}.
+\endxalignat
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ x: tuples_of_size_2_are_good_for_3 
@@ -16986,10 +17204,11 @@ $$
 \tup{x,y,z} = \tup{x',y',z'}
 \iff x = x' \mland y = y' \mland z = z'.
 $$
-Cuidado: é um \sq{$\iffsymbol$} acima, não um \sq{$\defiffsymbol$}!
+Mais uma vez, cuidado: é um \sq{$\iffsymbol$} acima,
+não um \sq{$\defiffsymbol$}!
 Ou seja, definindo as $3$-tuplas nessa maneira, querendo
 ou não, a igualdade entre seus objetos já é definida!
-Não teriamos o direito de defini-la novamente!
+Não temos o direito de redefini-la!
 
 \solution
 Calculamos
@@ -17004,6 +17223,55 @@ que é exatamente o que desejamos mostrar!
 \endexercise
 %%}}}
 
+%%{{{ cartesian_product_triple 
+\note Produto cartesiano.
+\label{cartesian_product_triple}%
+\ii{produto cartesiano!tripla}%
+Uma das mais interessantes coisas que fizemos assim começamos trabalhar
+com as duplas foi definir o produto cartesiano duma dupla de conjuntos!
+Agora que definimos as triplas, naturalmente queremos considerar o produto
+cartesiano duma tripla de conjuntos.
+Parece então que temos uma operação ternaria,
+que para quaisquer conjuntos $A,B,C$
+$$
+A \times B \times C \defeq \setst {\tup{a,b,c}} {a \in A,\ b\in B,\ c\in C}.
+$$
+%%}}}
+
+%%{{{ beware: implementation_agnostic 
+\beware Implementação agnóstico.
+\label{implementation_agnostic}%
+\tdefined{agnóstico}[implementação]%
+\ii{implementação}%
+\iisee{implementação!agnóstico}{agnóstico}%
+\emph{Definimos} o que significa $\tup{x,y,z}$,
+e \emph{definimos} as projecções $\projfrom30,\projfrom31,\projfrom32$.
+Dada uma tripla $\tup{x,y,z}$, podemos chamar a $\proj1$ nela?
+Intuitivamente, alguem pensaria que não, pois parece ter um ``type error''
+essa aplicação: a projecção $\proj1$ funciona com $2$-tuplas,
+e $\tup{x,y,z}$ é uma tripla, então só podemos chamar as $\projfrom30,\projfrom31,\projfrom32$ nela.
+Certo?
+Errado!
+Podemos sim, pois, pela nossa definição,
+a tripla $\tup{x,y,z}$ \emph{é} a dupla $\tup{x,\tup{y,z}}$.
+Ou seja, temos:
+\compute
+\proj1 \tup{x,y,z}
+&\inteq \proj1 \tup{x,\tup{y,z}}    \by {def.~$\tup{x,y,z}$}
+&= \tup{y,z}                        \by {def.~$\tup{x,\tup{y,z}}$}
+\endcompute
+O fato que \emph{podemos} não significa que \emph{devemos}.
+O que estamos fazendo nesse caso é \emph{usar os detalhes da implementação
+em vez do seu interface}.
+Tudo que vamos construir a partir desse abuso vale apenas para \emph{nossa}
+implementação.  Nosso amigo que usa triplas como tipo primitivo não pode
+aproveitar dos nossos cálculos e das nossas teorias.  Nem alguém que escolheu
+implementar triplas em outra maneira.  O moral da estoria é o seguinte:
+precisamos ficar \dterm{implementação agnósticos}, ou seja,
+esquecer os detalhes da nossa implementação, usando apenas o interface
+dos nossos objetos.
+%%}}}
+
 \blah.
 Não faz sentido nenhum se limitar em 2-tuplas e 3-tuplas.
 Partiu $n$-tuplas para qualquer $n\in\nats$!
@@ -17016,7 +17284,7 @@ Partiu $n$-tuplas para qualquer $n\in\nats$!
 \label{n_tuples}%
 
 %%{{{ n_tuples_interface_notation 
-\note n-tuplas: interface e notação.
+\note Interface e notação.
 \label{n_tuples_interface_notation}%
 Nossa única interface dada uma tupla de tamanho $n$, é que podemos
 pedir seu $i$-ésimo elemento, onde $0 \leq i < n$.
@@ -17024,7 +17292,7 @@ Conversamente, para definir uma tupla de tamanho $n$, basta
 determinar todos os objetos (distintos ou não) nas suas $n$ posições.
 Usamos as notações $\tupa{a_0, a_1, \dotsc, a_{n-1}}$
 e~$\tupp{a_0, a_1, \dotsc, a_{n-1}}$ para tuplas de tamanho~$n$.
-Às vezes é mais legível usar índices começando com $1$---tanto faz.
+As vezes é mais legível usar índices começando com $1$---tanto faz.
 Quando queremos enfatizar o tamanho da tupla, falamos de
 \dterm{$n$-tupla}.
 Em geral, para tuplas de tamanho $n$, usamos a notação
@@ -17129,14 +17397,15 @@ $$
 \tup{a_0, a_1, a_2}
 $$
 \emph{são iguais?}
-Depende.
-Podemos considerá-las como se fossem iguais, pois
+Não, pois já temos uma maneira de observar comportamento
+diferente usando o interface dessas 2-tuplas.
+Mas também depende:
+podemos considerá-las \emph{como se fossem iguais}, pois
 qualquer uma delas serve para satisfazer a especificação de tuplas:
 podemos definir as $i$-ésimas projecções para cada uma,
-e a igualdade vai acabar sendo satisfeita usando uma delas
-sse é satisfeita usando qualquer uma das outras.
-Para nos convencer que faz sentido considerar essas tuplas como iguais
-pense na idéia sobre a \emph{informação} que uma tupla carrega com ela.
+e a especificação vai acabar sendo atendida usando uma delas
+sse é atendida usando qualquer uma das outras.
+Pense na idéia sobre a \emph{informação} que uma tupla carrega com ela.
 Agora tente ler as três tuplas acima:
 $$
 \gather
@@ -17145,6 +17414,14 @@ $$
 \text{<<Primeiro temos o objeto $a_0$ e depois o $a_1$ e depois o $a_2$.>>}
 \endgather
 $$
+Mas esse ponto de visto é confundindo implementação com interface.
+Como enfatisei no~\ref{implementation_agnostic}, quando queremos referir
+a uma tripla de objetos, usamos a notação $\tup{a_0, a_1, a_2}$,
+e não alguma que corresponde na nossa implementação peculiar.
+Assim, se escrever $\tup{a_0, \tup{a_1,a_2}}$ deve ser porque tu tá
+considerando a 2-tupla mesmo, cujo primeiro componente é o $a_0$
+e cujo segundo o $\tup{a_1,a_2}$.
+Para resumir: depende do contexto, e do objetivo de cada conversa.
 %%}}}
 
 %%{{{ Comparison with numbers (II) 
@@ -17168,94 +17445,8 @@ Vamos usar o $\tup{}$ para denotá-la.
 Isso é um abuso notacional, pois $\tup{}$ também denota a tupla vazia,
 que é o único membro da unit;
 mas o contexto é em geral suficiente para tirar a ambigüidade.
-%%}}}
-
-%%{{{ remark: let_pair_in_product 
-\remark.
-\label{let_pair_in_product}%
-Sabemos que para ``sejar'' algum membro dum conjunto $A$ (sabendo claramente que $A$ não é vazio)
-escrevemos algo do tipo
-\quote
-Seja $x \in A$.
-\endquote
-onde precisamos tomar cuidado escolhendo um \emph{nome fresco de variável} para denotar esse objeto.
-Como $A \times B$ também é um conjunto, e também supondo que não é vazio, obviamente faz sentido escrever
-\quote
-Seja $x \in A\times B$.
-\endquote
-A partir disso, pela definição do $A\times B$, que tipo de objeto é esse $x$?
-Uma tupla cujo primeiro componente pertence a $A$, e o segundo ao $B$;
-pois todos os membros de $A\times B$ são tais tuplas.
-E o que podemos fazer com esse $x$ então?
-Bem, é uma 2-tupla, e logo podemos projectar: $\proj 0 x$ e $\proj 1 x$ são objetos já definidos que podemos usar.
-O que mais podemos fazer?
-Lembrando a notação de set-builder que permite termos (\refn{full_setbuilder}),
-percebemos que a \ref{cartesian_product} do próprio
-$A \times B$ usou tal set-builder:
-$$
-A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}.
-$$
-A partir da definição dessa notação (\ref{rich_set_builder_sugar}) temos
-$$
-x \in A \times B \intiff \pexists {a \in A} \lexists {b \in B} {x = \tup{a,b}}.
-$$
-Para voltar na nossa pergunta de <<o que podemos fazer com esse $x$>> então:
-\quote
-Seja $x \in A\times B$.\CR
-Logo sejam $a\in A$ e $b \in B$ tais que $x = \tup{a,b}$.
-\endquote
-Tudo bem até agora.
-Mas essa declaração do $x$ parece inútil.
-Pra que poluir nosso escopo com esse objeto
-se a único coisa que planejamos fazer com ele
-é extrair seus componentes para usá-los?
-Não seria melhor escrever
-\quote
-Seja $\tup{a,b} \in A\times B$.
-\endquote
-assim ganhando diretamente os $a,b$ sem o bobo $x$?
-Seria, mas\dots
-%%}}}
-
-\TODO terminar.
-
-\TODO cite
-\ref{only_declare_variables}, \ref{picking_elements_from_indexed_sets}.
-
-%%{{{ Do we need bigger tuples? 
-\note Precisamos tuplas maiores?.
-Introduzimos então esse novo \emph{tipo primitivo} de $2$-tuplas.
-E se precisar uma tripla?  Precisamos escolher se vamos aceitar
-mais tipos como primitivos ($3$-tuplas (triplas), $4$-tuplas,
-(quadruplas), $5$-tuplas (quintuplas), etc., etc.) ou não.
-\endgraf
-Caso que sim, vamos precisar uma $n$-tupla para cada $n\in\nats$.
-E precisamos definir a igualdade para cada um desses tipos,
-algo que fazemos facilmente com:
-$$
-\tup{x_1, \dots, x_n}
-=
-\tup{x'_1, \dots, x'_n}
-\defiff
-x_1 = x'_1
-\mland \cdots \mland
-x_n = x'_n.
-$$
-Naturalmente dizemos que uma $n$-tupla $t$ é \emph{determinada
-por os objetos em cada uma das suas $n$ posições}.
-Então para definir uma $n$-tupla basta só definir as
-$$
-\projfrom n 0 t,
-\projfrom n 1 t,
-\dotsc,
-\projfrom n {n-1} t.
-$$
-\endgraf
-E caso contrário?  Será que podemos utilizar apenas as $2$-tuplas
-para conseguir o que nossos amigos que trabalham com $n$-tuplas como
-tipos primitivos conseguem?
-A resposta é sim.
-Vamos investigar.
+Caso contrário, use $\set{\tup{}}$, ou introduza alguma outra notação,
+por exemplo $I$.
 %%}}}
 
 %%{{{ df: equality_of_n_tuples 
@@ -17281,8 +17472,8 @@ de $2$-tuplas?
 %%}}}
 \spoiler.
 
-%%{{{ df: n_tuples_based_on_2_tuples 
-\definition.
+%%{{{ pseudodf: n_tuples_based_on_2_tuples 
+\pseudodefinition.
 \label{n_tuples_based_on_2_tuples}%
 Seja $n\in\nats$ com $n > 2$.
 Dados $n$ objetos $x_1,x_2,\dotsc,x_n$ definimos a $n$-tupla
@@ -17292,8 +17483,6 @@ $$
 \tup{x_1, \tup{x_2, \dotsc, x_n}}.
 $$
 %%}}}
-
-% tuples of extreme sizes
 
 %%{{{ Tuples of extreme sizes 
 \note Tuplas de tamanhos extremos.
@@ -17323,15 +17512,55 @@ $$
 que é exatamente a igualdade desejada.
 Ou seja, para nossos objectivos podemos \emph{identificar os objetos}
 $\tup{x}$ e $x$.
+A partir disso, faz sentido considerar que o produto cartesiano
+dum conjunto só é o próprio conjunto, e logo ter $A^1 = A$
 %%}}}
 
-%%{{{ The empty tuple 
-\note A tupla vazia.
+%%{{{ Q: what about 0-tuples? 
+\question.
+E sobre 0-tuplas?  Faz sentido considerar esse tipo?
+Teria ``habitantes'', ou seja, objetos desse tipo?
+Se sim, quantos, e quais são?  Se não, por que não?
+%%}}}
+\spoiler.
+
+%%{{{ zero_tuple 
+\note A 0-tupla.
+\label{zero_tuple}%
 Seguindo nossa intuição com as tuplas dos outros tamanhos,
 o que seria uma $0$-tupla?
 Bem, para determinar um objeto $\vec t$ desse tipo, precisamos
-definir suas\dots\ $0$ projecções.
+definir suas\dots $0$ projecções.
+Vamos fazer isso aqui:
+$$
+\ 
+$$
+Pronto.
+Acabei de fazer:
+acabei de definir as\dots $0$ coisas que precisava definir.
 Logo existe uma única $0$-tupla, que denotamos por $\tup{}$ mesmo.
+E qual seria o produto cartesiano $0$-ário, duma---na verdade,
+da única---$0$-tupla de conjuntos?
+%%}}}
+
+%%{{{ cartesian_product_nullary 
+\note O produto cartesiano 0-ário.
+\label{cartesian_product_nullary}%
+Dados\dots $0$ conjuntos, seu produto cartesiano deve ser
+o conjunto de todas as $0$-tuplas cujo $i$-ésimo componente
+pertence ao $i$-ésimo dos $0$ conjuntos.
+Mas só tem uma $0$-tupla e ela satisfaz essa condição, então
+o produto cartesiano de 0 conjuntos, é o singleton $\set{\tup{}}$.
+Logo devemos definir
+$$
+A^0 \defeq \set{\tup{}}
+$$
+e consideramos o $\set{\tup{}}$ como identidade (elemento neutro)
+da $\times$, identidicando, por exemplo, as tuplas
+$$
+\tup{\tup{}, \tup{x,y}} \qqqtext{e} \tup{x,y}
+$$
+nesse contexto.
 %%}}}
 
 \endsection
@@ -40494,9 +40723,9 @@ Não esqueça: assim que achar um tal objeto que satisfaz
 a equação acima, precisa demonstrar que ele pertence ao $H$.
 %%}}}
 
-%%{{{ warning: only_declare_variables 
-\warning Declare apenas variáveis no conjunto!.
-\label{only_declare_variables}%
+%%{{{ warning: only_declare_variables_group_reminder 
+\warning Declare apenas variáveis.
+\label{only_declare_variables_group_reminder}%
 É comum escrever algo do tipo:
 \quote
 Seja $ha \in Ha$.
@@ -40507,17 +40736,15 @@ Em vez disso, podes escrever:
 Seja $w \in Ha$.  Logo seja $h \in H$ tal que $w = ha$.
 \endquote
 É provável que esse $w$ tem um papel ``bobo'' aí, e realmente
-podemos evitá-lo (
-Quando ``sejamos'' algo como um membro arbitrário dum conjunto
-usamos apenas uma variável!  Nem constantes, nem termos que
-involvem operações.  Imagine alguem escrevendo:
-<<seja $3\in\ints$>>, ou <<seja $x^2 \in \reals$>>.
-Não!  A operação $\dhole^2$ já é definida, e logo para
-qualquer real $r$ o real $r^2$ já é definido!
-Para dar um exemplo para quem programou em linguagem similar à C.
-Tu escreverias essas declarações?
-\sourcecode onlydeclarevars.c;
-Espero que não!
+podemos evitá-lo:
+o conjunto $Ha$ é um conjunto \emph{indexado pelo $H$}.
+Então tudo que discutimos no~\ref{picking_elements_from_indexed_sets}
+aplica, e nesse caso para tomar um arbitrário membro do $Ha$,
+basta tomar um arbitrário membro $h\in H$:
+\quote
+Seja $h \in H$.
+\endquote
+\dots e já temos um arbitrário membro do $Ha$: o $ha$.
 %%}}}
 
 %%{{{ remark: picking_in_Ha_via_H 
@@ -42446,12 +42673,14 @@ não são congruências.
 \section Subgrupos normais.
 \label{Normal_subgroups}%
 
+%%{{{ secintro 
 \secintro
 Na~\ref{The_quotient_group} definimos os
 \emph{subgrupos normais} como aqueles cujas coclasses
 esquerdas e direitas formam a mesma partição.
 Aqui encontramos umas definições equivalentes que
 superficialmente parecem bastante diferentes.
+%%}}}
 
 %%{{{ df: normal_equivalent_definitions 
 \definition definições de normal.
@@ -42545,7 +42774,7 @@ Vamos dar uma olhada detalhada agora,
 caso que a parte sublinhada acima pareceu estranha.
 Lembre-se como tomamos membros arbitrários dum conjunto
 indexado (\ref{picking_elements_from_indexed_sets}
-e~\ref{only_declare_variables}).
+e~\ref{only_declare_variables_group_reminder}).
 Provando a afirmação
 $$
 \align
@@ -44169,10 +44398,12 @@ no~\ref{normal_is_kernel}---não pule!
 \section Pouco de cats---categorias e grupos.
 \label{Categories_and_groups}%
 
+%%{{{ secintro 
 \secintro
 Temos uns objetos que nos interessam: os grupos.
 Temos umas setas interessantes entre esses objetos: os morfimos.
 Será que temos uma categoria (\ref{category_first_def})?
+%%}}}
 
 %%{{{ df: GROUP 
 \definition.
