@@ -413,7 +413,7 @@ para partes dos seus programas.
 Em muitas linguagens existe um \dterm{entry point} para teu programa, onde a execução começa.
 Por exemplo, em C isso seria o corpo da função $\code{main}$.
 Seria bizarro (no mínimo) tentar escrever um inteiro programa apenas usando os primitivos da C dentro dessa função $\code{main}$.
-Felizmente as linguagens oferecem ferraments de abstracção para o programador---umas bem mais que outras---e assim começamos definindo nossos próprios conceitos: funções, variáveis, constantes, típos, etc.
+Felizmente as linguagens oferecem ferraments de abstracção para o programador---umas bem mais que outras---e assim começamos definindo nossos próprios conceitos: funções, variáveis, constantes, tipos, etc.
 %%}}}
 
 \endsection
@@ -13878,6 +13878,7 @@ Veja o~\cite[\S\S1.6--1.9]{babybm}.
 %%}}}
 
 %%{{{ chapter: Sets 
+\spoiler.
 \chapter Conjuntos.
 \label{Sets}%
 
@@ -17008,7 +17009,7 @@ Bem depois, no~\ref{Axiomatic_set_theory} vamos mergulhar mais profundamente.
 \note Um amigo com triplas.
 \label{friend_with_triples}%
 Tudo ótimo até agora nesse capítulo (né?):
-Introduzimos dois \emph{típos primitivos:} conjuntos e tuplas
+Introduzimos dois \emph{tipos primitivos:} conjuntos e tuplas
 junto com operações neles, e tudo mais.
 chega nosso amigo da outra turma que mostra para nos um tipo primitivo deles,
 a tripla:
@@ -17094,8 +17095,8 @@ Cuidado: nossa implementação deve \dterm{atender a especificação}.
 \blah.
 Então \emph{implementamos}---ou seja, definimos mesmo---as triplas assim:
 
-%%{{{ df: triple_implementation 
-\definition Tripla.
+%%{{{ imp: triple_implementation 
+\implementation Tripla.
 \label{triple_implementation}%
 Sejam $x,y,z$ objetos.
 Definimos a tripla
@@ -18992,14 +18993,16 @@ $\set{x_0, x_1, \dots, x_n}$
 sobrecarregando a notação $\set{\dots}$ se é claro pelo contexto
 que é um multiset e não um conjunto.
 
+%%{{{ multiset_equality 
 \note Igualdade.
-\label{multisets_equality}%
+\label{multiset_equality}%
 Consideramos os multisets $M$ e $M'$ iguais sse para todo $x$,
 $$
 \text{$x$ pertence $n$ vezes ao $M$}
 \iff
 \text{$x$ pertence $n$ vezes ao $M'$}.
 $$
+%%}}}
 
 \endsection
 %%}}}
@@ -19831,7 +19834,7 @@ pela própria função $f$, pois podemos definir:
 $$
 \dom f
 \defeq
-\setstt x {$f(x)$ é definido}.
+\setst x {\lexists y {x \mapstoby f y}}.
 $$
 Mas o codomínio não!
 %%}}}
@@ -19843,7 +19846,7 @@ Qual o problema com essa suposta definição de codomínio de uma função $f$?:
 $$
 \cod f
 \defeq
-\setstt y {$f(x) = y$ para algum $x \in dom f$}.
+\setst y {\lexists x {x \mapstoby f y}}.
 $$
 
 \hint
@@ -19878,7 +19881,7 @@ Seu \dterm{range} é conjunto
 $$
 \range f
 \defeq
-\setstt y {$f(x) = y$ para algum $x \in A$}.
+\setst y {\lexists x {x \mapstoby f y}}.
 $$
 Observe que $\range f \subset B$.
 Usamos também a notação $\ima f$, o chamando de \dterm{imagem} da $f$.
@@ -23275,7 +23278,7 @@ D(f) &= \lam x {3x^2 + 5}
 \endalign
 $$
 sim.
-Qual o típo da $D$?
+Qual o tipo da $D$?
 Ela recebe e retorna funções de reais para reais, mas não podemos
 tipá-la
 $$
@@ -24248,6 +24251,104 @@ $$
 $f(a) = \set a \neq \emptyset \in \pset A$.
 
 \endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Implementations_seq_fam 
+\section Novas implementações: seqüências e famílias.
+\label{Implementations_seq_fam}%
+
+%%{{{ Q: Can you implement sequences and indexed families? 
+\question.
+Suponha que alguem robou de ti os tipos (primitivos) de seqüências
+e de famílias indexadas.  Dá para se virar sem esses?
+Ou seja, tem como defini-los em termos dos outros tipos
+que tu (ainda) tens?
+%%}}}
+\spoiler.
+
+%%{{{ A 
+\blah Resposta.
+Agora que temos funções, podemos apreciar
+que qualquer seqüência $\seqn a n$
+\emph{pode ser representada por uma função} com domínio $\nats$
+e codomínio o conjunto de todos os membros da $\seqn a n$.
+Similarmente, uma família $\famst {a_i} {i \in \cal I}$
+indexada por um conjunto $\cal I$ \emph{pode ser representada por uma função}
+com domínio $\cal I$ e codomínio o conjunto de todos os membros
+da $\family {a_i} i$.
+%%}}}
+
+%%{{{ imp: sequences_as_functions 
+\implementation Seqüências como funções.
+\label{sequences_as_functions}%
+Chamamos qualquer $a : \nats \to A$
+de \dterm{seqüência}.
+Introduzimos como açúcar sintáctico o
+$$
+a_n \sugdefeq a(n).
+$$
+Com essa definição, quando duas \emph{seqüências} são iguais?
+Elas precisam concordar em cada $n \in \dom a$;
+e essa implementação atende a especificação pois concorda com
+a definição de igualdade do tipo que estamos implementando
+(\ref{sequences_equality}).
+%%}}}
+
+%%{{{ imp: indexed_families_as_functions 
+\implementation Famílias indexadas como funções.
+\label{indexed_families_as_functions}%
+Chamamos qualquer $a : \cal I \to A$.
+de \dterm{família indexada por $\cal I$}.
+Introduzimos como açúcar sintáctico o
+$$
+a_i \sugdefeq a(i).
+$$
+Com essa definição, quando duas \emph{famílias} indexadas são iguais?
+Os conjuntos de índices têm que ser iguais, e as famílias precisam
+concordar em cada índice.
+Essa implementação atende a especificação pois concorda com
+a definição de igualdade do tipo que estamos implementando
+(\ref{indexed_families_equality}).
+%%}}}
+
+%%{{{ x: implement_tuples 
+\exercise.
+Implemente as tuplas;
+tome cuidado para deixar claro como usá-las;
+lembre-se o que elaboramos nas secções~\refn{Tuples} e~\refn{More_tuples}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: implement_multisets 
+\exercise.
+\label{implement_multisets}%
+Implemente os multiset (\refn{Multisets});
+tome cuidado para deixar claro como usá-las;
+lembre-se o~\refn{multiset_equality}.
+
+\endexercise
+%%}}}
+
+%%{{{ df: indexed_sets_adult_version 
+\definition Conjuntos indexados: versão adulta.
+\label{indexed_sets_adult_version}%
+\tdefined{conjunto}[indexado por conjunto]%
+Já conhecemos o quesignifica que um conjunto $A$ é indexado
+por um conjunto $B$~(\ref{indexed_set}).
+Isso praticamente quis dizer que o $A$ pode ser escrito na forma
+$$
+A = \setst {\dots b \dots} {b \in B},
+$$
+ou, mais ``adultamente'' e plenamente:
+$$
+\text{$A$ é indexado por $B$}
+\defiff
+\text{existe função sobrejetora $f : B \surto A$}.
+$$
 %%}}}
 
 \endsection
@@ -26907,7 +27008,7 @@ $$
 Que tipo de coisa estamos tentando \emph{construir} no lado direito?
 Pelo tipo da $\curry$, deve ser uma função de $A$ para $(B\to C)$.
 E o que tenho na minha disposição?  Neste ponto apenas a $f$.
-Facilita escrever claramente todas as coisas disponíveis e seus típos.
+Facilita escrever claramente todas as coisas disponíveis e seus tipos.
 Então por enquanto tenho apenas
 $$
 f : (A\times B) \to C.
@@ -27213,103 +27314,6 @@ Assim $powTwo\fa 0 = 1$, $\namedfun{powTwo} \fa 10 = 1024$, etc.
 Já entramos bastante to território de programação funcional;
 paramos aqui agora, e voltamos re-visitar e expandir tudo isso
 no~\ref{Functional_programming}.
-
-\endsection
-%%}}}
-
-%%{{{ Implementations_seq_fam 
-\section Novas implementações: seqüências e famílias.
-\label{Implementations_seq_fam}%
-
-%%{{{ Q: Can you implement sequences and indexed families? 
-\question.
-Suponha que alguem robou de ti os típos (primitivos) de seqüências
-e de famílias indexadas.  Dá para se virar sem esses?
-Ou seja, tem como defini-los em termos dos outros tipos
-que tu (ainda) tens?
-%%}}}
-\spoiler.
-
-%%{{{ A 
-\blah Resposta.
-Agora que sabemos o que é uma função, podemos apreciar
-que qualquer seqüência $\seqn a n$
-\emph{pode ser representada por uma função} com domínio $\nats$
-e codomínio o conjunto de todos membros da $\seqn a n$.
-Similarmente, uma família $\famst {a_i} {i \in \cal I}$
-indexada por um conjunto $\cal I$ \emph{pode ser representada por uma função}
-com domínio $\cal I$ e codomínio o conjunto de todos membros da $\family {a_i} i$.
-%%}}}
-
-%%{{{ impl: sequences_as_functions 
-\implementation Seqüências como funções.
-\label{sequences_as_functions}%
-Chamamos qualquer $a : \nats \to A$.
-de \dterm{seqüência}.
-Introduzimos como açúcar sintáctico o
-$$
-a_n \sugdefeq a(n).
-$$
-Com esse ponto de vista, quando duas \emph{seqüências} são iguais?
-Elas precisam concordar em cada $n \in \dom a$;
-e esse ponto de vista atende a especificação pois concorda com
-a definição de igualdade do típo que estamos implementando
-(\ref{sequences_equality}).
-%%}}}
-
-%%{{{ impl: indexed_families_as_functions 
-\implementation Famílias indexadas como funções.
-\label{indexed_families_as_functions}%
-Chamamos qualquer $a : \cal I \to A$.
-de \dterm{família indexada por $\cal I$}.
-Introduzimos como açúcar sintáctico o
-$$
-a_i \sugdefeq a(i).
-$$
-Com esse ponto de vista, quando duas \emph{famílias} indexadas são iguais?
-Os conjuntos de índices têm que ser iguais, e as famílias precisam
-concordar em cada índice.
-Esse ponto de vista atende a especificação pois concorda com
-a definição de igualdade do típo que estamos implementando
-(\ref{indexed_families_equality}).
-%%}}}
-
-%%{{{ x: implement_tuples 
-\exercise.
-Implemente as tuplas;
-tome cuidado para deixar claro como usá-las;
-lembre-se o que elaboramos nas secções~\refn{Tuples} e~\refn{More_tuples}.
-
-\endexercise
-%%}}}
-
-%%{{{ x: implement_multisets 
-\exercise.
-\label{implement_multisets}%
-Implemente os multiset (\refn{Multisets});
-tome cuidado para deixar claro como usá-las;
-lembre-se o~\refn{multisets_equality}.
-
-\endexercise
-%%}}}
-
-%%{{{ df: indexed_sets_adult_version 
-\definition Conjuntos indexados: versão adulta.
-\label{indexed_sets_adult_version}%
-\tdefined{conjunto}[indexado por conjunto]%
-Já conhecemos o quesignifica que um conjunto $A$ é indexado
-por um conjunto $B$~(\ref{indexed_set}).
-Isso praticamente quis dizer que o $A$ pode ser escrito na forma
-$$
-A = \setst {\dots b \dots} {b \in B},
-$$
-ou, mais ``adultamente'' e plenamente:
-$$
-\text{$A$ é indexado por $B$}
-\defiff
-\text{existe função sobrejetora $f : B \surto A$}.
-$$
-%%}}}
 
 \endsection
 %%}}}
