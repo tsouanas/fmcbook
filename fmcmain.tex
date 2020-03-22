@@ -31,7 +31,33 @@ Olhando para matemática de longe podemos enxergar dois tipos principais:
 \emph{proposições} (também \emph{afirmações}) e \emph{objetos}
 (também \emph{indivíduos}).
 
-\TODO $f : A \to B$, $A \subset B$, $x = y$: not always propositions.
+%%{{{ warning: expressions_that_denote_prop_not_always_do_so 
+\warning Expressões que denotam proposições.
+\label{expressions_that_denote_prop_not_always_do_so}%
+Umas expressões que denotam proposições, podem assumir um papel diferente
+dependendo do contexto.  Por exemplo \sq{$x=y$} normalmente denota a
+proposição ``$x$ é igual ao $y$'', mas se o contexto já tem seu verbo
+principal, por exemplo:
+$$
+\text{<<No outro lado, {\xlthole} é primo e logo \dots>>}
+$$
+Aqui pelo contexto precisamos algo que denota um objeto:
+não faria sentido afirmar que uma proposição é primo.
+Nesse caso a expressão \sq{$x=y$} pode ser lida como
+qualquer uma das:
+$$
+\align
+x = y & :\quad\text{``$x$, que é igual a $y$,''} \\
+x = y & :\quad\text{``$x$ é igual ao $y$, e $y$''}.
+\endalign
+$$
+Por exemplo:
+$$
+\text{<<No outro lado, $2^n + 1 = 5$ é primo e logo \dots>>}
+$$
+A mesma coisa aplica em outras notações que vamos encontrar depois,
+por exemplo \sq{$x \in A$}, \sq{$A \subset B$}, \sq{$f : A \to B$}, etc.
+%%}}}
 
 \endsection
 %%}}}
@@ -208,11 +234,11 @@ Para definir qualquer coisa precisamos primeiramente deixar claro o
 \dterm{contexto}.  No~\ref{eg_def_of_twin_primes} o contexto é:
 $$
 \align
-p &\eqtype \text{um número} \\
-q &\eqtype \text{um número}.
+p &\eqtype \text{número} \\
+q &\eqtype \text{número}.
 \intertext{No outro lado, se a definição fosse <<dois números primos $p,q$ são \dterm{primos gêmeos} sse $\abs{p-q} = 2$>> o contexto seria pouco diferente:}
-p &\eqtype \text{um número primo} \\
-q &\eqtype \text{um número primo}.
+p &\eqtype \text{número primo} \\
+q &\eqtype \text{número primo}.
 \endalign
 $$
 %%}}}
@@ -593,15 +619,15 @@ O $=$ fica entre \emph{objetos}, o \sq{$\iffsymbol$} entre \emph{proposições} 
 \endgraf
 Usamos $=$ para dizer que os objetos nos seus lados são \emph{iguais}, ou seja,
 as coisas escritas nos seus dois lados, denotam o mesmo objeto.
-Por exemplo ``$1+5$'' denota um número e ``$3$'' também denota um número, e escrevendo
+Por exemplo \sq{$1+5$} denota um número e \sq{$3$} também denota um número, e escrevendo
 $$
 1 + 5 = 3
 $$
 estamos afirmando---erroneamente nesse caso---que as duas expressões denotam o mesmo número.
-Escrever $1 + 5 = 6$ seria uma afirmação correta.
-Pronunciamos o $A = B$ como ``$A$ é igual ao $B$''.
+Se tivesse escrito \sq{$1 + 5 = 6$} seria uma afirmação correta.
+Pronunciamos o \sq{$A = B$} como <<$A$ é igual ao $B$>>.
 \endgraf
-Usamos \sq{$\iff$} para dizer que as proposições (afirmações) nos seus lados são
+Usamos \sq{$\iffsymbol$} para dizer que as proposições (afirmações) nos seus lados são
 \emph{logicamente equivalentes}, ou seja, são ambas verdadeiras ou ambas falsas.
 Escrevemos então
 $$
@@ -613,44 +639,88 @@ e nesse caso essa é uma afirmação correta.
 Note que não sabemos dizer qual é o caso aqui: são ambas verdadeiras, ou ambas falsas?
 Não sabemos que número é denotado por a variável $p$, mesmo assim as afirmações
 são equivalentes.
-Note que isso nos permite escrever o símbolo \sq{$\iffsymbol$} entre proposições que não
-tem nada a ver uma com outra.
-Por exemplo, seria válido e correto escrever
-$$
-0 = 1
-\iff
-\text{existe número natural maior que todos os outros}
-$$
-mas esse tipo de afirmações raramente aparecem em matemática.
 Pronunciamos o $A \iff B$ como ``$A$ é equivalente a $B$'' ou,
 ``$A$ se e somente se $B$'', usando a abreviação \dterm{sse}
 para a frase ``se e somente se''.
-%%}}}
-
-%%{{{ x: which_is_if_and_which_is_only_if 
-\exercise.
-\label{which_is_if_and_which_is_only_if}%
+\endgraf
 Entendemos o \sq{$\impliessymbol$} como uma abreviação de
 ``implica'' e o \sq{$\impliedbysymbol$} como uma abreviação de
 ``é implicado por''.
 Podemos ler as expressões seguintes assim também:
 $$
-\align
-A \implies B & :\quad\text{se $A$ então $B$}\\
-A \iff B     & :\quad\text{$A$ se e somente se $B$}
-\endalign
+\xalignat2
+A \implies B   & :\quad\text{se $A$ então $B$} &
+A \iff B       & :\quad\text{$A$ se e somente se $B$}.
+\endxalignat
 $$
-Podemos pronunciar o \sq{$\impliessymbol$} e o \sq{$\impliedbysymbol$}
-apenas por uma das frases: ``se'' e ``somente se''.
+%%}}}
+
+%%{{{ x: which_is_if_and_which_is_only_if 
+\exercise.
+\label{which_is_if_and_which_is_only_if}%
+Já que \sq{$\iffsymbol$} corresponde à frase ``se e somente se''
+faz sentido pensar que uma das setinhas envolvidas
+(\sq{$\impliessymbol$} e \sq{$\impliedbysymbol$})
+corresponde na frase ``se'' e a outra na ``somente se''.
 Qual é qual?
 
+\solution
+$$
+\align
+A \implies   B & :\quad\text{$A$ somente se $B$}\\
+A \impliedby B & :\quad\text{$A$ se $B$}
+\endalign
+$$
+
 \endexercise
+%%}}}
+
+%%{{{ x: which_is_nec_and_which_is_suf 
+\exercise.
+\label{which_is_nec_and_which_is_suf}%
+Mesma pergunta, agora lendo o \sq{$\iffsymbol$}
+como ``é suficiente e necessário para''.
+Uma direção corresponde ao ``suficiente'' outra ao ``necessário''.
+Qual é qual?
+
+\solution
+$$
+\align
+A \implies   B & :\quad\text{$A$ é necessário para $B$}\\
+A \impliedby B & :\quad\text{$A$ é suficiente para $B$}.
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ relevance logics
+\note Lógicas de relevância.
+\label{relevance_logics}%
+\tdefined{lógica}[de relevância]%
+Note que seguindo nossa interpretação de implicação e equivalência nos permite
+corretamente afirmar implicações e equivalências entre
+proposições que não tem nada a ver uma com outra.
+Por exemplo, seria correto afirmar
+$$
+\gather
+\text{<<$0 = 1$ se e somente se existe número natural maior que todos os outros.>>}\\
+\text{<<$1 + 1 = 2 \iff \text{Creta é uma ilha grega}$.>>}\\
+\text{<<Se Brasil é um país na Europa, então 4 é um número par.>>}\\
+\text{<<Se $4$ é um número par, então Grécia é um país na Europa.>>}
+\endgather
+$$
+Felizmente, afirmações desse tipo raramente aparecem em matemática.
+Lógicas que tomam cuidado para proibir
+implicações entre proposições irrelevantes são chamadas
+\dterm{lógicas de relevância} (por motivos óbvios) mas não
+vamos estudá-las aqui.
 %%}}}
 
 %%{{{ definition_vs_proposition 
 \note Definição \vs proposição.
 Por convenção a coisa sendo definida vai no lado esquerdo do símbolo
-que decoramos com esse ``def'' e a sua definição fica no lado direito.
+que decoramos com esse \sq{$\deftag$} e a sua definição fica no lado direito.
 Então mesmo que nos símbolos \sq{$=$} e \sq{$\iffsymbol$} podemos trocar seus lados,
 nos $\defeq$ e $\defiff$, não!
 %%}}}
@@ -678,7 +748,7 @@ afirmações bem-definidas.
 
 %%{{{ intensional vs extensional
 \note Intensional \vs extensional.
-
+\label{intension_vs_extension}%
 %%}}}
 
 \TODO first explanation.
@@ -793,17 +863,17 @@ para contar:
 $$
 0, 1, 2, 3, \dots, 247, 248, 249, \dots
 $$
-Usando então apenas um \emph{alfabeto} composto de 10 símbolos
+Usando então apenas um \emph{alfabeto} composto de dez símbolos
 $$
-\digit 0\ 
-\digit 1\ 
-\digit 2\ 
-\digit 3\ 
-\digit 4\ 
-\digit 5\ 
-\digit 6\ 
-\digit 7\ 
-\digit 8\ 
+\digit 0\ \ 
+\digit 1\ \ 
+\digit 2\ \ 
+\digit 3\ \ 
+\digit 4\ \ 
+\digit 5\ \ 
+\digit 6\ \ 
+\digit 7\ \ 
+\digit 8\ \ 
 \digit 9
 $$
 e seguindo as regras bem-conhecidas do sistema decimal conseguimos
@@ -2539,7 +2609,7 @@ $$
 \exercise.
 \label{unique_x_sugar}%
 Similarmente para
-$\sunique x \phi(x)$ e uma da $\lunique {x \in A} {\phi(x)}$.
+$\lunique x {\phi(x)}$ e uma da $\lunique {x \in A} {\phi(x)}$.
 Lemos o ``$\unique{}$'' como ``existe único''.
 
 \endexercise
@@ -2549,9 +2619,9 @@ Lemos o ``$\unique{}$'' como ``existe único''.
 \exercise.
 \label{is_this_sugar_good_for_unique_1}%
 $
-\sunique x \phi(x)
+\lunique x {\phi(x)}
 \askiff
-\exists u \forall y \paren{ \phi(y) \liff y = u }
+\pexists u \lforall y { \phi(y) \liff y = u }
 $
 
 \endexercise
@@ -2561,11 +2631,9 @@ $
 \exercise.
 \label{is_this_sugar_good_for_unique_2}%
 $
-\sunique x \phi(x)
+\lunique x {\phi(x)}
 \askiff
-\exists x \bigparen{\phi(x)
-\land
-\forall y \paren{ \phi(y) \limplies \phi(x)}}
+\lexists x { \phi(x) \mland \lforall y { \phi(y) \limplies \phi(x) } }
 $
 
 \endexercise
@@ -14321,11 +14389,11 @@ Continuando com o $P$, realmente temos que o único objeto que satisfaz
 seu filtro é o número $2$.  Mesma coisa sobre os $Q$ e $R$.
 %%}}}
 
-%%{{{ Intension description 
+%%{{{ intension_description 
 \note.
 \label{intension_description}%
-\tdefined{extensão}%
-\tdefined{intensão}%
+\tdefined{extensão}[de conjunto]%
+\tdefined{intensão}[de conjunto]%
 \tdefined{igualdade}[extensional]%
 \tdefined{igualdade}[intensional]%
 Como comporta o $S$?
