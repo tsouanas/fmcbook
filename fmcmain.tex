@@ -16800,30 +16800,45 @@ Observe que como a operação $\symdiff$ é associativa e comutativa,
 o $A$ é bem-definido.
 Prove que:
 $$
-A = \setstt a {$a$ pertence a uma quantidade ímpar de $A_i$'s}.
+A = \setstt a {$a$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_n$}.
+$$
+
+\hint
+Introduza uma notação para o conjunto
+$$
+\setstt a {$a$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_n$}.
+$$
+Já que ele depende de $n$, algo do tipo $A_{[n]}$ serve bem aqui.
+Assim, basta demonstrar o seguinte:
+$$
+\lforall {n \in \nats} {\Delta_{i=1}^n A_i = A_{[n]}}.
 $$
 
 \hint
 Indução.
 
 \solution
+Dado qualquer natural $n$, denotamos por
+$$
+\oddAs n \defeq
+\setstt a {$a$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_n$}.
+$$
 Provamos por indução que para todo inteiro $n \geq 2$,
 $$
 A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_n
-= \setstt a {$a$ pertence numa quantidade ímpar de $A_i$'s}.
+= \oddAs n
 $$
 \proofpart{Base ($n=2$):}
 $x \in A_1 \symdiff A_2 \iff \text{$x$ pertence a uma quantidade ímpar dos $A_1,A_2$}$ (óbvio).
 \crtabproofpart{Passo indutivo:}
 Seja $k\in\nats$ tal que 
 $$
-A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k
-= \set{ a \st \text{$a$ pertence a uma quantidade ímpar de $A_i$'s}}.\tag{H.I.}
+A_1 \symdiff \dotsb \symdiff A_k = \oddAs k. \tag{H.I.}
 $$
 Precisamos mostrar que:
 $$
 A_1 \symdiff \dotsb \symdiff A_{k+1}
-= \set{ a \st \text{$a$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$'s}}.
+= \oddAs {k+1}
 $$
 \proofpart{\lrdirset}:
 Suponha que $x\in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_{k+1}$,
@@ -16831,7 +16846,7 @@ ou seja, $x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}
 Pela definição de $\symdiff$, temos dois casos:
 \crtabcase{Caso 1:}
 $x \in A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\notin A_{k+1}$.\CR
-Pela H.I., $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$,
+Pela {H.I.}, $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$,
 e não ao $A_{k+1}$, então a uma quantidade ímpar dos $A_1,\dotsc,A_{k+1}$.
 \crtabcase{Caso 2:}
 $x \notin A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k \mland x\in A_{k+1}$.\CR
@@ -16846,11 +16861,12 @@ Separamos em dois casos:
 \crtabcase{Caso 1:} $x \in A_{k+1}$.\CR
 Logo $x$ pertence a uma quantidade par dos $A_1,\dotsc,A_k$
 e logo
-$x\notin A_1\symdiff\dotsb\symdiff A_k$ (pela H.I.). 
+$x\notin A_1\symdiff\dotsb\symdiff A_k$ (pela H.I.).
 Ou seja,
 $x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
 \crtabcase{Caso 2:} $x \notin A_{k+1}$.\CR
-Nesse caso $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$
+Nesse caso $x$ pertence a uma quantidade ímpar dos $A_1,\dotsc,A_k$,
+ou seja $x \in \oddAs k$,
 e pela H.I.~temos que $x\in A_1\symdiff\dotsb\symdiff A_k$.
 De novo,
 $x \in (A_1 \symdiff A_2 \symdiff \dotsb \symdiff A_k) \symdiff A_{k+1}$.
