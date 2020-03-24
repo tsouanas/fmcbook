@@ -24,7 +24,7 @@ o importante é pegar uma idéia geral---os detalhes
 são para os capítulos próximos.
 %%}}}
 
-%%{{{ Propositions vs. objects 
+%%{{{ Propositions_vs_objects 
 \section Proposições vs.~objetos.
 \label{Propositions_vs_objects}%
 
@@ -116,12 +116,12 @@ por exemplo \sq{$x \in A$}, \sq{$A \subset B$}, e \sq{$f : A \to B$}.
 \endsection
 %%}}}
 
-%%{{{ Errors 
-\section Erros.
-\label{Errors}%
+%%{{{ Type_errors 
+\section Type erros.
+\label{Type_errors}%
 
-%%{{{ Type errors 
-\note Type errors.
+%%{{{ What is it? 
+\note O que é?.
 \tdefined{type error}%
 Um \dterm{type error} ocorre quando usamos uma expressão cujo tipo é
 incompatível com o tipo esperado pelo contexto.
@@ -131,91 +131,30 @@ e infelizmente é completamente destruidor: com um type error nosso texto
 para sua corretude.  Um texto com type errors não chega a ter significado nenhum.
 %%}}}
 
-%%{{{ Logical 
-\note De lógica.
-
+%%{{{ Type errors 
+\note O type error mais grave.
+Claramente o type error mais gritante seria confundir objeto com proposição ou
+vice versa, pois como acabamos de discutir (\refn{Propositions_vs_objects})
+são os grupos mais distantes.
 %%}}}
 
-%%{{{ Mathematical 
-\note De matemática.
-Usando propriedades inválidas, erros em cálculos,
+%%{{{ eg: biggest_type_error_eg 
+\example.
+Todas as frases seguintes tem o type error mais grave: confusão entre proposição e objeto:
+\beginol
+\li $(x+y)^2 \implies x^2 +2xy + y^2$
+\li Como $n$, então $n+1$ também.
+\endol
+\endexample
 %%}}}
 
-%%{{{ Semantic 
-\note De semântica.
-Isso acontece quando o que escrevemos realmente quis dizer algo, mas não é o que temos na nossa cabeça.
-É quando um programador escreveu seu cógido e ele compilou ``com sucesso'', mas o programa que foi criado não faz o que ele queria.
-Isso acontece muito dando definições; vamos discutir isso na~\ref{Definitions}.
-%%}}}
-
-%%{{{ if_vs_since 
-\note Se \vs como.
-\label{if_vs_since}%
-Considere as frases seguintes:
-$$
-\gather
-\text{<<Se $\namedhole A$, $\namedhole B$.>>}\\
-\text{<<Como $\namedhole A$, $\namedhole B$.>>}
-\endgather
-$$
-Primeiramente observe que, em português, cada uma delas tem uma
-palavra implícita logo após da virgula:
-$$
-\gather
-\text{<<Se $\namedhole A$, ({\lthole}) $\namedhole B$.>>}\\
-\text{<<Como $\namedhole A$, ({\lthole}) $\namedhole B$.>>}
-\endgather
-$$
-Quais são?
-Na primeira frase a palavra implícita é a ``então'', e na segunda a ``logo'':
-$$
-\gather
-\text{<<Se $\namedhole A$, (então) $\namedhole B$.>>}\\
-\text{<<Como $\namedhole A$, (logo) $\namedhole B$.>>}
-\endgather
-$$
-Numa lida superficial as duas frases podem aparecer parecidas.
-Mas são bem, bem diferentes!
-%%}}}
-
-%%{{{ x: explain_the_difference_between_if_and_since 
-\exercise.
-\label{explain_the_difference_between_if_and_since}%
-Qual é a diferença entre as duas frases?
-
-\solution
-A frase
-$$
-\text{<<Se $\namedhole A$, (então) $\namedhole B$.>>}
-$$
-é uma afirmação: que a proposição $A$ implica a proposição $B$.
-Ou seja, não está afirmando que a proposição $A$ é verdade (nem que é falsa),
-e também nada sobre a vericidade da $B$.
-No outro lado, a frase
-$$
-\text{<<Como $\namedhole A$, (logo) $\namedhole B$.>>}
-$$
-é uma \emph{argumentação}.
-Seu escritor já usa como fato conhecido que $A$ é verdade,
-e além disso, ele tá afirmando que $B$ também é verdade por causa disso.
-Em outras palavras, o escritor está \emph{inferindo} a $B$ a partir das
-afirmações $A$ e $A \implies B$ que ele deixa como implícito que o
-leitor aceita ambas.
-
-\endexercise
-%%}}}
-
-%%{{{ Theses vs. hypotheses 
-\note Teses \vs hipoteses.
-``Tese'' vem da grega \emph{θέσις} e similarmente ``hipotese'' da
-palavra \emph{ὑπόθεσις}.
-\dterm{Tese} quis dizer \emph{posição},
-nesse sentido também \emph{opinião}.
-Tu tens uma tese sobre um assunto, e queres argumentar para defendê-la.
-O prefixo ``ὑπο-'' (hipo-) denota uma idéia de ``a baixo de''.
-O equivalente prefixo latino (e usado em português) é o ``sub-''.
-\dterm{Hipoteses} então são \emph{su(b)posições}, ou seja,
-afirmações ``a baixo'' da tese: as proposições em quais a tese depende.
+%%{{{ Refining_further 
+\note Refinando mais.
+\label{Refining_further}%
+Podemos subdividir os objetos em tipos também, por exemplo:
+números, pessoas, conjuntos de pessoas, palavras, cidades, funções, programas, etc.
+Sobre proposições, vamos fazer algo parecido nos capítulos~\refn{Languages}
+e~\refn{Proofs}.
 %%}}}
 
 \endsection
@@ -230,9 +169,10 @@ afirmações ``a baixo'' da tese: as proposições em quais a tese depende.
 Usamos os símbolos \sq{$=$} e \sq{$\iffsymbol$} para afirmar uma relação especifica entre as
 coisas que aparecem nos dois lados deles.
 Só que os \emph{tipos} de coisas são diferentes para cada símbolo.
-O $=$ fica entre \emph{objetos}, o \sq{$\iffsymbol$} entre \emph{proposições} (afirmações).
+O \sq{$=$} fica entre \emph{objetos},
+o \sq{$\iffsymbol$} entre \emph{proposições}.
 \endgraf
-Usamos $=$ para dizer que os objetos nos seus lados são \emph{iguais}, ou seja,
+Usamos \sq{$=$} para dizer que os objetos nos seus lados são \emph{iguais}, ou seja,
 as coisas escritas nos seus dois lados, denotam o mesmo objeto.
 Por exemplo \sq{$1+5$} denota um número e \sq{$3$} também denota um número, e escrevendo
 $$
@@ -242,7 +182,7 @@ estamos afirmando---erroneamente nesse caso---que as duas expressões denotam o 
 Se tivesse escrito \sq{$1 + 5 = 6$} seria uma afirmação correta.
 Pronunciamos o \sq{$A = B$} como <<$A$ é igual ao $B$>>.
 \endgraf
-Usamos \sq{$\iffsymbol$} para dizer que as proposições (afirmações) nos seus lados são
+Usamos \sq{$\iffsymbol$} para dizer que as proposições nos seus lados são
 \emph{logicamente equivalentes}, ou seja, são ambas verdadeiras ou ambas falsas.
 Escrevemos então
 $$
@@ -264,8 +204,8 @@ Entendemos o \sq{$\impliessymbol$} como uma abreviação de
 Podemos ler as expressões seguintes assim também:
 $$
 \xalignat2
-A \implies B   & :\quad\text{se $A$ então $B$} &
-A \iff B       & :\quad\text{$A$ se e somente se $B$}.
+A \implies B   & :\quad\textwq{se $A$ então $B$} &
+A \iff B       & :\quad\textwq{$A$ se e somente se $B$}.
 \endxalignat
 $$
 %%}}}
@@ -388,9 +328,9 @@ traduzir a afirmação ``$n$ é ímpar'' em uma outra afirmação que
 supostamente entendemos.
 A segunda linha \emph{é uma afirmação}:
 afirma que as duas proposições nos seus lados são equivalentes.
-Ou seja, é algo que pode ser provado, ou refutado.
+Ou seja, é algo que pode ser demonstrado ou refutado.
 E para usar o \sq{$\iffsymbol$} com certeza seus dois lados precisam ser
-afirmações bem-definidas.
+proposições bem-definidas.
 \endexample
 %%}}}
 
@@ -405,7 +345,8 @@ teoria dos números:
 \label{eg_def_of_twin_primes}%
 Considere a definição:
 \quote
-<<Dois números $p,q$ são \dterm{primos gêmeos} sse $p,q$ são primos e $\abs{p-q} = 2$.>>
+\wq{Dois números $p,q$ são \dterm{primos gêmeos} sse
+$p,q$ são primos e $\abs{p-q} = 2$.}
 \endquote
 Dados então dois números $a,b$, sabemos o que a afirmação
 ``$a,b$ são primos gêmeos''
@@ -1021,6 +962,19 @@ No final das contas, o não-programador já se-prejudica sozinho na vida,
 pela falta de\dots ``progranoção''!
 %%}}}
 
+%%{{{ Theses vs. hypotheses 
+\note Teses \vs hipoteses.
+``Tese'' vem da grega \emph{θέσις} e similarmente ``hipotese'' da
+palavra \emph{ὑπόθεσις}.
+\dterm{Tese} quis dizer \emph{posição},
+nesse sentido também \emph{opinião}.
+Tu tens uma tese sobre um assunto, e queres argumentar para defendê-la.
+O prefixo ``ὑπο-'' (hipo-) denota uma idéia de ``a baixo de''.
+O equivalente prefixo latino (e usado em português) é o ``sub-''.
+\dterm{Hipoteses} então são \emph{su(b)posições}, ou seja,
+afirmações ``a baixo'' da tese: as proposições em quais a tese depende.
+%%}}}
+
 \endsection
 %%}}}
 
@@ -1113,6 +1067,31 @@ ponto, linha, e o predicado primitivo de ``ponto pertence a linha''.
 \endsection
 %%}}}
 
+%%{{{ More_errors 
+\section Mais erros.
+\label{More_errors}%
+
+%%{{{ Logical 
+\note De lógica.
+%%}}}
+
+%%{{{ Mathematical 
+\note De matemática.
+Usando propriedades inválidas, erros em cálculos, etc.
+%%}}}
+
+%%{{{ Semantic 
+\note De semântica.
+Isso acontece quando o que escrevemos realmente quis dizer algo, mas não é o
+que temos na nossa cabeça.
+É quando um programador escreveu seu cógido e ele compilou ``com sucesso'', mas
+o programa que foi criado não faz o que ele queria.
+Isso acontece muito dando definições; vamos discutir isso na~\ref{Definitions}.
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS 
 \problems.
 
@@ -1150,6 +1129,7 @@ Sobre álgebra linear:
 
 %%{{{ chapter: Languages 
 \chapter Linguagens.
+\label{Languages}%
 
 \TODO terminar merge e arrumar.
 
@@ -2297,7 +2277,7 @@ Qual é a melhor tradução dela que conseguimos na linguagem $\zolang$?
 %%}}}
 
 %%{{{ Predicate_language 
-\section Traduzindo de e para FOL.
+\section Linguagem de predicados.
 \label{Predicate_language}%
 
 \TODO Exemplos de matemática, pessoas, etc.
@@ -3955,6 +3935,63 @@ na vida real qualquer uma das duas pode acabar sendo ``esquecida''.
 
 %%{{{ Let and prove vs. Prove that all 
 \note Seja e demonstre \vs demonstre que todos.
+%%}}}
+
+%%{{{ if_vs_since 
+\note Se \vs como.
+\label{if_vs_since}%
+Considere as frases seguintes:
+$$
+\gather
+\text{<<Se $\namedhole A$, $\namedhole B$.>>}\\
+\text{<<Como $\namedhole A$, $\namedhole B$.>>}
+\endgather
+$$
+Primeiramente observe que, em português, cada uma delas tem uma
+palavra implícita logo após da virgula:
+$$
+\gather
+\text{<<Se $\namedhole A$, ({\lthole}) $\namedhole B$.>>}\\
+\text{<<Como $\namedhole A$, ({\lthole}) $\namedhole B$.>>}
+\endgather
+$$
+Quais são?
+Na primeira frase a palavra implícita é a ``então'', e na segunda a ``logo'':
+$$
+\gather
+\text{<<Se $\namedhole A$, (então) $\namedhole B$.>>}\\
+\text{<<Como $\namedhole A$, (logo) $\namedhole B$.>>}
+\endgather
+$$
+Numa lida superficial as duas frases podem aparecer parecidas.
+Mas são bem, bem diferentes!
+%%}}}
+
+%%{{{ x: explain_the_difference_between_if_and_since 
+\exercise.
+\label{explain_the_difference_between_if_and_since}%
+Qual é a diferença entre as duas frases?
+
+\solution
+A frase
+$$
+\text{<<Se $\namedhole A$, (então) $\namedhole B$.>>}
+$$
+é uma afirmação: que a proposição $A$ implica a proposição $B$.
+Ou seja, não está afirmando que a proposição $A$ é verdade (nem que é falsa),
+e também nada sobre a vericidade da $B$.
+No outro lado, a frase
+$$
+\text{<<Como $\namedhole A$, (logo) $\namedhole B$.>>}
+$$
+é uma \emph{argumentação}.
+Seu escritor já usa como fato conhecido que $A$ é verdade,
+e além disso, ele tá afirmando que $B$ também é verdade por causa disso.
+Em outras palavras, o escritor está \emph{inferindo} a $B$ a partir das
+afirmações $A$ e $A \implies B$ que ele deixa como implícito que o
+leitor aceita ambas.
+
+\endexercise
 %%}}}
 
 %%{{{ warning: only_declare_variables 
@@ -15683,7 +15720,7 @@ A \setminus B &= A \inter \compl B &&& A \subsetneq B &\iff A \subset B \mland A
 \endxalignat
 $$
 Caso que tudo isso não foi óbvio, sugiro revisitar o~\ref{Introduction}:
-\ref{Propositions_vs_objects}, \ref{Errors}, \ref{Intension_vs_extension}).
+\ref{Propositions_vs_objects}, \ref{Type_errors}, \ref{Intension_vs_extension}).
 %%}}}
 
 %%{{{ remark: The rich language of sets 
