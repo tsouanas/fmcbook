@@ -299,18 +299,36 @@ Também precisamos de \emph{escolher um nome bonito} para nossa definição,
 uma notação conveniente e útil.
 %%}}}
 
-%%{{{ Examples and nonexamples 
-\note Exemplos e nãœxemplos.
-Talvez já temos vários exemplos de objetos que satisfazem nossa definição,
-ou nem sabemos se existem tais objetos!  Observe então que para definir
-algo não é necessário---e com certeza nem suficiente!---mostrar exemplos
-de objetos.
-Mesmo assim, quando escrevemos um texto matemático e queremos ajudar nosso
-leitor confirmar seu entendimento da nossa definição, podemos dar uns
-exemplos ou nãœxemplos, mas é importante entender que a natureza deles
-nunca é essencial para a definição, e que
-\emph{eles não fazem parte da definição}.
-É apenas uma ferramenta pedagógica.
+%%{{{ defiff_defeq 
+\note Definição \vs proposição: notação.
+\label{defiff_defeq}%
+\sdefined {\sholed A \defiff \sholed B} {definição para ser equivalente a}%
+\sdefined {\sholed A \defiff \sholed B} {definição para ser igual a}%
+Para enfatisar que estamos definindo algo, e não afirmando uma equivalência
+ou uma igualdade, decoramos o símbolo correspondente por um \sq{$\deftag$}:
+usamos $A \defiff B$ para \emph{definir a proposição} $A$ para significar
+a mesma coisa com a proposição $B$;
+usamos $A \defeq B$ para \emph{definir o objeto} $A$ como um novo nome
+do objeto $B$.
+Olha nisso:
+$$
+\xalignat2
+&\tunderbrace {\toverbrace A {(prop)} \defiff \toverbrace B {prop}} {definição} &
+&\tunderbrace {\toverbrace A {prop}   \iff    \toverbrace B {prop}} {afirmação}.
+\intertext{%
+Na \sq{$A \defiff B$}, temos uma definição duma nova expressão ($A$) que vai acabar
+tendo o significado da proposição $B$, logo apos dessa linha de definição.
+Ou seja, na esquerda do \sq{$\defiff$} temos uma \dterm{futura-proposição},
+na sua direita temos uma proposição mesmo.
+Na \sq{$A \iff B$}, estamos \emph{afirmando uma afirmação}:
+que as proposições $A,B$ são equivalentes.
+Necessariamente então ambas já tem significados conhecidos.
+Similarmente sobre as}
+&\tunderbrace {\toverbrace A {(obj)} \defeq \toverbrace B {obj}} {definição} &
+&\tunderbrace {\toverbrace A {obj}   =      \toverbrace B {obj}} {afirmação}:
+\endxalignat
+$$
+a primeira é uma definição, a segunda a afirmação que $A,B$ são iguais.
 %%}}}
 
 %%{{{ eg: with_and_without_def 
@@ -332,6 +350,32 @@ Ou seja, é algo que pode ser demonstrado ou refutado.
 E para usar o \sq{$\iffsymbol$} com certeza seus dois lados precisam ser
 proposições bem-definidas.
 \endexample
+%%}}}
+
+%%{{{ remark: conventions_with_defs 
+\remark Convenções.
+\label{conventions_with_defs}%
+Essa ênfase com o \sq{$\deftag$} não é obrigatória, e muitas vezes
+o contexto é suficiente para deixar claro que se trata de definição
+e não de afirmação.
+Note que por convenção a coisa sendo definida vai no lado esquerdo do símbolo
+que decoramos com esse \sq{$\deftag$} e a sua definição fica no lado direito.
+Então mesmo que nos símbolos \sq{$=$} e \sq{$\iffsymbol$} podemos trocar seus lados,
+nos $\defeq$ e $\defiff$, não!
+%%}}}
+
+%%{{{ Examples and nonexamples 
+\note Exemplos e nãœxemplos.
+Talvez já temos vários exemplos de objetos que satisfazem nossa definição,
+ou nem sabemos se existem tais objetos!  Observe então que para definir
+algo não é necessário---e com certeza nem suficiente!---mostrar exemplos
+de objetos.
+Mesmo assim, quando escrevemos um texto matemático e queremos ajudar nosso
+leitor confirmar seu entendimento da nossa definição, podemos dar uns
+exemplos ou nãœxemplos, mas é importante entender que a natureza deles
+nunca é essencial para a definição, e que
+\emph{eles não fazem parte da definição}.
+É apenas uma ferramenta pedagógica.
 %%}}}
 
 \blah.
@@ -558,14 +602,6 @@ um termo novo, dar uma definição elegante e correta, e escolher
 um nome bom, e se for útil uma notação conveniente também.
 %%}}}
 
-%%{{{ definition_vs_proposition 
-\note Definição \vs proposição.
-Por convenção a coisa sendo definida vai no lado esquerdo do símbolo
-que decoramos com esse \sq{$\deftag$} e a sua definição fica no lado direito.
-Então mesmo que nos símbolos \sq{$=$} e \sq{$\iffsymbol$} podemos trocar seus lados,
-nos $\defeq$ e $\defiff$, não!
-%%}}}
-
 %%{{{ Comparison with programming 
 \note Comparação com programação.
 \tdefined{entry point}%
@@ -587,21 +623,24 @@ Felizmente as linguagens oferecem ferraments de abstracção para o programador-
 \section Intensão \vs extensão.
 \label{Intension_vs_extension}%
 
+%%{{{ intenstion_vs_extension
+\note.
+\tdefined{intensão}%
+\tdefined{extensão}%
+\sdefined {\sholed A = \sholed B}        {igualdade extensional}%
+\sdefined {\sholed A \inteq \sholed B}   {igualdade intensional}%
+\sdefined {\sholed A \iff \sholed B}     {equivalência extensional}%
+\sdefined {\sholed A \intiff \sholed B}  {equivalência intensional}%
+%%}}}
+
 %%{{{ eg: intensional_statements 
 \example afirmações intensionais.
 \label{intensional_statements}%
 As afirmações seguintes são intensionais:
-
 \endexample
 %%}}}
 
-\TODO first explanation.
-
-\blah.
-\TODO
-Explicar o resto dos ``parecidos'':
-$\asseq$, $\eqass$, $\inteq$, $\synasseq$, $\semeq$,
-$\defiff$, $\sugdefiff$, $\sugiff$, etc.
+\TODO elaborar.
 
 \endsection
 %%}}}
@@ -618,6 +657,8 @@ $\defiff$, $\sugdefiff$, $\sugiff$, etc.
 \iisee{dummy}{variável, dummy}%
 
 \TODO Explicar.
+
+\TODO Explicar os $\asseq$, $\eqass$, $\assiff$, $\iffass$.
 
 \note Sombreamento.
 \label{variable_shadowing}%
@@ -678,14 +719,16 @@ Aqui ``construir'' significa definir.
 \section Conjuntos, funcções, relações.
 \label{Sets_functions_relations}%
 
-\blah.
+%%{{{ secintro 
+\secintro
 Rascunhamos aqui três tipos importantíssimos, só para ter uma idéia
 do que se trata, pois vamos precisá-los desde já!
 Mas cada um deles tem seu próprio capítulo dedicado ao seu estudo:
 estudamos conjuntos no~\ref{Sets},
-funções no~\ref{Functions},
-e relações no~\ref{Relations}.
+funções no~\refn{Functions},
+e relações no~\refn{Relations}.
 Agora, bora rascunhar!
+%%}}}
 
 %%{{{ sets_first_contact 
 \note Conjuntos.
@@ -698,6 +741,11 @@ $$
 \set{1,2,3}
 $$
 denota o conjunto cujos membros são os números $1$, $2$, e $3$.
+Conjuntos não têm seus membros numa certa ordem; e também não
+faz sentido perguntar quantas vezes um objeto pertence àlgum conjunto:
+$$
+\set{1,2,3} = \set{3,1,2} = \set{1,1,3,2,2,1}.
+$$
 Vamos também usar a notação
 $$
 \setstt x {$x$ é um múltiplo de $3$}
@@ -739,8 +787,8 @@ Escrevemos
 $$
 f : A \to B
 $$
-para dizer que $f$ é uma função que dada qualquer objeto de tipo $A$, retorna
-algum objeto de tipo $B$.
+para dizer que $f$ é uma função que dada qualquer objeto de tipo $A$,
+retorna algum objeto de tipo $B$.
 Se $x\in A$, escrevemos \sq{$f(x)$} para o \dterm{valor}
 ou \dterm{saida} da $f$ no $x$, e chamamos $x$ de \dterm{argumento}
 ou \dterm{entrada} da $f$.
@@ -831,8 +879,9 @@ e não uma regra inquebrável.
 \endsection
 %%}}}
 
-%%{{{ Theorems and friends 
+%%{{{ Theorems_and_friends 
 \section Teoremas e seus amigos.
+\label{Theorems_and_friends}%
 
 %%{{{ theorem 
 \note Teorema.
@@ -978,8 +1027,9 @@ afirmações ``a baixo'' da tese: as proposições em quais a tese depende.
 \endsection
 %%}}}
 
-%%{{{ Axioms and primitive notions 
+%%{{{ Axioms_and_primitive_notions 
 \section Axiômas e noções primitivas.
+\label{Axioms_and_primitive_notions}%
 
 %%{{{ an "annoying" child 
 \note Uma criança ``chata''.
@@ -1259,7 +1309,7 @@ $$
 \tdefined{associatividade}[esquerda e direita]%
 \tdefined{igualdade}[sintáctica]%
 \tdefined{igualdade}[semântica]%
-\sdefined {\sholed A = \sholed B}      {igualdade semântica}%
+\sdefined {\sholed A \semeq \sholed B} {igualdade semântica}%
 \sdefined {\sholed A \syneq \sholed B} {igualdade sintáctica}%
 E a expressão
 $$
@@ -1821,6 +1871,8 @@ mas sim ajudar nossos olhos humanos a parsear.
 %%{{{ Syntactic sugar 
 \note Açúcar sintáctico.
 \tdefined{açúcar sintáctico}%
+\sdefined {\sholed A \sugeq \sholed B}  {açúcar sintáctico de objeto}%
+\sdefined {\sholed A \sugiff \sholed B} {açúcar sintáctico de proposição}%
 Querendo enriquecer uma linguagem com um novo conceito, uma nova operação,
 etc., parece que precisamos aumentar sua sintaxe para adicionar certos
 símbolos e formas para corresponder nessas novas idéias.
