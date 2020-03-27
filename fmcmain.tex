@@ -793,32 +793,114 @@ $$
 respectivamente.
 %%}}}
 
-%%{{{ free_and_bound_variables 
+%%{{{ variable_instance 
+\note Instância de variável.
+\label{variable_instance}%
+\tdefined{variável}[instância]%
+Numa frase que envolve variáveis é muito importante poder separar
+(e falar sobre) cada \dterm{instância} de variável na frase.
+Na frase seguinte por exemplo, temos $4$~instâncias da variável
+$p$ e $2$~da variável $q$.
+$$
+\textwq{$\undertag p 1$ é primo e para todo primo $\undertag p 2$ tal que $\undertag p 3$ divide $\undertag q 1$, $\undertag p 4^2$ divides $\undertag q 2$}
+$$
+Sublinhei e rotulei todas.
+Mesmo sem isso, alguém poderia falar da
+\wq{terceira instância da variável $p$} e entenderiamos qual seria.
+%%}}}
+
+%%{{{ variables_free_and_bound 
 \note Variáveis livres e ligadas.
-\label{free_and_bound_variables}%
+\label{variables_free_and_bound}%
 \tdefined{variável}[livre]%
 \tdefined{variável}[ligada]%
 \tdefined{variável}[dummy]%
 \iisee{capturado}{variável, capturada}%
 \iisee{dummy}{variável, dummy}
+Considere as expressões:
+\beginol
+\li $(x + y)^2 = x^2 + 2xy$
+\li A mãe de $p$
+\li $2^n + 1$
+\li $p$ é irmão de $q$
+\li a capital do país $p$
+\li $a$ mora em Atenas
+\endol
+Cada uma delas refere a pelo menos uma coisa por meio de variáveis, e logo seu significado é dependente.
+Essa instâncias de variáveis chamamos de \dterm{livres}.
+Sobre as expressões que denotam proposições (1,4,6): não sabemos o que cada uma
+afirma sem saber quais são os objetos denotados por essas variáveis;
+similarmente, sobre as expressões que denotam objetos (2,3,5): não sabemos qual
+objeto é denotado sem saber quais são os objetos denotados por essas variáveis.
+Agora considere as expressões:
+\beginol
+\li existe $k \in \ints$ tal que $13 = 2k + 1$
+\li existem números $x,y$ tais que $(x + y)^2 = x^2 + 2xy$
+\li aquela função que dada um número $x$ retorna o $x+1$
+\li o conjunto de todos livros $b$ tais que existe palavra $w$ no $b$ com tantas letras quantas as letras do título de $b$
+\li para toda pessoa $p$, $q$ não gosta de $p$
+\endol
+Aqui as instâncias das variáveis são todas \dterm{ligadas}, exceto na última frase onde
+ámbas as instâncias da variável $p$ são ligadas, mas (a única instância de) $q$ é livre.%
+\footnote{Na literatura aparece como sinônimo de variável ligada o termo \dterm{dummy} (boba) também.}
 %%}}}
 
-\TODO Explicar.
+%%{{{ eg: freeboundvars_c 
+\example.
+\label{freeboundvars_c}%
+Considere o código seguinte:
+\sourcecode freeboundvars.c;
+A $\code{i}$ da primeira linha é livre, nas outras ligada;
+a $\code{w}$ é livre em todo canto.
+\endexample
+%%}}}
 
-%%{{{ substitution 
-\note Substituição.
-Quando queremos \dterm{substituir} uma variável por uma
-outra expressão, para evitar o uso do símbolo da igualdade
-\sq{$=$} e escrever frases como \dq{para $n=1$ temos\dots}
-usamos o símbolo \symq{$\asseq$}: \dq{para $n\asseq 1$ temos\dots}.
+%%{{{ remark: variable_vs_instance_abuse 
+\remark.
+\label{variable_vs_instance_abuse}%
+Quando não existe possibilidade de confundir,
+falamos apenas de <<variável>> em vez de <<tal instância de variável>>.
+Assim, mesmo que ser livre ou ligada não é uma propriedade de variáveis mas
+de instâncias de variáveis, nos permitimos o abuso de falar frases como <<$x$ é ligada>>, etc.
+%%}}}
+
+%%{{{ beware: variable_both_bound_and_free 
+\beware.
+\label{variable_both_bound_and_free}%
+Numa frase, a mesma variável pode ter instâncias livres e ligadas também!
+Olha por exemplo a frase do~\ref{variable_instance}.
+A primeira instância da $p$ é livre, mas todas as outras são ligadas!
+%%}}}
+
+%%{{{ x: free_and_bound_variables_exercise 
+\exercise.
+\label{free_and_bound_variables_exercise}%
+Para cada uma das expressões seguintes e para cada instância de variável
+identifique quais são livres e quais são ligadas.  Desenhe as ligações.
+
+\endexercise
+%%}}}
+
+%%{{{ variable_assignment 
+\note Atribuição e substituição.
+\label{variable_assignment}%
+Quando queremos \dterm{substituir} uma variável por um
+outro termo, ou \dterm{atribuir} um valor a uma variável,
+para evitar o uso do símbolo da igualdade
+\sq{$=$} e escrever frases como \wq{para $n=1$ temos\dots}
+usamos o símbolo \symq{$\asseq$}: \wq{para $n\asseq 1$ temos\dots}.
 A idéia é que a expressão na esquerda é para assumir o valor
 determinado pela direita.
+Escrevemos, por exemplo:
+\beginul
+\li A proposição (5) do~\refn{variables_free_and_bound} para $q \asseq \mathrm{Larry}$ é a proposição que Larry não gosta de ninguém.
+\li Usando a (5) do~\refn{variables_free_and_bound} com $p \asseq \mathrm{Amanda}$ inferimos que $q$ não gosta de Amanda.
+\endul
 Naturalmente, usamos o \symq{$\eqass$} nas raras vezes que
 queremos inverter os papeis da esquerda e da direita.
 Caso que a variável que estamos substituindo é uma variavel
 proposiçional (ou seja, serve para denotar proposições
-e não objetos) usamos os \symq{$\assiff$} e
-\symq{$\iffass$}.
+e não objetos) usamos os \symq{$\assiff$} e \symq{$\iffass$}.
 %%}}}
 
 %%{{{ variable_renaming 
@@ -826,14 +908,19 @@ e não objetos) usamos os \symq{$\assiff$} e
 \label{variable_renaming}%
 Considere o texto seguinte:
 $$
-\textwq{Existe número $x$ tal que $x^2 = 8$.}
+\textwq{Existe número $x$ tal que $x^2 = k$.}
 $$
-A variável \symq{$x$} sendo ligada pode ser renomeada
+A variável \symq{$x$} \emph{sendo ligada} pode ser renomeada
 por outra, por exemplo, a \symq{$n$}, sem mudar o significado
-da afirmação:
+da proposição:
 $$
-\textwq{Existe número $n$ tal que $n^2 = 8$.}
+\textwq{Existe número $n$ tal que $n^2 = k$.}
 $$
+No outro lado, não podemos renomear a \symq{$k$},
+pois ela é livre, e logo o singificado da proposição
+mudaria, pois em vez de ser uma afirmação sobre
+um certo objeto $k$, viraria uma afirmação sobre
+outra coisa.
 Infelizmente o processo de (re)nomear variáveis
 tem certos perigos, então precisamos tomar cuidado.
 Vamos analizar:
@@ -880,14 +967,32 @@ Para todo número $\alertB d$, se $\alertB d$ divide $\alertG p$, então $\alert
 e no novo, onde usamos a \symq{$x$}:
 \quote
 \flwq{Seja $\alertG p$ a maior potência de $2$ que divide o $\alertR x$.\CR
-Para todo número $\alertB x$, se $\alertB x$ divide $\alertG p$, então $\alertB x$ divide $\alertG x$.}
+Para todo número $\alertB x$, se $\alertB x$ divide $\alertG p$, então $\alertB x$ divide $\alertB x$.}
 \endquote
 A partir da frase <<Para todo número $\alertB x$>>,
 o $\alertR x$ da linha anterior não tem mais como ser referido
 até o fim desse escopo, nesse caso até o ponto final da linha.
-Aconteceu \dterm{sombreamento} da variável $\alertR x$ variável nesse escopo.
+Aconteceu \dterm{sombreamento} (\dterm{shadowing}) da variável
+$\alertR x$ variável nesse escopo.
 Dizemos também que a variável $\alertR x$ da segunda linha da versão anterior,
 foi \dterm{capturada} pela frase sublinhada, ou seja, virou azul.
+%%}}}
+
+%%{{{ eg: shadowing_c 
+\example.
+\label{shadowing_c}%
+Para os programadores, aqui um exemplo de código e uma análise relevante:
+\sourcecode shadowing.c;
+Nas linhas 12--14 aconteceu sombreamento da $\code{i}$ que foi declarada
+na linha 2, por causa do $\code{for}$.
+Esse $\code{for}$ capturou a $\code{i}$ que aparece na linha 13.
+Ainda mais, a variável $\code{a}$ declarada na linha 1 foi sombreada
+no escopo ta função $\code{foo}$ pois escolhemos usar o mesmo nome
+para segunda parámetro da função $\code{foo}$, e logo qualquer
+instância de $\code{a}$ no corpo da $\code{foo}$ refere ao segundo
+argumento da função, e não à $\code{a}$ da linha 1.
+Assim, dentro do corpo da função não temos mais como referir à $\code{a}$.
+\endexample
 %%}}}
 
 \endsection
@@ -1101,8 +1206,8 @@ Para enfatisar a diferença entre funções e relações, tentarei
 denotar funções com nomes que começam com letra minúscula,
 e relações com maiúscula:
 usarei \symq{$\mathit{mother}(x)$} para \emph{o objeto} (aqui pessoa)
-``mãe de $x$'', e \symq{$\mathrm{Mother(x)}$} para \emph{a proposição}
-``$x$ é uma mãe''.
+\wq{mãe de $x$}, e \symq{$\mathrm{Mother(x)}$} para \emph{a proposição}
+\wq{$x$ é uma mãe}.
 Novamente, essa também é uma convenção que vou seguir, um costume,
 e não uma regra inquebrável.
 %%}}}
@@ -1356,6 +1461,7 @@ ponto, linha, e o predicado primitivo de ``ponto pertence a linha''.
 
 %%{{{ Logical 
 \note De lógica.
+Esse tipo de erro acontece quando inferimos algo a partir de
 %%}}}
 
 %%{{{ eg: olive_tree 
@@ -1410,12 +1516,6 @@ Isso acontece muito dando definições; vamos discutir isso na~\ref{Definitions}
 \endsection
 %%}}}
 
-%%{{{ PROBLEMS 
-\problems.
-
-\endproblems
-%%}}}
-
 %%{{{ Further reading 
 \further.
 
@@ -1427,17 +1527,6 @@ Sobre geometria euclideana:
 \cite{elements},
 \cite{coxeterrevisited};
 \cite{hartshorneeuclidbeyond}.
-
-Sobre calculus:
-\cite{spivakcalculus},
-\cite{hardypuremath};
-\cite{apostol1}~\&~\cite{apostol2},
-\cite{loomissternberg}.
-
-Sobre álgebra linear:
-\cite{janichlinalg},
-\cite{halmoslapb},
-\cite{halmosfdvs}.
 
 \endfurther
 %%}}}
@@ -47135,6 +47224,7 @@ especificamente são os~\cite{halmosfdvs} e~\cite{halmoslapb}
 (para ser estudados em paralelo).
 Um primeiro toque dá pra pegar também pelos~\cite{apostol1}
 e~\cite{apostol2}.
+
 \endfurther
 %%}}}
 
@@ -48847,7 +48937,8 @@ $Q = \Union_n \set{\tup{\cos n, \sin n}}$?
 
 \cite{spivakcalculus},
 \cite{apostol1},
-\cite{hardypuremath}.
+\cite{hardypuremath},
+\cite{loomissternberg}.
 
 \endfurther
 %%}}}
@@ -51096,7 +51187,7 @@ Podemos então concluir que é impossível criar tal programa!
 \endsection
 %%}}}
 
-%%{{{ PROBLEMS in Cantor's paradise: Russell's paradox 
+%%{{{ Problems in Cantor's paradise: Russell's paradox 
 \section Problemas no paraíso de Cantor: o paradoxo de Russell.
 
 %%{{{ Russell's paradox 
