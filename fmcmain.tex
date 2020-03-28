@@ -845,6 +845,13 @@ Aqui as instâncias das variáveis são todas \dterm{ligadas}, exceto na última
 \footnote{Na literatura aparece como sinônimo de variável ligada o termo \dterm{dummy} (boba) também.}
 %%}}}
 
+%%{{{ advice: how_to_tell_if_variable_is_free 
+\advice.
+Para saber se uma variável $x$ aparece livre numa expressão,
+tente pronunciar o mesmo significado da expressão sem pronunciar a palavra \wq{x}.
+Se conseguir, a variável é ligada.
+%%}}}
+
 %%{{{ eg: freeboundvars_c 
 \example.
 \label{freeboundvars_c}%
@@ -870,15 +877,6 @@ de instâncias de variáveis, nos permitimos o abuso de falar frases como <<$x$ 
 Numa frase, a mesma variável pode ter instâncias livres e ligadas também!
 Olha por exemplo a frase do~\ref{variable_instance}.
 A primeira instância da $p$ é livre, mas todas as outras são ligadas!
-%%}}}
-
-%%{{{ x: free_and_bound_variables_exercise 
-\exercise.
-\label{free_and_bound_variables_exercise}%
-Para cada uma das expressões seguintes e para cada instância de variável
-identifique quais são livres e quais são ligadas.  Desenhe as ligações.
-
-\endexercise
 %%}}}
 
 %%{{{ variable_assignment 
@@ -993,6 +991,158 @@ instância de $\code{a}$ no corpo da $\code{foo}$ refere ao segundo
 argumento da função, e não à $\code{a}$ da linha 1.
 Assim, dentro do corpo da função não temos mais como referir à $\code{a}$.
 \endexample
+%%}}}
+
+%%{{{ binders_and_their_bindings 
+\note Ligadores de variáveis e suas ligações.
+\label{binders_and_their_bindings}%
+\tdefined{ligador}[de variável]%
+Já encontramos dois \dterm{ligadores (binders) de variáveis}:
+\wq{existe {\thole} tal que \dots}
+e
+\wq{para todo {\thole}, \dots}.
+Tem muito mais que esses dois, e provavelmente o leitor já enconctrou vários
+em matemática, programação, ou na vida mesmo~(\ref{find_more_binders}).
+Para entender melhor que onde aparecem variáveis ligadas não está sendo
+afirmado algo sobre certos objetos denotados por essas variáveis, podemos
+desenhar explicitamente as ligações.
+É melhor pensar que uma proposição \emph{é} sua forma com ligações,
+assim a desvinculando das escolhas de nome de variáveis insignificantes
+que seu escritor favoreceu.
+Espero que isso fica mais claro depois do exemplo seguinte:
+%%}}}
+
+%%{{{ eg: free_and_bound_variables_eg 
+\example.
+\label{free_and_bound_variables_eg}%
+Considere a proposição
+$$
+\text{\eightit $n-d$ e $n+d$ são primos}. \tag{1}
+$$
+Sem sequer saber o que significa ser um número primo,
+sabemos que essa proposição afirma que dois números (o $n-d$ e o $n+d$) possuem essa propriedade (misteriosa de ser primo).
+Aparecem as variáveis \sq{$n$} e \sq{$d$}, e em todas as suas instâncias são livres.
+Ou seja, a proposição (1) pode ser vista como uma afirmação sobre dois números $n$ e $d$.
+Podemos \emph{quantificiar} uma ou ambas delas, por um dos quantificadores que discutimos:
+$$
+\text{\eightit existe $d$ tal que $n-d$ e $n+d$ são primos}. \tag{2}
+$$
+Aqui todas as instâncias da $n$ são ligadas (com o ligador \wq{existe $n$ tal que \dots}).
+Ou seja, a proposição (2) afirma algo sobre um certo número $d$.
+Ela não fala nada sobre $n$.  Podemos pronunciá-la sem dizer \wq{n}:
+\emph{\wq{Existe numero que tanto subtraindo ele de $n$, quanto somando ele com $n$, resulta em números primos.}}.
+Mas não sem dizer \wq{n}.
+Podemos desenhar as ligações da~(2) para esclarecer:
+\Tikzi varbindings2;
+Voltando na (1) podemos quantificar a outra variável:
+$$
+\text{\eightit existe $n$ tal que $n-d$ e $n+d$ são primos}. \tag{3}
+$$
+Agora $d$ é livre e $n$ ligada, ou seja (3) afirma algo sobre um certo número $d$, e nada sobre nenhum $n$.
+Podemos pronunciá-la sem dizer \wq{d}:
+\emph{\wq{Existe numero que tanto subtraindo $d$ dele, quanto somando $d$ nele, resulta em números primos.}}.
+Mas não sem dizer \wq{d}.
+Deixo os desenhos de ligações pra ti (\ref{bindings_exercise}).
+Observe que os significados das (2) e (3) são bem diferentes:
+\beginul
+\li Na (3) o $d$ é fixo (podemos pensar o $d$ como distância) e procuramos $n$ com essa propriedade.
+Parece que fixamos nossos dedos numa distância $2d$ ($d$ pela esquerda e $d$ pela direita) e procuramos
+achar se existe $n$ no meio tal que ambos os nossos dedos apontam para primos.
+\li Na (2) o $n$ é fixo (podemos pensar o $n$ como o centro da nossa busca) e ficamos estendendo mais e mais
+os dedos (com distâncias iguais do centro) até encontrar (se encontrar) uma certa distância $d$ tal que
+(novamente) ambos os nossos dedos apontam para primos.
+\endul
+Agora, volte na (2) e considere a proposição
+$$
+\text{\eightit para todo $n$, se $n \geq N$ então existe $d$ tal que $n-d$ e $n+d$ são primos}. \tag{4}
+$$
+que obtemos botando esse
+\wq{\trueR{para todo $n$, se $n \geq N$ então}}
+na frente da (2).
+Aconteceu o seguinte:
+\Tikzi varbindings4;
+Essa então é uma afirmação sobre um certo número $N$.
+Quantificando \sq{$N$} também, podemos chegar na:
+$$
+\text{\eightit existe $N$ tal que para todo $n$, se $n \geq N$ então existe $d$ tal que $n-d$ e $n+d$ são primos} \tag{5}
+$$
+Te deixo desenhar suas ligações (\ref{bindings_exercise}).
+\endexample
+%%}}}
+
+%%{{{ x: bindings_exercise 
+\exercise.
+\label{bindings_exercise}%
+Desenha as ligações da (3) e (5) do~\ref{free_and_bound_variables_eg}.
+
+\solution
+A proposição (3) escrita com variáveis
+$$
+\text{\tenrm existe $n$ tal que $n-d$ e $n+d$ são primos} \tag{3}
+$$
+e agora com ligações:
+\Tikzi varbindings3;
+A proposição (5) escrita com variáveis:
+$$
+\text{\tenrm existe $N$ tal que para todo $n$, se $n \geq N$ então existe $d$ tal que $n-d$ e $n+d$ são primos} \tag{5}
+$$
+e agora com ligações:
+\Tikzi varbindings5;
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_more_binders 
+\exercise.
+\label{find_more_binders}%
+Já encontramos dois ligadores
+\wq{existe {\thole} tal que \dots}
+e
+\wq{para todo {\thole}, \dots}.
+Dê mais exemplos de ligadores que tu conhece:
+de matemática, de programação, de vida\dots
+
+\endexercise
+%%}}}
+
+%%{{{ x: renaming_trick_question 
+\exercise.
+\label{renaming_trick_question}%
+Na (3) do~\ref{free_and_bound_variables_eg}
+podemos renomiar a variável\dots:
+\beginil
+\item{(i)}   \sq{$n$} por \sq{$m$}?
+\item{(ii)}  \sq{$n$} por \sq{$d$}?
+\item{(iii)} \sq{$d$} por \sq{$x$}?
+\endil
+Na (5) do~\ref{free_and_bound_variables_eg}
+podemos renomiar a variável\dots:
+\beginil
+\item{(i)}   \sq{$N$} por \sq{$n$}?
+\item{(ii)}  \sq{$N$} por \sq{$d$}?
+\item{(iii)} \sq{$n$} por \sq{$N$}?
+\item{(iv)}  \sq{$n$} por \sq{$d$}?
+\item{(v)}   \sq{$d$} por \sq{$n$}?
+\item{(vi)}  \sq{$d$} por \sq{$N$}?
+\endil
+Cuidado!
+
+\solution
+Na (3):
+(i) sim, pois $m$ não aparece livre no escopo e assim não vai acontecer
+capturamento de variável não-desejado;
+(ii) não, pois não seria mais a mesma afirmação sobre o $d$;
+(iii) não, pois não seria mais uma afirmação sobre o $d$, mas sobre o $x$.
+\endgraf
+Na (5):
+(i) não, pois teriamos sombreamento do antigo \sq{$N$} e precisamos referi-lo;
+(ii) sim---mesmo que fica esquisito!---pois o sombreamento acontece num escopo onde não precisamos referir mais o antigo \sq{$N$};
+(iii) não, pois teriamos sombreamento do antigo \sq{$N$} e precisamos referi-lo;
+(iv) não, pois teriamos sombreamento do antigo \sq{$n$} que tá sendo referido depois;
+(v) não: mesmo problema com o (iv);
+(vi) sim: mesma situação com o (ii).
+
+\endexercise
 %%}}}
 
 \endsection
@@ -1488,7 +1638,7 @@ Tá tudo OK com essa inferência?
 %%{{{ A 
 \blah Resposta.
 Não, a inferência tá erradíssima, mesmo que sua conclusão---por sorte!---acontece
-que é válida: o processo de inferí-la, não foi!
+que é válida: o processo de inferi-la, não foi!
 Compare com:
 \quote
 \flwq{Jogadores de basquetes são fortes.\CR
@@ -7293,8 +7443,8 @@ $$
 \endalign
 $$
 \beginil
-\item{(i)} Calcule o valor $\alpha(3,2)$, indicando para cada passo qual equação foi usada.
-\item{(ii)} Prove que para todo $x\in\nats$, $\alpha(1,x) = x + 2$.
+\item{(i)}   Calcule o valor $\alpha(3,2)$, indicando para cada passo qual equação foi usada.
+\item{(ii)}  Prove que para todo $x\in\nats$, $\alpha(1,x) = x + 2$.
 \item{(iii)} Prove que para todo $x\in\nats$, $\alpha(2,x) = 2x + 3$.
 \endil
 A funcção $\alpha$ é conhecida como funcção de \Ackermann{}Ackermann,
@@ -14987,11 +15137,7 @@ Podemos então pensar que um conjunto $A$ é um black box que tem apenas uma
 ``entrada'' onde podemos botar qualquer objeto $x$ que desejamos, e tem também
 uma luz que pode piscar ``sim'' ou ``não'' (correspondendo nos casos
 $x\in A$ e $x\notin A$ respectivamente).
-$$
-\tikzpicture
-\tikzi blackboxset;
-\endtikzpicture
-$$
+\Tikzi blackboxset;
 Usamos o termo \emph{black} box para enfatizar que não temos como ``olhar dentro''
 desse aparelho, dessa caixa, e ver o que acontece assim que botar uma entrada;
 nossa única informação será a luz da caixa que vai piscar ``sim'' ou ``não''.
@@ -21892,6 +22038,8 @@ Pois a notação $\lam x {\thole}$ serve bem melhor para a maioria dos nossos us
 \remark.
 \label{variable_binder_in_lambda}%
 \label{alpha_equiv_first_contact}%
+\tdefined{ligador}[lambda]%
+\ii{ligador!de variável}%
 O $\lambda$ é um \emph{ligador de variável}.
 Todos os $x$ que aparecem livres no {\thole$x$\thole}
 viram ligados com o $\alert{x}$ do $\lambda \alert{x}$.
