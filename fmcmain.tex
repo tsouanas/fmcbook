@@ -786,10 +786,10 @@ então quando aplica a versão intensional, precisa escolhé-la.
 \solution
 Temos:
 \beginul
-\li \sq{$\intiffsymbol$} para os pares: (iii), (iv), (viii), (xi);
-\li \sq{$\iffsymbol$} para os pares: (v), (vii), (ix), (x);
-\li \sq{${\inteq}$} para o par (xii);
-\li \sq{${=}$} para os pares: (i), (ii), (vi).
+\li \symq{$\intiffsymbol$} para os pares: (iii), (iv), (viii), (xi);
+\li \symq{$\iffsymbol$} para os pares: (v), (vii), (ix), (x);
+\li \symq{${\inteq}$} para o par (xii);
+\li \symq{${=}$} para os pares: (i), (ii), (vi).
 \endul
 
 \endexercise
@@ -948,7 +948,7 @@ A primeira instância da $p$ é livre, mas todas as outras são ligadas!
 Quando queremos \dterm{substituir} uma variável por um
 outro termo, ou \dterm{atribuir} um valor a uma variável,
 para evitar o uso do símbolo da igualdade
-\sq{$=$} e escrever frases como \wq{para $n=1$ temos\dots}
+\symq{$=$} e escrever frases como \wq{para $n=1$ temos\dots}
 usamos o símbolo \symq{$\asseq$}: \wq{para $n\asseq 1$ temos\dots}.
 A idéia é que a expressão na esquerda é para assumir o valor
 determinado pela direita.
@@ -1865,161 +1865,9 @@ Todos os números \emph{naturais}, cuja totalidade simbolizamos com $\nats$.
 \endsection
 %%}}}
 
-%%{{{ Arithmetic expressions: syntax vs. semantics 
-\section Expressões aritméticas: sintaxe vs.~semântica.
-\label{arithmetic_expressions_syntax_vs_semantics}%
-
-%%{{{ A first example expression 
-\note.
-\tdefined{precedência}%
-Considere agora a expressão
-$$
-1 + 5 \ntimes 2
-$$
-que envolve os numerais $1$, $5$, e $2$,
-e os símbolos de funcções $+$ (adição) e $\ntimes$ (multiplicação).
-O que ela representa?
-A multiplicação de $1+5$ com $2$, ou a adição de $1$ com $5\ntimes 2$?
-A segunda opção, graças a uma convenção que temos%
----e que você provavelmente já encontrou na vida.
-Digamos que a $\ntimes$ ``pega mais forte'' do que a $+$,
-então precisamos ``aplicá-la'' primeiro.
-Mais formalmente, a $\ntimes$ tem uma \dterm{precedência} mais alta que a da $+$.
-Quando não temos convenções como essa, usamos parenteses para tirar a ambigüidade
-e deixar claro como parsear uma expressão.
-Então temos
-$$
-(1 + 5) \ntimes 2 \neq 1 + 5 \ntimes 2 = 1 + (5 \ntimes 2).
-$$
-%%}}}
-
-%%{{{ One more example; syntax-vs-semantics 
-\note.
-\tdefined{associatividade}[esquerda e direita]%
-\tdefined{igualdade}[sintáctica]%
-\tdefined{igualdade}[semântica]%
-\sdefined {\sholed A \semeq \sholed B} {igualdade semântica}%
-\sdefined {\sholed A \syneq \sholed B} {igualdade sintáctica}%
-E a expressão
-$$
-1+5+2
-$$
-representa o quê?
-Não seja tentado dizer ``tanto faz'', pois mesmo que as duas
-possíveis interpretações
-$$
-(1+5) + 2
-\qqqqtext{e}
-1 + (5+2)
-$$
-\emph{denotam valores} iguais,
-elas expressam algo diferente:
-$$
-\align
-(1 + 5) + 2&: \quad\text{adicione o $1+5$ com o $2$};\\
-1 + (5 + 2)&: \quad\text{adicione o $1$ com o $5+2$}.
-\endalign
-$$
-Então\dots
-$$
-(1 + 5) + 2 \askeq 1 + (5 + 2)
-$$
-Como \emph{expressões} (a \emph{sintaxe}) são diferentes;
-como \emph{valores} (a \emph{semântica}) são iguais,
-pois denotam o mesmo objeto: o número oito.
-Normalmente em matemática ligamos sobre as denotações das expressões,
-e logo escrevemos igualdades como
-$$
-(1 + 5) + 2 = 6 + 2 = 8 = 1 + 7 = 1 + (5 + 2).
-$$
-Ou seja, o símbolo \symq{$=$} em geral denota \dterm{igualdade semântica}:
-$A=B$ significa que os dois lados, $A$ e $B$, denotam o mesmo objeto.
-Querendo representar \dterm{igualdade sintáctica}, as vezes usamos
-outros símbolos.  Vamos usar o \symq{$\syneq$} agora, de modo que:
-$$
-\align
-1 + 2 = 3
-&\qqqtext{mas}
-1 + 2 \synneq 3;\\
-(1 + 5) + 2 = 1 + (5 + 2)
-&\qqqtext{mas}
-(1 + 5) + 2 \synneq 1 + (5 + 2);
-\quad\text{etc.}
-\endalign
-$$
-
-Voltando à expressão $1 + 5 + 2$, precisamos mais uma convenção
-para atribuir uma associatividade esquerda ou direita.
-Vamos concordar que $a + b + c$ representa a expressão
-$((a + b) + c)$, ou seja, atribuimos em $+$ uma
-\emph{associatividade esquerda}.
-
-Mas $+$ não é uma operação associativa?
-Sim, e isso quis dizer que como valores,
-$$
-((a + b) + c) = (a + (b + c)).
-$$
-Mas como expressões, são diferentes, e logo sem essa convenção,
-$a + b + c$ não representaria nenhuma expressão de aritmética!
-%%}}}
-
-%%{{{ x: syneq or semeq? 
-\exercise.
-\label{syneq_or_semeq}%
-Sejam $a,b,c$ números naturais.
-Usando $=$ para igualdade semântica e $\syneq$ para igualdade
-sintáctica, decida para cada uma das afirmações seguintes
-se é verdadeira ou falsa:
-\beginol
-\li $a + b + c                \syneq  a + (b + c)$
-\li $a + b + c                \syneq  (a + b) + c$
-\li $a + b + c                =       a + (b + c)$
-\li $a + b + c                =       (a + b) + c$
-\li $2 \ntimes 0 + 3          =       0 + 3$
-\li $2 \ntimes 0 + 3          \syneq  0 + 3$
-\li $(2 \ntimes 0) + 3 + 0    =       1 + 1 + 1$
-\li $2 \ntimes 0 + 3          \syneq  1 + 1 + 1$
-\li $2 \ntimes 0 + 3          \syneq  2 \ntimes (0 + 3)$
-\li $2 \ntimes 0 + 3          =       2 \ntimes (0 + 3)$
-\li $2 \ntimes 0 + 3          \syneq  (2 \ntimes 0) + 3$
-\li $1 + 2                    \syneq  2 + 1$
-\endol
-
-\solution
-Temos:
-\beginol
-\li $a + b + c                \synneq a + (b + c)$
-\li $a + b + c                \syneq  (a + b) + c$
-\li $a + b + c                =       a + (b + c)$
-\li $a + b + c                =       (a + b) + c$
-\li $2 \ntimes 0 + 3          =       0 + 3$
-\li $2 \ntimes 0 + 3          \synneq 0 + 3$
-\li $(2 \ntimes 0) + 3 + 0    =       1 + 1 + 1$
-\li $2 \ntimes 0 + 3          \synneq 1 + 1 + 1$
-\li $2 \ntimes 0 + 3          \synneq 2 \ntimes (0 + 3)$
-\li $2 \ntimes 0 + 3          \neq    2 \ntimes (0 + 3)$
-\li $2 \ntimes 0 + 3          \syneq  (2 \ntimes 0) + 3$
-\li $1 + 2                    \synneq 2 + 1$
-\endol
-
-\endexercise
-%%}}}
-
-%%{{{
-\exercise.
-Verdade ou falso?:
-$$
-A \syneq B \implies A = B
-$$
-
-\endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Derivation trees 
+%%{{{ Derivation_trees 
 \section Arvores de derivação.
+\label{Derivation_trees}%
 
 %%{{{ Parsing 
 \note Parsing.
@@ -2027,8 +1875,8 @@ $$
 \tdefined{árvore}[sintáctica]%
 \tdefined{árvore}[de derivação]%
 Lendo uma expressão ``linear'' como a
-``$1 + 5 \ntimes 2$''
-nos a \dterm{parseamos} para revelar sua estrutura,
+\symq{$1 + 5 \ntimes 2$}
+nós a \dterm{parseamos} para revelar sua estrutura,
 freqüentemente representada numa forma bidimensional, como uma
 \dterm{árvore sintáctica}.
 Temos então as árvores:
@@ -2345,6 +2193,171 @@ $$
 \label{generate_some_nats_from_grammar}%
 Quais são umas das palavras que podes gerar com a~\ref{Nat_grammar}?
 Podemos usar sua linguagem como numerais para os naturais?
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Arithmetic expressions: syntax vs. semantics 
+\section Expressões aritméticas: sintaxe vs.~semântica.
+\label{arithmetic_expressions_syntax_vs_semantics}%
+
+%%{{{ precedence 
+\note Precedência.
+\label{precedence}%
+\tdefined{precedência}%
+Considere agora a expressão
+$$
+1 + 5 \ntimes 2
+$$
+que envolve os numerais $1$, $5$, e $2$,
+e os símbolos de funcções $+$ (adição) e $\ntimes$ (multiplicação).
+O que ela representa?
+A multiplicação de $1+5$ com $2$, ou a adição de $1$ com $5\ntimes 2$?
+A segunda opção, graças a uma convenção que temos%
+---e que você provavelmente já encontrou na vida.
+Digamos que a $\ntimes$ ``pega mais forte'' do que a $+$,
+então precisamos ``aplicá-la'' primeiro.
+Mais formalmente, a $\ntimes$ tem uma \dterm{precedência} mais alta que a da $+$.
+Quando não temos convenções como essa, usamos parenteses para tirar a ambigüidade
+e deixar claro como parsear uma expressão.
+Então temos
+$$
+(1 + 5) \ntimes 2 \neq 1 + 5 \ntimes 2 = 1 + (5 \ntimes 2).
+$$
+%%}}}
+
+%%{{{ syntactic_associativity 
+\note Associatividade sintáctica.
+\tdefined{associatividade}[sintáctica]%
+\tdefined{igualdade}[sintáctica]%
+\tdefined{igualdade}[semântica]%
+\sdefined {\sholed A \semeq \sholed B} {igualdade semântica}%
+\sdefined {\sholed A \syneq \sholed B} {igualdade sintáctica}%
+E a expressão
+$$
+1+5+2
+$$
+representa o quê?
+Não seja tentado dizer \wq{tanto faz}, pois mesmo que as duas
+razoáveis interpretações
+$$
+(1+5) + 2
+\qqqqtext{e}
+1 + (5+2)
+$$
+\emph{denotam valores} iguais, elas expressam algo diferente:
+$$
+\align
+(1 + 5) + 2&: \quad\text{adicione o $1+5$ com o $2$};\\
+1 + (5 + 2)&: \quad\text{adicione o $1$ com o $5+2$}.
+\endalign
+$$
+Ou seja: a intensão é diferente, 
+Então\dots
+$$
+(1 + 5) + 2 \askeq 1 + (5 + 2)
+$$
+Como \emph{expressões} (a \emph{sintaxe}) são diferentes;
+como \emph{intensões} também;
+como \emph{valores} (a \emph{semântica}) são iguais,
+pois denotam o mesmo objeto: o número oito.
+Como já discutimos (\refn{Intension_vs_extension}) em matemática
+ligamos sobre as denotações das expressões,
+e logo escrevemos igualdades como
+$$
+(1 + 5) + 2 = 6 + 2 = 8 = 1 + 7 = 1 + (5 + 2).
+$$
+Lembre que o símbolo \symq{$=$} em geral denota
+\dterm{igualdade semântica}:
+$A=B$ significa que os dois lados, $A$ e $B$, denotam o mesmo objeto.
+Querendo representar \dterm{igualdade sintáctica}, as vezes usamos
+outros símbolos.  Vamos usar o \symq{$\syneq$} agora, de modo que:
+$$
+\align
+1 + 2 = 3
+&\qqqtext{mas}
+1 + 2 \synneq 3;\\
+(1 + 5) + 2 = 1 + (5 + 2)
+&\qqqtext{mas}
+(1 + 5) + 2 \synneq 1 + (5 + 2);
+\quad\text{etc.}
+\endalign
+$$
+Voltando à expressão \sq{$1 + 5 + 2$}, precisamos
+\emph{declarar uma associatividade esquerda ou direita}.
+Vamos concordar que \sq{$a + b + c$} representa a expressão
+\sq{$((a + b) + c)$}, ou seja, atribuimos à $+$ uma
+\dterm{associatividade esquerda}.
+Mas $+$ não é uma operação associativa?
+Sim, e isso impica que \emph{como valores},
+$$
+((a + b) + c) = (a + (b + c)).
+$$
+Essa associatividade é uma propriedade matemática
+(algébrica) da operação $+$.  Umas operações binárias
+possuem essa propriedade e as chamamos de \dterm{associativas}
+(e.g.~adição, multiplicação) e outras não (e.g.~exponenciação).
+No outro lado, a associatividade que \emph{declaramos} acima
+não é uma propriedade da operação, não é uma proposição
+para demonstrar ou refutar ou nada disso.
+É sim uma definição sintáctica, e logo chamamos de
+\dterm{associatividade sintáctica}.
+Sem essa convenção \sq{$a + b + c$} não representaria
+nenhuma expressão de aritmética!
+%%}}}
+
+%%{{{ x: syneq or semeq? 
+\exercise.
+\label{syneq_or_semeq}%
+Sejam $a,b,c$ números naturais.
+Usando $=$ para igualdade semântica e $\syneq$ para igualdade
+sintáctica, decida para cada uma das afirmações seguintes
+se é verdadeira ou falsa:
+\beginol
+\li $a + b + c                \syneq  a + (b + c)$
+\li $a + b + c                \syneq  (a + b) + c$
+\li $a + b + c                =       a + (b + c)$
+\li $a + b + c                =       (a + b) + c$
+\li $2 \ntimes 0 + 3          =       0 + 3$
+\li $2 \ntimes 0 + 3          \syneq  0 + 3$
+\li $(2 \ntimes 0) + 3 + 0    =       1 + 1 + 1$
+\li $2 \ntimes 0 + 3          \syneq  1 + 1 + 1$
+\li $2 \ntimes 0 + 3          \syneq  2 \ntimes (0 + 3)$
+\li $2 \ntimes 0 + 3          =       2 \ntimes (0 + 3)$
+\li $2 \ntimes 0 + 3          \syneq  (2 \ntimes 0) + 3$
+\li $1 + 2                    \syneq  2 + 1$
+\endol
+
+\solution
+Temos:
+\beginol
+\li $a + b + c                \synneq a + (b + c)$
+\li $a + b + c                \syneq  (a + b) + c$
+\li $a + b + c                =       a + (b + c)$
+\li $a + b + c                =       (a + b) + c$
+\li $2 \ntimes 0 + 3          =       0 + 3$
+\li $2 \ntimes 0 + 3          \synneq 0 + 3$
+\li $(2 \ntimes 0) + 3 + 0    =       1 + 1 + 1$
+\li $2 \ntimes 0 + 3          \synneq 1 + 1 + 1$
+\li $2 \ntimes 0 + 3          \synneq 2 \ntimes (0 + 3)$
+\li $2 \ntimes 0 + 3          \neq    2 \ntimes (0 + 3)$
+\li $2 \ntimes 0 + 3          \syneq  (2 \ntimes 0) + 3$
+\li $1 + 2                    \synneq 2 + 1$
+\endol
+
+\endexercise
+%%}}}
+
+%%{{{ x: syntactic_implies_semantic 
+\exercise.
+\label{syntactic_implies_semantic}%
+Verdade ou falso?:
+$$
+A \syneq B \implies A = B
+$$
 
 \endexercise
 %%}}}
@@ -2778,6 +2791,7 @@ $$
 
 %%{{{ Associativities 
 \note Associatividades.
+\ii{associatividade}[sintáctica]%
 Atribuimos às $\land$ e $\lor$ uma associatividade à esquerda,
 e a $\limplies$ uma associatividade à direita.
 Pela semântica desejada a primeira escolha é arbitraria,
