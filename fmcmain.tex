@@ -1912,7 +1912,8 @@ Não vamos usar mais esse tipo de árvore sintáctica nessas notas.
 
 %%{{{ Derivation trees 
 \note Arvores de derivação.
-\tdefined{árvore de derivação}%
+\tdefined{árvore}[de derivação]%
+\iiseealso{derivação}{árvore}%
 Em vez, vamos usar \dterm{árvores de derivação} como essas:
 $$
 \xalignat2
@@ -1942,53 +1943,54 @@ $$
 (1 + 5) \ntimes 2.
 $$
 Graças à sua parêntese, o ``operador principal'' (o mais ``externo'')
-é o $\ntimes$.  Isso quis dizer que, no final das contas, essa expressão
+é o $\ntimes$\;.  Isso quer dizer que, no final das contas, essa expressão
 representa uma multiplicação de duas coisas.
 Exatamente por isso, reduzimos essa expressão em duas novas, escrevendo
 uma linha em cima dela, onde temos agora dois lugares para botar essas
 duas coisas.  No lado da linha, escrevemos sua ``justificativa''
 $$
-\AxiomC{$\hole$}
-\AxiomC{$\hole$}
-\RightLabel{$\holed \ntimes$}
-\BinaryInfC{$(1 + 5) \ntimes 2$}
-\DisplayProof
+\Proof {
+\A {$\hole$}     \A {$\hole$}
+\I2-------------------------- {$\holed \ntimes$}
+     {$(1 + 5) \ntimes 2$}
+}
 $$
 e nos dois buracos que aparecem botamos as expressões que estão
 nos lados desse $\ntimes$:
 $$
-\AxiomC{$\holed {(1 + 5)}$}
-\AxiomC{$\holed {\vphantom(2}$}
-\RightLabel{$\ntimes$}
-\BinaryInfC{$(1 + 5) \ntimes 2$}
-\DisplayProof
+\Proof {
+\A {$\holed {(1 + 5)}$}    \A {$\holed {\vphantom(2}$}
+\I2--------------------------------------------------- {$\ntimes$}
+                    {$(1 + 5) \ntimes 2$}
+}
 $$
-Agora $2$ já é uma expressão \dterm{atômica} (ou seja, inquebrável),
-mas a $(1 + 5)$ não é então repetimos o mesmo processo nela:
+Agora \sq{$2$} já é uma expressão \dterm{atômica} (ou seja, inquebrável),
+mas a \sq{$(1 + 5)$} não é então repetimos o mesmo processo nela:
 $$
-\AxiomC{$\holed 1$}
-\AxiomC{$\holed 5$}
-\RightLabel{$\holed +$}
-\BinaryInfC{$(1 + 5)$}
-\AxiomC{${\vphantom(2}$}
-\RightLabel{$\ntimes$}
-\BinaryInfC{$(1 + 5) \ntimes 2$}
-\DisplayProof
+\Proof {
+\A {$\holed 1$}    \A {$\holed 5$}
+\I2------------------------------- {$\holed +$}
+             {$(1 + 5)$}
+                              \A {${\vphantom(2}$}
+           \I2------------------------------------ {$\ntimes$}
+                    {$(1 + 5) \ntimes 2$}
+}
 $$
 Chegamos finalmente na árvore
 $$
-\AxiomC{$1$}
-\AxiomC{$5$}
-\RightLabel{$+$}
-\BinaryInfC{$(1 + 5)$}
-\AxiomC{${\vphantom(2}$}
-\RightLabel{$\ntimes$}
-\BinaryInfC{$(1 + 5) \ntimes 2$}
-\DisplayProof
+\Proof {
+\A {$1$}    \A {$5$}
+\I2----------------- {$+$}
+      {$(1 + 5)$}
+                       \A {${\vphantom(2}$}
+      \I2---------------------------------- {$\ntimes$}
+               {$(1 + 5) \ntimes 2$}
+}
 $$
-que mostra como a expressão aritmética $(1 + 5) \ntimes 2$ na sua \dterm{raiz}
-(ou \dterm{root}) é composta por os numeráis $1$, $5$, e $2$
-que são as \dterm{folhas} (ou \dterm{leaves}) dessa árvore.
+que mostra como a expressão aritmética \sq{$(1 + 5) \ntimes 2$}
+que é a \dterm{raiz} (ou \dterm{root}) dessa árvore é composta por
+os numeráis $1$, $5$, e $2$ que são as suas \dterm{folhas}
+(ou \dterm{leaves}).
 %%}}}
 
 \endsection
