@@ -1931,14 +1931,14 @@ Todos os números \emph{naturais}, cuja totalidade simbolizamos com $\nats$.
 
 %%{{{ Parsing 
 \note Parsing.
+\label{parsing}%
 \tdefined{parsing}%
 \tdefined{árvore}[sintáctica]%
 \tdefined{árvore}[de derivação]%
-Lendo uma expressão ``linear'' como a
-\symq{$1 + 5 \ntimes 2$}
+Lendo uma expressão ``linear'' como a \sq{$1 + 5 \ntimes 2$}
 nós a \dterm{parseamos} para revelar sua estrutura,
-freqüentemente representada numa forma bidimensional, como uma
-\dterm{árvore sintáctica}.
+freqüentemente representada numa forma bidimensional,
+como uma \dterm{árvore sintáctica}.
 Temos então as árvores:
 $$
 1 + (5 \ntimes 2)
@@ -2120,7 +2120,7 @@ depois mais uma expressão aritmética,
 e finalmente o símbolo \symq{)}.
 A idéia é que o que aparece com ângulos é algo que precisa ser substituido,
 com uma das opções que aparecem no lado direito de alguma regra que começa com ele.
-
+\endgraf
 Começando com o $\bnf{ArEx}$ ficamos substituindo até não aparece mais nada em ângulos.
 Et voilà: neste momento temos criado uma expressão aritmética.
 %%}}}
@@ -2263,10 +2263,10 @@ que deixam mais claras nossas intenções:
 \label{ArEx_grammar_3}%
 $$
 \align
-\bnf{ArEx}  &\bnfeq \bnf{Num} \bnfor \bnf{OpEx} \tag{0}\\
-\bnf{Num}   &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
-\bnf{OpEx}  &\bnfeq (\bnf{ArEx} \bnf{BinOp} \bnf{ArEx})\tag{2}\\
-\bnf{BinOp} &\bnfeq + \bnfor - \bnfor \ntimes \bnfor \div\tag{3}
+\bnf{ArEx}  &\bnfeq \bnf{Num} \bnfor \bnf{OpEx}                 \tag{0}\\
+\bnf{Num}   &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb  \tag{1}\\
+\bnf{OpEx}  &\bnfeq (\bnf{ArEx} \bnf{BinOp} \bnf{ArEx})         \tag{2}\\
+\bnf{BinOp} &\bnfeq + \bnfor - \bnfor \ntimes \bnfor \div       \tag{3}
 \endalign
 $$
 %%}}}
@@ -2275,11 +2275,31 @@ $$
 Falta achar um jeito para remover esses ``$\dotsb$'' ainda,
 mas vamos deixar isso para depois (\ref{remove_dots_from_ArEx_grammar}).
 
+%%{{{ beware: BNF_without_angle_brackets 
+\beware.
+\label{BNF_without_angle_brackets}%
+Como conseguimos separar o que é sintaxe da linguagem que estamos
+definindo a partir duma gramática da sintaxe da \emph{metalingaugem}
+que usamos para descrever essa gramática?
+Por exeplo, na~(2) da~\ref{ArEx_grammar_3}, na sua parte
+direita,temos uma expressão cujo primeiro caracter é o \symq{$($}
+e depois\dots continua com o caracter \symq{$\langle$}?
+Claro que não, e parece que necessitamos esses ângulos na nossa
+metalinguagem para tirar essa ambigüidade.
+Mas muitas vezes não existe esse perigo, pois podemos inferir
+se algo é para ser substituido ou se é sintaxe da linguagem-objeto
+mesmo: \emph{caso que aparece no lado esquerdo de alguma das
+regras da nossa gramática, é para ser substituido}.
+Aqui um exemplo duma gramática escrita nesse jeito que define
+uma linguagem importantíssima que vamos amar bastante,
+logo no~\ref{Nat_rec_ind}:
+%%}}}
+
 %%{{{ Nat_grammar 
-\grammar Nat.
+\grammar N, de \wq{Não vou dizer}.
 \label{Nat_grammar}%
 $$
-\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+N \bnfeq \mathrm O \bnfor \mathrm S N
 $$
 %%}}}
 
@@ -2287,7 +2307,10 @@ $$
 \exercise.
 \label{generate_some_nats_from_grammar}%
 Quais são umas das palavras que podes gerar com a~\ref{Nat_grammar}?
-Podemos usar sua linguagem como numerais para os naturais?
+Podes pensar de algum uso para essa linguagem?:w
+
+\solution
+\ref{Nat_rec_ind}.
 
 \endexercise
 %%}}}
@@ -2526,6 +2549,7 @@ e a metavariável $\tau$ denota tipos da C.
 
 %%{{{ Abbreviations and syntactic sugar 
 \section Abreviações e açúcar sintáctico.
+\label{Abbreviations_and_syntactic_sugar}%
 
 %%{{{ x: ArEx_outer_parentheses_missing 
 \exercise.
@@ -2542,19 +2566,22 @@ Não tem como!
 \endexercise
 %%}}}
 
-%%{{{ Abbreviations 
+%%{{{ abbreviations 
 \note Abreviações.
+\label{abbreviations}%
 \tdefined{abreviação}%
-Seguindo nossa~\ref{ArEx_grammar_2}, cada vez que escrevemos um operador binário
-começamos e terminamos com \symq{$($} e \symq{$)$} respectivamente.
-Logo, ``$1 + 2$'' nem é uma expressão gerada por essa gramática!
-Mas como é tedioso botar as parenteses mais externas, temos a convenção
-de omiti-las.
-Logo, consideramos a ``$1 + 2$'' como uma \dterm{abreviação} da expressão aritmética ``$(1 + 2)$''.
-Então qual é o primeiro caráter da $1 + 2$?  É sim o \symq{$($},
-pois consideramos o $1+2$ apenas como um nome que usamos na
-metalinguagem para denotar a expressão aritmética $(1+2)$,
-que pertence na linguagem-objeto.
+Seguindo nossa~\ref{ArEx_grammar_2}, cada vez que escrevemos um
+operador binário começamos e terminamos com \symq{$($} e \symq{$)$}
+respectivamente.
+Logo, \sq{$1 + 2$} nem é uma expressão gerada por essa gramática!
+Mas como é tedioso botar as parenteses mais externas,
+temos a convenção de omiti-las.
+Logo, consideramos a \sq{$1 + 2$} como uma \dterm{abreviação}
+da expressão aritmética \sq{$(1 + 2)$}.
+Então qual é o primeiro caráter da \sq{$1 + 2$}?
+É sim o \symq{$($}, pois consideramos o $1+2$ apenas como um nome
+que usamos na metalinguagem para denotar a expressão aritmética
+\sq{$(1+2)$}, que pertence à linguagem-objeto.
 %%}}}
 
 %%{{{ beware: abbr_not_always_shorter 
@@ -2562,12 +2589,13 @@ que pertence na linguagem-objeto.
 \label{abbr_not_always_shorter}%
 Não se iluda com a palavra ``abreviação'' que usamos aqui:
 uma expressão pode ser mais curta do que uma das suas abreviações!
-Nosso motivo não é preguiça de escrever expressões mais longas,
+Nosso motivo não é preguiça de escrever;
 mas sim ajudar nossos olhos humanos a parsear.
 %%}}}
 
-%%{{{ Syntactic sugar 
+%%{{{ syntactic_sugar 
 \note Açúcar sintáctico.
+\label{syntactic_sugar}%
 \tdefined{açúcar sintáctico}%
 \sdefined {\sholed A \sugeq \sholed B}  {açúcar sintáctico de objeto}%
 \sdefined {\sholed A \sugiff \sholed B} {açúcar sintáctico de proposição}%
@@ -2839,8 +2867,6 @@ Essa tarefa vai nos preocupar nos capítulos
 \refn{Mathematical_logic}, \refn{Denotational_semantics},
 \refn{Intuitionistic_logic}, \refn{Proof_theory}.
 Por enquanto, deixe pra lá!
-
-\TODO Exemplos de fórmulas e seus significados intencionados.
 
 \endsection
 %%}}}
