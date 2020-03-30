@@ -1230,6 +1230,16 @@ Na (5):
 \endexercise
 %%}}}
 
+%%{{{ beware: variables_do_not_vary 
+\beware.
+\label{variables_do_not_vary}%
+Em matemática---pelo incrível que parece---uma variável
+não pode\dots variar!  Ela denota um objeto especifico
+e pronto, não pode mudar depois duns minutos para denotar
+algo diferente, como acontece por exemplo com o que
+chamamos de ``variáveis'' em programação imperativa.
+%%}}}
+
 \endsection
 %%}}}
 
@@ -2068,12 +2078,12 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Grammars and BNF notation 
+%%{{{ BNF_notation 
 \section Gramáticas e a notação BNF.
 \label{BNF_notation}%
-\tdefined{BNF}%
-\tdefined{gramática}%
+\tdefined{gramática}[BNF]%
 \iisee{Backus--Naur form}{BNF}%
+\iisee{BNF}{gramática}%
 
 %%{{{ A first try 
 \note Uma primeira tentativa.
@@ -2091,7 +2101,7 @@ a \dterm{gramática} seguinte:
 $$
 \align
 \bnf{ArEx} &\bnfeq 0 \bnfor 1 \bnfor 2 \bnfor 3 \bnfor \dotsb \tag{1}\\
-\bnf{ArEx} &\bnfeq (\bnf{ArEx} + \bnf{ArEx})                \tag{2}
+\bnf{ArEx} &\bnfeq (\bnf{ArEx} + \bnf{ArEx})                  \tag{2}
 \endalign
 $$
 %%}}}
@@ -2117,31 +2127,29 @@ Et voilà: neste momento temos criado uma expressão aritmética.
 
 %%{{{ eg: BNF_first_example 
 \example.
-Use as regras (1)--(2) da~\ref{ArEx_grammar_1} acima para criar uma expressão
-aritmética.
-Comece usando a regra (2).
-$$
-\align
-\bnf{ArEx}
-&\leadstoby {(2)} (\bnf{ArEx} + \bnf{ArEx})\\
-&\leadstoby {(1)} (\bnf{ArEx} + 3)\\
-&\leadstoby {(2)} ((\bnf{ArEx} + \bnf{ArEx}) + 3)\\
-&\leadstoby {(1)} ((128 + \bnf{ArEx}) + 3)\\
-&\leadstoby {(1)} ((128 + 0) + 3)
-\endalign
-$$
-\endexample
-%%}}}
+\label{BNF_first_example}%
+Use as regras (1)--(2) da~\ref{ArEx_grammar_1} acima para criar
+duas expressões aritmética.
 
-%%{{{ eg: BNF_direct_example 
-\example.
-Use a mesma gramática (agora sem restricção) para criar uma expressão aritmética.
+\solution
+Começando usando a regra (2), temos:
 $$
 \align
-\bnf{ArEx}
+\underline{\bnf{ArEx}}
+&\leadstoby {(2)} (\bnf{ArEx} + \underline{\bnf{ArEx}})\\
+&\leadstoby {(1)} (\underline{\bnf{ArEx}} + 3)\\
+&\leadstoby {(2)} ((\underline{\bnf{ArEx}} + \bnf{ArEx}) + 3)\\
+&\leadstoby {(1)} ((128 + \underline{\bnf{ArEx}}) + 3)\\
+&\leadstoby {(1)} ((128 + 0) + 3)
+\intertext{Começando usando a regra (1), temos:}
+\underline{\bnf{ArEx}}
 &\leadstoby {(1)} 17
 \endalign
 $$
+Isto sendo nosso primeiro exemplo de uso de BNF,
+em cada expressão que fica na parte esquerda dum \symq{$\leadsto$}
+sublinhei o foco atual (o que escolhi para ser substituido nesse passo).
+Em geral, não vamos fazer isso.
 \endexample
 %%}}}
 
@@ -2168,7 +2176,18 @@ $$
 \endexercise
 %%}}}
 
-% doesn't have to be the same expression for the same <name> 
+%%{{{ beware: bnf_not_variables_bnfeq_not_eq 
+\beware.
+\label{bnf_not_variables_bnfeq_not_eq}%
+Essa coisinha aí, a \sq{$(\bnf{ArEx} + \bnf{ArEx})$} que parece no
+lado direito da\ref{ArEx_grammar_1} pode dar a impressão errada que
+só podemos criar expressões de aritmética onde a soma é aplicada nos
+mesmos termos, por exemplo, $(1+1)$, $(5+5)$, $((1+1)+(1+1))$, etc.
+\emph{Não é o caso!}
+Isso deve já ser óbvio pelo~\ref{BNF_first_example}.
+Não pense então nos \symq{$\bnf{\dots}$} como variáveis, nem no \symq{$\bnfeq$} como igualdade.
+Numa expressão como a \sq{$y = x + x$} o termo \sq{$x$} deve denotar o mesmo objeto em ambas as suas instâncias.
+%%}}}
 
 %%{{{ Q: problems_of_first_BNF
 \question.
