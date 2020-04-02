@@ -173,10 +173,10 @@ $$
 %%{{{ x: which_is_if_and_which_is_only_if 
 \exercise.
 \label{which_is_if_and_which_is_only_if}%
-Já que \symq{$\iffsymbol$} corresponde à frase ``se e somente se''
+Já que \symq{$\iffsymbol$} corresponde à frase \wq{se e somente se},
 faz sentido pensar que uma das setinhas envolvidas
 (\symq{$\impliessymbol$} e \symq{$\impliedbysymbol$})
-corresponde na frase ``se'' e a outra na ``somente se''.
+corresponde na frase \wq{se} e a outra na \wq{somente se}.
 Qual é qual?
 
 \solution
@@ -194,8 +194,8 @@ $$
 \exercise.
 \label{which_is_nec_and_which_is_suf}%
 Mesma pergunta, agora lendo o \symq{$\iffsymbol$}
-como ``é suficiente e necessário para''.
-Uma direção corresponde ao ``suficiente'' outra ao ``necessário''.
+como \wq{é suficiente e necessário para}.
+Uma direção corresponde ao \wq{suficiente} outra ao \wq{necessário}.
 Qual é qual?
 
 \solution
@@ -2770,17 +2770,17 @@ e ache um possível uso da linguagem definida por ela.
 \section Uma linguagem de lógica proposicional.
 \label{A_language_for_propositional_logic}%
 
-\TODO Complete the section.
-
 %%{{{ examples_of_propositions 
 \note.
 Considere as seguinte proposições:
 \beginol
 \li Se $x < y$ e $y < z$ então $z < x$.
 \li $\sqrt 2$ é irracional.
-\li O $3$ é um múltiplo de $10$.
+\li $5$ é primo
+\li $5$ é primo ou $5$ é par
+\li $5$ é primo ou $8$ é primo
 \li O $5$ é um divisor dos $25$ e $26$.
-\li O $n$ é menor de $8$ ou maior de $4$.
+\li se $p$ é primo então: $p$ divide $8$ se e somente se $p$ é par
 \endol
 %%}}}
 
@@ -3065,14 +3065,18 @@ Infelizmente temos que aceitar que a melhor tradução que conseguimos
 Ou seja, pelos olhos da $\zolang$, essa é uma afirmação atômica.
 %%}}}
 
-%%{{{ x: universal_proposition_boils_down_to_pvar_in_zolang 
+%%{{{ x: zolang_limitation_examples 
 \exercise.
-\label{universal_proposition_boils_down_to_pvar_in_zolang}%
+\label{zolang_limitation_examples}%
 Para um exemplo ``mais matemático'', considere a afirmação
-\quote
-Para todo inteiro $n$, se $n$ é primo e $n>2$, então $n+2$ é primo.
-\endquote
-Qual é a melhor tradução dela que conseguimos na linguagem $\zolang$?
+\beginol
+\li Para todo inteiro $n$, se $n$ é primo e $n>2$, então $n+2$ é primo.
+\li Existem $n > 2$ e inteiros positivos $a,b,c$, tais que $a^n + b^n = c^n$.
+\li Uma linguagem é regular se e somente se ela é reconhecida por um autômato finito.
+\li Um espaço topológico é normal se e somente se quaisquer dois conjuntos disjuntos e fechados podem ser separados por uma funcção contínua.
+\li Para todo $\alpha\neq0$ algébrico, $e^\alpha$ é transcendental.
+\endol
+Qual é a melhor tradução de cada uma dessas na linguagem $\zolang$?
 
 \endexercise
 %%}}}
@@ -3885,8 +3889,6 @@ O jogo é feito numa maneira que se não roubar
 então tua prova realmente estabelece a veracidade dos teus alvos.
 %%}}}
 
-\TODO REPL analogy.
-
 %%{{{ where's the compiler? 
 \note Cadê o compilador?.
 \label{where_is_the_compiler}%
@@ -4145,6 +4147,44 @@ Com mais experiência, esse processo vai virar automático
 e subconsciente.
 %%}}}
 
+%%{{{ REPL 
+\note REPL.
+\label{REPL}%
+\tdefined{REPL}%
+\iipl LISP
+\iipl Python
+\ii{programação}%
+Muitas linguagens de programação hoje em dia têm \dterm{REPL:}
+Read--Eval--Print Loop.
+Começou em LISP e é exatamente o que ele promete.
+Um programa que:
+(1) lê expressões (em geral escritar pelo usuário);
+(2) calcula para achar o valor da expressão;
+(3) imprime o valor
+(4) loop para o (1).
+Executando o programa \tool{python} por exemplo, abrimos
+uma sessão com o REPL da linguagem Python, e brincamos
+com o sistema.
+Abrindo o REPL certas coisas já estão definidas e carregadas
+na memória, e muitas vezes abrimos já especificando um
+\dterm{script}, um arquivo que contem linhas de código
+e que já defina várias coisas na nossa linguagem.
+Podemos pensar que uma demonstração é parecida com uma
+sessão num REPL, onde o script carregado é o enunciado
+da demonstração, e cada linha que escrevemos na demonstração
+corresponde numa linha que o programador escreveno REPL.
+Uma diferença é que o demonstrador precisa assumir o
+papel de tanto do escritor quanto do sistema, não vai
+ver nada impresso, e nenhum cálculo vai ser feito
+\emph{para} ele; tudo \emph{por} ele mesmo.
+Consideramos então que os cálculos utilizados fazem
+parte da demonstração, e precisamos justificar cada
+passo deles.
+\emph{Obviamente} certos passos deixamos sem
+justificativa se as consideramos óbvias, mas vejá
+também o~\ref{obvious_trivial_immediate}.
+%%}}}
+
 %%{{{ code_vs_comment 
 \note Linha de código \vs comentário.
 \label{code_vs_comment}%
@@ -4154,7 +4194,9 @@ código e outras como comentários.
 \dterm{Linhas de código} tem efeito no tabuleiro do jogo:
 mudam algo nos alvos ou nos dados.
 \dterm{Comentários} servem o mesmo propósito em programação: ajudar
-o leitor (humano) do nosso código entender; e não fazem parte da demonstração.
+o leitor (humano) do nosso código entender nossa idéia e seguir
+nossos passos; não fazem parte da demonstração;
+não oferecem nenhum progresso.
 Com prática---e dependendo de quem é o teu alvo
 (leitor)---tu vai ganhar uma noção de onde botar
 um cometário, quão detalhado deveria ser, etc.%
@@ -4162,6 +4204,11 @@ um cometário, quão detalhado deveria ser, etc.%
 Cuidado pois existe um máu hábito de decorar programas
 com comentários demais, e o mesmo problema pode
 acontecer com demonstrações.
+Tanto em programação quanto em demonstração a dica
+é a mesma sobre escrever comentários:
+\emph{escreva um comentário apenas se sua falta
+deixaria o leitor confuso}.
+Seja lacônico.
 }
 %%}}}
 
@@ -4193,6 +4240,26 @@ Exemplos de keywords são \emph{\symqq{seja}}, \emph{\symqq{ou}},
 \emph{\symqq{suponha}}, \emph{\symqq{tal que}}, etc.
 %%}}}
 
+%%{{{ obvious_trivial_immediate 
+\note Óbvio, trivial, imediato: é mesmo?.
+\label{obvious_trivial_immediate}%
+\tdefined{trivial}%
+\tdefined{óbvio}%
+Muitas vezes matemáticos costumamos deixar certos passos sem
+justificativas, ou até enfatisamos escrevendo palavras como
+\wq{trivial}, \wq{óbvio}, \wq{imediato}, \wq{fácil}.
+Muitas vezes as palavras são usadas como sinônimos,
+mas seus significados não são exatamente iguais.
+\dterm{Trivial} é algo que não necessita pensar em nada,
+e é só fazer o trabalho de corno óbvio para terminar.
+Observe que isso significa que o escritor dessa frase
+já sabe bem claramente \emph{qual} é esse trabalho e
+com certeza é capaz de \emph{fazer} esse trabalho até
+seu fim caso que ele for desafiado.
+Inclusive, a frase implica que o escritor considera
+que o leitor também consegue ver qual é o trabalho
+%%}}}
+
 \endsection
 %%}}}
 
@@ -4203,7 +4270,7 @@ Exemplos de keywords são \emph{\symqq{seja}}, \emph{\symqq{ou}},
 Enquanto nosso alvo não é atômico, podemos atacá-lo numa maneira direita,
 ``batendo na lógica'' mesmo.
 Similarmento, dados alvos não atômicos podemos usá-los na nossa
-demonstração baseados só na lógica.
+demonstração baseados na estrutura lógica deles.
 
 %%{{{ x: how_to_use_and_how_to_attack_each_connective 
 \exercise.
@@ -4881,62 +4948,44 @@ Podes demonstrar ou refutar a outra?
 \endproblems
 %%}}}
 
-%%{{{ Rationals and the pythagoreans 
-\section Os racionais e os pitagoreanos.
-
-\endsection
-%%}}}
+%%{{{ Back to Ancient Greece: irrationals 
+\section De volta pra Grécia antiga: irracionais.
 
 %%{{{ sqrt(2) is not rational 
-\section O $\sqrt 2$ não é racional.
-
-\endsection
+\note O $\sqrt 2$ não é racional.
 %%}}}
 
 %%{{{ But sqrt(2) surely is a number 
-\section Mas o $\sqrt 2$ com certeza é um número.
-
-\endsection
+\note Mas o $\sqrt 2$ com certeza é um número.
 %%}}}
 
 %%{{{ Irrational numbers 
-\section Números irracionais.
-
-\endsection
+\note Números irracionais.
 %%}}}
 
 %%{{{ sqrt(3) is irrational 
-\section O $\sqrt 3$ é irracional.
-
-\endsection
+\note O $\sqrt 3$ é irracional.
 %%}}}
 
 %%{{{ A lemma 
-\section Um lemma.
-
-\endsection
+\note Um lemma.
 %%}}}
 
 %%{{{ What happens with sqrt(4) and sqrt(5) 
-\section O que acontece com $\sqrt 4$ e $\sqrt 5$.
-
-\endsection
+\note O que acontece com $\sqrt 4$ e $\sqrt 5$.
 %%}}}
 
 %%{{{ A generalization theorem 
-\section Um teorema de generalização.
-
-\endsection
+\note Um teorema de generalização.
 %%}}}
 
 %%{{{ More irrational numbers 
-\section Mais números irracionais.
-
-\endsection
+\note Mais números irracionais.
 %%}}}
 
 %%{{{ Algebraic and transcendental numbers 
-\section Números algébricos e transcendentais.
+\note Números algébricos e transcendentais.
+%%}}}
 
 \endsection
 %%}}}
