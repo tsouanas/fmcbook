@@ -2614,7 +2614,10 @@ e queremos usá-la com sua interpretação canônica, onde suas expressões
 aritméticas geradas denotam realmente as operações que conhecemos desde
 pequenos.
 Agora, queremos adicionar uma operação unária $S$, escrita na forma prefixa,
-onde a idéia é que $Sn$ denota o sucessor de $n$ (o próximo inteiro).
+onde a idéia é que $Sn$ denota o sucessor de $n$ (o próximo inteiro):
+$$
+Sn \sugeq n + 1
+$$
 Nesse caso, em vez de realmente alterar a sintaxe da nossa linguagem,
 podemos definir como \dterm{açúcar sintáctico} o uso de $S$ tal que,
 para qualquer expressão aritmética $\alpha$, o $S\alpha$ denota a
@@ -2626,9 +2629,24 @@ Açúcar sintáctico é muito usado em linguagens de programação,
 para agradar os programadores (que ganham assim um mecanismo
 ``doce'' para usar nos seus programas) sem mexer e complicar
 a linguagem de verdade.
+Para um exemplo mais perto da vida real, imagine que numa
+linguagem orientada a objetos, certos objetos escutem às
+mensagens \sq{$\code{.set(\mathit i,\mathit v)}$}
+e \sq{$\code{.get(\mathit i)}$} a idéia sendo que utilizamos
+a primeira metodo para atribuir o valor $v$ à posição $i$
+e a segunda para solicitar em tal posição.
+Mas ninguém merece escrever isso, e logo introduzimos:
+$$
+\align
+\code{\mathit a[\,\mathit i\,] = \mathit v} &\quad\sugeq\quad \code{\mathit a.set(\mathit i,\mathit v)} \\
+\code{\mathit a[\,\mathit i\,]}             &\quad\sugeq\quad \code{\mathit a.get(\mathit i)}
+\endalign
+$$
+Observe que esse açúcar não é um simples \emph{search and replace}
+da expressão \sq{$\code{a[\mathit i]}$}, pois seu sentido muda
+dependendo de se aparece no lado esquerdo duma atribuição
+(primeira linha) ou não (segunda linha).
 %%}}}
-
-\TODO mencionar a notação.
 
 %%{{{ x: for_while_sugar 
 \exercise.
@@ -4223,10 +4241,10 @@ $\code{if}$, $\code{while}$, $\code{int}$, $\code{void}$, $\code{switch}$, etc.
 Observe que tem várias categorias sintacticamente corretas:
 expressões, comandos, literais, etc., e a gramática da linguagem
 não nos permite trocar uma frase duma categoria para uma frase de outra.
-Uma frase da categoria ``declaração de variável'', por exemplo,
-precisa começar com uma frase da categoria ``tipo''
-(por exemplo \symqq{$\code{int}$} seguida por uma frase da categoria ``variável''
-(por exemplo \symqq{$\code{x1}$}) e terminar com o \symqq{$\code{;}$}.
+Uma frase da categoria \emph{declaração de variável}, por exemplo,
+precisa começar com uma frase da categoria \emph{tipo}
+(por exemplo \sq{$\code{int}$} seguida por uma frase da categoria \emph{variável}
+(por exemplo \sq{$\code{x1}$}) e terminar com o \sq{$\code{;}$}.
 Assim foi formada a declaração
 $$
 \code{int x1;}
@@ -4250,7 +4268,7 @@ Exemplos de keywords são \emph{\symqq{seja}}, \emph{\symqq{ou}},
 \blah.
 Enquanto nosso alvo não é atômico, podemos atacá-lo numa maneira direita,
 ``batendo na lógica'' mesmo.
-Similarmento, dados alvos não atômicos podemos usá-los na nossa
+Similarmente, dados alvos não atômicos podemos usá-los na nossa
 demonstração baseados na estrutura lógica deles.
 
 %%{{{ x: how_to_use_and_how_to_attack_each_connective 
