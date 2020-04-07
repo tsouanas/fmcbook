@@ -2489,7 +2489,7 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Metalanguages 
+%%{{{ Language_vs_metalanguage 
 \section Linguagem \vs metalinguagem.
 \label{Language_vs_metalanguage}%
 
@@ -2637,15 +2637,15 @@ a primeira método para atribuir o valor $v$ à posição $i$
 e a segunda para solicitar em tal posição.
 Mas ninguém merece escrever isso, e logo introduzimos:
 $$
-\align
-\code{\mathit a[\,\mathit i\,] = \mathit v} &\quad\sugeq\quad \code{\mathit a.set(\mathit i,\mathit v)} \\
-\code{\mathit a[\,\mathit i\,]}             &\quad\sugeq\quad \code{\mathit a.get(\mathit i)}
-\endalign
+\alignat2
+&\code{\mathit a[\,\mathit i\,] = \mathit v} &&\quad\sugeq\quad \code{\mathit a.set(\mathit i,\mathit v)} \\
+&\code{\mathit a[\,\mathit i\,]}             &&\quad\sugeq\quad \code{\mathit a.get(\mathit i\/)}
+\endalignat
 $$
 Observe que esse açúcar não é um simples \emph{search and replace}
-da expressão \sq{$\code{a[\mathit i]}$}, pois seu sentido muda
-dependendo de se aparece no lado esquerdo duma atribuição
-(primeira linha) ou não (segunda linha).
+do padrão \sq{$\code{\mathit a[\,\mathit i\,]}$},
+pois seu sentido muda dependendo de se aparece no lado esquerdo duma
+atribuição (primeira linha) ou não (segunda linha).
 %%}}}
 
 %%{{{ x: for_while_sugar 
@@ -2773,7 +2773,7 @@ $$
 \label{NatList_grammar}%
 $$
 \align
-\bnf{L} &\bnfeq [\,] \bnfor (\bnf{Nat} :: \bnf{L})\\
+\bnf{L} &\bnfeq [\,] \bnfor (\bnf{Nat} : \bnf{L})\\
 \intertext{onde $\bnf{Nat}$ é o}
 \bnf{Nat} &\bnfeq 0 \bnfor S\bnf{Nat}
 \endalign
@@ -2793,9 +2793,42 @@ e ache um possível uso da linguagem definida por ela.
 \endproblems
 %%}}}
 
-%%{{{ A_language_for_propositional_logic 
-\section Uma linguagem de lógica proposicional.
-\label{A_language_for_propositional_logic}%
+%%{{{ A_propositional_language 
+\section Uma linguagem proposicional.
+\label{A_propositional_language}%
+
+%%{{{ atomic_vs_composite_prop 
+\note Atômicas \vs compostas.
+\label{atomic_vs_composite_prop}%
+Queremos desenvolver uma linguagem para escrever proposições do tipo que encontramos em matemática.
+A idéia é que as proposições ou são \dterm{atómicas} (direitamente afirmando algo) ou \dterm{compostas} por outras sub-proposições que conectamos com os \dterm{conectivos lógicos}:
+%%}}}
+
+%%{{{ logical_connectives_prop 
+\note Conectivos lógicos.
+\label{logical_connectives_prop}%
+Considere os seguintes
+$$
+\xalignat2
+\text{conjuncção}:    && (A \land B)       &\qqtext{significa} \textwq{$A$ e $B$} \\
+\text{disjuncção}:    && (A \lor B)        &\qqtext{significa} \textwq{$A$ ou $B$} \\
+\text{implicação}:    && (A \limplies B)   &\qqtext{significa} \textwq{se $A$ então $B$} \\
+\text{equivalência}:  && (A \liff B)       &\qqtext{significa} \textwq{$A$ se e somente se $B$} \\
+\text{negação}:       && \lnot A           &\qqtext{significa} \textwq{não $A$}.
+\endxalignat
+$$
+onde os $A,B$ denotam proposições.
+O que cada uma dessas cinco proposições significa mesmo, vamos deixar para depois.
+\footnote{Também deixamos para depois a pergunta ainda mais interessante:
+o que significa responder na pergunta \wq{O que significa $(A \lor B)$?}?}
+Considero que o leitor já tem uma idéia básica sobre o significado de cada uma
+dessas frases, e também considero que provavelmente tem uns mal-entendidos também,
+e logo não precisa se preocupar agora com seu significado.
+Analizamos cada um deles logo no~\ref{Proofs} (e aprofundamos ainda mais nos
+\refn{Mathematical_logic}, \refn{Proof_theory}, \refn{Intuitionistic_logic}).
+Agora quero discutir só a sintaxe: \emph{como definir uma linguagem cujo
+objetivo é representar esse tipo de proposições}.
+%%}}}
 
 %%{{{ examples_of_propositions 
 \note.
@@ -2804,22 +2837,77 @@ Considere as seguinte proposições:
 \li Se $x < y$ e $y < z$ então $z < x$.
 \li $\sqrt 2$ é irracional.
 \li $5$ é primo
-\li $5$ é primo ou $5$ é par
+\li $5$ é primo ou par
 \li $5$ é primo ou $8$ é primo
 \li O $5$ é um divisor dos $25$ e $26$.
-\li se $p$ é primo então: $p$ divide $8$ se e somente se $p$ é par
+\li Se $p$ é primo então: $p$ divide $8$ se e somente se $p$ é par
+\li Eu não sei onde $p$ nasceu.
 \endol
 %%}}}
 
 %%{{{ Its syntax 
 \section Sua sintaxe.
 
-\note Dados.
-Um conjunto de símbolos
+%%{{{ Givens 
+\note Variáveis proposicionais.
+\ii{variável}%
+\ii{variável}[proposicional]%
+\ii{metavariável}%
+Considere dado o conjunto dos símbolos
 $$
 \zolvars = \set{ \lsym p_0, \lsym p_1, \lsym p_2, \dotsc }
 $$
 chamados \dterm{variáveis proposicionais}.
+Não importa quais são esses símbolos; o que ímporta é que temos
+uma infinidade deles, e planejamos usá-los
+para representar proposições atômicas.
+Esses símbolos então são \emph{variáveis da linguagem-objeto}.
+E vamos usar as \emph{metavariáveis} $p,q,r,\dots$ para representá-los.
+(Lembre da~\ref{Language_vs_metalanguage}).
+Observe que metavariáveis diferentes não necessariamente representam
+variáveis diferentes, mesmo que muitas vezes isso é implícito pelo contexto.
+Por exemplo, querendo traduzir a proposição
+$$
+\textwq{$5$ é primo ou par}
+$$
+podemos escolher atribuir os significados
+$$
+\rightbrace{
+\aligned
+\lsym p_0 & : \textwq{$5$ é primo} \\
+\lsym p_1 & : \textwq{$5$ é par}
+\endaligned
+}
+\qqtext{e logo usar}
+\lsym p_0 \lor \lsym p_1
+$$
+mas também poderiamos ter escolhido
+$$
+\rightbrace{
+\aligned
+\lsym p_9 & : \textwq{$5$ é primo} \\
+\lsym p_2 & : \textwq{$5$ é par}
+\endaligned
+}
+\qqtext{e logo usar}
+\lsym p_9 \lor \lsym p_2
+$$
+etc.
+Mesmo quando as escolhas são poucas (como aqui),
+\emph{preferimos usar metavariáveis} escrevendo
+$$
+\rightbrace{
+\aligned
+p & : \textwq{$5$ é primo} \\
+q & : \textwq{$5$ é par}
+\endaligned
+}
+\qqtext{e logo usar}
+p \lor q
+$$
+pois \emph{não importa qual} dos símbolos escolhemos para a proposição \wq{$5$ é primo}
+e qual para a \wq{$5$ é par}, o importante é que temos dois deles e conseguimos formar a expressão que queremos.
+%%}}}
 
 \TODO
 Começar com duas definições erradas:
@@ -3095,7 +3183,7 @@ Ou seja, pelos olhos da $\zolang$, essa é uma afirmação atômica.
 %%{{{ x: zolang_limitation_examples 
 \exercise.
 \label{zolang_limitation_examples}%
-Para um exemplo ``mais matemático'', considere a afirmação
+Para um exemplo ``mais matemático'', considere as proposições:
 \beginol
 \li Para todo inteiro $n$, se $n$ é primo e $n>2$, então $n+2$ é primo.
 \li Existem $n > 2$ e inteiros positivos $a,b,c$, tais que $a^n + b^n = c^n$.
@@ -3322,16 +3410,16 @@ onde temos denotado a aridade de cada símbolo como um ``exponente''.
 
 %%{{{ Equality 
 \remark Igualdade.
-Note que podemos considerar o símbolo de igualdade \symq{$=$} como símbolo
-da lógica, botando junto com os
+Note que podemos considerar o símbolo \symq{$=$} de
+igualdade como símbolo da lógica, botando junto com os
 $$
 \lnot, \limplies, \land, \lor, \forall, \exists, =
 $$
 e nesse caso falamos que temos uma FOL \emph{com igualdade}.
 Ou podemos considerar \symq{$=$} como mais um predicado,
-cuja existência ou não na linguagem depende no usuário,
+cuja existência ou não na linguagem depende do usuário,
 e---ainda mais importante---cuja \emph{interpretação}
-também depende no usuário.
+também depende do usuário.
 Nesse primeiro encontro com lógica e fórmulas, vamos considerar
 que $=$ é um símbolo de predicado de aridade $2$, cujo significado
 é sempre afirmar que seus $2$ argumentos \emph{denotam o mesmo objeto},
@@ -3870,6 +3958,8 @@ Durante esse capítulo vamos desenvolver uma
 uma low-level linguagem em qual as nossas demonstrações
 escritas numa linguagem mais humana ``compilam''.
 %%}}}
+
+\TODO diss truth tables.
 
 %%{{{ Proofs, games, programs 
 \section Provas, jogos, programas.
@@ -4501,6 +4591,49 @@ $$
 \endsection
 %%}}}
 
+%%{{{ Conjunction 
+\section Conjuncção.
+
+%%{{{ Understand 
+\note Entender.
+%%}}}
+
+%%{{{ What did I gain? 
+\note O que eu ganhei?.
+Escrevendo como regras---agora temos duas---de inferência
+$$
+\Proofm {
+\A {\phi\land\psi}
+\I1--------------- {}
+        {\phi}
+}
+\qqqquad
+\Proofm {
+\A {\phi\land\psi}
+\I1--------------- {}
+        {\psi}
+}
+$$
+Na prática, podes pensar que tendo como dado o $\phi\land\psi$ tu ganha os dados $\phi$ e $\psi$.
+%%}}}
+
+%%{{{ How do I attack it? 
+\note Como eu ataco?.
+Para convencer alguém que $\phi \land \psi$, precisamos convencê-lo que $\phi$, e também convencê-lo que $\psi$.
+Ou seja, o alvo $\phi \land \psi$ é reduzível em dois alvos: o $\phi$ e o $\psi$.
+$$
+\Proofm {
+\A {\phi}
+             \A {\psi}
+\I2------------------- {}
+    {\phi\land\psi}
+}
+$$
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Implication 
 \section Implicação.
 
@@ -4508,7 +4641,7 @@ $$
 \note Entender.
 Pensando no que uma implicação realmente é, vamos visualizá-la como uma premissa:
 $$
-\text{<<Prometo que $B$ com a condição $A$.>>}
+\textwq{Prometo que $B$ com a condição $A$.}
 $$
 E o que é prometido caso que a condição $A$ não for verdadeira?
 \emph{Nada!}
@@ -4524,7 +4657,7 @@ de mentiroso.%
 \footnote{relaxe que tu podes culpar o pai para outras coisas se quiser}
 Entendemos a implicação
 $$
-\text{<<se $\namedhole A$ então $\namedhole B$>>}
+\textwq{se $\namedhole A$ então $\namedhole B$}
 $$
 como uma promessa.
 Aqui o pai não prometeu nada no caso que seu filho parasse de gritar!
@@ -4560,31 +4693,8 @@ No final das contas, ele tá duvidando a proposição $\psi$,
 \endsection
 %%}}}
 
-%%{{{ Conjunction 
-\section Conjuncção.
-
-\endsection
-%%}}}
-
-%%{{{ Universal 
-\section Universal.
-
-%%{{{ Vacuously_true 
-\note Por vacuidade.
-\label{Vacuously_true}%
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Existential 
 \section Existencial.
-
-\endsection
-%%}}}
-
-%%{{{ Equivalence 
-\section Equivalência.
 
 \endsection
 %%}}}
@@ -4603,6 +4713,23 @@ No final das contas, ele tá duvidando a proposição $\psi$,
 \TODO Botando negações pra dentro.
 
 \TODO Negando fórmulas atômicas.
+
+\endsection
+%%}}}
+
+%%{{{ Universal 
+\section Universal.
+
+%%{{{ Vacuously_true 
+\note Por vacuidade.
+\label{Vacuously_true}%
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Equivalence 
+\section Equivalência.
 
 \endsection
 %%}}}
@@ -4659,6 +4786,22 @@ pra $\beta$; nesse caso tente pegar um lado até chegar num ponto $\gamma$; depo
 %%{{{ EFQ 
 \section Ex falso quodlibet.
 \label{EFQ}%
+
+%%{{{ discussion 
+\note.
+Em qualquer momento durante uma demonstração, o estado é a tabela de Dados/Alvos, e nosso objetivo é mostrar que se os dados são todos verdadeiros, então os alvos também devem ser.  Mas o que acontece se dentro dos nossos dados temos uma \dterm{inconsistência}, ou seja, nosso estado descreve uma situação impossível.  Nesse caso, ganhamos trivialmente o jogo, pois conseguimos mostrar a impossibilidade dos dados acontecerem, então não temos nada mais pra fazer: matamos assim qualquer alvo pois garantimos que a premissa (que os dados são verdadeiros) é falsa.
+Na pratica isso significa que se em qualque momento numa demonstração conseguimos como dado uma contradição ($\bottom$), já podemos parar vitoriosamente:
+\emph{explodimos o mundo inteiro, e logo nosso alvo morreu também}.
+Como regra, temos
+$$
+\Proofm {
+\A {\bottom}
+\I1--------- {}
+    {\phi}
+}
+$$
+para qualquer $\phi$.
+%%}}}
 
 \endsection
 %%}}}
