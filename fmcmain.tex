@@ -21247,6 +21247,97 @@ Mas a pergunta foi identificar o \emph{tipo} de $\code{foo}$.
 \endexercise
 %%}}}
 
+%%{{{ a_taste_of_type_inference 
+\note Um toque de inferência de tipos.
+\label{a_taste_of_type_inference}%
+Sabendo que $f : A \to B$ e $x : A$, o que podemos inferir?
+A resposta óbvia aqui é essa:
+$$
+\Proofmr {
+\A {f \is A \to B}    \A {x \is A}
+\I2------------------------------- {FunApp}
+         {f \fa x \is B}
+}
+$$
+Escolhi chamar essa regra de \rule{FunApp} de ``Function Application'',
+talvez dando a impressão errada que é uma regra muito original
+e nova, que nunca a encontramos antes mas\dots
+isso seria mentira:
+%%}}}
+
+%%{{{ x: curry_howard_teaser_exercise 
+\exercise.
+\label{curry_howard_teaser_exercise}%
+Bem antes de estudar funcções, a gente
+encontrou a ``mesma'' regra, só que com
+roupas diferentes, mas nem tanto!
+De que eu tô falando?
+
+\hint
+Já que falei que isso foi bem antes de estudar funcções,
+apague da
+$$
+\Proofm {
+\A {f \is A \to B}    \A {x \is A}
+\I2------------------------------- {FunApp}
+         {f \fap x \is B}
+}
+$$
+as partes que têm a ver com funcções:
+$$
+\Proofm {
+\A {\alertR{f \is{}} A \to B}    \A {\alertR{x \is {}}A}
+\I2----------------------------------------------------- {\alertR{FunApp}}
+               {\alertR{f \fap x \is{}} B}
+}
+$$
+
+\solution
+Esquecendo as partes que têm a ver com funcções chegamos na regra
+$$
+\Proofm {
+\A {A \to B}    \A {A}
+\I2-------------------- {ModusPonens?!}
+           {B}
+}
+$$
+que é\dots a modus ponens (\ref{modus_ponens}) mesmo?
+A regra de como usar implicação?!
+Sim.  Continue lendo o texto agora.
+
+\endexercise
+%%}}}
+
+%%{{{ teaser: curry_howard_teaser 
+\teaser Curry--Howard.
+\label{curry_howard_teaser}%
+\ii{Curry--Howard}[teaser]%
+\Curry{}%
+\Howard{}%
+O que tu acabou de descobrir no~\ref{curry_howard_teaser_exercise}
+é uma manifestação duma \emph{conexão muito profunda entre lógica
+e computação}, conhecida como \dterm{correspondência Curry--Howard},
+ou também \dterm{propositions-as-types and proofs-as-programs interpretation}.
+A idéia é que podemos ver tipos de funções como proposições e vice versa.
+E nesse caso \emph{definir uma função} de certo tipo e \emph{demonstrar}
+a correspondente proposição são ações equivalentes.
+Com esse ponto de vista as demonstrações são objetos \emph{bem vivos!}
+Podemos executá-las (pois são programas), observar sua execução
+e receber a informação que elas retornam.
+Espero que isso não é \emph{tão} surpresa, pois já tenho dado muitos
+spoilers e elaborado essa dinámica de demonstrações desde os primeiros
+capítulos, especialmente no~\ref{Proofs}.
+Estudando programação funcional, lógica intuicionista, teoria das provas,
+e teoria dos tipos, tudo isso vai fazer mais sentido, e essa correspondência
+vai acabar sendo um dos assuntos mais importantes do nosso estudo nesse texto!
+Por enquanto paciêcia até esses capítulos
+(viz:
+\refn{Functional_programming},
+\refn{Intuitionistic_logic},
+\refn{Proof_theory},
+\refn{Type_theory}).
+%%}}}
+
 %%{{{ df: function_space 
 \definition.
 \label{function_space}%
@@ -21693,7 +21784,7 @@ sentido pra ele---fique alerto!
 \endsection
 %%}}}
 
-%%{{{ Internal and external diagrams 
+%%{{{ Internal_and_external_diagrams 
 \section Diagramas internos e externos.
 \label{Internal_and_external_diagrams}%
 
@@ -21720,8 +21811,9 @@ os nomes deles---o $B$ tem 3, e o $C$ tem 2 também.
 \endexample
 %%}}}
 
-%%{{{ Names of elements 
+%%{{{ names_of_elements 
 \note Nomes de elementos.
+\label{names_of_elements}%
 É muito comum desenhar esse tipo de diagramas para construir exemplos e
 contraexemplos que envolvem funcções, e quando os \emph{quais são}
 os membros não é importante desenhamos apenas um $\bullet$ para
@@ -21945,7 +22037,7 @@ existe exatamente um $b\in B$ que satisfaz a afirmação no {\xlthole}.%
 Existe uma notação especial para a frase <<aquele $b$ que {\xlthole}>>:
 o \dterm{descritor definitivo} $\descrsym$:
 $$
-\text{<<aquele $b$ que {\xlthole}>>} \quad\leadsto\quad \descr b {{\xlthole}}.
+\textwq{aquele $b$ que {\xlthole}} \quad\leadsto\quad \descr b {{\xlthole}}.
 $$
 Essa notação parece bastante com a $\lambda$-notação que encontramos logo
 na~\ref{A_touch_of_lambda}, mas é diferente pois na {\thole} aqui precisamos
@@ -22261,93 +22353,26 @@ $$
 \endexercise
 %%}}}
 
-%%{{{ a_taste_of_type_inference 
-\note Um toque de inferência de tipos.
-\label{a_taste_of_type_inference}%
-Sabendo que $f : A \to B$ e $x : A$, o que podemos inferir?
-A resposta óbvia aqui é essa:
-$$
-\Proofmr {
-\A {f \is A \to B}    \A {x \is A}
-\I2------------------------------- {FunApp}
-         {f \fa x \is B}
-}
-$$
-Escolhi chamar essa regra de \rule{FunApp} de ``Function Application'',
-talvez dando a impressão errada que é uma regra muito original
-e nova, que nunca a encontramos antes mas\dots
-isso seria mentira:
-%%}}}
-
-%%{{{ x: curry_howard_teaser_exercise 
-\exercise.
-\label{curry_howard_teaser_exercise}%
-Bem antes de estudar funcções, a gente
-encontrou a ``mesma'' regra, só que com
-roupas diferentes, mas nem tanto!
-De que eu tô falando?
-
-\hint
-Já que falei que isso foi bem antes de estudar funcções,
-apague da
-$$
-\Proofm {
-\A {f \is A \to B}    \A {x \is A}
-\I2------------------------------- {FunApp}
-         {f \fap x \is B}
-}
-$$
-as partes que têm a ver com funcções:
-$$
-\Proofm {
-\A {\alertR{f \is{}} A \to B}    \A {\alertR{x \is {}}A}
-\I2----------------------------------------------------- {\alertR{FunApp}}
-               {\alertR{f \fap x \is{}} B}
-}
-$$
-
-\solution
-Esquecendo as partes que têm a ver com funcções chegamos na regra
-$$
-\Proofm {
-\A {A \to B}    \A {A}
-\I2-------------------- {ModusPonens?!}
-           {B}
-}
-$$
-que é\dots a Modus Ponens mesmo?
-A regra de como usar implicação?!
-
-\endexercise
-%%}}}
-
-%%{{{ teaser: curry_howard_teaser 
-\teaser Curry--Howard.
-\ii{Curry--Howard}[teaser]%
-\Curry{}%
-\Howard{}%
-O que tu acabou de descobrir no~\ref{curry_howard_teaser_exercise}
-é uma manifestação duma \emph{conexão muito profunda entre lógica
-e computação}, conhecida como \dterm{correspondência Curry--Howard},
-ou também \dterm{propositions-as-types and proofs-as-programs interpretation}.
-A idéia é que podemos ver tipos de funções como proposições e vice versa.
-E nesse caso \emph{definir uma função} de certo tipo e \emph{demonstrar}
-a correspondente proposição são ações equivalentes.
-Com esse ponto de vista as demonstrações são objetos \emph{bem vivos!}
-Podemos executá-las (pois são programas), observar sua execução
-e receber a informação que elas retornam.
-Espero que isso não é \emph{tão} surpresa, pois já tenho dado muitos
-spoilers e elaborado essa dinámica de demonstrações desde os primeiros
-capítulos, especialmente no~\ref{Proofs}.
-Estudando programação funcional, lógica intuicionista, teoria das provas,
-e teoria dos tipos, tudo isso vai fazer mais sentido, e essa correspondência
-vai acabar sendo um dos assuntos mais importantes do nosso estudo nesse texto!
-Por enquanto paciêcia até esses capítulos
-(viz:
-\refn{Functional_programming},
-\refn{Intuitionistic_logic},
-\refn{Proof_theory},
-\refn{Type_theory}).
+%%{{{ defining_function_by_drawing 
+\note Por desenho.
+\label{defining_function_by_drawing}%
+Conhecemos no~\ref{Internal_and_external_diagrams} dois tipos
+de diagramas relacionados a funções: internos e externos.
+Lá observamos que desenhando o diagrama \emph{interno} já temos
+determinado tudo que precisamos determinar para definir uma função
+(\ref{names_of_elements}).
+O que deve te deixar surpreso é que usando certos diagramas \emph{externos}
+podemos \emph{definir} sim funções muito interessantes e importantes em
+muitos casos!
+(Faremos isso bastante no~\ref{Category_theory}.)
+Isso \emph{deve} mesmo ser algo dificilmente aceitável neste momento:
+se tu estiveres com dúvidas estás no caminho certo:
+\textwq{Como assim determinou uma função pelo diagrama externo?
+Lá só tem domínio e codomínio!  Qual o comportamento da tua função?}
+Calma:
+é porque não conhecemos ainda o poder---nem a beleza,
+nem a elegância---dos diagramas comutativos,
+que encontraremos logo na \ref{Commutative_diagrams}.
 %%}}}
 
 \blah.
@@ -23160,6 +23185,7 @@ para enfatizar que não tem nada (literalmente) errado nisso.
 
 %%{{{ Composition 
 \section Composição.
+\label{Composition}%
 
 %%{{{ Composition with black boxes 
 \note Composição com black boxes.
@@ -24482,8 +24508,9 @@ Alternativamente, podemos nos livrar dum passo no calculo do lado esquerdo assim
 \endsection
 %%}}}
 
-%%{{{ Partial application 
+%%{{{ Partial_application 
 \section Aplicação parcial.
+\label{Partial_application}%
 
 %%{{{ Partial application with black boxes 
 \note Aplicação parcial com black boxes.
@@ -24584,7 +24611,7 @@ que é a $\idof \nats$.
 \endsection
 %%}}}
 
-%%{{{ Commutative diagrams 
+%%{{{ Commutative_diagrams 
 \section Diagramas comutativos.
 \label{Commutative_diagrams}%
 
