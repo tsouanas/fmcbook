@@ -24584,6 +24584,329 @@ que é a $\idof \nats$.
 \endsection
 %%}}}
 
+%%{{{ Commutative diagrams 
+\section Diagramas comutativos.
+\label{Commutative_diagrams}%
+
+\blah.
+Começamos com uma definição complicada; leia agora, mas veja logo os exemplos
+seguintes.
+
+%%{{{ pseudodf: commutative_diagram 
+\pseudodefinition diagrama comutativo.
+\label{commutative_diagram}%
+\tdefined{diagrama}[comutativo]%
+Digamos que um diagrama externo de funcções \dterm{comuta} ou que é um
+\dterm{diagrama comutativo} sse: para todo par de ``caminhos'' feitos
+por seguindo setas, \emph{se pelo menos um dos dois caminhos tem tamanho
+maior que $1$}, então os dois caminhos são iguais.
+%%}}}
+
+%%{{{ eg: triangle 
+\example.
+O que significa que o diagrama seguinte comuta?
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[dr, "h"'] \| B \ar[d, "g"] \\
+                             \| C
+\endcd
+$$
+Significa que $h = g\of f$.
+\endexample
+%%}}}
+
+%%{{{ eg: square 
+\example.
+O que significa que o diagrama seguinte comuta?
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[d, "h"'] \| B \ar[d, "g"] \\
+D   \ar[r, "k"]             \| C
+\endcd
+$$
+Significa que $g\of f  = k\of h$
+\endexample
+%%}}}
+
+%%{{{ eg: cd_example_line 
+\example.
+\label{cd_example_line}%
+O que significa que o diagrama seguinte comuta?
+$$
+\cdopt{sep=2cm}
+A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
+\endcd
+$$
+Significa que $f\of g  = f\of h$.
+\endexample
+%%}}}
+
+%%{{{ beware: at least one path must have length greater than 1 
+\beware.
+Graças à parte enfatizada na~\ref{commutative_diagram}, \emph{não podemos}
+concluir no~\ref{cd_example_line} que $g = h$, pois mesmo que
+existem esses dois caminhos de $A$ para $B$ (um seguindo a seta $g$, outro
+seguindo a seta $h$), nenhum deles tem tamanho maior que 1.
+%%}}}
+
+%%{{{ eg: part of diagram commutes 
+\example.
+O que significa que o rectângulo no diagrama seguinte comuta?
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[d, "k"'] \| B \ar[d, "g"]  \ar[dr, "i"] \\
+D                           \| C \ar[l, "h"'] \ar[r, "j"] \| D 
+\endcd
+$$
+Apenas que $h \of g \of f = k$.
+Observe que isso não nos permite concluir nada especial sobre as
+setas~$i$ e~$j$ do triângulo.  Se soubéssemos que o diagrama
+comuta (e não apénas seu rectângulo), poderiamos concluir
+que $i = j\of g$ também.
+\endexample
+%%}}}
+
+\blah.
+Afirmando a comutatividade de certos diagramas vira uma maneira curta de
+afirmar proposições, como por exemplo essas duas leis que já encontramos
+na~\refn{Composition_laws}.
+
+%%{{{ eg: cd_associativity_law 
+\example.
+\label{cd_associativity_law}%
+Afirme a lei da associatividade da~\refn{Composition_laws}
+usando a comutatividade dum diagrama.
+
+\solution
+Sejam $A\toby f B \toby g C \toby h D$.
+Basta desenhar um diagrama cuja comutatividade quis dizer
+$h \of (g \of f) = (h \of g) \of f$.
+É o seguinte:
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[rr, bend left=30,  "g\of f"] \|
+B   \ar[r, "g"]\ar[rr, bend right=30, "h\of g"'] \|
+C   \ar[r, "h"] \|
+D
+\endcd
+$$
+Outra maneira para desenhar o mesmo diagrama seria a seguinte:
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"]\ar[rd, "g\of f"'] \| B \ar[d, "g"]  \ar[dr, "h\of g"] \\
+                                  \| C \ar[r, "h"']      \| D
+\endcd
+$$
+Questão de gosto.
+\endexample
+%%}}}
+
+%%{{{ x: cd_id_laws 
+\exercise.
+\label{cd_id_laws}%
+Como expressar as leis da identidade (\ref{Composition_laws}) usando
+apenas a comutatividade dum diagrama?
+
+\hint
+Use uma $f : A \to B$, e as identidades $\idof A,\idof B$.
+
+\solution
+Assim:
+$$
+\cdopt{sep=2cm}
+A   \ar[dr, "f"']\ar[r, "\idof A"] \| A \ar[d, "f"]  \ar[dr, "f"]   \\
+                                   \| B \ar[r, "\idof B"'] \| B
+\endcd
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: cd_copy_paste 
+\exercise.
+\label{cd_copy_paste}%
+Suponha que os quadrados no diagrama seguinte comutam:
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"] \ar[d, "i"] \| B \ar[r, "g"] \ar[d, "j"] \| C \ar[d, "k"] \\
+P   \ar[r, "s"]             \| Q \ar[r, "t"]             \| R
+\endcd
+$$
+Prove que o rectângulo grande também comuta.
+
+\solution
+Temos que os quadrados do
+$$
+\cdopt{sep=2cm}
+A   \ar[r, "f"] \ar[d, "i"] \| B \ar[r, "g"] \ar[d, "j"] \| C \ar[d, "k"] \\
+P   \ar[r, "s"]             \| Q \ar[r, "t"]             \| R
+\endcd
+$$
+comutam.
+Precisamos provar que o rectângulo também comuta, ou seja, que
+\compute
+k \of g \of f &= t \of s \of i.
+\intertext{Calculamos:}
+k \of g \of f
+&= (k \of g) \of f   \by {assoc.~da~$\of$}
+&= (t \of j) \of f   \by {comut.~do quad.~direito}
+&= t \of (j \of f)   \by {assoc.~da~$\of$}
+&= t \of (s \of i)   \by {comut.~do quad.~esquerdo}
+&= t \of s \of i.    \by {assoc.~da~$\of$}
+\endcompute
+
+\endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+
+%%{{{ how_many_idempotents_on_AtoA_for_A_finite 
+\problem.
+\label{how_many_idempotents_on_AtoA_for_A_finite}%
+Generalize o~\ref{how_many_idempotents_on_AtoA_for_A_triset} para
+um arbitrário conjunto finito $A$.
+
+\hint
+Seja $n = \card A$.
+
+\endproblem
+%%}}}
+
+%%{{{ constant_function_why_did_we_omit_unique 
+\problem.
+\label{constant_function_why_did_we_omit_unique}%
+Na definição do~\ref{constant_notiff_steady}
+não escrevemos ``existe único'', mas apenas ``existe''.
+O que mudaria com esse ``único''?
+Demonstre tua afirmação.
+
+\hint
+Lembra se que a definição é apenas aplicável numa \emph{funcção}.
+Mas cuidado com os casos especiais que envolvem o $\emptyset$.
+
+\solution
+\emph{Quase} nada!
+Parece ser redundante, pois a definição é aplicavel numa \emph{funcção}
+e graças à determinabilidade sabemos que se existe, tem que ser
+único---mas!
+Vamos tentar provar para achar algo interessante.
+\endgraf
+Suponha que temos $b,b'\in B$ que satisfazem a condição, ou seja,
+temos:
+$$
+\align
+\text{para todo $x \in A$,}& f(x) = b \\
+\text{para todo $x \in A$,}& f(x) = b'
+\endalign
+$$
+Logo tomando um $x\in A$, temos
+$$
+b = f(x) = b',
+$$
+ou seja, unicidade mesmo desse $b$,
+dado qualquer $x\in A$.
+Mas isso é, supondo que $A\neq\emptyset$.
+O que acontece se $A=\emptyset$ e $B\neq\emptyset$?
+Botando esse ``único'' na definição, uma funcção
+$$
+\emptyset\toby f B
+$$
+vai ser constante com valor $b$ sse $B$ é um singleton
+e $b$ é seu único membro.
+Sem o ``único'', ela vai ser constante sse $B\neq\emptyset$.
+Veja também o exercício 
+
+\endproblem
+%}}}
+
+%%{{{ first_contact_with_initial_and_terminal_objects 
+\problem Objetos iniciais e terminais.
+\label{first_contact_with_initial_and_terminal_objects}%
+(1) Quais conjuntos $S$ (se algum) têm a propriedade seguinte?:
+$$
+\text{para todo conjunto $A$, existe única funcção $f:S \to A$.}
+$$
+(2) Quais conjuntos $T$ (se algum) têm a propriedade seguinte?:
+$$
+\text{para todo conjunto $A$, existe única funcção $f:A \to T$.}
+$$
+
+\solution
+(1) Apenas o conjunto vazio:
+a única funcção que existe de $\emptyset$ para $A$,
+é a funcção vazia.
+Se $S \neq \emptyset$ tome $s\in S$ e considere
+o conjunto $A = \set{0,1}$.
+Já temos duas funcções diferentes $f,g : S \to A$:
+basta apenas diferenciar elas no $s$.
+Tome por exemplo $f = \lam x 0$ e $g = \lam x 1$.
+Como $f(s) = 0 \neq 1 = g(s)$, temos $f\neq g$.
+(2) Todos os singletons.
+Se $T = \emptyset$, tome $A\neq\emptyset$ e observe
+que não existe nenhuma funcção $f : A \to T$.
+E se $\card T > 1$, tome $u,v\in T$ com $u\neq v$
+e considere o $A = \set 0$.
+Já temos duas funcções $f,g : A \set T$:
+a $f = \lam x u$ e a $g = \lam x v$.
+Elas são realmente distintas,
+pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
+
+\endproblem
+%%}}}
+
+%%{{{ funion 
+\problem união de funcções.
+\label{funion}%
+Sejam $f : A \to C$ e $g : B \to D$.
+Queremos definir a $f\union g : A\union B \to C\union D$,
+consultando as $f$ e $g$, numa maneira parecida com aquela da
+definição de $f\cross g$ (\refn{fcross}).
+Uma definição razoável deve fazer o diagrama seguinte comutar:
+$$
+\cdopt{sep=2cm}
+A \ar[d, "f"']\ar[r, hook] \| A\union B \ar[d, dashed, ""] \| B \ar[l,hook']\ar[d, "g"] \\
+C \ar[r,hook]              \| C\union D                    \| D \ar[l,hook']
+\endcd
+$$
+Explique quais são as condições necessárias para definir
+a $f\union g$, e defina-a.
+
+\solution
+Chame as $f$ e $g$ \dterm{compatíveis} sse:
+$$
+\text{para todo $x\in\dom f \inter \dom g$, $f(x) = g(x)$}.
+$$
+Agora dadas compatíveis $f : A \to C$ e $g : B \to D$,
+definimos a $f \union g : A\union B \to C\union D$ pela
+$$
+(f \union g)(x) =
+\knuthcases{
+f(x), & se $x \in A$ \cr
+g(x), & se $x \in B$.
+}
+$$
+Equivalentemente, podemos definir a $f\union g$ definindo seu gráfico:
+$$
+\graph (f\union g) \defeq \graph f \union \graph g.
+$$
+Observe que nas duas maneiras precisamos a condição de
+compatibilidade para a $f\union g$ ser bem-definida.
+\crproofalt{Resolução alternativa:}
+Usamos a mesma definição mas exigimos que os $A,C$ são disjuntos.
+A primeira resolução consegue definir a $f \union g$ em mais casos
+que essa, mas no outro lado, essa seria aceitável também; e é mais
+simples e ``arrumada''.
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ Higher_order_functions 
 \section Funcções de ordem superior.
 \label{Higher_order_functions}%
@@ -24910,41 +25233,43 @@ são funcões, e também pois sua saída também é uma funcção.
 \endexample
 %%}}}
 
-%%{{{ df: apply_operation 
-\definition apply.
-\label{apply_operation}%
+%%{{{ df: eval_operation 
+\definition eval.
+\label{eval_operation}%
 \tdefined{funcção}[aplicação]%
-\tdefined{funcção}[apply]%
-\sdefined {\applydc {\sholed A} {\sholed B}} {a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$}%
-\sdefined {{\sholed f} \at {\sholed x}} {notação infixa para o $\apply (f,x)$}%
+\tdefined{funcção}[eval]%
+\sdefined {\evaldc {\sholed A} {\sholed B}} {a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$}%
+\sdefined {{\sholed f} \at {\sholed x}} {notação infixa para o $\eval (f,x)$}%
 Suponha $f : A \to B$ e seja $a \in A$.
 Quando escrevemos \symqq{$f\fa a$} (ou \symqq{$f(a)$}),
-estamos denotando a \dterm{aplicação} da $f$ no $a$.
+estamos escrevendo a \dterm{aplicação} da $f$ no $a$.
+e o que estamos denotando é o \dterm{valor} da $f$ no $a$.
 O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
 pela juxtaposição da funcção e do seu argumento (já discutimos isso
 no~\ref{lazier_clearer_functional_notation}).
-Definimos aqui uma funcção $\apply$ que faz exatamente isso:
+Quando precisamos vê-lo mesmo, podemos usar a notação infixa
+$$
+f \at x \sugeq \eval (f, x).
+$$
+Definimos agora uma funcção $\eval$ que faz exatamente isso:
 aplica seu primeiro argumento (uma funcção) no seu segundo
 (um ponto do domínio do primeiro argumento).
 Como fizemos na composição, decoramos essa operação
 para esclarecer os conjuntos envolvidos:
 dados conjuntos $A,B$ temos a
 $$
-\applydc A B : \bigparen{(A \to B) \times A} \to B
+\evaldc A B : \bigparen{(A \to B) \times A} \to B
 $$
 definida pela
 $$
-\applydc A B (f, a) = f(a).
+\evaldc A B (f, a) = f(a).
 $$
-Usamos também a notação infixa
-$$
-f \at x \sugeq \apply (f, x).
-$$
+Chamamos essa função de \dterm{evaluação} ou \dterm{avaliação}.
 %%}}}
 
 %%{{{ eg: higher_order_example_apply 
 \example.
-Dados conjuntos $A,B$, a $\applydc A B$ é claramente uma
+Dados conjuntos $A,B$, a $\evaldc A B$ é claramente uma
 operação de ordem superior.
 \endexample
 %%}}}
@@ -25053,183 +25378,6 @@ $\int_a^x f(t)\, dt$, e o $\int f$ é visto como uma antiderivada
 (que depende numa constante $C$) e não como o conjunto de todas
 essas antiderivadas como definimos aqui.
 \endexample
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Commutative diagrams 
-\section Diagramas comutativos.
-\label{Commutative_diagrams}%
-
-\blah.
-Começamos com uma definição complicada; leia agora, mas veja logo os exemplos
-seguintes.
-
-%%{{{ pseudodf: commutative_diagram 
-\pseudodefinition diagrama comutativo.
-\label{commutative_diagram}%
-\tdefined{diagrama}[comutativo]%
-Digamos que um diagrama externo de funcções \dterm{comuta} ou que é um
-\dterm{diagrama comutativo} sse: para todo par de ``caminhos'' feitos
-por seguindo setas, \emph{se pelo menos um dos dois caminhos tem tamanho
-maior que $1$}, então os dois caminhos são iguais.
-%%}}}
-
-%%{{{ eg: triangle 
-\example.
-O que significa que o diagrama seguinte comuta?
-$$
-\cdopt{sep=2cm}
-A   \ar[r, "f"]\ar[dr, "h"'] \| B \ar[d, "g"] \\
-                             \| C
-\endcd
-$$
-Significa que $h = g\of f$.
-\endexample
-%%}}}
-
-%%{{{ eg: square 
-\example.
-O que significa que o diagrama seguinte comuta?
-$$
-\cdopt{sep=2cm}
-A   \ar[r, "f"]\ar[d, "h"'] \| B \ar[d, "g"] \\
-D   \ar[r, "k"]             \| C
-\endcd
-$$
-Significa que $g\of f  = k\of h$
-\endexample
-%%}}}
-
-%%{{{ eg: cd_example_line 
-\example.
-\label{cd_example_line}%
-O que significa que o diagrama seguinte comuta?
-$$
-\cdopt{sep=2cm}
-A   \ar[r, shift left, "g"]\ar[r, shift right, "h"'] \| B \ar[r, "f"]  \|  C
-\endcd
-$$
-Significa que $f\of g  = f\of h$.
-\endexample
-%%}}}
-
-%%{{{ beware: at least one path must have length greater than 1 
-\beware.
-Graças à parte enfatizada na~\ref{commutative_diagram}, \emph{não podemos}
-concluir no~\ref{cd_example_line} que $g = h$, pois mesmo que
-existem esses dois caminhos de $A$ para $B$ (um seguindo a seta $g$, outro
-seguindo a seta $h$), nenhum deles tem tamanho maior que 1.
-%%}}}
-
-%%{{{ eg: part of diagram commutes 
-\example.
-O que significa que o rectângulo no diagrama seguinte comuta?
-$$
-\cdopt{sep=2cm}
-A   \ar[r, "f"]\ar[d, "k"'] \| B \ar[d, "g"]  \ar[dr, "i"] \\
-D                           \| C \ar[l, "h"'] \ar[r, "j"] \| D 
-\endcd
-$$
-Apenas que $h \of g \of f = k$.
-Observe que isso não nos permite concluir nada especial sobre as
-setas~$i$ e~$j$ do triângulo.  Se soubéssemos que o diagrama
-comuta (e não apénas seu rectângulo), poderiamos concluir
-que $i = j\of g$ também.
-\endexample
-%%}}}
-
-\blah.
-Afirmando a comutatividade de certos diagramas vira uma maneira curta de
-afirmar proposições, como por exemplo essas duas leis que já encontramos
-na~\refn{Composition_laws}.
-
-%%{{{ eg: cd_associativity_law 
-\example.
-\label{cd_associativity_law}%
-Afirme a lei da associatividade da~\refn{Composition_laws}
-usando a comutatividade dum diagrama.
-
-\solution
-Sejam $A\toby f B \toby g C \toby h D$.
-Basta desenhar um diagrama cuja comutatividade quis dizer
-$h \of (g \of f) = (h \of g) \of f$.
-É o seguinte:
-$$
-\cdopt{sep=2cm}
-A   \ar[r, "f"]\ar[rr, bend left=30,  "g\of f"] \|
-B   \ar[r, "g"]\ar[rr, bend right=30, "h\of g"'] \|
-C   \ar[r, "h"] \|
-D
-\endcd
-$$
-Outra maneira para desenhar o mesmo diagrama seria a seguinte:
-$$
-\cdopt{sep=2cm}
-A   \ar[r, "f"]\ar[rd, "g\of f"'] \| B \ar[d, "g"]  \ar[dr, "h\of g"] \\
-                                  \| C \ar[r, "h"']      \| D
-\endcd
-$$
-Questão de gosto.
-\endexample
-%%}}}
-
-%%{{{ x: cd_id_laws 
-\exercise.
-\label{cd_id_laws}%
-Como expressar as leis da identidade (\ref{Composition_laws}) usando
-apenas a comutatividade dum diagrama?
-
-\hint
-Use uma $f : A \to B$, e as identidades $\idof A,\idof B$.
-
-\solution
-Assim:
-$$
-\cdopt{sep=2cm}
-A   \ar[dr, "f"']\ar[r, "\idof A"] \| A \ar[d, "f"]  \ar[dr, "f"]   \\
-                                   \| B \ar[r, "\idof B"'] \| B
-\endcd
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: cd_copy_paste 
-\exercise.
-\label{cd_copy_paste}%
-Suponha que os quadrados no diagrama seguinte comutam:
-$$
-\cdopt{sep=2cm}
-A   \ar[r, "f"] \ar[d, "i"] \| B \ar[r, "g"] \ar[d, "j"] \| C \ar[d, "k"] \\
-P   \ar[r, "s"]             \| Q \ar[r, "t"]             \| R
-\endcd
-$$
-Prove que o rectângulo grande também comuta.
-
-\solution
-Temos que os quadrados do
-$$
-\cdopt{sep=2cm}
-A   \ar[r, "f"] \ar[d, "i"] \| B \ar[r, "g"] \ar[d, "j"] \| C \ar[d, "k"] \\
-P   \ar[r, "s"]             \| Q \ar[r, "t"]             \| R
-\endcd
-$$
-comutam.
-Precisamos provar que o rectângulo também comuta, ou seja, que
-\compute
-k \of g \of f &= t \of s \of i.
-\intertext{Calculamos:}
-k \of g \of f
-&= (k \of g) \of f   \by {assoc.~da~$\of$}
-&= (t \of j) \of f   \by {comut.~do quad.~direito}
-&= t \of (j \of f)   \by {assoc.~da~$\of$}
-&= t \of (s \of i)   \by {comut.~do quad.~esquerdo}
-&= t \of s \of i.    \by {assoc.~da~$\of$}
-\endcompute
-
-\endexercise
 %%}}}
 
 \endsection
@@ -26070,64 +26218,71 @@ $$
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 
-%%{{{ how_many_idempotents_on_AtoA_for_A_finite 
+%%{{{ prob: succiter_for_dummies 
 \problem.
-\label{how_many_idempotents_on_AtoA_for_A_finite}%
-Generalize o~\ref{how_many_idempotents_on_AtoA_for_A_triset} para
-um arbitrário conjunto finito $A$.
+\label{succiter_for_dummies}%
+Supondo que teu leitor não sabe o que são as iterações duma funcção
+(\ref{function_iterations}) e que \emph{sequer quer saber},
+defina a funcção $\succ^n$ numa maneira simples.
+Demonstre tua afirmação, que a $\succ^n$ (oficial) realmente é igual
+à funcção que tu escreveste para teu leitor.
 
 \hint
-Seja $n = \card A$.
+Fez o~\ref{succ3_is_plus_3} né?
+
+\hint
+Basta provar que para todo $n\in\nats$
+$$
+\lforall {x\in\nats} {\succ^n(x) = x + n}
+$$
+e como $\succ^n$ (oficial) foi definida recursivamente,
+como tu vai provar isso?
+
+\hint
+Indução!
+
+\solution
+Seja $n\in\nats$.
+A $\succ^n : \nats\to\nats$ é a funcção definida pela
+$$
+\succ^n(x) = x + n.
+$$
+Basta demonstrar que para todo $n\in\nats$
+$$
+\lforall {x\in\nats} {\succ^n(x) = x + n}
+$$
+algo que vou provar por indução no $n$.
+\crproofpart{Base.}
+Seja $x\in\nats$.
+Calculamos:
+\compute
+\succ^0 (x)
+&= \idof\nats (x)   \by {pela def.~da $\succ^0$}
+&= x                \by {pela def.~da $1_A$}
+&= x + 0.           \by {pelo ensino fundamental}
+\endcompute
+\crproofpart{Passo indutivo.}
+Suponha $k\in\nats$ tal que
+$$
+\lforall {x\in\nats} {\succ^k(x) = x + k}. \tag{H.I.}
+$$
+Basta provar que
+$$
+\lforall {y\in\nats} {\succ^{k+1}(y) = y + (k+1)}.
+$$
+Seja $y\in\nats$ então.
+Calculamos:
+\compute
+\succ^{k+1}(y)
+&= \paren{\succ\of\succ^{k}}(y) \by {pela def.~de $\succ^{k+1}$}
+&= \succ\big( \succ^k(y) \big)  \by {pela def.~de $\succ\of \succ^k$}
+&= \succ(y + k)                 \by {pela HI com $x := y$}
+&= (y + k) + 1                  \by {pela def.~de $\succ$}
+&= y + (k + 1).                 \by {pelo ensino fundamental}
+\endcompute
 
 \endproblem
 %%}}}
-
-%%{{{ constant_function_why_did_we_omit_unique 
-\problem.
-\label{constant_function_why_did_we_omit_unique}%
-Na definição do~\ref{constant_notiff_steady}
-não escrevemos ``existe único'', mas apenas ``existe''.
-O que mudaria com esse ``único''?
-Prove tua afirmação.
-
-\hint
-Lembra se que a definição é apenas aplicável numa \emph{funcção}.
-Mas cuidado com os casos especiais que envolvem o $\emptyset$.
-
-\solution
-\emph{Quase} nada!
-Parece ser redundante, pois a definição é aplicavel numa \emph{funcção}
-e graças à determinabilidade sabemos que se existe, tem que ser
-único---mas!
-Vamos tentar provar para achar algo interessante.
-\endgraf
-Suponha que temos $b,b'\in B$ que satisfazem a condição, ou seja,
-temos:
-$$
-\align
-\text{para todo $x \in A$,}& f(x) = b \\
-\text{para todo $x \in A$,}& f(x) = b'
-\endalign
-$$
-Logo tomando um $x\in A$, temos
-$$
-b = f(x) = b',
-$$
-ou seja, unicidade mesmo desse $b$,
-dado qualquer $x\in A$.
-Mas isso é, supondo que $A\neq\emptyset$.
-O que acontece se $A=\emptyset$ e $B\neq\emptyset$?
-Botando esse ``único'' na definição, uma funcção
-$$
-\emptyset\toby f B
-$$
-vai ser constante com valor $b$ sse $B$ é um singleton
-e $b$ é seu único membro.
-Sem o ``único'', ela vai ser constante sse $B\neq\emptyset$.
-Veja também o exercício 
-
-\endproblem
-%}}}
 
 %%{{{ touch_of_godel_encoding_strings 
 \problem.
@@ -26169,41 +26324,6 @@ Observe que tem números pares que faltam também, por exemplo o
 $$
 10 = 2^1 \ntimes 3^0 \ntimes 5^1.
 $$
-
-\endproblem
-%%}}}
-
-%%{{{ first_contact_with_initial_and_terminal_objects 
-\problem Objetos iniciais e terminais.
-\label{first_contact_with_initial_and_terminal_objects}%
-(1) Quais conjuntos $S$ (se algum) têm a propriedade seguinte?:
-$$
-\text{para todo conjunto $A$, existe única funcção $f:S \to A$.}
-$$
-(2) Quais conjuntos $T$ (se algum) têm a propriedade seguinte?:
-$$
-\text{para todo conjunto $A$, existe única funcção $f:A \to T$.}
-$$
-
-\solution
-(1) Apenas o conjunto vazio:
-a única funcção que existe de $\emptyset$ para $A$,
-é a funcção vazia.
-Se $S \neq \emptyset$ tome $s\in S$ e considere
-o conjunto $A = \set{0,1}$.
-Já temos duas funcções diferentes $f,g : S \to A$:
-basta apenas diferenciar elas no $s$.
-Tome por exemplo $f = \lam x 0$ e $g = \lam x 1$.
-Como $f(s) = 0 \neq 1 = g(s)$, temos $f\neq g$.
-(2) Todos os singletons.
-Se $T = \emptyset$, tome $A\neq\emptyset$ e observe
-que não existe nenhuma funcção $f : A \to T$.
-E se $\card T > 1$, tome $u,v\in T$ com $u\neq v$
-e considere o $A = \set 0$.
-Já temos duas funcções $f,g : A \set T$:
-a $f = \lam x u$ e a $g = \lam x v$.
-Elas são realmente distintas,
-pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
 
 \endproblem
 %%}}}
@@ -26413,118 +26533,6 @@ nesse caso.
 \crproofpart{Sobrejectividade.}
 A $\pi$ é sobrejetora sim:
 pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
-
-\endproblem
-%%}}}
-
-%%{{{ funion 
-\problem união de funcções.
-\label{funion}%
-Sejam $f : A \to C$ e $g : B \to D$.
-Queremos definir a $f\union g : A\union B \to C\union D$,
-consultando as $f$ e $g$, numa maneira parecida com aquela da
-definição de $f\cross g$ (\refn{fcross}).
-Uma definição razoável deve fazer o diagrama seguinte comutar:
-$$
-\cdopt{sep=2cm}
-A \ar[d, "f"']\ar[r, hook] \| A\union B \ar[d, dashed, ""] \| B \ar[l,hook']\ar[d, "g"] \\
-C \ar[r,hook]              \| C\union D                    \| D \ar[l,hook']
-\endcd
-$$
-Explique quais são as condições necessárias para definir
-a $f\union g$, e defina-a.
-
-\solution
-Chame as $f$ e $g$ \dterm{compatíveis} sse:
-$$
-\text{para todo $x\in\dom f \inter \dom g$, $f(x) = g(x)$}.
-$$
-Agora dadas compatíveis $f : A \to C$ e $g : B \to D$,
-definimos a $f \union g : A\union B \to C\union D$ pela
-$$
-(f \union g)(x) =
-\knuthcases{
-f(x), & se $x \in A$ \cr
-g(x), & se $x \in B$.
-}
-$$
-Equivalentemente, podemos definir a $f\union g$ definindo seu gráfico:
-$$
-\graph (f\union g) \defeq \graph f \union \graph g.
-$$
-Observe que nas duas maneiras precisamos a condição de
-compatibilidade para a $f\union g$ ser bem-definida.
-\crproofalt{Resolução alternativa:}
-Usamos a mesma definição mas exigimos que os $A,C$ são disjuntos.
-A primeira resolução consegue definir a $f \union g$ em mais casos
-que essa, mas no outro lado, essa seria aceitável também; e é mais
-simples e ``arrumada''.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: succiter_for_dummies 
-\problem.
-\label{succiter_for_dummies}%
-Supondo que teu leitor não sabe o que são as iterações duma funcção
-(\ref{function_iterations}) e que \emph{sequer quer saber},
-defina a funcção $\succ^n$ numa maneira simples.
-Demonstre tua afirmação, que a $\succ^n$ (oficial) realmente é igual
-à funcção que tu escreveste para teu leitor.
-
-\hint
-Fez o~\ref{succ3_is_plus_3} né?
-
-\hint
-Basta provar que para todo $n\in\nats$
-$$
-\lforall {x\in\nats} {\succ^n(x) = x + n}
-$$
-e como $\succ^n$ (oficial) foi definida recursivamente,
-como tu vai provar isso?
-
-\hint
-Indução!
-
-\solution
-Seja $n\in\nats$.
-A $\succ^n : \nats\to\nats$ é a funcção definida pela
-$$
-    \succ^n(x) = x + n.
-$$
-Basta demonstrar que para todo $n\in\nats$
-$$
-\lforall {x\in\nats} {\succ^n(x) = x + n}
-$$
-algo que vou provar por indução no $n$.
-\crproofpart{Base.}
-Seja $x\in\nats$.
-Calculamos:
-\compute
-\succ^0 (x)
-&= \idof\nats (x)   \by {pela def.~da $\succ^0$}
-&= x                \by {pela def.~da $1_A$}
-&= x + 0.           \by {pelo ensino fundamental}
-\endcompute
-\crproofpart{Passo indutivo.}
-Suponha $k\in\nats$ tal que
-$$
-\lforall {x\in\nats} {\succ^k(x) = x + k}. \tag{H.I.}
-$$
-Basta provar que
-$$
-\lforall {y\in\nats} {\succ^{k+1}(y) = y + (k+1)}.
-$$
-Seja $y\in\nats$ então.
-Calculamos:
-\compute
-\succ^{k+1}(y)
-&= \paren{\succ\of\succ^{k}}(y) \by {pela def.~de $\succ^{k+1}$}
-&= \succ\big( \succ^k(y) \big)  \by {pela def.~de $\succ\of \succ^k$}
-&= \succ(y + k)                 \by {pela HI com $x := y$}
-&= (y + k) + 1                  \by {pela def.~de $\succ$}
-&= y + (k + 1).                 \by {pelo ensino fundamental}
-\endcompute
 
 \endproblem
 %%}}}
@@ -27066,7 +27074,7 @@ Ela lembra muito do que acabamos de demonstrar, mas nosso objectivo
 foi investigar a composição $\of$ usando a multiplicação $\ntimes$.
 Quando escrevi a (L-canc) em números, a juxtaposição denotou
 a $\ntimes$ mesmo; mas na definição da injetora que temos,
-a juxtaposição não denota a $\of$, mas a $\apply$!
+a juxtaposição não denota a $\of$, mas a $\eval$!
 Então vamos ver o que acontece se mudar para a $\of$, obviamente
 tomando cuidado para usar objetos dos certos tipos:
 $$
@@ -28967,23 +28975,23 @@ $$
 \label{notational_abuse_curried}%
 Às vezes abusarei essa idéia e escrever o nome duma funcção
 currificada mas usá-la como se ela não fosse; e vice-versa.
-Por exemplo, defini (\refn{apply_operation}) a $\applydc A B$
+Por exemplo, defini (\refn{eval_operation}) a $\evaldc A B$
 como uma funcção
 $$
-\applydc A B : \pfcross {(A \to B)} A \to B.
+\evaldc A B : \pfcross {(A \to B)} A \to B.
 $$
 Ou seja, para chamá-la escrevemos
 $$
-\applydc A B (f,a).
+\evaldc A B (f,a).
 $$
 Mas abusando a notação posso consider o mesmo símbolo
-$\applydc A B$ para denotar sua currificação
+$\evaldc A B$ para denotar sua currificação
 $$
-\applydc A B : {(A \to B)} \to A \to B
+\evaldc A B : {(A \to B)} \to A \to B
 $$
 que \emph{é uma funcção diferente sim}, nesse caso escrevendo
 $$
-\applydc A B \fa f \fa a.
+\evaldc A B \fa f \fa a.
 $$
 Tudo isso apenas no caso que pelo contexto tá claríssimo qual
 das duas funcções tá sendo denotada.
