@@ -5374,12 +5374,12 @@ $$
 \text{<<(do nada) posso concluir que $0$ é um $\Nat$>>}.
 $$
 Esse ``do nada'' aqui quis dizer ``sem nenhuma premissa''.
-Vamos dar o nome \rule{Zero}\ para essa \emph{regra de inferência},
+Vamos dar o nome \rule{Zero} para essa \emph{regra de inferência},
 pois vamos precisar referir a ela depois.
 Escrevemos seu nome no lado direito da linha de inferência.
 Fica assim:
 $$
-\Proofm {
+\Proofmr {
 \I0-------------- {Zero}
     {0 \is \Nat}
 }
@@ -5398,12 +5398,12 @@ de inferência?
 $$
 \xalignat2
 &
-\Proofm {
+\Proofmr {
 \I0----------- {Zero}
 {0 \is \Nat}
 }
 &&
-\Proofm {
+\Proofmr {
 \A  {n \is \Nat}
 \I1-------------- {Succ}
    {Sn \is \Nat}
@@ -5430,9 +5430,9 @@ O desafio é inferir que
 $$
 SSSS0 \is \Nat
 $$
-e usando a regra \rule{Succ}\ podemos \emph{reduzir} esse problema para
+e usando a regra \rule{Succ} podemos \emph{reduzir} esse problema para
 $$
-\Proofm {
+\Proofmr {
 \A  {SSS0 \is \Nat}
 \I1------------------ {Succ}
     {SSSS0 \is \Nat}
@@ -5441,7 +5441,7 @@ $$
 Essa árvore tem afirmações ``abertas'' então não terminamos ainda.
 Usando a mesma regra reduzimos o $SSS0 \is \Nat$ para:
 $$
-\Proofm {
+\Proofmr {
 \A {SS0 \is \Nat}
 \I1---------------- {Succ}
    {SSS0 \is \Nat}
@@ -5453,7 +5453,7 @@ e continuando nessa maneira, chegamos finalmente no
 $0 \is \Nat$ que inferimos com a regra \rule{Zero},
 fechando assim a única coisa que tava aberta:
 $$
-\Proofm {
+\Proofmr {
 \I0------------ {Zero}
    {0 \is \Nat}
 \I1------------- {Succ}
@@ -7628,12 +7628,12 @@ as seguintes:
 $$
 \xalignat2
 &
-\Proofm {
+\Proofmr {
 \I0------------ {IndZero$_\phi$}
     {\phi(0)}
 }
 &&
-\Proofm {
+\Proofmr {
 \A  {\phi(n)}
 \I1------------ {IndSucc$_\phi$}
     {\phi(Sn)}
@@ -7648,24 +7648,24 @@ nenhuma premissa.
 Mas, agora, usando a segunda com $n\asseq 0$ temos uma demonstração
 do $\phi(S0)$:
 $$
-\Proof {
-\I0----------- {IndZero$_\phi$}
-   {$\phi(0)$}
-\I1------------ {IndStep$_\phi$}
-   {$\phi(S0)$}
+\Proofmr {
+\I0---------- {IndZero$_\phi$}
+   {\phi(0)}
+\I1----------- {IndStep$_\phi$}
+   {\phi(S0)}
 }
 $$
 Ou seja, ganhamos o $\phi(S0)$.
 Então podemos usar a regra \rule{IndZero$_\phi$} agora com $n\asseq S0$
 para ganhar o $\phi(SS0)$:
 $$
-\Proof {
-\I0----------- {IndZero$_\phi$}
-   {$\phi(0)$}
+\Proofmr {
+\I0---------- {IndZero$_\phi$}
+   {\phi(0)}
+\I1----------- {IndStep$_\phi$}
+   {\phi(S0)}
 \I1------------ {IndStep$_\phi$}
-   {$\phi(S0)$}
-\I1------------- {IndStep$_\phi$}
-   {$\phi(SS0)$}
+   {\phi(SS0)}
 }
 $$
 E por aí vai!
@@ -7673,27 +7673,27 @@ Olhando para as duas regras
 $$
 \xalignat2
 &
-\Proof {
+\Proofmr {
 \I0------------ {IndZero$_\phi$}
-   {$\phi(0)$}
+   {\phi(0)}
 }
 &&
-\Proof {
-\A {$\phi(n)$}
+\Proofmr {
+\A {\phi(n)}
 \I1------------ {IndSucc$_\phi$}
-   {$\phi(Sn)$}
+   {\phi(Sn)}
 }
 \intertext{observamos que são bem parecidas com as}
 &
-\Proof {
-\I0----------- {Zero}
-{$0 \is \Nat$}
+\Proofmr {
+\I0------------ {Zero}
+   {0 \is \Nat}
 }
 &&
-\Proof {
-\A {$n \is \Nat$}
+\Proofmr {
+\A  {n \is \Nat}
 \I1-------------- {Succ}
-  {$Sn \is \Nat$}
+   {Sn \is \Nat}
 }
 \endxalignat
 $$
@@ -21216,8 +21216,8 @@ e com as funcções de órdem superior.
 %%{{{ The type of a function 
 \note O tipo duma funcção.
 Seja $f : A \to B$.
-Chamamos o ``$A \to B$'' o tipo da $f$, e pronunciamos como
-<<funcção de $A$ para $B$>>.
+Chamamos o \sq{$A \to B$} o tipo da $f$, e pronunciamos
+\wq{funcção de $A$ para $B$}.
 %%}}}
 
 %%{{{ x: what_is_the_type_of_foo_for_C_programmers 
@@ -22267,13 +22267,13 @@ $$
 Sabendo que $f : A \to B$ e $x : A$, o que podemos inferir?
 A resposta óbvia aqui é essa:
 $$
-\Proofm {
+\Proofmr {
 \A {f \is A \to B}    \A {x \is A}
 \I2------------------------------- {FunApp}
-         {f \fap x \is B}
+         {f \fa x \is B}
 }
 $$
-Escolhi chamar essa regra de ``FunApp'' de Function Application,
+Escolhi chamar essa regra de \rule{FunApp} de ``Function Application'',
 talvez dando a impressão errada que é uma regra muito original
 e nova, que nunca a encontramos antes mas\dots
 isso seria mentira:
@@ -58435,10 +58435,10 @@ Um \dterm{espaço métrico} é um conjunto equipado com uma
 noção de \dterm{distância} entre quaisquer dois membros dele
 em tal forma que:
 \beginil
-\item{(METR)} a distância de cada ponto para ele mesmo é $0$;
-\item{(METD)} a distância entre pontos distintos é positiva;
-\item{(METS)} a distância de $x$ para $y$ é a mesma da de $y$ para $x$;
-\item{(METT)} as distâncias satisfazem a disegualdade triangular.
+\item{(Met0)} a distância de cada ponto para ele mesmo é $0$;
+\item{(Met1)} a distância entre pontos distintos é positiva;
+\item{(Met2)} a distância de $x$ para $y$ é a mesma da de $y$ para $x$;
+\item{(Met3)} as distâncias satisfazem a disegualdade triangular.
 \endil
 %%}}}
 
@@ -58453,10 +58453,10 @@ Uma funcção $d : X^2 \to \reals$ é chamada
 \dterm{métrica} no $X$ sse:
 $$
 \align
-&d(x,x) = 0                   \tag{METR} \\
-&x \neq y \implies d(x,y) > 0 \tag{METD} \\
-&d(x,y) = d(y,x) \iff x = y   \tag{METS} \\
-&d(x,y) \leq d(x,w) + d(w,y). \tag{METT}
+&d(x,x) = 0                   \tag{Met0} \\
+&x \neq y \implies d(x,y) > 0 \tag{Met1} \\
+&d(x,y) = d(y,x) \iff x = y   \tag{Met2} \\
+&d(x,y) \leq d(x,w) + d(w,y). \tag{Met3}
 \endalign
 $$
 Chamamos a última \dterm{disegualdade triangular},
@@ -58472,7 +58472,7 @@ Um conjunto estruturado $\sset X d$ onde $d$ é uma métrica no $X$
 \definition pseudométrica.
 \label{pseudometric}%
 Uma funcção $d : X^2 \to \reals$ que satisfaz as
-(METR), (METS), e (METT) da~\ref{metric_space}
+(Met0), (Met2), e (Met3) da~\ref{metric_space}
 é chamada \dterm{pseudométrica}.
 %%}}}
 
