@@ -22052,9 +22052,9 @@ mas a $\lambda$-notação é importantíssima e ficaremos a usando o tempo todo.
 Paciência até~\refn{A_touch_of_lambda} então.
 %%}}}
 
-%%{{{ eg: mother_and_son_function_and_wannabe 
+%%{{{ eg: mother_and_son_function_and_wannabe_example 
 \example.
-\label{mother_and_son_function_and_wannabe}%
+\label{mother_and_son_function_and_wannabe_example}%
 Seja $\cal P$ o conjunto de todas as pessoas.
 \emph{Queremos} definir as funcções $m,s : \cal P \to \cal P$ pelas equações
 $$
@@ -22070,10 +22070,71 @@ Mas\dots
 
 %%{{{ x: mother_and_son_function_and_wannabe 
 \exercise.
-Ache o problema no~\ref{mother_and_son_function_and_wannabe} acima.
+\label{mother_and_son_function_and_wannabe}%
+Ache o problema no~\ref{mother_and_son_function_and_wannabe_example} acima.
 
 \hint
 Lembe-se as condições no~\refn{functionhood_conditions}.
+
+\solution
+A função $m$ é bem definida, ou seja, é uma função mesmo:
+\emph{cada pessoa} tem (totalidade) exatamente uma (determinabilidade)
+mãe e logo ambas as condições de funcionalidade (\refn{functionhood_conditions})
+são satisfeitas.
+No outro lado, a $s$ não satisfaz nenhuma das condições:
+tem pessoas sem filhos, e logo a totalidade já era; e também
+tem pessoas com mais que um filho, e logo nem determinabilidade
+temos.
+
+\endexercise
+%%}}}
+
+%%{{{ x: mother_and_son_function_and_wannabe_even_restricting 
+\exercise.
+Considere o problema do~\ref{mother_and_son_function_and_wannabe_example}
+que achaste no~\ref{mother_and_son_function_and_wannabe}.
+Vamos tentar resolvê-lo restringindo o $\cal P$:
+agora, em vez do conjunto de todas as pessoas,
+$\cal P$ denota o conjunto de todas as pessoas
+que possuem exatamente um filho.
+Assim garantimos que $s(p)$ é bem definido, pois $s(p)$
+é a única pessoa $y$ tal que $y$ é filho de $p$:
+e sabemos que tal $y$ existe, e que é único,
+pela (nova) definição de $\cal P$.
+Então para esse $\cal P$ as $m,s$
+do~\refn{mother_and_son_function_and_wannabe}
+realmente definam funções.
+
+\hint
+Não.
+Em vez de melhorar, a situação piorou:
+agora nem $m$ nem $s$ são funções!
+
+\solution
+Não.
+O $s(p)$ é a única pessoa $y$ tal que $y$ é filho de $p$
+e sim, sabemos que tal $y$ existe e que é único mas\dots
+talvez essa pessoa $y$ não possui exatamente um filho,
+ou seja, talvez $y \notin \cal P$.
+De fato, a situação piorou, pois agora nem a $m$ é função,
+pelo mesmo motivo: uma pessoa $p$ mesmo tendo exatamente
+um filho, a mesma coisa não é garantida para a mãe de $p$,
+e logo o $m(p)$ talvez não pertence ao $\cal P$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: does it depend on religion? 
+\exercise.
+Tua resposta dependeu da tua religião?
+
+\hint
+Lembre o que $f : A \to B$ significa para cada religião.
+
+\solution
+Não: tanto para Conjuntistas quanto para Categoristas
+a saida $f(x)$ duma função $f : A \to B$ deve
+pertence ao $B$.
 
 \endexercise
 %%}}}
@@ -23694,6 +23755,18 @@ e logo $f$ é invariável.
 Uma funcção $f : A \to B$ pode ser constante com valor $b$
 e com valor $b'$ também, com $b \neq b'$?
 
+\hint
+$\emptyset$.
+
+\solution
+Pode sim.
+Isso aconrece exatamente quando $A = \emptyset$
+e $B$ possui pelo menos dois membros distintos $b\neq b'$.
+Nesse caso temos
+$$
+\kondom A b = \kondom A {b'}.
+$$
+
 \endexercise
 %%}}}
 
@@ -23861,19 +23934,18 @@ denota a funcção que definimos acima na~\ref{characteristic_function}.
 Num shell de Unix (cujo ``prompt'' denoto aqui por \symq{$\code{\#}$})
 escrevemos:
 \shell
-\code{\# cmd1 \&\& cmd2} && \\
-\code{\# cmd1 || cmd2}   &&
+\# cmd1 \&\& cmd2 \CR
+\# cmd1 || cmd2
 \endshell
 onde $\code{cmd1}$ e $\code{cmd2}$ são dois comandos.
-Explique o comportamento sabendo que $\code{\&\&}$ é um
-operador lógico de conjuncção e que $\code{||}$ é um operador
-lógico de disjuncção.
+Explique o comportamento sabendo que $\code{\&\&}$ e $\code{||}$
+denotam os operadores lógicos da conjuncção e disjuncção (respectivamente).
 Conclua que o shell de Unix é ``apenas'' um calculador de valores de verdade
-nesse sentido.  Todas as coisas que vão acontecer executando isso ``no mundo real''
-são nada mais que \dterm{side-effects} enquanto calculando os seus comandos,
-para achar seus valores de verdade.
+nesse sentido.  Todas as coisas que vão acontecer executando isso
+``no mundo real'' são nada mais que \dterm{side-effects} enquanto calculando
+os seus comandos, para achar seus valores de verdade.
 Como posso dar para o shell a ordem
-<<executa o $\code{cmd1}$ e depois o $\code{cmd2}$>>?
+\wq{executa o $\code{cmd1}$ e depois o $\code{cmd2}$}?
 
 \endexercise
 %%}}}
