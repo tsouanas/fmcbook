@@ -23445,18 +23445,18 @@ Dois fatores importantes para considerar:
 \endul
 Com essa guia, faria sentido definir a $f$ assim:
 $$
-f = \namedfun{double} \of \plam x {x+3} \of \namedfun{square}
+f = \double \of \plam x {x+3} \of \square
 $$
 onde
 $$
 \xalignat2
-\namedfun{double} &\eqtype \ints\to\ints & \namedfun{square} &\eqtype \ints\to\ints \\
-\namedfun{double}(x) &= 2x               & \namedfun{square}(x) &= x^2.
+\double &\eqtype \ints\to\ints & \square &\eqtype \ints\to\ints \\
+\double(x) &= 2x               & \square(x) &= x^2.
 \endxalignat
 $$
 Aqui não me pareceu tão útil ter um nome para a operação
 $\lam x {x+3}$ e logo escolhi deixá-la anônima.
-Se fosse $\lam x {x+1}$ teria escolhido usar o $\namedfun{succ}$.
+Se fosse $\lam x {x+1}$ teria escolhido usar o $\succ$.
 Não existe maneira correta ou errada aqui: nomeá-las por $g,h,k$
 também não foi bizarro não, nem deixá-las todas anônimas!
 Depende da situação, do contexto, da intenção, do uso, etc.
@@ -23467,11 +23467,11 @@ Depende da situação, do contexto, da intenção, do uso, etc.
 \label{factorize_a_function_exercise}%
 Fatorize as funcções seguintes na maneira mais legal que tu consegues:
 $$
-\xalignat3
+\xalignat2
 f      &\eqtype \rats \to \rats &
 f(x)   &= \frac 1 {\sqrt{(x+1)^2 + 1}} \\
 g      &\eqtype \nats\cross\nats \to \nats &
-g(x,y) &= 2(x+y) + 1 \\
+g(x,y) &= y^2 + 1 \\
 h      &\eqtype \nats\cross\nats \to \nats &
 h(x,y) &= 2(x+y) + 1 \\
 k      &\eqtype \nats\cross\nats \to \nats &
@@ -23480,8 +23480,57 @@ k(x,y) &= 2(x+2y) + 1.
 $$
 
 \hint
+Aqui uma maneira de definir a $f$ como composição
+de $4$ fatores:
+$$
+f = \inverse \of \namedfun{squareRoot} \of \succ \of square \of succ.
+$$
+A definição de cada um deve ser óbvia pelo próprio nome.
+
+\hint
 Não se preocupe se não conseguir a $k$ neste momento.
 Daqui a pouco (\refn{Pointfree_style}) vai parecer fácil.
+
+\solution
+Temos:
+$$
+\align
+f &= \inverse \of \namedfun{squareRoot} \of \succ \of \square \of succ \\
+g &= \succ \of \square \of \outl \\
+h &= \succ \of \double \of \plus \\
+k &= \succ \of \double \of \plus \of \namedfun{doubleHeight}.
+\endalign
+$$
+A definição de cada funcção-fator que aparece na direita
+deve ser óbvia pelo próprio nome, exceto talvez da
+$\namedfun{doubleHeight}$.
+(Tá vendo como é bom escolher nomes bons?)
+Definimos a $\namedfun{doubleHeight} : \nats^2\to\nats$
+pela $\namedfun{doubleHeight}(x,y) = \tupp{x,2y}$.
+Observe também que a $\succ$ da primeira linha é diferente
+das outras, por causa do seu tipo.
+Teria sido melhor usar $\succ_{\rats}$ para diferenciá-la
+mas escolhi deixar pra lá essa decoração e todo o resto
+da informação de tipos dos componentes intermediários
+contando que tu consegues inferir cada domínio e cada
+codomínio envolvido.
+Espero que tu achou a resolução de $k$ meio ``meh'',
+por causa dessa bizarra (muito \emph{ad hoc}) funcção
+$\namedfun{doubleHeight}$ que talvez até ``forcei a
+barra'' para nomeá-la.
+Se preocupe não: como avisei na dica, daqui a pouco
+(\refn{Pointfree_style}) vamos ver como resolver isso
+numa maneira bem legal mesmo.
+Por enquanto, podemos melhorar a resolução assim:
+$$
+\align
+k &= h \of \namedfun{doubleHeight}
+\intertext{%
+que com certeza é mais elegante, já que
+}
+k &= {\munderbrace {(\succ \of \double \of \plus)} h} \of {\namedfun{doubleHeight}}.
+\endalign
+$$
 
 \endexercise
 %%}}}
@@ -23497,8 +23546,8 @@ $$
 No final das contas, para qualquer $x\in A$ temos $f(x)\in B$
 e como $B\subsetneq B'$, também temos $f(x) \in B'$.
 Então $g(f(x))$ é definido!
-Ou seja, por que não relaxar pouco a restricção que temos na definição
-da composição
+Então por que não relaxar pouco a restricção que temos na
+definição da composição
 $$
 \text{de}
 \quad
@@ -23553,7 +23602,7 @@ Mas para a gente aqui, vamos supor que para motivos que não
 importam---talvez religiosos, ou um TOC mesmo---\emph{não podemos}
 conectar esse cabo no meio quando os conjuntos são diferentes:
 \standout
-\emph{<<Não comporás funcções $f$ e $g$ se $\cod f \neq \dom g$!>>}
+\emph{<<Não comporás funcções $g$ e $f$ se $\cod f \neq \dom g$!>>}
 \endstandout
 Essa suposta restricção, na verdade não nos restringe---pelo contrário:
 nos ajuda criar composições ``limpas'' sem gambiarras como essa
