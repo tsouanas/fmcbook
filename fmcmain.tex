@@ -2326,9 +2326,9 @@ Podes pensar de algum uso para essa linguagem?:w
 \endsection
 %%}}}
 
-%%{{{ Arithmetic expressions: syntax vs. semantics 
+%%{{{ Arithmetic_expressions_syntax_vs_semantics 
 \section Expressões aritméticas: sintaxe vs.~semântica.
-\label{arithmetic_expressions_syntax_vs_semantics}%
+\label{Arithmetic_expressions_syntax_vs_semantics}%
 
 %%{{{ precedence 
 \note Precedência.
@@ -18843,7 +18843,7 @@ em vez do seu interface}.
 Tudo que vamos construir a partir desse abuso vale apenas para \emph{nossa}
 implementação.  Nosso amigo que usa triplas como tipo primitivo não pode
 aproveitar dos nossos cálculos e das nossas teorias.  Nem alguém que escolheu
-implementar triplas em outra maneira.  O moral da estoria é o seguinte:
+implementar triplas em outra maneira.  A moral da estória é o seguinte:
 precisamos ficar \dterm{implementação agnósticos}, ou seja,
 esquecer os detalhes da nossa implementação, usando apenas o interface
 dos nossos objetos.
@@ -21352,16 +21352,17 @@ $$
 %%}}}
 
 %%{{{ Conditions: functionhood_conditions 
-\note Condições.
+\note Condições de funcionalidade.
 \label{functionhood_conditions}%
 \tdefined{funcção}[totalidade]%
 \tdefined{funcção}[determinabilidade]%
+\tdefined{funcionalidade}[condições]%
 {\iisee{univocidade}{determinabilidade}}%
 Na~\ref{function_primitive} aparece a frase
-``o símbolo $f(x)$ é definido''.
+\wq{o símbolo $f(x)$ é definido}.
 Com isso entendemos que não existe ambigüidade, ou seja, para uma entrada $x$,
 a $f$ não pode ter mais que uma saída.
-E graças a outra frase, ``para todo $x\in A$'', sabemos que tem
+E graças a outra frase, \wq{para todo $x\in A$}, sabemos que tem
 \emph{exatamente uma} saída.  Esta saída é o que denotamos por $f(x)$.
 \endgraf
 Resumindo: para todo $x\in\dom f$,
@@ -22006,9 +22007,13 @@ $$
 f(x+y) = y.
 $$
 O que seria o $f(2+3)$?  $3$?  Por que não $0$?
-No final das contas,
+No final das contas (literalmente)
 $$
-2 + 3 = 5 + 0 = 4 + 1 = 12 + (-5) = \dots
+2 + 3 \spaceq
+5 + 0 \spaceq
+4 + 1 \spaceq
+12 + (-5) \spaceq
+\dots
 $$
 e $f$ não tem como saber o jeito que tu imaginou ``quebrar''
 sua entrada em dois somantes!
@@ -23511,7 +23516,7 @@ Bora ver uns examplos para resumir:
 \example.
 Sejam $f,g,h:\reals\to\reals$ e $x,y,z\in\reals$.
 Usando \symq{$\syneq$} para igualdade sintáctica e \symq{$=$} para igualdade
-semántica (veja~\ref{arithmetic_expressions_syntax_vs_semantics}) temos:
+semántica (veja~\ref{Arithmetic_expressions_syntax_vs_semantics}) temos:
 $$
 \align
 fx         &\syneq f(x) \\
@@ -23649,8 +23654,8 @@ agora fazendo o~\ref{constant_notiff_steady}.
 \exercise.
 \label{constant_notiff_steady}%
 Às vezes aparece como definição de constante a seguinte:
-\emph{<<A funcção $f : A \to B$ é constante sse mapeia todos
-os membros do seu domínio para o mesmo objeto.>>}
+\emph{\wq{A funcção $f : A \to B$ é constante sse mapeia todos
+os membros do seu domínio para o mesmo objeto.}}
 Essa definição é equivalente com a~\ref{constant_function}?
 Ou seja, com nossa terminologia aqui:
 $$
@@ -23768,7 +23773,7 @@ $$
 \pforall {a \in A}
 \lexists {b \in B} {f(a) = b}.
 $$
-Se substituir o $\exists$ por $\unique$, o problema tá resolvido?
+Será que substituindo o $\exists$ por $\unique$ o problema tá resolvido?
 Sugira uma outra resolução simples.
 
 \hint
@@ -23778,12 +23783,12 @@ constante.
 \solution
 A definição tem o problema que vai aceitar toda funcção como constante,
 pois o que ela exige é satisfeito por toda funcção.
-Substituindo o $\exists$ por $\unique$ nada muda nesse sentido,
+\emph{Substituindo} o $\exists$ por $\unique$ nada muda nesse sentido,
 pois toda funcção satisfaz essa afirmação mais forte
-(determinabilidade de funcção).
+(determinabilidade de funcção, \refn{functionhood_conditions}).
 \endgraf
 O problema é que os quantificadores estão na ordem errada!
-Simplesmente trocando a ordem deles, chegamos numa
+Simplesmente \emph{trocando a ordem deles}, chegamos numa
 definição equivalente à do~\ref{constant_notiff_steady}:
 $$
 \text{$f:A\to B$ constante}
@@ -23842,10 +23847,10 @@ Para o próprio sistema operacional.  No final das contas, foi ele que
 chamou essa $\code{main}$.
 }
 \endgraf
-\emph{A moral da história:}
+\emph{A moral da estória:}
 sempre verifique a definição da funcção característica
 usada---e se quiseres usar num texto teu, sempre bota sua definição junto!
-Nesse texto, quando aparece a notação $\chr A$ sem definição,
+Nesse texto, quando aparece a notação $\chr C$ sem definição,
 denota a funcção que definimos acima na~\ref{characteristic_function}.
 %%}}}
 
@@ -24015,13 +24020,13 @@ Também é usada a notação $\resfunsub f X$.
 \exercise.
 \label{type_of_f_resto_X}%
 Sejam $f : A\to B$ e $X\subset A$.
-Ache o tipo de:
-$$
-f\resto X \eqtype ?
-$$
+Ache o tipo de
+$
+f\resto X
+$.
 
 \solution
-$f\resto X \eqtype X \to B$.
+$f\resto X \is X \to B$.
 
 \endexercise
 %%}}}
