@@ -21319,7 +21319,7 @@ O que tu acabou de descobrir no~\ref{curry_howard_teaser_exercise}
 e computação}, conhecida como \dterm{correspondência Curry--Howard},
 ou também \dterm{propositions-as-types and proofs-as-programs interpretation}.
 A idéia é que podemos ver tipos de funções como proposições e vice versa.
-E nesse caso \emph{definir uma função} de certo tipo e \emph{demonstrar}
+E nesse caso \emph{definir uma funcção} de certo tipo e \emph{demonstrar}
 a correspondente proposição são ações equivalentes.
 Com esse ponto de vista as demonstrações são objetos \emph{bem vivos!}
 Podemos executá-las (pois são programas), observar sua execução
@@ -22077,7 +22077,7 @@ Ache o problema no~\ref{mother_and_son_function_and_wannabe_example} acima.
 Lembe-se as condições no~\refn{functionhood_conditions}.
 
 \solution
-A função $m$ é bem definida, ou seja, é uma função mesmo:
+A funcção $m$ é bem definida, ou seja, é uma funcção mesmo:
 \emph{cada pessoa} tem (totalidade) exatamente uma (determinabilidade)
 mãe e logo ambas as condições de funcionalidade (\refn{functionhood_conditions})
 são satisfeitas.
@@ -22116,7 +22116,7 @@ O $s(p)$ é a única pessoa $y$ tal que $y$ é filho de $p$
 e sim, sabemos que tal $y$ existe e que é único mas\dots
 talvez essa pessoa $y$ não possui exatamente um filho,
 ou seja, talvez $y \notin \cal P$.
-De fato, a situação piorou, pois agora nem a $m$ é função,
+De fato, a situação piorou, pois agora nem a $m$ é funcção,
 pelo mesmo motivo: uma pessoa $p$ mesmo tendo exatamente
 um filho, a mesma coisa não é garantida para a mãe de $p$,
 e logo o $m(p)$ talvez não pertence ao $\cal P$.
@@ -22133,7 +22133,7 @@ Lembre o que $f : A \to B$ significa para cada religião.
 
 \solution
 Não: tanto para Conjuntistas quanto para Categoristas
-a saida $f(x)$ duma função $f : A \to B$ deve
+a saida $f(x)$ duma funcção $f : A \to B$ deve
 pertence ao $B$.
 
 \endexercise
@@ -22425,7 +22425,7 @@ $$
 Conhecemos no~\ref{Internal_and_external_diagrams} dois tipos
 de diagramas relacionados a funções: internos e externos.
 Lá observamos que desenhando o diagrama \emph{interno} já temos
-determinado tudo que precisamos determinar para definir uma função
+determinado tudo que precisamos determinar para definir uma funcção
 (\ref{names_of_elements}).
 O que deve te deixar surpreso é que usando certos diagramas \emph{externos}
 podemos \emph{definir} sim funções muito interessantes e importantes em
@@ -22433,8 +22433,8 @@ muitos casos!
 (Faremos isso bastante no~\ref{Category_theory}.)
 Isso \emph{deve} mesmo ser algo dificilmente aceitável neste momento:
 se tu estiveres com dúvidas estás no caminho certo:
-\wq{Como assim determinou uma função pelo diagrama externo?
-Lá só tem domínio e codomínio!  Qual o comportamento da tua função?}
+\wq{Como assim determinou uma funcção pelo diagrama externo?
+Lá só tem domínio e codomínio!  Qual o comportamento da tua funcção?}
 Calma:
 é porque não conhecemos ainda o poder---nem a beleza,
 nem a elegância---dos diagramas comutativos,
@@ -22694,13 +22694,13 @@ de objetos matemáticos, por exemplo com números.
 Suponha que temos um triângulo com base $b$ e altura $h$.
 Falamos
 $$
-\text{<<a área do triângulo é $bh/2$>>}
+\textwq{a área do triângulo é $bh/2$}
 $$
 sem nenhuma obrigação de nomear essa área com um nome para usá-la;
 e ninguém reclama.
 Se tivessimos essa obrigação deveriamos falar:
 $$
-\text{<<\dots seja $a = bh/2$.  A área do triângulo é $a$.>>}
+\textwq{\dots seja $a = bh/2$.  A área do triângulo é $a$.}
 $$
 Claramente isso é inútil.
 Introduzimos um novo nome apenas para usá-lo logo após e nunca mais.
@@ -22710,11 +22710,11 @@ ou ir procurar achá-la.
 Obviamente a abordagem anterior é melhor.
 Com ela podemos enunciar nossa proposição numa maneira melhor:
 $$
-\text{<<a área dum triângulo com base $b$ e altura $h$ é $bh/2$>>}
+\textwq{a área dum triângulo com base $b$ e altura $h$ é $bh/2$}
 $$
 em vez de falar algo do tipo
 $$
-\text{<<a área dum triângulo com base $b$ e altura $h$ é $a$, onde $a = bh/2$>>.}
+\textwq{a área dum triângulo com base $b$ e altura $h$ é $a$, onde $a = bh/2$.}
 $$
 \endgraf
 Para usar um exemplo de ``nomeamento inútil'' em programação,
@@ -23347,20 +23347,118 @@ $A = C$.
 \endexercise
 %%}}}
 
-%%{{{ defining functions as compositions 
+%%{{{ defining_functions_as_compositions 
 \note Definindo funcções como composições.
+\label{defining_functions_as_compositions}%
 Como $\of$ é uma operação de funcções, ganhamos então mais uma maneira
 de definir funcções.
 Dadas componíveis funcções $A \toby f B \toby g C$ podemos
 definir uma funcção $h : A \to C$ apenas escrevendo:
 $$
-\text{<<Seja $h = g\of f$.>>}
+\textwq{Seja $h = g\of f$.}
 $$
 Claramente (e seguindo a discussão no~\refn{useless_namings})
 não precisamos dar um nome para essa funcção.
 Podemos apenas falar sobre a $g\of f$, exatamente no mesmo
 jeito que falamos do número $2\ntimes 8$ sem precisar
 dar um nome pra ele!
+%%}}}
+
+%%{{{ factorize_a_function_example 
+\example.
+Seja $f : \ints\to\ints$ a funcção definida pela
+$$
+f(x) = 2(x^2 + 5).
+$$
+Mostre como definir a $f$ como composição
+de três funções $g,h,k : \ints\to\ints$
+sem nenhuma das $g,h,k$ ser a $\lam x x$.
+Sim, use lambdas (só pra praticá-los mais).
+
+\solution
+Idéia: vamos tentar descrever o processo do que
+acontece na entrada $x$ passo por passo até
+chegar na saida $2(x^2 + 3)$.
+Primeiramente acontece um quadramento,
+depois um incremento por $3$,
+e depois uma dobração.
+Vamo lá então:
+sejam as $g,h,k : \ints\to\ints$
+definidas pelas
+$$
+\xalignat3
+g &= \lam x {x^2} &
+h &= \lam x {x + 3} &
+k &= \lam x {2x}.
+\endxalignat
+$$
+Assim definimos a $f$ como
+$$
+f = k \of h \of g.
+$$
+Sem ambigüidade podemos omitir os \sq{$\of$}
+pois já estamos em modo ``de longe'' (sem mexer
+com pontinhos):
+$$
+f = khg.
+$$
+Simplíssimo!
+\endexample
+%%}}}
+
+%%{{{ advice: to_name_or_not_to_name 
+\advice to name or not to name.
+\label{to_name_or_not_to_name}%
+Observe que nem precisamos nomes para as funções
+``intermediárias'' do~\ref{factorize_a_function_example}.
+Poderiamos simplesmente definir a funcção
+$f : \ints\to\ints$ assim:
+$$
+f = 
+\plam x {2x} \of
+\plam x {x + 3} \of
+\plam x {x^2}.
+$$
+(Nesse caso não vamos omitir os \sq{$\of$} pois aparecem os
+pontinhos (os \sq{$x$}) e poderia confundir entre composição
+e aplicação.)
+Então: usamos funcções anônimas ou epônimas?
+Depende!
+E a escolha não é nada de boba.
+Pelo contrário, é muito importante elaborar uma intuição
+boa sobre:
+\beginil
+\item{(i)} \emph{se} vamos nomear algo
+(lembra do~\refn{useless_namings});
+\item{(ii)} \emph{qual} vai ser o seu nome,
+caso que decidirmos dar um.
+\endil
+Isso tanto em programação quanto em matemática!
+Vamos voltar no nosso \ref{factorize_a_function_example} onde
+temos três ``componentes intermediários'' e precisamos
+decidir para cada um deles se vamos nomeá-lo e como.
+Dois fatores importantes para considerar:
+\beginul
+\li esse componente é algo já bem conhecido?  já possui um nome?
+\li esse componente vai ser reutilizado?
+\endul
+Com essa guia, faria sentido definir a $f$ assim:
+$$
+f = \namedfun{double} \of \plam x {x+3} \of \namedfun{square}
+$$
+onde
+$$
+\xalignat2
+\namedfun{double} &\eqtype \ints\to\ints & \namedfun{square} &\eqtype \ints\to\ints \\
+\namedfun{double}(x) &= 2x               & \namedfun{square}(x) &= x^2.
+\endxalignat
+$$
+Aqui não me pareceu tão útil ter um nome para a operação
+$\lam x {x+3}$ e logo escolhi deixá-la anônima.
+Se fosse $\lam x {x+1}$ teria escolhido usar o $\namedfun{succ}$.
+Não existe maneira correta ou errada aqui: nomeá-las por $g,h,k$
+também não foi bizarro não, nem deixá-las todas anônimas!
+Depende da situação, do contexto, da intenção, do uso, etc.
 %%}}}
 
 %%{{{ why_not_compose_more 
@@ -23600,9 +23698,12 @@ Espero que ficou claro.
 \section Funcções de graça.
 \label{Functions_for_free}%
 
-\blah.
-Investigamos aqui umas primeiras funcções garantidas para existir assim
-que tivermos alguns outros objetos: um conjunto, uma funcção, etc.
+%%{{{ intro 
+\secintro
+Investigamos aqui umas primeiras funcções garantidas para
+existir assim que tivermos alguns outros objetos:
+conjuntos, funcções, etc.
+%%}}}
 
 %%{{{ df: identity_function 
 \definition Identidade.
@@ -23668,7 +23769,7 @@ $A \subset B \mland B \subset C \implies A \subset C$.
 %%}}}
 
 %%{{{ df: constant_function ; stable_function
-\definition Constante; invariável.
+\definition constante; invariável.
 \label{constant_function}%
 \label{steady_function}%
 \tdefined{funcção}[constante]%
@@ -24127,6 +24228,108 @@ $f\resto X = \incofin X A \of f$.
 \endsection
 %%}}}
 
+%%{{{ Partial_application 
+\section Aplicação parcial.
+\label{Partial_application}%
+
+%%{{{ Partial application with black boxes 
+\note Aplicação parcial com black boxes.
+Suponha que temos uma funcção de aridade~$2$:
+$$
+f : (A\times B) \to C.
+$$
+Ou seja, nossa funcção, ``para funcionar'', precisa receber
+exatamente dois argumentos: algum $a\in A$ e algum $b\in B$
+para ``produzir'' o valor $f(a,b) \in C$: $$
+\tikzpicture
+\tikzi blackboxfunpartapp1;
+\endtikzpicture
+$$
+Queremos utilizar essa funcção de aridade~$2$,
+para criar duas outras, cada uma de aridade~$1$.
+A idéia é a seguinte: vamos ``fixar'' uma das suas entradas
+com um valor, e deixar a outra como entrada mesmo.
+Imagine que fixamos um certo $b_0\in B$ no segundo ``cabo'' de entrada,
+puxamos o outro cabo, e criamos uma nova caixa assim:
+$$
+\tikzpicture
+\tikzi blackboxfunpartapp2;
+\endtikzpicture
+$$
+E agora pintamos preta nossa caixa, escrevemos seus rótulos (seu tipo),
+e pronto, construimos uma nova funcção de aridade $1$:
+$$
+\tikzpicture
+\tikzi blackboxfunpartapp3;
+\endtikzpicture
+$$
+Observe que temos $f(\dhole,b_0):A \to C$.
+Vamos agora ver a mesma idéia usando buracos, sem black boxes.
+%%}}}
+
+%%{{{ Partial application using holes 
+\note Aplicação parcial usando buracos.
+Considere uma funcção $f$ de aridade 3:
+$$
+A \times B \times C \longtoby f D.
+$$
+Lembre-se que
+$$
+f(\dhole, \dhole, \dhole) :
+A \times B \times C \to D
+$$
+e ainda mais $f(\dhole, \dhole, \dhole)$ é a própria $f$!
+Queremos preencher uns desses buracos, mas não todos.
+E nada especial sobre esse $3$.
+Em geral, dada uma funcção $f$ de aridade $n$,
+podemos \emph{fixar} $k$ dos seus argumentos
+com certos valores, botar buracos nos ouros,
+e criar assim uma funcção de aridade $n-k$.
+Uns exemplos vão esclarecer esse processo.
+%%}}}
+
+%%{{{ eg: partial_application_holes_eg 
+\example.
+Considere a funcção $f : \reals^3 \to \reals$, definida pela
+$$
+f(x,y,z) = x + y^2 + z^3.
+$$
+Temos então
+$$
+\align
+f(\dhole,\dhole,\dhole) &: \reals^3 \to \reals.
+\intertext{Com aplicação parcial, fixando uns dos seus argumentos,
+criamos então as funcções seguintes:}
+f(2,\dhole,\dhole)      &: \reals^2 \to \reals \\
+f(2,\dhole,\sin(2))     &: \reals   \to \reals \\
+f(\dhole,\sqrt2,\cbrt2) &: \reals   \to \reals \\
+f(\dhole,0,0)           &: \reals   \to \reals.
+\endalign
+$$
+A última, por exemplo, é a $\idof \reals$; a penúltima é a $\lam x {x+4}$.
+\endexample
+%%}}}
+
+%%{{{ eg: partial_application_holes_infix_eg 
+\example.
+Aplicando a funcção de adição $+ : \nats^2 \to \nats$
+parcialmente fixando seu segundo argumento no número $1$,
+criamos a funcção
+$$
+\align
+(\bhole + 1) &: \nats \to \nats
+\intertext{que é a funcção $\namedfun{succ}$ de sucessor;
+e fixando seu primeiro argumento no $0$ criamos a}
+(0 + \bhole) &: \nats \to \nats
+\endalign
+$$
+que é a $\idof \nats$.
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Composition_laws 
 \section Leis de composição.
 \label{Composition_laws}%
@@ -24146,6 +24349,22 @@ a multiplicação nos reais, por exemplo, satisfaz a uma lei de inversos
 (viz.~<<cada número diferente de zero tem um inverso multiplicativo>>)
 mas nos inteiros não.  Mais sobre isso depois.
 %%}}}
+
+
+%%{{{ factorization_of_function 
+\note Fatorização de funcção.
+\tdefined{fatorização}[de função]%
+Num certo sentido muito interessante, e fortalecendo
+nossa metáfora entre composição e multiplicação,
+o que fizemos no~\ref{factoriza_a_function_example}
+pode ser visto como uma \dterm{fatorização de funcção}:
+escrevemos a $f$ como ``produto'' dos ``fatores''
+$g,h,k$.
+Sabendo como fatorizar funções é importaníssimo
+em programação, algo que vamos apreciar muito no
+no~\ref{Functional_programming}.
+%%}}}
+
 
 %%{{{ Totality 
 \note Totalidade.
@@ -24586,109 +24805,6 @@ Alternativamente, podemos nos livrar dum passo no calculo do lado esquerdo assim
 \endcompute
 
 \endexercise
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Partial_application 
-\section Aplicação parcial.
-\label{Partial_application}%
-
-%%{{{ Partial application with black boxes 
-\note Aplicação parcial com black boxes.
-Suponha que temos uma funcção de aridade~$2$:
-$$
-f : (A\times B) \to C.
-$$
-Ou seja, nossa funcção ``para funcionar'', precisa receber
-exatamente~2~argumentos: algum $a\in A$ e algum $b\in B$.
-$$
-\tikzpicture
-\tikzi blackboxfunpartapp1;
-\endtikzpicture
-$$
-para ``produzir'' o valor $f(a,b) \in C$.
-Queremos utilizar essa funcção de aridade~$2$,
-para criar duas outras, cada uma de aridade~$1$.
-A idéia é a seguinte: vamos ``fixar'' uma das suas entradas
-com um valor, e deixar a outra como entrada mesmo.
-Imagine que fixamos um certo $b_0\in B$ no segundo ``cabo'' de entrada,
-puxamos o outro cabo, e criamos uma nova caixa assim:
-$$
-\tikzpicture
-\tikzi blackboxfunpartapp2;
-\endtikzpicture
-$$
-E agora pintamos preta nossa caixa, escrevemos seus rótulos (seu tipo),
-e pronto, construimos uma nova funcção de aridade $1$:
-$$
-\tikzpicture
-\tikzi blackboxfunpartapp3;
-\endtikzpicture
-$$
-Observe que temos $f(\dhole,b_0):A \to C$.
-Vamos agora ver a mesma idéia usando buracos, sem black boxes.
-%%}}}
-
-%%{{{ Partial application using holes 
-\note Aplicação parcial usando buracos.
-Considere uma funcção $f$ de aridade 3:
-$$
-A \times B \times C \longtoby f D.
-$$
-Lembre-se que
-$$
-f(\dhole, \dhole, \dhole) :
-A \times B \times C \to D
-$$
-e ainda mais $f(\dhole, \dhole, \dhole)$ é a própria $f$!
-Queremos preencher uns desses buracos, mas não todos.
-E nada especial sobre esse $3$.
-Em geral, dada uma funcção $f$ de aridade $n$,
-podemos \emph{fixar} $k$ dos seus argumentos
-com certos valores, botar buracos nos ouros,
-e criar assim uma funcção de aridade $n-k$.
-Uns exemplos vão esclarecer esse processo.
-%%}}}
-
-%%{{{ eg: partial_application_holes_eg 
-\example.
-Considere a funcção $f : \reals^3 \to \reals$, definida pela
-$$
-f(x,y,z) = x + y^2 + z^3.
-$$
-Temos então
-$$
-\align
-f(\dhole,\dhole,\dhole) &: \reals^3 \to \reals.
-\intertext{Com aplicação parcial, fixando uns dos seus argumentos,
-criamos então as funcções seguintes:}
-f(2,\dhole,\dhole)      &: \reals^2 \to \reals \\
-f(2,\dhole,\sin(2))     &: \reals   \to \reals \\
-f(\dhole,\sqrt2,\cbrt2) &: \reals   \to \reals \\
-f(\dhole,0,0)           &: \reals   \to \reals.
-\endalign
-$$
-A última, por exemplo, é a $\idof \reals$; a penúltima é a $\lam x {x+4}$.
-\endexample
-%%}}}
-
-%%{{{ eg: partial_application_holes_infix_eg 
-\example.
-Aplicando a funcção de adição $+ : \nats^2 \to \nats$
-parcialmente fixando seu segundo argumento no número $1$,
-criamos a funcção
-$$
-\align
-(\bhole + 1) &: \nats \to \nats
-\intertext{que é a funcção $\namedfun{succ}$ de sucessor;
-e fixando seu primeiro argumento no $0$ criamos a}
-(0 + \bhole) &: \nats \to \nats
-\endalign
-$$
-que é a $\idof \nats$.
-\endexample
 %%}}}
 
 \endsection
@@ -25374,7 +25490,7 @@ definida pela
 $$
 \evaldc A B (f, a) = f(a).
 $$
-Chamamos essa função de \dterm{evaluação} ou \dterm{avaliação}.
+Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
 %%}}}
 
 %%{{{ eg: higher_order_example_apply 
