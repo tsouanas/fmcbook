@@ -23326,6 +23326,105 @@ para enfatizar que não tem nada (literalmente) errado nisso.
 \endsection
 %%}}}
 
+%%{{{ Implementations_seq_fam 
+\section Novas implementações: seqüências e famílias.
+\label{Implementations_seq_fam}%
+
+%%{{{ Q: Can you implement sequences and indexed families? 
+\question.
+Suponha que alguém robou de ti os tipos (primitivos) de seqüências
+e de famílias indexadas.  Dá para se virar sem esses?
+Ou seja, tem como defini-los em termos dos outros tipos
+que tu (ainda) tens?
+%%}}}
+\spoiler.
+
+%%{{{ A 
+\blah Resposta.
+Agora que temos funcções, podemos apreciar
+que qualquer seqüência $\seqn a n$
+\emph{pode ser representada por uma funcção} com domínio $\nats$
+e codomínio o conjunto de todos os membros da $\seqn a n$.
+Similarmente, uma família $\famst {a_i} {i \in \cal I}$
+indexada por um conjunto $\cal I$ \emph{pode ser representada por uma funcção}
+com domínio $\cal I$ e codomínio o conjunto de todos os membros
+da $\family {a_i} i$.
+%%}}}
+
+%%{{{ imp: sequences_as_functions 
+\implementation Seqüências como funcções.
+\label{sequences_as_functions}%
+Chamamos qualquer $a : \nats \to A$
+de \dterm{seqüência}.
+Introduzimos como açúcar sintáctico o
+$$
+a_n \sugeq a(n).
+$$
+Com essa definição, quando duas \emph{seqüências} são iguais?
+Elas precisam concordar em cada $n \in \dom a$;
+e essa implementação atende a especificação pois concorda com
+a definição de igualdade do tipo que estamos implementando
+(\ref{sequences_equality}).
+%%}}}
+
+%%{{{ imp: indexed_families_as_functions 
+\implementation Famílias indexadas como funcções.
+\label{indexed_families_as_functions}%
+Chamamos qualquer $a : \cal I \to A$.
+de \dterm{família indexada por $\cal I$}.
+Introduzimos como açúcar sintáctico o
+$$
+a_i \sugeq a(i).
+$$
+Com essa definição, quando duas \emph{famílias} indexadas são iguais?
+Os conjuntos de índices têm que ser iguais, e as famílias precisam
+concordar em cada índice.
+Essa implementação atende a especificação pois concorda com
+a definição de igualdade do tipo que estamos implementando
+(\ref{indexed_families_equality}).
+%%}}}
+
+%%{{{ x: implement_tuples 
+\exercise.
+Implemente as tuplas;
+tome cuidado para deixar claro como usá-las;
+lembre-se o que elaboramos nas secções~\refn{Tuples},
+\refn{Type_implementation_triples}, e~\refn{More_tuples}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: implement_multisets 
+\exercise.
+\label{implement_multisets}%
+Implemente os multiset (\refn{Multisets});
+tome cuidado para deixar claro como usá-las;
+lembre-se o~\refn{multiset_equality}.
+
+\endexercise
+%%}}}
+
+%%{{{ df: indexed_sets_adult_version 
+\definition Conjuntos indexados: versão adulta.
+\label{indexed_sets_adult_version}%
+\tdefined{conjunto}[indexado por conjunto]%
+Já conhecemos o quesignifica que um conjunto $A$ é indexado
+por um conjunto $B$~(\ref{indexed_set}).
+Isso praticamente quis dizer que o $A$ pode ser escrito na forma
+$$
+A = \setst {\dots b \dots} {b \in B},
+$$
+ou, mais ``adultamente'' e plenamente:
+$$
+\text{$A$ é indexado por $B$}
+\defiff
+\text{existe funcção sobrejetora $f : B \surto A$}.
+$$
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Composition 
 \section Composição.
 \label{Composition}%
@@ -25204,741 +25303,8 @@ k \of g \of f
 \endsection
 %%}}}
 
-%%{{{ PROBLEMS INTERMISSION 
-\problems Intervalo de problemas.
-
-%%{{{ how_many_idempotents_on_AtoA_for_A_finite 
-\problem.
-\label{how_many_idempotents_on_AtoA_for_A_finite}%
-Generalize o~\ref{how_many_idempotents_on_AtoA_for_A_triset} para
-um arbitrário conjunto finito $A$.
-
-\hint
-Seja $n = \card A$.
-
-\endproblem
-%%}}}
-
-%%{{{ constant_function_why_did_we_omit_unique 
-\problem.
-\label{constant_function_why_did_we_omit_unique}%
-Na definição do~\ref{constant_notiff_steady}
-não escrevemos ``existe único'', mas apenas ``existe''.
-O que mudaria com esse ``único''?
-Demonstre tua afirmação.
-
-\hint
-Lembra se que a definição é apenas aplicável numa \emph{funcção}.
-Mas cuidado com os casos especiais que envolvem o $\emptyset$.
-
-\solution
-\emph{Quase} nada!
-Parece ser redundante, pois a definição é aplicavel numa \emph{funcção}
-e graças à determinabilidade sabemos que se existe, tem que ser
-único---mas!
-Vamos tentar provar para achar algo interessante.
-\endgraf
-Suponha que temos $b,b'\in B$ que satisfazem a condição, ou seja,
-temos:
-$$
-\align
-\text{para todo $x \in A$,}& f(x) = b \\
-\text{para todo $x \in A$,}& f(x) = b'
-\endalign
-$$
-Logo tomando um $x\in A$, temos
-$$
-b = f(x) = b',
-$$
-ou seja, unicidade mesmo desse $b$,
-dado qualquer $x\in A$.
-Mas isso é, supondo que $A\neq\emptyset$.
-O que acontece se $A=\emptyset$ e $B\neq\emptyset$?
-Botando esse ``único'' na definição, uma funcção
-$$
-\emptyset\toby f B
-$$
-vai ser constante com valor $b$ sse $B$ é um singleton
-e $b$ é seu único membro.
-Sem o ``único'', ela vai ser constante sse $B\neq\emptyset$.
-Veja também o exercício 
-
-\endproblem
-%}}}
-
-%%{{{ first_contact_with_initial_and_terminal_objects 
-\problem Objetos iniciais e terminais.
-\label{first_contact_with_initial_and_terminal_objects}%
-(1) Quais conjuntos $S$ (se algum) têm a propriedade seguinte?:
-$$
-\text{para todo conjunto $A$, existe única funcção $f:S \to A$.}
-$$
-(2) Quais conjuntos $T$ (se algum) têm a propriedade seguinte?:
-$$
-\text{para todo conjunto $A$, existe única funcção $f:A \to T$.}
-$$
-
-\solution
-(1) Apenas o conjunto vazio:
-a única funcção que existe de $\emptyset$ para $A$,
-é a funcção vazia.
-Se $S \neq \emptyset$ tome $s\in S$ e considere
-o conjunto $A = \set{0,1}$.
-Já temos duas funcções diferentes $f,g : S \to A$:
-basta apenas diferenciar elas no $s$.
-Tome por exemplo $f = \lam x 0$ e $g = \lam x 1$.
-Como $f(s) = 0 \neq 1 = g(s)$, temos $f\neq g$.
-(2) Todos os singletons.
-Se $T = \emptyset$, tome $A\neq\emptyset$ e observe
-que não existe nenhuma funcção $f : A \to T$.
-E se $\card T > 1$, tome $u,v\in T$ com $u\neq v$
-e considere o $A = \set 0$.
-Já temos duas funcções $f,g : A \set T$:
-a $f = \lam x u$ e a $g = \lam x v$.
-Elas são realmente distintas,
-pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
-
-\endproblem
-%%}}}
-
-%%{{{ funion 
-\problem união de funcções.
-\label{funion}%
-Sejam $f : A \to C$ e $g : B \to D$.
-Queremos definir a $f\union g : A\union B \to C\union D$,
-consultando as $f$ e $g$, numa maneira parecida com aquela da
-definição de $f\cross g$ (\refn{fcross}).
-Uma definição razoável deve fazer o diagrama seguinte comutar:
-$$
-\cdopt{sep=2cm}
-A \ar[d, "f"']\ar[r, hook] \| A\union B \ar[d, dashed, ""] \| B \ar[l,hook']\ar[d, "g"] \\
-C \ar[r,hook]              \| C\union D                    \| D \ar[l,hook']
-\endcd
-$$
-Explique quais são as condições necessárias para definir
-a $f\union g$, e defina-a.
-
-\solution
-Chame as $f$ e $g$ \dterm{compatíveis} sse:
-$$
-\text{para todo $x\in\dom f \inter \dom g$, $f(x) = g(x)$}.
-$$
-Agora dadas compatíveis $f : A \to C$ e $g : B \to D$,
-definimos a $f \union g : A\union B \to C\union D$ pela
-$$
-(f \union g)(x) =
-\knuthcases{
-f(x), & se $x \in A$ \cr
-g(x), & se $x \in B$.
-}
-$$
-Equivalentemente, podemos definir a $f\union g$ definindo seu gráfico:
-$$
-\graph (f\union g) \defeq \graph f \union \graph g.
-$$
-Observe que nas duas maneiras precisamos a condição de
-compatibilidade para a $f\union g$ ser bem-definida.
-\crproofalt{Resolução alternativa:}
-Usamos a mesma definição mas exigimos que os $A,C$ são disjuntos.
-A primeira resolução consegue definir a $f \union g$ em mais casos
-que essa, mas no outro lado, essa seria aceitável também; e é mais
-simples e ``arrumada''.
-
-\endproblem
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Higher_order_functions 
-\section Funcções de ordem superior.
-\label{Higher_order_functions}%
-
-%%{{{ Holes again 
-\note Buracos de novo.
-Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
-botando \emph{buracos}, criando assim funcções de várias aridades.
-Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
-permitiu dar nomes para esses buracos, ligar (identificar) certos buracos, etc.
-Considere novamente uma expressão como a
-$$
-\cos(1 + 5\cbrt2)^{2a} + \sin(5)
-$$
-onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
-Botando uns buracos ou abstraindo com lambdas, criamos, por exemplo, as funcções:
-$$
-\alignat2
-f_1 &= \cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
-f_2 &= \cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
-f_3 &= \cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
-f_4 &= \cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
-f_5 &= \bhole + \sin(\bhole)                             &&\eqtype \reals^2 \to \reals\\
-f_6 &= \lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
-f_7 &= \lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
-\endalignat
-$$
-%%}}}
-
-%%{{{ x: verify_abstractions_of_expression 
-\exercise.
-\label{verify_abstractions_of_expression}%
-Para quais entradas cada uma dessas funcções retorna o valor da expressão inicial?
-
-\hint
-Respeite as aridades!
-
-\solution
-Temos
-$$
-\align
-f_1&(2)\\
-f_2&(1,2,5)\\
-f_3&(1,5,a)\\
-f_4&(1,5,2a)\\
-f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
-f_6&(a)\\
-f_7&(2, 5).
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ Higher-order holes 
-\note Buracos de ordem superior.
-Em todos os exemplos acima, botamos os buracos para substituir
-apenas termos cujos valores seriam números (reais).
-Expressões tanto como as $2$, $1$, $5$, e $a$,
-quanto como as $5\cbrt2$, $2a$, e $\cos(1 + 5\cbrt2)^{2a}$,
-denotam, no final das contas, números reais.
-Que tal botar um buraco assim:
-$$
-\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
-$$
-O que substituimos aqui?  O próprio $\sin$!  Por que não?
-E o que tipo de objetos podemos botar nesse buraco?
-Um real, não serve: a expressão
-$$
-\cos(1 + 5\cbrt2)^{2a} + 7(5)
-$$
-não faz sentido: ela é \dterm{mal-tipada}.
-O $7$ não pode receber um argumento como se fosse uma funcção, pois não é.
-Que tipo de coisa então caiba nesse buraco?
-Funcções!
-E não funcções quaisquer, mas precisam ter um tipo compatível,
-com a aridade certa, etc.
-Esses buracos são \emph{de ordem superior}.
-E com buracos de ordem superior, vêm funcções de ordem superior.
-%%}}}
-
-%%{{{ pseudodf: higher_order_function 
-\pseudodefinition.
-\label{higher_order_function}%
-\tdefined{funcção}[de ordem superior]%
-Dizemos que uma funcção $f : A \to B$ é de \dterm{ordem superior}
-se ela recebe ou retorna funcções.
-%%}}}
-
-%%{{{ x: type_higher_order_holed_expressions 
-\exercise.
-\label{type_higher_order_holed_expressions}%
-Escreva os tipos das funcções seguintes:
-$$
-\align
-F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
-F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
-F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
-F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
-\endalign
-$$
-
-\solution
-Temos
-\compute
-F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
-F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                     &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
-F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
-F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)             &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
-F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
-\endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ Returning functions 
-\note Retornando funcções.
-Até agora encontramos exemplos onde funcções recebem como
-argumentos outras funcções, mas ainda não conhecemos alguma
-funcção que \emph{retorna funcção}.
-Ou será que conhecemos?
-Se tu resolveu o~\ref{calculate_lambda_expressions},
-tu já encontrou esse caso, na sua última expressão.
-Seguem uns exemplos de operadores de ordem superior que
-você talvez já encontrou e até usou na tua vida.
-%%}}}
-
-%%{{{ eg: Defining a higher-order functions 
-\example Definindo uma funcção de ordem superior.
-\ii{funcção!anônima}%
-Considere a funcção $F : \nats \to (\nats \to \nats)$ definda pela
-$$
-\align
-F(w) &= \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x$, retorna $w + x$}.
-\intertext{%
-Ou, equivalentemente:
-}
-F(w) &= \text{aquela funcção $g : \nats \to \nats$ definida pela $g(x) = w + x$}.
-\intertext{%
-Que tipo de objetos a funcção $F$ retorna?
-Funcções!  Nesse caso determinamos exatamente para qualquer entrada
-dela, qual seria a funcção que vai ser retornada.
-Observe que na definição de $F(w)$, apareceu a frase
-``aquela funcção $g$\dots''.
-Assim baptizamos temporariamente essa funcção com um nome (``$g$'') à toa:
-apenas para referir a ela e retorná-la.
-Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
-e (logo) mais legível:
-}
-F(w) &= \lam x {w + x} \eqtype \nats \to \nats.
-\endalign
-$$
-Observe que no lado direito aparece uma funcção anônima.
-\endexample
-%%}}}
-
-%%{{{ eg: in Python 
-\example em Python.
-\iipl Python
-Em Python podemos (ainda bem\dots)~por exemplo escrever:
-\sourcecode higher.py;
-que corresponde na primeira maneira de definir a $F$, criando e nomeando
-a funcção para ser retornada.
-Podemos com $\lambda$ também:
-\sourcecode higherlam.py;
-Não ficou melhor?
-\endexample
-%%}}}
-
-%%{{{ Q: what type of thing is F(25)? 
-\question.
-Que tipo de coisa é o $F(25)$?
-%%}}}
-\spoiler.
-
-%%{{{ Answer 
-\note.
-Antes de responder nessa pergunta, vamos responder numa outra,
-ainda mais específica: quem \emph{é} o $F(25)$?
-Ou seja:
-$$
-F(25) = \dots?\dots
-$$
-Não precisamos pensar nada profundo!
-Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
-$$
-F(25) = \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x\in\nats$, retorna o número $25 + x$}.
-$$
-Ou seja,
-$$
-F(25) : \nats\to\nats.
-$$
-Sendo funcção, podemos chamá-la com um argumento do certo tipo, por exemplo como o $3\in\nats$, e evaluá-la:
-$$
-\paren{F(25)}(3) = 28.
-$$
-%%}}}
-
-%%{{{ x: where_did_28_come_from 
-\exercise.
-\label{where_did_28_come_from}%
-De onde chegou esse $28$?
-
-\solution
-Seguindo a definição da $F(25)$ ela é a funcção que recebendo um valor
-(agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
-$25 + 3 = 28$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: find_expressions_with_given_types_higher_order 
-\exercise.
-\label{find_expressions_with_given_types_higher_order}%
-Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
-tipos seguintes:
-$$
-\align
-F_1&\eqtype \reals \to \reals \\
-F_2&\eqtype \reals \to (\reals \to \reals) \\
-F_3&\eqtype (\reals \to \reals) \to \reals \\
-F_4&\eqtype (\reals \to \reals) \to (\reals \to \reals) \\
-F_5&\eqtype (\reals^2 \to \reals) \to \reals \\
-F_6&\eqtype (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: find_expressions_with_given_types_higher_order_abstract 
-\exercise.
-\label{find_expressions_with_given_types_higher_order_abstract}%
-Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
-tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não podes supor
-absolutamente nada mais!
-Para cada um dos tipos, tente escrever as mais $\lambda$-expressões realmente
-diferentes que tu consegues.
-Cuidado: para uns deles não é possível achar nenhuma!
-$$
-\align
-&: A \to B \\
-&: A \to (B \to A) \\
-&: A \to (B \to B) \\
-&: (A \to A) \to A \\
-&: A \to (A \to A) \\
-&: A \to \bigparen{B \to \paren{(A\to B) \times (A\union C) \times \nats}} \\
-&: (A \to (B \to C) \to ((A\times B)\to C)) \\
-&: ((A\times B)\to C) \to (A \to (B \to C))
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ first_class_citizens 
-\note First-class citizens.
-\label{first_class_citizens}%
-{\ii{cidadão da primeira classe}}%
-{\iisee{first-class citizen}{cidadão}}%
-O slogan aqui é que funcções são \emph{first-class citizens}.
-Trabalhando no~\ref{calculate_lambda_expressions}, o último cálculo
-chega no valor seguinte:
-$$
-\align
-\plam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
-&\lstep \plam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
-&\lstep \plam x {(1 + 1) \ntimes x \ntimes 4)} \\
-&\isteq \plam x {8x}.
-\endalign
-$$
-Como falei na resolução, se esse ``resultado'' (valor final)
-não parece satisfatório, é por causa de um preconceito teu que
-favorece os objetos de tipo ``número'' contra os objetos de tipo
-``funcção''.
-Os números têm o direito de ser valores finais; e as funcções
-também têm!  Esse ``preconceito'' é bastante alimentado por causa
-de varias linguagens de programação que realmente não tratam
-as funcções em termos iguais com os outros tipos.
-\iipl C
-\iipl C++
-\iipl Java
-Em C, C++, ou Java, por exemplo, não é possível passar como
-argumentos funcções, nem retorná-las; mas claramente números
-podem ser argumentos e também podem ser retornados como saída
-de funcções.
-\iipl Haskell
-\iipl PureScript
-\iipl Idris
-\iipl Agda
-\iipl Racket
-\iipl Clojure
-\iipl Scala
-\iipl Python
-No outro lado, linguagens como Haskell, PureScript, Idris,
-Agda, Racket, Clojure, Scala, Python, etc., adoptam o slogan
-\standout
-\emph{<<functions are first-class citizens>>}
-\endstandout
-ou seja, lá temos funcções de ordem superior---e logo, felicidade.
-%%}}}
-
-\blah.
-Funcções de ordem superior não é algo tão desconhecido como
-talvez parece.
-O leitor já está acostumado com os operadores nos exemplos seguintes:
-
-%%{{{ eg: higher_order_example_composition 
-\example Composição.
-\label{higher_order_example_composition}%
-Sejam conjuntos $A,B,C$.
-O operador da composição $\of$
-(cuja notação decoramos aqui para especificar
-o domínio e codomínio dele e dos seus argumentos)
-é o seguinte:
-$$
-\dhole\oflab ABC\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
-$$
-Observe que ele é um operador de ordem superior, pois seus (dois) argumentos
-são funcões, e também pois sua saída também é uma funcção.
-\endexample
-%%}}}
-
-%%{{{ df: eval_operation 
-\definition eval.
-\label{eval_operation}%
-\tdefined{funcção}[aplicação]%
-\tdefined{funcção}[eval]%
-\sdefined {\evaldc {\sholed A} {\sholed B}} {a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$}%
-\sdefined {{\sholed f} \at {\sholed x}} {notação infixa para o $\eval (f,x)$}%
-Suponha $f : A \to B$ e seja $a \in A$.
-Quando escrevemos \symqq{$f\fa a$} (ou \symqq{$f(a)$}),
-estamos escrevendo a \dterm{aplicação} da $f$ no $a$.
-e o que estamos denotando é o \dterm{valor} da $f$ no $a$.
-O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
-pela juxtaposição da funcção e do seu argumento (já discutimos isso
-no~\ref{lazier_clearer_functional_notation}).
-Quando precisamos vê-lo mesmo, podemos usar a notação infixa
-$$
-f \at x \sugeq \eval (f, x).
-$$
-Definimos agora uma funcção $\eval$ que faz exatamente isso:
-aplica seu primeiro argumento (uma funcção) no seu segundo
-(um ponto do domínio do primeiro argumento).
-Como fizemos na composição, decoramos essa operação
-para esclarecer os conjuntos envolvidos:
-dados conjuntos $A,B$ temos a
-$$
-\evaldc A B : \bigparen{(A \to B) \times A} \to B
-$$
-definida pela
-$$
-\evaldc A B (f, a) = f(a).
-$$
-Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
-%%}}}
-
-%%{{{ eg: higher_order_example_apply 
-\example.
-Dados conjuntos $A,B$, a $\evaldc A B$ é claramente uma
-operação de ordem superior.
-\endexample
-%%}}}
-
-%%{{{ x: type_of_restriction_op_with_hole 
-\exercise.
-\label{type_of_restriction_op_with_hole}%
-Sejam $f : A\to B$ e $X\subset A$.
-Ache o tipo dos:
-$$
-\align
-f\resto \dhole  &\eqtype ?\\
-(\dhole\resto X)\resto(A \to B)
-                &\eqtype ?
-\endalign
-$$
-
-\solution
-Temos
-$$
-\align
-f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
-(\dhole\resto X)\resto (A \to B)
-                &\eqtype \paren{(A \to B) \to (X \to B)}
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ eg: higher_order_example_derivation 
-\example Derivação.
-\label{higher_order_example_derivation}%
-Considere o operador da derivação $D$
-Por exemplo, se $f(x) = x^3 + 5x$, temos
-$$
-\align
-D(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
-\intertext{%
-Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
-}
-D(f) &= \lam x {3x^2 + 5}
-\endalign
-$$
-sim.
-Qual o tipo da $D$?
-Ela recebe e retorna funcções de reais para reais, mas não podemos
-tipá-la
-$$
-\align
-D(\dhole) &: (\reals\to\reals) \to (\reals\to\reals)
-\intertext{%
-pois estariamos perdendo a totalidade da $D$:
-existem funcções no $(\reals\to\reals)$ que não são deriváveis.
-Ainda mais, seria legal poder iterar o $D$ (\ref{function_iterations})
-indefinitamente; e logo tipamos
-}
-D(\dhole) &: C^\infty \to C^\infty
-\endalign
-$$
-onde $C^\infty$ é o conjunto de todas as funcções infinitamente
-deriváveis: são deriváveis, e suas derivadas também são, e suas
-derivadas também, etc.
-\endexample
-%%}}}
-
-%%{{{ teaser: partial_functions_teaser 
-\teaser funcções parciais.
-Mas talvez queremos mesmo considerar a $D$ como uma operação
-que opera no espaço de funcções $(\reals\to\reals)$
-\emph{sacrificando} a totalidade.
-Chegamos assim no conceito de \emph{funcção parcial}, que
-voltamos a investigar na~\ref{Partial_functions}.
-%%}}}
-
-%%{{{ eg: higher_order_example_integration 
-\example Integração.
-\label{higher_order_example_integration}%
-De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
-Sejam $a,b\in\reals$ com $a<b$ e seja
-$$
-R[a,b] \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
-$$
-Observe que $R[a,b]$ é um conjunto de funcções.
-Definimos o operador
-$$
-\lam f {\lam x {\int_a^{x} f}} : R[a,b] \to ([a,b] \to \reals)
-$$
-cujo argumento é uma funcção---e ainda mais,
-sua saída também é uma funcção---e logo ele é um operador de ordem superior
-também.
-Para a integração indefinita, seja
-$$
-R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
-$$
-e defina um operador
-$$
-\int\dhole : R \to \pset{(\reals\to\reals)}
-$$
-tal que
-$$
-\int f = \setst {F : \reals\to\reals} {D(F) = f}.
-$$
-Observe que a notação comum em análise é diferente: usamos por exemplo
-$\int_a^x f(t)\, dt$, e o $\int f$ é visto como uma antiderivada
-(que depende numa constante $C$) e não como o conjunto de todas
-essas antiderivadas como definimos aqui.
-\endexample
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ More constructions and operations on functions 
-\section Mais construções e operações em funcções.
-
-%%{{{ df: function_iterations 
-\definition iterações.
-\label{function_iterations}%
-\tdefined{funcção}[iteração]%
-\sdefined {\sholed f^\sholed n} {a $n$-ésima iteração da $f$.}%
-Seja $f : A \to A$.
-Definimos as \dterm{iterações} de $f$ pela recursão
-$$
-\align
-f^0     &= \idof A \\
-f^{n+1} &= f\of f^n.
-\endalign
-$$
-%%}}}
-
-%%{{{ eg: calculate_iterate_3_fx 
-\example.
-Seja $f : A \to A$.  Calculamos:
-\compute
-f^3(x)
-&= (f \of f^2)(x)                      \by {def.~$f^3$}
-&= (f \of (f \of f^1))(x)              \by {def.~$f^2$}
-&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$}
-&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$}
-&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$}
-&\dotseq f (f (f (x)))                 \by {def.~$\of$}
-\endcompute
-Em geral omitimos parenteses quando a expressão envolve apenas uma operação
-associativa;
-botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
-\endexample
-%%}}}
-
-%%{{{ x: succ3_is_plus_3 
-\exercise.
-\label{succ3_is_plus_3}%
-Como definarias numa maneira simples a funcção $\succ^3$ para alguém
-que não sabe (e sequer quer saber) o que são as iterações duma funcção?
-
-\solution
-Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
-
-\endexercise
-%%}}}
-
-%%{{{ beware: notation of functions with exponents 
-\beware.
-Em certos textos de matemática, aparece a notação $f^n(x)$ como
-sinónimo de $(f(x))^n$.
-Por exemplo:
-$$
-\text{quem escreveu\dots}
-\quad
-\sin^2 x + \cos^2 x
-\quad
-\aligned
-&\text{\dots quis dizer\dots}\\
-&\text{\dots mas aqui seria\dots}
-\endaligned
-\quad
-\aligned
-&(\sin x)^2   + (\cos x)^2    \\
-&\sin(\sin x) + \cos(\cos x).
-\endaligned
-$$
-%%}}}
-
-%%{{{ remark: function_iterations_altdef 
-\remark.
-\label{function_iterations_altdef}%
-Poderiamos ter escolhido definir as potências de $f$ pelas:
-$$
-\align
-f^0     &= \idof A \\
-f^{n+1} &= f^n \of f
-\endalign
-$$
-em vez da recursão que usamos na~\ref{function_iterations}.
-As duas definições são equivalentes, ou seja, as duas operações
-de exponenciação definidas são iguais.
-Por enquanto pode aceitar isso como um fato que vamos provar
-depois (\ref{associative_with_identity_exp_defs_equiv}),
-ou esquecer completamente essa definição alternativa.
-%%}}}
-
-%%{{{ thm: properties_of_function_iterations 
-\theorem.
-\label{properties_of_function_iterations}%
-A operação de iteração definida
-no~\ref{function_iterations}
-satisfaz as leis:
-\beginol
-\item{\rm (1)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
-\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
-\item{\rm (3)} $\lforall {n\in\nats} {\id^n = \id}$.
-\endol
-\proof Já demonstrado.
-Provamos por indução as três leis nos exercícios~\refn{law_of_natexp_1},
-\refn{law_of_natexp_2}, e~\refn{law_of_natexp_3}---se tu não resolveu,
-volte a resolver!
-Verifique que nossas provas precisaram apenas a \emph{associatividade}
-e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
-então podemos substituir a multiplicação por a nossa $\of$.
-Sobre a outra operação envolvida nas provas, a adição, não precisamos
-verificar nada, pois nos dois casos é a mesma operação:
-a adição nos naturais.
-\qed
-%%}}}
-
-% CROSS
+%%{{{ Products and more constructions 
+\section Produtos e demais construções.
 
 %%{{{ df: fcross 
 \definition cross.
@@ -26192,6 +25558,334 @@ a funcção (sem utilizar um ponto do seu domínio nem a $\lambda$-notação).
 Vamos investigar isso no~\ref{Pointfree_style}.
 
 \endsection
+%%}}}
+
+%%{{{ Iterations 
+\section Iterações.
+\label{Iterations}%
+
+%%{{{ df: function_iterations 
+\definition iterações.
+\label{function_iterations}%
+\tdefined{funcção}[iteração]%
+\sdefined {\sholed f^\sholed n} {a $n$-ésima iteração da $f$.}%
+Seja $f : A \to A$.
+Definimos as \dterm{iterações} de $f$ pela recursão
+$$
+\align
+f^0     &= \idof A \\
+f^{n+1} &= f\of f^n.
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: calculate_iterate_3_fx 
+\example.
+Seja $f : A \to A$.  Calculamos:
+\compute
+f^3(x)
+&= (f \of f^2)(x)                      \by {def.~$f^3$}
+&= (f \of (f \of f^1))(x)              \by {def.~$f^2$}
+&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$}
+&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$}
+&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$}
+&\dotseq f (f (f (x)))                 \by {def.~$\of$}
+\endcompute
+Em geral omitimos parenteses quando a expressão envolve apenas uma operação
+associativa;
+botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
+\endexample
+%%}}}
+
+%%{{{ x: succ3_is_plus_3 
+\exercise.
+\label{succ3_is_plus_3}%
+Como definarias numa maneira simples a funcção $\succ^3$ para alguém
+que não sabe (e sequer quer saber) o que são as iterações duma funcção?
+
+\solution
+Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
+
+\endexercise
+%%}}}
+
+%%{{{ beware: notation of functions with exponents 
+\beware.
+Em certos textos de matemática, aparece a notação $f^n(x)$ como
+sinónimo de $(f(x))^n$.
+Por exemplo:
+$$
+\text{quem escreveu\dots}
+\quad
+\sin^2 x + \cos^2 x
+\quad
+\aligned
+&\text{\dots quis dizer\dots}\\
+&\text{\dots mas aqui seria\dots}
+\endaligned
+\quad
+\aligned
+&(\sin x)^2   + (\cos x)^2    \\
+&\sin(\sin x) + \cos(\cos x).
+\endaligned
+$$
+%%}}}
+
+%%{{{ remark: function_iterations_altdef 
+\remark.
+\label{function_iterations_altdef}%
+Poderiamos ter escolhido definir as potências de $f$ pelas:
+$$
+\align
+f^0     &= \idof A \\
+f^{n+1} &= f^n \of f
+\endalign
+$$
+em vez da recursão que usamos na~\ref{function_iterations}.
+As duas definições são equivalentes, ou seja, as duas operações
+de exponenciação definidas são iguais.
+Por enquanto pode aceitar isso como um fato que vamos provar
+depois (\ref{associative_with_identity_exp_defs_equiv}),
+ou esquecer completamente essa definição alternativa.
+%%}}}
+
+%%{{{ thm: properties_of_function_iterations 
+\theorem.
+\label{properties_of_function_iterations}%
+A operação de iteração definida
+no~\ref{function_iterations}
+satisfaz as leis:
+\beginol
+\item{\rm (1)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
+\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
+\item{\rm (3)} $\lforall {n\in\nats} {\id^n = \id}$.
+\endol
+\proof Já demonstrado.
+Provamos por indução as três leis nos exercícios~\refn{law_of_natexp_1},
+\refn{law_of_natexp_2}, e~\refn{law_of_natexp_3}---se tu não resolveu,
+volte a resolver!
+Verifique que nossas provas precisaram apenas a \emph{associatividade}
+e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
+então podemos substituir a multiplicação por a nossa $\of$.
+Sobre a outra operação envolvida nas provas, a adição, não precisamos
+verificar nada, pois nos dois casos é a mesma operação:
+a adição nos naturais.
+\qed
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+
+%%{{{ prob: succiter_for_dummies 
+\problem.
+\label{succiter_for_dummies}%
+Supondo que teu leitor não sabe o que são as iterações duma funcção
+(\ref{function_iterations}) e que \emph{sequer quer saber},
+defina a funcção $\succ^n$ numa maneira simples.
+Demonstre tua afirmação, que a $\succ^n$ (oficial) realmente é igual
+à funcção que tu escreveste para teu leitor.
+
+\hint
+Fez o~\ref{succ3_is_plus_3} né?
+
+\hint
+Basta provar que para todo $n\in\nats$
+$$
+\lforall {x\in\nats} {\succ^n(x) = x + n}
+$$
+e como $\succ^n$ (oficial) foi definida recursivamente,
+como tu vai provar isso?
+
+\hint
+Indução!
+
+\solution
+Seja $n\in\nats$.
+A $\succ^n : \nats\to\nats$ é a funcção definida pela
+$$
+\succ^n(x) = x + n.
+$$
+Basta demonstrar que para todo $n\in\nats$
+$$
+\lforall {x\in\nats} {\succ^n(x) = x + n}
+$$
+algo que vou provar por indução no $n$.
+\crproofpart{Base.}
+Seja $x\in\nats$.
+Calculamos:
+\compute
+\succ^0 (x)
+&= \idof\nats (x)   \by {pela def.~da $\succ^0$}
+&= x                \by {pela def.~da $1_A$}
+&= x + 0.           \by {pelo ensino fundamental}
+\endcompute
+\crproofpart{Passo indutivo.}
+Suponha $k\in\nats$ tal que
+$$
+\lforall {x\in\nats} {\succ^k(x) = x + k}. \tag{H.I.}
+$$
+Basta provar que
+$$
+\lforall {y\in\nats} {\succ^{k+1}(y) = y + (k+1)}.
+$$
+Seja $y\in\nats$ então.
+Calculamos:
+\compute
+\succ^{k+1}(y)
+&= \paren{\succ\of\succ^{k}}(y) \by {pela def.~de $\succ^{k+1}$}
+&= \succ\big( \succ^k(y) \big)  \by {pela def.~de $\succ\of \succ^k$}
+&= \succ(y + k)                 \by {pela HI com $x := y$}
+&= (y + k) + 1                  \by {pela def.~de $\succ$}
+&= y + (k + 1).                 \by {pelo ensino fundamental}
+\endcompute
+
+\endproblem
+%%}}}
+
+%%{{{ how_many_idempotents_on_AtoA_for_A_finite 
+\problem.
+\label{how_many_idempotents_on_AtoA_for_A_finite}%
+Generalize o~\ref{how_many_idempotents_on_AtoA_for_A_triset} para
+um arbitrário conjunto finito $A$.
+
+\hint
+Seja $n = \card A$.
+
+\endproblem
+%%}}}
+
+%%{{{ constant_function_why_did_we_omit_unique 
+\problem.
+\label{constant_function_why_did_we_omit_unique}%
+Na definição do~\ref{constant_notiff_steady}
+não escrevemos ``existe único'', mas apenas ``existe''.
+O que mudaria com esse ``único''?
+Demonstre tua afirmação.
+
+\hint
+Lembra se que a definição é apenas aplicável numa \emph{funcção}.
+Mas cuidado com os casos especiais que envolvem o $\emptyset$.
+
+\solution
+\emph{Quase} nada!
+Parece ser redundante, pois a definição é aplicavel numa \emph{funcção}
+e graças à determinabilidade sabemos que se existe, tem que ser
+único---mas!
+Vamos tentar provar para achar algo interessante.
+\endgraf
+Suponha que temos $b,b'\in B$ que satisfazem a condição, ou seja,
+temos:
+$$
+\align
+\text{para todo $x \in A$,}& f(x) = b \\
+\text{para todo $x \in A$,}& f(x) = b'
+\endalign
+$$
+Logo tomando um $x\in A$, temos
+$$
+b = f(x) = b',
+$$
+ou seja, unicidade mesmo desse $b$,
+dado qualquer $x\in A$.
+Mas isso é, supondo que $A\neq\emptyset$.
+O que acontece se $A=\emptyset$ e $B\neq\emptyset$?
+Botando esse ``único'' na definição, uma funcção
+$$
+\emptyset\toby f B
+$$
+vai ser constante com valor $b$ sse $B$ é um singleton
+e $b$ é seu único membro.
+Sem o ``único'', ela vai ser constante sse $B\neq\emptyset$.
+Veja também o exercício 
+
+\endproblem
+%}}}
+
+%%{{{ first_contact_with_initial_and_terminal_objects 
+\problem Objetos iniciais e terminais.
+\label{first_contact_with_initial_and_terminal_objects}%
+(1) Quais conjuntos $S$ (se algum) têm a propriedade seguinte?:
+$$
+\text{para todo conjunto $A$, existe única funcção $f:S \to A$.}
+$$
+(2) Quais conjuntos $T$ (se algum) têm a propriedade seguinte?:
+$$
+\text{para todo conjunto $A$, existe única funcção $f:A \to T$.}
+$$
+
+\solution
+(1) Apenas o conjunto vazio:
+a única funcção que existe de $\emptyset$ para $A$,
+é a funcção vazia.
+Se $S \neq \emptyset$ tome $s\in S$ e considere
+o conjunto $A = \set{0,1}$.
+Já temos duas funcções diferentes $f,g : S \to A$:
+basta apenas diferenciar elas no $s$.
+Tome por exemplo $f = \lam x 0$ e $g = \lam x 1$.
+Como $f(s) = 0 \neq 1 = g(s)$, temos $f\neq g$.
+(2) Todos os singletons.
+Se $T = \emptyset$, tome $A\neq\emptyset$ e observe
+que não existe nenhuma funcção $f : A \to T$.
+E se $\card T > 1$, tome $u,v\in T$ com $u\neq v$
+e considere o $A = \set 0$.
+Já temos duas funcções $f,g : A \set T$:
+a $f = \lam x u$ e a $g = \lam x v$.
+Elas são realmente distintas,
+pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
+
+\endproblem
+%%}}}
+
+%%{{{ funion 
+\problem união de funcções.
+\label{funion}%
+Sejam $f : A \to C$ e $g : B \to D$.
+Queremos definir a $f\union g : A\union B \to C\union D$,
+consultando as $f$ e $g$, numa maneira parecida com aquela da
+definição de $f\cross g$ (\refn{fcross}).
+Uma definição razoável deve fazer o diagrama seguinte comutar:
+$$
+\cdopt{sep=2cm}
+A \ar[d, "f"']\ar[r, hook] \| A\union B \ar[d, dashed, ""] \| B \ar[l,hook']\ar[d, "g"] \\
+C \ar[r,hook]              \| C\union D                    \| D \ar[l,hook']
+\endcd
+$$
+Explique quais são as condições necessárias para definir
+a $f\union g$, e defina-a.
+
+\solution
+Chame as $f$ e $g$ \dterm{compatíveis} sse:
+$$
+\text{para todo $x\in\dom f \inter \dom g$, $f(x) = g(x)$}.
+$$
+Agora dadas compatíveis $f : A \to C$ e $g : B \to D$,
+definimos a $f \union g : A\union B \to C\union D$ pela
+$$
+(f \union g)(x) =
+\knuthcases{
+f(x), & se $x \in A$ \cr
+g(x), & se $x \in B$.
+}
+$$
+Equivalentemente, podemos definir a $f\union g$ definindo seu gráfico:
+$$
+\graph (f\union g) \defeq \graph f \union \graph g.
+$$
+Observe que nas duas maneiras precisamos a condição de
+compatibilidade para a $f\union g$ ser bem-definida.
+\crproofalt{Resolução alternativa:}
+Usamos a mesma definição mas exigimos que os $A,C$ são disjuntos.
+A primeira resolução consegue definir a $f \union g$ em mais casos
+que essa, mas no outro lado, essa seria aceitável também; e é mais
+simples e ``arrumada''.
+
+\endproblem
+%%}}}
+
+\endproblems
 %%}}}
 
 %%{{{ Jections : Injections, surjections, bijections 
@@ -26571,173 +26265,841 @@ $f(a) = \set a \neq \emptyset \in \pset A$.
 \endsection
 %%}}}
 
-%%{{{ Implementations_seq_fam 
-\section Novas implementações: seqüências e famílias.
-\label{Implementations_seq_fam}%
+%%{{{ Images, preimages 
+\section Imagens, preimagens.
+\label{Images_preimages}%
 
-%%{{{ Q: Can you implement sequences and indexed families? 
+%%{{{ Two important subsets 
+\note Dois subconjuntos importantes.
+Sejam $A,B$ conjuntos e $f:A \to B$.
+$$
+\tikzpicture[scale=0.75,node distance=0mm]
+\tikzi imgpreimgbase;
+\endtikzpicture
+$$
+Vamos associar, com qualquer subconjunto $X$ de $A$, um certo subconjunto de $B$, que vamos chamá-lo a \emph{imagem} de $X$ através da $f$.
+Similarmente, com qualquer subconjunto $Y$ de $B$, vamos associar um certo subconjunto de $A$, que vamos chamá-lo a \emph{preimagem} de $Y$ através da $f$.
+Bem informalmente, parece que estamos ``elevando'' a funcção $f$ do nível ``membros'' para para o nível ``subconjuntos''.
+Vamos ver como.
+%%}}}
+
+%%{{{ eg: sketches of image and preimage 
+\example.
+Nas figuras seguintes mostramos com azul o subconjunto com que começamos,
+e com vermelho o subconjunto que associamos com ele.
+Considere o $X\subset A$ como aparece no desenho abaixo,
+e veja qual é o subconjunto $\img f X$ de $B$ que vamos associar com o $X$:
+$$
+\gathered
+\tikzpicture[scale=0.75,node distance=0mm]
+\draw [fill=blue!25] (0,-.5) ellipse (0.9cm and 1.6cm);
+\tikzi imgpreimgbase;
+\node [color=blue] (subset-X) at (-0.7,-2.1) {$X$};
+\endtikzpicture
+\endgathered
+\quad
+\leadsto
+\quad
+\gathered
+\tikzpicture[scale=0.75,node distance=0mm]
+\draw [fill=blue!25] (0,-.5) ellipse (0.9cm and 1.6cm);
+\draw [fill=red!25] (4.9,-0.45) ellipse (0.7cm and 2cm);
+\tikzi imgpreimgbase;
+\node [color=blue] (subset-X) at (-0.7,-2.1) {$X$};
+\node [color=red] (subset-fX) at (5.9,-2.05) {$\img f X$};
+\endtikzpicture
+\endgathered
+$$
+Na direção oposta, comece por exemplo com esse $Y\subset B$
+e observe qual é o subconjunto $\pre f Y$ de $A$ que queremos associar com o $Y$:
+$$
+\gathered
+\tikzpicture[scale=0.75,node distance=0mm]
+\draw [fill=blue!25] (4.9,1.45) ellipse (1.1cm and 1.2cm);
+\tikzi imgpreimgbase;
+\node [color=blue] (subset-Y) at (5.95,0.4) {$Y$};
+\endtikzpicture
+\endgathered
+\quad
+\leadsto
+\quad
+\gathered
+\tikzpicture[scale=0.75,node distance=0mm]
+\draw [fill=blue!25] (4.9,1.45) ellipse (1.1cm and 1.2cm);
+\draw [fill=red!25]  (0,1.0) ellipse (0.8cm and 2.0cm);
+\tikzi imgpreimgbase;
+\node [color=blue] (subset-Y)     at (5.95,0.4)  {$Y$};
+\node [color=red]  (subset-fpreY) at (-0.9,-1.1) {$\pre f Y$};
+\endtikzpicture
+\endgathered
+$$
+\endexample
+%%}}}
+
+%%{{{ remark: just a function from A to B is enough 
+\remark.
+Observe que na discussão acima não supusemos \emph{nada mais} além da
+existência de uma funcção $f$ dum conjunto $A$ para um conjunto $B$.
+%%}}}
+
 \question.
-Suponha que alguém robou de ti os tipos (primitivos) de seqüências
-e de famílias indexadas.  Dá para se virar sem esses?
-Ou seja, tem como defini-los em termos dos outros tipos
-que tu (ainda) tens?
+Como podemos definir formalmente os conjuntos indicados nos desenhos acima?
+\spoiler.
+
+%%{{{ df: img_and_pre 
+\definition.
+\label{img_and_pre}%
+\tdefined{funcção!imagem}%
+\tdefined{funcção!preimagem}%
+\sdefined {\img {\sholed f} {\sholed X}} {a imagem de $X$ através da $f$}%
+\sdefined {\pre {\sholed f} {\sholed Y}} {a preimagem de $Y$ através da $f$}%
+Seja $f : A \to B$, e sejam subconjuntos $X\subset A$ e $Y\subset B$.
+Definimos:
+$$
+\align
+\img f X &\defeq \setst {f(x)} {x \in X}\\
+\pre f Y &\defeq \setst {a \in A} {f(a) \in Y}.
+\endalign
+$$
+Lembrando a notação set-builder~(\ref{set_builder}), temos as definições:
+$$
+\align
+y \in \img f X &\defiff \lexists{x\in X} {f(x) = y} \\
+x \in \pre f Y &\defiff f(x) \in Y.
+\endalign
+$$
+Chamamos o conjunto $\img f X$ \dterm{imagem} do $X$ através da $f$ ou,
+mais curtamente, a $f$-\dterm{imagem} do $X$.  O conjunto $\pre f Y$
+é a \dterm{preimagem} do $Y$ através da $f$; ou a $f$-\dterm{preimagem}
+do $Y$.
+%%}}}
+
+%%{{{ x: type_of_img_f_hole_and_pre_f_hole  
+\exercise.
+\label{type_of_img_f_hole_and_pre_f_hole}%
+Quais os tipos das $\img f {\dhole}$ e $\pre f {\dhole}$?
+
+\solution
+$$
+\align
+\img f {\dhole} &\eqtype \pset X \to \pset Y \\
+\pre f {\dhole} &\eqtype \pset Y \to \pset X
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: img_and_pre_of_emptyset 
+\exercise.
+\label{img_and_pre_of_emptyset}%
+Seja $f : X \to Y$.
+Verifique:
+$$
+\img f \emptyset = \emptyset
+\qqtext{e}
+\pre f \emptyset = \emptyset.
+$$
+
+\solution
+As duas afirmações seguem diretamente pelas definições:
+$$
+\align
+\img f \emptyset &= \setst {f(x)}   {x \in \emptyset}    = \emptyset \\
+\pre f \emptyset &= \setst {x\in X} {f(x) \in \emptyset} = \emptyset.
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ remark: range and surjection with f[-] notation 
+\remark.
+Se $f : A \to B$ então, temos que:
+\beginol
+\li $\range f = \img f A$;
+\li $\img f A = B \iff \text{$f$ é sobrejetora}$.
+\endol
+As duas afirmações são conseqüências imediatas das definições envolvidas.
+%%}}}
+
+%%{{{ x: our_img_notation_is_better 
+\exercise.
+\label{our_img_notation_is_better}%
+Em matemática as vezes aparece a notação $f(X)$ para denotar a imagem do
+$X\subset \dom f$ através da funcção $f$.
+Aqui usamos a notação $\img f X$.
+\emph{Sem usar o conjunto vazio em lugar nenhum na tua resposta},
+dê um exemplo (completo) que mostre que a notação $f(X)$ pode ser problemática
+(e logo nossa notação $\img f X$ é melhor).
+Explique curtamente.
+
+\hint
+Pode acontecer que $X \in A$ e também $X \subset A$?
+
+\hint
+Vamos adoptar temporariamente a notação $f(X)$.
+Daí, te pergunto: se $f : \nats\to\nats$ é o sucessor,
+tem como calcular os seguinte?:
+$$
+f(5);\qquad
+f(8);\qquad
+f(\set{1,7});\qquad
+f(2\nats);
+$$
+onde $2\nats \subset \nats$ é o conjunto dos pares naturais.
+``Fácil'' tu pensou (certo?), e explicou:
+$$
+\align
+f(5) &\ \text{\dots é o valor da $f$ no $5$, definido pois $5\in\dom f$} \\
+\intertext{e similarmente sobre o $f(8)$, mas}
+f(\set{1,7}) &\ \text{\dots não pode ser o valor da $f$ no $\set{1,7}$, pois $\set{1,7}\notin\dom f$.}
+\endalign
+$$
+Então $f(\set{1,7})$ só pode ser a $f$-imagem do $\set{1,7}$ que realmente é um subconjunto do $\dom f$;
+e similarmente sobre o $f(2\nats)$.
+E assim tu calculou as respostas:
+$$
+\xalignat4
+f(5) &= 6; & f(8) &= 9; & f(\set{1,7}) &= \set{2,8}; & f(2\nats) &= \set{1,3,5,\dots}.
+\endxalignat
+$$
+Beleza, mas acontece que o $\nats$ é um conjunto homogênico.
+Imagine que o domínio da $f$ tem todos os objetos seguintes como membros:
+$$
+1,\quad
+7,\quad
+\set{1,7}.
+$$
+Agora, se eu perguntar qual é o $f(\set{1,7})$ tu tens um dilemma:
+$$
+f(\set{1,7}) \askeq
+\paths{
+\text{a $f$-imagem do $\set{1,7}$}   & (que realmente é um subconjunto do seu domínio) \cr
+\pathween {\dots\orword\dots}
+\text{o valor da $f$ no $\set{1,7}$} & (que realmente é um membro do seu domínio)?
+}
+$$
+
+\solution
+Sejam $A = \set{ 1, 7, \set{1,7} }$, e $X = \set{1,7}$.
+Observe que $X\in A$ e $X \subset A$.
+Seja $f : A \to \set{3}$ a funcção constante definida pela $f(x) = 3$.
+Assim a notação $f(X)$ fica ambígua: a $f$-imagem de $X\subset A$ é o $\set 3$,
+mas o valor da $f$ no $X$ é o $3$.
+E $3 \neq \set{3}$!
+
+\endexercise
+%%}}}
+
+%%{{{ x: erroneous_definition_of_pre 
+\exercise.
+\label{erroneous_definition_of_pre}%
+Podemos definir a preimagem de $Y$ através de $f$ assim?:
+$$
+\pre f Y \defeq \setst {\finv f (y)} {y \in Y}
+$$
+
+\solution
+Não!
+O símbolo $\finv f (y)$ nem é definido no caso geral:
+o definimos \emph{apenas para funcções bijetoras}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: when_erroneous_definition_of_pre_is_valid 
+\exercise.
+\label{when_erroneous_definition_of_pre_is_valid}%
+Sejam $f: A \bijto B$, e $Y \subset B$.
+Mostre que
+$$
+\pre f Y = \setst {\finv f (y)} {y \in Y}.
+$$
+
+\hint
+É um igualdade de conjuntos, então mostre cada uma das~{\lrdirset}
+e~{\rldirset} separadamente.
+
+\solution
+Caso $\pre f Y = \emptyset$, necessariamente $Y=\emptyset$ também
+(pois $f$ é sobrejetora) e logo
+$$
+\setst {\finv f (y)} {y \in Y}=\emptyset
+$$
+também.
+Caso contrário, mostramos as duas direções separadamente:
+\crtabproofpart{\lrdirset:}
+Seja $x\in \pre f Y$ e logo
+seja $y_x\in Y$ tal que $f(x) = y_x$ (pela def.~$\pre f Y$).
+Logo $x = \finv f (y_x)$ pela definição da funcção inversa (\refn{finverse}),
+ou seja $x \in \setst {\finv f (y)} {y \in Y}$.
+\crtabproofpart{\rldirset:}
+É só seguir os passos da {\lrdirset} em reverso.
+
+\endexercise
+%%}}}
+
+%%{{{ x: pre_notation_problem 
+\exercise.
+\label{pre_notation_problem}%
+Qual o problema com a~\ref{img_and_pre}?
+
+\hint
+Quando $f$ \emph{não} é bijetora, nenhum.
+
+\hint
+Se $f$ é bijetora, o símbolo $\pre f Y$ pode ter duas interpretações diferentes.
+
+\solution
+Se $f$ é bijetora, o símbolo $\pre f Y$ pode ter duas interpretações diferentes:
+$$
+\pre f Y \askeq
+\paths{
+\pre {\alert{(f)}} {\alertb Y}
+& a preimagem de $\alertb Y$ através da funcção $\alert f$ \cr
+\pathween {\dots\orword\dots}
+\img {\alert{(\finv f)}} {\alertb Y}
+& a imagem de $\alertb Y$ através da funcção $\alert{\finv f}$
+}
+$$
+onde usamos cores e parenteses para enfatizar o ``parsing'' diferente
+de cada interpretação.
+Observe que a segunda alternativa não é possível quando $f$ não é bijetora,
+pois a funcção $\finv f$ nem é definida nesse caso!
+
+\endexercise
+%%}}}
+
+%%{{{ x: correctness_of_pre_notation 
+\exercise.
+\label{correctness_of_pre_notation}%
+Depois de resolver o~\ref{pre_notation_problem}, justifique a corretude
+da~\ref{img_and_pre}:
+explique o que precisas provar, e prove!
+
+\hint
+Precisamos provar que no caso que $f:A\bijto B$ as duas
+interpretações do símbolo $\pre f Y$ \emph{denotam o mesmo objeto}.
+
+\hint
+Temporariamente mude tua notação para ajudar teus olhos distinguir
+entre as duas interpretações melhor.
+Use, por exemplo, $f_{-1}\bracket{\dhole}$ para denotar
+a preimagem através da $f$.
+Assim teu alvo fica enxergável:
+$$
+\lforall {Y \subset B} {\img {\finv f} Y = f_{-1}\bracket Y}.
+$$
+
+\solution
+Seja $f : A \bijto B$.
+Introduzimos temporariamente a notação
+$$
+f_{-1}\bracket Y \defeq \text{a $f$-preimagem de $Y$}.
+$$
+Com essa notação precisamos demonstrar que
+$$
+\text{para todo $Y\subset B$,}\quad
+\img {\finv f} Y = f_{-1}\bracket Y
+$$
+Seja $Y \subset B$.
+\crtabproofpart{\lrdirset}.
+Seja $x \in \img {\finv f} Y$\fact1.
+Para mostrar que $x \in f_{-1}\bracket Y$ basta verificar que $f(x) \in Y$\fact1.
+Seja $y_x \in Y$ tal que $\finv f y_x = x$ (pela~\byfact1).
+Logo $y_x = f(x)$ pela definição de $\finv f$ e logo pertence ao $Y$
+pela~\byfact2.
+\crtabproofpart{\rldirset}.
+Seja $x \in f_{-1}\bracket Y$\fact1.
+Como $f x \in Y$ (pelo~\byfact1) e $f x \mapstoby {\finv f} x$
+(pela definição da $\finv f$), logo $x \in \img {\finv f} Y$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: img_f_singleton_x_eq_singleton_f_x 
+\exercise.
+\label{img_f_singleton_x_eq_singleton_f_x}%
+Verdade ou fálso?:
+para toda funcção $f$ e todo $x$ no seu domínio temos
+$$
+\img f {\set{x}} = \set{f(x)}.
+$$
+
+\solution
+Verdade:
+$$
+\img f {\set{x}}
+= \setst {f(z)} {z \in \set{x}}
+= \set{f(x)}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: is any of img f, pre f, guaranteed to be inj or surj? 
+\exercise.
+É alguma das $\img f {\dhole}$, $\pre f {\dhole}$ garantidamente
+injetora ou sobrejetora?
+
+\endexercise
+%%}}}
+
+%%{{{ x: bij_iff_all_pre_are_singletons 
+\exercise.
+\label{bij_iff_all_pre_are_singletons}%
+Seja $f : A \to B$.
+Prove que
+$$
+\text{$f$ bijetora} \iff \text{para todo $b \in B$, $\pre f {\set b}$ é um conjunto unitário}.
+$$
+
+\hint
+Pense\dots
+Como podes matar um alvo que um conjunto $S$ é unitário?
+Como podes usar um fato que um conjunto $S$ é unitário?
+
+\hint
+Como matar o alvo que um conjunto $S$ é unitário?
+Basta mostrar duas coisas:
+(1) $S$ tem pelo menos um membro (ou seja: $S\neq\emptyset$);
+(2) $S$ tem no máximo um membro (ou seja: para todo $s,s' \in S$,
+temos $s=s'$).
+E como usar o fato que um conjunto $S$ é unitário?
+Para todos os $s, s' \in S$, ganhamos que $s=s'$.
+
+\solution
+\proofpart{\lrdir}.
+Suponha que $f$ bijetora, e seja $b\in B$.
+Vou demonstrar que $\pre f {\set b}$ é unitário.
+Vamos chamá-lo de $A_b$.
+Como $f$ é sobrejetora, logo seja $a_b \in A$ tal que $f(a_b) = b$.
+Logo $a_b \in A_b$ pela definição da preimagem,
+e logo $A_b \neq\emptyset$ (pois tem pelo menos um membro).
+Basta mostrar que tem no máximo um membro.
+Sejam $a, a' \in A_b$ então e vamos mostrar que $a=a'$.
+Pela escolha dos $a,a'$, temos $f(a) = f(a') = b$;
+e agora pela injectividade da $f$ temos o desejado $a=a'$.
+\crtabproofpart{\rldir}.
+Suponha que para todo $b \in B$, o $\pre f {\set b}$ é unitário.
+Preciso mostrar que $f$ é injetora e sobrejetora.
+\crproofpart{$f$ injetora:}
+Suponha que temos $x,y\in A$ tais que $f(x) = f(y)$ e chame esse valor comum de $b$.
+Basta provar que $x=y$.
+Pela hipótese, o $\pre f {\set b}$ é unitário,
+e pela escolha dos $x,y$ sabemos que $x,y$ pertencem a ele.
+Logo $x=y$.
+\crproofpart{$f$ sobrejetora:}
+Seja $b\in B$.
+Procuramos $a\in A$ tal que $f(a) = b$.
+Pela hipótese, o conjunto $\pre f {\set b}$ é unitário (e logo não vazio).
+Tome $a$ o (único) membro desse conjunto e observe que pela definição
+de preimagem temos que $f(a) = b$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: composition_with_inverse_subsets 
+\exercise.
+\label{composition_with_inverse_subsets}%
+Sejam conjuntos $X$ e $Y$, $f : X\to Y$, e $A\subset X$ e $B\subset Y$.
+Prove as afirmações:
+$$
+\align
+A &\subset \pre f {\img f A}\\
+B &\supset \img f {\pre f B}.
+\endalign
+$$
+
+\solution
+Vamos provar as duas afirmações.
+\endgraf\indent
+\proofpart{{\proofname} de $A \subset \pre f {\img f A}$.}
+Suponha $a\in A$.
+Logo $f(a) \in \img f A$ pela definição da funcção-imagem,
+e logo $a \in \pre f {\img f A}$ pela definição da funcção-preimagem.
+\endgraf\indent
+\proofpart{{\proofname} de $B \supset \img f {\pre f B}$.}
+Suponha $y_0 \in \img f {\pre f B}$.
+Logo tome $x_0 \in \pre f B$ tal que $y_0 = f(x_0)$\fact1.
+Pela definição da funcção-preimagem $f(x_0) \in B$,
+e agora pela~\byfact1~temos $y_0 \in B$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: composition_with_inverse 
+\exercise.
+\label{composition_with_inverse}%
+Sejam conjuntos $X$ e $Y$, $f : X\to Y$, e $A\subset X$ e $B\subset Y$.
+Considere as afirmações:
+$$
+\align
+A &\askeq \pre f {\img f A}\\
+B &\askeq \img f {\pre f B}.
+\endalign
+$$
+Para cada uma delas: se podemos concluí-la, prove;
+e caso contrário, mostre um contraexemplo.
+
+\hint
+Nenhuma é válida em geral.
+Procure contraexemplos.
+
+\hint
+O enunciado do~\ref{jection_iff_composition_with_inverse}
+pode te ajudar pensar em contraexemplos.
+
+\solution
+Mostramos dois contraexemplos, um para cada afirmação.
+$$
+\tikzpicture
+\draw (0,0) ellipse (1cm and 15mm);
+\draw (3,0) ellipse (1cm and 12mm);
+\draw (0,0.666) ellipse (5mm and 5mm);
+\draw (-0.6,0.1) node {$A$};
+\draw (0,0.666)  node {$1\,\bullet$};
+\draw (0,-0.666) node {$2\,\bullet$};
+\draw (3,0)  node {$\bullet\,3$};
+\draw[|->] (0.3,0.6) -- (2.7,0.1);
+\draw[|->] (0.3,-0.6) -- (2.7,-0.1);
+\draw (0,2.0) node {$X$};
+\draw (3,2.0) node {$Y$};
+\draw (1.5,1.70) node {$f$};
+\draw[->]  (0.5,2.0) -- (2.5,2.0);
+\endtikzpicture
+\qqqquad
+\tikzpicture
+\draw (0,0) ellipse (1cm and 12mm);
+\draw (3,0) ellipse (1cm and 15mm);
+\draw (3,0) ellipse (8mm and 10mm);
+\draw (2.4,0.1) node {$B$};
+\draw (3,0.666)  node {$\bullet\,2$};
+\draw (3,-0.666) node {$\bullet\,3$};
+\draw (0,0)  node {$1\,\bullet$};
+\draw[|->] (0.35,0.05) -- (2.7,0.6);
+\draw (0,2.0) node {$X$};
+\draw (3,2.0) node {$Y$};
+\draw (1.5,1.70) node {$f$};
+\draw[->]  (0.5,2.0) -- (2.5,2.0);
+\endtikzpicture
+$$
+No primeiro contraexemplo temos:
+$A=\set{1}$;
+$\img f A = \set {3}$; e
+$\pre f {\set 3} = \set {1,2}$.
+Logo
+$$
+A = \set{ 1 } \neq \set {1, 2} = \pre f {\img f A}.
+$$
+No segundo contraexemplo temos:
+$B = \set{2,3}$;
+$\pre f B = \set {1}$; e
+$\img f {\set 1} = \set {2}$.
+Logo
+$$
+B = \set{ 2,3 } \neq \set {2} = \img f {\pre f B}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ Q: what changes if f is inj or surj? 
+\question.
+O que muda no~\ref{composition_with_inverse} se $f$ é injetora?  Se é sobrejetora?
 %%}}}
 \spoiler.
 
-%%{{{ A 
-\blah Resposta.
-Agora que temos funcções, podemos apreciar
-que qualquer seqüência $\seqn a n$
-\emph{pode ser representada por uma funcção} com domínio $\nats$
-e codomínio o conjunto de todos os membros da $\seqn a n$.
-Similarmente, uma família $\famst {a_i} {i \in \cal I}$
-indexada por um conjunto $\cal I$ \emph{pode ser representada por uma funcção}
-com domínio $\cal I$ e codomínio o conjunto de todos os membros
-da $\family {a_i} i$.
+%%{{{ jection_iff_composition_with_inverse 
+\theorem.
+\label{jection_iff_composition_with_inverse}%
+Seja $f : X \to Y$.
+$$
+\align
+\text{$f$ injetora}    &\iff \text{para todo $A \subset X$, $A = \pre f {\img f A}$}  \tag{1}\\
+\text{$f$ sobrejetora} &\iff \text{para todo $B \subset Y$, $B = \img f {\pre f B}$}. \tag{2}
+\endalign
+$$
+\proof.
+As idas tu provarás (agora!)~no~\refn{jection_implies_composition_with_inverse};
+as voltas no~\ref{jection_iff_composition_with_inverse_proof} (pode ser depois).
+\qed
 %%}}}
 
-%%{{{ imp: sequences_as_functions 
-\implementation Seqüências como funcções.
-\label{sequences_as_functions}%
-Chamamos qualquer $a : \nats \to A$
-de \dterm{seqüência}.
-Introduzimos como açúcar sintáctico o
-$$
-a_n \sugeq a(n).
-$$
-Com essa definição, quando duas \emph{seqüências} são iguais?
-Elas precisam concordar em cada $n \in \dom a$;
-e essa implementação atende a especificação pois concorda com
-a definição de igualdade do tipo que estamos implementando
-(\ref{sequences_equality}).
-%%}}}
-
-%%{{{ imp: indexed_families_as_functions 
-\implementation Famílias indexadas como funcções.
-\label{indexed_families_as_functions}%
-Chamamos qualquer $a : \cal I \to A$.
-de \dterm{família indexada por $\cal I$}.
-Introduzimos como açúcar sintáctico o
-$$
-a_i \sugeq a(i).
-$$
-Com essa definição, quando duas \emph{famílias} indexadas são iguais?
-Os conjuntos de índices têm que ser iguais, e as famílias precisam
-concordar em cada índice.
-Essa implementação atende a especificação pois concorda com
-a definição de igualdade do tipo que estamos implementando
-(\ref{indexed_families_equality}).
-%%}}}
-
-%%{{{ x: implement_tuples 
+%%{{{ x: jection_implies_composition_with_inverse 
 \exercise.
-Implemente as tuplas;
-tome cuidado para deixar claro como usá-las;
-lembre-se o que elaboramos nas secções~\refn{Tuples},
-\refn{Type_implementation_triples}, e~\refn{More_tuples}.
+\label{jection_implies_composition_with_inverse}%
+Prove as idas do~\ref{jection_iff_composition_with_inverse}.
+
+\solution
+Temos duas implicações para provar.
+\crtabproofpart{Ida da (i).}
+Suponha que $f$ é injetora, e seja $A\subset X$.
+Já temos a
+$$
+A \subset \pre f {\img f A}
+$$
+pelo~\ref{composition_with_inverse_subsets}, então basta mostrar
+$$
+\pre f {\img f A} \subset A.
+$$
+Tome então $x_0 \in \pre f {\img f A}$.
+Logo $f(x_0) \in \img f A$.
+Logo $f(a) = f(x_0)$ para algum $a \in A$ (pela definição da funcção-imagem).
+Mas $f$ é injetora, então $a = x_0$ e logo $x_0\in A$.
+\crtabproofpart{Ida da (ii).}
+Suponha que $f$ é sobrejetora, e seja $Y\subset B$.
+Já temos a
+$$
+\img f {\pre f B} \subset B
+$$
+pelo~\ref{composition_with_inverse_subsets}, então basta mostrar
+$$
+B \subset \img f {\pre f B}
+$$
+Tome então $b \in B$.
+Agora seja $x_b \in X$ tal que $f(x_b) = b$ (pois $f$ é sobrejetora).
+Então $x_b \in \pre f B$.
+Logo $f(x_b) \in \img f {\pre f B}$.
+Logo $b \in \img f {\pre f B}$.
 
 \endexercise
 %%}}}
 
-%%{{{ x: implement_multisets 
+\blah.
+Vamos ver agora como essas operações comportam
+em combinação com as operações de conjuntos.
+
+%%{{{ x: operations_respected_by_img 
 \exercise.
-\label{implement_multisets}%
-Implemente os multiset (\refn{Multisets});
-tome cuidado para deixar claro como usá-las;
-lembre-se o~\refn{multiset_equality}.
+\label{operations_respected_by_img}%
+Sejam $f : X \to Y$, $A,B\subset X$.
+Mostre que:
+$$
+\align
+\img f {A\union B} &=       \img f A \union \img f B\\
+\img f {A\inter B} &\askeq  \img f A \inter \img f B\\
+\img f {A\minus B} &\askeq  \img f A \minus \img f B
+\endalign
+$$
+onde nas $\askeq$ prove que a igualdade em geral não é válida,
+mas uma das~\lrdirset~e~\rldirset, é.
+
+\hint
+Ataque cada direção ({\lrdirset} e {\rldirset}) da primeira separadamente.
+Das duas $\askeq$, são válidas as inclusões:
+$$
+\align
+\img f {A\inter B} &\subset \img f A \inter \img f B\\
+\img f {A\minus B} &\supset \img f A \minus \img f B
+\endalign
+$$
+Prove; e mostre contraexemplos que demonstram que as reversas
+inclusões não são válidas em geral.
+
+\solution
+Vamos primeiramente provar a
+$\img f {A\union B} = \img f A \union \img f B$.
+\proofpart{\lrdirset}:
+Tome $y \in \img f {A\union B}$.
+Logo seja $x \in A\union B$ tal que $f(x) = y$.
+\case{Caso $x \in A$,} temos $f(x)\in \img f A$
+e logo $f(x)$ pertence na união $\img f A \union \img f B$.
+\case{Caso $x \in B$,} concluímos similarmente
+que $f(x) \in \img f B \subset \img f A \union \img f B$.
+\endgraf
+\proofpart{\rldirset}:
+Tome $y \in \img f A \union \img f B$.
+\case{Caso $y \in \img f A$,} seja $a\in A$ tal que $f(a)=y$.
+Mas $a \in A\union B$, logo $y\in \img f {A\union B}$.
+\case{O caso $y \in \img f B$} é similar.
+\endgraf
+Vamos provar a
+$\img f {A\inter B} \subset \img f A \inter \img f B$ agora.
+Tome $y \in \img f {A\inter B}$ e
+seja $d \in A\inter B$ tal que $f(d) = y$.
+Mas $d \in A$ e $d \in B$, ou seja $y \in \img f A$ e $y \in \img f B$,
+e logo $y \in \img f A \inter \img f B$.
+\endgraf
+Vamos provar a
+$\img f {A\minus B} \supset \img f A \minus \img f B$ agora.
+Tome $y \in \img f A \minus \img f B$ então, ou seja
+$y \in \img f A$ e $y \notin \img f B$.
+Traduzindo:
+$$
+\lexists {a\in A} {f(a) = y}
+\qquad\mland\qquad
+\lforall {b\in B} {f(b) \neq y}.
+$$
+Usando a primeira afirmação abaixo tome $a\in A$ tal que $f(a) = y$,
+e observe que graças à segunda, $a \notin B$.
+Logo $a \in A\minus B$, e chegamos no desejado
+$y \in \img f {A\minus B}$.
+\endgraf
+Finalmente, usamos apenas um contraexemplo para refutar simultaneamente
+as duas inclusões que são inválidas no caso geral:
+$$
+\tikzpicture
+\draw (0,0) ellipse (1cm and 15mm);
+\draw (3,0) ellipse (1cm and 12mm);
+\draw (0,.666) ellipse (5mm and 5mm);
+\draw (0,-.666) ellipse (5mm and 5mm);
+\draw (-0.6,0.25)  node {$A$};
+\draw (-0.6,-0.25) node {$B$};
+\draw (0,0.666)  node {$1\,\bullet$};
+\draw (0,-0.666) node {$2\,\bullet$};
+\draw (3,0)  node {$\bullet\,3$};
+\draw[|->] (0.3,0.6) -- (2.7,0.1);
+\draw[|->] (0.3,-0.6) -- (2.7,-0.1);
+\node (X) at (0,2.0) {$X$};
+\node (Y) at (3,2.0) {$Y$};
+\draw[->]  (0.5,2.0) -- (2.5,2.0) node[midway, below] {$f$};
+\endtikzpicture
+$$
+Calculamos para verificar:
+$$
+\aligned
+\img f {A \inter B}
+&= \img f \emptyset
+= \emptyset \\
+\img f A \inter \img f B
+&= \set{3} \inter \set{3}
+= \set{3}
+\endaligned
+\qquad
+\aligned
+\img f {A \minus B}
+&= \img f A
+= \set {3}\\
+\img f A \minus \img f B
+&= \set {3} \minus \set {3}
+= \emptyset.
+\endaligned
+$$
+Um contraexemplo mais pictorial seria considerar uma funcção $f$
+que mapeia pontos do plano $\reals^2$
+para pontos da reta $\reals$, mandando cada
+entrada $\tup{x,y}$ para sua ``sombra'' $x$.
+Já conhecemos essa funcção: é a primeira projecção: $f = \pi_0$.
+Observe que a $\img {\pi_0} {\dhole}$ manda cada subconjunto de $\reals^2$
+para sua ``sombra'':
+$$
+\tikzpicture
+\draw [rounded corners=8mm, fill=gray!10] (1,3)--(1,5)--(4,5)--(4,3)--cycle;
+\node at (2.5,4) {$A$};
+\draw [rounded corners=0mm, fill=black]   (1,-0.1)--(1,0.1)--(4,0.1)--(4,-0.1)--cycle;
+\node at (2.5,-0.4) {$\img {\pi_0} A$};
+\draw[-]  (-1,0) -- (6,0);
+\draw[|->] (2,2.6) -- (2,0.5);
+\endtikzpicture
+$$
+Para achar o contraexemplo agora, basta só escolher dois subconjuntos de
+$\reals^2$ como esses:
+$$
+\tikzpicture
+\draw [rounded corners=8mm, fill=gray!10] (1,3)--(1,5)--(4,5)--(4,3)--cycle;
+\node at (2.5,4) {$A$};
+\draw [rounded corners=3mm, fill=gray!10] (1,1)--(1,2)--(4,2)--(4,1)--cycle;
+\node at (2.5,1.5) {$B$};
+\draw [rounded corners=0mm, fill=black]   (1,-0.1)--(1,0.1)--(4,0.1)--(4,-0.1)--cycle;
+\node at (2.5,-0.4) {$\img {\pi_0} A = \img {\pi_0} B$};
+\draw[-]  (-1,0) -- (6,0);
+\endtikzpicture
+$$
+Verifique que isso é um contraexemplo que refuta as duas igualdades
+que queremos refutar.
 
 \endexercise
 %%}}}
 
-%%{{{ df: indexed_sets_adult_version 
-\definition Conjuntos indexados: versão adulta.
-\label{indexed_sets_adult_version}%
-\tdefined{conjunto}[indexado por conjunto]%
-Já conhecemos o quesignifica que um conjunto $A$ é indexado
-por um conjunto $B$~(\ref{indexed_set}).
-Isso praticamente quis dizer que o $A$ pode ser escrito na forma
+%%{{{ x: operations_respected_by_img_of_inj 
+\exercise.
+\label{operations_respected_by_img_of_inj}%
+Sejam $f : X \injto Y$ injetora, e $A,B\subset X$.
+Mostre que:
 $$
-A = \setst {\dots b \dots} {b \in B},
+\align
+\img f {A\inter B} &= \img f A \inter \img f B\\
+\img f {A\minus B} &= \img f A \minus \img f B.
+\endalign
 $$
-ou, mais ``adultamente'' e plenamente:
+
+\hint
+Já provou metade de cada igualdade no~\ref{operations_respected_by_img}
+até sem a hipótese que $f$ é injetora.
+Basta então provar as duas inclusões:
 $$
-\text{$A$ é indexado por $B$}
-\defiff
-\text{existe funcção sobrejetora $f : B \surto A$}.
+\align
+\img f {A\inter B} &\supset \img f A \inter \img f B\\
+\img f {A\minus B} &\subset \img f A \minus \img f B.
+\endalign
 $$
+
+\solution
+Já provamos metade de cada igualdade no~\ref{operations_respected_by_img}
+para qualquer funcção, então para nossa injetora $f$ também.
+Basta então provar as duas inclusões:
+$$
+\align
+\img f {A\inter B} &\supset \img f A \inter \img f B\\
+\img f {A\minus B} &\subset \img f A \minus \img f B.
+\endalign
+$$
+\proofpart{{\proofname} de $\img f {A\inter B} \supset \img f A \inter \img f B$}:
+Suponha $y \in \img f A \inter \img f B$.
+Logo $y \in \img f A$ e $y \in \img f B$.
+Tome então $a\in A$ tal que $f(a) = y$ e $b \in B$ tal que $f(b) = y$.
+Juntando as duas igualdades temos $f(a) = f(b)$.
+Mas $f$ é injetora, e logo $a = b$.
+Ou seja, $a \in A\inter B$, e chegamos no desejado
+$y \in \img f {A \inter B}$.
+\endgraf\noindent
+\proofpart{{\proofname} de $\img f {A\minus B} \subset \img f A \minus \img f B$}:
+Suponha $y \in \img f {A\minus B}$.
+Tome então $a_0 \in A\minus B$ tal que $f(a_0) = y$.
+Logo $a_0 \in A$ e $a_0 \notin B$.
+Já sabemos então que $y \in \img f A$.
+Agora usamos a injectividade da $f$ para provar que $y \notin \img f B$.
+Se $y$ fosse um membro de $\img f B$, existiria $b\in B$ com $f(b) = y$.
+Mas já temos o único ($f$ injetora) membro do domínio $X$ que $f$ mapeia no $y$,
+o $a_0$, e sabemos que $a_0 \notin B$!
+Logo $y \notin \img f B$ e chegamos no $y\in \img f A \minus \img f B$.
+
+\endexercise
 %%}}}
+
+\blah.
+A preimagem comporta bem melhor que a imagem: ela respeita
+todas essas operações mesmo quando $f$ não é injetora,
+algo que tu provarás agora.
+
+%%{{{ x: operations_respected_by_pre 
+\exercise.
+\label{operations_respected_by_pre}%
+Sejam $f : X \to Y$, $A,B\subset Y$.
+Mostre que:
+$$
+\align
+\pre f {A\union B} &= \pre f A \union \pre f B\\
+\pre f {A\inter B} &= \pre f A \inter \pre f B\\
+\pre f {A\minus B} &= \pre f A \minus \pre f B
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+\blah.
+Essas propriedades generalizam naturalmente para uniões e intersecções
+de seqüências e famílias de conjuntos;
+veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
 
 \endsection
 %%}}}
 
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
-
-%%{{{ prob: succiter_for_dummies 
-\problem.
-\label{succiter_for_dummies}%
-Supondo que teu leitor não sabe o que são as iterações duma funcção
-(\ref{function_iterations}) e que \emph{sequer quer saber},
-defina a funcção $\succ^n$ numa maneira simples.
-Demonstre tua afirmação, que a $\succ^n$ (oficial) realmente é igual
-à funcção que tu escreveste para teu leitor.
-
-\hint
-Fez o~\ref{succ3_is_plus_3} né?
-
-\hint
-Basta provar que para todo $n\in\nats$
-$$
-\lforall {x\in\nats} {\succ^n(x) = x + n}
-$$
-e como $\succ^n$ (oficial) foi definida recursivamente,
-como tu vai provar isso?
-
-\hint
-Indução!
-
-\solution
-Seja $n\in\nats$.
-A $\succ^n : \nats\to\nats$ é a funcção definida pela
-$$
-\succ^n(x) = x + n.
-$$
-Basta demonstrar que para todo $n\in\nats$
-$$
-\lforall {x\in\nats} {\succ^n(x) = x + n}
-$$
-algo que vou provar por indução no $n$.
-\crproofpart{Base.}
-Seja $x\in\nats$.
-Calculamos:
-\compute
-\succ^0 (x)
-&= \idof\nats (x)   \by {pela def.~da $\succ^0$}
-&= x                \by {pela def.~da $1_A$}
-&= x + 0.           \by {pelo ensino fundamental}
-\endcompute
-\crproofpart{Passo indutivo.}
-Suponha $k\in\nats$ tal que
-$$
-\lforall {x\in\nats} {\succ^k(x) = x + k}. \tag{H.I.}
-$$
-Basta provar que
-$$
-\lforall {y\in\nats} {\succ^{k+1}(y) = y + (k+1)}.
-$$
-Seja $y\in\nats$ então.
-Calculamos:
-\compute
-\succ^{k+1}(y)
-&= \paren{\succ\of\succ^{k}}(y) \by {pela def.~de $\succ^{k+1}$}
-&= \succ\big( \succ^k(y) \big)  \by {pela def.~de $\succ\of \succ^k$}
-&= \succ(y + k)                 \by {pela HI com $x := y$}
-&= (y + k) + 1                  \by {pela def.~de $\succ$}
-&= y + (k + 1).                 \by {pelo ensino fundamental}
-\endcompute
-
-\endproblem
-%%}}}
 
 %%{{{ touch_of_godel_encoding_strings 
 \problem.
@@ -27959,7 +28321,7 @@ $$
 \cdopt{sep=1.666cm}
 \nats
 \ar[r, "\dsize\diag"]   \| \nats\cross\nats
-\ar[r, "\dsize\ntimes"] \| \nats
+\ar[r, "\dsize\nplus"]  \| \nats
 \ar[r, "\dsize\succ"]   \| \nats.
 \endcd
 $$
@@ -28042,7 +28404,7 @@ e no segundo caso $f$ é uma retracção da $s$.
 
 \blah.
 Ganhamos imediatamente dois corolários fáceis dos teoremas
-\refn{injection_iff_mono}--\refn{surjection_iff_epic}.
+\refn{injection_iff_mono}--\refn{surjection_iff_epic}:
 
 %%{{{ cor: retraction_implies_injection 
 \corollary.
@@ -28191,896 +28553,477 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Images, preimages 
-\section Imagens, preimagens.
-\label{Images_preimages}%
+%%{{{ Higher_order_functions 
+\section Funcções de ordem superior.
+\label{Higher_order_functions}%
 
-%%{{{ Two important subsets 
-\note Dois subconjuntos importantes.
-Sejam $A,B$ conjuntos e $f:A \to B$.
+%%{{{ Holes again 
+\note Buracos de novo.
+Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
+botando \emph{buracos}, criando assim funcções de várias aridades.
+Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
+permitiu dar nomes para esses buracos, ligar (identificar) certos buracos, etc.
+Considere novamente uma expressão como a
 $$
-\tikzpicture[scale=0.75,node distance=0mm]
-\tikzi imgpreimgbase;
-\endtikzpicture
+\cos(1 + 5\cbrt2)^{2a} + \sin(5)
 $$
-Vamos associar, com qualquer subconjunto $X$ de $A$, um certo subconjunto de $B$, que vamos chamá-lo a \emph{imagem} de $X$ através da $f$.
-Similarmente, com qualquer subconjunto $Y$ de $B$, vamos associar um certo subconjunto de $A$, que vamos chamá-lo a \emph{preimagem} de $Y$ através da $f$.
-Bem informalmente, parece que estamos ``elevando'' a funcção $f$ do nível ``membros'' para para o nível ``subconjuntos''.
-Vamos ver como.
+onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
+Botando uns buracos ou abstraindo com lambdas, criamos, por exemplo, as funcções:
+$$
+\alignat2
+f_1 &= \cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
+f_2 &= \cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
+f_3 &= \cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
+f_4 &= \cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
+f_5 &= \bhole + \sin(\bhole)                             &&\eqtype \reals^2 \to \reals\\
+f_6 &= \lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
+f_7 &= \lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
+\endalignat
+$$
 %%}}}
 
-%%{{{ eg: sketches of image and preimage 
-\example.
-Nas figuras seguintes mostramos com azul o subconjunto com que começamos,
-e com vermelho o subconjunto que associamos com ele.
-Considere o $X\subset A$ como aparece no desenho abaixo,
-e veja qual é o subconjunto $\img f X$ de $B$ que vamos associar com o $X$:
+%%{{{ x: verify_abstractions_of_expression 
+\exercise.
+\label{verify_abstractions_of_expression}%
+Para quais entradas cada uma dessas funcções retorna o valor da expressão inicial?
+
+\hint
+Respeite as aridades!
+
+\solution
+Temos
 $$
-\gathered
-\tikzpicture[scale=0.75,node distance=0mm]
-\draw [fill=blue!25] (0,-.5) ellipse (0.9cm and 1.6cm);
-\tikzi imgpreimgbase;
-\node [color=blue] (subset-X) at (-0.7,-2.1) {$X$};
-\endtikzpicture
-\endgathered
-\quad
-\leadsto
-\quad
-\gathered
-\tikzpicture[scale=0.75,node distance=0mm]
-\draw [fill=blue!25] (0,-.5) ellipse (0.9cm and 1.6cm);
-\draw [fill=red!25] (4.9,-0.45) ellipse (0.7cm and 2cm);
-\tikzi imgpreimgbase;
-\node [color=blue] (subset-X) at (-0.7,-2.1) {$X$};
-\node [color=red] (subset-fX) at (5.9,-2.05) {$\img f X$};
-\endtikzpicture
-\endgathered
+\align
+f_1&(2)\\
+f_2&(1,2,5)\\
+f_3&(1,5,a)\\
+f_4&(1,5,2a)\\
+f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
+f_6&(a)\\
+f_7&(2, 5).
+\endalign
 $$
-Na direção oposta, comece por exemplo com esse $Y\subset B$
-e observe qual é o subconjunto $\pre f Y$ de $A$ que queremos associar com o $Y$:
+
+\endexercise
+%%}}}
+
+%%{{{ Higher-order holes 
+\note Buracos de ordem superior.
+Em todos os exemplos acima, botamos os buracos para substituir
+apenas termos cujos valores seriam números (reais).
+Expressões tanto como as $2$, $1$, $5$, e $a$,
+quanto como as $5\cbrt2$, $2a$, e $\cos(1 + 5\cbrt2)^{2a}$,
+denotam, no final das contas, números reais.
+Que tal botar um buraco assim:
 $$
-\gathered
-\tikzpicture[scale=0.75,node distance=0mm]
-\draw [fill=blue!25] (4.9,1.45) ellipse (1.1cm and 1.2cm);
-\tikzi imgpreimgbase;
-\node [color=blue] (subset-Y) at (5.95,0.4) {$Y$};
-\endtikzpicture
-\endgathered
-\quad
-\leadsto
-\quad
-\gathered
-\tikzpicture[scale=0.75,node distance=0mm]
-\draw [fill=blue!25] (4.9,1.45) ellipse (1.1cm and 1.2cm);
-\draw [fill=red!25]  (0,1.0) ellipse (0.8cm and 2.0cm);
-\tikzi imgpreimgbase;
-\node [color=blue] (subset-Y)     at (5.95,0.4)  {$Y$};
-\node [color=red]  (subset-fpreY) at (-0.9,-1.1) {$\pre f Y$};
-\endtikzpicture
-\endgathered
+\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
 $$
+O que substituimos aqui?  O próprio $\sin$!  Por que não?
+E o que tipo de objetos podemos botar nesse buraco?
+Um real, não serve: a expressão
+$$
+\cos(1 + 5\cbrt2)^{2a} + 7(5)
+$$
+não faz sentido: ela é \dterm{mal-tipada}.
+O $7$ não pode receber um argumento como se fosse uma funcção, pois não é.
+Que tipo de coisa então caiba nesse buraco?
+Funcções!
+E não funcções quaisquer, mas precisam ter um tipo compatível,
+com a aridade certa, etc.
+Esses buracos são \emph{de ordem superior}.
+E com buracos de ordem superior, vêm funcções de ordem superior.
+%%}}}
+
+%%{{{ pseudodf: higher_order_function 
+\pseudodefinition.
+\label{higher_order_function}%
+\tdefined{funcção}[de ordem superior]%
+Dizemos que uma funcção $f : A \to B$ é de \dterm{ordem superior}
+se ela recebe ou retorna funcções.
+%%}}}
+
+%%{{{ x: type_higher_order_holed_expressions 
+\exercise.
+\label{type_higher_order_holed_expressions}%
+Escreva os tipos das funcções seguintes:
+$$
+\align
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
+\endalign
+$$
+
+\solution
+Temos
+\compute
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                     &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)             &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ Returning functions 
+\note Retornando funcções.
+Até agora encontramos exemplos onde funcções recebem como
+argumentos outras funcções, mas ainda não conhecemos alguma
+funcção que \emph{retorna funcção}.
+Ou será que conhecemos?
+Se tu resolveu o~\ref{calculate_lambda_expressions},
+tu já encontrou esse caso, na sua última expressão.
+Seguem uns exemplos de operadores de ordem superior que
+você talvez já encontrou e até usou na tua vida.
+%%}}}
+
+%%{{{ eg: Defining a higher-order functions 
+\example Definindo uma funcção de ordem superior.
+\ii{funcção!anônima}%
+Considere a funcção $F : \nats \to (\nats \to \nats)$ definda pela
+$$
+\align
+F(w) &= \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x$, retorna $w + x$}.
+\intertext{%
+Ou, equivalentemente:
+}
+F(w) &= \text{aquela funcção $g : \nats \to \nats$ definida pela $g(x) = w + x$}.
+\intertext{%
+Que tipo de objetos a funcção $F$ retorna?
+Funcções!  Nesse caso determinamos exatamente para qualquer entrada
+dela, qual seria a funcção que vai ser retornada.
+Observe que na definição de $F(w)$, apareceu a frase
+``aquela funcção $g$\dots''.
+Assim baptizamos temporariamente essa funcção com um nome (``$g$'') à toa:
+apenas para referir a ela e retorná-la.
+Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
+e (logo) mais legível:
+}
+F(w) &= \lam x {w + x} \eqtype \nats \to \nats.
+\endalign
+$$
+Observe que no lado direito aparece uma funcção anônima.
 \endexample
 %%}}}
 
-%%{{{ remark: just a function from A to B is enough 
-\remark.
-Observe que na discussão acima não supusemos \emph{nada mais} além da
-existência de uma funcção $f$ dum conjunto $A$ para um conjunto $B$.
+%%{{{ eg: in Python 
+\example em Python.
+\iipl Python
+Em Python podemos (ainda bem\dots)~por exemplo escrever:
+\sourcecode higher.py;
+que corresponde na primeira maneira de definir a $F$, criando e nomeando
+a funcção para ser retornada.
+Podemos com $\lambda$ também:
+\sourcecode higherlam.py;
+Não ficou melhor?
+\endexample
 %%}}}
 
+%%{{{ Q: what type of thing is F(25)? 
 \question.
-Como podemos definir formalmente os conjuntos indicados nos desenhos acima?
+Que tipo de coisa é o $F(25)$?
+%%}}}
 \spoiler.
 
-%%{{{ df: img_and_pre 
-\definition.
-\label{img_and_pre}%
-\tdefined{funcção!imagem}%
-\tdefined{funcção!preimagem}%
-\sdefined {\img {\sholed f} {\sholed X}} {a imagem de $X$ através da $f$}%
-\sdefined {\pre {\sholed f} {\sholed Y}} {a preimagem de $Y$ através da $f$}%
-Seja $f : A \to B$, e sejam subconjuntos $X\subset A$ e $Y\subset B$.
-Definimos:
+%%{{{ Answer 
+\note.
+Antes de responder nessa pergunta, vamos responder numa outra,
+ainda mais específica: quem \emph{é} o $F(25)$?
+Ou seja:
 $$
-\align
-\img f X &\defeq \setst {f(x)} {x \in X}\\
-\pre f Y &\defeq \setst {a \in A} {f(a) \in Y}.
-\endalign
+F(25) = \dots?\dots
 $$
-Lembrando a notação set-builder~(\ref{set_builder}), temos as definições:
+Não precisamos pensar nada profundo!
+Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
 $$
-\align
-y \in \img f X &\defiff \lexists{x\in X} {f(x) = y} \\
-x \in \pre f Y &\defiff f(x) \in Y.
-\endalign
+F(25) = \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x\in\nats$, retorna o número $25 + x$}.
 $$
-Chamamos o conjunto $\img f X$ \dterm{imagem} do $X$ através da $f$ ou,
-mais curtamente, a $f$-\dterm{imagem} do $X$.  O conjunto $\pre f Y$
-é a \dterm{preimagem} do $Y$ através da $f$; ou a $f$-\dterm{preimagem}
-do $Y$.
+Ou seja,
+$$
+F(25) : \nats\to\nats.
+$$
+Sendo funcção, podemos chamá-la com um argumento do certo tipo, por exemplo como o $3\in\nats$, e evaluá-la:
+$$
+\paren{F(25)}(3) = 28.
+$$
 %%}}}
 
-%%{{{ x: type_of_img_f_hole_and_pre_f_hole  
+%%{{{ x: where_did_28_come_from 
 \exercise.
-\label{type_of_img_f_hole_and_pre_f_hole}%
-Quais os tipos das $\img f {\dhole}$ e $\pre f {\dhole}$?
+\label{where_did_28_come_from}%
+De onde chegou esse $28$?
 
 \solution
+Seguindo a definição da $F(25)$ ela é a funcção que recebendo um valor
+(agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
+$25 + 3 = 28$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_expressions_with_given_types_higher_order 
+\exercise.
+\label{find_expressions_with_given_types_higher_order}%
+Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
+tipos seguintes:
 $$
 \align
-\img f {\dhole} &\eqtype \pset X \to \pset Y \\
-\pre f {\dhole} &\eqtype \pset Y \to \pset X
+F_1&\eqtype \reals \to \reals \\
+F_2&\eqtype \reals \to (\reals \to \reals) \\
+F_3&\eqtype (\reals \to \reals) \to \reals \\
+F_4&\eqtype (\reals \to \reals) \to (\reals \to \reals) \\
+F_5&\eqtype (\reals^2 \to \reals) \to \reals \\
+F_6&\eqtype (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
 \endalign
 $$
 
 \endexercise
 %%}}}
 
-%%{{{ x: img_and_pre_of_emptyset 
+%%{{{ x: find_expressions_with_given_types_higher_order_abstract 
 \exercise.
-\label{img_and_pre_of_emptyset}%
-Seja $f : X \to Y$.
-Verifique:
-$$
-\img f \emptyset = \emptyset
-\qqtext{e}
-\pre f \emptyset = \emptyset.
-$$
-
-\solution
-As duas afirmações seguem diretamente pelas definições:
+\label{find_expressions_with_given_types_higher_order_abstract}%
+Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
+tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não podes supor
+absolutamente nada mais!
+Para cada um dos tipos, tente escrever as mais $\lambda$-expressões realmente
+diferentes que tu consegues.
+Cuidado: para uns deles não é possível achar nenhuma!
 $$
 \align
-\img f \emptyset &= \setst {f(x)}   {x \in \emptyset}    = \emptyset \\
-\pre f \emptyset &= \setst {x\in X} {f(x) \in \emptyset} = \emptyset.
+&: A \to B \\
+&: A \to (B \to A) \\
+&: A \to (B \to B) \\
+&: (A \to A) \to A \\
+&: A \to (A \to A) \\
+&: A \to \bigparen{B \to \paren{(A\to B) \times (A\union C) \times \nats}} \\
+&: (A \to (B \to C) \to ((A\times B)\to C)) \\
+&: ((A\times B)\to C) \to (A \to (B \to C))
 \endalign
 $$
 
 \endexercise
 %%}}}
 
-%%{{{ remark: range and surjection with f[-] notation 
-\remark.
-Se $f : A \to B$ então, temos que:
-\beginol
-\li $\range f = \img f A$;
-\li $\img f A = B \iff \text{$f$ é sobrejetora}$.
-\endol
-As duas afirmações são conseqüências imediatas das definições envolvidas.
-%%}}}
-
-%%{{{ x: our_img_notation_is_better 
-\exercise.
-\label{our_img_notation_is_better}%
-Em matemática as vezes aparece a notação $f(X)$ para denotar a imagem do
-$X\subset \dom f$ através da funcção $f$.
-Aqui usamos a notação $\img f X$.
-\emph{Sem usar o conjunto vazio em lugar nenhum na tua resposta},
-dê um exemplo (completo) que mostre que a notação $f(X)$ pode ser problemática
-(e logo nossa notação $\img f X$ é melhor).
-Explique curtamente.
-
-\hint
-Pode acontecer que $X \in A$ e também $X \subset A$?
-
-\hint
-Vamos adoptar temporariamente a notação $f(X)$.
-Daí, te pergunto: se $f : \nats\to\nats$ é o sucessor,
-tem como calcular os seguinte?:
-$$
-f(5);\qquad
-f(8);\qquad
-f(\set{1,7});\qquad
-f(2\nats);
-$$
-onde $2\nats \subset \nats$ é o conjunto dos pares naturais.
-``Fácil'' tu pensou (certo?), e explicou:
+%%{{{ first_class_citizens 
+\note First-class citizens.
+\label{first_class_citizens}%
+{\ii{cidadão da primeira classe}}%
+{\iisee{first-class citizen}{cidadão}}%
+O slogan aqui é que funcções são \emph{first-class citizens}.
+Trabalhando no~\ref{calculate_lambda_expressions}, o último cálculo
+chega no valor seguinte:
 $$
 \align
-f(5) &\ \text{\dots é o valor da $f$ no $5$, definido pois $5\in\dom f$} \\
-\intertext{e similarmente sobre o $f(8)$, mas}
-f(\set{1,7}) &\ \text{\dots não pode ser o valor da $f$ no $\set{1,7}$, pois $\set{1,7}\notin\dom f$.}
+\plam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
+&\lstep \plam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
+&\lstep \plam x {(1 + 1) \ntimes x \ntimes 4)} \\
+&\isteq \plam x {8x}.
 \endalign
 $$
-Então $f(\set{1,7})$ só pode ser a $f$-imagem do $\set{1,7}$ que realmente é um subconjunto do $\dom f$;
-e similarmente sobre o $f(2\nats)$.
-E assim tu calculou as respostas:
+Como falei na resolução, se esse ``resultado'' (valor final)
+não parece satisfatório, é por causa de um preconceito teu que
+favorece os objetos de tipo ``número'' contra os objetos de tipo
+``funcção''.
+Os números têm o direito de ser valores finais; e as funcções
+também têm!  Esse ``preconceito'' é bastante alimentado por causa
+de varias linguagens de programação que realmente não tratam
+as funcções em termos iguais com os outros tipos.
+\iipl C
+\iipl C++
+\iipl Java
+Em C, C++, ou Java, por exemplo, não é possível passar como
+argumentos funcções, nem retorná-las; mas claramente números
+podem ser argumentos e também podem ser retornados como saída
+de funcções.
+\iipl Haskell
+\iipl PureScript
+\iipl Idris
+\iipl Agda
+\iipl Racket
+\iipl Clojure
+\iipl Scala
+\iipl Python
+No outro lado, linguagens como Haskell, PureScript, Idris,
+Agda, Racket, Clojure, Scala, Python, etc., adoptam o slogan
+\standout
+\emph{<<functions are first-class citizens>>}
+\endstandout
+ou seja, lá temos funcções de ordem superior---e logo, felicidade.
+%%}}}
+
+\blah.
+Funcções de ordem superior não é algo tão desconhecido como
+talvez parece.
+O leitor já está acostumado com os operadores nos exemplos seguintes:
+
+%%{{{ eg: higher_order_example_composition 
+\example Composição.
+\label{higher_order_example_composition}%
+Sejam conjuntos $A,B,C$.
+O operador da composição $\of$
+(cuja notação decoramos aqui para especificar
+o domínio e codomínio dele e dos seus argumentos)
+é o seguinte:
 $$
-\xalignat4
-f(5) &= 6; & f(8) &= 9; & f(\set{1,7}) &= \set{2,8}; & f(2\nats) &= \set{1,3,5,\dots}.
-\endxalignat
+\dhole\oflab ABC\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
 $$
-Beleza, mas acontece que o $\nats$ é um conjunto homogênico.
-Imagine que o domínio da $f$ tem todos os objetos seguintes como membros:
+Observe que ele é um operador de ordem superior, pois seus (dois) argumentos
+são funcões, e também pois sua saída também é uma funcção.
+\endexample
+%%}}}
+
+%%{{{ df: eval_operation 
+\definition eval.
+\label{eval_operation}%
+\tdefined{funcção}[aplicação]%
+\tdefined{funcção}[eval]%
+\sdefined {\evaldc {\sholed A} {\sholed B}} {a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$}%
+\sdefined {{\sholed f} \at {\sholed x}} {notação infixa para o $\eval (f,x)$}%
+Suponha $f : A \to B$ e seja $a \in A$.
+Quando escrevemos \symqq{$f\fa a$} (ou \symqq{$f(a)$}),
+estamos escrevendo a \dterm{aplicação} da $f$ no $a$.
+e o que estamos denotando é o \dterm{valor} da $f$ no $a$.
+O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
+pela juxtaposição da funcção e do seu argumento (já discutimos isso
+no~\ref{lazier_clearer_functional_notation}).
+Quando precisamos vê-lo mesmo, podemos usar a notação infixa
 $$
-1,\quad
-7,\quad
-\set{1,7}.
+f \at x \sugeq \eval (f, x).
 $$
-Agora, se eu perguntar qual é o $f(\set{1,7})$ tu tens um dilemma:
+Definimos agora uma funcção $\eval$ que faz exatamente isso:
+aplica seu primeiro argumento (uma funcção) no seu segundo
+(um ponto do domínio do primeiro argumento).
+Como fizemos na composição, decoramos essa operação
+para esclarecer os conjuntos envolvidos:
+dados conjuntos $A,B$ temos a
 $$
-f(\set{1,7}) \askeq
-\paths{
-\text{a $f$-imagem do $\set{1,7}$}   & (que realmente é um subconjunto do seu domínio) \cr
-\pathween {\dots\orword\dots}
-\text{o valor da $f$ no $\set{1,7}$} & (que realmente é um membro do seu domínio)?
+\evaldc A B : \bigparen{(A \to B) \times A} \to B
+$$
+definida pela
+$$
+\evaldc A B (f, a) = f(a).
+$$
+Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
+%%}}}
+
+%%{{{ eg: higher_order_example_apply 
+\example.
+Dados conjuntos $A,B$, a $\evaldc A B$ é claramente uma
+operação de ordem superior.
+\endexample
+%%}}}
+
+%%{{{ x: type_of_restriction_op_with_hole 
+\exercise.
+\label{type_of_restriction_op_with_hole}%
+Sejam $f : A\to B$ e $X\subset A$.
+Ache o tipo dos:
+$$
+\align
+f\resto \dhole  &\eqtype ?\\
+(\dhole\resto X)\resto(A \to B)
+                &\eqtype ?
+\endalign
+$$
+
+\solution
+Temos
+$$
+\align
+f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
+(\dhole\resto X)\resto (A \to B)
+                &\eqtype \paren{(A \to B) \to (X \to B)}
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ eg: higher_order_example_derivation 
+\example Derivação.
+\label{higher_order_example_derivation}%
+Considere o operador da derivação $D$
+Por exemplo, se $f(x) = x^3 + 5x$, temos
+$$
+\align
+D(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
+\intertext{%
+Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
 }
+D(f) &= \lam x {3x^2 + 5}
+\endalign
 $$
-
-\solution
-Sejam $A = \set{ 1, 7, \set{1,7} }$, e $X = \set{1,7}$.
-Observe que $X\in A$ e $X \subset A$.
-Seja $f : A \to \set{3}$ a funcção constante definida pela $f(x) = 3$.
-Assim a notação $f(X)$ fica ambígua: a $f$-imagem de $X\subset A$ é o $\set 3$,
-mas o valor da $f$ no $X$ é o $3$.
-E $3 \neq \set{3}$!
-
-\endexercise
+sim.
+Qual o tipo da $D$?
+Ela recebe e retorna funcções de reais para reais, mas não podemos
+tipá-la
+$$
+\align
+D(\dhole) &: (\reals\to\reals) \to (\reals\to\reals)
+\intertext{%
+pois estariamos perdendo a totalidade da $D$:
+existem funcções no $(\reals\to\reals)$ que não são deriváveis.
+Ainda mais, seria legal poder iterar o $D$ (\ref{function_iterations})
+indefinitamente; e logo tipamos
+}
+D(\dhole) &: C^\infty \to C^\infty
+\endalign
+$$
+onde $C^\infty$ é o conjunto de todas as funcções infinitamente
+deriváveis: são deriváveis, e suas derivadas também são, e suas
+derivadas também, etc.
+\endexample
 %%}}}
 
-%%{{{ x: erroneous_definition_of_pre 
-\exercise.
-\label{erroneous_definition_of_pre}%
-Podemos definir a preimagem de $Y$ através de $f$ assim?:
-$$
-\pre f Y \defeq \setst {\finv f (y)} {y \in Y}
-$$
-
-\solution
-Não!
-O símbolo $\finv f (y)$ nem é definido no caso geral:
-o definimos \emph{apenas para funcções bijetoras}.
-
-\endexercise
+%%{{{ teaser: partial_functions_teaser 
+\teaser funcções parciais.
+Mas talvez queremos mesmo considerar a $D$ como uma operação
+que opera no espaço de funcções $(\reals\to\reals)$
+\emph{sacrificando} a totalidade.
+Chegamos assim no conceito de \emph{funcção parcial}, que
+voltamos a investigar na~\ref{Partial_functions}.
 %%}}}
 
-%%{{{ x: when_erroneous_definition_of_pre_is_valid 
-\exercise.
-\label{when_erroneous_definition_of_pre_is_valid}%
-Sejam $f: A \bijto B$, e $Y \subset B$.
-Mostre que
+%%{{{ eg: higher_order_example_integration 
+\example Integração.
+\label{higher_order_example_integration}%
+De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
+Sejam $a,b\in\reals$ com $a<b$ e seja
 $$
-\pre f Y = \setst {\finv f (y)} {y \in Y}.
+R[a,b] \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
 $$
-
-\hint
-É um igualdade de conjuntos, então mostre cada uma das~{\lrdirset}
-e~{\rldirset} separadamente.
-
-\solution
-Caso $\pre f Y = \emptyset$, necessariamente $Y=\emptyset$ também
-(pois $f$ é sobrejetora) e logo
+Observe que $R[a,b]$ é um conjunto de funcções.
+Definimos o operador
 $$
-\setst {\finv f (y)} {y \in Y}=\emptyset
+\lam f {\lam x {\int_a^{x} f}} : R[a,b] \to ([a,b] \to \reals)
 $$
+cujo argumento é uma funcção---e ainda mais,
+sua saída também é uma funcção---e logo ele é um operador de ordem superior
 também.
-Caso contrário, mostramos as duas direções separadamente:
-\crtabproofpart{\lrdirset:}
-Seja $x\in \pre f Y$ e logo
-seja $y_x\in Y$ tal que $f(x) = y_x$ (pela def.~$\pre f Y$).
-Logo $x = \finv f (y_x)$ pela definição da funcção inversa (\refn{finverse}),
-ou seja $x \in \setst {\finv f (y)} {y \in Y}$.
-\crtabproofpart{\rldirset:}
-É só seguir os passos da {\lrdirset} em reverso.
-
-\endexercise
-%%}}}
-
-%%{{{ x: pre_notation_problem 
-\exercise.
-\label{pre_notation_problem}%
-Qual o problema com a~\ref{img_and_pre}?
-
-\hint
-Quando $f$ \emph{não} é bijetora, nenhum.
-
-\hint
-Se $f$ é bijetora, o símbolo $\pre f Y$ pode ter duas interpretações diferentes.
-
-\solution
-Se $f$ é bijetora, o símbolo $\pre f Y$ pode ter duas interpretações diferentes:
+Para a integração indefinita, seja
 $$
-\pre f Y \askeq
-\paths{
-\pre {\alert{(f)}} {\alertb Y}
-& a preimagem de $\alertb Y$ através da funcção $\alert f$ \cr
-\pathween {\dots\orword\dots}
-\img {\alert{(\finv f)}} {\alertb Y}
-& a imagem de $\alertb Y$ através da funcção $\alert{\finv f}$
-}
+R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
 $$
-onde usamos cores e parenteses para enfatizar o ``parsing'' diferente
-de cada interpretação.
-Observe que a segunda alternativa não é possível quando $f$ não é bijetora,
-pois a funcção $\finv f$ nem é definida nesse caso!
-
-\endexercise
-%%}}}
-
-%%{{{ x: correctness_of_pre_notation 
-\exercise.
-\label{correctness_of_pre_notation}%
-Depois de resolver o~\ref{pre_notation_problem}, justifique a corretude
-da~\ref{img_and_pre}:
-explique o que precisas provar, e prove!
-
-\hint
-Precisamos provar que no caso que $f:A\bijto B$ as duas
-interpretações do símbolo $\pre f Y$ \emph{denotam o mesmo objeto}.
-
-\hint
-Temporariamente mude tua notação para ajudar teus olhos distinguir
-entre as duas interpretações melhor.
-Use, por exemplo, $f_{-1}\bracket{\dhole}$ para denotar
-a preimagem através da $f$.
-Assim teu alvo fica enxergável:
+e defina um operador
 $$
-\lforall {Y \subset B} {\img {\finv f} Y = f_{-1}\bracket Y}.
+\int\dhole : R \to \pset{(\reals\to\reals)}
 $$
-
-\solution
-Seja $f : A \bijto B$.
-Introduzimos temporariamente a notação
+tal que
 $$
-f_{-1}\bracket Y \defeq \text{a $f$-preimagem de $Y$}.
+\int f = \setst {F : \reals\to\reals} {D(F) = f}.
 $$
-Com essa notação precisamos demonstrar que
-$$
-\text{para todo $Y\subset B$,}\quad
-\img {\finv f} Y = f_{-1}\bracket Y
-$$
-Seja $Y \subset B$.
-\crtabproofpart{\lrdirset}.
-Seja $x \in \img {\finv f} Y$\fact1.
-Para mostrar que $x \in f_{-1}\bracket Y$ basta verificar que $f(x) \in Y$\fact1.
-Seja $y_x \in Y$ tal que $\finv f y_x = x$ (pela~\byfact1).
-Logo $y_x = f(x)$ pela definição de $\finv f$ e logo pertence ao $Y$
-pela~\byfact2.
-\crtabproofpart{\rldirset}.
-Seja $x \in f_{-1}\bracket Y$\fact1.
-Como $f x \in Y$ (pelo~\byfact1) e $f x \mapstoby {\finv f} x$
-(pela definição da $\finv f$), logo $x \in \img {\finv f} Y$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: img_f_singleton_x_eq_singleton_f_x 
-\exercise.
-\label{img_f_singleton_x_eq_singleton_f_x}%
-Verdade ou fálso?:
-para toda funcção $f$ e todo $x$ no seu domínio temos
-$$
-\img f {\set{x}} = \set{f(x)}.
-$$
-
-\solution
-Verdade:
-$$
-\img f {\set{x}}
-= \setst {f(z)} {z \in \set{x}}
-= \set{f(x)}.
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: is any of img f, pre f, guaranteed to be inj or surj? 
-\exercise.
-É alguma das $\img f {\dhole}$, $\pre f {\dhole}$ garantidamente
-injetora ou sobrejetora?
-
-\endexercise
-%%}}}
-
-%%{{{ x: bij_iff_all_pre_are_singletons 
-\exercise.
-\label{bij_iff_all_pre_are_singletons}%
-Seja $f : A \to B$.
-Prove que
-$$
-\text{$f$ bijetora} \iff \text{para todo $b \in B$, $\pre f {\set b}$ é um conjunto unitário}.
-$$
-
-\hint
-Pense\dots
-Como podes matar um alvo que um conjunto $S$ é unitário?
-Como podes usar um fato que um conjunto $S$ é unitário?
-
-\hint
-Como matar o alvo que um conjunto $S$ é unitário?
-Basta mostrar duas coisas:
-(1) $S$ tem pelo menos um membro (ou seja: $S\neq\emptyset$);
-(2) $S$ tem no máximo um membro (ou seja: para todo $s,s' \in S$,
-temos $s=s'$).
-E como usar o fato que um conjunto $S$ é unitário?
-Para todos os $s, s' \in S$, ganhamos que $s=s'$.
-
-\solution
-\proofpart{\lrdir}.
-Suponha que $f$ bijetora, e seja $b\in B$.
-Vou demonstrar que $\pre f {\set b}$ é unitário.
-Vamos chamá-lo de $A_b$.
-Como $f$ é sobrejetora, logo seja $a_b \in A$ tal que $f(a_b) = b$.
-Logo $a_b \in A_b$ pela definição da preimagem,
-e logo $A_b \neq\emptyset$ (pois tem pelo menos um membro).
-Basta mostrar que tem no máximo um membro.
-Sejam $a, a' \in A_b$ então e vamos mostrar que $a=a'$.
-Pela escolha dos $a,a'$, temos $f(a) = f(a') = b$;
-e agora pela injectividade da $f$ temos o desejado $a=a'$.
-\crtabproofpart{\rldir}.
-Suponha que para todo $b \in B$, o $\pre f {\set b}$ é unitário.
-Preciso mostrar que $f$ é injetora e sobrejetora.
-\crproofpart{$f$ injetora:}
-Suponha que temos $x,y\in A$ tais que $f(x) = f(y)$ e chame esse valor comum de $b$.
-Basta provar que $x=y$.
-Pela hipótese, o $\pre f {\set b}$ é unitário,
-e pela escolha dos $x,y$ sabemos que $x,y$ pertencem a ele.
-Logo $x=y$.
-\crproofpart{$f$ sobrejetora:}
-Seja $b\in B$.
-Procuramos $a\in A$ tal que $f(a) = b$.
-Pela hipótese, o conjunto $\pre f {\set b}$ é unitário (e logo não vazio).
-Tome $a$ o (único) membro desse conjunto e observe que pela definição
-de preimagem temos que $f(a) = b$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: composition_with_inverse_subsets 
-\exercise.
-\label{composition_with_inverse_subsets}%
-Sejam conjuntos $X$ e $Y$, $f : X\to Y$, e $A\subset X$ e $B\subset Y$.
-Prove as afirmações:
-$$
-\align
-A &\subset \pre f {\img f A}\\
-B &\supset \img f {\pre f B}.
-\endalign
-$$
-
-\solution
-Vamos provar as duas afirmações.
-\endgraf\indent
-\proofpart{{\proofname} de $A \subset \pre f {\img f A}$.}
-Suponha $a\in A$.
-Logo $f(a) \in \img f A$ pela definição da funcção-imagem,
-e logo $a \in \pre f {\img f A}$ pela definição da funcção-preimagem.
-\endgraf\indent
-\proofpart{{\proofname} de $B \supset \img f {\pre f B}$.}
-Suponha $y_0 \in \img f {\pre f B}$.
-Logo tome $x_0 \in \pre f B$ tal que $y_0 = f(x_0)$\fact1.
-Pela definição da funcção-preimagem $f(x_0) \in B$,
-e agora pela~\byfact1~temos $y_0 \in B$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: composition_with_inverse 
-\exercise.
-\label{composition_with_inverse}%
-Sejam conjuntos $X$ e $Y$, $f : X\to Y$, e $A\subset X$ e $B\subset Y$.
-Considere as afirmações:
-$$
-\align
-A &\askeq \pre f {\img f A}\\
-B &\askeq \img f {\pre f B}.
-\endalign
-$$
-Para cada uma delas: se podemos concluí-la, prove;
-e caso contrário, mostre um contraexemplo.
-
-\hint
-Nenhuma é válida em geral.
-Procure contraexemplos.
-
-\hint
-O enunciado do~\ref{jection_iff_composition_with_inverse}
-pode te ajudar pensar em contraexemplos.
-
-\solution
-Mostramos dois contraexemplos, um para cada afirmação.
-$$
-\tikzpicture
-\draw (0,0) ellipse (1cm and 15mm);
-\draw (3,0) ellipse (1cm and 12mm);
-\draw (0,0.666) ellipse (5mm and 5mm);
-\draw (-0.6,0.1) node {$A$};
-\draw (0,0.666)  node {$1\,\bullet$};
-\draw (0,-0.666) node {$2\,\bullet$};
-\draw (3,0)  node {$\bullet\,3$};
-\draw[|->] (0.3,0.6) -- (2.7,0.1);
-\draw[|->] (0.3,-0.6) -- (2.7,-0.1);
-\draw (0,2.0) node {$X$};
-\draw (3,2.0) node {$Y$};
-\draw (1.5,1.70) node {$f$};
-\draw[->]  (0.5,2.0) -- (2.5,2.0);
-\endtikzpicture
-\qqqquad
-\tikzpicture
-\draw (0,0) ellipse (1cm and 12mm);
-\draw (3,0) ellipse (1cm and 15mm);
-\draw (3,0) ellipse (8mm and 10mm);
-\draw (2.4,0.1) node {$B$};
-\draw (3,0.666)  node {$\bullet\,2$};
-\draw (3,-0.666) node {$\bullet\,3$};
-\draw (0,0)  node {$1\,\bullet$};
-\draw[|->] (0.35,0.05) -- (2.7,0.6);
-\draw (0,2.0) node {$X$};
-\draw (3,2.0) node {$Y$};
-\draw (1.5,1.70) node {$f$};
-\draw[->]  (0.5,2.0) -- (2.5,2.0);
-\endtikzpicture
-$$
-No primeiro contraexemplo temos:
-$A=\set{1}$;
-$\img f A = \set {3}$; e
-$\pre f {\set 3} = \set {1,2}$.
-Logo
-$$
-A = \set{ 1 } \neq \set {1, 2} = \pre f {\img f A}.
-$$
-No segundo contraexemplo temos:
-$B = \set{2,3}$;
-$\pre f B = \set {1}$; e
-$\img f {\set 1} = \set {2}$.
-Logo
-$$
-B = \set{ 2,3 } \neq \set {2} = \img f {\pre f B}.
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ Q: what changes if f is inj or surj? 
-\question.
-O que muda no~\ref{composition_with_inverse} se $f$ é injetora?  Se é sobrejetora?
-%%}}}
-\spoiler.
-
-%%{{{ jection_iff_composition_with_inverse 
-\theorem.
-\label{jection_iff_composition_with_inverse}%
-Seja $f : X \to Y$.
-$$
-\align
-\text{$f$ injetora}    &\iff \text{para todo $A \subset X$, $A = \pre f {\img f A}$}  \tag{1}\\
-\text{$f$ sobrejetora} &\iff \text{para todo $B \subset Y$, $B = \img f {\pre f B}$}. \tag{2}
-\endalign
-$$
-\proof.
-As idas tu provarás (agora!)~no~\refn{jection_implies_composition_with_inverse};
-as voltas no~\ref{jection_iff_composition_with_inverse_proof} (pode ser depois).
-\qed
-%%}}}
-
-%%{{{ x: jection_implies_composition_with_inverse 
-\exercise.
-\label{jection_implies_composition_with_inverse}%
-Prove as idas do~\ref{jection_iff_composition_with_inverse}.
-
-\solution
-Temos duas implicações para provar.
-\crtabproofpart{Ida da (i).}
-Suponha que $f$ é injetora, e seja $A\subset X$.
-Já temos a
-$$
-A \subset \pre f {\img f A}
-$$
-pelo~\ref{composition_with_inverse_subsets}, então basta mostrar
-$$
-\pre f {\img f A} \subset A.
-$$
-Tome então $x_0 \in \pre f {\img f A}$.
-Logo $f(x_0) \in \img f A$.
-Logo $f(a) = f(x_0)$ para algum $a \in A$ (pela definição da funcção-imagem).
-Mas $f$ é injetora, então $a = x_0$ e logo $x_0\in A$.
-\crtabproofpart{Ida da (ii).}
-Suponha que $f$ é sobrejetora, e seja $Y\subset B$.
-Já temos a
-$$
-\img f {\pre f B} \subset B
-$$
-pelo~\ref{composition_with_inverse_subsets}, então basta mostrar
-$$
-B \subset \img f {\pre f B}
-$$
-Tome então $b \in B$.
-Agora seja $x_b \in X$ tal que $f(x_b) = b$ (pois $f$ é sobrejetora).
-Então $x_b \in \pre f B$.
-Logo $f(x_b) \in \img f {\pre f B}$.
-Logo $b \in \img f {\pre f B}$.
-
-\endexercise
-%%}}}
-
-\blah.
-Vamos ver agora como essas operações comportam
-em combinação com as operações de conjuntos.
-
-%%{{{ x: operations_respected_by_img 
-\exercise.
-\label{operations_respected_by_img}%
-Sejam $f : X \to Y$, $A,B\subset X$.
-Mostre que:
-$$
-\align
-\img f {A\union B} &=       \img f A \union \img f B\\
-\img f {A\inter B} &\askeq  \img f A \inter \img f B\\
-\img f {A\minus B} &\askeq  \img f A \minus \img f B
-\endalign
-$$
-onde nas $\askeq$ prove que a igualdade em geral não é válida,
-mas uma das~\lrdirset~e~\rldirset, é.
-
-\hint
-Ataque cada direção ({\lrdirset} e {\rldirset}) da primeira separadamente.
-Das duas $\askeq$, são válidas as inclusões:
-$$
-\align
-\img f {A\inter B} &\subset \img f A \inter \img f B\\
-\img f {A\minus B} &\supset \img f A \minus \img f B
-\endalign
-$$
-Prove; e mostre contraexemplos que demonstram que as reversas
-inclusões não são válidas em geral.
-
-\solution
-Vamos primeiramente provar a
-$\img f {A\union B} = \img f A \union \img f B$.
-\proofpart{\lrdirset}:
-Tome $y \in \img f {A\union B}$.
-Logo seja $x \in A\union B$ tal que $f(x) = y$.
-\case{Caso $x \in A$,} temos $f(x)\in \img f A$
-e logo $f(x)$ pertence na união $\img f A \union \img f B$.
-\case{Caso $x \in B$,} concluímos similarmente
-que $f(x) \in \img f B \subset \img f A \union \img f B$.
-\endgraf
-\proofpart{\rldirset}:
-Tome $y \in \img f A \union \img f B$.
-\case{Caso $y \in \img f A$,} seja $a\in A$ tal que $f(a)=y$.
-Mas $a \in A\union B$, logo $y\in \img f {A\union B}$.
-\case{O caso $y \in \img f B$} é similar.
-\endgraf
-Vamos provar a
-$\img f {A\inter B} \subset \img f A \inter \img f B$ agora.
-Tome $y \in \img f {A\inter B}$ e
-seja $d \in A\inter B$ tal que $f(d) = y$.
-Mas $d \in A$ e $d \in B$, ou seja $y \in \img f A$ e $y \in \img f B$,
-e logo $y \in \img f A \inter \img f B$.
-\endgraf
-Vamos provar a
-$\img f {A\minus B} \supset \img f A \minus \img f B$ agora.
-Tome $y \in \img f A \minus \img f B$ então, ou seja
-$y \in \img f A$ e $y \notin \img f B$.
-Traduzindo:
-$$
-\lexists {a\in A} {f(a) = y}
-\qquad\mland\qquad
-\lforall {b\in B} {f(b) \neq y}.
-$$
-Usando a primeira afirmação abaixo tome $a\in A$ tal que $f(a) = y$,
-e observe que graças à segunda, $a \notin B$.
-Logo $a \in A\minus B$, e chegamos no desejado
-$y \in \img f {A\minus B}$.
-\endgraf
-Finalmente, usamos apenas um contraexemplo para refutar simultaneamente
-as duas inclusões que são inválidas no caso geral:
-$$
-\tikzpicture
-\draw (0,0) ellipse (1cm and 15mm);
-\draw (3,0) ellipse (1cm and 12mm);
-\draw (0,.666) ellipse (5mm and 5mm);
-\draw (0,-.666) ellipse (5mm and 5mm);
-\draw (-0.6,0.25)  node {$A$};
-\draw (-0.6,-0.25) node {$B$};
-\draw (0,0.666)  node {$1\,\bullet$};
-\draw (0,-0.666) node {$2\,\bullet$};
-\draw (3,0)  node {$\bullet\,3$};
-\draw[|->] (0.3,0.6) -- (2.7,0.1);
-\draw[|->] (0.3,-0.6) -- (2.7,-0.1);
-\node (X) at (0,2.0) {$X$};
-\node (Y) at (3,2.0) {$Y$};
-\draw[->]  (0.5,2.0) -- (2.5,2.0) node[midway, below] {$f$};
-\endtikzpicture
-$$
-Calculamos para verificar:
-$$
-\aligned
-\img f {A \inter B}
-&= \img f \emptyset
-= \emptyset \\
-\img f A \inter \img f B
-&= \set{3} \inter \set{3}
-= \set{3}
-\endaligned
-\qquad
-\aligned
-\img f {A \minus B}
-&= \img f A
-= \set {3}\\
-\img f A \minus \img f B
-&= \set {3} \minus \set {3}
-= \emptyset.
-\endaligned
-$$
-Um contraexemplo mais pictorial seria considerar uma funcção $f$
-que mapeia pontos do plano $\reals^2$
-para pontos da reta $\reals$, mandando cada
-entrada $\tup{x,y}$ para sua ``sombra'' $x$.
-Já conhecemos essa funcção: é a primeira projecção: $f = \pi_0$.
-Observe que a $\img {\pi_0} {\dhole}$ manda cada subconjunto de $\reals^2$
-para sua ``sombra'':
-$$
-\tikzpicture
-\draw [rounded corners=8mm, fill=gray!10] (1,3)--(1,5)--(4,5)--(4,3)--cycle;
-\node at (2.5,4) {$A$};
-\draw [rounded corners=0mm, fill=black]   (1,-0.1)--(1,0.1)--(4,0.1)--(4,-0.1)--cycle;
-\node at (2.5,-0.4) {$\img {\pi_0} A$};
-\draw[-]  (-1,0) -- (6,0);
-\draw[|->] (2,2.6) -- (2,0.5);
-\endtikzpicture
-$$
-Para achar o contraexemplo agora, basta só escolher dois subconjuntos de
-$\reals^2$ como esses:
-$$
-\tikzpicture
-\draw [rounded corners=8mm, fill=gray!10] (1,3)--(1,5)--(4,5)--(4,3)--cycle;
-\node at (2.5,4) {$A$};
-\draw [rounded corners=3mm, fill=gray!10] (1,1)--(1,2)--(4,2)--(4,1)--cycle;
-\node at (2.5,1.5) {$B$};
-\draw [rounded corners=0mm, fill=black]   (1,-0.1)--(1,0.1)--(4,0.1)--(4,-0.1)--cycle;
-\node at (2.5,-0.4) {$\img {\pi_0} A = \img {\pi_0} B$};
-\draw[-]  (-1,0) -- (6,0);
-\endtikzpicture
-$$
-Verifique que isso é um contraexemplo que refuta as duas igualdades
-que queremos refutar.
-
-\endexercise
-%%}}}
-
-%%{{{ x: operations_respected_by_img_of_inj 
-\exercise.
-\label{operations_respected_by_img_of_inj}%
-Sejam $f : X \injto Y$ injetora, e $A,B\subset X$.
-Mostre que:
-$$
-\align
-\img f {A\inter B} &= \img f A \inter \img f B\\
-\img f {A\minus B} &= \img f A \minus \img f B.
-\endalign
-$$
-
-\hint
-Já provou metade de cada igualdade no~\ref{operations_respected_by_img}
-até sem a hipótese que $f$ é injetora.
-Basta então provar as duas inclusões:
-$$
-\align
-\img f {A\inter B} &\supset \img f A \inter \img f B\\
-\img f {A\minus B} &\subset \img f A \minus \img f B.
-\endalign
-$$
-
-\solution
-Já provamos metade de cada igualdade no~\ref{operations_respected_by_img}
-para qualquer funcção, então para nossa injetora $f$ também.
-Basta então provar as duas inclusões:
-$$
-\align
-\img f {A\inter B} &\supset \img f A \inter \img f B\\
-\img f {A\minus B} &\subset \img f A \minus \img f B.
-\endalign
-$$
-\proofpart{{\proofname} de $\img f {A\inter B} \supset \img f A \inter \img f B$}:
-Suponha $y \in \img f A \inter \img f B$.
-Logo $y \in \img f A$ e $y \in \img f B$.
-Tome então $a\in A$ tal que $f(a) = y$ e $b \in B$ tal que $f(b) = y$.
-Juntando as duas igualdades temos $f(a) = f(b)$.
-Mas $f$ é injetora, e logo $a = b$.
-Ou seja, $a \in A\inter B$, e chegamos no desejado
-$y \in \img f {A \inter B}$.
-\endgraf\noindent
-\proofpart{{\proofname} de $\img f {A\minus B} \subset \img f A \minus \img f B$}:
-Suponha $y \in \img f {A\minus B}$.
-Tome então $a_0 \in A\minus B$ tal que $f(a_0) = y$.
-Logo $a_0 \in A$ e $a_0 \notin B$.
-Já sabemos então que $y \in \img f A$.
-Agora usamos a injectividade da $f$ para provar que $y \notin \img f B$.
-Se $y$ fosse um membro de $\img f B$, existiria $b\in B$ com $f(b) = y$.
-Mas já temos o único ($f$ injetora) membro do domínio $X$ que $f$ mapeia no $y$,
-o $a_0$, e sabemos que $a_0 \notin B$!
-Logo $y \notin \img f B$ e chegamos no $y\in \img f A \minus \img f B$.
-
-\endexercise
-%%}}}
-
-\blah.
-A preimagem comporta bem melhor que a imagem: ela respeita
-todas essas operações mesmo quando $f$ não é injetora,
-algo que tu provarás agora.
-
-%%{{{ x: operations_respected_by_pre 
-\exercise.
-\label{operations_respected_by_pre}%
-Sejam $f : X \to Y$, $A,B\subset Y$.
-Mostre que:
-$$
-\align
-\pre f {A\union B} &= \pre f A \union \pre f B\\
-\pre f {A\inter B} &= \pre f A \inter \pre f B\\
-\pre f {A\minus B} &= \pre f A \minus \pre f B
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-\blah.
-Essas propriedades generalizam naturalmente para uniões e intersecções
-de seqüências e famílias de conjuntos;
-veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
-
-\endsection
-%%}}}
-
-%%{{{ Partial functions 
-\section Funcções parciais.
-\label{Partial_functions}%
-
-\blah.
-A restricção que uma funcção $f : A \to B$ precisa ser \emph{totalmente}
-definida no $A$, não nos permite considerer naturalmente situações onde
-um certo programa, por exemplo, retorna valores para certas entradas
-aceitáveis, e para as outras não:
-talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
-ou simplesmente não termina com uma saída---não importa o porquê.
-Definimos então o conceito de \emph{funcção parcial}, que é exatamente
-isso: funcções que para certas entradas aceitáveis delas, possivelmente
-\dterm{divergem}.
-
-%%{{{ df: partial_function 
-\definition.
-\label{partial_function}%
-\tdefined{funcção}[parcial]%
-\sdefined {\sholed f : \sholed A \parto \sholed B} {$f$ é uma funcção parcial de $A$ para $B$}%
-\sdefined {(\sholed A \parto \sholed B)} {o conjunto das funcções parciais de $A$ para $B$}%
-Sejam $A,B$ conjuntos.
-Chamamos a $f$ uma \dterm{funcção parcial} de $A$ para $B$ sse:
-$$
-\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
-$$
-Nesse caso, chamamos \dterm{domínio} o conjunto
-$$
-\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
-$$
-e \dterm{codomínio} o $B$ mesmo.
-Escrevemos $f : A \parto B$ para ``$f$ é uma funcção parcial de $A$ para $B$''.
-Naturalmente denotamos o conjunto de todas as funcções parciais de $A$ para $B$ por
-$$
-(A \parto B) \defeq \setst f {f : A \parto B}.
-$$
-%%}}}
-
-%%{{{ remark: total vs partial: default 
-\remark.
-Com essas definições cada funcção total é uma funcção parcial.
-Escrevemos esse ``total'' quando queremos enfatizar, mas normalmente
-``funcção'' sem o adjectivo ``parcial'' significa ``funcção total''.
-Claramente, quando trabalhamos principalmente com funcções parciais,
-seguimos a convenção oposta.
-%%}}}
-
-%%{{{ remark: partial function conditions 
-\remark Condições.
-Encontramos então aqui o que acontece se apagar a primeira das
-condições~\refn{functionhood_conditions}:
-\beginil
-\item{}\strikeout{(1)~totalidade};
-\item{}(2)~determinabilidade.
-\endil
-e ficar só com a (2).
-No~\ref{Relations} vamos estudar também o caso onde apagamos ambas as condições.
+Observe que a notação comum em análise é diferente: usamos por exemplo
+$\int_a^x f(t)\, dt$, e o $\int f$ é visto como uma antiderivada
+(que depende numa constante $C$) e não como o conjunto de todas
+essas antiderivadas como definimos aqui.
+\endexample
 %%}}}
 
 \endsection
@@ -29490,6 +29433,68 @@ Assim $powTwo\fa 0 = 1$, $\namedfun{powTwo} \fa 10 = 1024$, etc.
 Já entramos bastante to território de programação funcional;
 paramos aqui agora, e voltamos re-visitar e expandir tudo isso
 no~\ref{Functional_programming}.
+
+\endsection
+%%}}}
+
+%%{{{ Partial functions 
+\section Funcções parciais.
+\label{Partial_functions}%
+
+\blah.
+A restricção que uma funcção $f : A \to B$ precisa ser \emph{totalmente}
+definida no $A$, não nos permite considerer naturalmente situações onde
+um certo programa, por exemplo, retorna valores para certas entradas
+aceitáveis, e para as outras não:
+talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
+ou simplesmente não termina com uma saída---não importa o porquê.
+Definimos então o conceito de \emph{funcção parcial}, que é exatamente
+isso: funcções que para certas entradas aceitáveis delas, possivelmente
+\dterm{divergem}.
+
+%%{{{ df: partial_function 
+\definition.
+\label{partial_function}%
+\tdefined{funcção}[parcial]%
+\sdefined {\sholed f : \sholed A \parto \sholed B} {$f$ é uma funcção parcial de $A$ para $B$}%
+\sdefined {(\sholed A \parto \sholed B)} {o conjunto das funcções parciais de $A$ para $B$}%
+Sejam $A,B$ conjuntos.
+Chamamos a $f$ uma \dterm{funcção parcial} de $A$ para $B$ sse:
+$$
+\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
+$$
+Nesse caso, chamamos \dterm{domínio} o conjunto
+$$
+\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
+$$
+e \dterm{codomínio} o $B$ mesmo.
+Escrevemos $f : A \parto B$ para ``$f$ é uma funcção parcial de $A$ para $B$''.
+Naturalmente denotamos o conjunto de todas as funcções parciais de $A$ para $B$ por
+$$
+(A \parto B) \defeq \setst f {f : A \parto B}.
+$$
+%%}}}
+
+%%{{{ remark: total vs partial: default 
+\remark.
+Com essas definições cada funcção total é uma funcção parcial.
+Escrevemos esse ``total'' quando queremos enfatizar, mas normalmente
+``funcção'' sem o adjectivo ``parcial'' significa ``funcção total''.
+Claramente, quando trabalhamos principalmente com funcções parciais,
+seguimos a convenção oposta.
+%%}}}
+
+%%{{{ remark: partial function conditions 
+\remark Condições.
+Encontramos então aqui o que acontece se apagar a primeira das
+condições~\refn{functionhood_conditions}:
+\beginil
+\item{}\strikeout{(1)~totalidade};
+\item{}(2)~determinabilidade.
+\endil
+e ficar só com a (2).
+No~\ref{Relations} vamos estudar também o caso onde apagamos ambas as condições.
+%%}}}
 
 \endsection
 %%}}}
