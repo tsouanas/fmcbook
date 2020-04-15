@@ -376,15 +376,18 @@ trocar seus lados, nos \symq{$\defeq$} e \symq{$\defiffsymbol$} não!
 
 %%{{{ Examples and nonexamples 
 \note Exemplos e nãœxemplos.
-Talvez já temos vários exemplos de objetos que satisfazem nossa definição,
-ou nem sabemos se existem tais objetos!  Observe então que para definir
-algo não é necessário---e com certeza nem suficiente!---mostrar exemplos
-de objetos.
+\tdefined{exemplo}%
+\tdefined{nãœxemplo}%
+Talvez já temos vários \dterm{exemplos} de objetos que satisfazem nossa
+definição, ou nem sabemos se existem tais objetos!  Observe então que
+para definir algo não é necessário---e com certeza nem suficiente!---mostrar
+exemplos de objetos.
 Mesmo assim, quando escrevemos um texto matemático e queremos ajudar nosso
 leitor confirmar seu entendimento da nossa definição, podemos dar uns
-exemplos ou nãœxemplos, mas é importante entender que a natureza deles
-nunca é essencial para a definição, e que
-\emph{eles não fazem parte da definição}.
+exemplos e/ou uns \dterm{nãœxemplos} (ou seja, objetos que \emph{não}
+satisfazem nossa definição).
+Mas é importante entender que a natureza deles nunca é essencial
+para a definição, e que \emph{eles não fazem parte da definição}.
 É apenas uma ferramenta pedagógica.
 %%}}}
 
@@ -624,6 +627,59 @@ Em muitas linguagens existe um \dterm{entry point} para teu programa, onde a exe
 Por exemplo, em C isso seria o corpo da funcção $\code{main}$.
 Seria bizarro (no mínimo) tentar escrever um inteiro programa apenas usando os primitivos da C dentro dessa funcção $\code{main}$.
 Felizmente as linguagens oferecem ferraments de abstracção para o programador---umas bem mais que outras---e assim começamos definindo nossos próprios conceitos: funcções, variáveis, constantes, tipos, etc.
+%%}}}
+
+%%{{{ beware: nonexample_vs_counterexample 
+\beware nãœxemplo \vs contraexemplo.
+\label{nonexample_vs_counterexample}%
+\tdefined{contraexemplo}%
+Não confunda as palavras \wq{nãœxemplo} e \wq{contraexemplo}.
+Um \dterm{nãœxemplo} é um objeto que \emph{não} satisfaz uma definição,
+que não tem uma propriedade, etc.
+Por exemplo:%
+\footnote{sim acabei de usar a palavra exemplo para
+dar um exemplo para ajudar entender o que significa exemplo}
+\wq{o número $40$ é um nãœxemplo de número ímpar}.
+No outro lado, quando usamos o termo \dterm{contraexemplo}?
+Apenas quando estamos tentando \emph{refutar} uma afirmação da forma
+\wq{todos os $x$ têm tal propriedade}.
+Qualquer objeto $x$ que não possui essa propriedade
+conta como contraexemplo dessa afirmação.
+Isso vai ficar mais claro no~\ref{Proofs}, onde estudamos
+demonstrações.
+%%}}}
+
+%%{{{ eg: nonexample_vs_counterexample_example_1 
+\example.
+\label{nonexample_vs_counterexample_example}%
+As afirmações seguintes são corretas:
+\beginil
+\item{(i)}    $41$ é um exemplo de: número ímpar
+\item{(ii)}   $18$ é um exemplo de: múltiplo de $3$
+\item{(iii)}  $16$ é um nãœxemplo de: múltiplo de $3$
+\item{(iv)}   $16$ é um nãœxemplo de: número ímpar
+\item{(v)}    $40$ é um contraexemplo para a: todos os números menores de $48$ são ímpares
+\item{(vi)}   $21$ é um contraexemplo para a: todos os múltipos de $3$ são pares
+\item{(vii)}  $18$ é um contraexemplo para a: todos os múltipos de $3$ são ímpares
+\item{(viii)} $18$ é um contraexemplo para a: nenhum múltiplo de $3$ é par
+\item{(ix)}   $18$ não é um contraexemplo para a: todos os ímpares são multiplos de $3$
+\item{(x)}    $18$ não é um contraexemplo para a: todos os ímpares são múltiplos de $7$
+\item{(xi)}   $21$ não é um contraexemplo para a: todos os ímpares são múltiplos de $3$
+\endil
+Vamos ver curtamente a razão de cada uma das últimas três:
+(ix) e (x): o $18$ nem é ímpar então não tem chances de ser contraexemplo de qualquer afirmação que todos os ímpares fazem algo;
+(xi): o $21$ é ímpar, mas ele \emph{tem sim} a propriedade descrita, então também não é um \emph{contra}exemplo.
+\endexample
+%%}}}
+
+%%{{{ eg: nonexample_vs_counterexample_example_2 
+\example.
+Acabei de te dar (no~\ref{nonexample_vs_counterexample_example_1} em ordem:
+três exemplos de exemplos,
+dois exemplos de nãœexemplos,
+quatro exemplos de contraexemplos, e
+três nãoexemplos de contraexemplos.
+\endexample
 %%}}}
 
 \endsection
@@ -25862,6 +25918,8 @@ a adição nos naturais.
 \qed
 %%}}}
 
+% CROSS
+
 %%{{{ df: fcross 
 \definition cross.
 \label{fcross}%
@@ -25890,13 +25948,23 @@ $$
 %%{{{ x: fcross_commutative_diagram 
 \exercise.
 \label{fcross_commutative_diagram}%
-Bote nomes e direcções onde faltam e prove que o diagrama comuta:
+Bote nomes e direcções onde faltam e demonstre que o diagrama comuta:
 $$
 \cdopt{sep=2cm}
 A \ar[d, "f"']   \|  A\times B \ar[l, dash, ""]\ar[r, dash, ""]\ar[d, dotted, ""]   \| B \ar[d, "g"]  \\
 C                \|  C\times D \ar[l, dash, ""]\ar[r, dash, ""]                     \| D
 \endcd
 $$
+
+\solution
+Bote nomes e direcções onde faltam e demonstre que o diagrama comuta:
+$$
+\cdopt{sep=2cm}
+A \ar[d, "f"']   \|  A\times B \ar[l, "\outl"]\ar[r, "\outr"]\ar[d, dotted, ""]   \| B \ar[d, "g"]  \\
+C                \|  C\times D \ar[l, ""]\ar[r, dash, ""]                     \| D
+\endcd
+$$
+
 
 \endexercise
 %%}}}
