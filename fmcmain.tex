@@ -21151,6 +21151,8 @@ e exercícios e problemas para resolver no \cite[\S1.3~\&~\S2.4]{velleman}.
 \chapter Funcções.
 \label{Functions}%
 
+% BABY
+
 %%{{{ intro 
 \chapintro
 Nesse capítulo estudamos mais um \emph{tipo} importantíssimo e fundamental em
@@ -25316,8 +25318,9 @@ k \of g \of f
 \endsection
 %%}}}
 
-%%{{{ Products and more constructions 
+%%{{{ Products_and_more_constructions 
 \section Produtos e demais construções.
+\label{Products_and_more_constructions}%
 
 %%{{{ df: fcross 
 \definition cross.
@@ -25901,6 +25904,8 @@ simples e ``arrumada''.
 \endproblems
 %%}}}
 
+% JECTIONS & HIGH SHI(F)T 
+
 %%{{{ Jections : Injections, surjections, bijections 
 \section Injecções, sobrejecções, bijecções.
 \label{Jections}%
@@ -26273,6 +26278,314 @@ $$
 $f(a) = \set a \neq \emptyset \in \pset A$.
 
 \endexercise
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Inverse_functions 
+\section Funcções inversas.
+\label{Inverse_functions}%
+
+\blah.
+Informalmente, para construir a inversa duma funcção
+pegamos o seu diagrama interno, e viramos todas
+as setinhas barradas para a direção oposta.
+Vamos estudar essa idéia formalmente agora.
+
+%%{{{ df: finverse 
+\definition funcção inversa.
+\label{finverse}%
+\tdefined{funcção}[inversa]%
+\sdefined {\finv {\sholed f}} {a funcção inversa da $f$}%
+Seja funcção bijetora $f : A \bijto B$.
+Definimos a funcção $\finv f : B \to A$ pela
+$$
+\finv f (y) \defeq \text{aquele $x\in A$ que $x \mapstoby f y$}.
+$$
+Ou, \emph{equivalentemente}, pela
+$$
+\finv f (y) = x \defiff f(x) = y.
+$$
+Com outra notação:
+$$
+y \mapstoby {\finv f} x \defiff x \mapstoby f y.
+$$
+Chamamos a $\finv f$ a \dterm{funcção inversa} da $f$.
+%%}}}
+
+%%{{{ remark: human_eyes_are_not_symmetric 
+\remark Os olhos humanos não são simétricos.
+\label{human_eyes_are_not_symmetric}%
+Às vezes a direção em que a gente olha para uma igualdade faz diferença:
+$$
+\alpha = \beta \iff \beta = \alpha
+$$
+sim, ou seja, \symq{$=$} é simétrica,
+mas nossos olhos humanos conseguem enxergar certas informações melhor na
+forma $\alpha = \beta$, e outras na forma $\beta = \alpha$!
+(Talvez nossos olhos não são tão simétricos.)
+A mesma coisa é sobre relações ``direcionadas'' como por exemplo:
+$$
+\alpha \leq \beta \iff \beta \geq \alpha
+$$
+que também são afirmações equivalentes,
+mas muitas vezes a gente enxerga uma numa maneira diferente da outra!
+\endgraf
+Na~\ref{finverse} acima, por exemplo, reescrevendo a igualdade
+na outra direção temos:
+$$
+\finv f (y) = x \defiff y = f(x)
+$$
+que possivelmente nos permite enxergar a situação numa maneira diferente.
+Similarmente, usando a notação das setinhas barradas podemos enxergar
+a equivalência assim:
+$$
+x \mapsfromby {\finv f} y \defiff x \mapstoby f y.
+$$
+%%}}}
+
+%%{{{ x: finv_is_well_defined 
+\exercise A inversa é bem-definida.
+\label{finv_is_well_defined}%
+Prove que a funcção $\finv f$ foi bem-definida.
+O que precisas provar?
+
+\solution
+Pelo menos um tal $x\in A$ existe, pois a $f$ é sobrejetora.
+E como $f$ é injetora, existe no máximo um.
+Provamos assim a unicidade, algo que nos permite
+\emph{definir a funcção} no jeito que definimos
+na~\ref{finverse}.
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_is_bij 
+\exercise A inversa é bijetora.
+\label{finv_is_bij}%
+Prove que quando a funcção inversa $\finv f$ é definida, ela é bijetora.
+
+\hint
+O que exatamente garanta a injectividade da $\finv f$, e o que a sua sobrejectividade?
+
+\hint
+Considere:
+$$
+\align
+\text{totalidade da $f$}      &\implies \text{$\finv f$ sobrejetora} \\
+\text{determinabilidade da $f$} &\implies \text{$\finv f$ injetora}.
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_of_finv 
+\exercise Inversa da inversa.
+\label{finv_of_finv}%
+Prove que se a funcção inversa $\finv f$ é definida,
+então a sua inversa $\finvp{\finv f}$ também é
+e temos $\finvp{\finv f} = f$.
+
+\hint
+Quando a funcção inversa é definida?
+
+\hint
+Aplique duas vezes a~\ref{finverse} de funcção inversa para provar
+que as duas funcções são iguais.
+
+\solution
+Pelo~\ref{finv_is_bij} temos que $\finv f$ é bijetora,
+então sua inversa $\finvp{\finv f}$ é definida sim
+(e pelo~\ref{finv_is_bij} de novo ela é bijetora também).
+As $f$ e $\finvp{\finv f}$ têm domínios e codomínios iguais.
+Basta verificar que concordam em todo o seu domínio.
+Seja $x \in \dom f$ então.
+Calculamos
+\compute
+\finvp{\finv f}(x)    = f(x)
+&\iff {\finv f}(f(x)) = x   \by {def.~$\finvp{\finv f}$}
+&\iff f(x) = f(x)           \by {def.~$\finv f$}
+\endcompute
+e a última igualdade é trivialmente válida,
+e logo $\finvp{\finv f} = f$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_laws_pointful 
+\exercise Leis da inversa (com pontos).
+\label{finv_laws_pointful}%
+Seja $f: A \bijto B$.
+Para todo $a\in A$ e todo $b\in B$, temos:
+$$
+\xxalignat4
+\textrm{(L)} && \finv f (f a) &= a &
+f (\finv f b) &= b. &&\textrm{(R)}
+\endxxalignat
+$$
+(Esqueça o ``com pontos'' no rótulo desse exercício;
+vai fazer sentido depois.)
+
+\solution
+Seja $a\in A$ e $b\in B$.
+Calculamos:
+\compute
+\finv f (f(a))
+&= \text{aquele $x\in A$ que $f(x) = f(a)$} \\
+&= a.          \by {$f$ inj.}
+\endcompute
+Agora tomando $y\in B$ calculamos a outra numa maneira diferente:
+\compute
+f(\finv f(b)) = y
+&\iff \finv f (b) = \finv f (y) \\
+&\iff b = y    \by {$\finv f$ inj.~(\refn{finv_is_bij})}
+&\iff \idof B (b) = y.
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_of_id 
+\exercise Inversa da identidade.
+Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
+
+\solution
+Temos $\idof A, \finv{\idof A} : A \bijto A$ então basta
+verificar que comportam igualmente.
+\crproofalt{Jeito 1.}
+Seja $a \in A$ então e calculamos:
+\compute
+\finv{\idof A} a
+&= \text{aquele $v\in A$ que $\idof A v = a$}  \by {def.~$\finv{\idof A}$}
+&= a                                           \by {def.~$\idof A$}
+&= \idof A a.                                  \by {def.~$\idof A$}
+\endcompute
+\proofalt{Jeito 2.}
+Sejam $a,a'\in A$.
+Calculamos:
+\compute
+\finv{\idof A} a = v
+&\iff a = \idof A v     \by {def.~$\finv{\idof A}$}
+&\iff a = v             \by {def.~$\idof A$}
+&\iff \idof A a = v.    \by {def.~$\idof A$}
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ finv_of_fcompose_error 
+\note Inversa da composição: um erro.
+\label{finv_of_fcompose_error}%
+Queremos descrever a inversa duma composição de bijecções em termos
+das inversas dessas bijecções.
+Ou seja, temos
+Um erro comum é afirmar que $\finvp{g\of f} = \finv g \of \finv f$.
+Pense em funcções como ``processos'' e na $g\of f$ como o processo
+<<faça $f$ e depois faça $g$>>.
+Como exemplo, considere $f$ o <<botar cueca>> e $g$ o
+<<botar shorts>>.
+Logo $g\of f$ é o processo <<botar cueca e depois botar shorts>>.
+Assim, qual processo seria o $\finv g \of \finv f$?
+Se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
+%%}}}
+
+%%{{{ x: finv_of_fcompose 
+\exercise Inversa da composição.
+\label{finv_of_fcompose}%
+Sejam
+$
+\cd
+A \ar[r, tail, two heads, "f"] \| B \ar[r, tail, two heads, "g"] \| C
+\endcd
+$\!.
+Descreva a $\finvp{g\of f}$ em termos das $\finv f$ e $\finv g$
+e demonstre tua afirmação.
+
+\hint
+$\finvp{g\of f} = \finv f \of \finv g$.
+
+\hint
+Para provar a $\finvp{g\of f} = \finv f \of \finv g$,
+tome $x\in C$ e $z\in A$ e mostre a equivalência
+$$
+\finvp{g\of f}(x) = z
+\iff
+\paren{\finv f \of \finv g}(x) = z.
+$$
+
+\hint
+Calcule cada lado separadamente:
+\compute
+\finvp{g\of f}(x) = z
+&\iff (g\of f)(z) = x  \by {def.~$\finvp{g\of f}$}
+&\dotsiff \dots \\
+\paren{\finv f \of \finv g}(x) = z
+&\iff \finv f \funparen{\finv g (x)} = z  \by {def.~$\finv f \of \finv g$}
+&\dotsiff \dots
+\endcompute
+
+\solution
+Vamos provar que
+$$
+\finvp{g\of f} = \finv f \of \finv g.
+$$
+Tome $x \in C$ e $z \in A$.  Basta provar que
+$$
+\finvp{g\of f}(x) = z
+\iff
+\paren{\finv f \of \finv g}(x) = z.
+$$
+pois isso quis dizer que as duas funcções concordam em todo o seu domínio.
+Calculamos:
+\compute
+\finvp{g\of f}(x) = z
+&\iff x = (g\of f)(z)                     \by {def.~$\finvp{g\of f}$}
+&\iff x = g(f(z))                         \by {def.~$g\of f$}
+&\iff \finv g (x) = f(z)                  \by {def.~$\finv g$}
+&\iff \finv f \funparen{\finv g (x)} = z  \by {def.~$\finv f$}
+&\iff \paren{\finv f \of \finv g}(x) = z. \by {def.~$\finv f \of \finv g$}
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ x: finv_atleastonelaw_if_f_bij 
+\exercise Basta uma lei.
+\label{finv_atleastonelaw_if_f_bij}%
+Seja $f : A \bijto B$.
+Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis
+do~\ref{finv_laws_pointful}, então $f'$ é a própria $\finv f$.
+
+\solution
+Sejam $b\in B$, $a\in A$.
+Caso que $f'$ satisfaz a (L)
+calculamos:
+\compute
+\finv f b = a
+&\iff b = f a               \by {def.~$\finv f$}
+&\iff f' b = f' (f a)       \by {$f'$ inj.}
+&\iff f' b = (f' f) \fa a   \by {def.~$(f'f)$}
+&\iff f' b = a.             \by {(L) da $f'$ (com $w \asseq a$)}
+\intertext{E caso que $f'$ satisfaz a (R):}
+f' b = a
+&\iff f (f' b) = f a        \by {$f$ inj.}
+&\iff (f f') \fa b = f a    \by {def.~$(f f')$}
+&\iff b = f a               \by {(R) da $f'$ (com $w \asseq b$)}
+&\iff \finv f b = a.        \by {def.~$\finv f$}
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ Boring, innit? 
+\blah É chato, né?.
+Mergulhar nos domínios e codomínios das funcções, mexendo com os
+bichinhos que tem lá, tanto para enunciar teoremas quanto para
+demonstrá-los espero que foi uma experiência não exatamente divertida.
+Logo vamos ver uma outra maneira para enunciar e demonstrar
+essas propriedades, ``de longe'', sem olhar os detalhes internos.
 %%}}}
 
 \endsection
@@ -27111,6 +27424,890 @@ veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
 \endsection
 %%}}}
 
+%%{{{ Higher_order_functions 
+\section Funcções de ordem superior.
+\label{Higher_order_functions}%
+
+%%{{{ Holes again 
+\note Buracos de novo.
+Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
+botando \emph{buracos}, criando assim funcções de várias aridades.
+Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
+permitiu dar nomes para esses buracos, ligar (identificar) certos buracos, etc.
+Considere novamente uma expressão como a
+$$
+\cos(1 + 5\cbrt2)^{2a} + \sin(5)
+$$
+onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
+Botando uns buracos ou abstraindo com lambdas, criamos, por exemplo, as funcções:
+$$
+\alignat2
+f_1 &= \cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
+f_2 &= \cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
+f_3 &= \cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
+f_4 &= \cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
+f_5 &= \bhole + \sin(\bhole)                             &&\eqtype \reals^2 \to \reals\\
+f_6 &= \lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
+f_7 &= \lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
+\endalignat
+$$
+%%}}}
+
+%%{{{ x: verify_abstractions_of_expression 
+\exercise.
+\label{verify_abstractions_of_expression}%
+Para quais entradas cada uma dessas funcções retorna o valor da expressão inicial?
+
+\hint
+Respeite as aridades!
+
+\solution
+Temos
+$$
+\align
+f_1&(2)\\
+f_2&(1,2,5)\\
+f_3&(1,5,a)\\
+f_4&(1,5,2a)\\
+f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
+f_6&(a)\\
+f_7&(2, 5).
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ Higher-order holes 
+\note Buracos de ordem superior.
+Em todos os exemplos acima, botamos os buracos para substituir
+apenas termos cujos valores seriam números (reais).
+Expressões tanto como as $2$, $1$, $5$, e $a$,
+quanto como as $5\cbrt2$, $2a$, e $\cos(1 + 5\cbrt2)^{2a}$,
+denotam, no final das contas, números reais.
+Que tal botar um buraco assim:
+$$
+\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
+$$
+O que substituimos aqui?  O próprio $\sin$!  Por que não?
+E o que tipo de objetos podemos botar nesse buraco?
+Um real, não serve: a expressão
+$$
+\cos(1 + 5\cbrt2)^{2a} + 7(5)
+$$
+não faz sentido: ela é \dterm{mal-tipada}.
+O $7$ não pode receber um argumento como se fosse uma funcção, pois não é.
+Que tipo de coisa então caiba nesse buraco?
+Funcções!
+E não funcções quaisquer, mas precisam ter um tipo compatível,
+com a aridade certa, etc.
+Esses buracos são \emph{de ordem superior}.
+E com buracos de ordem superior, vêm funcções de ordem superior.
+%%}}}
+
+%%{{{ pseudodf: higher_order_function 
+\pseudodefinition.
+\label{higher_order_function}%
+\tdefined{funcção}[de ordem superior]%
+Dizemos que uma funcção $f : A \to B$ é de \dterm{ordem superior}
+se ela recebe ou retorna funcções.
+%%}}}
+
+%%{{{ x: type_higher_order_holed_expressions 
+\exercise.
+\label{type_higher_order_holed_expressions}%
+Escreva os tipos das funcções seguintes:
+$$
+\align
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
+\endalign
+$$
+
+\solution
+Temos
+\compute
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                     &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)             &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
+\endcompute
+
+\endexercise
+%%}}}
+
+%%{{{ Returning functions 
+\note Retornando funcções.
+Até agora encontramos exemplos onde funcções recebem como
+argumentos outras funcções, mas ainda não conhecemos alguma
+funcção que \emph{retorna funcção}.
+Ou será que conhecemos?
+Se tu resolveu o~\ref{calculate_lambda_expressions},
+tu já encontrou esse caso, na sua última expressão.
+Seguem uns exemplos de operadores de ordem superior que
+você talvez já encontrou e até usou na tua vida.
+%%}}}
+
+%%{{{ eg: Defining a higher-order functions 
+\example Definindo uma funcção de ordem superior.
+\ii{funcção!anônima}%
+Considere a funcção $F : \nats \to (\nats \to \nats)$ definda pela
+$$
+\align
+F(w) &= \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x$, retorna $w + x$}.
+\intertext{%
+Ou, equivalentemente:
+}
+F(w) &= \text{aquela funcção $g : \nats \to \nats$ definida pela $g(x) = w + x$}.
+\intertext{%
+Que tipo de objetos a funcção $F$ retorna?
+Funcções!  Nesse caso determinamos exatamente para qualquer entrada
+dela, qual seria a funcção que vai ser retornada.
+Observe que na definição de $F(w)$, apareceu a frase
+``aquela funcção $g$\dots''.
+Assim baptizamos temporariamente essa funcção com um nome (``$g$'') à toa:
+apenas para referir a ela e retorná-la.
+Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
+e (logo) mais legível:
+}
+F(w) &= \lam x {w + x} \eqtype \nats \to \nats.
+\endalign
+$$
+Observe que no lado direito aparece uma funcção anônima.
+\endexample
+%%}}}
+
+%%{{{ eg: in Python 
+\example em Python.
+\iipl Python
+Em Python podemos (ainda bem\dots)~por exemplo escrever:
+\sourcecode higher.py;
+que corresponde na primeira maneira de definir a $F$, criando e nomeando
+a funcção para ser retornada.
+Podemos com $\lambda$ também:
+\sourcecode higherlam.py;
+Não ficou melhor?
+\endexample
+%%}}}
+
+%%{{{ Q: what type of thing is F(25)? 
+\question.
+Que tipo de coisa é o $F(25)$?
+%%}}}
+\spoiler.
+
+%%{{{ Answer 
+\note.
+Antes de responder nessa pergunta, vamos responder numa outra,
+ainda mais específica: quem \emph{é} o $F(25)$?
+Ou seja:
+$$
+F(25) = \dots?\dots
+$$
+Não precisamos pensar nada profundo!
+Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
+$$
+F(25) = \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x\in\nats$, retorna o número $25 + x$}.
+$$
+Ou seja,
+$$
+F(25) : \nats\to\nats.
+$$
+Sendo funcção, podemos chamá-la com um argumento do certo tipo, por exemplo como o $3\in\nats$, e evaluá-la:
+$$
+\paren{F(25)}(3) = 28.
+$$
+%%}}}
+
+%%{{{ x: where_did_28_come_from 
+\exercise.
+\label{where_did_28_come_from}%
+De onde chegou esse $28$?
+
+\solution
+Seguindo a definição da $F(25)$ ela é a funcção que recebendo um valor
+(agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
+$25 + 3 = 28$.
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_expressions_with_given_types_higher_order 
+\exercise.
+\label{find_expressions_with_given_types_higher_order}%
+Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
+tipos seguintes:
+$$
+\align
+F_1&\eqtype \reals \to \reals \\
+F_2&\eqtype \reals \to (\reals \to \reals) \\
+F_3&\eqtype (\reals \to \reals) \to \reals \\
+F_4&\eqtype (\reals \to \reals) \to (\reals \to \reals) \\
+F_5&\eqtype (\reals^2 \to \reals) \to \reals \\
+F_6&\eqtype (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ x: find_expressions_with_given_types_higher_order_abstract 
+\exercise.
+\label{find_expressions_with_given_types_higher_order_abstract}%
+Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
+tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não podes supor
+absolutamente nada mais!
+Para cada um dos tipos, tente escrever as mais $\lambda$-expressões realmente
+diferentes que tu consegues.
+Cuidado: para uns deles não é possível achar nenhuma!
+$$
+\align
+&: A \to B \\
+&: A \to (B \to A) \\
+&: A \to (B \to B) \\
+&: (A \to A) \to A \\
+&: A \to (A \to A) \\
+&: A \to \bigparen{B \to \paren{(A\to B) \times (A\union C) \times \nats}} \\
+&: (A \to (B \to C) \to ((A\times B)\to C)) \\
+&: ((A\times B)\to C) \to (A \to (B \to C))
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ first_class_citizens 
+\note First-class citizens.
+\label{first_class_citizens}%
+{\ii{cidadão da primeira classe}}%
+{\iisee{first-class citizen}{cidadão}}%
+O slogan aqui é que funcções são \emph{first-class citizens}.
+Trabalhando no~\ref{calculate_lambda_expressions}, o último cálculo
+chega no valor seguinte:
+$$
+\align
+\plam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
+&\lstep \plam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
+&\lstep \plam x {(1 + 1) \ntimes x \ntimes 4)} \\
+&\isteq \plam x {8x}.
+\endalign
+$$
+Como falei na resolução, se esse ``resultado'' (valor final)
+não parece satisfatório, é por causa de um preconceito teu que
+favorece os objetos de tipo ``número'' contra os objetos de tipo
+``funcção''.
+Os números têm o direito de ser valores finais; e as funcções
+também têm!  Esse ``preconceito'' é bastante alimentado por causa
+de varias linguagens de programação que realmente não tratam
+as funcções em termos iguais com os outros tipos.
+\iipl C
+\iipl C++
+\iipl Java
+Em C, C++, ou Java, por exemplo, não é possível passar como
+argumentos funcções, nem retorná-las; mas claramente números
+podem ser argumentos e também podem ser retornados como saída
+de funcções.
+\iipl Haskell
+\iipl PureScript
+\iipl Idris
+\iipl Agda
+\iipl Racket
+\iipl Clojure
+\iipl Scala
+\iipl Python
+No outro lado, linguagens como Haskell, PureScript, Idris,
+Agda, Racket, Clojure, Scala, Python, etc., adoptam o slogan
+\standout
+\emph{<<functions are first-class citizens>>}
+\endstandout
+ou seja, lá temos funcções de ordem superior---e logo, felicidade.
+%%}}}
+
+\blah.
+Funcções de ordem superior não é algo tão desconhecido como
+talvez parece.
+O leitor já está acostumado com os operadores nos exemplos seguintes:
+
+%%{{{ eg: higher_order_example_composition 
+\example Composição.
+\label{higher_order_example_composition}%
+Sejam conjuntos $A,B,C$.
+O operador da composição $\of$
+(cuja notação decoramos aqui para especificar
+o domínio e codomínio dele e dos seus argumentos)
+é o seguinte:
+$$
+\dhole\oflab ABC\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
+$$
+Observe que ele é um operador de ordem superior, pois seus (dois) argumentos
+são funcões, e também pois sua saída também é uma funcção.
+\endexample
+%%}}}
+
+%%{{{ df: eval_operation 
+\definition eval.
+\label{eval_operation}%
+\tdefined{funcção}[aplicação]%
+\tdefined{funcção}[eval]%
+\sdefined {\evaldc {\sholed A} {\sholed B}} {a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$}%
+\sdefined {{\sholed f} \at {\sholed x}} {notação infixa para o $\eval (f,x)$}%
+Suponha $f : A \to B$ e seja $a \in A$.
+Quando escrevemos \symqq{$f\fa a$} (ou \symqq{$f(a)$}),
+estamos escrevendo a \dterm{aplicação} da $f$ no $a$.
+e o que estamos denotando é o \dterm{valor} da $f$ no $a$.
+O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
+pela juxtaposição da funcção e do seu argumento (já discutimos isso
+no~\ref{lazier_clearer_functional_notation}).
+Quando precisamos vê-lo mesmo, podemos usar a notação infixa
+$$
+f \at x \sugeq \eval (f, x).
+$$
+Definimos agora uma funcção $\eval$ que faz exatamente isso:
+aplica seu primeiro argumento (uma funcção) no seu segundo
+(um ponto do domínio do primeiro argumento).
+Como fizemos na composição, decoramos essa operação
+para esclarecer os conjuntos envolvidos:
+dados conjuntos $A,B$ temos a
+$$
+\evaldc A B : \bigparen{(A \to B) \times A} \to B
+$$
+definida pela
+$$
+\evaldc A B (f, a) = f(a).
+$$
+Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
+%%}}}
+
+%%{{{ eg: higher_order_example_apply 
+\example.
+Dados conjuntos $A,B$, a $\evaldc A B$ é claramente uma
+operação de ordem superior.
+\endexample
+%%}}}
+
+%%{{{ x: type_of_restriction_op_with_hole 
+\exercise.
+\label{type_of_restriction_op_with_hole}%
+Sejam $f : A\to B$ e $X\subset A$.
+Ache o tipo dos:
+$$
+\align
+f\resto \dhole  &\eqtype ?\\
+(\dhole\resto X)\resto(A \to B)
+                &\eqtype ?
+\endalign
+$$
+
+\solution
+Temos
+$$
+\align
+f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
+(\dhole\resto X)\resto (A \to B)
+                &\eqtype \paren{(A \to B) \to (X \to B)}
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ eg: higher_order_example_derivation 
+\example Derivação.
+\label{higher_order_example_derivation}%
+Considere o operador da derivação $D$.
+Por exemplo, se $f(x) = x^3 + 5x$, temos
+$$
+\align
+D(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
+\intertext{%
+Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
+}
+D(f) &= \lam x {3x^2 + 5}
+\endalign
+$$
+sim.
+Qual o tipo da $D$?
+Ela recebe e retorna funcções de reais para reais, mas não podemos
+tipá-la
+$$
+\align
+D(\dhole) &: (\reals\to\reals) \to (\reals\to\reals)
+\intertext{%
+pois estariamos perdendo a totalidade da $D$:
+existem funcções no $(\reals\to\reals)$ que não são deriváveis.
+Ainda mais, seria legal poder iterar o $D$ (\ref{function_iterations})
+indefinitamente; e logo tipamos
+}
+D(\dhole) &: C^\infty \to C^\infty
+\endalign
+$$
+onde $C^\infty$ é o conjunto de todas as funcções infinitamente
+deriváveis: são deriváveis, e suas derivadas também são, e suas
+derivadas também, etc.
+\endexample
+%%}}}
+
+%%{{{ teaser: partial_functions_teaser 
+\teaser funcções parciais.
+Mas talvez queremos mesmo considerar a $D$ como uma operação
+que opera no espaço de funcções $(\reals\to\reals)$
+\emph{sacrificando} a totalidade.
+Chegamos assim no conceito de \emph{funcção parcial}, que
+voltamos a investigar na~\ref{Partial_functions}.
+%%}}}
+
+%%{{{ eg: higher_order_example_integration 
+\example Integração.
+\label{higher_order_example_integration}%
+De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
+Sejam $a,b\in\reals$ com $a<b$ e seja
+$$
+R[a,b] \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
+$$
+Observe que $R[a,b]$ é um conjunto de funcções.
+Definimos o operador
+$$
+\lam f {\lam x {\int_a^{x} f}} : R[a,b] \to ([a,b] \to \reals)
+$$
+cujo argumento é uma funcção---e ainda mais,
+sua saída também é uma funcção---e logo ele é um operador de ordem superior
+também.
+Para a integração indefinita, seja
+$$
+R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
+$$
+e defina um operador
+$$
+\int\dhole : R \to \pset{(\reals\to\reals)}
+$$
+tal que
+$$
+\int f = \setst {F : \reals\to\reals} {D(F) = f}.
+$$
+Observe que a notação comum em análise é diferente: usamos por exemplo
+$\int_a^x f(t)\, dt$, e o $\int f$ é visto como uma antiderivada
+(que depende numa constante $C$) e não como o conjunto de todas
+essas antiderivadas como definimos aqui.
+\endexample
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Currying 
+\section Currificação.
+\label{Currying}%
+
+%%{{{ Ha-ha!  My language is better than yours 
+\note Ha-ha!  Minha linguagem é melhor que a tua.
+Imagine que um amigo definiu uma funcção $f : \ints^2\to\ints$
+trabalhando numa linguagem de programação que não permite
+definições de funcções de ordem superior.
+Queremos escrever um programa equivalente ao programa do nosso amigo
+numa outra linguagem que permite sim definir funcções de ordem superior
+mas não funcções de aridade maior que $1$.
+Mesmo assim nossas funcções podem \emph{chamar} a funcção $f$ do nosso amigo nos seus corpos.
+%%}}}
+
+%%{{{ Q: How can we do this? 
+\question.
+Como fazer isso?
+%%}}}
+\spoiler.
+
+%%{{{ Answer in Python 
+\note Resposta em Python.
+\label{currying_in_python}%
+\iipl Python
+Aqui uma resposta, escrita em Python.
+\sourcecode currying.py;
+Para computar a $\code{f(x,y)}$ usando a $\code{F}$,
+usamos a $\code{F(x)(y)}$, ou seja, $\code{(F(x))(y)}$.
+%%}}}
+
+\TODO Explicar o que acontece.
+
+%%{{{ x: uncurry first exercise
+\exercise.
+Resolva o problema converso:
+começando com a funcção de ordem superior $F$,
+defina sua versão $f$ (de aridade 2).
+
+\solution
+Dados a $F : \ints\to(\ints\to\ints)$,
+é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
+Note que a expressão ``$F(x)(y)$'' quis dizer ``$\bigparen{F(x)}(y)$'' mesmo.
+
+\endexercise
+%%}}}
+
+%%{{{ Currying 
+\note Currificação.
+\tdefined{currificação}%
+A maneira que conseguimos utilizar funcções de ordem
+superior mas de aridade $1$, para ``emular'' funcções
+de aridades maiores é chamada \emph{currificação},
+em homenagem ao Haskell~\Curry[currificação]{}Curry.%
+\footnote{%
+O próprio \Curry{}Curry atribuiu o conceito
+ao \Schonfinkel[currificação]{}Schönfinkel,
+mas \Frege[currificação]{}Frege já tinha usado isso antes.
+}
+No exemplo acima digamos que $F$ é a \dterm{currificação}
+da $f$, ou sua versão currificada.
+%%}}}
+
+%%{{{ Q: How can we define the generic curry and uncurry functions? 
+\question.
+Usando a $\lambda$-notação como podemos definir funcções
+$\curry, \uncurry$ para a situação mais genérica onde
+a funcção de dois argumentos é do tipo $(A \times B) \to C$?
+%%}}}
+\spoiler.
+
+%%{{{ how_to_construct_curry_inhabitant 
+\note Resposta.
+\label{how_to_construct_curry_inhabitant}%
+Primeiramente vamos nos preocupar com os tipos dessas funcções.
+São assim:
+$$
+\cdopt{sep=2cm}
+\paren{(A\times B)\to C}  \ar[r, shift left, "\curry"] \| \paren{A \to (B\to C)} \ar[l, shift left, "\uncurry"]
+\endcd
+$$
+Temos então
+$$
+\curry : \paren{(A\times B)\to C} \longto \paren{A \to (B\to C)}
+$$
+definida pela
+$$
+\curry(\alert{\dots?}
+$$
+Como denotar o arbitrário membro do seu domínio $\paren{(A\times B)\to C}$?
+Sendo uma funcção, vou escolher denotá-lo por $f$.  Ajuda.
+Voltamos então:
+$$
+\curry(f) = \alert{\dots?}
+$$
+Que tipo de coisa estamos tentando \emph{construir} no lado direito?
+Pelo tipo da $\curry$, deve ser uma funcção de $A$ para $(B\to C)$.
+E o que tenho na minha disposição?  Neste ponto apenas a $f$.
+Facilita escrever claramente todas as coisas disponíveis e seus tipos.
+Então por enquanto tenho apenas
+$$
+f : (A\times B) \to C.
+$$
+E eu quero construir uma funcção de tipo $A\to (B \to C)$.
+Para defini-la preciso deixar claro o seu comportamento então:
+$$
+\curry(f) = \lam {\alert{\dots?}} {\dots}
+$$
+Como denotar a arbitrária entrada dessa funcção?
+Bem, sendo uma funcção com domínio $A$, vou escolher denotar
+seu argumento por $a$:
+$$
+\curry(f) = \lam {a} {\alert{\dots?}}
+$$
+A mesma pergunta: o que eu ganhei e o que tipo de coisa preciso construir agora?
+Ganhei um $a : A$, e preciso construir
+algo do tipo $B\to C$, ou seja, uma funcção (então vou começar com um $\lambda$\dots)
+que recebe $B$'s (então $\lam b {\dots}$ e retorna $C$'s:
+$$
+\curry(f) = \lam {a} {\lam {b} {\alert{\dots?}}}
+$$
+Aqui preciso construir um $C$'zinho e eu tenho:
+$$
+\align
+f &: (A\times B) \to C \\
+a &: A \\
+b &: B
+\intertext{%
+Fácil!  Pois eu tenho um fornecedor de $C$'s, e ele só
+precisa de um par de um $A$'zinho e um $B$'zinho para
+funcionar---pun intended---e felizmente eu tenho ambos, e logo
+}
+f(a,b) &: C
+\endalign
+$$
+Com isso consego finalmente terminar:
+$$
+\curry(f) = \lam {a} {\lam {b} {f(a,b)}}.
+$$
+Deixo a definição da $\uncurry$ pra ti:
+%%}}}
+
+%%{{{ x: uncurry_using_lambdas 
+\exercise.
+\label{uncurry_using_lambdas}%
+Defina a $\uncurry$.
+
+\hint
+Queremos definir a
+$$
+\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
+$$
+então sabemos já como começar: basta definir o
+$$
+\uncurry(\alert{\dots?}\phantom)
+$$
+Peraí: qual seria uma opção boa para denotar esse argumento?
+
+\hint
+Que tipo de coisa é esse argumento?
+Uma funcção $A \to (B\to C)$, ou seja, uma funcção de ordem
+superior; vou escolher $F$ aqui, para me lembrar desse fato.
+Voltando então:
+$$
+\uncurry(F) = \alert{\dots?}
+$$
+O que eu ganhei e o que eu preciso construir?
+Ganhei
+$$
+F : A \to (B\to C)
+$$
+e preciso algo do tipo $(A\times B) \to C$.
+Então já sei como começar.
+Como?
+
+\hint
+Sendo uma funcção, vou já escrever:
+$$
+\uncurry(F) = \lam {\alert{\dots?}} {\dots}
+$$
+e preciso escolher como denotar a sua entrada.
+E aqui tenho duas abordagens razoáveis:
+ou escolher alguma variável como $w,t,\vec w, \vec t$, etc.,
+onde ela terá o tipo $A\times B$;
+ou usar a $\lambda$-notação de aridades maiores escrevendo
+$\tup{a,b}$ para a arbitrária entrada dessa funcção.
+Vamos escolher segunda opção (se quiser, pode escolher a primeira).
+Continue!
+
+\hint
+Estamos aqui então:
+$$
+\uncurry(F) =
+\lam {\tup{a,b}} {\alert{\dots?}}
+$$
+e o que precisamos construir aqui?
+Sendo a ``saída'' duma funcção com tipo $(A\times B)\to C$,
+eu preciso construir uma coisa do tipo $C$.
+Mas o que mais eu tenho agora?
+Meus dados tem aumentado:
+$$
+\align
+F &: A\to (B \to C) \\
+\tup{a,b} &: (A\times B)
+\intertext{e logo}
+a &: A \\
+b &: B \\
+\alert{??} &: C\\
+\endalign
+$$
+Como posso usá-los para construir algo do tipo $C$?
+Eu não tenho um ``fornecedor'' de $C$'s imediato,
+mas percebo que tenho um\dots\ fornecedor de fornecedores
+de $C$'s!  (Minha $F$.)
+E para ela funcionar
+preciso oferecer $A$'zinho, e pronto, ela vai fornecer
+um fornecedor de $C$'s.
+Felizmente temos um $a : A$.
+Então temos:
+$$
+F(a) : ??
+$$
+
+\hint
+Temos
+$$
+\align
+F &: A\to (B \to C) \\
+\tup{a,b} &: (A\times B) \\
+a &: A \\
+b &: B \\
+F(a)    &: B \to C
+\intertext{e logo}
+F(a)(b) &: ??
+\endalign
+$$
+Termine!
+
+\solution
+Queremos definir a
+$$
+\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
+$$
+e \emph{seguindo as dicas} chegamos em:
+$$
+\uncurry(F) = \lam {\tup{a,b}} {\bigparen{F(a)}(b)}.
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ type_inference_tree_for_curry 
+\note Arvore de inferência de tipo.
+A última parte da argumentação acima corresponde na arvore de inferência
+seguinte:
+$$
+\Proofm {
+\A {f \is A \cross B \to C}      \A {x \is A}  \A {y \is B}
+                               \I2------------------------- {}
+                                   {(x,y) \is A \cross B}
+\I2------------------------------------------------------- {}
+                        {f(x,y) \is C}
+}
+$$
+Verifique cada passo, e acostume-se com essa forma!
+%%}}}
+
+%%{{{ x: type_inference_tree_for_uncurry 
+\exercise Acostume-se mesmo.
+\label{type_inference_tree_for_uncurry}%
+Construa a arvore que corresponde na última parte da
+tua resolução do~\ref{uncurry_using_lambdas} caso que
+tu não fez isso já enquanto o resolvendo.
+
+\solution
+$$
+\Proofm {
+\A {f \is A \to (B \to C)}     \A {t \is A \cross B}
+                               \I1------------------ {}
+                                   {\outl t \is A}
+\I2------------------------------------------------- {}
+               {f (\outl t) \is B\to C}
+                                               \A {t \is A \cross B}
+                                               \I1------------------ {}
+                                                   {\outr t \is B}
+\I2---------------------------------------------------------------- {}
+                     {f (\outl t) (\outr t) \is C}
+}
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ syntactic_associativity 
+\note Associatividade sintáctica.
+\label{syntactic_associativity}%
+Considere que temos uma operação binária $\heartop$.
+A frase
+$$
+\text{<<$\heartop$ é associativa>>}
+$$
+é uma \emph{afirmação matemática:}
+$$
+\text{para todo $x,y,z$},
+\quad
+(x \heartop y) \heartop z
+=
+x \heartop (y \heartop z).
+$$
+Isso é algo que pode ser demonstrado, suposto, refutado, etc.
+No outro lado, considere as frases seguintes:
+$$
+\xalignat2
+&\aligned
+&\text{<<$\heartop$ é associativa na esquerda>>} \\
+&\text{<<$\heartop$ associa na esquerda>>} \\
+&\text{<<$\heartop$ é L-associativa>>}
+\endaligned
+&
+&\aligned
+&\text{<<$\heartop$ é associativa na direita>>} \\
+&\text{<<$\heartop$ associa na direita>>} \\
+&\text{<<$\heartop$ é R-associativa>>}
+\endaligned
+\intertext{%
+Nenhuma dessas frases é algo que podemos demonstrar, refutar, ou supor!
+O que significam então?
+Apenas uma convenção sintáctica, que dá significado
+às expressões como a \symqq{$x \heartop y \heartop z$}
+que sem uma associatividade sintáctica não denotam
+absolutamente nada (pois têm um erro de aridade).
+As frases acima então correspondem respectivamente nas:
+}
+&x \heartop y \heartop z \syndefeq (x \heartop y) \heartop z &
+&x \heartop y \heartop z \syndefeq x \heartop (y \heartop z).
+\endxalignat
+$$
+%%}}}
+
+%%{{{ notational_abuse_curried 
+\warning.
+\label{notational_abuse_curried}%
+Às vezes abusarei essa idéia e escrever o nome duma funcção
+currificada mas usá-la como se ela não fosse; e vice-versa.
+Por exemplo, defini (\refn{eval_operation}) a $\evaldc A B$
+como uma funcção
+$$
+\evaldc A B : \pfcross {(A \to B)} A \to B.
+$$
+Ou seja, para chamá-la escrevemos
+$$
+\evaldc A B (f,a).
+$$
+Mas abusando a notação posso consider o mesmo símbolo
+$\evaldc A B$ para denotar sua currificação
+$$
+\evaldc A B : {(A \to B)} \to A \to B
+$$
+que \emph{é uma funcção diferente sim}, nesse caso escrevendo
+$$
+\evaldc A B \fa f \fa a.
+$$
+Tudo isso apenas no caso que pelo contexto tá claríssimo qual
+das duas funcções tá sendo denotada.
+%%}}}
+
+\TODO notação de ``aridades maiores'' currificada.
+
+%%{{{ human_eyes_and_ho_types 
+\note Olhos humanos e os tipos higher-order.
+\label{human_eyes_and_ho_types}%
+%%}}}
+
+\TODO Escrever.
+
+%%{{{ partial_application_and_currying 
+\note Aplicação parcial e currificação.
+\label{partial_application_and_currying}%
+%%}}} 
+
+\TODO Escrever.
+
+%%{{{ eg: powTwo 
+\example powTwo.
+\label{powTwo}%
+Definimos a funcção $\namedfun{powTwo} : \nats\to\reals$ pela
+$$
+\namedfun{powTwo} = \namedfun{exp} \fa 2.
+$$
+Assim $powTwo\fa 0 = 1$, $\namedfun{powTwo} \fa 10 = 1024$, etc.
+\endexample
+%%}}}
+
+%%{{{ remark: looks_like_cancellation 
+\remark Parece cancelamento.
+\label{looks_like_cancellation}%
+%%}}}
+
+\TODO Escrever.
+
+\blah.
+Já entramos bastante to território de programação funcional;
+paramos aqui agora, e voltamos re-visitar e expandir tudo isso
+no~\ref{Functional_programming}.
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 
@@ -27367,316 +28564,290 @@ pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
 \endproblem
 %%}}}
 
+%%{{{ jection_iff_composition_with_inverse_proof
+\problem.
+\label{jection_iff_composition_with_inverse_proof}%
+Prove o~\ref{jection_iff_composition_with_inverse}.
+
+\solution
+Já provou as idas no~\refn{jection_implies_composition_with_inverse}.
+Vamos provar as voltas.
+\endgraf
+\proofpart{Volta da (1).}
+Suponha a hipótese:
+$$
+\text{para todo $A \subset X$, $A = \pre f {\img f A}$}.
+$$
+Para mostrar que $f$ é injetora, suponha que $x,x'\in X$ tais que $f(x) = f(x')$.
+Basta verificar que $x = x'$.
+Considere o conjunto $A = \set{x}$.
+Observe que $A \subset X$, e logo pela hipótese temos
+$$
+A = \pre f {\img f A}.\tag{A}
+$$
+Temos $f(x) \in \img f A$ pela definição da funcção-imagem.
+Como $f(x') = f(x)$ temos também $f(x') \in \img f A$.
+Logo
+$$
+x, x' \in \pre f {\img f A} \eqlabel A A = \set{x}.
+$$
+Como $x, x' \in \set{x}$, logo $x = x'$.
+\endgraf
+\proofpart{Volta da (2).}
+Suponha a hipótese:
+$$
+\text{para todo $B \subset Y$, $B = \img f {\pre f B}$}.
+$$
+Tome $y_0\in Y$.
+Para mostrar que $f$ é sobrejetora
+basta mostrar que $\pre f {\set{y_0}} \neq \emptyset$.
+Considere o
+$$
+B = \set{y_0} \subset Y
+$$
+e logo pela hipótese temos
+$$
+B = \img f {\pre f B}.\tag{B}
+$$
+Ou seja, $\pre f B \neq \emptyset$
+(caso contrário teriamos
+$$
+B
+\eqlabel B \img f {\pre f B}
+= \img f {\emptyset}
+= \emptyset
+$$
+que é absurdo pois $B = \set{y_0}$).
+Isso mostra que $f$ é sobrejetora.
+
+\endproblem
+%%}}}
+
+%%{{{ Halmos_advice_f_surj_iff_pre_f_inj 
+\problem Don't just read it; fight it.
+\label{Halmos_advice_f_surj_iff_pre_f_inj}%
+Ache a coisa mais óbvia para se perguntar depois
+do~\ref{f_surj_iff_pre_f_inj};
+pergunte-se; responda (demonstra ou refuta).
+
+\hint
+$$
+f(\dhole)
+\brace{%
+\gathered
+\text{injetora} \\
+\text{sobrejetora}
+\endgathered
+}
+\askiff
+\brace{%
+\gathered
+\img f \dhole \\
+\pre f \dhole
+\endgathered
+}
+\brace{%
+\gathered
+\text{injetora} \\
+\text{sobrejetora}
+\endgathered
+}
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ big_operations_respected_by_img_and_pre 
+\problem.
+\label{big_operations_respected_by_img_and_pre}%
+{%
+\def\I{{\cal I}}%
+\def\J{{\cal J}}%
+Sejam $f : A \to B$, e duas famílias indexadas de conjuntos:
+$\famil A i \I$ feita por subconjuntos de $A$, e
+$\famil B j \J$ feita por subconjuntos de $B$.
+Ou seja, par todo $i\in \I$, e todo $j \in \J$,
+temos $A_i \subset A$ e $B_j \subset B$.
+Mostre que:
+$$
+\align
+\img f {\Unionl_{i \in \I} A_i} &=      \Unionl_{i \in \I} \img f {A_i} \tag1\\
+\img f {\Interl_{i \in \I} A_i} &\askeq \Interl_{i \in \I} \img f {A_i} \tag2\\
+\pre f {\Unionl_{j \in \J} B_j} &=      \Unionl_{j \in \J} \pre f {B_j} \tag3\\
+\pre f {\Interl_{j \in \J} B_j} &=      \Interl_{j \in \J} \pre f {B_j} \tag4
+\endalign
+$$
+onde na $\askeq$ prove que a igualdade em geral não é válida,
+mas uma das~{\lrdirset}~e~{\rldirset} é.
+A demonstre, e, supondo que $f$ é injetora, demonstre a outra também.
+}
+
+\solution
+{%
+\def\I{{\cal I}}%
+\def\J{{\cal J}}%
+\proofpart{(1)}:
+Provamos cada direção separadamente.
+{\lrdirset}:
+Seja $b \in \img f {\Union_{i\in\I} A_i}$.
+Seja $a\in\Union_{i\in\I} A_i$ tal que $f(a) = b$\fact1 (pela definição de funcção-imagem).
+Agora tome $i\in\I$ tal que $a\in A_i$\fact2.
+Agora pelas~\byfact1,\byfact2~temos que $b\in\img f {A_i}$.
+Ou seja, $b \in \Union_{i\in\I} \img f {A_i}$.
+{\rldirset}:
+Seja $b \in \Union_{i\in\I} \img f {A_i}$.
+Seja $i\in\I$ tal que $b\in \img f {A_i}$.
+Tome $a\in A_i$ tal que $f(a) = b$\fact1.
+Como $a\in A_i$, logo $a\in\Union_{i\in\I} A_i$ e agora pela~\byfact1
+ganhamos $b \in \img f {\Union_{i\in\I} A_i}$.
+\endgraf
+\proofpart{(2)}:
+Provamos primeiro a {\lrdirset} que é verdade para toda $f$,
+e mostramos que se $f$ é injetora, a {\rldirset} também é válida.
+{\lrdirset}:
+Seja $b \in \img f {\Inter_{i\in\I} A_i}$.
+Logo tome $a \in \Inter_{i\in\I} A_i$\fact1 tal que $f(a) = b$\fact2.
+Agora, como $a$ pertence a todos os $A_i$'s e $f(a) = b$,
+então para cada $i\in\I$, $b\in\img f {A_i}$.
+Ou seja, $b$ pertence a todos os $\img f {A_i}$'s.
+Chegamos então no desejado $b\in\Inter_{i\in\I} \img f {A_i}$.
+\endgraf
+{\rldirset}:
+Para essa direção vamos supor que $f$ é injetora.
+Tome $b\in\Inter_{i\in\I} \img f {A_i}$, ou seja $b$
+pertence a todos os $\img f {A_i}$'s.
+Ou seja, para cada um dos $A_i$'s, existe $a_i\in A_i$
+tal que $f(a_i) = b$.
+Mas a $f$ é injetora, então todos esses $a_i$'s são iguais;
+seja $a$ então esse membro comum dos $A_i$'s.
+Temos então que:
+$a \in \Inter_{i\in\I} {A_i}$ e $f(a) = b$.
+Ou seja, $b \in \img f {\Inter_{i\in\I} A_i}$.
+\endgraf
+\proofpart{(3)}:
+Calculamos:
+\compute
+a \in \pre f {\Unionl_{j\in\J} B_j}
+&\iff f(a) \in \Unionl_{j\in\J} B_j           \by {def.~$\pre f {\Unionl_{j\in\J} B_j}$}
+&\iff \lexists {j\in\J} {f(a) \in B_j}        \by {def.~$\Unionl_{j\in\J} B_j$}
+&\iff \lexists {j\in\J} {a \in \pre f {B_j}}  \by {def.~$\pre f {B_j}$}
+&\iff a \in \Unionl_{j\in\J} {\pre f {B_j}}.  \by {def.~$\Unionl_{j\in\J} {\pre f {B_j}}$}
+\endcompute
+Ou seja, $\pre f {\Unionl_{j \in \J} B_j} = \Unionl_{j \in \J} \pre f {B_j}$.
+\endgraf
+\proofpart{(4)}:
+{\lrdirset}:
+Seja $a \in \pre f {\Inter_{i\in\J}^\infty B_j}$.
+Logo $f(a) \in {\Inter_{i\in\J}^\infty B_j}$,
+ou seja, para todo $i\in\J$, $f(a) \in B_j$.
+Logo $a \in \pre f {B_j}$ para todo $i\in\J$, ou seja,
+$a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
+{\rldirset}.
+Similar: é só seguir os passos da {\lrdirset} em reverso.
+}
+
+\endproblem
+%%}}}
+
+%%{{{ f_surj_iff_pre_f_inj 
+\problem.
+\label{f_surj_iff_pre_f_inj}%
+Seja $f : A \to B$.
+Considere a afirmação seguinte:
+$$
+\text{$f(\dhole)$ sobrejetora}
+\askiff
+\text{$\pre f {\dhole}$ injetora}.
+$$
+Para cada uma das direções responda\dots
+(1) ``sim'', e prove;
+(2) ``não'', e refute; ou
+(3) ``depende'', e mostre dois exemplos:
+um onde a implicação é valida, e outro onde não é.
+
+\hint
+Ambas as implicações são válidas.
+(Observe que $f(\dhole)$ é a própria $f$.)
+
+\solution
+Ambas as direcções são válidas.
+\crtabproofpart{\lrdir}:
+Suponha $f$ sobrejetora e sejam $Y,Y'$ no $\dom(\pre f {\dhole})$
+tais que $Y\neq Y'$.
+(Temos então $Y,Y'\subset B$.)
+Basta provar que $\pre f {Y} \neq \pre f {Y'}$.
+Como $Y\neq Y'$, sem perda de generalidade, seja $d \in Y \setminus Y'$.
+Como $f$ é sobrejetora, seja $a_d \in A$ tal que $f(a_d) = d$.
+Observe que $f(a_d) \in Y$ e que $f(a_d) \notin Y'$.
+Logo $a_d \in \pre f Y$ e $a_d \notin \pre f {Y'}$,
+pela definição da $\pre f {\dhole}$.
+Logo $\pre f Y \neq \pre f Y'$.
+\crtabproofpart{\rldir}:
+Vou provar a contrapositiva da afirmação.
+Suponha então que $f$ não é sobrejetora.
+Vou demonstrar que $\pre f {\dhole}$ não é injetora.
+Basta então achar dois membros distintos no seu domínio
+mapeados no mesmo objeto.
+Como $f$ não é sobrejetora, seja $t\in B$ tal que
+$t \notin \range(f)$, ou seja, tal que
+para todo $a \in A$, $f(a) \neq t$.
+Agora considere os: $\emptyset$ e $\set{t}$.
+Ambos são subconjuntos de $B$, e eles são distintos,
+mas mesmo assim
+$$
+\pre f {\emptyset} = \emptyset = \pre f {\set{t}}.
+$$
+Ou seja, a $\pre f {\dhole}$ não é injetora.
+
+\endproblem
+%}}}
+
+%%{{{ succiter_for_dummies_returns 
+\problem.
+\label{succiter_for_dummies_returns}%
+(Continuação do~\ref{succiter_for_dummies}.)
+Qual é (a extensão d)o conjunto
+$$
+\Inter_{n=0}^\infty \img {\succ^n} {\nats}\,?
+$$
+Prove tua afirmação.
+
+\hint
+$\Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$.
+
+\hint
+Suponha que tem $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$
+e chegue numa contradicção.
+
+\solution
+Eu vou demonstrar que
+$$
+\Inter_{n=0}^\infty \img {\succ^n} {\nats}=\emptyset.
+$$
+Para chegar num absurdo,
+suponha que $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats}$.
+Logo, para todo $n\in\nats$, $w \in \img {\succ^n} {\nats}$.
+Logo, para todo $n\in\nats$, existe $m\in\nats$ tal que $\succ^n(m) = w$.
+Mas $\succ^n(m) = n + m$ (\ref{succiter_for_dummies}).
+Ou seja:
+$$
+\text{para todo $n\in\nats$, existe $m\in\nats$ tal que $n + m = w$}.
+$$
+Ou seja,
+$$
+\text{para todo $n\in\nats$, $n \leq w$ (\ref{natops_leq_def})}. \tag{*}
+$$
+Ou seja, $w$ é o máximo do $\nats$; absurdo pois $\nats$ não tem máximo!
+\crproofalt{Alternativamente,}
+bote $n := w+1$ na (*) para chegar no absurdo $w + 1 \leq w$.
+
+\endproblem
+%%}}}
+
 \endproblems
 %%}}}
 
-%%{{{ Inverse_functions 
-\section Funcções inversas.
-\label{Inverse_functions}%
-
-\blah.
-Informalmente, para construir a inversa duma funcção
-pegamos o seu diagrama interno, e viramos todas
-as setinhas barradas para a direção oposta.
-Vamos estudar essa idéia formalmente agora.
-
-%%{{{ df: finverse 
-\definition funcção inversa.
-\label{finverse}%
-\tdefined{funcção}[inversa]%
-\sdefined {\finv {\sholed f}} {a funcção inversa da $f$}%
-Seja funcção bijetora $f : A \bijto B$.
-Definimos a funcção $\finv f : B \to A$ pela
-$$
-\finv f (y) \defeq \text{aquele $x\in A$ que $x \mapstoby f y$}.
-$$
-Ou, \emph{equivalentemente}, pela
-$$
-\finv f (y) = x \defiff f(x) = y.
-$$
-Com outra notação:
-$$
-y \mapstoby {\finv f} x \defiff x \mapstoby f y.
-$$
-Chamamos a $\finv f$ a \dterm{funcção inversa} da $f$.
-%%}}}
-
-%%{{{ remark: human_eyes_are_not_symmetric 
-\remark Os olhos humanos não são simétricos.
-\label{human_eyes_are_not_symmetric}%
-Às vezes a direção em que a gente olha para uma igualdade faz diferença:
-$$
-\alpha = \beta \iff \beta = \alpha
-$$
-sim, ou seja, \symq{$=$} é simétrica,
-mas nossos olhos humanos conseguem enxergar certas informações melhor na
-forma $\alpha = \beta$, e outras na forma $\beta = \alpha$!
-(Talvez nossos olhos não são tão simétricos.)
-A mesma coisa é sobre relações ``direcionadas'' como por exemplo:
-$$
-\alpha \leq \beta \iff \beta \geq \alpha
-$$
-que também são afirmações equivalentes,
-mas muitas vezes a gente enxerga uma numa maneira diferente da outra!
-\endgraf
-Na~\ref{finverse} acima, por exemplo, reescrevendo a igualdade
-na outra direção temos:
-$$
-\finv f (y) = x \defiff y = f(x)
-$$
-que possivelmente nos permite enxergar a situação numa maneira diferente.
-Similarmente, usando a notação das setinhas barradas podemos enxergar
-a equivalência assim:
-$$
-x \mapsfromby {\finv f} y \defiff x \mapstoby f y.
-$$
-%%}}}
-
-%%{{{ x: finv_is_well_defined 
-\exercise A inversa é bem-definida.
-\label{finv_is_well_defined}%
-Prove que a funcção $\finv f$ foi bem-definida.
-O que precisas provar?
-
-\solution
-Pelo menos um tal $x\in A$ existe, pois a $f$ é sobrejetora.
-E como $f$ é injetora, existe no máximo um.
-Provamos assim a unicidade, algo que nos permite
-\emph{definir a funcção} no jeito que definimos
-na~\ref{finverse}.
-
-\endexercise
-%%}}}
-
-%%{{{ x: finv_is_bij 
-\exercise A inversa é bijetora.
-\label{finv_is_bij}%
-Prove que quando a funcção inversa $\finv f$ é definida, ela é bijetora.
-
-\hint
-O que exatamente garanta a injectividade da $\finv f$, e o que a sua sobrejectividade?
-
-\hint
-Considere:
-$$
-\align
-\text{totalidade da $f$}      &\implies \text{$\finv f$ sobrejetora} \\
-\text{determinabilidade da $f$} &\implies \text{$\finv f$ injetora}.
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: finv_of_finv 
-\exercise Inversa da inversa.
-\label{finv_of_finv}%
-Prove que se a funcção inversa $\finv f$ é definida,
-então a sua inversa $\finvp{\finv f}$ também é
-e temos $\finvp{\finv f} = f$.
-
-\hint
-Quando a funcção inversa é definida?
-
-\hint
-Aplique duas vezes a~\ref{finverse} de funcção inversa para provar
-que as duas funcções são iguais.
-
-\solution
-Pelo~\ref{finv_is_bij} temos que $\finv f$ é bijetora,
-então sua inversa $\finvp{\finv f}$ é definida sim
-(e pelo~\ref{finv_is_bij} de novo ela é bijetora também).
-As $f$ e $\finvp{\finv f}$ têm domínios e codomínios iguais.
-Basta verificar que concordam em todo o seu domínio.
-Seja $x \in \dom f$ então.
-Calculamos
-\compute
-\finvp{\finv f}(x)    = f(x)
-&\iff {\finv f}(f(x)) = x   \by {def.~$\finvp{\finv f}$}
-&\iff f(x) = f(x)           \by {def.~$\finv f$}
-\endcompute
-e a última igualdade é trivialmente válida,
-e logo $\finvp{\finv f} = f$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: finv_laws_pointful 
-\exercise Leis da inversa (com pontos).
-\label{finv_laws_pointful}%
-Seja $f: A \bijto B$.
-Para todo $a\in A$ e todo $b\in B$, temos:
-$$
-\xxalignat4
-\textrm{(L)} && \finv f (f a) &= a &
-f (\finv f b) &= b. &&\textrm{(R)}
-\endxxalignat
-$$
-(Esqueça o ``com pontos'' no rótulo desse exercício;
-vai fazer sentido depois.)
-
-\solution
-Seja $a\in A$ e $b\in B$.
-Calculamos:
-\compute
-\finv f (f(a))
-&= \text{aquele $x\in A$ que $f(x) = f(a)$} \\
-&= a.          \by {$f$ inj.}
-\endcompute
-Agora tomando $y\in B$ calculamos a outra numa maneira diferente:
-\compute
-f(\finv f(b)) = y
-&\iff \finv f (b) = \finv f (y) \\
-&\iff b = y    \by {$\finv f$ inj.~(\refn{finv_is_bij})}
-&\iff \idof B (b) = y.
-\endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ x: finv_of_id 
-\exercise Inversa da identidade.
-Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
-
-\solution
-Temos $\idof A, \finv{\idof A} : A \bijto A$ então basta
-verificar que comportam igualmente.
-\crproofalt{Jeito 1.}
-Seja $a \in A$ então e calculamos:
-\compute
-\finv{\idof A} a
-&= \text{aquele $v\in A$ que $\idof A v = a$}  \by {def.~$\finv{\idof A}$}
-&= a                                           \by {def.~$\idof A$}
-&= \idof A a.                                  \by {def.~$\idof A$}
-\endcompute
-\proofalt{Jeito 2.}
-Sejam $a,a'\in A$.
-Calculamos:
-\compute
-\finv{\idof A} a = v
-&\iff a = \idof A v     \by {def.~$\finv{\idof A}$}
-&\iff a = v             \by {def.~$\idof A$}
-&\iff \idof A a = v.    \by {def.~$\idof A$}
-\endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ finv_of_fcompose_error 
-\note Inversa da composição: um erro.
-\label{finv_of_fcompose_error}%
-Queremos descrever a inversa duma composição de bijecções em termos
-das inversas dessas bijecções.
-Ou seja, temos
-Um erro comum é afirmar que $\finvp{g\of f} = \finv g \of \finv f$.
-Pense em funcções como ``processos'' e na $g\of f$ como o processo
-<<faça $f$ e depois faça $g$>>.
-Como exemplo, considere $f$ o <<botar cueca>> e $g$ o
-<<botar shorts>>.
-Logo $g\of f$ é o processo <<botar cueca e depois botar shorts>>.
-Assim, qual processo seria o $\finv g \of \finv f$?
-Se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
-%%}}}
-
-%%{{{ x: finv_of_fcompose 
-\exercise Inversa da composição.
-\label{finv_of_fcompose}%
-Sejam
-$
-\cd
-A \ar[r, tail, two heads, "f"] \| B \ar[r, tail, two heads, "g"] \| C
-\endcd
-$\!.
-Descreva a $\finvp{g\of f}$ em termos das $\finv f$ e $\finv g$ e prove
-tua afirmação.
-
-\hint
-$\finvp{g\of f} = \finv f \of \finv g$.
-
-\hint
-Para provar a $\finvp{g\of f} = \finv f \of \finv g$,
-tome $x\in C$ e $z\in A$ e mostre a equivalência
-$$
-\finvp{g\of f}(x) = z
-\iff
-\paren{\finv f \of \finv g}(x) = z.
-$$
-
-\hint
-Calcule cada lado separadamente:
-\compute
-\finvp{g\of f}(x) = z
-&\iff (g\of f)(z) = x  \by {def.~$\finvp{g\of f}$}
-&\dotsiff \dots \\
-\paren{\finv f \of \finv g}(x) = z
-&\iff \finv f \funparen{\finv g (x)} = z  \by {def.~$\finv f \of \finv g$}
-&\dotsiff \dots
-\endcompute
-
-\solution
-Vamos provar que
-$$
-\finvp{g\of f} = \finv f \of \finv g.
-$$
-Tome $x \in C$ e $z \in A$.  Basta provar que
-$$
-\finvp{g\of f}(x) = z
-\iff
-\paren{\finv f \of \finv g}(x) = z.
-$$
-pois isso quis dizer que as duas funcções concordam em todo o seu domínio.
-Calculamos:
-\compute
-\finvp{g\of f}(x) = z
-&\iff x = (g\of f)(z)                     \by {def.~$\finvp{g\of f}$}
-&\iff x = g(f(z))                         \by {def.~$g\of f$}
-&\iff \finv g (x) = f(z)                  \by {def.~$\finv g$}
-&\iff \finv f \funparen{\finv g (x)} = z  \by {def.~$\finv f$}
-&\iff \paren{\finv f \of \finv g}(x) = z. \by {def.~$\finv f \of \finv g$}
-\endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ x: finv_atleastonelaw_if_f_bij 
-\exercise Basta uma lei.
-\label{finv_atleastonelaw_if_f_bij}%
-Seja $f : A \bijto B$.
-Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis
-do~\ref{finv_laws_pointful}, então $f'$ é a própria $\finv f$.
-
-\solution
-Sejam $b\in B$, $a\in A$.
-Caso que $f'$ satisfaz a (L)
-calculamos:
-\compute
-\finv f b = a
-&\iff b = f a               \by {def.~$\finv f$}
-&\iff f' b = f' (f a)       \by {$f'$ inj.}
-&\iff f' b = (f' f) \fa a   \by {def.~$(f'f)$}
-&\iff f' b = a.             \by {(L) da $f'$ (com $w \asseq a$)}
-\intertext{E caso que $f'$ satisfaz a (R):}
-f' b = a
-&\iff f (f' b) = f a        \by {$f$ inj.}
-&\iff (f f') \fa b = f a    \by {def.~$(f f')$}
-&\iff b = f a               \by {(R) da $f'$ (com $w \asseq b$)}
-&\iff \finv f b = a.        \by {def.~$\finv f$}
-\endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ Boring, innit? 
-\blah É chato, né?.
-Mergulhar nos domínios e codomínios das funcções, mexendo com os
-bichinhos que tem lá, tanto para enunciar teoremas quanto para
-demonstrá-los espero que foi uma experiência não exatamente divertida.
-Logo vamos ver uma outra maneira para enunciar e demonstrar
-essas propriedades, ``de longe'', sem olhar os detalhes internos.
-%%}}}
-
-\endsection
-%%}}}
+% EPICNESS
 
 %%{{{ An_epic_trip 
 \section Uma viagem épica.
@@ -28566,895 +29737,12 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Higher_order_functions 
-\section Funcções de ordem superior.
-\label{Higher_order_functions}%
-
-%%{{{ Holes again 
-\note Buracos de novo.
-Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
-botando \emph{buracos}, criando assim funcções de várias aridades.
-Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
-permitiu dar nomes para esses buracos, ligar (identificar) certos buracos, etc.
-Considere novamente uma expressão como a
-$$
-\cos(1 + 5\cbrt2)^{2a} + \sin(5)
-$$
-onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
-Botando uns buracos ou abstraindo com lambdas, criamos, por exemplo, as funcções:
-$$
-\alignat2
-f_1 &= \cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
-f_2 &= \cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
-f_3 &= \cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
-f_4 &= \cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
-f_5 &= \bhole + \sin(\bhole)                             &&\eqtype \reals^2 \to \reals\\
-f_6 &= \lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
-f_7 &= \lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
-\endalignat
-$$
-%%}}}
-
-%%{{{ x: verify_abstractions_of_expression 
-\exercise.
-\label{verify_abstractions_of_expression}%
-Para quais entradas cada uma dessas funcções retorna o valor da expressão inicial?
-
-\hint
-Respeite as aridades!
-
-\solution
-Temos
-$$
-\align
-f_1&(2)\\
-f_2&(1,2,5)\\
-f_3&(1,5,a)\\
-f_4&(1,5,2a)\\
-f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
-f_6&(a)\\
-f_7&(2, 5).
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ Higher-order holes 
-\note Buracos de ordem superior.
-Em todos os exemplos acima, botamos os buracos para substituir
-apenas termos cujos valores seriam números (reais).
-Expressões tanto como as $2$, $1$, $5$, e $a$,
-quanto como as $5\cbrt2$, $2a$, e $\cos(1 + 5\cbrt2)^{2a}$,
-denotam, no final das contas, números reais.
-Que tal botar um buraco assim:
-$$
-\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
-$$
-O que substituimos aqui?  O próprio $\sin$!  Por que não?
-E o que tipo de objetos podemos botar nesse buraco?
-Um real, não serve: a expressão
-$$
-\cos(1 + 5\cbrt2)^{2a} + 7(5)
-$$
-não faz sentido: ela é \dterm{mal-tipada}.
-O $7$ não pode receber um argumento como se fosse uma funcção, pois não é.
-Que tipo de coisa então caiba nesse buraco?
-Funcções!
-E não funcções quaisquer, mas precisam ter um tipo compatível,
-com a aridade certa, etc.
-Esses buracos são \emph{de ordem superior}.
-E com buracos de ordem superior, vêm funcções de ordem superior.
-%%}}}
-
-%%{{{ pseudodf: higher_order_function 
-\pseudodefinition.
-\label{higher_order_function}%
-\tdefined{funcção}[de ordem superior]%
-Dizemos que uma funcção $f : A \to B$ é de \dterm{ordem superior}
-se ela recebe ou retorna funcções.
-%%}}}
-
-%%{{{ x: type_higher_order_holed_expressions 
-\exercise.
-\label{type_higher_order_holed_expressions}%
-Escreva os tipos das funcções seguintes:
-$$
-\align
-F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
-F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
-F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
-F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
-\endalign
-$$
-
-\solution
-Temos
-\compute
-F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
-F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                     &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
-F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
-F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)             &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
-F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
-\endcompute
-
-\endexercise
-%%}}}
-
-%%{{{ Returning functions 
-\note Retornando funcções.
-Até agora encontramos exemplos onde funcções recebem como
-argumentos outras funcções, mas ainda não conhecemos alguma
-funcção que \emph{retorna funcção}.
-Ou será que conhecemos?
-Se tu resolveu o~\ref{calculate_lambda_expressions},
-tu já encontrou esse caso, na sua última expressão.
-Seguem uns exemplos de operadores de ordem superior que
-você talvez já encontrou e até usou na tua vida.
-%%}}}
-
-%%{{{ eg: Defining a higher-order functions 
-\example Definindo uma funcção de ordem superior.
-\ii{funcção!anônima}%
-Considere a funcção $F : \nats \to (\nats \to \nats)$ definda pela
-$$
-\align
-F(w) &= \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x$, retorna $w + x$}.
-\intertext{%
-Ou, equivalentemente:
-}
-F(w) &= \text{aquela funcção $g : \nats \to \nats$ definida pela $g(x) = w + x$}.
-\intertext{%
-Que tipo de objetos a funcção $F$ retorna?
-Funcções!  Nesse caso determinamos exatamente para qualquer entrada
-dela, qual seria a funcção que vai ser retornada.
-Observe que na definição de $F(w)$, apareceu a frase
-``aquela funcção $g$\dots''.
-Assim baptizamos temporariamente essa funcção com um nome (``$g$'') à toa:
-apenas para referir a ela e retorná-la.
-Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
-e (logo) mais legível:
-}
-F(w) &= \lam x {w + x} \eqtype \nats \to \nats.
-\endalign
-$$
-Observe que no lado direito aparece uma funcção anônima.
-\endexample
-%%}}}
-
-%%{{{ eg: in Python 
-\example em Python.
-\iipl Python
-Em Python podemos (ainda bem\dots)~por exemplo escrever:
-\sourcecode higher.py;
-que corresponde na primeira maneira de definir a $F$, criando e nomeando
-a funcção para ser retornada.
-Podemos com $\lambda$ também:
-\sourcecode higherlam.py;
-Não ficou melhor?
-\endexample
-%%}}}
-
-%%{{{ Q: what type of thing is F(25)? 
-\question.
-Que tipo de coisa é o $F(25)$?
-%%}}}
-\spoiler.
-
-%%{{{ Answer 
-\note.
-Antes de responder nessa pergunta, vamos responder numa outra,
-ainda mais específica: quem \emph{é} o $F(25)$?
-Ou seja:
-$$
-F(25) = \dots?\dots
-$$
-Não precisamos pensar nada profundo!
-Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
-$$
-F(25) = \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x\in\nats$, retorna o número $25 + x$}.
-$$
-Ou seja,
-$$
-F(25) : \nats\to\nats.
-$$
-Sendo funcção, podemos chamá-la com um argumento do certo tipo, por exemplo como o $3\in\nats$, e evaluá-la:
-$$
-\paren{F(25)}(3) = 28.
-$$
-%%}}}
-
-%%{{{ x: where_did_28_come_from 
-\exercise.
-\label{where_did_28_come_from}%
-De onde chegou esse $28$?
-
-\solution
-Seguindo a definição da $F(25)$ ela é a funcção que recebendo um valor
-(agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
-$25 + 3 = 28$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: find_expressions_with_given_types_higher_order 
-\exercise.
-\label{find_expressions_with_given_types_higher_order}%
-Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
-tipos seguintes:
-$$
-\align
-F_1&\eqtype \reals \to \reals \\
-F_2&\eqtype \reals \to (\reals \to \reals) \\
-F_3&\eqtype (\reals \to \reals) \to \reals \\
-F_4&\eqtype (\reals \to \reals) \to (\reals \to \reals) \\
-F_5&\eqtype (\reals^2 \to \reals) \to \reals \\
-F_6&\eqtype (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ x: find_expressions_with_given_types_higher_order_abstract 
-\exercise.
-\label{find_expressions_with_given_types_higher_order_abstract}%
-Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
-tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não podes supor
-absolutamente nada mais!
-Para cada um dos tipos, tente escrever as mais $\lambda$-expressões realmente
-diferentes que tu consegues.
-Cuidado: para uns deles não é possível achar nenhuma!
-$$
-\align
-&: A \to B \\
-&: A \to (B \to A) \\
-&: A \to (B \to B) \\
-&: (A \to A) \to A \\
-&: A \to (A \to A) \\
-&: A \to \bigparen{B \to \paren{(A\to B) \times (A\union C) \times \nats}} \\
-&: (A \to (B \to C) \to ((A\times B)\to C)) \\
-&: ((A\times B)\to C) \to (A \to (B \to C))
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ first_class_citizens 
-\note First-class citizens.
-\label{first_class_citizens}%
-{\ii{cidadão da primeira classe}}%
-{\iisee{first-class citizen}{cidadão}}%
-O slogan aqui é que funcções são \emph{first-class citizens}.
-Trabalhando no~\ref{calculate_lambda_expressions}, o último cálculo
-chega no valor seguinte:
-$$
-\align
-\plam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
-&\lstep \plam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
-&\lstep \plam x {(1 + 1) \ntimes x \ntimes 4)} \\
-&\isteq \plam x {8x}.
-\endalign
-$$
-Como falei na resolução, se esse ``resultado'' (valor final)
-não parece satisfatório, é por causa de um preconceito teu que
-favorece os objetos de tipo ``número'' contra os objetos de tipo
-``funcção''.
-Os números têm o direito de ser valores finais; e as funcções
-também têm!  Esse ``preconceito'' é bastante alimentado por causa
-de varias linguagens de programação que realmente não tratam
-as funcções em termos iguais com os outros tipos.
-\iipl C
-\iipl C++
-\iipl Java
-Em C, C++, ou Java, por exemplo, não é possível passar como
-argumentos funcções, nem retorná-las; mas claramente números
-podem ser argumentos e também podem ser retornados como saída
-de funcções.
-\iipl Haskell
-\iipl PureScript
-\iipl Idris
-\iipl Agda
-\iipl Racket
-\iipl Clojure
-\iipl Scala
-\iipl Python
-No outro lado, linguagens como Haskell, PureScript, Idris,
-Agda, Racket, Clojure, Scala, Python, etc., adoptam o slogan
-\standout
-\emph{<<functions are first-class citizens>>}
-\endstandout
-ou seja, lá temos funcções de ordem superior---e logo, felicidade.
-%%}}}
-
-\blah.
-Funcções de ordem superior não é algo tão desconhecido como
-talvez parece.
-O leitor já está acostumado com os operadores nos exemplos seguintes:
-
-%%{{{ eg: higher_order_example_composition 
-\example Composição.
-\label{higher_order_example_composition}%
-Sejam conjuntos $A,B,C$.
-O operador da composição $\of$
-(cuja notação decoramos aqui para especificar
-o domínio e codomínio dele e dos seus argumentos)
-é o seguinte:
-$$
-\dhole\oflab ABC\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
-$$
-Observe que ele é um operador de ordem superior, pois seus (dois) argumentos
-são funcões, e também pois sua saída também é uma funcção.
-\endexample
-%%}}}
-
-%%{{{ df: eval_operation 
-\definition eval.
-\label{eval_operation}%
-\tdefined{funcção}[aplicação]%
-\tdefined{funcção}[eval]%
-\sdefined {\evaldc {\sholed A} {\sholed B}} {a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$}%
-\sdefined {{\sholed f} \at {\sholed x}} {notação infixa para o $\eval (f,x)$}%
-Suponha $f : A \to B$ e seja $a \in A$.
-Quando escrevemos \symqq{$f\fa a$} (ou \symqq{$f(a)$}),
-estamos escrevendo a \dterm{aplicação} da $f$ no $a$.
-e o que estamos denotando é o \dterm{valor} da $f$ no $a$.
-O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
-pela juxtaposição da funcção e do seu argumento (já discutimos isso
-no~\ref{lazier_clearer_functional_notation}).
-Quando precisamos vê-lo mesmo, podemos usar a notação infixa
-$$
-f \at x \sugeq \eval (f, x).
-$$
-Definimos agora uma funcção $\eval$ que faz exatamente isso:
-aplica seu primeiro argumento (uma funcção) no seu segundo
-(um ponto do domínio do primeiro argumento).
-Como fizemos na composição, decoramos essa operação
-para esclarecer os conjuntos envolvidos:
-dados conjuntos $A,B$ temos a
-$$
-\evaldc A B : \bigparen{(A \to B) \times A} \to B
-$$
-definida pela
-$$
-\evaldc A B (f, a) = f(a).
-$$
-Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
-%%}}}
-
-%%{{{ eg: higher_order_example_apply 
-\example.
-Dados conjuntos $A,B$, a $\evaldc A B$ é claramente uma
-operação de ordem superior.
-\endexample
-%%}}}
-
-%%{{{ x: type_of_restriction_op_with_hole 
-\exercise.
-\label{type_of_restriction_op_with_hole}%
-Sejam $f : A\to B$ e $X\subset A$.
-Ache o tipo dos:
-$$
-\align
-f\resto \dhole  &\eqtype ?\\
-(\dhole\resto X)\resto(A \to B)
-                &\eqtype ?
-\endalign
-$$
-
-\solution
-Temos
-$$
-\align
-f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
-(\dhole\resto X)\resto (A \to B)
-                &\eqtype \paren{(A \to B) \to (X \to B)}
-\endalign
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ eg: higher_order_example_derivation 
-\example Derivação.
-\label{higher_order_example_derivation}%
-Considere o operador da derivação $D$
-Por exemplo, se $f(x) = x^3 + 5x$, temos
-$$
-\align
-D(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
-\intertext{%
-Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
-}
-D(f) &= \lam x {3x^2 + 5}
-\endalign
-$$
-sim.
-Qual o tipo da $D$?
-Ela recebe e retorna funcções de reais para reais, mas não podemos
-tipá-la
-$$
-\align
-D(\dhole) &: (\reals\to\reals) \to (\reals\to\reals)
-\intertext{%
-pois estariamos perdendo a totalidade da $D$:
-existem funcções no $(\reals\to\reals)$ que não são deriváveis.
-Ainda mais, seria legal poder iterar o $D$ (\ref{function_iterations})
-indefinitamente; e logo tipamos
-}
-D(\dhole) &: C^\infty \to C^\infty
-\endalign
-$$
-onde $C^\infty$ é o conjunto de todas as funcções infinitamente
-deriváveis: são deriváveis, e suas derivadas também são, e suas
-derivadas também, etc.
-\endexample
-%%}}}
-
-%%{{{ teaser: partial_functions_teaser 
-\teaser funcções parciais.
-Mas talvez queremos mesmo considerar a $D$ como uma operação
-que opera no espaço de funcções $(\reals\to\reals)$
-\emph{sacrificando} a totalidade.
-Chegamos assim no conceito de \emph{funcção parcial}, que
-voltamos a investigar na~\ref{Partial_functions}.
-%%}}}
-
-%%{{{ eg: higher_order_example_integration 
-\example Integração.
-\label{higher_order_example_integration}%
-De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
-Sejam $a,b\in\reals$ com $a<b$ e seja
-$$
-R[a,b] \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
-$$
-Observe que $R[a,b]$ é um conjunto de funcções.
-Definimos o operador
-$$
-\lam f {\lam x {\int_a^{x} f}} : R[a,b] \to ([a,b] \to \reals)
-$$
-cujo argumento é uma funcção---e ainda mais,
-sua saída também é uma funcção---e logo ele é um operador de ordem superior
-também.
-Para a integração indefinita, seja
-$$
-R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
-$$
-e defina um operador
-$$
-\int\dhole : R \to \pset{(\reals\to\reals)}
-$$
-tal que
-$$
-\int f = \setst {F : \reals\to\reals} {D(F) = f}.
-$$
-Observe que a notação comum em análise é diferente: usamos por exemplo
-$\int_a^x f(t)\, dt$, e o $\int f$ é visto como uma antiderivada
-(que depende numa constante $C$) e não como o conjunto de todas
-essas antiderivadas como definimos aqui.
-\endexample
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Currying 
-\section Currificação.
-\label{Currying}%
-
-%%{{{ Ha-ha!  My language is better than yours 
-\note Ha-ha!  Minha linguagem é melhor que a tua.
-Imagine que um amigo definiu uma funcção $f : \ints^2\to\ints$
-trabalhando numa linguagem de programação que não permite
-definições de funcções de ordem superior.
-Queremos escrever um programa equivalente ao programa do nosso amigo
-numa outra linguagem que permite sim definir funcções de ordem superior
-mas não funcções de aridade maior que $1$.
-Mesmo assim nossas funcções podem \emph{chamar} a funcção $f$ do nosso amigo nos seus corpos.
-%%}}}
-
-%%{{{ Q: How can we do this? 
-\question.
-Como fazer isso?
-%%}}}
-\spoiler.
-
-%%{{{ Answer in Python 
-\note Resposta em Python.
-\label{currying_in_python}%
-\iipl Python
-Aqui uma resposta, escrita em Python.
-\sourcecode currying.py;
-Para computar a $\code{f(x,y)}$ usando a $\code{F}$,
-usamos a $\code{F(x)(y)}$, ou seja, $\code{(F(x))(y)}$.
-%%}}}
-
-\TODO Explicar o que acontece.
-
-%%{{{ x: uncurry first exercise
-\exercise.
-Resolva o problema converso:
-começando com a funcção de ordem superior $F$,
-defina sua versão $f$ (de aridade 2).
-
-\solution
-Dados a $F : \ints\to(\ints\to\ints)$,
-é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
-Note que a expressão ``$F(x)(y)$'' quis dizer ``$\bigparen{F(x)}(y)$'' mesmo.
-
-\endexercise
-%%}}}
-
-%%{{{ Currying 
-\note Currificação.
-\tdefined{currificação}%
-A maneira que conseguimos utilizar funcções de ordem
-superior mas de aridade $1$, para ``emular'' funcções
-de aridades maiores é chamada \emph{currificação},
-em homenagem ao Haskell~\Curry[currificação]{}Curry.%
-\footnote{%
-O próprio \Curry{}Curry atribuiu o conceito
-ao \Schonfinkel[currificação]{}Schönfinkel,
-mas \Frege[currificação]{}Frege já tinha usado isso antes.
-}
-No exemplo acima digamos que $F$ é a \dterm{currificação}
-da $f$, ou sua versão currificada.
-%%}}}
-
-%%{{{ Q: How can we define the generic curry and uncurry functions? 
-\question.
-Usando a $\lambda$-notação como podemos definir funcções
-$\curry, \uncurry$ para a situação mais genérica onde
-a funcção de dois argumentos é do tipo $(A \times B) \to C$?
-%%}}}
-\spoiler.
-
-%%{{{ how_to_construct_curry_inhabitant 
-\note Resposta.
-\label{how_to_construct_curry_inhabitant}%
-Primeiramente vamos nos preocupar com os tipos dessas funcções.
-São assim:
-$$
-\cdopt{sep=2cm}
-\paren{(A\times B)\to C}  \ar[r, shift left, "\curry"] \| \paren{A \to (B\to C)} \ar[l, shift left, "\uncurry"]
-\endcd
-$$
-Temos então
-$$
-\curry : \paren{(A\times B)\to C} \longto \paren{A \to (B\to C)}
-$$
-definida pela
-$$
-\curry(\alert{\dots?}
-$$
-Como denotar o arbitrário membro do seu domínio $\paren{(A\times B)\to C}$?
-Sendo uma funcção, vou escolher denotá-lo por $f$.  Ajuda.
-Voltamos então:
-$$
-\curry(f) = \alert{\dots?}
-$$
-Que tipo de coisa estamos tentando \emph{construir} no lado direito?
-Pelo tipo da $\curry$, deve ser uma funcção de $A$ para $(B\to C)$.
-E o que tenho na minha disposição?  Neste ponto apenas a $f$.
-Facilita escrever claramente todas as coisas disponíveis e seus tipos.
-Então por enquanto tenho apenas
-$$
-f : (A\times B) \to C.
-$$
-E eu quero construir uma funcção de tipo $A\to (B \to C)$.
-Para defini-la preciso deixar claro o seu comportamento então:
-$$
-\curry(f) = \lam {\alert{\dots?}} {\dots}
-$$
-Como denotar a arbitrária entrada dessa funcção?
-Bem, sendo uma funcção com domínio $A$, vou escolher denotar
-seu argumento por $a$:
-$$
-\curry(f) = \lam {a} {\alert{\dots?}}
-$$
-A mesma pergunta: o que eu ganhei e o que tipo de coisa preciso construir agora?
-Ganhei um $a : A$, e preciso construir
-algo do tipo $B\to C$, ou seja, uma funcção (então vou começar com um $\lambda$\dots)
-que recebe $B$'s (então $\lam b {\dots}$ e retorna $C$'s:
-$$
-\curry(f) = \lam {a} {\lam {b} {\alert{\dots?}}}
-$$
-Aqui preciso construir um $C$'zinho e eu tenho:
-$$
-\align
-f &: (A\times B) \to C \\
-a &: A \\
-b &: B
-\intertext{%
-Fácil!  Pois eu tenho um fornecedor de $C$'s, e ele só
-precisa de um par de um $A$'zinho e um $B$'zinho para
-funcionar---pun intended---e felizmente eu tenho ambos, e logo
-}
-f(a,b) &: C
-\endalign
-$$
-Com isso consego finalmente terminar:
-$$
-\curry(f) = \lam {a} {\lam {b} {f(a,b)}}.
-$$
-Deixo a definição da $\uncurry$ pra ti:
-%%}}}
-
-%%{{{ x: uncurry_using_lambdas 
-\exercise.
-\label{uncurry_using_lambdas}%
-Defina a $\uncurry$.
-
-\hint
-Queremos definir a
-$$
-\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
-$$
-então sabemos já como começar: basta definir o
-$$
-\uncurry(\alert{\dots?}\phantom)
-$$
-Peraí: qual seria uma opção boa para denotar esse argumento?
-
-\hint
-Que tipo de coisa é esse argumento?
-Uma funcção $A \to (B\to C)$, ou seja, uma funcção de ordem
-superior; vou escolher $F$ aqui, para me lembrar desse fato.
-Voltando então:
-$$
-\uncurry(F) = \alert{\dots?}
-$$
-O que eu ganhei e o que eu preciso construir?
-Ganhei
-$$
-F : A \to (B\to C)
-$$
-e preciso algo do tipo $(A\times B) \to C$.
-Então já sei como começar.
-Como?
-
-\hint
-Sendo uma funcção, vou já escrever:
-$$
-\uncurry(F) = \lam {\alert{\dots?}} {\dots}
-$$
-e preciso escolher como denotar a sua entrada.
-E aqui tenho duas abordagens razoáveis:
-ou escolher alguma variável como $w,t,\vec w, \vec t$, etc.,
-onde ela terá o tipo $A\times B$;
-ou usar a $\lambda$-notação de aridades maiores escrevendo
-$\tup{a,b}$ para a arbitrária entrada dessa funcção.
-Vamos escolher segunda opção (se quiser, pode escolher a primeira).
-Continue!
-
-\hint
-Estamos aqui então:
-$$
-\uncurry(F) =
-\lam {\tup{a,b}} {\alert{\dots?}}
-$$
-e o que precisamos construir aqui?
-Sendo a ``saída'' duma funcção com tipo $(A\times B)\to C$,
-eu preciso construir uma coisa do tipo $C$.
-Mas o que mais eu tenho agora?
-Meus dados tem aumentado:
-$$
-\align
-F &: A\to (B \to C) \\
-\tup{a,b} &: (A\times B)
-\intertext{e logo}
-a &: A \\
-b &: B \\
-\alert{??} &: C\\
-\endalign
-$$
-Como posso usá-los para construir algo do tipo $C$?
-Eu não tenho um ``fornecedor'' de $C$'s imediato,
-mas percebo que tenho um\dots\ fornecedor de fornecedores
-de $C$'s!  (Minha $F$.)
-E para ela funcionar
-preciso oferecer $A$'zinho, e pronto, ela vai fornecer
-um fornecedor de $C$'s.
-Felizmente temos um $a : A$.
-Então temos:
-$$
-F(a) : ??
-$$
-
-\hint
-Temos
-$$
-\align
-F &: A\to (B \to C) \\
-\tup{a,b} &: (A\times B) \\
-a &: A \\
-b &: B \\
-F(a)    &: B \to C
-\intertext{e logo}
-F(a)(b) &: ??
-\endalign
-$$
-Termine!
-
-\solution
-Queremos definir a
-$$
-\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
-$$
-e \emph{seguindo as dicas} chegamos em:
-$$
-\uncurry(F) = \lam {\tup{a,b}} {\bigparen{F(a)}(b)}.
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ type_inference_tree_for_curry 
-\note Arvore de inferência de tipo.
-A última parte da argumentação acima corresponde na arvore de inferência
-seguinte:
-$$
-\Proofm {
-\A {f \is A \cross B \to C}      \A {x \is A}  \A {y \is B}
-                               \I2------------------------- {}
-                                   {(x,y) \is A \cross B}
-\I2------------------------------------------------------- {}
-                        {f(x,y) \is C}
-}
-$$
-Verifique cada passo, e acostume-se com essa forma!
-%%}}}
-
-%%{{{ x: type_inference_tree_for_uncurry 
-\exercise Acostume-se mesmo.
-\label{type_inference_tree_for_uncurry}%
-Construa a arvore que corresponde na última parte da
-tua resolução do~\ref{uncurry_using_lambdas} caso que
-tu não fez isso já enquanto o resolvendo.
-
-\solution
-$$
-\Proofm {
-\A {f \is A \to (B \to C)}     \A {t \is A \cross B}
-                               \I1------------------ {}
-                                   {\outl t \is A}
-\I2------------------------------------------------- {}
-               {f (\outl t) \is B\to C}
-                                               \A {t \is A \cross B}
-                                               \I1------------------ {}
-                                                   {\outr t \is B}
-\I2---------------------------------------------------------------- {}
-                     {f (\outl t) (\outr t) \is C}
-}
-$$
-
-\endexercise
-%%}}}
-
-%%{{{ syntactic_associativity 
-\note Associatividade sintáctica.
-\label{syntactic_associativity}%
-Considere que temos uma operação binária $\heartop$.
-A frase
-$$
-\text{<<$\heartop$ é associativa>>}
-$$
-é uma \emph{afirmação matemática:}
-$$
-\text{para todo $x,y,z$},
-\quad
-(x \heartop y) \heartop z
-=
-x \heartop (y \heartop z).
-$$
-Isso é algo que pode ser demonstrado, suposto, refutado, etc.
-No outro lado, considere as frases seguintes:
-$$
-\xalignat2
-&\aligned
-&\text{<<$\heartop$ é associativa na esquerda>>} \\
-&\text{<<$\heartop$ associa na esquerda>>} \\
-&\text{<<$\heartop$ é L-associativa>>}
-\endaligned
-&
-&\aligned
-&\text{<<$\heartop$ é associativa na direita>>} \\
-&\text{<<$\heartop$ associa na direita>>} \\
-&\text{<<$\heartop$ é R-associativa>>}
-\endaligned
-\intertext{%
-Nenhuma dessas frases é algo que podemos demonstrar, refutar, ou supor!
-O que significam então?
-Apenas uma convenção sintáctica, que dá significado
-às expressões como a \symqq{$x \heartop y \heartop z$}
-que sem uma associatividade sintáctica não denotam
-absolutamente nada (pois têm um erro de aridade).
-As frases acima então correspondem respectivamente nas:
-}
-&x \heartop y \heartop z \syndefeq (x \heartop y) \heartop z &
-&x \heartop y \heartop z \syndefeq x \heartop (y \heartop z).
-\endxalignat
-$$
-%%}}}
-
-%%{{{ notational_abuse_curried 
-\warning.
-\label{notational_abuse_curried}%
-Às vezes abusarei essa idéia e escrever o nome duma funcção
-currificada mas usá-la como se ela não fosse; e vice-versa.
-Por exemplo, defini (\refn{eval_operation}) a $\evaldc A B$
-como uma funcção
-$$
-\evaldc A B : \pfcross {(A \to B)} A \to B.
-$$
-Ou seja, para chamá-la escrevemos
-$$
-\evaldc A B (f,a).
-$$
-Mas abusando a notação posso consider o mesmo símbolo
-$\evaldc A B$ para denotar sua currificação
-$$
-\evaldc A B : {(A \to B)} \to A \to B
-$$
-que \emph{é uma funcção diferente sim}, nesse caso escrevendo
-$$
-\evaldc A B \fa f \fa a.
-$$
-Tudo isso apenas no caso que pelo contexto tá claríssimo qual
-das duas funcções tá sendo denotada.
-%%}}}
-
-\TODO notação de ``aridades maiores'' currificada.
-
-%%{{{ human_eyes_and_ho_types 
-\note Olhos humanos e os tipos higher-order.
-\label{human_eyes_and_ho_types}%
-%%}}}
-
-\TODO Escrever.
-
-%%{{{ partial_application_and_currying 
-\note Aplicação parcial e currificação.
-\label{partial_application_and_currying}%
-%%}}} 
-
-\TODO Escrever.
-
-%%{{{ eg: powTwo 
-\example powTwo.
-\label{powTwo}%
-Definimos a funcção $\namedfun{powTwo} : \nats\to\reals$ pela
-$$
-\namedfun{powTwo} = \namedfun{exp} \fa 2.
-$$
-Assim $powTwo\fa 0 = 1$, $\namedfun{powTwo} \fa 10 = 1024$, etc.
-\endexample
-%%}}}
-
-%%{{{ remark: looks_like_cancellation 
-\remark Parece cancelamento.
-\label{looks_like_cancellation}%
-%%}}}
-
-\TODO Escrever.
-
-\blah.
-Já entramos bastante to território de programação funcional;
-paramos aqui agora, e voltamos re-visitar e expandir tudo isso
-no~\ref{Functional_programming}.
-
-\endsection
-%%}}}
-
 %%{{{ Partial functions 
 \section Funcções parciais.
 \label{Partial_functions}%
 
-\blah.
+%%{{{ intro 
+\secintro
 A restricção que uma funcção $f : A \to B$ precisa ser \emph{totalmente}
 definida no $A$, não nos permite considerer naturalmente situações onde
 um certo programa, por exemplo, retorna valores para certas entradas
@@ -29464,6 +29752,7 @@ ou simplesmente não termina com uma saída---não importa o porquê.
 Definimos então o conceito de \emph{funcção parcial}, que é exatamente
 isso: funcções que para certas entradas aceitáveis delas, possivelmente
 \dterm{divergem}.
+%%}}}
 
 %%{{{ df: partial_function 
 \definition.
@@ -29476,12 +29765,12 @@ Chamamos a $f$ uma \dterm{funcção parcial} de $A$ para $B$ sse:
 $$
 \text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
 $$
-Nesse caso, chamamos \dterm{domínio} o conjunto
+Nesse caso, chamamos \dterm{domínio de convergência} o conjunto
 $$
-\dom f \defeq \setstt {x \in A} {$f(x)$ é definido}
+\domain f \defeq \setstt {x \in A} {$f(x)$ é definido}
 $$
 e \dterm{codomínio} o $B$ mesmo.
-Escrevemos $f : A \parto B$ para ``$f$ é uma funcção parcial de $A$ para $B$''.
+Escrevemos $f : A \parto B$ para \wq{$f$ é uma funcção parcial de $A$ para $B$}.
 Naturalmente denotamos o conjunto de todas as funcções parciais de $A$ para $B$ por
 $$
 (A \parto B) \defeq \setst f {f : A \parto B}.
@@ -30716,7 +31005,7 @@ Observe que realmente o $\tupp{\alertR\outl, \alertR{A\cross B}, \alertR\outr}$
 \endsection
 %%}}}
 
-%%{{{ Categories 
+%%{{{ Categories_a_first_taste 
 \section Pouco de cats---um primeiro toque de categorias.
 \label{Categories_a_first_taste}%
 
@@ -31099,65 +31388,6 @@ se não, refute mesmo a afirmação.
 \endproblem
 %%}}}
 
-%%{{{ jection_iff_composition_with_inverse_proof
-\problem.
-\label{jection_iff_composition_with_inverse_proof}%
-Prove o~\ref{jection_iff_composition_with_inverse}.
-
-\solution
-Já provou as idas no~\refn{jection_implies_composition_with_inverse}.
-Vamos provar as voltas.
-\endgraf
-\proofpart{Volta da (1).}
-Suponha a hipótese:
-$$
-\text{para todo $A \subset X$, $A = \pre f {\img f A}$}.
-$$
-Para mostrar que $f$ é injetora, suponha que $x,x'\in X$ tais que $f(x) = f(x')$.
-Basta verificar que $x = x'$.
-Considere o conjunto $A = \set{x}$.
-Observe que $A \subset X$, e logo pela hipótese temos
-$$
-A = \pre f {\img f A}.\tag{A}
-$$
-Temos $f(x) \in \img f A$ pela definição da funcção-imagem.
-Como $f(x') = f(x)$ temos também $f(x') \in \img f A$.
-Logo
-$$
-x, x' \in \pre f {\img f A} \eqlabel A A = \set{x}.
-$$
-Como $x, x' \in \set{x}$, logo $x = x'$.
-\endgraf
-\proofpart{Volta da (2).}
-Suponha a hipótese:
-$$
-\text{para todo $B \subset Y$, $B = \img f {\pre f B}$}.
-$$
-Tome $y_0\in Y$.
-Para mostrar que $f$ é sobrejetora
-basta mostrar que $\pre f {\set{y_0}} \neq \emptyset$.
-Considere o
-$$
-B = \set{y_0} \subset Y
-$$
-e logo pela hipótese temos
-$$
-B = \img f {\pre f B}.\tag{B}
-$$
-Ou seja, $\pre f B \neq \emptyset$
-(caso contrário teriamos
-$$
-B
-\eqlabel B \img f {\pre f B}
-= \img f {\emptyset}
-= \emptyset
-$$
-que é absurdo pois $B = \set{y_0}$).
-Isso mostra que $f$ é sobrejetora.
-
-\endproblem
-%%}}}
-
 %%{{{ big_intersection_respected_by_img_wrong_proof 
 \problem.
 \label{big_intersection_respected_by_img_wrong_proof}%
@@ -31207,226 +31437,6 @@ mas na segunda pode ser que para cada $n$, o $a$ ``que serve''
 \emph{para todo $n$ existe algum $a_n$ tal que $P(a_n, n)$}.
 É por isso que a ida é válida mas a vólta, em geral, não é.
 Compare com o~\ref{wrong_order_of_quantifiers}.
-
-\endproblem
-%%}}}
-
-%%{{{ big_operations_respected_by_img_and_pre 
-\problem.
-\label{big_operations_respected_by_img_and_pre}%
-{%
-\def\I{{\cal I}}%
-\def\J{{\cal J}}%
-Sejam $f : A \to B$, e duas famílias indexadas de conjuntos:
-$\famil A i \I$ feita por subconjuntos de $A$, e
-$\famil B j \J$ feita por subconjuntos de $B$.
-Ou seja, par todo $i\in \I$, e todo $j \in \J$,
-temos $A_i \subset A$ e $B_j \subset B$.
-Mostre que:
-$$
-\align
-\img f {\Unionl_{i \in \I} A_i} &=      \Unionl_{i \in \I} \img f {A_i} \tag1\\
-\img f {\Interl_{i \in \I} A_i} &\askeq \Interl_{i \in \I} \img f {A_i} \tag2\\
-\pre f {\Unionl_{j \in \J} B_j} &=      \Unionl_{j \in \J} \pre f {B_j} \tag3\\
-\pre f {\Interl_{j \in \J} B_j} &=      \Interl_{j \in \J} \pre f {B_j} \tag4
-\endalign
-$$
-onde na $\askeq$ prove que a igualdade em geral não é válida,
-mas uma das~{\lrdirset}~e~{\rldirset} é.
-A demonstre, e, supondo que $f$ é injetora, demonstre a outra também.
-}
-
-\solution
-{%
-\def\I{{\cal I}}%
-\def\J{{\cal J}}%
-\proofpart{(1)}:
-Provamos cada direção separadamente.
-{\lrdirset}:
-Seja $b \in \img f {\Union_{i\in\I} A_i}$.
-Seja $a\in\Union_{i\in\I} A_i$ tal que $f(a) = b$\fact1 (pela definição de funcção-imagem).
-Agora tome $i\in\I$ tal que $a\in A_i$\fact2.
-Agora pelas~\byfact1,\byfact2~temos que $b\in\img f {A_i}$.
-Ou seja, $b \in \Union_{i\in\I} \img f {A_i}$.
-{\rldirset}:
-Seja $b \in \Union_{i\in\I} \img f {A_i}$.
-Seja $i\in\I$ tal que $b\in \img f {A_i}$.
-Tome $a\in A_i$ tal que $f(a) = b$\fact1.
-Como $a\in A_i$, logo $a\in\Union_{i\in\I} A_i$ e agora pela~\byfact1
-ganhamos $b \in \img f {\Union_{i\in\I} A_i}$.
-\endgraf
-\proofpart{(2)}:
-Provamos primeiro a {\lrdirset} que é verdade para toda $f$,
-e mostramos que se $f$ é injetora, a {\rldirset} também é válida.
-{\lrdirset}:
-Seja $b \in \img f {\Inter_{i\in\I} A_i}$.
-Logo tome $a \in \Inter_{i\in\I} A_i$\fact1 tal que $f(a) = b$\fact2.
-Agora, como $a$ pertence a todos os $A_i$'s e $f(a) = b$,
-então para cada $i\in\I$, $b\in\img f {A_i}$.
-Ou seja, $b$ pertence a todos os $\img f {A_i}$'s.
-Chegamos então no desejado $b\in\Inter_{i\in\I} \img f {A_i}$.
-\endgraf
-{\rldirset}:
-Para essa direção vamos supor que $f$ é injetora.
-Tome $b\in\Inter_{i\in\I} \img f {A_i}$, ou seja $b$
-pertence a todos os $\img f {A_i}$'s.
-Ou seja, para cada um dos $A_i$'s, existe $a_i\in A_i$
-tal que $f(a_i) = b$.
-Mas a $f$ é injetora, então todos esses $a_i$'s são iguais;
-seja $a$ então esse membro comum dos $A_i$'s.
-Temos então que:
-$a \in \Inter_{i\in\I} {A_i}$ e $f(a) = b$.
-Ou seja, $b \in \img f {\Inter_{i\in\I} A_i}$.
-\endgraf
-\proofpart{(3)}:
-Calculamos:
-\compute
-a \in \pre f {\Unionl_{j\in\J} B_j}
-&\iff f(a) \in \Unionl_{j\in\J} B_j           \by {def.~$\pre f {\Unionl_{j\in\J} B_j}$}
-&\iff \lexists {j\in\J} {f(a) \in B_j}        \by {def.~$\Unionl_{j\in\J} B_j$}
-&\iff \lexists {j\in\J} {a \in \pre f {B_j}}  \by {def.~$\pre f {B_j}$}
-&\iff a \in \Unionl_{j\in\J} {\pre f {B_j}}.  \by {def.~$\Unionl_{j\in\J} {\pre f {B_j}}$}
-\endcompute
-Ou seja, $\pre f {\Unionl_{j \in \J} B_j} = \Unionl_{j \in \J} \pre f {B_j}$.
-\endgraf
-\proofpart{(4)}:
-{\lrdirset}:
-Seja $a \in \pre f {\Inter_{i\in\J}^\infty B_j}$.
-Logo $f(a) \in {\Inter_{i\in\J}^\infty B_j}$,
-ou seja, para todo $i\in\J$, $f(a) \in B_j$.
-Logo $a \in \pre f {B_j}$ para todo $i\in\J$, ou seja,
-$a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
-{\rldirset}.
-Similar: é só seguir os passos da {\lrdirset} em reverso.
-}
-
-\endproblem
-%%}}}
-
-%%{{{ f_surj_iff_pre_f_inj 
-\problem.
-\label{f_surj_iff_pre_f_inj}%
-Seja $f : A \to B$.
-Considere a afirmação seguinte:
-$$
-\text{$f(\dhole)$ sobrejetora}
-\askiff
-\text{$\pre f {\dhole}$ injetora}.
-$$
-Para cada uma das direções responda\dots
-(1) ``sim'', e prove;
-(2) ``não'', e refute; ou
-(3) ``depende'', e mostre dois exemplos:
-um onde a implicação é valida, e outro onde não é.
-
-\hint
-Ambas as implicações são válidas.
-(Observe que $f(\dhole)$ é a própria $f$.)
-
-\solution
-Ambas as direcções são válidas.
-\crtabproofpart{\lrdir}:
-Suponha $f$ sobrejetora e sejam $Y,Y'$ no $\dom(\pre f {\dhole})$
-tais que $Y\neq Y'$.
-(Temos então $Y,Y'\subset B$.)
-Basta provar que $\pre f {Y} \neq \pre f {Y'}$.
-Como $Y\neq Y'$, sem perda de generalidade, seja $d \in Y \setminus Y'$.
-Como $f$ é sobrejetora, seja $a_d \in A$ tal que $f(a_d) = d$.
-Observe que $f(a_d) \in Y$ e que $f(a_d) \notin Y'$.
-Logo $a_d \in \pre f Y$ e $a_d \notin \pre f {Y'}$,
-pela definição da $\pre f {\dhole}$.
-Logo $\pre f Y \neq \pre f Y'$.
-\crtabproofpart{\rldir}:
-Vou provar a contrapositiva da afirmação.
-Suponha então que $f$ não é sobrejetora.
-Vou demonstrar que $\pre f {\dhole}$ não é injetora.
-Basta então achar dois membros distintos no seu domínio
-mapeados no mesmo objeto.
-Como $f$ não é sobrejetora, seja $t\in B$ tal que
-$t \notin \range(f)$, ou seja, tal que
-para todo $a \in A$, $f(a) \neq t$.
-Agora considere os: $\emptyset$ e $\set{t}$.
-Ambos são subconjuntos de $B$, e eles são distintos,
-mas mesmo assim
-$$
-\pre f {\emptyset} = \emptyset = \pre f {\set{t}}.
-$$
-Ou seja, a $\pre f {\dhole}$ não é injetora.
-
-\endproblem
-%}}}
-
-%%{{{ Halmos_advice_f_surj_iff_pre_f_inj 
-\problem Don't just read it; fight it.
-\label{Halmos_advice_f_surj_iff_pre_f_inj}%
-Ache a coisa mais óbvia para se perguntar depois
-do~\ref{f_surj_iff_pre_f_inj}; pergunte-se; responda (demonstra ou refuta).
-
-\hint
-$$
-f(\dhole)
-\brace{%
-\gathered
-\text{injetora} \\
-\text{sobrejetora}
-\endgathered
-}
-\askiff
-\brace{%
-\gathered
-\img f \dhole \\
-\pre f \dhole
-\endgathered
-}
-\brace{%
-\gathered
-\text{injetora} \\
-\text{sobrejetora}
-\endgathered
-}
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ succiter_for_dummies_returns 
-\problem.
-\label{succiter_for_dummies_returns}%
-(Continuação do~\ref{succiter_for_dummies}.)
-Qual é (a extensão d)o conjunto
-$$
-\Inter_{n=0}^\infty \img {\succ^n} {\nats}\,?
-$$
-Prove tua afirmação.
-
-\hint
-$\Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$.
-
-\hint
-Suponha que tem $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$
-e chegue numa contradicção.
-
-\solution
-Eu vou demonstrar que
-$$
-\Inter_{n=0}^\infty \img {\succ^n} {\nats}=\emptyset.
-$$
-Para chegar num absurdo,
-suponha que $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats}$.
-Logo, para todo $n\in\nats$, $w \in \img {\succ^n} {\nats}$.
-Logo, para todo $n\in\nats$, existe $m\in\nats$ tal que $\succ^n(m) = w$.
-Mas $\succ^n(m) = n + m$ (\ref{succiter_for_dummies}).
-Ou seja:
-$$
-\text{para todo $n\in\nats$, existe $m\in\nats$ tal que $n + m = w$}.
-$$
-Ou seja,
-$$
-\text{para todo $n\in\nats$, $n \leq w$ (\ref{natops_leq_def})}. \tag{*}
-$$
-Ou seja, $w$ é o máximo do $\nats$; absurdo pois $\nats$ não tem máximo!
-\crproofalt{Alternativamente,}
-bote $n := w+1$ na (*) para chegar no absurdo $w + 1 \leq w$.
 
 \endproblem
 %%}}}
@@ -31511,82 +31521,6 @@ Bem, seria bom definir pelo menos a identidade não-determinística
 $id_A : A \ndeto A$, e investigar se as leis que provamos sobre
 o caso de funcções que conectam composição e identidades estão válidas
 para nossas funcções não-determinísticas também.
-
-\endproblem
-%%}}}
-
-%%{{{ why_pre_collatz_unsafe_diverges_on_6 
-\problem.
-\label{why_pre_collatz_unsafe_diverges_on_6}%
-Calculando para resolver o~\ref{calculate_pre_collatz}
-pareceu que o cálculo do $d(6)$ não ia terminar.
-Prove que realmente não termina.
-
-\hint
-Botei esse problema para desenferrujar tuas armas
-de teoria dos números (\ref{The_integers}).
-
-\hint
-Observe que a seqüência desses valores começa com 6, assim:
-$$
-6
-\leadsto 9
-\leadsto 12
-\leadsto 15
-\leadsto 18
-\leadsto 21
-\leadsto \dotsb
-$$
-Mas, somando $+3$ num número par, sabemos já que o próximo
-número será ímpar e logo não pode ser potência de $2$,
-e logo já sabemos que o próximo passo será somar $+3$ novamente.
-Então podemos pular os ímpares acima, e reduzir nosso trabalho
-focando nessa seqüência:
-$$
-6
-\leadsto 12
-\leadsto 18
-\leadsto 24
-\leadsto 30
-\leadsto 36
-\leadsto \dotsb
-$$
-De $6$ para $12$ ela ``pulou'' a potência (de $2$) $8$.
-E de $12$ para $18$ também pulou o $16$.
-A próxima potência é o $32$, que nossa seqüência tambem
-conseguiu pular ($30\leadsto 36$).
-Teu objectivo é \emph{demonstrar} que ela consegue ``pular''
-\emph{todas} as potências de $2$.
-
-\hint
-Módulo $6$.
-
-\hint
-Como parecem \emph{todas} as potências de $2$ dentro do ``módulo-$6$''?
-
-\hint
-A seqüência de todas as potências de $2$ é:
-$$
-1, 2, 4, 8, 16, 32, 64, \dotsc
-$$
-que, módulo $6$ fica:
-$$
-1, 2, 4, 2, 4, 2, 4, 2, \dotsc \pmod 6.
-$$
-Isso é fácil para provar: então prove.
-
-\hint
-Observe que somando $+6$ num número não o muda ``módulo $6$''.
-(Lembre que $6 \cong 0 \pmod 6$.)
-
-\hint
-Ou seja: começando com qualquer número $m$ que módulo $6$
-é um dos $0,3,5$ sabemos que $d(m)$ \emph{diverge}, ou seja,
-o $d(m)$ não é definido.
-E se $m$ é $1$ módulo $6$?
-A única potência de $2$ que é $1$ módulo $6$ é o próprio $1$,
-e logo qualquer outro inteiro que é $1$ módulo $6$ não
-pode ser uma potência de $2$.
 
 \endproblem
 %%}}}
@@ -31677,6 +31611,82 @@ Por que o ``ele'' está em aspas?
 \label{coproducts_in_INTLEQ_and_INTDIV}%
 As $\INTLEQ$ e $\INTDIV$ têm coprodutos?
 Quais são?
+
+\endproblem
+%%}}}
+
+%%{{{ why_pre_collatz_unsafe_diverges_on_6 
+\problem.
+\label{why_pre_collatz_unsafe_diverges_on_6}%
+Calculando para resolver o~\ref{calculate_pre_collatz}
+pareceu que o cálculo do $d(6)$ não ia terminar.
+Prove que realmente não termina.
+
+\hint
+Botei esse problema para desenferrujar tuas armas
+de teoria dos números (\ref{The_integers}).
+
+\hint
+Observe que a seqüência desses valores começa com 6, assim:
+$$
+6
+\leadsto 9
+\leadsto 12
+\leadsto 15
+\leadsto 18
+\leadsto 21
+\leadsto \dotsb
+$$
+Mas, somando $+3$ num número par, sabemos já que o próximo
+número será ímpar e logo não pode ser potência de $2$,
+e logo já sabemos que o próximo passo será somar $+3$ novamente.
+Então podemos pular os ímpares acima, e reduzir nosso trabalho
+focando nessa seqüência:
+$$
+6
+\leadsto 12
+\leadsto 18
+\leadsto 24
+\leadsto 30
+\leadsto 36
+\leadsto \dotsb
+$$
+De $6$ para $12$ ela ``pulou'' a potência (de $2$) $8$.
+E de $12$ para $18$ também pulou o $16$.
+A próxima potência é o $32$, que nossa seqüência tambem
+conseguiu pular ($30\leadsto 36$).
+Teu objectivo é \emph{demonstrar} que ela consegue ``pular''
+\emph{todas} as potências de $2$.
+
+\hint
+Módulo $6$.
+
+\hint
+Como parecem \emph{todas} as potências de $2$ ``dentro do módulo~$6$''?
+
+\hint
+A seqüência de todas as potências de $2$ é:
+$$
+1, 2, 4, 8, 16, 32, 64, \dotsc
+$$
+que, módulo $6$ fica:
+$$
+1, 2, 4, 2, 4, 2, 4, 2, \dotsc \pmod 6.
+$$
+Isso é fácil de demonstrar: então demonstre.
+
+\hint
+Observe que somando $+6$ num número não o muda ``módulo $6$''.
+(Lembre que $6 \cong 0 \pmod 6$.)
+
+\hint
+Ou seja: começando com qualquer número $m$ que módulo $6$
+é um dos $0,3,5$ sabemos que $d(m)$ \emph{diverge}, ou seja,
+o $d(m)$ não é definido.
+E se $m$ é $1$ módulo $6$?
+A única potência de $2$ que é $1$ módulo $6$ é o próprio $1$,
+e logo qualquer outro inteiro que é $1$ módulo $6$ não
+pode ser uma potência de $2$.
 
 \endproblem
 %%}}}
