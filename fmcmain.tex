@@ -22045,6 +22045,7 @@ novamente: ela é equivalente à~\refn{f_eq_g_catist}.
 \definition.
 \label{endomapping}%
 \tdefined{endomapa}%
+\iisee{endomapa}[funcção, endomapa]%
 Uma funcção $f$ é um \dterm{endomapa} no $A$ sse $\dom f = \cod f = A$.
 %%}}}
 
@@ -22065,6 +22066,7 @@ O $\succ$ é um exemplo de endomapa.
 
 %%{{{ remark: Some notions don't make sense for the Setist 
 \remark.
+\ii{funcção}[endomapa]%
 Observe que a noção de ``ser endomapa'' não faz sentido
 para quem escolher definir \emph{funcção} pela~\ref{f_eq_g_setist}
 (ou seja, para o ``Conjuntista'')
@@ -22175,6 +22177,7 @@ $$
 
 %%{{{ Diagrams of endomaps 
 \note Diagramas de endomapas.
+\ii{funcção}[endomapa]%
 No caso especial que temos um endomapa $f:A\to A$,
 podemos desenhar seu diagrama interno
 sem usar duas cópias de $A$, mas apenas mostrando os mapeamentos assim
@@ -25341,6 +25344,122 @@ Alternativamente, podemos nos livrar dum passo no calculo do lado esquerdo assim
 \endsection
 %%}}}
 
+%%{{{ Iterations 
+\section Iterações.
+\label{Iterations}%
+
+%%{{{ df: function_iterations 
+\definition iterações.
+\label{function_iterations}%
+\tdefined{funcção}[iteração]%
+\sdefined {\sholed f^\sholed n} {a $n$-ésima iteração da $f$.}%
+Seja $f : A \to A$.
+Definimos as \dterm{iterações} de $f$ pela recursão
+$$
+\align
+f^0     &= \idof A \\
+f^{n+1} &= f\of f^n.
+\endalign
+$$
+%%}}}
+
+%%{{{ eg: calculate_iterate_3_fx 
+\example.
+Seja $f : A \to A$.  Calculamos:
+\compute
+f^3(x)
+&= (f \of f^2)(x)                      \by {def.~$f^3$}
+&= (f \of (f \of f^1))(x)              \by {def.~$f^2$}
+&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$}
+&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$}
+&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$}
+&\dotseq f (f (f (x)))                 \by {def.~$\of$}
+\endcompute
+Em geral omitimos parenteses quando a expressão envolve apenas uma operação
+associativa;
+botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
+\endexample
+%%}}}
+
+%%{{{ x: succ3_is_plus_3 
+\exercise.
+\label{succ3_is_plus_3}%
+Como definarias numa maneira simples a funcção $\succ^3$ para alguém
+que não sabe (e sequer quer saber) o que são as iterações duma funcção?
+
+\solution
+Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
+
+\endexercise
+%%}}}
+
+%%{{{ beware: notation of functions with exponents 
+\beware.
+Em certos textos de matemática, aparece a notação $f^n(x)$ como
+sinónimo de $(f(x))^n$.
+Por exemplo:
+$$
+\text{quem escreveu\dots}
+\quad
+\sin^2 x + \cos^2 x
+\quad
+\aligned
+&\text{\dots quis dizer\dots}\\
+&\text{\dots mas aqui seria\dots}
+\endaligned
+\quad
+\aligned
+&(\sin x)^2   + (\cos x)^2    \\
+&\sin(\sin x) + \cos(\cos x).
+\endaligned
+$$
+%%}}}
+
+%%{{{ remark: function_iterations_altdef 
+\remark.
+\label{function_iterations_altdef}%
+Poderiamos ter escolhido definir as potências de $f$ pelas:
+$$
+\align
+f^0     &= \idof A \\
+f^{n+1} &= f^n \of f
+\endalign
+$$
+em vez da recursão que usamos na~\ref{function_iterations}.
+As duas definições são equivalentes, ou seja, as duas operações
+de exponenciação definidas são iguais.
+Por enquanto pode aceitar isso como um fato que vamos provar
+depois (\ref{associative_with_identity_exp_defs_equiv}),
+ou esquecer completamente essa definição alternativa.
+%%}}}
+
+%%{{{ thm: properties_of_function_iterations 
+\theorem.
+\label{properties_of_function_iterations}%
+A operação de iteração definida
+no~\ref{function_iterations}
+satisfaz as leis:
+\beginol
+\item{\rm (1)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
+\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
+\item{\rm (3)} $\lforall {n\in\nats} {\id^n = \id}$.
+\endol
+\proof Já demonstrado.
+Provamos por indução as três leis nos exercícios~\refn{law_of_natexp_1},
+\refn{law_of_natexp_2}, e~\refn{law_of_natexp_3}---se tu não resolveu,
+volte a resolver!
+Verifique que nossas provas precisaram apenas a \emph{associatividade}
+e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
+então podemos substituir a multiplicação por a nossa $\of$.
+Sobre a outra operação envolvida nas provas, a adição, não precisamos
+verificar nada, pois nos dois casos é a mesma operação:
+a adição nos naturais.
+\qed
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Commutative_diagrams 
 \section Diagramas comutativos.
 \label{Commutative_diagrams}%
@@ -25772,122 +25891,6 @@ Com o que já temos na nossa disposição podemos definir umas funcções
 interessantes apenas usando composições, e \emph{diretamente} definindo
 a funcção (sem utilizar um ponto do seu domínio nem a $\lambda$-notação).
 Vamos investigar isso no~\ref{Pointfree_style}.
-
-\endsection
-%%}}}
-
-%%{{{ Iterations 
-\section Iterações.
-\label{Iterations}%
-
-%%{{{ df: function_iterations 
-\definition iterações.
-\label{function_iterations}%
-\tdefined{funcção}[iteração]%
-\sdefined {\sholed f^\sholed n} {a $n$-ésima iteração da $f$.}%
-Seja $f : A \to A$.
-Definimos as \dterm{iterações} de $f$ pela recursão
-$$
-\align
-f^0     &= \idof A \\
-f^{n+1} &= f\of f^n.
-\endalign
-$$
-%%}}}
-
-%%{{{ eg: calculate_iterate_3_fx 
-\example.
-Seja $f : A \to A$.  Calculamos:
-\compute
-f^3(x)
-&= (f \of f^2)(x)                      \by {def.~$f^3$}
-&= (f \of (f \of f^1))(x)              \by {def.~$f^2$}
-&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$}
-&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$}
-&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$}
-&\dotseq f (f (f (x)))                 \by {def.~$\of$}
-\endcompute
-Em geral omitimos parenteses quando a expressão envolve apenas uma operação
-associativa;
-botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
-\endexample
-%%}}}
-
-%%{{{ x: succ3_is_plus_3 
-\exercise.
-\label{succ3_is_plus_3}%
-Como definarias numa maneira simples a funcção $\succ^3$ para alguém
-que não sabe (e sequer quer saber) o que são as iterações duma funcção?
-
-\solution
-Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
-
-\endexercise
-%%}}}
-
-%%{{{ beware: notation of functions with exponents 
-\beware.
-Em certos textos de matemática, aparece a notação $f^n(x)$ como
-sinónimo de $(f(x))^n$.
-Por exemplo:
-$$
-\text{quem escreveu\dots}
-\quad
-\sin^2 x + \cos^2 x
-\quad
-\aligned
-&\text{\dots quis dizer\dots}\\
-&\text{\dots mas aqui seria\dots}
-\endaligned
-\quad
-\aligned
-&(\sin x)^2   + (\cos x)^2    \\
-&\sin(\sin x) + \cos(\cos x).
-\endaligned
-$$
-%%}}}
-
-%%{{{ remark: function_iterations_altdef 
-\remark.
-\label{function_iterations_altdef}%
-Poderiamos ter escolhido definir as potências de $f$ pelas:
-$$
-\align
-f^0     &= \idof A \\
-f^{n+1} &= f^n \of f
-\endalign
-$$
-em vez da recursão que usamos na~\ref{function_iterations}.
-As duas definições são equivalentes, ou seja, as duas operações
-de exponenciação definidas são iguais.
-Por enquanto pode aceitar isso como um fato que vamos provar
-depois (\ref{associative_with_identity_exp_defs_equiv}),
-ou esquecer completamente essa definição alternativa.
-%%}}}
-
-%%{{{ thm: properties_of_function_iterations 
-\theorem.
-\label{properties_of_function_iterations}%
-A operação de iteração definida
-no~\ref{function_iterations}
-satisfaz as leis:
-\beginol
-\item{\rm (1)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
-\item{\rm (2)} $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
-\item{\rm (3)} $\lforall {n\in\nats} {\id^n = \id}$.
-\endol
-\proof Já demonstrado.
-Provamos por indução as três leis nos exercícios~\refn{law_of_natexp_1},
-\refn{law_of_natexp_2}, e~\refn{law_of_natexp_3}---se tu não resolveu,
-volte a resolver!
-Verifique que nossas provas precisaram apenas a \emph{associatividade}
-e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
-então podemos substituir a multiplicação por a nossa $\of$.
-Sobre a outra operação envolvida nas provas, a adição, não precisamos
-verificar nada, pois nos dois casos é a mesma operação:
-a adição nos naturais.
-\qed
-%%}}}
 
 \endsection
 %%}}}
