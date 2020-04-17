@@ -6128,6 +6128,22 @@ Calcule os $2 \ntimes 3$ e $3 \ntimes 2$.
 \label{nats_exp_recursive_def}%
 Defina a exponenciação no $\nats$.
 
+\solution
+Definimos:
+$$
+\align
+n \expop 0  &= S0 \\
+n \expop Sm &= (n \expop m) \ntimes n.
+\intertext{ou, se preferir usar a notação padrão para exponenciação e multiplicação:}
+n^0    &= S0 \\
+n^{Sm} &= n^m \ntimes n.
+\intertext{Também pode ser definida assim:}
+n^0    &= S0 \\
+n^{Sm} &= n \ntimes n^m.
+\endalign
+$$
+Depois vamos comparar essas duas definições.
+
 \endexercise
 %%}}}
 
@@ -7509,6 +7525,10 @@ Como já provamos a comutatividade da $\ntimes$, isso termina nossa prova.
 \qed
 %%}}}
 
+\TODO easy equivalence of two ways to define exponenciation of~\ref{nats_exp_recursive_def}.
+
+\TODO still, there is reason to choose one over the other.
+
 %%{{{ x: law_of_natexp_1 
 \exercise Lei de exponenciação 1.
 \label{law_of_natexp_1}%
@@ -8263,8 +8283,9 @@ Qual é?
 \endproblems
 %%}}}
 
-%%{{{ When one base is not enough 
+%%{{{ When_one_base_is_not_enough 
 \section Quando uma base não é suficiente.
+\label{When_one_base_is_not_enough}%
 
 %%{{{ df: fibonacci 
 \definition Os números Fibonacci.
@@ -8299,7 +8320,6 @@ Calcule o valor $L_{12}$.
 
 \endexercise
 %%}}}
-
 
 %%{{{ prop: lucas_altdef_first_attempt 
 \proposition.
@@ -8837,6 +8857,95 @@ Tente as fórmulas de lógica proposicional e de predicados (FOL) também.
 Podes definir uma funcção que conta quantos $\lor$ aparecem na sua entrada?
 Podes demonstrar que em cada fórmula bem formada a quantidade de \symq{$($}
 e a quantidade de \symq{$)$} são iguais?
+
+\endproblem
+%%}}}
+
+%%{{{ prob: concat_iterations_equivalent 
+\problem.
+\label{concat_iterations_equivalent}%
+Denotamos a operação de concatenação de strings por $\concat$.
+Dois alunos definiram com as maneiras seguintes a ``exponenciação'':
+$$
+\xxalignat4
+\text{(L1)} && \lexp s to 0 &= \epsilon                    & \rexp s to 0 &= \epsilon                   && \text{(R1)}\\
+\text{(L2)} && \lexp s to n &= \lexp s to {n-1} \concat s  & \rexp s to n &= s \concat \rexp s to {n-1} && \text{(R2)}
+\endxxalignat
+$$
+onde $\epsilon$ é o string vazio ``\,'', que é uma \dterm{identidade}
+da concatenação, ou seja, que satisfaz:
+$$
+\lforall s {\epsilon \concat s = s = s \concat \epsilon}. \tag{E}
+$$
+Demonstre por indução que as duas definições são equivalentes, ou seja,
+que para todo string $s$ e todo $n \geq 0$, $\lexp s to n = \rexp s to n$.
+Cuidado: a operação $\concat$ é associativa mas não comutativa:
+\sq{oimundo} e \sq{mundooi} são palavras diferentes!
+
+\hint
+Tome um string arbitrário $s$, e demonstre por inducção
+que \emph{para todo $n\in\nats$, $\lexp s to n = \rexp s to n$}.
+
+\hint
+Uma base não é suficiente.
+Verifique para $n \asseq 0,1$.
+
+\hint
+Para teu passo indutivo, tu terás um $k\geq 2$ tal que
+$\lexp s to {k-1} = \rexp s to {k-1}$\fact{HI1} e
+$\lexp s to {k-2} = \rexp s to {k-2}$\fact{HI2}.
+E com essas duas hipoteses indutivas basta demonstrar
+$
+\lexp s to k = \rexp s to k.
+$
+
+\solution
+Seja $s$ string.
+Vamos demonstrar por indução (com duas bases) que
+\emph{para todo $n\in\nats$, $\lexp s to n = \rexp s to n$}.
+Primeiramente verificamos que para $n \asseq 0$ e $n \asseq 1$,
+realmente temos $\lexp s to n = \rexp s to n$.
+\crproofpart{Base ($n \asseq 0$).}
+Calculamos:
+$$
+\lexp s to 0 \eqlabel{L1} \epsilon \eqlabel{R1} \rexp s to 0.
+$$
+\crproofpart{Base ($n \asseq 1$).}
+Calculamos:
+$$
+\computed
+\lexp s to 1 &= \lexp s to 0 \concat s \by {def.~$\lexp s to 1$}
+             &= \epsilon     \concat s \by {def.~$\lexp s to 0$}
+             &= s                      \by {E}
+\endcomputed
+\qqqquad
+\computed
+\rexp s to 1 &= s \concat \rexp s to 0  \by {def.~$\rexp s to 1$}
+             &= s \concat \epsilon      \by {def.~$\rexp s to 0$}
+             &= s.                      \by {E}
+\endcomputed
+$$
+Logo $\lexp s to 1 = \rexp s to 1$.
+\crproofpart{Passo indutivo.}
+Seja $k\geq 2$ tal que
+$\lexp s to {k-1} = \rexp s to {k-1}$\fact{HI1} e
+$\lexp s to {k-2} = \rexp s to {k-2}$\fact{HI2}.
+Vou demonstrar que
+$
+\lexp s to k = \rexp s to k.
+$
+Calculamos:
+\compute
+\lexp s to k
+&= \lexp s to {k-1} \concat s               \by {L1}
+&= \rexp s to {k-1} \concat s               \by {HI1}
+&= (s \concat \rexp s to {k-2}) \concat s   \by {R2}
+&= (s \concat \lexp s to {k-2}) \concat s   \by {HI2}
+&= s \concat (\lexp s to {k-2}  \concat s)  \by {Assoc.}
+&= s \concat \lexp s to {k-1}               \by {L2}
+&= s \concat \rexp s to {k-1}               \by {HI1}
+&= \rexp s to k.                            \by {R2}
+\endcompute
 
 \endproblem
 %%}}}
