@@ -26209,7 +26209,7 @@ e logo $x$ é um fixpoint da $f$.
 \endproblems
 %%}}}
 
-% JECTIONS & HIGH SHI(F)T 
+% JECTIONS & INVERSE
 
 %%{{{ Jections : Injections, surjections, bijections 
 \section Injecções, sobrejecções, bijecções.
@@ -27238,6 +27238,8 @@ Isso mostra que $f$ é sobrejetora.
 \endproblems
 %%}}}
 
+% HIGH SHI(F)T
+
 %%{{{ Images_preimages 
 \section Imagens, preimagens.
 \label{Images_preimages}%
@@ -28081,6 +28083,355 @@ veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
 
 \endsection
 %%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+
+%%{{{ prob: Halmos_advice_f_surj_iff_pre_f_inj 
+\problem Don't just read it; fight it.
+\label{Halmos_advice_f_surj_iff_pre_f_inj}%
+Ache a coisa mais óbvia para se perguntar depois
+do~\ref{f_surj_iff_pre_f_inj};
+pergunte-se; responda (demonstra ou refuta).
+
+\hint
+$$
+f(\dhole)
+\brace{%
+\gathered
+\text{injetora} \\
+\text{sobrejetora}
+\endgathered
+}
+\askiff
+\brace{%
+\gathered
+\img f \dhole \\
+\pre f \dhole
+\endgathered
+}
+\brace{%
+\gathered
+\text{injetora} \\
+\text{sobrejetora}
+\endgathered
+}
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: big_operations_respected_by_img_and_pre 
+\problem.
+\label{big_operations_respected_by_img_and_pre}%
+{%
+\def\I{{\cal I}}%
+\def\J{{\cal J}}%
+Sejam $f : A \to B$, e duas famílias indexadas de conjuntos:
+$\famil A i \I$ feita por subconjuntos de $A$, e
+$\famil B j \J$ feita por subconjuntos de $B$.
+Ou seja, par todo $i\in \I$, e todo $j \in \J$,
+temos $A_i \subset A$ e $B_j \subset B$.
+Mostre que:
+$$
+\align
+\img f {\Unionl_{i \in \I} A_i} &=      \Unionl_{i \in \I} \img f {A_i} \tag1\\
+\img f {\Interl_{i \in \I} A_i} &\askeq \Interl_{i \in \I} \img f {A_i} \tag2\\
+\pre f {\Unionl_{j \in \J} B_j} &=      \Unionl_{j \in \J} \pre f {B_j} \tag3\\
+\pre f {\Interl_{j \in \J} B_j} &=      \Interl_{j \in \J} \pre f {B_j} \tag4
+\endalign
+$$
+onde na $\askeq$ demonstre que a igualdade em geral não é válida,
+mas uma das~{\lrdirset}~e~{\rldirset} é.
+A demonstre, e, supondo que $f$ é injetora, demonstre a outra também.
+}
+
+\solution
+{%
+\def\I{{\cal I}}%
+\def\J{{\cal J}}%
+\proofpart{(1)}:
+Provamos cada direção separadamente.
+{\lrdirset}:
+Seja $b \in \img f {\Union_{i\in\I} A_i}$.
+Seja $a\in\Union_{i\in\I} A_i$ tal que $f(a) = b$\fact1 (pela definição de funcção-imagem).
+Agora tome $i\in\I$ tal que $a\in A_i$\fact2.
+Agora pelas~\byfact1,\byfact2~temos que $b\in\img f {A_i}$.
+Ou seja, $b \in \Union_{i\in\I} \img f {A_i}$.
+{\rldirset}:
+Seja $b \in \Union_{i\in\I} \img f {A_i}$.
+Seja $i\in\I$ tal que $b\in \img f {A_i}$.
+Tome $a\in A_i$ tal que $f(a) = b$\fact1.
+Como $a\in A_i$, logo $a\in\Union_{i\in\I} A_i$ e agora pela~\byfact1
+ganhamos $b \in \img f {\Union_{i\in\I} A_i}$.
+\endgraf
+\proofpart{(2)}:
+Provamos primeiro a {\lrdirset} que é verdade para toda $f$,
+e mostramos que se $f$ é injetora, a {\rldirset} também é válida.
+{\lrdirset}:
+Seja $b \in \img f {\Inter_{i\in\I} A_i}$.
+Logo tome $a \in \Inter_{i\in\I} A_i$\fact1 tal que $f(a) = b$\fact2.
+Agora, como $a$ pertence a todos os $A_i$'s e $f(a) = b$,
+então para cada $i\in\I$, $b\in\img f {A_i}$.
+Ou seja, $b$ pertence a todos os $\img f {A_i}$'s.
+Chegamos então no desejado $b\in\Inter_{i\in\I} \img f {A_i}$.
+\endgraf
+{\rldirset}:
+Para essa direção vamos supor que $f$ é injetora.
+Tome $b\in\Inter_{i\in\I} \img f {A_i}$, ou seja $b$
+pertence a todos os $\img f {A_i}$'s.
+Ou seja, para cada um dos $A_i$'s, existe $a_i\in A_i$
+tal que $f(a_i) = b$.
+Mas a $f$ é injetora, então todos esses $a_i$'s são iguais;
+seja $a$ então esse membro comum dos $A_i$'s.
+Temos então que:
+$a \in \Inter_{i\in\I} {A_i}$ e $f(a) = b$.
+Ou seja, $b \in \img f {\Inter_{i\in\I} A_i}$.
+\endgraf
+\proofpart{(3)}:
+Calculamos:
+\compute
+a \in \pre f {\Unionl_{j\in\J} B_j}
+&\iff f(a) \in \Unionl_{j\in\J} B_j           \by {def.~$\pre f {\Unionl_{j\in\J} B_j}$}
+&\iff \lexists {j\in\J} {f(a) \in B_j}        \by {def.~$\Unionl_{j\in\J} B_j$}
+&\iff \lexists {j\in\J} {a \in \pre f {B_j}}  \by {def.~$\pre f {B_j}$}
+&\iff a \in \Unionl_{j\in\J} {\pre f {B_j}}.  \by {def.~$\Unionl_{j\in\J} {\pre f {B_j}}$}
+\endcompute
+Ou seja, $\pre f {\Unionl_{j \in \J} B_j} = \Unionl_{j \in \J} \pre f {B_j}$.
+\endgraf
+\proofpart{(4)}:
+{\lrdirset}:
+Seja $a \in \pre f {\Inter_{i\in\J}^\infty B_j}$.
+Logo $f(a) \in {\Inter_{i\in\J}^\infty B_j}$,
+ou seja, para todo $i\in\J$, $f(a) \in B_j$.
+Logo $a \in \pre f {B_j}$ para todo $i\in\J$, ou seja,
+$a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
+{\rldirset}.
+Similar: é só seguir os passos da {\lrdirset} em reverso.
+}
+
+\endproblem
+%%}}}
+
+%%{{{ prob: big_intersection_respected_by_img_wrong_proof 
+\problem.
+\label{big_intersection_respected_by_img_wrong_proof}%
+Um aluno ``demonstrou'' que se $f : A \to B$ e $\seqn A n$ é uma
+seqüência de subconjuntos de $A$, então
+$$
+\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
+$$
+Sua ``prova'' foi a seguinte:
+\quote
+<<Calculamos:
+\compute
+b \in \img f {\Interl_{n=0}^\infty A_n}
+&\ifflabel1 \lexists {a \in \Interl_{n=0}^\infty A_n} {f(a) = b}            \by {def.~$\img f {\dhole}$}
+&\ifflabel2 \exists a \paren{a \in \Interl_{n=0}^\infty A_n \land f(a) = b} \by {lógica}
+&\ifflabel3 \exists a \paren{\forall n \paren{a \in A_n} \land f(a) = b}    \by {def.~$\Interl_{n=0}^\infty$}
+&\ifflabel4 \exists a \paren{\forall n \paren{a \in A_n \land f(a) = b}}    \by {lógica}
+&\ifflabel5 \exists a \forall n \paren{a \in A_n \land f(a) = b}            \by {lógica}
+&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b}            \by {lógica}
+&\ifflabel7 \forall n \lexists {a \in A_n} {f(a) = b}                       \by {lógica}
+&\ifflabel8 \forall n \paren{b \in \img f {A_n}}                            \by {def.~$\img f {\dhole}$}
+&\ifflabel9 b \in \Interl_{n=0}^\infty {\img f {A_n}}                       \by {def.~$\Interl_{n=0}^\infty$}
+\endcompute
+Logo temos
+$\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}$
+pela definição de igualdade de conjuntos.>>
+\endquote
+Ache os seus erros.
+
+\hint
+Justificar um passo de demonstração com a palavrinha
+``lógica'' não vai aumentar a confiança de ninguém sobre
+a validez de tal passo.
+De fato, nessa demonstração pelo menos um desses passos é errado.
+
+\hint
+O problema está na $\ifflabel6$.
+Uma da suas direções não é válida.
+
+\solution
+Um primeiro problema é esse ``lógica'' que aparece várias
+vezes como suposta justificativa de passos.
+Já que todos os passos que fazemos numa demonstração supostamente
+são logicamente válidos, não faz sentido pensar que decorando
+um tal passo com a palavrinha ``lógica'' pode convencer alguém
+sobre algo.
+\endgraf
+O problema aqui é com a direção {\rldir} da $\ifflabel6$:
+\compute
+\cdots\iff  \exists a \forall n \paren{a \in A_n \land f(a) = b}
+&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b} \by {lógica}
+\endcompute
+Saber que
+\emph{existe $a$ tal que para todo $n$ algo $P(a,n)$ acontece}
+é uma afirmação bem mais forte do que saber que
+\emph{para todo $n$ existe algum $a$ tal que $P(a,n)$ acontece}.
+Na primeira temos pelo menos um $a$ que serve para todo $n$,
+mas na segunda pode ser que para cada $n$, o $a$ ``que serve''
+é diferente.  Para enfatizar essa dependência podemos escrever:
+\emph{para todo $n$ existe algum $a_n$ tal que $P(a_n, n)$}.
+É por isso que a ida é válida mas a vólta, em geral, não é.
+Compare com o~\ref{wrong_order_of_quantifiers}.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: f_surj_iff_pre_f_inj 
+\problem.
+\label{f_surj_iff_pre_f_inj}%
+Seja $f : A \to B$.
+Considere a afirmação seguinte:
+$$
+\text{$f(\dhole)$ sobrejetora}
+\askiff
+\text{$\pre f {\dhole}$ injetora}.
+$$
+Para cada uma das direções responda\dots
+(1) ``sim'', e demonstre;
+(2) ``não'', e refute; ou
+(3) ``depende'', e mostre dois exemplos:
+um onde a implicação é valida, e outro onde não é.
+
+\hint
+Ambas as implicações são válidas.
+(Observe que $f(\dhole)$ é a própria $f$.)
+
+\solution
+Ambas as direcções são válidas.
+\crtabproofpart{\lrdir}:
+Suponha $f$ sobrejetora e sejam $Y,Y'$ no $\dom(\pre f {\dhole})$
+tais que $Y\neq Y'$.
+(Temos então $Y,Y'\subset B$.)
+Basta demonstrar que $\pre f {Y} \neq \pre f {Y'}$.
+Como $Y\neq Y'$, sem perda de generalidade, seja $d \in Y \setminus Y'$.
+Como $f$ é sobrejetora, seja $a_d \in A$ tal que $f(a_d) = d$.
+Observe que $f(a_d) \in Y$ e que $f(a_d) \notin Y'$.
+Logo $a_d \in \pre f Y$ e $a_d \notin \pre f {Y'}$,
+pela definição da $\pre f {\dhole}$.
+Logo $\pre f Y \neq \pre f Y'$.
+\crtabproofpart{\rldir}:
+Vou demonstrar a contrapositiva da afirmação.
+Suponha então que $f$ não é sobrejetora.
+Vou demonstrar que $\pre f {\dhole}$ não é injetora.
+Basta então achar dois membros distintos no seu domínio
+mapeados no mesmo objeto.
+Como $f$ não é sobrejetora, seja $t\in B$ tal que
+$t \notin \range(f)$, ou seja, tal que
+para todo $a \in A$, $f(a) \neq t$.
+Agora considere os: $\emptyset$ e $\set{t}$.
+Ambos são subconjuntos de $B$, e eles são distintos,
+mas mesmo assim
+$$
+\pre f {\emptyset} = \emptyset = \pre f {\set{t}}.
+$$
+Ou seja, a $\pre f {\dhole}$ não é injetora.
+
+\endproblem
+%}}}
+
+%%{{{ prob: fix_f_properties 
+\problem.
+\label{fix_f_properties}%
+Seja $f : A \to A$,
+e seja $F$ o conjunto de todos os fixpoints da $f$.
+$$
+F = \setstt {x \in A} {$x$ é um fixpoint da $f$}
+$$
+Quais das igualdades seguintes podemos concluir?:
+$$
+\xalignat2
+\img f F &= F &
+\pre f F &= F
+\endxalignat
+$$
+Demonstre aquelas que sim; mostre um contraexemplo daquelas que não,
+mas verifique se alguma das duas inclusões
+{\lrdirset} ou {\rldirset} é válida.
+O que muda se $f$ é injetora?
+
+\solution
+Sempre temos $\img f F = F$ e $\pre f F \supset F$.
+Se $f$ é injetora, ganhamos a $\pre f F \subset F$ também.
+\endgraf
+\proofpart{{\proofname} de $\img f F \subset F$.}
+Seja $y\in\img f F$.
+Logo tome $p\in F$ tal que $f(p) = y$\fact1 (pela definição da funcção-imagem).
+Logo $p$ é um fixpoint da $f$, ou seja, $f(p) = p$\fact2.
+Juntando as {\byfact1} e~{\byfact2}, ganhamos $p = y$, ou seja $y$ é um fixpoint da $f$, e logo $y\in F$.
+\endgraf
+\proofpart{{\proofname} de $\img f F \supset F$.}
+Seja $p \in F$.
+Logo $f(p) \in \img f F$ (pela definição da funcção-imagem).
+Mas $p$ é um fixpoint da $f$ (pois $p\in F$), ou seja $f(p) = p$.
+Logo $p \in \img f F$.
+\endgraf
+\proofpart{{\proofname} de $\pre f F \supset F$.}
+Seja $p \in F$, ou seja $p$ é um fixpoint da $f$.
+Logo $f(p) = p \in F$, e logo $p \in \pre f F$.
+\endgraf
+\proofpart{Contraexemplo para $\pre f F \subset F$.}
+Tome $A = \set{0,1}$ e defina $f$ pela $f(x) = 0$.
+Nesse caso temos $F = \set{0}$, mas $\pre f F = \set{0,1}$.
+\endgraf
+\proofpart{{\proofname} da $\pre f F \subset F$ quando $f$ injetora.}
+Seja $a\in \pre f F$.
+Logo $f(a)$ é um fixpoint da $f$.
+Ou seja, $f(f(a)) = f(a)$
+Agora, como $f$ é injetora, temos $f(a) = a$, ou seja,
+$a$ é um fixpoint também e logo $a\in F$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: succiter_for_dummies_returns 
+\problem.
+\label{succiter_for_dummies_returns}%
+(Continuação do~\ref{succiter_for_dummies}.)
+Qual é (a extensão d)o conjunto
+$$
+\Inter_{n=0}^\infty \img {\succ^n} {\nats}\,?
+$$
+Demonstre tua afirmação.
+
+\hint
+$\Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$.
+
+\hint
+Suponha que tem $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$
+e chegue numa contradicção.
+
+\solution
+Eu vou demonstrar que
+$$
+\Inter_{n=0}^\infty \img {\succ^n} {\nats}=\emptyset.
+$$
+Para chegar num absurdo,
+suponha que $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats}$.
+Logo, para todo $n\in\nats$, $w \in \img {\succ^n} {\nats}$.
+Logo, para todo $n\in\nats$, existe $m\in\nats$ tal que $\succ^n(m) = w$.
+Mas $\succ^n(m) = n + m$ (\ref{succiter_for_dummies}).
+Ou seja:
+$$
+\text{para todo $n\in\nats$, existe $m\in\nats$ tal que $n + m = w$}.
+$$
+Ou seja,
+$$
+\text{para todo $n\in\nats$, $n \leq w$ (\ref{natops_leq_def})}. \tag{*}
+$$
+Ou seja, $w$ é o máximo do $\nats$; absurdo pois $\nats$ não tem máximo!
+\crproofalt{Alternativamente,}
+bote $n := w+1$ na (*) para chegar no absurdo $w + 1 \leq w$.
+
+\endproblem
+%%}}}
+
+\endproblems
+%%}}}
+
+% EPICNESS
 
 %%{{{ Higher_order_functions 
 \section Funcções de ordem superior.
@@ -28965,355 +29316,6 @@ no~\ref{Functional_programming}.
 
 \endsection
 %%}}}
-
-%%{{{ PROBLEMS INTERMISSION 
-\problems Intervalo de problemas.
-
-%%{{{ prob: Halmos_advice_f_surj_iff_pre_f_inj 
-\problem Don't just read it; fight it.
-\label{Halmos_advice_f_surj_iff_pre_f_inj}%
-Ache a coisa mais óbvia para se perguntar depois
-do~\ref{f_surj_iff_pre_f_inj};
-pergunte-se; responda (demonstra ou refuta).
-
-\hint
-$$
-f(\dhole)
-\brace{%
-\gathered
-\text{injetora} \\
-\text{sobrejetora}
-\endgathered
-}
-\askiff
-\brace{%
-\gathered
-\img f \dhole \\
-\pre f \dhole
-\endgathered
-}
-\brace{%
-\gathered
-\text{injetora} \\
-\text{sobrejetora}
-\endgathered
-}
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ prob: big_operations_respected_by_img_and_pre 
-\problem.
-\label{big_operations_respected_by_img_and_pre}%
-{%
-\def\I{{\cal I}}%
-\def\J{{\cal J}}%
-Sejam $f : A \to B$, e duas famílias indexadas de conjuntos:
-$\famil A i \I$ feita por subconjuntos de $A$, e
-$\famil B j \J$ feita por subconjuntos de $B$.
-Ou seja, par todo $i\in \I$, e todo $j \in \J$,
-temos $A_i \subset A$ e $B_j \subset B$.
-Mostre que:
-$$
-\align
-\img f {\Unionl_{i \in \I} A_i} &=      \Unionl_{i \in \I} \img f {A_i} \tag1\\
-\img f {\Interl_{i \in \I} A_i} &\askeq \Interl_{i \in \I} \img f {A_i} \tag2\\
-\pre f {\Unionl_{j \in \J} B_j} &=      \Unionl_{j \in \J} \pre f {B_j} \tag3\\
-\pre f {\Interl_{j \in \J} B_j} &=      \Interl_{j \in \J} \pre f {B_j} \tag4
-\endalign
-$$
-onde na $\askeq$ demonstre que a igualdade em geral não é válida,
-mas uma das~{\lrdirset}~e~{\rldirset} é.
-A demonstre, e, supondo que $f$ é injetora, demonstre a outra também.
-}
-
-\solution
-{%
-\def\I{{\cal I}}%
-\def\J{{\cal J}}%
-\proofpart{(1)}:
-Provamos cada direção separadamente.
-{\lrdirset}:
-Seja $b \in \img f {\Union_{i\in\I} A_i}$.
-Seja $a\in\Union_{i\in\I} A_i$ tal que $f(a) = b$\fact1 (pela definição de funcção-imagem).
-Agora tome $i\in\I$ tal que $a\in A_i$\fact2.
-Agora pelas~\byfact1,\byfact2~temos que $b\in\img f {A_i}$.
-Ou seja, $b \in \Union_{i\in\I} \img f {A_i}$.
-{\rldirset}:
-Seja $b \in \Union_{i\in\I} \img f {A_i}$.
-Seja $i\in\I$ tal que $b\in \img f {A_i}$.
-Tome $a\in A_i$ tal que $f(a) = b$\fact1.
-Como $a\in A_i$, logo $a\in\Union_{i\in\I} A_i$ e agora pela~\byfact1
-ganhamos $b \in \img f {\Union_{i\in\I} A_i}$.
-\endgraf
-\proofpart{(2)}:
-Provamos primeiro a {\lrdirset} que é verdade para toda $f$,
-e mostramos que se $f$ é injetora, a {\rldirset} também é válida.
-{\lrdirset}:
-Seja $b \in \img f {\Inter_{i\in\I} A_i}$.
-Logo tome $a \in \Inter_{i\in\I} A_i$\fact1 tal que $f(a) = b$\fact2.
-Agora, como $a$ pertence a todos os $A_i$'s e $f(a) = b$,
-então para cada $i\in\I$, $b\in\img f {A_i}$.
-Ou seja, $b$ pertence a todos os $\img f {A_i}$'s.
-Chegamos então no desejado $b\in\Inter_{i\in\I} \img f {A_i}$.
-\endgraf
-{\rldirset}:
-Para essa direção vamos supor que $f$ é injetora.
-Tome $b\in\Inter_{i\in\I} \img f {A_i}$, ou seja $b$
-pertence a todos os $\img f {A_i}$'s.
-Ou seja, para cada um dos $A_i$'s, existe $a_i\in A_i$
-tal que $f(a_i) = b$.
-Mas a $f$ é injetora, então todos esses $a_i$'s são iguais;
-seja $a$ então esse membro comum dos $A_i$'s.
-Temos então que:
-$a \in \Inter_{i\in\I} {A_i}$ e $f(a) = b$.
-Ou seja, $b \in \img f {\Inter_{i\in\I} A_i}$.
-\endgraf
-\proofpart{(3)}:
-Calculamos:
-\compute
-a \in \pre f {\Unionl_{j\in\J} B_j}
-&\iff f(a) \in \Unionl_{j\in\J} B_j           \by {def.~$\pre f {\Unionl_{j\in\J} B_j}$}
-&\iff \lexists {j\in\J} {f(a) \in B_j}        \by {def.~$\Unionl_{j\in\J} B_j$}
-&\iff \lexists {j\in\J} {a \in \pre f {B_j}}  \by {def.~$\pre f {B_j}$}
-&\iff a \in \Unionl_{j\in\J} {\pre f {B_j}}.  \by {def.~$\Unionl_{j\in\J} {\pre f {B_j}}$}
-\endcompute
-Ou seja, $\pre f {\Unionl_{j \in \J} B_j} = \Unionl_{j \in \J} \pre f {B_j}$.
-\endgraf
-\proofpart{(4)}:
-{\lrdirset}:
-Seja $a \in \pre f {\Inter_{i\in\J}^\infty B_j}$.
-Logo $f(a) \in {\Inter_{i\in\J}^\infty B_j}$,
-ou seja, para todo $i\in\J$, $f(a) \in B_j$.
-Logo $a \in \pre f {B_j}$ para todo $i\in\J$, ou seja,
-$a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
-{\rldirset}.
-Similar: é só seguir os passos da {\lrdirset} em reverso.
-}
-
-\endproblem
-%%}}}
-
-%%{{{ prob: big_intersection_respected_by_img_wrong_proof 
-\problem.
-\label{big_intersection_respected_by_img_wrong_proof}%
-Um aluno ``demonstrou'' que se $f : A \to B$ e $\seqn A n$ é uma
-seqüência de subconjuntos de $A$, então
-$$
-\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
-$$
-Sua ``prova'' foi a seguinte:
-\quote
-<<Calculamos:
-\compute
-b \in \img f {\Interl_{n=0}^\infty A_n}
-&\ifflabel1 \lexists {a \in \Interl_{n=0}^\infty A_n} {f(a) = b}            \by {def.~$\img f {\dhole}$}
-&\ifflabel2 \exists a \paren{a \in \Interl_{n=0}^\infty A_n \land f(a) = b} \by {lógica}
-&\ifflabel3 \exists a \paren{\forall n \paren{a \in A_n} \land f(a) = b}    \by {def.~$\Interl_{n=0}^\infty$}
-&\ifflabel4 \exists a \paren{\forall n \paren{a \in A_n \land f(a) = b}}    \by {lógica}
-&\ifflabel5 \exists a \forall n \paren{a \in A_n \land f(a) = b}            \by {lógica}
-&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b}            \by {lógica}
-&\ifflabel7 \forall n \lexists {a \in A_n} {f(a) = b}                       \by {lógica}
-&\ifflabel8 \forall n \paren{b \in \img f {A_n}}                            \by {def.~$\img f {\dhole}$}
-&\ifflabel9 b \in \Interl_{n=0}^\infty {\img f {A_n}}                       \by {def.~$\Interl_{n=0}^\infty$}
-\endcompute
-Logo temos
-$\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}$
-pela definição de igualdade de conjuntos.>>
-\endquote
-Ache os seus erros.
-
-\hint
-Justificar um passo de demonstração com a palavrinha
-``lógica'' não vai aumentar a confiança de ninguém sobre
-a validez de tal passo.
-De fato, nessa demonstração pelo menos um desses passos é errado.
-
-\hint
-O problema está na $\ifflabel6$.
-Uma da suas direções não é válida.
-
-\solution
-Um primeiro problema é esse ``lógica'' que aparece várias
-vezes como suposta justificativa de passos.
-Já que todos os passos que fazemos numa demonstração supostamente
-são logicamente válidos, não faz sentido pensar que decorando
-um tal passo com a palavrinha ``lógica'' pode convencer alguém
-sobre algo.
-\endgraf
-O problema aqui é com a direção {\rldir} da $\ifflabel6$:
-\compute
-\cdots\iff  \exists a \forall n \paren{a \in A_n \land f(a) = b}
-&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b} \by {lógica}
-\endcompute
-Saber que
-\emph{existe $a$ tal que para todo $n$ algo $P(a,n)$ acontece}
-é uma afirmação bem mais forte do que saber que
-\emph{para todo $n$ existe algum $a$ tal que $P(a,n)$ acontece}.
-Na primeira temos pelo menos um $a$ que serve para todo $n$,
-mas na segunda pode ser que para cada $n$, o $a$ ``que serve''
-é diferente.  Para enfatizar essa dependência podemos escrever:
-\emph{para todo $n$ existe algum $a_n$ tal que $P(a_n, n)$}.
-É por isso que a ida é válida mas a vólta, em geral, não é.
-Compare com o~\ref{wrong_order_of_quantifiers}.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: f_surj_iff_pre_f_inj 
-\problem.
-\label{f_surj_iff_pre_f_inj}%
-Seja $f : A \to B$.
-Considere a afirmação seguinte:
-$$
-\text{$f(\dhole)$ sobrejetora}
-\askiff
-\text{$\pre f {\dhole}$ injetora}.
-$$
-Para cada uma das direções responda\dots
-(1) ``sim'', e demonstre;
-(2) ``não'', e refute; ou
-(3) ``depende'', e mostre dois exemplos:
-um onde a implicação é valida, e outro onde não é.
-
-\hint
-Ambas as implicações são válidas.
-(Observe que $f(\dhole)$ é a própria $f$.)
-
-\solution
-Ambas as direcções são válidas.
-\crtabproofpart{\lrdir}:
-Suponha $f$ sobrejetora e sejam $Y,Y'$ no $\dom(\pre f {\dhole})$
-tais que $Y\neq Y'$.
-(Temos então $Y,Y'\subset B$.)
-Basta demonstrar que $\pre f {Y} \neq \pre f {Y'}$.
-Como $Y\neq Y'$, sem perda de generalidade, seja $d \in Y \setminus Y'$.
-Como $f$ é sobrejetora, seja $a_d \in A$ tal que $f(a_d) = d$.
-Observe que $f(a_d) \in Y$ e que $f(a_d) \notin Y'$.
-Logo $a_d \in \pre f Y$ e $a_d \notin \pre f {Y'}$,
-pela definição da $\pre f {\dhole}$.
-Logo $\pre f Y \neq \pre f Y'$.
-\crtabproofpart{\rldir}:
-Vou demonstrar a contrapositiva da afirmação.
-Suponha então que $f$ não é sobrejetora.
-Vou demonstrar que $\pre f {\dhole}$ não é injetora.
-Basta então achar dois membros distintos no seu domínio
-mapeados no mesmo objeto.
-Como $f$ não é sobrejetora, seja $t\in B$ tal que
-$t \notin \range(f)$, ou seja, tal que
-para todo $a \in A$, $f(a) \neq t$.
-Agora considere os: $\emptyset$ e $\set{t}$.
-Ambos são subconjuntos de $B$, e eles são distintos,
-mas mesmo assim
-$$
-\pre f {\emptyset} = \emptyset = \pre f {\set{t}}.
-$$
-Ou seja, a $\pre f {\dhole}$ não é injetora.
-
-\endproblem
-%}}}
-
-%%{{{ prob: fix_f_properties 
-\problem.
-\label{fix_f_properties}%
-Seja $f : A \to A$,
-e seja $F$ o conjunto de todos os fixpoints da $f$.
-$$
-F = \setstt {x \in A} {$x$ é um fixpoint da $f$}
-$$
-Quais das igualdades seguintes podemos concluir?:
-$$
-\xalignat2
-\img f F &= F &
-\pre f F &= F
-\endxalignat
-$$
-Demonstre aquelas que sim; mostre um contraexemplo daquelas que não,
-mas verifique se alguma das duas inclusões
-{\lrdirset} ou {\rldirset} é válida.
-O que muda se $f$ é injetora?
-
-\solution
-Sempre temos $\img f F = F$ e $\pre f F \supset F$.
-Se $f$ é injetora, ganhamos a $\pre f F \subset F$ também.
-\endgraf
-\proofpart{{\proofname} de $\img f F \subset F$.}
-Seja $y\in\img f F$.
-Logo tome $p\in F$ tal que $f(p) = y$\fact1 (pela definição da funcção-imagem).
-Logo $p$ é um fixpoint da $f$, ou seja, $f(p) = p$\fact2.
-Juntando as {\byfact1} e~{\byfact2}, ganhamos $p = y$, ou seja $y$ é um fixpoint da $f$, e logo $y\in F$.
-\endgraf
-\proofpart{{\proofname} de $\img f F \supset F$.}
-Seja $p \in F$.
-Logo $f(p) \in \img f F$ (pela definição da funcção-imagem).
-Mas $p$ é um fixpoint da $f$ (pois $p\in F$), ou seja $f(p) = p$.
-Logo $p \in \img f F$.
-\endgraf
-\proofpart{{\proofname} de $\pre f F \supset F$.}
-Seja $p \in F$, ou seja $p$ é um fixpoint da $f$.
-Logo $f(p) = p \in F$, e logo $p \in \pre f F$.
-\endgraf
-\proofpart{Contraexemplo para $\pre f F \subset F$.}
-Tome $A = \set{0,1}$ e defina $f$ pela $f(x) = 0$.
-Nesse caso temos $F = \set{0}$, mas $\pre f F = \set{0,1}$.
-\endgraf
-\proofpart{{\proofname} da $\pre f F \subset F$ quando $f$ injetora.}
-Seja $a\in \pre f F$.
-Logo $f(a)$ é um fixpoint da $f$.
-Ou seja, $f(f(a)) = f(a)$
-Agora, como $f$ é injetora, temos $f(a) = a$, ou seja,
-$a$ é um fixpoint também e logo $a\in F$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: succiter_for_dummies_returns 
-\problem.
-\label{succiter_for_dummies_returns}%
-(Continuação do~\ref{succiter_for_dummies}.)
-Qual é (a extensão d)o conjunto
-$$
-\Inter_{n=0}^\infty \img {\succ^n} {\nats}\,?
-$$
-Demonstre tua afirmação.
-
-\hint
-$\Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$.
-
-\hint
-Suponha que tem $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats} = \emptyset$
-e chegue numa contradicção.
-
-\solution
-Eu vou demonstrar que
-$$
-\Inter_{n=0}^\infty \img {\succ^n} {\nats}=\emptyset.
-$$
-Para chegar num absurdo,
-suponha que $w \in \Inter_{n=0}^\infty \img {\succ^n} {\nats}$.
-Logo, para todo $n\in\nats$, $w \in \img {\succ^n} {\nats}$.
-Logo, para todo $n\in\nats$, existe $m\in\nats$ tal que $\succ^n(m) = w$.
-Mas $\succ^n(m) = n + m$ (\ref{succiter_for_dummies}).
-Ou seja:
-$$
-\text{para todo $n\in\nats$, existe $m\in\nats$ tal que $n + m = w$}.
-$$
-Ou seja,
-$$
-\text{para todo $n\in\nats$, $n \leq w$ (\ref{natops_leq_def})}. \tag{*}
-$$
-Ou seja, $w$ é o máximo do $\nats$; absurdo pois $\nats$ não tem máximo!
-\crproofalt{Alternativamente,}
-bote $n := w+1$ na (*) para chegar no absurdo $w + 1 \leq w$.
-
-\endproblem
-%%}}}
-
-\endproblems
-%%}}}
-
-% EPICNESS
 
 %%{{{ An_epic_trip 
 \section Uma viagem épica.
