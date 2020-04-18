@@ -25993,7 +25993,7 @@ Calculamos:
 \endproblem
 %%}}}
 
-%%{{{ how_many_idempotents_on_AtoA_for_A_finite 
+%%{{{ prob: how_many_idempotents_on_AtoA_for_A_finite 
 \problem.
 \label{how_many_idempotents_on_AtoA_for_A_finite}%
 Generalize o~\ref{how_many_idempotents_on_AtoA_for_A_triset} para
@@ -26005,7 +26005,7 @@ Seja $n = \card A$.
 \endproblem
 %%}}}
 
-%%{{{ constant_function_why_did_we_omit_unique 
+%%{{{ prob: constant_function_why_did_we_omit_unique 
 \problem.
 \label{constant_function_why_did_we_omit_unique}%
 Na definição do~\ref{constant_notiff_steady}
@@ -26052,7 +26052,7 @@ Veja também o exercício
 \endproblem
 %}}}
 
-%%{{{ first_contact_with_initial_and_terminal_objects 
+%%{{{ prob: first_contact_with_initial_and_terminal_objects 
 \problem Objetos iniciais e terminais.
 \label{first_contact_with_initial_and_terminal_objects}%
 (1) Quais conjuntos $S$ (se algum) têm a propriedade seguinte?:
@@ -26087,7 +26087,7 @@ pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
 \endproblem
 %%}}}
 
-%%{{{ funion 
+%%{{{ prob: funion 
 \problem união de funcções.
 \label{funion}%
 Sejam $f : A \to C$ e $g : B \to D$.
@@ -28575,10 +28575,77 @@ no~\ref{Functional_programming}.
 \endsection
 %%}}}
 
+%%{{{ Fixpoints 
+\section Fixpoints.
+\label{Fixpoints}%
+
+%%{{{ df: fixpoint 
+\definition Fixpoint.
+\label{fixpoint}%
+\tdefined{fixpoint}%
+\iisee{funcção!fixpoint}{fixpoint}%
+Seja $f : A \to A$ um endomapa num conjunto $A$.
+Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
+$f(x) = x$.
+%%}}}
+
+%%{{{ x: fixpoint_iff_iterations 
+\exercise.
+\label{fixpoint_iff_iterations}%
+Seja $f : A\to A$.
+Demonstre a afirmação:
+$$
+\text{$x$ é um fixpoint da $f$}
+\iff
+\text{para todo $n\in\nats$, $x$ é um fixpoint da $f^n$}.
+$$
+
+\hint
+A {\rldir} é muito fácil; para a {\lrdir} use indução.
+
+\solution
+\proofpart{\lrdir}:
+Suponha $x$ é um fixpoint da $f$.
+Vamos demonstrar o que precisamos por indução no $n$.
+\proofpart{Base:}
+Calculamos:
+\compute
+f^0 (x)
+&= 1_A (x)  \by {pela def.~da $f^0$}
+&= x        \by {pela def.~da $1_A$}
+\endcompute
+e logo $x$ é um fixpoint da $f^0$.
+\proofpart{Passo indutivo:}
+Suponha $k\in\nats$ tal que $x$ é um fixpoint da $f^k$ (H.I.).
+Calculamos:
+\compute
+f^{k+1}(x)
+&= (f \of f^k)(x)   \by {pela def.~de $f^{k+1}$}
+&= f\paren{f^k(x)}  \by {pela def.~de $f\of f^k$}
+&= f( x )           \by {pois $x$ é um fixpoint da $f^k$ (H.I.)}
+&= x                \by {pois $x$ é um fixpoint da $f$}
+\endcompute
+e logo $x$ é um fixpoint da $f^{k+1}$.
+\crproofpart{\rldir}:
+Usando nossa hipótese com $n \asseq 1$, temos que $x$ é um fixpoint da $f^1$.
+Mas $f^1$ é a própria $f$ (pois $f^1 = f \of f^0 = f \of 1_A = f$)
+e logo $x$ é um fixpoint da $f$.
+
+\endexercise
+%%}}}
+
+\blah.
+Ok, eu sei: parece estranho dedicar uma secção só pra isso.
+Mas os fixpoints vão fazer um papel importantíssimo depois,
+e logo queria destacá-los desde já.  Paciência.
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 
-%%{{{ touch_of_godel_encoding_strings 
+%%{{{ prob: touch_of_godel_encoding_strings 
 \problem.
 \label{touch_of_godel_encoding_srings}%
 Seja $\kstar \nats = \Union_n \nats^n$ o conjunto de todos
@@ -28622,7 +28689,7 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ epimono_factorization_teaser 
+%%{{{ prob: epimono_factorization_teaser 
 \problem.
 \label{epimono_factorization_teaser}%
 Sejam $A \toby f B$.
@@ -28667,7 +28734,7 @@ Calculamos:
 \endproblem
 %%}}}
 
-%%{{{ injto_surfrom_powerset 
+%%{{{ prob: injto_surfrom_powerset 
 \problem.
 \label{injto_surfrom_powerset}%
 Seja conjunto $A\neq\emptyset$.
@@ -28763,7 +28830,7 @@ $A \bijto \pset A$ e nenhuma funcção $\pset A \bijto A$.
 Na verdade basta apenas demonstrar apenas uma das duas afirmações,
 pois quando temos uma funcção bijetora de $A$ para $\pset A$
 também temos ``de graça'' uma bijetora de $\pset A$ para $A$:
-sua \emph{inversa}, que vamos conhecer logo, na~\ref{Inverse_functions}.
+sua inversa.
 Mas como conseguimos então \emph{demonstrar} que não existe bijecção
 entre o $A$ e o $\pset A$?
 Isso eu vou te deixar pensar.
@@ -28782,7 +28849,7 @@ Paciência.
 \endproblem
 %%}}}
 
-%%{{{ projection_inj_or_surj 
+%%{{{ prob: projection_inj_or_surj 
 \problem.
 \label{projection_inj_or_surj}%
 Sejam $A\neq\emptyset$ conjunto, $n\in\nats_{>0}$,
@@ -28831,7 +28898,7 @@ pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
 \endproblem
 %%}}}
 
-%%{{{ jection_iff_composition_with_inverse_proof
+%%{{{ prob: jection_iff_composition_with_inverse_proof
 \problem.
 \label{jection_iff_composition_with_inverse_proof}%
 Demonstre o~\ref{jection_iff_composition_with_inverse}.
@@ -28890,7 +28957,7 @@ Isso mostra que $f$ é sobrejetora.
 \endproblem
 %%}}}
 
-%%{{{ Halmos_advice_f_surj_iff_pre_f_inj 
+%%{{{ prob: Halmos_advice_f_surj_iff_pre_f_inj 
 \problem Don't just read it; fight it.
 \label{Halmos_advice_f_surj_iff_pre_f_inj}%
 Ache a coisa mais óbvia para se perguntar depois
@@ -28924,7 +28991,7 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ big_operations_respected_by_img_and_pre 
+%%{{{ prob: big_operations_respected_by_img_and_pre 
 \problem.
 \label{big_operations_respected_by_img_and_pre}%
 {%
@@ -29016,7 +29083,7 @@ Similar: é só seguir os passos da {\lrdirset} em reverso.
 \endproblem
 %%}}}
 
-%%{{{ f_surj_iff_pre_f_inj 
+%%{{{ prob: f_surj_iff_pre_f_inj 
 \problem.
 \label{f_surj_iff_pre_f_inj}%
 Seja $f : A \to B$.
@@ -29069,7 +29136,61 @@ Ou seja, a $\pre f {\dhole}$ não é injetora.
 \endproblem
 %}}}
 
-%%{{{ succiter_for_dummies_returns 
+%%{{{ prob: fix_f_properties 
+\problem.
+\label{fix_f_properties}%
+Seja $f : A \to A$,
+e seja $F$ o conjunto de todos os fixpoints da $f$.
+$$
+F = \setstt {x \in A} {$x$ é um fixpoint da $f$}
+$$
+Quais das igualdades seguintes podemos concluir?:
+$$
+\xalignat2
+\img f F &= F &
+\pre f F &= F
+\endxalignat
+$$
+Demonstre aquelas que sim; mostre um contraexemplo daquelas que não,
+mas verifique se alguma das duas inclusões
+{\lrdirset} ou {\rldirset} é válida.
+O que muda se $f$ é injetora?
+
+\solution
+Sempre temos $\img f F = F$ e $\pre f F \supset F$.
+Se $f$ é injetora, ganhamos a $\pre f F \subset F$ também.
+\endgraf
+\proofpart{{\proofname} de $\img f F \subset F$.}
+Seja $y\in\img f F$.
+Logo tome $p\in F$ tal que $f(p) = y$\fact1 (pela definição da funcção-imagem).
+Logo $p$ é um fixpoint da $f$, ou seja, $f(p) = p$\fact2.
+Juntando as {\byfact1} e~{\byfact2}, ganhamos $p = y$, ou seja $y$ é um fixpoint da $f$, e logo $y\in F$.
+\endgraf
+\proofpart{{\proofname} de $\img f F \supset F$.}
+Seja $p \in F$.
+Logo $f(p) \in \img f F$ (pela definição da funcção-imagem).
+Mas $p$ é um fixpoint da $f$ (pois $p\in F$), ou seja $f(p) = p$.
+Logo $p \in \img f F$.
+\endgraf
+\proofpart{{\proofname} de $\pre f F \supset F$.}
+Seja $p \in F$, ou seja $p$ é um fixpoint da $f$.
+Logo $f(p) = p \in F$, e logo $p \in \pre f F$.
+\endgraf
+\proofpart{Contraexemplo para $\pre f F \subset F$.}
+Tome $A = \set{0,1}$ e defina $f$ pela $f(x) = 0$.
+Nesse caso temos $F = \set{0}$, mas $\pre f F = \set{0,1}$.
+\endgraf
+\proofpart{{\proofname} da $\pre f F \subset F$ quando $f$ injetora.}
+Seja $a\in \pre f F$.
+Logo $f(a)$ é um fixpoint da $f$.
+Ou seja, $f(f(a)) = f(a)$
+Agora, como $f$ é injetora, temos $f(a) = a$, ou seja,
+$a$ é um fixpoint também e logo $a\in F$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: succiter_for_dummies_returns 
 \problem.
 \label{succiter_for_dummies_returns}%
 (Continuação do~\ref{succiter_for_dummies}.)
@@ -30852,126 +30973,6 @@ funcionam.
 \endsection
 %%}}}
 
-%%{{{ Fixpoints 
-\section Fixpoints.
-\label{Fixpoints}%
-
-%%{{{ df: fixpoint 
-\definition Fixpoint.
-\label{fixpoint}%
-\tdefined{fixpoint}%
-\iisee{funcção!fixpoint}{fixpoint}%
-Seja $f : A \to A$ um endomapa num conjunto $A$.
-Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
-$f(x) = x$.
-%%}}}
-
-%%{{{ x: fixpoint_iff_iterations 
-\exercise.
-\label{fixpoint_iff_iterations}%
-Demonstre a afirmação:
-$$
-\text{$x$ é um fixpoint da $f$}
-\iff
-\text{para todo $n\in\nats$, $x$ é um fixpoint da $f^n$}.
-$$
-
-\hint
-A {\rldir} é muito fácil; para a {\lrdir} use indução.
-
-\solution
-\proofpart{\lrdir}:
-Suponha $x$ é um fixpoint da $f$.
-Vamos demonstrar o que precisamos por indução no $n$.
-\proofpart{Base:}
-Calculamos:
-\compute
-f^0 (x)
-&= 1_A (x)  \by {pela def.~da $f^0$}
-&= x        \by {pela def.~da $1_A$}
-\endcompute
-e logo $x$ é um fixpoint da $f^0$.
-\proofpart{Passo indutivo:}
-Suponha $k\in\nats$ tal que $x$ é um fixpoint da $f^k$ (H.I.).
-Calculamos:
-\compute
-f^{k+1}(x)
-&= (f \of f^k)(x)   \by {pela def.~de $f^{k+1}$}
-&= f\paren{f^k(x)}  \by {pela def.~de $f\of f^k$}
-&= f( x )           \by {pois $x$ é um fixpoint da $f^k$ (H.I.)}
-&= x                \by {pois $x$ é um fixpoint da $f$}
-\endcompute
-e logo $x$ é um fixpoint da $f^{k+1}$.
-\crproofpart{\rldir}:
-Usando nossa hipótese com $n \asseq 1$, temos que $x$ é um fixpoint da $f^1$.
-Mas $f^1$ é a própria $f$ (pois $f^1 = f \of f^0 = f \of 1_A = f$)
-e logo $x$ é um fixpoint da $f$.
-
-\endexercise
-%%}}}
-
-%%{{{ x: fix_f_properties 
-\exercise.
-\label{fix_f_properties}%
-Seja $f : A \to A$,
-e seja $F$ o conjunto de todos os fixpoints da $f$.
-$$
-F = \setstt {x \in A} {$x$ é um fixpoint da $f$}
-$$
-Quais das igualdades seguintes podemos concluir?:
-$$
-\xalignat2
-\img f F &= F &
-\pre f F &= F
-\endxalignat
-$$
-Demonstre aquelas que sim; mostre um contraexemplo daquelas que não,
-mas verifique se alguma das duas inclusões
-{\lrdirset} ou {\rldirset} é válida.
-O que muda se $f$ é injetora?
-
-\solution
-Sempre temos $\img f F = F$ e $\pre f F \supset F$.
-Se $f$ é injetora, ganhamos a $\pre f F \subset F$ também.
-\endgraf
-\proofpart{{\proofname} de $\img f F \subset F$.}
-Seja $y\in\img f F$.
-Logo tome $p\in F$ tal que $f(p) = y$\fact1 (pela definição da funcção-imagem).
-Logo $p$ é um fixpoint da $f$, ou seja, $f(p) = p$\fact2.
-Juntando as {\byfact1} e~{\byfact2}, ganhamos $p = y$, ou seja $y$ é um fixpoint da $f$, e logo $y\in F$.
-\endgraf
-\proofpart{{\proofname} de $\img f F \supset F$.}
-Seja $p \in F$.
-Logo $f(p) \in \img f F$ (pela definição da funcção-imagem).
-Mas $p$ é um fixpoint da $f$ (pois $p\in F$), ou seja $f(p) = p$.
-Logo $p \in \img f F$.
-\endgraf
-\proofpart{{\proofname} de $\pre f F \supset F$.}
-Seja $p \in F$, ou seja $p$ é um fixpoint da $f$.
-Logo $f(p) = p \in F$, e logo $p \in \pre f F$.
-\endgraf
-\proofpart{Contraexemplo para $\pre f F \subset F$.}
-Tome $A = \set{0,1}$ e defina $f$ pela $f(x) = 0$.
-Nesse caso temos $F = \set{0}$, mas $\pre f F = \set{0,1}$.
-\endgraf
-\proofpart{{\proofname} da $\pre f F \subset F$ quando $f$ injetora.}
-Seja $a\in \pre f F$.
-Logo $f(a)$ é um fixpoint da $f$.
-Ou seja, $f(f(a)) = f(a)$
-Agora, como $f$ é injetora, temos $f(a) = a$, ou seja,
-$a$ é um fixpoint também e logo $a\in F$.
-
-\endexercise
-%%}}}
-
-\blah.
-Ok, eu sei: parece estranho dedicar uma secção só pra isso.
-Mas os fixpoints vão fazer um papel importantíssimo depois,
-e logo queria destacá-los desde já.  Paciência.
-
-\endsection
-%%}}}
-
 %%{{{ Coproduct; disjoint union 
 \section Coproduto; união disjunta.
 \label{Coproduct}%
@@ -31637,7 +31638,7 @@ seria o seu produto $A\cross B$?
 %%{{{ PROBLEMS 
 \problems.
 
-%%{{{ cancellable_stereo 
+%%{{{ prob: cancellable_stereo 
 \problem.
 \label{cancellable_stereo}%
 Sabemos que bijecções tem inversa e logo são canceláveis
@@ -31655,7 +31656,7 @@ se não, refute mesmo a afirmação.
 \endproblem
 %%}}}
 
-%%{{{ big_intersection_respected_by_img_wrong_proof 
+%%{{{ prob: big_intersection_respected_by_img_wrong_proof 
 \problem.
 \label{big_intersection_respected_by_img_wrong_proof}%
 Um aluno ``demonstrou'' que se $f : A \to B$ e $\seqn A n$ é uma
@@ -31708,7 +31709,7 @@ Compare com o~\ref{wrong_order_of_quantifiers}.
 \endproblem
 %%}}}
 
-%%{{{ implement_partial_functions 
+%%{{{ prob: implement_partial_functions 
 \problem Implementação: funcções parciais.
 \label{implement_partial_functions}%
 \tdefined{funcção}[partial]%
@@ -31743,7 +31744,7 @@ $$
 \endproblem
 %%}}}
 
-%%{{{ implement_nondeterministic_functions 
+%%{{{ prob: implement_nondeterministic_functions 
 \problem Implementação: funcções não-determinísticas.
 \label{implement_nondeterministic_functions}%
 \tdefined{funcção}[não-determinística]%
@@ -31792,7 +31793,7 @@ para nossas funcções não-determinísticas também.
 \endproblem
 %%}}}
 
-%%{{{ fcom_respects_jections_pointfree 
+%%{{{ prob: fcom_respects_jections_pointfree 
 \problem.
 \label{fcom_respects_jections_pointfree}%
 Demonstre que a composição respeita injectividade e sobrejectividade
@@ -31802,7 +31803,7 @@ Ou seja, tu vai ter que usar as ``versões pointfree'' dessas noções.
 \endproblem
 %%}}}
 
-%%{{{ define_constant_function_pointfree 
+%%{{{ prob: define_constant_function_pointfree 
 \problem.
 \label{define_constant_function_pointfree}%
 Descreva a afirmação <<$f$ é constante>> numa maneira pointfree.
@@ -31814,7 +31815,7 @@ qual é o seu único membro.
 \endproblem
 %%}}}
 
-%%{{{ flip_definition 
+%%{{{ prob: flip_definition 
 \problem flip.
 \label{flip_definition}%
 No \ref{powTwo} da~\refn{Currying} definimos a funcção $\namedfun{powTwo}$
@@ -31882,7 +31883,7 @@ Quais são?
 \endproblem
 %%}}}
 
-%%{{{ why_pre_collatz_unsafe_diverges_on_6 
+%%{{{ prob: why_pre_collatz_unsafe_diverges_on_6 
 \problem.
 \label{why_pre_collatz_unsafe_diverges_on_6}%
 Calculando para resolver o~\ref{calculate_pre_collatz}
@@ -58689,25 +58690,24 @@ e para os subconjuntos infinitos também.
 \endsection
 %%}}}
 
-%%{{{ Fixpoints 
+%%{{{ Fixpoints_in_posets 
 \section Fixpoints.
+\label{Fixpoints_in_posets}%
 
-%%{{{ df: fixpoint 
-\definition fixpoint.
-\tdefined{fixpoint}%
+%%{{{ df: fixpoints 
+\definition.
+\label{fixpoints}%
 \tdefined{fixpoint}[least]%
 \tdefined{fixpoint}[greatest]%
 \sdefined {\fixpoints {\sholed f}} {o conjunto dos fixpoints de $f$}%
 \sdefined {\lfp {\sholed f}} {o menor fixpoint de $f$}%
 \sdefined {\gfp {\sholed f}} {o maior fixpoint de $f$}%
 Seja $f : X \to X$.
-Chamamos o $x_0\in X$ um \dterm{fixpoint} de $f$ sse
-$f(x_0) = x_0$.
 Usamos a notação
 $$
 \fixpoints f
 \defeq
-\setstt { x \in \dom f } {$x$ é um fixpoint de $f$}
+\setstt { x \in X } {$x$ é um fixpoint de $f$}
 $$
 e se $X$ é um poset e $\fixpoints F$ tem mínimo e máximo botamos
 $$
