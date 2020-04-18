@@ -26688,20 +26688,44 @@ Calculamos:
 \endexercise
 %%}}}
 
-%%{{{ finv_of_fcompose_error 
-\note Inversa da composição: um erro.
+%%{{{ Q: finv_of_fcompose_question 
+\question.
+\label{finv_of_fcompose_question}%
+Queremos descrever a inversa duma composição de bijecções
+em termos das inversas dessas bijecções.
+Ou seja, temos a configuração seguinte:
+$$
+\cd
+A \ar[r, tail, two heads, "f"] \ar[rr, tail, twoheads, bend left=30, "g\of f|] \| B \ar[r, tail, two heads, "g"] \| C
+\endcd
+$$
+Agora, já que $g\of f$ é bijetora, sabemos que possui inversa.
+O desafio é descrevê-la em termos das $\finv f$ e $\finv g$.
+Como o farias?
+%%}}}
+\spoiler.
+
+%%{{{ beware: finv_of_fcompose_error 
+\beware.
 \label{finv_of_fcompose_error}%
-Queremos descrever a inversa duma composição de bijecções em termos
-das inversas dessas bijecções.
-Ou seja, temos
 Um erro comum é afirmar que $\finvp{g\of f} = \finv g \of \finv f$.
-Pense em funcções como ``processos'' e na $g\of f$ como o processo
+Vamos ver por que isso não faz sentido:
+pense em funcções como ``processos'' e na $g\of f$ como o processo
 <<faça $f$ e depois faça $g$>>.
 Como exemplo, considere $f$ o <<botar cueca>> e $g$ o
 <<botar shorts>>.
-Logo $g\of f$ é o processo <<botar cueca e depois botar shorts>>.
+Logo $g\of f$ é o processo <<botar a cueca e depois botar os shorts>>.
 Assim, qual processo seria o $\finv g \of \finv f$?
-Se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
+<<Tirar a cueca e depois tirar os shorts.>>
+O erro é óbvio: esquecemos de invertar a ordem das acções
+Mais um exemplo para enfatisar: tu tá usando teu editor de texto,
+fez várias alterações, uma depois de outro, e agora quer desfazer
+tudo que tu fez.  Começando fazer ``undo'' qual a primeira
+alteração que vai ser ``undoada''?
+Voltando: se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
+Praticamente já te dei a resposta no exercício seguinte
+(\refn{finv_of_compose})---sorry.
+Ainda bem que tem uma parte mais interessante: demonstrar.
 %%}}}
 
 %%{{{ x: finv_of_fcompose 
@@ -28165,15 +28189,15 @@ Note que a expressão ``$F(x)(y)$'' quis dizer ``$\bigparen{F(x)}(y)$'' mesmo.
 \tdefined{currificação}%
 A maneira que conseguimos utilizar funcções de ordem
 superior mas de aridade $1$, para ``emular'' funcções
-de aridades maiores é chamada \emph{currificação},
+de aridades maiores é chamada \dterm{currificação},
 em homenagem ao Haskell~\Curry[currificação]{}Curry.%
 \footnote{%
 O próprio \Curry{}Curry atribuiu o conceito
 ao \Schonfinkel[currificação]{}Schönfinkel,
 mas \Frege[currificação]{}Frege já tinha usado isso antes.
 }
-No exemplo acima digamos que $F$ é a \dterm{currificação}
-da $f$, ou sua versão currificada.
+No exemplo acima dizemos que \emph{$F$ é a currificação da
+da $f$}, ou \emph{sua versão currificada}.
 %%}}}
 
 %%{{{ Q: How can we define the generic curry and uncurry functions? 
@@ -38852,8 +38876,8 @@ $$
 \remark.
 É comum adivinhar erroneamente que em geral
 $\ginvp{a \ast b} = \ginv a \ast \ginv b$.
-O erro é feito pois, acostumados com um certo grupo \emph{bem especial} como o
-$\sset {\reals_{\neq0}} {\ntimes}$ onde essa lei realmente é valida,
+O erro é feito pois, acostumados com certos grupos \emph{bem especiais}
+como o $\sset {\reals_{\neq0}} {\ntimes}$ (onde essa lei realmente é valida),
 generalizamos para o caso geral de grupos, sem perceber algo estranho e
 esquisito que acontece nessa equação.  Repensanso em nosso exemplo-guia de
 grupos, o~$\sym 3$, o que significa~$a \ast b$?
@@ -38867,13 +38891,13 @@ Ou seja,~$\ginv b \ast \ginv a$.
 Isso é bem natural sim: para desfazer uma seqüência de ações, começamos
 desfazenso a última, depois a penúltima, etc., até finalmente desfazer
 a primeira.
-Sendo o inverso então, faz sentido que a ordem é a inversa também!
+Sendo o inverso então, faz sentido que \emph{a ordem é a inversa também!}
 E nos reais, por que não foi a inversa?
 Foi sim!
 É apenas que o~$\sset {\reals_{\neq0}} {\ntimes}$ é um grupo abeliano;
 em outras palavras a ``ordem que acontecem os membros'' não importa.
 Mas tudo isso é apenas uma \emph{intuição correta} para adivinhar essa lei.
-Precisamos prová-la.  Bora!
+Precisamos demonstrá-la.  Bora!
 %%}}}
 
 %%{{{ lm: inverse_of_product_in_group 
