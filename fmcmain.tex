@@ -26788,7 +26788,7 @@ em termos das inversas dessas bijecções.
 Ou seja, temos a configuração seguinte:
 $$
 \cd
-A \ar[r, tail, two heads, "f"] \ar[rr, tail, two heads, bend left=30, "g\of f"] \| B \ar[r, tail, two heads, "g"] \| C
+A \ar[r, tail, two heads, "f"] \ar[rr, tail, two heads, bend left=36, "g\of f"] \| B \ar[r, tail, two heads, "g"] \| C
 \endcd
 $$
 Agora, já que $g\of f$ é bijetora, sabemos que possui inversa.
@@ -26816,7 +26816,7 @@ tudo que tu fez.  Começando fazer ``undo'' qual a primeira
 alteração que vai ser ``undoada''?
 Voltando: se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
 Praticamente já te dei a resposta para o exercício seguinte
-(\refn{finv_of_compose})---sorry.
+(\refn{finv_of_fcompose})---sorry.
 Ainda bem que tem uma parte mais interessante: demonstrar.
 %%}}}
 
@@ -26918,6 +26918,324 @@ essas propriedades, ``de longe'', sem olhar os detalhes internos.
 %%}}}
 
 \endsection
+%%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+
+%%{{{ prob: touch_of_godel_encoding_strings 
+\problem.
+\label{touch_of_godel_encoding_srings}%
+Seja $\kstar \nats = \Union_n \nats^n$ o conjunto de todos
+os strings finitos feitos por naturais.
+Considere a $f : \kstar \nats \to \nats_{>0}$ definida pela
+$$
+f (x_0,\dotsc,x_{n-1}) = \Prod_{i=0}^{n-1} p_i^{x_i}
+$$
+onde $\seqn p n$ é a seqüência dos números primos
+($p_0 = 2$, $p_1 = 3$, $p_2 = 5$, \dots).
+(1) Explique por que $f$ não é injetora.
+(2) Demonstre que $f$ é sobrejetora.
+(3) O que acontece se substituir os exponentes $x_i$ por $x_i + 1$?
+
+\solution
+\proofpart{(1) $f$ não é injetora}
+pois
+$$
+f(1) = 2 = f(1,0).
+$$
+\proofpart{(2) $f$ é sobrejetora.}
+Seja $y \in \nats_{>0}$.
+Pelo teorema fundamental de aritmética~\refn{fundamental_theorem_of_arithmetic}
+$y$ pode ser escrito como produtório de primos
+$$
+y = q_0^{y_i}
+$$
+\proofpart{(3) Acontece}
+que ganha injectividade
+(veja o~\ref{encoding_of_finite_sequences} e sua resolução)
+e perde sobrejectividade:
+nenhuma entrada é mapeada para o $3$, pois o único ímpar
+que realmente está no $\range f$ é o $1$ ($f() = 1$ pela definição
+do produtório vazio); todos os outros pontos do domínio da $f$
+são múltiplos de $2$ pela sua definição.
+Observe que tem números pares que faltam também, por exemplo o
+$$
+10 = 2^1 \ntimes 3^0 \ntimes 5^1.
+$$
+
+\endproblem
+%%}}}
+
+%%{{{ prob: epimono_factorization_teaser 
+\problem.
+\label{epimono_factorization_teaser}%
+Sejam $A \toby f B$.
+Então existem: injecção $m$, surjecção $e$, e conjunto $C$
+tais que o diagrama seguinte comuta:
+$$
+\cdopt{sep=1cm}
+A \ar[rr, "f"]\ar[dr, twoheadrightarrow, "e"'] \| \| B \\
+                                                  \| C \ar[ur, rightarrowtail, "m"']
+\endcd
+$$
+Em outras palavras, mostre que qualquer funcção $f : A \to B$
+pode ser ``decomposta'' em
+$$
+f = m \of e
+$$
+onde $e$ é uma funcção sobrejetora e $m$ uma funcção injetora.
+
+\hint
+Para garantir que $e$ é sobrejetora escolher como $C$ 
+o próprio $\range(f)$.
+
+\solution
+Sejam
+$$
+\align
+C &= \range(f) \\
+e &= \lam x {f x} : A \to C \\
+m &= \inc : C \incto B
+\endalign
+$$
+Basta demonstrar que $f = m \of e$.
+Seja $x \in A$.
+Calculamos:
+\compute
+(m \of e) x
+&= m (e x)  \by {def.~$m \of e$}
+&= m (f x)  \by {def.~$e$}
+&= f x.     \by {def.~$m$}
+\endcompute
+
+\endproblem
+%%}}}
+
+%%{{{ prob: injto_surfrom_powerset 
+\problem.
+\label{injto_surfrom_powerset}%
+Seja conjunto $A\neq\emptyset$.
+Defina funcções $f,g$ com os tipos seguintes:
+$$
+\align
+f &: A \injto \pset A \\
+g &: \pset A \surto A.
+\endalign
+$$
+Demonstre que:
+(i) a $f$ é injetora;
+(ii) a $f$ não é sobrejetora;
+(iii) a $g$ é sobrejetora;
+(iv) a $g$ não é sobrejetora.
+Como eu posso pedir pra tu demonstrar tudo isso (as (ii) e (iv))
+sem sequer saber quais são as $f,g$ que tu escolheu definir?
+(Essa pergunta não é retórica.)
+
+\hint
+Cuidado: sobre o $A$ não podes supor nada mais que $A\neq\emptyset$.
+
+\hint
+A parte do problema sobre a $f : A \injto \pset A$ foi resolvida
+no~\ref{x_mapsto_singleton_x_properties}.
+Falta a parte sobre a $g : \pset \surto A$.
+
+\hint
+É para a parte do problema sobre a $g : \pset A \surto A$
+que precisas o $A\neq\emptyset$.
+
+\hint
+Seja $a_0 \in A$.  Defina a $g : \pset A \to A$ pela
+$$
+g(X) = \knuthcases{
+\dots?\dots, & $\dots?\dots$ \cr
+\dots?\dots, & caso contrário.
+}
+$$
+Novamente: cuidado para não supor nada mais que $A\neq\emptyset$
+sobre o $A$.  Por exemplo: não sabemos se $A$ tem \emph{mais}
+que um elemento (sabemos apenas que tem \emph{pelo menos} um);
+não sabemos se os membros dele são ordenados; etc.
+Se a gente soubesse que os membros de $A$ são \emph{bem ordenados}
+a gente poderia definir o primeiro caso acima pela
+$$
+g(X) = \knuthcases{
+\min X, & se $X \neq \emptyset$ \cr
+\dots?\dots, & caso contrário.
+}
+$$
+mas sem a informação que o $A$ é bem ordenado a $g$ não seria
+bem-definida.
+Por enquanto: um conjunto é chamado \dterm{bem ordenado} sse todo
+$\emptyset\subsetneq X \subset A$ possui elemento mínimo.
+No~\ref{Wellorderings_and_transfinite_induction}
+estudamos conjuntos bem ordenados e suas propriedades.
+
+\hint
+Seja $a_0 \in A$.  Defina a $g : \pset A \to A$ pela
+$$
+g(X) = \knuthcases{
+x,   & se $X$ é o singleton $\set{x}$ \cr
+a_0, & caso contrário.
+}
+$$
+Falta demonstrar que ela é sobrejetora e que não é injetora.
+
+\solution
+A parte do problema sobre a $f : A \injto \pset A$ foi resolvida
+no~\ref{x_mapsto_singleton_x_properties}, onde definimos a
+$f : A \to \pset A$ pela $f(x) = \set{x}$ e provamos as (i)--(ii).
+\endgraf
+Fixe $a_0 \in A$ ($A\neq\emptyset$) e defina a $g : \pset A \to A$ pela
+$$
+g(X) = \knuthcases{
+x,   & se $X$ é o singleton $\set{x}$\cr
+a_0, & caso contrário.
+}
+$$
+\endgraf
+(iii) \proofpart{A $g$ é sobrejetora.}
+Seja $y \in A$.  Observe que $g(\set{y}) = y$.
+Como $\set{y}\in\pset A$, temos que $g$ é sobrejetora.
+\endgraf
+(iv) \proofpart{A $g$ não é injetora.}
+Observe que $\emptyset, \set{a_0} \in \pset A$ e que $\emptyset \neq \set{a_0}$,
+mas mesmo assim $g(\emptyset) = a_0 = g(\set{a_0})$.
+Logo, $g$ não é injetora.
+\crproofpart{Para responder na pergunta não retórica}
+precisamos \emph{demonstrar} que não existe nenhuma funcção
+$A \bijto \pset A$ e nenhuma funcção $\pset A \bijto A$.
+Na verdade basta apenas demonstrar apenas uma das duas afirmações,
+pois quando temos uma funcção bijetora de $A$ para $\pset A$
+também temos ``de graça'' uma bijetora de $\pset A$ para $A$:
+sua inversa.
+Mas como conseguimos então \emph{demonstrar} que não existe bijecção
+entre o $A$ e o $\pset A$?
+Isso eu vou te deixar pensar.
+Mas te aviso: é algo \emph{muito difícil de pensar}.
+(Seria fácil se tivermos que $A$ é finito, mas pode ser que não é.)
+Mas dê uma chance nele!
+E não se preocupe: no~\ref{Cantors_paradise} estudamos umas
+idéias de {\Cantor[teorema]}Cantor; foi ele que se perguntou
+sobre isso, e foi ele que deu a resposta mesmo
+(teorema de Cantor~\refn{cantor_theorem},
+\refn{Cantors_theorem_and_its_consequences}).
+As conseqüências do seu teorema são{\dots}
+Brutais!
+Paciência.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: projection_inj_or_surj 
+\problem.
+\label{projection_inj_or_surj}%
+Sejam $A\neq\emptyset$ conjunto, $n\in\nats_{>0}$,
+e $I = \setst {i\in\nats} {i < n}$.
+Considere a funcção $\pi : I \times A^n \to A$ definida por
+$$
+\pi(i, \alpha)
+= \pi_i(\alpha)
+\qquad\Bigparen{
+= \text{o $i$-ésimo membro da tupla $\alpha$}
+}
+$$
+onde consideramos o primeiro membro duma tupla seu
+``$0$-ésimo'' membro, etc.
+Investigue a injectividade e a sobrejectividade da $\pi$.
+
+\hint
+Calcule uns valores primeiro.  Por exemplo,
+$$
+\xalignat3
+\pi (2, \tup{2,3,5,7}) &= 5 &
+\pi (0, \tup{2})       &= 2 &
+\pi (3, \tup{2,0,0,1}) &= 1
+\endxalignat
+$$
+
+\solution
+\proofpart{Injectividade.}
+A injectividade da $\pi$ depende no $n$:
+\crcase{Caso $n>1$}, não é:
+pois tomando $a\in A$,
+$$
+\pi(0,\tup{a,\dotsc,a}) = a = \pi(1,\tup{a,\dotsc,a}).
+$$
+\case{Caso $n=1$}, é:
+tomando $w, w' \in I\times A^n$ com $w\neq w'$, temos
+que $w = \tup{ 0, \tup{a} }$ e $w' = \tup{ 0, \tup{a'} }$
+para alguns $a,a'\in A$.
+Agora como $w\neq w'$ concluimos que $a\neq a'$ e logo
+$\pi(0,w) \neq \pi(0,w')$, ou seja, $\pi$ é injetora
+nesse caso.
+\crproofpart{Sobrejectividade.}
+A $\pi$ é sobrejetora sim:
+pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: jection_iff_composition_with_inverse_proof
+\problem.
+\label{jection_iff_composition_with_inverse_proof}%
+Demonstre o~\ref{jection_iff_composition_with_inverse}.
+
+\solution
+Já provou as idas no~\refn{jection_implies_composition_with_inverse}.
+Vamos demonstrar as voltas.
+\endgraf
+\proofpart{Volta da (1).}
+Suponha a hipótese:
+$$
+\text{para todo $A \subset X$, $A = \pre f {\img f A}$}.
+$$
+Para mostrar que $f$ é injetora, suponha que $x,x'\in X$ tais que $f(x) = f(x')$.
+Basta verificar que $x = x'$.
+Considere o conjunto $A = \set{x}$.
+Observe que $A \subset X$, e logo pela hipótese temos
+$$
+A = \pre f {\img f A}.\tag{A}
+$$
+Temos $f(x) \in \img f A$ pela definição da funcção-imagem.
+Como $f(x') = f(x)$ temos também $f(x') \in \img f A$.
+Logo
+$$
+x, x' \in \pre f {\img f A} \eqlabel A A = \set{x}.
+$$
+Como $x, x' \in \set{x}$, logo $x = x'$.
+\endgraf
+\proofpart{Volta da (2).}
+Suponha a hipótese:
+$$
+\text{para todo $B \subset Y$, $B = \img f {\pre f B}$}.
+$$
+Tome $y_0\in Y$.
+Para mostrar que $f$ é sobrejetora
+basta mostrar que $\pre f {\set{y_0}} \neq \emptyset$.
+Considere o
+$$
+B = \set{y_0} \subset Y
+$$
+e logo pela hipótese temos
+$$
+B = \img f {\pre f B}.\tag{B}
+$$
+Ou seja, $\pre f B \neq \emptyset$
+(caso contrário teriamos
+$$
+B
+\eqlabel B \img f {\pre f B}
+= \img f {\emptyset}
+= \emptyset
+$$
+que é absurdo pois $B = \set{y_0}$).
+Isso mostra que $f$ é sobrejetora.
+
+\endproblem
+%%}}}
+
+\endproblems
 %%}}}
 
 %%{{{ Images_preimages 
@@ -28651,318 +28969,6 @@ no~\ref{Functional_programming}.
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 
-%%{{{ prob: touch_of_godel_encoding_strings 
-\problem.
-\label{touch_of_godel_encoding_srings}%
-Seja $\kstar \nats = \Union_n \nats^n$ o conjunto de todos
-os strings finitos feitos por naturais.
-Considere a $f : \kstar \nats \to \nats_{>0}$ definida pela
-$$
-f (x_0,\dotsc,x_{n-1}) = \Prod_{i=0}^{n-1} p_i^{x_i}
-$$
-onde $\seqn p n$ é a seqüência dos números primos
-($p_0 = 2$, $p_1 = 3$, $p_2 = 5$, \dots).
-(1) Explique por que $f$ não é injetora.
-(2) Demonstre que $f$ é sobrejetora.
-(3) O que acontece se substituir os exponentes $x_i$ por $x_i + 1$?
-
-\solution
-\proofpart{(1) $f$ não é injetora}
-pois
-$$
-f(1) = 2 = f(1,0).
-$$
-\proofpart{(2) $f$ é sobrejetora.}
-Seja $y \in \nats_{>0}$.
-Pelo teorema fundamental de aritmética~\refn{fundamental_theorem_of_arithmetic}
-$y$ pode ser escrito como produtório de primos
-$$
-y = q_0^{y_i}
-$$
-\proofpart{(3) Acontece}
-que ganha injectividade
-(veja o~\ref{encoding_of_finite_sequences} e sua resolução)
-e perde sobrejectividade:
-nenhuma entrada é mapeada para o $3$, pois o único ímpar
-que realmente está no $\range f$ é o $1$ ($f() = 1$ pela definição
-do produtório vazio); todos os outros pontos do domínio da $f$
-são múltiplos de $2$ pela sua definição.
-Observe que tem números pares que faltam também, por exemplo o
-$$
-10 = 2^1 \ntimes 3^0 \ntimes 5^1.
-$$
-
-\endproblem
-%%}}}
-
-%%{{{ prob: epimono_factorization_teaser 
-\problem.
-\label{epimono_factorization_teaser}%
-Sejam $A \toby f B$.
-Então existem: injecção $m$, surjecção $e$, e conjunto $C$
-tais que o diagrama seguinte comuta:
-$$
-\cdopt{sep=1cm}
-A \ar[rr, "f"]\ar[dr, twoheadrightarrow, "e"'] \| \| B \\
-                                                  \| C \ar[ur, rightarrowtail, "m"']
-\endcd
-$$
-Em outras palavras, mostre que qualquer funcção $f : A \to B$
-pode ser ``decomposta'' em
-$$
-f = m \of e
-$$
-onde $e$ é uma funcção sobrejetora e $m$ uma funcção injetora.
-
-\hint
-Para garantir que $e$ é sobrejetora escolher como $C$ 
-o próprio $\range(f)$.
-
-\solution
-Sejam
-$$
-\align
-C &= \range(f) \\
-e &= \lam x {f x} : A \to C \\
-m &= \inc : C \incto B
-\endalign
-$$
-Basta demonstrar que $f = m \of e$.
-Seja $x \in A$.
-Calculamos:
-\compute
-(m \of e) x
-&= m (e x)  \by {def.~$m \of e$}
-&= m (f x)  \by {def.~$e$}
-&= f x.     \by {def.~$m$}
-\endcompute
-
-\endproblem
-%%}}}
-
-%%{{{ prob: injto_surfrom_powerset 
-\problem.
-\label{injto_surfrom_powerset}%
-Seja conjunto $A\neq\emptyset$.
-Defina funcções $f,g$ com os tipos seguintes:
-$$
-\align
-f &: A \injto \pset A \\
-g &: \pset A \surto A.
-\endalign
-$$
-Demonstre que:
-(i) a $f$ é injetora;
-(ii) a $f$ não é sobrejetora;
-(iii) a $g$ é sobrejetora;
-(iv) a $g$ não é sobrejetora.
-Como eu posso pedir pra tu demonstrar tudo isso (as (ii) e (iv))
-sem sequer saber quais são as $f,g$ que tu escolheu definir?
-(Essa pergunta não é retórica.)
-
-\hint
-Cuidado: sobre o $A$ não podes supor nada mais que $A\neq\emptyset$.
-
-\hint
-A parte do problema sobre a $f : A \injto \pset A$ foi resolvida
-no~\ref{x_mapsto_singleton_x_properties}.
-Falta a parte sobre a $g : \pset \surto A$.
-
-\hint
-É para a parte do problema sobre a $g : \pset A \surto A$
-que precisas o $A\neq\emptyset$.
-
-\hint
-Seja $a_0 \in A$.  Defina a $g : \pset A \to A$ pela
-$$
-g(X) = \knuthcases{
-\dots?\dots, & $\dots?\dots$ \cr
-\dots?\dots, & caso contrário.
-}
-$$
-Novamente: cuidado para não supor nada mais que $A\neq\emptyset$
-sobre o $A$.  Por exemplo: não sabemos se $A$ tem \emph{mais}
-que um elemento (sabemos apenas que tem \emph{pelo menos} um);
-não sabemos se os membros dele são ordenados; etc.
-Se a gente soubesse que os membros de $A$ são \emph{bem ordenados}
-a gente poderia definir o primeiro caso acima pela
-$$
-g(X) = \knuthcases{
-\min X, & se $X \neq \emptyset$ \cr
-\dots?\dots, & caso contrário.
-}
-$$
-mas sem a informação que o $A$ é bem ordenado a $g$ não seria
-bem-definida.
-Por enquanto: um conjunto é chamado \dterm{bem ordenado} sse todo
-$\emptyset\subsetneq X \subset A$ possui elemento mínimo.
-No~\ref{Wellorderings_and_transfinite_induction}
-estudamos conjuntos bem ordenados e suas propriedades.
-
-\hint
-Seja $a_0 \in A$.  Defina a $g : \pset A \to A$ pela
-$$
-g(X) = \knuthcases{
-x,   & se $X$ é o singleton $\set{x}$ \cr
-a_0, & caso contrário.
-}
-$$
-Falta demonstrar que ela é sobrejetora e que não é injetora.
-
-\solution
-A parte do problema sobre a $f : A \injto \pset A$ foi resolvida
-no~\ref{x_mapsto_singleton_x_properties}, onde definimos a
-$f : A \to \pset A$ pela $f(x) = \set{x}$ e provamos as (i)--(ii).
-\endgraf
-Fixe $a_0 \in A$ ($A\neq\emptyset$) e defina a $g : \pset A \to A$ pela
-$$
-g(X) = \knuthcases{
-x,   & se $X$ é o singleton $\set{x}$\cr
-a_0, & caso contrário.
-}
-$$
-\endgraf
-(iii) \proofpart{A $g$ é sobrejetora.}
-Seja $y \in A$.  Observe que $g(\set{y}) = y$.
-Como $\set{y}\in\pset A$, temos que $g$ é sobrejetora.
-\endgraf
-(iv) \proofpart{A $g$ não é injetora.}
-Observe que $\emptyset, \set{a_0} \in \pset A$ e que $\emptyset \neq \set{a_0}$,
-mas mesmo assim $g(\emptyset) = a_0 = g(\set{a_0})$.
-Logo, $g$ não é injetora.
-\crproofpart{Para responder na pergunta não retórica}
-precisamos \emph{demonstrar} que não existe nenhuma funcção
-$A \bijto \pset A$ e nenhuma funcção $\pset A \bijto A$.
-Na verdade basta apenas demonstrar apenas uma das duas afirmações,
-pois quando temos uma funcção bijetora de $A$ para $\pset A$
-também temos ``de graça'' uma bijetora de $\pset A$ para $A$:
-sua inversa.
-Mas como conseguimos então \emph{demonstrar} que não existe bijecção
-entre o $A$ e o $\pset A$?
-Isso eu vou te deixar pensar.
-Mas te aviso: é algo \emph{muito difícil de pensar}.
-(Seria fácil se tivermos que $A$ é finito, mas pode ser que não é.)
-Mas dê uma chance nele!
-E não se preocupe: no~\ref{Cantors_paradise} estudamos umas
-idéias de {\Cantor[teorema]}Cantor; foi ele que se perguntou
-sobre isso, e foi ele que deu a resposta mesmo
-(teorema de Cantor~\refn{cantor_theorem},
-\refn{Cantors_theorem_and_its_consequences}).
-As conseqüências do seu teorema são{\dots}
-Brutais!
-Paciência.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: projection_inj_or_surj 
-\problem.
-\label{projection_inj_or_surj}%
-Sejam $A\neq\emptyset$ conjunto, $n\in\nats_{>0}$,
-e $I = \setst {i\in\nats} {i < n}$.
-Considere a funcção $\pi : I \times A^n \to A$ definida por
-$$
-\pi(i, \alpha)
-= \pi_i(\alpha)
-\qquad\Bigparen{
-= \text{o $i$-ésimo membro da tupla $\alpha$}
-}
-$$
-onde consideramos o primeiro membro duma tupla seu
-``$0$-ésimo'' membro, etc.
-Investigue a injectividade e a sobrejectividade da $\pi$.
-
-\hint
-Calcule uns valores primeiro.  Por exemplo,
-$$
-\xalignat3
-\pi (2, \tup{2,3,5,7}) &= 5 &
-\pi (0, \tup{2})       &= 2 &
-\pi (3, \tup{2,0,0,1}) &= 1
-\endxalignat
-$$
-
-\solution
-\proofpart{Injectividade.}
-A injectividade da $\pi$ depende no $n$:
-\crcase{Caso $n>1$}, não é:
-pois tomando $a\in A$,
-$$
-\pi(0,\tup{a,\dotsc,a}) = a = \pi(1,\tup{a,\dotsc,a}).
-$$
-\case{Caso $n=1$}, é:
-tomando $w, w' \in I\times A^n$ com $w\neq w'$, temos
-que $w = \tup{ 0, \tup{a} }$ e $w' = \tup{ 0, \tup{a'} }$
-para alguns $a,a'\in A$.
-Agora como $w\neq w'$ concluimos que $a\neq a'$ e logo
-$\pi(0,w) \neq \pi(0,w')$, ou seja, $\pi$ é injetora
-nesse caso.
-\crproofpart{Sobrejectividade.}
-A $\pi$ é sobrejetora sim:
-pois para qualquer $a\in A$, $\pi(0,\tup{a,\dotsc,a}) = a$.
-
-\endproblem
-%%}}}
-
-%%{{{ prob: jection_iff_composition_with_inverse_proof
-\problem.
-\label{jection_iff_composition_with_inverse_proof}%
-Demonstre o~\ref{jection_iff_composition_with_inverse}.
-
-\solution
-Já provou as idas no~\refn{jection_implies_composition_with_inverse}.
-Vamos demonstrar as voltas.
-\endgraf
-\proofpart{Volta da (1).}
-Suponha a hipótese:
-$$
-\text{para todo $A \subset X$, $A = \pre f {\img f A}$}.
-$$
-Para mostrar que $f$ é injetora, suponha que $x,x'\in X$ tais que $f(x) = f(x')$.
-Basta verificar que $x = x'$.
-Considere o conjunto $A = \set{x}$.
-Observe que $A \subset X$, e logo pela hipótese temos
-$$
-A = \pre f {\img f A}.\tag{A}
-$$
-Temos $f(x) \in \img f A$ pela definição da funcção-imagem.
-Como $f(x') = f(x)$ temos também $f(x') \in \img f A$.
-Logo
-$$
-x, x' \in \pre f {\img f A} \eqlabel A A = \set{x}.
-$$
-Como $x, x' \in \set{x}$, logo $x = x'$.
-\endgraf
-\proofpart{Volta da (2).}
-Suponha a hipótese:
-$$
-\text{para todo $B \subset Y$, $B = \img f {\pre f B}$}.
-$$
-Tome $y_0\in Y$.
-Para mostrar que $f$ é sobrejetora
-basta mostrar que $\pre f {\set{y_0}} \neq \emptyset$.
-Considere o
-$$
-B = \set{y_0} \subset Y
-$$
-e logo pela hipótese temos
-$$
-B = \img f {\pre f B}.\tag{B}
-$$
-Ou seja, $\pre f B \neq \emptyset$
-(caso contrário teriamos
-$$
-B
-\eqlabel B \img f {\pre f B}
-= \img f {\emptyset}
-= \emptyset
-$$
-que é absurdo pois $B = \set{y_0}$).
-Isso mostra que $f$ é sobrejetora.
-
-\endproblem
-%%}}}
-
 %%{{{ prob: Halmos_advice_f_surj_iff_pre_f_inj 
 \problem Don't just read it; fight it.
 \label{Halmos_advice_f_surj_iff_pre_f_inj}%
@@ -29085,6 +29091,72 @@ $a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
 {\rldirset}.
 Similar: é só seguir os passos da {\lrdirset} em reverso.
 }
+
+\endproblem
+%%}}}
+
+%%{{{ prob: big_intersection_respected_by_img_wrong_proof 
+\problem.
+\label{big_intersection_respected_by_img_wrong_proof}%
+Um aluno ``demonstrou'' que se $f : A \to B$ e $\seqn A n$ é uma
+seqüência de subconjuntos de $A$, então
+$$
+\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
+$$
+Sua ``prova'' foi a seguinte:
+\quote
+<<Calculamos:
+\compute
+b \in \img f {\Interl_{n=0}^\infty A_n}
+&\ifflabel1 \lexists {a \in \Interl_{n=0}^\infty A_n} {f(a) = b}            \by {def.~$\img f {\dhole}$}
+&\ifflabel2 \exists a \paren{a \in \Interl_{n=0}^\infty A_n \land f(a) = b} \by {lógica}
+&\ifflabel3 \exists a \paren{\forall n \paren{a \in A_n} \land f(a) = b}    \by {def.~$\Interl_{n=0}^\infty$}
+&\ifflabel4 \exists a \paren{\forall n \paren{a \in A_n \land f(a) = b}}    \by {lógica}
+&\ifflabel5 \exists a \forall n \paren{a \in A_n \land f(a) = b}            \by {lógica}
+&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b}            \by {lógica}
+&\ifflabel7 \forall n \lexists {a \in A_n} {f(a) = b}                       \by {lógica}
+&\ifflabel8 \forall n \paren{b \in \img f {A_n}}                            \by {def.~$\img f {\dhole}$}
+&\ifflabel9 b \in \Interl_{n=0}^\infty {\img f {A_n}}                       \by {def.~$\Interl_{n=0}^\infty$}
+\endcompute
+Logo temos
+$\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}$
+pela definição de igualdade de conjuntos.>>
+\endquote
+Ache os seus erros.
+
+\hint
+Justificar um passo de demonstração com a palavrinha
+``lógica'' não vai aumentar a confiança de ninguém sobre
+a validez de tal passo.
+De fato, nessa demonstração pelo menos um desses passos é errado.
+
+\hint
+O problema está na $\ifflabel6$.
+Uma da suas direções não é válida.
+
+\solution
+Um primeiro problema é esse ``lógica'' que aparece várias
+vezes como suposta justificativa de passos.
+Já que todos os passos que fazemos numa demonstração supostamente
+são logicamente válidos, não faz sentido pensar que decorando
+um tal passo com a palavrinha ``lógica'' pode convencer alguém
+sobre algo.
+\endgraf
+O problema aqui é com a direção {\rldir} da $\ifflabel6$:
+\compute
+\cdots\iff  \exists a \forall n \paren{a \in A_n \land f(a) = b}
+&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b} \by {lógica}
+\endcompute
+Saber que
+\emph{existe $a$ tal que para todo $n$ algo $P(a,n)$ acontece}
+é uma afirmação bem mais forte do que saber que
+\emph{para todo $n$ existe algum $a$ tal que $P(a,n)$ acontece}.
+Na primeira temos pelo menos um $a$ que serve para todo $n$,
+mas na segunda pode ser que para cada $n$, o $a$ ``que serve''
+é diferente.  Para enfatizar essa dependência podemos escrever:
+\emph{para todo $n$ existe algum $a_n$ tal que $P(a_n, n)$}.
+É por isso que a ida é válida mas a vólta, em geral, não é.
+Compare com o~\ref{wrong_order_of_quantifiers}.
 
 \endproblem
 %%}}}
@@ -31662,59 +31734,6 @@ se não, refute mesmo a afirmação.
 \endproblem
 %%}}}
 
-%%{{{ prob: big_intersection_respected_by_img_wrong_proof 
-\problem.
-\label{big_intersection_respected_by_img_wrong_proof}%
-Um aluno ``demonstrou'' que se $f : A \to B$ e $\seqn A n$ é uma
-seqüência de subconjuntos de $A$, então
-$$
-\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
-$$
-Sua ``prova'' foi a seguinte:
-\quote
-<<Calculamos:
-\compute
-b \in \img f {\Interl_{n=0}^\infty A_n}
-&\ifflabel1 \lexists {a \in \Interl_{n=0}^\infty A_n} {f(a) = b}            \by {def.~$\img f {\dhole}$}
-&\ifflabel2 \exists a \paren{a \in \Interl_{n=0}^\infty A_n \land f(a) = b} \by {lógica}
-&\ifflabel3 \exists a \paren{\forall n \paren{a \in A_n} \land f(a) = b}    \by {def.~$\Interl_{n=0}^\infty$}
-&\ifflabel4 \exists a \paren{\forall n \paren{a \in A_n \land f(a) = b}}    \by {lógica}
-&\ifflabel5 \exists a \forall n \paren{a \in A_n \land f(a) = b}            \by {lógica}
-&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b}            \by {lógica}
-&\ifflabel7 \forall n \lexists {a \in A_n} {f(a) = b}                       \by {lógica}
-&\ifflabel8 \forall n \paren{b \in \img f {A_n}}                            \by {def.~$\img f {\dhole}$}
-&\ifflabel9 b \in \Interl_{n=0}^\infty {\img f {A_n}}                       \by {def.~$\Interl_{n=0}^\infty$}
-\endcompute
-Logo temos
-$\img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}$
-pela definição de igualdade de conjuntos.>>
-\endquote
-Ache os seus erros.
-
-\hint
-O problema está na $\ifflabel6$.
-Uma da suas direções não é válida.
-
-\solution
-O problema é com a direção {\rldir} da $\ifflabel6$:
-\compute
-\cdots\iff  \exists a \forall n \paren{a \in A_n \land f(a) = b}
-&\ifflabel6 \forall n \exists a \paren{a \in A_n \land f(a) = b} \by {lógica}
-\endcompute
-Saber que
-\emph{existe $a$ tal que para todo $n$ algo $P(a,n)$ acontece}
-é uma afirmação bem mais forte do que saber que
-\emph{para todo $n$ existe algum $a$ tal que $P(a,n)$ acontece}.
-Na primeira temos pelo menos um $a$ que serve para todo $n$,
-mas na segunda pode ser que para cada $n$, o $a$ ``que serve''
-é diferente.  Para enfatizar essa dependência podemos escrever:
-\emph{para todo $n$ existe algum $a_n$ tal que $P(a_n, n)$}.
-É por isso que a ida é válida mas a vólta, em geral, não é.
-Compare com o~\ref{wrong_order_of_quantifiers}.
-
-\endproblem
-%%}}}
-
 %%{{{ prob: implement_partial_functions 
 \problem Implementação: funcções parciais.
 \label{implement_partial_functions}%
@@ -31873,7 +31892,7 @@ Defina formalmente o que significa \dterm{coproduto} numa categoria.
 Demonstre que a \emph{união disjunta} $A \disjunion B$ que encontramos
 na~\ref{disjunion_aka_coproduct}, conhecida por seus amigos
 algebristas e categoristas como \emph{coproduto} e denotado por
-$A \coprod B$, merece seu apelido:
+$A \coprod B$ e $A \plus B$, merece seu apelido:
 ``ele'' realmente é um coproduto dos $A,B$ na $\SET$.
 Por que o ``ele'' está em aspas?
 
