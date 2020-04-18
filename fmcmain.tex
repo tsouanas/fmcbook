@@ -15837,13 +15837,15 @@ mas isso é apenas questão de costume.  Nada profundo aqui.
 %%{{{ df: set_notation 
 \definition Notação de conjuntos.
 \label{set_notation}%
+\label{homogeneous_and_heterogeneous_sets}%
 \tdefined{conjunto}[notação]%
 \tdefined{conjunto}[homogêneo]%
 \tdefined{conjunto}[heterogêneo]%
 \tdefined{homogeneidade}%
 \tdefined{heterogeneidade}%
 A notação mais simples para denotar um conjunto é usar
-``chaves'' (os símbolos~\symq{$\{$}~e~\symq{$\}$}) e listar todos os seus elementos dentro.
+``chaves'' (os símbolos~\symq{$\{$}~e~\symq{$\}$}) e listar todos
+os seus elementos dentro.
 Por exemplo:
 $$
 \xalignat2
@@ -15855,8 +15857,11 @@ D &=\set {2,3,5,7}                      &H &=\set {\mathrm{Thanos}, \mathrm{Nata
 $$
 Chamamos os conjuntos cujos elementos são ``do mesmo tipo'' \dterm{homogêneos},
 e os outros \dterm{heterogêneos}.
-Deixamos sem explicação o que significa ``do mesmo tipo'', mas, naturalmente, consideramos
-os $A, B, C, D, F$ homogêneos e os $E, G, H$ heterogêneos.
+Deixamos sem explicação o que significa ``do mesmo tipo'', mas, naturalmente,
+consideramos os $A, B, C, D, F$ homogêneos e os $E, G, H$ heterogêneos.
+Até o $\set{ \set{1,2}, \set{\set{2,3}, \set{3,4}} }$ é heterogêneo se olhar bem:
+um dos seus membros é \emph{conjunto de números}, mas o outro é
+\emph{conjunto de conjuntos de números}.
 %%}}}
 
 %%{{{ Dealing with more complicated sets 
@@ -21857,13 +21862,10 @@ funcção, mas o que chamamos de range:
 
 %%{{{ df: range 
 \definition.
+\label{range}%
 \tdefined{funcção}[range]%
-\tdefined{funcção}[imagem]%
 \iiseealso{funcção!range}{imagem}%
-\iiseealso{funcção!imagem}{range}%
-\iisee{imagem}{funcção, imagem}%
 \sdefined {\range {\sholed f}} {o range (também: imagem) da funcção $f$}%
-\sdefined {\ima {\sholed f}} {o range (também: imagem) da funcção $f$}%
 Seja $f : A \to B$ funcção.
 Seu \dterm{range} é o conjunto
 $$
@@ -21872,7 +21874,21 @@ $$
 \setst y {\lexists x {x \mapstoby f y}}.
 $$
 Observe que $\range(f) \subset B$.
-Usamos também a notação $\ima f$, e o chamamos também de \dterm{imagem} da~$f$.
+%%}}}
+
+%%{{{ beware: ima 
+\beware.
+\label{ima}%
+\sdefined {\ima {\sholed f}} {o range (também: imagem) da funcção $f$}%
+\tdefined{funcção}[imagem]%
+\iiseealso{funcção!imagem}{range}%
+\iisee{imagem}{funcção, imagem}%
+O conjunto que acabamos de definir na~\label{range}
+é também chamado de \dterm{imagem} da~$f$,
+e a notação $\ima f$ também é usada para denotá-lo.
+Esse conjunto é a imagem \emph{duma funcção}.
+Não confunda isso com a imagem \emph{dum conjunto} (\emph{através} duma funcção),
+algo que estudamos na~\ref{Images_preimages}.
 %%}}}
 
 %%{{{ x: what about these types for sin? 
@@ -26831,7 +26847,7 @@ essas propriedades, ``de longe'', sem olhar os detalhes internos.
 \endsection
 %%}}}
 
-%%{{{ Images, preimages 
+%%{{{ Images_preimages 
 \section Imagens, preimagens.
 \label{Images_preimages}%
 
@@ -27030,7 +27046,8 @@ $$
 f(5) &= 6; & f(8) &= 9; & f(\set{1,7}) &= \set{2,8}; & f(2\nats) &= \set{1,3,5,\dots}.
 \endxalignat
 $$
-Beleza, mas acontece que o $\nats$ é um conjunto homogênico.
+Beleza, mas acontece que o $\nats$ é um conjunto homogêneo
+(\refn{homogeneous_and_heterogeneous_sets}).
 Imagine que o domínio da $f$ tem todos os objetos seguintes como membros:
 $$
 1,\quad
@@ -27056,6 +27073,16 @@ mas o valor da $f$ no $X$ é o $3$.
 E $3 \neq \set{3}$!
 
 \endexercise
+%%}}}
+
+%%{{{ remark: parentheses_notation_safe_when_homogenous 
+\remark.
+\label{parentheses_notation_safe_when_homogenous}%
+O perigo descrito no~\ref{our_img_notation_is_better} não existe quando
+trabalhamos com conjuntos homogêneos (\refn{homogeneous_and_heterogeneous_sets}).
+Em tal mundo podemos usar a notação $f(X)$ para o $\img f X$ sem problema:
+um conjunto como o $\set{1, 7, \set{1,7}}$ seria considerado:
+inconstrutível, mal-tipado, não definido, sem significado, blasfêmico, etc.
 %%}}}
 
 %%{{{ x: erroneous_definition_of_pre 
@@ -33785,7 +33812,7 @@ desejada.
 
 %%{{{ remark: we may add but never remove 
 \remark Podemos botar mas não retirar.
-Note então que o fecho $\bar R$ de uma relação $R$ tem todas
+Note então que o fecho $\bar R$ duma relação $R$ tem todas
 as setinhas que $R$ tem, e possivelmente mais ainda.
 Ou seja, temos
 $$
