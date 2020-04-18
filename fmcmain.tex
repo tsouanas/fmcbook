@@ -27691,6 +27691,73 @@ veja por exemplo o~\ref{big_operations_respected_by_img_and_pre}.
 \endsection
 %%}}}
 
+%%{{{ Fixpoints 
+\section Fixpoints.
+\label{Fixpoints}%
+
+%%{{{ df: fixpoint 
+\definition Fixpoint.
+\label{fixpoint}%
+\tdefined{fixpoint}%
+\iisee{funcção!fixpoint}{fixpoint}%
+Seja $f : A \to A$ um endomapa num conjunto $A$.
+Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
+$f(x) = x$.
+%%}}}
+
+%%{{{ x: fixpoint_iff_iterations 
+\exercise.
+\label{fixpoint_iff_iterations}%
+Seja $f : A\to A$.
+Demonstre a afirmação:
+$$
+\text{$x$ é um fixpoint da $f$}
+\iff
+\text{para todo $n\in\nats$, $x$ é um fixpoint da $f^n$}.
+$$
+
+\hint
+A {\rldir} é muito fácil; para a {\lrdir} use indução.
+
+\solution
+\proofpart{\lrdir}:
+Suponha $x$ é um fixpoint da $f$.
+Vamos demonstrar o que precisamos por indução no $n$.
+\proofpart{Base:}
+Calculamos:
+\compute
+f^0 (x)
+&= 1_A (x)  \by {pela def.~da $f^0$}
+&= x        \by {pela def.~da $1_A$}
+\endcompute
+e logo $x$ é um fixpoint da $f^0$.
+\proofpart{Passo indutivo:}
+Suponha $k\in\nats$ tal que $x$ é um fixpoint da $f^k$ (H.I.).
+Calculamos:
+\compute
+f^{k+1}(x)
+&= (f \of f^k)(x)   \by {pela def.~de $f^{k+1}$}
+&= f\paren{f^k(x)}  \by {pela def.~de $f\of f^k$}
+&= f( x )           \by {pois $x$ é um fixpoint da $f^k$ (H.I.)}
+&= x                \by {pois $x$ é um fixpoint da $f$}
+\endcompute
+e logo $x$ é um fixpoint da $f^{k+1}$.
+\crproofpart{\rldir}:
+Usando nossa hipótese com $n \asseq 1$, temos que $x$ é um fixpoint da $f^1$.
+Mas $f^1$ é a própria $f$ (pois $f^1 = f \of f^0 = f \of 1_A = f$)
+e logo $x$ é um fixpoint da $f$.
+
+\endexercise
+%%}}}
+
+\blah.
+Ok, eu sei: parece estranho dedicar uma secção só pra isso.
+Mas os fixpoints vão fazer um papel importantíssimo depois,
+e logo queria destacá-los desde já.  Paciência.
+
+\endsection
+%%}}}
+
 %%{{{ Higher_order_functions 
 \section Funcções de ordem superior.
 \label{Higher_order_functions}%
@@ -28571,73 +28638,6 @@ Assim $powTwo\fa 0 = 1$, $\namedfun{powTwo} \fa 10 = 1024$, etc.
 Já entramos bastante to território de programação funcional;
 paramos aqui agora, e voltamos re-visitar e expandir tudo isso
 no~\ref{Functional_programming}.
-
-\endsection
-%%}}}
-
-%%{{{ Fixpoints 
-\section Fixpoints.
-\label{Fixpoints}%
-
-%%{{{ df: fixpoint 
-\definition Fixpoint.
-\label{fixpoint}%
-\tdefined{fixpoint}%
-\iisee{funcção!fixpoint}{fixpoint}%
-Seja $f : A \to A$ um endomapa num conjunto $A$.
-Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
-$f(x) = x$.
-%%}}}
-
-%%{{{ x: fixpoint_iff_iterations 
-\exercise.
-\label{fixpoint_iff_iterations}%
-Seja $f : A\to A$.
-Demonstre a afirmação:
-$$
-\text{$x$ é um fixpoint da $f$}
-\iff
-\text{para todo $n\in\nats$, $x$ é um fixpoint da $f^n$}.
-$$
-
-\hint
-A {\rldir} é muito fácil; para a {\lrdir} use indução.
-
-\solution
-\proofpart{\lrdir}:
-Suponha $x$ é um fixpoint da $f$.
-Vamos demonstrar o que precisamos por indução no $n$.
-\proofpart{Base:}
-Calculamos:
-\compute
-f^0 (x)
-&= 1_A (x)  \by {pela def.~da $f^0$}
-&= x        \by {pela def.~da $1_A$}
-\endcompute
-e logo $x$ é um fixpoint da $f^0$.
-\proofpart{Passo indutivo:}
-Suponha $k\in\nats$ tal que $x$ é um fixpoint da $f^k$ (H.I.).
-Calculamos:
-\compute
-f^{k+1}(x)
-&= (f \of f^k)(x)   \by {pela def.~de $f^{k+1}$}
-&= f\paren{f^k(x)}  \by {pela def.~de $f\of f^k$}
-&= f( x )           \by {pois $x$ é um fixpoint da $f^k$ (H.I.)}
-&= x                \by {pois $x$ é um fixpoint da $f$}
-\endcompute
-e logo $x$ é um fixpoint da $f^{k+1}$.
-\crproofpart{\rldir}:
-Usando nossa hipótese com $n \asseq 1$, temos que $x$ é um fixpoint da $f^1$.
-Mas $f^1$ é a própria $f$ (pois $f^1 = f \of f^0 = f \of 1_A = f$)
-e logo $x$ é um fixpoint da $f$.
-
-\endexercise
-%%}}}
-
-\blah.
-Ok, eu sei: parece estranho dedicar uma secção só pra isso.
-Mas os fixpoints vão fazer um papel importantíssimo depois,
-e logo queria destacá-los desde já.  Paciência.
 
 \endsection
 %%}}}
