@@ -1435,14 +1435,14 @@ ou \dterm{entrada} da $f$.
 Observe que $f(x) \in B$.  O objeto $f(x)$ é determinado pelo $x\in A$,
 ou seja, para qualquer $x \in A$, \emph{exatamente um}
 objeto é denotado por $f(x)$.
-Por exemplo, $\mathit{mother}(x)$ pode denotar a mãe duma pessoa $x$.
+Por exemplo, $\mother(x)$ pode denotar a mãe duma pessoa $x$.
 Aqui entendemos que
 $$
 \align
-\mathit{mother} &: P \to P
+\mother           &: \pers \to \pers
 \intertext{onde $P$ denota o conjunto de pessoas.
 No outro lado, seria errado pensar que}
-\mathit{sister} &: P \to P
+\namedfun{sister} &: \pers \to \pers
 \endalign
 $$
 também é uma funcção, pois para certos $x \in P$ o $\mathit{sister}(x)$
@@ -1515,8 +1515,8 @@ escrevemos \symq{$1+1=2$} e \symq{$x \leq 0$}.
 Para enfatisar a diferença entre funcções e relações, tentarei
 denotar funcções com nomes que começam com letra minúscula,
 e relações com maiúscula:
-usarei \symq{$\mathit{mother}(x)$} para \emph{o objeto} (aqui pessoa)
-\wq{mãe de $x$}, e \symq{$\mathrm{Mother(x)}$} para \emph{a proposição}
+usarei \symq{$\mother(x)$} para \emph{o objeto} (aqui pessoa)
+\wq{mãe de $x$}, e \symq{$\Mother(x)$} para \emph{a proposição}
 \wq{$x$ é uma mãe}.
 Novamente, essa também é uma convenção que vou seguir, um costume,
 e não uma regra inquebrável.
@@ -3398,8 +3398,8 @@ E com eles vamos substituir os símbolos de variáveis proposicionais.
 Já discutimos (\refn{ZOL_limitations}) que uma das limitações que
 queremos atender com essa nova linguagem é que afirmações bem parecidas
 acabam sendo denotadas por fórmulas que não tem nada em comum:
-nossa melhor tradução das afirmações ``$8$ é múltiplo de $2$''
-e ``$10$ é múltiplo de $3$'' é algo do tipo $\lsym p_0$ para uma e
+nossa melhor tradução das afirmações \wq{$8$ é múltiplo de $2$}
+e \wq{$10$ é múltiplo de $3$} é algo do tipo $\lsym p_0$ para uma e
 $\lsym p_1$ para a outra.
 Não serve.  Queremos conseguir usar algo do tipo $P(8,2)$ para uma
 e $P(10,3)$ para a outra, onde o $P$ \emph{é o mesmo símbolo},
@@ -3415,8 +3415,8 @@ Algo mais?
 Sim, precisamos de uma última coisa.
 Símbolos para denotar \emph{funcções}.
 Eles nos permitem apontar para algum individual dados outros.
-Por exemplo <<a mãe da Bárbara>>; ou $\lsym x_0 + \sin(\pi)$
-que seria <<a soma do $\lsym x_0$ com o seno do $\pi$>>, etc.
+Por exemplo \wq{a mãe da Bárbara}; ou $\lsym x_0 + \sin(\pi)$
+que seria \wq{a soma do $\lsym x_0$ com o seno do $\pi$}, etc.
 Aqui a gente usaria símbolos como $\lsym{mother}$, $+$, $\ntimes$,
 $\sin$, $\cos$, nos números.
 Vamos adicionar então símbolos de \emph{funcções}
@@ -20242,11 +20242,11 @@ Vamos ver mais uns exemplos de famílias!
 %%{{{ eg: anscestors_and_children 
 \example.
 \label{ancestors_and_children}%
-Seja $\cal P$ o conjunto de todas as pessoas do mundo.
-Definimos para cada pessoa $p\in \cal P$, os conjuntos $A_p$ e $C_p$ de todos
+Seja $\pers$ o conjunto de todas as pessoas do mundo.
+Definimos para cada pessoa $p\in \pers$, os conjuntos $A_p$ e $C_p$ de todos
 os ancestrais e todos os filhos de $p$, respectivamente.
 Ou seja, acabamos de definir duas \emph{famílias indexadas} de conjuntos:
-a $\famil A p {\cal P}$ e a $\famil C p {\cal P}$.
+a $\famil A p \pers$ e a $\famil C p \pers$.
 \endexample
 %%}}}
 
@@ -20593,7 +20593,7 @@ Bom.  Vamos practicar nossa fluência em cojuntos usando esses exemplos agora.
 %%{{{ x: ancestors_and_children_translations 
 \exercise.
 \label{ancestors_and_children_translations}%
-Para toda pessoa $p\in\cal P$ defina $A_p$ e $C_p$ como
+Para toda pessoa $p\in\pers$ defina $A_p$ e $C_p$ como
 no~\ref{ancestors_and_children}.
 Suponha que $p,q,r$ denotam pessoas.
 Traduza as afirmações descritas na linguagem de conjuntos para
@@ -20608,7 +20608,7 @@ linguagem natural e vice versa.
 \li $C_p \inter C_q \neq \emptyset$;
 \li $A_p \subset A_q$;
 \li $\emptyset \subsetneq C_p \subsetneq C_q$;
-\li $\lexists {p\in\cal P} {p \in C_p}$.
+\li $\lexists {p\in\pers} {p \in C_p}$.
 \endol
 
 \solution
@@ -20622,9 +20622,9 @@ $$
 \text{$p$ e $q$ são primos de primeiro grau}     &: \text{$\exists r,r'\paren{p\in C_r \mland q \in C_{r'} \mland \text{$r$ e $r'$ são irmãos}}$} \\
 \text{$r$ é filho dos $p$ e $q$}                 &: \text{$r \in C_p \inter C_q$} \\
 \text{$C_p \inter C_q \neq \emptyset$}           &: \text{$p$ e $q$ têm pelo menos um filho juntos} \\
-\text{$A_p \subset A_q$}                       &: \text{$p$ é um anscestor ou irmão de $q$} \\
+\text{$A_p \subset A_q$}                         &: \text{$p$ é um anscestor ou irmão de $q$} \\
 \text{$\emptyset \subsetneq C_p \subsetneq C_q$} &: \text{$q$ tem filho(s) com $p$ mas com outra pessoa também} \\
-\text{$\lexists {p\in\cal P} {p \in C_p}$}       &: \text{existe pessoa que é seu próprio filho}.
+\text{$\lexists {p\in\pers} {p \in C_p}$}        &: \text{existe pessoa que é seu próprio filho}.
 \endalign
 $$
 (Tuas traduções podem variar, especialmente se tuas definições
@@ -22359,8 +22359,7 @@ Paciência até~\refn{A_touch_of_lambda} então.
 %%{{{ eg: mother_and_son_function_and_wannabe_example 
 \example.
 \label{mother_and_son_function_and_wannabe_example}%
-Seja $\cal P$ o conjunto de todas as pessoas.
-\emph{Queremos} definir as funcções $m,s : \cal P \to \cal P$ pelas equações
+\emph{Queremos} definir as funcções $m,s : \pers \to \pers$ pelas equações
 $$
 \align
 m(p) &= \text{a mãe de $p$}\\
@@ -22397,15 +22396,15 @@ temos.
 \exercise.
 Considere o problema do~\ref{mother_and_son_function_and_wannabe_example}
 que achaste no~\ref{mother_and_son_function_and_wannabe}.
-Vamos tentar resolvê-lo restringindo o $\cal P$:
-agora, em vez do conjunto de todas as pessoas,
-$\cal P$ denota o conjunto de todas as pessoas
+Vamos tentar resolvê-lo restringindo o $\pers$:
+em vez do conjunto de todas as pessoas,
+$\pers'$ denota o conjunto de todas as pessoas
 que possuem exatamente um filho.
 Assim garantimos que $s(p)$ é bem definido, pois $s(p)$
 é a única pessoa $y$ tal que $y$ é filho de $p$:
 e sabemos que tal $y$ existe, e que é único,
-pela (nova) definição de $\cal P$.
-Então para esse $\cal P$ as $m,s$
+pela definição de $\pers'$.
+Então para esse conjunto as $m,s$
 do~\refn{mother_and_son_function_and_wannabe}
 realmente definam funcções.
 
@@ -22419,11 +22418,11 @@ Não.
 O $s(p)$ é a única pessoa $y$ tal que $y$ é filho de $p$
 e sim, sabemos que tal $y$ existe e que é único mas\dots
 talvez essa pessoa $y$ não possui exatamente um filho,
-ou seja, talvez $y \notin \cal P$.
+ou seja, talvez $y \notin \pers'$.
 De fato, a situação piorou, pois agora nem a $m$ é funcção,
 pelo mesmo motivo: uma pessoa $p$ mesmo tendo exatamente
 um filho, a mesma coisa não é garantida para a mãe de $p$,
-e logo o $m(p)$ talvez não pertence ao $\cal P$.
+e logo o $m(p)$ talvez não pertence ao $\pers'$.
 
 \endexercise
 %%}}}
@@ -32183,12 +32182,12 @@ As relações dos exemplos~\refn{mother_parents_love_example}
 e~\refn{born_author_read_example} têm os tipos seguintes:
 $$
 \xalignat2
-\namedrel{Mother}  &: \reltype{\cal P, \cal P}         & \namedrel{Born}   &: \reltype{\cal P, \cal Y} \\
-\namedrel{Parents} &: \reltype{\cal P, \cal P, \cal P} & \namedrel{Author} &: \reltype{\cal P, \cal B} \\
-\namedrel{Love}    &: \reltype{\cal P, \cal P}         & \namedrel{Read}   &: \reltype{\cal P, \cal B}
+\namedrel{Mother}  &: \reltype{\pers, \pers}        & \namedrel{Born}   &: \reltype{\pers, \cal Y} \\
+\namedrel{Parents} &: \reltype{\pers, \pers, \pers} & \namedrel{Author} &: \reltype{\pers, \cal B} \\
+\namedrel{Love}    &: \reltype{\pers, \pers}        & \namedrel{Read}   &: \reltype{\pers, \cal B}
 \endxalignat
 $$
-onde $\cal P, \cal Y, \cal B$ são os conjuntos de pessoas, anos, livros
+onde $\pers, \cal Y, \cal B$ são os conjuntos de pessoas, anos, livros
 (respectivamente).
 %%}}}
 
@@ -32237,13 +32236,13 @@ subconjunto de ninguém!
 Mesmo assim escrevemos coisas como
 $$
 \xalignat2
-\namedrel{Author}  &\subset \cal P \cross \cal B &
-\namedrel{Parents} &\subset \cal P^3
+\namedrel{Author}  &\subset \pers \cross \cal B &
+\namedrel{Parents} &\subset \pers^3
 \intertext{%
 \emph{entendendo} como:
 }
-\namedrel{Author}  &\eqtype \reltype{\cal P, \cal B} &
-\namedrel{Parents} &\eqtype \reltype{\cal P, \cal P, \cal P}.
+\namedrel{Author}  &\eqtype \reltype{\pers, \cal B} &
+\namedrel{Parents} &\eqtype \reltype{\pers, \pers, \pers}.
 \endxalignat
 $$
 É muito conveniente tratar relações \emph{como se fossem} conjuntos
@@ -32396,7 +32395,7 @@ J &\defeq \mtrel{João ama {\thole}} \\
 M &\defeq \mtrel{{\thole} ama Maria}.
 \endalign
 $$
-A primeira é uma relação no $\cal P \times \cal P$ e as outras duas no $\cal P$.
+A primeira é uma relação binária no $\pers$ e as outras duas unárias.
 Usando variáveis em vez de buracos, escrevemos:
 $$
 \align
@@ -32418,14 +32417,14 @@ experiência com funcções no~\ref{Functions}.
 
 %%{{{ eg: with formulas 
 \example formulamente.
-Considere os conjuntos $\cal P$ de todas as pessoas
+Considere os conjuntos $\pers$ de todas as pessoas
 e $\cal B$ de todos os livros.
 Sejam as relações
 $$
 \xalignat4
 P &: \reltype {\ints}, &
 R &: \reltype {\ints, \ints}, &
-Q &: \reltype {\cal P \times \cal B}, &
+Q &: \reltype {\pers \times \cal B}, &
 M &: \reltype {\ints,\ints,\ints},
 \endxalignat
 $$
@@ -32434,7 +32433,7 @@ $$
 \align
 P(n)     &\defiff \lforall {x,y\in\ints} {xy = n \limplies \paren{|x| = 1 \lor |y| = 1}} \\
 R(n,m)   &\defiff \lnot\lexists {k \in \ints} {\Prime(k) \land 2^n < k < 3^m}; \\
-Q(p,b)   &\defiff \lexists {b' \in \cal B} {b \neq b' \land \namedrel{Read}(p,b') \land \lexists {a \in \cal P} {\namedrel{Author}(a,b) \land \namedrel{Author}(a,b')}} \\
+Q(p,b)   &\defiff \lexists {b' \in \cal B} {b \neq b' \land \namedrel{Read}(p,b') \land \lexists {a \in \pers} {\namedrel{Author}(a,b) \land \namedrel{Author}(a,b')}} \\
 C(a,b,m) &\defiff \lexists {k \in \ints} {mk = a-b}
 \endalign
 $$
@@ -32721,7 +32720,7 @@ antes de chegar na definição formal.
 %%{{{ eg: persons_books_words 
 \example.
 \label{persons_books_words}%
-Sejam os conjuntos $\cal P$ de pessoas, $\cal B$ de livros, e $\cal W$ de palavras.
+Sejam os conjuntos $\pers$ de pessoas, $\cal B$ de livros, e $\cal W$ de palavras.
 Considere as relações:
 $$
 \align
@@ -32730,7 +32729,7 @@ $$
 \Contains(x,y)  &\defiff \text{a palavra $y$ aparece no livro $x$}
 \endalign
 $$
-Observe que $\Author$ e $\Read$ são relações de $\cal P$ para $\cal B$,
+Observe que $\Author$ e $\Read$ são relações de $\pers$ para $\cal B$,
 e $\Contains$ de $\cal B$ para $\cal W$.
 O que seria a relação $\Author\rcom\Read$, o que a $\Author\rcom\Contains$,
 e o que a $\Read\rcom\Contains$?
@@ -32742,7 +32741,7 @@ similarmente sobre a $\Author$ com $\Contains$.
 No outro lado, não podemos compor as $\Author$ e $\Read$ em nenhuma
 ordem!
 Bem, então $\Author\rcom\Contains$ e $\Read\rcom\Contains$ são ambas
-relações de $\cal P$ para $\cal W$.
+relações de $\pers$ para $\cal W$.
 Mas quais?
 Lembre que para definir uma relação, precisamos determinar
 completamente quando dois arbitrários $x,y$ são relacionados pela
@@ -32769,7 +32768,7 @@ $$
 %%{{{ x: comparison_of_statements_about_reading_books 
 \exercise.
 \label{comparison_of_statements_about_reading_books}%
-A relação $R$ de $\cal P$ para $\cal W$ definida pela
+A relação $R$ de $\pers$ para $\cal W$ definida pela
 $$
 R(p,w) \defiff \text{a pessoa $p$ leu a palavra $w$ num livro}
 $$
@@ -32833,7 +32832,7 @@ logo todas as relações são gratuitamente compatíveis para composição.
 %%{{{ x: grandparents_grandchildren_siblings_and_couples_with_children 
 \exercise.
 \label{grandparents_grandchildren_siblings_and_couples_with_children}%
-Seja $\cal P$ o conjunto de todas as pessoas, e considere as relações
+Considere as relações
 $$
 \align
 \Parent(x,y) &\defiff \text{$x$ é a mãe ou o pai de $y$}\\
@@ -33009,7 +33008,7 @@ Agora refute!
 \solution
 Temos $\Child\rcom\Parent\neq\Parent\rcom\Child$:
 \endgraf
-Tome $x,y\in \cal P$ dois irmãos que não têm filhos (juntos).
+Tome $x,y\in \pers$ dois irmãos que não têm filhos (juntos).
 Logo
 $$
 x \relp{\Parent\rcom\Child} y
@@ -34456,7 +34455,7 @@ Esqueceu o~\ref{congruence_mod_m_is_an_eqrel}?
 %%{{{ eg: eqrel_eg_countries 
 \example.
 \label{eqrel_eg_countries}%
-No conjunto $\cal P$ de pessoas, a relação
+Em qualquer conjunto $P$ de pessoas, a relação
 $$
 x \sim y \defiff \text{$x$ e $y$ nasceram no mesmo país}
 $$
@@ -34467,7 +34466,7 @@ $$
 %%{{{ eg: eqrel_eg_children 
 \example.
 \label{eqrel_eg_children}%
-No conjunto $\cal P$ de pessoas, a relação
+No conjunto $\pers$ de pessoas, a relação
 $$
 x \sim y \defiff \text{$x$ e $y$ têm a mesma quantidade de filhos}
 $$
@@ -34490,7 +34489,7 @@ $$
 %%{{{ noneg: eqrel_noneg_food
 \nonexample.
 \label{eqrel_noneg_food}%
-Num conjunto $\cal P$ de pessoas, a relação
+Num conjunto $\pers$ de pessoas, a relação
 $$
 x \sim y \defiff \text{existe comida que $x$ e $y$ ambos comeram hoje}
 $$
@@ -35947,27 +35946,28 @@ parece mais iluminante do que o oficial.
 %%{{{ eg: quoset_eg_countries 
 \example.
 \label{quoset_eg_countries}%
+Considere um conjunto de pessoas $P$.
 Na relação do~\ref{eqrel_eg_countries}
 $$
 x \sim y \defiff \text{$x$ e $y$ nasceram no mesmo país}
 $$
 o conjunto quociente oficial é feito por conjuntos
 de pessoas copatriotas.  Uma escolha melhor seria
-usar os próprios paises como quociente, e a
+usar os próprios países como quociente, e a
 $$
 \pi(x) = \text{o país em que $x$ nasceu}.
 $$
 Para ser sobrejetora mesmo, no quociente não vamos
-incluir paises em quais nenhuma pessoa do $\cal P$ nasceu.
-Seja $\cal C$ esse conjunto de paises $c$ onde pelo menos
-uma pessoa $p\in \cal P$ nasceu.
+incluir paises em quais nenhuma pessoa (de $P$) nasceu.
+Seja $C$ esse conjunto de paises $c$ onde pelo menos
+uma pessoa $p\in P$ nasceu.
 Então temos
 $$
-\quoset {\cal P} {\sim} \pseudoeq \cal C.
+\quoset {P} {\sim} \pseudoeq C.
 $$
 Num certo sentido, \emph{dividindo esse conjunto de pessoas
-$\cal P$ por a relação $\sim$}, chegamos no conjunto de
-paises $\cal C$.
+$P$ por a relação $\sim$}, chegamos no conjunto de
+paises $C$.
 \endexample
 %%}}}
 
