@@ -13599,75 +13599,62 @@ O que seria um contraxemplo para cada parte?
 \emph{O que acontece se existem contraexemplos?}
 
 \hint
-{%
-\def\Euclid{\algorithmstyle{Euclid}}%
 Sobre sua terminação:
-Considere o menor $m$ tal que o $\Euclid(x,m)$ não termina
+Considere o menor $m$ tal que o $\euclid(x,m)$ não termina
 para algum $x\in\ints$.
-}
 
 \hint
-{%
-\def\Euclid{\algorithmstyle{Euclid}}%
 Sobre sua corretude:
-Considere o menor $m$ tal que o $\Euclid(x,m)$
+Considere o menor $m$ tal que o $\euclid(x,m)$
 termina com resultado errado par algum $x\in\ints$.
 Mas mostre primeiro a terminação.
-}
 
 \solution
-{%
-\def\Euclid{\algorithmstyle{Euclid}}%
 Provamos cada parte separamente:
-\endgraf
-\smallskip
-\proofstyle{Terminação.}
+\crtabproofpart{Terminação.}
 Para chegar num absurdo, suponha que existem contraexemplos:
-\emph{inteiros $c\geq0$, tais que o $\Euclid(a,c)$
+\emph{inteiros $c\geq0$, tais que o $\euclid(a,c)$
 não termina para algum $x\in\ints$.}
 Seja $m$ o menor deles (PBO):
 $$
-m = \min\set{c \in\nats \st \lexists {x\in\ints} {\text{\Euclid(x,c) não termina}}}.
+m = \min\set{c \in\nats \st \lexists {x\in\ints} {\text{\euclid(x,c) não termina}}}.
 $$
-Logo, para algum certo $a\in\ints$, temos que $\Euclid(a,m)$ não termina.
+Logo, para algum certo $a\in\ints$, temos que $\euclid(a,m)$ não termina.
 Com certeza $m\neq 0$, porque nesse caso o algoritmo termina imediatamente.
-Logo $m > 0$ e aplicando o $\Euclid(a,m)$ para apenas um passo
-a sua computação é reduzida no computação do $\Euclid(m,r)$,
+Logo $m > 0$ e aplicando o $\euclid(a,m)$ para apenas um passo
+a sua computação é reduzida no computação do $\euclid(m,r)$,
 onde $r = a \bmod m < m$, \emph{e agora precisamos mostrar que o
-$\Euclid(m,r)$ termina para chegar num absurdo}.
+$\euclid(m,r)$ termina para chegar num absurdo}.
 Pela escolha do $m$ como \emph{mínimo} dos contraexemplos,
 o $r$ não pode ser contraexemplo também.
-Em outras palavras, o $\Euclid(x,r)$ realmente termina para qualquer $x$,
+Em outras palavras, o $\euclid(x,r)$ realmente termina para qualquer $x$,
 então para $x=m$ também, que foi o que queriamos demonstrar.
-\endgraf
-\smallskip
-\proofstyle{Corretude.}
+\crtabproofpart{Corretude.}
 Para chegar num absurdo, suponha que existem contraexemplos:
-\emph{inteiros $c\geq0$, tais que o $\Euclid(x,c)$
+\emph{inteiros $c\geq0$, tais que o $\euclid(x,c)$
 acha resultado errado para algum $x\in\ints$.}
 Seja $m$ o menor desses contraexemplos (PBO):
 $$
-m = \min\set{c \in\nats \st \lexists {x\in\ints} {\Euclid(x,c) \neq \gcd x c}}.
+m = \min\set{c \in\nats \st \lexists {x\in\ints} {\euclid(x,c) \neq \gcd x c}}.
 $$
-Logo, para algum certo $a\in\ints$, temos $\Euclid(a,m) \neq \gcd a m$.
+Logo, para algum certo $a\in\ints$, temos $\euclid(a,m) \neq \gcd a m$.
 Esse $m$ não pode ser $0$, porque nesse caso o algoritmo retorna sua primeira entrada $a$;
 resultado correto por causa do~\ref{gcd_of_comparable}.
 Então $m>0$.
-Aplicamos para um passo o $\Euclid(a,m)$.
+Aplicamos para um passo o $\euclid(a,m)$.
 Como $m\neq 0$, o algoritmo manda realizar o segundo passo:
-retornar o que $\Euclid(m,r)$, onde $r = a \bmod m < m$.
-(E sabemos que o $\Euclid(m,r)$ vai retornar algo, porque
+retornar o que $\euclid(m,r)$, onde $r = a \bmod m < m$.
+(E sabemos que o $\euclid(m,r)$ vai retornar algo, porque
 já provamos a terminação do algoritmo para todas as suas possíveis entradas!)
 Para concluir, observe:
 \compute
-\Euclid(m,r) 
-&= \Euclid(a,m)     \by {pelas instruções do algoritmo}
+\euclid(m,r) 
+&= \euclid(a,m)     \by {pelas instruções do algoritmo}
 &\neq \gcd a m      \by {escolha dos $m$ e $a$}
 &= \gcd m r.        \by {pelo~\ref{euclid_gcd_lemma}}
 \endcompute
-Então $\Euclid(m,r) \neq \gcd m r$ e achamos um contraexemplo (o $r$)
+Então $\euclid(m,r) \neq \gcd m r$ e achamos um contraexemplo (o $r$)
 menor que o mínimo (o $m$)---absurdo!
-}
 
 \endproblem
 %%}}}
@@ -20451,7 +20438,6 @@ se um conjunto $A$ é indexado ou não, pois todos são
 %%{{{ remark: picking_elements_from_indexed_sets 
 \remark Tomando elementos de conjuntos indexados.
 \label{picking_elements_from_indexed_sets}%
-{%
 \def\bla{\mathrm{bla}}%
 Suponha que temos um conjunto $A$ indexado
 por um conjunto $B\neq\emptyset$:
@@ -20479,13 +20465,11 @@ demonstrar que
 $$
 \lforall {b \in B} {\bla(b) \in C}.
 $$
-}
 %%}}}
 
 %%{{{ indexed_sets_equality 
 \note Igualdade entre conjuntos indexados.
 \label{indexed_sets_equality}%
-{%
 \def\bla{\mathrm{bla}}%
 \def\blu{\mathrm{blu}}%
 Para mostrar que dois \emph{conjuntos}
@@ -20518,7 +20502,6 @@ $$
 \lforall {c \in C} {\bla(c) = \blu(c)}
 $$
 é \emph{suficiente} para demonstrar que $A=B$.
-}
 %%}}}
 
 %%{{{ beware: equal_as_fam_not_necessary_for_equal_as_sets 
@@ -25128,7 +25111,6 @@ Mostre pelo menos dois exemplos diferentes:
 um com $A\neq B$; outro com $A = B$.
 
 \solution
-{%
 \DefFun flip
 \DefFun zero
 \DefFun one
@@ -25155,7 +25137,6 @@ $$
 $$
 Calculando temos $\flip\of\zero = \one$ mas $\zero\of\flip = \zero$.
 De fato, quaisquer duas dessas três funcções servem como um exemplo nesse caso!
-}
 
 \endexercise
 %%}}}
@@ -28124,7 +28105,6 @@ $$
 %%{{{ prob: big_operations_respected_by_img_and_pre 
 \problem.
 \label{big_operations_respected_by_img_and_pre}%
-{%
 \def\I{{\cal I}}%
 \def\J{{\cal J}}%
 Sejam $f : A \to B$, e duas famílias indexadas de conjuntos:
@@ -28144,10 +28124,8 @@ $$
 onde na $\askeq$ demonstre que a igualdade em geral não é válida,
 mas uma das~{\lrdirset}~e~{\rldirset} é.
 A demonstre, e, supondo que $f$ é injetora, demonstre a outra também.
-}
 
 \solution
-{%
 \def\I{{\cal I}}%
 \def\J{{\cal J}}%
 \proofpart{(1)}:
@@ -28208,7 +28186,6 @@ Logo $a \in \pre f {B_j}$ para todo $i\in\J$, ou seja,
 $a \in {\Inter_{i\in\J}^\infty \pre f {B_j}}$.
 {\rldirset}.
 Similar: é só seguir os passos da {\lrdirset} em reverso.
-}
 
 \endproblem
 %%}}}
@@ -32015,11 +31992,10 @@ Um livro excelente para auto-estudo é o~\cite{babylawvere}.
 \problems.
 
 %%{{{ prob: stretch_countdown_take 
-{%
+\problem.
 \DefFpf stretch
 \DefFpf countdown
 \DefFpf take
-\problem.
 Defina as funcções com equações (recursivas):
 $$
 \xalignat3
@@ -32041,7 +32017,6 @@ $$
 $$
 
 \endproblem
-}
 %%}}}
 
 \endproblems
@@ -35117,7 +35092,6 @@ Para cada uma dessas relações, decida se é:
 Primeiramente tente entender (visualizar) essas relações.
 
 \solution
-{%
 \def\simh{\mathrel{\sim}}%
 \def\simv{\mathrel{\wr}}%
 \def\apph{\mathrel{\approx}}%
@@ -35247,7 +35221,6 @@ Concluimos então que:
 as $\simh$ e $\simv$ são relações de equivalência,
 a $\appv$ é uma relação de ordem,
 e a $\apph$ apenas uma preordem.
-}
 
 \endproblem
 %%}}}
@@ -35278,13 +35251,10 @@ Demonstre ou refute a afirmação seguinte:
 \endil
 
 \hint
-{%
 \def\simi{\rel{\stackrel{\infty}=}}%
 Ache um contraexemplo para a $\simi$.  As outras, são.
-}
 
 \solution
-{%
 \def\simz{\rel{\stackrel{{}_{\mathrmsmall z}}=}}%
 \def\sime{\rel{\stackrel{{}_{\mathrmsmall e}}=}}%
 \def\simo{\rel{\stackrel{{}_{\mathrmsmall o}}=}}%
@@ -35319,7 +35289,6 @@ g(n), &se $n$ ímpar
 $$
 satisfaz as $f \sime h\simo g$ pela sua construção.
 Logo, $f \relp{\sime\rcom\simo} g$.
-}
 
 \endproblem
 %%}}}
@@ -38190,7 +38159,6 @@ $$
 Demonstre que realmente é um grupo.
 
 \solution
-{%
 \def\xx{\tup{x_1,x_2}}%
 \def\yy{\tup{y_1,y_2}}%
 \def\zz{\tup{z_1,z_2}}%
@@ -38242,7 +38210,6 @@ $$
 \endalign
 $$
 Assim concluimos nossa prova.
-}
 
 \endexercise
 %%}}}
@@ -38250,7 +38217,6 @@ Assim concluimos nossa prova.
 %%{{{ df: gop 
 \definition grupo oposto.
 \label{gop}%
-{%
 \def\G{{\ssetfont G}}%
 Seja $\G = \sset G {\ast, \ginv{}, \gid}$ grupo.
 Definimos no $\carrier\G$ a operação binária $\ast'$ pela:
@@ -38259,17 +38225,14 @@ x \ast' y = y \ast x.
 $$
 Chamamos o $\sset G {\ast'}$ de \dterm{grupo oposto do $\G$},
 e o denotamos por $\gop\G$.
-}
 %%}}}
 
 %%{{{ x: gop_is_a_group 
 \exercise.
 \label{gop_is_a_group}%
-{%
 \def\G{{\ssetfont G}}%
 Justifique o nome escolhido na~\ref{gop}:
 demonstre que o $\gop\G$ é um grupo.
-}
 
 \endexercise
 %%}}}
@@ -45255,7 +45218,6 @@ $$
 %%{{{ remark: closed_under_conjugation_swap_quantifiers 
 \remark trocando a ordem dos quantificadores.
 \label{closed_under_conjugation_swap_quantifiers}%
-{%
 \def\bla{\mathrm{bla}}%
 Observe que podemos trocar a ordem dos quantificadores
 pois são do mesmo tipo:
@@ -45289,7 +45251,6 @@ Ou seja:}
 $$
 afirma que todos os membros de $gN\ginv g$ pertencem ao $N$,
 ou seja, $gN\ginv g \subset N$.
-}
 %%}}}
 
 %%{{{ thm: normal_equivalent_definitions_are_equivalent 
@@ -55737,7 +55698,6 @@ $$
 %%{{{ x: fun_with_approxes 
 \exercise.
 \label{fun_with_approxes}%
-{%
 \def\Approxes{{\scr F}}%
 \def\FinApproxes{\Approxes_{\textrm{f}}}%
 Seja $F : A \to B$.
@@ -55751,10 +55711,8 @@ $$
 F = \Union \FinApproxes
 $$
 onde $\FinApproxes$ é o conjunto de todas as aproximações finitas da $F$?
-}
 
 \solution%
-{%
 \def\Approxes{{\scr F}}%
 \def\FinApproxes{\Approxes_{\textrm{f}}}%
 (i)
@@ -55770,7 +55728,6 @@ $\tup{x,y}\in f \subset F$.
 (ii) Sim.  A direção $\Union \FinApproxes \subset F$ é trivial graças ao (i),
 e a direção oposta também provamos no (i) pois a aproximação $\set{\tup{x,y}}$
 que escolhemos nessa direção é realmente finita.
-}
 
 \endexercise
 %%}}}
