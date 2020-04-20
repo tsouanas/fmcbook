@@ -21488,6 +21488,25 @@ Podemos referir aos membros do domínio e do codomínio duma
 funcção como \dterm{pontos} desses conjuntos.
 %%}}}
 
+%%{{{ remark: explicit_application 
+\remark.
+\tdefined{funcção}[aplicação]%
+\sdefined {{\sholed f} \at {\sholed x}} {notação explícita para o $f(x)$}%
+Quando escrevemos \sq{$f\app x$} (ou \sq{$f(x)$}),
+estamos escrevendo algo que representa a \dterm{aplicação}
+da $f$ no $x$.
+(E o que estamos denotando é o \dterm{valor} da $f$ no $x$.)
+O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
+pela juxtaposição do nome da funcção (aqui \sq{$f$}) e do nome
+do seu argumento (aqui \sq{$x$}).
+(já discutimos isso no~\ref{clearer_functional_notation}).
+Quando precisamos vê-la mesmo na nossa sintaxe podemos usar
+a notação infixa
+$$
+f \at x \sugeq f (x).
+$$
+%%}}}
+
 %%{{{ f : A -> B  and  A --f--> B  notations 
 \note.
 Escrevemos ``sejam $f,g : A \to B$'' e entendemos como:
@@ -27410,41 +27429,31 @@ são funcões, e também pois sua saída também é uma funcção.
 \endexample
 %%}}}
 
+\blah.
+Definimos agora a funcção $\eval$\/ que faz algo bem simples:
+aplica seu primeiro argumento (que deve ser uma funcção) no seu
+segundo (que deve ser um ponto do domínio do primeiro argumento).
+
 %%{{{ df: eval_operation 
 \definition eval.
 \label{eval_operation}%
-\tdefined{funcção}[aplicação]%
 \tdefined{funcção}[eval]%
-\sdefined {\evaldc {\sholed A} {\sholed B}} {a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$}%
-\sdefined {{\sholed f} \at {\sholed x}} {notação infixa para o $\eval (f,x)$}%
-Suponha $f : A \to B$ e seja $a \in A$.
-Quando escrevemos \symq{$f\fa a$} (ou \symq{$f(a)$}),
-estamos escrevendo a \dterm{aplicação} da $f$ no $a$.
-e o que estamos denotando é o \dterm{valor} da $f$ no $a$.
-O símbolo da aplicação é invisível, ou seja, a aplicação é denotada
-pela juxtaposição da funcção e do seu argumento (já discutimos isso
-no~\ref{clearer_functional_notation}).
-Quando precisamos vê-lo mesmo, podemos usar a notação infixa
+\sdefined {\evaldc {\sholed A} {\sholed B}}
+    {a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$}%
+Dados conjuntos $A,B$ definimos a funcção
 $$
-f \at x \sugeq \eval (f, x).
-$$
-Definimos agora uma funcção $\eval\/$ que faz exatamente isso:
-aplica seu primeiro argumento (uma funcção) no seu segundo
-(um ponto do domínio do primeiro argumento).
-Como fizemos na composição, decoramos essa operação
-para esclarecer os conjuntos envolvidos:
-dados conjuntos $A,B$ temos a
-$$
-\evaldc A B : \bigparen{(A \to B) \times A} \to B
-$$
-definida pela
-$$
-\evaldc A B (f, a) = f(a).
+\align
+\evaldc A B         &\eqtype \bigparen{(A \to B) \times A} \to B \\
+\evaldc A B (f, a)  &= f(a).
+\endalign
 $$
 Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
+Como fizemos na composição, decoramos essa operação escrevendo
+$\evaldc A B$ para esclarecer os conjuntos envolvidos, mas escrevemos
+simplesmente $\eval$ quando os $A,B$ são implícitos pelo contexto.
 %%}}}
 
-%%{{{ eg: higher_order_example_apply 
+%%{{{ eg: eval is indeed a higher order function 
 \example.
 Dados conjuntos $A,B$, a $\evaldc A B$ é claramente uma
 operação de ordem superior.
@@ -27480,31 +27489,32 @@ $$
 %%{{{ eg: higher_order_example_derivation 
 \example Derivação.
 \label{higher_order_example_derivation}%
-Considere o operador da derivação $D$.
+Considere o operador da derivação $\deriv$.
 Por exemplo, se $f(x) = x^3 + 5x$, temos
 $$
 \align
-D(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
+\deriv(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
 \intertext{%
-Cuidado, não escrevemos aqui $D(f) = 3x^2 + 5$, mas podemos escrever
+Cuidado, não escrevemos aqui $\deriv(f) = 3x^2 + 5$, mas podemos escrever
 }
-D(f) &= \lam x {3x^2 + 5}
+\deriv(f) &= \lam x {3x^2 + 5}
 \endalign
 $$
 sim.
-Qual o tipo da $D$?
+Qual o tipo da própria $\deriv$?
 Ela recebe e retorna funcções de reais para reais, mas não podemos
 tipá-la
 $$
 \align
-D(\dhole) &: (\reals\to\reals) \to (\reals\to\reals)
+\deriv(\dhole) &: (\reals\to\reals) \to (\reals\to\reals)
 \intertext{%
-pois estariamos perdendo a totalidade da $D$:
-existem funcções no $(\reals\to\reals)$ que não são deriváveis.
-Ainda mais, seria legal poder iterar o $D$ (\ref{function_iterations})
-indefinitamente; e logo tipamos
+pois estariamos perdendo a totalidade da $\deriv$:
+existem funcções no $\funs \reals \reals$ que não são deriváveis.
+Ainda mais, seria legal poder iterar o $\deriv$ (\ref{function_iterations})
+indefinitamente.
+Logo tipamos assim:
 }
-D(\dhole) &: C^\infty \to C^\infty
+\deriv(\dhole) &: C^\infty \to C^\infty
 \endalign
 $$
 onde $C^\infty$ é o conjunto de todas as funcções infinitamente
@@ -27515,8 +27525,8 @@ derivadas também, etc.
 
 %%{{{ teaser: partial_functions_teaser 
 \teaser funcções parciais.
-Mas talvez queremos mesmo considerar a $D$ como uma operação
-que opera no espaço de funcções $(\reals\to\reals)$
+Mas talvez queremos mesmo considerar a $\deriv$ como uma operação
+que opera no espaço de funcções $\funs \reals \reals$
 \emph{sacrificando} a totalidade.
 Chegamos assim no conceito de \emph{funcção parcial}, que
 voltamos a investigar na~\ref{Partial_functions}.
@@ -27525,15 +27535,16 @@ voltamos a investigar na~\ref{Partial_functions}.
 %%{{{ eg: higher_order_example_integration 
 \example Integração.
 \label{higher_order_example_integration}%
+\def\riemann#1#2{\mathrm{R}[#1,#2]}
 De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
 Sejam $a,b\in\reals$ com $a<b$ e seja
 $$
-R[a,b] \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
+\riemann a b \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
 $$
-Observe que $R[a,b]$ é um conjunto de funcções.
+Observe que $\riemann a b$ é um conjunto de funcções.
 Definimos o operador
 $$
-\lam f {\lam x {\int_a^{x} f}} : R[a,b] \to ([a,b] \to \reals)
+\lam f {\lam x {\int_a^{x} f}} : \riemann a b \to {\funs {[a,b]} \reals}
 $$
 cujo argumento é uma funcção---e ainda mais,
 sua saída também é uma funcção---e logo ele é um operador de ordem superior
@@ -27552,7 +27563,7 @@ $$
 $$
 Observe que a notação comum em análise é diferente: usamos por exemplo
 $\int_a^x f(t)\, dt$, e o $\int f$ é visto como uma antiderivada
-(que depende numa constante $C$) e não como o conjunto de todas
+(que depende duma constante $C$) e não como o conjunto de todas
 essas antiderivadas como definimos aqui.
 \endexample
 %%}}}
@@ -29478,7 +29489,7 @@ Ou seja, para chamá-la escrevemos
 $$
 \evaldc A B (f,a).
 $$
-Mas abusando a notação posso consider o mesmo símbolo
+Mas (abusando a notação!)~posso considerar o mesmo símbolo
 $\evaldc A B$ para denotar sua currificação
 $$
 \evaldc A B : {(A \to B)} \to A \to B
