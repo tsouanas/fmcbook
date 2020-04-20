@@ -17634,36 +17634,36 @@ vamos \emph{refinar} essa notação pois como \Cantor{}Cantor percebeu,
 o segundo caso na~\ref{naive_cardinality} é \emph{bem}, \emph{bem}, \emph{bem}
 mais rico do que aparece!
 
-%%{{{ property: cardinality_of_union_of_finite_sets 
+%%{{{ property: size_of_union 
 \property.
-\label{cardinality_of_union_of_finite_sets}%
+\label{size_of_union}%
 Sejam $A,B$ conjuntos finitos.
 Logo
 $$
-\card{A\union B} \leq \card A + \card B.
+\size {A\union B} \leq \size A + \size B.
 $$
 \proof.
 Pelo princípio da inclusão--exclusão
 (\refn{Inclusion_exclusion_principle})
 temos
 $$
-\card{A\union B} = \card A + \card B - \card{A \inter B}
+\size {A\union B} = \size A + \size B - \size {A \inter B}
 $$
 e como uma cardinalidade não pode ser negativa, segue a desigualdade desejada.
 \qed
 %%}}}
 
-%%{{{ x: cardinality_of_union_of_disjoint_finite_sets 
+%%{{{ x: size_of_union_of_disjoint 
 \exercise.
-\label{cardinality_of_union_of_disjoint_finite_sets}%
+\label{size_of_union_of_disjoint}%
 Determine quando temos \symq{$=$} na desigualdade
-da~\ref{cardinality_of_union_of_finite_sets}.
+da~\ref{size_of_union}.
 
 \solution
 Exatamente quando $A,B$ são disjuntos.
 Em símbolos,
 $$
-\card{A\union B} = \card A + \card B
+\size {A\union B} = \size A + \size B
 \iff
 A \inter B = \emptyset.
 $$
@@ -17676,6 +17676,7 @@ $$
 
 %%{{{ Powerset 
 \section Powerset.
+\label{Powerset}%
 
 %%{{{ df: powerset_def 
 \definition.
@@ -17693,16 +17694,17 @@ X \in \pset A \defiff X \subset A.
 $$
 %%}}}
 
-%%{{{ x: cardinality_of_poweset_of_finite_set 
-\exercise.
-\label{cardinality_of_poweset_of_finite_set}%
-Seja $A$ conjunto finito.  Qual a cardinalidade do $\pset A$?
+%%{{{ x: size_of_pset 
+\exercise justificativa do nome.
+\label{size_of_pset}%
+Seja $A$ conjunto finito.  Qual a cardinalidade do $\pset A$ em termos
+da cardinalidade do $A$?
 
 \solution
 Já resolvemos isso na~\ref{Number_of_subsets}!
 Concluimos que:
 $$
-\card{\pset A} = 2^{\card A}.
+\size {\pset A} = 2^{\size A}.
 $$
 
 \endexercise
@@ -18618,6 +18620,50 @@ x = x' \mland y = y'.
 $$
 %%}}}
 
+%%{{{ Do we need bigger tuples? 
+\note Precisamos tuplas maiores?.
+Introduzimos então esse novo \emph{tipo primitivo} de $2$-tuplas.
+E se precisar uma tripla?  Precisamos escolher se vamos aceitar
+mais tipos como primitivos ($3$-tuplas (triplas), $4$-tuplas,
+(quadruplas), $5$-tuplas (quintuplas), etc., etc.) ou não.
+\endgraf
+Caso que sim, vamos precisar uma $n$-tupla para cada $n\in\nats$.
+E precisamos definir a igualdade e o intreface para cada um desses tipos,
+algo que fazemos facilmente:
+$$
+\tup{x_1, \dots, x_n}
+=
+\tup{x'_1, \dots, x'_n}
+\defiff
+x_1 = x'_1
+\mland \cdots \mland
+x_n = x'_n
+$$
+e naturalmente dizemos que uma $n$-tupla $t$ é \emph{determinada
+por os objetos em cada uma das suas $n$ posições}.
+Então para definir uma $n$-tupla basta só definir as
+$$
+\projfrom n 0 t,
+\projfrom n 1 t,
+\dotsc,
+\projfrom n {n-1} t.
+$$
+\endgraf
+E caso contrário?  Será que podemos utilizar apenas as $2$-tuplas
+para conseguir o que nossos amigos que trabalham com $n$-tuplas como
+tipos primitivos conseguem?
+A resposta é sim;
+mas vamos primeiro definir uma operação importantíssima entre conjuntos,
+o produto!
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Cartesian_product 
+\section Produto cartesiano.
+\label{Cartesian_product}%
+
 %%{{{ df: cartesian_product 
 \definition.
 \label{cartesian_product}%
@@ -18627,6 +18673,20 @@ Sejam $A,B$ conjuntos.
 $$
 A \times B \defeq \setst {\tup{a,b}} {a\in A,\ b\in B}
 $$
+%%}}}
+
+%%{{{ x: size_of_cartesian_product 
+\exercise.
+\label{size_of_cartesian_product}%
+Justifique a notação $A \times B$, ou seja,
+ache uma conexão entre o produto cartesiano e o produto de números.
+Suponha que os $A,B$ são finitos.
+
+\solution
+Temos $\size {A \times B} = \size A \ntimes \size B$.
+Isso \emph{é} o princípio da multiplicação (\refn{principle_of_multiplication}).
+
+\endexercise
 %%}}}
 
 %%{{{ x: times_distributes_over_union_and_inter 
@@ -18814,42 +18874,6 @@ Isso vai ficar ainda mais claro daqui a pouco
 (no~\ref{picking_elements_from_indexed_sets})
 onde discutimos o que significa
 \emph{tomar um arbitrário membro dum conjunto indexado}.
-%%}}}
-
-%%{{{ Do we need bigger tuples? 
-\note Precisamos tuplas maiores?.
-Introduzimos então esse novo \emph{tipo primitivo} de $2$-tuplas.
-E se precisar uma tripla?  Precisamos escolher se vamos aceitar
-mais tipos como primitivos ($3$-tuplas (triplas), $4$-tuplas,
-(quadruplas), $5$-tuplas (quintuplas), etc., etc.) ou não.
-\endgraf
-Caso que sim, vamos precisar uma $n$-tupla para cada $n\in\nats$.
-E precisamos definir a igualdade e o intreface para cada um desses tipos,
-algo que fazemos facilmente:
-$$
-\tup{x_1, \dots, x_n}
-=
-\tup{x'_1, \dots, x'_n}
-\defiff
-x_1 = x'_1
-\mland \cdots \mland
-x_n = x'_n
-$$
-e naturalmente dizemos que uma $n$-tupla $t$ é \emph{determinada
-por os objetos em cada uma das suas $n$ posições}.
-Então para definir uma $n$-tupla basta só definir as
-$$
-\projfrom n 0 t,
-\projfrom n 1 t,
-\dotsc,
-\projfrom n {n-1} t.
-$$
-\endgraf
-E caso contrário?  Será que podemos utilizar apenas as $2$-tuplas
-para conseguir o que nossos amigos que trabalham com $n$-tuplas como
-tipos primitivos conseguem?
-A resposta é sim.
-Vamos investigar primeiramente para caso $n\asseq 3$ de triplas.
 %%}}}
 
 \endsection
@@ -21640,9 +21664,9 @@ $$
 O mesmo conjunto denotamos também por $B^A$.
 %%}}}
 
-%%{{{ x: cardinality_of_funs_set 
+%%{{{ x: size_of_funs 
 \exercise.
-\label{cardinality_of_funs_set}%
+\label{size_of_funs}%
 Por quê?
 Supondo que os $A,B$ são finitos, justifique a notação $B^A$
 para o conjunto $\funs A B$.
@@ -23654,7 +23678,8 @@ a definição de igualdade do tipo que estamos implementando
 Implemente as tuplas;
 tome cuidado para deixar claro como usá-las;
 lembre-se o que elaboramos nas secções~\refn{Tuples},
-\refn{Type_implementation_triples}, e~\refn{More_tuples}.
+\refn{Cartesian_product}, \refn{Type_implementation_triples},
+e~\refn{More_tuples}.
 
 \endexercise
 %%}}}
@@ -30428,9 +30453,9 @@ $$
 $$
 %%}}}
 
-%%{{{ x: cardinality_of_pars_set 
+%%{{{ x: size_of_pars 
 \exercise.
-\label{cardinality_of_pars_set}%
+\label{size_of_pars}%
 Se $A,B$ são finitos,
 qual a cardinalidade do $\pars A B$?
 
