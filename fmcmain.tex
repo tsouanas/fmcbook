@@ -21631,9 +21631,10 @@ Por enquanto paciêcia até esses capítulos
 \sdefined {(\sholed A \to \sholed B)} {o conjunto das funcções de $A$ para $B$}%
 Sejam $A,B$ conjuntos.
 O \dterm{espaço de funcções} de $A$ para $B$ é o conjunto de todas as funcções de
-$A$ para $B$.  Denotamos-lo por $(A \to B)$ ou por $B^A$:
+$A$ para $B$.
+Denotamos-lo por $\funs A B$ ou por $B^A$:
 $$
-(A \to B) \defeq B^A \defeq \setst f {f: A \to B}.
+\funs A B \defeq B^A \defeq \setst f {f: A \to B}.
 $$
 %%}}}
 
@@ -23559,109 +23560,6 @@ para enfatizar que não tem nada (literalmente) errado nisso.
 \endsection
 %%}}}
 
-%%{{{ Fixpoints 
-\section Fixpoints.
-\label{Fixpoints}%
-
-%%{{{ df: fixpoint 
-\definition Fixpoint.
-\label{fixpoint}%
-\tdefined{fixpoint}%
-\iisee{funcção!fixpoint}{fixpoint}%
-Seja $f : A \to A$ um endomapa num conjunto $A$.
-Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
-$f(x) = x$.
-Com palavras de rua,
-$$
-\text{$x$ é um fixpoint de $f$}
-\heartiff
-\text{$f$ deixa $x$ em paz}.
-$$
-%%}}}
-
-%%{{{ eg: fixpoints_of_identities 
-\example.
-\label{fixpoints_of_identities}%
-Para qualquer conjunto $A$, todos os seus membros são
-pontos fixos da $\idof A$.
-\endexample
-%%}}}
-
-%%{{{ noneg: succ and mother 
-\nonexample.
-No outro extremo, nem a $\succ : \nats\to\nats$ possui fixpoints,
-nem a $\mother : \persons\to\persons$---o que seria
-um fixpoint da $\mother$?
-\endnonexample
-%%}}}
-
-%%{{{ eg: fixpoints_of_sin 
-\example trigonometria.
-\label{fixpoints_of_sin}%
-$0$ é um fixpoint da $\sin$---tem outros?  E a $\cos$?
-\endexample
-%%}}}
-
-%%{{{ eg: fixpoints_of_square 
-\example.
-\label{fixpoints_of_square}%
-A $\square = \lam x {x^2} : \ints\to\ints$
-possui dois fixpoints: o $0$ e o $1$.
-\endexample
-%%}}}
-
-%%{{{ remark: how fixpoints look like internally 
-\remark.
-Olhando para o diagrama interno dum endomapa (\refn{diagram_of_endomap})
-os fixpoints são os ``redemoinhos''
-$
-\tikzpicture[>=stealth, scale=0.5]
-\node (dot-h) at (0 , 0.2 ) {};
-\node (dot) at (0 , 0   ) {$\bullet$};
-\draw[->] (dot-h) arc (10:290:0.25);
-\endtikzpicture
-$.
-%%}}}
-
-%%{{{ x: exact_number_of_fixpoints_challenge 
-\exercise.
-\label{exact_number_of_fixpoints_challenge}%
-Seja $d\in\nats$.
-Defina uma funcção $f : \nats\to\nats$ com exatamente
-$d$ fixpoints.
-
-\hint
-Isso é mais um exercício pra ver se tu consegue definir
-funcções do que em fixpoints.
-
-\solution
-Seja $f : \nats \to \nats$
-definida pela
-$$
-f(n) =
-\knuthcases{
-n,   &se $n\in D$;\cr
-n+1, &caso contrário.
-}
-$$
-onde $D \asseq \set{0,\dots,d}$.
-
-\endexercise
-%%}}}
-
-%%{{{ teaser: fixpoints_teaser 
-\teaser.
-\label{fixpoints_teaser}%
-OK, eu sei: parece estranho dedicar uma secção só pra isso.
-Mas os fixpoints vão fazer um papel importantíssimo depois,
-e queria destacá-los desde já.  Paciência.
-%%}}}
-
-\TODO Elaborar e adicionar secções específicas.
-
-\endsection
-%%}}}
-
 %%{{{ Implementations_seq_fam 
 \section Novas implementações: seqüências e famílias.
 \label{Implementations_seq_fam}%
@@ -25574,6 +25472,109 @@ a adição nos naturais.
 \endsection
 %%}}}
 
+%%{{{ Fixpoints 
+\section Fixpoints.
+\label{Fixpoints}%
+
+%%{{{ df: fixpoint 
+\definition Fixpoint.
+\label{fixpoint}%
+\tdefined{fixpoint}%
+\iisee{funcção!fixpoint}{fixpoint}%
+Seja $f : A \to A$ um endomapa num conjunto $A$.
+Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
+$f(x) = x$.
+Com palavras de rua,
+$$
+\text{$x$ é um fixpoint de $f$}
+\heartiff
+\text{$f$ deixa $x$ em paz}.
+$$
+%%}}}
+
+%%{{{ eg: fixpoints_of_identities 
+\example.
+\label{fixpoints_of_identities}%
+Para qualquer conjunto $A$, todos os seus membros são
+pontos fixos da $\idof A$.
+\endexample
+%%}}}
+
+%%{{{ noneg: succ and mother 
+\nonexample.
+No outro extremo, nem a $\succ : \nats\to\nats$ possui fixpoints,
+nem a $\mother : \persons\to\persons$---o que seria
+um fixpoint da $\mother$?
+\endnonexample
+%%}}}
+
+%%{{{ eg: fixpoints_of_sin 
+\example trigonometria.
+\label{fixpoints_of_sin}%
+$0$ é um fixpoint da $\sin$---tem outros?  E a $\cos$?
+\endexample
+%%}}}
+
+%%{{{ eg: fixpoints_of_square 
+\example.
+\label{fixpoints_of_square}%
+A $\square = \lam x {x^2} : \ints\to\ints$
+possui dois fixpoints: o $0$ e o $1$.
+\endexample
+%%}}}
+
+%%{{{ remark: how fixpoints look like internally 
+\remark.
+Olhando para o diagrama interno dum endomapa (\refn{diagram_of_endomap})
+os fixpoints são os ``redemoinhos''
+$
+\tikzpicture[>=stealth, scale=0.5]
+\node (dot-h) at (0 , 0.2 ) {};
+\node (dot) at (0 , 0   ) {$\bullet$};
+\draw[->] (dot-h) arc (10:290:0.25);
+\endtikzpicture
+$.
+%%}}}
+
+%%{{{ x: exact_number_of_fixpoints_challenge 
+\exercise.
+\label{exact_number_of_fixpoints_challenge}%
+Seja $d\in\nats$.
+Defina uma funcção $f : \nats\to\nats$ com exatamente
+$d$ fixpoints.
+
+\hint
+Isso é mais um exercício pra ver se tu consegue definir
+funcções do que em fixpoints.
+
+\solution
+Seja $f : \nats \to \nats$
+definida pela
+$$
+f(n) =
+\knuthcases{
+n,   &se $n\in D$;\cr
+n+1, &caso contrário.
+}
+$$
+onde $D \asseq \set{0,\dots,d}$.
+
+\endexercise
+%%}}}
+
+%%{{{ teaser: fixpoints_teaser 
+\teaser.
+\label{fixpoints_teaser}%
+OK, eu sei: parece estranho dedicar uma secção só pra isso.
+Mas os fixpoints vão fazer um papel importantíssimo depois,
+e queria destacá-los desde já.
+%%}}}
+
+\TODO Elaborar e adicionar secções específicas.
+
+\endsection
+%%}}}
+
 %%{{{ Commutative_diagrams 
 \section Diagramas comutativos.
 \label{Commutative_diagrams}%
@@ -25903,7 +25904,7 @@ $$
 (f \ast g)(x) = f(x) \ast g(x) , \qquad \text{para todo $x\in A$}.
 $$
 Chamamos a $(\dhole \ast \dhole)$ a \dterm{operação pointwise}
-da $\ast$ no $(A \to B)$.
+da $\ast$ no conjunto $\funs A B$.
 %%}}}
 
 %%{{{ note: pointwise_operation_outside_the_forest 
@@ -26218,6 +26219,28 @@ simples e ``arrumada''.
 \endproblem
 %%}}}
 
+%%{{{ prob: fixpoints_of_different_square 
+\problem.
+\label{fixpoints_of_different_square}%
+Tem como mudar o $\ints$ do~\ref{fixpoints_of_square} para outro
+conjunto $X$ de números, tal que tua $\square : X \to X$ terá mais
+que dois fixpoints?
+
+\hint
+Tem sim.
+
+\hint
+Esqueceu o~\ref{The_integers}?
+
+\hint
+Use um dos $\intsmod n$'s.
+
+\solution
+A $\square : \intsmod 6 \to \intsmod 6$, por exemplo, tem quatro fixpoints: $0,1,3,4$.
+
+\endproblem
+%%}}}
+
 %%{{{ prob: fixpoint_iff_iterations 
 \problem.
 \label{fixpoint_iff_iterations}%
@@ -26263,24 +26286,18 @@ e logo $x$ é um fixpoint da $f$.
 \endproblem
 %%}}}
 
-%%{{{ prob: fixpoints_of_different_square 
+%%{{{ prob: fixpoint_iff_iterations_generalization 
 \problem.
-\label{fixpoints_of_different_square}%
-Tem como mudar o $\ints$ do~\ref{fixpoints_of_square} para outro
-conjunto $X$ de números, tal que tua $\square : X \to X$ terá mais
-que dois fixpoints?
-
-\hint
-Tem sim.
-
-\hint
-Esqueceu o~\ref{The_integers}?
-
-\hint
-Use um dos $\intsmod n$'s.
-
-\solution
-A $\square : \intsmod 6 \to \intsmod 6$, por exemplo, tem quatro fixpoints: $0,1,3,4$.
+\label{fixpoint_iff_iterations_generalization}%
+Seja $F \subset \funs A A$ e seja $a \in A$.
+Demonstre ou refute a afirmação:
+$$
+\text{$a$ é um fixpoint de toda $f\in F$}
+\iff
+\text{para todo $d\in\nats$, e toda $\vec f \in F^d$, $x$ é um fixpoint da
+$f_1 \of f_2 \of \dotsb \of f_d$}
+$$
+Como isso se compara como o~\ref{fixpoint_iff_iterations}?
 
 \endproblem
 %%}}}
@@ -27227,14 +27244,15 @@ E $3 \neq \set{3}$!
 \endexercise
 %%}}}
 
-%%{{{ remark: parentheses_notation_safe_when_homogenous 
+%%{{{ remark: img_paren_notation_almost_safe_when_homogenous
 \remark.
-\label{parentheses_notation_safe_when_homogenous}%
+\label{img_paren_notation_almost_safe_when_homogenous}%
 O perigo descrito no~\ref{our_img_notation_is_better} não existe quando
-trabalhamos com conjuntos homogêneos (\refn{homogeneous_and_heterogeneous_sets}).
+trabalhamos com conjuntos \emph{homogêneos} (\refn{homogeneous_and_heterogeneous_sets}).
 Em tal mundo podemos usar a notação $f(X)$ para o $\img f X$ sem problema:
 um conjunto como o $\set{1, 7, \set{1,7}}$ seria considerado:
 inconstrutível, mal-tipado, não definido, sem significado, blasfêmico, etc.
+\mistake
 %%}}}
 
 %%{{{ x: erroneous_definition_of_pre 
@@ -27366,7 +27384,7 @@ Como $f x \in Y$ (pelo~\byfact1) e $f x \mapstoby {\finv f} x$
 %%{{{ x: img_f_singleton_x_eq_singleton_f_x 
 \exercise.
 \label{img_f_singleton_x_eq_singleton_f_x}%
-Verdade ou fálso?:
+Verdade ou falso?:
 para toda funcção $f$ e todo $x$ no seu domínio temos
 $$
 \img f {\set{x}} = \set{f(x)}.
@@ -28495,6 +28513,61 @@ $$
 Ou seja, $w$ é o máximo do $\nats$; absurdo pois $\nats$ não tem máximo!
 \crproofalt{Alternativamente,}
 bote $n := w+1$ na (*) para chegar no absurdo $w + 1 \leq w$.
+
+\endproblem
+%%}}}
+
+%%{{{ prob: img_paren_notation_not_safe_when_homogenous 
+\problem.
+\label{img_paren_notation_not_safe_when_homogenous}%
+A~\ref{img_paren_notation_almost_safe_when_homogenous} tem um probleminha.
+Mesmo trabalhando apenas com uma funcções homogêneas podemos cair em
+ambigüidade!
+Bem depois, no~\ref{Type_theory}, vamos entender a situação melhor;
+e tenho um teaser na resolução.
+Mas por enquanto só resolva esse problema, ou seja,
+ache um exemplo problemático para essa notação,
+usando apenas conjuntos homogêneos.
+
+\hint
+Dá pra achar um tal exemplo usando uma funcção $f: \pset\nats \to \pset\nats$.
+
+\hint
+$\emptyset \in \pset\nats$, mas também $\emptyset \in \pset\pset\nats$
+(pois $\emptyset \subset \pset\nats$).
+
+\solution
+Considere uma funcção $f : \pset\nats\to\pset\nats$.
+Sobre a $f$-imagem do $\emptyset$, não tenho opção.
+Sei que vai ser o $\emptyset$ (\ref{img_and_pre_of_emptyset}).
+Mas sobre o $f$-\emph{valor} do $\emptyset$ eu tenho
+opção sim: minha funcção, minhas regras.
+Defino a $f$ para ser a constante que sempre retorna o $\set{1,2}$
+então.
+Logo temos:
+$$
+f(\emptyset) = \set{1,2} \neq \emptyset = \img f \emptyset.
+$$
+Ou seja, a notação que usa as parenteses, tá buggada mesmo
+que os conjuntos que trabalhamos são homogêneos.
+\endgraf
+\proofpartstyle{Teaser.}
+Talvez o problema seria resolvido se cada objeto chegasse
+junto com um rótulo, dizendo \emph{que tipo de coisa} ele é.
+Assim talvez teriamos como diferenciar entre os dois
+$\emptysets$ (algo que no nosso contexto viola a unicidade
+do conjunto vazio~\refn{naive_uniqueness_of_emptyset}).
+Um diria:
+\quote
+\wq{Eu sou um conjunto de naturais com nenhum membro.}
+\endquote
+E o outro diria:
+\quote
+\wq{Eu sou um conjunto de conjuntos de naturais com nenhum membro.}
+\endquote
+Vamos voltar nisso bem, bem, bem depois,
+no~\ref{Type_theory}: teoria dos tipos.
+Por enquanto, esqueça.
 
 \endproblem
 %%}}}
@@ -55273,7 +55346,7 @@ Isso já mostra que a~\ref{spec_tup1} não é satisfeita, pois
 $\set{o} \neq \set{\set{o}}$.
 (E nem $\set{o}=o$ mas só precisamos uma das duas ser falsa
 para concluir que a propriedade não é satisfeita.)
-\hfill\mistakesymbol
+\mistake
 \endgraf
 A prova que acabamos de escrever tem um roubo sutil,
 que é muito fácil corrigir, mas difícil identificar!
