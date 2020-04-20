@@ -21624,18 +21624,49 @@ Por enquanto paciêcia até esses capítulos
 \refn{Type_theory}).
 %%}}}
 
-%%{{{ df: function_space 
+%%{{{ df: funs_set 
 \definition.
-\label{function_space}%
+\label{funs_set}%
 \tdefined{funcção}[espaço de]%
-\sdefined {(\sholed A \to \sholed B)} {o conjunto das funcções de $A$ para $B$}%
+\sdefined {\funs {\sholed A} {\sholed B}}
+          {o conjunto das funcções de $A$ para $B$}%
 Sejam $A,B$ conjuntos.
-O \dterm{espaço de funcções} de $A$ para $B$ é o conjunto de todas as funcções de
-$A$ para $B$.
-Denotamos-lo por $\funs A B$ ou por $B^A$:
+O \dterm{espaço de funcções} de $A$ para $B$ é o conjunto de todas as
+funcções de $A$ para $B$.
+O denotamos por $\funs A B$:
 $$
-\funs A B \defeq B^A \defeq \setst f {f: A \to B}.
+f \in \funs A B \defiff {f : A \to B}.
 $$
+O mesmo conjunto denotamos também por $B^A$.
+%%}}}
+
+%%{{{ x: cardinality_of_funs_set 
+\exercise.
+\label{cardinality_of_funs_set}%
+Por quê?
+Supondo que os $A,B$ são finitos, justifique a notação $B^A$
+para o conjunto $\funs A B$.
+(Primeiro objetivo desse exercício então é entender o que significa
+\emph{justificar uma notação} nesse caso.)
+
+\hint
+Cardinalidade.
+
+\hint
+Se por acaso $\size{\funs A B} = {\size A}^{\size B}$,
+isso seria uma justificativa boa para a notação $B^A$.
+(Lembra da 
+
+\solution
+Temos $\size A$ coisas para definir até determinar uma funcção de $A$ para $B$.
+Para cada uma delas (para cada $a\in A$) temos $\size B$ opções para mandá-lo
+(nossas escolhas não afetam a quantidade de opções que teremos nas próximas).
+Logo pelo princípio da multiplicação
+$$
+\size{\funs A B} = {\size A}^{\size B}.
+$$
+
+\endexercise
 %%}}}
 
 %%{{{ Conditions: functionhood_conditions 
@@ -25568,6 +25599,7 @@ onde $D \asseq \set{0,\dots,d}$.
 OK, eu sei: parece estranho dedicar uma secção só pra isso.
 Mas os fixpoints vão fazer um papel importantíssimo depois,
 e queria destacá-los desde já.
+(Mentira: não um.  Muitos!)
 %%}}}
 
 \TODO Elaborar e adicionar secções específicas.
@@ -26294,8 +26326,12 @@ Demonstre ou refute a afirmação:
 $$
 \text{$a$ é um fixpoint de toda $f\in F$}
 \iff
-\text{para todo $d\in\nats$, e toda $\vec f \in F^d$, $x$ é um fixpoint da
-$f_1 \of f_2 \of \dotsb \of f_d$}
+\brace{
+\gathered
+\text{para todo $d\in\nats$ e toda $\vec f \in F^d$}\\
+\text{$x$ é um fixpoint da $f_1 \of f_2 \of \dotsb \of f_d$}
+\endgathered
+}
 $$
 Como isso se compara como o~\ref{fixpoint_iff_iterations}?
 
@@ -26426,9 +26462,9 @@ Como tu definirias os conceitos de funcção injetora e sobrejetora?
 %%}}}
 \spoiler.
 
-%%{{{ df: jective_function 
+%%{{{ df: jections 
 \definition.
-\label{jective_function}%
+\label{jections}%
 \tdefined{funcção}[injectiva]%
 \tdefined{funcção}[sobrecjetiva]%
 \tdefined{funcção}[bijectiva]%
@@ -26577,9 +26613,9 @@ Para refutar que $h$ é injetora, observe que $6 = 2\ntimes 3$.
 \endexercise
 %%}}}
 
-%%{{{ df: jection_spaces 
+%%{{{ df: jection_sets 
 \definition.
-\label{jection_spaces}%
+\label{jection_sets}%
 \sdefined {(\sholed A \injto \sholed B)} {o conjunto de todas as injecções  de $A$ para $B$}%
 \sdefined {(\sholed A \surto \sholed B)} {o conjunto de todas as surjecções de $A$ para $B$}%
 \sdefined {(\sholed A \bijto \sholed B)} {o conjunto de todas as bijecções  de $A$ para $B$}%
@@ -26593,11 +26629,12 @@ $$
 $$
 %%}}}
 
-%%{{{ x: cardinalities_of_jection_spaces 
+%%{{{ x: cardinalities_of_jection_sets 
 \exercise.
-Ache a cardinalidade dos conjuntos da~\ref{jection_spaces}
+\label{cardinalities_of_jection_sets}
+Ache a cardinalidade dos conjuntos da~\ref{jection_sets}
 em termos das cardinalidades dos $A$ e $B$, supondo que
-são finitas.
+ambas são finitas.
 
 \endexercise
 %%}}}
@@ -29475,7 +29512,7 @@ Seria bom desenvolver um certo ``TOC'' matemático:
 ganhar certas frescuras matemáticas úteis, e sentir
 \emph{matematicamente irritados} quando sentir algo bizarro.
 E algo bizarro já aconteceu recentemente:
-tá bem ali na~\ref{jective_function} de injetora e sobrejetora:
+tá bem ali na~\ref{jections} de injetora e sobrejetora:
 $$
 \matrix
 \format
@@ -30373,7 +30410,7 @@ isso: funcções que para certas entradas aceitáveis delas, possivelmente
 \label{partial_function}%
 \tdefined{funcção}[parcial]%
 \sdefined {\sholed f : \sholed A \parto \sholed B} {$f$ é uma funcção parcial de $A$ para $B$}%
-\sdefined {(\sholed A \parto \sholed B)} {o conjunto das funcções parciais de $A$ para $B$}%
+\sdefined {\pars {\sholed A} {\sholed B}} {o conjunto das funcções parciais de $A$ para $B$}%
 Sejam $A,B$ conjuntos.
 Chamamos a $f$ uma \dterm{funcção parcial} de $A$ para $B$ sse:
 $$
@@ -30389,6 +30426,23 @@ Naturalmente denotamos o conjunto de todas as funcções parciais de $A$ para $B
 $$
 (A \parto B) \defeq \setst f {f : A \parto B}.
 $$
+%%}}}
+
+%%{{{ x: cardinality_of_pars_set 
+\exercise.
+\label{cardinality_of_pars_set}%
+Se $A,B$ são finitos,
+qual a cardinalidade do $\pars A B$?
+
+\hint
+Já calculou como achar a cardinalidade de $\funs X Y$ para
+quaisquer finitos $X,Y$.
+Então \emph{hackeia!}
+
+\hint
+Considere um objeto $\bottom$ fora do $B$.
+
+\endexercise
 %%}}}
 
 %%{{{ remark: total vs partial: default 
