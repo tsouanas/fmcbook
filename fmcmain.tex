@@ -1028,7 +1028,7 @@ Agora considere as expressões:
 \li existem números $x,y$ tais que $(x + y)^2 = x^2 + 2xy$;
 \li aquela funcção que dada um número $x$ retorna o $x+1$;
 \li o conjunto de todos livros $b$ tais que existe palavra $w$ no $b$ com tantas letras quantas as letras do título de $b$;
-\li para toda pessoa $p$, $q$ não gosta de $p$.
+\li para toda pessoa $p$, a pessoa $w$ não gosta de $p$.
 \endol
 Aqui as instâncias das variáveis são todas \dterm{ligadas},
 exceto na última frase onde ámbas as instâncias da variável $p$
@@ -1060,11 +1060,65 @@ objeto ou proposição?
 
 %%{{{ advice: how_to_tell_if_variable_is_free 
 \advice.
+\label{how_to_tell_if_variable_is_free}%
 Para saber se uma variável \sq{$x$} aparece livre numa expressão,
 tente enunciar umao mesmo significado da expressão sem pronunciar
 \utter{x}.
 Se conseguir, a variável é ligada.
+Por exemplo, a frase (5) do~\refn{variables_free_and_bound}
+afirma que \wq{$w$ não gosta de ninguém}.
 %%}}}
+
+%%{{{ x: how_to_tell_if_variable_is_free_exercise_1 
+\exercise.
+\label{how_to_tell_if_variable_is_free_exercise_1}
+Enuncie cada uma das (1)--(4) do~\refn{variables_free_and_bound}
+sem pronunciar nenhuma das variáveis ligadas que aparecem.
+
+\solution
+(1) existe número inteiro tal que seu dobro mais um é igual ao $13$;
+(2) existem dois números inteiros tais que sua soma quadrada é igual à soma
+do quadrado do primeiro e do dobro do produto do primeiro com o segundo;
+$(x + y)^2 = x^2 + 2xy$;
+(3) aquela funcção que dada um número retorna a soma desse número com o $1$;
+(4) o conjunto de todos livros em quais aparece palavra com tantas letras quantas as letras do título do próprio livro;
+\endgraf
+(Se enunciou a (1) com a simples \wq{$13$ é ímpar} tá tudo OK; vamos voltar
+a discutir questões de paridade (par, ímpar, etc.) no~\ref{Proofs}.)
+
+\endexercise
+%%}}}
+
+%%{{{ x: how_to_tell_if_variable_is_free_exercise_2 
+\exercise.
+\label{how_to_tell_if_variable_is_free_exercise_2}%
+Mesma coisa sobre as frases seguintes:
+\beginol
+\li existem pessoas $p,q$ tais que $p$ ama $q$ e $q$ ama $p$;
+\li existe pessoa $p$ tal que $p$ ama $q$ e $q$ ama $p$.
+\li $x+y = z$;
+\li existe número $x$ tal que $x+y = z$;
+\li existem números $x,z$ tais que $x+y = z$;
+\li para todo número $y$, existe número $x$ tal que $x+y=z$;
+\li para quaisquer números $y,z$, existe número $x$ tal que $x+y=z$;
+\endol
+
+\solution
+\beginol
+\li existem pessoas que se amam mutalmente;
+\li existe pessoa que ama e é amada pela pessoa $q$;
+\li $x + y = z$;
+\li existe número tal que sua soma com $x$ é igual ao $z$;
+\li existem números tais que somando $y$ num deles resulta no outro;
+\li para qualquer número, existe número tal que a soma com o primeiro é igual ao $z$;
+\li para quaisquer dois números, existe número cuja soma com o primeiro é igual ao segundo.
+\endol
+
+\endexercise
+%%}}}
+
+\blah.
+Vamos ver agora a mesma idéia no contexto de programação:
 
 %%{{{ eg: freeboundvars_c 
 \example.
@@ -1080,9 +1134,10 @@ a $\code{w}$ é livre em todo canto.
 \remark.
 \label{variable_vs_instance_abuse}%
 Quando não existe possibilidade de confundir,
-falamos apenas de <<variável>> em vez de <<tal instância de variável>>.
-Assim, mesmo que ser livre ou ligada não é uma propriedade de variáveis mas
-de instâncias de variáveis, nos permitimos o abuso de falar frases como <<$x$ é ligada>>, etc.
+falamos apenas de \wq{variável} em vez de \wq{tal instância de variável}.
+Assim, mesmo que ser livre ou ligada não é uma propriedade de variáveis
+mas de instâncias de variáveis, nos permitimos o abuso de usar frases
+como \wq{$x$ é ligada}, etc.
 %%}}}
 
 %%{{{ beware: variable_both_bound_and_free 
@@ -1105,8 +1160,8 @@ A idéia é que a expressão na esquerda é para assumir o valor
 determinado pela direita.
 Escrevemos, por exemplo:
 \beginul
-\li A proposição (5) do~\refn{variables_free_and_bound} para $q \asseq \mathrm{Larry}$ é a proposição que Larry não gosta de ninguém.
-\li Usando a (5) do~\refn{variables_free_and_bound} com $p \asseq \mathrm{Amanda}$ inferimos que $q$ não gosta de Amanda.
+\li A proposição (5) do~\refn{variables_free_and_bound} para $q \asseq \mathrm{Larry}$ é a proposição que a Larry não gosta de ninguém.
+\li \emph{Usando} a (5) do~\refn{variables_free_and_bound} com $p \asseq \mathrm{Amanda}$ \emph{inferimos} que a pessoa $q$ não gosta de Amanda.
 \endul
 Naturalmente, usamos o \symq{$\eqass$} nas raras vezes que
 queremos inverter os papeis da esquerda e da direita.
