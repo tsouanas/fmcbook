@@ -264,14 +264,48 @@ são os grupos mais distantes.
 
 %%{{{ eg: biggest_type_error_eg 
 \example.
-Todas as frases seguintes tem o type error mais grave: confusão entre proposição e objeto:
+\label{biggest_type_error_eg}%
+Todas as frases seguintes têm o type error mais grave:
+confusão entre proposição e objeto:
 \beginol
-\li $(x+y)^2 \iff x^2 +2xy + y^2$.
+\li $(x+y)^2 \iff x^2 + 2xy + y^2$.
 \li $x(a-(b+c)) = xa - x(b + c) \implies xa - xb - xc$.
 \li Concluimos que $(A \subset B) = (B \subset A)$.
 \li Suponha $n$.  Vamos demonstrar que $n+1$.
 \endol
+(1) Temos uma suposta equivalência entre dois objetos.
+O \sq{$\iffsymbol$} tava esperando ver (receber) proposições
+nos seus lados, mas recebeu objetos.
+(2) No lado esquerdo da implicação temos uma proposição,
+(isso tá OK), mas no seu lado direito aparece um objeto.
+Não faz sentido implicar um objeto:
+\dialogue
+\say Se chuver amanhã, então Maria.
+\say \dots então Maria o quê?!
+\enddialogue
+(3) Aqui aparece igualdade entre duas proposições em vez de objetos.
+(4) Como assim supor um objeto?  E como assim demonstrar um objeto?
+Supomos proposições, e demonstramos suposições.  O que significa
+supor Alex?  O que significa demonstrar o $5$?
 \endexample
+%%}}}
+
+%%{{{ x: biggest_type_error_exercise 
+\exercise.
+\label{biggest_type_error_exercise}%
+Mude cada uma das frases do~\ref{biggest_type_error_eg}
+para resolver o type error.
+Não se preocupe com a \emph{vericidade}
+
+\solution
+\beginol
+\li $(x+y)^2 = x^2 + 2xy + y^2$.
+\li $x(a-(b+c)) = xa - x(b + c) = xa - xb - xc$.
+\li Concluimos que $(A \subset B) \iff (B \subset A)$.
+\li Suponha que $n$ é lindo.  Vamos demonstrar que $n+1$ é feio.
+\endol
+
+\endexercise
 %%}}}
 
 %%{{{ Refining_further 
@@ -942,13 +976,9 @@ Mesmo sem isso, alguém poderia falar da
 \wq{terceira instância da variável $p$} e entenderiamos qual seria.
 %%}}}
 
-%%{{{ variables_free_and_bound 
-\note Variáveis livres e ligadas.
-\label{variables_free_and_bound}%
-\tdefined {variável}[livre]%
-\tdefined {variável}[ligada]%
-\iisee{capturada}{variável}%
-\iisee{dummy}{variável ligada}%
+%%{{{ x: typecheck_warmup 
+\exercise typecheck warmup.
+\label{typecheck_warmup}%
 Considere as expressões:
 \beginol
 \li $(x + y)^2 = x^2 + 2xy$
@@ -958,19 +988,47 @@ Considere as expressões:
 \li a capital do país $p$
 \li $a$ mora em Atenas
 \endol
-Cada uma delas refere a pelo menos uma coisa por meio de variáveis, e logo seu significado é dependente.
-Essas instâncias de variáveis chamamos de \dterm{livres}.
-Sobre as expressões que denotam proposições (1,4,6): não sabemos o que cada uma
-afirma sem saber quais são os objetos denotados por essas variáveis;
-similarmente, sobre as expressões que denotam objetos (2,3,5): não sabemos qual
-objeto é denotado sem saber quais são os objetos denotados por essas variáveis.
+Para cada uma decida se ela denota óbjeto ou proposição.
+
+\solution
+$$
+\align
+\text{$(x + y)^2 = x^2 + 2xy$}  &\eqtype \text{proposição} \\
+\text{a mãe de $p$}             &\eqtype \text{objeto} \\
+\text{$2^n + 1$}                &\eqtype \text{objeto} \\
+\text{$p$ é irmão de $q$}       &\eqtype \text{proposição} \\
+\text{a capital do país $p$}    &\eqtype \text{objeto} \\
+\text{$a$ mora em Atenas}       &\eqtype \text{proposição}
+\endalign
+$$
+
+\endexercise
+%%}}}
+
+%%{{{ variables_free_and_bound 
+\note Variáveis livres e ligadas.
+\label{variables_free_and_bound}%
+\tdefined {variável}[livre]%
+\tdefined {variável}[ligada]%
+\iisee{capturada}{variável}%
+\iisee{dummy}{variável ligada}%
+Cada uma das expressões da~\ref{typecheck_warmup} refere a pelo
+menos uma coisa por meio de variáveis, e logo seu significado é dependente
+(dessas variáveis).
+Essas \emph{instâncias de variáveis} chamamos de \dterm{livres}.
+Sobre as expressões que denotam proposições:
+não sabemos o que cada uma afirma sem saber quais são
+os objetos denotados por essas variáveis;
+similarmente sobre as expressões que denotam objetos:
+não sabemos qual objeto é denotado sem saber quais são
+os objetos denotados por essas variáveis.
 Agora considere as expressões:
 \beginol
-\li existe $k \in \ints$ tal que $13 = 2k + 1$
-\li existem números $x,y$ tais que $(x + y)^2 = x^2 + 2xy$
-\li aquela funcção que dada um número $x$ retorna o $x+1$
-\li o conjunto de todos livros $b$ tais que existe palavra $w$ no $b$ com tantas letras quantas as letras do título de $b$
-\li para toda pessoa $p$, $q$ não gosta de $p$
+\li existe $k \in \ints$ tal que $13 = 2k + 1$;
+\li existem números $x,y$ tais que $(x + y)^2 = x^2 + 2xy$;
+\li aquela funcção que dada um número $x$ retorna o $x+1$;
+\li o conjunto de todos livros $b$ tais que existe palavra $w$ no $b$ com tantas letras quantas as letras do título de $b$;
+\li para toda pessoa $p$, $q$ não gosta de $p$.
 \endol
 Aqui as instâncias das variáveis são todas \dterm{ligadas},
 exceto na última frase onde ámbas as instâncias da variável $p$
@@ -979,6 +1037,25 @@ são ligadas, mas (a única instância de) $q$ é livre.%
 Na literatura aparece como sinônimo de variável ligada
 o termo \dterm{dummy} (boba) também.
 \endfoot
+%%}}}
+
+\blah.
+Precisamos entender \emph{muito bem} essa idéia de variáveis
+ligadas e livres, mas antes de continuar com isso\dots
+
+%%{{{ x: typecheck spinoff exercise 
+\exercise.
+Para cada uma das cinco expressões do~\refn{variables_free_and_bound}:
+objeto ou proposição?
+
+\solution
+(1) proposição;
+(2) proposição;
+(3) objeto;
+(4) objeto;
+(5) proposição.
+
+\endexercise
 %%}}}
 
 %%{{{ advice: how_to_tell_if_variable_is_free 
@@ -1699,7 +1776,7 @@ afirmações ``a baixo'' da tese: as proposições em quais a tese depende.
 \section Axiômas e noções primitivas.
 \label{Axioms_and_primitive_notions}%
 
-%%{{{ an "annoying" child 
+%%{{{ an ``annoying'' child 
 \note Uma criança ``chata''.
 Imagine tentando convencer uma criança sobre alguma proposiação $P$:
 \dialogue
@@ -1717,7 +1794,7 @@ A idéia é que nosso ``oponente'' ou ``inimigo'' (nesse exemplo a criança)
 vai continuar duvidando qualquer uma das novas proposições que usamos
 em nossa argumentação, \emph{até finalmente chegar em algo que concorda
 aceitar}.  Talvez no exemplo da criança chegando numa afirmação do tipo
-<<comer sorvete é bom>> faria o dialogo terminar:
+\wq{comer sorvete é bom} faria o dialogo terminar:
 \dialogue
 \say \dots pois comer sorvete é bom.
 \say Ah sim, faz sentido.
@@ -1735,15 +1812,16 @@ que precisamos deixar claro quais são nossos axiomas, e trabalhar
 para elaborar nossa teoria, investigando suas conseqüências: os teoremas.
 Similarmente, separamos as noções primitivas que aceitamos sem definir
 formalmente, e as usando continuamos em aumentar mais e mais nosso vocabulário.
-As noções primitivas da geometria euclideana são os \dterm{pontos} e as \dterm{linhas}
-(retas).  E também a relação entre pontos e linhas seguinte:
+As noções primitivas da geometria euclideana são os \dterm{pontos}
+e as \dterm{linhas} (retas).
+E também a relação entre pontos e linhas seguinte:
 $$
 \textwq{o ponto {\lthole} pertence à linha {\lthole}}.
 $$
-Não definimos o que significa ser um ponto; nem ser uma linha; nem o que
-significa que um ponto pertence àlguma linha.
-De fato, Euclides tentou dar uma intuição, uma descripção informal sobre suas noções
-primitivas em vez de escrever algo do tipo
+Não definimos o que significa ser um ponto; nem ser uma linha;
+nem o que significa que um ponto pertence àlguma linha.
+De fato, Euclides tentou dar uma intuição, uma descripção informal
+sobre suas noções primitivas em vez de escrever algo do tipo
 \quote
 Essas aqui são noções primitivas, não me perguntem o que significam; aceitem.
 \endquote
