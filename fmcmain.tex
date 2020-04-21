@@ -27443,15 +27443,15 @@ segundo (que deve ser um ponto do domínio do primeiro argumento).
 Dados conjuntos $A,B$ definimos a funcção
 $$
 \align
-\evaldc A B         &\eqtype \bigparen{(A \to B) \times A} \to B \\
-\evaldc A B (f, a)  &= f(a).
+\eval         &\eqtype \bigparen{(A \to B) \times A} \to B \\
+\eval (f, a)  &= f(a).
 \endalign
 $$
 Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
 Como fizemos na composição, decoramos essa operação escrevendo
 $\evaldc A B$ para esclarecer os conjuntos envolvidos, mas escrevemos
-simplesmente $\eval$ quando os $A,B$ são implícitos pelo contexto.
-%%}}}
+simplesmente $\eval$ quando os $A,B$ são implícitos pelo contexto.dc A B
+%%}}}                                                             dc A B
 
 %%{{{ eg: eval is indeed a higher order function 
 \example.
@@ -27495,29 +27495,29 @@ $$
 \align
 \deriv(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
 \intertext{%
-Cuidado, não escrevemos aqui $\deriv(f) = 3x^2 + 5$, mas podemos escrever
+Cuidado, não escrevemos aqui $\deriv(f) = 3x^2 + 5$,
+mas podemos escrever
 }
 \deriv(f) &= \lam x {3x^2 + 5}
 \endalign
 $$
 sim.
 Qual o tipo da própria $\deriv$?
-Ela recebe e retorna funcções de reais para reais, mas não podemos
-tipá-la
+Ela recebe e retorna funcções de reais para reais, mas não podemos tipá-la
 $$
 \align
-\deriv(\dhole) &: (\reals\to\reals) \to (\reals\to\reals)
+\deriv(\dhole) &: \funs\reals\reals \to \funs\reals\reals
 \intertext{%
 pois estariamos perdendo a totalidade da $\deriv$:
-existem funcções no $\funs \reals \reals$ que não são deriváveis.
+tem funcções no $\funs\reals\reals$ que não são deriváveis.
 Ainda mais, seria legal poder iterar o $\deriv$ (\ref{function_iterations})
-indefinitamente.
+a vontade.
 Logo tipamos assim:
 }
-\deriv(\dhole) &: C^\infty \to C^\infty
+\deriv(\dhole) &: \smooths \to \smooths
 \endalign
 $$
-onde $C^\infty$ é o conjunto de todas as funcções infinitamente
+onde $\smooths$ é o conjunto de todas as funcções infinitamente
 deriváveis: são deriváveis, e suas derivadas também são, e suas
 derivadas também, etc.
 \endexample
@@ -27535,16 +27535,14 @@ voltamos a investigar na~\ref{Partial_functions}.
 %%{{{ eg: higher_order_example_integration 
 \example Integração.
 \label{higher_order_example_integration}%
-\def\riemann#1#2{\mathrm{R}[#1,#2]}%
-De novo uns exemplos de calculus: a integração definitiva e indefinitiva.
-Sejam $a,b\in\reals$ com $a<b$ e seja
+Sejam $a,b\in\reals$ com $a<b$ e seja{\Riemann[integral]}
 $$
-\riemann a b \defeq \setstt {f : [a,b] \to \reals} {$f$ é \Riemann{}Riemann-integrável}.
+\riemannables a b \defeq \setstt {f : [a,b] \to \reals} {$f$ é Riemann-integrável}.
 $$
-Observe que $\riemann a b$ é um conjunto de funcções.
+Observe que $\riemannables a b$ é um conjunto de funcções.
 Definimos o operador
 $$
-\lam f {\lam x {\int_a^{x} f}} : \riemann a b \to {\funs {[a,b]} \reals}
+\lam f {\lam x {\int_a^{x} f}} : \riemannables a b \to {\funs {[a,b]} \reals}
 $$
 cujo argumento é uma funcção---e ainda mais,
 sua saída também é uma funcção---e logo ele é um operador de ordem superior
