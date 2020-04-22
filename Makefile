@@ -31,5 +31,6 @@ cleanall: clean
 	rm -f fmc.lang
 	rm -f fmc*.pdf
 	rm -f fmc*.{last,lasttag,pages,webtoc}
-	cp fmcconf.tex.default fmcconf.tex
+	rm -f pdf/fmc-??-*.pdf
+	cp -i fmcconf.tex.default fmcconf.tex
 
