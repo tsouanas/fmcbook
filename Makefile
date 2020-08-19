@@ -16,6 +16,7 @@ upload:
 
 clean:
 	rm -f fmc.aux
+	rm -f fmc.ref
 	rm -f fmc.log
 	rm -f fmc.{bbl,blg}
 	rm -f fmc.{idx,ilg,ind,ndx,nnd}
