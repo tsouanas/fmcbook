@@ -5264,47 +5264,41 @@ cada vez menos com o compilador da sua máquina.
 %%}}}
 
 %%{{{ the game and its board 
-\note O jogo e seu tabuleiro.
+\note O jogo e seu tabuleiro (REPL).
 %%%{{{ meta 
+\defines
+    * proof!REPL
+    * proof!script
+    ;;
+\indexes
+    * script    seealso: proof
+    ;;
 %%%}}}
 
 Podemos pensar que o jogo acontece em duas partes.
-A primeira parte é a \proofstylize{\proofname}:
+A primeira parte é a \wq{\proofName}:
 É aqui que o jogador (você) joga, onde cada movimento
 é escrever uma frase mais nessa parte.
+Chamamos essa parte também de \dterm{proof script}.
 A segunda parte é a tabela de Dados/Alvos.
 O enunciado do teorema que queres demonstrar cria o contexto da prova,
 ou seja, ele está deixando claro quais são os \emph{dados},
 e qual (ou quais) os \emph{alvos}.
-Com cada movimento (frase escrita na parte \proofstylize{\proofname}),
-a tabela dos Dados/Alvos muda para refletir a situação atual
-do jogo.  Novos dados podem ser adicionados, uns alvos podem
-ser matados, outros nascidos.  O jogo termina quando não tem
-mais nenhum alvo vivo.
+Com cada movimento---ou seja, frase escrita na parte
+\wq{\proofName})---a tabela
+dos Dados/Alvos muda para refletir a situação atual
+do jogo: o \dterm{estado} (ou \dterm{state}).
+Novos dados podem ser adicionados, uns alvos podem
+ser matados, outros nascidos.
+O jogo termina quando não tem mais nenhum alvo vivo.
 \eop
 As partes do jogo e seu tabuleiro parecem assim então:
-% TODO: Fix this
-\eop\medskip\noi
-\hbox to \hsize {
-\vtop {
-\halign to .3\hsize {##\hfil\cr
-\proofstylize{\proofname.}\cr
-\cr
-\cr
-\cr
-}
-}
-\vtop {
-\gg
+\repl
 \givens
-\git {}
-\git {}
-\gim {\hskip3cm}
+\li x: phantomed placeholder ;
 \goals
-\gim {\hskip3cm}
-\endgg
-}
-}
+\li x: phantomed placeholder ;
+\endrepl
 
 %%}}}
 
@@ -5313,8 +5307,8 @@ As partes do jogo e seu tabuleiro parecem assim então:
 %%%{{{ meta 
 %%%}}}
 
-Nesse exemplo encontramos uma prova de um teorema sobre inteiros.
-Neste momento apenas siga essa prova, movimento-por-movimento,
+Nesse exemplo encontramos uma demonstração dum teorema sobre inteiros.
+Neste momento apenas siga essa demonstração, movimento-por-movimento,
 para entender a idéia desse jogo e nada mais.
 A afirmação que queremos demonstrar é a seguinte:
 $$
@@ -5325,159 +5319,109 @@ $$
 \lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}
 $$
 Bora começar jogar então!
-\eop\bigskip\noi
-\hbox to \hsize{
-\vtop{
-\halign to .333\hsize{##\hfil\cr
-\proofstylize{\proofname.}\cr
-}
-}
-\hfill
-\vtop{
-\gg
+\repls
+\maxproof  : Suponha $x$ ímpar. ;
+\maxgiven  : \ \ \lexists {k\in\ints} {x = 2k+1}  ;
+\maxgoal   : \lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}} ;
+\repl
 \givens
-\gim {\phantom{\lexists {k\in\ints} {x = 2k+1}}}
 \goals
-\gim {\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}}
-\endgg
-}
-}
-\eop\bigskip\noi
-\hbox to \hsize{
-\vtop{
-\halign to .333\hsize{##\hfil\cr
-\proofstylize{\proofname.}\cr
-\alert{Seja $x$ inteiro.}\cr
-}
-}
-\hfill
-\vtop{
-\gg
+~     : \lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}} ;
+\endrepl
+Começamos com nossa primeira linha:
+\repl
+~ a   : Seja $x$ inteiro. ;
 \givens
-\gim {\alert{x \in \ints}}
-\gim {\phantom{\lexists {k\in\ints} {x = 2k+1}}}
+~ a   : x \in \ints ;
 \goals
-\gim {\coloredcancel{red}{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}}}
-\gim {\alert{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
-\gim {\hphantom{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}}}
-\endgg
-}
-}
-\eop\bigskip\noi
-\hbox to \hsize{
-\vtop{
-\halign to .333\hsize{##\hfil\cr
-\proofstylize{\proofname.}\cr
-Seja $x$ inteiro.\cr
-\alert{Suponha $x$ ímpar.}\cr
-}
-}
-\hfill
-\vtop{
-\gg
+~ a/  : \lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}} ;
+~ a   : \text{$x$ ímpar} \implies \text{$x^2$ ímpar} ;
+\endrepl
+\repl
+~     : Seja $x$ inteiro. ;
+~ a   : Suponha $x$ ímpar. ;
 \givens
-\gim {x \in \ints}
-\git {\alert{$x$ ímpar}}
-\gim {\phantom{\lexists {k\in\ints} {x = 2k+1}}}
+~     : x \in \ints ;
+~ a  t: $x$ ímpar ;
 \goals
-\gim {\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}}}
-\gim {\coloredcancel{red}{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
-\git {\alert{$x^2$ ímpar}}
-\endgg
-}
-}
-\eop\bigskip\noi
-\hbox to \hsize{
-\vtop{
-\halign to .333\hsize{##\hfil\cr
-\proofstylize{\proofname.}\cr
-Seja $x$ inteiro.\cr
-Suponha $x$ ímpar.\cr
-\alert{Seja $k\in\ints$ tal que $x = 2k+1$.}\cr
-}
-}
-\hfill
-\vtop{
-\gg
+~ a/  : \text{$x$ ímpar} \implies \text{$x^2$ ímpar} ;
+~ a  t: $x^2$ ímpar ;
+\endrepl
+\endrepls
+Neste momento, olhamos para o tabuleiro de Dados/Alvos e anotamos, como rascunho,
+o significado dumas dessas afirmações.
+\repls
+\maxproof : Seja $k\in\ints$ tal que $x = 2k+1$. ;
+\maxgiven : \ \ \lexists {k\in\ints} {x = 2k+1}  ;
+\maxgoal  : \ \ \lexists {a\in\ints} {x = 2a+1}  ;
+\repl
+~     : Seja $x$ inteiro. ;
+~     : Suponha $x$ ímpar. ;
 \givens
-\gim {x \in \ints}
-\git {$x$ ímpar}
-\gim {\lexists {k\in\ints} {x = 2k+1}}
-\gim {\alert{k \in \ints}}
-\gim {\alert{x = 2k + 1}}
+~     : x \in \ints ;
+~    t: $x$ ímpar ;
+~    =: \lexists {k\in\ints} {x = 2k+1} ;
 \goals
-\gim {\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}}}
-\gim {\faded{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
-\git {$x^2$ ímpar}
-\endgg
-}
-}
-\eop\bigskip\noi
-\hbox to \hsize{
-\vtop{
-\halign to .333\hsize{##\hfil\cr
-\proofstylize{\proofname.}\cr
-Seja $x$ inteiro.\cr
-Suponha $x$ ímpar.\cr
-Seja $k\in\ints$ tal que $x = 2k+1$.\cr
-\alert{Calculamos:}\cr
-\phantom{a}\cr
-\alert{\quad$\aligned x^2 &= (2k+1)^2 \\&= 4k^2 + 4k + 1 \\&= 2(2k^2+2k) + 1\endaligned$}\cr
-\phantom{a}\cr
-}
-}
-\hfill
-\vtop{
-\gg
+~    t: $x^2$ ímpar ;
+~    =: \lexists {a\in\ints} {x^2 = 2a + 1} ;
+\endrepl
+Poderiamos escrever uma
+\emph{linha de comentário} na nossa demonstração,
+mas por enquanto quero mostrar apenas as
+\emph{linhas de código} mesmo.
+\repl
+~     : Seja $x$ inteiro. ;
+~     : Suponha $x$ ímpar. ;
+~ a   : Seja $k\in\ints$ tal que $x = 2k+1$. ;
 \givens
-\gim {x \in \ints}
-\git {$x$ ímpar}
-\gim {\lexists {k\in\ints} {x = 2k+1}}
-\gim {k \in \ints}
-\gim {x = 2k + 1}
-\gim {\alert{x^2 = 2(2k^2 + 2k) + 1}}
+~     : x \in \ints ;
+~    t: $x$ ímpar ;
+~ a   : k \in \ints ;
+~ a   : x = 2k + 1 ;
 \goals
-\gim {\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}}}
-\gim {\faded{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}
-\git {$x^2$ ímpar}
-\gim {\lexists {a\in\ints} {x^2 = 2a + 1}}
-\endgg
-}
-}
-\eop\bigskip\noi
-\hbox to \hsize{
-\vtop{
-\halign to .333\hsize{##\hfil\cr
-\proofstylize{\proofname.}\cr
-Seja $x$ inteiro.\cr
-Suponha $x$ ímpar.\cr
-Seja $k\in\ints$ tal que $x = 2k+1$.\cr
-Calculamos:\cr
-\phantom{a}\cr
-\quad$\aligned x^2 &= (2k+1)^2 \\&= 4k^2 + 4k + 1 \\&= 2(2k^2+2k) + 1\endaligned$\cr
-\phantom{a}\cr
-\alert{Como $(2k^2+2k)\in\ints$, temos que $x^2$ é ímpar.}\cr
-}
-}
-\hfill
-\vtop{
-\gg
+~    t: $x^2$ ímpar ;
+~    =: \lexists {a\in\ints} {x^2 = 2a + 1} ;
+\endrepl
+\repl
+~     : Seja $x$ inteiro. ;
+~     : Suponha $x$ ímpar. ;
+~     : Seja $k\in\ints$ tal que $x = 2k+1$. ;
+~ a   : Calculamos: ;
+~,a  c: x^2 &= (2k+1)^2 \\
+            &= 4k^2 + 4k + 1 \\
+            &= 2(2k^2+2k) + 1 \\ ;
 \givens
-\gim {x \in \ints}
-\git {$x$ ímpar}
-\gim {\lexists {k\in\ints} {x = 2k+1}}
-\gim {k \in \ints}
-\gim {x = 2k + 1}
-\gim {x^2 = 2(2k^2 + 2k) + 1}
+~     : x \in \ints ;
+~    t: $x$ ímpar ;
+~     : k \in \ints ;
+~     : x = 2k + 1 ;
+~ a   : x^2 = 2(2k^2 + 2k) + 1 ;
 \goals
-\gim {{\faded{\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}}}}
-\gim {{\faded{\text{$x$ ímpar} \implies \text{$x^2$ ímpar}}}}
-\git {{\faded{$x^2$ ímpar}}}
-\gim {\coloredcancel{red}{\lexists {a\in\ints} {x^2 = 2a + 1}}}
-\endgg
-}
-}
-\eop\bigskip\noi
+~    t: $x^2$ ímpar ;
+~    =: \lexists {a\in\ints} {x^2 = 2a + 1} ;
+\endrepl
+\repl
+~     : Seja $x$ inteiro. ;
+~     : Suponha $x$ ímpar. ;
+~     : Seja $k\in\ints$ tal que $x = 2k+1$. ;
+~     : Calculamos: ;
+~,   c: x^2 &= (2k+1)^2 \\
+            &= 4k^2 + 4k + 1 \\
+            &= 2(2k^2+2k) + 1 \\ ;
+~ a   : Usando o inteiro $2k^2+2k$, ;
+~,a s :   temos que $x^2$ é ímpar. \qed;
+\givens
+~     : x \in \ints ;
+~    t: $x$ ímpar ;
+~     : k \in \ints ;
+~     : x = 2k + 1 ;
+~     : x^2 = 2(2k^2 + 2k) + 1 ;
+~ a  t: $x^2$ ímpar ;
+\goals
+~ a/ t: $x^2$ ímpar ;
+~    =: \lexists {a\in\ints} {x^2 = 2a + 1} ;
+\endrepl
+\endrepls
 Matamos todos os alvos---só tinha um---então podemos concluir que o que
 queriamos demonstrar, foi demonstrado (ou seja: é um teorema mesmo).
 
@@ -8062,92 +8006,100 @@ $$
 %%%}}}
 
 Para usar então a indução, precisamos ter algo dessa forma:
-\def\SIZEFIX{\hphantom{\coloredcancel{red}{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}}%
-\proofrepl
+\repls
+\maxproof  : \qquad Seja $k\in\nats$ tal que $\phi(k)$ (H.I.). ;
+\maxgiven  : \qquad k \in \nats ;
+\maxgoal   : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+\repl
 \givens
 \goals
-\gim {\lforall {n \in \ints} {\phi(n)}}
-\gim {\SIZEFIX}
-\endproofrepl
-\proofrepl
-\alert{Indução no $n$.}\cr
+~    : \lforall {n \in \ints} {\phi(n)} ;
+\endrepl
+\repl
+~a   : Indução no $n$. ;
 \givens
 \goals
-\gim {\coloredcancel{red}{\lforall {n \in \nats} {\phi(n)}}}
-\gim {\alert{\phi(0)}}
-\gim {\alert{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}
-\gim {\SIZEFIX}
-\endproofrepl
-\proofrepl
-Indução no $n$.\cr
-\alert{\proofpart{Base.}}\cr
-\qquad \alert{$\vdots$}\cr
-\qquad \alert{(prova de $\phi(0)$)}\cr
+~a / : \lforall {n \in \nats} {\phi(n)} ;
+~a   : \phi(0) ;
+~a   : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+\endrepl
+\repl
+~    : Indução no $n$. ;
+~a   : \proofpart{Base.} ;
 \givens
-\gim {\alert{\phi(0)}}
 \goals
-\gim {\faded{\lforall {n \in \nats} {\phi(n)}}}
-\gim {\coloredcancel{red}{\phi(0)}}
-\gim {\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}
-\gim {\SIZEFIX}
-\endproofrepl
-\proofrepl
-Indução no $n$.\cr
-\proofpart{Base.}\cr
-\qquad $\vdots$\cr
-\qquad (prova de $\phi(0)$)\cr
-\alert{\proofpart{Passo indutivo.}}\cr
-\qquad \alert{Seja $k\in\nats$}\cr
+~    : \phi(0) ;
+~f   : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+\endrepl
+\repl
+~    : Indução no $n$. ;
+~    : \proofpart{Base.} ;
+~a   : \qquad $\vdots$ ;
+~a   : \qquad (demonstração de $\phi(0)$) ;
 \givens
-\gim {\phi(0)}
-\gim {\alert{k\in\nats}}
+~a   : \phi(0) ;
 \goals
-\gim {\faded{\lforall {n \in \nats} {\phi(n)}}}
-\gim {\coloredcancel{black}{\phi(0)}}
-\gim {\coloredcancel{red}{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}
-\gim {\alert{\phi(k) \implies \phi(Sk)}}
-\gim {\SIZEFIX}
-\endproofrepl
-\proofrepl
-Indução no $n$.\cr
-\proofpart{Base.}\cr
-\qquad $\vdots$\cr
-\qquad (prova de $\phi(0)$)\cr
-\proofpart{Passo indutivo.}\cr
-\qquad Seja $k\in\nats$ \alert{tal que $\phi(k)$ (H.I.).}\cr
+~a / : \phi(0) ;
+~    : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+\endrepl
+\repl
+~    : Indução no $n$. ;
+~    : \proofpart{Base.} ;
+~    : \qquad $\vdots$ ;
+~    : \qquad (demonstração de $\phi(0)$) ;
+~a   : \proofpart{Passo indutivo.} ;
 \givens
-\gim {\phi(0)}
-\gim {k\in\nats}
-\gim {\alert{\phi(k)}}
+~    : \phi(0) ;
 \goals
-\gim {\faded{\lforall {n \in \nats} {\phi(n)}}}
-\gim {\coloredcancel{black}{\phi(0)}}
-\gim {\faded{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}
-\gim {\coloredcancel{red}{\phi(k) \implies \phi(Sk)}}
-\gim {\alert{\phi(Sk)}}
-\gim {\SIZEFIX}
-\endproofrepl
-\proofrepl
-Indução no $n$.\cr
-\proofpart{Base.}\cr
-\qquad $\vdots$\cr
-\qquad (prova de $\phi(0)$).\cr
-\proofpart{Passo indutivo.}\cr
-\qquad Seja $k\in\nats$ tal que $\phi(k)$ (H.I.).\cr
-\qquad \alert{$\vdots$}\cr
-\qquad \alert{(prova de $\phi(Sk)$)\quad$\qedsymbol$}\cr
+~    : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+\endrepl
+\repl
+~    : Indução no $n$. ;
+~    : \proofpart{Base.} ;
+~    : \qquad $\vdots$ ;
+~    : \qquad (demonstração de $\phi(0)$) ;
+~    : \proofpart{Passo indutivo.} ;
+~a   : \qquad Seja $k\in\nats$ ;
 \givens
-\gim {\phi(0)}
-\gim {k\in\nats}
-\gim {\phi(k)}
+~    : \phi(0) ;
+~a   : k\in\nats ;
 \goals
-\gim {\faded{\lforall {n \in \nats} {\phi(n)}}}
-\gim {\coloredcancel{black}{\phi(0)}}
-\gim {\faded{\lforall {k \in \nats} {\phi(k) \implies \phi(Sk)}}}
-\gim {\faded{\phi(k) \implies \phi(Sk)}}
-\gim {\coloredcancel{red}{\phi(Sk)}}
-\gim {\SIZEFIX}
-\endproofrepl
+~a / : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+~a   : \phi(k) \implies \phi(Sk) ;
+\endrepl
+\repl
+~    : Indução no $n$. ;
+~    : \proofpart{Base.} ;
+~    : \qquad $\vdots$ ;
+~    : \qquad (demonstração de $\phi(0)$) ;
+~    : \proofpart{Passo indutivo.} ;
+~    : \qquad Seja $k\in\nats$ \alert{tal que $\phi(k)$ (H.I.).} ;
+\givens
+~    : \phi(0) ;
+~    : k\in\nats ;
+~a   : \phi(k) ;
+\goals
+~a / : \phi(k) \implies \phi(Sk) ;
+~a   : \phi(Sk) ;
+\endrepl
+\repl
+~    : Indução no $n$. ;
+~    : \proofpart{Base.} ;
+~    : \qquad $\vdots$ ;
+~    : \qquad (demonstração de $\phi(0)$). ;
+~    : \proofpart{Passo indutivo.} ;
+~    : \qquad Seja $k\in\nats$ tal que $\phi(k)$ (H.I.). ;
+~a   : \qquad $\vdots$ ;
+~a   : \qquad (demonstração de $\phi(Sk)$)\qed ;
+\givens
+~    : \phi(0) ;
+~    : k\in\nats ;
+~    : \phi(k) ;
+~a   : \phi(Sk) ;
+\goals
+~a / : \phi(Sk) ;
+\endrepl
+\endrepls
 
 %%}}}
 
@@ -8505,7 +8457,7 @@ $$
 
 Demonstre que para todo inteiro $n \geq 5$,
 $$
-    n^2 < 2^n.
+n^2 < 2^n.
 $$
 
 %%}}}
@@ -8536,22 +8488,22 @@ $$
 Vamos demonstrar esse teorema duas vezes.
 É importantíssimo entender a diferença e seguir todos os detalhes.
 Antes de começar, lembre nossa tentativa~\reftag[natadd_is_associative_failed_proof_attempt] e como e onde exatamente a gente travou:
-\proofrepl
-Seja $n$ natural.\cr
-Seja $m$ natural.\cr
-Seja $k$ natural.\cr
-Separamos em casos:\cr
-\proofpart{Caso $k=0$:}\cr
-\quad(resolvido no~\ref[solve_the_zero_case_of_case_split_of_natadd_is_associative])\cr
-\proofpart{Caso $k=Sk'$ para algum $k' \is \Nat$:}\cr
-\quad(caimos num caminho infinito aqui)\cr
+\repl
+~    : Seja $n$ natural. ;
+~    : Seja $m$ natural. ;
+~    : Seja $k$ natural. ;
+~    : Separamos em casos: ;
+~    : \proofpart{Caso $k=0$:} ;
+~    : \quad(resolvido no~\ref[solve_the_zero_case_of_case_split_of_natadd_is_associative]) ;
+~    : \proofpart{Caso $k=Sk'$ para algum $k' \is \Nat$:} ;
+~    : \quad(caimos num caminho infinito aqui) ;
 \givens
-\gim {n \is \Nat}
-\gim {m \is \Nat}
-\gim {k \is \Nat}
+~    : n \is \Nat ;
+~    : m \is \Nat ;
+~    : k \is \Nat ;
 \goals
-\gim {n + (m + k) = (n + m) + k}
-\endproofrepl
+~    : n + (m + k) = (n + m) + k ;
+\endrepl
 E como caimos num caminho de sempre separar em dois novos casos sem fim, percebemos que algo deu errado; queremos tentar nossa nova técnica, indução.
 Neste momento na nossa prova, podemos atacar nosso alvo por indução?
 Não!
@@ -8561,17 +8513,17 @@ $$
 $$
 e nosso alvo não é um \symq{$\forall$} mas uma igualdade!
 Vamos fazer uns ``undo'' então na nossa prova e voltar nesse momento:
-\proofrepl
-Seja $n$ natural.\cr
-Seja $m$ natural.\cr
-\strikeout{Seja $k$ natural.}\cr
-\strikeout{Separamos em casos:}\cr
+\repl
+~    : Seja $n$ natural. ;
+~    : Seja $m$ natural. ;
+~    : \strikeout{Seja $k$ natural.} ;
+~    : \strikeout{Separamos em casos:} ;
 \givens
-\gim {n \is \Nat}
-\gim {m \is \Nat}
+~    : n \is \Nat ;
+~    : m \is \Nat ;
 \goals
-\gim {\sforall k \munderbrace {n + (m + k) = (n + m) + k} {\phi(k)}}
-\endproofrepl
+~    : \sforall k \munderbrace {n + (m + k) = (n + m) + k} {\phi(k)} ;
+\endrepl
 Agora sim!  Nosso alvo tem uma forma que casa com o padrão que precisamos para aplicar indução.
 Bora ver essa demonstração primeiro então.
 
