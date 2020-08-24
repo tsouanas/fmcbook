@@ -115,8 +115,8 @@ não faria sentido afirmar que uma proposição é primo.
 Nesse caso a expressão \symq{$x=y$} pode ser lida como
 qualquer uma das:
 \mathcol
-x = y & :\quad\text{``\alertR{$x$, que é igual a $y$,}''} \\
-x = y & :\quad\text{``\alertB{$x$ é igual ao $y$, e $y$}''}.
+x = y & :\quad\text{``\aR{$x$, que é igual a $y$,}''} \\
+x = y & :\quad\text{``\aB{$x$ é igual ao $y$, e $y$}''}.
 \endmathcol
 Por exemplo:
 \math
@@ -124,8 +124,8 @@ Por exemplo:
 \endmath
 pode ser lido respectivamente como qualquer uma das:
 \math
-\textwq{No outro lado, \alertR{$2^n + 1$, que é igual a $5$,} é primo e logo \dots} \\
-\textwq{No outro lado, \alertB{$2^n + 1$ é igual a $5$, e $5$} é primo e logo \dots}.
+\textwq{No outro lado, \aR{$2^n + 1$, que é igual a $5$,} é primo e logo \dots} \\
+\textwq{No outro lado, \aB{$2^n + 1$ é igual a $5$, e $5$} é primo e logo \dots}.
 \endmath
 A mesma coisa aplica em outras notações que vamos encontrar depois,
 por exemplo \symq{$x \in A$}, \symq{$A \subset B$}, e \symq{$f : A \to B$}.
@@ -1493,20 +1493,20 @@ Para todo número $x$, se $d$ divide $x$, então $d$ divide $x$.}
 Acabou de acontecer sombreamento e capturamento.
 Para explicar vou pintar as variáveis no texto anterior onde usamos \symq{$d$}:
 \quote
-\flwq{Seja $\alertG p$ a maior potência de $2$ que divide o $\alertR x$.\CR
-Para todo número $\alertB d$, se $\alertB d$ divide $\alertG p$, então $\alertB d$ divide $\alertR x$.}
+\flwq{Seja $\aG p$ a maior potência de $2$ que divide o $\aR x$.\CR
+Para todo número $\aB d$, se $\aB d$ divide $\aG p$, então $\aB d$ divide $\aR x$.}
 \endquote
 e no novo, onde usamos a \symq{$x$}:
 \quote
-\flwq{Seja $\alertG p$ a maior potência de $2$ que divide o $\alertR x$.\CR
-Para todo número $\alertB x$, se $\alertB x$ divide $\alertG p$, então $\alertB x$ divide $\alertB x$.}
+\flwq{Seja $\aG p$ a maior potência de $2$ que divide o $\aR x$.\CR
+Para todo número $\aB x$, se $\aB x$ divide $\aG p$, então $\aB x$ divide $\aB x$.}
 \endquote
-A partir da frase <<Para todo número $\alertB x$>>,
-o $\alertR x$ da linha anterior não tem mais como ser referido
+A partir da frase <<Para todo número $\aB x$>>,
+o $\aR x$ da linha anterior não tem mais como ser referido
 até o fim desse escopo, nesse caso até o ponto final da linha.
 Aconteceu \dterm{sombreamento} (\dterm{shadowing}) da variável
-$\alertR x$ nesse escopo.
-Dizemos também que a variável $\alertR x$ da segunda linha da versão anterior,
+$\aR x$ nesse escopo.
+Dizemos também que a variável $\aR x$ da segunda linha da versão anterior,
 foi \dterm{capturada} pela frase sublinhada, ou seja, virou azul.
 
 %%}}}
@@ -7775,9 +7775,9 @@ $$
 olhando como
 $$
 \forall n
-\munderbrace {
-\alertb{\forall m \forall k \bigparen{ (n+m) + k = n + (m+k) }}
-} {\alertb{\phi_1(n)}}
+\munderbrace
+    {\aB{\forall m \forall k \bigparen{ (n+m) + k = n + (m+k) }}}
+    {\aB{\phi_1(n)}}
 $$
 podemos atacá-la tomando um arbitrario membro de $\Nat$ e mostrando
 que ele goza a propriedade $\phi$.
@@ -7792,14 +7792,11 @@ Observe que nosso alvo é apenas uma afirmação sobre o natural $k$.
 Beleza.
 Mas nosso alvo tem a mesma forma,
 $$
-\munderbrace{
-\forall m
-\munderbrace{
-\alertb{
-\forall k
-\bigparen{ (a+m) + k = a + (m+k) }
-}} {\alertb{\phi_2(m)}}
-} {\phi_1(a)}
+\munderbrace
+  {\forall m \munderbrace
+               {\aB{\forall k \bigparen{ (a+m) + k = a + (m+k) }}}
+               {\aB{\phi_2(m)}}}
+  {\phi_1(a)}
 $$
 então podemos atacar novamente
 coma mesma idéia, ``sejando'' mais um natural.
@@ -7807,22 +7804,20 @@ coma mesma idéia, ``sejando'' mais um natural.
 Seja $m\in\Nat$.
 Preciso demonstrar que
 $$
-\munderbrace{
-\forall k
-\munderbrace{
-\alertb{
-(a+m) + k = a + (m+k)
-}} {\alertb{\phi_3(k)}}
-} {\phi_2(m)}.
+\munderbrace
+  {\forall k \munderbrace
+               {\aB{(a+m) + k = a + (m+k)}}
+               {\aB{\phi_3(k)}}}
+  {\phi_2(m)}.
 $$
 Atacamos uma última vez com a mesma estratégia:
 \eop
 Seja $y\in\Nat$.
 Agora precisamos demonstrar
 $$
-\munderbrace{
-(a+m) + y = a + (m+y)
-} {\phi_3(y)}.
+\munderbrace
+  {(a+m) + y = a + (m+y)}
+  {\phi_3(y)}.
 $$
 E agora?
 Como chegamos numa igualdade, precisamos verificar que seus dois lados
@@ -18968,9 +18963,9 @@ Vamos investigar isso e mais variações logo na~\ref[full_setbuilder].
 
 Na notação
 $$
-\setstt {\alert{x}} {\thole$x$\thole}
+\setstt {\alert x} {\thole$x$\thole}
 $$
-temos um \emph{ligador de variável}, pois o $\alert{x}$ no lado esquerdo
+temos um \emph{ligador de variável}, pois o $\alert x$ no lado esquerdo
 liga todos os $x$'s que aparecem no lado direito livres (e assim viram ligados).
 Por exemplo, o conjunto
 $$
@@ -18998,13 +18993,13 @@ Podemos trocar o ``dummy'' $x$ por qualquer variável
 tomando cuidado para renomiar as ligadas também.
 Por exemplo
 $$
-\setst {\alert{x}} {\alert{x}^2 < \alert{x}y} \inteq
-\setst {\alert{z}} {\alert{z}^2 < \alert{z}y}
+\setst {\alert x} {\alert x^2 < \alert x y} \inteq
+\setst {\alert z} {\alert z^2 < \alert z y}
 $$
 Mas
 $$
-\setst {\alert{x}} {\alert{x}^2 < \alert{x}y} \intneq
-\setst {\alert{y}} {\alert{y}^2 < \alert{y}\alert{y}}
+\setst {\alert x} {\alert x^2 < \alert x y} \intneq
+\setst {\alert y} {\alert y^2 < \alert y \alert y}
 $$
 pois o $y$ que tava livre no ``filtro'' acabou sendo
 \emph{capturado} pelo ligador no set builder:
@@ -23482,7 +23477,7 @@ como fizemos em cima.
 \label variable_binder_in_sequences
 %%%}}}
 
-Na notação $\sequence {a_n} {\alert{n}}$ o $\alert{n}$
+Na notação $\sequence {a_n} {\alert n}$ o $\alert n$
 é um \emph{ligador} da variável $n$.
 
 %%}}}
@@ -25973,9 +25968,9 @@ $$
 as partes que têm a ver com funcções:
 $$
 \PROOFm {
-\A {\alertR{f \is{}} A \to B}    \A {\alertR{x \is {}}A}
-\I2----------------------------------------------------- {\alertR{FunApp}}
-               {\alertR{f \fap x \is{}} B}
+\A {\aR{f \is{}} A \to B}    \A {\aR{x \is {}}A}
+\I2----------------------------------------------------- {\aR{FunApp}}
+               {\aR{f \fap x \is{}} B}
 }
 $$
 
@@ -27932,7 +27927,7 @@ Pois a notação $\lam x {\thole}$ serve bem melhor para a maioria dos nossos us
 
 O $\lambda$ é um \emph{ligador de variável}.
 Todos os $x$ que aparecem livres no {\thole$x$\thole}
-viram ligados com o $\alert{x}$ do $\lambda \alert{x}$.
+viram ligados com o $\alert x$ do $\lambda \alert x$.
 Naturalmente consideramos funcções que são diferentes apenas nos
 nomes das variáveis ligadas como iguais.
 Por exemplo:
@@ -33385,11 +33380,11 @@ Se $f$ é bijetora, o símbolo $\pre f Y$ pode ter duas interpretações diferen
 $$
 \pre f Y \askeq
 \paths{
-\pre {\alert{(f)}} {\alertb Y}
-& a preimagem de $\alertb Y$ através da funcção $\alert f$ \cr
+\pre {\alert{(f)}} {\aB Y}
+& a preimagem de $\aB Y$ através da funcção $\alert f$ \cr
 \pathween {\dots\orword\dots}
-\img {\alert{(\finv f)}} {\alertb Y}
-& a imagem de $\alertb Y$ através da funcção $\alert{\finv f}$
+\img {\alert{(\finv f)}} {\aB Y}
+& a imagem de $\aB Y$ através da funcção $\alert{\finv f}$
 }
 $$
 onde usamos cores e parenteses para enfatizar o ``parsing'' diferente
@@ -36897,9 +36892,9 @@ tome $b \asseq \idof \nats$:
 $$
 \align
 \rsystemed {
-\alert {\idof \nats}(0) &= 0\\
-\alert {\idof \nats}(1) &= 1\\
-\alert {\idof \nats}(n) &= \alert {\idof \nats}(n-1) + \alert {\idof \nats}(n-2)
+\alert{\idof \nats}(0) &= 0\\
+\alert{\idof \nats}(1) &= 1\\
+\alert{\idof \nats}(n) &= \alert{\idof \nats}(n-1) + \alert{\idof \nats}(n-2)
 }
 &\iff
 \lsystemed {
@@ -36920,9 +36915,9 @@ Vamos tentar com $b \asseq \succ$, essa vez divulgando a notação
 mais econômica, sem parenteses:
 }
 \rsystemed {
-\alert {\succ}\fa 0 &= 0\\
-\alert {\succ}\fa 1 &= 1\\
-\alert {\succ}\fa n &= \alert {\succ} \fap {n-1} + \alert {\succ} \fap {n-2}
+\alert{\succ}\fa 0 &= 0\\
+\alert{\succ}\fa 1 &= 1\\
+\alert{\succ}\fa n &= \alert{\succ} \fap {n-1} + \alert{\succ} \fap {n-2}
 }
 &\iff
 \lsystemed {
@@ -37334,7 +37329,7 @@ $$
 \endtikzpicture
 $$
 Os conjuntos agora são disjuntos
-(observe que $\alertB 4 \neq \alertR 4$ e $\alertB5 \neq \alertR 5$)
+(observe que $\aB 4 \neq \aR 4$ e $\aB5 \neq \aR 5$)
 então vamos simplesmente uni-los:
 $$
 \tikzpicture
@@ -37563,11 +37558,11 @@ F
 \endcd
 $$
 A partir dessa \emph{resolução}, vamos descobrir um \emph{problema:}
-determine os $\alertR?$ no
+determine os $\aR?$ no
 $$
 \cdopt{sep=1cm}
                                                                                \| A \\
-\alertR? \ar[ur, bend left=15, "\alertR?"] \ar[dr, bend right=15, "\alertR?"'] \|   \\
+\aR? \ar[ur, bend left=15, "\aR?"] \ar[dr, bend right=15, "\aR?"'] \|   \\
                                                                                \| B
 \endcd
 $$
@@ -37582,15 +37577,15 @@ F \ar[ur, bend left=15, "f_1"] \ar[dr, bend right=15, "f_2"'] \|   \\
 \cdopt{sep=1cm}
                                    \| \|                                     \| A \\
 F
-\ar[rr, dotted, "\alertB\unique"]
+\ar[rr, dotted, "\aB\unique"]
 \ar[urrr, bend left=24,  "f_1"]
-\ar[drrr, bend right=24, "f_2"']   \| \| \alertR?
-                                         \ar[ur, bend left=15, "\alertR?"]
-                                         \ar[dr, bend right=15, "\alertR?"'] \|   \\
+\ar[drrr, bend right=24, "f_2"']   \| \| \aR?
+                                         \ar[ur, bend left=15, "\aR?"]
+                                         \ar[dr, bend right=15, "\aR?"'] \|   \\
                                    \| \|                                     \| B
 \endcd
 $$
-Observe que realmente o $\tupp{\alertR\outl, \alertR{A\cross B}, \alertR\outr}$
+Observe que realmente o $\tupp{\aR\outl, \aR{A\cross B}, \aR\outr}$
 é uma resolução desse problema.
 
 %%}}}
@@ -44637,7 +44632,7 @@ $$
 \cdopt{column sep=4mm}
  1 \ar[d,maps to,"\psi"'] \| 2 \ar[d,maps to] \| 3 \\
  2 \ar[d,maps to,"\phi"'] \| 3 \ar[d,maps to] \| \\
- \alertB1                 \| \alertB3         \| \alertR?
+ \aB1                 \| \aB3         \| \aR?
 \endcd
 $$
 Estamos então aqui:
@@ -44645,7 +44640,7 @@ $$
 \phi\fcom\psi
 =\permf{
 1 & 2 & 3\\
-\alertB1 & \alertB3 & \alertR?
+\aB1 & \aB3 & \aR?
 }
 $$
 Agora podemos continuar no mesmo jeito, para calcular a imagem de $3$:
@@ -46327,9 +46322,9 @@ $$
 &\tunderbrace {=} {é}
 \tunderbrace {\gid} {a identidade do grupo.}&&\\\\
 \text{\case{Maneira 2:}}&&
-\tunderbrace {\alertR \gid} {\alertR {isso}}
+\tunderbrace {\aR \gid} {\aR {isso}}
 &\tunderbrace {=} {é}
-\tunderbrace {\ginv {\alertB \gid}} {o inverso de $\alertB \gid$.}&&\\\\
+\tunderbrace {\ginv {\aB \gid}} {o inverso de $\aB \gid$.}&&\\\\
 \text{\case{Maneira 3:}}&&
 \tunderbrace {\ginv \gid} {isso}
 &\tunderbrace {=} {é}
@@ -46341,14 +46336,14 @@ satisfaz a definição de ser a identidade do grupo, ou seja:
 $$
 \text{para todo $a \in G$, $\ginv \gid \ast a = a = a \ast \ginv \gid$}.
 $$
-Com a segunda, precisamos mostrar que a \alertR{coisa vermelha}
-é o inverso da \alertB{coisa azul}.
+Com a segunda, precisamos mostrar que a \aR{coisa vermelha}
+é o inverso da \aB{coisa azul}.
 Mas o que significa ser inverso de algo?
 Precisamos mostrar que:
 $$
 \align
-\alertR \gid \ast \alertB \gid &= \gid\\
-\alertB \gid \ast \alertR \gid &= \gid.
+\aR \gid \ast \aB \gid &= \gid\\
+\aB \gid \ast \aR \gid &= \gid.
 \endalign
 $$
 Com a terceira, a única coisa que podemos fazer é começar calcular
@@ -47086,7 +47081,7 @@ realmente torna-se um grupo ou não.  Escolha $a$:
 $$
 \matrix
 e & a \\
-a & \alert{a}
+a & \alert a
 \endmatrix
 $$
 Qual seria o inverso do $a$?
@@ -47096,7 +47091,7 @@ Se escolher nossa única outra opção ($e$) temos:
 $$
 \matrix
 e & a \\
-a & \alert{e}
+a & \alert e
 \endmatrix
 $$
 Que realmente é um grupo.
@@ -63046,21 +63041,21 @@ $$
 E se perguntou:
 \emph{o conjunto $R$ é tranqüilo, ou tem essa propriedade estranha?}
 Consideramos os dois casos:
-Se $\alertR R\in \alertB R$ então pela definição de $\alertB R$
-temos que $\alertR R$ é tranquilo, ou seja, $\alertR R \notin \alertR R$,
+Se $\aR R\in \aB R$ então pela definição de $\aB R$
+temos que $\aR R$ é tranquilo, ou seja, $\aR R \notin \aR R$,
 então esse caso é impossível.
-Se $\alertR R\notin \alertB R$ então $\alertR R$ não pertence nele mesmo
-(ou seja, $\alertR R$ é tranqüilo) e logo pela definição de $\alertB R$
-temos $\alertR R \in \alertB R$;
+Se $\aR R\notin \aB R$ então $\aR R$ não pertence nele mesmo
+(ou seja, $\aR R$ é tranqüilo) e logo pela definição de $\aB R$
+temos $\aR R \in \aB R$;
 e assim esse caso também é impossível!
 Sem muitas palavras:
 \compute
-\alertR R\in {\alertB R}
-&\implies \text{$\alertR R$ tranqüilo}     \by {def.~$\alertB R$} \\
-&\implies \alertR R \notin \alertR R       \by {def.~$\alertR R$ tranqüilo} \\
-\alertR R\notin \alertB R
-&\implies \text{$\alertR R$ não tranqüilo} \by {def.~$\alertB R$} \\
-&\implies \alertR R \in \alertR R          \by {def.~$\alertR R$ tranqüilo} \\
+\aR R\in {\aB R}
+&\implies \text{$\aR R$ tranqüilo}     \by {def.~$\aB R$} \\
+&\implies \aR R \notin \aR R           \by {def.~$\aR R$ tranqüilo} \\
+\aR R\notin \aB R
+&\implies \text{$\aR R$ não tranqüilo} \by {def.~$\aB R$} \\
+&\implies \aR R \in \aR R              \by {def.~$\aR R$ tranqüilo} \\
 \endcompute
 Ou seja, concluimos que:
 $$
