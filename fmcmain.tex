@@ -6144,7 +6144,7 @@ Assim ganhamos nos nossos dados o $\phi$ e nosso alvo é $\psi$.
 
 A disjunção $\phi\lor\psi$ representa uma informação ambígua, estritamente mais
 fraca que qualquer uma das $\phi,\psi$: $\phi\lor\psi$ é a proposição que pelo
-menos uma das $\phi,\psi$ é valida.
+menos uma das $\phi,\psi$ é válida.
 
 %%}}}
 
@@ -8308,7 +8308,7 @@ $$
 $$
 onde juntamos os passos de atacar o \symq{$\forall$} e o \symq{$\impliessymbol$}
 numa frase só.
-Em geral, podes considerar a indução como um ``feitíço'' que
+Em geral, podes considerar a indução como um ``feitiço'' que
 quando usado transforma um alvo da forma
 $$
 \lforall {x \in \nats} {\phi(x)}
@@ -8350,311 +8350,8 @@ quando escrevemos nosso alvo.  (Muitas vezes isso faz parte do enunciado.)
 \endsection
 %%}}}
 
-%%{{{ The principle of finite induction 
-\section O princípio da indução finita (PIF).
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ principle: nats_principle_of_induction 
-\principle Princípio da indução finita (PIF).
-%%%{{{ meta 
-\headerize
-\label nats_principle_of_induction
-\indexes
-    * PIF    seealso: indução
-    * princípio!da indução finita    see: indução
-    ;;
-\defines
-    * PIF
-    * indução
-    ;;
-%%%}}}
-
-Seja $P(n)$ uma propriedade de naturais.
-Se $P(0)$ e, para todo $k\in\nats$,
-$P(k)$ implica $P(k+1)$,
-então $P(n)$ é verdade para todo $n\in\nats$.
-
-%%}}}
-
-%%{{{ FIP schematically 
-\note.
-%%%{{{ meta 
-%%%}}}
-
-Esquematicamente o PIF:
-$$
-\rightbrace{
-\aligned
-\text{\proofpartstylize{Base:}}\quad            & P(0)\\
-\text{\proofpartstylize{Passo Indutivo:}}\quad  & \lforall {k\in\nats} {P(k)\limplies P(k+1)}\quad
-\endaligned
-}
-\implies
-\lforall {n\in\nats} {P(n)}.
-$$
-
-%%}}}
-
-%%{{{ eg: gauss_child 
-\example.
-%%%{{{ meta 
-\label gauss_child
-%%%}}}
-
-Demonstre que
-$$
-    1 + 2 + \cdots + n = \frac { n (n+1) } 2
-$$
-para todo $n\in\nats$.
-
-\solution.
-Por indução, verificamos que a propriedade
-$$
-P(n)
-\defiff
-1 + 2 + \cdots + n = \frac { n (n+1) } 2
-$$
-é válida para todo $n$.
-Primeiramente provamos a base
-$$
-P(0)
-\iff
-\underbrace{1 + 2 + \cdots + 0}_{\text{somatório vazio}}
-= \frac { 0 (0+1) } { 2 }.
-$$
-Realmente, o lado esquerdo é um somatório vazio,
-logo $0$, e o lado direito é o número $0(0+1)/2 = 0$ também.
-Concluimos que $P(0)$.
-\eop
-Seja $k\in\nats$ tal que $P(k)$, ou seja,
-$$
-1 + 2 + \cdots + k = \frac { k (k+1) } 2.\tag{H.I.}
-$$
-Calculamos:
-$$
-\alignat 3
-P(k+1)
-&\iff& 1 + 2 + \cdots + (k+1)        &= \frac { (k+1) (k+2) } 2 \\
-&\iff& 1 + 2 + \cdots + k + (k+1)    &= \frac { (k+1) (k+2) } 2 \\
-&\iff& \frac { k (k+1) } 2  + (k+1)  &= \frac { (k+1) (k+2) } 2 \by {pela H.I.} \\
-&\iff& k \cancel{(k+1)} + 2 \cancel{(k+1)} &= \cancel{(k+1)} (k+2) \\
-&\iff& k + 2                         &= k + 2.
-\endalignat
-$$
-
-%%}}}
-
-%%{{{ x: sum_of_cubes_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_cubes_formula
-%%%}}}
-
-Demonstre que
-$$
-    1 + 8 + 27 + \cdots + n^3 = \paren{\frac { n (n+1) } { 2 } }^2
-$$
-para todo $n\in\nats$.
-
-\hint
-Lembre que o somatório vazio é $0$.
-
-%%}}}
-
-%%{{{ x: sum_of_negative_powers_of_two_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_negative_powers_of_two_formula
-%%%}}}
-
-Observando os valores de:
-$$
-\align
-    1
-    +
-    \frac 1 2
-    &= 2 - \frac 1 2\\
-    1
-    +
-    \frac 1 2
-    +
-    \frac 1 4
-    &= 2 - \frac 1 4\\
-    1
-    +
-    \frac 1 2
-    +
-    \frac 1 4
-    +
-    \frac 1 8
-    &= 2 - \frac 1 8,
-\intertext{adivinhe uma fórmula geral para o somatório}
-    1 + \frac 1 2 + \frac 1 4 + \cdots + \frac 1 {2^n} &= \text{?}
-\endalign
-$$
-e demonstre que ela é válida para todo $n\in\nats$.
-
-%%}}}
-
-%%{{{ x: one_minus_sum_of_1_over_n_formula 
-\exercise.
-%%%{{{ meta 
-\label one_minus_sum_of_1_over_n_formula
-%%%}}}
-
-Calculando os valores de:
-$$
-    \paren{1 - \frac 1 2},
-   \qquad 
-    \paren{1 - \frac 1 2}
-    \paren{1 - \frac 1 3},
-   \qquad
-    \paren{1 - \frac 1 2}
-    \paren{1 - \frac 1 3}
-    \paren{1 - \frac 1 4},
-$$
-adivinhe uma fórmula geral para o produtório
-$$
-\Prod_{i=2}^n\paren{ 1 - \frac 1 i}
-=
-    \paren{1 - \frac 1 2}
-    \paren{1 - \frac 1 3}
-    \paren{1 - \frac 1 4}
-\dotsb
-    \paren{1 - \frac 1 n}
-$$
-e demonstre que ela é válida para todo inteiro $n \geq 2$.
-
-%%}}}
-
-%%{{{ x: sum_of_squares_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_squares_formula
-%%%}}}
-
-Demonstre que para todo $n \in\nats$,
-$$
-\Sum_{i=1}^n i^2
-= \frac {n^3} 3 + \frac {n^2} 2 + \frac n 6.
-$$
-
-%%}}}
-
-%%{{{ x: sum_of_cubes_and_gauss_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_cubes_and_gauss_formula
-%%%}}}
-
-Demonstre que para todo $n \in\nats$,
-$$
-\align
-\Sum_{i=1}^n i^3 &= \paren{\Sum_{i=1}^n i}^2\\
-\text{ou seja,}\qquad
-1^3 + 2^3 + \dotsb + n^3 &= \paren{ 1 + 2 + 3 + \dotsb + n }^2.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ x: sum_of_threes_and_fives 
-\exercise.
-%%%{{{ meta 
-\label sum_of_threes_and_fives
-%%%}}}
-
-Qualquer número inteiro positivo $n \geq 8$ pode ser escrito
-como somatório de $3$'s e $5$'s.
-
-%%}}}
-
-%%{{{ x 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Seja
-$$
-P(n) \defiff 1 + 2 + \dotsb + n = \frac 1 8 \paren{2n + 1}^2.
-$$
-\tlist:
-\li (i):
-Demonstre que para todo $k\in\nats$, se $P(k)$ então $P(k+1)$.
-\li (ii):
-Critique a oração:
-\emph{\wq{Logo, por indução, temos que $P(n)$ é válido para todo $n\in\nats$.}}.
-\li (iii):
-Mudando apenas o \sq{$=$} para \sq{$>$} ou \sq{$<$}, defina um outro
-predicado $P'(n)$, válido para todo $n\in\nats$ (demonstre a validade
-dele por indução).
-\endtlist
-
-%%}}}
-
-%%{{{ x fibonacci 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Demonstre que para todo $n\in\nats$,
-$$
-\Sum_{i=0}^n F_i = F_{n+2} - 1,
-$$
-onde $F_n$ o $n$-ésimo número Fibonacci.
-
-%%}}}
-
-%%{{{ x fibonacci 2 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Demonstre que para todo $n\in\nats$,
-$$
-\Sum_{i=1}^n F_i^2 = F_n F_{n+1},
-$$
-onde $F_n$ o $n$-ésimo número Fibonacci.
-
-%%}}}
-
-%%{{{ x: n_over_succ_n_formula 
-\exercise.
-%%%{{{ meta 
-\label n_over_succ_n_formula
-%%%}}}
-
-Demonstre que para todo inteiro $n \geq 1$.
-$$
-    \frac 1 {1 \cdot 2} +
-    \frac 1 {2 \cdot 3} +
-    \frac 1 {3 \cdot 4} + \cdots + 
-    \frac 1 {n (n+1)}
-    =
-    \frac n {n+1}
-$$
-
-%%}}}
-
-%%{{{ x: squares_smaller_than_powers_of_two_induction 
-\exercise.
-%%%{{{ meta 
-\label squares_smaller_than_powers_of_two_induction
-%%%}}}
-
-Demonstre que para todo inteiro $n \geq 5$,
-$$
-n^2 < 2^n.
-$$
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Proving properties with induction 
-\section Provando propriedades de naturais com indução.
+\section Demonstrando propriedades de naturais com indução.
 %%%{{{ meta 
 %%%}}}
 
@@ -10571,7 +10268,7 @@ $$
 %%%}}}
 
 %%{{{ df: minimum_first_encounter 
-\definition Elemento mínimo.
+\definition Membro mínimo.
 %%%{{{ meta 
 \label minimum_first_encounter
 \defines
@@ -12111,7 +11808,7 @@ não depende nas escolhas anteriores}''.
 \solution
 O imporante é que em cada passo, qual das nossas disponíveis opções
 será escolhida, não vai afeitar a quantidade das nossas opções no passo seguinte.
-Isso é realmente valido nesse caso.
+Isso é realmente válido nesse caso.
 Se escolher colocar as letras em outra ordem, por exemplo a
 $
 {\txt S},
@@ -13328,7 +13025,7 @@ Pelo princípio da adição então, temos as equações recursivas:
 $$
 \xalignat 2
 a(n) &= a(n-1) + a(n-2)                & b(n) &= b(n-1) +  b(n-2) +  b(n-3)
-\intertext{validas para $n\geq 2$ e $n \geq 3$ respectivamente.
+\intertext{válidas para $n\geq 2$ e $n \geq 3$ respectivamente.
 Devemos definir os casos básicos de cada funcção recursiva:
 $n=0,1$ para a $a(n)$, e $n=0,1,2$ para a $b(n)$:}
      &                                 & b(0) &= 1\qquad\explanation{fica} \\
@@ -16901,7 +16598,7 @@ de $a$ por $b$.
 \label mod_vs_mod
 %%%}}}
 
-Para cada uma das expressões abaixo uma das três opções é valida:
+Para cada uma das expressões abaixo uma das três opções é válida:
 (a) ela denota um termo;
 (b) ela denota uma afirmação; ou
 (c) ela não tem significado.
@@ -17073,8 +16770,8 @@ Todas seguem facilmente pela definição (\reftag[congruence]) de congruência m
 \label wrong_cancellation_law_modulo_m
 %%%}}}
 
-O lei de cancelamento, mesmo valido nas igualdades,
-não é valido nas congruências em geral.
+O lei de cancelamento, mesmo válido nas igualdades,
+não é válido nas congruências em geral.
 Por exemplo,
 $3\ntimes 2 \cong 3\ntimes 8 \pmod {18}$,
 mas não podemos cancelar os $3$ nos dois lados:
@@ -24391,7 +24088,7 @@ Procure contraexemplos:
 para cada afirmação,
 defina duas seqüências $\seqn A n$ e $\seqn B n$
 que satisfazem a condição do problema, e mesmo assim,
-não é valida a conclusão proposta.
+não é válida a conclusão proposta.
 
 \solution
 Vamos construir um contraexemplo para cada afirmação.
@@ -29714,13 +29411,13 @@ ou seja, $f$ é constante.
 %%%}}}
 
 No caso geral, alguma das direções
-da~\ref[constant_function_definitions_almost_agree] é valida ainda?
+da~\ref[constant_function_definitions_almost_agree] é válida ainda?
 
 \solution
 Sim, a {\rldir}.
 Observe \emph{bem} que na demonstração dessa direção não precisamos $A\neq\emptyset$.
 E pelo~\ref[constant_notiff_steady] já sabemos que a {\lrdir} não é
-valida em geral.
+válida em geral.
 
 %%}}}
 
@@ -34722,7 +34419,7 @@ Para cada uma das direções responda\dots
 (1) ``sim'', e demonstre;
 (2) ``não'', e refute; ou
 (3) ``depende'', e mostre dois exemplos:
-um onde a implicação é valida, e outro onde não é.
+um onde a implicação é válida, e outro onde não é.
 
 \hint
 Ambas as implicações são válidas.
@@ -39943,9 +39640,9 @@ Defina formalmente as ``potências'' $R^n$ duma dada relação binária $R$
 num conjunto $A$, informalmente definida por:
 $$
 x \relp{R^n} y \pseudodefiff
-x \rel{\Big(\tunderbrace{R \rcom\dotsb\rcom R}{$n$ vezes}\Big)} y,
+x \rel{\Big(\tubrace{R \rcom\dotsb\rcom R}{$n$ vezes}\Big)} y,
 $$
-valida \emph{para todo $n\in\nats$}.
+válida \emph{para todo $n\in\nats$}.
 
 \hint
 Questão: o que precisa achar para tua definição servir para o caso $n=0$ também?
@@ -46738,7 +46435,7 @@ $$
 É comum adivinhar erroneamente que em geral
 $\ginvp{a \ast b} = \ginv a \ast \ginv b$.
 O erro é feito pois, acostumados com certos grupos \emph{bem especiais}
-como o $\sset {\reals_{\neq0}} {\ntimes}$ (onde essa lei realmente é valida),
+como o $\sset {\reals_{\neq0}} {\ntimes}$ (onde essa lei realmente é válida),
 generalizamos para o caso geral de grupos, sem perceber algo estranho e
 esquisito que acontece nessa equação.  Repensanso em nosso exemplo-guia de
 grupos, o~$\sym 3$, o que significa~$a \ast b$?
@@ -65016,7 +64713,7 @@ definir nenhuma dessas operações!
 %%%}}}
 
 Estudamos o paradoxo de Russell, e a resolução do problema por Zermelo:
-\emph{o princípio de comprehensão geral não é valido;
+\emph{o princípio de comprehensão geral não é válido;
 usando o separation axiom evitamos cair no paradoxo}.
 Mas o aluno Blammenos pensou:
 \dialogue
@@ -66047,7 +65744,7 @@ Tomando cuidado, sobre esse operador nos permitimos usar
 as \mref[spec_tup1]~\&~\mref[spec_tup2] da \reftag[tup_specification].
 Falamos então que estamos sendo $\tup{\,}$-\dterm{agnósticos}.
 Por exemplo, não podemos afirmar que $\set {x} \in \tup {x,y}$.
-Sim, isso é valido com a implementação de Kuratowski, mas é uma
+Sim, isso é válido com a implementação de Kuratowski, mas é uma
 \emph{coincidência} e não uma \emph{conseqüência} da especificação
 de par ordenado.
 Talvez outra implementação não tem essa propriedade,
