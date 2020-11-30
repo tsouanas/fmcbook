@@ -16379,11 +16379,27 @@ $a_i\in\ints$.
 \endsection
 %%}}}
 
-%%{{{ Expansion_and_positional_systems 
+%%{{{ Expansions_and_positional_systems 
 \section Expansão e sistemas posicionais.
 %%%{{{ meta 
-\label Expansion_and_positional_systems
+\label Expansions_and_positional_systems
 %%%}}}
+
+%%{{{ intro 
+\secintro
+Até agora temos usado os numerais que conheçemos desde crianças
+para referir aos números inteiros.  Considerei dado que tu já
+sabes todos esses (infinitos!)~nomes de números, e que tu entendes
+como interpretar e \dq{como funciona} esse sistema de numerais.
+Mas suponha que um ser alienígeno que usa um sistema de numerais
+completamente diferente do nosso acha difícil acreditar que nosso
+sistema funciona mesmo:  \utter{Como vós sabeis\foot
+os alienigenos conjugam até no segundo plural, pelo jeito\dots
+\toof
+que não tem números inteiros sem numeral?}
+Nesta secção estudamos esse sistema, respondemos nessa e em mais
+perguntas, e encontramos outros sistemas posicionais de numerais.
+%%}}}
 
 %%{{{ thm: expansion_in_base 
 \theorem expansão em base.
@@ -16395,13 +16411,162 @@ $a_i\in\ints$.
 %%%}}}
 
 Seja $b \geq 2$.
-Todo positivo inteiro $x$ pode ser escrito $n\in\nats$ com $n > 1$.
+Para todo inteiro $x \leq 0$ existem únicos $m, d_0, \dotsc, d_m$ tais que:
+$$
+x = d_m b^m + \dotsb + d_1 b^1 + d_0 b^0
+$$
+onde:
+\tlist:
+\li  (i): para todo $i \in \set{0,\dotsc,m}$, $d_i \in \set{0,\dotsc,b-1}$;
+\li (ii): $d_m = 0 \implies m=0$.
+\endtlist
+
+%%}}}
+
+%%{{{ Symbols for digits 
+\note Símbolos para os dígitos.
+%%%{{{ meta 
+%%%}}}
+
+Para os sistemas posicionais com base $b \leq 10$ usamos os símbolos
+$$
+\mathtt 0, \mathtt 1, \mathtt 2, \mathtt 3, \mathtt 4,
+\mathtt 5, \mathtt 6, \mathtt 7, \mathtt 8, \mathtt 9.
+$$
+como dígitos.
+Quando a base $b$ é maior mas ainda $b \leq 36$ usamos os
+$$
+\mathtt A, \mathtt B, \mathtt C, \dotsc, \mathtt X, \mathtt Y, \mathtt Z
+$$
+com valores $10,11,12,\dots,33,34,35$ respectivamente.
+O sistema mais usado com base $b>10$ é o \dterm{hexadecimal} com $b = 16$,
+onde realmente usamos os dígitos
+$$
+\mathtt 0, \mathtt 1, \mathtt 2, \mathtt 3, \mathtt 4,
+\mathtt 5, \mathtt 6, \mathtt 7, \mathtt 8, \mathtt 9,
+\mathtt A, \mathtt B, \mathtt C, \mathtt D, \mathtt E, \mathtt F.
+$$
+
+%%}}}
+
+%%{{{ remark: 0x_etc 
+\remark.
+%%%{{{ meta 
+\label 0x_etc
+%%%}}}
+
+Muitas linguagens de programação usam o prefixo $\mathtt{0x}$ como indicação
+que o numeral que segue é hexadecimal.  Similarmente o $\mathtt{0o}$ (ou simplesmente
+um numeral que começa com $\mathtt 0$) indica octal, e o $\mathtt{0b}$ binário.
+Por examplo $\mathtt{0x20}$ seria o numero $\numbase 16 {20}$, ou seja o $32$;
+$\mathtt{0b100}$ seria o $\numbase 2 {100}$, ou seja o $4$, e $\mathtt{0750}$ ou $\mathtt{0o750}$ seria o $\numbase 8 {750}$, ou seja o $488$.
+Essas são apenas convenções que certas linguagens seguem, então em forma geral
+não conte com nenhuma delas (a mais estabelecida sendo a do $\mathtt{0x}$).
 
 %%}}}
 
 \TODO termine.
 
-\TODO mencione balanced ternary e non-standard positional systems.
+\TODO mencione (outros) non-standard positional systems.
+
+%%{{{ x: negative_remainders 
+\exercise.
+%%%{{{ meta 
+\label negative_remainders
+%%%}}}
+
+Demonstre que dado qualquer inteiro $a$, existem únicos inteiros $q$ e $r$
+tais que $a = 3q + r$ e $-1\leq r \leq 1$.
+
+\hint
+Use a divisão de Euclides.
+
+%%}}}
+
+%%{{{ x: balanced_ternary 
+\exercise Balanced ternary.
+%%%{{{ meta 
+\label balanced_ternary
+\pdefs
+    \pdef T {{\mathtt T}}
+    \pdef O {{\mathtt O}}
+    \pdef I {{\mathtt I}}
+    ;;
+%%%}}}
+
+Para qualquer inteiro $x$ existem únicos $m,d_0,\dotsc,d_m$ tais que
+$$
+x = d_m 3^m + \dotsb + d_1 3^1 + d_0 3^0,
+$$
+onde:
+\tlist:
+\li  (i): para todo $i \in \set{0,\dotsc,m}$, $d_i \in \set{-1,0,1}$;
+\li (ii): $d_m = 0 \implies m=0$.
+\endtlist
+Usando como digitos os símbolos $\T$, $\O$, $\I$ com valores $-1$, $0$, $1$ respectivamente
+podemos então escrever qualquer inteiro sem sequer precisar um símbolo de sinal para os negativos.  Uns exemplos:
+$$
+\matrix
+\format
+\r\ &\;\c\;& \ \r\         &\c & \ \r\           &\c & \ \r\           &\c & \ \r\            &\quad\c\quad& \ \r     \\
+0   &=     &               &   &                 &   &                 &   &    0 \ntimes 3^0 &\leadsto    & \O       \\
+1   &=     &               &   &                 &   &                 &   &    1 \ntimes 3^0 &\leadsto    & \I       \\
+7   &=     &               &   &   1 \ntimes 3^2 & + &(-1) \ntimes 3^1 & + &    1 \ntimes 3^0 &\leadsto    & \I\T\I   \\
+-7  &=     &               &   &(-1) \ntimes 3^2 & + &   1 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \T\I\T   \\
+26  &=     & 1 \ntimes 3^3 & + &   0 \ntimes 3^2 & + &   0 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \I\O\O\T \\
+\endmatrix
+$$
+
+%%}}}
+
+%%{{{ x: factorial_base_system_lemma 
+\exercise.
+%%%{{{ meta 
+\label factorial_base_system_lemma
+%%%}}}
+
+Demonstre por indução que para todo $n \in \nats$,
+$\quad\dsize\Sum\limits_{i=0}^n i \ntimes \factorial i = \factorialp {n+1} - 1$.
+
+%%}}}
+
+%%{{{ x: factorial_base_system 
+\exercise.
+%%%{{{ meta 
+\label factorial_base_system
+%%%}}}
+
+Os sistemas posicionais de numerais que encontramos até agora usam um fixo conjunto de dígitos para cada posição.
+Agora vamos encontrar um onde para cada posição $i$, podemos usar dígitos com valores nos $0,\dotsc,i$.
+Na posição $0$ então temos apénas uma opção: o próprio $0$, e logo essa posição sempre tá ocupada por $0$.
+Na posição $1$ já temos dois dígitos disponíveis, com valores $0$ e $1$.
+Na posição $42$ temos quarenta e dois dígitos disponíveis; seus valores são: o $0$, o $1$, o $2$, \dots, o $40$, o $41$, e o $42$.
+Cuidado, vamos usar aqui seus valores como dígitos, mesmo que no papel o $42$
+que acabei de escrever dá a impressão que ele mesmo é composto por dois dígitos,
+mas não é o caso aqui!
+Por isso, usamos o $:$ para separarar ``as casas''.
+O primeiro numeral em baixo seria válido, mas o segundo não
+\mathcols 2
+&4:0:2:2:0:0 &
+&5:2:4:2:0:0
+\endmathcols
+pois na posição $3$ tem o $4>3$.
+Novamente os valores dos dígitos vão acabar sendo coeficientes de algo que depende da posição e todos os termos serão somados.
+Como sempre, escrevemos um número $x$ como
+\mathcols 2
+x & = d_n a_n + d_{n-1} a_{n-1} + \dotsb d_2 a_2 + d_1 a_1 + d_0 a_0  &
+0 &\leq d_i \leq D_i
+\endmathcols
+onde $D_i$ denota o maior valor de dígito para a $i$-ésima posição.
+Neste sistema temos:
+\mathcols 3
+a_i &= \factorial i    &
+D_i &= i
+\endmathcols
+Demonstre que tal sistema ``funciona'':
+cada inteiro pode ser escrito neste sistema numa única maneira.
+
+%%}}}
 
 \endsection
 %%}}}
