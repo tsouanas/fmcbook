@@ -8168,21 +8168,71 @@ Obviamente precisamos uma outra técnica para demonstrar esse teorema.
 \label Induction
 %%%}}}
 
-%%{{{ Induction scheme 
+%%{{{ principle: nats_principle_of_induction 
+\principle Princípio da indução finita (PIF).
+%%%{{{ meta 
+\headerize
+\label nats_principle_of_induction
+\indexes
+    * PIF                        seealso: indução
+    * princípio!da indução finita    see: indução
+    ;;
+\defines
+    * PIF
+    * indução
+    ;;
+%%%}}}
+
+Seja $\phi(\dhole)$ uma propriedade de naturais.
+Se $\phi(0)$ e para todo $k\in\nats$
+$\phi(k)$ implica $\phi(Sk)$,
+então para todo $n\in\nats$, $\phi(n)$.
+
+%%}}}
+
+%%{{{ induction_scheme_rule 
 \note Schema da indução.
 %%%{{{ meta 
+\label induction_scheme_rule 
+\defines
+    * indução!base
+    * indução!passo indutivo
+    * indução!hipótese indutiva
+    ;;
+\indexes
+    * H.I.               see: hipótese indutiva
+    * P.I.               see: passo indutivo
+    * base               see: indução
+    * passo indutivo     see: indução
+    * hipótese indutivo  see: indução
+    ;;
 %%%}}}
 
 Suponha que $\phi(x)$ é uma afirmação que depende num $x\in\nats$.
 Em forma de regra de inferência, o princípio da indução é o seguinte:
 $$
-\PROOFm {
-\A {\phi(0)}
-\A                    {\lforall k {\phi(k)\implies \phi(Sk)}}
-\I2------------------------------------------------------------ {Ind$_\phi$}
-            {\lforall n {\phi(n)}}
+\PROOFmr {
+     \A {\phi(0)}      \A {\lforall k {\phi(k) \implies \phi(Sk)}}
+\I2---------------------------------------------------------------- {Ind$_\phi$}
+                     {\lforall n {\phi(n)}}
 }
 $$
+onde chamamos
+a proposição $\phi(0)$
+de \dterm{base}
+e
+a $\lforall k {\phi(k) \implies \phi(Sk)}$
+de \dterm{passo indutivo}:
+$$
+\PROOFmr {
+\A {\tobrace {\phi(0)} {\explanation{Base}}}   \A {\tobrace {\lforall k {\phi(k) \implies \phi(Sk)}} {\explanation{Passo indutivo}}}
+\I2---------------------------------------------------------------- {Ind$_\phi$}
+                     {\lforall n {\phi(n)}}
+}
+$$
+Mas esses são apenas os apelidos que usamos freqüentemente; nada mais que isso.
+Como vamos ver logo, a proposição $\phi(k)$ no esquema acima também tem um apelido:
+\dterm{hipótese indutiva (H.I.)}.
 
 %%}}}
 
@@ -8320,6 +8370,8 @@ $$
 \text{\proofpart{Passo indutivo}:}\quad & \lforall {k\in\nats} {\phi(k) \implies \phi(Sk)}
 \endalign
 $$
+(exatamente como a regra do~\reftag[induction_scheme_rule]
+disse, lida de baixo para cima).
 Fora disso, \emph{não tem nada mais mágico} que acontece:
 o feitiço já foi feito e seu efeito já aconteceu.
 E depois?
@@ -9216,18 +9268,13 @@ Calculamos:
 
 %%}}}
 
-%%{{{ df: natops_leq_def 
-\definition.
-%%%{{{ meta 
-\label natops_leq_def
-%%%}}}
-
-Definimos a relação $\leq$ assim:
-$$
-n \leq m \defiff \lexists {k\in\nats} {n + k = m}.
-$$
-
+\endsection
 %%}}}
+
+%%{{{ Order in the naturals 
+\section Ordem nos naturais.
+%%%{{{ meta 
+%%%}}}
 
 %%{{{ x: natleq_lemma 
 \exercise.
@@ -9332,6 +9379,19 @@ $$
 
 %%}}}
 
+%%{{{ x: squares_smaller_than_powers_of_two_induction 
+\exercise.
+%%%{{{ meta 
+\label squares_smaller_than_powers_of_two_induction
+%%%}}}
+
+Demonstre que para todo $n \geq 5$,
+$$
+n^2 < 2^n.
+$$
+
+%%}}}
+
 %%{{{ blah 
 \blah.
 %%%{{{ meta 
@@ -9352,6 +9412,239 @@ Na verdade, $\leq$ é ainda mais legal: olha no~\ref[natleq_woset].
 \TODO Definições recursivas de somatórios e produtórios.
 
 \TODO Generalizando operadores binários para $n$-ários.
+
+%%{{{ eg: gauss_child 
+\example.
+%%%{{{ meta 
+\label gauss_child
+%%%}}}
+
+Demonstre que para todo $n\in\nats$,
+$$
+2 \Sum_{i=1}^n i = n (n+1).
+$$
+
+\solution.
+Por indução.
+Primeiramente demonstramos a \proofpart{base:}
+$$
+2 \Sum_{i=1}^0 i \askeq 0 (0+1).
+$$
+Calculamos:
+\math
+2 \Sum_{i=1}^0 i
+= 2 \ntimes 0
+= 0
+= 0 (0+1).
+\endmath
+\proofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+2 \Sum_{i=1}^k i = k (k+1).  \tag{H.I.}
+$$
+Calculamos:
+\compute
+2 \Sum_{i=1}^{k+1} i
+&= 2((k+1) + \Sum_{i=1}^k i) \\
+&= 2(k+1) + 2\Sum_{i=1}^k i \\
+&= 2(k+1) + k(k+1) \by {pela H.I.} \\
+&= (2+k)(k+1) \\
+&= (k+1)(k+2).
+\endcompute
+
+%%}}}
+
+%%{{{ x: sum_of_cubes_formula 
+\exercise.
+%%%{{{ meta 
+\label sum_of_cubes_formula
+%%%}}}
+
+Demonstre que
+$$
+4 \paren{1 + 8 + 27 + \dotsb + n^3} = n^2 (n+1)^2
+$$
+para todo $n\in\nats$.
+
+\hint
+Lembre que o somatório vazio é $0$.
+
+%%}}}
+
+%%{{{ x: sum_of_negative_powers_of_two_formula 
+\exercise.
+%%%{{{ meta 
+\label sum_of_negative_powers_of_two_formula
+%%%}}}
+
+Observando os valores de:
+$$
+\align
+    1
+    +
+    \frac 1 2
+    &= 2 - \frac 1 2\\
+    1
+    +
+    \frac 1 2
+    +
+    \frac 1 4
+    &= 2 - \frac 1 4\\
+    1
+    +
+    \frac 1 2
+    +
+    \frac 1 4
+    +
+    \frac 1 8
+    &= 2 - \frac 1 8,
+\intertext{adivinhe uma fórmula geral para o somatório}
+    1 + \frac 1 2 + \frac 1 4 + \cdots + \frac 1 {2^n} &= \text{?}
+\endalign
+$$
+e demonstre que ela é válida para todo $n\in\nats$.
+
+%%}}}
+
+%%{{{ x: one_minus_sum_of_1_over_n_formula 
+\exercise.
+%%%{{{ meta 
+\label one_minus_sum_of_1_over_n_formula
+%%%}}}
+
+Calculando os valores de:
+$$
+    \paren{1 - \frac 1 2},
+   \qquad 
+    \paren{1 - \frac 1 2}
+    \paren{1 - \frac 1 3},
+   \qquad
+    \paren{1 - \frac 1 2}
+    \paren{1 - \frac 1 3}
+    \paren{1 - \frac 1 4},
+$$
+adivinhe uma fórmula geral para o produtório
+$$
+\Prod_{i=2}^n\paren{ 1 - \frac 1 i}
+=
+    \paren{1 - \frac 1 2}
+    \paren{1 - \frac 1 3}
+    \paren{1 - \frac 1 4}
+\dotsb
+    \paren{1 - \frac 1 n}
+$$
+e demonstre que ela é válida para todo inteiro $n \geq 2$.
+
+%%}}}
+
+%%{{{ x: sum_of_squares_formula 
+\exercise.
+%%%{{{ meta 
+\label sum_of_squares_formula
+%%%}}}
+
+Demonstre que para todo $n \in\nats$,
+$$
+\Sum_{i=1}^n i^2
+= \frac {n^3} 3 + \frac {n^2} 2 + \frac n 6.
+$$
+
+%%}}}
+
+%%{{{ x: sum_of_cubes_and_gauss_formula 
+\exercise.
+%%%{{{ meta 
+\label sum_of_cubes_and_gauss_formula
+%%%}}}
+
+Demonstre que para todo $n \in\nats$,
+$$
+\align
+\Sum_{i=1}^n i^3 &= \paren{\Sum_{i=1}^n i}^2\\
+\text{ou seja,}\qquad
+1^3 + 2^3 + \dotsb + n^3 &= \paren{ 1 + 2 + 3 + \dotsb + n }^2.
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: sum_of_threes_and_fives 
+\exercise.
+%%%{{{ meta 
+\label sum_of_threes_and_fives
+%%%}}}
+
+Qualquer número inteiro positivo $n \geq 8$ pode ser escrito
+como somatório de $3$'s e $5$'s.
+
+%%}}}
+
+%%{{{ x 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Seja
+$$
+\phi(n) \defiff 1 + 2 + \dotsb + n = \frac 1 8 \paren{2n + 1}^2.
+$$
+\tlist:
+\li (i):
+Demonstre que para todo $k\in\nats$, se $\phi(k)$ então $\phi(k+1)$.
+\li (ii):
+Critique a oração:
+\emph{\wq{Logo, por indução, temos que para todo $n\in\nats$, $phi(n)$.}}.
+\li (iii):
+Mudando apenas o \sq{$=$} para \sq{$>$} ou \sq{$<$}, defina um outro
+predicado $\psi(\dhole)$ tal que para todo $n\in\nats$, $\psi(n)$
+(demonstre por indução).
+\endtlist
+
+%%}}}
+
+%%{{{ x fibonacci 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre que para todo $n\in\nats$,
+$$
+\Sum_{i=0}^n F_i = F_{n+2} - 1,
+$$
+onde $F_n$ o $n$-ésimo número Fibonacci.
+
+%%}}}
+
+%%{{{ x fibonacci 2 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre que para todo $n\in\nats$,
+$$
+\Sum_{i=1}^n F_i^2 = F_n F_{n+1},
+$$
+onde $F_n$ o $n$-ésimo número Fibonacci.
+
+%%}}}
+
+%%{{{ x: n_over_succ_n_formula 
+\exercise.
+%%%{{{ meta 
+\label n_over_succ_n_formula
+%%%}}}
+
+Demonstre que para todo inteiro $n \geq 1$.
+$$
+    \frac 1 {1 \cdot 2} +
+    \frac 1 {2 \cdot 3} +
+    \frac 1 {3 \cdot 4} + \cdots + 
+    \frac 1 {n (n+1)}
+    =
+    \frac n {n+1}
+$$
+
+%%}}}
 
 \endsection
 %%}}}
@@ -9774,20 +10067,22 @@ $\text{PIF} \iff \text{PIFF}$.
 Seguindo o teorema acima, parece que não precisamos demonstrar uma ``base''
 na indução forte.
 Critique a seguinte afirmação:
-``\emph{Quando quero demonstrar um teorema da forma
-$\forall n P(n)$
-usando indução, eu preciso mostrar uma(s) base(s)
-$P(0), P(1), \dotsc, P(b)$
-e depois demonstrar o $P(k+1)$,
+\quote
+Quando quero demonstrar um teorema da forma
+$\lforall n {\phi(n)}$
+usando indução, eu preciso demostrar uma(s) base(s)
+$\phi(0), \phi(1), \dotsc, \phi(b)$
+e depois demonstrar o $\phi(k+1)$,
 dado apenas umas $b+1$ hipoteses:
-$P(k), P(k-1), \dotsc, P(k-b)$.
+$\phi(k), \phi(k-1), \dotsc, \phi(k-b)$.
 No outro lado, usando indução forte eu preciso mostrar menos
 coisas: não tenho que mostrar nenhuma base;
-e, além disso, no meu esforço para demonstrar o $P(k+1)$,
+e, além disso, no meu esforço para demonstrar o $\phi(k+1)$,
 eu não vou ter apenas umas poucas hipoteses, mas
-todos os $P(i)$ para $i<k+1$.
-Como os dois princípios são equivalentes no $\nats$,
-eu vou sempre usar indução forte.}''
+todos os $\phi(i)$ para $i<k+1$.
+Como os dois princípios são válidos no $\nats$,
+eu vou sempre usar indução forte.
+\endquote
 
 \hint
 Quantos $i\in\nats$ satisfazem $i < 0$?
@@ -10278,27 +10573,28 @@ $$
 %%%}}}
 
 Seja $A$ um conjunto ordenado.
-Um elemento $m\in A$ é chamado
-\dterm{(elemento) mínimo do $A$}
+Um membro $m\in A$ é chamado
+\dterm{(membro) mínimo do $A$}
 sse
 $m$ é menor de todos os outros elementos do $A$.
-Quando o conjunto $A$ possui elemento mínimo,
+Quando o conjunto $A$ possui mínimo,
 escrevemos $\min A$ para denotá-lo:
 $$
-m = \min A \defiff m\in A \;\land\; \lforall {a\in A} {a \neq m \limplies m < a}.
+m = \min A
+\defiff
+m\in A \mland \lforall {a\in A} {m \leq a}.
 $$
-Note que necessariamente o mínimo dum conjunto $A$ pertence no $A$.
+Note que necessariamente o mínimo dum conjunto $A$, se existe, pertence ao $A$.
 
 %%}}}
 
-%%{{{ remark: we_must_prove_uniqueness_of_min 
-\remark.
+%%{{{ blah 
+\blah.
 %%%{{{ meta 
-\label we_must_prove_uniqueness_of_min
 %%%}}}
 
-Para justificar a definição do símbolo $\min A$, \emph{devemos} demonstrar o
-seguinte:
+Para justificar a definição do símbolo $\min A$, \emph{devemos}
+demonstrar o seguinte:
 
 %%}}}
 
@@ -10308,16 +10604,31 @@ seguinte:
 \label uniqueness_of_minimum
 %%%}}}
 
-Um conjunto não pode ter mais que um elemento mínimo.
+Um conjunto não pode ter mais que um mínimo.
+Quais propriedades da $\leq$ precisamos?
 
 \hint
 Suponha que tem dois mínima diferentes
 e aplicando a definição de ``mínimo''
-e propriedades de $<$,
-chega numa contradição.
+e propriedades de $\leq$,
+conclua que são iguais.
 
 \hint
-Pela transitividade, $a<b$ e $b<a$ implicam uma contradição.
+Pelas $m_1 \leq m_2$ e $m_2 \leq m_1$ concluimos que $m_1 = m_2$.
+
+\solution
+Sejam $m_1, m_2$ dois mínima dum conjunto $A$, ou seja, temos
+$m_1, m_2 \in A$, e também
+\mathcols 2
+\lforall {a\in A} {m_1 \leq a} &
+\lforall {a\in A} {m_2 \leq a}
+\endmathcols
+Usando a primeira com $a \asseq m_2$ e a segunda com $a \asseq m_1$ temos:
+$$
+m_1 \leq m_2 \mland
+m_2 \leq m_1.
+$$
+Portanto, $m_1 = m_2$ (pela antisimetria da $\leq$).
 
 %%}}}
 
@@ -10328,22 +10639,19 @@ Pela transitividade, $a<b$ e $b<a$ implicam uma contradição.
 %%%}}}
 
 Seja $U$ um conjunto unitário ordenado.
-Demonstre que ele tem elemento mínimo.
+Demonstre que ele tem mínimo.
+Quais propriedades da $\leq$ tu precisas aqui?
 
-%%}}}
-
-%%{{{ x: finite_nonempty_subset_of_poset_has_minimum 
-\exercise.
-%%%{{{ meta 
-\label finite_nonempty_subset_has_minimum
-%%%}}}
-
-Seja $A$ um conjunto ordenado, e um subconjunto finito $A_0\finsubset A$,
-com $A_0\neq\emptyset$.
-O $A_0$ possui elemento mínimo.
-
-\hint
-Indução no tamanho do $A_0$.
+\solution
+Seja $m \in U$ o único membro do $U$.
+Vamos confirmar que satisfaz a definição de mínimo.
+Já temos que $m$ é um membro do $U$, então basta verificar que
+$$
+\lforall {u \in U} { m \leq u }.
+$$
+Seja $u \in U$ então.
+Como $U$ unitário, temos $m = u$.
+Portanto $m \leq u$ (pela reflexividade da $\leq$).
 
 %%}}}
 
@@ -10360,19 +10668,36 @@ Indução no tamanho do $A_0$.
     ;;
 %%%}}}
 
-Cada subconjunto não vazio do\/ $\nats$ possui mínimo.
+Cada subconjunto não vazio do $\nats$ possui mínimo.
 
 \sketch.
 Seja $P(n)$ a propriedade que cada subconjunto $A\subset\nats$
-que possui elementos menores ou iguais a $n$ tem mínimo.
-Vamos mostrar por indução que para todo $n$, $P(n)$.
+que possui membros menores ou iguais a $n$ tem mínimo.
+Mostramos por indução que para todo $n$, $P(n)$.
 
 %%}}}
 
-%%{{{ x: which_orders_are_wellorders 
+%%{{{ x: why_standard_induction_on_size_does_not_work 
 \exercise.
 %%%{{{ meta 
-\label which_orders_are_wellorders
+\label why_standard_induction_on_size_does_not_work
+%%%}}}
+
+Podemos demonstrar o princípio da boa ordem usando
+indução no tamanho do subconjunto $A$?
+
+\solution
+Não, isso nos levaria dum resultado apenas
+para os subconjuntos finítos de $A$.
+O princípio da boa ordem aplica para qualquer
+subconjunto não vazio de $\nats$, até para os infinitos.
+
+%%}}}
+
+%%{{{ x: spot_the_wosets_1 
+\exercise.
+%%%{{{ meta 
+\label spot_the_wosets_1
 %%%}}}
 
 Quais dos $\ints$, $\rats$, $\rats_{>0}$, $\rats_{\geq0}$, $\reals$,
@@ -10380,10 +10705,10 @@ satisfázem a propriedade de boa ordem?
 
 %%}}}
 
-%%{{{ x: which_subsets_are_well_ordered 
+%%{{{ x: spot_the_wosets_2 
 \exercise.
 %%%{{{ meta 
-\label which_subsets_are_well_ordered
+\label spot_the_wosets_2
 %%%}}}
 
 Seja $a\in\reals$.
@@ -10458,12 +10783,14 @@ Demonstre que $a=\pm1$ e $b=\pm1$.
     ;;
 %%%}}}
 
-Seja $A\subset\nats$ tal que $0\in A$ e $n+1\in A$ para todo $n\in A$.
-$A=\nats$.
+Seja $A\subset\nats$ tal que $0\in A$ e para todo $n \in A$, $n+1\in A$.
+Logo $A=\nats$.
 
 \sketch.
-Caso contrário, existeriam ``contraexemplos'', ou seja, naturais que não pertencem ao $A$.
-Aplique a PBO para escolher o menor tal contraexemplo, e chega num absurdo.
+Caso contrário, existeriam ``contraexemplos'', ou seja,
+naturais que não pertencem ao $A$.
+Aplique a PBO para escolher o menor tal contraexemplo,
+e chega num absurdo.
 
 %%}}}
 
@@ -10473,8 +10800,9 @@ Aplique a PBO para escolher o menor tal contraexemplo, e chega num absurdo.
 \label shifted_WOP
 %%%}}}
 
-Demonstre que se um subconjunto $A$ de inteiros tem elementos maiores que um número fixo $n_0$,
-então existe o $\min\setst {a\in A} {n_0 < a}$.
+Demonstre que se um subconjunto $A$ de inteiros
+tem membros maiores que um número fixo $n_0$,
+então existe o $\min \setst {a\in A} {n_0 < a}$.
 
 %%}}}
 
@@ -10556,6 +10884,212 @@ Tu demonstrarás isso no~\ref[rec_and_nonrec_def_of_order_agree].
 \endsection
 %%}}}
 
+%%{{{ Induction on such and such 
+\section Indução em tal coisa.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ intro 
+\secintro
+Até agora usamos indução para demonstrar proposições da forma
+$$
+\text{para todo natural $n$, $\phi(n)$}.
+$$
+Já encontramos como ``hackear o sistema'' escolhendo um apropriado
+$\phi(\dhole)$, conseguindo assim demonstrar proposições que variaram
+um pouco do padrão original.
+Nesta secção vamos hackear pouco mais!
+%%}}}
+
+\TODO terminar e arrumar.
+
+%%{{{ on the size of sets 
+\note Todo conjunto finito.
+%%%{{{ meta 
+%%%}}}
+
+Vamos supor que estamos tentando demostrar algo da forma
+$$
+\text{para todo conjunto $S$, $\phi(S)$}.
+$$
+Podemos usar indução?  Parece que estamos bem longe do padrão permitido,
+essa mudança de <<todo natural>> para <<todo conjunto>> não vai ser tão
+fácil de hackear como quando mudamos para conseguir um <<todo natural maior que $8$>>.
+E se for realmente <<todo conjunto>> podemos esquecer a indução
+que aprendemos; mas se for <<todo conjunto \emph{finito}>>?
+$$
+\text{para todo conjunto finito $S$, $\phi(S)$}.
+$$
+
+%%}}}
+
+%%{{{ Q: how can we use induction now? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Agora podemos usar indução sim, mas em que?
+
+%%}}}
+
+\spoiler
+
+%%{{{ A 
+\blah Resposta.
+%%%{{{ meta 
+%%%}}}
+
+Indução \emph{no tamanho de $S$}.
+
+%%}}}
+
+%%{{{ df: finite_cardinality_recursively 
+\definition Cardinalidade de conjunto recursivamente.
+%%%{{{ meta 
+\label finite_cardinality_recursively
+%%%}}}
+
+Definimos a cardinalidade $\card A$ dum conjunto finito $A$ pelas:
+\mathcol
+\card A = 0   & \iff A = \emptyset \\
+\card A = Sn  & \iff
+\pexists {a \in A}
+\lexists {A' \subset A}
+         { a \notin A'
+           \mland \card {A'} = n
+           \mland \mubrace {\lforall {x \in A} {\text{$x = a$ ou $x \in A'$}}}
+                               {A \subset \set{a} \union A'}
+         }
+\endmathcol
+Se existe $n \in \nats$ tal que $\card A = n$ dizemos que $A$ é \dterm{finito}.
+
+%%}}}
+
+%%{{{ Givens about numbers and order 
+\note Dados sobre números e ordem.
+%%%{{{ meta 
+%%%}}}
+
+Considere os números que tu conhece desde criança, e a ordem $\leq$
+neles, onde consideramos dado que para
+quaisquer números $x,y,z$, temos:
+\mathcols 3
+&x \leq x &
+&x \leq y \mland y \leq z \implies x \leq z &
+&x \leq y \mland y \leq x \implies x = y
+\endmathcols
+e também que quais quer dois números $x,y$ são comparáveis, ou seja, temos
+$x \leq y$ ou $y \leq x$.
+Finalmente, chamamos de \dterm{mínimo}
+$$
+m = \min A
+\defiff
+m \in A \mland \lforall {a \in A} {m \leq a}.
+$$
+Chamamos tal $m$ de \dterm{mínimo membro de $A$}.
+
+%%}}}
+
+%%{{{ lemma: finite_numbersets_have_min 
+\lemma.
+%%%{{{ meta 
+\label finite_numbersets_have_min
+%%%}}}
+
+Qualquer conjunto finito de números $A$ possui mínimo ou é vazio.
+
+\sketch.
+Indução no tamanho do conjunto.
+A base é trivial (quando um conjunto é vazio, ele é vazio).
+Seja $k\in\nats$ tal que
+$$
+\text{todos os conjuntos de tamanho $k$ possuem mínimo ou são vazios.} \tag{HI}
+$$
+Considere um conjunto $A$ de tamanho $k+1$, ou seja,
+$$
+A = \set {a_1, \dotsc, a_k, a_{k+1}}.
+$$
+Pela hipótese indutiva sabemos que $\set{a_1,\dotsc,a_k}$ possui mínimo $m$
+ou é vazio pois ele tem tamanho $k$.
+Caso que ele é vazio, o $a_{k+1}$ é o menor membro do $A$.
+Caso que possui mínimo $m$, o menor membro do $A$ é o menor dos $m$ e $a_{k+1}$.
+$$
+\pforall {n \in \nats}
+         {\card A = n \implies \text{$A$ vazio ou $A$ possui mínimo}}.
+$$
+
+\proof.
+Por indução no tamanho do conjunto $A$ demonstramos que
+$$
+\pforall {n \in \nats}
+\lforall {\text{$A$ conjunto}}
+         {\card A = n \implies \text{$A$ vazio ou $A$ possui mínimo}}.
+$$
+Observe que agora nossa indução virou <<indução original>>.
+\proofpart{Base: $\card A = 0 \implies \text{$A$ vazio ou $A$ possui mínimo}$.}
+Suponha $\card A = 0$.
+Logo temos que $A$ vazio e pronto.
+\proofpart{Passo Indutivo.}
+Seja $k \in \nats$ tal que
+$$
+         {\card H = k \implies \text{$H$ vazio ou $H$ possui mínimo}}.
+         \tag{H.I.}
+$$
+Preciso demonstrar que
+$$
+\lforall {A \subset \nats}
+         {\card A = Sk \implies \text{$A$ vazio ou $A$ possui mínimo}}.
+$$
+Seja $A \subset \nats$ tal que $\card A = Sk$.
+Basta verificar que $A$ vazio ou $A$ possui mínimo.
+Vou conseguir a segunda parte: vou demonstrar que $A$ possui mínimo.
+Como $\card A = Sk$, temos:
+$$
+\pexists {a \in A}
+\lexists {A' \subset A}
+         { a \notin A'
+           \mland \card {A'} = k
+           \mland \lforall {x \in A} {\text{$x = a$ ou $x \in A'$}}
+         }
+$$
+e logo sejam $m \in A$, $A' \subset A$, tais que
+$$
+\tubrace {m \notin A'} {(1a)}
+\mland \tubrace {\card {A'} = k} {(1b)}
+\mland \tubrace {\lforall {x \in A} {\text{$x = m$ ou $x \in A'$}}} {(1c)}.
+\tag {1}
+$$
+Usamos a (HI) agora $H \asseq A'$, e já que $\card {A'} = k$ (pela (1b)) temos:
+$$
+\text{$A'$ vazio ou $A'$ possui mínimo}.
+$$
+Separamos em casos.
+\case{Caso $A'$ vazio.}
+Afirmo que $\min A = m$.
+Basta verificar, ou seja, mostrar que $m$ é menor de qualquer membro de $A$.
+Seja $x \in A$.
+Pela escolha dos $m,A'$ ((1c) com $x \asseq x$) temos que $x = m$ ou $x \in A'$.
+No primeiro subcaso temos imediatamente que $m \leq x$ e o segundo subcaso é
+impossível pela hipotese do caso ($A'$ vazio).
+\case{Caso $A'$ possui mínimo.}
+Seja $m' = \min A'$ então.
+Seja $m_*$ o menor dos $m,m'$.
+Afirmo que $\min A = m_*$.
+Basta verificar, ou seja, mostrar que $m_*$ é menor de qualquer membro de $A$.
+Seja $x \in A$ então.
+Novamente pela escolha dos $m,A'$ temos que $x = m$ ou $x \in A'$.
+Tem cada subcaso vou demonstrar que $m_* \leq x$.
+\case{Subcaso $x = m$.}
+Imediato pois pela escolha de $m_* \leq m = x$.
+\case{Subcaso $x \in A'$.}
+Pela escolha dos $m_*$ e $m'$ respectivamente temos
+$m_* \leq m' \leq x$.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS 
 \problems.
 %%%{{{ meta 
@@ -10567,11 +11101,69 @@ Tu demonstrarás isso no~\ref[rec_and_nonrec_def_of_order_agree].
 \label natleq_woset
 %%%}}}
 
-Demonstre que $\leq$ é uma bem-ordem, i.e.,
+Demonstre por indução que a $\leq$, definda pela
+$$
+n \leq m \defiff \lexists {k\in\nats} {n + k = m}.
+$$
+é uma bem-ordem, i.e.,
 $$
 \text{para todo $A \subset \nats$,\quad
 se $A \neq \emptyset$ então $A$ tem elemento mínimo}.
 $$
+Dizemos que \dterm{mínimo membro de $A$} sse $m \in A$ e $\lforall {a \in A} {m \leq a}$.
+
+\hint
+Reductio ad absurdum.
+
+\hint
+Para chegar num absurdo suponha que existe $C \subset \nats$ não vazio
+tal que $C$ não possui mínimo.
+Vamos demonstrar que para todo $n\in\nats$, $C$ não possui membros $c \leq n$.
+Isso é suficiente para garantir que $C$ é vazio.
+
+\hint
+Agora indução.
+
+\hint
+\case{Base: $C$ não possui membros $c \leq 0$.}
+Imediato, pois o único natural $n \leq 0$ é o próprio $0$ que é o menor
+membro do $\nats$.  Sabemos então que $0 \notin C$ pois caso contrário
+o $C$ teria um mínimo.
+
+\hint
+\case{Passo Indutivo.}
+Seja $k$ tal que $C$ não possui membros $c \leq k$.
+Basta demonstrar que $C$ não possui membros $c \leq k+1$.
+
+\solution
+Usamos reductio ad absurdum.
+Para chegar num absurdo suponha que existe $C \subset \nats$ não vazio
+tal que $C$ não possui mínimo.
+Vamos demonstrar que para todo $n\in\nats$, $C$ não possui membros $c \leq n$.
+Isso é suficiente para garantir que $C$ é vazio.
+\case{Base: $C$ não possui membros $c \leq 0$.}
+Imediato, pois o único natural $n \leq 0$ é o próprio $0$ que é o menor
+membro do $\nats$.  Sabemos então que $0 \notin C$ pois caso contrário
+o $C$ teria um mínimo.
+\case{Passo Indutivo.}
+Seja $k$ tal que $C$ não possui membros $c \leq k$.
+Basta demonstrar que $C$ não possui membros $c \leq k+1$.
+Suponha então que $C$ possui $c_0 \leq k+1$.
+Logo $c_0 < k+1$ ou $c_0 = k+1$.
+O caso $c_0 < k+1$ é eliminado pela (HI).
+No outro caso temos $k+1 \in C$.
+% TODO: finish this
+
+%%}}}
+
+%%{{{ prob: finite_numbersets_have_min_quantifier_check 
+\problem.
+%%%{{{ meta 
+\label finite_numbersets_have_min_quantifier_check
+%%%}}}
+
+Faria sentido trocar o \sq{$\pexists {a \in A}$} por \sq{$\pforall {a \in A}$}
+na fim do \ref[finite_numbersets_have_min]?
 
 %%}}}
 
@@ -12779,6 +13371,66 @@ De quantas maneiras podemos formar essas comissões\dots
 \li: \dots se os dois (únicos) irmãos entre os alunos não podem participar na mesma comissão,
 e cada aluno pode participar simultaneamente nas duas?
 \endelist
+
+%%}}}
+
+%%{{{ prob: {abc}* without ab 
+\problem.
+%%%{{{ meta 
+\pdefs
+    \pdef a {{\mathtt a}}
+    \pdef b {{\mathtt b}}
+    \pdef c {{\mathtt c}}
+    ;;
+%%%}}}
+
+Do alfabeto $\set{\a,\b,\c}$ desejamos formar strings de tamanho $\ell$
+onde não aparece o substring $\a\b$.
+Em quantas maneiras podemos fazer isso?
+
+%%}}}
+
+%%{{{ prob: domino 2×n 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Conte em quantas maneiras podemos cobrir um tabuleiro de dimensão
+$2\times n$ com peças-dominô (ou seja, peças de dimensão $2\times 1$).
+
+\hint
+Recursão.
+
+\hint
+O quadradinho na posição $(1,1)$ pode ser coberto em apenas duas maneiras:
+(A) por uma peça ocupando as posições $(1,1)$--$(1,2)$;
+(B) por uma peça ocupando as posições $(1,1)$--$(2,1)$.
+
+\solution
+Seja $f(n)$ a quantidade de maneiras que podemos cobrir
+um tabuleiro de tamanho $2 \times n$.
+Começamos observando que para um tabuleiro $2 \times 0$
+temos exatamente uma maneira de cobrir todos os quadradinhos:
+fazendo nada.
+Vamos pular outros casos específicos e voltar caso que precisar.
+O quadradinho na posição $(1,1)$ pode ser coberto em apenas duas maneiras:
+(A) por uma peça ocupando as posições $(1,1)$--$(2,1)$;
+(B) por uma peça ocupando as posições $(1,1)$--$(1,2)$.
+No caso (A), para cobrir o resto que é um tabuleiro
+de $2 \times (n-1)$, temos $f(n-1)$ maneiras.
+No caso (B), observe que tendo a peça cobrindo os $(1,1)$--$(1,2)$,
+o quadradinho $(2,1)$ só pode ser coberto por uma peça no $(2,1)$--$(2,2)$.
+Agora basta cobrir o resto que é um tabuleiro de $2 \times (n-2)$,
+e logo temos $f(n-2)$ maneiras de fazer isso.
+Agora percebemos que precisamos mais uma base (por causa do $n-2$).
+Obviamente para cobrir um tabuleiro de tamanho $2 \times 1$ temos
+exatamente uma maneira.
+Temos então:
+\mathcol
+f(0) &= 1 \\
+f(1) &= 1 \\
+f(n) &= \tubrace {f(n-1)} {(A)} + \tubrace {f(n-2)} {(B)}.
+\endmathcol
 
 %%}}}
 
