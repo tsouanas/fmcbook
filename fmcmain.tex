@@ -68922,6 +68922,7 @@ Demonstre as duas direções da \bidir\ separadamente.
 \label Constructing_more_numbers
 \pdefs
     \pdef eqrat {\approx}
+    \pdef eqint {\approx}
     ;;
 %%%}}}
 
@@ -68936,7 +68937,73 @@ os inteiros, os racionais, os reais, e os complexos.
 
 %%}}}
 
-\TODO Os números inteiros (mostrar a construção).
+%%{{{ The integers 
+\note Os inteiros.
+%%%{{{ meta 
+%%%}}}
+
+Provavelmente a primeira idéia para implementar um inteiro $x$ é usar
+uma $2$-tupla $x \defeq \tup{s,m}$ onde $s$ é um objeto para indicar o sinal
+do $x$ e $m \defeq \abs{x}$.
+Essa resolução, mesmo tecnicamente possível, não é legal.
+Dependendo de se teriamos $2$ ou $3$ sinais podemos acabar com duas distintas
+representações de $0$, números $x \neq 0$ com sinal $0$, ou outros problemas
+similares.
+Além disso, como vamos definir as operações?  Vão acabar sendo definições
+por casos no sinal $s$, na ordem dos argumentos, etc.
+Nenhum desses problemas é difícil corrigir; mas tudo isso deve aparecer
+coisa com cheiro de \dq{ugly hack}.  E é mesmo.
+A idéia é representar os inteiros como diferenças de naturais.
+O inteiro $5$ então pode ser visto como a diferença $12 - 7$;
+e o inteiro $-5$ como a $7 - 12$.
+Como podemos formalizar isso numa maneira elegante?
+
+%%}}}
+
+\spoiler
+
+%%{{{ df: eqint 
+\definition Números inteiros.
+%%%{{{ meta 
+\label eqint
+%%%}}}
+
+Seja $Z = \nats \times \nats$.
+Defina no $Z$ a relação $\eqint$ pela
+$$
+\tup{a,b} \eqrat \tup{c,d}
+\defiff
+a + d = c + b.
+$$
+Sendo uma relação de equivalência (\ref[eqint_is_an_eqrel]),
+definimos
+$$
+\Ints
+\defeq
+\quoset Z {\eqint}.
+$$
+
+%%}}}
+
+%%{{{ x: eqint_is_an_eqrel 
+\exercise.
+%%%{{{ meta 
+\label eqint_is_an_eqrel
+%%%}}}
+
+Mostre que $\eqint$ é uma relação de equivalência.
+
+%%}}}
+
+%%{{{ x: formalints_operations
+\exercise.
+%%%{{{ meta 
+\label formalints_operations
+%%%}}}
+
+Defina as operações desejados no $\Ints$.
+
+%%}}}
 
 %%{{{ The rational numbers 
 \note Os números racionais.
@@ -68944,7 +69011,7 @@ os inteiros, os racionais, os reais, e os complexos.
 %%%}}}
 
 Essa construção é bem interessante---e simples!---pois usa um conceito nosso que
-deve ser familiar já: o conjunto quociente.
+deve ser familiar já: sim, novamente o conjunto quociente.
 Queremos identificar o racional $1/2$ com o par $\tup{1,2}$,
 mas não podemos identificar o próprio $\rats$ com o $\ints \times \ints_{\neq0}$,
 pois $\tup{1,2} \neq \tup{2,4}$ mesmo que $1/2 = 2/4$.
@@ -68958,9 +69025,10 @@ Vamos seguir essa segunda idéia, pois é mais símples e elegante.
 
 %%}}}
 
-%%{{{ df: eqrat
+%%{{{ df: eqrat 
 \definition Números racionais.
 %%%{{{ meta 
+\label eqrat 
 %%%}}}
 
 Seja $Q = \ints\times\ints_{\neq0}$.
@@ -68971,7 +69039,7 @@ $$
 ad = bc.
 $$
 Sendo uma relação de equivalência (\ref[eqrat_is_an_eqrel]),
-defina
+definimos
 $$
 \Rats
 \defeq
