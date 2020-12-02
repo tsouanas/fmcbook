@@ -62407,7 +62407,8 @@ Agora tu demonstraras que muitos mais conjuntos são realmente contáveis.
 \label strings_from_finite_alphabet_countable
 %%%}}}
 
-\TODO Escrever.
+Demonstre ou refute:
+o conjunto de todos os strings feitos por qualquer alfabeto finito é contável.
 
 %%}}}
 
@@ -62671,6 +62672,11 @@ Como tu vai demonstrar que o número construido pela método de Cantor realmente
 %%%{{{ meta 
 \label reals_uncountable_first_proof
 %%%}}}
+
+A primeira demonstração de {\Cantor}Cantor que o $\reals$ é incontável
+foi bem diferente.  Dado quaisquer reais $a,b$ com $a < b$
+e qualquer seqüência $\seqn x n$ de reais no $[a,b]$
+ele mostrou um certo $\xi \in [a,b]$ que a seqüência ``esqueceu de contar''.
 
 \TODO Terminar.
 
@@ -69015,13 +69021,15 @@ Mostre que $\eqint$ é uma relação de equivalência.
 
 %%}}}
 
-%%{{{ x: formalints_operations
+%%{{{ x: formalints_for_the_working_mathematician 
 \exercise.
 %%%{{{ meta 
-\label formalints_operations
+\label formalints_for_the_working_mathematician
 %%%}}}
 
-Defina as operações desejadas no $\Ints$.
+Defina o que falta para o $\Ints$ virar uma representação
+de inteiros útil para o \emph{matemático trabalhador}.
+(Parte desses exercícios é decidir o que falta mesmo.)
 
 %%}}}
 
@@ -69078,36 +69086,130 @@ Mostre que $\eqrat$ é uma relação de equivalência.
 
 %%}}}
 
-%%{{{ x: addition_multiplication_of_Rats 
+%%{{{ x: formalrats_for_the_working_mathematician 
 \exercise.
 %%%{{{ meta 
-\label addition_multiplication_of_Rats
+\label formalrats_for_the_working_mathematician
 %%%}}}
 
-Defina formalmente a adição e multiplicação no $\Rats$.
+Defina o que falta para o $\Rats$ virar uma representação
+de racionais útil para o \emph{matemático trabalhador}.
 
 %%}}}
 
-\TODO Construir os racionais.
-
-%%{{{ The real numbers (Dedekind cuts) 
-\note Os números reais (Dedekind cuts).
+%%{{{ The real numbers 
+\note Os números reais.
 %%%{{{ meta 
 \label Constructing_the_reals
+\credits
+    * Dedekind : construção dos reais
+    * Cantor : construção dos reais
+    * Cauchy : seqüência Cauchy
+    ;;
 %%%}}}
 
-\TODO Escrever.
+Existem várias maneiras de construir os reais com o que temos até agora.
+Neste texto encontramos as duas ``principais'': de Dedekind, que usa
+\emph{Dedekind cuts}, e de Cantor, que usa \emph{seqüências Cauchy}.
+Ambas as maneiras são baseadas na idéia que a ``linha'' dos racionais
+tem buracos (certos pontos estão faltando) e a construção dos reais
+precisa adicionar esses buracos.  Para a metodo de Dedekind, visualizamos
+os buracos como suprema que estão em falta de certos conjuntos;
+para o Cantor, os buracos são limites de seqüências que \emph{querem
+converger mas não conseguem} pois seus limites desejados não estão presentes!
+Vamos seguir Dedekind agora;
+a abordagem de Cantor fica para o~\ref[reals_as_cauchy_seqs].
 
 %%}}}
 
+%%{{{ df: dedekind_cut 
+\definition Dedekind cuts.
+%%%{{{ meta 
+\label dedekind_cut
+\defines
+    * Dedekind cut
+    ;;
+\credits
+    * Dedekind : Dedekind cut
+    ;;
+%%%}}}
 
-%%{{{ blah 
-\blah.
+Chamamos $A$ de {\Dedekind[cut]}\dterm{Dedekind cut} sse:
+\elist i:
+\li:dedekind_cut_downwards_closed
+$A$ é ``fechado pra baixo'': $\pforall {a \in A} \lforall {q \in \rats} {q < a \implies q \in A}$;
+\li:dedekind_cut_nomax
+$A$ não possui máximo: $\pforall {a \in A} \lexists {a' \in A} {a < a'}$;
+\li:dedekind_cut_nonempty
+$A \neq \emptyset$;
+\li:dedekind_cut_nonfull
+$A \neq \rats$.
+\endelist
+Visualmente parece melhor chamar de \dterm{Dedekind cut} a partição
+$\set{A, B}$ ou o par $\tup{A, B}$.  As vezes fazemos isso, algo que
+nunca gera confusão graças ao contexto.
+
+%%}}}
+
+%%{{{ x: formalreals_for_the_working_mathematician 
+\exercise.
+%%%{{{ meta 
+\label formalreals_for_the_working_mathematician
+%%%}}}
+
+Defina o que falta para o $\Reals$ virar uma representação
+de reais útil para o \emph{matemático trabalhador}.
+
+%%}}}
+
+%%{{{ thm: existence_of_reals 
+\theorem Existência dos reais.
+%%%{{{ meta 
+\label existence_of_reals
+\pdefs 
+    \pdef R {{\cal R}}
+    \pdef P {{\rm P}}
+    ;;
+%%%}}}
+
+Existe um corpo ordenado competo.
+
+\proof.
+Seja
+$\R \defeq \sset \Reals {+_\R, \ntimes_\R, -_\R, 0_\R, 1_\R, \P_\R}$
+um conjunto estruturado,
+onde todos os componentes devem estar já definidos
+no~\ref[formalreals_for_the_working_mathematician].
+Falta só demonstrar que o $\R$ realmente satisfaz os axiomas
+de corpo ordenado completo, que deixo para
+o~\ref[formalreals_is_a_complete_ordered_field].
+
+%%}}}
+
+%%{{{ x: formalereals 
+\exercise.
+%%%{{{ meta 
+\label formalereals
+%%%}}}
+
+O que acontece se apagar os \reftag[dedekind_cut_nonempty] e
+\reftag[dedekind_cut_nonfull] da \ref[dedekind_cut]?
+
+%%}}}
+
+%%{{{ More numbers 
+\note Mais numeros.
 %%%{{{ meta 
 %%%}}}
 
-Uma abordagem alternativa de construir os reais é mostrada
-no~\ref[construct_reals_as_cauchy].
+Podemos construir mais mas nosso objetivo aqui não é formalizar
+e implementar tudo; apenas apreciar as possibilidades
+e o poder da teoria dos conjuntos nesse quesito, e obter
+pelo menos o que precisamos aqui:
+naturais, inteiros, racionais, reais.
+Como exercício, deixo pra ti a construção dos complexos
+(que raramente aparecem aqui como \emph{cameo}).
+Se quiser implementar ainda mais, sinta-se a vontade aprofundar.
 
 %%}}}
 
@@ -69117,7 +69219,7 @@ no~\ref[construct_reals_as_cauchy].
 \label construct_complex
 %%%}}}
 
-Mostre como construir os complexos.
+Construa os complexos.
 
 %%}}}
 
@@ -69256,6 +69358,21 @@ $$
 $$
 Para mostrar que o $\pset A \times (A \parto \nats\setminus\set{0})$ é um conjunto,
 precisamos os operadores $\pset$, $\times$, $\parto$, $\setminus$, e o próprio $\nats$, que já temos construido pelos ZF1--ZF7.
+
+%%}}}
+
+%%{{{ prob: formalreals_is_a_complete_ordered_field 
+\problem.
+%%%{{{ meta 
+\label formalreals_is_a_complete_ordered_field
+\pdefs 
+    \pdef R {{\cal R}}
+    \pdef P {{\rm P}}
+    ;;
+%%%}}}
+
+Demonstre que o $\R$ do \ref[existence_of_reals] satisfaz
+mesmo as leis e corpo ordenado completo.
 
 %%}}}
 
@@ -70056,10 +70173,10 @@ $$
 
 %%}}}
 
-%%{{{ prob: construct_reals_as_cauchy 
+%%{{{ prob: reals_as_cauchy_seqs 
 \problem Reais como seqüências Cauchy.
 %%%{{{ meta 
-\label construct_reals_as_cauchy
+\label reals_as_cauchy_seqs
 %%%}}}
 
 \TODO Enunciar o problema.
