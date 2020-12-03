@@ -62507,6 +62507,13 @@ Implemente funcção do~\ref[nextPair].
 %%{{{ Cantor's second diagonal argument 
 \section O segundo argumento diagonal de Cantor.
 %%%{{{ meta 
+\pdefs
+    \pdef a {\alert}
+    \pdef b {\phantom0}
+    \pdef n {}
+    \pdef f {\faded}
+    \pdef u {\underline}
+    ;;
 %%%}}}
 
 %%{{{ blah 
@@ -62523,6 +62530,8 @@ Lembrando a definição, basta demonstrar que não existe enumeração
 $$
 [0,1] = \set{a_0, a_1, a_2, \dots}.
 $$
+Vamos começar com um esboço que tem um erro para entender a idéia
+básica---e para ver se tu perceberás o erro, claro.
 
 %%}}}
 
@@ -62539,8 +62548,6 @@ $$
 Tu pega sua lista e escreva a expansão decimal de cada número,
 um número por linha; por exemplo:
 $$
-\def\u{\underline}
-\def\b{\phantom0}
 \matrix
 \format
 \r  &~~\c~~&     &\c    &\c     &\c     &\c     &\c     &\c     &\c   &\c \\
@@ -62555,8 +62562,6 @@ $$
 Nosso objectivo é mostrar um certo número $w \in [0,1]$ que não está nessa lista.
 Vamos definir esse $w$ construindo sua expansão decimal:
 $$
-\def\f{\faded}%
-\def\b{\phantom0}%
 \matrix
 \format
 \r  &~~\c~~ &     &\c    &\c    &\c    &\c    &\c    &\c    &\c    &\c \\
@@ -62568,11 +62573,6 @@ traversa a tabela acima diagonalmente, mudando o dígito,
 construindo assim um novo número.
 Os primeiros três passos aqui podem ser os seguintes:
 $$
-\def\n{}%
-\def\u{\underline}%
-\def\a{\alert}%
-\def\f{\faded}%
-\def\b{\phantom0}%
 \xalignat3
 &\matrix
 \format
@@ -62614,7 +62614,6 @@ $$
 onde para mudar cada dígito, eu fui para o ``próximo''.
 Foi construido assim o
 $$
-\def\b{\phantom0}%
 \matrix
 \format
 \r  &~~\c~~ &     &\c  &\c  &\c  &\c  &\c  &\c \\
@@ -62655,6 +62654,130 @@ na segunda, etc.
 
 %%}}}
 
+%%{{{ Q: why wrong? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Qual o problema com essa argumentação?
+
+%%}}}
+
+\spoiler
+
+%%{{{ A 
+\blah Resposta.
+%%%{{{ meta 
+%%%}}}
+
+O argumento é baseado numa hipotese falsa para concluir que o
+número $w$ construido é diferente de todos os números da lista:
+que duas expansões de números reais que discordam no dígito duma
+certa posição representão reais distintos, que tá simplesmente errado:
+$$
+0.4999\dots = 1/2 = 0.5000\dots
+$$
+as expansões são distintas, não temos reais distintos aqui!
+
+%%}}}
+
+%%{{{ blah: Now what? 
+\blah E agora?.
+%%%{{{ meta 
+%%%}}}
+
+Em vez de desistir e jogar a idéia brilhante fora, podemos
+(i) perceber que já temos nas nossas mãos uma demonstração da incontabilidade
+dum certo conjunto, só que não é o conjunto $[0,1]$
+e (ii) proceder para concertar o probleminha da argumentação para virar
+uma demonstração correta da incontabilidade do $[0,1]$ mesmo!
+Faça ambos agora.
+
+%%}}}
+
+%%{{{ x: wrong_sketch_is_correct_for_another_set 
+\exercise (i).
+%%%{{{ meta 
+%%%}}}
+
+Sobre qual conjunto podemos já afirmar que é incontável, usando
+a argumentação bugada que não deu certo para o $[0,1]$?
+
+\hint
+As expansões são distintas sim; os números que representão não.
+
+\solution
+Vendo as expansões como strings (infinitos) feitos pelo alfabeto
+${0,\dotsc,9}$ já temos que o conjunto de todos eles não é contável.
+
+%%}}}
+
+%%{{{ x: fix_the_problem_of_wrong_sketch 
+\exercise (ii).
+%%%{{{ meta 
+%%%}}}
+
+Conserta o problema.
+
+\hint
+Os únicos conflitos de expansões envolvem reais com exatamente duas expansões:
+uma que a partir duma posição só tem $0$'s, e uma que a partir duma posição só
+tem $9$'s.
+
+\hint
+Basta determinar uma maneira de trocar os digitais da diagonal que garanta que
+cada dígito mudou mesmo e que o número criado não termina nem em $0$'s nem em
+$9$'s.
+
+\solution
+Os únicos conflitos de expansões envolvem reais com exatamente duas expansões:
+uma que a partir duma posição só tem $0$'s, e uma que a partir duma posição só
+tem $9$'s.
+Logo basta determinar uma maneira de trocar os digitais da diagonal que garanta
+que cada dígito mudou mesmo e que o número criado não termina nem em $0$'s nem
+em $9$'s:
+Mandamos todos os dígitos diferentes de $5$ para o $4$ e o $4$ para o $5$.
+
+%%}}}
+
+%%{{{ thm: binary_sequences_uncountable 
+\theorem Cantor.
+%%%{{{ meta 
+\label binary_sequences_uncountable
+\credits
+    * Cantor
+    ;;
+\pdefs
+    \pdef m   {{\rm m}}
+    \pdef w   {{\rm w}}
+    \pdef two {{\bbb 2}}
+    ;;
+%%%}}}
+
+O conjunto de todas as seqüências feitas por dois símbolos distintos
+é incontável.
+
+\proof.
+Cantor escolheu os \symq{$\m$} e \symq{$\w$} como símbolos distintos,
+vamos seguir seu gosto então.  Denotamos $\two = \set{\m,\w}$.
+Seja $\seqnset f n \subset \funspace \nats \to \two$.
+Basta construir um membro de $\funspace \nats \to \two$ que não
+é nenhum dos membros de $\seqnset f n$.
+Definimos a $g : \nats \to \two$ então pela
+$$
+g(x) =
+\knuthcases {
+\w,   & se $f(x) = \m$;\cr
+\m,   & se $f(x) = \w$.
+}
+$$
+Basta verificar que para todo $n \in \nats$, $g \neq f_n$.
+Seja $n \in \nats$ então.
+Pela definição da $g$ temos que $g,f_n$ discordam no ponto $n$
+e logo $g \neq f_n$.
+
+%%}}}
+
 %%{{{ x: why_cant_we_prove_that_rats_is_uncountable_1 
 \exercise.
 %%%{{{ meta 
@@ -62667,31 +62790,6 @@ Como tu vai demonstrar que o número construido pela método de Cantor realmente
 
 %%}}}
 
-%%{{{ reals_uncountable_first_proof 
-\note Conjuntos incontáveis: a primeira demonstração de Cantor.
-%%%{{{ meta 
-\label reals_uncountable_first_proof
-%%%}}}
-
-A primeira demonstração de {\Cantor}Cantor que o $\reals$ é incontável
-foi bem diferente.  Dado quaisquer reais $a,b$ com $a < b$
-e qualquer seqüência $\seqn x n$ de reais no $[a,b]$
-ele mostrou um certo $\xi \in [a,b]$ que a seqüência ``esqueceu de contar''.
-
-\TODO Terminar.
-
-%%}}}
-
-%%{{{ x: why_cant_we_prove_that_rats_is_uncountable_2 
-\exercise.
-%%%{{{ meta 
-\label why_cant_we_prove_that_rats_is_uncountable_2
-%%%}}}
-
-Por que não podemos usar o mesmo argumento para concluir que o $\setst{q \in \rats}{a \leq q\leq b}$ também é incontável?
-
-%%}}}
-
 \endsection
 %%}}}
 
@@ -62699,11 +62797,20 @@ Por que não podemos usar o mesmo argumento para concluir que o $\setst{q \in \r
 \section O conjunto de Cantor.
 %%%{{{ meta 
 \label Cantor_set
+\credits
+    * Cantor : conjunto de Cantor
+    ;;
 %%%}}}
 
 %%{{{ Cantor set 
 \note O conjunto de Cantor.
 %%%{{{ meta 
+\defines
+    * Cantor!conjunto de
+    ;;
+\indexes
+    * conjunto!de Cantor    see: Cantor
+    ;;
 %%%}}}
 
 $$
@@ -62713,6 +62820,8 @@ $$
 $$
 
 %%}}}
+
+\TODO Terminar.
 
 \endsection
 %%}}}
@@ -62869,6 +62978,77 @@ números construir, e também até que precisão (quantos dígitos).
 %%}}}
 
 \endsection
+%%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ blah: Cantor, Cantor, Cantor 
+\blah O conjunto dos reais é incontável.
+%%%{{{ meta 
+%%%}}}
+
+{\Cantor}Cantor não deu apenas uma demonstração para seu teorema.
+A demonstração que já encontramos aqui, que envolve seu argumento
+diagonal, é a mais importante e elegante (exatamente por causa da
+diagonalização e suas diversas aplicações).\foot
+Cantor terminou seu artigo \cite[cantor1891] onde publico sua demonstração
+com a frase profética
+\dq{Die weitere Erschließung dieses Feldes ist Aufgabe der Zukunft.}
+Desenvolver essa área mais é a tarefa do futuro.
+\toof
+Mas essa foi nem a primeira, nem a segunda, mas sim a terceira demonstração dele!
+As outras duas foram bem diferentes.
+{\Cantor}Cantor que o $\reals$ é incontável
+foi bem diferente.  Dado quaisquer reais $a,b$ com $a < b$
+e qualquer seqüência de reais no $[a,b]$
+ele mostrou um certo $\xi \in [a,b]$ que a seqüência ``esqueceu de contar''.
+
+%%}}}
+
+%%{{{ thm: reals_uncountable_first_proof 
+\theorem Cantor.
+%%%{{{ meta 
+\label reals_uncountable_first_proof
+\credits
+    * Cantor
+    ;;
+%%%}}}
+
+Sejam $a,b\in\reals$ com $a < b$ e $\seqn x n$ seqüência de reais no $[a,b]$.
+Existe $\xi \in [a,b]$ tal que $\xi \notin \seqnset x n$.
+
+\sketch.
+O plano é construir uma cadeia de intervalos
+$$
+[a,b] = I_0 \supset I_1 \supset I_2 \supset \dotsb
+$$
+fechados, 
+
+Para conseguir isso, vamos definir duas subseqüências $\seqn a n$ e $\seqn b n$ da
+seqüência $\seqn x n$ tais que
+a primeira começa no $a$ e é ascendente e a segunda no $b$ e é descendente
+e demonstrar que ele realmente é o strongly least fixpoint, ou seja,
+que ele satisfaz as (i) e (ii), e que é o único tal ponto.
+
+\TODO Terminar.
+
+%%}}}
+
+%%{{{ x: why_cant_we_prove_that_rats_is_uncountable_2 
+\exercise.
+%%%{{{ meta 
+\label why_cant_we_prove_that_rats_is_uncountable_2
+%%%}}}
+
+Por que não podemos usar o mesmo argumento para concluir que o $\setst{q \in \rats}{a \leq q\leq b}$ também é incontável?
+
+%%}}}
+
+
+\endproblems
 %%}}}
 
 %%{{{ Looking for bijections 
@@ -67432,7 +67612,7 @@ $$
 %%%{{{ meta 
 \label fun_with_approxes
 \pdefs
-    \pdef Approxes {{\scr F}}
+    \pdef Approxes    {{\scr F}}
     \pdef FinApproxes {\Approxes_{\textrm f}}
     ;;
 %%%}}}
