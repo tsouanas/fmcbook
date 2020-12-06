@@ -9906,7 +9906,7 @@ usar recursão e indução nos naturais é sua definição inductiva.
 Ou seja, podemos usar essas ferramentas em qualquer tipo que
 foi definido assim.  Nos problemas peço a você formalizar
 o princípio da indução como um pequeno ``teaser'' da teoria
-que voltaremos estudar mais no~\ref[Structural_recursion_and_induction].
+que voltaremos estudar mais na~\ref[Structural_recursion_and_induction].
 
 %%}}}
 
@@ -11107,8 +11107,8 @@ $m_* \leq m' \leq x$.
 \endsection
 %%}}}
 
-%%{{{ PROBLEMS 
-\problems.
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
 %%%{{{ meta 
 %%%}}}
 
@@ -11334,15 +11334,81 @@ Indução!
 \endproblems
 %%}}}
 
+%%{{{ Structural_recursion_and_induction 
+\section Recursão e indução estrutural.
+%%%{{{ meta 
+\label Structural_recursion_and_induction
+%%%}}}
+
+%%{{{ Recursing over formulas 
+\note Recursando nas fórmulas.
+%%%{{{ meta 
+%%%}}}
+
+%%}}}
+
+%%{{{ eg: bincon_count 
+\example.
+%%%{{{ meta 
+\label bincon_count
+%%%}}}
+
+Defina uma funcção $f : \zolang \to \nats$ que calcula o número
+de conectivos binários que aparecem na sua entrada.
+Use-lá para calcular os conectivos binários da expressão
+$$
+\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
+$$
+
+\solution.
+Seguindo a definição de $\zolang$, cada um dos seus elementos
+é formado por uma de certas regras.  Basta escrever então como
+calcular o número desejado para cada um desses casos:
+$$
+\alignat2
+f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
+f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
+f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
+f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
+f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
+\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
+f((A \heartop B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartop \in \set{\limplies,\land,\lor}$)}
+\endalignat
+$$
+Aplicando nossa funcção na fórmula dada calculamos:
+\compute
+f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
+&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \by {por BC$_{\lnot}$} \\
+&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \by {por BC$_{\limplies}$} \\
+&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \by {por BC$_{P}$} \\
+&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \by {por BC$_{\land}$} \\
+&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \by {por BC$_{P}$} \\
+&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \by {por BC$_{\lnot}$} \\
+&= 0 + 1 + ( 0 + 1 + 0 )                        \by {por BC$_{P}$} \\
+&= 2
+\endcompute
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ Further reading 
 \further.
 
 Recursão e indução vamos ficar usando o tempo todo.
-Especialmente nos capítulos~\reftag[Structural_recursion_and_induction],
-\reftag[Theory_of_recursive_functions], e~\reftag[Axiomatic_set_theory],
-vamos mergulhar na teoria desses assuntos; mas sugiro paciência
-por enquanto, e \emph{ganhar experiência trabalhando} com recursão
-e indução.
+Especialmente nos capítulos~\reftag[Theory_of_recursive_functions]
+e~\reftag[Axiomatic_set_theory], vamos mergulhar na teoria desses
+assuntos; mas sugiro paciência por enquanto,
+e \emph{ganhar experiência trabalhando} com recursão e indução.
 
 Sobre o princípio da boa ordem e indução,
 dê uma olhada no~\cite[babybm: \S\S1.4--1.5].
@@ -11361,6 +11427,11 @@ linguagem de programação funccional, quanto como um \emph{proof assistant}.
 Dois textos excelentes para inciantes que meu leitor é muito recomendado
 começar desde já estudar são os \cite[piercesf1] (que usa Coq)
 e o \cite[wadlerplfa] (que usa Agda).
+
+Para aprofundar ainda mais em recursão e indução consulte os
+\cite[aczelinductive] e \cite[ynminduction],
+mas sugiro fazer isso bem depois, pois podem aparecer pesados
+demais neste momento.
 
 \endfurther
 %%}}}
@@ -15141,17 +15212,18 @@ Além disso, os $q$ e $r$ são \emph{determinados unicamente}.
 \proofpart{Existência:}
 Considera a seqüência infinita:
 $$
-\ldots,~
+\ldots ,~
 -3b + r,~
 -2b + r,~
--b + r,~
-r,~
-b + r,~
-2b + r,~
-3b + r,~
+ -b + r,~
+      r,~
+  b + r,~
+ 2b + r,~
+ 3b + r,~
 \ldots
 $$
-Observe que ela tem elementos não-negativos e, aplicando a PBO, considera o menor deles.
+Observe que ela tem elementos não-negativos e,
+aplicando a PBO, considera o menor deles.
 \proofpart{Unicidade:}
 Suponha que $a=bq+r=bq'+r'$
 para alguns $q,r,q',r'\in\ints$ tais que satisfazem as restricções
@@ -73663,83 +73735,6 @@ Sobre lógica matemática:
 \cite[corilascar1]~\&~\cite[corilascar2],
 \cite[shoenfieldlogic],
 \cite[bellmachover].
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Structural_recursion_and_induction 
-\chapter Recursão e indução estrutural.
-%%%{{{ meta 
-\label Structural_recursion_and_induction
-%%%}}}
-
-%%{{{ Recursing over formulas 
-\section Recursando nas fórmulas.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ eg: bincon_count 
-\example.
-%%%{{{ meta 
-\label bincon_count
-%%%}}}
-
-Defina uma funcção $f : \zolang \to \nats$ que calcula o número
-de conectivos binários que aparecem na sua entrada.
-Use-lá para calcular os conectivos binários da expressão
-$$
-\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
-$$
-
-\solution.
-Seguindo a definição de $\zolang$, cada um dos seus elementos
-é formado por uma de certas regras.  Basta escrever então como
-calcular o número desejado para cada um desses casos:
-$$
-\alignat2
-f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
-f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
-f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
-f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
-f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
-\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
-f((A \heartop B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartop \in \set{\limplies,\land,\lor}$)}
-\endalignat
-$$
-Aplicando nossa funcção na fórmula dada calculamos:
-\compute
-f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
-&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \by {por BC$_{\lnot}$} \\
-&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \by {por BC$_{\limplies}$} \\
-&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \by {por BC$_{P}$} \\
-&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \by {por BC$_{\land}$} \\
-&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \by {por BC$_{P}$} \\
-&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \by {por BC$_{\lnot}$} \\
-&= 0 + 1 + ( 0 + 1 + 0 )                        \by {por BC$_{P}$} \\
-&= 2
-\endcompute
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite[aczelinductive],
-\cite[ynminduction].
 
 \endfurther
 %%}}}
