@@ -5838,7 +5838,7 @@ Aplique a definição do $\divides$.
 
 %%}}}
 
-%%{{{ x: divides_is_almost_a_partial_order 
+%%{{{ x: divides_is_almost_a_partial_order_proof 
 \exercise Mais propriedades da divisibilidade.
 %%%{{{ meta 
 \label divides_is_almost_a_partial_order_proof
@@ -14472,15 +14472,19 @@ O que acontece em cada passo?
 
 \solution
 Todas as estratégias são iguais: em cada passo, um $+$ é adicionado,
-e todas terminam no mesmo somatório com $n$ $1$'s e $n-1$ $+$'s.
+e todas terminam no mesmo somatório com $n$ \symq{$1$}s e $n-1$ \symq{$+$}s.
 Então começando com qualquer número $n$, depois de $n-1$ passos chegamos
-na sua forma $n = 1+1+\dotsb +1$.
+na sua forma $n = 1 + 1 + \dotsb + 1$.
 
 %%}}}
 
-%%{{{ x 
+%%{{{ x: partitioning_restricted_best_strategy_proof 
 \exercise.
 %%%{{{ meta 
+\label partitioning_restricted_best_strategy_proof
+\pdefs
+    \pdef steps {\namedfun{steps}}
+    ;;
 %%%}}}
 
 Demonstre formalmente tua resposta no~\ref[partitioning_restricted_best_strategy].
@@ -14492,7 +14496,7 @@ Como nos livramos dos pontos informais ``$\dotsb$''?
 Indução.
 
 \hint
-Seja $steps(x)$ o número de passos necessários para quebrar o $x$ em $1$'s.
+Seja $\steps(x)$ o número de passos necessários para quebrar o $x$ em $1$'s.
 
 %%}}}
 
@@ -14567,6 +14571,27 @@ $2016 = 2^5 3^2 7$.
 
 %%}}}
 
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+\credits
+    * Euclid : Elementos
+    * Euclid : teorema fundamental de aritmética
+    * Gauss : Disquisitiones Arithmeticæ
+    * Gauss : teorema fundamental de aritmética
+    ;;
+%%%}}}
+
+Logo chegaremos no resultado principal que esclarecerá
+o que percebemos no~\ref[fundamental_theorem_of_arithmetic_omen]:
+o~\ref[fundamental_theorem_of_arithmetic],
+ilustrado (parcialmente) já por Euclides
+(circa~\yearof{300}~a.C.)~nos seus \emph{Elementos}~\cite[elements]
+e demonstrado completamente por Gauss (no ano \yearof{1798}) no seu
+\emph{Disquisitiones Arithmeticæ}~\cite[disquisitiones].
+
+%%}}}
+
 %%{{{ x: factorize_some_integers 
 \exercise.
 %%%{{{ meta 
@@ -14619,23 +14644,6 @@ Recomendo para ti, tentar responder e \emph{demonstrar} tua afirmação.
 Logo vamos encontrar a resposta (de Euclides)
 que é um dos teoremas mais famosos e importantes na história de matemática
 (\ref[primes_is_infinite]).
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-No fim do capítulo chegamos no resultado principal
-que esclarecerá o~\ref[fundamental_theorem_of_arithmetic_omen]:
-o Teorema Fundamental de Aritmética (\reftag[fundamental_theorem_of_arithmetic]),
-ilustrado (parcialmente) já por {\Euclid}Euclides
-(circa~\yearof{300}~a.C.)~nos seus \Euclid[Elementos]\emph{Elementos}
-de Euclides\Euclid~\cite[elements]
-e provado completamente e formalmente por {\Gauss}Gauss
-(no ano \yearof{1798}) no seu
-\emph{Disquisitiones Arithmeticæ}\Gauss[Disquisitiones Arithmiticæ]~\cite[disquisitiones].
 
 %%}}}
 
@@ -14898,10 +14906,13 @@ para melhorar teu programa do~\ref[program_factor_naive].
 \endsection
 %%}}}
 
-%%{{{ The sieve of Eratosthenes 
+%%{{{ Sieve_of_Eratosthenes 
 \section O crivo de Eratosthenes.
 %%%{{{ meta 
 \label Sieve_of_Eratosthenes
+\defines
+    * crivo
+    ;;
 \credits
     * Eratosthenes : crivo
     ;;
@@ -15193,17 +15204,17 @@ Para a unicidade, ache o resto da divisão de $n$ por o aleatório $a_j$.
 
 %%}}}
 
-%%{{{ x 
+%%{{{ x: 3|n or 3|n²-1 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
-Demonstre que para todo $n\in\ints$, se $3\ndivides n$
+Demonstre que para todo $n\in\ints$, se $3 \ndivides n$
 então $3 \divides n^2 - 1$.
 
 \hint
 Ou fatorize o $n^2-1$ e use o~\ref[n_divides_exactly_one_of_n_consecutive_integers],
-ou considere os dois casos possíveis dependendo dos restos da divisão de $n$ por $3$.
+ou considere os casos possíveis dependendo dos restos da divisão de $n$ por $3$.
 
 %%}}}
 
@@ -15211,43 +15222,97 @@ ou considere os dois casos possíveis dependendo dos restos da divisão de $n$ p
 \definition Conjunto fechado sobre $+$.
 %%%{{{ meta 
 \label closed_under_addition
+\defines
+    * conjunto!$+$-fechado
+    ;;
 %%%}}}
 
-Seja $A$ conjunto de números que satisfaz a propriedade:
+Seja $A$ conjunto de números
+Dizemos que $A$ é \dterm{fechado pela} $+$ sse
+a soma de quaisquer dois membros $a,b$ do $A$ está no $A$ também:
 $$
-a,b \in A \implies a+b \in A.
+\lforall {a,b \in A} {a+b \in A}.
 $$
-Digamos que $A$ é \dterm{fechado} sobre $+$.
+Chamamos o $A$ de $+$\dterm{-fechado}.
 
 %%}}}
 
-%%{{{ x 
+%%{{{ eg 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Os conjuntos $\nats$, $\ints$, $\ints_{>0}$, $\ints_{<0}$, são todos
+exemplos de conjuntos $+$-fechados.
+
+%%}}}
+
+%%{{{ noneg 
+\nonexample.
+%%%{{{ meta 
+%%%}}}
+
+Os conjunto de todos os inteiros ímpares não é $+$-fechado (por quê?).
+Nem o conjunto de todos os primos (por quê?).
+Nem o conjunto de todos os racionais não inteiros (por quê?).
+
+%%}}}
+
+%%{{{ x: why? why? why? 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
-O $\emptyset$ e o $\set{0}$ são fechados sobre $+$.
+Por quê?
+Por quê?
+Por quê?
+
+\hint
+Para cada conjunto basta achar um testemunha, ou seja,
+um parzinho $(x,y)$ de membros dele tal que $x+y$ não pertence a ele.
+
+\solution
+Aqui três testemunhas, um para cada conjunto respectivamente:
+\mathcols 3
+1 + 1     &= 2 &
+3 + 5     &= 8 &
+\frac 2 3 + \frac 4 3 &= 2
+\endmathcols
 
 %%}}}
 
-%%{{{ x 
+%%{{{ x: Ø and {0} are +-closed 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+O $\emptyset$ e o $\set{0}$ são fechados pela $+$.
+
+%%}}}
+
+%%{{{ x: generalize +-closed to op-closed for any op 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
 Generalize a noção acima para definir a noção
-``conjunto fechado sobre $f$'',
+\dterm{conjunto fechado pela} $f$,
 onde $f$ é uma operação no $A$ de aridade qualquer.
+
+\solution
+Seja $f$ uma operação $n$-ária num conjunto $A$.
+Dizemos que $A$ é $f$-fechado sse para quaisquer
+$a_1,\dotsc,a_n \in A$, temos $f(a_1,\dotsc,a_n) \in A$.
 
 %%}}}
 
-%%{{{ x 
+%%{{{ x: which of the following sets are closed under which ops? 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
-Quais dos conjuntos abaixo são fechados sobre $+$,
-quais sobre $-$, e quais sobre $\cdot$?
+Quais dos conjuntos abaixo são fechados pela $+$,
+quais sobre $-$, e quais sobre $\ntimes$?
 $$
 \aligned
     U &= \set{0}\\
@@ -15266,7 +15331,7 @@ $$
 
 %%}}}
 
-%%{{{ x 
+%%{{{ x: define some infinite sets without "…" 
 \exercise.
 %%%{{{ meta 
 %%%}}}
@@ -15275,23 +15340,40 @@ Defina os conjuntos infinitos do exercício anterior sem usar ``$\ldots$\!''.
 
 %%}}}
 
-%%{{{ x 
+%%{{{ x: under which operations are rats and rats_≠0 closed? 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
-O $\rats$ é fechado sobre quais das quatro operações binárias: $+$, $-$, $\cdot$, $\div$?
+O $\rats$ é fechado por quais das quatro operações binárias
+$+$, $-$, $\ntimes$, $\div$?
 E o $\rats_{\neq0}$?
 
 %%}}}
 
-%%{{{ x 
+%%{{{ x: minus_closed_implies_plus_closed 
 \exercise.
 %%%{{{ meta 
+\label minus_closed_implies_plus_closed
 %%%}}}
 
-Demonstre que se um conjunto é fechado sobre $-$ então
-ele deve ser fechado sobre $+$ também, mas não o converso!
+Demonstre que se um conjunto é fechado pela $-$ então
+ele deve ser fechado pela $+$ também, mas não o converso não é necessariamente
+verdadeiro!
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_minus_proof 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_minus_proof
+%%%}}}
+
+Seja $S\subset\ints$, com $S\neq\emptyset$, e fechado pela $-$.
+Logo $S=\set 0$ ou existe inteiro $d>0$ tal que $S = \setst {kd} {k\in\ints}$.
+
+\hint.
+Princípio da Boa Ordem.
 
 %%}}}
 
@@ -15300,22 +15382,109 @@ ele deve ser fechado sobre $+$ também, mas não o converso!
 %%%{{{ meta 
 %%%}}}
 
-Um conjunto de inteiros fechado sobre $-$ (e $+$),
+Um conjunto de inteiros fechado pela $-$ (e logo pela $+$ também),
 não tem muita liberdade na ``forma'' dele.
-O teorema seguinte mostra a forma geral de todos eles.
+O lemma seguinte mostra essa forma geral que todos eles devem ter.
 
 %%}}}
 
-%%{{{ x: form_of_closed_under_minus 
-\exercise.
+%%{{{ lemma: form_of_closed_under_minus 
+\lemma.
 %%%{{{ meta 
 \label form_of_closed_under_minus
 %%%}}}
 
-Seja $S\subset\ints$, com $S\neq\emptyset$,
-$S$ fechado sobre $-$ (e logo, sobre $+$ também).
-Demonstre que $S=\set 0$ ou $S$ possui um mínimo elemento positivo $m$
-e $S = \setst {km} {k \in\ints}$.
+Seja $S$ um conjunto de inteiros não vazio e fechado pela $-$.
+Logo $S=\set{0}$ ou existe inteiro $d>0$ tal que
+$S$ é o conjunto de todos os múltiplos de $d$:
+$$
+S = \setst {md} {m \in \ints}.
+$$
+
+\proof.
+Suponha que $S\neq\set{0}$.  Basta demonstrar que
+existe inteiro $d>0$ tal que
+$$
+S = \setst {md} {m \in\ints}.
+$$
+Organizamos o resto da demonstração em três partes:
+\elist A:
+\li:form_of_closed_under_minus_part1_task
+Definir um $d>0$ que será o inteiro positivo desejado.
+\li:form_of_closed_under_minus_part2_task
+Demonstrar que todos os multiplos de $d$ pertencem ao $S$.
+\li:form_of_closed_under_minus_part3_task
+Demonstrar que nada mais pertence ao $S$.
+\endelist
+Com isso temos que o conjunto $S$ e o conjunto de todos os
+múltiplos de $d$ possuem exatamente os mesmos membros,
+que foi o que precisamos demonstrar.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_minus_part1 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_minus_part1
+%%%}}}
+
+Resolva a parte \reftag[form_of_closed_under_minus_part1_task] da
+demonstração do~\ref[form_of_closed_under_minus].
+
+\hint
+Use o PBO (mas cuidado pois precisas de demonstrar algo antes de usá-lo).
+
+\hint
+Antes de usar o PBO precisas demonstrar que o $S$ possui membros positivos.
+
+\solution
+Vou demonstrar que $S$ tem membros positivos.
+Seja $x \in S$ tal que $x \neq 0$ ($S\neq\emptyset$ e $S\neq\set{0}$).
+Caso $x>0$, já encontramos um membro positivo do $S$.
+Caso $x<0$, basta mostrar que $-x \in S$, pois $-x > 0$.
+Como $S$ é fechado pela $-$, temos $x - x \in S$; ou seja, $0 \in S$.
+Usando novamente que $S$ é $-$-fechado, temos $0 - x \in S$, ou seja $-x \in S$.
+Pelo PBO, \emph{seja $d$ o menor membro positivo do $S$}.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_minus_part2 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_minus_part2
+%%%}}}
+
+E a \reftag[form_of_closed_under_minus_part2_task].
+
+\hint
+Use indução, mas cuidado para não esquecer nada.
+
+\solution
+Primeiramente vou demonstrar por indução que
+para todo $n\in\nats$, $nd \in S$.
+A base é imediata: $0d = 0 \in S$.
+Seja $k \in \nats$ tal que $kd \in S$\fact{HI}.
+Calculamos:
+$$
+(k+1)d = kd + d \in S
+$$
+pois $d \in S$ e $kd \in S$ (pela HI) e $S$ é $+$-fechado
+(pelo~\ref[minus_closed_implies_plus_closed])
+Seja $x < 0$, e observe que $(-x)d\in S$ (pois $-x > 0$) e logo
+$0 - (-x)d \in S$, ou seja, $xd \in S$.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_minus_part3 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_minus_part3
+%%%}}}
+
+Preciso mesmo enunciar?
+
+\hint
+Tome um arbitrário $a \in S$ e use o lemma da Divisão de Euclides.
 
 %%}}}
 
@@ -15324,8 +15493,8 @@ e $S = \setst {km} {k \in\ints}$.
 %%%{{{ meta 
 %%%}}}
 
-Sem usar disjuncção, escreva uma frase equivalente com a conclusão do
-\ref[form_of_closed_under_minus], e explique porque ela é equivalente.
+Sem usar disjuncção, escreva uma proposição equivalente com a conclusão do
+\ref[form_of_closed_under_minus] e explique por que ela é equivalente.
 
 \hint
 Existe $n\in\nats$ tal que $S = \setst {kn} {k\in\ints}$.
@@ -15355,22 +15524,15 @@ Sejam $a,b\in\ints$.
 O inteiro $d$ é \dterm{um máximo divisor comum (m.d.c.)} dos $a$~e~$b$,
 sse $d$~é~um divisor comum e um multiplo de todos os divisores comuns.
 Em símbolos:
-\eop\vskip 1ex\noi
-\line{\hfill
-$
+\mathmistake
 d = \gcd a b
 \defiff
-\tubrace {
-d \divides a
-\;\land\;
-d \divides b
-} {divisor comun}
-\;\land\;
-\tubrace {
-\lforall c {c\divides a \;\land\; c\divides b \implies c\divides d}
-} {``máximo''}.
-$
-\hfil\mistake}
+\tubrace {d \divides a \mland d \divides b}
+         {divisor comun}
+\mland
+\tubrace {\lforall c {c\divides a \mland c\divides b \implies c\divides d}}
+         {``máximo''}.
+\endmathmistake
 
 %%}}}
 
@@ -15393,13 +15555,13 @@ Duas coisas:
 
 %%}}}
 
-%%{{{ prop 
+%%{{{ prop: if d,d' are gcds then |d|=|d'| 
 \proposition.
 %%%{{{ meta 
 %%%}}}
 
 Sejam $a,b\in\ints$.  Se $d,d'\in\ints$ são máximos divisores comum
-dos $a$ e $b$, então $d=\pm d'$.
+dos $a$ e $b$, então $\abs d = \abs{d'}$.
 
 \sketch.
 Aplicamos a definição de m.d.c.~para cada um dos $d$ e $d'$,
@@ -15451,18 +15613,52 @@ Sejam $a,b\in\ints$.
 $$
 d = \gcd a b
 \defiff
-\tubrace {
-d \divides a
-\;\land\;
-d \divides b
-} {divisor comun}
-\;\land\;
-\tubrace {
-d\in\nats
-\;\land\;
-\lforall c {\paren{c\divides a \mland c\divides b} \implies c\divides d}
-} {o máximo}
+\tubrace { d \divides a \mland d \divides b } {divisor comun}
+\mland
+\tubrace { d\in\nats \mland \lforall c {\paren{c\divides a \mland c\divides b} \implies c\divides d} } {o máximo}
 $$
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Podemos já demonstrar umas propriedades básicas de m.d.c.
+
+%%}}}
+
+%%{{{ x: gcd_signs 
+\exercise.
+%%%{{{ meta 
+\label gcd_signs
+%%%}}}
+
+O m.d.c. não liga sobre sinais: para quaisquer inteiros $a,b$,
+$$
+\gcd a b
+= \gcd a {-b}
+= \gcd {-a} {b}
+= \gcd {-a} {-b}.
+$$
+
+%%}}}
+
+%%{{{ x: gcd_op_properties
+\exercise.
+%%%{{{ meta 
+\label gcd_op_properties
+%%%}}}
+
+Sejam $a,b,c\geq 0$ inteiros.  Logo:
+\mathcall
+&\gcd a a = a  \\
+&\gcd a 0 = a  \\
+&\gcd a 1 = 1  \\
+&\gcd a b = \gcd b a                    \called {comutatividade} \\
+&\gcd {\gcd a b} c = \gcd a {\gcd b c}  \called {associatividade}
+\endmathcall
 
 %%}}}
 
@@ -15480,7 +15676,7 @@ $$
 %%%}}}
 
 Sejam $a,b\in\ints$.
-Então existe $d\in\nats$ que satisfaz a definição de $\gcd a b$,
+Logo existe $d\in\nats$ que satisfaz a definição de $\gcd a b$,
 ele pode ser escrito como \dterm{combinação linear}
 dos $a$ e $b$, com coeficientes inteiros; ou seja,
 $$
@@ -15497,12 +15693,13 @@ Verifique que $\gcd a b = n_0$.
 
 %%}}}
 
-%%{{{ x 
+%%{{{ x: bezout_coefs_are_not_unique 
 \exercise.
 %%%{{{ meta 
+\label bezout_coefs_are_not_unique
 %%%}}}
 
-Verifique se a forma do $\gcd a b$ como combinação linear dos $a$ e $b$
+Investigue se a forma do $\gcd a b$ como combinação linear dos $a$ e $b$
 é unicamente determinada.
 
 \hint
@@ -15519,8 +15716,8 @@ $$
 
 %%}}}
 
-%%{{{ prop: gcd_of_comparable 
-\proposition.
+%%{{{ ppty: gcd_of_comparable 
+\property.
 %%%{{{ meta 
 \label gcd_of_comparable
 %%%}}}
@@ -15534,21 +15731,23 @@ que seguem por as propriedades de $\divides$ que já provamos.
 
 %%}}}
 
-%%{{{ x: gcd_signs 
+%%{{{ x: common_divisor_written_as_linear_combination_means_gcd 
 \exercise.
 %%%{{{ meta 
-\label gcd_signs
+\label common_divisor_written_as_linear_combination_means_gcd
 %%%}}}
 
-$
-\gcd a b
+Demonstre ou refute:
+se um inteiro $m\geq 0$ é divisor comum dos $a,b$ e pode ser
+escrito como combinação linear deles, então $m = \gcd a b$.
+
+\hint
+Já demonstramos que
+$$
+\setst {ax + by} {x,y \in \ints}
 =
-\gcd a {-b}
-=
-\gcd {-a} {b}
-=
-\gcd b a
-$.
+\setst {md} {m \in \ints}
+$$
 
 %%}}}
 
@@ -15600,6 +15799,41 @@ como m.d.c.~dos $a$ e $b$.
 
 %%}}}
 
+%%{{{ x: consecutive_fibs_are_coprime 
+\exercise.
+%%%{{{ meta 
+\label consecutive_fibs_are_coprime
+\indexes
+    * Fibonacci!seqüência
+    ;;
+%%%}}}
+
+Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
+onde $F_n$ é o $n$-ésimo termo da seqüência
+Fibonacci~(\ref[fibonacci]).
+
+\hint
+Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
+
+\solution
+Vamos demonstrar o pedido por indução.
+A base
+$$
+\gcd {F_0} {F_1} = \gcd 0 1 = 1.
+$$
+Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
+Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
+Calculando,
+\compute
+\gcd {F_{k+1}} {F_{k+2}}
+    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
+    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
+    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
+    &= 1.                               \by {pela hipótese indutiva} \\
+\endcompute
+
+%%}}}
+
 %%{{{ lemma: euclid_lemma 
 \lemma Lemma de Euclides.
 %%%{{{ meta 
@@ -15636,10 +15870,10 @@ Logo, $p\divides asb + ptb = b$.
 
 %%}}}
 
-%%{{{ thm: coprime_with_a_part_of_a_product_must_divide_the_other_part_to_divide_the_product 
+%%{{{ thm: lemma_euclides_coprime_version 
 \theorem.
 %%%{{{ meta 
-\label coprime_with_a_part_of_a_product_must_divide_the_other_part_to_divide_the_product
+\label lemma_euclides_coprime_version
 %%%}}}
 
 Se $\gcd d a = 1$ e $d \divides ab$, então $d \divides b$.
@@ -15677,7 +15911,7 @@ Se $a\divides m$, $b\divides m$, e $\gcd a b = 1$, então $ab\divides m$.
 \proof.
 Como $a\divides m$, temos $m = au$ para algum $u\in\ints$.
 Mas $b\divides m=au$, e como $\gcd b a = 1$, temos $b\divides u$
-(por~\ref[coprime_with_a_part_of_a_product_must_divide_the_other_part_to_divide_the_product]).
+(por~\ref[lemma_euclides_coprime_version]).
 Então $bv = u$ para algum $v\in\ints$.
 Substituindo, $m = au = a(bv) = (ab)v$, ou seja, $ab \divides m$.
 
@@ -16001,7 +16235,7 @@ Veja também o~\ref[gcd_alternative_definition].
 
 O~\ref[euclidean_algorithm] é correto.
 
-\proof.
+\sketch.
 Precisamos demonstrar duas coisas: \emph{terminação\/}\/ e \emph{corretude}.
 \eop
 \proofstylize{Corretude.}
@@ -16030,6 +16264,11 @@ Logo, essa seqüência não pode ser infinita.
 Realmente, o tamanho dela não pode ser maior que $b$,
 então depois de no máximo $b$ passos, o algorítmo terminará.
 
+\proof.
+Demonstrado no \ref[euclidean_algorithm_correctness_formal_proof_by_induction]
+por indução e no \reftag[euclidean_algorithm_correctness_formal_proof_by_wop]
+pelo princípio da boa ordem.
+
 %%}}}
 
 %%{{{ x: euclidean_algorithm_proof_why_informal 
@@ -16038,11 +16277,9 @@ então depois de no máximo $b$ passos, o algorítmo terminará.
 \label euclidean_algorithm_proof_why_informal
 %%%}}}
 
-Nenhuma das duas partes da prova do~\ref[euclidean_algorithm_correctness]
-é completamente formal.  Explique porque.
-(Veja também os problemas
-\reftag[euclidean_algorithm_correctness_formal_proof_by_induction]--%
-\reftag[euclidean_algorithm_correctness_formal_proof_by_wop].)
+Explique por que as argumentações tanto de corretude quanto de terminação
+são \emph{esboços} mesmo e não demonstrações.
+\ref[euclidean_algorithm_correctness]
 
 \hint
 ${}\dotsb{}$
@@ -16052,44 +16289,8 @@ ${}\dotsb{}$
 
 \solution
 São os ``${}\dotsb{}$'' mesmo!
-
-%%}}}
-
-%%{{{ Steps in Euclid's algorithm 
-\note Passos do algoritmo de Euclides.
-%%%{{{ meta 
-%%%}}}
-
-Como o exercício seguinte mostra, o algoritmo de Euclides
-é bem mais eficiente do que nós mostramos acima:
-depois dois passos, as duas entradas, nos piores dos casos,
-são reduzidas para metade.
-
-%%}}}
-
-%%{{{ x: less_steps_in_euclid
-\exercise.
-%%%{{{ meta 
-\label less_steps_in_euclid
-%%%}}}
-
-Se $a \geq b$, então $r < a/2$, onde $r$ o resto da divisão de $a$ por $b$.
-
-\hint
-Separe os casos: ou $b > a/2$ ou $b \leq a/2$.
-
-\hint
-Qual seria o resto em cado caso?
-
-\hint
-Num caso, dá para achar exatamente o resto.
-No outro, use a restricção que o resto satisfaz.
-
-\solution
-\case{Caso $b > a/2$:}
-Então $r = a-b < a/2$.
-\case{Caso $b < a/2$:}
-Então $r < b < a/2$.
+Para formalizá-los em definições usamos recursão;
+pra formalizá-los em demonstrações usamos indução.
 
 %%}}}
 
@@ -16098,7 +16299,7 @@ Então $r < b < a/2$.
 %%%{{{ meta 
 %%%}}}
 
-Nos já provamos que o m.d.c.~$\gcd a b$ de dois inteiros $a$ e $b$
+Nós já demonstramos que o m.d.c.~de dois inteiros $a$ e $b$
 pode ser escrito como uma combinação linear deles, mas como podemos
 realmente \emph{achar}\/ inteiros $s,t\in\ints$ que satisfazem a
 $$
@@ -16200,14 +16401,46 @@ Usando o algoritmo estendido de Euclides, escreve:
 
 %%}}}
 
-\endsection
+%%{{{ Steps in Euclid's algorithm 
+\note Passos do algoritmo de Euclides.
+%%%{{{ meta 
+%%%}}}
+
+Para demonstrar a terminação do algoritmo de Euclides
+estabelecemos uma garantia que o $\euclid(a,b)$ depois
+$b$ passos no máximo termina.
+Como o exercício seguinte mostra, o algoritmo de Euclides
+é \emph{bem mais eficiente} do que isso:
+depois dois passos, as duas entradas, nos piores dos casos,
+são reduzidas à metade!
+
 %%}}}
 
-%%{{{ Efficiency of Euclid 
-\section Eficiência de Euclides.
+%%{{{ x: less_steps_in_euclid
+\exercise.
 %%%{{{ meta 
-\label Efficiency_of_Euclid
+\label less_steps_in_euclid
 %%%}}}
+
+Se $a \geq b$, então $r < a/2$, onde $r$ o resto da divisão de $a$ por $b$.
+
+\hint
+Separe os casos: ou $b > a/2$ ou $b \leq a/2$.
+
+\hint
+Qual seria o resto em cado caso?
+
+\hint
+Num caso, dá para achar exatamente o resto.
+No outro, use a restricção que o resto satisfaz.
+
+\solution
+\case{Caso $b > a/2$:}
+Então $r = a-b < a/2$.
+\case{Caso $b < a/2$:}
+Então $r < b < a/2$.
+
+%%}}}
 
 %%{{{ Q: How efficient is Euclid's algorithm? 
 \question.
@@ -16220,8 +16453,6 @@ Quão eficiente é o algoritmo de Euclides?
 
 \TODO Sobre eficiência, operações primitivas, oráculos.
 
-\TODO Fibonacci e Euclides.
-
 %%{{{ lemma: euclid_algorithm_efficiency 
 \lemma.
 %%%{{{ meta 
@@ -16229,6 +16460,25 @@ Quão eficiente é o algoritmo de Euclides?
 %%%}}}
 
 \TODO Eficiência de Euclides.
+
+%%}}}
+
+%%{{{ x: euclid_vs_fibonacci 
+\exercise Euclides \vs Fibonacci.
+%%%{{{ meta 
+\label euclid_vs_fibonacci
+%%%}}}
+
+Para todo $n\geq1$ e quaisquer inteiros $a > b > 0$,
+se $\euclid(a,b)$ precisa $n$ passos (divisões) para terminar,
+então $a \geq F_{n+2}$ e $b \geq F_{n+1}$, onde $F_i$ é o $i$-ésimo
+número Fibonacci.
+
+\hint
+Indução.
+
+\hint
+$x>y \implies \quot(x,y) \geq 1$.
 
 %%}}}
 
@@ -16429,7 +16679,8 @@ perguntas, e encontramos outros sistemas posicionais de numerais.
 %%%}}}
 
 Seja $b \geq 2$.
-Para todo inteiro $x \leq 0$ existem únicos $m, d_0, \dotsc, d_m$ tais que:
+Todo inteiro $x \geq 0$ tem uma única expansão em base $b$:
+existem únicos $m, d_0, \dotsc, d_m$ tais que:
 $$
 x = d_m b^m + \dotsb + d_1 b^1 + d_0 b^0
 $$
@@ -16709,9 +16960,10 @@ $\comb p r \in\ints$, $r < p$, e $p-r < p$.
 
 %%}}}
 
-%%{{{ prob 
+%%{{{ prob: implications_with_divisibility_of_linear_combinations_generalization 
 \problem.
 %%%{{{ meta 
+\label implications_with_divisibility_of_linear_combinations_generalization
 %%%}}}
 
 (Generalização do~\ref[implications_with_divisibility_of_linear_combinations].)
@@ -16723,40 +16975,10 @@ $$
 
 %%}}}
 
-%%{{{ prob 
+%%{{{ prob: factorial_bound_for_prime 
 \problem.
 %%%{{{ meta 
-%%%}}}
-
-Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
-onde $F_n$ é o $n$-ésimo termo da seqüência
-Fibonacci{\Fibonacci[seqüência]}~(\ref[fibonacci]).
-
-\hint
-Tu já resolveu o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
-
-\solution
-Vamos demonstrar o pedido por indução.
-Para $n=0$ temos
-$$
-    \gcd {F_0} {F_1} = \gcd 0 1 = 1.
-$$
-Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$.
-Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
-Calculando,
-\compute
-\gcd {F_{k+1}} {F_{k+2}}
-    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
-    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
-    &= \gcd {F_k} {F_{k+1}}             \by {propriedade de mdc} \\
-    &= 1.                               \by {pela hipótese indutiva} \\
-\endcompute
-
-%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
+\label factorial_bound_for_prime
 %%%}}}
 
 Seja $n\in\nats$, $n>1$.
@@ -16831,9 +17053,10 @@ $$
 
 %%}}}
 
-%%{{{ prob 
+%%{{{ prob: partitioning_restricted_best_strategy_parallel 
 \problem Contando os passos.
 %%%{{{ meta 
+\label partitioning_restricted_best_strategy_parallel
 %%%}}}
 
 O que muda no~\ref[partitioning_restricted_best_strategy]
@@ -16859,7 +17082,7 @@ $$
 \endalign
 $$
 em apenas $4$ pássos.
-Depois cada passo, se o maior termo fosse o $m$, agora é o $\ceil {\frac m 2}$.
+Depois de cada passo, se o maior termo fosse o $m$, agora é o $\ceil {\frac m 2}$.
 Precisamos tantos passos quantas vezes que podemos dividir o $n$ por $2$ até
 chegar na unidade $1$: precisamos $\ceil {\log_2(n)}$ passos.
 
@@ -16895,18 +17118,18 @@ Demonstre que todos os naturais satisfazem o predicado que tu consideraste.
 %%%}}}
 
 Como tu percebeu resolvendo o~\ref[euclidean_algorithm_proof_why_informal],
-nenhuma das duas partes da prova do~\ref[euclidean_algorithm_correctness]
-foi formal.
-Demonstre completamente formalmente as duas partes usando indução.
+nenhuma das duas partes do~\ref[euclidean_algorithm_correctness]
+foi demonstrada mesmo.
+Demonstre as duas partes usando indução.
 
 \hint
-Precisa expressar o alvo na forma $\lforall n {P(n)}$ para um certo predicado $P$.
+Precisa expressar o alvo na forma $\lforall n {\phi(n)}$.
 
 \hint
 ``\emph{Para todo $x\in\ints$, o $\euclid(x,n)$ termina com o resultado certo}.''
 
 \hint
-O que significaria $P(0)$?  $P(b)$?
+O que significaria $\phi(0)$?  $\phi(b)$?
 
 \hint
 Ser forte é coisa boa.
@@ -16914,19 +17137,20 @@ Ser forte é coisa boa.
 \solution
 Seja
 $$
-P(n) \defiff \lforall {x\in\ints} {\text{$\euclid(x,n)$ termina com $\gcd x n$}}
+\phi(n) \defiff \lforall {x\in\ints} {\text{$\euclid(x,n)$ termina com $\gcd x n$}}
 $$
-Vamos demonstrar que $\lforall {n\in\nats} {P(n)}$ por indução forte.
-Seja $k\in\nats$ tal que $P(i)$ é válido para todo $i<k$ (hipótese indutiva).
-Precisamos demonstrar o $P(k)$, ou seja, que
+Vamos demonstrar que $\lforall {n\in\nats} {\phi(n)}$ por indução forte.
+Seja $k\in\nats$ tal que $\phi(i)$ para todo $i<k$ (hipótese indutiva).
+Precisamos demonstrar o $\phi(k)$, ou seja, que
 \emph{para todo $x\in\ints$, $\euclid(x,k)$ termina e $\euclid(x,k) = \gcd x k$}.
 Seja $x\in\ints$, e aplica o $\euclid(x,k)$ para um passo.
 Se $k=0$, a computação termina imediatamente com o resultado $x$, que é correto
 (\reftag[gcd_of_comparable]).
 Se $k>0$, o algoritmo manda reduzir sua computação para a computação do $\euclid(k,r)$,
-onde $r = x \bmod k < k$.  Seguindo o~\ref[euclid_gcd_lemma] $\gcd x k = \gcd k r$, então
+onde $r = x \bmod k < k$.
+Seguindo o~\ref[euclid_gcd_lemma] $\gcd x k = \gcd k r$, então
 falta verificar que o $\euclid(k,r)$ termina mesmo com $\gcd k r$,
-que é verdade pela hipótese indutiva porque $r < k$ e logo $P(r)$ é válido.
+que é verdade pela hipótese indutiva porque $r < k$ e logo $\phi(r)$ é válido.
 
 %%}}}
 
@@ -16936,7 +17160,7 @@ que é verdade pela hipótese indutiva porque $r < k$ e logo $P(r)$ é válido.
 \label euclidean_algorithm_correctness_formal_proof_by_wop
 %%%}}}
 
-Demonstre completamente formalmente as duas partes
+Demonstre as duas partes
 do~\ref[euclidean_algorithm_correctness] usando o princípio da boa ordem.
 
 \hint
@@ -17674,7 +17898,7 @@ ache uma outra prova do~\reftag[cancellation_law_modulo_m].
 \solution
 Pela hipótese $m\divides ca - cb = c(a - b)$.
 Mas $\gcd m c = 1$, então
-(pelo~\ref[coprime_with_a_part_of_a_product_must_divide_the_other_part_to_divide_the_product])
+(pelo~\ref[lemma_euclides_coprime_version])
 $m\divides a - b$, ou seja, $a \cong b \pmod m$.
 
 %%}}}
