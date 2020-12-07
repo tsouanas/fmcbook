@@ -5300,7 +5300,7 @@ escritas numa linguagem mais humana ``compilam''.
 \TODO diss truth tables.
 
 %%{{{ Proofs, games, programs 
-\section Provas, jogos, programas.
+\section Demonstrações, jogos, programas.
 %%%{{{ meta 
 \label proofs_games_programs
 %%%}}}
@@ -9890,8 +9890,8 @@ e já encontramos e enunciamos o princípio da indução;
 a gente não deveria ter analogamente um princípio da recursão
 também?
 Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois,
-pois precisamos mais ferramentas e maduridade (capítulos
-\ref[Theory_of_recursive_functions] e~\ref[Axiomatic_set_theory]).
+pois precisamos mais ferramentas e maduridade
+(\ref[Theory_of_recursive_functions] e~\ref[Axiomatic_set_theory]).
 
 %%}}}
 
@@ -11334,18 +11334,30 @@ Indução!
 \endproblems
 %%}}}
 
+%%{{{ Inductively_defined_types 
+\section Tipos inductivamente definidos.
+%%%{{{ meta 
+\label Inductively_defined_types
+%%%}}}
+
+\TODO Lists.
+
+\TODO Trees.
+
+\TODO Bools.
+
+\TODO Formulas.
+
+\TODO Terminar.
+
+\endsection
+%%}}}
+
 %%{{{ Structural_recursion_and_induction 
 \section Recursão e indução estrutural.
 %%%{{{ meta 
 \label Structural_recursion_and_induction
 %%%}}}
-
-%%{{{ Recursing over formulas 
-\note Recursando nas fórmulas.
-%%%{{{ meta 
-%%%}}}
-
-%%}}}
 
 %%{{{ eg: bincon_count 
 \example.
@@ -25192,12 +25204,10 @@ Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
 
 Para todo real $\epsilon>0$ e todo $n\in\nats$,
 sejam os intervalos de reais
-$$
-\xalignat2
+\mathcols 2
 I_\epsilon &= [0,1 + \epsilon) &
 U_n        &= [n,+\infty).
-\endxalignat
-$$
+\endmathcols
 Calcule os conjuntos:
 (i) $\Inter \setst {I_\epsilon} {\epsilon>0}$;
 (ii) $\Inter_{n=2}^{\infty} U_n$.
@@ -25205,6 +25215,73 @@ Calcule os conjuntos:
 \solution
 (i) $[0,1]$;
 (ii) $\emptyset$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Multisets 
+\section Multisets.
+%%%{{{ meta 
+\label Multisets
+\indexes
+    * multiset
+    * bag    see: multiset
+    ;;
+%%%}}}
+
+%%{{{ multiset_description 
+\note Descripção.
+%%%{{{ meta 
+\label multiset_description
+%%%}}}
+
+Coloquiamente falando, um \dterm{multiset}
+(também \dterm{bag} ou \dterm{sacola}) $M$ é como um conjunto,
+só que ele não pode responder apenas em perguntas do tipo
+<<o objeto $x$ pertence ao $M$?>>, mas também em
+<<\emph{quantas vezes pertence} o $x$ ao $M$?>>.
+Seus membros continuam sem ordem, mas agora tem \dterm{multiplicidade}.
+Usamos a notação
+$\bag{x_0, x_1, \dots, x_n}$
+para denotar multisets, ou até
+$\set{x_0, x_1, \dots, x_n}$
+sobrecarregando a notação $\set{\dots}$ se é claro pelo contexto
+que é um multiset e não um conjunto.
+
+%%}}}
+
+%%{{{ multiset_equality 
+\note Igualdade.
+%%%{{{ meta 
+\label multiset_equality
+%%%}}}
+
+Consideramos os multisets $M$ e $M'$ iguais sse para todo $x$,
+$$
+\text{$x$ pertence $n$ vezes ao $M$}
+\iff
+\text{$x$ pertence $n$ vezes ao $M'$}.
+$$
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Multisets têm muitos usos na ciência da computação: acabam sendo a ferramenta
+ideal para (d)escrever muitos algoritmos, e muitas linguagens de programação
+já têm esse tipo implementado.
+Mas seu uso em matemática é menos comum.
+De qualquer forma, fez sentido introduzí-los agora junto com seus tipos-amigos,
+pelo menos para saber sobre sua existência na literatura.
+Voltamos depois para implementá-los
+(\ref[implement_multisets],
+\ref[multiset_formally_defined]);
+não se preocupe neste momento com eles.
 
 %%}}}
 
@@ -26195,67 +26272,138 @@ Pense nisso.
 \endsection
 %%}}}
 
-%%{{{ Multisets 
-\section Multisets.
+%%{{{ Structured_sets 
+\section Conjuntos estruturados.
 %%%{{{ meta 
-\label Multisets
-\indexes
-    * multiset
-    * bag    see: multiset
+\label Structured_sets
+%%%}}}
+
+\TODO Elaborar.
+
+%%{{{ concept, notation, equality 
+\note Conceito, notação, igualdade.
+%%%{{{ meta 
+%%%}}}
+
+Já encontramos a idéia de estrutura (interna) dum
+conjunto~(foi no~\ref[blackbox_set]).
+
+%%}}}
+
+%%{{{ warning: notational_abuse_structured_sets 
+\warning abuso notacional.
+%%%{{{ meta 
+\label notational_abuse_structured_sets
+\pdefs
+    \pdef A {{\ssetfont A}}
     ;;
 %%%}}}
 
-%%{{{ multiset_description 
-\note Descripção.
-%%%{{{ meta 
-\label multiset_description
-%%%}}}
-
-Coloquiamente falando, um \dterm{multiset}
-(também \dterm{bag} ou \dterm{sacola}) $M$ é como um conjunto,
-só que ele não pode responder apenas em perguntas do tipo
-<<o objeto $x$ pertence ao $M$?>>, mas também em
-<<\emph{quantas vezes pertence} o $x$ ao $M$?>>.
-Seus membros continuam sem ordem, mas agora tem \dterm{multiplicidade}.
-Usamos a notação
-$\bag{x_0, x_1, \dots, x_n}$
-para denotar multisets, ou até
-$\set{x_0, x_1, \dots, x_n}$
-sobrecarregando a notação $\set{\dots}$ se é claro pelo contexto
-que é um multiset e não um conjunto.
+Suponha $\A = \sset A {\dotsc}$ é algum conjunto estruturado.
+Tecnicamente falando, escrever \sq{$a\in \A$} seria errado.
+Mesmo assim escrevemos sim \sq{$a\in \A$} em vez de \sq{$a\in A$},
+e similarmente falamos sobre \wq{os elementos de~$\A$}
+quando na verdade estamos se referendo aos elementos de~$A$,
+etc.
+Em geral, quando aparece um conjunto estruturado~$\A$ num contexto
+onde deveria aparecer algum conjunto, identificamos o~$\A$
+com seu \dterm{carrier set}~$A$.
+Às vezes usamos até o mesmo símbolo na sua definição, escrevendo
+$A = \sset A {\dotsc}$.
 
 %%}}}
 
-%%{{{ multiset_equality 
-\note Igualdade.
+%%{{{ Structured sets with constants 
+\note Conjuntos estruturados com constantes.
 %%%{{{ meta 
-\label multiset_equality
 %%%}}}
 
-Consideramos os multisets $M$ e $M'$ iguais sse para todo $x$,
-$$
-\text{$x$ pertence $n$ vezes ao $M$}
-\iff
-\text{$x$ pertence $n$ vezes ao $M'$}.
-$$
+\TODO Escrever.
 
 %%}}}
 
-%%{{{ blah 
-\blah.
+%%{{{ Structured sets with operations 
+\note Conjuntos estruturados com operações.
 %%%{{{ meta 
 %%%}}}
 
-Multisets têm muitos usos na ciência da computação: acabam sendo a ferramenta
-ideal para (d)escrever muitos algoritmos, e muitas linguagens de programação
-já têm esse tipo implementado.
-Mas seu uso em matemática é menos comum.
-De qualquer forma, fez sentido introduzí-los agora junto com seus tipos-amigos,
-pelo menos para saber sobre sua existência na literatura.
-Voltamos depois para implementá-los
-(\ref[implement_multisets],
-\ref[multiset_formally_defined]);
-não se preocupe neste momento com eles.
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ Structured sets with relations 
+\note Conjuntos estruturados com relações.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ df: dictionary_of_operation_properties 
+\definition.
+%%%{{{ meta 
+\label dictionary_of_operation_properties
+%%%}}}
+
+Sejam conjunto $A$,
+uma operação binária $\ast$ no $A$,
+e um $g \in A$.
+Dizemos que:
+$$
+\align
+\text{$A$ é $\ast$-fechado}                     &\defiff \lforall {a,b \in A}   {a \ast b \in A}\\
+\text{$\ast$ é associativa}                     &\defiff \lforall {a,b,c \in A} {(a \ast b) \ast c = a \ast (b \ast c)}\\
+\text{$\ast$ é comutativa}                      &\defiff \lforall {a,b \in A}   {a \ast b = b \ast a}\\
+\text{$u$ é uma $\ast$-identidade esquerda}     &\defiff \lforall {a \in A}     {u \ast a = a}\\
+\text{$u$ é uma $\ast$-identidade direita}      &\defiff \lforall {a \in A}     {a \ast u = a}\\
+\text{$u$ é uma $\ast$-identidade}              &\defiff \lforall {a \in A}     {u \ast a = a = a \ast u}\\
+\text{$y$ é um $\ast$-inverso esquerdo de $g$}  &\defiff \text{$y \ast g = e$, \ onde $e$ é uma $\ast$-identidade}\\
+\text{$y$ é um $\ast$-inverso direito de $g$}   &\defiff \text{$g \ast y = e$, \ onde $e$ é uma $\ast$-identidade}\\
+\text{$y$ é um $\ast$-inverso de $g$}           &\defiff \text{$y \ast g = e = g \ast y$, \ onde $e$ é uma $\ast$-identidade}
+\endalign
+$$
+onde não escrevemos os ``$\ast$-'' quando são implícitos pelo contexto.
+
+%%}}}
+
+%%{{{ operating_on_an_empty_list_of_objects 
+\note Operando numa lista vazia de objetos.
+%%%{{{ meta 
+\label operating_on_an_empty_list_of_objects
+%%%}}}
+
+Suponha que para algum $k\in\nats$ temos uns objetos
+$$
+a_0,a_1,\dotsc,a_{k-1}
+$$
+definidos.  Ou seja, temos $k$ objetos.
+O que seria o resultado operando eles entre si?
+Isso é algo que denotamos por
+$$
+a_0 \ast a_1 \ast \dotsb \ast a_{k-1}
+\qqqqtext{ou}
+a_0 a_1 \dotsb a_{k-1}.
+$$
+Como \emph{a operação associativa}, essa expressão faz sentido,
+assim sem parênteses, para qualquer $k>0$.
+E, se \emph{a operação tem identidade}, então ela é definida até
+para o caso extremo de $k=0$.
+Se $k=0$ temos uma lista de $0$ membros para operar.
+E realmente definimos esse resultado para ser a identidade da operação.
+
+%%}}}
+
+%%{{{ df: rel_fechado 
+\definition.
+%%%{{{ meta 
+\label rel_fechado
+%%%}}}
+
+Seja $R$ uma relação num conjunto $A$ e $X \subset A$.
+Chamamos o $X$ de \dterm{$R$-fechado}
+sse para todo $x \in X$, e todo $a \in A$
+com $x \rel R a$, temos $a \in X$ também.
 
 %%}}}
 
@@ -44689,144 +44837,6 @@ e lógicas de ordem superior (\ref[Mathematical_logic]).
 \endsection
 %%}}}
 
-%%{{{ Structured_sets 
-\section Conjuntos estruturados.
-%%%{{{ meta 
-\label Structured_sets
-%%%}}}
-
-\TODO Elaborar.
-
-%%{{{ concept, notation, equality 
-\note Conceito, notação, igualdade.
-%%%{{{ meta 
-%%%}}}
-
-Já encontramos a idéia de estrutura (interna) dum
-conjunto~(foi no~\ref[blackbox_set]).
-
-%%}}}
-
-%%{{{ warning: notational_abuse_structured_sets 
-\warning abuso notacional.
-%%%{{{ meta 
-\label notational_abuse_structured_sets
-\pdefs
-    \pdef A {{\ssetfont A}}
-    ;;
-%%%}}}
-
-Suponha $\A = \sset A {\dotsc}$ é algum conjunto estruturado.
-Tecnicamente falando, escrever \sq{$a\in \A$} seria errado.
-Mesmo assim escrevemos sim \sq{$a\in \A$} em vez de \sq{$a\in A$},
-e similarmente falamos sobre \wq{os elementos de~$\A$}
-quando na verdade estamos se referendo aos elementos de~$A$,
-etc.
-Em geral, quando aparece um conjunto estruturado~$\A$ num contexto
-onde deveria aparecer algum conjunto, identificamos o~$\A$
-com seu \dterm{carrier set}~$A$.
-Às vezes usamos até o mesmo símbolo na sua definição, escrevendo
-$A = \sset A {\dotsc}$.
-
-%%}}}
-
-%%{{{ Structured sets with constants 
-\note Conjuntos estruturados com constantes.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ Structured sets with operations 
-\note Conjuntos estruturados com operações.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ df: closed_associative_identity_inverse 
-\definition.
-%%%{{{ meta 
-\label closed_associative_identity_inverse
-%%%}}}
-
-Sejam conjunto $A$,
-uma operação binária $\ast$ no $A$,
-e um $g \in A$.
-Dizemos que:
-$$
-\align
-\text{$A$ é $\ast$-fechado}                     &\defiff \lforall {a,b \in A}   {a \ast b \in A}\\
-\text{$\ast$ é associativa}                     &\defiff \lforall {a,b,c \in A} {(a \ast b) \ast c = a \ast (b \ast c)}\\
-\text{$\ast$ é comutativa}                      &\defiff \lforall {a,b \in A}   {a \ast b = b \ast a}\\
-\text{$u$ é uma $\ast$-identidade esquerda}     &\defiff \lforall {a \in A}     {u \ast a = a}\\
-\text{$u$ é uma $\ast$-identidade direita}      &\defiff \lforall {a \in A}     {a \ast u = a}\\
-\text{$u$ é uma $\ast$-identidade}              &\defiff \lforall {a \in A}     {u \ast a = a = a \ast u}\\
-\text{$y$ é um $\ast$-inverso esquerdo de $g$}  &\defiff \text{$y \ast g = e$, \ onde $e$ é uma $\ast$-identidade}\\
-\text{$y$ é um $\ast$-inverso direito de $g$}   &\defiff \text{$g \ast y = e$, \ onde $e$ é uma $\ast$-identidade}\\
-\text{$y$ é um $\ast$-inverso de $g$}           &\defiff \text{$y \ast g = e = g \ast y$, \ onde $e$ é uma $\ast$-identidade}
-\endalign
-$$
-onde não escrevemos os ``$\ast$-'' quando são implícitos pelo contexto.
-
-%%}}}
-
-%%{{{ operating_on_an_empty_list_of_objects 
-\note Operando numa lista vazia de objetos.
-%%%{{{ meta 
-\label operating_on_an_empty_list_of_objects
-%%%}}}
-
-Suponha que para algum $k\in\nats$ temos uns objetos
-$$
-a_0,a_1,\dotsc,a_{k-1}
-$$
-definidos.  Ou seja, temos $k$ objetos.
-O que seria o resultado operando eles entre si?
-Isso é algo que denotamos por
-$$
-a_0 \ast a_1 \ast \dotsb \ast a_{k-1}
-\qqqqtext{ou}
-a_0 a_1 \dotsb a_{k-1}.
-$$
-Como \emph{a operação associativa}, essa expressão faz sentido,
-assim sem parênteses, para qualquer $k>0$.
-E, se \emph{a operação tem identidade}, então ela é definida até
-para o caso extremo de $k=0$.
-Se $k=0$ temos uma lista de $0$ membros para operar.
-E realmente definimos esse resultado para ser a identidade da operação.
-
-%%}}}
-
-%%{{{ Structured sets with relations 
-\note Conjuntos estruturados com relações.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ df: rel_fechado 
-\definition.
-%%%{{{ meta 
-\label rel_fechado
-%%%}}}
-
-Seja $R$ uma relação num conjunto $A$ e $X \subset A$.
-Chamamos o $X$ de \dterm{$R$-fechado}
-sse para todo $x \in X$, e todo $a \in A$
-com $x \rel R a$, temos $a \in X$ também.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ PROBLEMS 
 \problems.
 %%%{{{ meta 
@@ -45867,8 +45877,8 @@ cada elemento de $G$ possui $\ast$-\emph{inverso}.
 %%%{{{ meta 
 %%%}}}
 
-Lembrando a~\ref[closed_associative_identity_inverse],
-tentamos esclarecer pouco essa definição:
+Anticipando o dicionário relevante (\ref[dictionary_of_operation_properties])
+vamos esclarecer pouco essa definição:
 
 %%}}}
 
@@ -73371,6 +73381,29 @@ $\setst{q \in \rats}{a \leq q\leq b}$ também é incontável?
 \endchapter
 %%}}}
 
+%%{{{ chapter: Universal_algebra 
+\chapter Álgebra universal.
+%%%{{{ meta 
+\label Universal_algebra
+%%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
 %%{{{ chapter: Graph_theory 
 \chapter Teoria de grafos.
 %%%{{{ meta 
@@ -73388,7 +73421,7 @@ $\setst{q \in \rats}{a \leq q\leq b}$ também é incontável?
 %%{{{ Further reading 
 \further.
 
-Umas introduções extensas são
+Umas introduções extensas em teoria dos grafos são
 o clássico~\cite[bondymurty1976]
 e o mais novo~\cite[ChartrandZhang].
 Depois continua com~\cite[diestelgraph]
@@ -74126,29 +74159,6 @@ $$
 
 \cite[winskelsemantics],
 \cite[guntersemantics].
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Universal_algebra 
-\chapter Álgebra universal.
-%%%{{{ meta 
-\label Universal_algebra
-%%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
 
 \endfurther
 %%}}}
