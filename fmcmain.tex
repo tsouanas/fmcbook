@@ -70102,14 +70102,19 @@ mesmo as leis e corpo ordenado completo.
 \note Créditos.
 %%%{{{ meta 
 \label fol_filter_by_fraenkel_and_skolem
+\credits
+    * Zermelo
+    * Fraenkel
+    * Skolem
+    ;;
 %%%}}}
 
 Todos os axiomas que temos visto até agora são essencialmente os axiomas
-de Zermelo{\Zermelo}, e falta apenas um dos seus axiomas originais
+de Zermelo, e falta apenas um dos seus axiomas originais
 (o axioma da escolha que encontramos na~\reftag[Axioms_of_choice]).
 Sobre o axioma Separation~(\axref[separation]), Zermelo usou o termo
 ``propriedade definitiva'', que temos usado também sobre o ``filtro'',
-mas foram {\Fraenkel}Fraenkel~e~{\Skolem}Skolem que consideraram definir isso
+mas foram Fraenkel e~Skolem que consideraram definir isso
 como uma fórmula da linguagem da FOL com $=$ e $\in$.
 
 %%}}}
@@ -72669,6 +72674,232 @@ $$
 \endchapter
 %%}}}
 
+%%{{{ chapter: Wosets_Ordinals 
+\chapter Wosets; Ordinais.
+%%%{{{ meta 
+\label Wosets_Ordinals
+%%%}}}
+
+%%{{{ intro 
+\chapintro
+O termo \emph{wellorder} (ou \emph{well-order}) de inglês tem sido traduzido
+como \emph{boa ordem} em português.  Aqui eu uso o termo \emph{bem-ordem}.
+Além de ficar mais perto no termo internacional, a palavra ``bem'' tem
+um significado \emph{bem} mais usado em português do que em inglês,
+onde não é muito \emph{well} known, exemplificado aqui:\foot
+e com certeza \emph{well} beyond nossos interesses aqui
+\toof
+\eop\smallskip
+Uma ordem é uma relação legal.
+\eop
+Uma \emph{bem}-ordem é uma relação \emph{bem}~legal---vamos descobrir isso neste capítulo.
+%%}}}
+
+%%{{{ Wellorderings 
+\section Bem-ordens.
+
+%%{{{ df: woset 
+\definition Bem-ordem.
+%%%{{{ meta 
+\label woset
+\indexes
+    * conjunto!bem-ordenado    see: woset
+    ;;
+\defines
+    * woset
+    ;;
+%%%}}}
+
+Seja $\sset A <$ um conjunto totalmente ordenado.
+Sua ordem $<$ é uma \dterm{bem-ordem}, sse
+\emph{cada subconjunto $S\subset A$ possui um elemento mínimo}.
+Nesse caso chamamos o $A$ \dterm{bem-ordenado} ou \dterm{woset}
+(de \dterm{well-ordered set}).
+
+%%}}}
+
+\TODO Elaborar.
+
+\endsection
+%%}}}
+
+%%{{{ Transfinite induction 
+\section Indução transfinita.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Transfinite recursion 
+\section Recursão transfinita.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Ordinal_arithmetic 
+\section Aritmética ordinal.
+%%%{{{ meta 
+\label Ordinal_arithmetic
+%%%}}}
+
+%%{{{ x: omegaomega_plus_one_is_well_ordered 
+\exercise.
+%%%{{{ meta 
+\label omegaomega_plus_one_is_well_ordered
+%%%}}}
+
+O $\omega^2+1$ é bem ordenado.
+
+\hint
+Lembre-se que usamos a ordem (anti)lexicográfica nos produtos.
+Tome $A$ tal que $\emptyset\neq A \subset \omega^2 + 1$ e ache se u mínimo.
+Separe casos dependendo se $A=\set{\top}$ ou não,
+onde $\top$ o máximo elemento do $\omega^2+1$.
+
+\solution
+Seja $A\subset \omega^2 + 1$ com $A\neq\emptyset$.
+Temos a seguinte ordem no $\omega^2 + 1$:
+$$
+\mubrace{
+ \mubrace{\tup{0,0} < \tup{1,0} < \tup{2,0} < \dotsb}{\dsize\omega} 
+ <
+ \mubrace{\tup{0,1} < \tup{1,1} < \tup{2,1} < \dotsb}{\dsize\omega} 
+ <
+ \dotsb
+}{\dsize\omega^2}
+<
+\set\top.
+$$
+\case{Caso $A = \set {\top}$}:
+$\min A = \top$.
+\eop
+\case{Caso $A \neq \set {\top}$}:
+Como $A\neq \emptyset$, concluimos que $A\inter \omega^2 \neq \emptyset$.
+Sejam:
+$$
+\align
+y_0 &\asseq \min\setst {y\in\nats} {\lexists {x\in\nats} {\tup{x,y}\in A}}\\
+x_0 &\asseq \min\setst {x\in\nats} {\tup{x,y_0}\in A}
+\endalign
+$$
+onde os dois mínima existem graças ao PBO dos naturais.
+Facilmente, $\min A = \tup{x_0,y_0}$.
+
+%%}}}
+
+%%{{{ x: solving_for_ordinals 
+\exercise.
+%%%{{{ meta 
+\label solving_for_ordinals
+%%%}}}
+
+O que podes concluir sobre os ordinais $\alpha$ e $\beta$ se\dots:
+$$
+\xxalignat3
+\text{(i)}~&\omega + \alpha = \omega & \text{(iii)}~& \omega \cdot \alpha = \omega & \text{(v)}~& \alpha +     \beta = \omega\\
+\text{(ii)}~&\alpha + \omega = \omega & \text{(iv)}~& \alpha \cdot \omega = \omega & \text{(vi)}~& \alpha \cdot \beta = \omega
+\endxxalignat
+$$
+
+\solution
+\item{(i)}   $\alpha = 0$
+\item{(ii)}  $\alpha$ é finito
+\item{(iii)} $\alpha=1$
+\item{(iv)}  $\alpha$ finíto \& $\alpha\neq 0$
+\item{(v)}   $\text{ou}\,\leftbrace {\aligned&\text{$\alpha$ finíto      \& $\beta=\omega$}\\&\text{$\alpha=\omega$ \& $\beta=0$}\endaligned}$
+\item{(vi)}  $\text{ou}\,\leftbrace {\aligned&\text{$1\leq\alpha<\omega$ \& $\beta=\omega$}\\&\text{$\alpha=\omega$ \& $\beta=1$}\endaligned}$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite[goldreisets],
+\cite[ynmnst],
+\cite[jechset],
+\cite[kanamori],
+\cite[kunen2011].
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Denotational_semantics 
+\chapter Semântica denotacional.
+%%%{{{ meta 
+\label Denotational_semantics
+%%%}}}
+
+%TODO: Check http://pages.cs.wisc.edu/~horwitz/CS704-NOTES/
+
+%%{{{ A language of binary numerals 
+\section Uma linguagem de numerais binários.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ A little programming language 
+\section Uma pequena linguagem de programação.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Domain theory 
+\section Teoria de domínios.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite[stoysemantics],
+\cite[tennent1976],
+\cite[tennentsemantics].
+
+\cite[streicherdomainsfp].
+
+\cite[lpbook].
+
+\cite[winskelsemantics],
+\cite[guntersemantics].
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
 %%{{{ chapter: Metric_spaces 
 \chapter Espaços métricos.
 %%%{{{ meta 
@@ -73388,29 +73619,6 @@ $\setst{q \in \rats}{a \leq q\leq b}$ também é incontável?
 \endchapter
 %%}}}
 
-%%{{{ chapter: Universal_algebra 
-\chapter Álgebra universal.
-%%%{{{ meta 
-\label Universal_algebra
-%%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
 %%{{{ chapter: Graph_theory 
 \chapter Teoria de grafos.
 %%%{{{ meta 
@@ -73434,6 +73642,29 @@ e o mais novo~\cite[ChartrandZhang].
 Depois continua com~\cite[diestelgraph]
 e~\cite[bondymurty2011].
 Finalmente, um nível ainda mais avançado, \cite[bollobasmodern].
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Universal_algebra 
+\chapter Álgebra universal.
+%%%{{{ meta 
+\label Universal_algebra
+%%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
 
 \endfurther
 %%}}}
@@ -73925,232 +74156,6 @@ Sobre lógica matemática:
 \cite[alicebook],
 \cite[kozenac],
 \cite[davisccl: Part~2].
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Wosets_Ordinals 
-\chapter Wosets; Ordinais.
-%%%{{{ meta 
-\label Wosets_Ordinals
-%%%}}}
-
-%%{{{ intro 
-\chapintro
-O termo \emph{wellorder} (ou \emph{well-order}) de inglês tem sido traduzido
-como \emph{boa ordem} em português.  Aqui eu uso o termo \emph{bem-ordem}.
-Além de ficar mais perto no termo internacional, a palavra ``bem'' tem
-um significado \emph{bem} mais usado em português do que em inglês,
-onde não é muito \emph{well} known, exemplificado aqui:\foot
-e com certeza \emph{well} beyond nossos interesses aqui
-\toof
-\eop\smallskip
-Uma ordem é uma relação legal.
-\eop
-Uma \emph{bem}-ordem é uma relação \emph{bem}~legal---vamos descobrir isso neste capítulo.
-%%}}}
-
-%%{{{ Wellorderings 
-\section Bem-ordens.
-
-%%{{{ df: woset 
-\definition Bem-ordem.
-%%%{{{ meta 
-\label woset
-\indexes
-    * conjunto!bem-ordenado    see: woset
-    ;;
-\defines
-    * woset
-    ;;
-%%%}}}
-
-Seja $\sset A <$ um conjunto totalmente ordenado.
-Sua ordem $<$ é uma \dterm{bem-ordem}, sse
-\emph{cada subconjunto $S\subset A$ possui um elemento mínimo}.
-Nesse caso chamamos o $A$ \dterm{bem-ordenado} ou \dterm{woset}
-(de \dterm{well-ordered set}).
-
-%%}}}
-
-\TODO Elaborar.
-
-\endsection
-%%}}}
-
-%%{{{ Transfinite induction 
-\section Indução transfinita.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Transfinite recursion 
-\section Recursão transfinita.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Ordinal_arithmetic 
-\section Aritmética ordinal.
-%%%{{{ meta 
-\label Ordinal_arithmetic
-%%%}}}
-
-%%{{{ x: omegaomega_plus_one_is_well_ordered 
-\exercise.
-%%%{{{ meta 
-\label omegaomega_plus_one_is_well_ordered
-%%%}}}
-
-O $\omega^2+1$ é bem ordenado.
-
-\hint
-Lembre-se que usamos a ordem (anti)lexicográfica nos produtos.
-Tome $A$ tal que $\emptyset\neq A \subset \omega^2 + 1$ e ache se u mínimo.
-Separe casos dependendo se $A=\set{\top}$ ou não,
-onde $\top$ o máximo elemento do $\omega^2+1$.
-
-\solution
-Seja $A\subset \omega^2 + 1$ com $A\neq\emptyset$.
-Temos a seguinte ordem no $\omega^2 + 1$:
-$$
-\mubrace{
- \mubrace{\tup{0,0} < \tup{1,0} < \tup{2,0} < \dotsb}{\dsize\omega} 
- <
- \mubrace{\tup{0,1} < \tup{1,1} < \tup{2,1} < \dotsb}{\dsize\omega} 
- <
- \dotsb
-}{\dsize\omega^2}
-<
-\set\top.
-$$
-\case{Caso $A = \set {\top}$}:
-$\min A = \top$.
-\eop
-\case{Caso $A \neq \set {\top}$}:
-Como $A\neq \emptyset$, concluimos que $A\inter \omega^2 \neq \emptyset$.
-Sejam:
-$$
-\align
-y_0 &\asseq \min\setst {y\in\nats} {\lexists {x\in\nats} {\tup{x,y}\in A}}\\
-x_0 &\asseq \min\setst {x\in\nats} {\tup{x,y_0}\in A}
-\endalign
-$$
-onde os dois mínima existem graças ao PBO dos naturais.
-Facilmente, $\min A = \tup{x_0,y_0}$.
-
-%%}}}
-
-%%{{{ x: solving_for_ordinals 
-\exercise.
-%%%{{{ meta 
-\label solving_for_ordinals
-%%%}}}
-
-O que podes concluir sobre os ordinais $\alpha$ e $\beta$ se\dots:
-$$
-\xxalignat3
-\text{(i)}~&\omega + \alpha = \omega & \text{(iii)}~& \omega \cdot \alpha = \omega & \text{(v)}~& \alpha +     \beta = \omega\\
-\text{(ii)}~&\alpha + \omega = \omega & \text{(iv)}~& \alpha \cdot \omega = \omega & \text{(vi)}~& \alpha \cdot \beta = \omega
-\endxxalignat
-$$
-
-\solution
-\item{(i)}   $\alpha = 0$
-\item{(ii)}  $\alpha$ é finito
-\item{(iii)} $\alpha=1$
-\item{(iv)}  $\alpha$ finíto \& $\alpha\neq 0$
-\item{(v)}   $\text{ou}\,\leftbrace {\aligned&\text{$\alpha$ finíto      \& $\beta=\omega$}\\&\text{$\alpha=\omega$ \& $\beta=0$}\endaligned}$
-\item{(vi)}  $\text{ou}\,\leftbrace {\aligned&\text{$1\leq\alpha<\omega$ \& $\beta=\omega$}\\&\text{$\alpha=\omega$ \& $\beta=1$}\endaligned}$
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite[goldreisets],
-\cite[ynmnst],
-\cite[jechset],
-\cite[kanamori],
-\cite[kunen2011].
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Denotational_semantics 
-\chapter Semântica denotacional.
-%%%{{{ meta 
-\label Denotational_semantics
-%%%}}}
-
-%TODO: Check http://pages.cs.wisc.edu/~horwitz/CS704-NOTES/
-
-%%{{{ A language of binary numerals 
-\section Uma linguagem de numerais binários.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ A little programming language 
-\section Uma pequena linguagem de programação.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Domain theory 
-\section Teoria de domínios.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite[stoysemantics],
-\cite[tennent1976],
-\cite[tennentsemantics].
-
-\cite[streicherdomainsfp].
-
-\cite[lpbook].
-
-\cite[winskelsemantics],
-\cite[guntersemantics].
 
 \endfurther
 %%}}}
