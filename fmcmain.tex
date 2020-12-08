@@ -15199,8 +15199,8 @@ Implemente o algoritmo de Eratosthenes e o usando ache todos os primos até o $1
 
 %%{{{ lemma: euclidean_division 
 \lemma Lemma da Divisão de Euclides.
-\headerize
 %%%{{{ meta 
+\headerize
 \label euclidean_division
 \credits
     * Euclid : lemma da divisão
@@ -15211,11 +15211,12 @@ Implemente o algoritmo de Eratosthenes e o usando ache todos os primos até o $1
     ;;
 %%%}}}
 
-Dados inteiros $a$ e $b$ com $b>0$, existem inteiros $q$ e $r$ tais que:
+Dados inteiros $a$ e $b$ com $b \neq 0$,
+existem inteiros $q$ e $r$ tais que:
 $$
 a = bq + r,
 \qquad
-0\leq r < b.
+0 \leq r < \abs b.
 \mtag[euclidean_div=EucDiv]
 $$
 Além disso, os $q$ e $r$ são \emph{determinados unicamente}.
@@ -15239,8 +15240,8 @@ aplicando a PBO, considera o menor deles.
 \proofpart{Unicidade:}
 Suponha que $a=bq+r=bq'+r'$
 para alguns $q,r,q',r'\in\ints$ tais que satisfazem as restricções
-$0\leq r < b$ e $0\leq r' < b$.
-Mostre que $r=r'$ e $q=q'$.
+$0 \leq r < \abs b$ e $0 \leq r' < \abs b$.
+Basta mostrar que $r=r'$ e $q=q'$.
 
 %%}}}
 
@@ -15270,7 +15271,12 @@ Dados $a,b\in\ints$ com $b>0$, são determinados os inteiros $q$ e $r$
 que satisfazem a~\mref[euclidean_div].
 Chamamos o $q$ de \dterm{quociente} e o $r$ de
 \dterm{resto} da divisão de $a$ por $b$ e os denotamos por
-$\quot(a,b)$ e $\rem(a,b)$ respectivamente.
+$\quot(a,b)$ e $\rem(a,b)$ respectivamente:
+$$
+a = b \stimes \quot(a,b) + \rem(a,b)
+\qquad
+0\leq \rem(a,b) < \abs b.
+$$
 
 %%}}}
 
