@@ -16586,6 +16586,49 @@ Indução.
 \hint
 $x>y \implies \quot(x,y) \geq 1$.
 
+\solution
+Por indução.
+\proofpart{Base.}
+Sejam inteiros $a > b > 0$
+tais que $\euclid(a,b)$ precisa $1$ passo para terminar:
+Precisamos inferir que $a \geq F_3 = 2$ e $b \geq F_2 = 1$,
+imediato pois $a > b > 0$.
+\proofpart{Passo indutivo.}
+Seja $k \geq 1$ tal que para quaisquer inteiros $u > v > 0$,
+se $\euclid(u,v)$ precisa $k$ passos (divisões) para terminar,
+emtão $u \geq F_{k+2}$ e $v \geq F_{k+1}$:
+$$
+\lforall {u > v > 0} {\text{$\euclid(u,v)$ termina em $k$ passos} \implies u \geq F_{k+2} \mland v \geq F_{k+1}}.
+\tag{HI}
+$$
+Sejam inteiros $a > b > 0$ tais que $\euclid(a,b)$ termina em $k+1$ passos.
+Executamos o primeiro desses passos, obtendo os $q_0, r_0$:
+$$
+\matrix
+\format
+\r\;    &\;\c\;  & \; \c \;                   & \l      & \;\c\; & \c      & \qquad\qquad\l          \\
+a       &   =    & b                          & q_0     &  +     & r_0,    & 0\leq r_0 < b           \\
+\endmatrix
+$$
+Agora em $k$ passos o algoritmo terminará, mas neste ponto o algoritmo
+manda executar o $\euclid(b,r_0)$.  Ou seja o $\euclid(b,r_0)$ precisa
+$k$ passos, e $b > r_0 > 0$, e logo pela HI com $u \asseq b$ e $v \asseq r_0$
+inferimos:
+$$
+b \geq F_{k+2}
+\qqquad
+r_0 \geq F_{k+1}.
+\tag{HI*}
+$$
+Calculamos:
+\compute
+a &=    bq_0 + r_0                  \\
+  &\geq F_{k+2} q_0 + F_{k+1}       \by {HI*} \\
+  &\geq F_{k+2} \stimes 1 + F_{k+1} \by {$q_0 \geq 1$ pois $a>b$} \\
+  &=    F_{k+2} + F_{k+1}           \\
+  &=    F_{k+3}.                    \by {def.~$F_{k+3}$} \\
+\endcompute
+
 %%}}}
 
 \endsection
@@ -17674,7 +17717,7 @@ Para a direção \lrdir, vamos mostrar que $r_a - r_b = 0$.
 Usamos a hipótese e propriedades de~$\divides$
 para mostrar que $m \divides r_a - r_b$,
 e depois as duas desigualdades para confirmar que, com suas restricções,
-o único inteiro múltiplo de $m$ que as satisfaça, é o $0$.
+o único inteiro múltiplo de $m$ que as satisfaz é o~$0$.
 
 \proof.
 Precisamos mostrar as duas direções do \bidir:
