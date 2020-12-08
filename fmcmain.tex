@@ -15945,9 +15945,10 @@ Sejam $a,b\in\ints$ e $p$ primo.
 Se $p \divides ab$, então $p \divides a$ ou $p \divides b$.
 
 \sketch.
-Suponha que $p\ndivides a$.  Logo o $\gcd a p = 1$ pode ser escrito como combinação linear de $a$ e $p$:
+Suponha que $p \ndivides a$.
+Logo o $\gcd a p = 1$ pode ser escrito como combinação linear de $a$ e $p$:
 $$
-1 = as + pt,    \qquad\text{para uns $s,t\in\ints$}.
+1 = as + pt,    \qquad\text{para alguns $s,t\in\ints$}.
 $$
 Multiplica os dois lados por $b$, e explica por que necessariamente $p \divides b$.
 
@@ -15967,8 +15968,8 @@ Logo, $p \divides asb + ptb = b$.
 
 %%}}}
 
-%%{{{ thm: lemma_euclides_coprime_version 
-\theorem.
+%%{{{ lemma: lemma_euclides_coprime_version 
+\lemma.
 %%%{{{ meta 
 \label lemma_euclides_coprime_version
 %%%}}}
@@ -16044,6 +16045,35 @@ Então, como $p\geq 2$, ou o $p$ é primo e $p\not\in P$,
 ou $p$ é divisível por algum primo $q \not\in P$
 (por~\ref[every_composite_number_is_divisible_by_a_prime]).
 Nos dois casos, existe pelo menos um primo fora do $P$.
+
+%%}}}
+
+%%{{{ x: pq|n² ⇒ pq|n 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre ou refute:
+para quaisquer primos distintos $p,q$,
+$$
+pq \divides n^2  \implies  pq \divides n.
+$$
+
+\hint
+Tá certo.  Demonstre.
+
+\hint
+Temos $p,q$ primos distintos e logo coprimos e logo o
+\ref[product_of_coprimes_divides_common_multiple] ajuda.
+
+\solution
+Como $p \divides pq$ e $pq \divides n^2$, logo $p \divides n^2$.
+Ou seja $p \divides n$\fact1 pelo \ref[euclid_lemma].
+Similarmente $q \divides n$\fact2.
+Mas $p,q$ são primos distintos, logo coprimos, e
+ambos dividem o $n$ (\byfact1 e \byfact2)
+logo $pq \divides n$
+(pelo \ref[product_of_coprimes_divides_common_multiple]).
 
 %%}}}
 
@@ -19023,9 +19053,10 @@ Nesse exercício um dos dois sistemas não tem solução.
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ prob: 4n+3 primes 
+%%{{{ prob: infinitely_many_primes_3_mod_4 
 \problem.
 %%%{{{ meta 
+\label infinitely_many_primes_3_mod_4
 %%%}}}
 
 Existe uma infinidade de primos ``da forma $4n+3$'', ou seja, o conjunto
@@ -19049,7 +19080,36 @@ Tente achar (criar) um número da mesma forma tal que nenhum dos $p_i$ o divide.
 $N = 4p_1p_2\dotsb p_k - 1$.
 
 \hint
-$N$ não pode ter apenas divisores da forma $4n+1$.
+$N$ não pode ter apenas divisores da forma $4n+1$.  Por quê?
+
+\hint
+\dots porque multiplicando numeros da forma $4n+1$ seu produto continua da mesma forma.
+
+\solution
+Considere $k\in\nats$ arbitrário.
+Basta encontrar um primo da forma $4n+3$ que é maior que o $k$-ésimo primo.
+Seja $N = 4p_1p_2\dotsb p_k - 1$, que é um numero da forma $4n+3$
+que não é divisível por nenhum dos $p_1,\dotsb,p_k$.
+Agora observe que $N$ não pode ter apenas divisores da forma $4n+1$,
+pois se fosse o caso ele seria da mesma forma.
+Logo pelo menos um dos primos que o dividem é da forma $4n+3$
+e maior que o $p_k$ (pelo \byfact1) e logo achamos o primo que estavamos procurando.
+
+%%}}}
+
+%%{{{ prob: why 4n+1 is more difficult? 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Depois de ter resolvido o \ref[infinitely_many_primes_3_mod_4],
+explique por que sua demonstração não é trivialmente adaptável
+para resolver a mesma questão sobre os primos da forma $4n+1$.
+
+\hint
+\mathcols 2
+(4n+3)(4n+3) &\askeq 4n'+3  & (-1)^n &\askeq -1
+\endmathcols
 
 %%}}}
 
