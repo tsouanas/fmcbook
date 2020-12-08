@@ -17551,10 +17551,10 @@ conceito.  É o seguinte:
 
 %%}}}
 
-%%{{{ df: congruence 
+%%{{{ df: congruence_modulo_int 
 \definition Congruência (Gauss).
 %%%{{{ meta 
-\label congruence
+\label congruence_modulo_int
 \credits
     * Gauss : definição de congruência
     ;;
@@ -17579,8 +17579,7 @@ e lemos: \emph{o $a$ é congruente com $b$ módulo~$m$}.
 
 %%{{{ beware: cong_mod_is_a_ternary_relation 
 \beware.
-%%%{{{ meta 
-\label cong_mod_is_a_ternary_relation
+%%%{{{ meta \label cong_mod_is_a_ternary_relation
 %%%}}}
 
 A notação de congruência às vezes iluda de ser interpretada como se fosse
@@ -17597,6 +17596,20 @@ $$
 \holed u \cong \holed v \pmod {\holed w}
 $$
 dados $u,v,w\in\ints$ com $w>1$.
+
+%%}}}
+
+%%{{{ notation: a ≡ₘ b 
+\note Notação.
+%%%{{{ meta 
+%%%}}}
+
+Talvez ficaria mais intuitivo (e menos confúso) usar a notação
+$$
+a \congmod m b \defiff a \cong b \pmod m
+$$
+que introduzimos aqui pois às vezes ajuda.
+Mas a notação mais usada é a da \ref[congruence_modulo_int]
 
 %%}}}
 
@@ -17622,7 +17635,7 @@ usamos \emph{apenas sua definição formal!}
 
 %%}}}
 
-%%{{{ blah 
+%%{{{ blah: to use both definitions so we must prove their equivalence 
 \blah.
 %%%{{{ meta 
 %%%}}}
@@ -17818,20 +17831,6 @@ $13\pmod 8 \cong 23 \pmod {18}$ não significa nada.
 
 %%}}}
 
-%%{{{ notation 
-\note Notação.
-%%%{{{ meta 
-%%%}}}
-
-Talvez ficaria mais intuitivo (e menos confúso) usar a notação
-$$
-a \congmod m b \defiff m \divides a - b
-$$
-que aparece mais fiel na sua semántica.
-Mas a notação mais usada é aquela que nós definimos antes.:w
-
-%%}}}
-
 \endsection
 %%}}}
 
@@ -17876,7 +17875,7 @@ $$
 
 \sketch.
 Todas são facilmente provadas aplicando diretamente
-a definição de congruência módulo~$m$ (\reftag[congruence])
+a definição de congruência módulo~$m$ (\reftag[congruence_modulo_int])
 e as propriedades básicas da $\divides$.
 
 \proof.
@@ -17925,7 +17924,7 @@ $$
 $$
 
 \sketch.
-Todas seguem facilmente pela definição (\reftag[congruence]) de congruência módulo~$m$.
+Todas seguem facilmente pela definição (\reftag[congruence_modulo_int]) de congruência módulo~$m$.
 
 %%}}}
 
@@ -18009,14 +18008,14 @@ Suponha que $x \cong t \pmod m$, e seja $a$ um inteiro positivo.
 O que podemos concluir sobre o $x$ módulo~$ma$?
 
 \hint
-Use as definições de congruência (\reftag[congruence]) e de $\divides$ (\reftag[divides])
+Use as definições de congruência (\reftag[congruence_modulo_int]) e de $\divides$ (\reftag[divides])
 para escrever o $x$ na forma $x = mk + t$ para algum $k\in\ints$.
 
 \hint
 Agora divida o $k$ por $a$.
 
 \solution
-Pela definição de congruência (\reftag[congruence]) e de $\divides$ (\reftag[divides]) temos que:
+Pela definição de congruência (\reftag[congruence_modulo_int]) e de $\divides$ (\reftag[divides]) temos que:
 $$
 \align
 x &= mk + t, \quad\text{para algum $k\in\ints$}.
@@ -18268,7 +18267,7 @@ no~\ref[inverse_modulo_m_uniqueness].
 
 %%}}}
 
-%%{{{ blah 
+%%{{{ blah: we speak of *the* inverse thanks to the following thm 
 \blah.
 %%%{{{ meta 
 %%%}}}
@@ -18310,7 +18309,7 @@ ou seja $b \cong b' \pmod m$.
 
 %%}}}
 
-%%{{{ eg 
+%%{{{ eg: the mod9-inverse of 2 is 5 
 \example.
 %%%{{{ meta 
 %%%}}}
@@ -18319,16 +18318,16 @@ O inverso de $2$ módulo~$9$ é o $5$, porque $2\ntimes 5 = 10 \cong 1 \pmod 9$.
 
 %%}}}
 
-%%{{{ blah 
+%%{{{ blah: as the following eg shows, inverses are not guaranteed 
 \blah.
 %%%{{{ meta 
 %%%}}}
 
-Como o exemplo seguinte mostra, os inversos não existem sempre:
+Como o exemplo seguinte mostra, inversos não existem sempre:
 
 %%}}}
 
-%%{{{ eg 
+%%{{{ eg: 4 has no mod6-inverse 
 \example.
 %%%{{{ meta 
 %%%}}}
@@ -18350,12 +18349,12 @@ Pronto.
 
 %%}}}
 
-%%{{{ blah 
+%%{{{ blah: the following thm clears things up 
 \blah.
 %%%{{{ meta 
 %%%}}}
 
-O teorema seguinte esclariza a situação:
+O teorema seguinte esclarece a situação:
 
 %%}}}
 
@@ -19583,7 +19582,7 @@ $$
 Observe primeiramente que:
 \compute
 ed \cong 1 \pmod {\tot M}
-&\iff \tot M \divides ed - 1                    \by {pela def.~de congruência \reftag[congruence]} \\
+&\iff \tot M \divides ed - 1                    \by {pela def.~de congruência \reftag[congruence_modulo_int]} \\
 &\iff \lexists {k\in\ints} {k\tot M = ed - 1}.  \by {pela def.~de divide \reftag[divides]} \\
 \endcompute
 Seja $k\in\ints$ então um tal $k$, e agora resolvendo por $ed$:
@@ -52153,7 +52152,7 @@ Usamos também a notação $a \congR H b$.
 %%%}}}
 
 Justifique a notação da~\ref[equivalence_mod_subgroup] a comparando com a
-congruência módulo algum inteiro da~\ref[congruence].
+congruência módulo algum inteiro da~\ref[congruence_modulo_int].
 Ou seja, mostre como a definição nos inteiros é apenas um caso especial da definição nos grupos.
 
 \hint
