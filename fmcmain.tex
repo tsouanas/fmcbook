@@ -66889,57 +66889,53 @@ $\set{ \emptyset, \set{\emptyset, \set{\emptyset}}}$.
 }
 Podemos representar essa construção em forma de árvore:
 $$
-\AxiomC{}
-\RightLabel{\axref[emptyset]}
-\UnaryInfC{$\emptyset$}
-\AxiomC{}
-\RightLabel{\axref[emptyset]}
-\UnaryInfC{$\emptyset$}
-\AxiomC{}
-\RightLabel{\axref[emptyset]}
-\UnaryInfC{$\emptyset$}
-\AxiomC{}
-\RightLabel{\axref[emptyset]}
-\UnaryInfC{$\emptyset$}
-\doubleLine
-\RightLabel{\axref[pairset]}
-\BinaryInfC{$\set{\emptyset}$}
-\RightLabel{\axref[pairset]}
-\BinaryInfC{$\set{\emptyset, \set{\emptyset}}$}
-\RightLabel{\axref[pairset]}
-\BinaryInfC{$\set{\emptyset, \set{\emptyset, \set{\emptyset}}}$}
-\DisplayProof
+\PROOFmr {
+\I0------------- {\axref[emptyset]}
+    {\emptyset}
+                               \I0------------- {\axref[emptyset]}
+                                   {\emptyset}
+                                                           \I0------------- {\axref[emptyset]}
+                                                               {\emptyset}
+                                                                             \I0------------- {\axref[emptyset]}
+                                                                                 {\emptyset}
+                                                           \I2=============================== {\axref[pairset]}
+                                                                    {\set{\emptyset}}
+                           \I2-------------------------------------------------------- {\axref[pairset]}
+                                 {\set{\emptyset, \set{\emptyset}}}
+\I2------------------------------------------------------------------ {\axref[pairset]}
+         {\set{\emptyset, \set{\emptyset, \set{\emptyset}}}}
+}
 $$
-onde a dupla linha indica que pulamos alguns passos implícitios,
-como o uso de Extensionality~(\axref[extensionality]) nesse caso.
+onde pulamos ou deixamos alguns passos implícitos,
+como o uso de Extensionality~\axref[extensionality] nesse caso.
+(As vezes indicamos com uma dupla linha tais omissões mas
+seu uso pode ter outros significados também.)
 Usamos agora essa construção para construir um conjunto de cardinalidade $3$:
 $$
-\AxiomC{}
-\RightLabel{\axref[emptyset]}
-\UnaryInfC{$\emptyset$}
-\AxiomC{}
-\RightLabel{\axref[emptyset]}
-\UnaryInfC{$\emptyset$}
-\AxiomC{}
-\RightLabel{\axref[emptyset]}
-\UnaryInfC{$\emptyset$}
-\AxiomC{}
-\RightLabel{\axref[emptyset]}
-\UnaryInfC{$\emptyset$}
-\doubleLine
-\RightLabel{\axref[pairset]}
-\BinaryInfC{$\set{\emptyset}$}
-\RightLabel{\axref[pairset]}
-\BinaryInfC{$\set{\emptyset, \set{\emptyset}}$}
-\RightLabel{\axref[pairset]}
-\BinaryInfC{$\set{\emptyset, \set{\emptyset, \set{\emptyset}}}$}
-\RightLabel{\axref[powerset]}
-\UnaryInfC{$\set{\emptyset, \set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}}, \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}$}
-\RightLabel{\axref[separation],\ $\phi(x)\asseq \exists w(w\in x)$}
-\UnaryInfC{$\set{\set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}}, \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}$}
-\DisplayProof
+\PROOFmr {
+   \I0------------- {\axref[emptyset]}
+       {\emptyset}
+                                 \I0------------- {\axref[emptyset]}
+                                     {\emptyset}
+                                                           \I0------------- {\axref[emptyset]}
+                                                               {\emptyset}
+                                                                             \I0------------- {\axref[emptyset]}
+                                                                                 {\emptyset}
+                                                           \I2------------------------------- {\axref[pairset]}
+                                                                    {\set{\emptyset}}
+                           \I2-------------------------------------------------------- {\axref[pairset]}
+                                 {\set{\emptyset, \set{\emptyset}}}
+\I2------------------------------------------------------------------ {\axref[pairset]}
+           {\set{\emptyset, \set{\emptyset, \set{\emptyset}}}}
+\I1-------------------------------------------------------------------------- {\axref[powerset]}
+     {\set{\emptyset, \set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}},
+           \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}}
+\I1-------------------------------------------------------------------------- {\axref[separation],\ $\phi(x)\asseq \exists w(w\in x)$}
+       {\set{\set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}},
+             \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}}
+}
 $$
-Observe que para usar o \axref[separation] precisamos especificar qual é a fórmula--filtro.
+Observe que para usar o Separation \axref[separation] precisamos especificar qual é a fórmula--filtro.
 
 %%}}}
 
@@ -66954,19 +66950,19 @@ Mostre que $\set{b, \set{\emptyset, \set{a}}}$ é conjunto.
 
 \solution.
 $$
-\AxiomC{$b$}
-\AxiomC{}
-\RightLabel{Empty}
-\UnaryInfC{$\emptyset$}
-\AxiomC{$a$}
-\doubleLine
-\RightLabel{Singleton}
-\UnaryInfC{$\set{a}$}
-\RightLabel{Pair}
-\BinaryInfC{$\set{\emptyset, \set{a}}$}
-\RightLabel{Pair}
-\BinaryInfC{$\set{b, \set{\emptyset, \set{a}}}$}
-\DisplayProof
+\PROOFmrw {
+      \A
+       b
+            \I0------------- Empty
+                {\emptyset}         \A
+                                     a
+                               \I1========= Singleton
+                                   \set{a}
+            \I2---------------------------- Pair
+                 \set{\emptyset, \set{a}}
+\I2------------------------------------- Pair
+     \set{b, \set{\emptyset, \set{a}}}
+}
 $$
 Onde deixamos as ``folhas'' da árvore $a,b$ ``sem fechar'', pois
 correspondem realmente em nossas hipotéses: os conjuntos $a,b$ são dados!
@@ -67000,44 +66996,47 @@ Agora aplicando o Union nele o ganhamos o $A$.
 \noi
 Aqui uma construção do $B$ pelos axiomas, em forma de árvore:
 $$
-\AxiomC{$a$}
-\AxiomC{$b$}
-\RightLabel{Pair}
-\BinaryInfC{$\set{a,b}$}
-\AxiomC{$c$}
-\AxiomC{$d$}
-\RightLabel{Pair}
-\BinaryInfC{$\set{c,d}$}
-\RightLabel{Singleton}
-\doubleLine
-\UnaryInfC{$\set{\set{c,d}}$}
-\RightLabel{Pair}
-\BinaryInfC{$\set{\set{a,b},\set{\set{c,d}}}$}
-\RightLabel{Union}
-\UnaryInfC{$\set{a,b,\set{c,d}}$}
-\DisplayProof
+\PROOFmrw {
+    \A a     \A b
+\I2---------------  Pair
+      \set{a,b}
+                       \A c     \A d
+                   \I2---------------  Pair
+                         \set{c,d}
+                  \I1----------------- Singleton
+                      \set{\set{c,d}}
+\I2------------------------------------ Pair
+       \set{\set{a,b}, \set{c,d}}
+  \I1------------------------------ Union
+             \set{a,b,c,d}
+}
 $$
 \eop
 \bigskip
 \noi
-Para o $C$, usamos o Separation~(\axref[separation])
-no $\pset \paren{\Union A}$, que é conjunto graças aos Union (\axref[unionset])
-\& Powerset (\axref[powerset]):
+Para o $C$, usamos o Separation~\axref[separation]
+no $\pset \paren{\Union A}$, que é conjunto graças aos Union~\axref[unionset]
+\& Powerset~\axref[powerset]:
 $$
-\AxiomC{$A$}
-\RightLabel{ZF6}
-\UnaryInfC{$\Union A$}
-\RightLabel{ZF5}
-\UnaryInfC{$\pset\Union A$}
-\RightLabel{ZF4}
-\UnaryInfC{$C$}
-\DisplayProof
+\PROOFmrw {
+        \A
+         A
+  \I1---------- Union
+      \Union A
+\I1--------------- Powerset
+    \pset\Union A
+\I1--------------- {Separation, $\phi$}
+          C
+}
 $$
-onde na aplicação de ZF4 usamos a fórmula
-$
+onde na aplicação do Separation~\axref[separation] usamos a fórmula
+$$
+\phi(x) \asseq
+\mubrace {
 \exists u \exists v
 \paren{ u \neq v \land \forall w(w \in x \liff w = u \lor w = v ) }
-$.
+} {\Doubleton(x)}.
+$$
 
 %%}}}
 
@@ -67488,7 +67487,7 @@ $$
 $$
 \proofpart{\mref[spec_tup2]:}
 Sejam $A,B$ conjuntos.
-Queremos mosrar que a classe
+Queremos demonstrar que a classe
 $$
 A\times B = \classst {\tup{x,y}} {
 x\in A
