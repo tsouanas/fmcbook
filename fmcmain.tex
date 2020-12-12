@@ -67468,28 +67468,23 @@ no~\ref[kurpair_satisfies_tup0] e nas
 proposições~\reftag[kurpair_satisfies_tup1]--\reftag[kurpair_satisfies_tup2].
 
 \solution
-Primeiramente verificamos que dados objetos $x,y$, o $\tup{x,y}$
+Primeiramente verificamos que, dados objetos $x,y$, o $\tup{x,y}$
 realmente é um conjunto:
 $$
-\AxiomC{}
-\RightLabel{Empty}
-\UnaryInfC{$\emptyset$}
-\AxiomC{$x$}
-\RightLabel{Singleton}
-\doubleLine
-\UnaryInfC{$\set{x}$}
-\RightLabel{Pair}
-\BinaryInfC{$\set{\emptyset, \set{x}}$}
-\AxiomC{$y$}
-\RightLabel{Singleton}
-\doubleLine
-\UnaryInfC{$\set{y}$}
-\RightLabel{Singleton}
-\doubleLine
-\UnaryInfC{$\set{\set{y}}$}
-\RightLabel{Pair}
-\BinaryInfC{$\set{\set{\emptyset,\set{x}}, \set{\set{y}}}$}
-\DisplayProof
+\PROOFmrw {
+\I0------------ Empty
+   {\emptyset}              \A     x
+                            \I1========= Singleton
+                                \set{x}
+\I2------------------------------------- Pair
+        \set{\emptyset, \set{x}}                    \A    y
+                                                    \I1======== Singleton
+                                                        \set{y}
+                                                 \I1=============== Singleton
+                                                     \set{\set{y}}
+\I2---------------------------------------------------------------- Pair
+          \set{ \set{ \emptyset, \set{x} }, \set{ \set{y} } }
+}
 $$
 \proofpart{\mref[spec_tup2]:}
 Sejam $A,B$ conjuntos.
@@ -67509,18 +67504,28 @@ fórmula da~\ref[kurpair_satisfies_tup2] para ganhar o $A\times B$.
 Um conjunto que serve como $W$ é o $\pset\pset\pset(A\union B)$,
 como verificamos aqui, escrevendo a derivação em forma de árvore:
 $$
-\AxiomC{}
-\UnaryInfC{$\emptyset\in\pset(A\union B)$}
-\AxiomC{$a \in A$}
-\UnaryInfC{$a \in A\union B$}
-\UnaryInfC{$\set{a} \in \psetp{A\union B}$}
-\BinaryInfC{$\set{\emptyset,\set{a}} \in \pset\psetp{A\union B}$}
-\AxiomC{$b \in B$}
-\UnaryInfC{$b \in A\union B$}
-\UnaryInfC{$\set{b} \in \psetp{A\union B}$}
-\UnaryInfC{$\set{\set{b}} \in \pset\psetp{A\union B}$}
-\BinaryInfC{$\set{\set{\emptyset,\set{a}}, \set{\set{b}}}\in\pset\pset\psetp{A\union B}$}
-\DisplayProof
+\PROOFmn {
+\I0--------------------------------
+    {\emptyset\in\pset(A\union B)}
+                                       \A
+                                    {a \in A}
+                              \I1------------------
+                                 {a \in A\union B}
+                    \I1------------------------------------
+                         {\set{a} \in \psetp{A\union B}}
+\I2-----------------------------------------------------------
+      {\set{\emptyset,\set{a}} \in \pset\psetp{A\union B}}
+                                                               \A
+                                                            {b \in B}
+                                                      \I1------------------
+                                                         {b \in A\union B}
+                                             \I1-----------------------------------
+                                                  {\set{b} \in \psetp{A\union B}}
+                                           \I1-----------------------------------------
+                                                {\set{\set{b}} \in \psetp{A\union B}}
+\I2------------------------------------------------------------------------------------
+     {\set{\set{\emptyset,\set{a}}, \set{\set{b}}}\in\pset\pset\psetp{A\union B}}
+}
 $$
 
 %%}}}
