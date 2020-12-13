@@ -13786,25 +13786,23 @@ olhando para o primeiro salto.
 Sejam $a(n)$ e $b(n)$ o número de maneiras que Aleco e Bego
 podem subir uma escada de $n$ degraus, respectivamente.
 Cada maneira do Aleco pode começar com 2 jeitos diferentes:
-salto de 1 degrau, ou salto de 2 degraus.
+salto de $1$ degrau, ou salto de $2$ degraus.
 Cada maneira do Bego pode começar com 3 jeitos diferentes:
-salto de 1, de 2, ou de 3 degraus.
-Observe que, por exemplo, se Bego começar com um pulo de 2
+salto de $1$, de $2$, ou de $3$ degraus.
+Observe que, por exemplo, se Bego começar com um pulo de $2$
 degraus, falta subir uma escada de $n-2$ degraus.
 Pelo princípio da adição então, temos as equações recursivas:
-$$
-\xalignat 2
+\mathcols 2
 a(n) &= a(n-1) + a(n-2)                & b(n) &= b(n-1) +  b(n-2) +  b(n-3)
 \intertext{válidas para $n\geq 2$ e $n \geq 3$ respectivamente.
 Devemos definir os casos básicos de cada funcção recursiva:
 $n=0,1$ para a $a(n)$, e $n=0,1,2$ para a $b(n)$:}
-     &                                 & b(0) &= 1\qquad\explanation{fica} \\
-a(0) &= 1 \qquad\explanation{fica}     & b(1) &= 1\qquad\explanation{pula $1$} \\
-a(1) &= 1 \qquad\explanation{pula $1$} & b(2) &= 2\qquad\explanation{pula $1+1$; ou pula $2$} \\
+     &                                 & b(0) &= 1 \qquad\explanation{fica} \\
+a(0) &= 1 \qquad\explanation{fica}     & b(1) &= 1 \qquad\explanation{pula $1$} \\
+a(1) &= 1 \qquad\explanation{pula $1$} & b(2) &= 2 \qquad\explanation{pula $1+1$; ou pula $2$} \\
 a(n) &= a(n-1) +  a(n-2)               & b(n) &= b(n-1) +  b(n-2) +  b(n-3)
-\endxalignat
-$$
-Calculamos os 11 primeiros valores:
+\endmathcols
+Calculamos os $11$ primeiros valores:
 $$
 \matrix
 a:\quad& \overbrace {1}^{a(0)}, & 1, & 2, & 3, & 5, & \phantom08,  & 13, & 21, & 34, & \phantom055,  & \phantom089,  & \overbrace {144}^{a(11)}, &\dotsc\\
@@ -13817,14 +13815,18 @@ Agora temos tudo que precisamos para responder facilmente nas questões do probl
 {(1a)} De $a(11) = 144$ maneiras.
 {(1b)} De $b(11) = 504$ maneiras.
 \eop
-{(2)} Usamos ``$n\to m$'' para ``pula diretamente do degrau $n$ para o degrau $m$'' e ``$n\transto m$'' para ``vai do degrau $n$ para o degrau $m$ pulando num jeito''.
-{(2a)} Para conseguir subir, Aleco necessariamente precisa chegar no degrau 5, saltar até o degrau 7, e depois continuar até o degrau 11.  Formamos cada maneira então em passos, e usando o princípio da multiplicação achamos que Aleco tem
+{(2)} Usamos \dq{$n\to m$} para \wq{pula diretamente do degrau $n$ para o degrau
+$m$} e \dq{$n\transto m$} para \wq{vai do degrau $n$ para o degrau $m$ pulando
+num jeito}.
+{(2a)} Para conseguir subir, Aleco necessariamente precisa chegar no degrau
+$5$, saltar até o degrau $7$, e depois continuar até o degrau $11$.
+Formamos cada maneira então em passos, e usando o princípio da multiplicação
+achamos que Aleco tem
 $$
-\underbrace{a(5)}_{0 \transto 5} \ntimes
-\underbrace{\phantom(1\phantom)}_{5 \to 7} \ntimes
-\underbrace{a(4)}_{7 \transto 11}
-=
-8 \ntimes 1 \ntimes 5
+\mubrace {a(5)}        {0 \transto 5} \ntimes
+\mubrace {\vphantom(1} {5 \to 7}      \ntimes
+\mubrace {a(4)}        {7 \transto 11}
+= 8 \ntimes 1 \ntimes 5
 = 40
 $$
 maneiras de subir a escada toda.
@@ -13839,28 +13841,24 @@ Vamos agrupá-los assim:
 Contamos as maneiras em cada grupo como na questão anterior, e no final as somamos (princípio da adição) para achar a resposta final: Bego tem
 $$
 \tobrace {
-\mubrace {b(5)} {0 \transto 5} \ntimes
-\mubrace {\phantom(1\phantom)} {5 \to 7} \ntimes
-\mubrace {b(4)} {7 \transto 11}
+\mubrace {b(5)}         {0 \transto 5}  \ntimes
+\mubrace {\vphantom(1}  {5 \to 7}       \ntimes
+\mubrace {b(4)}         {7 \transto 11}
 } {grupo (i)}
 +
 \tobrace {
-\mubrace {b(5)} {0 \transto 5} \ntimes
-\mubrace {\phantom(1\phantom)} {5 \to 8} \ntimes
-\mubrace {b(3)} {8 \transto 11}
+\mubrace {b(5)}         {0 \transto 5}  \ntimes
+\mubrace {\vphantom(1}  {5 \to 8}       \ntimes
+\mubrace {b(3)}         {8 \transto 11}
 } {grupo (ii)}
 +
 \tobrace {
-\mubrace {b(4)} {0 \transto 4} \ntimes
-\mubrace {\phantom(1\phantom)} {4 \to 7} \ntimes
-\mubrace {b(4)} {7 \transto 11}
+\mubrace {b(4)}         {0 \transto 4}  \ntimes
+\mubrace {\vphantom(1}  {4 \to 7}       \ntimes
+\mubrace {b(4)}         {7 \transto 11}
 } {grupo (iii)}
-=
-13 \ntimes 7 +
-13 \ntimes 4 +
-7 \ntimes 7
-=
-192
+= 13 \ntimes 7 + 13 \ntimes 4 + 7 \ntimes 7
+= 192
 $$
 maneiras de subir a escada toda.
 \eop
@@ -16330,8 +16328,8 @@ d \divides a
 \mland
 d \divides b
 &\implies
-d \divides \mobrace {a - bq} {\dsize r}\\
-d \divides \mubrace {bq + r} {\dsize a}
+d \divides \mobraceb {a - bq} {r}\\
+d \divides \mubraceb {bq + r} {a}
 &\impliedby
 d \divides b
 \mland
@@ -16350,9 +16348,9 @@ Logo,
 \gcd a b
 &= \max\setst {c\in\ints} {c \divides a \mland c \divides b}  \by {def.~$\gcd a b$} \\
 &= \max\setst {c\in\ints} {c \divides b \mland c \divides r}  \by {demonstrado acima} \\
-&= \gcd b r                                                 \by {def.~$\gcd b r$} \\
+&= \gcd b r                                                   \by {def.~$\gcd b r$}
 \endcompute
-que mostra a corretude do algoritmo.
+que estabeleça a corretude do algoritmo.
 
 %%}}}
 
@@ -22645,15 +22643,15 @@ $$
 $$
 Naturalmente essa proposição corresponde numa disjuncção:
 $$
-\mubraceleg {\text{Alex comeu manga}} {\phi(\mathrm{Alex})}
-\mubraceleg {\text{ou}} {\lor}
-\mubraceleg {\text{Babis comeu manga}} {\phi(\mathrm{Babis})}.
+\mubraceb {\text{Alex comeu manga}} {\phi(\mathrm{Alex})}
+\mubraceb {\text{ou}} {\lor}
+\mubraceb {\text{Babis comeu manga}} {\phi(\mathrm{Babis})}.
 $$
 Dualmente (trocando o ``ou'' por ``e'') chegamos numa conjuncção:
 $$
-\mubraceleg {\text{Alex comeu manga}} {\phi(\mathrm{Alex})}
-\mubraceleg {\text{e}} {\land}
-\mubraceleg {\text{Babis comeu manga}} {\phi(\mathrm{Babis})}.
+\mubraceb {\text{Alex comeu manga}} {\phi(\mathrm{Alex})}
+\mubraceb {\text{e}} {\land}
+\mubraceb {\text{Babis comeu manga}} {\phi(\mathrm{Babis})}.
 $$
 E agora a pergunta:
 
@@ -29204,12 +29202,10 @@ possivelmente depende (refere) no $x$, como aconteceu por exemplo com o $2x+5$ a
 Se essa frase realmente determina uma funcção, então podemos também
 definir uma funcção \dterm{epônima} (``com nome'') quando desejamos,
 escrevendo:
-$$
-\gather
+\math
 \text{<<Seja $f : A \to B$ tal que}\\
 \text{$f \defeq \text{aquela funcção que recebendo\dots}$>>}.
-\endgather
-$$
+\endmath
 Mas escrever tudo isso toda vez que queremos ``construir'' uma funcção anônima
 é muito chato.  Bem vindo $\lambda$ (lambda) da notação de
 $\lambda$-calculus~(\ref[Lambda_calculus])!
@@ -29219,7 +29215,7 @@ $$
 $$
 para a frase:
 $$
-\mobraceleg {\text{aquela funcção que recebendo como entrada um}} {\lambda}~~x~~\mobraceleg {\text{retorna o}} {.}~~2x+5.
+\mobraceb {\text{aquela funcção que recebendo como entrada um}} {\lambda}~~x~~\mobraceb {\text{retorna o}} {.}~~2x+5.
 $$
 
 %%}}}
@@ -45341,9 +45337,9 @@ Sobre a (i):
 Defina a partição de $\reals$
 $$
 \scr C \defeq
-\mubraceleg {\setst {(n,n+1)} {n\in\ints}} {\dsize \cal I}
+\mubraceb {\setst {(n,n+1)} {n\in\ints}} {\cal I}
 \union
-\mubraceleg {\setst {\set{n}} {n\in\ints}} {\dsize \cal S}.
+\mubraceb {\setst {\set{n}} {n\in\ints}} {\cal S}.
 $$
 Basta demonstrar que $\scr C = \quoset \reals {\Smile}$.
 \eop\noi
@@ -45355,9 +45351,9 @@ mostre com um contraexemplo que $\Frown$ não é transitiva.
 Defina a partição de $\reals$
 $$
 \scr C \defeq
-\mubrace {\setst {(n,n+1)} {n\in\ints}} {\dsize \cal I}
+\mubraceb {\setst {(n,n+1)} {n\in\ints}} {\cal I}
 \union
-\mubrace {\setst {\set{n}} {n\in\ints}} {\dsize \cal S}.
+\mubraceb {\setst {\set{n}} {n\in\ints}} {\cal S}.
 $$
 Basta demonstrar que
 $
