@@ -15006,21 +15006,6 @@ para melhorar teu programa do~\ref[program_factor_naive].
 
 %%}}}
 
-\endsection
-%%}}}
-
-%%{{{ Sieve_of_Eratosthenes 
-\section O crivo de Eratosthenes.
-%%%{{{ meta 
-\label Sieve_of_Eratosthenes
-\defines
-    * crivo
-    ;;
-\credits
-    * Eratosthenes : crivo
-    ;;
-%%%}}}
-
 %%{{{ Q: How can we find all primes up to a given bound? 
 \question.
 %%%{{{ meta 
@@ -15030,12 +15015,15 @@ Como podemos achar todos os primos até um dado limitante $b\in\nats$?
 
 %%}}}
 
-%%{{{ A: answer_by_eratosthenes 
-\note Resposta.
+%%{{{ A: sieve_of_eratosthenes 
+\note O crivo de Eratosthenes.
 %%%{{{ meta 
-\label answer_by_eratosthenes
+\label sieve_of_eratosthenes
 \credits
     * Eratosthenes : crivo
+    ;;
+\defines
+    * crivo!de Eratosthenes
     ;;
 \pdefs
     \pdef ci {\uveryfaded}
@@ -15165,23 +15153,6 @@ Logo $a$ possui fator primo $p \leq {\sqrt a}$.
 \hint
 Considere o menor divisor de $a$.
 O que pode afirmar sobre ele?
-
-%%}}}
-
-%%{{{ x: three_divides_abc 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Sejam $a,b,c$ inteiros tais que $a^2 + b^2 = c^2$.
-Então $3 \divides abc$.
-
-\hint
-Caso que qualquer um dos $a,b,c$ é multiplo de $3$, já éra.
-Basta então considerar o caso onde nenhum deles é multiplo de $3$.
-
-\hint
-O quadrado dum número que não é múltiplo de $3$ é congruente ao $1$ módulo $3$.
 
 %%}}}
 
@@ -16031,6 +16002,50 @@ Substituindo, $m = au = a(bv) = (ab)v$, ou seja, $ab \divides m$.
 
 %%}}}
 
+%%{{{ x: pq|n² ⇒ pq|n 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre ou refute:
+para quaisquer primos distintos $p,q$,
+$$
+pq \divides n^2  \implies  pq \divides n.
+$$
+
+\hint
+Tá certo.  Demonstre.
+
+\hint
+Temos $p,q$ primos distintos e logo coprimos e logo o
+\ref[product_of_coprimes_divides_common_multiple] ajuda.
+
+\solution
+Como $p \divides pq$ e $pq \divides n^2$, logo $p \divides n^2$.
+Ou seja $p \divides n$\fact1 pelo \ref[euclid_lemma].
+Similarmente $q \divides n$\fact2.
+Mas $p,q$ são primos distintos, logo coprimos, e
+ambos dividem o $n$ (\byfact1 e \byfact2)
+logo $pq \divides n$
+(pelo \ref[product_of_coprimes_divides_common_multiple]).
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Distribution_of_primes 
+\section Distribuição dos primos.
+%%%{{{ meta 
+\label Sieve_of_Eratosthenes
+\defines
+    * crivo
+    ;;
+\credits
+    * Eratosthenes : crivo
+    ;;
+%%%}}}
+
 %%{{{ thm: primes_is_infinite 
 \theorem Euclid.
 %%%{{{ meta 
@@ -16061,35 +16076,6 @@ Então, como $p\geq 2$, ou o $p$ é primo e $p\not\in P$,
 ou $p$ é divisível por algum primo $q \not\in P$
 (por~\ref[every_composite_number_is_divisible_by_a_prime]).
 Nos dois casos, existe pelo menos um primo fora do $P$.
-
-%%}}}
-
-%%{{{ x: pq|n² ⇒ pq|n 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Demonstre ou refute:
-para quaisquer primos distintos $p,q$,
-$$
-pq \divides n^2  \implies  pq \divides n.
-$$
-
-\hint
-Tá certo.  Demonstre.
-
-\hint
-Temos $p,q$ primos distintos e logo coprimos e logo o
-\ref[product_of_coprimes_divides_common_multiple] ajuda.
-
-\solution
-Como $p \divides pq$ e $pq \divides n^2$, logo $p \divides n^2$.
-Ou seja $p \divides n$\fact1 pelo \ref[euclid_lemma].
-Similarmente $q \divides n$\fact2.
-Mas $p,q$ são primos distintos, logo coprimos, e
-ambos dividem o $n$ (\byfact1 e \byfact2)
-logo $pq \divides n$
-(pelo \ref[product_of_coprimes_divides_common_multiple]).
 
 %%}}}
 
@@ -19046,6 +19032,24 @@ Nesse exercício um dos dois sistemas não tem solução.
 \problems Intervalo de problemas.
 %%%{{{ meta 
 %%%}}}
+
+%%{{{ prob: three_divides_product_of_pythagorean_triples 
+\problem.
+%%%{{{ meta 
+\label three_divides_product_of_pythagorean_triples
+%%%}}}
+
+Sejam $a,b,c$ inteiros tais que $a^2 + b^2 = c^2$.
+Então $3 \divides abc$.
+
+\hint
+Caso que qualquer um dos $a,b,c$ é multiplo de $3$, já éra.
+Basta então considerar o caso onde nenhum deles é multiplo de $3$.
+
+\hint
+O quadrado dum número que não é múltiplo de $3$ é congruente ao $1$ módulo $3$.
+
+%%}}}
 
 %%{{{ prob: infinitely_many_primes_3_mod_4 
 \problem.
