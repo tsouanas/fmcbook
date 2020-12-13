@@ -66878,15 +66878,15 @@ Os exemplos seguintes servem para explicar essa idéia.
 Queremos demonstrar que $\set{ \emptyset, \set{\emptyset, \set{\emptyset}}}$
 é um conjunto, ou seja, construí-lo.
 Escrevemos:
-{Pelo Emptyset~(\axref[emptyset]), $\emptyset$ é um conjunto.
-Pelo Pairset~(\axref[pairset]) aplicado com $a,b\asseq\emptyset$ temos
+{Pelo Emptyset~\axref[emptyset], $\emptyset$ é um conjunto.
+Pelo Pairset~\axref[pairset] aplicado com $a,b\asseq\emptyset$ temos
 que $\set{\emptyset,\emptyset}$ também é conjunto.
-Mas, pelo Extensionality~(\axref[extensionality]),
+Mas, pelo Extensionality~\axref[extensionality],
 $\set{\emptyset,\emptyset}=\set{\emptyset}$.
-Agora, novamente pelo Pairset~(\axref[pairset]) essa vez
+Agora, novamente pelo Pairset~\axref[pairset] essa vez
 aplicado com $a\asseq\emptyset$ e $b\asseq\set{\emptyset}$
 temos que $\set{\emptyset, \set{\emptyset}}$ é um conjunto.
-Aplicando uma última vez o Pairset~(\axref[pairset]) com
+Aplicando uma última vez o Pairset~\axref[pairset] com
 $a\asseq\emptyset$ e $b\asseq \set{\emptyset, \set{\emptyset}}$,
 conseguimos construir o conjunto
 $\set{ \emptyset, \set{\emptyset, \set{\emptyset}}}$.
@@ -66916,27 +66916,27 @@ como o uso de Extensionality~\axref[extensionality] nesse caso.
 seu uso pode ter outros significados também.)
 Usamos agora essa construção para construir um conjunto de cardinalidade $3$:
 $$
-\PROOFmr {
-   \I0------------- {\axref[emptyset]}
+\PROOFmrw {
+   \I0------------- Emptyset
        {\emptyset}
-                                 \I0------------- {\axref[emptyset]}
+                                 \I0------------- Emptyset
                                      {\emptyset}
-                                                           \I0------------- {\axref[emptyset]}
+                                                           \I0------------- Emptyset
                                                                {\emptyset}
-                                                                             \I0------------- {\axref[emptyset]}
+                                                                             \I0------------- Emptyset
                                                                                  {\emptyset}
-                                                           \I2------------------------------- {\axref[pairset]}
-                                                                    {\set{\emptyset}}
-                           \I2-------------------------------------------------------- {\axref[pairset]}
-                                 {\set{\emptyset, \set{\emptyset}}}
-\I2------------------------------------------------------------------ {\axref[pairset]}
-           {\set{\emptyset, \set{\emptyset, \set{\emptyset}}}}
-\I1-------------------------------------------------------------------------- {\axref[powerset]}
-     {\set{\emptyset, \set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}},
-           \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}}
-\I1-------------------------------------------------------------------------- {\axref[separation],\ $\phi(x)\asseq \exists w(w\in x)$}
-       {\set{\set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}},
-             \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}}
+                                                           \I2------------------------------- Emptyset
+                                                                     \set{\emptyset}
+                           \I2-------------------------------------------------------- Pairset
+                                 \set{\emptyset, \set{\emptyset}}
+\I2------------------------------------------------------------------ Pairset
+            \set{\emptyset, \set{\emptyset, \set{\emptyset}}}
+\I1-------------------------------------------------------------------------- Powerset
+      \set{\emptyset, \set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}},
+           \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}
+\I1-------------------------------------------------------------------------- {Separation, $\phi(x)\asseq \exists w(w\in x)$}
+        \set{\set{\emptyset}, \set{\set{\emptyset, \set{\emptyset}}},
+             \set{\emptyset, \set{\emptyset, \set{\emptyset}}}}
 }
 $$
 Observe que para usar o Separation \axref[separation] precisamos especificar qual é a fórmula--filtro.
@@ -66949,7 +66949,7 @@ Observe que para usar o Separation \axref[separation] precisamos especificar qua
 \label tree_construction_with_open_leaves
 %%%}}}
 
-Seja $a,b$ conjuntos.
+Sejam $a,b$ conjuntos.
 Mostre que $\set{b, \set{\emptyset, \set{a}}}$ é conjunto.
 
 \solution.
@@ -67477,13 +67477,13 @@ $$
 \PROOFmrw {
 \I0------------ Empty
    {\emptyset}              \A     x
-                            \I1========= Singleton
+                            \I1--------- Singleton
                                 \set{x}
 \I2------------------------------------- Pair
         \set{\emptyset, \set{x}}                    \A    y
-                                                    \I1======== Singleton
+                                                    \I1-------- Singleton
                                                         \set{y}
-                                                 \I1=============== Singleton
+                                                 \I1--------------- Singleton
                                                      \set{\set{y}}
 \I2---------------------------------------------------------------- Pair
           \set{ \set{ \emptyset, \set{x} }, \set{ \set{y} } }
