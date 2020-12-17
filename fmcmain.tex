@@ -70975,22 +70975,372 @@ na sua tese~\cite[montaguephd] que isso é impossível.
 %%%{{{ meta 
 %%%}}}
 
-\TODO Skolem's paradox.
-
-\endsection
-%%}}}
-
-%%{{{ Other set theories 
-\section Outras teorias de conjuntos.
+%%{{{ Language bug (I): Theory of what?! 
+\note Linguagem bugada (I): teoria dos quais?!.
 %%%{{{ meta 
+\label theory_of_what
+\defines
+    * teoria dos grupos
+    * teoria dos conjuntos
+    ;;
 %%%}}}
 
+Considere o que chamamos de \dterm{teoria dos grupos},
+que encontramos estudar no \ref[Group_theory].
+E agora pense no que chamamos de \dterm{teoria dos conjuntos}
+e estudamos neste capítulo.
+Os dois estudos têm umas diferenças gritantes que vamos identificar
+e analizar agora.
+Olhe nos axiomas de grupos:
+cada um \emph{afirma algo sobre o que acontece dentro dum grupo}.
+São do tipo:
+\tlist --:
+\li: \wq{para qualquer objeto $g$, tal coisa existe},
+\li: \wq{existe um objeto que faz aquilo},
+\li: \wq{para quaisquer objetos $g,h$, tal coisa acontece},
+\endtlist
+etc.
+Podemos vê-los como uma definição de quando uma tal estrutura
+merece ser chamada de \dterm{grupo}.
+\eop
+Observe que existem dois \dq{razoaveis}
+interpretações do termo \emph{universo} na teoria dos grupos:
+\elist i:
+\li: um seria o carrier set $\carrier G$, assim supondo que
+     \emph{estamos vivendo dentro dum grupo especifico $G$};
+\li: o outro seria a classe de todos os grupos.
+\endelist
+Os axiomas da teoria dos grupos estão usando a idéia da
+primeira interpretação.
+Axiomas do segundo tipo seriam proposições como as seguintes:
+\tlist --:
+\li: para todo grupo $G$, existe um group $G'$ tal que bla blu\dots
+\li: existe grupo com exatamente dois membros
+\li: para quaisquer grupos $G,H$, existe grupo $A$ tal que blu bla\dots
+\endtlist
+Em vez disso, os axiomas da teoria dos grupos estão referindo
+ao que acontece \dq{dentro} dum grupo.
+(Observe que as proposições em cima não são nem \emph{enunciáveis}
+dentro dum grupo!)
+Podemos vê-los como definição do que significa \dterm{ser um grupo}.
+Aqui um conjunto estruturado.
+Satisfaz as leis de grupo?
+Beleza então, vamos chamá-lo de grupo.
+Não satisfaz as leis de grupo?
+Também beleza, não vamos chamá-lo de grupo e vida que segue.
+\eop
+Vida que segue sim, pois não estamos usando a teoria dos grupos como
+fundação de matemática!  No outro lado, se encontrar algo que viola
+os axiomas da teoria dos conjuntos\dots morte que segue sim!\foot
+OK, \emph{talvez} ninguém vai morrer por causa disso
+mas com certeza a fundação vai cair todinha, ou seja, não vai ser
+mais uma fundação.  E quem quer viver sem fundações matemáticas?
+\toof
+\eop
+Os axiomas da teoria dos conjuntos então não estão falando nada
+sobre o que acontece \emph{dentro dum conjunto}---pelo que eles
+saibam nem existe o ocnceito de interior dum conjunto!---e não
+pode ser vista como definição do que significa \dterm{ser conjunto}
+no sentido que falei sobre as leis dos grupos.
+\eop
+Infelizmente a linguagem e terminologia usada não é consistente
+e contribui na possível confusão criada na tua cabeça lendo
+este texto neste momento.
+Estamos usando os nomes inconsistentes
+\tlist:
+\li: teoria dos grupos
+\li: teoria dos conjuntos
+\endtlist
+Felizmente a inconsistência é \emph{apenas mais uma} da linguagem
+natural que já temos aceitado (e aproveitado) tais \dq{features}
+dela, então não é tão problemático para os acostumados.\foot
+os falantes nativos duma linguagem não percebem as inconsistências
+gramáticas da sua própria linguagem até encontrar um gringo que
+reclama delas.
+\toof
+Para ficar consistentes, alguém precisaria renomear exatamente
+uma das duas frases:
+ou a \wq{teoria dos grupos} para \wq{teoria dos membros-de-grupo},
+ou a \wq{teoria dos conjuntos} para \wq{teoria dos universos}.
+Seguindo a maioria dos usos da frase \wq{teoria dos \dots}
+a segunda alternativa parece melhor.
+\eop
+A primeira coisa que fazemos em grupos é procurar
+\dterm{modelos dos axiomas}, ou seja, grupos!
+Em teoria dos conjuntos não fizemos isso \emph{aqui}.
+Meio que deixamos subentendido que tem um modelo só,
+\dq{a colecção dos verdadeiros conjuntos} ou sei-lá-o-que
+e ficamos procurando ver \wq{o que mais tem por aqui?}\dots
+\wq{ah, olha, descobrimos um novo membro do nosso universo}, etc.
+Mas, podemos---e devemos!---tratar a teoria dos conjuntos como
+\dterm{teoria dos universos} também e procurar ver quantos universos
+temos, quais são eles, achar nóvos, compará-los, etc.
+E teoristas dos conjuntos a tratam nessa forma também;
+o \ref[set_theory_model_hunting] é um brinquedo para
+ajudar visualizar a idéia num nível elementar.
+\eop
+Mas vamos voltar na treta principal desse momento:
+o que chamamos de \emph{grupo} na primeira teoria?
+Qualquer \emph{modelo} cujos membros são os objetos referidos pelos axiomas.
+Os \emph{objetos} então não são os grupos; mas seus membros
+(e não demos um nome especial para eles).
+E chamamos essa coisa de \emph{teoria dos \dots} dos quais mesmo?
+Dos \emph{grupos}, ou seja, escolhemos o termo do nosso
+universo para usar como nome da teoria.
+Mas o que chamamos de \emph{conjunto} na segunda teoria?
+Agora não é o universo, mas os objetos!
+E qual nome escolhemos para esse estudo?
+\emph{Teoria dos conjuntos}, ou seja, agora usamos o nome
+dos nossos objetos e não do universo para chamar a disciplina.
+
+%%}}}
+
+%%{{{ x: set_theory_model_hunting 
+\exercise.
+%%%{{{ meta 
+\label set_theory_model_hunting
+%%%}}}
+
+Escolhe \strikeout{subconjuntos} \emph{subcolecções} dos axiomas ZF1--ZF6
+e tente criar modelos diferentes para cada uma delas.
+Dê cada modelo em forma dum desenho dum grafo direcionado: o gráfico da
+relação $\in$ onde os vértices são os objetos
+(os \emph{sets}, os \emph{conjuntos}),
+e botamos aresta (seta) de $a$ para $b$ quando \wq{$a$ possui $b$ como membro}.
+Tecnicamente isso seria o gráfico da $\ni$, mas ajuda mais desenhar
+assim modelos-universos.
+
+%%}}}
+
+%%{{{ Language bug (II): Collection vs Set 
+\note Linguagem bugada (II): Colecção \vs conjunto.
+%%%{{{ meta 
+\label collection_vs_set
+\defines
+    * conjunto
+    * classe
+    * colecção
+    ;;
+\indexes
+    * metalinguagem
+    * abuso
+    ;;
+%%%}}}
+
+Mais um desafio criado apenas pela terminologia e linguagem que usamos:
+o termo \emph{conjunto} faz parte da nossa metalinguagem, e lá é usado
+como um sinónimo dos termos \emph{colecção}, \emph{classe},
+\emph{aglomerado}, \emph{grupo}, etc.
+Mas aqui precisamos separar os dois conceitos diferentes
+e logo faz sentido adoptar palavras distintas para cada uso.
+Chamamos então de \dterm{conjunto} (ou de \dterm{set}) um objeto
+do universo duma teoria dos conjuntos e reservamos
+o termo \dterm{colecção} para referir à idéia intuitiva.
+Se for necessário precuramos salientar tal distinção na notação
+matemática pois ela aparece na nossa metalinguagem também.
+O mais que nossa maturidade aumenta, o menos que procuramos
+tais distincções---pois o contexto elimina possíveis confusões
+para o versado---e o mais que acabamos abusando notações e termos.
+\eop
+A distinção é importante pois não existe necessariamente uma
+correspondencia entre os dois (alias, já vimos que na coleção
+de todos os objetos dum universo, na corresponde um objeto-membro
+na ZF).
+\eop
+Mas é bem mais que isso.
+Por exemplo, entendemos o $\pset A$ como
+\wq{o conjunto de todos os subconjuntos de $A$}.
+Certo?
+Sim e não:
+tanto o \emph{conjunto} quanto o \emph{subconjunto} nessa frase
+foram usados com o sentido formal da teoria mesmo, como certos
+objetos que satisfazem certas coisas (tudo isso dentro dum universo).
+\eop
+Olha uma conclusão importante disso:
+\quote
+Seja $A$ conjunto.
+\endquote
+traduzindo para a terminologia mais fria de ZF:
+\quote
+Seja $A$ objeto.
+\endquote
+e traduzindo para um desenho daqueles que desenhou no
+\ref[set_theory_model_hunting] isso vira
+\quote
+Seja $A$ um node $\bullet$ no desenho do universo.
+\endquote
+E agora: o que é o $\pset A$?
+Pensando com nossa meta-cabeça nas meta-palavras \emph{conjunto}
+e \emph{subconjunto} podemos nos confundir que $\pset A$ seria
+a colecção de todas as subcolecções de $A$, entendo também aqui
+o $A$ como a colecção dos seus membros.
+Mas na verdade, nosso universo/desenho \emph{pode faltar de
+certas coleções}, que na nossa meta-cabeca existem, mas no
+universo não!
+Mas observe que tal falta não seria perceptível dentro do
+universo, pois:
+a palavra \emph{conjunto} significa \emph{objeto} e não \emph{coleção};
+similarmente \emph{subconjunto} significa o que foi definido significar
+e não \emph{subcolecção}; etc.
+\eop
+Isso parece que pode criar uns problemas, quebrando uns teoremas e tal.
+Por exemplo, o que acontece se umas relações de cardinalidade entre
+conjuntos ($\eqc$ ou $\ltc$) que deveriam ser num jeito, parecem não ser?
+O problema vai embora assim que perceber que a palavra \emph{funcção}
+também sofre o mesmo abuso linguístico:
+temos as funcções do nosso meta-mundo, e temos o que definimos para
+significar \emph{funcção} dentro dum universo.
+No caso, entao, as funcções que iam criar o problema que tememos
+com nossos meta-olhos simplesmente não existem no nosso universo!
+Ou seja, não sao \emph{funcções-objetos} mas \emph{metafuncções} e
+logo as definições que demos referindo às funcções na teoria dos
+conjuntos não estão referindo a elas!
+\eop
+Qual o moral da estoria?
+É uma boa prática no começo reservar uma palavra diferente
+para o \wq{objeto que satisfaz os axiomas ZF} e outra para
+a noção intuitiva de \wq{coleção de coisas} (como entendo desde
+que me lembro de ser humano).
+Aqui então chamamos a primeira de \dterm{conjunto} ou de
+\dterm{set} e a segunda de \dterm{colecção} mesmo.
+E similarmente sobre todos os outros termos que usamos
+tanto no mundo formal dos objetos quanto na metalinguagem.
+Usamos os termos \dterm{funcção} para os objetos e
+\dterm{mapeamento} ou \dterm{mapa} para o conceito intuitivo.
+Novamente: abusamos tais coisas com mais experiência e
+quando o contexto é suficiente para eliminar confusões.
+
+%%}}}
+
+%%{{{ Skolem's paradox 
+\note O paradoxo de Skolem.
+%%%{{{ meta 
+\label more_stuff
+\credits
+    * Skolem : paradoxo
+    ;;
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
 \endsection
 %%}}}
 
-%%{{{ Other foundations 
+%%{{{ Other_set_theories 
+\section Outras teorias de conjuntos.
+%%%{{{ meta 
+\label Other_set_theories
+%%%}}}
+
+%%{{{ Which axioms? 
+\note Quais axiomas?.
+%%%{{{ meta 
+\label theory_of_what
+%%%}}}
+
+Uma outra diferença entre as disciplinas da teoria dos
+grupos e da teoria dos conjuntos encontra-se na ambiguïdade
+do segundo termo.
+nesse quisito, os matemáticos
+No outro lado, quando encontrar um \dterm{teorista dos grupos}
+trabalhando num outro canto, num outro país, pergunte e veja:
+o que ele chama de grupo será o que chamamos de grupo aqui também:
+qualquer coisa que satisfaz os (G0)--(G3) é um grupo e pronto.\foot
+Pequenas diferenças podem aparecer como já mencionamos em
+outras disciplinas, como a teoria dos aneis---tem $1$ ou não?---mas
+mesmo assim não chegam ser algo tão assumidamente (e propositadamente)
+diverso.
+\toof
+No outro lado, não existe \emph{a} teoria dos conjuntos.
+Os \dterm{teoristas dos conjuntos}, têm como um objeto do
+seu estudo varias teorias diferentes.
+Em tal teoria dos conjuntos acontece isso, naquela teriamos
+essa outra coisa, basta substituir tal axioma dela por esses
+dois, e teremos construido um tal bicho aqui, etc.
+Isso não acontece em teoria dos grupos!
+\eop
+O que estudamos então na disciplina teoria dos conjuntos
+poderia ter comecado com:
+\wq{chamamos de \dterm{modelo-ZF1-ZF6} qualquer coleção de
+objetos com uma relação \sq{$\in$} que satisfaz tais coisas: \dots}
+E depois:
+\wq{se um modelo-ZF1-ZF6, satisfaz tambem o (ZF7), o chamamos de
+\dterm{modelo-ZF1-ZF7}}, etc.
+Isso é para lembrar das frases como a \wq{se um grupo (isto é, modelo-G0-G3)
+satisfaz o (G4), chamamos de \dterm{grupo abeliano} (isto é, modelo-G0-G4)}.
+
+%%}}}
+
+%%{{{ ZF, NBG, NF, MK 
+\note ZF, NBG, NF, MK.
+%%%{{{ meta 
+\label more_stuff
+\credits
+    * Bernays    : NBG
+    * vonNeumann : NBG
+    * Godel      : NBG
+    * Fraenkel   : ZF
+    * Skolem     : ZF
+    * Zermelo    : ZF
+    * Morse      : MK
+    * Kelley     : MK
+    * Skolem     : MK
+    * Wang       : MK
+    * Quine      : NF
+    * Quine      : ML
+    * Aczel      : anti-foundation
+    * Aczel      : CZF
+    * Russell    : paradoxo
+    ;;
+\defines
+    * equiconsistente
+    * teoria dos conjuntos!NBG
+    * teoria dos conjuntos!NF
+    * teoria dos conjuntos!MK
+    * teoria dos conjuntos!CZF
+    ;;
+\indexes
+    * NBG   see: teoria dos conjuntos
+    * MK    see: teoria dos conjuntos
+    * CZF   see: teoria dos conjuntos
+    * NF    see: teoria dos conjuntos
+    * New Foundations   see: NF
+    * set builder
+    ;;
+%%%}}}
+
+São equivalentes?  Umas são, mas em geral não.
+Observe que já encontramos várias que não são
+(todas baseadas nos ZF) simplesmente adicionando ou não
+algum dos próximos axiomas; e, alem disso, podemos
+adicionar \emph{negações} de tais axiomas e acabar com
+teorias \dterm{equiconsistentes:}
+se uma é consistente, entao a outra também é e vice versa.
+\eop
+Tem outras teorias dos conjuntos mais diferentes, as mais famosas
+seriam as:
+\dterm{NBG} (von Neumann, Bernays, Gödel);
+\dterm{NF} (New Foundations, de Quinne); e
+\dterm{MK} (Morse--Kelley).
+NBG e MK têm a noção de \emph{classe} dentro delas
+(lembre se que ZF não possui classes formalmentes,
+ficaram por fora, e apareceram só no meta-mundo).
+NF possui um objeto-universo dentro dela e mesmo assim
+não permite Russell explodir o mundo:
+em vez de limitar a parte esquerda do set builder,
+limita a parte direita (o filtro).
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Other_foundations 
 \section Outras fundações.
 %%%{{{ meta 
+\label Other_foundations
 %%%}}}
 
 \TODO ETCS, MLTT, HoTT.
@@ -71238,6 +71588,8 @@ $$
 \cite[kunen1980],
 \cite[krivineast],
 \cite[jechset].
+
+Sobre teoria dos conjuntos construtiva: \cite[aczelrathjencst].
 
 \endfurther
 %%}}}
