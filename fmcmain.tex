@@ -19182,7 +19182,7 @@ O livro \cite[serrearithmetic: Chapter VI] dedica um capítulo inteiro
 
 \TODO elaborar Fermat~(\yearof{1607}--\yearof{1665}).
 
-%%{{{ cor: fermat_little_theorem_2 
+%%{{{ thm: fermat_little_theorem_2 
 \theorem Fermat.
 %%%{{{ meta 
 \label fermat_little_theorem_2
@@ -19496,8 +19496,8 @@ Quantos multiplos de $a$ existem no $\set{1,2,\dotsc,a^n}$?
 $\tot n$ é par para todo $n\geq 3$.
 
 \hint
-Ache uma maneira de ``casar'' todos os $1 \leq i < n$ que são
-coprimos com o $n$ entre-si.
+Ache uma maneira de ``casar'' entre-si todos os $1 \leq i < n$ que são
+coprimos com o $n$.
 
 %%}}}
 
@@ -19757,6 +19757,165 @@ por Leibniz, e redescoberta depois por Euler.
 
 %%}}}
 
+%%{{{ prob: odd_to_any_power_is_odd_oneliner 
+\problem.
+%%%{{{ meta 
+\label odd_to_any_power_is_odd_oneliner
+%%%}}}
+
+Demonstre numa linha o~\ref[odd_to_any_power_is_odd]:
+\proclaim{para todo $n\in\nats$ e todo ímpar $k\in\ints$, $k^n$ é ímpar.}
+
+\hint
+Considere módulo $2$.
+
+%%}}}
+
+%%{{{ prob: generalization of odd_to_any_power_is_odd 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+(Generalização do~\ref[odd_to_any_power_is_odd].)
+Sejam $a\in\ints$ e $m\in\nats$.
+Demonstre numa linha que para todo $n\in\nats$,
+existe $b\in\ints$ tal que $(am + 1)^n = bm + 1$.
+
+\hint
+Considere módulo $m$.
+
+%%}}}
+
+%%{{{ prob: m! divides the product of m consecutive ints 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre que para todo $m\in\nats$, o produto de quaisquer $m$
+consecutivos inteiros é divisível por $m!$.
+
+%%}}}
+
+%%{{{ prob: freshmans_dream 
+\problem O sonho do calouro.
+%%%{{{ meta 
+\label freshmans_dream
+\indexes
+    * sonho do calouro
+    ;;
+%%%}}}
+
+Seja $p$ primo, $x,y\in\ints$.
+$$
+(x + y)^p \cong x^p + y^p \pmod p.
+$$
+
+\hint
+Use o teorema binomial~\reftag[binomial_theorem].
+
+\hint
+Use o \ref[p_divides_comb_p_r].
+
+\solution
+Temos
+\compute
+(x + y)^p
+&= \Sum_{i=0}^p \binom p i x^{p-i}y^i             \by {por~\ref[binomial_theorem]} \\
+&= \binom p 0 x^p + \Sum_{i=1}^{p-1} \binom p i x^{p-i}y^i + \binom p p y^p             \by {$p\geq2$} \\
+&= x^p + \Sum_{i=1}^{p-1} \binom p i x^{p-i}y^i + y^p     \\
+&= x^p + \Sum_{i=1}^{p-1} p c_i x^{p-i}y^i + y^p, \quad\text{para algum $c_i\in\ints$}  \by {por~\ref[p_divides_comb_p_r]} \\
+&= x^p + p \Sum_{i=1}^{p-1} c_i x^{p-i}y^i + y^p          \\
+&\cong x^p + y^p \pmod p.
+\endcompute
+
+%%}}}
+
+%%{{{ prob: little_fermat_new_proof 
+\problem.
+%%%{{{ meta 
+\label little_fermat_new_proof
+%%%}}}
+
+Ache uma nova prova, \emph{por indução},
+do teorema de Fermat~\reftag[fermat_little_theorem_2]:
+\eop\noi
+\proclaim{Para todo primo $p$ e todo $a\in\ints$,}
+$$
+a^p \cong a \pmod p.
+$$
+(Note que $a\in\ints$ e não $a\in\nats$.)
+
+\hint
+Use o sonho de calouro (\ref[freshmans_dream]).
+
+%%}}}
+
+%%{{{ prob: tot_of_product_general 
+\problem.
+%%%{{{ meta 
+\label tot_of_product_general
+%%%}}}
+
+Demonstre que
+$$
+\tot {mn}
+=
+{\tot m \tot n}
+\frac
+d
+{\tot d}
+,\qquad\text{onde $d={\gcd m n}$}.
+$$
+Note quantas e quais das propriedades que já provamos são casos especiais dessa!
+
+%%}}}
+
+%%{{{ prob: a_certain_sum_is_one_mod_pq 
+\problem.
+%%%{{{ meta 
+\label a_certain_sum_is_one_mod_pq 
+%%%}}}
+
+Sejam $p,q$ primos com $p\neq q$.
+Demonstre que
+$$
+p^{q-1} + q^{p-1} \cong 1 \pmod {pq}.
+$$
+
+\hint
+O que seria o $p^{q-1} + q^{p-1}$ módulo~$p$?
+E módulo~$q$?
+
+\hint
+China.
+
+%%}}}
+
+%%{{{ prob: a_certain_sum_is_one_mod_ab 
+\problem.
+%%%{{{ meta 
+\label a_certain_sum_is_one_mod_ab
+%%%}}}
+
+Ache uma generalização do \ref[a_certain_sum_is_one_mod_pq]
+aplicável para inteiros $a,b$ com $\gcd a b = 1$.
+
+\hint
+Nesse caso \emph{não} temos
+$$
+a^{b-1} + b^{a-1} \cong 1 \pmod {ab}.
+$$
+
+\hint
+$p-1 = \tot p$ para qualquer primo $p$.
+
+\hint
+Demonstre que:
+$$
+a^{\tot b} + b^{\tot a} \cong 1 \pmod {ab}.
+$$
+
+%%}}}
 \endproblems
 %%}}}
 
@@ -19839,165 +19998,6 @@ O que acontece se $m$ e $\tot M$ não são coprimos?
 \problems.
 %%%{{{ meta 
 %%%}}}
-
-%%{{{ prob: odd_to_any_power_is_odd_oneliner 
-\problem.
-%%%{{{ meta 
-\label odd_to_any_power_is_odd_oneliner
-%%%}}}
-
-Demonstre numa linha o~\ref[odd_to_any_power_is_odd]:
-\proclaim{para todo $n\in\nats$ e todo ímpar $k\in\ints$, $k^n$ é ímpar.}
-
-\hint
-Considere módulo $2$.
-
-%%}}}
-
-%%{{{ prob: generalization of odd_to_any_power_is_odd 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-(Generalização do~\ref[odd_to_any_power_is_odd].)
-Sejam $a\in\ints$ e $m\in\nats$.
-Demonstre numa linha que para todo $n\in\nats$,
-existe $b\in\ints$ tal que $(am + 1)^n = bm + 1$.
-
-\hint
-Considere módulo $m$.
-
-%%}}}
-
-%%{{{ prob: m! divides the product of m consecutive ints 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Demonstre que para todo $m\in\nats$, o produto de quaisquer $m$
-consecutivos inteiros é divisível por $m!$.
-
-%%}}}
-
-%%{{{ prob: freshmans_dream 
-\problem O sonho do calouro.
-%%%{{{ meta 
-\label freshmans_dream
-\indexes
-    * sonho do calouro
-    ;;
-%%%}}}
-
-Seja $p$ primo, $x,y\in\ints$.
-$$
-(x + y)^p \cong x^p + y^p \pmod p.
-$$
-
-\hint
-Use o teorema binomial~\reftag[binomial_theorem].
-
-\hint
-Use o \ref[p_divides_comb_p_r].
-
-\solution
-Temos
-\compute
-(x + y)^p
-&= \Sum_{i=0}^p \binom p i x^{p-i}y^i             \by {por~\ref[binomial_theorem]} \\
-&= \binom p 0 x^p + \Sum_{i=1}^{p-1} \binom p i x^{p-i}y^i + \binom p p y^p             \by {$p\geq2$} \\
-&= x^p + \Sum_{i=1}^{p-1} \binom p i x^{p-i}y^i + y^p     \\
-&= x^p + \Sum_{i=1}^{p-1} p c_i x^{p-i}y^i + y^p, \quad\text{para algum $c_i\in\ints$}  \by {por~\ref[p_divides_comb_p_r]} \\
-&= x^p + p \Sum_{i=1}^{p-1} c_i x^{p-i}y^i + y^p          \\
-&\cong x^p + y^p \pmod p.
-\endcompute
-
-%%}}}
-
-%%{{{ prob: little_fermat_new_proof 
-\problem.
-%%%{{{ meta 
-\label little_fermat_new_proof
-%%%}}}
-
-Ache uma nova prova, \emph{por indução}, do teorema de Fermat~\reftag[fermat_little_theorem_2]:
-\eop\noi
-{\sl Para todo primo $p$ e todo $a\in\ints$},
-$$
-a^p \cong a \pmod p.
-$$
-(Note que $a\in\ints$ e não $a\in\nats$.)
-
-\hint
-Use o sonho de calouro (\ref[freshmans_dream]).
-
-%%}}}
-
-%%{{{ prob: tot_of_product_general 
-\problem.
-%%%{{{ meta 
-\label tot_of_product_general
-%%%}}}
-
-Demonstre que
-$$
-\tot {mn}
-=
-{\tot m \tot n}
-\frac
-d
-{\tot d}
-,\qquad\text{onde $d={\gcd m n}$}.
-$$
-Note quantas e quais das propriedades que já provamos são casos especiais dessa!
-
-%%}}}
-
-%%{{{ prob: a_certain_sum_is_one_mod_pq 
-\problem.
-%%%{{{ meta 
-\label a_certain_sum_is_one_mod_pq 
-%%%}}}
-
-Sejam $p,q$ primos com $p\neq q$.
-Demonstre que
-$$
-p^{q-1} + q^{p-1} \cong 1 \pmod {pq}.
-$$
-
-\hint
-O que seria o $p^{q-1} + q^{p-1}$ módulo~$p$?
-E módulo~$q$?
-
-\hint
-China.
-
-%%}}}
-
-%%{{{ prob: a_certain_sum_is_one_mod_ab 
-\problem.
-%%%{{{ meta 
-\label a_certain_sum_is_one_mod_ab
-%%%}}}
-
-Ache uma generalização do \ref[a_certain_sum_is_one_mod_pq]
-aplicável para inteiros $a,b$ com $\gcd a b = 1$.
-
-\hint
-Nesse caso \emph{não} temos
-$$
-a^{b-1} + b^{a-1} \cong 1 \pmod {ab}.
-$$
-
-\hint
-$p-1 = \tot p$ para qualquer primo $p$.
-
-\hint
-Demonstre que:
-$$
-a^{\tot b} + b^{\tot a} \cong 1 \pmod {ab}.
-$$
-
-%%}}}
 
 \endproblems
 %%}}}
