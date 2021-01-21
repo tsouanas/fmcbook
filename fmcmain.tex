@@ -1177,25 +1177,29 @@ Ou seja, a frase (iii) não tem um significado bem determinado e sendo ambígua 
 
 %%}}}
 
-%%{{{ variable_instance 
-\note Instância de variável.
+%%{{{ variable_occurrence 
+\note Ocorrência de variável.
 %%%{{{ meta 
-\label variable_instance
+\label variable_occurrence
 \defines
-    * variável!instância
+    * variável!ocorrência
+    ;;
+\indexes
+    * variável!instância    see: ocorrência
     ;;
 %%%}}}
 
 Numa frase que envolve variáveis é muito importante poder separar
-(e falar sobre) cada \dterm{instância} de variável na frase.
-Na frase seguinte por exemplo, temos $4$~instâncias da variável
-$p$ e $2$~da variável $q$.
+(e falar sobre) cada \dterm{ocorrência} (ou \dterm{instância})
+de variável na frase.
+Na frase seguinte por exemplo, temos $4$~ocorrências da
+variável $p$ e $2$~da variável $q$.
 $$
 \textwq{$\undertag p 1$ é primo e para todo primo $\undertag p 2$ tal que $\undertag p 3$ divide $\undertag q 1$, $\undertag p 4^2$ divide $\undertag q 2$}
 $$
 Sublinhei e rotulei todas.
 Mesmo sem isso, alguém poderia falar da
-\wq{terceira instância da variável $p$} e entenderiamos qual seria.
+\wq{terceira ocorrência da variável $p$} e entenderiamos qual seria.
 
 %%}}}
 
@@ -1234,20 +1238,19 @@ Para cada uma decida se ela denota objeto ou proposição.
 \note Variáveis livres e ligadas.
 %%%{{{ meta 
 \label variables_free_and_bound
-\indexes
-    * capturada    see: variável
-    * dummy    see: variável ligada
-    ;;
 \defines
     * variável!ligada
     * variável!livre
+    ;;
+\indexes
+    * dummy        see: variável ligada
     ;;
 %%%}}}
 
 Cada uma das expressões da~\ref[typecheck_warmup] refere a pelo
 menos uma coisa por meio de variáveis, e logo seu significado é dependente
 (dessas variáveis).
-Essas \emph{instâncias de variáveis} chamamos de \dterm{livres}.
+Essas \emph{ocorrências de variáveis} chamamos de \dterm{livres}.
 Sobre as expressões que denotam proposições:
 não sabemos o que cada uma afirma sem saber quais são
 os objetos denotados por essas variáveis;
@@ -1262,9 +1265,9 @@ Agora considere as expressões:
 \li: o conjunto de todos livros $b$ tais que existe palavra $w$ no $b$ com tantas letras quantas as letras do título de $b$;
 \li: para toda pessoa $p$, a pessoa $w$ não gosta de $p$.
 \endelist
-Aqui as instâncias das variáveis são todas \dterm{ligadas},
-exceto na última frase onde ambas as instâncias da variável $p$
-são ligadas, mas (a única instância de) $q$ é livre.\foot
+Aqui as ocorrências das variáveis são todas \dterm{ligadas},
+exceto na última frase onde ambas as ocorrências da variável $p$
+são ligadas, mas (a única ocorrência de) $q$ é livre.\foot
 Na literatura aparece como sinônimo de variável ligada
 o termo \dterm{dummy} (boba) também.
 \toof
@@ -1384,19 +1387,19 @@ Vamos ver agora a mesma idéia no contexto de programação:
 
 Considere o código seguinte:
 \sourcecode freeboundvars.c;
-A $\code{i}$ da primeira linha é livre, e nas suas outras instâncias ligada;
+A $\code{i}$ da primeira linha é livre, e nas suas outras ocorrências ligada;
 a $\code{w}$ é livre em todo canto.
 
 %%}}}
 
-%%{{{ remark: variable_vs_instance_abuse 
+%%{{{ remark: variable_vs_occurrence_abuse 
 \remark.
 %%%{{{ meta 
-\label variable_vs_instance_abuse
+\label variable_vs_occurrence_abuse
 %%%}}}
 
 Quando não existe possibilidade de confundir,
-falamos apenas de \wq{variável} em vez de \wq{tal instância de variável}.
+falamos apenas de \wq{variável} em vez de \wq{tal ocorrência de variável}.
 Assim, mesmo que ser livre ou ligada não é uma propriedade de variáveis
 mas de instâncias de variáveis, nos permitimos o abuso de usar frases
 como \wq{$x$ é ligada}, etc.
@@ -1409,9 +1412,9 @@ como \wq{$x$ é ligada}, etc.
 \label variable_both_bound_and_free
 %%%}}}
 
-Numa frase, a mesma variável pode ter instâncias livres e ligadas também!
-Olha por exemplo a frase do~\ref[variable_instance].
-A primeira instância da $p$ é livre, mas todas as outras são ligadas!
+Numa frase, a mesma variável pode ter ocorrências livres e ligadas também!
+Olha por exemplo a frase do~\ref[variable_occurrence].
+A primeira ocorrência da $p$ é livre, mas todas as outras são ligadas!
 
 %%}}}
 
@@ -1481,6 +1484,9 @@ Vamos analizar:
     * variável!fresca
     * variável!sombreamento
     ;;
+\indexes
+    * capturada    see: variável
+    ;;
 %%%}}}
 
 Leia o texto seguinte:
@@ -1544,7 +1550,7 @@ Esse $\code{for}$ capturou a $\code{i}$ que aparece na linha 13.
 Ainda mais, a variável $\code{a}$ declarada na linha 1 foi sombreada
 no escopo ta funcção $\code{foo}$ pois escolhemos usar o mesmo nome
 para segunda parámetro da funcção $\code{foo}$, e logo qualquer
-instância de $\code{a}$ no corpo da $\code{foo}$ refere ao segundo
+ocorrências de $\code{a}$ no corpo da $\code{foo}$ refere ao segundo
 argumento da funcção, e não à $\code{a}$ da linha 1.
 Assim, dentro do corpo da funcção não temos mais como referir à $\code{a}$.
 
@@ -1587,13 +1593,13 @@ $$
 $$
 Sem sequer saber o que significa ser um número primo,
 sabemos que essa proposição afirma que dois números (o $n-d$ e o $n+d$) possuem essa propriedade (misteriosa de ser primo).
-Aparecem as variáveis \sq{$n$} e \sq{$d$}, e em todas as suas instâncias são livres.
+Aparecem as variáveis \sq{$n$} e \sq{$d$}, e em todas as suas ocorrências são livres.
 Ou seja, a proposição (1) pode ser vista como uma afirmação sobre dois números $n$ e $d$.
 Podemos \emph{quantificiar} uma ou ambas delas, por um dos quantificadores que discutimos:
 $$
 \text{\tenrm existe $d$ tal que $n-d$ e $n+d$ são primos}. \tag{2}
 $$
-Aqui todas as instâncias da $n$ são ligadas (com o ligador \wq{existe $n$ tal que \dots}).
+Aqui todas as ocorrências da $n$ são ligadas (com o ligador \wq{existe $n$ tal que \dots}).
 Ou seja, a proposição (2) afirma algo sobre um certo número $d$.
 Ela não fala nada sobre $n$.  Podemos pronunciá-la sem dizer \utter{n}:
 \emph{\wq{Existe numero que tanto subtraindo ele de $n$, quanto somando ele com $n$, resulta em números primos.}}.
@@ -1731,9 +1737,9 @@ não\dots varia!  Ela denota um objeto especifico
 e pronto, não pode mudar depois duns minutos para denotar
 algo diferente, nem mudar no mesmo escopo da mesma expressão
 como acontece por exemplo com o que
-chamamos de ``variáveis'' em programação imperativa.
+chamamos de \dq{variáveis} em programação imperativa.
 Encontrando então a expressão \sq{$f(x) + x$}, não tem
-como as duas instâncias de \symq{$x$} denotar objetos
+como as duas ocorrências de \symq{$x$} denotar objetos
 diferentes.
 
 %%}}}
@@ -29537,7 +29543,7 @@ $$
 $$
 ou seja, podemos fazer um passo computacional:
 \emph{substituir o redex inteiro por uma nova expressão
-criada substituindo todas as instâncias livres de $x$ no $\tau(x)$
+criada substituindo todas as ocorrências livres de $x$ no $\tau(x)$
 por $\heart$, chegando assim no $\tau(\heart)$}.
 Denotando esse passo com um \symq{$\lamstep$}, temos então
 $$
@@ -47317,7 +47323,7 @@ Nesse caso, começa com o
 $$
 a \ast x
 $$
-e troca a única instância de $x$ nessa expressão por $y$, e já chegamos no
+e troca a única ocorrência de $x$ nessa expressão por $y$, e já chegamos no
 $$
 a \ast y
 $$
