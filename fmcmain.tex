@@ -267,6 +267,43 @@ vamos estudá-las aqui.
 
 %%}}}
 
+%%{{{ remark: subjuntivo 
+\remark Subjuntivo.
+%%%{{{ meta 
+\label subjuntivo
+\indexes
+    * subjuntivo
+    * intuicionismo
+    * constructivismo   see: intuicionismo
+    ;;
+%%%}}}
+
+Considere a frase
+$$
+\textwq{$n$ é par se e somente se existir inteiro $k$ tal que $n = 2k$}.
+$$
+Usar o \emph{subjuntivo} \wq{existir} aqui não faz muito sentido:
+não se trata de algo que futuramente pode acontecer ou não.
+Ou existe (hoje, ontem, sempre) tal inteiro $k$ ou não existe;
+daí seria melhor escrever usando o verbo no \dq{modo normal}:\foot
+também conhecido como \emph{presente do indicativo}
+\toof
+$$
+\textwq{$n$ é par se e somente se existe inteiro $k$ tal que $n = 2k$}.
+$$
+Mas há um ponto de vista filosófico
+(que tá bem alinhado com a lógica intuicionista ou constructiva
+que analizaremos logo) onde esse subjuntivo faz até sentido numa
+maneira que pode aparecer meio engraçada:
+\emph{até o momento que um ser humano vai chegar e mostrar pra mim
+um tal inteiro $k$,
+eu não vou considerar nada sobre a paridade do $n$}.
+Se alguém me perguntar \emph{\wq{$n$ é par ou $n$ não é par?}},
+eu, sendo intuicionista, vou simplesmente responder: \emph{\wq{Eu não sei.}}.
+No outro lado, o matemático clássico responderia \emph{\wq{Sim.}}.
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -460,7 +497,7 @@ Qual a diferença entre as duas expressões?:
 $$
 \align
 \text{$n$ é ímpar} &\defiff \text{$n = 2k + 1$ para algum inteiro $k$}\\
-\text{$n$ é ímpar} &\iff    \text{$n = 2k + 1$ para algum inteiro $k$}
+\text{$n$ é ímpar} &\iff    \text{$n = 2k + 1$ para algum inteiro $k$}.
 \endalign
 $$
 
@@ -1090,9 +1127,9 @@ então quando aplica a versão intensional, precisa escolhé-la.
 Temos:
 \tlist:
 \li: \symq{$\intiffsymbol$} para os pares:
-     \refnear[love], \refnear[even], \refnear[aristoteles], \refnear[squares];
+     \refnear[love], \refnear[even], \refnear[squares];
 \li: \symq{$\iffsymbol$} para os pares:
-     \refnear[matheus], \refnear[sarcofago], \refnear[cheese], \refnear[zeros];
+     \refnear[matheus], \refnear[sarcofago], \refnear[cheese], \refnear[zeros], \refnear[aristoteles];
 \li: \symq{${\inteq}$} para o par
      \refnear[manysquares];
 \li: \symq{${=}$} para os pares:
@@ -1103,6 +1140,8 @@ o número por ele mesmo.
 Caso que considerou exponenciação como operação primitiva e não definida
 em termos da multiplicação, seria correto mudar as~\refnear[squares]
 e~\refnear[manysquares] de intensional para extensional.
+Similarmente considerei que \emph{ser professor de alguém} envolve
+mais coisas do que simplesmente ensinar algo para alguém.
 
 %%}}}
 
@@ -1270,6 +1309,63 @@ o termo \dterm{dummy} (boba) também.
 
 %%}}}
 
+%%{{{ bound_to_nothing 
+\note.
+%%%{{{ meta 
+\label bound_to_nothing
+%%%}}}
+
+Oxe!
+Como assim a \sq{$w$} do \ref[variables_free_and_bound] é ligada?
+Ligada com quê?
+A \sq{$w$} do \wq{existe $w$} tem papel de \emph{ligador de variável}
+(\reftag[binders_and_their_bindings])
+aconteceu que o escopo desse ligador
+não teve nenhuma \sq{$w$} livre para ser ligada com o \sq{$w$}
+do \wq{existe $w$}.
+Isso não torna a \sq{$w$} do \wq{existe $w$} livre;
+apenas uma ligada que\dots acabou não ligando com nada.
+Pense no codigo seguinte:
+\sourcecode boundtonothing.rs;
+o $\code{i}$ não é livre.
+Acabou nao conseguindo ligar ninguém mas mesmo assim, com certeza
+livre não tá.
+Em certos casos vale a pena distinguïr as ocorrências não-livres
+entre ligadores e ligadas, mas aqui chamamos todas elas de simplesmente
+ligadas.
+
+%%}}}
+
+%%{{{ remark: variable_vs_occurrence_abuse 
+\remark.
+%%%{{{ meta 
+\label variable_vs_occurrence_abuse
+%%%}}}
+
+Quando não existe possibilidade de confundir,
+falamos apenas de \wq{variável} em vez de \wq{tal ocorrência de variável}.
+Assim, mesmo que ser livre ou ligada não é uma propriedade de variáveis
+mas de instâncias de variáveis, nos permitimos o abuso de usar frases
+como \wq{$x$ é ligada}, etc.
+Acabei de fazer isso no~\reftag[bound_to_nothing].
+
+%%}}}
+
+%%{{{ remark: implicit_bindings 
+\remark Ligações implícitas.
+%%%{{{ meta 
+\label implicit_bindings 
+%%%}}}
+
+Linguisticamente falando a ligação existe sim;
+só que não foi feita usando variáveis em forma explícita.
+Foi deixada implicita.
+Aqui o que foi escondido:
+\wq{existe palavra $w$ no livro $b$ tal que $w$
+tem tantas letras quantas letras tem o título do $b$}.
+
+%%}}}
+
 %%{{{ blah 
 \blah.
 %%%{{{ meta 
@@ -1385,20 +1481,6 @@ Considere o código seguinte:
 \sourcecode freeboundvars.c;
 A $\code{i}$ da primeira linha é livre, e nas suas outras ocorrências ligada;
 a $\code{w}$ é livre em todo canto.
-
-%%}}}
-
-%%{{{ remark: variable_vs_occurrence_abuse 
-\remark.
-%%%{{{ meta 
-\label variable_vs_occurrence_abuse
-%%%}}}
-
-Quando não existe possibilidade de confundir,
-falamos apenas de \wq{variável} em vez de \wq{tal ocorrência de variável}.
-Assim, mesmo que ser livre ou ligada não é uma propriedade de variáveis
-mas de instâncias de variáveis, nos permitimos o abuso de usar frases
-como \wq{$x$ é ligada}, etc.
 
 %%}}}
 
