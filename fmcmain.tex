@@ -7236,28 +7236,26 @@ exceto se explicitamente especificar algo diferente.
 %%%}}}
 
 Usamos $\Int$ para denotar um tipo cujos membros chamamos de (números) inteiros e onde temos:
-$$
-\align
+\mathcol
 0       &\is \Int \\
 1       &\is \Int \\
 +       &\is \Int \times \Int \to \Int \\
 -       &\is \Int \to \Int \\
-\ntimes &\is \Int \times \Int \to \Int \\
-\endalign
-$$
+\ntimes &\is \Int \times \Int \to \Int. \\
+\endmathcol
 Estipulamos as proposições seguintes como axiomas:
 \mathcol
-\pforall {a,b,c}  &\quantified{a + (b + c) = (a + b) + c}   \mtag[ZA-Ass=ZA-Ass]\\
-\pforall {a}      &\quantified{a + 0 = a}                   \mtag[ZA-IdR=ZA-IdR]\\
-\pforall {a}      &\quantified{a + (-a) = 0}                \mtag[ZA-InvR=ZA-InvR]\\
-\pforall {a,b}    &\quantified{a + b = b + a}               \mtag[ZA-Com=ZA-Com]\\
+\cforall {a,b,c}  {a + (b + c) = (a + b) + c}   \mtag[ZA-Ass=ZA-Ass]\\
+\cforall {a}      {a + 0 = a}                   \mtag[ZA-IdR=ZA-IdR]\\
+\cforall {a}      {a + (-a) = 0}                \mtag[ZA-InvR=ZA-InvR]\\
+\cforall {a,b}    {a + b = b + a}               \mtag[ZA-Com=ZA-Com]\\
 \\
-\pforall {a,b,c}  &\quantified{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}
-                                                            \mtag[ZM-Ass=ZM-Ass]\\
-\pforall {a}      &\quantified{a\ntimes 1 = a}              \mtag[ZM-IdR=ZM-IdR]\\
-\pforall {a,b}    &\quantified{a\ntimes b = b \ntimes a}    \mtag[ZM-Ass=ZM-Com]\\
+\cforall {a,b,c}  {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}
+                                                \mtag[ZM-Ass=ZM-Ass]\\
+\cforall {a}      {a\ntimes 1 = a}              \mtag[ZM-IdR=ZM-IdR]\\
+\cforall {a,b}    {a\ntimes b = b \ntimes a}    \mtag[ZM-Ass=ZM-Com]\\
 \\
-\pforall {d,a,b}  &\quantified{(a+b)\ntimes d = (a \ntimes d) + (b \ntimes d)}.
+\cforall {d,a,b}  {(a+b)\ntimes d = (a \ntimes d) + (b \ntimes d)}.
                                                             \mtag[Z-DistR=Z-DistR]\\
 \endmathcol
 
@@ -7296,11 +7294,11 @@ está sendo usada.
 Para cada axioma que parece favorecer o lado direito, sua versão esquerda
 é um teorema: o $0$ é uma $(+)$-identidade-L; o $1$ é uma $(\ntimes)$-identidade-L; para qualquer $a$ o $-a$ é um $(+)$-inverso-L de $a$; e a $(\ntimes)$ distribui-se sobre a $(+)$ pela esquerda também:
 \mathcols 2
-\pforall {a}      &\quantified{0 + a = a}                   \mtag[ZA-IdL=ZA-IdL]\\
-\pforall {a}      &\quantified{(-a) + a = 0}                \mtag[ZA-InvL=ZA-InvL]\\
-\pforall {a}      &\quantified{1\ntimes a = a}              \mtag[ZM-IdL=ZM-IdL]\\
-\pforall {d,a,b}  &\quantified{d\ntimes (a+b) = (d\ntimes a) + (d \ntimes b)}.
-                                                            \mtag[Z-DistL=Z-DistL]\\
+\cforall {a}      {0 + a = a}           \mtag[ZA-IdL=ZA-IdL]\\
+\cforall {a}      {(-a) + a = 0}        \mtag[ZA-InvL=ZA-InvL]\\
+\cforall {a}      {1\ntimes a = a}      \mtag[ZM-IdL=ZM-IdL]\\
+\cforall {d,a,b}  {d\ntimes (a+b) = (d\ntimes a) + (d \ntimes b)}.
+                                        \mtag[Z-DistL=Z-DistL]\\
 \endmathcols
 
 \hint
@@ -7352,9 +7350,9 @@ também.
 
 Demonstre as leis de ``passar termo por outro lado'':
 \mathcol
-\pforall {a,b,c}  &\quantified{a + b = c \iff a = c - b} \\
-\pforall {a,b,c}  &\quantified{a + b = c \iff b = c - a} \\
-\pforall {a,b}    &\quantified{a = b     \iff a - b = 0}. \\
+\cforall {a,b,c}  {a + b = c \iff a = c - b} \\
+\cforall {a,b,c}  {a + b = c \iff b = c - a} \\
+\cforall {a,b}    {a = b     \iff a - b = 0}. \\
 \endmathcol
 
 %%}}}
@@ -7397,8 +7395,8 @@ $$
 %%%}}}
 
 \mathcol
-\pforall {a,b,c}  &\quantified{a + c = b + c \implies a = b}; \\
-\pforall {a,b,c}  &\quantified{c + a = c + b \implies a = b}. \\
+\cforall {a,b,c}  {a + c = b + c \implies a = b}; \\
+\cforall {a,b,c}  {c + a = c + b \implies a = b}. \\
 \endmathcol
 
 %%}}}
@@ -7459,9 +7457,9 @@ estipulados, não faz sentido estipulá-lo como axioma também!
 
 Três sugestões razoáveis nesse ponto seriam as seguintes:
 \mathcol
-\pforall {a}      &\quantified{0 \ntimes a = 0}                        \mtag[ZM-AnL=ZM-AnL] \\
-\pforall {c,a,b}  &\quantified{c \neq 0 \mland ca = cb \implies a = b} \mtag[ZM-CanL=ZM-CanL] \\
-\pforall {a,b}    &\quantified{ab = 0 \implies a = 0 \mlor b = 0}.     \mtag[Z-NZD=Z-NZD] \\
+\cforall {a}      {0 \ntimes a = 0}                        \mtag[ZM-AnL=ZM-AnL] \\
+\cforall {c,a,b}  {c \neq 0 \mland ca = cb \implies a = b} \mtag[ZM-CanL=ZM-CanL] \\
+\cforall {a,b}    {ab = 0 \implies a = 0 \mlor b = 0}.     \mtag[Z-NZD=Z-NZD] \\
 \endmathcol
 Com certeza todas devem ser satisfeitos pelo nosso sistema de inteiros,
 então que tal adicioná-los como axiomas?
@@ -7490,8 +7488,8 @@ Consegues alguma?
 
 Demonstre que $0$ é um $(\ntimes)$-anulador:
 \mathcol
-\pforall {a}      &\quantified{0 \ntimes a = 0}     \mtag[ZM-AnL=ZM-AnL] \\
-\pforall {a}      &\quantified{a \ntimes 0 = 0}.    \mtag[ZM-AnR=ZM-AnR] \\
+\cforall {a}      {0 \ntimes a = 0}     \mtag[ZM-AnL=ZM-AnL] \\
+\cforall {a}      {a \ntimes 0 = 0}.    \mtag[ZM-AnR=ZM-AnR] \\
 \endmathcol
 
 %%}}}
@@ -7542,7 +7540,7 @@ uma moeda no ar---então vamo lá:
 
 Estipulamos mais um axioma:
 \mathcol
-\pforall {a,b}    &\quantified{ab = 0 \implies a = 0 \mlor b = 0}      \mtag[Z-NZD=Z-NZD] \\
+\cforall {a,b}    {ab = 0 \implies a = 0 \mlor b = 0}      \mtag[Z-NZD=Z-NZD] \\
 \endmathcol
 
 %%}}}
@@ -7564,7 +7562,7 @@ Imediatamente demonstramos a outra proposição como teorema antes de esquecer:
 
 Temos:
 \mathcol
-\pforall {c,a,b}  &\quantified{c \neq 0 \mland ca = cb \implies a = b}. \mtag[ZM-CanL=ZM-CanL] \\
+\cforall {c,a,b}  {c \neq 0 \mland ca = cb \implies a = b}. \mtag[ZM-CanL=ZM-CanL] \\
 \endmathcol
 
 \proof Demonstrarás agora.
@@ -7846,10 +7844,10 @@ x \in P     &\abuseiff P \fa x \\
 \endmathcol
 Estipulamos os axiomas seguintes sobre os inteiros positivos:
 \mathcol
-\pforall {a,b \in P} &\quantified  {a + b \in P}        \mtag[ZP-ACl=ZP-ACl]\\
-\pforall {a,b \in P} &\quantified  {a\ntimes b \in P}   \mtag[ZP-MCl=ZP-MCl]\\
-\pforall {a}         &\quantifiedt {exatamente uma das: $-a \in P$; $a = 0$; $a \in P$}.
-                                                        \mtag[ZP-Tri=ZP-Tri]\\
+\cforall  {a,b \in P} {a + b \in P}        \mtag[ZP-ACl=ZP-ACl]\\
+\cforall  {a,b \in P} {a\ntimes b \in P}   \mtag[ZP-MCl=ZP-MCl]\\
+\cforallt {a}         {exatamente uma das: $-a \in P$; $a = 0$; $a \in P$}.
+                                           \mtag[ZP-Tri=ZP-Tri]\\
 \endmathcol
 
 %%}}}
@@ -7908,11 +7906,11 @@ x \geq y &\defiff y \leq x \\
 
 A relação $<$ goza das propriedades seguintes:
 \mathcols 2
-\pforall {a,b,c} &\quantified  {a < b \mland b < c \implies a < c}      \mtag[ZO-Trans=ZO-Trans]\\
-\pforall {a,b}   &\quantifiedt {exatamente uma das: $a < b$; $a = b$; $a > b$}
+\cforall  {a,b,c} {a < b \mland b < c \implies a < c}      \mtag[ZO-Trans=ZO-Trans]\\
+\cforallt {a,b}   {exatamente uma das: $a < b$; $a = b$; $a > b$}
                                                         \mtag[ZO-Tri=ZO-Tri]\\
-\pforall {a,b,c} &\quantified  {a < b \implies a + c < b + c}           \mtag[ZO-A=ZO-A]\\
-\pforall {a,b,c} &\quantified  {a < b \mland c \neq 0 \implies ac < bc} \mtag[ZO-M=ZO-M]\\
+\cforall  {a,b,c} {a < b \implies a + c < b + c}           \mtag[ZO-A=ZO-A]\\
+\cforall  {a,b,c} {a < b \mland c \neq 0 \implies ac < bc} \mtag[ZO-M=ZO-M]\\
 \endmathcols
 
 \proof.
@@ -7995,8 +7993,8 @@ cada um dos seus passos.
 
 A relação $<$ é \dterm{irreflexiva} e \dterm{assimétrica}:
 \mathcol
-\pforall {a}     &\quantified  {a \nlt a}                 \mtag[ZO-Irr=ZO-Irr] \\
-\pforall {a,b}   &\quantified  {a < b \implies b \nlt a}. \mtag[ZO-Assim=ZO-Assim] \\
+\cforall {a}     {a \nlt a}                 \mtag[ZO-Irr=ZO-Irr] \\
+\cforall {a,b}   {a < b \implies b \nlt a}. \mtag[ZO-Assim=ZO-Assim] \\
 \endmathcol
 
 %%}}}
@@ -8358,8 +8356,8 @@ Para todo $x$ inteiro, $\abs {-x} = \abs x$.
 %%%}}}
 
 \mathcol
-\pforall {a,u} &\quantified{\abs a \leq \abs u  \iff  -\abs u \leq a \leq \abs u} \\
-\pforall {a}   &\quantified{-\abs a \leq a \leq \abs a} \\
+\cforall {a,u} {\abs a \leq \abs u  \iff  -\abs u \leq a \leq \abs u} \\
+\cforall {a}   {-\abs a \leq a \leq \abs a} \\
 \endmathcol
 
 %%}}}
@@ -8644,7 +8642,7 @@ Demonstre que não tem como demonstrar $0 \neq 1$ usando o resto dos axiomas.
 Retire o $0 \neq 1$ dos axiomas, e no seu lugar adicione a proposição
 superficialmente mais fraca:
 \mathcol
-\pexists {u,v}   &\quantified  {u \neq v}                 \mtag[Z-NTriv=Z-NTriv] \\
+\cexists {u,v}   {u \neq v}                 \mtag[Z-NTriv=Z-NTriv] \\
 \endmathcol
 Demonstre $0 \neq 1$.
 
@@ -37966,8 +37964,8 @@ $$
 \matrix
 \format
 \l & \;\c\; & \l\, & \l\, & \l \\
-\text{$f$ injetora}    & \defiff & \pforall {x \in A} & \pforall {y \in A} & \quantified{f\fa x = f \fa y \implies x = y}; \\
-\text{$f$ sobrejetora} & \defiff & \pforall {b \in B} & \pexists {a \in A} & \quantified{f \fa a = b}.
+\text{$f$ injetora}    & \defiff & \pforall {x \in A} & \cforall {y \in A} {f \fa x = f \fa y \implies x = y}; \\
+\text{$f$ sobrejetora} & \defiff & \pforall {b \in B} & \cexists {a \in A} {f \fa a = b}.
 \endmatrix
 $$
 Consegues ver algo irritante?
@@ -47510,14 +47508,12 @@ e começando com um \emph{conjunto estruturado} com uma operação binária:
 %%%}}}
 
 Um conjunto estruturado $\ssetfont G = \sset G {\ast}$ é um \dterm{grupo} sse
-$$
-\alignat2
-\pforall {a,b\in G}                 &\quantified{a\ast b \in G}                   &\tag{G0} \\
-\pforall {a,b,c\in G}               &\quantified{a\ast(b\ast c) = (a\ast b)\ast c}&\tag{G1} \\
-\pexists {e\in G} \pforall {a \in G}&\quantified{e\ast a = a = a\ast e}           &\tag{G2} \\
-\pforall {a\in G} \pexists {y\in G} &\quantified{y\ast a = e = a \ast y}          &\tag{G3} 
-\endalignat
-$$
+\mathcol
+\cforall {a,b\in G}                  {a\ast b \in G}                     \tag{G0} \\
+\cforall {a,b,c\in G}                {a\ast(b\ast c) = (a\ast b)\ast c}  \tag{G1} \\
+\pexists {e\in G} \cforall {a \in G} {e\ast a = a = a\ast e}             \tag{G2} \\
+\pforall {a\in G} \cexists {y \in G} {y\ast a = e = a \ast y}.           \tag{G3} \\
+\endmathcol
 Chamamos o elemento garantido pela~(G2) a \dterm{identidade} do grupo,
 chamamos o~$y$ da~(G3) o \dterm{inverso} de~$a$.
 \mistake
@@ -47568,11 +47564,9 @@ grupos de abelianos:
 Um grupo é \dterm{abeliano}
 (também: \dterm{comutativo})
 sse sua operação é comutativa:
-$$
-\alignat2
-\pforall {a,b\in G}    &\quantified{a\ast b = b\ast a}.   &\tag{GA}
-\endalignat
-$$
+\mathcol
+\cforall {a,b\in G} {a\ast b = b\ast a}.  \tag{GA}
+\endmathcol
 
 %%}}}
 
@@ -47737,14 +47731,12 @@ tem uma constante também:
 %%%}}}
 
 Um conjunto estruturado $\ssetfont G = \sset G {\ast, e}$ é um grupo sse
-$$
-\alignat2
-\pforall {a,b\in G}                 &\quantified{a\ast b \in G}                   &\tag{G0} \\
-\pforall {a,b,c\in G}               &\quantified{a\ast(b\ast c) = (a\ast b)\ast c}&\tag{G1} \\
-\pforall {a \in G}                  &\quantified{e\ast a = a = a\ast e}           &\tag{G2} \\
-\pforall {a\in G} \pexists {y\in G} &\quantified{y\ast a = e = a \ast y}          &\tag{G3}
-\endalignat
-$$
+\mathcol
+\cforall {a,b\in G}                 {a\ast b \in G}                    \tag{G0} \\
+\cforall {a,b,c\in G}               {a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1} \\
+\cforall {a \in G}                  {e\ast a = a = a\ast e}            \tag{G2} \\
+\cforall {a\in G} \pexists {y\in G} {y\ast a = e = a \ast y}.          \tag{G3} \\
+\endmathcol
 
 %%}}}
 
@@ -47808,14 +47800,12 @@ onde $\ast$ é uma operação binária, ${}^{-1}$ unária, e $e$ uma constante
 \li (G3): para todo $a \in G$, $\ginv a$ é um $\ast$-inverso do $a$.
 \endtlist
 Formulamente:
-$$
-\alignat2
-\pforall {a,b \in G}   &\quantified{a\ast b \in G}                    &\tag{G0} \\
-\pforall {a,b,c \in G} &\quantified{a\ast(b\ast c) = (a\ast b)\ast c} &\tag{G1} \\
-\pforall {a \in G}     &\quantified{e\ast a = a = a\ast e}            &\tag{G2} \\
-\pforall {a \in G}     &\quantified{a^{-1}\ast a = e = a \ast a^{-1}} &\tag{G3} 
-\endalignat
-$$
+\mathcol
+\cforall {a,b \in G}   {a\ast b \in G}                     \tag{G0} \\
+\cforall {a,b,c \in G} {a\ast(b\ast c) = (a\ast b)\ast c}  \tag{G1} \\
+\cforall {a \in G}     {e\ast a = a = a\ast e}             \tag{G2} \\
+\cforall {a \in G}     {a^{-1}\ast a = e = a \ast a^{-1}}. \tag{G3} \\
+\endmathcol
 
 %%}}}
 
@@ -48514,12 +48504,10 @@ outras funcções, as chamando depois à vontade.
 
 Seja $\ssetfont G = \sset G {\ast, \gid}$ grupo.
 Então as leis de cancelamento pela esquerda e pela direita
-$$
-\alignat2
-\pforall {a,x,y\in G}  &\quantified{a\ast x = a\ast y \implies x=y}  &\tag{GCL} \\
-\pforall {a,x,y\in G}  &\quantified{x\ast a = y\ast a \implies x=y}  &\tag{GCR}
-\endalignat
-$$
+\mathcol
+\cforall {a,x,y\in G}  {a\ast x = a\ast y \implies x=y}  \tag{GCL} \\
+\cforall {a,x,y\in G}  {x\ast a = y\ast a \implies x=y}  \tag{GCR} \\
+\endmathcol
 são válidas em $G$.
 
 \sketch.
@@ -48672,9 +48660,8 @@ $$
 \ginvt : G \to G.
 $$
 Sua \emph{totalidade} já era garantida pela~(G3), que nesse caso é a:
-$$
-\alignat2
-\pforall {a\in G} \pexists {y\in G} &\quantified{y\ast a = e = a \ast y}          &\tag{G3}\\
+\mathcol
+\pforall {a\in G} \cexists {y\in G} {y\ast a = e = a \ast y}   \tag{G3} \\
 \intertext{%
 e agora acabamos de ganhar sua \emph{determinabilidade} com
 o~\ref[uniqueness_of_inverses_in_group].
@@ -48687,9 +48674,8 @@ definir uma notação para \emph{a} identidade dum grupo $G$.
 Cuidado, pois agora a (G2) tá apenas afirmando a existência
 \emph{duma} identidade:
 }
-\pexists {e\in G} \pforall {a \in G}&\quantified{e\ast a = a = a\ast e}           &\tag{G2}
-\endalignat
-$$
+\pexists {e\in G} \cforall {a \in G} {e\ast a = a = a\ast e}   \tag{G2} \\
+\endmathcol
 mas graças ao \ref[uniqueness_of_identity_in_group] sabemos
 que é única então podemos definir uma notação pra ela.
 Vamos fazer essas duas coisas agora:
@@ -49361,14 +49347,12 @@ ab
 
 Seja $\ssetfont G = \sset G \ast$ um conjunto \emph{finito} estruturado
 que satisfaz:
-$$
-\align
-\pforall {a,b\in G}    &\quantified{a\ast b \in G}                    \tag{G0} \\
-\pforall {a,b,c\in G}  &\quantified{a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1} \\
-\pforall {a,x,y\in G}  &\quantified{a\ast x = a\ast y \implies x=y}   \tag{GCL}\\
-\pforall {a,x,y\in G}  &\quantified{x\ast a = y\ast a \implies x=y}   \tag{GCR}
-\endalign
-$$
+\mathcol
+\cforall {a,b\in G}    {a\ast b \in G}                    \tag{G0}  \\
+\cforall {a,b,c\in G}  {a\ast(b\ast c) = (a\ast b)\ast c} \tag{G1}  \\
+\cforall {a,x,y\in G}  {a\ast x = a\ast y \implies x=y}   \tag{GCL} \\
+\cforall {a,x,y\in G}  {x\ast a = y\ast a \implies x=y}.  \tag{GCR} \\
+\endmathcol
 Então $\ssetfont G$ é um grupo.
 
 \proof.
@@ -49398,20 +49382,18 @@ Veja~\ref[how_come_the_cancellation_laws_hold_in_nongroup_without_inverses].
 %%%}}}
 
 Seja $\ssetfont G = \sset G {\ast,e}$ um conjunto estruturado que satisfaz:
-$$
-\align
-\pforall {a,b\in G}                 &\quantified{a \ast b \in G}                    \tag{G0}  \\
-\pforall {a,b,c\in G}               &\quantified{a \ast (b \ast c) = (a \ast b) \ast c} \tag{G1}  \\
-\pforall {a \in G}                  &\quantified{a \ast e = a}                      \tag{G2R} \\
-\pforall {a\in G} \pexists {y\in G} &\quantified{a \ast y = e}                     \tag{G3R} \\
+\mathcol
+\cforall {a,b\in G}      {a \ast b \in G}                        \tag{G0}  \\
+\cforall {a,b,c\in G}    {a \ast (b \ast c) = (a \ast b) \ast c} \tag{G1}  \\
+\cforall {a \in G}       {a \ast e = a}                          \tag{G2R} \\
+\pforall {a\in G} \cexists {y\in G} {a \ast y = e}               \tag{G3R} \\
 \intertext{%
 Então $\ssetfont G$ é um grupo.
 Similarmente se adicionar as
 }
-\pforall {a \in G}                  &\quantified{e \ast a = a}                      \tag{G2L} \\
-\pforall {a\in G} \pexists {y\in G} &\quantified{y \ast a = e}                      \tag{G3L}
-\endalign
-$$
+\cforall {a \in G}                  {e \ast a = a}   \tag{G2L} \\
+\pforall {a\in G} \cexists {y\in G} {y \ast a = e}.  \tag{G3L} \\
+\endmathcol
 
 \proof.
 \ref[onesided_group_def_proof].
@@ -49425,12 +49407,10 @@ $$
 %%%}}}
 
 Verifique que mesmo se conseguir demonstrar as
-$$
-\align
-\pforall {a \in G}                    &\quantified{e \ast a = a}   \tag{G2L} \\
-\pforall {a \in G} \pexists {y \in G} &\quantified{y \ast a = e}   \tag{G3L}
-\endalign
-$$
+\mathcol
+\cforall {a \in G}                    {e \ast a = a}   \tag{G2L} \\
+\pforall {a \in G} \cexists {y \in G} {y \ast a = e}   \tag{G3L} \\
+\endmathcol
 isso não nos permite deduzir trivialmente as (G2) e (G3)!
 Explique o porquê.
 
@@ -49443,11 +49423,9 @@ Explique o porquê.
 %%%}}}
 
 Podemos substituir a (G3R) do~\ref[onesided_group_def] por
-$$
-\align
-\pforall {a \in G} \pexists {y \in G} &\quantified{y \ast a = e}   \tag{G3L}
-\endalign
-$$
+\mathcol
+\pforall {a \in G} \cexists {y \in G} {y \ast a = e}   \tag{G3L} \\
+\endmathcol
 e ainda concluir que $\ssetfont G$ é grupo?
 Ou seja, se a operação possui R-identidade,
 e se cada membro tem L-inverso, o $\ssetfont G$
@@ -51096,9 +51074,9 @@ Se $H$ é um subconjunto não vazio do grupo $\sset G {\ast,e}$, então:
 $$
 \rightbrace {
 \alignedat3
-\textrm{(0)} & \quad &                      & \emptyset \neq H \subset G                 &\qquad &\textrm{($H$ é n\~ao vazio)}\\
-\textrm{(1)} & \quad & \pforall {a,b \in G} & \quantified{a, b \in H \implies a\ast b \in H}  &\qquad &\textrm{($H$ é $\ast$-fechado)}\\
-\textrm{(2)} & \quad & \pforall {a \in G}   & \quantified{a \in H    \implies \ginv a \in H}  &\qquad &\textrm{($H$ é $^{-1}$-fechado)}
+\textrm{(0)} & \quad &                      & \emptyset \neq H \subset G          &\qquad &\textrm{($H$ é n\~ao vazio)}\\
+\textrm{(1)} & \quad & \cforall {a,b \in G}  {a, b \in H \implies a\ast b \in H}  &\qquad &\textrm{($H$ é $\ast$-fechado)}\\
+\textrm{(2)} & \quad & \cforall {a \in G}    {a \in H    \implies \ginv a \in H}  &\qquad &\textrm{($H$ é $^{-1}$-fechado)}
 \endalignedat
 }
 \implies
@@ -53219,14 +53197,12 @@ e os inversos-esquerdos, garantidos pelas (G2L) e (G3L).
 \hint
 Precisas mostrar as (G2)--(G3).
 Ou seja, verificar que o $\idr$ é uma identidade-esquerda,
-$$
-\align
-\pforall {a\in G} & \quantified{\idr a = a}            \tag{G2'}\\
+\mathcol
+\cforall {a\in G} {\idr a = a}             \tag{G2'} \\
 \intertext{e que para todo $a\in G$,
 seu inverso direito $\invr a$ é um inverso esquerdo também:}
-\pforall {a\in G} &\quantified{\invr a \ast a = \idr}. \tag{G3'}
-\endalign
-$$
+\cforall {a\in G} {\invr a \ast a = \idr}. \tag{G3'} \\
+\endmathcol
 
 \hint
 Para demonstrar a (G2') tome um $a\in G$ e comece com:
@@ -56316,13 +56292,11 @@ pra ser\dots~\emph{congruências:}
 
 Uma relação de equivalência $\sim$ num grupo $\ssetfont G = \sset G {\ast, \ginv{}, \gid}$
 é uma \dterm{congruência} de $G$ sse $\sim$ é \dterm{compatível com a estrutura} do $\ssetfont G$:
-$$
-\align
-\pforall {a,b,a',b' \in G} & \quantified {a \sim b \mland a' \sim b' \implies a \ast a' \sim b \ast b'} \\
-\pforall {a,b \in G}       & \quantified {a \sim b \implies \ginv a \sim \ginv b} \\
-                           & \gid \sim \gid.
-\endalign
-$$
+\mathcol
+\cforall {a,b,a',b' \in G}  {a \sim b \mland a' \sim b' \implies a \ast a' \sim b \ast b'} \\
+\cforall {a,b \in G}        {a \sim b \implies \ginv a \sim \ginv b} \\
+                          & \gid \sim \gid. \\
+\endmathcol
 
 %%}}}
 
@@ -56457,15 +56431,11 @@ menos trabalho pra fazer.
 O que significa \emph{fechado pelos conjugados?}
 Significa \emph{fechado pela relação de conjugação};
 em símbolos:
-$$
-\align
-\pforall {n \in N} & \quantifiedt{todos os conjugados do $n$ pertencem ao $N$} \\
+\mathcol
+\cforallt {n \in N}    {todos os conjugados do $n$ pertencem ao $N$} \\
 \intertext{ou seja,}
-\pforall {n \in N} &
-\lforall {g \in G}
-{ gn\ginv g \in N }.
-\endalign
-$$
+\pforall {n \in N}   & \lforall {g \in G} { gn\ginv g \in N }. \\
+\endmathcol
 
 %%}}}
 
@@ -56494,17 +56464,15 @@ caso que a parte sublinhada acima pareceu estranha.
 Lembre-se como tomamos membros arbitrários dum conjunto
 indexado (\ref[picking_elements_from_indexed_sets]
 e~\ref[only_declare_variables_group_reminder]).
-Provando a afirmação
-$$
-\align
-\pforall {n\in N} &\quantifiedt{algo sobre o $gn\ginv g$}
+Demonstrando a afirmação
+\mathcol
+\cforallt {n \in N} {algo sobre o $gn\ginv g$} \\
 \intertext{ganhamos que todos os membros do $gN\ginv g$ satisfazem
 esse algo, pois o conjunto $gN\ginv g$ é indexado por o $N$.
 Aqui o algo é o <<pertencer ao $N$>>.
 Ou seja:}
-\pforall {n\in N} &\quantified{gn\ginv g \in N}
-\endalign
-$$
+\cforall  {n \in N} {gn\ginv g \in N} \\
+\endmathcol
 afirma que todos os membros de $gN\ginv g$ pertencem ao $N$,
 ou seja, $gN\ginv g \subset N$.
 
@@ -59024,13 +58992,11 @@ Para mais sobre isso, veja por exemplo o~\cite[clrs: \S33.3].
 
 Um conjunto estruturado $\cal M = \sset M {\cdot,\epsilon}$
 é um \dterm{monóide} sse:
-$$
-\alignat2
-\pforall {a,b\in M}    &\quantified{a\cdot b \in M}                       &\tag{G0}\\
-\pforall {a,b,c\in M}  &\quantified{a\cdot(b\cdot c) = (a\cdot b)\cdot c} &\tag{G1}\\
-\pforall {a\in M}      &\quantified{\epsilon\cdot a = a = a\cdot\epsilon} &\tag{G2}
-\endalignat
-$$
+\mathcol
+\cforall {a,b\in M}    {a\cdot b \in M}                         \tag{G0} \\
+\cforall {a,b,c\in M}  {a\cdot(b\cdot c) = (a\cdot b)\cdot c}   \tag{G1} \\
+\cforall {a\in M}      {\epsilon\cdot a = a = a\cdot\epsilon}.  \tag{G2} \\
+\endmathcol
 Naturalmente, se a $\cdot$ é comutativa chamamos $M$ de \dterm{monóide comutativo}.
 
 %%}}}
@@ -59391,22 +59357,20 @@ Seja $\cal R = \sset R {\plus,\,\ntimes,0,1}$ um conjunto estruturado,
 onde $\plus,\ntimes$ são operações binárias
 e $0,1$ são constantes.
 $\cal R$ é um \dterm{anel} ou \dterm{ring} sse
-$$
-\alignat2
-\pforall {a,b\in R}                 &\quantified{a\plus b \in R}                              &\tag{RA0} \\
-\pforall {a,b,c\in R}               &\quantified{a\plus(b\plus c) = (a\plus b)\plus c}        &\tag{RA1} \\
-\pforall {a \in R}                  &\quantified{0\plus a = a = a\plus 0}                     &\tag{RA2} \\
-\pforall {a\in R} \pexists {y\in R} &\quantified{y\plus a = 0 = a \plus y}                    &\tag{RA3} \\
-\pforall {a,b\in R}                 &\quantified{a\plus b = b \plus a}                        &\tag{RA4} \\
-\pforall {a,b\in R}                 &\quantified{a\ntimes b \in R}                            &\tag{RM0} \\
-\pforall {a,b,c\in R}               &\quantified{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}&\tag{RM1} \\
-\pforall {a \in R}                  &\quantified{1\ntimes a = a = a\ntimes 1}                 &\tag{RM2} \\
-\pforall {a,b,c \in R}              &\quantified{a\ntimes (b \plus c) = (a\ntimes b) \plus (a \ntimes c)}  &\tag{RDL}\\
-\pforall {a,b,c \in R}              &\quantified{(b \plus c)\ntimes a = (b\ntimes a) \plus (c \ntimes a)}  &\tag{RDR}\\
-\intertext{Caso que também é satisfeitquantified}
-\pforall {a,b\in R}                 &\quantified{a\ntimes b = b \ntimes a}                    &\tag{RM4}
-\endalignat
-$$
+\mathcol
+\cforall {a,b\in R}                 {a\plus b \in R}                               \tag{RA0} \\
+\cforall {a,b,c\in R}               {a\plus(b\plus c) = (a\plus b)\plus c}         \tag{RA1} \\
+\cforall {a \in R}                  {0\plus a = a = a\plus 0}                      \tag{RA2} \\
+\pforall {a\in R} \cexists {y\in R} {y\plus a = 0 = a \plus y}                     \tag{RA3} \\
+\cforall {a,b\in R}                 {a\plus b = b \plus a}                         \tag{RA4} \\
+\cforall {a,b\in R}                 {a\ntimes b \in R}                             \tag{RM0} \\
+\cforall {a,b,c\in R}               {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c} \tag{RM1} \\
+\cforall {a \in R}                  {1\ntimes a = a = a\ntimes 1}                  \tag{RM2} \\
+\cforall {a,b,c \in R}              {a\ntimes (b \plus c) = (a\ntimes b) \plus (a \ntimes c)} \tag{RDL} \\
+\cforall {a,b,c \in R}              {(b \plus c)\ntimes a = (b\ntimes a) \plus (c \ntimes a)} \tag{RDR} \\
+\intertext{Caso que também é satisfeita a}
+\cforall {a,b\in R}                 {a\ntimes b = b \ntimes a}.                    \tag{RM4} \\
+\endmathcol
 chamamos o $\cal R$ \dterm{anel comutativo}.
 
 %%}}}
@@ -59450,12 +59414,10 @@ O $\cal R$ é um \dterm{anel} sse:
 \item{(i)} $\sset R {\plus, -, 0}$ é um grupo abeliano;
 \item{(ii)} $\sset R {\ntimes, 1}$ é um monóide;
 \item{(iii)} as seguintes leis são satisfeitas:
-$$
-\alignat2
-\pforall {a,b,c \in R} &\quantified{a\ntimes (b \plus c) = (a\ntimes b) \plus (a \ntimes c)}  &\tag{RDL}\\
-\pforall {a,b,c \in R} &\quantified{(b \plus c)\ntimes a = (b\ntimes a) \plus (c \ntimes a)}  &\tag{RDR}
-\endalignat
-$$
+\mathcol
+\cforall {a,b,c \in R} {a\ntimes (b \plus c) = (a\ntimes b) \plus (a \ntimes c)}  \tag{RDL} \\
+\cforall {a,b,c \in R} {(b \plus c)\ntimes a = (b\ntimes a) \plus (c \ntimes a)}. \tag{RDR} \\
+\endmathcol
 
 %%}}}
 
@@ -60501,28 +60463,26 @@ Seja $\cal L = \sset L {\join,\meet}$ um conjunto estruturado onde
 $\join,\meet$ são operações binárias que chamamos de \dterm{join}
 e \dterm{meet} respectivamente.
 $\cal L$ é um \dterm{reticulado} (ou \dterm{láttice}) sse:
-$$
-\alignat2
-\pforall {a,b\in L}   &\quantified{a\join b \in L}                         &\tag{LJ0} \\
-\pforall {a,b,c\in L} &\quantified{a\join(b\join c) = (a\join b)\join c}   &\tag{LJ1} \\
-\pforall {a,b\in L}   &\quantified{a\join b = b \join a}                   &\tag{LJ2} \\
-\pforall {a\in L}     &\quantified{a\join a = a}                           &\tag{LJ3} \\
-\pforall {a,b\in L}   &\quantified{a\meet b \in L}                         &\tag{LM0} \\
-\pforall {a,b,c\in L} &\quantified{a\meet(b\meet c) = (a\meet b)\meet c}   &\tag{LM1} \\
-\pforall {a,b\in L}   &\quantified{a\meet b = b \meet a}                   &\tag{LM2} \\
-\pforall {a\in L}     &\quantified{a\meet a = a}                           &\tag{LM3} \\
-\pforall {a,b \in L}  &\quantified{a\join (a \meet b) = a}                 &\tag{LAJ} \\
-\pforall {a,b \in L}  &\quantified{a\meet (a \join b) = a}.                &\tag{LAM} \\
+\mathcol
+\cforall {a,b\in L}   {a\join b \in L}                         \tag{LJ0} \\
+\cforall {a,b,c\in L} {a\join(b\join c) = (a\join b)\join c}   \tag{LJ1} \\
+\cforall {a,b\in L}   {a\join b = b \join a}                   \tag{LJ2} \\
+\cforall {a\in L}     {a\join a = a}                           \tag{LJ3} \\
+\cforall {a,b\in L}   {a\meet b \in L}                         \tag{LM0} \\
+\cforall {a,b,c\in L} {a\meet(b\meet c) = (a\meet b)\meet c}   \tag{LM1} \\
+\cforall {a,b\in L}   {a\meet b = b \meet a}                   \tag{LM2} \\
+\cforall {a\in L}     {a\meet a = a}                           \tag{LM3} \\
+\cforall {a,b \in L}  {a\join (a \meet b) = a}                 \tag{LAJ} \\
+\cforall {a,b \in L}  {a\meet (a \join b) = a}.                \tag{LAM} \\
 \intertext{%
 Seja $\cal L = \sset L {\join,\meet,0,1}$ um conjunto estruturado onde
 $\join,\meet$ são operações binárias e $0,1$ constantes, e tal que
 $\cal L$ é um \dterm{reticulado limitado} (ou \dterm{bounded láttice}) sse
 $\sset L {\join,\meet}$ é um reticulado e
 }
-\pforall {a \in L}    &\quantified{a\join 0 = a}                           &\tag{LJB} \\
-\pforall {a \in L}    &\quantified{a\meet 1 = a}.                          &\tag{LJB}
-\endalignat
-$$
+\cforall {a \in L}    {a\join 0 = a}                           \tag{LJB} \\
+\cforall {a \in L}    {a\meet 1 = a}.                          \tag{LJB}
+\endmathcol
 
 %%}}}
 
@@ -60610,20 +60570,18 @@ Seja $\cal S = \sset S {\dmnd}$ um conjunto estruturado onde
 $\dmnd$ é uma operação binária.
 $\cal S$ é um \dterm{semirreticulado} (ou \dterm{semiláttice}) sse
 sua operação é associativa, comutativa, e idempotente:
-$$
-\alignat2
-\pforall {a,b\in S}   &\quantified{a\dmnd b \in S}                        &\tag{SL0} \\
-\pforall {a,b,c\in S} &\quantified{a\dmnd(b\dmnd c) = (a\dmnd b)\dmnd c}  &\tag{SL1} \\
-\pforall {a,b\in S}   &\quantified{a\dmnd b = b \dmnd a}                  &\tag{SL2} \\
-\pforall {a\in S}     &\quantified{a\dmnd a = a}                          &\tag{SL3} \\
+\mathcol
+\cforall {a,b\in S}   {a\dmnd b \in S}                        \tag{SL0} \\
+\cforall {a,b,c\in S} {a\dmnd(b\dmnd c) = (a\dmnd b)\dmnd c}  \tag{SL1} \\
+\cforall {a,b\in S}   {a\dmnd b = b \dmnd a}                  \tag{SL2} \\
+\cforall {a\in S}     {a\dmnd a = a}.                         \tag{SL3} \\
 \intertext{%
 Seja $\cal S = \sset S {\dmnd,\ell}$ um conjunto estruturado tal que
 $\sset S {\dmnd}$ é um semirreticulado e $\ell$ é uma constante.
 $\cal S$ é um \dterm{semirreticulado limitado} (ou \dterm{bounded semiláttice}) sse:
 }
-\pforall {a\in S}     &\quantified{a\dmnd \ell = a}                       &\tag{SLB}
-\endalignat
-$$
+\cforall {a\in S}     {a\dmnd \ell = a}.                      \tag{SLB} \\
+\endmathcol
 
 %%}}}
 
@@ -60893,29 +60851,27 @@ seu gráfico: $P \subset F$.
 Seu papel é representar os membros \emph{positivos}.
 Chamamos o $\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, P}$
 um \dterm{corpo ordenado} sse as seguintes leis são satisfeitas:
-$$
-\align
-                        &{0 \neq 1}                                  \tag{FNZ}\\
+\mathcol
+                      & {0 \neq 1}                      \tag{FNZ} \\
 \\
-\pforall {a,b\in F}     &\quantified{a + b \in F}                  \tag{FA0}\\
-\pforall {a,b,c\in F}   &\quantified{a + (b + c) = (a + b) + c}    \tag{FA1}\\
-\pforall {a \in F}      &\quantified{a + 0 = a}                    \tag{FA2}\\
-\pforall {a\in F}       &\quantified{a + (-a) = 0}                 \tag{FA3}\\
-\pforall {a,b\in F}     &\quantified{a + b = b + a}                \tag{FA4}\\
+\cforall {a,b\in F}     {a + b \in F}                   \tag{FA0} \\
+\cforall {a,b,c\in F}   {a + (b + c) = (a + b) + c}     \tag{FA1} \\
+\cforall {a \in F}      {a + 0 = a}                     \tag{FA2} \\
+\cforall {a\in F}       {a + (-a) = 0}                  \tag{FA3} \\
+\cforall {a,b\in F}     {a + b = b + a}                 \tag{FA4} \\
 \\
-\pforall {a,b\in F}     &\quantified{a\ntimes b \in F}                                     \tag{FM0}\\
-\pforall {a,b,c\in F}   &\quantified{a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}         \tag{FM1}\\
-\pforall {a \in F}      &\quantified{a\ntimes 1 = a}                                       \tag{FM2}\\
-\pforall {a\in F}       &\quantified{a\neq 0 \implies \lexists {y\in F} {a \ntimes y = 1}} \tag{FM3*}\\
-\pforall {a,b\in F}     &\quantified{a\ntimes b = b \ntimes a}                             \tag{FM4}\\
+\cforall {a,b\in F}     {a\ntimes b \in F}                                     \tag{FM0} \\
+\cforall {a,b,c\in F}   {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}         \tag{FM1} \\
+\cforall {a \in F}      {a\ntimes 1 = a}                                       \tag{FM2} \\
+\cforall {a\in F}       {a\neq 0 \implies \lexists {y\in F} {a \ntimes y = 1}} \tag{FM3*}\\
+\cforall {a,b\in F}     {a\ntimes b = b \ntimes a}                             \tag{FM4} \\
 \\
-\pforall {a,b,c \in F}  &\quantified{a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}        \tag{FD}\\
+\cforall {a,b,c \in F}  {a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}        \tag{FD}  \\
 \\
-\pforall {a \in F}      &\quantifiedt{exatamente uma: $-a \in P$; $a = 0$; $a \in P$}  \tag{FP3}\\
-\pforall {a,b\in P}     &\quantified{a + b \in P}                  \tag{FPA}\\
-\pforall {a,b\in P}     &\quantified{a\ntimes b \in P}             \tag{FPM}
-\endalign
-$$
+\cforallt {a \in F}     {exatamente uma das: $-a \in P$; $a = 0$; $a \in P$}   \tag{FP3} \\
+\cforall {a,b\in P}     {a + b \in P}                   \tag{FPA}\\
+\cforall {a,b\in P}     {a\ntimes b \in P}              \tag{FPM}
+\endmathcol
 
 %%}}}
 
@@ -60969,15 +60925,13 @@ onde $<$ é uma relação \emph{binária}, cujo papel é representar
 a ordem.
 Nesse caso vamos precisar substituir as leis (FP$\_$) sobre
 o $P$ com leis que afirmam que: $<$ é uma ordem estrita e total:
-$$
-\align
-\pforall {x,y,z \in F}  &\quantified{x<y \mland y<z \implies x<z}  \tag {FOT}\\
-\pforall {x,y \in F}    &\quantifiedt{exatamente uma: $x < y$; $x = y$; $x > y$}  \tag {FO3}\\
+\mathcol
+\cforall  {x,y,z \in F}  {x<y \mland y<z \implies x<z}                    \tag{FOT} \\
+\cforallt {x,y \in F}    {exatamente uma das: $x < y$; $x = y$; $x > y$}  \tag{FO3} \\
 \intertext{e que comporta bem com as operações:}
-\pforall {a,b,c\in F}   &\quantified{a<b \implies a+c < b+c}  \tag{FOA}\\
-\pforall {a,b\in F}     &\quantified{0<a \mland 0<b \implies 0 < a\ntimes b}.  \tag{FOM}
-\endalign
-$$
+\cforall  {a,b,c\in F}   {a<b \implies a+c < b+c}                         \tag{FOA} \\
+\cforall  {a,b\in F}     {0<a \mland 0<b \implies 0 < a\ntimes b}.        \tag{FOM} \\
+\endmathcol
 E podemos definir o conjunto $P$ (ou a relação unária $P$, dependente do ponto
 de visto) em termos da ordem $<$, e vice versa, definir a $<$ em termos de $P$:
 $$
@@ -61584,11 +61538,9 @@ Vamos exigir suprema de todos os outros então:
 
 Um corpo ordenado $R$ é \dterm{completo} sse
 todos os seus subconjuntos bounded above possuem supremum no $R$
-$$
-\align
-\pforall {A\subset R} &\quantified{\text{$A\neq\emptyset$} \mland \text{$A$ bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
-\endalign
-$$
+\mathcol
+\cforall {A\subset R} {A\neq\emptyset \mland \text{$A$ bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
+\endmathcol
 
 %%}}}
 
@@ -62342,20 +62294,16 @@ Graças ao~\ref[only_zero_is_leq_than_all_positives] basta demonstrar
 que $\abs{\ell_1 - \ell_2} < \epsilon$ para todo $\epsilon > 0$.
 Seja $\epsilon > 0$ então, e agora observe que para quaisquer
 $\epsilon_1,\epsilon_2>0$ podemos escolher $N_1,N_2$ tais que:
-$$
-\xalignat 2
-\pforall {i \geq N_1} &\quantified{\abs{a_i - \ell_1} < \epsilon_1} &
-\pforall {j \geq N_2} &\quantified{\abs{a_j - \ell_2} < \epsilon_2}.
-\endxalignat
-$$
+\mathcols 2
+\cforall {i \geq N_1} {\abs{a_i - \ell_1} < \epsilon_1} &
+\cforall {j \geq N_2} {\abs{a_j - \ell_2} < \epsilon_2}.
+\endmathcols
 Tome $N \asseq \max\set{N_1, N_2}$.
 Logo
-$$
-\xalignat 2
+\mathcols 2
 \abs{a_N - \ell_1} &< \epsilon_1 &
 \abs{a_N - \ell_2} &< \epsilon_2.
-\endxalignat
-$$
+\endmathcols
 Observando que $\abs{a_N - \ell_1} = \abs{\ell_1 - a_N}$
 e somando as desigualdades por lados temos
 $$
