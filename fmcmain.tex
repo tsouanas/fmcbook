@@ -7346,7 +7346,7 @@ também.
 \label int_passing
 %%%}}}
 
-Demonstre as leis de ``passar por outro lado'':
+Demonstre as leis de ``passar termo por outro lado'':
 \mathcol
 \pforall {a,b,c}  &\quantified{a + b = c \iff a = c - b} \\
 \pforall {a,b,c}  &\quantified{a + b = c \iff b = c - a} \\
@@ -7363,12 +7363,13 @@ Demonstre as leis de ``passar por outro lado'':
 
 Seja $\heartop$ uma operação binária.
 Demonstre que para quaisquer $a,b,x$,
-$$
-a = b \implies a \heartop x = b \heartop x.
-$$
+\mathcol
+a = b &\implies a \heartop x = b \heartop x; \\
+a = b &\implies x \heartop a = x \heartop b. \\
+\endmathcol
 Observe que isso tem como casos especiais que podemos somar (ou multiplicar)
-o mesmo inteiro nos dois lados duma equação, já que a operação binária
-$\heartop$ aqui é uma operação arbitrária.
+o mesmo inteiro nos dois lados duma equação (pelo mesmo lado),
+já que a operação binária $\heartop$ aqui é uma operação arbitrária.
 
 %%}}}
 
@@ -7392,8 +7393,34 @@ $$
 %%%}}}
 
 \mathcol
-\pforall {a,b,c}  &\quantified{a + c = b + c \implies a = b}. \\
+\pforall {a,b,c}  &\quantified{a + c = b + c \implies a = b}; \\
+\pforall {a,b,c}  &\quantified{c + a = c + b \implies a = b}. \\
 \endmathcol
+
+%%}}}
+
+%%{{{ x: int_cancellation_law_for_addition_proof 
+\exercise.
+%%%{{{ meta 
+\label int_cancellation_law_for_addition_proof
+%%%}}}
+
+Demonstre o \ref[int_cancellation_law_for_addition].
+
+\hint.
+Adicione o $(-c)$ nos dois lados pela direita para demonstrar a primeira.
+
+\solution.
+Vou começar com a primeira.
+Sejam $a,b,c$ inteiros.
+Suponha $a + c = b + c$.
+Logo $(a + c) + (-c) = (b + c) + (-c)$ (pelo \ref[int_do_the_same_on_both_sides]).
+Logo $a + (c + (-c)) = b + (c + (-c))$ pela $(+)$-associatividade nos dois lados.
+Logo $a + 0 = b + 0$ pela \mref[ZA-InvR] nos dois lados.
+Logo $a = b$ pela \mref[ZA-IdR] nos dois lados.
+A segunda é similar.
+Alternativamente, podemos demonstrar a segunda aplicando a comutatividade
+da adição nos dois lados da hipótese, a reduzindo assim para a primeira.
 
 %%}}}
 
@@ -7521,7 +7548,7 @@ Estipulamos mais um axioma:
 %%%{{{ meta 
 %%%}}}
 
-Imediatamente demonstramos a outra como teorema antes de esquecer:
+Imediatamente demonstramos a outra proposição como teorema antes de esquecer:
 
 %%}}}
 
@@ -7533,11 +7560,11 @@ Imediatamente demonstramos a outra como teorema antes de esquecer:
 
 Temos:
 \mathcol
-\pforall {c,a,b}  &\quantified{c \neq 0 \mland ca = cb \implies a = b} \mtag[ZM-CL=ZM-CL]. \\
+\pforall {c,a,b}  &\quantified{c \neq 0 \mland ca = cb \implies a = b}. \mtag[ZM-CL=ZM-CL] \\
 \endmathcol
 
 \proof Demonstrarás agora.
-É o~\ref[int_cancellation_law_proof].
+\ref[int_cancellation_law_proof].
 
 %%}}}
 
@@ -7963,10 +7990,10 @@ cada um dos seus passos.
 %%%}}}
 
 A relação $<$ é \dterm{irreflexiva} e \dterm{assimétrica}:
-\mathcols 2
+\mathcol
 \pforall {a}     &\quantified  {a \nlt a}                 \mtag[ZO-Irr=ZO-Irr] \\
 \pforall {a,b}   &\quantified  {a < b \implies b \nlt a}. \mtag[ZO-Assim=ZO-Assim] \\
-\endmathcols
+\endmathcol
 
 %%}}}
 
@@ -8072,7 +8099,7 @@ De fato, é algo que precisamos aceitar aqui como axioma
 
 Estipulamos o
 \mathcol
-&{0 \neq 1}      \mtag[Z-NTriv=Z-NTriv]\\
+&{0 \neq 1}      \mtag[Z-NZero=Z-NZero]\\
 \endmathcol
 como axioma para os inteiros.
 Tendo ele, consertamos a demonstração do \mref[int_one_is_positive]
@@ -8327,8 +8354,8 @@ Para todo $x$ inteiro, $\abs {-x} = \abs x$.
 %%%}}}
 
 \mathcol
-\pforall {x,u} &\quantified{\abs x \leq \abs u  \implies  -\abs u \leq x \abs u} \\
-\pforall {a}   &\quantified{-\abs a \leq a \abs a} \\
+\pforall {a,u} &\quantified{\abs a \leq \abs u  \iff  -\abs u \leq a \leq \abs u} \\
+\pforall {a}   &\quantified{-\abs a \leq a \leq \abs a} \\
 \endmathcol
 
 %%}}}
@@ -8339,22 +8366,33 @@ Para todo $x$ inteiro, $\abs {-x} = \abs x$.
 \label int_triangle_ineq
 %%%}}}
 
-Para quaisquer $x,y$ inteiros,
+Para quaisquer $a,b$ inteiros,
 $$
-\abs {x + y} \leq \abs x + \abs y.
+\abs {a + b} \leq \abs a + \abs b.
 $$
 
 \proof.
-Sejam $x,y$ inteiros.
+Sejam $a,b$ inteiros.
 Logo
 \math
--\abs x \leq x \leq \abs x \\
--\abs y \leq y \leq \abs y.
+-\abs a \leq a \leq \abs a \\
+-\abs b \leq b \leq \abs b.
 \endmath
-Logo
-\math
--\abs x -\abs y \leq x + y \leq \abs x + \abs y.
-\endmath
+\proofsteps
+\steptnb {Logo $-\abs a -\abs b \leq a + b \leq \abs a + \abs b$.}
+\steptnb {Logo $-(\abs a + \abs b) \leq a + b \leq \abs a + \abs b$.}
+\steptnb {Logo $\abs{a + b} \leq \abs a + \abs b$.}
+\endproofsteps
+
+%%}}}
+
+%%{{{ x: int_triangle_ineq_details 
+\exercise.
+%%%{{{ meta 
+\label int_triangle_ineq_details 
+%%%}}}
+
+Justifique em detalhe cada passo da demonstração de \mref[int_triangle_ineq].
 
 %%}}}
 
@@ -8364,7 +8402,7 @@ Logo
 \label int_triangle_ineq_corollaries
 %%%}}}
 
-Sejam $a,b$ inteiros.  Logo:
+Sejam $a,b$ inteiros.  Demonstre:
 \mathcol
 &\abs {ab} \leq \abs a \abs b \\
 &\abs a = \abs b \implies \text{$a = b$ ou $a = -b$} \\
@@ -8432,12 +8470,25 @@ Basta aplicar o PBO num certo subconjunto de $A$.
 
 Não existe inteiro $k$ tal que\/ $0 < k < 1$.
 
-\sketch.
-Suponha que existe um tal inteiro $k$.
-Então o conjunto $C = \setst {c\in\ints} {0 < c < 1}$
-de todos os ``contraexemplos'' é habitado (pelo menos pelo $k$).
-Usando o PBOm, solicite seu menor membro $m$, e ache um outro contraexemplo $m'$,
-ainda menor, contradizendo assim a escolha de $m$.
+\proof.
+Suponha que existe inteiro $k$ tal que $0 < k < 1$.
+Preciso chegar numa contradição.
+Pela hipótese, o conjunto $C = \setst {c\in\ints} {0 < c < 1}$
+de todos os tais inteiros é habitado (pelo menos pelo $k$).
+Logo, pelo PBO, seja $m = \min C$ o menor membro de $C$.
+Ou seja, sobre o $m$ sabemos que:
+(a) $0 < m < 1$;
+(b) para todo $c \in C$, $m \leq c$.
+Eu vou achar um outro membro de $C$ que é ainda menor que o $m$,
+assim contradizendo a escolha de $m$.
+Esse membro é o $m^2$.
+Basta demonstrar que: (i) $m^2 \in C$; (ii) $m^2 < m$.
+Como $0 < m < 1$ (pela (a)), logo multiplicando tudo por $m$ temos
+$0m < mm < 1m$, ou seja, $0 < m^2 < m$, que já nos dá o (ii).
+Mas $m < 1$ e logo $0 < m^2 < m < 1$.
+Como $0 < m^2 < 1$, consegui o (i): $m^2 \in C$.
+Chegamos assim numa contradição, pois $m$ foi escolhido para
+ser o menor membro de $C$.
 
 %%}}}
 
@@ -8537,7 +8588,7 @@ Demonstre:
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ Z-NZD_iff_Z-LCL 
+%%{{{ prob: Z-NZD_iff_Z-LCL 
 \problem Ordem como primitiva.
 %%%{{{ meta 
 \label Z-NZD_iff_Z-LCL
@@ -8550,7 +8601,7 @@ a equivalência das duas proposições a partir dos axiomas anteriores.
 
 %%}}}
 
-%%{{{ int_order_as_primitive 
+%%{{{ prob: int_order_as_primitive 
 \problem Ordem como primitiva.
 %%%{{{ meta 
 \label int_order_as_primitive
@@ -8567,6 +8618,31 @@ $$
 $$
 estipulando as proposições do \ref[int_lt_axioms_as_theorems] como axiomas.
 Defina a $P$, e demonstre suas leis como teoremas.
+
+%%}}}
+
+%%{{{ prob: unprovability_of_nontriviality_of_ints 
+\problem A indemonstrabilidade da não trivialidade dos inteiros.
+%%%{{{ meta 
+\label unprovability_of_nontriviality_of_ints
+%%%}}}
+
+Demonstre que não tem como demonstrar $0 \neq 1$ usando o resto dos axiomas.
+
+%%}}}
+
+%%{{{ prob: nontriviality_implies_zero_neq_one 
+\problem.
+%%%{{{ meta 
+\label unprovability_of_nontriviality_of_ints
+%%%}}}
+
+Retire o $0 \neq 1$ dos axiomas, e no seu lugar adicione a proposição
+superficialmente mais fraca:
+\mathcol
+\pexists {u,v}   &\quantified  {u \neq v}                 \mtag[Z-NTriv=Z-NTriv] \\
+\endmathcol
+Demonstre $0 \neq 1$.
 
 %%}}}
 
