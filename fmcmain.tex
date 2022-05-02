@@ -7261,17 +7261,102 @@ Estipulamos as proposições seguintes como axiomas:
 
 %%}}}
 
+%%{{{ Syntactic associativities 
+\note Associatividades sintácticas.
+%%%{{{ meta 
+\defines
+    * associatividade!sintáctica
+    ;;
+%%%}}}
+
+Temos operações binárias nas nossas mãos que escrevemos com notações \dterm{infixas}:
+escrevemos $x + y$ para denotar a aplicação da $(+)$ nos argumentos $x,y$,
+em vez de optar para notação \dterm{prefixa} escrevendo $(+)(x,y)$ ou $+(x,y)$.
+Sem atribuir uma \dterm{associatividade sintáctica} para esses símbolos
+expressões como as
+\mathcols 2
+& a + b + c + d + e &
+& a \ntimes (1 + a) \ntimes b \ntimes c
+\endmathcols
+não significam nada!  Dá pra entender que a primeira é pra ser uma soma
+(dos 5 termos $a,b,c,d,e$) e a segunda um produto (dos 4 termos $a, 1+a, b, c$),
+mas tanto a $(+)$ quanto a $(\ntimes)$ são operações binárias e logo não podem
+\emph{funcionar} nesse jeito.
+Escolhemos atribuir associatividade sintáctica à direita para ambas:
+dizemos que elas \dterm{associam à direita}.
+Assim, as expressões acima agora são apenas abreviações das
+\mathcols 2
+& a + (b + (c + (d + e))) &
+& a \ntimes ((1 + a) \ntimes (b \ntimes c)).
+\endmathcols
+
+%%}}}
+
+%%{{{ Syntactic precedence 
+\note Precedência sintáctica.
+%%%{{{ meta 
+\defines
+    * precedência!sintáctica
+    ;;
+%%%}}}
+
+Queremos fazer mais um acordo sintáctico que vai nos permitir escrever
+expressões onde as duas operações parecem \dq{em níveis iguais} como se
+estivessem brigando sobre quem vai receber o que como argumento.
+Considere as expressões:
+\mathcols 2
+& a \ntimes b + c &
+& a \ntimes b + c \ntimes d \ntimes e + a.
+\endmathcols
+Agora nem sabemos se elas denotam somatórios ou produtórios:
+A primeira é a soma dos 2 termos $a \ntimes b, c$ ou o produto dos termos $a, b+c$?
+E a segunda é a soma dos 3 termos $a \ntimes b, c \ntimes d \ntimes e, a$ ou o produto dos 4 termos
+$a, b+c, d, e+a$?
+Resolvemos atribuir à $(+)$ uma precedência mais alta, dizendo que ela
+\dterm{pega mais forte} do que a $(\ntimes)$.
+Assim, as expressões acima denotam somatórios e não produtórios:
+\mathcols 2
+& (a \ntimes b) + c &
+& (a \ntimes b) + (c \ntimes d \ntimes e) + a.
+\endmathcols
+
+%%}}}
+
+%%{{{ x: int_left_versions_as_theorems 
+\exercise.
+%%%{{{ meta 
+\label int_left_versions_as_theorems
+%%%}}}
+
+Para cada axioma que parece favorecendo o lado direito,
+sua versão esquerda é um teorema:
+o $0$ é uma $(+)$-identidade-L;
+o $1$ é uma $(\ntimes)$-identidade-L;
+para todo $a$ o $-a$ é um $(+)$-inverso-L de $a$; e
+a $(\ntimes)$ distribui-se sobre a $(+)$ pela esquerda também:
+\mathcol
+\cforall {a}      {0 + a = a}           \mtag[ZA-IdL=ZA-IdL]   \\
+\cforall {a}      {(-a) + a = 0}        \mtag[ZA-InvL=ZA-InvL] \\
+\cforall {a}      {1\ntimes a = a}      \mtag[ZM-IdL=ZM-IdL]   \\
+\cforall {d,a,b}  {d\ntimes (a+b) = (d\ntimes a) + (d \ntimes b)}.
+                                        \mtag[Z-DistL=Z-DistL] \\
+\endmathcol
+
+\hint
+Ambas as $(+),(\ntimes)$ são comutativas.
+
+%%}}}
+
 %%{{{ Syntactic sugar: subtraction 
 \note Açúcar sintáctico: subtração.
 %%%{{{ meta 
 %%%}}}
 
-Introduzimos como açúcar sintáctico a operação \emph{binária}
+Introduzimos açúcar sintáctico para denotar a aplicação da operação \emph{binária}
 \mathcol
 {-} &\eqtype \Int \times \Int \to \Int \\
 \endmathcol
-de subtração
-definida pela
+de subtração definindo
 \mathcol
 a - b &\defeq a + (-b).
 \endmathcol
@@ -7282,27 +7367,6 @@ o contexto sempre deixará claro qual das
 {-} &\eqtype \Int \times \Int \to \Int
 \endmathcols
 está sendo usada.
-
-%%}}}
-
-%%{{{ x: int_left_versions_as_theorems 
-\exercise.
-%%%{{{ meta 
-\label int_left_versions_as_theorems
-%%%}}}
-
-Para cada axioma que parece favorecer o lado direito, sua versão esquerda
-é um teorema: o $0$ é uma $(+)$-identidade-L; o $1$ é uma $(\ntimes)$-identidade-L; para qualquer $a$ o $-a$ é um $(+)$-inverso-L de $a$; e a $(\ntimes)$ distribui-se sobre a $(+)$ pela esquerda também:
-\mathcols 2
-\cforall {a}      {0 + a = a}           \mtag[ZA-IdL=ZA-IdL]\\
-\cforall {a}      {(-a) + a = 0}        \mtag[ZA-InvL=ZA-InvL]\\
-\cforall {a}      {1\ntimes a = a}      \mtag[ZM-IdL=ZM-IdL]\\
-\cforall {d,a,b}  {d\ntimes (a+b) = (d\ntimes a) + (d \ntimes b)}.
-                                        \mtag[Z-DistL=Z-DistL]\\
-\endmathcols
-
-\hint
-Ambas as $(+),(\ntimes)$ são comutativas.
 
 %%}}}
 
