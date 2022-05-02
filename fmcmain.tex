@@ -7313,12 +7313,37 @@ A primeira é a soma dos 2 termos $a \ntimes b, c$ ou o produto dos termos $a, b
 E a segunda é a soma dos 3 termos $a \ntimes b, c \ntimes d \ntimes e, a$ ou o produto dos 4 termos
 $a, b+c, d, e+a$?
 Resolvemos atribuir à $(+)$ uma precedência mais alta, dizendo que ela
-\dterm{pega mais forte} do que a $(\ntimes)$.
+\dterm{pega mais forte} do que a $(\ntimes)$.\foot
+A idéia aqui é imaginar as operações numa expressão como a $a + b \ntimes c$ como ímãs
+atraindo os argumentos, e pela nossa atribuição o ímã $(\ntimes)$ é mais forte e logo
+ele \dq{ganha} tal briga e a expressão denota o $a + (b \ntimes c)$.
+Mais num outro sentido, quem ganhou a batalha final foi a $(+)$:
+a expressão inteira acabou denotando um somatório e não um produtório.
+\toof
 Assim, as expressões acima denotam somatórios e não produtórios:
 \mathcols 2
 & (a \ntimes b) + c &
 & (a \ntimes b) + (c \ntimes d \ntimes e) + a.
 \endmathcols
+
+%%}}}
+
+%%{{{ One more syntactic convention 
+\note Mais uma convenção sintáctica.
+%%%{{{ meta 
+\defines
+    * juxtaposição
+    ;;
+%%%}}}
+
+Quando não tiver ambiguïdade, denotamos a aplicação da operação $(\ntimes)$
+silenciosamente, por \dterm{juxtaposição:} escrevemos $ab$ para denotar o
+produto $a \ntimes b$.  Assim,
+$$
+ab(c+da)bce
+\inteq
+a \ntimes b \ntimes (c + d \ntimes a)\ntimes b \ntimes c \ntimes e.
+$$
 
 %%}}}
 
@@ -7350,9 +7375,17 @@ Ambas as $(+),(\ntimes)$ são comutativas.
 %%{{{ Syntactic sugar: subtraction 
 \note Açúcar sintáctico: subtração.
 %%%{{{ meta 
+\indexes
+    * notação!sobrecarregar   see: sobrecarregamento
+    ;;
+\defines
+    * sobrecarregamento!notação
+    ;;
 %%%}}}
 
-Introduzimos açúcar sintáctico para denotar a aplicação da operação \emph{binária}
+Será que esquecemos de adicionar nas operações primitivas a subtração?
+Não: introduzimos açúcar sintáctico para denotar a aplicação da operação
+\emph{binária}
 \mathcol
 {-} &\eqtype \Int \times \Int \to \Int \\
 \endmathcol
