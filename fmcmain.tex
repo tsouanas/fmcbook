@@ -7435,6 +7435,189 @@ Enuncie e refute a proposição correpsondente para a multiplicação.
 
 %%}}}
 
+%%{{{ thm: int_uniqueness_of_additive_identity 
+\theorem Unicidade da identidade aditiva.
+%%%{{{ meta 
+\label int_uniqueness_of_additive_identity
+%%%}}}
+
+Existe único $u$ tal que para todo $x$, $u + x = x = x + u$.
+
+\proof.
+Preciso demonstrar duas coisas.
+\crproofpart{Existência: existe pelo menos uma identidade aditiva.}
+Essa parte é imediata pois já conhecemos uma $(+)$-identidade:
+o $0$, pelos \mref[ZA-IdR] e \mref[ZA-IdR], que afirmam exatamente isso.
+\crproofpart{Unicidade: existe no máximo uma unicidade aditiva.}
+Basta demonstrar que qualquer $u$ que é uma $(+)$-identidade, necessariamente
+é o próprio $0$:
+$$
+\lforall {u} {\text{$u$ é uma $(+)$-identidade} \implies u = 0}.
+$$
+Seja $u$ uma $(+)$-identidade.
+Calculamos:
+\compute
+0 &= u + 0 \by {pois $u$ é uma $(+)$-identidade-L} \\
+  &= u.    \by {pois $0$ é uma $(+)$-identidade-R} \\
+\endcompute
+
+%%}}}
+
+%%{{{ thm: int_uniqueness_of_multiplicative_identity 
+\theorem Unicidade da identidade multiplicativa.
+%%%{{{ meta 
+\label int_uniqueness_of_multiplicative_identity
+%%%}}}
+
+Existe único $u$ tal que para todo $x$, $ux = x = xu$.
+
+\proof.
+Essa é tua: \ref[int_uniqueness_of_multiplicative_identity_proof].
+
+%%}}}
+
+%%{{{ x: int_uniqueness_of_multiplicative_identity_proof 
+\exercise.
+%%%{{{ meta 
+\label int_uniqueness_of_multiplicative_identity_proof
+%%%}}}
+
+Demonstre o \ref[int_uniqueness_of_multiplicative_identity_proof].
+
+\hint.
+Imite a demonstração do \ref[int_uniqueness_of_additive_identity].
+
+%%}}}
+
+%%{{{ thm: int_uniqueness_of_additive_inverses 
+\theorem Unicidade dos inversos aditivos.
+%%%{{{ meta 
+\headerize
+\label int_uniqueness_of_additive_inverses
+%%%}}}
+
+Para todo $x$, existe único $x'$ tal que $x' + x = 0 = x + x'$.
+
+\proof.
+Seja $x$ inteiro.
+\crproofpart{Existência: existe pelo menos um $(+)$-inverso de $x$.}
+Imediato pois $-x$ é um (+)-inverso de $x$ (pelos \mref[ZA-InvR] e \mref[ZA-InvL]).
+\crproofpart{Unicidade: existe no máximo um $(+)$-inverso de $x$.}
+Seja $x'$ um $(+)$-inverso de $x$.
+Ou seja, $x + x' = 0$ (usando apenas o fato que $x'$ é um inverso direito).
+Como $-x$ também é um inverso direito, temos $x + (-x) = 0$.
+Preciso demonstrar que $x' = -x$.
+Calculamos:
+\compute
+x + x'
+&= 0            \by {$x'$ é um inverso direito de $x$} \\
+&= x + (-x)     \by {$-x$ é um inverso direito de $x$} \\
+\endcompute
+Como $x + x' = x + (-x)$, logo $x' = -x$ (pelo \mref[ZA-CanL] com $c,a,b := x, x', -c$).
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+O próximo lemmazão deixa muitos teoremas como corolários triviais.
+
+%%}}}
+
+%%{{{ lemma: int_uniqueness_of_solutions 
+\lemma Unicidade de resoluções.
+%%%{{{ meta 
+\headerize
+\label int_uniqueness_of_solutions
+%%%}}}
+
+Para quaisquer $a,b$, existe único $x$ tal que $a + x = b$ e existe único $y$ tal que $y + a = b$.
+
+\proof.
+Teu também!  (\ref[int_uniqueness_of_solutions_proof])
+
+%%}}}
+
+%%{{{ x: int_uniqueness_of_solutions_proof 
+\exercise.
+%%%{{{ meta 
+\label int_uniqueness_of_solutions_proof
+%%%}}}
+
+Demonstre o \ref[int_uniqueness_of_solutions].
+
+\hint
+Separe em duas partes: existência e unicidade.
+
+\hint
+Para a existência procure achar o que pode encaixar no lugar do $x$
+para satisfazer a igualdade (umas coisas precisam ser canceladas.
+
+\hint
+Para a unicidade, já que achou um objeto que serve na existência,
+basta supor que um $x$ satisfaz mesmo a equação $a + x = b$ e concluir
+que $x$ deve ser igual ao objeto que achou na parte da existência.
+
+%%}}}
+
+%%{{{ x: corollaries show off 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre as unicidades anteriores (\reftag[int_uniqueness_of_additive_identity],
+\reftag[int_uniqueness_of_additive_identity], \reftag[int_uniqueness_of_multiplicative_identity])
+como corolários do \ref[int_uniqueness_of_solutions].
+
+%%}}}
+
+%%{{{ thm: int_neg_is_involutive 
+\theorem Negação é involutiva.
+%%%{{{ meta 
+\label int_neg_is_involutive
+%%%}}}
+
+Para todo $x$, $-(-x) = x$.
+
+\proof.
+Temos $x + (-x) = 0$\fact1 (pela \mref[ZA-InvR] com $a := x$).
+Também temos $(-(-x)) + (-x) = 0$ (pela \mref[ZA-InvL] com $a := -x$).
+Logo $x = -(-x)$ (pelo \ref[int_uniqueness_of_solutions] com $a,b := (-x),0$).
+
+%%}}}
+
+%%{{{ x: int_neg_x_is_minus_one_times_x 
+\exercise.
+%%%{{{ meta 
+\label int_neg_x_is_minus_one_times_x
+%%%}}}
+
+Para todo $a$, $(-1)a = -a$.
+
+%%}}}
+
+%%{{{ x: int_product_with_one_minus 
+\exercise.
+%%%{{{ meta 
+\label int_product_with_one_minus
+%%%}}}
+
+Para todo $a$, $(-a)b = -(ab) = a(-b)$.
+
+%%}}}
+
+%%{{{ x: int_product_with_two_minuses 
+\exercise.
+%%%{{{ meta 
+\label int_product_with_two_minuses
+%%%}}}
+
+Para todo $a$, $(-a)(-b) = ab$.
+
+%%}}}
+
 %%{{{ Q: what more axioms would you add? 
 \question.
 %%%{{{ meta 
@@ -7906,11 +8089,11 @@ x \geq y &\defiff y \leq x \\
 
 A relação $<$ goza das propriedades seguintes:
 \mathcols 2
-\cforall  {a,b,c} {a < b \mland b < c \implies a < c}      \mtag[ZO-Trans=ZO-Trans]\\
+\cforall  {a,b,c} {a < b \mland b < c \implies a < c}       \mtag[ZO-Trans=ZO-Trans]\\
 \cforallt {a,b}   {exatamente uma das: $a < b$; $a = b$; $a > b$}
-                                                        \mtag[ZO-Tri=ZO-Tri]\\
-\cforall  {a,b,c} {a < b \implies a + c < b + c}           \mtag[ZO-A=ZO-A]\\
-\cforall  {a,b,c} {a < b \mland c \neq 0 \implies ac < bc} \mtag[ZO-M=ZO-M]\\
+                                                            \mtag[ZO-Tri=ZO-Tri]\\
+\cforall  {a,b,c} {a < b \implies a + c < b + c}            \mtag[ZO-A=ZO-A]\\
+\cforall  {a,b,c} {a < b \mland c > 0 \implies ac < bc}.    \mtag[ZO-M=ZO-M]\\
 \endmathcols
 
 \proof.
@@ -7949,14 +8132,11 @@ Calculamos:
 &\inteq b - a.                     \\
 \endcompute
 Sejam $a,b,c$ inteiros.
-Suponha $a < b$ e $c \neq 0$.
+Suponha $a < b$ e $c > 0$.
+Ou seja, $b - a \in P$\fact1 e $c \in P$\fact2.
 Vou demonstrar $ac < bc$, ou seja, $bc - ac \in P$.
-Mas $bc - ac = (b - a)c$ (por quê?) e pela lei de não-zerodivisores temos
-$b-a = 0$ ou $c = 0$.
-\case{Caso $b-a=0$.}
-Logo $a = b$.
-\case{Caso $c=0$.}
-Impossível pois $c \neq 0$.
+Mas $bc - ac = (b - a)c$ (por quê?) e realmente $(b - a)c \in P$
+pelas \byfact1 e \byfact2, pois $P$ é $(\ntimes)$-fechado.
 
 %%}}}
 
@@ -7981,7 +8161,7 @@ cada um dos seus passos.
 
 %%}}}
 
-%%{{{ x: int_lt_strict_total_order
+%%{{{ x: int_lt_strict_total_order 
 \exercise.
 %%%{{{ meta 
 \label int_lt_strict_total_order
@@ -8181,117 +8361,46 @@ ti (\ref[unprovability_of_nontriviality_of_ints]).
 
 %%}}}
 
-%%{{{ Strict and nonstrict orders 
-\note Ordens estritas e não.
+%%{{{ x: int_no_imaginary_unit 
+\exercise.
 %%%{{{ meta 
+\label int_no_imaginary_unit
 %%%}}}
 
-Relações binárias como a $<$ e a $\leq$ que definimos aqui
-são chamadas relações de ordem: a $<$ é uma ordem estrita, a $\leq$ não.
-Mais pra frente vamos dedicar capítulos inteiros para estudar relações de ordem.
-Por enquanto precisamos só definir o que significa membro mínimo
-dum conjunto de membros que podemos comparar com uma relação como a $<$ ou como a $\leq$.
+Demonstre que a equação $x^2 + 1 = 0$ não possui resolução no incógnito $x$.
 
 %%}}}
 
-%%{{{ df: int_min 
-\definition Membro mínimo.
+%%{{{ x: int_lt_multiplicative_cancellation 
+\exercise.
 %%%{{{ meta 
-\label int_min
-\defines
-    * \min {~A}  -- mínimo do $A$
-    * mínimo
-    ;;
+\label int_lt_multiplicative_cancellation
 %%%}}}
 
-Seja $A$ um conjunto de inteiros.
-(Escrevemos: $A \subset \ints$.)
-Um membro $m\in A$ é chamado \dterm{(membro) mínimo do $A$}
-sse para todo $a \in A$, $m \leq a$.
-Quando o conjunto $A$ possui mínimo,
-escrevemos $\min A$ para denotá-lo:
-$$
-m = \min A
-\defiff
-m \in A \mland \lforall {a \in A} {m \leq a}.
-$$
-Note que necessariamente o mínimo dum conjunto $A$, se existe, pertence ao $A$.
+Sejam $c,a,b$ inteiros.
+Se $c > 0$, então $ac < bc$ implica $a < b$.
 
 %%}}}
 
-%%{{{ blah 
-\blah.
+%%{{{ x: int_we_cannot_multiply_inequalities 
+\exercise.
 %%%{{{ meta 
+\label int_we_cannot_multiply_inequalities
 %%%}}}
 
-Para justificar a definição do símbolo $\min A$, \emph{devemos}
-demonstrar o seguinte:
+Sejam $a,b,c$ inteiros.
+Demonstre, refute, ou mostre independe:
+se $a < b$ e $u < v$, então $au < bv$.
 
 %%}}}
 
-%%{{{ x: int_uniqueness_of_minimum 
-\exercise Unicidade de mínimo.
+%%{{{ x: int_sum_inequalities 
+\exercise.
 %%%{{{ meta 
-\label int_uniqueness_of_minimum
+\label int_sum_inequalities
 %%%}}}
 
-Um conjunto de inteiros não pode ter mais que um mínimo.
-Quais propriedades das $<$ ou $\leq$ precisamos?
-
-\hint
-Por fight club: suponha que um conjunto tem mínima $m_1,m_2$ e aplicando
-a definição de ``mínimo'' e propriedades de $\leq$, conclua que são iguais.
-
-\hint
-Pelas $m_1 \leq m_2$ e $m_2 \leq m_1$ concluimos que $m_1 = m_2$.
-
-\solution
-Sejam $m_1, m_2$ mínima dum conjunto $A$, ou seja, temos
-$m_1, m_2 \in A$, e também
-$$
-\lforall {a\in A} {m_1 \leq a} \qquad
-\lforall {a\in A} {m_2 \leq a}
-$$
-Usando a primeira com $a \asseq m_2$ e a segunda com $a \asseq m_1$ temos:
-$$
-m_1 \leq m_2 \mland
-m_2 \leq m_1.
-$$
-Portanto, $m_1 = m_2$ (pela antissimetria da $\leq$).
-
-%%}}}
-
-%%{{{ x: int_max 
-\exercise E o máximo?.
-%%%{{{ meta 
-\label int_max
-%%%}}}
-
-Defina o que significa \dterm{máximo} dum conjunto de inteiros $A$,
-demonstre que quando um conjunto $A$ possui máximo, é único.
-
-%%}}}
-
-%%{{{ x: int_from_min_to_max 
-\exercise de min pra max.
-%%%{{{ meta 
-\label int_from_min_to_max
-%%%}}}
-
-Seja $A \subset \ints$.
-Definimos o conjunto $-A$ de todos os opostos de $A$ assim:
-$$
--A \defeq \setst {-a} {a \in A},
-$$
-ou seja, $-A$ é o conjunto de todos os $-a$, tais que $a \in A$.
-Demonstre que se $A$ possui mínimo, então $-A$ possui máximo e
-$$
-\min A = -\max(-A)
-$$
-e, dualmente, se $A$ possui máximo, então $-A$ possui mínimo e
-$$
-\max A = -\min(-A).
-$$
+Para quaisquer inteiros $a,b,u,v$, se $a < b$ e $u < v$, então $a + u < b = v$.
 
 %%}}}
 
@@ -8411,6 +8520,128 @@ Sejam $a,b$ inteiros.  Demonstre:
 &\abs {\abs a - \abs b} \leq \abs {a - b} \\
 &\abs {a - b} \leq \abs a + \abs b \\
 \endmathcol
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Minima and maxima 
+\section Mínima e máxima.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ Strict and nonstrict orders 
+\note Ordens estritas e não.
+%%%{{{ meta 
+%%%}}}
+
+Relações binárias como a $<$ e a $\leq$ que definimos aqui
+são chamadas relações de ordem: a $<$ é uma ordem estrita, a $\leq$ não.
+Mais pra frente vamos dedicar capítulos inteiros para estudar relações de ordem.
+Por enquanto precisamos só definir o que significa membro mínimo
+dum conjunto de membros que podemos comparar com uma relação como a $<$ ou como a $\leq$.
+
+%%}}}
+
+%%{{{ df: int_min 
+\definition Membro mínimo.
+%%%{{{ meta 
+\label int_min
+\defines
+    * \min {~A}  -- mínimo do $A$
+    * mínimo
+    ;;
+%%%}}}
+
+Seja $A$ um conjunto de inteiros.
+(Escrevemos: $A \subset \ints$.)
+Um membro $m\in A$ é chamado \dterm{(membro) mínimo do $A$}
+sse para todo $a \in A$, $m \leq a$.
+Quando o conjunto $A$ possui mínimo,
+escrevemos $\min A$ para denotá-lo:
+$$
+m = \min A
+\defiff
+m \in A \mland \lforall {a \in A} {m \leq a}.
+$$
+Note que necessariamente o mínimo dum conjunto $A$, se existe, pertence ao $A$.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Para justificar a definição do símbolo $\min A$, \emph{devemos}
+demonstrar o seguinte:
+
+%%}}}
+
+%%{{{ x: int_uniqueness_of_minimum 
+\exercise Unicidade de mínimo.
+%%%{{{ meta 
+\label int_uniqueness_of_minimum
+%%%}}}
+
+Um conjunto de inteiros não pode ter mais que um mínimo.
+Quais propriedades das $<$ ou $\leq$ precisamos?
+
+\hint
+Por fight club: suponha que um conjunto tem mínima $m_1,m_2$ e aplicando
+a definição de ``mínimo'' e propriedades de $\leq$, conclua que são iguais.
+
+\hint
+Pelas $m_1 \leq m_2$ e $m_2 \leq m_1$ concluimos que $m_1 = m_2$.
+
+\solution
+Sejam $m_1, m_2$ mínima dum conjunto $A$, ou seja, temos
+$m_1, m_2 \in A$, e também
+$$
+\lforall {a\in A} {m_1 \leq a} \qquad
+\lforall {a\in A} {m_2 \leq a}
+$$
+Usando a primeira com $a \asseq m_2$ e a segunda com $a \asseq m_1$ temos:
+$$
+m_1 \leq m_2 \mland
+m_2 \leq m_1.
+$$
+Portanto, $m_1 = m_2$ (pela antissimetria da $\leq$).
+
+%%}}}
+
+%%{{{ x: int_max 
+\exercise E o máximo?.
+%%%{{{ meta 
+\label int_max
+%%%}}}
+
+Defina o que significa \dterm{máximo} dum conjunto de inteiros $A$,
+demonstre que quando um conjunto $A$ possui máximo, é único.
+
+%%}}}
+
+%%{{{ x: int_from_min_to_max 
+\exercise de min pra max.
+%%%{{{ meta 
+\label int_from_min_to_max
+%%%}}}
+
+Seja $A \subset \ints$.
+Definimos o conjunto $-A$ de todos os opostos de $A$ assim:
+$$
+-A \defeq \setst {-a} {a \in A},
+$$
+ou seja, $-A$ é o conjunto de todos os $-a$, tais que $a \in A$.
+Demonstre que se $A$ possui mínimo, então $-A$ possui máximo e
+$$
+\min A = -\max(-A)
+$$
+e, dualmente, se $A$ possui máximo, então $-A$ possui mínimo e
+$$
+\max A = -\min(-A).
+$$
 
 %%}}}
 
