@@ -7325,7 +7325,7 @@ x^0 &\defeq  1     & x^1 &\defeq  x\ntimes x^0 & x^2 &\defeq  x\ntimes x^1 &~&\c
 
 %%}}}
 
-%%{{{ Three dots 
+%%{{{ warning: three dots 
 \warning Três pontinhos.
 %%%{{{ meta 
 %%%}}}
@@ -7388,7 +7388,7 @@ $$
 
 %%}}}
 
-%%{{{ thm: int_cancellation_law_for_addition
+%%{{{ thm: int_cancellation_law_for_addition 
 \theorem.
 %%%{{{ meta 
 \label int_cancellation_law_for_addition
@@ -7436,8 +7436,9 @@ Enuncie e refute a proposição correpsondente para a multiplicação.
 %%}}}
 
 %%{{{ thm: int_uniqueness_of_additive_identity 
-\theorem Unicidade da identidade aditiva.
+\theorem Unicidade da $(+)$-identidade.
 %%%{{{ meta 
+\headerize
 \label int_uniqueness_of_additive_identity
 %%%}}}
 
@@ -7457,15 +7458,16 @@ $$
 Seja $u$ uma $(+)$-identidade.
 Calculamos:
 \compute
-0 &= u + 0 \by {pois $u$ é uma $(+)$-identidade-L} \\
-  &= u.    \by {pois $0$ é uma $(+)$-identidade-R} \\
+u &= u + 0 \by {pois $0$ é uma $(+)$-identidade-R} \\
+  &= 0.    \by {pois $u$ é uma $(+)$-identidade-L} \\
 \endcompute
 
 %%}}}
 
 %%{{{ thm: int_uniqueness_of_multiplicative_identity 
-\theorem Unicidade da identidade multiplicativa.
+\theorem Unicidade da $(\ntimes)$-identidade.
 %%%{{{ meta 
+\headerize
 \label int_uniqueness_of_multiplicative_identity
 %%%}}}
 
@@ -7482,7 +7484,7 @@ Essa é tua: \ref[int_uniqueness_of_multiplicative_identity_proof].
 \label int_uniqueness_of_multiplicative_identity_proof
 %%%}}}
 
-Demonstre o \ref[int_uniqueness_of_multiplicative_identity_proof].
+Demonstre o \ref[int_uniqueness_of_multiplicative_identity].
 
 \hint.
 Imite a demonstração do \ref[int_uniqueness_of_additive_identity].
@@ -7839,14 +7841,14 @@ Naturalmente, usamos a notação $a \ndivides b$ quando $a$ não divide $b$.
 Sejam $a,b,c,x,y,m$ inteiros.
 Logo:
 \elist:
-\li: $1 \divides a$
-\li: $a \divides 0$
-\li: $a \divides b \implies a \divides bx$
-\li: $a \divides b \implies a \divides -b \mland -a \divides b$
-\li: $a \divides b \mland a \divides c \implies a \divides b + c$
-\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$
-\li: $a \divides b \mland b \neq 0 \implies \abs a \leq \abs b$
-\li: se $m\neq0$ então: $a \divides b \!\iff\! ma \divides mb$.
+\li: $1 \divides a$;
+\li: $a \divides 0$;
+\li: $a \divides b \implies a \divides bx$;
+\li: $a \divides b \implies a \divides -b \mland -a \divides b$;
+\li: $a \divides b \mland a \divides c \implies a \divides b + c$;
+\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$;
+\li: $a \divides b \mland b \neq 0 \implies \abs a \leq \abs b$;
+\li: se $c \neq 0$, então: $a \divides b \!\iff\! ca \divides cb$.
 \endelist
 
 %%}}}
@@ -7861,8 +7863,8 @@ Demonstre todas as propriedades da \mref[divides_properties].
 
 %%}}}
 
-%%{{{ ppty: divides_is_a_preorder 
-\property Divide é uma preordem.
+%%{{{ thm: divides_is_a_preorder 
+\theorem Divide é uma preordem.
 %%%{{{ meta 
 \label divides_is_a_preorder
 %%%}}}
@@ -7881,48 +7883,7 @@ Para todos $a,b,c\in\ints$,
 \label divides_is_a_preorder_proof
 %%%}}}
 
-Demonstre as propriedades da \mref[divides_is_a_preorder].
-
-%%}}}
-
-%%{{{ x: implications_with_divisibility_of_linear_combinations 
-\exercise.
-%%%{{{ meta 
-\label implications_with_divisibility_of_linear_combinations
-%%%}}}
-
-Sejam $a,b,c\in\ints$.
-Demonstre ou refute cada uma das afirmações:
-$$
-\alignat2
-\text{(i)}   &\qquad& a \divides \phantom1b + c\phantom1                          &\implies a \divides b \mland a \divides c\\
-\text{(ii)}  &\qquad& a \divides b + c \mland a \divides \phantom1b - c\phantom2  &\implies a \divides b                    \\
-\text{(iii)} &\qquad& a \divides b + c \mland a \divides \phantom1b + 2c          &\implies a \divides b                    \\
-\text{(iv)}  &\qquad& a \divides b + c \mland a \divides 2b + 2c                  &\implies a \divides b                    \\
-\text{(v)}   &\qquad& a \divides b + c \mland a \divides 2b + 3c                  &\implies a \divides 3b + 2c\,.
-\endalignat
-$$
-
-\solution
-A (ii) é falsa: um contraexemplo seria o $a = 2$, $b = c = 1$.
-Realmente, temos
-$$
-2 \divides 1 + 1 = 2 \mland 2 \divides 1 - 1 = 0,
-\qqtext{mas}
-2\ndivides 1.
-$$
-\eop
-A (iii) é verdadeira:
-$$
-\rightbrace {
-\aligned
-        a \divides b + c \implies a \divides 2b + 2c\\
-                                 a \divides \phantom1b + 2c
-\endaligned
-}
-\implies
-a \divides \mubrace{(2b + 2c) - (b + 2c)} {\dsize b}.
-$$
+Demonstre as propriedades do \ref[divides_is_a_preorder].
 
 %%}}}
 
@@ -10185,13 +10146,11 @@ Multiplica os dois lados por $b$, e explica por que necessariamente $p \divides 
 \proof.
 Suponha que $p\ndivides a$.  Logo o $\gcd a p = 1$ pode ser escrito como combinação linear de $a$ e $p$,
 ou seja, existem $s,t\in\ints$ tais que:
-$$
-\align
+\mathcol
 1 &= as + pt.
 \intertext{Multiplicando os dois lados por $b$, temos:}
 b &= asb + ptb.
-\endalign
-$$
+\endmathcol
 Observe que como $p \divides ab$, segue que $p \divides asb$ (por~\ref[divides_properties]).
 Obviamente $p \divides ptb$ também.
 Logo, $p \divides asb + ptb = b$.
