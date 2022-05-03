@@ -7697,10 +7697,10 @@ Para todo $a$, $(-1)a = -a$.
 
 %%}}}
 
-%%{{{ x: int_product_with_one_minus 
+%%{{{ x: int_product_and_neg 
 \exercise.
 %%%{{{ meta 
-\label int_product_with_one_minus
+\label int_product_and_neg
 %%%}}}
 
 Para todo $a$, $(-a)b = -(ab) = a(-b)$.
@@ -7717,16 +7717,13 @@ Para todo $a$, $(-a)(-b) = ab$.
 
 %%}}}
 
-%%{{{ Q: what more axioms would you add? 
-\question.
+%%{{{ x: int_neg_of_sum 
+\exercise.
 %%%{{{ meta 
+\label int_neg_of_sum
 %%%}}}
 
-Tu acha que deveriamos adicionar mais proposições como
-axiomas na nossa especificação?
-Cuidado: em geral, não queremos axiomas desnecessários:
-se podemos demonstrar algo a partir dos axiomas já
-estipulados, não faz sentido estipulá-lo como axioma também!
+Para quaisquer $a,b$, temos $-(a-b) = b - a$ e $-(a+b) = -a-b$.
 
 %%}}}
 
@@ -7872,127 +7869,6 @@ Logo $c = 0$ ou $a-b=0$.
 Separamos em casos, e o primeiro é impossível pelo \byfact1.
 Caso $a-b=0$.
 Logo $a = b$.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%{{{ Divisibility 
-\section Divisibilidade.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-No \ref[Proofs] já encontramos a relação de <<divide>> que realmente é
-a mais interessante relação para os inteiros.
-Será que vamos aumentar então a estrutura dos inteiros para incluí-la como noção primitiva
-$$
-\sset {\ints} {0,1,+,-,\ntimes,\divides}
-$$
-com
-$$
-{\divides} \eqtype \Int \times \Int \to \Prop?
-$$
-Não!
-A noção de <<divide>> podemos realmente \emph{definir} em termos do que temos até agora
-e logo não vamos adicioná-la como uma noção primitiva.
-
-%%}}}
-
-%%{{{ df: divides 
-\definition Divisibilidade.
-%%%{{{ meta 
-\label divides
-\defines
-    * ~a \divides ~b  -- $a$ divide $b$
-    * divide
-    * divisor
-    * divisível
-    * multiplo
-    ;;
-%%%}}}
-
-Sejam $a,b\in\ints$.
-Digamos que \dterm{o $a$ divide o $b$} (ou \dterm{o $b$ é divisível por $a$}), sse $b = ak$ para algum $k\in\ints$.
-Nesse caso, escrevemos $a \divides b$.
-Em símbolos:
-$$
-a \divides b \defiff \lexists {k\in\ints} {b = ak}.
-$$
-Os \dterm{divisores} do $a$ são todos os inteiros $d$ tais que $d \divides a$.
-Naturalmente, usamos a notação $a \ndivides b$ quando $a$ não divide $b$.
-
-%%}}}
-
-%%{{{ ppty: divides_properties 
-\property.
-%%%{{{ meta 
-\label divides_properties
-%%%}}}
-
-Sejam $a,b,c,x,y,m$ inteiros.
-Logo:
-\elist:
-\li: $1 \divides a$;
-\li: $a \divides 0$;
-\li: $a \divides b \implies a \divides bx$;
-\li: $a \divides b \implies a \divides -b \mland -a \divides b$;
-\li: $a \divides b \mland a \divides c \implies a \divides b + c$;
-\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$;
-\li: $a \divides b \mland b \neq 0 \implies \abs a \leq \abs b$;
-\li: se $c \neq 0$, então: $a \divides b \!\iff\! ca \divides cb$.
-\endelist
-
-%%}}}
-
-%%{{{ x: divides_properties_proof 
-\exercise.
-%%%{{{ meta 
-\label divides_properties_proof
-%%%}}}
-
-Demonstre todas as propriedades da \ref[divides_properties].
-
-%%}}}
-
-%%{{{ thm: divides_is_a_preorder 
-\theorem Divide é uma preordem.
-%%%{{{ meta 
-\label divides_is_a_preorder
-%%%}}}
-
-Para todos $a,b,c\in\ints$,
-\mathcall
-& a \divides a                                            \called {reflexividade} \\
-& a \divides b \mland b \divides c \implies a \divides c. \called {transitividade} \\
-\endmathcall
-
-%%}}}
-
-%%{{{ x: divides_is_a_preorder_proof 
-\exercise.
-%%%{{{ meta 
-\label divides_is_a_preorder_proof
-%%%}}}
-
-Demonstre o \ref[divides_is_a_preorder].
-
-%%}}}
-
-%%{{{ x: prove_humanely_properties_of_divisibility 
-\exercise.
-%%%{{{ meta 
-\label prove_humanely_properties_of_divisibility
-%%%}}}
-
-Demonstre---novamente?---todos esses teoremas.
-Tente escrever demonstrações curtíssimas e facilmente legíveis
-e numa maneira ``humana'' e não mecânica.
 
 %%}}}
 
@@ -8173,14 +8049,7 @@ Calculamos:
 &\inteq  c - a.                  \\
 \endcompute
 \proofpart{Parte} \mref[ZO-Tri].
-Sejam $a,b$ inteiros.
-Aproveito a tricotomía \mref[ZP-Tri] e separo em casos:
-\crtabcase{Caso $b-a \in P$.}
-Logo $a < b$.
-\crtabcase{Caso $b-a = 0$.}
-Logo $a = b$.
-\crtabcase{Caso $-(b-a) \in P$.}
-Como $-(b-a) = a - b$, logo $a - b \in P$, ou seja, $a > b$.
+No \ref[ZO-Tri_proof]
 \crproofpart{Parte} \mref[ZO-A].
 Sejam $a,b,c$ inteiros.
 Suponha $a < b$, ou seja $b - a \in P$.
@@ -8228,6 +8097,46 @@ Justifique cada linha do cálculo da demonstração de \mref[ZO-A].
 
 Escreva o cálculo que não escrevi na demonstração de \mref[ZO-M], justificando
 cada um dos seus passos.
+
+%%}}}
+
+%%{{{ x: ZO-Tri_proof 
+\exercise.
+%%%{{{ meta 
+\label ZO-Tri_proof
+%%%}}}
+
+Demonstre a parte \mref[ZO-Tri] do \ref[int_lt_axioms_as_theorems].
+
+\hint
+Use a tricotomía \mref[ZP-Tri].
+
+\hint
+Sejam $a,b$ inteiros.
+Aproveitando a tricotomía \mref[ZP-Tri] basta demonstrar as três equivalências:
+\mathcols 3
+b - a    \in P &\iff a < b &
+b - a    = 0   &\iff a = b &
+-(b - a) \in P &\iff a > b.
+\endmathcols
+
+\solution
+Sejam $a,b$ inteiros.
+Aproveitamos a tricotomía \mref[ZP-Tri] e para conseguir a \mref[ZO-Tri]
+basta demonstrar as três equivalências:
+\mathcols 3
+b - a    \in P &\iff a < b &
+b - a    = 0   &\iff a = b &
+-(b - a) \in P &\iff a > b.
+\endmathcols
+A primeira é imediata (temos até $\intiff$, pois se trata da própria definição de $a<b$).
+A terceira segue diretamente pelo \ref[int_neg_of_sum] ($-(b-a)=a-b$).
+Para a segunda demonstramos cada direção separadamente:
+\lrdir: Temos $b + (-a) = 0$ pela hipótese desta direção e também $a + (-a) = 0$
+pela \mref[ZA-InvR].
+Logo $a = b$ pela \ref[int_uniqueness_of_solutions]
+para a equação $\uhole + (-a) = 0$.
+\rldir: Precisamos demonstrar $b - a = 0$, só que $a=b$ e logo basta demontrar $a - a = 0$, que é imediato pela \mref[ZA-InvR].
 
 %%}}}
 
@@ -8533,6 +8442,127 @@ Para quaisquer inteiros $a,b,u,v$, se $a < b$ e $u < v$, então $a + u < b = v$.
 \endsection
 %%}}}
 
+%%{{{ Minima and maxima 
+\section Mínima e máxima.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ Strict and nonstrict orders 
+\note Conjuntos ordenados.
+%%%{{{ meta 
+%%%}}}
+
+Relações binárias como a $(<)$ e a $(\leq)$ que definimos aqui
+são chamadas relações de ordem: a $(<)$ é uma ordem estrita, a $(\leq)$ não.
+Um conjunto cujos membros podemos comparar com uma relação de ordem
+é chamado conjunto ordenado e mais pra frente vamos dedicar capítulos
+inteiros para seu estudo.
+Por enquanto precisamos só trabalhar com o conjunto de inteiros,
+e com certeza sabemos como comparar inteiros: tanto com a $(<)$,
+quanto com a $(\leq)$.
+
+%%}}}
+
+%%{{{ df: int_min 
+\definition Membro mínimo.
+%%%{{{ meta 
+\label int_min
+\defines
+    * \min {~A}  -- mínimo do $A$
+    * mínimo
+    ;;
+%%%}}}
+
+Seja $A$ um conjunto de inteiros.
+(Escrevemos: $A \is \Set(\Int)$.)
+Um membro $m\in A$ é chamado \dterm{(membro) mínimo do $A$}
+sse para todo $a \in A$, $m \leq a$.
+Quando o conjunto $A$ possui mínimo, escrevemos $\min A$ para denotá-lo:
+$$
+m = \min A
+\defiff
+m \in A \mland \lforall {a \in A} {m \leq a}.
+$$
+Note que necessariamente o mínimo dum conjunto $A$, se existe, pertence ao $A$.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Para justificar a definição do símbolo $\min A$, \emph{devemos}
+demonstrar o seguinte:
+
+%%}}}
+
+%%{{{ x: int_uniqueness_of_minimum 
+\exercise Unicidade de mínimo.
+%%%{{{ meta 
+\label int_uniqueness_of_minimum
+%%%}}}
+
+Um conjunto de inteiros não pode ter mais que um mínimo.
+
+\hint
+Por fight club: suponha que um conjunto tem mínima $m_1,m_2$ e aplicando
+a definição de ``mínimo'' e propriedades de $\leq$, conclua que são iguais.
+
+\hint
+Pelas $m_1 \leq m_2$ e $m_2 \leq m_1$ concluimos que $m_1 = m_2$.
+
+\solution
+Sejam $m_1, m_2$ mínima dum conjunto $A$, ou seja, temos
+$m_1, m_2 \in A$, e também
+$$
+\lforall {a\in A} {m_1 \leq a} \qquad
+\lforall {a\in A} {m_2 \leq a}
+$$
+Usando a primeira com $a \asseq m_2$ e a segunda com $a \asseq m_1$ temos:
+$$
+m_1 \leq m_2 \mland
+m_2 \leq m_1.
+$$
+Portanto, $m_1 = m_2$ (pela antissimetria da $\leq$).
+
+%%}}}
+
+%%{{{ x: int_max 
+\exercise E o máximo?.
+%%%{{{ meta 
+\label int_max
+%%%}}}
+
+Defina o que significa \dterm{máximo} dum conjunto de inteiros $A$,
+demonstre que quando um conjunto $A$ possui máximo, é único.
+
+%%}}}
+
+%%{{{ x: int_from_min_to_max 
+\exercise de min pra max.
+%%%{{{ meta 
+\label int_from_min_to_max
+%%%}}}
+
+Seja $A \subset \ints$.
+Definimos o conjunto $-A$ de todos os opostos de $A$ assim:
+$$
+-A \defeq \setst {-a} {a \in A},
+$$
+ou seja, $-A$ é o conjunto de todos os $-a$, tais que $a \in A$.
+Demonstre que se $A$ possui mínimo, então $-A$ possui máximo e
+\mathcol
+\min A &= -\max(-A) \\
+\intertext{e, dualmente, se $A$ possui máximo, então $-A$ possui mínimo e}
+\max A &= -\min(-A).
+\endmathcol
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Absolute value 
 \section Valor absoluto.
 %%%{{{ meta 
@@ -8652,124 +8682,6 @@ Sejam $a,b$ inteiros.  Demonstre:
 &\abs a = \abs b \implies \text{$a = b$ ou $a = -b$} \\
 &\abs {\abs a - \abs b} \leq \abs {a - b} \\
 &\abs {a - b} \leq \abs a + \abs b. \\
-\endmathcol
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Minima and maxima 
-\section Mínima e máxima.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ Strict and nonstrict orders 
-\note Ordens.
-%%%{{{ meta 
-%%%}}}
-
-Relações binárias como a $(<)$ e a $(\leq)$ que definimos aqui
-são chamadas relações de ordem: a $(<)$ é uma ordem estrita, a $(\leq)$ não.
-Mais pra frente vamos dedicar capítulos inteiros para estudar relações de ordem.
-Por enquanto precisamos só definir o que significa membro mínimo
-dum conjunto de inteiros; e sabemos como comparar inteiros com a $(<)$ e com a $(\leq)$.
-
-%%}}}
-
-%%{{{ df: int_min 
-\definition Membro mínimo.
-%%%{{{ meta 
-\label int_min
-\defines
-    * \min {~A}  -- mínimo do $A$
-    * mínimo
-    ;;
-%%%}}}
-
-Seja $A$ um conjunto de inteiros.
-(Escrevemos: $A \is \Set(\Int)$.)
-Um membro $m\in A$ é chamado \dterm{(membro) mínimo do $A$}
-sse para todo $a \in A$, $m \leq a$.
-Quando o conjunto $A$ possui mínimo, escrevemos $\min A$ para denotá-lo:
-$$
-m = \min A
-\defiff
-m \in A \mland \lforall {a \in A} {m \leq a}.
-$$
-Note que necessariamente o mínimo dum conjunto $A$, se existe, pertence ao $A$.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Para justificar a definição do símbolo $\min A$, \emph{devemos}
-demonstrar o seguinte:
-
-%%}}}
-
-%%{{{ x: int_uniqueness_of_minimum 
-\exercise Unicidade de mínimo.
-%%%{{{ meta 
-\label int_uniqueness_of_minimum
-%%%}}}
-
-Um conjunto de inteiros não pode ter mais que um mínimo.
-
-\hint
-Por fight club: suponha que um conjunto tem mínima $m_1,m_2$ e aplicando
-a definição de ``mínimo'' e propriedades de $\leq$, conclua que são iguais.
-
-\hint
-Pelas $m_1 \leq m_2$ e $m_2 \leq m_1$ concluimos que $m_1 = m_2$.
-
-\solution
-Sejam $m_1, m_2$ mínima dum conjunto $A$, ou seja, temos
-$m_1, m_2 \in A$, e também
-$$
-\lforall {a\in A} {m_1 \leq a} \qquad
-\lforall {a\in A} {m_2 \leq a}
-$$
-Usando a primeira com $a \asseq m_2$ e a segunda com $a \asseq m_1$ temos:
-$$
-m_1 \leq m_2 \mland
-m_2 \leq m_1.
-$$
-Portanto, $m_1 = m_2$ (pela antissimetria da $\leq$).
-
-%%}}}
-
-%%{{{ x: int_max 
-\exercise E o máximo?.
-%%%{{{ meta 
-\label int_max
-%%%}}}
-
-Defina o que significa \dterm{máximo} dum conjunto de inteiros $A$,
-demonstre que quando um conjunto $A$ possui máximo, é único.
-
-%%}}}
-
-%%{{{ x: int_from_min_to_max 
-\exercise de min pra max.
-%%%{{{ meta 
-\label int_from_min_to_max
-%%%}}}
-
-Seja $A \subset \ints$.
-Definimos o conjunto $-A$ de todos os opostos de $A$ assim:
-$$
--A \defeq \setst {-a} {a \in A},
-$$
-ou seja, $-A$ é o conjunto de todos os $-a$, tais que $a \in A$.
-Demonstre que se $A$ possui mínimo, então $-A$ possui máximo e
-\mathcol
-\min A &= -\max(-A) \\
-\intertext{e, dualmente, se $A$ possui máximo, então $-A$ possui mínimo e}
-\max A &= -\min(-A).
 \endmathcol
 
 %%}}}
@@ -8964,6 +8876,41 @@ $\lforall {i} {0 < i < p \implies i \in A}$.
 
 %%}}}
 
+%%{{{ df: int_invertible 
+\definition Invertibilidade.
+%%%{{{ meta 
+\label int_invertible
+\defines
+    * invertível!inteiro
+    ;;
+%%%}}}
+
+Seja $x$ inteiro.
+Dizemos que $x$ é \dterm{$(\ntimes)$-invertível na esquerda}
+sse
+existe $(\ntimes)$-inverso direito de $x$,
+e simetricamente definimos o que significa $(\ntimes)$-invertível na direita.
+Em símbolos:
+\mathcol
+\text{$x$ é invertível-L} &\defiff \lexists {x'} {xx' = 1}; \\
+\text{$x$ é invertível-R} &\defiff \lexists {x'} {x'x = 1}; \\
+\text{$x$ é invertível}   &\defiff \text{$x$ é invertível-L e invertível-R}. \\
+\endmathcol
+Já que $(\ntimes)$ é comutativa as três afirmações são equivalentes para os inteiros
+(\ref[int_invertible_iff_onesided_invertible]).
+
+%%}}}
+
+%%{{{ x: int_invertible_iff_onesided_invertible 
+\exercise.
+%%%{{{ meta 
+\label int_invertible_iff_onesided_invertible
+%%%}}}
+
+Demonstre a afirmação da \ref[int_invertible].
+
+%%}}}
+
 %%{{{ x: if_ab_is_1_then_what 
 \exercise.
 %%%{{{ meta 
@@ -8971,11 +8918,141 @@ $\lforall {i} {0 < i < p \implies i \in A}$.
 %%%}}}
 
 Sejam $a,b$ inteiros com $ab=1$.
-Demonstre que $\abs a = 1 = \abs b$, ou seja, $a,b \in \set{-1, 1}$.
-Pela $ab=1$ inferimos que $a,b$ são divisores de $1$.
-Divisores de $1$ são chamados de \dterm{invertíveis}---faz sentido?---e
-o que precisas demonstrar aqui é que os únicos inteiros invertíveis
-são os $1$ e $-1$.
+Demonstre que $a,b \in \set{-1, 1}$.
+Os únicos inteiros invertíveis são os $1, -1$.
+Ainda mais, para quaisquer $a,b$ com $ab=1$, temos $a=b=1$ ou $a=b=-1$.
+
+%%}}}
+
+%%{{{ Q: what more axioms would you add? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Tu acha que deveriamos adicionar mais proposições como
+axiomas na nossa especificação?
+Cuidado: em geral, não queremos axiomas desnecessários:
+se podemos demonstrar algo a partir dos axiomas já
+estipulados, não faz sentido estipulá-lo como axioma também!
+
+%%}}}
+
+\endsection
+%%}}}
+
+%{{{ Divisibility 
+\section Divisibilidade.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+No \ref[Proofs] já encontramos a relação de <<divide>> que realmente é
+a mais interessante relação para os inteiros.
+Será que vamos aumentar então a estrutura dos inteiros para incluí-la como
+\emph{noção primitiva} com
+$$
+{\divides} \eqtype \Int \times \Int \to \Prop?
+$$
+Não!
+A noção de <<divide>> podemos realmente \emph{definir} em termos do que temos até agora
+e logo não vamos adicioná-la como primitiva.
+
+%%}}}
+
+%%{{{ df: divides 
+\definition Divisibilidade.
+%%%{{{ meta 
+\label divides
+\defines
+    * ~a \divides ~b  -- $a$ divide $b$
+    * divide
+    * divisor
+    * divisível
+    * multiplo
+    ;;
+%%%}}}
+
+Sejam $a,b\in\ints$.
+Digamos que \dterm{o $a$ divide o $b$} (ou \dterm{o $b$ é divisível por $a$}),
+sse $b = ak$ para algum $k\in\ints$.
+Nesse caso, escrevemos $a \divides b$.
+Em símbolos:
+$$
+a \divides b \defiff \lexists {k\in\ints} {b = ak}.
+$$
+Os \dterm{divisores} do $a$ são todos os inteiros $d$ tais que $d \divides a$.
+Naturalmente, usamos a notação $a \ndivides b$ quando $a$ não divide $b$.
+
+%%}}}
+
+%%{{{ ppty: divides_properties 
+\property.
+%%%{{{ meta 
+\label divides_properties
+%%%}}}
+
+Sejam $a,b,c,x,y,m$ inteiros.
+Logo:
+\elist:
+\li: $1 \divides a$;
+\li: $a \divides 0$;
+\li: $a \divides b \implies a \divides bx$;
+\li: $a \divides b \implies a \divides -b \mland -a \divides b$;
+\li: $a \divides b \mland a \divides c \implies a \divides b + c$;
+\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$;
+\li: $a \divides b \mland b \neq 0 \implies \abs a \leq \abs b$;
+\li: se $c \neq 0$, então: $a \divides b \!\iff\! ca \divides cb$.
+\endelist
+
+%%}}}
+
+%%{{{ x: divides_properties_proof 
+\exercise.
+%%%{{{ meta 
+\label divides_properties_proof
+%%%}}}
+
+Demonstre todas as propriedades da \ref[divides_properties].
+
+%%}}}
+
+%%{{{ thm: divides_is_a_preorder 
+\theorem Divide é uma preordem.
+%%%{{{ meta 
+\label divides_is_a_preorder
+%%%}}}
+
+Para todos $a,b,c\in\ints$,
+\mathcall
+& a \divides a                                            \called {reflexividade} \\
+& a \divides b \mland b \divides c \implies a \divides c. \called {transitividade} \\
+\endmathcall
+
+%%}}}
+
+%%{{{ x: divides_is_a_preorder_proof 
+\exercise.
+%%%{{{ meta 
+\label divides_is_a_preorder_proof
+%%%}}}
+
+Demonstre o \ref[divides_is_a_preorder].
+
+%%}}}
+
+%%{{{ x: prove_humanely_properties_of_divisibility 
+\exercise.
+%%%{{{ meta 
+\label prove_humanely_properties_of_divisibility
+%%%}}}
+
+Demonstre---novamente?---todos esses teoremas.
+Tente escrever demonstrações curtíssimas e facilmente legíveis
+e numa maneira ``humana'' e não mecânica.
 
 %%}}}
 
@@ -9059,6 +9136,26 @@ Demonstre $0 \neq 1$.
 
 %%}}}
 
+%%{{{ prob: WOP_iff_PFI 
+\problem.
+%%%{{{ meta 
+\label WOP_iff_PFI
+%%%}}}
+
+$\text{Princípio da Boa Ordem dos inteiros} \iff \text{Princípio da Indução nos inteiros}$.
+
+\hint
+Nos já demonstramos a direção \lrdir.
+Para demonstrar a \rldir, considere o predicado
+``todos os conjuntos $A$ com $k\in A$ para algum natural $k\leq n$ têm mínimo'',
+ou o ``todos os conjuntos $A$ com $n\in A$ têm mínimo''.
+
+\hint
+Demonstre que todos os inteiros positivos satisfazem o predicado que tu consideraste.
+(Para um dos dois, tu precisará indução \emph{forte}.)
+
+%%}}}
+
 \endproblems
 %%}}}
 
@@ -9077,7 +9174,7 @@ Dado um inteiro positivo $n$, como podemos ``quebrá-lo'' em blocos de construç
 %%}}}
 
 %%{{{ what is our cement? 
-\note.
+\note Cimento.
 %%%{{{ meta 
 %%%}}}
 
@@ -9196,8 +9293,8 @@ Podemos construir o número $2016$ então assim:}
 \endalign
 $$
 usando os tijolos 2, 3, e 7, e a operação de multiplicação.
-Nos vamos definir formalmente esses tijolos (são os \dterm{primos},~\ref[prime]),
-e estudar suas propriedades.
+Nos vamos definir formalmente esses tijolos (que vão acabar sendo os inteiros que
+chamamos de \dterm{primos},~\ref[prime]), e estudar suas propriedades.
 \eop
 Ilustrando com o mesmo número $2016$, um outro caminho para processar seria o seguinte:
 $$
@@ -9264,7 +9361,7 @@ e demonstrado completamente por Gauss (no ano \yearof{1798}) no seu
 %%%}}}
 
 Fatorize os inteiros $15$, $16$, $17$, $81$, $100$, $280$, $2015$, e $2017$
-em fatores primos.
+em fatores irredutíveis.
 
 \solution
 Calculamos:
@@ -9285,6 +9382,13 @@ $$
 
 Escreva um programa que mostra para cada entrada, uma fatorização em primos.
 Execute teu programa para verificar tuas respostas no~\ref[factorize_some_integers].
+Note que muitos sistemas unixoides tem um programa \cmd{factor}:
+\shell
+\# factor 65536 65537 65538 \\
+65536: 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 \\
+65537: 65537 \\
+65538: 2 3 3 11 331
+\endshell
 
 %%}}}
 
@@ -9334,9 +9438,26 @@ que é um dos teoremas mais famosos e importantes na história de matemática
     ;;
 %%%}}}
 
-Seja $p\in\nats$, com $p \geq 2$.
+Seja $p$ inteiro tal que $\abs p > 1$.
 Chamamos o $p$ \dterm{primo} sse $p$ é divisível apenas por $\pm 1$ e $\pm p$.
 Caso contrário, ele é \dterm{composto}.
+
+%%}}}
+
+%%{{{ x: define_composite_by_formula 
+\exercise.
+%%%{{{ meta 
+\label define_composite_by_formula
+%%%}}}
+
+Defina formulamente o predicado $\namedrel{Composite}$ unário de <<ser composto>>.
+
+\solution
+Seja $x$ inteiro.
+$$
+\namedrel{Composite}(x) \defiff
+\lexists {a,b\in\ints\setminus\set{0,1}} { n = ab }.
+$$
 
 %%}}}
 
@@ -9362,24 +9483,6 @@ Logo, não é aplicável nem para o 0 nem para o 1.
 %%%}}}
 
 2 é o único primo par.
-
-%%}}}
-
-%%{{{ x: define_composite_by_formula 
-\exercise.
-%%%{{{ meta 
-\label define_composite_by_formula
-%%%}}}
-
-Usando uma fórmula de lógica, defina diretamente o que significa que
-um $n\in\nats\setminus\set 1$ é composto.
-
-\solution
-Seja $n\in\nats$.
-$$
-\namedrel{Composite}(n) \defiff
-\lexists {a,b\in\nats\setminus\set{0,1}} { n = ab }.
-$$
 
 %%}}}
 
@@ -11706,26 +11809,6 @@ em apenas $4$ pássos.
 Depois de cada passo, se o maior termo fosse o $m$, agora é o $\ceil {\frac m 2}$.
 Precisamos tantos passos quantas vezes que podemos dividir o $n$ por $2$ até
 chegar na unidade $1$: precisamos $\ceil {\log_2(n)}$ passos.
-
-%%}}}
-
-%%{{{ prob: WOP_iff_PFI 
-\problem.
-%%%{{{ meta 
-\label WOP_iff_PFI
-%%%}}}
-
-$\text{PBO} \iff \text{PIF}$.
-
-\hint
-Nos já provamos a direção \lrdir.
-Para demonstrar a \rldir, considere o predicado
-``todos os conjuntos $A$ com $k\in A$ para algum natural $k\leq n$ têm mínimo'',
-ou o ``todos os conjuntos $A$ com $n\in A$ têm mínimo''.
-
-\hint
-Demonstre que todos os naturais satisfazem o predicado que tu consideraste.
-(Para um dos dois, tu precisará indução \emph{forte}.)
 
 %%}}}
 
@@ -18005,79 +18088,6 @@ $$
     {n\in\nats}
     {P(n)}.
 $$
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ The_wellordering_principle_for_nats 
-\section O princípio da boa ordem.
-%%%{{{ meta 
-\label The_wellordering_principle_for_nats
-%%%}}}
-
-\TODO rewrite.
-
-%%{{{ thm: nats_WOP 
-\theorem Princípio da boa ordem (PBO).
-%%%{{{ meta 
-\label nats_WOP
-\indexes
-    * PBO    seealso: princípio da boa ordem
-    ;;
-\defines
-    * princípio!da boa ordem
-    ;;
-%%%}}}
-
-Cada subconjunto não vazio do $\nats$ possui mínimo.
-
-\sketch.
-Seja $P(n)$ a propriedade que cada subconjunto $A\subset\nats$
-que possui membros menores ou iguais a $n$ tem mínimo.
-Mostramos por indução que para todo $n$, $P(n)$.
-
-%%}}}
-
-%%{{{ x: no_nat_between_0_and_1 
-\exercise.
-%%%{{{ meta 
-\label no_nat_between_0_and_1
-%%%}}}
-
-Demonstre que não existe natural estritamente entre $0$ e $1$.
-
-%%}}}
-
-%%{{{ x: if_ab_is_1_then_what 
-\exercise.
-%%%{{{ meta 
-\label if_ab_is_1_then_what
-%%%}}}
-
-Sejam $a,b\in\ints$ com $ab=1$.
-Demonstre que $a=\pm1$ e $b=\pm1$.
-
-%%}}}
-
-%%{{{ thm: nats_principle_of_induction_set_form 
-\theorem Indução, forma com conjuntos.
-%%%{{{ meta 
-\label nats_principle_of_induction_set_form
-\defines
-    * indução!forma com conjuntos
-    ;;
-%%%}}}
-
-Seja $A\subset\nats$ tal que $0\in A$ e para todo $n \in A$, $Sn\in A$.
-Logo $A=\nats$.
-
-\sketch.
-Caso contrário, existeriam ``contraexemplos'', ou seja,
-naturais que não pertencem ao $A$.
-Aplique a PBO para escolher o menor tal contraexemplo,
-e chega num absurdo.
 
 %%}}}
 
