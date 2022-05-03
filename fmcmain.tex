@@ -8231,21 +8231,73 @@ cada um dos seus passos.
 
 %%}}}
 
-%%{{{ x: int_lt_strict_total_order 
-\exercise.
+%%{{{ thm: int_lt_is_a_strict_total_order 
+\theorem.
 %%%{{{ meta 
-\label int_lt_strict_total_order
+\label int_lt_is_a_strict_total_order 
 \defines
-    * irreflexiva
-    * assimétrica
+    * ordem!irreflexiva
+    * ordem!assimétrica
+    * ordem!conectada
+    * ordem!estrita
     ;;
 %%%}}}
 
-A relação $<$ é \dterm{irreflexiva} e \dterm{assimétrica}:
-\mathcol
-\cforall {a}     {a \nlt a}                 \stag[ZO-Irr] \\
-\cforall {a,b}   {a < b \implies b \nlt a}. \stag[ZO-Assim] \\
-\endmathcol
+A relação $<$ é uma \dterm{ordem estrita}, ou seja, ela é
+\dterm{transitiva}, \dterm{irreflexiva}, e \dterm{assimétrica}:
+\mathcall
+\cforall  {a,b,c} {a < b \mland b < c \implies a < c}   \called {transitividade} \\
+\cforall  {a}     {a \nlt a}                            \called {irreflexividade} \\
+\cforall  {a,b}   {a < b \implies b \nlt a}.            \called {assimetria}  \\
+\intertext{Ainda mais, ela é \dterm{conectada} ou \dterm{estritamente total}:}
+\cforall  {a,b}   {a \neq b \implies a < b \mlor b < a} \called {conectada} \\
+\endmathcall
+e portanto ela é uma \dterm{ordem estrita total}.
+
+\proof.
+A transitividade já demonstramos no \ref[int_lt_axioms_as_theorems].
+O resto é o \ref[int_leq_is_a_total_order_proof]:
+
+%%}}}
+
+%%{{{ x: int_lt_is_a_strict_total_order_proof 
+\exercise.
+%%%{{{ meta 
+\label int_lt_is_a_strict_total_order
+%%%}}}
+
+A relação $<$ é \dterm{irreflexiva}, \dterm{assimétrica}, e \dterm{conectada}.
+
+%%}}}
+
+%%{{{ thm: int_leq_is_a_total_order 
+\theorem.
+%%%{{{ meta 
+\label int_leq_is_a_total_order 
+%%%}}}
+
+A relação $\leq$ goza das propriedades seguintes:
+\mathcall
+\cforall  {a}     {a \leq a}                                    \called {reflexividade}  \\
+\cforall  {a,b}   {a \leq b \mland b \leq a \implies a = b}     \called {antissimetria}  \\
+\cforall  {a,b,c} {a \leq b \mland b \leq c \implies a \leq c}  \called {transitividade} \\
+\intertext{e por isso chamamos de \dterm{ordem}.  Ainda mais ela goza da}
+\cforallt {a,b}   {a \leq b \mlor b \leq a}                     \called {totalidade} \\
+\endmathcall
+e logo ela é ainda mais: uma \dterm{ordem total}.
+
+\proof Demonstrarás agora mesmo.
+É o \ref[int_leq_is_a_total_order_proof].
+
+%%}}}
+
+%%{{{ x: int_leq_is_a_total_order_proof 
+\exercise.
+%%%{{{ meta 
+\label int_leq_is_a_total_order_proof
+%%%}}}
+
+Demonstre que $\leq$ é uma ordem total (\ref[int_leq_is_a_total_order]).
 
 %%}}}
 
@@ -8621,7 +8673,7 @@ Relações binárias como a $<$ e a $\leq$ que definimos aqui
 são chamadas relações de ordem: a $<$ é uma ordem estrita, a $\leq$ não.
 Mais pra frente vamos dedicar capítulos inteiros para estudar relações de ordem.
 Por enquanto precisamos só definir o que significa membro mínimo
-dum conjunto de membros que podemos comparar com uma relação como a $<$ ou como a $\leq$.
+dum conjunto de inteiros; e sabemos como comparar inteiros com a $<$ e com a $\leq$.
 
 %%}}}
 
@@ -8636,11 +8688,10 @@ dum conjunto de membros que podemos comparar com uma relação como a $<$ ou com
 %%%}}}
 
 Seja $A$ um conjunto de inteiros.
-(Escrevemos: $A \subset \ints$.)
+(Escrevemos: $A \is \Set(\Int)$.)
 Um membro $m\in A$ é chamado \dterm{(membro) mínimo do $A$}
 sse para todo $a \in A$, $m \leq a$.
-Quando o conjunto $A$ possui mínimo,
-escrevemos $\min A$ para denotá-lo:
+Quando o conjunto $A$ possui mínimo, escrevemos $\min A$ para denotá-lo:
 $$
 m = \min A
 \defiff
@@ -8667,7 +8718,6 @@ demonstrar o seguinte:
 %%%}}}
 
 Um conjunto de inteiros não pode ter mais que um mínimo.
-Quais propriedades das $<$ ou $\leq$ precisamos?
 
 \hint
 Por fight club: suponha que um conjunto tem mínima $m_1,m_2$ e aplicando
@@ -8741,8 +8791,13 @@ $$
 %%%}}}
 
 Seja $W$ um conjunto de inteiros.
-Chamamos o $W$ de \dterm{bem ordenado} sse qualquer subconjunto habitado
-$H \subset W$ possui mínimo.
+Chamamos o $W$ de \dterm{bem ordenado} sse qualquer subconjunto habitado de $W$ possui mínimo.
+Em símbolos:
+\math
+\text{$W$ é bem ordenado}
+\defiff
+\lforall {H \subset W} {\text{$H$ habitado} \implies \text{$H$ possui mínimo}}.
+\endmath
 
 %%}}}
 
@@ -8765,17 +8820,23 @@ Estipulamos o princípio da boa ordem como último axioma:
 
 %%}}}
 
-%%{{{ x: ints_WOP_alt 
-\exercise PBO (alt form).
+%%{{{ remark: ints_WOP_alt 
+\remark PBO (alt form).
 %%%{{{ meta 
 \label ints_WOP_alt
 %%%}}}
 
-Qualquer conjunto $A \subset \ints$ que possui pelo menos
-um membro positivo $p \in A$, possui um mínimo membro positivo $m \in A$.
-
-\hint
-Basta aplicar o PBO num certo subconjunto de $A$.
+Vamos supor que temos um conjunto de inteiros $A$ e, ainda mais,
+sabemos que ele tem pelo menos um membro positivo.
+A PBO não parece aplicável no $A$ já que ele pode possuir
+membros não positivos.
+Mesmo assim, seu subconjunto
+$$
+A_{>0} \defeq \setstt {a \in A} {$a$ positivo}
+$$
+é feito totalmente por inteiros e é habitado, e logo
+podemos sim usar o PBO para solicitar o menor membro de $A_{>0}$,
+ou seja, podemos solicitar o menor positivo de $A$.
 
 %%}}}
 
@@ -8879,7 +8940,11 @@ em dois casos, dependendo da razão que o $\phi(k)$ seja verdade.
 %%%}}}
 
 Sejam $a,b$ inteiros com $ab=1$.
-Demonstre que $\abs a = 1 = \abs b$.
+Demonstre que $\abs a = 1 = \abs b$, ou seja, $a,b \in \set{-1, 1}$.
+Pela $ab=1$ inferimos que $a,b$ são divisores de $1$.
+Divisores de $1$ são chamados de \dterm{invertíveis}---faz sentido?---e
+o que precisas demonstrar aqui é que os únicos inteiros invertíveis
+são os $1$ e $-1$.
 
 %%}}}
 
