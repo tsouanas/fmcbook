@@ -7875,6 +7875,113 @@ Logo $a = b$.
 \endsection
 %%}}}
 
+%{{{ Divisibility 
+\section Divisibilidade.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+No \ref[Proofs] já encontramos a relação de <<divide>> que realmente é
+a mais interessante relação para os inteiros.
+Será que vamos aumentar então a estrutura dos inteiros para incluí-la como
+\emph{noção primitiva} com
+$$
+{\divides} \eqtype \Int \times \Int \to \Prop?
+$$
+Não!
+A noção de <<divide>> podemos realmente \emph{definir} em termos do que temos até agora
+e logo não vamos adicioná-la como primitiva.
+
+%%}}}
+
+%%{{{ df: divides 
+\definition Divisibilidade.
+%%%{{{ meta 
+\label divides
+\defines
+    * ~a \divides ~b  -- $a$ divide $b$
+    * divide
+    * divisor
+    * divisível
+    * multiplo
+    ;;
+%%%}}}
+
+Sejam $a,b\in\ints$.
+Digamos que \dterm{o $a$ divide o $b$} (ou \dterm{o $b$ é divisível por $a$}),
+sse $b = ak$ para algum $k\in\ints$.
+Nesse caso, escrevemos $a \divides b$.
+Em símbolos:
+$$
+a \divides b \defiff \lexists {k\in\ints} {b = ak}.
+$$
+Os \dterm{divisores} do $a$ são todos os inteiros $d$ tais que $d \divides a$.
+Naturalmente, usamos a notação $a \ndivides b$ quando $a$ não divide $b$.
+
+%%}}}
+
+%%{{{ ppty: divides_properties 
+\property.
+%%%{{{ meta 
+\label divides_properties
+%%%}}}
+
+Sejam $a,b,c,x,y,m$ inteiros.
+Logo:
+\elist:
+\li: $1 \divides a$;
+\li: $a \divides 0$;
+\li: $a \divides b \implies a \divides bx$;
+\li: $a \divides b \implies a \divides -b \mland -a \divides b$;
+\li: $a \divides b \mland a \divides c \implies a \divides b + c$;
+\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$;
+\li: $a \divides b \mland b \neq 0 \implies \abs a \leq \abs b$;
+\li: se $c \neq 0$, então: $a \divides b \!\iff\! ca \divides cb$.
+\endelist
+
+%%}}}
+
+%%{{{ x: divides_properties_proof 
+\exercise.
+%%%{{{ meta 
+\label divides_properties_proof
+%%%}}}
+
+Demonstre todas as propriedades da \ref[divides_properties].
+
+%%}}}
+
+%%{{{ thm: divides_is_a_preorder 
+\theorem Divide é uma preordem.
+%%%{{{ meta 
+\label divides_is_a_preorder
+%%%}}}
+
+Para todos $a,b,c\in\ints$,
+\mathcall
+& a \divides a                                            \called {reflexividade} \\
+& a \divides b \mland b \divides c \implies a \divides c. \called {transitividade} \\
+\endmathcall
+
+%%}}}
+
+%%{{{ x: divides_is_a_preorder_proof 
+\exercise.
+%%%{{{ meta 
+\label divides_is_a_preorder_proof
+%%%}}}
+
+Demonstre o \ref[divides_is_a_preorder].
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Order and positivity 
 \section Ordem e positividade.
 %%%{{{ meta 
@@ -8924,6 +9031,20 @@ Ainda mais, para quaisquer $a,b$ com $ab=1$, temos $a=b=1$ ou $a=b=-1$.
 
 %%}}}
 
+%%{{{ x: divides_is_almost_a_partial_order 
+\exercise.
+%%%{{{ meta 
+\label divides_is_almost_a_partial_order
+%%%}}}
+
+Demonstre:
+\mathcol
+\cforall {a,b}        {a \divides b \mland b \divides a \implies \abs a = \abs b}; \\
+\cforall {a,b \geq 0} {a \divides b \mland b \divides a \implies      a =      b}. \\
+\endmathcol
+
+%%}}}
+
 %%{{{ Q: what more axioms would you add? 
 \question.
 %%%{{{ meta 
@@ -8934,139 +9055,6 @@ axiomas na nossa especificação?
 Cuidado: em geral, não queremos axiomas desnecessários:
 se podemos demonstrar algo a partir dos axiomas já
 estipulados, não faz sentido estipulá-lo como axioma também!
-
-%%}}}
-
-\endsection
-%%}}}
-
-%{{{ Divisibility 
-\section Divisibilidade.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-No \ref[Proofs] já encontramos a relação de <<divide>> que realmente é
-a mais interessante relação para os inteiros.
-Será que vamos aumentar então a estrutura dos inteiros para incluí-la como
-\emph{noção primitiva} com
-$$
-{\divides} \eqtype \Int \times \Int \to \Prop?
-$$
-Não!
-A noção de <<divide>> podemos realmente \emph{definir} em termos do que temos até agora
-e logo não vamos adicioná-la como primitiva.
-
-%%}}}
-
-%%{{{ df: divides 
-\definition Divisibilidade.
-%%%{{{ meta 
-\label divides
-\defines
-    * ~a \divides ~b  -- $a$ divide $b$
-    * divide
-    * divisor
-    * divisível
-    * multiplo
-    ;;
-%%%}}}
-
-Sejam $a,b\in\ints$.
-Digamos que \dterm{o $a$ divide o $b$} (ou \dterm{o $b$ é divisível por $a$}),
-sse $b = ak$ para algum $k\in\ints$.
-Nesse caso, escrevemos $a \divides b$.
-Em símbolos:
-$$
-a \divides b \defiff \lexists {k\in\ints} {b = ak}.
-$$
-Os \dterm{divisores} do $a$ são todos os inteiros $d$ tais que $d \divides a$.
-Naturalmente, usamos a notação $a \ndivides b$ quando $a$ não divide $b$.
-
-%%}}}
-
-%%{{{ ppty: divides_properties 
-\property.
-%%%{{{ meta 
-\label divides_properties
-%%%}}}
-
-Sejam $a,b,c,x,y,m$ inteiros.
-Logo:
-\elist:
-\li: $1 \divides a$;
-\li: $a \divides 0$;
-\li: $a \divides b \implies a \divides bx$;
-\li: $a \divides b \implies a \divides -b \mland -a \divides b$;
-\li: $a \divides b \mland a \divides c \implies a \divides b + c$;
-\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$;
-\li: $a \divides b \mland b \neq 0 \implies \abs a \leq \abs b$;
-\li: se $c \neq 0$, então: $a \divides b \!\iff\! ca \divides cb$.
-\endelist
-
-%%}}}
-
-%%{{{ x: divides_properties_proof 
-\exercise.
-%%%{{{ meta 
-\label divides_properties_proof
-%%%}}}
-
-Demonstre todas as propriedades da \ref[divides_properties].
-
-%%}}}
-
-%%{{{ thm: divides_is_a_preorder 
-\theorem Divide é uma preordem.
-%%%{{{ meta 
-\label divides_is_a_preorder
-%%%}}}
-
-Para todos $a,b,c\in\ints$,
-\mathcall
-& a \divides a                                            \called {reflexividade} \\
-& a \divides b \mland b \divides c \implies a \divides c. \called {transitividade} \\
-\endmathcall
-
-%%}}}
-
-%%{{{ x: divides_is_a_preorder_proof 
-\exercise.
-%%%{{{ meta 
-\label divides_is_a_preorder_proof
-%%%}}}
-
-Demonstre o \ref[divides_is_a_preorder].
-
-%%}}}
-
-%%{{{ x: prove_humanely_properties_of_divisibility 
-\exercise.
-%%%{{{ meta 
-\label prove_humanely_properties_of_divisibility
-%%%}}}
-
-Demonstre---novamente?---todos esses teoremas.
-Tente escrever demonstrações curtíssimas e facilmente legíveis
-e numa maneira ``humana'' e não mecânica.
-
-%%}}}
-
-%%{{{ x: divides_is_almost_a_partial_order 
-\exercise.
-%%%{{{ meta 
-\label divides_is_almost_a_partial_order
-%%%}}}
-
-Demonstre:
-\mathcol
-\cforall {a,b}        {a \divides b \mland b \divides a \implies \abs a = \abs b}; \\
-\cforall {a,b \geq 0} {a \divides b \mland b \divides a \implies \abs a = \abs b}. \\
-\endmathcol
 
 %%}}}
 
