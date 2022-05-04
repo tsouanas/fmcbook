@@ -7987,9 +7987,10 @@ Demonstre o \ref[divides_is_a_preorder].
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ Something is missing 
+%%{{{ int_positivity_intro 
 \note Algo está faltando.
 %%%{{{ meta 
+\label int_positivity_intro
 %%%}}}
 
 Mesmo que temos demonstrado tanta coisa importante sobre os inteiros,
@@ -8009,35 +8010,35 @@ $$
 Isso apenas declara que tipo de coisa é esse $<$: é uma relação binária nos inteiros.
 \eop
 Uma outra idéia seria aumentar a estrutura dos inteiros para incluir um
-\emph{subconjunto} $P$ de $\ints$: o subconjunto dos inteiros positivos.
-Para não complicar a tipagem com esse tipo de coisa consideramos o $P$ com a tipagem
+\emph{subconjunto} $\Pos$ de $\ints$: o subconjunto dos inteiros positivos.
+Para não complicar a tipagem com esse tipo de coisa consideramos o $\Pos$ com a tipagem
 $$
-P \is \Int \to \Prop,
+\Pos \is \Int \to \Prop,
 $$
-ou seja, $P$ não é, literalmente, o conjunto dos inteiros positivos;
-$P$ é o predicado <<{\thole} é positivo>>.
+ou seja, $\Pos$ não é, literalmente, o conjunto dos inteiros positivos;
+$\Pos$ é o predicado <<{\thole} é positivo>>.
 Escrevemos, de acordo com a tipagem,
 $$
-P \fa x
+\Pos \fa x
 $$
 para significar <<$x$ é positivo>>.
-Mas observe que isso \emph{não define} o $P$, pois não temos definido mesmo
+Mas observe que isso \emph{não define} o $\Pos$, pois não temos definido mesmo
 o que significa <<ser positivo>>.  Aqui estamos apenas falando como
-pronunciar a afirmação $P \fa x$.
+pronunciar a afirmação $\Pos \fa x$.
 \eop
 Ambas as idéias parecem razoáveis, então talvez
 faria sentido adicionar ambas mesmo como partes primitivas nos inteiros, assim:
 $$
-\sset \ints {0,1,+,-,\ntimes,{>},P}
+\sset \ints {0,1,+,-,\ntimes,{>},\Pos}
 $$
 com
 \mathcols 2
-{>} &\is \Int \times \Int \to \Prop &
-{P} &\is \Int \to \Prop. \\
+{>}    &\is \Int \times \Int \to \Prop &
+{\Pos} &\is \Int \to \Prop. \\
 \endmathcols
 Mas realmente não precisamos ambas.  Tendo uma (qualquer uma das duas), a outra
 é definível, em tal forma que seus axiomas correspondentes são demonstráveis como teoremas.
-Mesmo assim, precisamos escolher qual vai ser a primitiva, e escolhemos a $P$ aqui.
+Mesmo assim, precisamos escolher qual vai ser a primitiva, e escolhemos a $\Pos$ aqui.
 
 %%}}}
 
@@ -8055,22 +8056,22 @@ Mesmo assim, precisamos escolher qual vai ser a primitiva, e escolhemos a $P$ aq
 
 Aumentamos a estrutura dos inteiros adicionando um predicado unário:
 $$
-\sset \ints {0,1,+,-,\ntimes,P}
+\sset \ints {0,1,+,-,\ntimes,\Pos}
 $$
 com
 \mathcol
-{P} &\is \Int \to \Prop.
+{\Pos} &\is \Int \to \Prop.
 \endmathcol
 Introduzimos logo como açúcar sintáctico um \emph{abuso notacional} que nos permite
-tratar o $P$ \emph{como se fosse} conjunto:
+tratar o $\Pos$ \emph{como se fosse} conjunto:
 \mathcol
-x \in P     &\abuseiff P \fa x \\
+x \in \Pos  &\abuseiff \Pos \fa x \\
 \endmathcol
 Estipulamos os axiomas seguintes sobre os inteiros positivos:
 \mathcol
-\cforall  {a,b \in P} {a + b \in P}        \stag[ZP-ACl]\\
-\cforall  {a,b \in P} {a\ntimes b \in P}   \stag[ZP-MCl]\\
-\cforallt {a}         {exatamente uma das: $-a \in P$; $a = 0$; $a \in P$}.
+\cforall  {a,b \in \Pos} {a + b \in \Pos}        \stag[ZP-ACl]\\
+\cforall  {a,b \in \Pos} {a\ntimes b \in \Pos}   \stag[ZP-MCl]\\
+\cforallt {a}         {exatamente uma das: $-a \in \Pos$; $a = 0$; $a \in \Pos$}.
                                            \stag[ZP-Tri]\\
 \endmathcol
 
@@ -8140,9 +8141,9 @@ A relação $<$ goza das propriedades seguintes:
 \proof.
 \proofpart{Parte} \mref[ZO-Trans].
 Sejam $a,b,c$ inteiros.
-Suponha $a < b$ e $b < c$, ou seja, $b-a \in P$\fact1 e $c-b \in A$\fact2.
-Preciso demonstrar $a < c$, ou seja, $c-a \in P$.
-Como $P$ é $(+)$-fechado, pelas \byfact1 e \byfact2 temos $(b-a) + (c-b) \in P$.
+Suponha $a < b$ e $b < c$, ou seja, $b-a \in \Pos$\fact1 e $c-b \in A$\fact2.
+Preciso demonstrar $a < c$, ou seja, $c-a \in \Pos$.
+Como $\Pos$ é $(+)$-fechado, pelas \byfact1 e \byfact2 temos $(b-a) + (c-b) \in \Pos$.
 Basta então estabelecer que $(b-a) + (c-b) = c-a$.
 Calculamos:
 \compute
@@ -8159,8 +8160,8 @@ Calculamos:
 No \ref[ZO-Tri_proof]
 \crproofpart{Parte} \mref[ZO-A].
 Sejam $a,b,c$ inteiros.
-Suponha $a < b$, ou seja $b - a \in P$.
-Preciso demonstrar $a + c < b + c$, ou seja, $(b + c) - (a + c) \in P$.
+Suponha $a < b$, ou seja $b - a \in \Pos$.
+Preciso demonstrar $a + c < b + c$, ou seja, $(b + c) - (a + c) \in \Pos$.
 Calculamos:
 \compute
 (b + c) - (a + c)
@@ -8179,10 +8180,10 @@ Calculamos:
 \proofpart{Parte} \mref[ZO-M].
 Sejam $a,b,c$ inteiros.
 Suponha $a < b$ e $c > 0$.
-Ou seja, $b - a \in P$\fact1 e $c \in P$\fact2.
-Vou demonstrar $ac < bc$, ou seja, $bc - ac \in P$.
-Mas $bc - ac = (b - a)c$ (por quê?) e realmente $(b - a)c \in P$
-pelas \byfact1 e \byfact2, pois $P$ é $(\ntimes)$-fechado.
+Ou seja, $b - a \in \Pos$\fact1 e $c \in \Pos$\fact2.
+Vou demonstrar $ac < bc$, ou seja, $bc - ac \in \Pos$.
+Mas $bc - ac = (b - a)c$ (por quê?) e realmente $(b - a)c \in \Pos$
+pelas \byfact1 e \byfact2, pois $\Pos$ é $(\ntimes)$-fechado.
 
 %%}}}
 
@@ -8222,9 +8223,9 @@ Use a tricotomía \mref[ZP-Tri].
 Sejam $a,b$ inteiros.
 Aproveitando a tricotomía \mref[ZP-Tri] basta demonstrar as três equivalências:
 \mathcols 3
-b - a    \in P &\iff a < b &
-b - a    = 0   &\iff a = b &
--(b - a) \in P &\iff a > b.
+b - a    \in \Pos &\iff a < b &
+b - a    = 0      &\iff a = b &
+-(b - a) \in \Pos &\iff a > b.
 \endmathcols
 
 \solution
@@ -8232,9 +8233,9 @@ Sejam $a,b$ inteiros.
 Aproveitamos a tricotomía \mref[ZP-Tri] e para conseguir a \mref[ZO-Tri]
 basta demonstrar as três equivalências:
 \mathcols 3
-b - a    \in P &\iff a < b &
-b - a    = 0   &\iff a = b &
--(b - a) \in P &\iff a > b.
+b - a    \in \Pos &\iff a < b &
+b - a    = 0      &\iff a = b &
+-(b - a) \in \Pos &\iff a > b.
 \endmathcols
 A primeira é imediata (temos até $\intiff$, pois se trata da própria definição de $a<b$).
 A terceira segue diretamente pelo \ref[int_neg_of_sum] ($-(b-a)=a-b$).
@@ -8476,7 +8477,7 @@ Concluimos então que ninguém pode nem demonstrar nem refutar tal proposição 
 %%%}}}
 
 Mas o que mesmo significa \emph{construir um mundo para o
-$\sset \ints {0, 1, +, -, \ntimes, P}$?}
+$\sset \ints {0, 1, +, -, \ntimes, \Pos}$?}
 Simplesmente interpretar cada um dos seus componentes, em forma compatível
 com sua tipágem, e em forma que todos os axiomas são válidos.\foot
 Nesse caso dizemos que nosso mundo é um \dterm{modelo} dos axiomas escolhidos.
@@ -8486,12 +8487,12 @@ qual coleção de objetos vai servir o papel de $\ints$;
 qual objeto deles vai ser o $0$;
 qual objeto deles vai ser o $1$;
 quais vão ser as operações $+,-,\ntimes$; e
-qual vai ser o predicado $P$
+qual vai ser o predicado $\Pos$
 (quais dos nossos \dq{inteiros} vão ser chamados de \dq{positivos}).
 \eop
 Agora se a gente construir um mundo de
 $$
-\sset \ints {0, 1, +, -, \ntimes, P}
+\sset \ints {0, 1, +, -, \ntimes, \Pos}
 $$
 onde todos os axiomas até agora são válidos, mas onde $0 \neq 1$ não é,
 seria uma garantia que não há tal demonstração e logo não faz sentido
@@ -8775,6 +8776,16 @@ Justifique em detalhe cada <<logo>> da demonstração do \ref[int_triangle_ineq]
 
 %%}}}
 
+%%{{{ x: int_abs_of_prod 
+\exercise.
+%%%{{{ meta 
+\label int_abs_of_prod
+%%%}}}
+
+$\lforall {a,b} {\abs {ab} = \abs a \abs b}$.
+
+%%}}}
+
 %%{{{ x: int_triangle_ineq_corollaries
 \exercise.
 %%%{{{ meta 
@@ -8783,7 +8794,6 @@ Justifique em detalhe cada <<logo>> da demonstração do \ref[int_triangle_ineq]
 
 Sejam $a,b$ inteiros.  Demonstre:
 \mathcol
-&\abs {ab} \leq \abs a \abs b \\
 &\abs a = \abs b \implies \text{$a = b$ ou $a = -b$} \\
 &\abs {\abs a - \abs b} \leq \abs {a - b} \\
 &\abs {a - b} \leq \abs a + \abs b. \\
@@ -8988,6 +8998,7 @@ em certos casos e logo faz sentido a destacar.
 %%%}}}
 
 Seja $A$ conjunto de inteiros $A$ tal que
+para todo $p$,
 $$
 \lforall {0 < i < p} {i \in A}
 \implies
@@ -9000,7 +9011,6 @@ $\lforall {i} {0 < i < p \implies i \in A}$.
 \toof
 
 \proof.
-Primeiramente entenda (\ref[int_why_1_is_guaranteed_in_strong_induction]) que $1 \in A$.
 Suponha que há inteiros positivos que não pertencem ao $A$.
 Seja $m$ o menor deles (PBO).
 Logo, para todo positivo $i < m$, $i \in A$.
@@ -9008,13 +9018,44 @@ Logo $m \in A$, e chegamos numa contradição.
 
 %%}}}
 
-%%{{{ x: int_why_1_is_guaranteed_in_strong_induction 
-\exercise.
+%%{{{ remark: int_induction_how_to_use 
+\remark.
 %%%{{{ meta 
-\label int_why_1_is_guaranteed_in_strong_induction
+\label int_induction_how_to_use
+\indexes
+    * indução!como usar
+    ;;
 %%%}}}
 
-Entenda!
+As três versões de indução que demonstramos aqui
+são enunciadas em termos dum conjunto $A$ que,
+satisfazendo certas condições, concluímos que deve
+possuir como membros todos os objetos do nosso interesse.
+\eop
+Na sua versão original, os objetos do nosso interesse
+são os inteiros positivos, e as condições que o $A$
+precisa satisfazer são:
+\mathcol
+&1 \in A \\
+\cforall {x} {x \in A \implies x + 1 \in A} \\
+\endmathcol
+Lembre que quando a gente queria introduzir a noção dos
+inteiros positivos na nossa especificação, em vez de
+introduzí-la como conjunto, optamos para considerar
+como \emph{predicado unário}.
+(Se não lembra: \ref[int_positivity_intro].)
+Ainda mais, introduzimos logo apos açúcar sintáctico
+que nos permitiu identificar as duas abordagens, escrevendo
+$x \in \Pos$ e $\Pos \fa x$ sinonimamente.
+
+\eop
+Na sua versão \dq{shifted}, os objetos do nosso interesse
+são todos os inteiros a partir dum certo inteiro $\ell$.
+\eop
+Finalmente, na sua versão \dq{forte}, os objetos de interesse
+novamente são os inteiros positivos.
+
+
 
 %%}}}
 
@@ -9120,8 +9161,8 @@ a equivalência das duas proposições a partir dos axiomas anteriores.
 \label int_order_as_primitive
 %%%}}}
 
-Aqui escolhemos tratar a noção $P$ de positividade como primitiva,
-e definimos a ordem $<$ em termos de $P$.
+Aqui escolhemos tratar a noção $\Pos$ de positividade como primitiva,
+e definimos a ordem $<$ em termos de $\Pos$.
 Faça tudo que precisa para mostrar que o outro caminho é equivalente.
 
 \hint
@@ -9130,7 +9171,7 @@ $$
 \sset \ints {0,1,+,-,\ntimes,<}
 $$
 estipulando as proposições do \ref[int_lt_axioms_as_theorems] como axiomas.
-Defina a $P$, e demonstre suas leis como teoremas.
+Defina a $\Pos$, e demonstre suas leis como teoremas.
 
 %%}}}
 
@@ -14572,6 +14613,9 @@ mais, veja no \cite[taocp2: \S4.1].
 \chapter Naturais; recursão; indução.
 %%%{{{ meta 
 \label Nat_rec_ind
+\pdefs
+    \pdef Pos {\mathord{\rm Pos}}
+    ;;
 %%%}}}
 
 \TODO finish merging.
@@ -27458,7 +27502,7 @@ por $\cal C$}.
     * tupla!$\cal I$-tupla
     ;;
 \pdefs
-    * \pdef I {{\cal I}}
+    \pdef I {{\cal I}}
     ;;
 %%%}}}
 
