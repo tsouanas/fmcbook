@@ -7146,6 +7146,7 @@ são algébricos, pois os coeficientes do $f$ são.
 \label The_integers
 \pdefs
     \pdef Pos {\mathord{\mathrm{Pos}}}
+    \pdef Neg {\mathord{\mathrm{Neg}}}
     ;;
 %%%}}}
 
@@ -7986,6 +7987,233 @@ Demonstre o \ref[divides_is_a_preorder].
 \endsection
 %%}}}
 
+%%{{{ Sets closed under operations 
+\section Conjuntos fechados sobre operações.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ df: closed_under_addition 
+\definition operação-fechado.
+%%%{{{ meta 
+\label closed_under_addition
+\defines
+    * conjunto!$(+)$-fechado
+    ;;
+%%%}}}
+
+Seja $A$ conjunto de inteiros.
+Dizemos que $A$ é \dterm{fechado pela} $(+)$ sse
+a soma de quaisquer $a,b\in A$ pertence ao $A$ também:
+$$
+\lforall {a,b \in A} {a+b \in A}.
+$$
+Chamamos o $A$ de $(+)$-\dterm{fechado}.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+A definição generaliza-se para qualquer operação $n$-ária
+(de aridade $n$, veja~\ref[arity_first_contact]).
+
+%%}}}
+
+%%{{{ x: int_define_closed_under_binary_op
+\exercise.
+%%%{{{ meta 
+\label int_define_closed_under_binary_op
+%%%}}}
+
+Escreva a definição generalizada de <<ser fechado sob uma operação binária>>,
+a deixando bem escrita.
+Cuidado: cada definição precisa começar estabelecendo primeiramente
+o contexto necessário para o conceito que queremos definir é
+afirmável.
+
+\hint
+O contexto deve incluir um conjunto de inteiros $A$
+e uma operação binária $\heartop \is A \times A \to A$.
+
+\hint
+Começa assim:
+\quote
+<<Sejam $A$ conjunto de inteiros e $\heartop$ uma operação binária:
+$$
+\heartop \is \Int \times \Int \to \Int.\text{>>}.
+$$
+\endquote
+Isso estabelece o contexto desejado para finalmente definir
+o que precisamos.
+Continuaria assim:
+\quote
+<<Chamamos o conjunto $A$ de $(\heartop)$-fechado sse\dots>>
+
+\solution
+Sejam $A$ conjunto de inteiros e $\heartop$ uma operação binária:
+$$
+\heartop \is \Int \times \Int \to \Int.
+$$
+Chamamos o conjunto $A$ de $(\heartop)$-fechado sse
+$$
+\lforall {a,b \in A} {a \heartop b \in A}.
+$$
+
+%%}}}
+
+%%{{{ eg 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Os conjuntos:
+$\ints$,
+$2\ints \defeq \setst {2x} {x \in \ints}$,
+$\Pos$,
+s\Neg$,
+são todos exemplos de conjuntos $+$-fechados.
+
+%%}}}
+
+%%{{{ noneg 
+\nonexample.
+%%%{{{ meta 
+%%%}}}
+
+O conjunto de todos os inteiros ímpares não é $+$-fechado (por quê?).
+Nem o conjunto de todos os inteiros não nulos (diferentes de $0$) (por quê?).
+Nem o conjunto de todos os inteiros cujos numerais no sistema decimal não termina em \sq{1} (por quê?).
+
+%%}}}
+
+%%{{{ x: why? why? why? 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Por quê?
+Por quê?
+Por quê?
+
+\hint
+Para cada conjunto basta achar um testemunha, ou seja,
+um parzinho $(x,y)$ de membros dele tal que $x+y$ não pertence a ele.
+
+\solution
+Aqui três testemunhas, um para cada conjunto respectivamente:
+\mathcols 3
+1  + 1  &= 2  &
+15 + 5  &= 20 &
+17 + 4  &= 21
+\endmathcols
+
+%%}}}
+
+%%{{{ x: Ø and {0} are +-closed 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+O $\emptyset$ e o $\set{0}$ são fechados pela $+$.
+
+%%}}}
+
+%%{{{ x: generalize +-closed to op-closed for any op 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Generalize a noção de \dq{ser fechado sob uma operação binária}
+ainda mais, considerando uma operação de aridade qualquer.
+
+\solution
+Seja $f$ uma operação $n$-ária num conjunto $A$.
+Dizemos que $A$ é $f$-fechado sse para quaisquer
+$a_1,\dotsc,a_n \in A$, temos $f(a_1,\dotsc,a_n) \in A$.
+
+%%}}}
+
+%%{{{ x: which of the following sets are closed under which ops? 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Quais dos conjuntos abaixo são fechados pela $+$,
+quais sobre $-$, e quais sobre $\ntimes$?
+$$
+\aligned
+    U &= \set{0}\\
+    W &= \set{0,1}\\
+    P &= \set{1,2,4,8,16,\dotsc}\\
+    I &= \set{1,1/2,1/4,1/8,1/16,\dotsc}
+\endaligned
+\quad
+\aligned
+    A &= \set{0,4,6,10,12,16,18,22,24,\dotsc}\\
+    B &= \set{0,2,4,6,8,10,12,\dotsc}\\
+    C &= \set{\dotsc,-9,-6,-3,0,3,6,9,\dotsc}\\
+    D &= \set{\dotsc,-8,-5,-2,1,4,7,10,\dotsc}.
+\endaligned
+$$
+
+%%}}}
+
+%%{{{ x: define some infinite sets without "…" 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Descreva os conjuntos infinitos do exercício anterior sem usar ``$\ldots$\!''.
+
+%%}}}
+
+%%{{{ x: under which operations are rats and rats_≠0 closed? 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+O $\rats$ é fechado por quais das quatro operações binárias
+$+$, $-$, $\ntimes$, $\div$?
+E o $\rats_{\neq0}$?
+
+%%}}}
+
+%%{{{ x: minus_closed_implies_plus_closed 
+\exercise.
+%%%{{{ meta 
+\label minus_closed_implies_plus_closed
+%%%}}}
+
+Demonstre que se um conjunto $F$ é fechado pela \emph{operação binária de subtração}
+$(-)$ então $F$ deve ser $(+)$-fechado também, e mostre que o reciproco não
+é necessariamente verdadeiro.
+
+%%}}}
+
+%%{{{ Q: int_does_subtraction_closed_imply_mZ 
+\question.
+%%%{{{ meta 
+\label int_does_subtraction_closed_imply_mZ
+%%%}}}
+
+Demonstramos que o conjunto
+$$
+m\ints \defeq \setst {mx} {x \in \ints}
+$$
+de todos os múltiplos de $m$ é fechado sob adição e subtração.
+Será que podemos dizer algo sobre a direção contrária?
+Sabendo que um conjunto de inteiros $F$ é fechado por adição e subtração,
+será que podemos inferir que existe um certo inteiro $m$ tal que $F = m\ints$?
+Tente dar sua própria resposta nisso desde já; pois logo a gente voltar
+a resolver mesmo essa questão (com o \ref[form_of_closed_under_subtraction]).
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Order and positivity 
 \section Ordem e positividade.
 %%%{{{ meta 
@@ -8073,10 +8301,10 @@ x \in \Pos  &\abuseiff \Pos \fa x \\
 \endmathcol
 Estipulamos os axiomas seguintes sobre os inteiros positivos:
 \mathcol
-\cforall  {a,b \in \Pos} {a + b \in \Pos}        \stag[ZP-ACl]\\
-\cforall  {a,b \in \Pos} {a\ntimes b \in \Pos}   \stag[ZP-MCl]\\
+\cforall  {a,b \in \Pos} {a + b \in \Pos}       \stag[ZP-ACl] \\
+\cforall  {a,b \in \Pos} {a\ntimes b \in \Pos}  \stag[ZP-MCl] \\
 \cforallt {a}         {exatamente uma das: $-a \in \Pos$; $a = 0$; $a \in \Pos$}.
-                                           \stag[ZP-Tri]\\
+                                                \stag[ZP-Tri] \\
 \endmathcol
 
 %%}}}
@@ -8089,17 +8317,14 @@ Estipulamos os axiomas seguintes sobre os inteiros positivos:
     ;;
 %%%}}}
 
-Seja $x$ inteiro.  Dizemos que $x$ é \dterm{negativo} sse $-x$ é positivo.
-
-%%}}}
-
-%%{{{ x: int_negative_iff_lt_zero 
-\exercise.
-%%%{{{ meta 
-\label int_negative_iff_lt_zero
-%%%}}}
-
-Demonstre que para todo inteiro $x$, $x$ é negativo sse $x < 0$.
+Seja $x$ inteiro.
+Dizemos que $x$ é \dterm{negativo} sse $-x$ é positivo.
+Introduzimos também a notação
+$$
+\Neg \is \Int \to \Prop
+$$
+com o mesmo abuso notacional que nos permite tratá-la
+como se fosse conjunto.
 
 %%}}}
 
@@ -8124,6 +8349,16 @@ x \leq y &\defiff \text{$x < y$ ou $x = y$} \\
 x > y    &\defiff y < x &
 x \geq y &\defiff y \leq x \\
 \endmathcols
+
+%%}}}
+
+%%{{{ x: int_negative_iff_lt_zero 
+\exercise.
+%%%{{{ meta 
+\label int_negative_iff_lt_zero
+%%%}}}
+
+Demonstre que para todo inteiro $x$, $x$ é negativo sse $x < 0$.
 
 %%}}}
 
@@ -9142,6 +9377,133 @@ Demonstre:
 
 %%}}}
 
+%% About (+,-)-closed sets
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Vamos finalmente responder na pergunta \ref[int_does_subtraction_closed_imply_mZ].
+Um conjunto de inteiros fechado sob a \emph{subtração} $(-)$
+(e logo sob a $(+)$ também), não tem muita liberdade na \dq{forma} dele.
+O lemma seguinte mostra essa forma geral que todos eles devem ter.
+
+%%}}}
+
+%%{{{ lemma: form_of_closed_under_subtraction 
+\lemma.
+%%%{{{ meta 
+\label form_of_closed_under_subtraction
+%%%}}}
+
+Seja $S$ um conjunto de inteiros não vazio e fechado pela $-$.
+Logo $S=\set{0}$ ou existe inteiro $d>0$ tal que
+$S$ é o conjunto de todos os múltiplos de $d$:
+$$
+S = \setst {md} {m \in \ints}.
+$$
+
+\proof.
+Suponha que $S\neq\set{0}$.  Basta demonstrar que
+existe inteiro $d>0$ tal que
+$$
+S = \setst {md} {m \in\ints}.
+$$
+Organizamos o resto da demonstração em três partes:
+\elist A:
+\li:form_of_closed_under_subtraction_part1_task
+Definir um $d>0$ que será o inteiro positivo desejado: \ref[form_of_closed_under_subtraction_part1].
+\li:form_of_closed_under_subtraction_part2_task
+Demonstrar que todos os multiplos de $d$ pertencem ao $S$: \ref[form_of_closed_under_subtraction_part2].
+\li:form_of_closed_under_subtraction_part3_task
+Demonstrar que nada mais pertence ao $S$: \ref[form_of_closed_under_subtraction_part3].
+\endelist
+Com isso temos que o conjunto $S$ e o conjunto de todos os
+múltiplos de $d$ possuem exatamente os mesmos membros,
+que foi o que precisamos demonstrar.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_subtraction_part1 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_subtraction_part1
+%%%}}}
+
+Resolva a parte \reftag[form_of_closed_under_subtraction_part1_task] da
+demonstração do~\ref[form_of_closed_under_subtraction].
+
+\hint
+Use o PBO (mas cuidado pois precisas de demonstrar algo antes de usá-lo).
+
+\hint
+Antes de usar o PBO precisas demonstrar que o $S$ possui membros positivos.
+
+\solution
+Vou demonstrar que $S$ tem membros positivos.
+Seja $x \in S$ tal que $x \neq 0$ ($S\neq\emptyset$ e $S\neq\set{0}$).
+Caso $x>0$, já encontramos um membro positivo do $S$.
+Caso $x<0$, basta mostrar que $-x \in S$, pois $-x > 0$.
+Como $S$ é fechado pela $-$, temos $x - x \in S$; ou seja, $0 \in S$.
+Usando novamente que $S$ é $-$-fechado, temos $0 - x \in S$, ou seja $-x \in S$.
+Pelo PBO, \emph{seja $d$ o menor membro positivo do $S$}.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_subtraction_part2 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_subtraction_part2
+%%%}}}
+
+E a \reftag[form_of_closed_under_subtraction_part2_task].
+
+\hint
+Use indução, mas cuidado para não esquecer nada.
+
+\solution
+Primeiramente vou demonstrar por indução que
+para todo $n\in\nats$, $nd \in S$.
+A base é imediata: $0d = 0 \in S$.
+Seja $k \in \nats$ tal que $kd \in S$\fact{HI}.
+Calculamos:
+$$
+(k+1)d = kd + d \in S
+$$
+pois $d \in S$ e $kd \in S$ (pela HI) e $S$ é $+$-fechado
+(pelo~\ref[minus_closed_implies_plus_closed])
+Seja $x < 0$, e observe que $(-x)d\in S$ (pois $-x > 0$) e logo
+$0 - (-x)d \in S$, ou seja, $xd \in S$.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_subtraction_part3 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_subtraction_part3
+%%%}}}
+
+Preciso mesmo enunciar?
+
+\hint
+Tome um arbitrário $a \in S$ e use o lemma da Divisão de Euclides.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_subtraction_without_disjunction 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Sem usar disjuncção, escreva uma proposição equivalente com a conclusão do
+\ref[form_of_closed_under_subtraction] e explique por que ela é equivalente.
+
+\hint
+Existe $n\in\ints_{\geq 0}$ tal que $S = \setst {kn} {k\in\ints}$.
+
+%%}}}
+
 %%{{{ Q: what more axioms would you add? 
 \question.
 %%%{{{ meta 
@@ -9242,6 +9604,336 @@ Demonstre que todos os inteiros positivos satisfazem o predicado que tu consider
 %%}}}
 
 \endproblems
+%%}}}
+
+%%{{{ Euclid's division lemma 
+\section O lemma da divisão de Euclides.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ lemma: euclidean_division 
+\lemma Lemma da Divisão de Euclides.
+%%%{{{ meta 
+\headerize
+\label euclidean_division
+\credits
+    * Euclid : lemma da divisão
+    ;;
+\indexes
+    * divisão!lemma
+    * divisão    seealso: Euclides
+    ;;
+%%%}}}
+
+Dados inteiros $a$ e $b$ com $b \neq 0$,
+existem inteiros $q$ e $r$ tais que:
+$$
+a = bq + r,
+\qquad
+0 \leq r < \abs b.
+\mtag[euclidean_div=EucDiv]
+$$
+Além disso, os $q$ e $r$ são \emph{determinados unicamente}.
+
+\sketch.
+\proofpart{Existência:}
+Considera a seqüência infinita:
+$$
+\ldots,~
+a - 3b,~
+a - 2b,~
+a -  b,~
+a     ,~
+a +  b,~
+a + 2b,~
+a + 3b,~
+\ldots
+$$
+Verifique que ela tem elementos não-negativos e,
+aplicando a PBO, considere o menor deles.
+\proofpart{Unicidade:}
+Suponha que $a=bq+r=bq'+r'$
+para alguns $q,r,q',r'\in\ints$ tais que satisfazem as restricções
+$0 \leq r < \abs b$ e $0 \leq r' < \abs b$.
+Basta mostrar que $r=r'$ e $q=q'$.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Por causa dessa existência e unicidade, podemos definir:
+
+%%}}}
+
+%%{{{ df: division 
+\definition Divisão.
+%%%{{{ meta 
+\label division
+\defines
+    * divisão
+    * quociente!divisão
+    * resto!divisão
+    * \quot(~a,~b)  -- o quociente de $a$ dividido por $b$
+    * \rem(~a,~b)   -- o resto de $a$ dividido por $b$
+    ;;
+%%%}}}
+
+Dados $a,b\in\ints$ com $b>0$, são determinados os inteiros $q$ e $r$
+que satisfazem a~\mref[euclidean_div].
+Chamamos o $q$ de \dterm{quociente} e o $r$ de
+\dterm{resto} da divisão de $a$ por $b$ e os denotamos por
+$\quot(a,b)$ e $\rem(a,b)$ respectivamente:
+$$
+a = b \stimes \quot(a,b) + \rem(a,b)
+\qquad
+0\leq \rem(a,b) < \abs b.
+$$
+
+%%}}}
+
+%%{{{ x: n_divides_exactly_one_of_n_consecutive_integers 
+\exercise.
+%%%{{{ meta 
+\label n_divides_exactly_one_of_n_consecutive_integers
+%%%}}}
+
+Seja $n\in\nats$ positivo.  Se $a_0,a_1,\dotsc,a_{n-1}$ são $n$ inteiros consecutivos,
+então $n \divides a_i$ para um único $i\in\set{0,\dots,n-1}$.
+
+\hint
+Seja $a=a_0$.  Assim $a_i = a + i$.
+
+\hint
+Divida o $a$ por $n$ e, olhando para o resto $r$,
+ache o certo $i$ tal que $n \divides a_i$.
+
+\hint
+Para a unicidade, ache o resto da divisão de $n$ por o aleatório $a_j$.
+
+%%}}}
+
+%%{{{ x: 3|n or 3|n²-1 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre que para todo $n\in\ints$, se $3 \ndivides n$
+então $3 \divides n^2 - 1$.
+
+\hint
+Ou fatorize o $n^2-1$ e use o~\ref[n_divides_exactly_one_of_n_consecutive_integers],
+ou considere os casos possíveis dependendo dos restos da divisão de $n$ por $3$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Expansions_and_positional_systems 
+\section Expansão e sistemas posicionais.
+%%%{{{ meta 
+\label Expansions_and_positional_systems
+%%%}}}
+
+%%{{{ intro 
+\secintro
+Até agora temos usado os numerais que conheçemos desde crianças
+para referir aos números inteiros.  Considerei dado que tu já
+sabes todos esses (infinitos!)~nomes de números, e que tu entendes
+como interpretar e \dq{como funciona} esse sistema de numerais.
+Mas suponha que um ser alienígeno que usa um sistema de numerais
+completamente diferente do nosso acha difícil acreditar que nosso
+sistema funciona mesmo:  \utter{Como vós sabeis\foot
+os alienigenos conjugam até no segundo plural, pelo jeito\dots
+\toof
+que não tem números inteiros sem numeral?}
+Nesta secção estudamos esse sistema, respondemos nessa e em mais
+perguntas, e encontramos outros sistemas posicionais de numerais.
+%%}}}
+
+%%{{{ thm: expansion_in_base 
+\theorem expansão em base.
+%%%{{{ meta 
+\label expansion_in_base
+\indexes
+    * teorema!expansão em base
+    ;;
+%%%}}}
+
+Seja $b \geq 2$.
+Todo inteiro $x \geq 0$ tem uma única expansão em base $b$:
+existem únicos $m, d_0, \dotsc, d_m$ tais que:
+$$
+x = d_m b^m + \dotsb + d_1 b^1 + d_0 b^0
+$$
+onde:
+\tlist:
+\li  (i): para todo $i \in \set{0,\dotsc,m}$, $d_i \in \set{0,\dotsc,b-1}$;
+\li (ii): $d_m = 0 \implies m=0$.
+\endtlist
+
+%%}}}
+
+%%{{{ Symbols for digits 
+\note Símbolos para os dígitos e separadores de casas.
+%%%{{{ meta 
+%%%}}}
+
+Para os sistemas posicionais com base $b \leq 10$ usamos os símbolos
+$$
+\mathtt 0, \mathtt 1, \mathtt 2, \mathtt 3, \mathtt 4,
+\mathtt 5, \mathtt 6, \mathtt 7, \mathtt 8, \mathtt 9.
+$$
+como dígitos.
+Quando a base $b$ é maior mas ainda $b \leq 36$ usamos os
+$$
+\mathtt A, \mathtt B, \mathtt C, \dotsc, \mathtt X, \mathtt Y, \mathtt Z
+$$
+com valores $10,11,12,\dots,33,34,35$ respectivamente.
+O sistema mais usado com base $b>10$ é o \dterm{hexadecimal} com $b = 16$,
+onde realmente usamos os dígitos
+$$
+\mathtt 0, \mathtt 1, \mathtt 2, \mathtt 3, \mathtt 4,
+\mathtt 5, \mathtt 6, \mathtt 7, \mathtt 8, \mathtt 9,
+\mathtt A, \mathtt B, \mathtt C, \mathtt D, \mathtt E, \mathtt F.
+$$
+Tendo estabelecido um sistema de numerais para os \emph{valores dos dígitos},
+podemos simplesmente usar esses numerais sem se preocupar com os símbolos
+dos dígitos para escrever numerais de outros sistemas.
+Nesse caso separamos as casas com um símbolo novo (que não faz parte do
+nosso sistema de numerais estabelecido) como separador:
+usando o decimal escolhemos por exemplo o símbolo $:$ como separador
+das casas e assim podemos escrever o número $151208$ no sistema
+sexagesimal assim:
+$$
+42 : 0 : 8 = 42 \ntimes 60^2 + 0 \ntimes 60^1 + 8 \ntimes 60^0.
+$$
+
+%%}}}
+
+%%{{{ remark: 0x_etc 
+\remark.
+%%%{{{ meta 
+\label 0x_etc
+%%%}}}
+
+Muitas linguagens de programação usam o prefixo $\mathtt{0x}$ como indicação
+que o numeral que segue é hexadecimal.  Similarmente o $\mathtt{0o}$ (ou simplesmente
+um numeral que começa com $\mathtt 0$) indica octal, e o $\mathtt{0b}$ binário.
+Por examplo $\mathtt{0x20}$ seria o numero $\numbase 16 {20}$, ou seja o $32$;
+$\mathtt{0b100}$ seria o $\numbase 2 {100}$, ou seja o $4$, e $\mathtt{0750}$ ou $\mathtt{0o750}$ seria o $\numbase 8 {750}$, ou seja o $488$.
+Essas são apenas convenções que certas linguagens seguem, então em forma geral
+não conte com nenhuma delas (a mais estabelecida sendo a do $\mathtt{0x}$).
+
+%%}}}
+
+\TODO reescrever e terminar.
+
+\TODO mencione mais non-standard positional systems: negabinary, complex-base, gray code.
+
+%%{{{ x: negative_remainders 
+\exercise.
+%%%{{{ meta 
+\label negative_remainders
+%%%}}}
+
+Demonstre que dado qualquer inteiro $a$, existem únicos inteiros $q$ e $r$
+tais que $a = 3q + r$ e $-1\leq r \leq 1$.
+
+\hint
+Use a divisão de Euclides.
+
+%%}}}
+
+%%{{{ x: balanced_ternary 
+\exercise Balanced ternary.
+%%%{{{ meta 
+\label balanced_ternary
+\pdefs
+    \pdef T {{\mathtt T}}
+    \pdef O {{\mathtt O}}
+    \pdef I {{\mathtt I}}
+    ;;
+%%%}}}
+
+Para qualquer inteiro $x$ existem únicos $m,d_0,\dotsc,d_m$ tais que
+$$
+x = d_m 3^m + \dotsb + d_1 3^1 + d_0 3^0,
+$$
+onde:
+\tlist:
+\li  (i): para todo $i \in \set{0,\dotsc,m}$, $d_i \in \set{-1,0,1}$;
+\li (ii): $d_m = 0 \implies m=0$.
+\endtlist
+Usando como digitos os símbolos $\T$, $\O$, $\I$ com valores $-1$, $0$, $1$ respectivamente
+podemos então escrever qualquer inteiro sem sequer precisar um símbolo de sinal para os negativos.  Uns exemplos:
+$$
+\matrix
+\format
+\r\ &\;\c\;& \ \r\         &\c & \ \r\           &\c & \ \r\           &\c & \ \r\            &\quad\c\quad& \ \r     \\
+0   &=     &               &   &                 &   &                 &   &    0 \ntimes 3^0 &\leadsto    & \O       \\
+1   &=     &               &   &                 &   &                 &   &    1 \ntimes 3^0 &\leadsto    & \I       \\
+7   &=     &               &   &   1 \ntimes 3^2 & + &(-1) \ntimes 3^1 & + &    1 \ntimes 3^0 &\leadsto    & \I\T\I   \\
+-7  &=     &               &   &(-1) \ntimes 3^2 & + &   1 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \T\I\T   \\
+26  &=     & 1 \ntimes 3^3 & + &   0 \ntimes 3^2 & + &   0 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \I\O\O\T \\
+\endmatrix
+$$
+
+%%}}}
+
+%%{{{ x: factorial_base_system_lemma 
+\exercise.
+%%%{{{ meta 
+\label factorial_base_system_lemma
+%%%}}}
+
+Demonstre por indução que para todo $n \in \nats$,
+$\quad\dsize\Sum\limits_{i=0}^n i \ntimes \factorial i = \factorialp {n+1} - 1$.
+
+%%}}}
+
+%%{{{ x: factorial_base_system 
+\exercise.
+%%%{{{ meta 
+\label factorial_base_system
+%%%}}}
+
+Os sistemas posicionais de numerais que encontramos até agora usam um fixo conjunto de dígitos para cada posição.
+Agora vamos encontrar um onde para cada posição $i$, podemos usar dígitos com valores nos $0,\dotsc,i$.
+Na posição $0$ então temos apénas uma opção: o próprio $0$, e logo essa posição sempre tá ocupada por $0$.
+Na posição $1$ já temos dois dígitos disponíveis, com valores $0$ e $1$.
+Na posição $42$ temos quarenta e dois dígitos disponíveis; seus valores são: o $0$, o $1$, o $2$, \dots, o $40$, o $41$, e o $42$.
+Cuidado, vamos usar aqui seus valores como dígitos, mesmo que no papel o $42$
+que acabei de escrever dá a impressão que ele mesmo é composto por dois dígitos,
+mas não é o caso aqui!
+Por isso, usamos o $:$ para separarar ``as casas''.
+O primeiro numeral em baixo seria válido, mas o segundo não
+\mathcols 2
+&4:0:2:2:0:0 &
+&5:2:4:2:0:0
+\endmathcols
+pois na posição $3$ tem o $4>3$.
+Novamente os valores dos dígitos vão acabar sendo coeficientes de algo que depende da posição e todos os termos serão somados.
+Como sempre, escrevemos um número $x$ como
+\mathcols 2
+x & = d_n a_n + d_{n-1} a_{n-1} + \dotsb d_2 a_2 + d_1 a_1 + d_0 a_0  &
+0 &\leq d_i \leq D_i
+\endmathcols
+onde $D_i$ denota o maior valor de dígito para a $i$-ésima posição.
+Neste sistema temos:
+\mathcols 3
+a_i &= \factorial i    &
+D_i &= i
+\endmathcols
+Demonstre que tal sistema \dq{funciona}:
+cada inteiro pode ser escrito neste sistema numa única maneira.
+
+%%}}}
+
+\endsection
 %%}}}
 
 %%{{{ Factorization 
@@ -9614,6 +10306,39 @@ para melhorar teu programa do~\ref[program_factor_naive].
 
 %%}}}
 
+%%{{{ thm: primes_is_infinite 
+\theorem Euclid.
+%%%{{{ meta 
+\label primes_is_infinite
+\credits
+    * Euclid : infinidade dos primos
+    ;;
+\indexes
+    * infinidade!dos primos
+    * infinito      seealso: infinidade
+    ;;
+%%%}}}
+
+Existe uma infinidade de primos.
+
+\sketch.
+Para qualquer conjunto finito de primos
+$P = \set{p_1,\dotsc,p_n}$, considere o número
+$p_1\dotsb p_n + 1$ e use-o para achar um primo fora do $P$.
+
+\proof.
+Para qualquer conjunto finito de primos
+$P = \set{p_1,\dotsc,p_n}$,
+observe que o número $p=p_1\dotsb p_n + 1$ não é divisível por nenhum dos $p_i$'s
+(porque $p_i \divides p$ e $p_i \divides p_1\dotsb p_n$ implicam
+$p \divides 1$, absurdo).
+Então, como $p \geq 2$, ou o $p$ é primo e $p \nin P$,
+ou $p$ é divisível por algum primo $q \nin P$
+(por~\ref[every_composite_number_is_divisible_by_a_prime]).
+Nos dois casos, existe pelo menos um primo fora do $P$.
+
+%%}}}
+
 %%{{{ Q: How can we find all primes up to a given bound? 
 \question.
 %%%{{{ meta 
@@ -9787,423 +10512,6 @@ Implemente o algoritmo de Eratosthenes e o usando ache todos os primos até o $1
 \endsection
 %%}}}
 
-%%{{{ Euclid's division lemma 
-\section O lemma da divisão de Euclides.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ lemma: euclidean_division 
-\lemma Lemma da Divisão de Euclides.
-%%%{{{ meta 
-\headerize
-\label euclidean_division
-\credits
-    * Euclid : lemma da divisão
-    ;;
-\indexes
-    * divisão!lemma
-    * divisão    seealso: Euclides
-    ;;
-%%%}}}
-
-Dados inteiros $a$ e $b$ com $b \neq 0$,
-existem inteiros $q$ e $r$ tais que:
-$$
-a = bq + r,
-\qquad
-0 \leq r < \abs b.
-\mtag[euclidean_div=EucDiv]
-$$
-Além disso, os $q$ e $r$ são \emph{determinados unicamente}.
-
-\sketch.
-\proofpart{Existência:}
-Considera a seqüência infinita:
-$$
-\ldots,~
-a - 3b,~
-a - 2b,~
-a -  b,~
-a     ,~
-a +  b,~
-a + 2b,~
-a + 3b,~
-\ldots
-$$
-Verifique que ela tem elementos não-negativos e,
-aplicando a PBO, considere o menor deles.
-\proofpart{Unicidade:}
-Suponha que $a=bq+r=bq'+r'$
-para alguns $q,r,q',r'\in\ints$ tais que satisfazem as restricções
-$0 \leq r < \abs b$ e $0 \leq r' < \abs b$.
-Basta mostrar que $r=r'$ e $q=q'$.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Por causa dessa existência e unicidade, podemos definir:
-
-%%}}}
-
-%%{{{ df: division 
-\definition Divisão.
-%%%{{{ meta 
-\label division
-\defines
-    * divisão
-    * quociente!divisão
-    * resto!divisão
-    * \quot(~a,~b)  -- o quociente de $a$ dividido por $b$
-    * \rem(~a,~b)   -- o resto de $a$ dividido por $b$
-    ;;
-%%%}}}
-
-Dados $a,b\in\ints$ com $b>0$, são determinados os inteiros $q$ e $r$
-que satisfazem a~\mref[euclidean_div].
-Chamamos o $q$ de \dterm{quociente} e o $r$ de
-\dterm{resto} da divisão de $a$ por $b$ e os denotamos por
-$\quot(a,b)$ e $\rem(a,b)$ respectivamente:
-$$
-a = b \stimes \quot(a,b) + \rem(a,b)
-\qquad
-0\leq \rem(a,b) < \abs b.
-$$
-
-%%}}}
-
-%%{{{ x: n_divides_exactly_one_of_n_consecutive_integers 
-\exercise.
-%%%{{{ meta 
-\label n_divides_exactly_one_of_n_consecutive_integers
-%%%}}}
-
-Seja $n\in\nats$ positivo.  Se $a_0,a_1,\dotsc,a_{n-1}$ são $n$ inteiros consecutivos,
-então $n \divides a_i$ para um único $i\in\set{0,\dots,n-1}$.
-
-\hint
-Seja $a=a_0$.  Assim $a_i = a + i$.
-
-\hint
-Divida o $a$ por $n$ e, olhando para o resto $r$,
-ache o certo $i$ tal que $n \divides a_i$.
-
-\hint
-Para a unicidade, ache o resto da divisão de $n$ por o aleatório $a_j$.
-
-%%}}}
-
-%%{{{ x: 3|n or 3|n²-1 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Demonstre que para todo $n\in\ints$, se $3 \ndivides n$
-então $3 \divides n^2 - 1$.
-
-\hint
-Ou fatorize o $n^2-1$ e use o~\ref[n_divides_exactly_one_of_n_consecutive_integers],
-ou considere os casos possíveis dependendo dos restos da divisão de $n$ por $3$.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Sets closed under operations 
-\section Conjuntos fechados sobre operações.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ df: closed_under_addition 
-\definition Conjunto $(+)$-fechado.
-%%%{{{ meta 
-\label closed_under_addition
-\defines
-    * conjunto!$+$-fechado
-    ;;
-%%%}}}
-
-Seja $A$ conjunto de números
-Dizemos que $A$ é \dterm{fechado pela} $+$ sse
-a soma de quaisquer dois membros $a,b$ do $A$ está no $A$ também:
-$$
-\lforall {a,b \in A} {a+b \in A}.
-$$
-Chamamos o $A$ de $+$\dterm{-fechado}.
-
-%%}}}
-
-%%{{{ eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Os conjuntos $\ints_{\geq0}$, $\ints$, $\ints_{>0}$, $\ints_{<0}$,
-são todos exemplos de conjuntos $+$-fechados.
-
-%%}}}
-
-%%{{{ noneg 
-\nonexample.
-%%%{{{ meta 
-%%%}}}
-
-Os conjunto de todos os inteiros ímpares não é $+$-fechado (por quê?).
-Nem o conjunto de todos os primos (por quê?).
-Nem o conjunto de todos os racionais não inteiros (por quê?).
-
-%%}}}
-
-%%{{{ x: why? why? why? 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Por quê?
-Por quê?
-Por quê?
-
-\hint
-Para cada conjunto basta achar um testemunha, ou seja,
-um parzinho $(x,y)$ de membros dele tal que $x+y$ não pertence a ele.
-
-\solution
-Aqui três testemunhas, um para cada conjunto respectivamente:
-\mathcols 3
-1 + 1     &= 2 &
-3 + 5     &= 8 &
-\frac 2 3 + \frac 4 3 &= 2
-\endmathcols
-
-%%}}}
-
-%%{{{ x: Ø and {0} are +-closed 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-O $\emptyset$ e o $\set{0}$ são fechados pela $+$.
-
-%%}}}
-
-%%{{{ x: generalize +-closed to op-closed for any op 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Generalize a noção acima para definir a noção
-\dterm{conjunto fechado pela} $f$,
-onde $f$ é uma operação no $A$ de aridade qualquer.
-
-\solution
-Seja $f$ uma operação $n$-ária num conjunto $A$.
-Dizemos que $A$ é $f$-fechado sse para quaisquer
-$a_1,\dotsc,a_n \in A$, temos $f(a_1,\dotsc,a_n) \in A$.
-
-%%}}}
-
-%%{{{ x: which of the following sets are closed under which ops? 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Quais dos conjuntos abaixo são fechados pela $+$,
-quais sobre $-$, e quais sobre $\ntimes$?
-$$
-\aligned
-    U &= \set{0}\\
-    W &= \set{0,1}\\
-    P &= \set{1,2,4,8,16,\dotsc}\\
-    I &= \set{1,1/2,1/4,1/8,1/16,\dotsc}
-\endaligned
-\quad
-\aligned
-    A &= \set{0,4,6,10,12,16,18,22,24,\dotsc}\\
-    B &= \set{0,2,4,6,8,10,12,\dotsc}\\
-    C &= \set{\dotsc,-9,-6,-3,0,3,6,9,\dotsc}\\
-    D &= \set{\dotsc,-8,-5,-2,1,4,7,10,\dotsc}.
-\endaligned
-$$
-
-%%}}}
-
-%%{{{ x: define some infinite sets without "…" 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Defina os conjuntos infinitos do exercício anterior sem usar ``$\ldots$\!''.
-
-%%}}}
-
-%%{{{ x: under which operations are rats and rats_≠0 closed? 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-O $\rats$ é fechado por quais das quatro operações binárias
-$+$, $-$, $\ntimes$, $\div$?
-E o $\rats_{\neq0}$?
-
-%%}}}
-
-%%{{{ x: minus_closed_implies_plus_closed 
-\exercise.
-%%%{{{ meta 
-\label minus_closed_implies_plus_closed
-%%%}}}
-
-Demonstre que se um conjunto é fechado pela $-$ então
-ele deve ser fechado pela $+$ também, mas não o converso não é necessariamente
-verdadeiro!
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_minus_proof 
-\exercise.
-%%%{{{ meta 
-\label form_of_closed_under_minus_proof
-%%%}}}
-
-Seja $S\subset\ints$, com $S\neq\emptyset$, e fechado pela $-$.
-Logo $S=\set 0$ ou existe inteiro $d>0$ tal que $S = \setst {kd} {k\in\ints}$.
-
-\hint
-Princípio da Boa Ordem.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Um conjunto de inteiros fechado pela $-$ (e logo pela $+$ também),
-não tem muita liberdade na ``forma'' dele.
-O lemma seguinte mostra essa forma geral que todos eles devem ter.
-
-%%}}}
-
-%%{{{ lemma: form_of_closed_under_minus 
-\lemma.
-%%%{{{ meta 
-\label form_of_closed_under_minus
-%%%}}}
-
-Seja $S$ um conjunto de inteiros não vazio e fechado pela $-$.
-Logo $S=\set{0}$ ou existe inteiro $d>0$ tal que
-$S$ é o conjunto de todos os múltiplos de $d$:
-$$
-S = \setst {md} {m \in \ints}.
-$$
-
-\proof.
-Suponha que $S\neq\set{0}$.  Basta demonstrar que
-existe inteiro $d>0$ tal que
-$$
-S = \setst {md} {m \in\ints}.
-$$
-Organizamos o resto da demonstração em três partes:
-\elist A:
-\li:form_of_closed_under_minus_part1_task
-Definir um $d>0$ que será o inteiro positivo desejado: \ref[form_of_closed_under_minus_part1].
-\li:form_of_closed_under_minus_part2_task
-Demonstrar que todos os multiplos de $d$ pertencem ao $S$: \ref[form_of_closed_under_minus_part2].
-\li:form_of_closed_under_minus_part3_task
-Demonstrar que nada mais pertence ao $S$: \ref[form_of_closed_under_minus_part3].
-\endelist
-Com isso temos que o conjunto $S$ e o conjunto de todos os
-múltiplos de $d$ possuem exatamente os mesmos membros,
-que foi o que precisamos demonstrar.
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_minus_part1 
-\exercise.
-%%%{{{ meta 
-\label form_of_closed_under_minus_part1
-%%%}}}
-
-Resolva a parte \reftag[form_of_closed_under_minus_part1_task] da
-demonstração do~\ref[form_of_closed_under_minus].
-
-\hint
-Use o PBO (mas cuidado pois precisas de demonstrar algo antes de usá-lo).
-
-\hint
-Antes de usar o PBO precisas demonstrar que o $S$ possui membros positivos.
-
-\solution
-Vou demonstrar que $S$ tem membros positivos.
-Seja $x \in S$ tal que $x \neq 0$ ($S\neq\emptyset$ e $S\neq\set{0}$).
-Caso $x>0$, já encontramos um membro positivo do $S$.
-Caso $x<0$, basta mostrar que $-x \in S$, pois $-x > 0$.
-Como $S$ é fechado pela $-$, temos $x - x \in S$; ou seja, $0 \in S$.
-Usando novamente que $S$ é $-$-fechado, temos $0 - x \in S$, ou seja $-x \in S$.
-Pelo PBO, \emph{seja $d$ o menor membro positivo do $S$}.
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_minus_part2 
-\exercise.
-%%%{{{ meta 
-\label form_of_closed_under_minus_part2
-%%%}}}
-
-E a \reftag[form_of_closed_under_minus_part2_task].
-
-\hint
-Use indução, mas cuidado para não esquecer nada.
-
-\solution
-Primeiramente vou demonstrar por indução que
-para todo $n\in\nats$, $nd \in S$.
-A base é imediata: $0d = 0 \in S$.
-Seja $k \in \nats$ tal que $kd \in S$\fact{HI}.
-Calculamos:
-$$
-(k+1)d = kd + d \in S
-$$
-pois $d \in S$ e $kd \in S$ (pela HI) e $S$ é $+$-fechado
-(pelo~\ref[minus_closed_implies_plus_closed])
-Seja $x < 0$, e observe que $(-x)d\in S$ (pois $-x > 0$) e logo
-$0 - (-x)d \in S$, ou seja, $xd \in S$.
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_minus_part3 
-\exercise.
-%%%{{{ meta 
-\label form_of_closed_under_minus_part3
-%%%}}}
-
-Preciso mesmo enunciar?
-
-\hint
-Tome um arbitrário $a \in S$ e use o lemma da Divisão de Euclides.
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_minus_without_disjunction 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Sem usar disjuncção, escreva uma proposição equivalente com a conclusão do
-\ref[form_of_closed_under_minus] e explique por que ela é equivalente.
-
-\hint
-Existe $n\in\nats$ tal que $S = \setst {kn} {k\in\ints}$.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ The_greatest_common_divisor 
 \section O máximo divisor comum.
 %%%{{{ meta 
@@ -10282,7 +10590,7 @@ Logo $d = \pm d'$ (por~\ref[divides_is_almost_a_partial_order]).
 %%%}}}
 
 Sejam $a,b\in\ints$.
-Existe único $d\in\nats$ tal que $d$ é um m.d.c.~de $a$ e~$b$.
+Existe único $d\in\ints_{\geq 0}$ tal que $d$ é um m.d.c.~de $a$ e~$b$.
 
 %%}}}
 
@@ -10351,11 +10659,11 @@ $$
 \label gcd_op_properties
 %%%}}}
 
-Sejam $a,b,c\geq 0$ inteiros.  Logo:
+Sejam $a,b,c$ inteiros.  Logo:
 \mathcall
 &\gcd a a = a  \\
-&\gcd a 0 = a  \\
-&\gcd a 1 = 1  \\
+&\gcd a 0 = a  \called {identidade-R} \\
+&\gcd a 1 = 1  \called {absorvente-R} \\
 &\gcd a b = \gcd b a                    \called {comutatividade} \\
 &\gcd {\gcd a b} c = \gcd a {\gcd b c}  \called {associatividade}
 \endmathcall
@@ -10499,41 +10807,6 @@ como m.d.c.~dos $a$ e $b$.
 
 %%}}}
 
-%%{{{ x: consecutive_fibs_are_coprime 
-\exercise.
-%%%{{{ meta 
-\label consecutive_fibs_are_coprime
-\indexes
-    * Fibonacci!seqüência
-    ;;
-%%%}}}
-
-Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
-onde $F_n$ é o $n$-ésimo termo da seqüência
-Fibonacci~(\ref[fibonacci]).
-
-\hint
-Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
-
-\solution
-Vamos demonstrar o pedido por indução.
-A base
-$$
-\gcd {F_0} {F_1} = \gcd 0 1 = 1.
-$$
-Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
-Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
-Calculando,
-\compute
-\gcd {F_{k+1}} {F_{k+2}}
-    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
-    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
-    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
-    &= 1.                               \by {pela hipótese indutiva} \\
-\endcompute
-
-%%}}}
-
 %%{{{ lemma: euclid_lemma 
 \lemma Lemma de Euclides.
 %%%{{{ meta 
@@ -10642,48 +10915,6 @@ Mas $p,q$ são primos distintos, logo coprimos, e
 ambos dividem o $n$ (\byfact1 e \byfact2)
 logo $pq \divides n$
 (pelo \ref[product_of_coprimes_divides_common_multiple]).
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Infinitude_of_primes 
-\section Infinidade dos primos.
-%%%{{{ meta 
-\label Infinitude_of_primes
-%%%}}}
-
-%%{{{ thm: primes_is_infinite 
-\theorem Euclid.
-%%%{{{ meta 
-\label primes_is_infinite
-\credits
-    * Euclid : infinidade dos primos
-    ;;
-\indexes
-    * infinidade!dos primos
-    * infinito      seealso: infinidade
-    ;;
-%%%}}}
-
-Existe uma infinidade de primos.
-
-\sketch.
-Para qualquer conjunto finito de primos
-$P = \set{p_1,\dotsc,p_n}$, considere o número
-$p_1\dotsb p_n + 1$ e use-o para achar um primo fora do $P$.
-
-\proof.
-Para qualquer conjunto finito de primos
-$P = \set{p_1,\dotsc,p_n}$,
-observe que o número $p=p_1\dotsb p_n + 1$ não é divisível por nenhum dos $p_i$'s
-(porque $p_i \divides p$ e $p_i \divides p_1\dotsb p_n$ implicam
-$p \divides 1$, absurdo).
-Então, como $p \geq 2$, ou o $p$ é primo e $p \nin P$,
-ou $p$ é divisível por algum primo $q \nin P$
-(por~\ref[every_composite_number_is_divisible_by_a_prime]).
-Nos dois casos, existe pelo menos um primo fora do $P$.
 
 %%}}}
 
@@ -11436,210 +11667,6 @@ $a_i\in\ints$.
 \endsection
 %%}}}
 
-%%{{{ Expansions_and_positional_systems 
-\section Expansão e sistemas posicionais.
-%%%{{{ meta 
-\label Expansions_and_positional_systems
-%%%}}}
-
-%%{{{ intro 
-\secintro
-Até agora temos usado os numerais que conheçemos desde crianças
-para referir aos números inteiros.  Considerei dado que tu já
-sabes todos esses (infinitos!)~nomes de números, e que tu entendes
-como interpretar e \dq{como funciona} esse sistema de numerais.
-Mas suponha que um ser alienígeno que usa um sistema de numerais
-completamente diferente do nosso acha difícil acreditar que nosso
-sistema funciona mesmo:  \utter{Como vós sabeis\foot
-os alienigenos conjugam até no segundo plural, pelo jeito\dots
-\toof
-que não tem números inteiros sem numeral?}
-Nesta secção estudamos esse sistema, respondemos nessa e em mais
-perguntas, e encontramos outros sistemas posicionais de numerais.
-%%}}}
-
-%%{{{ thm: expansion_in_base 
-\theorem expansão em base.
-%%%{{{ meta 
-\label expansion_in_base
-\indexes
-    * teorema!expansão em base
-    ;;
-%%%}}}
-
-Seja $b \geq 2$.
-Todo inteiro $x \geq 0$ tem uma única expansão em base $b$:
-existem únicos $m, d_0, \dotsc, d_m$ tais que:
-$$
-x = d_m b^m + \dotsb + d_1 b^1 + d_0 b^0
-$$
-onde:
-\tlist:
-\li  (i): para todo $i \in \set{0,\dotsc,m}$, $d_i \in \set{0,\dotsc,b-1}$;
-\li (ii): $d_m = 0 \implies m=0$.
-\endtlist
-
-%%}}}
-
-%%{{{ Symbols for digits 
-\note Símbolos para os dígitos e separadores de casas.
-%%%{{{ meta 
-%%%}}}
-
-Para os sistemas posicionais com base $b \leq 10$ usamos os símbolos
-$$
-\mathtt 0, \mathtt 1, \mathtt 2, \mathtt 3, \mathtt 4,
-\mathtt 5, \mathtt 6, \mathtt 7, \mathtt 8, \mathtt 9.
-$$
-como dígitos.
-Quando a base $b$ é maior mas ainda $b \leq 36$ usamos os
-$$
-\mathtt A, \mathtt B, \mathtt C, \dotsc, \mathtt X, \mathtt Y, \mathtt Z
-$$
-com valores $10,11,12,\dots,33,34,35$ respectivamente.
-O sistema mais usado com base $b>10$ é o \dterm{hexadecimal} com $b = 16$,
-onde realmente usamos os dígitos
-$$
-\mathtt 0, \mathtt 1, \mathtt 2, \mathtt 3, \mathtt 4,
-\mathtt 5, \mathtt 6, \mathtt 7, \mathtt 8, \mathtt 9,
-\mathtt A, \mathtt B, \mathtt C, \mathtt D, \mathtt E, \mathtt F.
-$$
-Tendo estabelecido um sistema de numerais para os \emph{valores dos dígitos},
-podemos simplesmente usar esses numerais sem se preocupar com os símbolos
-dos dígitos para escrever numerais de outros sistemas.
-Nesse caso separamos as casas com um símbolo novo (que não faz parte do
-nosso sistema de numerais estabelecido) como separador:
-usando o decimal escolhemos por exemplo o símbolo $:$ como separador
-das casas e assim podemos escrever o número $151208$ no sistema
-sexagesimal assim:
-$$
-42 : 0 : 8 = 42 \ntimes 60^2 + 0 \ntimes 60^1 + 8 \ntimes 60^0.
-$$
-
-%%}}}
-
-%%{{{ remark: 0x_etc 
-\remark.
-%%%{{{ meta 
-\label 0x_etc
-%%%}}}
-
-Muitas linguagens de programação usam o prefixo $\mathtt{0x}$ como indicação
-que o numeral que segue é hexadecimal.  Similarmente o $\mathtt{0o}$ (ou simplesmente
-um numeral que começa com $\mathtt 0$) indica octal, e o $\mathtt{0b}$ binário.
-Por examplo $\mathtt{0x20}$ seria o numero $\numbase 16 {20}$, ou seja o $32$;
-$\mathtt{0b100}$ seria o $\numbase 2 {100}$, ou seja o $4$, e $\mathtt{0750}$ ou $\mathtt{0o750}$ seria o $\numbase 8 {750}$, ou seja o $488$.
-Essas são apenas convenções que certas linguagens seguem, então em forma geral
-não conte com nenhuma delas (a mais estabelecida sendo a do $\mathtt{0x}$).
-
-%%}}}
-
-\TODO reescrever e terminar.
-
-\TODO mencione mais non-standard positional systems: negabinary, complex-base, gray code.
-
-%%{{{ x: negative_remainders 
-\exercise.
-%%%{{{ meta 
-\label negative_remainders
-%%%}}}
-
-Demonstre que dado qualquer inteiro $a$, existem únicos inteiros $q$ e $r$
-tais que $a = 3q + r$ e $-1\leq r \leq 1$.
-
-\hint
-Use a divisão de Euclides.
-
-%%}}}
-
-%%{{{ x: balanced_ternary 
-\exercise Balanced ternary.
-%%%{{{ meta 
-\label balanced_ternary
-\pdefs
-    \pdef T {{\mathtt T}}
-    \pdef O {{\mathtt O}}
-    \pdef I {{\mathtt I}}
-    ;;
-%%%}}}
-
-Para qualquer inteiro $x$ existem únicos $m,d_0,\dotsc,d_m$ tais que
-$$
-x = d_m 3^m + \dotsb + d_1 3^1 + d_0 3^0,
-$$
-onde:
-\tlist:
-\li  (i): para todo $i \in \set{0,\dotsc,m}$, $d_i \in \set{-1,0,1}$;
-\li (ii): $d_m = 0 \implies m=0$.
-\endtlist
-Usando como digitos os símbolos $\T$, $\O$, $\I$ com valores $-1$, $0$, $1$ respectivamente
-podemos então escrever qualquer inteiro sem sequer precisar um símbolo de sinal para os negativos.  Uns exemplos:
-$$
-\matrix
-\format
-\r\ &\;\c\;& \ \r\         &\c & \ \r\           &\c & \ \r\           &\c & \ \r\            &\quad\c\quad& \ \r     \\
-0   &=     &               &   &                 &   &                 &   &    0 \ntimes 3^0 &\leadsto    & \O       \\
-1   &=     &               &   &                 &   &                 &   &    1 \ntimes 3^0 &\leadsto    & \I       \\
-7   &=     &               &   &   1 \ntimes 3^2 & + &(-1) \ntimes 3^1 & + &    1 \ntimes 3^0 &\leadsto    & \I\T\I   \\
--7  &=     &               &   &(-1) \ntimes 3^2 & + &   1 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \T\I\T   \\
-26  &=     & 1 \ntimes 3^3 & + &   0 \ntimes 3^2 & + &   0 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \I\O\O\T \\
-\endmatrix
-$$
-
-%%}}}
-
-%%{{{ x: factorial_base_system_lemma 
-\exercise.
-%%%{{{ meta 
-\label factorial_base_system_lemma
-%%%}}}
-
-Demonstre por indução que para todo $n \in \nats$,
-$\quad\dsize\Sum\limits_{i=0}^n i \ntimes \factorial i = \factorialp {n+1} - 1$.
-
-%%}}}
-
-%%{{{ x: factorial_base_system 
-\exercise.
-%%%{{{ meta 
-\label factorial_base_system
-%%%}}}
-
-Os sistemas posicionais de numerais que encontramos até agora usam um fixo conjunto de dígitos para cada posição.
-Agora vamos encontrar um onde para cada posição $i$, podemos usar dígitos com valores nos $0,\dotsc,i$.
-Na posição $0$ então temos apénas uma opção: o próprio $0$, e logo essa posição sempre tá ocupada por $0$.
-Na posição $1$ já temos dois dígitos disponíveis, com valores $0$ e $1$.
-Na posição $42$ temos quarenta e dois dígitos disponíveis; seus valores são: o $0$, o $1$, o $2$, \dots, o $40$, o $41$, e o $42$.
-Cuidado, vamos usar aqui seus valores como dígitos, mesmo que no papel o $42$
-que acabei de escrever dá a impressão que ele mesmo é composto por dois dígitos,
-mas não é o caso aqui!
-Por isso, usamos o $:$ para separarar ``as casas''.
-O primeiro numeral em baixo seria válido, mas o segundo não
-\mathcols 2
-&4:0:2:2:0:0 &
-&5:2:4:2:0:0
-\endmathcols
-pois na posição $3$ tem o $4>3$.
-Novamente os valores dos dígitos vão acabar sendo coeficientes de algo que depende da posição e todos os termos serão somados.
-Como sempre, escrevemos um número $x$ como
-\mathcols 2
-x & = d_n a_n + d_{n-1} a_{n-1} + \dotsb d_2 a_2 + d_1 a_1 + d_0 a_0  &
-0 &\leq d_i \leq D_i
-\endmathcols
-onde $D_i$ denota o maior valor de dígito para a $i$-ésima posição.
-Neste sistema temos:
-\mathcols 3
-a_i &= \factorial i    &
-D_i &= i
-\endmathcols
-Demonstre que tal sistema \dq{funciona}:
-cada inteiro pode ser escrito neste sistema numa única maneira.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Conjectures_in_number_theory 
 \section Conjecturas.
 %%%{{{ meta 
@@ -11825,7 +11852,7 @@ $m!+m$.
 
 %%}}}
 
-%%{{{ gcd_alternative_definition 
+%%{{{ prob: gcd_alternative_definition 
 \problem {Definição alternativa de m.d.c.}.
 %%%{{{ meta 
 \label gcd_alternative_definition
@@ -17797,6 +17824,41 @@ Numa maneira parecida podemos demonstrar várias afirmações doidas, como por e
 Obviamente o que ``demonstramos'' é errado, e logo na demonstração existe pelo menos um erro---%
 caso contrário seria uma indicação que o princípio da indução não é válido!
 Qual é?
+
+%%}}}
+
+%%{{{ prob: consecutive_fibs_are_coprime 
+\problem.
+%%%{{{ meta 
+\label consecutive_fibs_are_coprime
+\indexes
+    * Fibonacci!seqüência
+    ;;
+%%%}}}
+
+Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
+onde $F_n$ é o $n$-ésimo termo da seqüência
+Fibonacci~(\ref[fibonacci]).
+
+\hint
+Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
+
+\solution
+Vamos demonstrar o pedido por indução.
+A base
+$$
+\gcd {F_0} {F_1} = \gcd 0 1 = 1.
+$$
+Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
+Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
+Calculando,
+\compute
+\gcd {F_{k+1}} {F_{k+2}}
+    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
+    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
+    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
+    &= 1.                               \by {pela hipótese indutiva} \\
+\endcompute
 
 %%}}}
 
