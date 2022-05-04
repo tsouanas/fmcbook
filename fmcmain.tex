@@ -8920,15 +8920,15 @@ então o $\setst {a \in A} {\ell \leq a}$ possui mínimo.
     ;;
 %%%}}}
 
-Para qualquer conjunto de inteiros $A$,
-se $1 \in A$ e $A$ é $({+}1)$-fechado,\foot
-$\text{$A$ é $({+}1)$-fechado} \intiff \text{para todo $x \in A$, $x+1 \in A$}$
+Para qualquer conjunto de inteiros $P$,
+se $1 \in P$ e $P$ é $({+}1)$-fechado,\foot
+$\text{$P$ é $({+}1)$-fechado} \intiff \text{para todo $x \in P$, $x+1 \in P$}$
 \toof
-então todos os inteiros positivos pertencem ao $A$.
+então todos os inteiros positivos pertencem ao $P$.
 
 \sketch.
 Caso contrário, existeriam ``contraexemplos'', ou seja,
-inteiros positivos que não pertencem ao $A$.
+inteiros positivos que não pertencem ao $P$.
 Aplique a PBO para escolher o menor deles
 e chega num absurdo achando um contraexemplo menor ainda.
 
@@ -8968,17 +8968,17 @@ em dois casos, dependendo da razão que o $\phi(k)$ seja verdade.
 \label ints_shifted_induction
 %%%}}}
 
-Para qualquer conjunto de inteiros $A$,
-se $\ell \in A$ e $A$ é $({+}1)$-fechado,
+Para qualquer conjunto de inteiros $P$,
+se $\ell \in P$ e $P$ é $({+}1)$-fechado,
 então todos os inteiros $x$ tais que $x \geq \ell$
-pertencem ao $A$.
+pertencem ao $P$.
 
 \sketch.
 Aplicamos o princípio da indução no conjunto
 $$
-A - \ell \defeq \setst {a - \ell} {a \in A}
+P - \ell \defeq \setst {p - \ell} {p \in P}
 $$
-de todos os membros de $A$ \dq{shiftados} por $-\ell$.
+de todos os membros de $P$ \dq{shiftados} por $-\ell$.
 
 %%}}}
 
@@ -9001,24 +9001,24 @@ em certos casos e logo faz sentido a destacar.
 \label ints_strong_induction
 %%%}}}
 
-Seja $A$ conjunto de inteiros $A$ tal que
+Seja $P$ conjunto de inteiros $P$ tal que
 para todo $p$,
 $$
-\lforall {0 < i < p} {i \in A}
+\lforall {0 < i < x} {i \in P}
 \implies
-p \in A.
+x \in P.
 $$
-Logo todos os inteiros positivos pertencem ao $A$.\foot
-O quantificador no \symq{$\pforall {0 < i < p}$} quantifica o $i$.
+Logo todos os inteiros positivos pertencem ao $P$.\foot
+O quantificador no \symq{$\pforall {0 < i < x}$} quantifica o $i$.
 Ou seja, o que escrevi acima, \emph{desaçucarizando}, fica assim:
-$\lforall {i} {0 < i < p \implies i \in A}$.
+$\lforall {i} {0 < i < x \implies i \in P}$.
 \toof
 
 \proof.
-Suponha que há inteiros positivos que não pertencem ao $A$.
+Suponha que há inteiros positivos que não pertencem ao $P$.
 Seja $m$ o menor deles (PBO).
-Logo, para todo positivo $i < m$, $i \in A$.
-Logo $m \in A$, e chegamos numa contradição.
+Logo, para todo positivo $i < m$, $i \in P$.
+Logo $m \in P$, e chegamos numa contradição.
 
 %%}}}
 
@@ -9032,16 +9032,16 @@ Logo $m \in A$, e chegamos numa contradição.
 %%%}}}
 
 As três versões de indução que demonstramos aqui
-são enunciadas em termos dum conjunto $A$ que,
+são enunciadas em termos dum conjunto $P$ que,
 satisfazendo certas condições, concluímos que deve
 possuir como membros todos os objetos do nosso interesse.
 \eop
 Na sua versão original, os objetos do nosso interesse
-são os inteiros positivos, e as condições que o $A$
+são os inteiros positivos, e as condições que o $P$
 precisa satisfazer são:
 \mathcol
-&1 \in A \\
-\cforall {x} {x \in A \implies x + 1 \in A} \\
+&1 \in P \\
+\cforall {x} {x \in P \implies x + 1 \in P} \\
 \endmathcol
 Lembre que quando a gente queria introduzir a noção dos
 inteiros positivos na nossa especificação, em vez de
@@ -9051,15 +9051,32 @@ como \emph{predicado unário}.
 Ainda mais, introduzimos logo apos açúcar sintáctico
 que nos permitiu identificar as duas abordagens, escrevendo
 $x \in \Pos$ e $\Pos \fa x$ sinonimamente.
-
 \eop
+Vamos aproveitar essa equivalência entre os dois conceitos
+só que na direção contrária agora.  Vamos visualizar
+o conjunto $P$ dos objetos do nosso interesse como
+o predicado de <<ser interessado>>, e escrever $P \fa x$
+em vez de $x \in P$.
+Visto assim, isso é uma ferramenta para demonstrar proposições
+da forma
+\mathcol
+\cforall {x \in \ints_{>0}} {P \fa x} \\
+\endmathcol
+onde $P$ é uma propriedade que inteiros podem ter ou não:
+$$
+{P} \is \Int \to \Prop.
+$$
+Para demonstrar então que todos os \emph{inteiros positivos}
+gozam da propriedade $P$, basta demonstrar:
+\mathcol
+P \fa 1 \\
+\cforall {x} {P \fa x \implies P \fa (x+1)}. \\
+\endmathcol
 Na sua versão \dq{shifted}, os objetos do nosso interesse
 são todos os inteiros a partir dum certo inteiro $\ell$.
 \eop
 Finalmente, na sua versão \dq{forte}, os objetos de interesse
 novamente são os inteiros positivos.
-
-
 
 %%}}}
 
