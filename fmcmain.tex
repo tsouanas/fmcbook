@@ -31749,6 +31749,1175 @@ para enfatizar que não tem nada (literalmente) errado nisso.
 \endsection
 %%}}}
 
+%%{{{ Partial_application 
+\section Aplicação parcial.
+%%%{{{ meta 
+\label Partial_application
+%%%}}}
+
+%%{{{ Partial application with black boxes 
+\note Aplicação parcial com black boxes.
+%%%{{{ meta 
+%%%}}}
+
+Suponha que temos uma funcção de aridade~$2$:
+$$
+f : (A\times B) \to C.
+$$
+Ou seja, nossa funcção, ``para funccionar'', precisa receber
+exatamente dois argumentos: algum $a\in A$ e algum $b\in B$
+para ``produzir'' o valor $f(a,b) \in C$: $$
+\tikzpicture
+\tikzi blackboxfunpartapp1;
+\endtikzpicture
+$$
+Queremos utilizar essa funcção de aridade~$2$,
+para criar duas outras, cada uma de aridade~$1$.
+A idéia é a seguinte: vamos ``fixar'' uma das suas entradas
+com um valor, e deixar a outra como entrada mesmo.
+Imagine que fixamos um certo $b_0\in B$ no segundo ``cabo'' de entrada,
+puxamos o outro cabo, e criamos uma nova caixa assim:
+$$
+\tikzpicture
+\tikzi blackboxfunpartapp2;
+\endtikzpicture
+$$
+E agora pintamos preta nossa caixa, escrevemos seus rótulos (seu tipo),
+e pronto, construimos uma nova funcção de aridade $1$:
+$$
+\tikzpicture
+\tikzi blackboxfunpartapp3;
+\endtikzpicture
+$$
+Observe que temos $f(\dhole,b_0):A \to C$.
+Vamos agora ver a mesma idéia usando buracos, sem black boxes.
+
+%%}}}
+
+%%{{{ Partial application using holes 
+\note Aplicação parcial usando buracos.
+%%%{{{ meta 
+%%%}}}
+
+Considere uma funcção $f$ de aridade 3:
+$$
+A \times B \times C \longtoby f D.
+$$
+Lembre-se que
+$$
+f(\dhole, \dhole, \dhole) :
+A \times B \times C \to D
+$$
+e ainda mais $f(\dhole, \dhole, \dhole)$ é a própria $f$!
+Queremos preencher uns desses buracos, mas não todos.
+E nada especial sobre esse $3$.
+Em geral, dada uma funcção $f$ de aridade $n$,
+podemos \emph{fixar} $k$ dos seus argumentos
+com certos valores, botar buracos nos ouros,
+e criar assim uma funcção de aridade $n-k$.
+Uns exemplos vão esclarecer esse processo.
+
+%%}}}
+
+%%{{{ eg: partial_application_holes_eg 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Considere a funcção $f : \reals^3 \to \reals$, definida pela
+$$
+f(x,y,z) = x + y^2 + z^3.
+$$
+Temos então
+$$
+\align
+f(\dhole,\dhole,\dhole) &: \reals^3 \to \reals.
+\intertext{Com aplicação parcial, fixando uns dos seus argumentos,
+criamos então as funcções seguintes:}
+f(2,\dhole,\dhole)      &: \reals^2 \to \reals \\
+f(2,\dhole,\sin(2))     &: \reals   \to \reals \\
+f(\dhole,\sqrt2,\cbrt2) &: \reals   \to \reals \\
+f(\dhole,0,0)           &: \reals   \to \reals.
+\endalign
+$$
+A última, por exemplo, é a $\idof \reals$; a penúltima é a $\lam x {x+4}$.
+
+%%}}}
+
+%%{{{ eg: partial_application_holes_infix_eg 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Aplicando a funcção de adição $+ : \nats^2 \to \nats$
+parcialmente fixando seu segundo argumento no número $1$,
+criamos a funcção
+$$
+\align
+(\bhole + 1) &: \nats \to \nats
+\intertext{que é a funcção $\namedfun{succ}$ de sucessor;
+e fixando seu primeiro argumento no $0$ criamos a}
+(0 + \bhole) &: \nats \to \nats
+\endalign
+$$
+que é a $\idof \nats$.
+
+%%}}}
+
+%%{{{ teaser: partial application and currying 
+\teaser.
+%%%{{{ meta 
+%%%}}}
+
+Já que entendeu a relação entre expressões que envovlem buracos
+e abstracções lambda com variáveis, espero que nem preciso
+explicar que podemos denotar a aplicação parcial $f(2,\dhole)$
+por $\lam x {f(2,x)}$.
+Mas trabalhando com lambdas é mais comum tratar funcções
+de aridades maiores que $1$ numa outra maneira, chamada
+currificação (\reftag[Currying]).  E a aplicação parcial
+brilha ainda mais nesse caso: não precisa nem buracos,
+nem variáveis (\ref[partial_application_and_currying])!
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Higher_order_functions 
+\section Funcções de ordem superior.
+%%%{{{ meta 
+\label Higher_order_functions
+%%%}}}
+
+%%{{{ Holes again 
+\note Buracos de novo.
+%%%{{{ meta 
+%%%}}}
+
+Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
+botando \emph{buracos}, criando assim funcções de várias aridades.
+Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
+permitiu dar nomes para esses buracos, ligar (identificar) certos buracos, etc.
+Considere novamente uma expressão como a
+$$
+\cos(1 + 5\cbrt2)^{2a} + \sin(5)
+$$
+onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
+Botando uns buracos ou abstraindo com lambdas, criamos, por exemplo, as funcções:
+$$
+\alignat2
+f_1 &= \cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
+f_2 &= \cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
+f_3 &= \cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
+f_4 &= \cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
+f_5 &= \bhole + \sin(\bhole)                             &&\eqtype \reals^2 \to \reals\\
+f_6 &= \lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
+f_7 &= \lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
+\endalignat
+$$
+
+%%}}}
+
+%%{{{ x: verify_abstractions_of_expression 
+\exercise.
+%%%{{{ meta 
+\label verify_abstractions_of_expression
+%%%}}}
+
+Para quais entradas cada uma dessas funcções retorna o valor da expressão inicial?
+
+\hint
+Respeite as aridades!
+
+\solution
+Temos
+$$
+\align
+f_1&(2)\\
+f_2&(1,2,5)\\
+f_3&(1,5,a)\\
+f_4&(1,5,2a)\\
+f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
+f_6&(a)\\
+f_7&(2, 5).
+\endalign
+$$
+
+%%}}}
+
+%%{{{ Higher-order holes 
+\note Buracos de ordem superior.
+%%%{{{ meta 
+%%%}}}
+
+Em todos os exemplos acima, botamos os buracos para substituir
+apenas termos cujos valores seriam números (reais).
+Expressões tanto como as $2$, $1$, $5$, e $a$,
+quanto como as $5\cbrt2$, $2a$, e $\cos(1 + 5\cbrt2)^{2a}$,
+denotam, no final das contas, números reais.
+Que tal botar um buraco assim:
+$$
+\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
+$$
+O que substituimos aqui?  O próprio $\sin$!  Por que não?
+E o que tipo de objetos podemos botar nesse buraco?
+Um real, não serve: a expressão
+$$
+\cos(1 + 5\cbrt2)^{2a} + 7(5)
+$$
+não faz sentido: \emph{ela é mal-tipada}.
+O $7$ não pode receber um argumento como se fosse uma funcção, pois não é.
+Que tipo de coisas então cabem nesse buraco?
+Funcções!
+E não funcções quaisquer, mas precisam ter um tipo compatível,
+com a aridade certa, etc.
+Esses buracos são \emph{de ordem superior}.
+E com buracos de ordem superior, vêm funcções de ordem superior.
+
+%%}}}
+
+%%{{{ pseudodf: higher_order_function 
+\pseudodefinition.
+%%%{{{ meta 
+\label higher_order_function
+\defines
+    * funcção!de ordem superior
+    ;;
+%%%}}}
+
+Dizemos que uma funcção $f : A \to B$ é de \dterm{ordem superior}
+se ela recebe ou retorna funcções.
+
+%%}}}
+
+%%{{{ x: type_higher_order_holed_expressions 
+\exercise.
+%%%{{{ meta 
+\label type_higher_order_holed_expressions
+%%%}}}
+
+Escreva os tipos das funcções seguintes:
+$$
+\align
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
+\endalign
+$$
+
+\solution
+Temos
+\compute
+F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
+F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
+F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                     &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
+F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
+F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)             &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
+F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
+\endcompute
+
+%%}}}
+
+%%{{{ Returning functions 
+\note Retornando funcções.
+%%%{{{ meta 
+%%%}}}
+
+Até agora encontramos exemplos onde funcções recebem como
+argumentos outras funcções, mas ainda não conhecemos alguma
+funcção que \emph{retorna funcção}.
+Ou será que conhecemos?
+Se tu resolveu o~\ref[calculate_lambda_expressions],
+tu já encontrou esse caso, na sua última expressão.
+Seguem uns exemplos de operadores de ordem superior que
+você talvez já encontrou e até usou na tua vida.
+
+%%}}}
+
+%%{{{ eg: Defining a higher-order functions 
+\example Definindo uma funcção de ordem superior.
+%%%{{{ meta 
+\indexes
+    * funcção!anônima
+    ;;
+%%%}}}
+
+Considere a funcção $F : \nats \to (\nats \to \nats)$ definida pela
+$$
+\align
+F(w) &= \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x$, retorna $w + x$}.
+\intertext{%
+Ou, equivalentemente:
+}
+F(w) &= \text{aquela funcção $g : \nats \to \nats$ definida pela $g(x) = w + x$}.
+\intertext{%
+Que tipo de objetos a funcção $F$ retorna?
+Funcções!  Nesse caso determinamos exatamente para qualquer entrada
+dela, qual seria a funcção que vai ser retornada.
+Observe que na definição de $F(w)$, apareceu a frase
+``aquela funcção $g$\dots''.
+Assim baptizamos temporariamente essa funcção com um nome (``$g$'') à toa:
+apenas para referir a ela e retorná-la.
+Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
+e (logo) mais legível:
+}
+F(w) &= \lam x {w + x} \eqtype \nats \to \nats.
+\endalign
+$$
+Observe que no lado direito aparece uma funcção anônima.
+
+%%}}}
+
+%%{{{ eg: in Python 
+\example em Python.
+%%%{{{ meta 
+\indexes
+    * Python
+    ;;
+%%%}}}
+
+Em Python podemos (ainda bem\dots)~por exemplo escrever:
+\sourcecode higher.py;
+que corresponde na primeira maneira de definir a $F$, criando e nomeando
+a funcção para ser retornada.
+Podemos com $\lambda$ também:
+\sourcecode higherlam.py;
+Não ficou melhor?
+
+%%}}}
+
+%%{{{ Q: what type of thing is F(25)? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Que tipo de coisa é o $F(25)$?
+
+%%}}}
+
+\spoiler
+
+%%{{{ Answer 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Antes de responder nessa pergunta, vamos responder numa outra,
+ainda mais específica: quem \emph{é} o $F(25)$?
+Ou seja:
+$$
+F(25) = \dots?\dots
+$$
+Não precisamos pensar nada profundo!
+Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
+$$
+F(25) = \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x\in\nats$, retorna o número $25 + x$}.
+$$
+Ou seja,
+$$
+F(25) : \nats\to\nats.
+$$
+Sendo funcção, podemos chamá-la com um argumento do certo tipo, por exemplo como o $3\in\nats$, e evaluá-la:
+$$
+\paren{F(25)}(3) = 28.
+$$
+
+%%}}}
+
+%%{{{ x: where_did_28_come_from 
+\exercise.
+%%%{{{ meta 
+\label where_did_28_come_from
+%%%}}}
+
+De onde chegou esse $28$?
+
+\solution
+Seguindo a definição da $F(25)$ ela é a funcção que recebendo um valor
+(agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
+$25 + 3 = 28$.
+
+%%}}}
+
+%%{{{ x: find_expressions_with_given_types_higher_order 
+\exercise.
+%%%{{{ meta 
+\label find_expressions_with_given_types_higher_order
+%%%}}}
+
+Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
+tipos seguintes:
+$$
+\align
+F_1&\eqtype \reals \to \reals \\
+F_2&\eqtype \reals \to (\reals \to \reals) \\
+F_3&\eqtype (\reals \to \reals) \to \reals \\
+F_4&\eqtype (\reals \to \reals) \to (\reals \to \reals) \\
+F_5&\eqtype (\reals^2 \to \reals) \to \reals \\
+F_6&\eqtype (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: find_expressions_with_given_types_higher_order_abstract 
+\exercise.
+%%%{{{ meta 
+\label find_expressions_with_given_types_higher_order_abstract
+%%%}}}
+
+Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
+tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não podes supor
+absolutamente nada mais!
+Para cada um dos tipos, tente escrever as mais $\lambda$-expressões realmente
+diferentes que tu consegues.
+Cuidado: para uns deles não é possível achar nenhuma!
+$$
+\align
+&: A \to B \\
+&: A \to (B \to A) \\
+&: A \to (B \to B) \\
+&: (A \to A) \to A \\
+&: A \to (A \to A) \\
+&: A \to \bigparen{B \to \paren{(A\to B) \times (A\union C) \times \nats}} \\
+&: (A \to (B \to C) \to ((A\times B)\to C)) \\
+&: ((A\times B)\to C) \to (A \to (B \to C))
+\endalign
+$$
+
+%%}}}
+
+%%{{{ first_class_citizens 
+\note First-class citizens.
+%%%{{{ meta 
+\label first_class_citizens
+\indexes
+    * cidadão da primeira classe
+    * first-class citizen    see: cidadão
+    * C
+    * C++
+    * Java
+    * Haskell
+    * PureScript
+    * Idris
+    * Agda
+    * Racket
+    * Clojure
+    * Scala
+    * Python
+    ;;
+%%%}}}
+
+O slogan aqui é que funcções são \emph{first-class citizens}.
+Trabalhando no~\ref[calculate_lambda_expressions], o último cálculo
+chega no valor seguinte:
+$$
+\align
+\plam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
+&\lstep \plam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
+&\lstep \plam x {(1 + 1) \ntimes x \ntimes 4)} \\
+&\isteq \plam x {8x}.
+\endalign
+$$
+Como falei na resolução, se esse ``resultado'' (valor final)
+não parece satisfatório, é por causa de um preconceito teu que
+favorece os objetos de tipo ``número'' contra os objetos de tipo
+``funcção''.
+Os números têm o direito de ser valores finais; e as funcções
+também têm!  Esse ``preconceito'' é bastante alimentado por causa
+de varias linguagens de programação que realmente não tratam
+as funcções em termos iguais com os outros tipos.
+Em C, C++, ou Java, por exemplo, não é possível passar como
+argumentos funcções, nem retorná-las; mas claramente números
+podem ser argumentos e também podem ser retornados como saída
+de funcções.
+Por outro lado, linguagens como Haskell, PureScript, Idris,
+Agda, Racket, Clojure, Scala, Python, etc., adoptam o slogan
+\standout
+\emph{<<functions are first-class citizens>>}
+\endstandout
+ou seja, lá temos funcções de ordem superior---e logo, felicidade.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Funcções de ordem superior não é algo tão desconhecido como
+talvez parece.
+O leitor já está acostumado com os operadores nos exemplos seguintes:
+
+%%}}}
+
+%%{{{ eg: higher_order_example_composition 
+\example Composição.
+%%%{{{ meta 
+\label higher_order_example_composition
+%%%}}}
+
+Sejam conjuntos $A,B,C$.
+O operador da composição $\of$
+(cuja notação decoramos aqui para especificar
+o domínio e codomínio dele e dos seus argumentos)
+é o seguinte:
+$$
+\dhole\oflab ABC\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
+$$
+Observe que ele é um operador de ordem superior, pois seus (dois) argumentos
+são funcões, e também pois sua saída também é uma funcção.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Definimos agora a funcção $\eval$\/ que faz algo bem simples:
+aplica seu primeiro argumento (que deve ser uma funcção) no seu
+segundo (que deve ser um ponto do domínio do primeiro argumento).
+
+%%}}}
+
+%%{{{ df: eval_operation 
+\definition eval.
+%%%{{{ meta 
+\label eval_operation
+\defines
+    * \evaldc {~A} {~B}  -- a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$
+    * funcção!eval
+    ;;
+%%%}}}
+
+Dados conjuntos $A,B$ definimos a funcção
+$$
+\align
+\eval         &\eqtype \bigparen{(A \to B) \times A} \to B \\
+\eval (f, a)  &= f(a).
+\endalign
+$$
+Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
+Como fizemos na composição, decoramos essa operação escrevendo
+$\evaldc A B$ para esclarecer os conjuntos envolvidos, mas escrevemos
+simplesmente $\eval$ quando os $A,B$ são implícitos pelo contexto.
+
+%%}}}
+
+%%{{{ eg: eval is indeed a higher order function 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Dados conjuntos $A,B$, a $\evaldc A B$ é claramente uma
+operação de ordem superior.
+
+%%}}}
+
+%%{{{ x: type_of_restriction_op_with_hole 
+\exercise.
+%%%{{{ meta 
+\label type_of_restriction_op_with_hole
+%%%}}}
+
+Sejam $f : A\to B$ e $X\subset A$.
+Ache o tipo dos:
+$$
+\align
+f\resto \dhole  &\eqtype ?\\
+(\dhole\resto X)\resto(A \to B)
+                &\eqtype ?
+\endalign
+$$
+
+\solution
+Temos
+$$
+\align
+f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
+(\dhole\resto X)\resto (A \to B)
+                &\eqtype \paren{(A \to B) \to (X \to B)}
+\endalign
+$$
+
+%%}}}
+
+%%{{{ eg: higher_order_example_derivation 
+\example Derivação.
+%%%{{{ meta 
+\label higher_order_example_derivation
+%%%}}}
+
+Considere o operador da derivação $\deriv$.
+Por exemplo, se $f(x) = x^3 + 5x$, temos
+$$
+\align
+\deriv(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
+\intertext{%
+Cuidado, não escrevemos aqui $\deriv(f) = 3x^2 + 5$,
+mas podemos escrever
+}
+\deriv(f) &= \lam x {3x^2 + 5}
+\endalign
+$$
+sim.
+Qual o tipo da própria $\deriv$?
+Ela recebe e retorna funcções de reais para reais, mas não podemos tipá-la
+$$
+\align
+\deriv(\dhole) &: \funs\reals\reals \to \funs\reals\reals
+\intertext{%
+pois estariamos perdendo a totalidade da $\deriv$:
+tem funcções no $\funs\reals\reals$ que não são deriváveis.
+Ainda mais, seria legal poder iterar o $\deriv$ (\ref[function_iterations])
+à vontade.
+Logo tipamos assim:
+}
+\deriv(\dhole) &: \smooths \to \smooths
+\endalign
+$$
+onde $\smooths$ é o conjunto de todas as funcções infinitamente
+deriváveis: são deriváveis, e suas derivadas também são, e suas
+derivadas também, etc.
+
+%%}}}
+
+%%{{{ teaser: partial_functions_teaser 
+\teaser funcções parciais.
+%%%{{{ meta 
+%%%}}}
+
+Mas talvez queremos mesmo considerar a $\deriv$ como uma operação
+que opera no conjunto $\funs \reals \reals$
+\emph{sacrificando} a totalidade.
+Chegamos assim no conceito de \emph{funcção parcial}, que
+voltamos a investigar na~\ref[Partial_functions].
+
+%%}}}
+
+%%{{{ eg: higher_order_example_integration 
+\example Integração.
+%%%{{{ meta 
+\label higher_order_example_integration
+\credits
+    * Riemann : integral
+    ;;
+%%%}}}
+
+Sejam $a,b\in\reals$ com $a<b$ e seja
+$$
+\riemannables a b \defeq \setstt {f : [a,b] \to \reals} {$f$ é Riemann-integrável}.
+$$
+Observe que $\riemannables a b$ é um conjunto de funcções.
+Definimos o operador
+$$
+\lam f {\lam x {\int_a^{x} f}} : \riemannables a b \to {\funs {[a,b]} \reals}
+$$
+cujo argumento é uma funcção---e ainda mais,
+sua saída também é uma funcção---e logo ele é um operador de ordem superior
+também.
+Para a integração ``indefinita'' (antiderivadas), seja
+$$
+R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
+$$
+e defina o operador
+$$
+\int\dhole : R \to \pset{(\reals\to\reals)}
+$$
+onde $\int f$ é o conjunto das antiderivadas da $F$:
+$$
+\int f = \setst {F : \reals\to\reals} {\deriv(F) = f}.
+$$
+Observe que a notação comum em análise é diferente: usamos por exemplo
+$\intbv a x {f(t)} t$, e o $\int f$ é visto como uma antiderivada
+(que depende duma constante) e não como o conjunto de todas
+essas antiderivadas como definimos aqui.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Currying 
+\section Currificação.
+%%%{{{ meta 
+\label Currying
+%%%}}}
+
+%%{{{ Ha-ha!  My language is better than yours 
+\note Ha-ha!  Minha linguagem é melhor que a tua.
+%%%{{{ meta 
+%%%}}}
+
+Imagine que um amigo definiu uma funcção $f : \ints^2\to\ints$
+trabalhando numa linguagem de programação que não permite
+definições de funcções de ordem superior.
+Queremos escrever um programa equivalente ao programa do nosso amigo
+numa outra linguagem que permite sim definir funcções de ordem superior
+mas não funcções de aridade maior que $1$.
+Mesmo assim nossas funcções podem \emph{chamar} a funcção $f$ do nosso amigo nos seus corpos.
+
+%%}}}
+
+%%{{{ Q: How can we do this? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Como fazer isso?
+
+%%}}}
+
+\spoiler
+
+%%{{{ Answer in Python 
+\note Resposta em Python.
+%%%{{{ meta 
+\label currying_in_python
+\indexes
+    * Python
+    ;;
+%%%}}}
+
+Aqui uma resposta, escrita em Python.
+\sourcecode currying.py;
+Para computar a $\code{f(x,y)}$ usando a $\code{F}$,
+usamos a $\code{F(x)(y)}$, ou seja, $\code{(F(x))(y)}$.
+
+%%}}}
+
+\TODO Explicar o que acontece.
+
+%%{{{ x: uncurry first exercise
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Resolva o problema converso:
+começando com a funcção de ordem superior $F$,
+defina sua versão $f$ (de aridade 2).
+
+\solution
+Dados a $F : \ints\to(\ints\to\ints)$,
+é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
+Note que a expressão ``$F(x)(y)$'' quis dizer ``$\bigparen{F(x)}(y)$'' mesmo.
+
+%%}}}
+
+%%{{{ Currying 
+\note Currificação.
+%%%{{{ meta 
+\defines
+    * currificação
+    ;;
+%%%}}}
+
+A maneira que conseguimos utilizar funcções de ordem
+superior mas de aridade $1$, para ``emular'' funcções
+de aridades maiores é chamada \dterm{currificação},
+em homenagem ao Haskell~Curry{\Curry[currificação]}.\foot
+O próprio {\Curry}Curry atribuiu o conceito
+ao Schönfinkel{\Schonfinkel[currificação]},
+mas Frege{\Frege[currificação]} já tinha usado isso antes.
+\toof
+No exemplo acima dizemos que \emph{$F$ é a currificação da
+da $f$}, ou \emph{sua versão currificada}.
+
+%%}}}
+
+%%{{{ Q: How can we define the generic curry and uncurry functions? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Usando a $\lambda$-notação como podemos definir funcções
+$\curry, \uncurry$ para a situação mais genérica onde
+a funcção de dois argumentos é do tipo $(A \times B) \to C$?
+
+%%}}}
+
+\spoiler
+
+%%{{{ how_to_construct_curry_inhabitant 
+\note Resposta.
+%%%{{{ meta 
+\label how_to_construct_curry_inhabitant
+%%%}}}
+
+Primeiramente vamos nos preocupar com os tipos dessas funcções.
+São assim:
+$$
+\cdopt{sep=2cm}
+\paren{(A\times B)\to C}  \ar[r, shift left, "\curry"] \| \paren{A \to (B\to C)} \ar[l, shift left, "\uncurry"]
+\endcd
+$$
+Temos então
+$$
+\curry : \paren{(A\times B)\to C} \longto \paren{A \to (B\to C)}
+$$
+definida pela
+\lmath
+\curry(\alert{\dots?}
+\endlmath
+Como denotar o arbitrário membro do seu domínio $\paren{(A\times B)\to C}$?
+Sendo uma funcção, vou escolher denotá-lo por $f$.  Ajuda.
+Voltamos então:
+\lmath
+\curry(f) = \alert{\dots?}
+\endlmath
+Que tipo de coisa estamos tentando \emph{construir} no lado direito?
+Pelo tipo da $\curry$, deve ser uma funcção de $A$ para $(B\to C)$.
+E o que tenho na minha disposição?  Neste ponto apenas a $f$.
+Facilita escrever claramente todas as coisas disponíveis e seus tipos.
+Então por enquanto tenho apenas
+$$
+f : (A\times B) \to C.
+$$
+E eu quero construir uma funcção de tipo $A\to (B \to C)$.
+Para defini-la preciso deixar claro o seu comportamento então:
+\lmath
+\curry(f) = \lamhead {\alert{\dots?}}
+\endlmath
+Como denotar a arbitrária entrada dessa funcção?
+Bem, sendo uma funcção com domínio $A$, vou escolher denotar
+seu argumento por $a$:
+\lmath
+\curry(f) = \lam a {\alert{\dots?}}
+\endlmath
+A mesma pergunta: o que eu ganhei e o que tipo de coisa preciso construir agora?
+Ganhei um $a : A$, e preciso construir
+algo do tipo $B\to C$, ou seja, uma funcção (então vou começar com um $\lambda$\dots)
+que recebe $B$'s (então $\lam b {\dots}$) e retorna $C$'s:
+\lmath
+\curry(f) = \lam a {\lam b {\alert{\dots?}}}
+\endlmath
+Aqui preciso construir um $C$'zinho e eu tenho:
+$$
+\align
+f &: (A\times B) \to C \\
+a &: A \\
+b &: B
+\intertext{%
+Fácil!  Pois eu tenho um fornecedor de $C$'s, e ele só
+precisa de um par de um $A$'zinho e um $B$'zinho para
+funccionar---pun intended---e felizmente eu tenho ambos, e logo
+}
+f(a,b) &: C
+\endalign
+$$
+Com isso consigo finalmente terminar:
+$$
+\curry(f) = \lam a {\lam b {f(a,b)}}.
+$$
+Deixo a definição da $\uncurry$ pra ti:
+
+%%}}}
+
+%%{{{ x: uncurry_using_lambdas 
+\exercise.
+%%%{{{ meta 
+\label uncurry_using_lambdas
+%%%}}}
+
+Defina a $\uncurry$.
+
+\hint
+Queremos definir a
+$$
+\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
+$$
+então sabemos já como começar: basta definir o
+$$
+\uncurry(\alert{\dots?}\phantom)
+$$
+Peraí: qual seria uma opção boa para denotar esse argumento?
+
+\hint
+Que tipo de coisa é esse argumento?
+Uma funcção $A \to (B\to C)$, ou seja, uma funcção de ordem
+superior; vou escolher $F$ aqui, para me lembrar desse fato.
+Voltando então:
+$$
+\uncurry(F) = \alert{\dots?}
+$$
+O que eu ganhei e o que eu preciso construir?
+Ganhei
+$$
+F : A \to (B\to C)
+$$
+e preciso algo do tipo $(A\times B) \to C$.
+Então já sei como começar.
+Como?
+
+\hint
+Sendo uma funcção, vou já escrever:
+$$
+\uncurry(F) = \lam {\alert{\dots?}} {\dots}
+$$
+e preciso escolher como denotar a sua entrada.
+E aqui tenho duas abordagens razoáveis:
+ou escolher alguma variável como $w,t,\vec w, \vec t$, etc.,
+onde ela terá o tipo $A\times B$;
+ou usar a $\lambda$-notação de aridades maiores escrevendo
+$\tup{a,b}$ para a arbitrária entrada dessa funcção.
+Vamos escolher segunda opção (se quiser, pode escolher a primeira).
+Continue!
+
+\hint
+Estamos aqui então:
+$$
+\uncurry(F) =
+\lam {\tup{a,b}} {\alert{\dots?}}
+$$
+e o que precisamos construir aqui?
+Sendo a ``saída'' duma funcção com tipo $(A\times B)\to C$,
+eu preciso construir uma coisa do tipo $C$.
+Mas o que mais eu tenho agora?
+Meus dados tem aumentado:
+$$
+\align
+F &: A\to (B \to C) \\
+\tup{a,b} &: (A\times B)
+\intertext{e logo}
+a &: A \\
+b &: B \\
+\alert{??} &: C\\
+\endalign
+$$
+Como posso usá-los para construir algo do tipo $C$?
+Eu não tenho um ``fornecedor'' de $C$'s imediato,
+mas percebo que tenho um\dots\ fornecedor de fornecedores
+de $C$'s!  (Minha $F$.)
+E para ela funccionar
+preciso oferecer $A$'zinho, e pronto, ela vai fornecer
+um fornecedor de $C$'s.
+Felizmente temos um $a : A$.
+Então temos:
+$$
+F(a) : ??
+$$
+
+\hint
+Temos
+$$
+\align
+F &: A\to (B \to C) \\
+\tup{a,b} &: (A\times B) \\
+a &: A \\
+b &: B \\
+F(a)    &: B \to C
+\intertext{e logo}
+F(a)(b) &: ??
+\endalign
+$$
+Termine!
+
+\solution
+Queremos definir a
+$$
+\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
+$$
+e \emph{seguindo as dicas} chegamos em:
+$$
+\uncurry(F) = \lam {\tup{a,b}} {\bigparen{F(a)}(b)}.
+$$
+
+%%}}}
+
+%%{{{ type_inference_tree_for_curry 
+\note Arvore de inferência de tipo.
+%%%{{{ meta 
+%%%}}}
+
+A última parte da argumentação acima corresponde na arvore de inferência
+seguinte:
+$$
+\PROOFm {
+\A {f \is A \cross B \to C}      \A {x \is A}  \A {y \is B}
+                               \I2------------------------- {}
+                                   {(x,y) \is A \cross B}
+\I2------------------------------------------------------- {}
+                        {f(x,y) \is C}
+}
+$$
+Verifique cada passo, e acostume-se com essa forma!
+
+%%}}}
+
+%%{{{ x: type_inference_tree_for_uncurry 
+\exercise Acostume-se mesmo.
+%%%{{{ meta 
+\label type_inference_tree_for_uncurry
+%%%}}}
+
+Construa a arvore que corresponde na última parte da
+tua resolução do~\ref[uncurry_using_lambdas] caso que
+tu não fez isso já enquanto o resolvendo.
+
+\solution
+$$
+\PROOFm {
+\A {f \is A \to (B \to C)}     \A {t \is A \cross B}
+                               \I1------------------ {}
+                                   {\outl t \is A}
+\I2------------------------------------------------- {}
+               {f (\outl t) \is B\to C}
+                                               \A {t \is A \cross B}
+                                               \I1------------------ {}
+                                                   {\outr t \is B}
+\I2---------------------------------------------------------------- {}
+                     {f (\outl t) (\outr t) \is C}
+}
+$$
+
+%%}}}
+
+%%{{{ syntactic_associativity 
+\note Associatividade sintáctica.
+%%%{{{ meta 
+\label syntactic_associativity
+%%%}}}
+
+Considere que temos uma operação binária $\heartop$.
+A frase
+$$
+\text{<<$\heartop$ é associativa>>}
+$$
+é uma \emph{afirmação matemática:}
+$$
+\text{para todo $x,y,z$},
+\quad
+(x \heartop y) \heartop z
+=
+x \heartop (y \heartop z).
+$$
+Isso é algo que pode ser demonstrado, suposto, refutado, etc.
+Por outro lado, considere as frases seguintes:
+$$
+\xalignat2
+&\aligned
+&\textwq{$\heartop$ é associativa na esquerda} \\
+&\textwq{$\heartop$ associa na esquerda} \\
+&\textwq{$\heartop$ é L-associativa}
+\endaligned
+&
+&\aligned
+&\textwq{$\heartop$ é associativa na direita} \\
+&\textwq{$\heartop$ associa na direita} \\
+&\textwq{$\heartop$ é R-associativa}
+\endaligned
+\intertext{%
+Nenhuma dessas frases é algo que podemos demonstrar, refutar, ou supor!
+O que significam então?
+Apenas uma convenção sintáctica, que dá significado
+às expressões como a \symq{$x \heartop y \heartop z$}
+que sem uma associatividade sintáctica não denotam
+absolutamente nada (pois têm um erro de aridade).
+As frases acima então correspondem respectivamente nas:
+}
+&x \heartop y \heartop z \syndefeq (x \heartop y) \heartop z &
+&x \heartop y \heartop z \syndefeq x \heartop (y \heartop z).
+\endxalignat
+$$
+
+%%}}}
+
+%%{{{ notational_abuse_curried 
+\warning.
+%%%{{{ meta 
+\label notational_abuse_curried
+%%%}}}
+
+Às vezes abusarei essa idéia e escrever o nome duma funcção
+currificada mas usá-la como se ela não fosse; e vice-versa.
+Por exemplo, defini (\reftag[eval_operation]) a $\evaldc A B$
+como uma funcção
+$$
+\evaldc A B : \pfcross {(A \to B)} A \to B.
+$$
+Ou seja, para chamá-la escrevemos
+$$
+\evaldc A B (f,a).
+$$
+Mas (abusando a notação!)~posso considerar o mesmo símbolo
+$\evaldc A B$ para denotar sua currificação
+$$
+\evaldc A B : {(A \to B)} \to A \to B
+$$
+que \emph{é uma funcção diferente sim}, nesse caso escrevendo
+$$
+\evaldc A B \fa f \fa a.
+$$
+Tudo isso apenas no caso que pelo contexto tá claríssimo qual
+das duas funcções tá sendo denotada.
+
+%%}}}
+
+\TODO notação de ``aridades maiores'' currificada.
+
+%%{{{ human_eyes_and_ho_types 
+\note Olhos humanos e os tipos higher-order.
+%%%{{{ meta 
+\label human_eyes_and_ho_types
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ partial_application_and_currying 
+\note Aplicação parcial e currificação.
+%%%{{{ meta 
+\label partial_application_and_currying
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ eg: powTwo 
+\example powTwo.
+%%%{{{ meta 
+\label powTwo
+%%%}}}
+
+Definimos a funcção $\namedfun{powTwo} : \nats\to\reals$ pela
+$$
+\namedfun{powTwo} = \namedfun{exp} \fa 2.
+$$
+Assim $powTwo\fa 0 = 1$, $\namedfun{powTwo} \fa 10 = 1024$, etc.
+
+%%}}}
+
+%%{{{ remark: looks_like_cancellation 
+\remark Parece cancelamento.
+%%%{{{ meta 
+\label looks_like_cancellation
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Já entramos bastante to território de programação funccional;
+paramos aqui agora, e voltamos re-visitar e expandir tudo isso
+no~\ref[Functional_programming].
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Implementations_seq_fam 
 \section Novas implementações: seqüências e famílias.
 %%%{{{ meta 
@@ -31877,6 +33046,52 @@ $$
 
 \endsection
 %%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ prob: flip_definition 
+\problem flip.
+%%%{{{ meta 
+\label flip_definition
+%%%}}}
+
+No \ref[powTwo] da~\reftag[Currying] definimos a funcção $\namedfun{powTwo}$
+diretamente como aplicação parcial da funcção $\namedfun{exp}$
+$$
+\namedfun{powTwo} = \namedfun{exp} \fa 2
+$$
+evitando o uso de pontos ou lambdas:
+\mathcols 2
+\namedfun{powTwo} \fa n &= \namedfun{exp} \fa 2 \fa n; &
+\namedfun{powTwo}       &= \lam n {\namedfun{exp} \fa 2 \fa n}.
+\endmathcols
+Similarmente podemos definir a funcção que corresponde seqüência das potências
+de qualquer outro número real.
+Mas parece que não podemos criar com a mesma laconicidade (apenas como
+aplicação parcial) uma funcção $\namedfun{square}$ ou $\namedfun{cube}$,
+pois os argumentos da $\namedfun{exp}$ estão ``na ordem errada''.
+O objectivo desse problema é fazer exatamente isso.
+\eop
+Defina uma funcção de ordem superior $\namedfun{flip}$, que recebe qualquer
+funcção binária currificada, e retorna a funcção binária currificada que
+comporta no mesmo jeito mas recebendo seus argumentos na ordem oposta.
+Por exemplo:
+\mathcols 2
+\namedfun{exp} \fa 2 \fa 3 &= 8; &
+\paren{\namedfun{flip} \fa \namedfun{exp}} \fa 2 \fa 3 &= 9
+\endmathcols
+Começa escrevendo o tipo da $\namedfun{flip}$ e o lendo com as duas
+maneiras diferentes que discutimos na~\ref[human_eyes_and_ho_types].
+
+%%}}}
+
+\endproblems
+%%}}}
+
+% ENTER COMPOSITION AND IDENTITY
 
 %%{{{ Composition 
 \section Composição.
@@ -32461,7 +33676,7 @@ Espero que ficou claro.
 
 %%{{{ intro 
 \secintro
-Investigamos aqui umas primeiras funcções garantidas para
+Investigamos aqui umas funcções garantidas de
 existir assim que tivermos alguns outros objetos:
 conjuntos, funcções, etc.
 %%}}}
@@ -33133,141 +34348,6 @@ Inclusão.
 
 \solution
 $f\resto X = \incofin X A \of f$.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Partial_application 
-\section Aplicação parcial.
-%%%{{{ meta 
-\label Partial_application
-%%%}}}
-
-%%{{{ Partial application with black boxes 
-\note Aplicação parcial com black boxes.
-%%%{{{ meta 
-%%%}}}
-
-Suponha que temos uma funcção de aridade~$2$:
-$$
-f : (A\times B) \to C.
-$$
-Ou seja, nossa funcção, ``para funccionar'', precisa receber
-exatamente dois argumentos: algum $a\in A$ e algum $b\in B$
-para ``produzir'' o valor $f(a,b) \in C$: $$
-\tikzpicture
-\tikzi blackboxfunpartapp1;
-\endtikzpicture
-$$
-Queremos utilizar essa funcção de aridade~$2$,
-para criar duas outras, cada uma de aridade~$1$.
-A idéia é a seguinte: vamos ``fixar'' uma das suas entradas
-com um valor, e deixar a outra como entrada mesmo.
-Imagine que fixamos um certo $b_0\in B$ no segundo ``cabo'' de entrada,
-puxamos o outro cabo, e criamos uma nova caixa assim:
-$$
-\tikzpicture
-\tikzi blackboxfunpartapp2;
-\endtikzpicture
-$$
-E agora pintamos preta nossa caixa, escrevemos seus rótulos (seu tipo),
-e pronto, construimos uma nova funcção de aridade $1$:
-$$
-\tikzpicture
-\tikzi blackboxfunpartapp3;
-\endtikzpicture
-$$
-Observe que temos $f(\dhole,b_0):A \to C$.
-Vamos agora ver a mesma idéia usando buracos, sem black boxes.
-
-%%}}}
-
-%%{{{ Partial application using holes 
-\note Aplicação parcial usando buracos.
-%%%{{{ meta 
-%%%}}}
-
-Considere uma funcção $f$ de aridade 3:
-$$
-A \times B \times C \longtoby f D.
-$$
-Lembre-se que
-$$
-f(\dhole, \dhole, \dhole) :
-A \times B \times C \to D
-$$
-e ainda mais $f(\dhole, \dhole, \dhole)$ é a própria $f$!
-Queremos preencher uns desses buracos, mas não todos.
-E nada especial sobre esse $3$.
-Em geral, dada uma funcção $f$ de aridade $n$,
-podemos \emph{fixar} $k$ dos seus argumentos
-com certos valores, botar buracos nos ouros,
-e criar assim uma funcção de aridade $n-k$.
-Uns exemplos vão esclarecer esse processo.
-
-%%}}}
-
-%%{{{ eg: partial_application_holes_eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Considere a funcção $f : \reals^3 \to \reals$, definida pela
-$$
-f(x,y,z) = x + y^2 + z^3.
-$$
-Temos então
-$$
-\align
-f(\dhole,\dhole,\dhole) &: \reals^3 \to \reals.
-\intertext{Com aplicação parcial, fixando uns dos seus argumentos,
-criamos então as funcções seguintes:}
-f(2,\dhole,\dhole)      &: \reals^2 \to \reals \\
-f(2,\dhole,\sin(2))     &: \reals   \to \reals \\
-f(\dhole,\sqrt2,\cbrt2) &: \reals   \to \reals \\
-f(\dhole,0,0)           &: \reals   \to \reals.
-\endalign
-$$
-A última, por exemplo, é a $\idof \reals$; a penúltima é a $\lam x {x+4}$.
-
-%%}}}
-
-%%{{{ eg: partial_application_holes_infix_eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Aplicando a funcção de adição $+ : \nats^2 \to \nats$
-parcialmente fixando seu segundo argumento no número $1$,
-criamos a funcção
-$$
-\align
-(\bhole + 1) &: \nats \to \nats
-\intertext{que é a funcção $\namedfun{succ}$ de sucessor;
-e fixando seu primeiro argumento no $0$ criamos a}
-(0 + \bhole) &: \nats \to \nats
-\endalign
-$$
-que é a $\idof \nats$.
-
-%%}}}
-
-%%{{{ teaser: partial application and currying 
-\teaser.
-%%%{{{ meta 
-%%%}}}
-
-Já que entendeu a relação entre expressões que envovlem buracos
-e abstracções lambda com variáveis, espero que nem preciso
-explicar que podemos denotar a aplicação parcial $f(2,\dhole)$
-por $\lam x {f(2,x)}$.
-Mas trabalhando com lambdas é mais comum tratar funcções
-de aridades maiores que $1$ numa outra maneira, chamada
-currificação (\reftag[Currying]).  E a aplicação parcial
-brilha ainda mais nesse caso: não precisa nem buracos,
-nem variáveis (\ref[partial_application_and_currying])!
 
 %%}}}
 
@@ -35767,565 +36847,6 @@ essas propriedades, ``de longe'', sem olhar os detalhes internos.
 \endsection
 %%}}}
 
-%%{{{ Higher_order_functions 
-\section Funcções de ordem superior.
-%%%{{{ meta 
-\label Higher_order_functions
-%%%}}}
-
-%%{{{ Holes again 
-\note Buracos de novo.
-%%%{{{ meta 
-%%%}}}
-
-Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
-botando \emph{buracos}, criando assim funcções de várias aridades.
-Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
-permitiu dar nomes para esses buracos, ligar (identificar) certos buracos, etc.
-Considere novamente uma expressão como a
-$$
-\cos(1 + 5\cbrt2)^{2a} + \sin(5)
-$$
-onde $\cos : \reals\to\reals$, $\sin : \reals\to\reals$, e $a\in \reals$.
-Botando uns buracos ou abstraindo com lambdas, criamos, por exemplo, as funcções:
-$$
-\alignat2
-f_1 &= \cos(1 + 5\cbrt2)^{\bhole a} + \sin(5)            &&\eqtype \reals   \to \reals\\
-f_2 &= \cos(\bhole + 5\cbrt{\bhole})^{2a} + \sin(\bhole) &&\eqtype \reals^3 \to \reals\\
-f_3 &= \cos(\bhole + \bhole\cbrt2)^{2\bhole} + \sin(5)   &&\eqtype \reals^3 \to \reals\\
-f_4 &= \cos(\bhole + \bhole)^{\bhole} + \sin(5)          &&\eqtype \reals^3 \to \reals\\
-f_5 &= \bhole + \sin(\bhole)                             &&\eqtype \reals^2 \to \reals\\
-f_6 &= \lam x {\cos(1 + 5\cbrt2)^{2x} + \sin(5)}         &&\eqtype \reals   \to \reals\\
-f_7 &= \lam {x,y} {\cos(1 + y\cbrt x)^{2a} + \sin(y)}    &&\eqtype \reals^2 \to \reals.
-\endalignat
-$$
-
-%%}}}
-
-%%{{{ x: verify_abstractions_of_expression 
-\exercise.
-%%%{{{ meta 
-\label verify_abstractions_of_expression
-%%%}}}
-
-Para quais entradas cada uma dessas funcções retorna o valor da expressão inicial?
-
-\hint
-Respeite as aridades!
-
-\solution
-Temos
-$$
-\align
-f_1&(2)\\
-f_2&(1,2,5)\\
-f_3&(1,5,a)\\
-f_4&(1,5,2a)\\
-f_5&(\cos(1 + 5\cbrt2)^{2a}, 5)\\
-f_6&(a)\\
-f_7&(2, 5).
-\endalign
-$$
-
-%%}}}
-
-%%{{{ Higher-order holes 
-\note Buracos de ordem superior.
-%%%{{{ meta 
-%%%}}}
-
-Em todos os exemplos acima, botamos os buracos para substituir
-apenas termos cujos valores seriam números (reais).
-Expressões tanto como as $2$, $1$, $5$, e $a$,
-quanto como as $5\cbrt2$, $2a$, e $\cos(1 + 5\cbrt2)^{2a}$,
-denotam, no final das contas, números reais.
-Que tal botar um buraco assim:
-$$
-\cos(1 + 5\cbrt2)^{2a} + \bhole(5)
-$$
-O que substituimos aqui?  O próprio $\sin$!  Por que não?
-E o que tipo de objetos podemos botar nesse buraco?
-Um real, não serve: a expressão
-$$
-\cos(1 + 5\cbrt2)^{2a} + 7(5)
-$$
-não faz sentido: \emph{ela é mal-tipada}.
-O $7$ não pode receber um argumento como se fosse uma funcção, pois não é.
-Que tipo de coisas então cabem nesse buraco?
-Funcções!
-E não funcções quaisquer, mas precisam ter um tipo compatível,
-com a aridade certa, etc.
-Esses buracos são \emph{de ordem superior}.
-E com buracos de ordem superior, vêm funcções de ordem superior.
-
-%%}}}
-
-%%{{{ pseudodf: higher_order_function 
-\pseudodefinition.
-%%%{{{ meta 
-\label higher_order_function
-\defines
-    * funcção!de ordem superior
-    ;;
-%%%}}}
-
-Dizemos que uma funcção $f : A \to B$ é de \dterm{ordem superior}
-se ela recebe ou retorna funcções.
-
-%%}}}
-
-%%{{{ x: type_higher_order_holed_expressions 
-\exercise.
-%%%{{{ meta 
-\label type_higher_order_holed_expressions
-%%%}}}
-
-Escreva os tipos das funcções seguintes:
-$$
-\align
-F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)\\
-F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)\\
-F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)\\
-F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)\\
-F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}
-\endalign
-$$
-
-\solution
-Temos
-\compute
-F_1 &= \cos(1 + 5\cbrt2)^{2a} + \bhole(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
-F_2 &= \bhole(1 + 5\cbrt2)^{2a} + \sin(5)                       &&\eqtype (\reals\to\reals) \to \reals\\
-F_3 &= \bhole(1 + 5\cbrt2)^{2a} + \bhole(5)                     &&\eqtype \paren{(\reals\to\reals)\times(\reals\to\reals)} \to \reals\\
-F_4 &= \cos(\bhole(1,5\cbrt2)^{2a} + \sin(5)                    &&\eqtype (\reals^2\to\reals)\to\reals\\
-F_5 &= \cos(\bhole(1,5\cbrt2)^{2a} + \bhole(\bhole)             &&\eqtype \paren{(\reals^2\to\reals)\times(\reals\to\reals)\times\reals}\to\reals\\
-F_6 &= \lam {r,t,u} {\cos(1 + r(u,\cbrt2))^{r(t,a)} + \sin(u)}  &&\eqtype \paren{(\reals^2\to\reals)\times\reals\times\reals}\to\reals
-\endcompute
-
-%%}}}
-
-%%{{{ Returning functions 
-\note Retornando funcções.
-%%%{{{ meta 
-%%%}}}
-
-Até agora encontramos exemplos onde funcções recebem como
-argumentos outras funcções, mas ainda não conhecemos alguma
-funcção que \emph{retorna funcção}.
-Ou será que conhecemos?
-Se tu resolveu o~\ref[calculate_lambda_expressions],
-tu já encontrou esse caso, na sua última expressão.
-Seguem uns exemplos de operadores de ordem superior que
-você talvez já encontrou e até usou na tua vida.
-
-%%}}}
-
-%%{{{ eg: Defining a higher-order functions 
-\example Definindo uma funcção de ordem superior.
-%%%{{{ meta 
-\indexes
-    * funcção!anônima
-    ;;
-%%%}}}
-
-Considere a funcção $F : \nats \to (\nats \to \nats)$ definida pela
-$$
-\align
-F(w) &= \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x$, retorna $w + x$}.
-\intertext{%
-Ou, equivalentemente:
-}
-F(w) &= \text{aquela funcção $g : \nats \to \nats$ definida pela $g(x) = w + x$}.
-\intertext{%
-Que tipo de objetos a funcção $F$ retorna?
-Funcções!  Nesse caso determinamos exatamente para qualquer entrada
-dela, qual seria a funcção que vai ser retornada.
-Observe que na definição de $F(w)$, apareceu a frase
-``aquela funcção $g$\dots''.
-Assim baptizamos temporariamente essa funcção com um nome (``$g$'') à toa:
-apenas para referir a ela e retorná-la.
-Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
-e (logo) mais legível:
-}
-F(w) &= \lam x {w + x} \eqtype \nats \to \nats.
-\endalign
-$$
-Observe que no lado direito aparece uma funcção anônima.
-
-%%}}}
-
-%%{{{ eg: in Python 
-\example em Python.
-%%%{{{ meta 
-\indexes
-    * Python
-    ;;
-%%%}}}
-
-Em Python podemos (ainda bem\dots)~por exemplo escrever:
-\sourcecode higher.py;
-que corresponde na primeira maneira de definir a $F$, criando e nomeando
-a funcção para ser retornada.
-Podemos com $\lambda$ também:
-\sourcecode higherlam.py;
-Não ficou melhor?
-
-%%}}}
-
-%%{{{ Q: what type of thing is F(25)? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-Que tipo de coisa é o $F(25)$?
-
-%%}}}
-
-\spoiler
-
-%%{{{ Answer 
-\note.
-%%%{{{ meta 
-%%%}}}
-
-Antes de responder nessa pergunta, vamos responder numa outra,
-ainda mais específica: quem \emph{é} o $F(25)$?
-Ou seja:
-$$
-F(25) = \dots?\dots
-$$
-Não precisamos pensar nada profundo!
-Vamos apenas \emph{copiar fielmente} sua definição (no lado depois do ``$=$''), substituindo cada ocorrência de $w$, por $25$:
-$$
-F(25) = \text{aquela funcção $g : \nats \to \nats$ que recebendo um $x\in\nats$, retorna o número $25 + x$}.
-$$
-Ou seja,
-$$
-F(25) : \nats\to\nats.
-$$
-Sendo funcção, podemos chamá-la com um argumento do certo tipo, por exemplo como o $3\in\nats$, e evaluá-la:
-$$
-\paren{F(25)}(3) = 28.
-$$
-
-%%}}}
-
-%%{{{ x: where_did_28_come_from 
-\exercise.
-%%%{{{ meta 
-\label where_did_28_come_from
-%%%}}}
-
-De onde chegou esse $28$?
-
-\solution
-Seguindo a definição da $F(25)$ ela é a funcção que recebendo um valor
-(agora tá recebendo o $3$), retorna a soma de $25$ e esse valor:
-$25 + 3 = 28$.
-
-%%}}}
-
-%%{{{ x: find_expressions_with_given_types_higher_order 
-\exercise.
-%%%{{{ meta 
-\label find_expressions_with_given_types_higher_order
-%%%}}}
-
-Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
-tipos seguintes:
-$$
-\align
-F_1&\eqtype \reals \to \reals \\
-F_2&\eqtype \reals \to (\reals \to \reals) \\
-F_3&\eqtype (\reals \to \reals) \to \reals \\
-F_4&\eqtype (\reals \to \reals) \to (\reals \to \reals) \\
-F_5&\eqtype (\reals^2 \to \reals) \to \reals \\
-F_6&\eqtype (\reals^2 \to \reals) \to (\reals \to (\reals \to \reals)).
-\endalign
-$$
-
-%%}}}
-
-%%{{{ x: find_expressions_with_given_types_higher_order_abstract 
-\exercise.
-%%%{{{ meta 
-\label find_expressions_with_given_types_higher_order_abstract
-%%%}}}
-
-Escreva $\lambda$-expressões que podem ser consideradas como funcções com os
-tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não podes supor
-absolutamente nada mais!
-Para cada um dos tipos, tente escrever as mais $\lambda$-expressões realmente
-diferentes que tu consegues.
-Cuidado: para uns deles não é possível achar nenhuma!
-$$
-\align
-&: A \to B \\
-&: A \to (B \to A) \\
-&: A \to (B \to B) \\
-&: (A \to A) \to A \\
-&: A \to (A \to A) \\
-&: A \to \bigparen{B \to \paren{(A\to B) \times (A\union C) \times \nats}} \\
-&: (A \to (B \to C) \to ((A\times B)\to C)) \\
-&: ((A\times B)\to C) \to (A \to (B \to C))
-\endalign
-$$
-
-%%}}}
-
-%%{{{ first_class_citizens 
-\note First-class citizens.
-%%%{{{ meta 
-\label first_class_citizens
-\indexes
-    * cidadão da primeira classe
-    * first-class citizen    see: cidadão
-    * C
-    * C++
-    * Java
-    * Haskell
-    * PureScript
-    * Idris
-    * Agda
-    * Racket
-    * Clojure
-    * Scala
-    * Python
-    ;;
-%%%}}}
-
-O slogan aqui é que funcções são \emph{first-class citizens}.
-Trabalhando no~\ref[calculate_lambda_expressions], o último cálculo
-chega no valor seguinte:
-$$
-\align
-\plam x {\plam x {x + 1} \lapp 1 \ntimes \redex {\plam y {xy} \lapp 4}}
-&\lstep \plam x {\redex {\plam x {x + 1} \lapp 1} \ntimes x\ntimes 4} \\
-&\lstep \plam x {(1 + 1) \ntimes x \ntimes 4)} \\
-&\isteq \plam x {8x}.
-\endalign
-$$
-Como falei na resolução, se esse ``resultado'' (valor final)
-não parece satisfatório, é por causa de um preconceito teu que
-favorece os objetos de tipo ``número'' contra os objetos de tipo
-``funcção''.
-Os números têm o direito de ser valores finais; e as funcções
-também têm!  Esse ``preconceito'' é bastante alimentado por causa
-de varias linguagens de programação que realmente não tratam
-as funcções em termos iguais com os outros tipos.
-Em C, C++, ou Java, por exemplo, não é possível passar como
-argumentos funcções, nem retorná-las; mas claramente números
-podem ser argumentos e também podem ser retornados como saída
-de funcções.
-Por outro lado, linguagens como Haskell, PureScript, Idris,
-Agda, Racket, Clojure, Scala, Python, etc., adoptam o slogan
-\standout
-\emph{<<functions are first-class citizens>>}
-\endstandout
-ou seja, lá temos funcções de ordem superior---e logo, felicidade.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Funcções de ordem superior não é algo tão desconhecido como
-talvez parece.
-O leitor já está acostumado com os operadores nos exemplos seguintes:
-
-%%}}}
-
-%%{{{ eg: higher_order_example_composition 
-\example Composição.
-%%%{{{ meta 
-\label higher_order_example_composition
-%%%}}}
-
-Sejam conjuntos $A,B,C$.
-O operador da composição $\of$
-(cuja notação decoramos aqui para especificar
-o domínio e codomínio dele e dos seus argumentos)
-é o seguinte:
-$$
-\dhole\oflab ABC\dhole : \bigparen{(B\to C) \times (A\to B)} \to (A\to C).
-$$
-Observe que ele é um operador de ordem superior, pois seus (dois) argumentos
-são funcões, e também pois sua saída também é uma funcção.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Definimos agora a funcção $\eval$\/ que faz algo bem simples:
-aplica seu primeiro argumento (que deve ser uma funcção) no seu
-segundo (que deve ser um ponto do domínio do primeiro argumento).
-
-%%}}}
-
-%%{{{ df: eval_operation 
-\definition eval.
-%%%{{{ meta 
-\label eval_operation
-\defines
-    * \evaldc {~A} {~B}  -- a operação que aplica funcções de tipo $A\to B$ em objetos de tipo $A$
-    * funcção!eval
-    ;;
-%%%}}}
-
-Dados conjuntos $A,B$ definimos a funcção
-$$
-\align
-\eval         &\eqtype \bigparen{(A \to B) \times A} \to B \\
-\eval (f, a)  &= f(a).
-\endalign
-$$
-Chamamos essa funcção de \dterm{evaluação} ou \dterm{avaliação}.
-Como fizemos na composição, decoramos essa operação escrevendo
-$\evaldc A B$ para esclarecer os conjuntos envolvidos, mas escrevemos
-simplesmente $\eval$ quando os $A,B$ são implícitos pelo contexto.
-
-%%}}}
-
-%%{{{ eg: eval is indeed a higher order function 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Dados conjuntos $A,B$, a $\evaldc A B$ é claramente uma
-operação de ordem superior.
-
-%%}}}
-
-%%{{{ x: type_of_restriction_op_with_hole 
-\exercise.
-%%%{{{ meta 
-\label type_of_restriction_op_with_hole
-%%%}}}
-
-Sejam $f : A\to B$ e $X\subset A$.
-Ache o tipo dos:
-$$
-\align
-f\resto \dhole  &\eqtype ?\\
-(\dhole\resto X)\resto(A \to B)
-                &\eqtype ?
-\endalign
-$$
-
-\solution
-Temos
-$$
-\align
-f\resto \dhole  &\eqtype \pset A \to \Unionl_{X\in\pset A}(X\to B)\\
-(\dhole\resto X)\resto (A \to B)
-                &\eqtype \paren{(A \to B) \to (X \to B)}
-\endalign
-$$
-
-%%}}}
-
-%%{{{ eg: higher_order_example_derivation 
-\example Derivação.
-%%%{{{ meta 
-\label higher_order_example_derivation
-%%%}}}
-
-Considere o operador da derivação $\deriv$.
-Por exemplo, se $f(x) = x^3 + 5x$, temos
-$$
-\align
-\deriv(f) &= g, \quad \text{onde $g(x) = 3x^2 + 5$}.
-\intertext{%
-Cuidado, não escrevemos aqui $\deriv(f) = 3x^2 + 5$,
-mas podemos escrever
-}
-\deriv(f) &= \lam x {3x^2 + 5}
-\endalign
-$$
-sim.
-Qual o tipo da própria $\deriv$?
-Ela recebe e retorna funcções de reais para reais, mas não podemos tipá-la
-$$
-\align
-\deriv(\dhole) &: \funs\reals\reals \to \funs\reals\reals
-\intertext{%
-pois estariamos perdendo a totalidade da $\deriv$:
-tem funcções no $\funs\reals\reals$ que não são deriváveis.
-Ainda mais, seria legal poder iterar o $\deriv$ (\ref[function_iterations])
-à vontade.
-Logo tipamos assim:
-}
-\deriv(\dhole) &: \smooths \to \smooths
-\endalign
-$$
-onde $\smooths$ é o conjunto de todas as funcções infinitamente
-deriváveis: são deriváveis, e suas derivadas também são, e suas
-derivadas também, etc.
-
-%%}}}
-
-%%{{{ teaser: partial_functions_teaser 
-\teaser funcções parciais.
-%%%{{{ meta 
-%%%}}}
-
-Mas talvez queremos mesmo considerar a $\deriv$ como uma operação
-que opera no conjunto $\funs \reals \reals$
-\emph{sacrificando} a totalidade.
-Chegamos assim no conceito de \emph{funcção parcial}, que
-voltamos a investigar na~\ref[Partial_functions].
-
-%%}}}
-
-%%{{{ eg: higher_order_example_integration 
-\example Integração.
-%%%{{{ meta 
-\label higher_order_example_integration
-\credits
-    * Riemann : integral
-    ;;
-%%%}}}
-
-Sejam $a,b\in\reals$ com $a<b$ e seja
-$$
-\riemannables a b \defeq \setstt {f : [a,b] \to \reals} {$f$ é Riemann-integrável}.
-$$
-Observe que $\riemannables a b$ é um conjunto de funcções.
-Definimos o operador
-$$
-\lam f {\lam x {\int_a^{x} f}} : \riemannables a b \to {\funs {[a,b]} \reals}
-$$
-cujo argumento é uma funcção---e ainda mais,
-sua saída também é uma funcção---e logo ele é um operador de ordem superior
-também.
-Para a integração ``indefinita'' (antiderivadas), seja
-$$
-R \defeq \setstt {f : \reals\to\reals} {$f$ é Riemann-integrável}
-$$
-e defina o operador
-$$
-\int\dhole : R \to \pset{(\reals\to\reals)}
-$$
-onde $\int f$ é o conjunto das antiderivadas da $F$:
-$$
-\int f = \setst {F : \reals\to\reals} {\deriv(F) = f}.
-$$
-Observe que a notação comum em análise é diferente: usamos por exemplo
-$\intbv a x {f(t)} t$, e o $\int f$ é visto como uma antiderivada
-(que depende duma constante) e não como o conjunto de todas
-essas antiderivadas como definimos aqui.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Images_preimages 
 \section Imagens, preimagens.
 %%%{{{ meta 
@@ -37829,24 +38350,19 @@ pergunte-se; responda (demonstra ou refuta).
 $$
 f(\dhole)
 \brace{%
-\gathered
+\mathed{
 \text{injetora} \\
 \text{sobrejetora}
-\endgathered
-}
+}}
 \askiff
-\brace{%
-\gathered
+\brace{\mathcoled{
 \img f \dhole \\
 \pre f \dhole
-\endgathered
-}
-\brace{%
-\gathered
+}}
+\brace{\mathed{
 \text{injetora} \\
 \text{sobrejetora}
-\endgathered
-}
+}}
 $$
 
 %%}}}
@@ -38020,481 +38536,6 @@ Por enquanto, esqueça.
 %%}}}
 
 % EPICNESS
-
-%%{{{ Currying 
-\section Currificação.
-%%%{{{ meta 
-\label Currying
-%%%}}}
-
-%%{{{ Ha-ha!  My language is better than yours 
-\note Ha-ha!  Minha linguagem é melhor que a tua.
-%%%{{{ meta 
-%%%}}}
-
-Imagine que um amigo definiu uma funcção $f : \ints^2\to\ints$
-trabalhando numa linguagem de programação que não permite
-definições de funcções de ordem superior.
-Queremos escrever um programa equivalente ao programa do nosso amigo
-numa outra linguagem que permite sim definir funcções de ordem superior
-mas não funcções de aridade maior que $1$.
-Mesmo assim nossas funcções podem \emph{chamar} a funcção $f$ do nosso amigo nos seus corpos.
-
-%%}}}
-
-%%{{{ Q: How can we do this? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-Como fazer isso?
-
-%%}}}
-
-\spoiler
-
-%%{{{ Answer in Python 
-\note Resposta em Python.
-%%%{{{ meta 
-\label currying_in_python
-\indexes
-    * Python
-    ;;
-%%%}}}
-
-Aqui uma resposta, escrita em Python.
-\sourcecode currying.py;
-Para computar a $\code{f(x,y)}$ usando a $\code{F}$,
-usamos a $\code{F(x)(y)}$, ou seja, $\code{(F(x))(y)}$.
-
-%%}}}
-
-\TODO Explicar o que acontece.
-
-%%{{{ x: uncurry first exercise
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Resolva o problema converso:
-começando com a funcção de ordem superior $F$,
-defina sua versão $f$ (de aridade 2).
-
-\solution
-Dados a $F : \ints\to(\ints\to\ints)$,
-é só definir a $f : \ints^2\to\ints$ pela $f(x,y) = F(x)(y)$.
-Note que a expressão ``$F(x)(y)$'' quis dizer ``$\bigparen{F(x)}(y)$'' mesmo.
-
-%%}}}
-
-%%{{{ Currying 
-\note Currificação.
-%%%{{{ meta 
-\defines
-    * currificação
-    ;;
-%%%}}}
-
-A maneira que conseguimos utilizar funcções de ordem
-superior mas de aridade $1$, para ``emular'' funcções
-de aridades maiores é chamada \dterm{currificação},
-em homenagem ao Haskell~Curry{\Curry[currificação]}.\foot
-O próprio {\Curry}Curry atribuiu o conceito
-ao Schönfinkel{\Schonfinkel[currificação]},
-mas Frege{\Frege[currificação]} já tinha usado isso antes.
-\toof
-No exemplo acima dizemos que \emph{$F$ é a currificação da
-da $f$}, ou \emph{sua versão currificada}.
-
-%%}}}
-
-%%{{{ Q: How can we define the generic curry and uncurry functions? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-Usando a $\lambda$-notação como podemos definir funcções
-$\curry, \uncurry$ para a situação mais genérica onde
-a funcção de dois argumentos é do tipo $(A \times B) \to C$?
-
-%%}}}
-
-\spoiler
-
-%%{{{ how_to_construct_curry_inhabitant 
-\note Resposta.
-%%%{{{ meta 
-\label how_to_construct_curry_inhabitant
-%%%}}}
-
-Primeiramente vamos nos preocupar com os tipos dessas funcções.
-São assim:
-$$
-\cdopt{sep=2cm}
-\paren{(A\times B)\to C}  \ar[r, shift left, "\curry"] \| \paren{A \to (B\to C)} \ar[l, shift left, "\uncurry"]
-\endcd
-$$
-Temos então
-$$
-\curry : \paren{(A\times B)\to C} \longto \paren{A \to (B\to C)}
-$$
-definida pela
-\lmath
-\curry(\alert{\dots?}
-\endlmath
-Como denotar o arbitrário membro do seu domínio $\paren{(A\times B)\to C}$?
-Sendo uma funcção, vou escolher denotá-lo por $f$.  Ajuda.
-Voltamos então:
-\lmath
-\curry(f) = \alert{\dots?}
-\endlmath
-Que tipo de coisa estamos tentando \emph{construir} no lado direito?
-Pelo tipo da $\curry$, deve ser uma funcção de $A$ para $(B\to C)$.
-E o que tenho na minha disposição?  Neste ponto apenas a $f$.
-Facilita escrever claramente todas as coisas disponíveis e seus tipos.
-Então por enquanto tenho apenas
-$$
-f : (A\times B) \to C.
-$$
-E eu quero construir uma funcção de tipo $A\to (B \to C)$.
-Para defini-la preciso deixar claro o seu comportamento então:
-\lmath
-\curry(f) = \lamhead {\alert{\dots?}}
-\endlmath
-Como denotar a arbitrária entrada dessa funcção?
-Bem, sendo uma funcção com domínio $A$, vou escolher denotar
-seu argumento por $a$:
-\lmath
-\curry(f) = \lam a {\alert{\dots?}}
-\endlmath
-A mesma pergunta: o que eu ganhei e o que tipo de coisa preciso construir agora?
-Ganhei um $a : A$, e preciso construir
-algo do tipo $B\to C$, ou seja, uma funcção (então vou começar com um $\lambda$\dots)
-que recebe $B$'s (então $\lam b {\dots}$) e retorna $C$'s:
-\lmath
-\curry(f) = \lam a {\lam b {\alert{\dots?}}}
-\endlmath
-Aqui preciso construir um $C$'zinho e eu tenho:
-$$
-\align
-f &: (A\times B) \to C \\
-a &: A \\
-b &: B
-\intertext{%
-Fácil!  Pois eu tenho um fornecedor de $C$'s, e ele só
-precisa de um par de um $A$'zinho e um $B$'zinho para
-funccionar---pun intended---e felizmente eu tenho ambos, e logo
-}
-f(a,b) &: C
-\endalign
-$$
-Com isso consigo finalmente terminar:
-$$
-\curry(f) = \lam a {\lam b {f(a,b)}}.
-$$
-Deixo a definição da $\uncurry$ pra ti:
-
-%%}}}
-
-%%{{{ x: uncurry_using_lambdas 
-\exercise.
-%%%{{{ meta 
-\label uncurry_using_lambdas
-%%%}}}
-
-Defina a $\uncurry$.
-
-\hint
-Queremos definir a
-$$
-\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
-$$
-então sabemos já como começar: basta definir o
-$$
-\uncurry(\alert{\dots?}\phantom)
-$$
-Peraí: qual seria uma opção boa para denotar esse argumento?
-
-\hint
-Que tipo de coisa é esse argumento?
-Uma funcção $A \to (B\to C)$, ou seja, uma funcção de ordem
-superior; vou escolher $F$ aqui, para me lembrar desse fato.
-Voltando então:
-$$
-\uncurry(F) = \alert{\dots?}
-$$
-O que eu ganhei e o que eu preciso construir?
-Ganhei
-$$
-F : A \to (B\to C)
-$$
-e preciso algo do tipo $(A\times B) \to C$.
-Então já sei como começar.
-Como?
-
-\hint
-Sendo uma funcção, vou já escrever:
-$$
-\uncurry(F) = \lam {\alert{\dots?}} {\dots}
-$$
-e preciso escolher como denotar a sua entrada.
-E aqui tenho duas abordagens razoáveis:
-ou escolher alguma variável como $w,t,\vec w, \vec t$, etc.,
-onde ela terá o tipo $A\times B$;
-ou usar a $\lambda$-notação de aridades maiores escrevendo
-$\tup{a,b}$ para a arbitrária entrada dessa funcção.
-Vamos escolher segunda opção (se quiser, pode escolher a primeira).
-Continue!
-
-\hint
-Estamos aqui então:
-$$
-\uncurry(F) =
-\lam {\tup{a,b}} {\alert{\dots?}}
-$$
-e o que precisamos construir aqui?
-Sendo a ``saída'' duma funcção com tipo $(A\times B)\to C$,
-eu preciso construir uma coisa do tipo $C$.
-Mas o que mais eu tenho agora?
-Meus dados tem aumentado:
-$$
-\align
-F &: A\to (B \to C) \\
-\tup{a,b} &: (A\times B)
-\intertext{e logo}
-a &: A \\
-b &: B \\
-\alert{??} &: C\\
-\endalign
-$$
-Como posso usá-los para construir algo do tipo $C$?
-Eu não tenho um ``fornecedor'' de $C$'s imediato,
-mas percebo que tenho um\dots\ fornecedor de fornecedores
-de $C$'s!  (Minha $F$.)
-E para ela funccionar
-preciso oferecer $A$'zinho, e pronto, ela vai fornecer
-um fornecedor de $C$'s.
-Felizmente temos um $a : A$.
-Então temos:
-$$
-F(a) : ??
-$$
-
-\hint
-Temos
-$$
-\align
-F &: A\to (B \to C) \\
-\tup{a,b} &: (A\times B) \\
-a &: A \\
-b &: B \\
-F(a)    &: B \to C
-\intertext{e logo}
-F(a)(b) &: ??
-\endalign
-$$
-Termine!
-
-\solution
-Queremos definir a
-$$
-\uncurry : \paren{A \to (B\to C)} \to \paren{(A\times B) \to C}
-$$
-e \emph{seguindo as dicas} chegamos em:
-$$
-\uncurry(F) = \lam {\tup{a,b}} {\bigparen{F(a)}(b)}.
-$$
-
-%%}}}
-
-%%{{{ type_inference_tree_for_curry 
-\note Arvore de inferência de tipo.
-%%%{{{ meta 
-%%%}}}
-
-A última parte da argumentação acima corresponde na arvore de inferência
-seguinte:
-$$
-\PROOFm {
-\A {f \is A \cross B \to C}      \A {x \is A}  \A {y \is B}
-                               \I2------------------------- {}
-                                   {(x,y) \is A \cross B}
-\I2------------------------------------------------------- {}
-                        {f(x,y) \is C}
-}
-$$
-Verifique cada passo, e acostume-se com essa forma!
-
-%%}}}
-
-%%{{{ x: type_inference_tree_for_uncurry 
-\exercise Acostume-se mesmo.
-%%%{{{ meta 
-\label type_inference_tree_for_uncurry
-%%%}}}
-
-Construa a arvore que corresponde na última parte da
-tua resolução do~\ref[uncurry_using_lambdas] caso que
-tu não fez isso já enquanto o resolvendo.
-
-\solution
-$$
-\PROOFm {
-\A {f \is A \to (B \to C)}     \A {t \is A \cross B}
-                               \I1------------------ {}
-                                   {\outl t \is A}
-\I2------------------------------------------------- {}
-               {f (\outl t) \is B\to C}
-                                               \A {t \is A \cross B}
-                                               \I1------------------ {}
-                                                   {\outr t \is B}
-\I2---------------------------------------------------------------- {}
-                     {f (\outl t) (\outr t) \is C}
-}
-$$
-
-%%}}}
-
-%%{{{ syntactic_associativity 
-\note Associatividade sintáctica.
-%%%{{{ meta 
-\label syntactic_associativity
-%%%}}}
-
-Considere que temos uma operação binária $\heartop$.
-A frase
-$$
-\text{<<$\heartop$ é associativa>>}
-$$
-é uma \emph{afirmação matemática:}
-$$
-\text{para todo $x,y,z$},
-\quad
-(x \heartop y) \heartop z
-=
-x \heartop (y \heartop z).
-$$
-Isso é algo que pode ser demonstrado, suposto, refutado, etc.
-Por outro lado, considere as frases seguintes:
-$$
-\xalignat2
-&\aligned
-&\textwq{$\heartop$ é associativa na esquerda} \\
-&\textwq{$\heartop$ associa na esquerda} \\
-&\textwq{$\heartop$ é L-associativa}
-\endaligned
-&
-&\aligned
-&\textwq{$\heartop$ é associativa na direita} \\
-&\textwq{$\heartop$ associa na direita} \\
-&\textwq{$\heartop$ é R-associativa}
-\endaligned
-\intertext{%
-Nenhuma dessas frases é algo que podemos demonstrar, refutar, ou supor!
-O que significam então?
-Apenas uma convenção sintáctica, que dá significado
-às expressões como a \symq{$x \heartop y \heartop z$}
-que sem uma associatividade sintáctica não denotam
-absolutamente nada (pois têm um erro de aridade).
-As frases acima então correspondem respectivamente nas:
-}
-&x \heartop y \heartop z \syndefeq (x \heartop y) \heartop z &
-&x \heartop y \heartop z \syndefeq x \heartop (y \heartop z).
-\endxalignat
-$$
-
-%%}}}
-
-%%{{{ notational_abuse_curried 
-\warning.
-%%%{{{ meta 
-\label notational_abuse_curried
-%%%}}}
-
-Às vezes abusarei essa idéia e escrever o nome duma funcção
-currificada mas usá-la como se ela não fosse; e vice-versa.
-Por exemplo, defini (\reftag[eval_operation]) a $\evaldc A B$
-como uma funcção
-$$
-\evaldc A B : \pfcross {(A \to B)} A \to B.
-$$
-Ou seja, para chamá-la escrevemos
-$$
-\evaldc A B (f,a).
-$$
-Mas (abusando a notação!)~posso considerar o mesmo símbolo
-$\evaldc A B$ para denotar sua currificação
-$$
-\evaldc A B : {(A \to B)} \to A \to B
-$$
-que \emph{é uma funcção diferente sim}, nesse caso escrevendo
-$$
-\evaldc A B \fa f \fa a.
-$$
-Tudo isso apenas no caso que pelo contexto tá claríssimo qual
-das duas funcções tá sendo denotada.
-
-%%}}}
-
-\TODO notação de ``aridades maiores'' currificada.
-
-%%{{{ human_eyes_and_ho_types 
-\note Olhos humanos e os tipos higher-order.
-%%%{{{ meta 
-\label human_eyes_and_ho_types
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ partial_application_and_currying 
-\note Aplicação parcial e currificação.
-%%%{{{ meta 
-\label partial_application_and_currying
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ eg: powTwo 
-\example powTwo.
-%%%{{{ meta 
-\label powTwo
-%%%}}}
-
-Definimos a funcção $\namedfun{powTwo} : \nats\to\reals$ pela
-$$
-\namedfun{powTwo} = \namedfun{exp} \fa 2.
-$$
-Assim $powTwo\fa 0 = 1$, $\namedfun{powTwo} \fa 10 = 1024$, etc.
-
-%%}}}
-
-%%{{{ remark: looks_like_cancellation 
-\remark Parece cancelamento.
-%%%{{{ meta 
-\label looks_like_cancellation
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Já entramos bastante to território de programação funccional;
-paramos aqui agora, e voltamos re-visitar e expandir tudo isso
-no~\ref[Functional_programming].
-
-%%}}}
-
-\endsection
-%%}}}
 
 %%{{{ An_epic_trip 
 \section Uma viagem épica.
@@ -41479,46 +41520,6 @@ Descreva a afirmação <<$f$ é constante>> numa maneira pointfree.
 \hint
 Vai precisar de usar um singleton, $\set{\ast}$, não importa
 qual é o seu único membro.
-
-%%}}}
-
-%%{{{ prob: flip_definition 
-\problem flip.
-%%%{{{ meta 
-\label flip_definition
-%%%}}}
-
-No \ref[powTwo] da~\reftag[Currying] definimos a funcção $\namedfun{powTwo}$
-diretamente como aplicação parcial da funcção $\namedfun{exp}$
-$$
-\namedfun{powTwo} = \namedfun{exp} \fa 2
-$$
-evitando o uso de pontos ou lambdas:
-$$
-\xalignat2
-\namedfun{powTwo} \fa n &= \namedfun{exp} \fa 2 \fa n; &
-\namedfun{powTwo}       &= \lam n {\namedfun{exp} \fa 2 \fa n}.
-\endxalignat
-$$
-Similarmente podemos definir a funcção que corresponde seqüência das potências
-de qualquer outro número real.
-Mas parece que não podemos criar com a mesma laconicidade (apenas como
-aplicação parcial) uma funcção $\namedfun{square}$ ou $\namedfun{cube}$,
-pois os argumentos da $\namedfun{exp}$ estão ``na ordem errada''.
-O objectivo desse problema é fazer exatamente isso.
-\eop
-Defina uma funcção de ordem superior $\namedfun{flip}$, que recebe qualquer
-funcção binária currificada, e retorna a funcção binária currificada que
-comporta no mesmo jeito mas recebendo seus argumentos na ordem oposta.
-Por exemplo:
-$$
-\xalignat2
-\namedfun{exp} \fa 2 \fa 3 &= 8; &
-\paren{\namedfun{flip} \fa \namedfun{exp}} \fa 2 \fa 3 &= 9
-\endxalignat
-$$
-Começa escrevendo o tipo da $\namedfun{flip}$ e o lendo com as duas
-maneiras diferentes que discutimos na~\ref[human_eyes_and_ho_types].
 
 %%}}}
 
