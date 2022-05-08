@@ -8262,10 +8262,10 @@ a resolver mesmo essa questão (com o \ref[form_of_closed_under_subtraction]).
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ int_positivity_intro 
-\note Algo está faltando.
+%%{{{ int_something_missing_order 
+\note Algo está faltando (1).
 %%%{{{ meta 
-\label int_positivity_intro
+\label int_something_missing_order
 %%%}}}
 
 Mesmo que temos demonstrado tanta coisa importante sobre os inteiros,
@@ -8283,24 +8283,46 @@ $$
 {<} \is \Int \times \Int \to \Prop.
 $$
 Isso apenas declara que tipo de coisa é esse $<$: é uma relação binária nos inteiros.
-\eop
+Não confunda isso com uma definição do que significa mesmo $x < y$.
+
+%%}}}
+
+%%{{{ int_something_missing_positivity 
+\note Algo está faltando (2).
+%%%{{{ meta 
+\label int_something_missing_positivity
+%%%}}}
+
 Uma outra idéia seria aumentar a estrutura dos inteiros para incluir um
 \emph{subconjunto} $\Pos$ de $\ints$: o subconjunto dos inteiros positivos.
-Para não complicar a tipagem com esse tipo de coisa consideramos o $\Pos$ com a tipagem
+Em vez de complicar a tipagem considerando o $\Pos$ como um conjunto de inteiros mesmo,
+o declarando como
 $$
-\Pos \is \Int \to \Prop,
+\Pos \is \Set(\Int),
 $$
-ou seja, $\Pos$ não é, literalmente, o conjunto dos inteiros positivos;
-$\Pos$ é o predicado <<{\thole} é positivo>>.
+vamos considerar o $\Pos$ com a tipagem seguinte:
+$$
+\Pos \is \Int \to \Prop.
+$$
+Ou seja, $\Pos$ não é, literalmente, o \emph{conjunto} dos inteiros positivos;
+$\Pos$ é o \emph{predicado} (unário) <<{\thole} é positivo>>.
 Escrevemos, de acordo com a tipagem,
 $$
-\Pos \fa x
+\Pos \fa x \qqqqtext{ou} \Pos(x)
 $$
 para significar <<$x$ é positivo>>.
 Mas observe que isso \emph{não define} o $\Pos$, pois não temos definido mesmo
 o que significa <<ser positivo>>.  Aqui estamos apenas falando como
 pronunciar a afirmação $\Pos \fa x$.
-\eop
+
+%%}}}
+
+%%{{{ int_positivity_intro 
+\note Bora adicionar?.
+%%%{{{ meta 
+\label int_positivity_intro
+%%%}}}
+
 Ambas as idéias parecem razoáveis, então talvez
 faria sentido adicionar ambas mesmo como partes primitivas nos inteiros, assim:
 $$
@@ -9189,10 +9211,10 @@ então o $\setst {a \in A} {\ell \leq a}$ possui mínimo.
 
 %%}}}
 
-%%{{{ thm: ints_principle_of_induction 
-\theorem Princípio da Indução.
+%%{{{ thm: ints_principle_of_induction_set_form 
+\theorem Princípio da Indução (set form).
 %%%{{{ meta 
-\label ints_principle_of_induction
+\label ints_principle_of_induction_set_form
 \defines
     * indução!para os inteiros positivos
     ;;
@@ -9242,6 +9264,46 @@ pela escolha de $m$ como mínimo positivo fora do $p$.
 Logo $(m-1) + 1 \in P$, pois $p$ é $(+1)$-fechado.
 Impossível, pois $(m-1) + 1 = m$ e $m \nin P$, chegando
 assim na contradição desejada.
+
+%%}}}
+
+%%{{{ remark: sets_as_predicates 
+\remark Conjuntos como predicados.
+%%%{{{ meta 
+\label sets_as_predicates
+%%%}}}
+
+Já encontramos a idéia de identificar objetos do tipo
+$\Set(\Int)$ (conjuntos de inteiros) por predicados unários nos intéiros
+(objetos do tipo $\Int \to \Prop$).
+Aplicamos a mesma idéia aqui, no sentido contrário para olhar
+no princípio da indução na sua versão mais popular:
+
+%%}}}
+
+%%{{{ thm: ints_principle_of_induction_predicate_form 
+\theorem Princípio da Indução (predicate form).
+%%%{{{ meta 
+\label ints_principle_of_induction_predicate_form
+\defines
+    * indução!para os inteiros positivos
+    ;;
+%%%}}}
+
+Seja $P$ qualquer predicado unário afirmável sobre inteiros, ou seja:
+$$
+P \is \Int \to \Prop.
+$$
+Suponha que:
+\elist:
+\li: $P(1)$;
+\li: $\lforall x {P \fa x \implies P \fap {x+1}}$.
+Logo para todo inteiro positivo $p$, temos $P \fa p$.
+
+\proof Já demonstrado.
+Basta só traduzir as afirmações sobre conjuntos da demonstração
+do~\reftag[ints_principle_of_induction_set_form] para as correspondentes
+sobre predicados: $x \in P$ por $P \fa x$, etc.
 
 %%}}}
 
