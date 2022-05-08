@@ -7230,6 +7230,29 @@ exceto se explicitamente especificar algo diferente.
 
 %%}}}
 
+%%{{{ warning: a single word makes a huge difference 
+\warning Uma palavra.
+%%%{{{ meta 
+%%%}}}
+
+Considere as duas definições:
+\elist i:
+\li: Denotamos por $A$ o conjunto cujos membros são todos inteiros.
+\li: Denotamos por $B$ o conjunto cujos membros são todos os inteiros.
+\endelist
+Vamos ver como uma palavrinha (aqui o \emph{os}) pode fazer tanta diferença.
+A primeira não defina nada.  O problema é que há mais que um conjunto
+que goza dessa popriedade: o conjunto $\set{2,5}$ é mesmo um conjunto cujos membros
+são todos inteiros: ele só tem dois membros, e ambos são inteiros.
+Do $\set{3,4,8}$, também todos os membros são inteiros.
+Por isso, o uso do artigo definido \emph{o} nesta frase é \emph{plenamente errado}.
+Não podemos usá-lo sem garantir unicidade, e aqui é algo que não temos
+como garantir.
+Por outro lado, a segunda realmente defina um conjunto:
+o conjunto de todos os inteiros, que denotamos por $\ints$.
+
+%%}}}
+
 %%{{{ spec: int_spec_1 
 \specification Os inteiros (1/5).
 %%%{{{ meta 
@@ -8021,7 +8044,7 @@ A definição generaliza-se para qualquer operação $n$-ária
 
 %%}}}
 
-%%{{{ x: int_define_closed_under_binary_op
+%%{{{ x: int_define_closed_under_binary_op 
 \exercise.
 %%%{{{ meta 
 \label int_define_closed_under_binary_op
@@ -8064,7 +8087,7 @@ $$
 
 %%}}}
 
-%%{{{ eg 
+%%{{{ eg: ℤ; Pos; Neg; 3ℤ 
 \example.
 %%%{{{ meta 
 %%%}}}
@@ -8074,9 +8097,26 @@ $\ints$,
 $\Pos$,
 $\Neg$, e o
 $$
-2\ints \defeq \setst {2x} {x \in \ints},
+3\ints \defeq \setst {3x} {x \in \ints},
 $$
 são todos exemplos de conjuntos $(+)$-fechados.
+
+%%}}}
+
+%%{{{ x: why? 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Por quê?
+
+\solution
+Aqui três testemunhas, um para cada conjunto respectivamente:
+\mathcols 3
+1  + 1  &= 2  &
+15 + 5  &= 20 &
+17 + 4  &= 21
+\endmathcols
 
 %%}}}
 
@@ -9156,6 +9196,11 @@ então o $\setst {a \in A} {\ell \leq a}$ possui mínimo.
 \defines
     * indução!para os inteiros positivos
     ;;
+%XXX: This should not have to be repeated here,
+%     but chapter-wise pdefs become null in appendices.
+\pdefs
+    \pdef Pos {\mathord{\mathrm{Pos}}}
+    ;;
 %%%}}}
 
 Para qualquer conjunto de inteiros $P$,
@@ -9165,10 +9210,37 @@ $\text{$P$ é $({+}1)$-fechado} \intiff \text{para todo $x \in P$, $x+1 \in P$}$
 então todos os inteiros positivos pertencem ao $P$.
 
 \sketch.
-Caso contrário, existeriam ``contraexemplos'', ou seja,
+Caso contrário, existeriam \dq{contraexemplos}, ou seja,
 inteiros positivos que não pertencem ao $P$.
-Aplique a PBO para escolher o menor deles
-e chega num absurdo achando um contraexemplo menor ainda.
+Aplicamos a PBO para escolher $m$ como o menor deles
+e olhamos para o inteiro anterior que deve ser positivo
+e ainda mais menor que $m$ e logo pertence ao $P$
+algo que obrigaria $m$ também pertencer.
+
+\proof.
+Vou demonstrar que para todo $p$ positivo, $p \in P$.
+Seja $p$ positivo.
+Separo em casos:
+\crcase{Caso $p \in P$.}
+Imediato.
+\crcase{Caso $p \nin P$.}
+Seja
+$$
+C \defeq \setst {c \in \Pos} {c \nin P}
+$$
+o conjunto de todos os positivos que \dq{escaparam} do $P$.
+Observe que pela sua construção, $C \subset \Pos$
+e que pela hipótese do caso, $p \in C$.
+Logo $C$ é habitado e logo (pela PBO) possui mínimo.
+Logo seja $m$ o menor membro de $C$.
+Logo $m$ positivo, $m \nin p$, e para todo $x$ positivo com $x \nin p$, $x \leq m$.
+vou achar uma contradição, eliminando esse caso.
+Observe que $m \neq 1$, pois $1 \in p$.
+Logo $m > 1$, já que $m$ positivo.
+Logo $m - 1$ positivo também, e logo $m - 1 \in p$,
+Pela escolha de $m$ como mínimo positivo fora do $p$.
+E agora temos uma contradição, pois $p$ é $(+1)$-fechado e logo $m=(m-1) + 1 \in p$.
+
 
 %%}}}
 
@@ -9389,7 +9461,8 @@ Demonstre:
 
 Vamos finalmente responder na pergunta \ref[int_does_subtraction_closed_imply_mZ].
 Um conjunto de inteiros fechado sob a \emph{subtração} $(-)$
-(e logo sob a $(+)$ também), não tem muita liberdade na \dq{forma} dele.
+(e logo sob a $(+)$ também, pois \ref[minus_closed_implies_plus_closed]),
+não tem muita liberdade na \dq{forma} dele.
 O lemma seguinte mostra essa forma geral que todos eles devem ter.
 
 %%}}}
