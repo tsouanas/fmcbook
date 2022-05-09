@@ -8087,36 +8087,76 @@ $$
 
 %%}}}
 
-%%{{{ eg: ℤ; Pos; Neg; 3ℤ 
-\example.
+%%{{{ prop: int_3Z_is_closed_under_addition 
+\proposition.
 %%%{{{ meta 
+\label int_3Z_is_closed_under_addition
 %%%}}}
 
-Os conjuntos:
-$\ints$,
-$\Pos$,
-$\Neg$, e o
+Os conjunto
 $$
-3\ints \defeq \setst {3x} {x \in \ints},
+3\ints \defeq \setst {3x} {x \in \ints}
 $$
-são todos exemplos de conjuntos $(+)$-fechados.
+é $(+)$-fechados.
+
+\proof.
+Vou demonstrar que $3\ints$ é $(+)$-fechado e deixar o resto pra ti (\ref[int_ints_pos_neg_are_closed_under_addition]).
+Sejam $a,b$ inteiros tais que $a,b \in 3\ints$.
+Vou demonstrar que $a + b \in 3\ints$.
+Vamos traduzir esses dois dados que temos sobre os $a,b$ e nosso alvo também,
+já que todos envolvem a idéia de \emph{pertencer ao $3\ints$:}
+\mathcol
+a   \in \setst {3x} {x \in \ints} &\intiff \lexists {x \in \ints} {a   = 3x}; \\
+b   \in \setst {3x} {x \in \ints} &\intiff \lexists {x \in \ints} {b   = 3x}; \\
+a+b \in \setst {3x} {x \in \ints} &\intiff \lexists {x \in \ints} {a+b = 3x}. \\
+\endmathcol
+Logo sejam $u,v\in\ints$ inteiros tais que $a = 3u$\fact1 e $b = 3v$\fact2.
+Precisamos escrever o $a+b$ na forma $3x$ para algum inteiro $x$.
+Calculamos:
+\compute
+a + b
+&= 3u + b       \by {pela \byfact1} \\
+&= 3u + 3v      \by {pela \byfact2} \\
+&= 3(u + v).    \by {pela \mref[Z-DistL]} \\
+\endcompute
+Logo $a + b \in 3\ints$.
 
 %%}}}
 
-%%{{{ x: why? 
-\exercise.
+%%{{{ advice: by_the_choice_of 
+\advice Pela escolha de.
 %%%{{{ meta 
+\label by_the_choice_of
 %%%}}}
 
-Por quê?
+Na demonstração da~\ref[int_3Z_is_closed_under_addition] precisamos
+citar os dados $a = 3u$ e $b = 3v$, e logo acabamos os rotulando,
+usando os rótulos {\fact1} e {\fact2}, assim citando <<pela \byfact1>>
+e <<pela \byfact2>> no cálculo.
+Podemos evitar todo esse trabalho burocrático e conseguir
+citar \emph{cada um desses dois dados} sem sequer rotulá-los.
+Como?  A justificativa <<pela escolha de\dots>> serve exatamente
+pra isso.  O cálculo acima fica assim:
+\compute
+a + b
+&= 3u + b       \by {pela escolha de $u$} \\
+&= 3u + 3v      \by {pela escolha de $v$} \\
+&= 3(u + v).    \by {pela \mref[Z-DistL]} \\
+\endcompute
+Mas o que exatamente significa esse \dterm{pela escolha de}?
+O seguinte: \emph{Caro leitor, vá lá no momento que tal objeto
+foi declarado nesta demonstração, e olha que ele foi escolhido
+para satisfazer algo.  É exatamente esse algo que estou citando aqui.}
 
-\solution
-Aqui três testemunhas, um para cada conjunto respectivamente:
-\mathcols 3
-1  + 1  &= 2  &
-15 + 5  &= 20 &
-17 + 4  &= 21
-\endmathcols
+%%}}}
+
+%%{{{ x: int_ints_pos_neg_are_closed_under_addition 
+\exercise.
+%%%{{{ meta 
+\label int_ints_pos_neg_are_closed_under_addition
+%%%}}}
+
+Demonstre que os conjuntos $\ints, \Pos, \Neg$ são todos $(+)$-fechados.
 
 %%}}}
 
@@ -8154,12 +8194,13 @@ Aqui três testemunhas, um para cada conjunto respectivamente:
 
 %%}}}
 
-%%{{{ x: Ø and {0} are +-closed 
+%%{{{ x: Ø and \ints are op-closed for any non
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
-O $\emptyset$ e o $\set{0}$ são fechados pela $+$.
+O $\emptyset$ e o $\ints$ são fechados sob todas as
+$\set{0}$ são fechados sob $(+$.
 
 %%}}}
 
@@ -8178,6 +8219,64 @@ $a_1,\dotsc,a_n \in A$, temos $f(a_1,\dotsc,a_n) \in A$.
 
 %%}}}
 
+%%{{{ x: int_mZ_is_closed_under_addition_negation_subtraction_multiplication 
+\proposition.
+%%%{{{ meta 
+\label int_mZ_is_closed_under_addition_negation_subtraction_multiplication
+%%%}}}
+
+Os conjunto
+$$
+m\ints \defeq \setst {mx} {x \in \ints}
+$$
+é fechado sob: adição $(+)$, negação $(-)$, subtração $(-)$, multiplicação $(\ntimes)$.
+
+\proof.
+\proofpart{Adicão.}
+Basta substituir todos os \sq{$3$} por \sq{$m$} na
+demonstraçaõ da \ref[int_3Z_is_closed_under_addition],
+já que a única informação sobre o $3$ que precisamos naquela demonstração
+foi que $3$ é um inteiro.
+\crproofpart{Multiplicação.}
+Sejam $a,b \in m\ints$ e logo seja $u$ tal que $a = mu$.
+Calculamos:
+\compute
+ab
+&= (mu)b    \by {pela escolha de $u$} \\
+&= m(ub)    \by {pelo \mref[ZM-Ass]} \\
+&\in m\ints.
+\endcompute
+\crproofpart{Negação.}
+Deixo pra ti (\ref[int_mZ_is_closed_under_negation_proof]).
+\crproofpart{Subtração.}
+Isso é corolário fácil das duas anteriores pela maneira que definimos subtração.
+Vamos seguir os detalhes mesmo assim.
+Sejam $a,b$ inteiros tais que $a \in m\ints$\fact1, $b \in m\ints$\fact2.
+Como $m\ints$ é fechado sob negação, temos $-b \in m\ints$\fact3.
+Agora pelas \byfact1 e \byfact2 temos o desejado $a - b \in m\ints$, já que
+$m\ints$ é $(+)$-fechado.
+
+%%}}}
+
+%%{{{ x: int_mZ_is_closed_under_negation_proof
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre que $m\ints$ é fechado sob a negação $(-)$.
+
+\solution
+Seja $a \in m\ints$ e logo seja $u$ tal que $a = mu$.
+Calculamos:
+\compute
+-a
+&= -(mu)    \by {pela escolha de $u$} \\
+&= m(-u)    \by {pelo \ref[int_product_and_neg]} \\
+&\in m\ints.
+\endcompute
+
+%%}}}
+
 %%{{{ x: which of the following sets are closed under which ops? 
 \exercise.
 %%%{{{ meta 
@@ -8186,29 +8285,21 @@ $a_1,\dotsc,a_n \in A$, temos $f(a_1,\dotsc,a_n) \in A$.
 Quais dos conjuntos abaixo são fechados pela $+$,
 quais sobre $-$, e quais sobre $\ntimes$?
 $$
-\aligned
-    U &= \set{0}\\
-    W &= \set{0,1}\\
-    P &= \set{1,2,4,8,16,\dotsc}\\
-    I &= \set{1,1/2,1/4,1/8,1/16,\dotsc}
-\endaligned
-\quad
-\aligned
-    A &= \set{0,4,6,10,12,16,18,22,24,\dotsc}\\
-    B &= \set{0,2,4,6,8,10,12,\dotsc}\\
-    C &= \set{\dotsc,-9,-6,-3,0,3,6,9,\dotsc}\\
+\mathcoled {
+    \ints_{\neq 0} \\
+    U &= \set{0} \\
+    W &= \set{0,1} \\
+    D &= \set{1,2,4,8,16,\dotsc} \\
+} \quad
+\mathcoled {
+    A &= \set{0,4,6,10,12,16,18,22,24,\dotsc} \\
+    B &= \set{0,2,4,6,8,10,12,\dotsc} \\
+    C &= \set{\dotsc,-9,-6,-3,0,3,6,9,\dotsc} \\
     D &= \set{\dotsc,-8,-5,-2,1,4,7,10,\dotsc}.
-\endaligned
+}
 $$
-
-%%}}}
-
-%%{{{ x: define some infinite sets without "…" 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Descreva os conjuntos infinitos do exercício anterior sem usar ``$\ldots$\!''.
+Antes de tudo, defina os conjuntos $A,B,C,D$ sem usar \sq{$\ldots$},
+usando a notação set-builder.
 
 %%}}}
 
@@ -37584,7 +37675,7 @@ $$
 \endtikzpicture
 $$
 No primeiro contraexemplo temos:
-$A=\set{1}$;
+$A = \set{1}$;
 $\img f A = \set {3}$; e
 $\pre f {\set 3} = \set {1,2}$.
 Logo
