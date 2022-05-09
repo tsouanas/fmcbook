@@ -8025,12 +8025,12 @@ Demonstre o \ref[divides_is_a_preorder].
 %%%}}}
 
 Seja $A$ conjunto de inteiros.
-Dizemos que $A$ é \dterm{fechado pela} $(+)$ sse
+Dizemos que $A$ é \dterm{fechado sob adição} sse
 a soma de quaisquer $a,b\in A$ pertence ao $A$ também:
 $$
 \lforall {a,b \in A} {a+b \in A}.
 $$
-Chamamos o $A$ de $(+)$-\dterm{fechado}.
+Também chamamos o $A$ de $(+)$-\dterm{fechado}.
 
 %%}}}
 
@@ -8194,13 +8194,16 @@ Aqui três testemunhas, um para cada conjunto respectivamente:
 
 %%}}}
 
-%%{{{ x: Ø and \ints are op-closed for any non
+%%{{{ x: Ø and ℤ are (+,-,-,·)-closed 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
-O $\emptyset$ e o $\ints$ são fechados sob todas as
-$\set{0}$ são fechados sob $(+$.
+O $\ints$ e o $\emptyset$ são fechados sob:
+adição, negação, subtração, multiplicação.
+O $\ints$ porque não tem como sair (já que é o universo inteiro);
+o $\emptyset$ porque não tem como entrar (e pra sair, precisa primeiro entrar).
+Mas demonstre tudo isso.
 
 %%}}}
 
@@ -8210,10 +8213,11 @@ $\set{0}$ são fechados sob $(+$.
 %%%}}}
 
 Generalize a noção de \dq{ser fechado sob uma operação binária}
-ainda mais, considerando uma operação de aridade qualquer.
+ainda mais: considerando uma operação $n$-ária,
+de qualquer aridade $n \geq 1$.
 
 \solution
-Seja $f$ uma operação $n$-ária num conjunto $A$.
+Seja $f$ uma operação $n$-ária nos inteiros.
 Dizemos que $A$ é $f$-fechado sse para quaisquer
 $a_1,\dotsc,a_n \in A$, temos $f(a_1,\dotsc,a_n) \in A$.
 
@@ -8282,20 +8286,21 @@ Calculamos:
 %%%{{{ meta 
 %%%}}}
 
-Quais dos conjuntos abaixo são fechados pela $+$,
-quais sobre $-$, e quais sobre $\ntimes$?
+Quais dos conjuntos abaixo são fechados sob quais das operações
+$(+),(-),(-),(\ntimes)$?\foot
+Não finja que tu não entendeu o porquê que o $(-)$ foi repetido alí.
+\toof
 $$
 \mathcoled {
     \ints_{\neq 0} \\
     U &= \set{0} \\
     W &= \set{0,1} \\
-    D &= \set{1,2,4,8,16,\dotsc} \\
-} \quad
-\mathcoled {
+    T &= \set{-1,0,1} \\
+} \quad \mathcoled {
     A &= \set{0,4,6,10,12,16,18,22,24,\dotsc} \\
-    B &= \set{0,2,4,6,8,10,12,\dotsc} \\
+    B &= \set{1,2,4,8,16,\dotsc} \\
     C &= \set{\dotsc,-9,-6,-3,0,3,6,9,\dotsc} \\
-    D &= \set{\dotsc,-8,-5,-2,1,4,7,10,\dotsc}.
+    D &= \set{\dotsc,-8,-5,-2,1,4,7,10,\dotsc}. \\
 }
 $$
 Antes de tudo, defina os conjuntos $A,B,C,D$ sem usar \sq{$\ldots$},
@@ -8303,14 +8308,32 @@ usando a notação set-builder.
 
 %%}}}
 
-%%{{{ x: under which operations are rats and rats_≠0 closed? 
-\exercise.
+%%{{{ Q: what about closed under nullary ops? 
+\question.
 %%%{{{ meta 
 %%%}}}
 
-O $\rats$ é fechado por quais das quatro operações binárias
-$+$, $-$, $\ntimes$, $\div$?
-E o $\rats_{\neq0}$?
+Por que nos limitar no caso $n>1$ e não considerar o $n=0$ também?
+O que significaria fechado sob uma operaçaõ nulária---aliás,
+faz sentido falar de operações nulárias?
+
+%%}}}
+
+\spoiler
+
+%%{{{ nullary_ops 
+\note Operações nulárias.
+%%%{{{ meta 
+\label nullary_ops
+%%%}}}
+
+Uma operação binária (de aridade $2$) recebe $2$ inteiros e retorna um inteiro.
+Uma operação unária precisa $1$ inteiro para retornar um inteiro.
+Uma operação nulária (de aridade $0$) então deve ser algo que recebendo\dots
+$0$ inteiros, já retorna um inteiro.
+Podemos identificar isso com as constantes.
+Nesse sentido, afirmar que $A$ é fechado sob $0$
+significa simplesmente que $0 \in A$, e similarmente sobre o $1$.
 
 %%}}}
 
@@ -48991,7 +49014,7 @@ Calculamos
 \compute
 \xx \ast \yy
 &= \tup{x_1 \ast_1 y_1, x_2 \ast_2 y_2} \by {def.~$\ast$} \\
-&\in G_1 \times G_2.                    \by {$G_1$ e $G_2$ fechados pelas suas operações} \\
+&\in G_1 \times G_2.                    \by {$G_1$ e $G_2$ fechados sob suas operações} \\
 \endcompute
 e logo $G_1\times G_2$ é $\ast$-fechado.
 \crproofpart{(G1).}
