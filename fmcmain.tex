@@ -38615,383 +38615,6 @@ Como isso se compara com o~\ref[fixpoint_iff_iterations]?
 
 % INVERSE, JECTIONS, SHIFT
 
-%%{{{ Inverse_functions 
-\section Funcções inversas.
-%%%{{{ meta 
-\label Inverse_functions
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Informalmente, para construir a inversa duma funcção
-pegamos o seu diagrama interno, e viramos todas
-as setinhas barradas para a direção oposta.
-Vamos estudar essa idéia formalmente agora.
-
-%%}}}
-
-%%{{{ df: finverse 
-\definition funcção inversa.
-%%%{{{ meta 
-\label finverse
-\defines
-    * \finv {~f}  -- a funcção inversa da $f$
-    * funcção!inversa
-    ;;
-%%%}}}
-
-Seja funcção bijetora $f : A \bijto B$.
-Definimos a funcção $\finv f : B \to A$ pela
-$$
-\finv f (y) \defeq \text{aquele $x\in A$ que $x \mapstoby f y$}.
-$$
-Ou, \emph{equivalentemente}, pela
-$$
-\finv f (y) = x \defiff f(x) = y.
-$$
-Com outra notação:
-$$
-y \mapstoby {\finv f} x \defiff x \mapstoby f y.
-$$
-Chamamos a $\finv f$ a \dterm{funcção inversa} da $f$.
-
-%%}}}
-
-%%{{{ remark: human_eyes_are_not_symmetric 
-\remark Os olhos humanos não são simétricos.
-%%%{{{ meta 
-\label human_eyes_are_not_symmetric
-%%%}}}
-
-Às vezes a direção em que a gente olha para uma igualdade faz diferença:
-$$
-\alpha = \beta \iff \beta = \alpha
-$$
-sim, ou seja, \symq{$=$} é simétrica,
-mas nossos olhos humanos conseguem enxergar certas informações melhor na
-forma $\alpha = \beta$, e outras na forma $\beta = \alpha$!
-(Talvez nossos olhos não são tão simétricos.)
-A mesma coisa é sobre relações ``direcionadas'' como por exemplo:
-$$
-\alpha \leq \beta \iff \beta \geq \alpha
-$$
-que também são afirmações equivalentes,
-mas muitas vezes a gente enxerga uma numa maneira diferente da outra!
-\eop
-Na~\ref[finverse] acima, por exemplo, reescrevendo a igualdade
-na outra direção temos:
-$$
-\finv f (y) = x \defiff y = f(x)
-$$
-que possivelmente nos permite enxergar a situação numa maneira diferente.
-Similarmente, usando a notação das setinhas barradas podemos enxergar
-a equivalência assim:
-$$
-x \mapsfromby {\finv f} y \defiff x \mapstoby f y.
-$$
-
-%%}}}
-
-%%{{{ x: finv_is_well_defined 
-\exercise A inversa é bem-definida.
-%%%{{{ meta 
-\label finv_is_well_defined
-%%%}}}
-
-Demonstre que a funcção $\finv f$ foi bem-definida.
-O que precisas demonstrar?
-
-\solution
-Pelo menos um tal $x\in A$ existe, pois a $f$ é sobrejetora.
-E como $f$ é injetora, existe no máximo um.
-Provamos assim a unicidade, algo que nos permite
-\emph{definir a funcção} no jeito que definimos
-na~\ref[finverse].
-
-%%}}}
-
-%%{{{ x: finv_is_bij 
-\exercise A inversa é bijetora.
-%%%{{{ meta 
-\label finv_is_bij
-%%%}}}
-
-Demonstre que quando a funcção inversa $\finv f$ é definida, ela é bijetora.
-
-\hint
-O que exatamente garanta a injectividade da $\finv f$, e o que a sua sobrejectividade?
-
-\hint
-Considere:
-$$
-\align
-\text{totalidade da $f$}      &\implies \text{$\finv f$ sobrejetora} \\
-\text{determinabilidade da $f$} &\implies \text{$\finv f$ injetora}.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ x: finv_of_finv 
-\exercise Inversa da inversa.
-%%%{{{ meta 
-\label finv_of_finv
-%%%}}}
-
-Demonstre que se a funcção inversa $\finv f$ é definida,
-então a sua inversa $\finvp{\finv f}$ também é
-e temos $\finvp{\finv f} = f$.
-
-\hint
-Quando a funcção inversa é definida?
-
-\hint
-Aplique duas vezes a~\ref[finverse] de funcção inversa para demonstrar
-que as duas funcções são iguais.
-
-\solution
-Pelo~\ref[finv_is_bij] temos que $\finv f$ é bijetora,
-então sua inversa $\finvp{\finv f}$ é definida sim
-(e pelo~\ref[finv_is_bij] de novo ela é bijetora também).
-As $f$ e $\finvp{\finv f}$ têm domínios e codomínios iguais.
-Basta verificar que concordam em todo o seu domínio.
-Seja $x \in \dom f$ então.
-Calculamos
-\compute
-\finvp{\finv f}(x)    = f(x)
-&\iff {\finv f}(f(x)) = x   \by {def.~$\finvp{\finv f}$} \\
-&\iff f(x) = f(x)           \by {def.~$\finv f$} \\
-\endcompute
-e a última igualdade é trivialmente válida,
-e logo $\finvp{\finv f} = f$.
-
-%%}}}
-
-%%{{{ x: finv_laws_pointful 
-\exercise Leis da inversa (com pontos).
-%%%{{{ meta 
-\label finv_laws_pointful
-%%%}}}
-
-Seja $f: A \bijto B$.
-Para todo $a\in A$ e todo $b\in B$, temos:
-$$
-\xxalignat4
-\textrm{(L)} && \finv f (f a) &= a &
-f (\finv f b) &= b. &&\textrm{(R)}
-\endxxalignat
-$$
-(Esqueça o ``com pontos'' no rótulo desse exercício;
-vai fazer sentido depois.)
-
-\solution
-Seja $a\in A$ e $b\in B$.
-Calculamos:
-\compute
-\finv f (f(a))
-&= \text{aquele $x\in A$ que $f(x) = f(a)$} \\
-&= a.          \by {$f$ inj.} \\
-\endcompute
-Agora tomando $y\in B$ calculamos a outra numa maneira diferente:
-\compute
-f(\finv f(b)) = y
-&\iff \finv f (b) = \finv f (y) \\
-&\iff b = y    \by {$\finv f$ inj.~(\reftag[finv_is_bij])} \\
-&\iff \idof B (b) = y.
-\endcompute
-
-%%}}}
-
-%%{{{ x: finv_of_id 
-\exercise Inversa da identidade.
-%%%{{{ meta 
-%%%}}}
-
-Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
-
-\solution
-Temos $\idof A, \finv{\idof A} : A \bijto A$ então basta
-verificar que comportam igualmente.
-\crproofalt{Jeito 1.}
-Seja $a \in A$ então e calculamos:
-\compute
-\finv{\idof A} a
-&= \text{aquele $v\in A$ que $\idof A v = a$}  \by {def.~$\finv{\idof A}$} \\
-&= a                                           \by {def.~$\idof A$} \\
-&= \idof A a.                                  \by {def.~$\idof A$} \\
-\endcompute
-\proofalt{Jeito 2.}
-Sejam $a,a'\in A$.
-Calculamos:
-\compute
-\finv{\idof A} a = v
-&\iff a = \idof A v     \by {def.~$\finv{\idof A}$} \\
-&\iff a = v             \by {def.~$\idof A$} \\
-&\iff \idof A a = v.    \by {def.~$\idof A$} \\
-\endcompute
-
-%%}}}
-
-%%{{{ Q: finv_of_fcompose_question 
-\question.
-%%%{{{ meta 
-\label finv_of_fcompose_question
-%%%}}}
-
-Queremos descrever a inversa duma composição de bijecções
-em termos das inversas dessas bijecções.
-Ou seja, temos a configuração seguinte:
-$$
-\cd
-A \ar[r, tail, two heads, "f"] \ar[rr, tail, two heads, bend left=36, "g\of f"] \| B \ar[r, tail, two heads, "g"] \| C
-\endcd
-$$
-Agora, já que $g\of f$ é bijetora, sabemos que possui inversa.
-O desafio é descrevê-la em termos das $\finv f$ e $\finv g$.
-Como o farias?
-
-%%}}}
-
-\spoiler
-
-%%{{{ beware: finv_of_fcompose_error 
-\beware.
-%%%{{{ meta 
-\label finv_of_fcompose_error
-%%%}}}
-
-Um erro comum é afirmar que $\finvp{g\of f} = \finv g \of \finv f$.
-Por que isso não faz sentido?
-Pense em funcções como ``processos'' e na $g\of f$ como o processo
-<<faça $f$ e depois faça $g$>>.
-Como exemplo, considere $f$ o <<botar cueca>> e $g$ o
-<<botar shorts>>.
-Logo $g\of f$ é o processo <<botar a cueca e depois botar os shorts>>.
-Assim, qual processo seria o $\finv g \of \finv f$?
-<<Tirar a cueca e depois tirar os shorts.>>
-O erro é óbvio: esquecemos de invertar a ordem das acções
-(Mais um exemplo para enfatizar: tu tá usando teu editor de texto,
-tu fez várias alterações, uma depois de outra, e agora quer desfazer
-tudo que tu fez.  Começando fazer ``undo'' qual a primeira
-alteração que vai ser ``undoada''?
-Voltando: se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
-Praticamente já te dei a resposta para o exercício seguinte
-(\reftag[finv_of_fcompose])---sorry.
-Ainda bem que tem uma parte mais interessante: demonstrar.
-
-%%}}}
-
-%%{{{ x: finv_of_fcompose 
-\exercise Inversa da composição.
-%%%{{{ meta 
-\label finv_of_fcompose
-%%%}}}
-
-Sejam
-$
-\cd
-A \ar[r, tail, two heads, "f"] \| B \ar[r, tail, two heads, "g"] \| C
-\endcd
-$\!.
-Descreva a $\finvp{g\of f}$ em termos das $\finv f$ e $\finv g$
-e demonstre tua afirmação.
-
-\hint
-$\finvp{g\of f} = \finv f \of \finv g$.
-
-\hint
-Para demonstrar a $\finvp{g\of f} = \finv f \of \finv g$,
-tome $x\in C$ e $z\in A$ e mostre a equivalência
-$$
-\finvp{g\of f}(x) = z
-\iff
-\paren{\finv f \of \finv g}(x) = z.
-$$
-
-\hint
-Calcule cada lado separadamente:
-\compute
-\finvp{g\of f}(x) = z
-&\iff (g\of f)(z) = x  \by {def.~$\finvp{g\of f}$} \\
-&\dotsiff \dots \\
-\paren{\finv f \of \finv g}(x) = z
-&\iff \finv f \funparen{\finv g (x)} = z  \by {def.~$\finv f \of \finv g$} \\
-&\dotsiff \dots
-\endcompute
-
-\solution
-Vamos demonstrar que
-$$
-\finvp{g\of f} = \finv f \of \finv g.
-$$
-Tome $x \in C$ e $z \in A$.  Basta demonstrar que
-$$
-\finvp{g\of f}(x) = z
-\iff
-\paren{\finv f \of \finv g}(x) = z.
-$$
-pois isso quis dizer que as duas funcções concordam em todo o seu domínio.
-Calculamos:
-\compute
-\finvp{g\of f}(x) = z
-&\iff x = (g\of f)(z)                     \by {def.~$\finvp{g\of f}$} \\
-&\iff x = g(f(z))                         \by {def.~$g\of f$} \\
-&\iff \finv g (x) = f(z)                  \by {def.~$\finv g$} \\
-&\iff \finv f \funparen{\finv g (x)} = z  \by {def.~$\finv f$} \\
-&\iff \paren{\finv f \of \finv g}(x) = z. \by {def.~$\finv f \of \finv g$} \\
-\endcompute
-
-%%}}}
-
-%%{{{ x: finv_atleastonelaw_if_f_bij 
-\exercise Basta uma lei.
-%%%{{{ meta 
-\label finv_atleastonelaw_if_f_bij
-%%%}}}
-
-Seja $f : A \bijto B$.
-Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis
-do~\ref[finv_laws_pointful], então $f'$ é a própria $\finv f$.
-
-\solution
-Sejam $b\in B$, $a\in A$.
-Caso que $f'$ satisfaz a (L)
-calculamos:
-\compute
-\finv f b = a
-&\iff b = f a               \by {def.~$\finv f$} \\
-&\iff f' b = f' (f a)       \by {$f'$ inj.} \\
-&\iff f' b = (f' f) \fa a   \by {def.~$(f'f)$} \\
-&\iff f' b = a.             \by {(L) da $f'$ (com $w \asseq a$)} \\
-\intertext{E caso que $f'$ satisfaz a (R):}
-f' b = a
-&\iff f (f' b) = f a        \by {$f$ inj.} \\
-&\iff (f f') \fa b = f a    \by {def.~$(f f')$} \\
-&\iff b = f a               \by {(R) da $f'$ (com $w \asseq b$)} \\
-&\iff \finv f b = a.        \by {def.~$\finv f$} \\
-\endcompute
-
-%%}}}
-
-%%{{{ Boring, innit? 
-\blah É chato, né?.
-%%%{{{ meta 
-%%%}}}
-
-Mergulhar nos domínios e codomínios das funcções, mexendo com os
-bichinhos que tem lá, tanto para enunciar teoremas quanto para
-demonstrá-los espero que foi uma experiência não exatamente divertida.
-Logo vamos ver uma outra maneira para enunciar e demonstrar
-essas propriedades, ``de longe'', sem olhar os detalhes internos.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Jections: injections, surjections, bijections 
 \section Jecções: injecções, sobrejecções, bijecções.
 %%%{{{ meta 
@@ -39416,6 +39039,383 @@ $$
 \noi
 (ii) Não: para todo $a\in A$ temos
 $f(a) = \set a \neq \emptyset \in \pset A$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Inverse_functions 
+\section Funcções inversas.
+%%%{{{ meta 
+\label Inverse_functions
+%%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Informalmente, para construir a inversa duma funcção
+pegamos o seu diagrama interno, e viramos todas
+as setinhas barradas para a direção oposta.
+Vamos estudar essa idéia formalmente agora.
+
+%%}}}
+
+%%{{{ df: finverse 
+\definition funcção inversa.
+%%%{{{ meta 
+\label finverse
+\defines
+    * \finv {~f}  -- a funcção inversa da $f$
+    * funcção!inversa
+    ;;
+%%%}}}
+
+Seja funcção bijetora $f : A \bijto B$.
+Definimos a funcção $\finv f : B \to A$ pela
+$$
+\finv f (y) \defeq \text{aquele $x\in A$ que $x \mapstoby f y$}.
+$$
+Ou, \emph{equivalentemente}, pela
+$$
+\finv f (y) = x \defiff f(x) = y.
+$$
+Com outra notação:
+$$
+y \mapstoby {\finv f} x \defiff x \mapstoby f y.
+$$
+Chamamos a $\finv f$ a \dterm{funcção inversa} da $f$.
+
+%%}}}
+
+%%{{{ remark: human_eyes_are_not_symmetric 
+\remark Os olhos humanos não são simétricos.
+%%%{{{ meta 
+\label human_eyes_are_not_symmetric
+%%%}}}
+
+Às vezes a direção em que a gente olha para uma igualdade faz diferença:
+$$
+\alpha = \beta \iff \beta = \alpha
+$$
+sim, ou seja, \symq{$=$} é simétrica,
+mas nossos olhos humanos conseguem enxergar certas informações melhor na
+forma $\alpha = \beta$, e outras na forma $\beta = \alpha$!
+(Talvez nossos olhos não são tão simétricos.)
+A mesma coisa é sobre relações ``direcionadas'' como por exemplo:
+$$
+\alpha \leq \beta \iff \beta \geq \alpha
+$$
+que também são afirmações equivalentes,
+mas muitas vezes a gente enxerga uma numa maneira diferente da outra!
+\eop
+Na~\ref[finverse] acima, por exemplo, reescrevendo a igualdade
+na outra direção temos:
+$$
+\finv f (y) = x \defiff y = f(x)
+$$
+que possivelmente nos permite enxergar a situação numa maneira diferente.
+Similarmente, usando a notação das setinhas barradas podemos enxergar
+a equivalência assim:
+$$
+x \mapsfromby {\finv f} y \defiff x \mapstoby f y.
+$$
+
+%%}}}
+
+%%{{{ x: finv_is_well_defined 
+\exercise A inversa é bem-definida.
+%%%{{{ meta 
+\label finv_is_well_defined
+%%%}}}
+
+Demonstre que a funcção $\finv f$ foi bem-definida.
+O que precisas demonstrar?
+
+\solution
+Pelo menos um tal $x\in A$ existe, pois a $f$ é sobrejetora.
+E como $f$ é injetora, existe no máximo um.
+Provamos assim a unicidade, algo que nos permite
+\emph{definir a funcção} no jeito que definimos
+na~\ref[finverse].
+
+%%}}}
+
+%%{{{ x: finv_is_bij 
+\exercise A inversa é bijetora.
+%%%{{{ meta 
+\label finv_is_bij
+%%%}}}
+
+Demonstre que quando a funcção inversa $\finv f$ é definida, ela é bijetora.
+
+\hint
+O que exatamente garanta a injectividade da $\finv f$, e o que a sua sobrejectividade?
+
+\hint
+Considere:
+$$
+\align
+\text{totalidade da $f$}      &\implies \text{$\finv f$ sobrejetora} \\
+\text{determinabilidade da $f$} &\implies \text{$\finv f$ injetora}.
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: finv_of_finv 
+\exercise Inversa da inversa.
+%%%{{{ meta 
+\label finv_of_finv
+%%%}}}
+
+Demonstre que se a funcção inversa $\finv f$ é definida,
+então a sua inversa $\finvp{\finv f}$ também é
+e temos $\finvp{\finv f} = f$.
+
+\hint
+Quando a funcção inversa é definida?
+
+\hint
+Aplique duas vezes a~\ref[finverse] de funcção inversa para demonstrar
+que as duas funcções são iguais.
+
+\solution
+Pelo~\ref[finv_is_bij] temos que $\finv f$ é bijetora,
+então sua inversa $\finvp{\finv f}$ é definida sim
+(e pelo~\ref[finv_is_bij] de novo ela é bijetora também).
+As $f$ e $\finvp{\finv f}$ têm domínios e codomínios iguais.
+Basta verificar que concordam em todo o seu domínio.
+Seja $x \in \dom f$ então.
+Calculamos
+\compute
+\finvp{\finv f}(x)    = f(x)
+&\iff {\finv f}(f(x)) = x   \by {def.~$\finvp{\finv f}$} \\
+&\iff f(x) = f(x)           \by {def.~$\finv f$} \\
+\endcompute
+e a última igualdade é trivialmente válida,
+e logo $\finvp{\finv f} = f$.
+
+%%}}}
+
+%%{{{ x: finv_laws_pointful 
+\exercise Leis da inversa (com pontos).
+%%%{{{ meta 
+\label finv_laws_pointful
+%%%}}}
+
+Seja $f: A \bijto B$.
+Para todo $a\in A$ e todo $b\in B$, temos:
+$$
+\xxalignat4
+\textrm{(L)} && \finv f (f a) &= a &
+f (\finv f b) &= b. &&\textrm{(R)}
+\endxxalignat
+$$
+(Esqueça o ``com pontos'' no rótulo desse exercício;
+vai fazer sentido depois.)
+
+\solution
+Seja $a\in A$ e $b\in B$.
+Calculamos:
+\compute
+\finv f (f(a))
+&= \text{aquele $x\in A$ que $f(x) = f(a)$} \\
+&= a.          \by {$f$ inj.} \\
+\endcompute
+Agora tomando $y\in B$ calculamos a outra numa maneira diferente:
+\compute
+f(\finv f(b)) = y
+&\iff \finv f (b) = \finv f (y) \\
+&\iff b = y    \by {$\finv f$ inj.~(\reftag[finv_is_bij])} \\
+&\iff \idof B (b) = y.
+\endcompute
+
+%%}}}
+
+%%{{{ x: finv_of_id 
+\exercise Inversa da identidade.
+%%%{{{ meta 
+%%%}}}
+
+Para todo conjunto $A$, $\finv {\idof A} = \idof A$.
+
+\solution
+Temos $\idof A, \finv{\idof A} : A \bijto A$ então basta
+verificar que comportam igualmente.
+\crproofalt{Jeito 1.}
+Seja $a \in A$ então e calculamos:
+\compute
+\finv{\idof A} a
+&= \text{aquele $v\in A$ que $\idof A v = a$}  \by {def.~$\finv{\idof A}$} \\
+&= a                                           \by {def.~$\idof A$} \\
+&= \idof A a.                                  \by {def.~$\idof A$} \\
+\endcompute
+\proofalt{Jeito 2.}
+Sejam $a,a'\in A$.
+Calculamos:
+\compute
+\finv{\idof A} a = v
+&\iff a = \idof A v     \by {def.~$\finv{\idof A}$} \\
+&\iff a = v             \by {def.~$\idof A$} \\
+&\iff \idof A a = v.    \by {def.~$\idof A$} \\
+\endcompute
+
+%%}}}
+
+%%{{{ Q: finv_of_fcompose_question 
+\question.
+%%%{{{ meta 
+\label finv_of_fcompose_question
+%%%}}}
+
+Queremos descrever a inversa duma composição de bijecções
+em termos das inversas dessas bijecções.
+Ou seja, temos a configuração seguinte:
+$$
+\cd
+A \ar[r, tail, two heads, "f"] \ar[rr, tail, two heads, bend left=36, "g\of f"] \| B \ar[r, tail, two heads, "g"] \| C
+\endcd
+$$
+Agora, já que $g\of f$ é bijetora, sabemos que possui inversa.
+O desafio é descrevê-la em termos das $\finv f$ e $\finv g$.
+Como o farias?
+
+%%}}}
+
+\spoiler
+
+%%{{{ beware: finv_of_fcompose_error 
+\beware.
+%%%{{{ meta 
+\label finv_of_fcompose_error
+%%%}}}
+
+Um erro comum é afirmar que $\finvp{g\of f} = \finv g \of \finv f$.
+Por que isso não faz sentido?
+Pense em funcções como ``processos'' e na $g\of f$ como o processo
+<<faça $f$ e depois faça $g$>>.
+Como exemplo, considere $f$ o <<botar cueca>> e $g$ o
+<<botar shorts>>.
+Logo $g\of f$ é o processo <<botar a cueca e depois botar os shorts>>.
+Assim, qual processo seria o $\finv g \of \finv f$?
+<<Tirar a cueca e depois tirar os shorts.>>
+O erro é óbvio: esquecemos de invertar a ordem das acções
+(Mais um exemplo para enfatizar: tu tá usando teu editor de texto,
+tu fez várias alterações, uma depois de outra, e agora quer desfazer
+tudo que tu fez.  Começando fazer ``undo'' qual a primeira
+alteração que vai ser ``undoada''?
+Voltando: se eu quero desfazer o $g\of f$ mesmo, o que preciso fazer?
+Praticamente já te dei a resposta para o exercício seguinte
+(\reftag[finv_of_fcompose])---sorry.
+Ainda bem que tem uma parte mais interessante: demonstrar.
+
+%%}}}
+
+%%{{{ x: finv_of_fcompose 
+\exercise Inversa da composição.
+%%%{{{ meta 
+\label finv_of_fcompose
+%%%}}}
+
+Sejam
+$
+\cd
+A \ar[r, tail, two heads, "f"] \| B \ar[r, tail, two heads, "g"] \| C
+\endcd
+$\!.
+Descreva a $\finvp{g\of f}$ em termos das $\finv f$ e $\finv g$
+e demonstre tua afirmação.
+
+\hint
+$\finvp{g\of f} = \finv f \of \finv g$.
+
+\hint
+Para demonstrar a $\finvp{g\of f} = \finv f \of \finv g$,
+tome $x\in C$ e $z\in A$ e mostre a equivalência
+$$
+\finvp{g\of f}(x) = z
+\iff
+\paren{\finv f \of \finv g}(x) = z.
+$$
+
+\hint
+Calcule cada lado separadamente:
+\compute
+\finvp{g\of f}(x) = z
+&\iff (g\of f)(z) = x  \by {def.~$\finvp{g\of f}$} \\
+&\dotsiff \dots \\
+\paren{\finv f \of \finv g}(x) = z
+&\iff \finv f \funparen{\finv g (x)} = z  \by {def.~$\finv f \of \finv g$} \\
+&\dotsiff \dots
+\endcompute
+
+\solution
+Vamos demonstrar que
+$$
+\finvp{g\of f} = \finv f \of \finv g.
+$$
+Tome $x \in C$ e $z \in A$.  Basta demonstrar que
+$$
+\finvp{g\of f}(x) = z
+\iff
+\paren{\finv f \of \finv g}(x) = z.
+$$
+pois isso quis dizer que as duas funcções concordam em todo o seu domínio.
+Calculamos:
+\compute
+\finvp{g\of f}(x) = z
+&\iff x = (g\of f)(z)                     \by {def.~$\finvp{g\of f}$} \\
+&\iff x = g(f(z))                         \by {def.~$g\of f$} \\
+&\iff \finv g (x) = f(z)                  \by {def.~$\finv g$} \\
+&\iff \finv f \funparen{\finv g (x)} = z  \by {def.~$\finv f$} \\
+&\iff \paren{\finv f \of \finv g}(x) = z. \by {def.~$\finv f \of \finv g$} \\
+\endcompute
+
+%%}}}
+
+%%{{{ x: finv_atleastonelaw_if_f_bij 
+\exercise Basta uma lei.
+%%%{{{ meta 
+\label finv_atleastonelaw_if_f_bij
+%%%}}}
+
+Seja $f : A \bijto B$.
+Se uma $f' : B \to A$ satisfaz pelo menos uma das duas leis
+do~\ref[finv_laws_pointful], então $f'$ é a própria $\finv f$.
+
+\solution
+Sejam $b\in B$, $a\in A$.
+Caso que $f'$ satisfaz a (L)
+calculamos:
+\compute
+\finv f b = a
+&\iff b = f a               \by {def.~$\finv f$} \\
+&\iff f' b = f' (f a)       \by {$f'$ inj.} \\
+&\iff f' b = (f' f) \fa a   \by {def.~$(f'f)$} \\
+&\iff f' b = a.             \by {(L) da $f'$ (com $w \asseq a$)} \\
+\intertext{E caso que $f'$ satisfaz a (R):}
+f' b = a
+&\iff f (f' b) = f a        \by {$f$ inj.} \\
+&\iff (f f') \fa b = f a    \by {def.~$(f f')$} \\
+&\iff b = f a               \by {(R) da $f'$ (com $w \asseq b$)} \\
+&\iff \finv f b = a.        \by {def.~$\finv f$} \\
+\endcompute
+
+%%}}}
+
+%%{{{ Boring, innit? 
+\blah É chato, né?.
+%%%{{{ meta 
+%%%}}}
+
+Mergulhar nos domínios e codomínios das funcções, mexendo com os
+bichinhos que tem lá, tanto para enunciar teoremas quanto para
+demonstrá-los espero que foi uma experiência não exatamente divertida.
+Logo vamos ver uma outra maneira para enunciar e demonstrar
+essas propriedades, ``de longe'', sem olhar os detalhes internos.
 
 %%}}}
 
