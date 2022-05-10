@@ -19149,6 +19149,2155 @@ demais neste momento.
 \endchapter
 %%}}}
 
+%%{{{ chapter: The_reals 
+\chapter Os reais.
+%%%{{{ meta 
+\label The_reals
+%%%}}}
+
+%%{{{ intro 
+\chapintro
+O $\sset \reals {+,\ntimes,0,1}$ é um \emph{corpo ordenado completo}.
+Neste capítulo vamos estudar o que isso significa e investigar as
+primeiras conseqüências dos axiomas dos reais.
+Além disso, vamos definir e estudar os conceitos fundamentais
+de limites e séries.
+%%}}}
+
+%%{{{ Ordered fields 
+\section Corpos ordenados.
+%%%{{{ meta 
+\label Ordered_fields
+%%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Nessa secção, $F$ vai denotar um arbitrário corpo ordenado:
+
+%%}}}
+
+%%{{{ df: ordered_field 
+\definition Corpo ordenado.
+%%%{{{ meta 
+\label ordered_field
+\defines
+    * corpo!ordenado
+    ;;
+%%%}}}
+
+Seja $F$ um conjunto, $0,1\in F$, $+$ e $\ntimes$ duas operações
+binárias no $F$, e $-$ uma operação unária.
+Seja também $P$ uma relação unária no $F$, que identificamos com
+seu gráfico: $P \subset F$.
+Seu papel é representar os membros \emph{positivos}.
+Chamamos o $\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, P}$
+um \dterm{corpo ordenado} sse as seguintes leis são satisfeitas:
+\mathcol
+                      & {0 \neq 1}                      \tag{FNZ} \\
+\\
+\cforall {a,b\in F}     {a + b \in F}                   \tag{FA0} \\
+\cforall {a,b,c\in F}   {a + (b + c) = (a + b) + c}     \tag{FA1} \\
+\cforall {a \in F}      {a + 0 = a}                     \tag{FA2} \\
+\cforall {a\in F}       {a + (-a) = 0}                  \tag{FA3} \\
+\cforall {a,b\in F}     {a + b = b + a}                 \tag{FA4} \\
+\\
+\cforall {a,b\in F}     {a\ntimes b \in F}                                     \tag{FM0} \\
+\cforall {a,b,c\in F}   {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}         \tag{FM1} \\
+\cforall {a \in F}      {a\ntimes 1 = a}                                       \tag{FM2} \\
+\cforall {a\in F}       {a\neq 0 \implies \lexists {y\in F} {a \ntimes y = 1}} \tag{FM3*}\\
+\cforall {a,b\in F}     {a\ntimes b = b \ntimes a}                             \tag{FM4} \\
+\\
+\cforall {a,b,c \in F}  {a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}        \tag{FD}  \\
+\\
+\cforallt {a \in F}     {exatamente uma das: $-a \in P$; $a = 0$; $a \in P$}   \tag{FP3} \\
+\cforall {a,b\in P}     {a + b \in P}                   \tag{FPA}\\
+\cforall {a,b\in P}     {a\ntimes b \in P}              \tag{FPM}
+\endmathcol
+
+%%}}}
+
+%%{{{ eg: rats_and_reals_are_ordered_fields 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Os $\rats,\reals$ onde $P_\rats \asseq \rats_{>0}$ e $P_\reals \asseq \reals_{>0}$,
+e as operações e os constantes são os usuais.
+
+%%}}}
+
+%%{{{ noneg: compex_order_field_noneg 
+\nonexample.
+%%%{{{ meta 
+\label complex_cannot_by_ordered
+%%%}}}
+
+Os complexos não são (\ref[complex_cannot_by_ordered]).
+
+%%}}}
+
+%%{{{ df: gt_in_ordered_fields 
+\definition.
+%%%{{{ meta 
+\label gt_in_ordered_fields
+%%%}}}
+
+Definimos a relação binária $<$ num corpo ordenado $F$ pela
+$$
+x < y \defiff y - x \in P.
+$$
+Naturalmente definimos as $>, \leq, \geq$ em termos das $<$ e $=$.
+Lembre-se a definição da $-$ binária em qualquer anel (\ref[subtraction_in_rings]).
+
+%%}}}
+
+%%{{{ alternative_formalization_of_ordered_fields 
+\note Formalização alternativa.
+%%%{{{ meta 
+\label alternative_formalization_of_ordered_fields
+%%%}}}
+
+Em vez de adicionar a relação unária $P$ em nossa estrutura
+para representar os membros positivos, podemos considerar a
+$$
+\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, <}
+$$
+onde $<$ é uma relação \emph{binária}, cujo papel é representar
+a ordem.
+Nesse caso vamos precisar substituir as leis (FP$\_$) sobre
+o $P$ com leis que afirmam que: $<$ é uma ordem estrita e total:
+\mathcol
+\cforall  {x,y,z \in F}  {x<y \mland y<z \implies x<z}                    \tag{FOT} \\
+\cforallt {x,y \in F}    {exatamente uma das: $x < y$; $x = y$; $x > y$}  \tag{FO3} \\
+\intertext{e que comporta bem com as operações:}
+\cforall  {a,b,c\in F}   {a<b \implies a+c < b+c}                         \tag{FOA} \\
+\cforall  {a,b\in F}     {0<a \mland 0<b \implies 0 < a\ntimes b}.        \tag{FOM} \\
+\endmathcol
+E podemos definir o conjunto $P$ (ou a relação unária $P$, dependente do ponto
+de visto) em termos da ordem $<$, e vice versa, definir a $<$ em termos de $P$:
+$$
+\xalignat 2
+&\gathered
+\sset F {+, \,\ntimes\,, -, 0, 1, P} \\
+x < y \defiff y-x \in P
+\endgathered
+&
+&\gathered
+\sset F {+, \,\ntimes\,, -, 0, 1, <} \\
+x \in P \defiff 0 < x.
+\endgathered
+\endxalignat
+$$
+As duas abordagens são equivalentes.
+
+%%}}}
+
+%%{{{ remark: rats is an ordered field too 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Os números racionais também formam um corpo ordenado.
+Ou seja, todas essas leis que listamos até agora,
+não são suficientes para determinar os reais, pois
+nem conseguem diferencia-los dos racionais.
+Falta só um axioma, o axioma da completude,
+que realmente vai determinar o conjunto $\reals$.
+Mas para entender esse axioma, precisamos primeiro
+entender um outro conceito: o \emph{supremum},
+e seu conceito dual, o \emph{infimum}.
+Faremos essas coisas
+nas~\reftag[Infimum_and_supremum_on_reals]--\reftag[Completeness_of_reals].
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Vamos agora investigar umas conseqüências dessas leis de corpo ordenado.
+Pronto para \emph{descobrir a teoria de corpos ordenados?}
+
+%%}}}
+
+%%{{{ x: ordered_field_trichotomy 
+\exercise Tricotomia.
+%%%{{{ meta 
+\label ordered_field_trichotomy
+%%%}}}
+
+Para todo $a,b\in F$, exatamente uma das
+$$
+a < b;\qquad
+a = b;\qquad
+a > b;
+$$
+é válida.
+
+%%}}}
+
+%%{{{ x: ordered_field_transitivity 
+\exercise Transitividade.
+%%%{{{ meta 
+\label ordered_field_transitivity
+%%%}}}
+
+A $<$ é uma relação transitiva:
+$a < b \mland b < c \implies a < c$.
+
+%%}}}
+
+%%{{{ x: ordered_field_plus_c_monotone 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_plus_c_monotone
+%%%}}}
+
+Se $a < b$ então $a + c < b + c$.
+
+%%}}}
+
+%%{{{ x: ordered_field_times_positive_c_monotone 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_times_positive_c_monotone
+%%%}}}
+
+Se $a < b \mland c > 0$ então $ac < bc$.
+
+%%}}}
+
+%%{{{ x: ordered_field_product_of_negatives_is_positive 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_product_of_negatives_is_positive
+%%%}}}
+
+Se $a,b < 0$ então $ab > 0$.
+
+%%}}}
+
+%%{{{ x: ordered_field_square_of_nonzero_is_positive 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_square_of_nonzero_is_positive
+%%%}}}
+
+Se $a\neq 0$ então $a^2 > 0$.
+
+%%}}}
+
+%%{{{ x: ordered_field_one_is_greater_than_zero 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_one_is_greater_than_zero
+%%%}}}
+
+$1 > 0$.
+
+%%}}}
+
+%%{{{ x: ordered_field_times_negative_c_antimonotone 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_times_negative_c_antimonotone
+%%%}}}
+
+Se $a < b \mland c < 0$ então $ac > bc$.
+
+%%}}}
+
+%%{{{ x: ordered_field_negate_is_antimonotone 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_negate_is_antimonotone
+%%%}}}
+
+Se $a < b$ então $-a > -b$.
+
+%%}}}
+
+%%{{{ x: ordered_field_negate_of_negative_is_positive 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_negate_of_negative_is_positive
+%%%}}}
+
+Se $a < 0$ então $-a > 0$.
+
+%%}}}
+
+%%{{{ x: ordered_field_product_positive_means_samesign 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_product_positive_means_samesign
+%%%}}}
+
+Se $ab > 0$ então $a,b$ são ou ambos positivos ou ambos negativos.
+
+%%}}}
+
+%%{{{ x: ordered_field_add_side_by_side 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_add_side_by_side
+%%%}}}
+
+Se $a < c \mland b < d$ então $a + b < c + d$.
+
+%%}}}
+
+%%{{{ x: complex_cannot_be_ordered_in_disguise 
+\exercise.
+%%%{{{ meta 
+\label complex_cannot_be_ordered_in_disguise
+%%%}}}
+
+Não existe $x\in F$ com $x^2 + 1 = 0$.
+
+%%}}}
+
+%%{{{ x: sum_of_squares_in_ordered_field 
+\exercise.
+%%%{{{ meta 
+\label sum_of_squares_in_ordered_field
+%%%}}}
+
+Para todo $a,b\in F$, temos $a^2 + b^2 \geq 0$.
+Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
+
+%%}}}
+
+%%{{{ x: order_fields_are_unbounded 
+\exercise.
+%%%{{{ meta 
+\label order_fields_are_unbounded
+%%%}}}
+
+O $F$ não tem nem mínimo, nem máximo.
+
+%%}}}
+
+%%{{{ x: only_zero_is_leq_than_all_positives 
+\exercise.
+%%%{{{ meta 
+\label only_zero_is_leq_than_all_positives
+%%%}}}
+
+Se $x$ tem a propriedade que $0 \leq x < \epsilon$
+para todo $\epsilon > 0$, então $x = 0$.
+
+%%}}}
+
+%%{{{ df: abs_in_ordered_fields 
+\definition.
+%%%{{{ meta 
+\label abs_in_ordered_fields
+%%%}}}
+
+Definimos a operação $\abs{\dhole} : F \to F$ num corpo ordenado $F$ pela
+$$
+\abs x \defeq
+\knuthcases {
+x,  & se $x\geq 0$ \cr
+-x, & se não.
+}
+$$
+
+%%}}}
+
+%%{{{ x: ordered_field_abs_lemma 
+\exercise.
+%%%{{{ meta 
+\label ordered_field_abs_lemma
+%%%}}}
+
+Sejam $x,w\in F$.  Logo
+$$
+\abs x \leq w
+\iff
+-w \leq x \leq w.
+$$
+
+%%}}}
+
+%%{{{ x: ordered_field_triangular_inequality 
+\exercise Desigualdade triangular.
+%%%{{{ meta 
+\label ordered_field_triangular_inequality
+%%%}}}
+
+Sejam $x,y,z\in F$.  Logo:
+$$
+\gather
+\abs{x + y} \leq \abs x + \abs y \\
+\bigabs{\abs x - \abs y} \leq \abs{x - y} \\
+\abs{x - z} \leq \abs{x - y} + \abs{y - z}.
+\endgather
+$$
+
+%%}}}
+
+\TODO Corpos arquimedeanos.
+
+%%{{{ Models 
+\note Modelos.
+%%%{{{ meta 
+\defines
+    * modelo
+    ;;
+%%%}}}
+
+Temos dois exemplos principais de corpos ordenados,
+viz.~os reais e os racionais:
+ambos têm toda a estrutura exigida, e satisfazem todos os axiomas.
+Em palavras mais formais, eles são o que a gente chama
+de \dterm{modelos} de corpos ordenados.
+
+%%}}}
+
+%%{{{ Q: how_can_we_separate_reals_from_rats
+\question.
+%%%{{{ meta 
+\label how_can_we_separate_reals_from_rats
+%%%}}}
+
+Podemos adicionar alguma lei capaz de separar os reais dos racionais?
+Ou seja, chegar numa estrutura com leis mais exigentes, tais que
+os reais vão ser um modelo, mas os racionais não.
+
+%%}}}
+
+\spoiler
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Responder nessa pergunta neste momento é um grande desafio.\foot
+Vai desistir de pensar em alguma resposta por causa disso?
+\toof
+Mas já estamos prontos para encontrar o que falta para
+a pergunta virar mais fácil~(\reftag[Infimum_and_supremum_on_reals])
+e finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Infimum and supremum 
+\section Infimum e supremum.
+%%%{{{ meta 
+\label Infimum_and_supremum_on_reals
+%%%}}}
+
+%%{{{ df: lower_and_upper_bounds_reals 
+\definition Lower e upper bounds.
+%%%{{{ meta 
+\label lower_and_upper_bounds_reals
+\defines
+    * \lbs {~A}  -- o conjunto de todos os lower bounds de $A$
+    * ~A \leq ~x  -- $x$ é um upper bound de $A$
+    * ~x \leq ~A  -- $x$ é um lower bound de $A$
+    * \ubs {~A}  -- o conjunto de todos os upper bounds de $A$
+    * bounded!above
+    * bounded!below
+    * bound!lower
+    * bound!upper
+    * limitado!por baixo
+    * limitado!por cima
+    * limitante!por baixo
+    * limitante!por cima
+    ;;
+%%%}}}
+
+Seja $A\subset \reals$.
+Chamamos o $x$ um \dterm{lower bound} de $A$ sse $x \leq a$ para todo $a \in A$,
+e \emph{dualmente} $x$ é um \dterm{upper bound} de $A$ sse $x \geq a$ para todo $a \in A$:
+$$
+\align
+\text{$x$ é um lower bound de $A$} &\defiff \lforall {a\in A} {x \leq a} \\
+\text{$x$ é um upper bound de $A$} &\defiff \lforall {a\in A} {a \leq x}.
+\endalign
+$$
+Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
+$$
+\align
+x \leq A &\defiff \lforall {a \in A} {x \leq a} \\
+A \leq x &\defiff \lforall {a \in A} {a \leq x}.
+\endalign
+$$
+Denotamos o conjunto de todos os lower bounds de $A$ por $\lbs A$,
+e dualmente usamos $\ubs A$ para o conjunto de todos os seus upper bounds:
+$$
+\align
+\lbs A &\defeq \setst {x \in \reals} {x \leq A} \\
+\ubs A &\defeq \setst {x \in \reals} {A \leq x}.
+\endalign
+$$
+Se um $A$ tem pelo menos um limitante por cima, dizemos que $A$
+é \dterm{limitado por cima} (ou, \dterm{bounded above});
+e se tem pelo menos um limitante por baixo, \dterm{limitado por baixo}
+(ou, \dterm{bounded below}).
+
+%%}}}
+
+%%{{{ df: inf_sup_reals 
+\definition infimum; supremum.
+%%%{{{ meta 
+\label inf_sup_reals
+\defines
+    * \glb {~A}  -- o greatest lower bound de $A\subset\reals$
+    * \inf {~A}  -- o infimum de $A\subset\reals$
+    * \lub {~A}  -- o least upper bound de $A\subset\reals$
+    * \overline{\reals}  -- os reais estendidos: $\reals\union\set{\minfty,\pinfty}$
+    * \sup {~A}  -- o supremum de $A\subset\reals$
+    * greatest lower bound!reais
+    * infimum!reais
+    * least upper bound!reais
+    * reais!estendidos
+    * supremum!reais
+    ;;
+%%%}}}
+
+Definimos os $\inf A$ e $\sup A$ pelas:
+$$
+\align
+\text{$x$ é um infimum  de $A$} &\defiff x \leq A \mland \lforall {w \leq A} {w \leq x} \\
+\text{$x$ é um supremum de $A$} &\defiff x \geq A \mland \lforall {w \geq A} {x \leq w}.
+\endalign
+$$
+Mais curtamente:
+$$
+\xalignat 2
+\inf A &\defeq \max {\lbs A} &
+\sup A &\defeq \min {\ubs A}.
+\intertext{Outros nomes (e notações correspondentes) desses dois conceitos
+são muito comuns e vamos ficar os usando também:
+o infimum é chamado também de \dterm{greatest lower bound} e o supremum
+de \dterm{least upper bound}, e denotados por $\glb$ e $\lub$ respectivamente:}
+\glb A &\defeq \inf A & 
+\lub A &\defeq \sup A.
+\endxalignat
+$$
+
+%%}}}
+
+%%{{{ warning: later on we'll meet even more names and notations 
+\warning.
+%%%{{{ meta 
+%%%}}}
+
+No~\ref[Posets_Lattices] encontramos ainda mais nomes e notações!
+
+%%}}}
+
+%%{{{ remark: inf and sup are partial 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Observe que assim, $\inf$ e $\sup$ não são operações totais nos reais,
+mas \emph{parciais:}
+$$
+\inf,\sup \eqtype \pset \reals \parto \reals.
+$$
+Ou seja, ninguém garanta que para qualquer
+$A\subset\reals$ existe mesmo um real $x$ que satisfaz as
+condições das definições acima.
+Mas se existem, são únicos~(\ref[inf_and_sup_are_unique]):
+
+%%}}}
+
+%%{{{ thm: inf_and_sup_are_unique 
+\theorem.
+%%%{{{ meta 
+\label inf_and_sup_are_unique
+%%%}}}
+
+Seja $A \subset \reals$.
+Se $A$ tem infimum, ele é único.
+Dualmente, se $A$ tem supremum, ele é único.
+
+\proof.
+Por fight club: suponha $\ell, \ell'$ são infima, logo $\ell \leq \ell'$
+pois $\ell'$ é maior que qualquer lower bound, e $\ell$ é um lower bound.
+No outro lado $\ell' \leq \ell$ pois $\ell$ é maior que qualquer lowe bound,
+e $\ell'$ é um lower bound.  Logo $\ell \leq \ell'$ e $\ell' \leq \ell$
+e pela antissimetria da $\leq$ temos $\ell = \ell'$.
+
+%%}}}
+
+%%{{{ The extended reals 
+\note Os reais estendidos.
+%%%{{{ meta 
+\label extended_reals
+%%%}}}
+
+Agora, se $A$ não é bounded below e se $A$ não é bounded above escrevemos
+$$
+\xalignat 2
+\inf A &= \minfty &
+\sup A &= \pinfty
+\endxalignat
+$$
+respectivamente.
+Isso é bem justificável se pensar no $\reals$ apenas como um conjunto
+(parcialmente) ordenado enriquecido por dois novos objetos:
+o $\minfty$ e o $\pinfty$ chegando assim no conjunto
+$$
+\set{\minfty}\union\reals\union\set{\pinfty}
+$$
+que ordenamos assim:
+$$
+\minfty < x < \pinfty, \quad\text{para todo $x\in\reals$}.
+$$
+Chamamos os membros do $\reals\union\set{\minfty,\pinfty}$
+de \dterm{reais estendidos} e denotamos esse conjunto por
+$\overline{\reals}$ e $[\minfty,\pinfty]$ também.
+Podemos considerar ambas as operações então como
+$$
+\inf,\sup \eqtype \pset \reals \parto [\minfty,\pinfty].
+$$
+
+%%}}}
+
+%%{{{ x: inf_in_set_implies_min 
+\exercise.
+%%%{{{ meta 
+\label inf_in_set_implies_min
+%%%}}}
+
+Seja $A \subset \reals$.
+Demonstre que:
+(i) se $\inf A \in A$ então $\inf A = \min A$;
+(ii) a dual da (i).
+
+%%}}}
+
+%%{{{ x: lbs_and_ubs_are_empty_or_infinite 
+\exercise.
+%%%{{{ meta 
+\label lbs_and_ubs_are_empty_or_infinite
+%%%}}}
+
+Seja $A \subset \reals$.
+Demonstre que $\lbs A$ é vazio ou infinito, e a mesma coisa sobre o $\ubs A$.
+
+%%}}}
+
+%%{{{ x: a_set_with_nats_as_limit_points 
+\exercise.
+%%%{{{ meta 
+\label a_set_with_nats_as_limit_points
+%%%}}}
+
+Considere o conjunto
+$$
+A = \setlst {m + \frac 1 {2^n}} {m \in \nats, n \in \nats_{>0}}.
+$$
+(i) Visualize o $A$ na linha dos reais, e rascunhe seu desenho.
+(ii) Ache o $\inf A$ e $\sup A$ se são definidos.
+
+%%}}}
+
+%%{{{ x: inf_sup_reals_extreme_cases 
+\exercise.
+%%%{{{ meta 
+\label inf_sup_reals_extreme_cases
+%%%}}}
+
+Pode acontecer que para algum $A\subset\reals$ temos\dots
+\tlist:
+\li (i):  $\inf A = \sup A$?
+\li (ii): $\inf A > \sup A$?
+\endtlist
+Se sim, quando?
+Se não, por que não?
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+E agora\dots
+Será que podes pensar numa resposta para
+a~\ref[how_can_we_separate_reals_from_rats]?
+
+%%}}}
+
+\spoiler
+
+\endsection
+%%}}}
+
+%%{{{ Completude 
+\section Completude.
+%%%{{{ meta 
+\label Completeness_of_reals
+%%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Agora temos tudo que precisamos para responder
+a~\ref[how_can_we_separate_reals_from_rats].
+Nossa resposta com palavras de rua é
+\standout
+\emph{os reais não têm ``buracos''}
+\endstandout
+mas precisamos formalizar essa afirmação.\foot
+No~\ref[Cantors_paradise] encontramos uma outra
+resposta a~\ref[how_can_we_separate_reals_from_rats],
+de natureza completamente diferente.  Paciência!
+\toof
+A idéia é exigir que \emph{não falta nenhum supremum}---ou, dualmente,
+nenhum infimum, pois é a mesma coisa:
+uma afirmação acaba implicando a outra.
+Mas o que quis dizer que não falta nenhum supremum?
+E, nenhum mesmo?  Não.
+Um conjunto que nem é bounded above não tem chances de ter supremum.
+Vamos exigir suprema de todos os outros então:
+
+%%}}}
+
+%%{{{ df: complete_ordered_field 
+\definition Corpo ordenado completo.
+%%%{{{ meta 
+\label complete_ordered_field
+\defines
+    * corpo!ordenado, completo
+    ;;
+%%%}}}
+
+Um corpo ordenado $R$ é \dterm{completo} sse
+todos os seus subconjuntos bounded above possuem supremum no $R$
+\mathcol
+\cforall {A\subset R} {A\neq\emptyset \mland \text{$A$ bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
+\endmathcol
+
+%%}}}
+
+%%{{{ eg: reals_is_a_complete_ordered_field 
+\example.
+%%%{{{ meta 
+\label reals_is_a_complete_ordered_field
+%%%}}}
+
+Os reais $\sset \reals {+, \,\ntimes\,, -, 0, 1, <}$.
+
+%%}}}
+
+%%{{{ x: can_we_prove_that_reals_is_a_complete_ordered_field 
+\exercise.
+%%%{{{ meta 
+\label can_we_prove_that_reals_is_a_complete_ordered_field
+%%%}}}
+
+Tem como demonstrar isso?
+Se sim, o que seria uma prova disso?
+Se não, por que não?
+
+%%}}}
+
+%%{{{ noneg: rats_is_not_a_complete_ordered_field 
+\nonexample.
+%%%{{{ meta 
+\label rats_is_not_a_complete_ordered_field
+%%%}}}
+
+Os racionais!
+
+%%}}}
+
+%%{{{ x: rats_is_not_a_complete_ordered_field_proof 
+\exercise.
+%%%{{{ meta 
+\label rats_is_not_a_complete_ordered_field_proof
+%%%}}}
+
+Demonstre!
+Ou seja, ache um $A$ bounded above sem supremum
+no $\rats$.
+
+%%}}}
+
+%%{{{ remark: now inf and sup are total operations on extended reals 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Assim as operações $\inf$ e $\sup$ virar totais nos reais estendidos:
+$$
+\inf,\sup \eqtype \pset\reals \to \reals\union\set{\minfty,\pinfty}.
+$$
+
+%%}}}
+
+%%{{{ thm: bounded_below_subsets_have_infima 
+\theorem.
+%%%{{{ meta 
+\label bounded_below_subsets_have_infima
+%%%}}}
+
+Sejam $R$ um corpo ordenado completo e $A \subset R$
+bounded below.  Logo $A$ possui infimum no $R$.
+
+\proof Demontrado no~\ref[bounded_below_subsets_have_infima_proof].
+
+%%}}}
+
+%%{{{ x: bounded_below_subsets_have_infima_proof 
+\exercise.
+%%%{{{ meta 
+\label bounded_below_subsets_have_infima_proof
+%%%}}}
+
+Demonstre o~\ref[bounded_below_subsets_have_infima].
+
+\hint
+Tu vai precisar usar a lei de completude.
+
+\hint
+Procure definir um subconjunto de $\reals$
+que será garantido ter um supremum, e use
+esse supremum para definir o infimum de $A$.
+
+%%}}}
+
+%%{{{ Enough! 
+\note Chega!.
+%%%{{{ meta 
+%%%}}}
+
+Vamos revisar pouco a situação com as estruturas que estudamos até agora.
+Como a gente escolha os axiomas (leis) que botamos nas nossas definições?
+As mais leis que eu boto, as mais ferramentas que ganho para matar mais
+teoremas.  Minha teoria vai acabar sendo capaz de demonstrar mais coisas,
+mas o preço que pago para isso são modelos!
+\eop
+Quantos monóides encontramos?  Demais!  Todos os grupos são monóides,
+e a gente já encontrou ainda mais monóides que não são grupos (lembra?).
+E grupos?
+``Menos'', mas muitos também!
+E grupos abelianos?
+Provamos mais teoremas, mas temos menos exemplos de grupos abelianos.
+E anéis?  E anéis comutativos?  E domínios de integridade?
+Cada vez que adicionamos restricções (leis), a teoria correspondente
+cresce, e a colecção de models diminui.
+E corpos?
+Ainda encontramos vários modelos: racionais, reais, complexos, inteiros
+módulo primo $p$, \dots
+\eop
+E corpos ordenados?
+Aqui ganhamos muita teoria graças a ordem, mas perdemos os complexos e os
+inteiros módulo $p$, mas ainda temos os reais e os racionais e mais
+uns modelos, mas já estamos percebendo que fica mais e mais difícil
+achar modelos \emph{realmente} diferentes que satisfazem todas as leis!
+\eop
+E agora?
+Adicionamos mais uma lei: o axioma da completude; e assim chegamos nos
+\emph{corpos ordenados completos}.  E agora \emph{chega!}
+Estamos num ponto onde adicionamos tantos axiomas que nosso conceito
+foi tão exigente que perdemos todos os modelos exeto um: os reais!
+Realmente não encontramos outro exemplo, mas isso não quis dizer que
+não existem outros modelos.  Certo?  Certo, mas acontece que nessa
+situação não é o caso: \emph{essencialmente existe apenas um
+único corpo ordenado completo: os reais!}
+
+%%}}}
+
+%%{{{ Q: what does "essentially" mean above? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+O que significa a palavra \wq{essencialmente} acima?
+
+%%}}}
+
+\spoiler
+
+%%{{{ thm: uniqueness_of_complete_ordered_field 
+\theorem Unicidade.
+%%%{{{ meta 
+\label uniqueness_of_complete_ordered_field
+%%%}}}
+
+Se $R,R'$ são corpos ordenados completos então $R,R'$ são isómorfos.
+
+\sketch.
+Sejam
+$\sset R    {+, \;\ntimes\;, -, 0, 1, <}$ e
+$\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}$
+corpos ordenados completos.
+Precisamos definir um isomorfismo
+$$
+\phi
+\eqtype
+\sset R    {+, \;\ntimes\;, -, 0, 1, <}
+\longtoby{\iso}
+\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}.
+$$
+Obviamente botamos
+$$
+\align
+\phi0 &= 0' \\
+\phi1 &= 1'
+\intertext{Isso já determina a $\phi$ no resto dos
+``naturais'' $N\subset R$:}
+\phi2 &= \phi(1 + 1) = \phi1 + \phi1 = 1' + 1' = 2' \\
+\phi3 &= \phi(2 + 1) = \phi2 + \phi1 = 2' + 1' = 3' \\
+&\eqvdots \\
+\phi(n+1) &= \phi n + \phi1 = n' + 1' \\
+&\eqvdots
+\endalign
+$$
+ou seja, a $\phi$ (restrita no $N$) necessariamente embute
+isomorficamente o $N\subset R$ no $\img \phi N = N' \subset R'$:
+$$
+\phi \restosub N : N \isoto N'.
+$$
+Agora, como $\phi$ é homomorfismo, temos
+$$
+\phi(-x) = \mathord{-'}(\phi x)
+\quad\text{para todo $x\in R$},
+$$
+e logo a $\phi$ necessariamente embute os ``inteiros''
+$Z\subset R$ nos ``inteiros'' $Z' \subset R'$:
+$$
+\phi \restosub Z : Z \isoto Z'.
+$$
+Definimos a $\phi$ nos ``racionais'' $Q\subset R$ assim:
+$$
+\phi(m/n)
+= \phi(m \ntimes \ginv n)
+= \phi m \ntimes' \ginvp{\phi n}
+= \phi m \ntimes' \phi (\ginv n)
+= \phi m \mathbin{/'} \phi n
+$$
+e logo
+$$
+\phi \restosub Q : Q \isoto Q'.
+$$
+Estamos perto!
+Basta só definir a $\phi$ nos ``buracos'' (nos ``irracionais'')
+de $R$ e pronto!
+
+%}}}
+
+%%{{{ remark: we cannot finish this proof right now 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Infelizmente, por enquanto não temos todo o armamento para matar
+os detalhes e o que falta no esboço, mas é importante entender
+pelo menos tudo que tá lá.  Voltamos nesse assunto
+no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
+
+%%}}}
+
+%%{{{ warning: does_a_complete_ordered_field_exist_warning 
+\warning.
+%%%{{{ meta 
+\label does_a_complete_ordered_field_exist_warning
+%%%}}}
+
+Mesmo se aceitar que quaisquer corpos ordenados completos são
+isomorfos (o~\ref[uniqueness_of_complete_ordered_field]), ainda
+temos um ponto que roubamos: para existir único, precisamos duas
+coisas: \emph{pelo menos} um; \emph{no máximo} um.
+O~\reftag[uniqueness_of_complete_ordered_field] realmente ofereceu
+a segunda coisa; mas a primeira?
+Qual foi tua resolução
+do~\ref[can_we_prove_that_reals_is_a_complete_ordered_field]
+mesmo?
+Voltamos nesse assunto
+no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ The reals 
+\section Os reais.
+%%%{{{ meta 
+\label The_reals_axioms
+%%%}}}
+
+%%{{{ Calculus, the real deal 
+\note Calculus, real e oficial.
+%%%{{{ meta 
+\defines
+    * calculus
+    * análise!real
+    ;;
+%%%}}}
+
+Como começamos a teoria dos grupos no~\ref[Group_theory]?
+Apresentamos os axiomas dos grupos e continumos investigando
+suas conseqüências.  A colecção dessas conseqüências (teoremas)
+é exatamente o que chamamos de \dterm{teoria}.
+E a \emph{teoria dos anéis} é feita por todos os teoremas
+que seguem pelos axiomas de anéis; etc.~etc.
+E a \emph{teoria dos corpos ordenados completos?}
+Ela não é muito famosa por esse nome, mas com certeza
+tu já ouviste falar dela por uns dos seus apelidos:
+\dterm{calculus},
+ou \dterm{análise real}, etc.
+Na abordagem axiomática, não nos importa \emph{definir}\/ ou
+\emph{construir} os objetos que vamos chamar de \dterm{números reais}.
+Começamos aceitando a existência dum certo conjunto que denotamos
+por $\reals$, suas operações binárias de adição e multiplicação,
+seu zero $0$ e seu um $1$, e seu subconjunto $P$ cujos membros
+chamamos de \dterm{positivos}.
+Estipulamos os axiomas seguintes.
+
+%%}}}
+
+%%{{{ ax: closedness 
+\axiom Fechado.
+%%%{{{ meta 
+%%%}}}
+
+O $\reals$ é fechado sobre $+$ e $\,\ntimes\,$.
+
+%%}}}
+
+%%{{{ ax: associativity 
+\axiom Associatividade.
+%%%{{{ meta 
+%%%}}}
+
+As $+$ e $\ntimes$ são associativas.
+
+%%}}}
+
+%%{{{ ax: identities 
+\axiom Identidades.
+%%%{{{ meta 
+%%%}}}
+
+As $+$ e $\ntimes$ têm os distintos $0$ e $1$ como
+identidades respectivamente.
+
+%%}}}
+
+%%{{{ ax: inverses 
+\axiom Inversos.
+%%%{{{ meta 
+%%%}}}
+
+Todo $a\in \reals$ tem $+$-inverso (denotado por $-a$)
+e todo $a\neq 0$ tem $\,\ntimes\,$-inverso (denotado por $a^{-1}$).
+
+%%}}}
+
+%%{{{ ax: commutativity 
+\axiom Comutatividade.
+%%%{{{ meta 
+%%%}}}
+
+As $+$ e $\ntimes$ são comutativas.
+
+%%}}}
+
+%%{{{ ax: distributivity 
+\axiom Distributividade.
+%%%{{{ meta 
+%%%}}}
+
+A $\ntimes$ é distributiva sobre a $+$.
+
+%%}}}
+
+%%{{{ ax: positive closedness 
+\axiom Positivamente fechado.
+%%%{{{ meta 
+%%%}}}
+
+O $P$ é fechado sobre $+$ e $\,\ntimes\,$.
+
+%%}}}
+
+%%{{{ ax: trichotomy 
+\axiom Tricotomia.
+%%%{{{ meta 
+%%%}}}
+
+Para todo $x \in \reals$ exatamente uma das afirmações seguintes é válida:
+$-x$ é positivo; $x=0$; $x$ é positivo.
+
+%%}}}
+
+%%{{{ ax: completeness 
+\axiom Completude.
+%%%{{{ meta 
+%%%}}}
+
+Todo conjunto $A\neq\emptyset$ de reais que é limitado por cima,
+tem um supremum, ou seja, existe real $b\in\reals$ tal que $b = \sup A$.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Ou seja, estipulamos o seguinte:
+\standout
+\proclaimstyle $\reals$ é um corpo ordenado completo.
+\endstandout
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+As conseqüências desses axiomas é o que estudamos em
+\dterm{calculus} e \dterm{análise real}.
+O resto desse capítulo é um teaserzinho dessa teoria linda demais;
+e, como sempre, no fim tenho ponteiros na literatura para mergulhar mais.
+No~\ref[Metric_spaces] voltamos nessa investigação de análise real,
+pois estudamos a teoria dos \emph{espaços métricos}:
+conjuntos equipados com uma noção de distância, ou seja,
+uma funcção binária \emph{com valores reais}, satisfazendo certas leis.
+
+%%}}}
+
+%%{{{ thm: reals_is_archimedean 
+\theorem.
+%%%{{{ meta 
+\label reals_is_archimedean
+%%%}}}
+
+O $\reals$ é um corpo arquimedeano, ou seja:
+para todo $x,y\in\reals$,
+$$
+x \neq 0
+\implies
+\lexists {n \in \nats} {xn > y}.
+$$
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ thm: rats_dense_in_reals 
+\theorem.
+%%%{{{ meta 
+%%%}}}
+
+Os racionais são densos nos reais, ou seja:
+para todo $x,y\in \reals$,
+$$
+x < y
+\implies
+\lexists {q \in \rats} {x < q < y}.
+$$
+
+%%}}}
+
+\TODO sketch.
+
+\endsection
+%%}}}
+
+%%{{{ Limits_of_reals 
+\section Limites.
+%%%{{{ meta 
+\label Limits_of_reals
+%%%}}}
+
+%%{{{ df: epsilon_close_ball_hood 
+\definition ε-perto, ε-bola, ε-vizinhança.
+%%%{{{ meta 
+\label epsilon_close_ball_hood
+\defines
+    * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
+    * bola!de real
+    * perto!de real
+    * vizinhança!de real
+    ;;
+%%%}}}
+
+A distância entre dois $x,y\in\reals$ é calculada por $\abs{x-y}$.
+Sejam $x,y\in\reals$ e $\epsilon > 0$.
+Dizemos que
+$$
+\text{$x$ é $\epsilon$-perto do $y$}
+\defiff
+\abs{x-y} < \epsilon.
+$$
+Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
+e logo podemos escrever também:
+$$
+\text{$x,y$ são $\epsilon$-perto}.
+$$
+Dado um ponto $x_0\in\reals$, o conjunto de todos os pontos que
+são $\epsilon$-perto do $x_0$ é chamada \dterm{$\epsilon$-bola}
+ou \dterm{$\epsilon$-vizinhança} do $x_0$:
+$$
+\ball \epsilon {x_0}
+\defeq
+\setstt {x \in \reals} {$x,x_0$ são $\epsilon$-perto}.
+$$
+Também chamamos de \dterm{bola com centro $x_0$ e raio $\epsilon$}.
+
+%%}}}
+
+%%{{{ eg 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Os $1$ e $2/3$ são $1/2$-perto;
+a $1/3$-bola do $\sqrt 2$ é o intervalo $(\sqrt2 - 1/3, \sqrt2 + 1/3)$.
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_reflexive 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_reflexive
+%%%}}}
+
+Dado $\epsilon > 0$, seja $\sim_\epsilon$ a relação definida pela
+$$
+x \sim_\epsilon y
+\defiff
+\text{$x$ é $\epsilon$-perto do $y$}.
+$$
+Demonstre que $\sim_\epsilon$ é reflexiva.
+
+\hint
+$$
+\abs{x - x} = 0
+$$
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_symmetric 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_symmetric
+%%%}}}
+
+Dado $\epsilon > 0$, a $\sim_\epsilon$
+do~\ref[epsilon_close_is_reflexive] é simétrica,
+e logo podemos escrever frases como
+$$
+\text{<<os $x,y$ são $\epsilon$-perto>>}.
+$$
+
+\hint
+Olha:
+$$
+\abs{x - y}
+= \abs{-(y - x)}
+= \abs{y - x}
+$$
+Dá pra justificar ambas as $=$?
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_not_an_equivalence_relation
+%%%}}}
+
+A $\sim_\epsilon$ do~\ref[epsilon_close_is_reflexive]
+é uma relação de equivalência para qualquer $\epsilon$?
+
+\hint
+Não!
+Já fez o~\ref[distance_like_not_transitive]?
+
+%%}}}
+
+%%{{{ df: for_sufficiently_large_values_of 
+\definition <<para valores suficientemente grandes de>>.
+%%%{{{ meta 
+\label for_sufficiently_large_values_of
+%%%}}}
+
+Seja $R(n)$ uma afirmação sobre um natural $n$.
+Dizemos que $R(n)$ \dterm{para valores suficientemente grandes de} $n$
+sse a partir dum natural $n_0$ todos os naturais satisfazem a $R$,
+ou seja, sse
+$$
+\pexists {n_0\in\nats}
+\lforall {i \geq n_0}
+{R(i)}.
+$$
+
+%%}}}
+
+%%{{{ df: limit_of_sequence_of_reals 
+\definition limite.
+%%%{{{ meta 
+\label limit_of_sequence_of_reals
+\defines
+    * ~{\seqn a n} \limto ~\ell  -- a seqüência $\seqn a n$ tende ao $\ell$
+    * limite!reais
+    ;;
+%%%}}}
+
+Seja $\seqn a n$ uma seqüência de reais e seja $\ell\in\reals$.
+Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
+sse a partir dum membro $a_N$, todos os seus membros
+ficam $\epsilon$-perto do $\ell$.
+Ou seja:
+$$
+\seqn a n \limto \ell
+\defiff
+\pforall  {\epsilon > 0}
+\pexists  {N \in \nats}
+\lforallt {i \geq N}
+{$a_i$ é $\epsilon$-perto de $\ell$}.
+$$
+Escrevemos
+$$
+\liml_n a_n = \ell
+$$
+como sinônimo de $\seqn a n \limto \ell$.
+\mistake
+
+%%}}}
+
+%%{{{ remark: n nought 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+É muito comum usar o nome \symq{$n_0$}
+onde usei o \symq{$N$} na~\ref[limit_of_sequence_of_reals].
+O \symq{$n_0$} é freqüêntemente lido ``$n$ nought'' em inglês.
+
+%%}}}
+
+%%{{{ Alternating quantifiers
+\note Quantificadores alternantes.
+%%%{{{ meta 
+%%%}}}
+
+Provavelmente essa foi a primeira definição que tu encontraste
+que necessitou três alternações de quantificadores:
+$$
+\forall\dots\exists\dots\forall\dots
+$$
+Para cada alteração de quantificação que seja adicionada
+numa afirmação, o processo de digeri-la naturalmente fica
+mais complicado para nossa mente!
+Com experiência, \dterm{matemalhando}, essas definições
+com três quantificadores ficarão mais e mais digeríveis.
+Mesmo com essa experiência, num momento vamos encontrar
+uma afirmação com \emph{quatro} quantificações alternantes,
+e a dificuldade vai voltar e te lembrar dessa dificuldade
+que sentes agora.
+Felizmente, temos as ferramentas formais de lógica matemática
+que nos permitem trabalhar com proposições sem digeri-las
+completamente!
+
+%%}}}
+
+%%{{{ x: limit_of_sequence_of_reals_uniqueness_needed 
+\exercise.
+%%%{{{ meta 
+\label limit_of_sequence_of_reals_uniqueness_needed
+%%%}}}
+
+Qual o problema com a~\ref[limit_of_sequence_of_reals]?
+
+\hint
+O problema fica na
+$$
+\liml_n a_n = \ell.
+$$
+Qual é?
+
+\solution
+Precisamos demonstrar a unicidade dos limites para usar
+o símbolo \symq{$=$} da \emph{igualdade}.  Pois, se uma
+seqüência tende a dois limites
+$$
+\xalignat2
+\seqn a n &\limto \ell &
+\seqn a n &\limto \ell'
+\endxalignat
+$$
+com $\ell = \ell'$, então escrevendo
+$$
+\xalignat2
+\liml_n a_n &= \ell &
+\liml_n a_n &= \ell'
+\endxalignat
+$$
+teriamos (pela simetria e transitividade da igualdade)
+$\ell = \ell'$, contradizendo nossa hipótese.
+
+%%}}}
+
+%%{{{ eg: ones tends to one 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+A seqüência $1, 1, 1, \dotsc$ tende ao limite $1$.
+
+\solution.
+Seja $\epsilon>0$.
+O desafio é achar $N \in \nats$ tal que a partir de $N$,
+todos os membros da seqüência são $\epsilon$-perto de $1$.
+Tome $N \asseq 0$, e seja $n \geq N$.
+Obviamente o $n$-ésimo termo da seqüência é $\epsilon$-perto
+do $1$ pois, ele é igual ao $1$ mesmo e logo a distância
+deles é $0$, e logo menor que $\epsilon$.
+Observe que qualquer escolha de $N$ aqui seria correta!
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Como tu já resolveste
+o~\ref[limit_of_sequence_of_reals_uniqueness_needed] (né?)
+tu sabes que precisamos demonstrar a unicidade dos limites.
+E a existência?
+A existência não é garantida (vamos descobrir isso agora
+no~\ref[alternating_zero_one_does_not_have_a_limit]),
+então precisamos tomar cuidado com o símbolo $\lim$:
+é um operador \emph{parcial}.
+
+%%}}}
+
+%%{{{ x: alternating_zero_one_does_not_have_a_limit 
+\exercise.
+%%%{{{ meta 
+\label alternating_zero_one_does_not_have_a_limit
+%%%}}}
+
+A seqüência $0,1,0,1,\dotsc$, formalmente definida pela
+$$
+a_n = \knuthcases {
+0, & se $n$ par \cr
+1, & caso contrário.
+}
+$$
+tende àlgum limite?
+Se sim, ache e demonstre; se não, refute.
+
+\hint
+Não tende a limite nenhum!
+Como podemos demonstrar isso?
+
+\hint
+Demonstre que para qualquer possível limite $\ell \in \reals$,
+$$
+\seqn a n \ntendsto \ell.
+$$
+
+%%}}}
+
+%%{{{ thm: uniqueness_of_limits_of_reals 
+\theorem unicidade de limites.
+%%%{{{ meta 
+\label uniqueness_of_limits_of_reals
+%%%}}}
+
+Uma seqüência não pode ter mais que um limite.
+Formalmente, seja $\seqn a n$ seqüência de reais tal que
+$$
+\xalignat 2
+\seqn a n &\limto \ell_1 &
+\seqn a n &\limto \ell_2.
+\endxalignat
+$$
+Então $\ell_1 = \ell_2$.
+
+\proof.
+Graças ao~\ref[only_zero_is_leq_than_all_positives] basta demonstrar
+que $\abs{\ell_1 - \ell_2} < \epsilon$ para todo $\epsilon > 0$.
+Seja $\epsilon > 0$ então, e agora observe que para quaisquer
+$\epsilon_1,\epsilon_2>0$ podemos escolher $N_1,N_2$ tais que:
+\mathcols 2
+\cforall {i \geq N_1} {\abs{a_i - \ell_1} < \epsilon_1} &
+\cforall {j \geq N_2} {\abs{a_j - \ell_2} < \epsilon_2}.
+\endmathcols
+Tome $N \asseq \max\set{N_1, N_2}$.
+Logo
+\mathcols 2
+\abs{a_N - \ell_1} &< \epsilon_1 &
+\abs{a_N - \ell_2} &< \epsilon_2.
+\endmathcols
+Observando que $\abs{a_N - \ell_1} = \abs{\ell_1 - a_N}$
+e somando as desigualdades por lados temos
+$$
+\abs{\ell_1 - a_N} + \abs{a_N - \ell_2} < \epsilon_1 + \epsilon_2.
+$$
+Mas
+$$
+\mubrace {\abs{\ell_1 - a_N + a_N - \ell_2}} {\abs{\ell_1 - \ell_2}}
+\leq \abs{\ell_1 - a_N} + \abs{a_N - \ell_2}
+< \epsilon_1 + \epsilon_2.
+$$
+Lembre-se que isso é válido para quaisquer $\epsilon_1,\epsilon_2>0$, então
+basta selecioná-los para satisfazer $\epsilon_1+\epsilon_2\leq\epsilon$
+(tome pore exemplo ambos (menores ou) iguais ao $\epsilon/2$).
+Assim provamos que para todo $\epsilon > 0$,
+$$
+0 \leq \abs{\ell_1 - \ell_2} < \epsilon,
+$$
+ou seja, $\abs{\ell_1 - \ell_2} = 0$, e logo $\ell_1 - \ell_2 = 0$,
+e logo $\ell_1 = \ell_2$, que é o que queremos demonstrar!
+
+%%}}}
+
+%%{{{ x: exp_over_factorial_limit 
+\exercise.
+%%%{{{ meta 
+\label exp_over_factorial_limit
+%%%}}}
+
+Demonstre que
+$$
+\lim_n \frac {2^n} {\fac n} = 0.
+$$
+
+\hint
+$$
+\frac
+{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
+{1 \ntimes 2 \ntimes 3 \ntimes 4 \ntimes 5 \ntimes 6 \ntimes 7 \ntimes \dotsb}
+=
+\frac
+{2 \ntimes 2 \ntimes 2}
+{1 \ntimes 2 \ntimes 3}
+\ntimes
+\dotsc
+$$
+
+\hint
+$$
+\frac
+{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
+{1 \ntimes 2 \ntimes 3 \ntimes 4 \ntimes 5 \ntimes 6 \ntimes 7 \ntimes \dotsb}
+=
+\frac
+{2 \ntimes 2 \ntimes 2}
+{1 \ntimes 2 \ntimes 3}
+\ntimes
+\frac
+{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
+{4 \ntimes 5 \ntimes 6 \ntimes 7 \ntimes \dotsb}
+=
+\frac 4 3
+\ntimes
+\frac
+{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
+{4 \ntimes 5 \ntimes 6 \ntimes 7 \ntimes \dotsb}
+\leq
+\frac
+{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
+{4 \ntimes 4 \ntimes 4 \ntimes 4 \ntimes \dotsb}
+$$
+e agora?
+
+%%}}}
+
+%%{{{ x: exp_over_factorial_limit_gen 
+\exercise.
+%%%{{{ meta 
+\label exp_over_factorial_limit_gen
+%%%}}}
+
+No~\ref[exp_over_factorial_limit], podemos trocar o $2$
+por quais números?
+
+%%}}}
+
+%%{{{ thm: convergent_implies_bounded_in_reals 
+\theorem.
+%%%{{{ meta 
+\label convergent_implies_bounded_in_reals
+%%%}}}
+
+Toda seqüência convergente $\seqn a n$ é bounded.
+
+\sketch.
+Seja $\seqn a n$ tal que $\seqn a n \limto \ell$.
+Logo, usando $\epsilon \asseq 1$ seja $N\in\nats$
+tal que a partir do $a_N$, todos os $a_n$'s são
+$1$-perto de $\ell$.
+Observe que o conjunto $\set{a_0, \dotsc, a_{N-1}}$
+é finito, e logo possui mínimo $m$ e máximo $M$:
+$$
+m \leq a_0, \dotsc, a_{N-1} \leq M.
+$$
+Agora, observe que a seqüência é bounded below pelo
+$\min \set{ m , \ell - 1 }$ e similarmente bounded above pelo
+$\max \set{ M , \ell + 1 }$.
+
+%%}}}
+
+%%{{{ thm: monotone_and_bounded_implies_convergent 
+\theorem.
+%%%{{{ meta 
+\label monotone_and_bounded_implies_convergent
+%%%}}}
+
+Uma seqüência monótona e bounded é convergente.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ thm: nested_interval_theorem 
+\theorem intervalos aninhados.
+%%%{{{ meta 
+\label nested_interval_theorem
+%%%}}}
+
+Seja $\seqn I n$ uma seqüência de intervalos não vazios, fechados e bounded,
+que forma uma $\supset$-chain:
+$$
+I_0 \supset I_1 \supset I_2 \supset \dotsb.
+$$
+Logo $\Inter_n I_n \neq \emptyset$.
+E se $\length(I_n) \limto 0$, 
+então $\Inter_n I_n$ é um singleton.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ x: closed_and_bounded_important_in_nested_interval_theorem 
+\exercise.
+%%%{{{ meta 
+\label closed_and_bounded_important_in_nested_interval_theorem
+%%%}}}
+
+Demonstre que as hipoteses do~\ref[nested_interval_theorem] sobre os
+intervalos ser fechados e bounded são \emph{necessárias}.
+
+%%}}}
+
+%%{{{ df: liminf_and_limsup_in_reals 
+\definition.
+%%%{{{ meta 
+%%%}}}
+
+Seja $\seqn a n$ uma seqüência de reais.
+Definimos
+$$
+\xalignat2
+\liminf_n &\defeq \sup_n\inf_{k\geq } a_k &
+\limsup_n &\defeq \inf_n\sup_{k\geq } a_k.
+\endxalignat
+$$
+Usamos também $\ulim_n$ para o $\liminf_n$ e
+similarmente $\olim_n$ para o $\limsup_n$.
+
+%%}}}
+
+\TODO elaborar e adicionar desenhos sobre os $\limsup$ e $\liminf$.
+
+%%{{{ remark 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Seja $\seqn a n$ seqüência bounded e seja
+$$
+M \asseq \limsup_n a_n = \lim_n \sup \setst {a_k} {k \geq n}.
+$$
+Logo
+$$
+\pforall {\epsilon > 0}
+\pexists {N \in \nats}
+\lforall {n \geq N}
+  {M - \epsilon < \sup\setst{a_k}{k \geq n} < M + \epsilon}.
+$$
+
+%%}}}
+
+%%{{{ criterion: limsup_liminf_criteria 
+\criterion.
+%%%{{{ meta 
+\label limsup_liminf_criteria
+%%%}}}
+
+Seja $\seqn a n$ bounded.
+Logo
+$$
+\align
+M = \limsup_n a_n
+&\iff
+\pforall {\epsilon > 0}
+\bracket{
+\aligned
+&\text{$a_n < M + \epsilon$ para eventualmente todos os $n$'s} \\
+&\text{$a_n > M - \epsilon$ para uma quantidade infinita de $n$'s}
+\endaligned
+}; \\
+m = \liminf_n a_n
+&\iff
+\pforall {\epsilon > 0}
+\bracket{
+\aligned
+&\text{$a_n > m - \epsilon$ para eventualmente todos os $n$'s} \\
+&\text{$a_n < m + \epsilon$ para uma quantidade infinita de $n$'s}
+\endaligned
+}.
+\endalign
+$$
+
+%%}}}
+
+\TODO demonstrar.
+
+\TODO elaborar e conectar com os equivalentes operadores em conjuntos.
+
+%%{{{ df: Cauchy_sequence_of_reals 
+\definition seqüência Cauchy.
+%%%{{{ meta 
+\label Cauchy_sequence_of_reals
+\defines
+    * Cauchy!reais
+    ;;
+%%%}}}
+
+Seja $\seqn a n$ uma seqüência de reais.
+Dizemos que $\seqn a n$ é \Cauchy[seqüência]\dterm{Cauchy}
+sse para qualquer $\epsilon > 0$ existe um membro da
+seqüência tal que a partir dele, todos os seus membros
+são $\epsilon$-perto entre si (dois a dois).
+Formalmente:
+$$
+\text{$\seqn a n$ é Cauchy}
+\defiff
+\pforall  {\epsilon > 0}
+\pexists  {N \in \nats}
+\lforallt {i,j \geq N}
+{$a_i,a_j$ são $\epsilon$-perto}.
+$$
+
+%%}}}
+
+%%{{{ thm: convergent_implies_Cauchy_in_reals 
+\theorem.
+%%%{{{ meta 
+\label convergent_implies_Cauchy_in_reals
+%%%}}}
+
+Se uma seqüência de reais é convergente, então ela é Cauchy.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ thm: Cauchy_implies_bounded_in_reals 
+\theorem.
+%%%{{{ meta 
+\label Cauchy_implies_bounded_in_reals
+%%%}}}
+
+Se uma seqüência de reais é Cauchy, então é bounded.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ thm: Cauchy_with_conv_subseq_implies_convergent_in_reals 
+\theorem.
+%%%{{{ meta 
+\label Cauchy_with_conv_subseq_implies_convergent_in_reals
+%%%}}}
+
+Se uma seqüência de reais é Cauchy e possui subseqüência
+convergente, então é convergente.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ x: every_sequence_has_a_monotone_subsequence_in_reals 
+\exercise.
+%%%{{{ meta 
+\label every_sequence_has_a_monotone_subsequence_in_reals
+%%%}}}
+
+Toda seqüência de reais tem uma subseqüência monótona.
+
+%%}}}
+
+%%{{{ thm: Bolzano_Weierstrass_theorem 
+\theorem Bolzano--Weierstrass.
+%%%{{{ meta 
+\label Bolzano_Weierstrass_theorem
+\credits
+    * Bolzano : --Weierstrass, teorema
+    * Weierstrass : Bolzano--, teorema
+    ;;
+%%%}}}
+
+Toda seqüência bounded de reais possui subseqüência convergente.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ cor: Cauchy_implies_convergent_in_reals 
+\corollary.
+%%%{{{ meta 
+\label Cauchy_implies_convergent_in_reals
+%%%}}}
+
+Uma seqüência de reais é Cauchy sse é convergente.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ cor: bounded_implies_Cauchy_subseq_in_reals.
+\corollary.
+%%%{{{ meta 
+\label bounded_implies_Cauchy_subseq_in_reals
+%%%}}}
+
+Toda seqüência bounded possui subseqüência Cauchy.
+
+%%}}}
+
+\TODO sketch.
+
+\endsection
+%%}}}
+
+%%{{{ Continuity 
+\section Continuidade.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Elaborar.
+
+%%{{{ df: continuous_real_function 
+\definition funcção real contínua.
+%%%{{{ meta 
+\label continuous_real_function
+%%%}}}
+
+Sejam $X,Y\subset \reals$, $f : X \to Y$, e $x_0 \in X$.
+Chamamos
+$$
+\multline
+\text{$f$ contínua no $x_0$}
+\defiff
+\pforall {\epsilon > 0}
+\pexists {\delta > 0} \\
+\lforall {x \in X}
+{
+\text{$x,x_0$ são $\delta$-perto}
+\implies
+\text{$f x, f x_0$ são $\epsilon$-perto}
+}.
+\endmultline
+$$
+Dizemos que $f$ é \dterm{contínua} sse ela é contínua em
+cada ponto do seu domínio.
+
+%%}}}
+
+%%{{{ Continuity as a game 
+\note Continuidade como jogo.
+%%%{{{ meta 
+\label continuity_game
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ lemma: continuous_functions_preserve_sign 
+\lemma preservação de sinal.
+%%%{{{ meta 
+\label continuous_functions_preserve_sign
+%%%}}}
+
+Seja $f : A \to \reals$ contínua no $a$ com $fa \neq 0$.
+Logo existe $\ball \delta a$ tal que $f$ não muda sinal nela.
+
+\sketch.
+\proofpart{Caso $fa > 0$.}
+Usamos a continuidade da $f$ no $a$ com $\epsilon \asseq fa$,
+assim ganhando um $\delta > 0$ tal que
+todos os $\delta$-perto de $a$ são mapeados $\epsilon$-perto
+de $fa$.  Logo todos são positivos.
+\crproofpart{Caso $fa < 0$:} similar.
+
+%%}}}
+
+%%{{{ thm: Bolzano_theorem 
+\theorem Bolzano.
+%%%{{{ meta 
+\label Bolzano_theorem
+%%%}}}
+
+{\Bolzano[teorema]}%
+Seja $f : A \to \reals$ contínua em todo ponto dum intervalo
+$[a,b]$ tal que $(fa),(fb)$ têm sinais opostos.
+Logo existe $w \in (a,b)$ tal que $fw = 0$.
+
+\sketch.
+\proofpart{Caso $fa < 0 < fb$.}
+Observe que podem exisir vários $w \in (a,b)$ com $fw = 0$;
+a gente precisa achar um tal $w$.
+Seja
+$$
+L = \setst {x \in [a,b]} {f x \leq 0}.
+$$
+Observe $L \neq \emptyset$ (pois $a \in L$) e ele é
+bounded above (por $b$), e logo possui supremum:
+seja $w \asseq \sup L$.
+Basta demonstrar que (i) $fw = 0$; (ii) $a < w < b$.
+(i) Pela tricotomía da ordem basta eliminar as possibilidades
+$fw > 0$ e $fw < 0$.
+Fazemos isso usando a continuidade da $f$ e
+o~\ref[continuous_functions_preserve_sign].
+supondo a primeira chegamos na contradição de achar um
+upper bound de $L$ menor que $w$;
+supondo a segunda chegamos na contradição que o $w$
+não é um upper bound.
+(ii) Temos $w \in [a,b]$, basta eliminar as possibilidades
+de $w = a$ e $w = b$: imediato pois $fw = 0$ e $fa,fb\neq 0$.
+\crproofpart{Caso $fb < 0 < fa$:} similar.
+
+%%}}}
+
+%%{{{ df: preserves_limits_in_reals 
+\definition preserva limites.
+%%%{{{ meta 
+\label preserves_limits_in_reals
+%%%}}}
+
+Seja $f : A \to \reals$.
+Dizemos que \dterm{$f$ preserva os límites} sse
+para toda seqüência convergente $\seqn a n$
+$$
+f\funparen{ \liml_n a_n } = \liml_n (f a_n).
+$$
+
+%%}}}
+
+%%{{{ criterion: continuous_iff_preserves_limits_in_reals 
+\criterion.
+%%%{{{ meta 
+\label continuous_iff_preserves_limits_in_reals
+%%%}}}
+
+Seja $f : A \to \reals$.
+$$
+\text{$f$ contínua}
+\iff
+\text{$f$ preserva os limítes}.
+$$
+
+%%}}}
+
+\TODO Demonstrar.
+
+\endsection
+%%}}}
+
+%%{{{ Series 
+\section Séries.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ df: series_of_reals 
+\definition.
+%%%{{{ meta 
+\label series_of_reals
+%%%}}}
+
+Seja $\seqn a n$ uma seqüência de reais.
+Considere os números
+$$
+\align
+s_0 &= 0 \\
+s_1 &= a_0 \\
+s_2 &= a_0 + a_1 \\
+s_3 &= a_0 + a_1 + a_2 \\
+    &\eqvdots \\
+s_n &= \Sum_{i=0}^{n-1} a_i \\
+    &\eqvdots
+\endalign
+$$
+dos \dterm{somatórios parciais} (ou \dterm{iniciais})
+da $\seqn a n$.
+Escrevemos
+$$
+\Sum_{n=0}^{\infty} a_n
+\qqtext{como sinônimo de}
+\mubrace
+  {\liml_n \paren{\Sum_{i=0}^{n-1} a_i}}
+  {\liml_n s_n}
+$$
+e naturalmente usamos frases como
+<<a \dterm{série $\Sum a_n$ converge}>>, etc.
+Dizemos que a série $\Sum a_n$ \dterm{diverge} sse
+$\seqn s n \limto \pinfty$ ou se a $\seqn s n$ não possui limite.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Pointwise convergence 
+\section Convergência pointwise (ponto a ponto).
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ pointwise_limit_in_real_functions 
+\definition.
+%%%{{{ meta 
+\label pointwise_limit_in_real_functions
+%%%}}}
+
+Seja $\seqn f n$ uma seqüência \emph{de funcções}
+no $(A\to\reals)$.
+Observe que para cada $x \in A$, é determinada uma
+seqüência \emph{de reais} pelos valores das
+$f_n$'s nesse ponto: $\sequence {f_nx} n$.
+Se cada uma delas converge àlgum real definimos
+o \dterm{limite pointwise} da $\seqn f n$ para
+ser a funcção $f : A \to \reals$ definida pela
+$$
+f x = \liml_n {(f_n x)}.
+$$
+Dizemos que $\seqn f n$ \dterm{converge pointwise}
+(ou \dterm{ponto a ponto}) à $f$.
+
+%%}}}
+
+%%{{{ x: pointwise_limit_eg_monomials 
+\exercise.
+%%%{{{ meta 
+\label pointwise_limits_eg_monomials
+%%%}}}
+
+Seja $\seqn f n \subset ([0,1] \to \reals)$ a seqüência
+definida pelas
+$$
+\align
+f_n   &\eqtype [0,1] \to \reals \\
+f_n x &= x^n.
+\endalign
+$$
+A $\seqn f n$ converge àlguma funcção pointwise?
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Geometric_representation_of_reals 
+\section Representação geométrica e digital.
+%%%{{{ meta 
+\label Geometric_representation_of_reals
+%%%}}}
+
+\TODO Expansão como instruções.
+
+\endsection
+%%}}}
+
+%%{{{ The_surreals 
+\section Os surreais.
+%%%{{{ meta 
+\label The_surreals
+%%%}}}
+
+\TODO elaborar.
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ prob: alternative_formalization_of_ordered_fields_is_equivalent 
+\problem.
+%%%{{{ meta 
+\label alternative_formalization_of_ordered_fields_is_equivalent
+%%%}}}
+
+Na~\ref[alternative_formalization_of_ordered_fields] afirmei que
+as duas formalizações são equivalentes.
+O que isso significa mesmo?  Enuncie e demonstre.
+
+%%}}}
+
+%%{{{ prob: complex_cannot_by_ordered 
+\problem.
+%%%{{{ meta 
+\label complex_cannot_by_ordered
+%%%}}}
+
+Demonstre que não tem como definir uma ordem no corpo dos
+complexos em tal forma que ele vira um corpo ordenado.
+
+%%}}}
+
+%%{{{ prob: weird_convex_modulized 
+\problem.
+%%%{{{ meta 
+\label weird_convex_modulized
+%%%}}}
+
+O que muda no~\ref[weird_convex] se definir o $Q$ como
+$Q = \Union_n \set{\tup{\cos n, \sin n}}$?
+
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite[spivakcalculus],
+\cite[apostol1],
+\cite[hardypuremath],
+\cite[loomissternberg].
+\cite[knuthsurreals].
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
 %%{{{ chapter: Enumerative_combinatorics 
 \chapter Combinatória enumerativa.
 %%%{{{ meta 
@@ -31763,7 +33912,7 @@ $$
 &: A \to A \union B \\
 &: A \cross B \to A \union B \\
 &: A \union B \to A \cross B \\
-&: \paren{\pfcross A B \union \pfcross C D} \to \pfcross {(A \union C)} {(B \union D)}.
+&: \paren{\pfprod A B \union \pfprod C D} \to \pfprod {(A \union C)} {(B \union D)}.
 \endaligned
 \endxalignat
 $$
@@ -33099,7 +35248,7 @@ currificada mas usá-la como se ela não fosse; e vice-versa.
 Por exemplo, defini (\reftag[eval_operation]) a $\evaldc A B$
 como uma funcção
 $$
-\evaldc A B : \pfcross {(A \to B)} A \to B.
+\evaldc A B : \pfprod {(A \to B)} A \to B.
 $$
 Ou seja, para chamá-la escrevemos
 $$
@@ -34615,6 +36764,148 @@ $f\resto X = \incofin X A \of f$.
 \endsection
 %%}}}
 
+%%{{{ Iterations 
+\section Iterações.
+%%%{{{ meta 
+\label Iterations
+%%%}}}
+
+%%{{{ df: function_iterations 
+\definition iterações.
+%%%{{{ meta 
+\label function_iterations
+\defines
+    * ~f^~n  -- a $n$-ésima iteração da $f$.
+    * funcção!iteração
+    ;;
+%%%}}}
+
+Seja $f : A \to A$.
+Definimos as \dterm{iterações} de $f$ pela recursão
+$$
+\align
+f^0     &= \idof A \\
+f^{n+1} &= f\of f^n.
+\endalign
+$$
+
+%%}}}
+
+%%{{{ eg: calculate_iterate_3_fx 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Seja $f : A \to A$.  Calculamos:
+\compute
+f^3(x)
+&= (f \of f^2)(x)                      \by {def.~$f^3$} \\
+&= (f \of (f \of f^1))(x)              \by {def.~$f^2$} \\
+&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$} \\
+&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$} \\
+&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$} \\
+&\dotseq f (f (f (x)))                 \by {def.~$\of$} \\
+\endcompute
+Em geral omitimos parenteses quando a expressão envolve apenas uma operação
+associativa;
+botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
+
+%%}}}
+
+%%{{{ x: succ3_is_plus_3 
+\exercise.
+%%%{{{ meta 
+\label succ3_is_plus_3
+%%%}}}
+
+Como definarias numa maneira simples a funcção $\succ^3$ para alguém
+que não sabe (e sequer quer saber) o que são as iterações duma funcção?
+
+\solution
+Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
+
+%%}}}
+
+%%{{{ beware: notation of functions with exponents 
+\beware.
+%%%{{{ meta 
+%%%}}}
+
+Em certos textos de matemática, aparece a notação $f^n(x)$ como
+sinónimo de $(f(x))^n$.
+Por exemplo:
+$$
+\text{quem escreveu\dots}
+\quad
+\sin^2 x + \cos^2 x
+\quad
+\aligned
+&\text{\dots quis dizer\dots}\\
+&\text{\dots mas aqui seria\dots}
+\endaligned
+\quad
+\aligned
+&(\sin x)^2   + (\cos x)^2    \\
+&\sin(\sin x) + \cos(\cos x).
+\endaligned
+$$
+
+%%}}}
+
+%%{{{ remark: function_iterations_altdef 
+\remark.
+%%%{{{ meta 
+\label function_iterations_altdef
+%%%}}}
+
+Poderiamos ter escolhido definir as potências de $f$ pelas:
+$$
+\align
+f^0     &= \idof A \\
+f^{n+1} &= f^n \of f
+\endalign
+$$
+em vez da recursão que usamos na~\ref[function_iterations].
+As duas definições são equivalentes, ou seja, as duas operações
+de exponenciação definidas são iguais.
+Por enquanto pode aceitar isso como um fato que vamos demonstrar
+depois (\ref[associative_with_identity_exp_defs_equiv]),
+ou esquecer completamente essa definição alternativa.
+
+%%}}}
+
+%%{{{ thm: properties_of_function_iterations 
+\theorem.
+%%%{{{ meta 
+\label properties_of_function_iterations
+%%%}}}
+
+A operação de iteração que definimos
+no~\ref[function_iterations]
+nos endomapas dum conjunto $A$ satisfaz as leis:
+% TODO: fix reflabs
+\tlist:
+\li (1): $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
+\li (2): $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
+\li (3): $\lforall {n\in\nats} {\id^n = \id}$.
+\endtlist
+
+\proof Já demonstrado.
+Demonstramos por indução as três leis nos exercícios~\reftag[law_of_natexp_1],
+\reftag[law_of_natexp_2], e~\reftag[law_of_natexp_3]---se tu não resolveu,
+volte a resolver!
+Verifique que nossas demonstrações precisaram apenas a \emph{associatividade}
+e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
+então podemos substituir a multiplicação por nossa $\of$.
+Sobre a outra operação envolvida nas provas, a adição, não precisamos
+verificar nada, pois nos dois casos é a mesma operação:
+a adição nos naturais.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Composition_laws 
 \section Leis de composição.
 %%%{{{ meta 
@@ -35160,284 +37451,6 @@ Alternativamente, podemos nos livrar dum passo no calculo do lado esquerdo assim
 \endsection
 %%}}}
 
-%%{{{ Iterations 
-\section Iterações.
-%%%{{{ meta 
-\label Iterations
-%%%}}}
-
-%%{{{ df: function_iterations 
-\definition iterações.
-%%%{{{ meta 
-\label function_iterations
-\defines
-    * ~f^~n  -- a $n$-ésima iteração da $f$.
-    * funcção!iteração
-    ;;
-%%%}}}
-
-Seja $f : A \to A$.
-Definimos as \dterm{iterações} de $f$ pela recursão
-$$
-\align
-f^0     &= \idof A \\
-f^{n+1} &= f\of f^n.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ eg: calculate_iterate_3_fx 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Seja $f : A \to A$.  Calculamos:
-\compute
-f^3(x)
-&= (f \of f^2)(x)                      \by {def.~$f^3$} \\
-&= (f \of (f \of f^1))(x)              \by {def.~$f^2$} \\
-&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$} \\
-&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$} \\
-&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$} \\
-&\dotseq f (f (f (x)))                 \by {def.~$\of$} \\
-\endcompute
-Em geral omitimos parenteses quando a expressão envolve apenas uma operação
-associativa;
-botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
-
-%%}}}
-
-%%{{{ x: succ3_is_plus_3 
-\exercise.
-%%%{{{ meta 
-\label succ3_is_plus_3
-%%%}}}
-
-Como definarias numa maneira simples a funcção $\succ^3$ para alguém
-que não sabe (e sequer quer saber) o que são as iterações duma funcção?
-
-\solution
-Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
-
-%%}}}
-
-%%{{{ beware: notation of functions with exponents 
-\beware.
-%%%{{{ meta 
-%%%}}}
-
-Em certos textos de matemática, aparece a notação $f^n(x)$ como
-sinónimo de $(f(x))^n$.
-Por exemplo:
-$$
-\text{quem escreveu\dots}
-\quad
-\sin^2 x + \cos^2 x
-\quad
-\aligned
-&\text{\dots quis dizer\dots}\\
-&\text{\dots mas aqui seria\dots}
-\endaligned
-\quad
-\aligned
-&(\sin x)^2   + (\cos x)^2    \\
-&\sin(\sin x) + \cos(\cos x).
-\endaligned
-$$
-
-%%}}}
-
-%%{{{ remark: function_iterations_altdef 
-\remark.
-%%%{{{ meta 
-\label function_iterations_altdef
-%%%}}}
-
-Poderiamos ter escolhido definir as potências de $f$ pelas:
-$$
-\align
-f^0     &= \idof A \\
-f^{n+1} &= f^n \of f
-\endalign
-$$
-em vez da recursão que usamos na~\ref[function_iterations].
-As duas definições são equivalentes, ou seja, as duas operações
-de exponenciação definidas são iguais.
-Por enquanto pode aceitar isso como um fato que vamos demonstrar
-depois (\ref[associative_with_identity_exp_defs_equiv]),
-ou esquecer completamente essa definição alternativa.
-
-%%}}}
-
-%%{{{ thm: properties_of_function_iterations 
-\theorem.
-%%%{{{ meta 
-\label properties_of_function_iterations
-%%%}}}
-
-A operação de iteração que definimos
-no~\ref[function_iterations]
-nos endomapas dum conjunto $A$ satisfaz as leis:
-% TODO: fix reflabs
-\tlist:
-\li (1): $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
-\li (2): $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
-\li (3): $\lforall {n\in\nats} {\id^n = \id}$.
-\endtlist
-
-\proof Já demonstrado.
-Demonstramos por indução as três leis nos exercícios~\reftag[law_of_natexp_1],
-\reftag[law_of_natexp_2], e~\reftag[law_of_natexp_3]---se tu não resolveu,
-volte a resolver!
-Verifique que nossas demonstrações precisaram apenas a \emph{associatividade}
-e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
-então podemos substituir a multiplicação por nossa $\of$.
-Sobre a outra operação envolvida nas provas, a adição, não precisamos
-verificar nada, pois nos dois casos é a mesma operação:
-a adição nos naturais.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Fixpoints 
-\section Fixpoints.
-%%%{{{ meta 
-\label Fixpoints
-%%%}}}
-
-%%{{{ df: fixpoint 
-\definition Fixpoint.
-%%%{{{ meta 
-\label fixpoint
-\indexes
-    * funcção!fixpoint    see: fixpoint
-    ;;
-\defines
-    * fixpoint
-    ;;
-%%%}}}
-
-Seja $f : A \to A$ um endomapa num conjunto $A$.
-Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
-$f(x) = x$.
-Com palavras de rua,
-$$
-\text{$x$ é um fixpoint de $f$}
-\heartiff
-\text{$f$ deixa $x$ em paz}.
-$$
-
-%%}}}
-
-%%{{{ eg: fixpoints_of_identities 
-\example.
-%%%{{{ meta 
-\label fixpoints_of_identities
-%%%}}}
-
-Para qualquer conjunto $A$, todos os seus membros são
-pontos fixos da $\idof A$.
-
-%%}}}
-
-%%{{{ noneg: succ and mother 
-\nonexample.
-%%%{{{ meta 
-%%%}}}
-
-No outro extremo, nem a $\succ : \nats\to\nats$ possui fixpoints,
-nem a $\mother : \persons\to\persons$---o que seria
-um fixpoint da $\mother$?
-
-%%}}}
-
-%%{{{ eg: fixpoints_of_sin 
-\example trigonometria.
-%%%{{{ meta 
-\label fixpoints_of_sin
-%%%}}}
-
-$0$ é um fixpoint da $\sin$---tem outros?  E a $\cos$?
-
-%%}}}
-
-%%{{{ eg: fixpoints_of_square 
-\example.
-%%%{{{ meta 
-\label fixpoints_of_square
-%%%}}}
-
-A $\square = \lam x {x^2} : \ints\to\ints$
-possui dois fixpoints: o $0$ e o $1$.
-
-%%}}}
-
-%%{{{ remark: how fixpoints look like internally 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Olhando para o diagrama interno dum endomapa (\reftag[diagram_of_endomap])
-os fixpoints são os ``redemoinhos''
-$
-\tikzpicture[>=stealth, scale=0.5]
-\node (dot-h) at (0 , 0.2 ) {};
-\node (dot) at (0 , 0   ) {$\bullet$};
-\draw[->] (dot-h) arc (10:290:0.25);
-\endtikzpicture
-$.
-
-%%}}}
-
-%%{{{ x: exact_number_of_fixpoints_challenge 
-\exercise.
-%%%{{{ meta 
-\label exact_number_of_fixpoints_challenge
-%%%}}}
-
-Seja $d\in\nats$.
-Defina uma funcção $f : \nats\to\nats$ com exatamente
-$d$ fixpoints.
-
-\hint
-Isso é mais um exercício pra ver se tu consegue definir
-funcções do que em fixpoints.
-
-\solution
-Seja $f : \nats \to \nats$
-definida pela
-$$
-f(n) =
-\knuthcases {
-n,   &se $n\in D$;\cr
-n+1, &caso contrário.
-}
-$$
-onde $D \asseq \set{0,\dots,d}$.
-
-%%}}}
-
-%%{{{ teaser: fixpoints_teaser 
-\teaser.
-%%%{{{ meta 
-\label fixpoints_teaser
-%%%}}}
-
-OK, eu sei: parece estranho dedicar uma secção só pra isso.
-Mas os fixpoints vão fazer um papel importantíssimo depois,
-e queria destacá-los desde já.
-(Mentira: não um.  Muitos!)
-
-%%}}}
-
-\TODO Elaborar e adicionar secções específicas.
-
-\endsection
-%%}}}
-
 %%{{{ Commutative_diagrams 
 \section Diagramas comutativos.
 %%%{{{ meta 
@@ -35664,10 +37677,10 @@ k \of g \of f
 \label Products_and_more_constructions
 %%%}}}
 
-%%{{{ df: fcross 
+%%{{{ df: fprod 
 \definition cross.
 %%%{{{ meta 
-\label fcross
+\label fprod
 \defines
     * ~f \times ~g  -- a funcção-produto das $f,g$
     * funcção!cross
@@ -35696,10 +37709,10 @@ Pronunciamos \utter{$f$ cross $g$}.
 
 %%}}}
 
-%%{{{ x: fcross_commutative_diagram 
+%%{{{ x: fprod_commutative_diagram 
 \exercise.
 %%%{{{ meta 
-\label fcross_commutative_diagram
+\label fprod_commutative_diagram
 %%%}}}
 
 Bote nomes e direcções onde faltam e demonstre que o diagrama comuta:
@@ -35730,7 +37743,7 @@ $$
 
 Vamos fazer um ``rewind'' no momento exatamente antes de
 definir nossa funcção de $A \cross B$ para $C \cross D$.
-O diagrama parece como no~\ref[fcross_commutative_diagram],
+O diagrama parece como no~\ref[fprod_commutative_diagram],
 exceto sem a setinha pontilhada no meio.
 E esse é o ``missing piece'' do nosso puzzle.
 Procuramos então achar uma \emph{seta} que é \dterm{legal}.
@@ -35739,10 +37752,10 @@ O que significa ``legal'' aqui?
 
 %%}}}
 
-%%{{{ x: fcross_practise 
+%%{{{ x: fprod_practise 
 \exercise.
 %%%{{{ meta 
-\label fcross_pratise
+\label fprod_pratise
 %%%}}}
 
 Para qualquer uma das expressões seguintes, calcule seu valor quando tiver.
@@ -35758,14 +37771,14 @@ Pode ser que umas delas tem type errors, e logo nenhum valor.
 
 %%}}}
 
-%%{{{ x: fcross_is_total 
+%%{{{ x: fprod_is_total 
 \exercise.
 %%%{{{ meta 
-\label fcross_is_total
+\label fprod_is_total
 %%%}}}
 
 O operador binário $(\dhole\cross\dhole)$ nas funcções
-que definimos no~\ref[fcross], é um operador total?
+que definimos no~\ref[fprod], é um operador total?
 
 \solution
 Sim.
@@ -35775,7 +37788,7 @@ sobre nossas funcções $f,g$ na definição.
 %%}}}
 
 %%{{{ df: fpair 
-\definition pair.
+\definition pairing.
 %%%{{{ meta 
 \label fpair
 \defines
@@ -35788,7 +37801,7 @@ Sejam
 $$
 A \longfromby f D \longtoby g B
 $$
-Chamamos \dterm{funcção-par da $f$ ``pair'' $g$},
+Chamamos \dterm{funcção-pareamento da $f$ ``pairing'' $g$},
 que denotamos por $\fpair f g$,
 a funcção
 $$
@@ -35881,7 +37894,7 @@ O que \emph{interessante} podemos definir agora?
 Com certeza uma composição tem chances boas de ser interessante,
 só que aqui a
 $$
-\ast \of \pfcross f g : A \cross A \longto B
+\ast \of \pfprod f g : A \cross A \longto B
 $$
 não tem o tipo desejado $A\to B$.
 Agora podemos desistir dessa abordagem e entrar na floresta mesmo
@@ -35896,7 +37909,7 @@ assim a composição de todas essas setinhas tem o tipo desejado.
 Basta definir uma funcção interessante então de $A$ para $A\cross A$
 e assim ganhar a
 $$
-A \xlongtoby {\ast \of \pfcross f g \of \alert ?} B.
+A \xlongtoby {\ast \of \pfprod f g \of \alert ?} B.
 $$
 
 %%}}}
@@ -35978,6 +37991,142 @@ a funcção (sem utilizar um ponto do seu domínio nem a $\lambda$-notação).
 Vamos investigar isso no~\ref[Pointfree_style].
 
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Fixpoints 
+\section Fixpoints.
+%%%{{{ meta 
+\label Fixpoints
+%%%}}}
+
+%%{{{ df: fixpoint 
+\definition Fixpoint.
+%%%{{{ meta 
+\label fixpoint
+\indexes
+    * funcção!fixpoint    see: fixpoint
+    ;;
+\defines
+    * fixpoint
+    ;;
+%%%}}}
+
+Seja $f : A \to A$ um endomapa num conjunto $A$.
+Chamamos \dterm{fixpoint} da $f$ qualquer $x\in A$ tal que
+$f(x) = x$.
+Com palavras de rua,
+$$
+\text{$x$ é um fixpoint de $f$}
+\heartiff
+\text{$f$ deixa $x$ em paz}.
+$$
+
+%%}}}
+
+%%{{{ eg: fixpoints_of_identities 
+\example.
+%%%{{{ meta 
+\label fixpoints_of_identities
+%%%}}}
+
+Para qualquer conjunto $A$, todos os seus membros são
+pontos fixos da $\idof A$.
+
+%%}}}
+
+%%{{{ noneg: succ and mother 
+\nonexample.
+%%%{{{ meta 
+%%%}}}
+
+No outro extremo, nem a $\succ : \nats\to\nats$ possui fixpoints,
+nem a $\mother : \persons\to\persons$---o que seria
+um fixpoint da $\mother$?
+
+%%}}}
+
+%%{{{ eg: fixpoints_of_sin 
+\example trigonometria.
+%%%{{{ meta 
+\label fixpoints_of_sin
+%%%}}}
+
+$0$ é um fixpoint da $\sin$---tem outros?  E a $\cos$?
+
+%%}}}
+
+%%{{{ eg: fixpoints_of_square 
+\example.
+%%%{{{ meta 
+\label fixpoints_of_square
+%%%}}}
+
+A $\square = \lam x {x^2} : \ints\to\ints$
+possui dois fixpoints: o $0$ e o $1$.
+
+%%}}}
+
+%%{{{ remark: how fixpoints look like internally 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Olhando para o diagrama interno dum endomapa (\reftag[diagram_of_endomap])
+os fixpoints são os ``redemoinhos''
+$
+\tikzpicture[>=stealth, scale=0.5]
+\node (dot-h) at (0 , 0.2 ) {};
+\node (dot) at (0 , 0   ) {$\bullet$};
+\draw[->] (dot-h) arc (10:290:0.25);
+\endtikzpicture
+$.
+
+%%}}}
+
+%%{{{ x: exact_number_of_fixpoints_challenge 
+\exercise.
+%%%{{{ meta 
+\label exact_number_of_fixpoints_challenge
+%%%}}}
+
+Seja $d\in\nats$.
+Defina uma funcção $f : \nats\to\nats$ com exatamente
+$d$ fixpoints.
+
+\hint
+Isso é mais um exercício pra ver se tu consegue definir
+funcções do que em fixpoints.
+
+\solution
+Seja $f : \nats \to \nats$
+definida pela
+$$
+f(n) =
+\knuthcases {
+n,   &se $n\in D$;\cr
+n+1, &caso contrário.
+}
+$$
+onde $D \asseq \set{0,\dots,d}$.
+
+%%}}}
+
+%%{{{ teaser: fixpoints_teaser 
+\teaser.
+%%%{{{ meta 
+\label fixpoints_teaser
+%%%}}}
+
+OK, eu sei: parece estranho dedicar uma secção só pra isso.
+Mas os fixpoints vão fazer um papel importantíssimo depois,
+e queria destacá-los desde já.
+(Mentira: não um.  Muitos!)
+
+%%}}}
+
+\TODO Elaborar e adicionar secções específicas.
 
 \endsection
 %%}}}
@@ -36164,7 +38313,7 @@ pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
 Sejam $f : A \to C$ e $g : B \to D$.
 Queremos definir a $f\union g : A\union B \to C\union D$,
 consultando as $f$ e $g$, numa maneira parecida com aquela da
-definição de $f\cross g$ (\reftag[fcross]).
+definição de $f\cross g$ (\reftag[fprod]).
 Uma definição razoável deve fazer o diagrama seguinte comutar:
 $$
 \cdopt{sep=2cm}
@@ -61624,2155 +63773,6 @@ e~\cite[apostol2].
 \endchapter
 %%}}}
 
-%%{{{ chapter: The_reals 
-\chapter Os reais.
-%%%{{{ meta 
-\label The_reals
-%%%}}}
-
-%%{{{ intro 
-\chapintro
-O $\sset \reals {+,\ntimes,0,1}$ é um \emph{corpo ordenado completo}.
-Neste capítulo vamos estudar o que isso significa e investigar as
-primeiras conseqüências dos axiomas dos reais.
-Além disso, vamos definir e estudar os conceitos fundamentais
-de limites e séries.
-%%}}}
-
-%%{{{ Ordered fields 
-\section Corpos ordenados.
-%%%{{{ meta 
-\label Ordered_fields
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Nessa secção, $F$ vai denotar um arbitrário corpo ordenado:
-
-%%}}}
-
-%%{{{ df: ordered_field 
-\definition Corpo ordenado.
-%%%{{{ meta 
-\label ordered_field
-\defines
-    * corpo!ordenado
-    ;;
-%%%}}}
-
-Seja $F$ um conjunto, $0,1\in F$, $+$ e $\ntimes$ duas operações
-binárias no $F$, e $-$ uma operação unária.
-Seja também $P$ uma relação unária no $F$, que identificamos com
-seu gráfico: $P \subset F$.
-Seu papel é representar os membros \emph{positivos}.
-Chamamos o $\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, P}$
-um \dterm{corpo ordenado} sse as seguintes leis são satisfeitas:
-\mathcol
-                      & {0 \neq 1}                      \tag{FNZ} \\
-\\
-\cforall {a,b\in F}     {a + b \in F}                   \tag{FA0} \\
-\cforall {a,b,c\in F}   {a + (b + c) = (a + b) + c}     \tag{FA1} \\
-\cforall {a \in F}      {a + 0 = a}                     \tag{FA2} \\
-\cforall {a\in F}       {a + (-a) = 0}                  \tag{FA3} \\
-\cforall {a,b\in F}     {a + b = b + a}                 \tag{FA4} \\
-\\
-\cforall {a,b\in F}     {a\ntimes b \in F}                                     \tag{FM0} \\
-\cforall {a,b,c\in F}   {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}         \tag{FM1} \\
-\cforall {a \in F}      {a\ntimes 1 = a}                                       \tag{FM2} \\
-\cforall {a\in F}       {a\neq 0 \implies \lexists {y\in F} {a \ntimes y = 1}} \tag{FM3*}\\
-\cforall {a,b\in F}     {a\ntimes b = b \ntimes a}                             \tag{FM4} \\
-\\
-\cforall {a,b,c \in F}  {a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}        \tag{FD}  \\
-\\
-\cforallt {a \in F}     {exatamente uma das: $-a \in P$; $a = 0$; $a \in P$}   \tag{FP3} \\
-\cforall {a,b\in P}     {a + b \in P}                   \tag{FPA}\\
-\cforall {a,b\in P}     {a\ntimes b \in P}              \tag{FPM}
-\endmathcol
-
-%%}}}
-
-%%{{{ eg: rats_and_reals_are_ordered_fields 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Os $\rats,\reals$ onde $P_\rats \asseq \rats_{>0}$ e $P_\reals \asseq \reals_{>0}$,
-e as operações e os constantes são os usuais.
-
-%%}}}
-
-%%{{{ noneg: compex_order_field_noneg 
-\nonexample.
-%%%{{{ meta 
-\label complex_cannot_by_ordered
-%%%}}}
-
-Os complexos não são (\ref[complex_cannot_by_ordered]).
-
-%%}}}
-
-%%{{{ df: gt_in_ordered_fields 
-\definition.
-%%%{{{ meta 
-\label gt_in_ordered_fields
-%%%}}}
-
-Definimos a relação binária $<$ num corpo ordenado $F$ pela
-$$
-x < y \defiff y - x \in P.
-$$
-Naturalmente definimos as $>, \leq, \geq$ em termos das $<$ e $=$.
-Lembre-se a definição da $-$ binária em qualquer anel (\ref[subtraction_in_rings]).
-
-%%}}}
-
-%%{{{ alternative_formalization_of_ordered_fields 
-\note Formalização alternativa.
-%%%{{{ meta 
-\label alternative_formalization_of_ordered_fields
-%%%}}}
-
-Em vez de adicionar a relação unária $P$ em nossa estrutura
-para representar os membros positivos, podemos considerar a
-$$
-\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, <}
-$$
-onde $<$ é uma relação \emph{binária}, cujo papel é representar
-a ordem.
-Nesse caso vamos precisar substituir as leis (FP$\_$) sobre
-o $P$ com leis que afirmam que: $<$ é uma ordem estrita e total:
-\mathcol
-\cforall  {x,y,z \in F}  {x<y \mland y<z \implies x<z}                    \tag{FOT} \\
-\cforallt {x,y \in F}    {exatamente uma das: $x < y$; $x = y$; $x > y$}  \tag{FO3} \\
-\intertext{e que comporta bem com as operações:}
-\cforall  {a,b,c\in F}   {a<b \implies a+c < b+c}                         \tag{FOA} \\
-\cforall  {a,b\in F}     {0<a \mland 0<b \implies 0 < a\ntimes b}.        \tag{FOM} \\
-\endmathcol
-E podemos definir o conjunto $P$ (ou a relação unária $P$, dependente do ponto
-de visto) em termos da ordem $<$, e vice versa, definir a $<$ em termos de $P$:
-$$
-\xalignat 2
-&\gathered
-\sset F {+, \,\ntimes\,, -, 0, 1, P} \\
-x < y \defiff y-x \in P
-\endgathered
-&
-&\gathered
-\sset F {+, \,\ntimes\,, -, 0, 1, <} \\
-x \in P \defiff 0 < x.
-\endgathered
-\endxalignat
-$$
-As duas abordagens são equivalentes.
-
-%%}}}
-
-%%{{{ remark: rats is an ordered field too 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Os números racionais também formam um corpo ordenado.
-Ou seja, todas essas leis que listamos até agora,
-não são suficientes para determinar os reais, pois
-nem conseguem diferencia-los dos racionais.
-Falta só um axioma, o axioma da completude,
-que realmente vai determinar o conjunto $\reals$.
-Mas para entender esse axioma, precisamos primeiro
-entender um outro conceito: o \emph{supremum},
-e seu conceito dual, o \emph{infimum}.
-Faremos essas coisas
-nas~\reftag[Infimum_and_supremum_on_reals]--\reftag[Completeness_of_reals].
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Vamos agora investigar umas conseqüências dessas leis de corpo ordenado.
-Pronto para \emph{descobrir a teoria de corpos ordenados?}
-
-%%}}}
-
-%%{{{ x: ordered_field_trichotomy 
-\exercise Tricotomia.
-%%%{{{ meta 
-\label ordered_field_trichotomy
-%%%}}}
-
-Para todo $a,b\in F$, exatamente uma das
-$$
-a < b;\qquad
-a = b;\qquad
-a > b;
-$$
-é válida.
-
-%%}}}
-
-%%{{{ x: ordered_field_transitivity 
-\exercise Transitividade.
-%%%{{{ meta 
-\label ordered_field_transitivity
-%%%}}}
-
-A $<$ é uma relação transitiva:
-$a < b \mland b < c \implies a < c$.
-
-%%}}}
-
-%%{{{ x: ordered_field_plus_c_monotone 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_plus_c_monotone
-%%%}}}
-
-Se $a < b$ então $a + c < b + c$.
-
-%%}}}
-
-%%{{{ x: ordered_field_times_positive_c_monotone 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_times_positive_c_monotone
-%%%}}}
-
-Se $a < b \mland c > 0$ então $ac < bc$.
-
-%%}}}
-
-%%{{{ x: ordered_field_product_of_negatives_is_positive 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_product_of_negatives_is_positive
-%%%}}}
-
-Se $a,b < 0$ então $ab > 0$.
-
-%%}}}
-
-%%{{{ x: ordered_field_square_of_nonzero_is_positive 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_square_of_nonzero_is_positive
-%%%}}}
-
-Se $a\neq 0$ então $a^2 > 0$.
-
-%%}}}
-
-%%{{{ x: ordered_field_one_is_greater_than_zero 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_one_is_greater_than_zero
-%%%}}}
-
-$1 > 0$.
-
-%%}}}
-
-%%{{{ x: ordered_field_times_negative_c_antimonotone 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_times_negative_c_antimonotone
-%%%}}}
-
-Se $a < b \mland c < 0$ então $ac > bc$.
-
-%%}}}
-
-%%{{{ x: ordered_field_negate_is_antimonotone 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_negate_is_antimonotone
-%%%}}}
-
-Se $a < b$ então $-a > -b$.
-
-%%}}}
-
-%%{{{ x: ordered_field_negate_of_negative_is_positive 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_negate_of_negative_is_positive
-%%%}}}
-
-Se $a < 0$ então $-a > 0$.
-
-%%}}}
-
-%%{{{ x: ordered_field_product_positive_means_samesign 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_product_positive_means_samesign
-%%%}}}
-
-Se $ab > 0$ então $a,b$ são ou ambos positivos ou ambos negativos.
-
-%%}}}
-
-%%{{{ x: ordered_field_add_side_by_side 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_add_side_by_side
-%%%}}}
-
-Se $a < c \mland b < d$ então $a + b < c + d$.
-
-%%}}}
-
-%%{{{ x: complex_cannot_be_ordered_in_disguise 
-\exercise.
-%%%{{{ meta 
-\label complex_cannot_be_ordered_in_disguise
-%%%}}}
-
-Não existe $x\in F$ com $x^2 + 1 = 0$.
-
-%%}}}
-
-%%{{{ x: sum_of_squares_in_ordered_field 
-\exercise.
-%%%{{{ meta 
-\label sum_of_squares_in_ordered_field
-%%%}}}
-
-Para todo $a,b\in F$, temos $a^2 + b^2 \geq 0$.
-Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
-
-%%}}}
-
-%%{{{ x: order_fields_are_unbounded 
-\exercise.
-%%%{{{ meta 
-\label order_fields_are_unbounded
-%%%}}}
-
-O $F$ não tem nem mínimo, nem máximo.
-
-%%}}}
-
-%%{{{ x: only_zero_is_leq_than_all_positives 
-\exercise.
-%%%{{{ meta 
-\label only_zero_is_leq_than_all_positives
-%%%}}}
-
-Se $x$ tem a propriedade que $0 \leq x < \epsilon$
-para todo $\epsilon > 0$, então $x = 0$.
-
-%%}}}
-
-%%{{{ df: abs_in_ordered_fields 
-\definition.
-%%%{{{ meta 
-\label abs_in_ordered_fields
-%%%}}}
-
-Definimos a operação $\abs{\dhole} : F \to F$ num corpo ordenado $F$ pela
-$$
-\abs x \defeq
-\knuthcases {
-x,  & se $x\geq 0$ \cr
--x, & se não.
-}
-$$
-
-%%}}}
-
-%%{{{ x: ordered_field_abs_lemma 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_abs_lemma
-%%%}}}
-
-Sejam $x,w\in F$.  Logo
-$$
-\abs x \leq w
-\iff
--w \leq x \leq w.
-$$
-
-%%}}}
-
-%%{{{ x: ordered_field_triangular_inequality 
-\exercise Desigualdade triangular.
-%%%{{{ meta 
-\label ordered_field_triangular_inequality
-%%%}}}
-
-Sejam $x,y,z\in F$.  Logo:
-$$
-\gather
-\abs{x + y} \leq \abs x + \abs y \\
-\bigabs{\abs x - \abs y} \leq \abs{x - y} \\
-\abs{x - z} \leq \abs{x - y} + \abs{y - z}.
-\endgather
-$$
-
-%%}}}
-
-\TODO Corpos arquimedeanos.
-
-%%{{{ Models 
-\note Modelos.
-%%%{{{ meta 
-\defines
-    * modelo
-    ;;
-%%%}}}
-
-Temos dois exemplos principais de corpos ordenados,
-viz.~os reais e os racionais:
-ambos têm toda a estrutura exigida, e satisfazem todos os axiomas.
-Em palavras mais formais, eles são o que a gente chama
-de \dterm{modelos} de corpos ordenados.
-
-%%}}}
-
-%%{{{ Q: how_can_we_separate_reals_from_rats
-\question.
-%%%{{{ meta 
-\label how_can_we_separate_reals_from_rats
-%%%}}}
-
-Podemos adicionar alguma lei capaz de separar os reais dos racionais?
-Ou seja, chegar numa estrutura com leis mais exigentes, tais que
-os reais vão ser um modelo, mas os racionais não.
-
-%%}}}
-
-\spoiler
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Responder nessa pergunta neste momento é um grande desafio.\foot
-Vai desistir de pensar em alguma resposta por causa disso?
-\toof
-Mas já estamos prontos para encontrar o que falta para
-a pergunta virar mais fácil~(\reftag[Infimum_and_supremum_on_reals])
-e finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Infimum and supremum 
-\section Infimum e supremum.
-%%%{{{ meta 
-\label Infimum_and_supremum_on_reals
-%%%}}}
-
-%%{{{ df: lower_and_upper_bounds_reals 
-\definition Lower e upper bounds.
-%%%{{{ meta 
-\label lower_and_upper_bounds_reals
-\defines
-    * \lbs {~A}  -- o conjunto de todos os lower bounds de $A$
-    * ~A \leq ~x  -- $x$ é um upper bound de $A$
-    * ~x \leq ~A  -- $x$ é um lower bound de $A$
-    * \ubs {~A}  -- o conjunto de todos os upper bounds de $A$
-    * bounded!above
-    * bounded!below
-    * bound!lower
-    * bound!upper
-    * limitado!por baixo
-    * limitado!por cima
-    * limitante!por baixo
-    * limitante!por cima
-    ;;
-%%%}}}
-
-Seja $A\subset \reals$.
-Chamamos o $x$ um \dterm{lower bound} de $A$ sse $x \leq a$ para todo $a \in A$,
-e \emph{dualmente} $x$ é um \dterm{upper bound} de $A$ sse $x \geq a$ para todo $a \in A$:
-$$
-\align
-\text{$x$ é um lower bound de $A$} &\defiff \lforall {a\in A} {x \leq a} \\
-\text{$x$ é um upper bound de $A$} &\defiff \lforall {a\in A} {a \leq x}.
-\endalign
-$$
-Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
-$$
-\align
-x \leq A &\defiff \lforall {a \in A} {x \leq a} \\
-A \leq x &\defiff \lforall {a \in A} {a \leq x}.
-\endalign
-$$
-Denotamos o conjunto de todos os lower bounds de $A$ por $\lbs A$,
-e dualmente usamos $\ubs A$ para o conjunto de todos os seus upper bounds:
-$$
-\align
-\lbs A &\defeq \setst {x \in \reals} {x \leq A} \\
-\ubs A &\defeq \setst {x \in \reals} {A \leq x}.
-\endalign
-$$
-Se um $A$ tem pelo menos um limitante por cima, dizemos que $A$
-é \dterm{limitado por cima} (ou, \dterm{bounded above});
-e se tem pelo menos um limitante por baixo, \dterm{limitado por baixo}
-(ou, \dterm{bounded below}).
-
-%%}}}
-
-%%{{{ df: inf_sup_reals 
-\definition infimum; supremum.
-%%%{{{ meta 
-\label inf_sup_reals
-\defines
-    * \glb {~A}  -- o greatest lower bound de $A\subset\reals$
-    * \inf {~A}  -- o infimum de $A\subset\reals$
-    * \lub {~A}  -- o least upper bound de $A\subset\reals$
-    * \overline{\reals}  -- os reais estendidos: $\reals\union\set{\minfty,\pinfty}$
-    * \sup {~A}  -- o supremum de $A\subset\reals$
-    * greatest lower bound!reais
-    * infimum!reais
-    * least upper bound!reais
-    * reais!estendidos
-    * supremum!reais
-    ;;
-%%%}}}
-
-Definimos os $\inf A$ e $\sup A$ pelas:
-$$
-\align
-\text{$x$ é um infimum  de $A$} &\defiff x \leq A \mland \lforall {w \leq A} {w \leq x} \\
-\text{$x$ é um supremum de $A$} &\defiff x \geq A \mland \lforall {w \geq A} {x \leq w}.
-\endalign
-$$
-Mais curtamente:
-$$
-\xalignat 2
-\inf A &\defeq \max {\lbs A} &
-\sup A &\defeq \min {\ubs A}.
-\intertext{Outros nomes (e notações correspondentes) desses dois conceitos
-são muito comuns e vamos ficar os usando também:
-o infimum é chamado também de \dterm{greatest lower bound} e o supremum
-de \dterm{least upper bound}, e denotados por $\glb$ e $\lub$ respectivamente:}
-\glb A &\defeq \inf A & 
-\lub A &\defeq \sup A.
-\endxalignat
-$$
-
-%%}}}
-
-%%{{{ warning: later on we'll meet even more names and notations 
-\warning.
-%%%{{{ meta 
-%%%}}}
-
-No~\ref[Posets_Lattices] encontramos ainda mais nomes e notações!
-
-%%}}}
-
-%%{{{ remark: inf and sup are partial 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Observe que assim, $\inf$ e $\sup$ não são operações totais nos reais,
-mas \emph{parciais:}
-$$
-\inf,\sup \eqtype \pset \reals \parto \reals.
-$$
-Ou seja, ninguém garanta que para qualquer
-$A\subset\reals$ existe mesmo um real $x$ que satisfaz as
-condições das definições acima.
-Mas se existem, são únicos~(\ref[inf_and_sup_are_unique]):
-
-%%}}}
-
-%%{{{ thm: inf_and_sup_are_unique 
-\theorem.
-%%%{{{ meta 
-\label inf_and_sup_are_unique
-%%%}}}
-
-Seja $A \subset \reals$.
-Se $A$ tem infimum, ele é único.
-Dualmente, se $A$ tem supremum, ele é único.
-
-\proof.
-Por fight club: suponha $\ell, \ell'$ são infima, logo $\ell \leq \ell'$
-pois $\ell'$ é maior que qualquer lower bound, e $\ell$ é um lower bound.
-No outro lado $\ell' \leq \ell$ pois $\ell$ é maior que qualquer lowe bound,
-e $\ell'$ é um lower bound.  Logo $\ell \leq \ell'$ e $\ell' \leq \ell$
-e pela antissimetria da $\leq$ temos $\ell = \ell'$.
-
-%%}}}
-
-%%{{{ The extended reals 
-\note Os reais estendidos.
-%%%{{{ meta 
-\label extended_reals
-%%%}}}
-
-Agora, se $A$ não é bounded below e se $A$ não é bounded above escrevemos
-$$
-\xalignat 2
-\inf A &= \minfty &
-\sup A &= \pinfty
-\endxalignat
-$$
-respectivamente.
-Isso é bem justificável se pensar no $\reals$ apenas como um conjunto
-(parcialmente) ordenado enriquecido por dois novos objetos:
-o $\minfty$ e o $\pinfty$ chegando assim no conjunto
-$$
-\set{\minfty}\union\reals\union\set{\pinfty}
-$$
-que ordenamos assim:
-$$
-\minfty < x < \pinfty, \quad\text{para todo $x\in\reals$}.
-$$
-Chamamos os membros do $\reals\union\set{\minfty,\pinfty}$
-de \dterm{reais estendidos} e denotamos esse conjunto por
-$\overline{\reals}$ e $[\minfty,\pinfty]$ também.
-Podemos considerar ambas as operações então como
-$$
-\inf,\sup \eqtype \pset \reals \parto [\minfty,\pinfty].
-$$
-
-%%}}}
-
-%%{{{ x: inf_in_set_implies_min 
-\exercise.
-%%%{{{ meta 
-\label inf_in_set_implies_min
-%%%}}}
-
-Seja $A \subset \reals$.
-Demonstre que:
-(i) se $\inf A \in A$ então $\inf A = \min A$;
-(ii) a dual da (i).
-
-%%}}}
-
-%%{{{ x: lbs_and_ubs_are_empty_or_infinite 
-\exercise.
-%%%{{{ meta 
-\label lbs_and_ubs_are_empty_or_infinite
-%%%}}}
-
-Seja $A \subset \reals$.
-Demonstre que $\lbs A$ é vazio ou infinito, e a mesma coisa sobre o $\ubs A$.
-
-%%}}}
-
-%%{{{ x: a_set_with_nats_as_limit_points 
-\exercise.
-%%%{{{ meta 
-\label a_set_with_nats_as_limit_points
-%%%}}}
-
-Considere o conjunto
-$$
-A = \setlst {m + \frac 1 {2^n}} {m \in \nats, n \in \nats_{>0}}.
-$$
-(i) Visualize o $A$ na linha dos reais, e rascunhe seu desenho.
-(ii) Ache o $\inf A$ e $\sup A$ se são definidos.
-
-%%}}}
-
-%%{{{ x: inf_sup_reals_extreme_cases 
-\exercise.
-%%%{{{ meta 
-\label inf_sup_reals_extreme_cases
-%%%}}}
-
-Pode acontecer que para algum $A\subset\reals$ temos\dots
-\tlist:
-\li (i):  $\inf A = \sup A$?
-\li (ii): $\inf A > \sup A$?
-\endtlist
-Se sim, quando?
-Se não, por que não?
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-E agora\dots
-Será que podes pensar numa resposta para
-a~\ref[how_can_we_separate_reals_from_rats]?
-
-%%}}}
-
-\spoiler
-
-\endsection
-%%}}}
-
-%%{{{ Completude 
-\section Completude.
-%%%{{{ meta 
-\label Completeness_of_reals
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Agora temos tudo que precisamos para responder
-a~\ref[how_can_we_separate_reals_from_rats].
-Nossa resposta com palavras de rua é
-\standout
-\emph{os reais não têm ``buracos''}
-\endstandout
-mas precisamos formalizar essa afirmação.\foot
-No~\ref[Cantors_paradise] encontramos uma outra
-resposta a~\ref[how_can_we_separate_reals_from_rats],
-de natureza completamente diferente.  Paciência!
-\toof
-A idéia é exigir que \emph{não falta nenhum supremum}---ou, dualmente,
-nenhum infimum, pois é a mesma coisa:
-uma afirmação acaba implicando a outra.
-Mas o que quis dizer que não falta nenhum supremum?
-E, nenhum mesmo?  Não.
-Um conjunto que nem é bounded above não tem chances de ter supremum.
-Vamos exigir suprema de todos os outros então:
-
-%%}}}
-
-%%{{{ df: complete_ordered_field 
-\definition Corpo ordenado completo.
-%%%{{{ meta 
-\label complete_ordered_field
-\defines
-    * corpo!ordenado, completo
-    ;;
-%%%}}}
-
-Um corpo ordenado $R$ é \dterm{completo} sse
-todos os seus subconjuntos bounded above possuem supremum no $R$
-\mathcol
-\cforall {A\subset R} {A\neq\emptyset \mland \text{$A$ bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
-\endmathcol
-
-%%}}}
-
-%%{{{ eg: reals_is_a_complete_ordered_field 
-\example.
-%%%{{{ meta 
-\label reals_is_a_complete_ordered_field
-%%%}}}
-
-Os reais $\sset \reals {+, \,\ntimes\,, -, 0, 1, <}$.
-
-%%}}}
-
-%%{{{ x: can_we_prove_that_reals_is_a_complete_ordered_field 
-\exercise.
-%%%{{{ meta 
-\label can_we_prove_that_reals_is_a_complete_ordered_field
-%%%}}}
-
-Tem como demonstrar isso?
-Se sim, o que seria uma prova disso?
-Se não, por que não?
-
-%%}}}
-
-%%{{{ noneg: rats_is_not_a_complete_ordered_field 
-\nonexample.
-%%%{{{ meta 
-\label rats_is_not_a_complete_ordered_field
-%%%}}}
-
-Os racionais!
-
-%%}}}
-
-%%{{{ x: rats_is_not_a_complete_ordered_field_proof 
-\exercise.
-%%%{{{ meta 
-\label rats_is_not_a_complete_ordered_field_proof
-%%%}}}
-
-Demonstre!
-Ou seja, ache um $A$ bounded above sem supremum
-no $\rats$.
-
-%%}}}
-
-%%{{{ remark: now inf and sup are total operations on extended reals 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Assim as operações $\inf$ e $\sup$ virar totais nos reais estendidos:
-$$
-\inf,\sup \eqtype \pset\reals \to \reals\union\set{\minfty,\pinfty}.
-$$
-
-%%}}}
-
-%%{{{ thm: bounded_below_subsets_have_infima 
-\theorem.
-%%%{{{ meta 
-\label bounded_below_subsets_have_infima
-%%%}}}
-
-Sejam $R$ um corpo ordenado completo e $A \subset R$
-bounded below.  Logo $A$ possui infimum no $R$.
-
-\proof Demontrado no~\ref[bounded_below_subsets_have_infima_proof].
-
-%%}}}
-
-%%{{{ x: bounded_below_subsets_have_infima_proof 
-\exercise.
-%%%{{{ meta 
-\label bounded_below_subsets_have_infima_proof
-%%%}}}
-
-Demonstre o~\ref[bounded_below_subsets_have_infima].
-
-\hint
-Tu vai precisar usar a lei de completude.
-
-\hint
-Procure definir um subconjunto de $\reals$
-que será garantido ter um supremum, e use
-esse supremum para definir o infimum de $A$.
-
-%%}}}
-
-%%{{{ Enough! 
-\note Chega!.
-%%%{{{ meta 
-%%%}}}
-
-Vamos revisar pouco a situação com as estruturas que estudamos até agora.
-Como a gente escolha os axiomas (leis) que botamos nas nossas definições?
-As mais leis que eu boto, as mais ferramentas que ganho para matar mais
-teoremas.  Minha teoria vai acabar sendo capaz de demonstrar mais coisas,
-mas o preço que pago para isso são modelos!
-\eop
-Quantos monóides encontramos?  Demais!  Todos os grupos são monóides,
-e a gente já encontrou ainda mais monóides que não são grupos (lembra?).
-E grupos?
-``Menos'', mas muitos também!
-E grupos abelianos?
-Provamos mais teoremas, mas temos menos exemplos de grupos abelianos.
-E anéis?  E anéis comutativos?  E domínios de integridade?
-Cada vez que adicionamos restricções (leis), a teoria correspondente
-cresce, e a colecção de models diminui.
-E corpos?
-Ainda encontramos vários modelos: racionais, reais, complexos, inteiros
-módulo primo $p$, \dots
-\eop
-E corpos ordenados?
-Aqui ganhamos muita teoria graças a ordem, mas perdemos os complexos e os
-inteiros módulo $p$, mas ainda temos os reais e os racionais e mais
-uns modelos, mas já estamos percebendo que fica mais e mais difícil
-achar modelos \emph{realmente} diferentes que satisfazem todas as leis!
-\eop
-E agora?
-Adicionamos mais uma lei: o axioma da completude; e assim chegamos nos
-\emph{corpos ordenados completos}.  E agora \emph{chega!}
-Estamos num ponto onde adicionamos tantos axiomas que nosso conceito
-foi tão exigente que perdemos todos os modelos exeto um: os reais!
-Realmente não encontramos outro exemplo, mas isso não quis dizer que
-não existem outros modelos.  Certo?  Certo, mas acontece que nessa
-situação não é o caso: \emph{essencialmente existe apenas um
-único corpo ordenado completo: os reais!}
-
-%%}}}
-
-%%{{{ Q: what does "essentially" mean above? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-O que significa a palavra \wq{essencialmente} acima?
-
-%%}}}
-
-\spoiler
-
-%%{{{ thm: uniqueness_of_complete_ordered_field 
-\theorem Unicidade.
-%%%{{{ meta 
-\label uniqueness_of_complete_ordered_field
-%%%}}}
-
-Se $R,R'$ são corpos ordenados completos então $R,R'$ são isómorfos.
-
-\sketch.
-Sejam
-$\sset R    {+, \;\ntimes\;, -, 0, 1, <}$ e
-$\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}$
-corpos ordenados completos.
-Precisamos definir um isomorfismo
-$$
-\phi
-\eqtype
-\sset R    {+, \;\ntimes\;, -, 0, 1, <}
-\longtoby{\iso}
-\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}.
-$$
-Obviamente botamos
-$$
-\align
-\phi0 &= 0' \\
-\phi1 &= 1'
-\intertext{Isso já determina a $\phi$ no resto dos
-``naturais'' $N\subset R$:}
-\phi2 &= \phi(1 + 1) = \phi1 + \phi1 = 1' + 1' = 2' \\
-\phi3 &= \phi(2 + 1) = \phi2 + \phi1 = 2' + 1' = 3' \\
-&\eqvdots \\
-\phi(n+1) &= \phi n + \phi1 = n' + 1' \\
-&\eqvdots
-\endalign
-$$
-ou seja, a $\phi$ (restrita no $N$) necessariamente embute
-isomorficamente o $N\subset R$ no $\img \phi N = N' \subset R'$:
-$$
-\phi \restosub N : N \isoto N'.
-$$
-Agora, como $\phi$ é homomorfismo, temos
-$$
-\phi(-x) = \mathord{-'}(\phi x)
-\quad\text{para todo $x\in R$},
-$$
-e logo a $\phi$ necessariamente embute os ``inteiros''
-$Z\subset R$ nos ``inteiros'' $Z' \subset R'$:
-$$
-\phi \restosub Z : Z \isoto Z'.
-$$
-Definimos a $\phi$ nos ``racionais'' $Q\subset R$ assim:
-$$
-\phi(m/n)
-= \phi(m \ntimes \ginv n)
-= \phi m \ntimes' \ginvp{\phi n}
-= \phi m \ntimes' \phi (\ginv n)
-= \phi m \mathbin{/'} \phi n
-$$
-e logo
-$$
-\phi \restosub Q : Q \isoto Q'.
-$$
-Estamos perto!
-Basta só definir a $\phi$ nos ``buracos'' (nos ``irracionais'')
-de $R$ e pronto!
-
-%}}}
-
-%%{{{ remark: we cannot finish this proof right now 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Infelizmente, por enquanto não temos todo o armamento para matar
-os detalhes e o que falta no esboço, mas é importante entender
-pelo menos tudo que tá lá.  Voltamos nesse assunto
-no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
-
-%%}}}
-
-%%{{{ warning: does_a_complete_ordered_field_exist_warning 
-\warning.
-%%%{{{ meta 
-\label does_a_complete_ordered_field_exist_warning
-%%%}}}
-
-Mesmo se aceitar que quaisquer corpos ordenados completos são
-isomorfos (o~\ref[uniqueness_of_complete_ordered_field]), ainda
-temos um ponto que roubamos: para existir único, precisamos duas
-coisas: \emph{pelo menos} um; \emph{no máximo} um.
-O~\reftag[uniqueness_of_complete_ordered_field] realmente ofereceu
-a segunda coisa; mas a primeira?
-Qual foi tua resolução
-do~\ref[can_we_prove_that_reals_is_a_complete_ordered_field]
-mesmo?
-Voltamos nesse assunto
-no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ The reals 
-\section Os reais.
-%%%{{{ meta 
-\label The_reals_axioms
-%%%}}}
-
-%%{{{ Calculus, the real deal 
-\note Calculus, real e oficial.
-%%%{{{ meta 
-\defines
-    * calculus
-    * análise!real
-    ;;
-%%%}}}
-
-Como começamos a teoria dos grupos no~\ref[Group_theory]?
-Apresentamos os axiomas dos grupos e continumos investigando
-suas conseqüências.  A colecção dessas conseqüências (teoremas)
-é exatamente o que chamamos de \dterm{teoria}.
-E a \emph{teoria dos anéis} é feita por todos os teoremas
-que seguem pelos axiomas de anéis; etc.~etc.
-E a \emph{teoria dos corpos ordenados completos?}
-Ela não é muito famosa por esse nome, mas com certeza
-tu já ouviste falar dela por uns dos seus apelidos:
-\dterm{calculus},
-ou \dterm{análise real}, etc.
-Na abordagem axiomática, não nos importa \emph{definir}\/ ou
-\emph{construir} os objetos que vamos chamar de \dterm{números reais}.
-Começamos aceitando a existência dum certo conjunto que denotamos
-por $\reals$, suas operações binárias de adição e multiplicação,
-seu zero $0$ e seu um $1$, e seu subconjunto $P$ cujos membros
-chamamos de \dterm{positivos}.
-Estipulamos os axiomas seguintes.
-
-%%}}}
-
-%%{{{ ax: closedness 
-\axiom Fechado.
-%%%{{{ meta 
-%%%}}}
-
-O $\reals$ é fechado sobre $+$ e $\,\ntimes\,$.
-
-%%}}}
-
-%%{{{ ax: associativity 
-\axiom Associatividade.
-%%%{{{ meta 
-%%%}}}
-
-As $+$ e $\ntimes$ são associativas.
-
-%%}}}
-
-%%{{{ ax: identities 
-\axiom Identidades.
-%%%{{{ meta 
-%%%}}}
-
-As $+$ e $\ntimes$ têm os distintos $0$ e $1$ como
-identidades respectivamente.
-
-%%}}}
-
-%%{{{ ax: inverses 
-\axiom Inversos.
-%%%{{{ meta 
-%%%}}}
-
-Todo $a\in \reals$ tem $+$-inverso (denotado por $-a$)
-e todo $a\neq 0$ tem $\,\ntimes\,$-inverso (denotado por $a^{-1}$).
-
-%%}}}
-
-%%{{{ ax: commutativity 
-\axiom Comutatividade.
-%%%{{{ meta 
-%%%}}}
-
-As $+$ e $\ntimes$ são comutativas.
-
-%%}}}
-
-%%{{{ ax: distributivity 
-\axiom Distributividade.
-%%%{{{ meta 
-%%%}}}
-
-A $\ntimes$ é distributiva sobre a $+$.
-
-%%}}}
-
-%%{{{ ax: positive closedness 
-\axiom Positivamente fechado.
-%%%{{{ meta 
-%%%}}}
-
-O $P$ é fechado sobre $+$ e $\,\ntimes\,$.
-
-%%}}}
-
-%%{{{ ax: trichotomy 
-\axiom Tricotomia.
-%%%{{{ meta 
-%%%}}}
-
-Para todo $x \in \reals$ exatamente uma das afirmações seguintes é válida:
-$-x$ é positivo; $x=0$; $x$ é positivo.
-
-%%}}}
-
-%%{{{ ax: completeness 
-\axiom Completude.
-%%%{{{ meta 
-%%%}}}
-
-Todo conjunto $A\neq\emptyset$ de reais que é limitado por cima,
-tem um supremum, ou seja, existe real $b\in\reals$ tal que $b = \sup A$.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Ou seja, estipulamos o seguinte:
-\standout
-\proclaimstyle $\reals$ é um corpo ordenado completo.
-\endstandout
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-As conseqüências desses axiomas é o que estudamos em
-\dterm{calculus} e \dterm{análise real}.
-O resto desse capítulo é um teaserzinho dessa teoria linda demais;
-e, como sempre, no fim tenho ponteiros na literatura para mergulhar mais.
-No~\ref[Metric_spaces] voltamos nessa investigação de análise real,
-pois estudamos a teoria dos \emph{espaços métricos}:
-conjuntos equipados com uma noção de distância, ou seja,
-uma funcção binária \emph{com valores reais}, satisfazendo certas leis.
-
-%%}}}
-
-%%{{{ thm: reals_is_archimedean 
-\theorem.
-%%%{{{ meta 
-\label reals_is_archimedean
-%%%}}}
-
-O $\reals$ é um corpo arquimedeano, ou seja:
-para todo $x,y\in\reals$,
-$$
-x \neq 0
-\implies
-\lexists {n \in \nats} {xn > y}.
-$$
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ thm: rats_dense_in_reals 
-\theorem.
-%%%{{{ meta 
-%%%}}}
-
-Os racionais são densos nos reais, ou seja:
-para todo $x,y\in \reals$,
-$$
-x < y
-\implies
-\lexists {q \in \rats} {x < q < y}.
-$$
-
-%%}}}
-
-\TODO sketch.
-
-\endsection
-%%}}}
-
-%%{{{ Limits_of_reals 
-\section Limites.
-%%%{{{ meta 
-\label Limits_of_reals
-%%%}}}
-
-%%{{{ df: epsilon_close_ball_hood 
-\definition ε-perto, ε-bola, ε-vizinhança.
-%%%{{{ meta 
-\label epsilon_close_ball_hood
-\defines
-    * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
-    * bola!de real
-    * perto!de real
-    * vizinhança!de real
-    ;;
-%%%}}}
-
-A distância entre dois $x,y\in\reals$ é calculada por $\abs{x-y}$.
-Sejam $x,y\in\reals$ e $\epsilon > 0$.
-Dizemos que
-$$
-\text{$x$ é $\epsilon$-perto do $y$}
-\defiff
-\abs{x-y} < \epsilon.
-$$
-Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
-e logo podemos escrever também:
-$$
-\text{$x,y$ são $\epsilon$-perto}.
-$$
-Dado um ponto $x_0\in\reals$, o conjunto de todos os pontos que
-são $\epsilon$-perto do $x_0$ é chamada \dterm{$\epsilon$-bola}
-ou \dterm{$\epsilon$-vizinhança} do $x_0$:
-$$
-\ball \epsilon {x_0}
-\defeq
-\setstt {x \in \reals} {$x,x_0$ são $\epsilon$-perto}.
-$$
-Também chamamos de \dterm{bola com centro $x_0$ e raio $\epsilon$}.
-
-%%}}}
-
-%%{{{ eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Os $1$ e $2/3$ são $1/2$-perto;
-a $1/3$-bola do $\sqrt 2$ é o intervalo $(\sqrt2 - 1/3, \sqrt2 + 1/3)$.
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_reflexive 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_reflexive
-%%%}}}
-
-Dado $\epsilon > 0$, seja $\sim_\epsilon$ a relação definida pela
-$$
-x \sim_\epsilon y
-\defiff
-\text{$x$ é $\epsilon$-perto do $y$}.
-$$
-Demonstre que $\sim_\epsilon$ é reflexiva.
-
-\hint
-$$
-\abs{x - x} = 0
-$$
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_symmetric 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_symmetric
-%%%}}}
-
-Dado $\epsilon > 0$, a $\sim_\epsilon$
-do~\ref[epsilon_close_is_reflexive] é simétrica,
-e logo podemos escrever frases como
-$$
-\text{<<os $x,y$ são $\epsilon$-perto>>}.
-$$
-
-\hint
-Olha:
-$$
-\abs{x - y}
-= \abs{-(y - x)}
-= \abs{y - x}
-$$
-Dá pra justificar ambas as $=$?
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_not_an_equivalence_relation
-%%%}}}
-
-A $\sim_\epsilon$ do~\ref[epsilon_close_is_reflexive]
-é uma relação de equivalência para qualquer $\epsilon$?
-
-\hint
-Não!
-Já fez o~\ref[distance_like_not_transitive]?
-
-%%}}}
-
-%%{{{ df: for_sufficiently_large_values_of 
-\definition <<para valores suficientemente grandes de>>.
-%%%{{{ meta 
-\label for_sufficiently_large_values_of
-%%%}}}
-
-Seja $R(n)$ uma afirmação sobre um natural $n$.
-Dizemos que $R(n)$ \dterm{para valores suficientemente grandes de} $n$
-sse a partir dum natural $n_0$ todos os naturais satisfazem a $R$,
-ou seja, sse
-$$
-\pexists {n_0\in\nats}
-\lforall {i \geq n_0}
-{R(i)}.
-$$
-
-%%}}}
-
-%%{{{ df: limit_of_sequence_of_reals 
-\definition limite.
-%%%{{{ meta 
-\label limit_of_sequence_of_reals
-\defines
-    * ~{\seqn a n} \limto ~\ell  -- a seqüência $\seqn a n$ tende ao $\ell$
-    * limite!reais
-    ;;
-%%%}}}
-
-Seja $\seqn a n$ uma seqüência de reais e seja $\ell\in\reals$.
-Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
-sse a partir dum membro $a_N$, todos os seus membros
-ficam $\epsilon$-perto do $\ell$.
-Ou seja:
-$$
-\seqn a n \limto \ell
-\defiff
-\pforall  {\epsilon > 0}
-\pexists  {N \in \nats}
-\lforallt {i \geq N}
-{$a_i$ é $\epsilon$-perto de $\ell$}.
-$$
-Escrevemos
-$$
-\liml_n a_n = \ell
-$$
-como sinônimo de $\seqn a n \limto \ell$.
-\mistake
-
-%%}}}
-
-%%{{{ remark: n nought 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-É muito comum usar o nome \symq{$n_0$}
-onde usei o \symq{$N$} na~\ref[limit_of_sequence_of_reals].
-O \symq{$n_0$} é freqüêntemente lido ``$n$ nought'' em inglês.
-
-%%}}}
-
-%%{{{ Alternating quantifiers
-\note Quantificadores alternantes.
-%%%{{{ meta 
-%%%}}}
-
-Provavelmente essa foi a primeira definição que tu encontraste
-que necessitou três alternações de quantificadores:
-$$
-\forall\dots\exists\dots\forall\dots
-$$
-Para cada alteração de quantificação que seja adicionada
-numa afirmação, o processo de digeri-la naturalmente fica
-mais complicado para nossa mente!
-Com experiência, \dterm{matemalhando}, essas definições
-com três quantificadores ficarão mais e mais digeríveis.
-Mesmo com essa experiência, num momento vamos encontrar
-uma afirmação com \emph{quatro} quantificações alternantes,
-e a dificuldade vai voltar e te lembrar dessa dificuldade
-que sentes agora.
-Felizmente, temos as ferramentas formais de lógica matemática
-que nos permitem trabalhar com proposições sem digeri-las
-completamente!
-
-%%}}}
-
-%%{{{ x: limit_of_sequence_of_reals_uniqueness_needed 
-\exercise.
-%%%{{{ meta 
-\label limit_of_sequence_of_reals_uniqueness_needed
-%%%}}}
-
-Qual o problema com a~\ref[limit_of_sequence_of_reals]?
-
-\hint
-O problema fica na
-$$
-\liml_n a_n = \ell.
-$$
-Qual é?
-
-\solution
-Precisamos demonstrar a unicidade dos limites para usar
-o símbolo \symq{$=$} da \emph{igualdade}.  Pois, se uma
-seqüência tende a dois limites
-$$
-\xalignat2
-\seqn a n &\limto \ell &
-\seqn a n &\limto \ell'
-\endxalignat
-$$
-com $\ell = \ell'$, então escrevendo
-$$
-\xalignat2
-\liml_n a_n &= \ell &
-\liml_n a_n &= \ell'
-\endxalignat
-$$
-teriamos (pela simetria e transitividade da igualdade)
-$\ell = \ell'$, contradizendo nossa hipótese.
-
-%%}}}
-
-%%{{{ eg: ones tends to one 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-A seqüência $1, 1, 1, \dotsc$ tende ao limite $1$.
-
-\solution.
-Seja $\epsilon>0$.
-O desafio é achar $N \in \nats$ tal que a partir de $N$,
-todos os membros da seqüência são $\epsilon$-perto de $1$.
-Tome $N \asseq 0$, e seja $n \geq N$.
-Obviamente o $n$-ésimo termo da seqüência é $\epsilon$-perto
-do $1$ pois, ele é igual ao $1$ mesmo e logo a distância
-deles é $0$, e logo menor que $\epsilon$.
-Observe que qualquer escolha de $N$ aqui seria correta!
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Como tu já resolveste
-o~\ref[limit_of_sequence_of_reals_uniqueness_needed] (né?)
-tu sabes que precisamos demonstrar a unicidade dos limites.
-E a existência?
-A existência não é garantida (vamos descobrir isso agora
-no~\ref[alternating_zero_one_does_not_have_a_limit]),
-então precisamos tomar cuidado com o símbolo $\lim$:
-é um operador \emph{parcial}.
-
-%%}}}
-
-%%{{{ x: alternating_zero_one_does_not_have_a_limit 
-\exercise.
-%%%{{{ meta 
-\label alternating_zero_one_does_not_have_a_limit
-%%%}}}
-
-A seqüência $0,1,0,1,\dotsc$, formalmente definida pela
-$$
-a_n = \knuthcases {
-0, & se $n$ par \cr
-1, & caso contrário.
-}
-$$
-tende àlgum limite?
-Se sim, ache e demonstre; se não, refute.
-
-\hint
-Não tende a limite nenhum!
-Como podemos demonstrar isso?
-
-\hint
-Demonstre que para qualquer possível limite $\ell \in \reals$,
-$$
-\seqn a n \ntendsto \ell.
-$$
-
-%%}}}
-
-%%{{{ thm: uniqueness_of_limits_of_reals 
-\theorem unicidade de limites.
-%%%{{{ meta 
-\label uniqueness_of_limits_of_reals
-%%%}}}
-
-Uma seqüência não pode ter mais que um limite.
-Formalmente, seja $\seqn a n$ seqüência de reais tal que
-$$
-\xalignat 2
-\seqn a n &\limto \ell_1 &
-\seqn a n &\limto \ell_2.
-\endxalignat
-$$
-Então $\ell_1 = \ell_2$.
-
-\proof.
-Graças ao~\ref[only_zero_is_leq_than_all_positives] basta demonstrar
-que $\abs{\ell_1 - \ell_2} < \epsilon$ para todo $\epsilon > 0$.
-Seja $\epsilon > 0$ então, e agora observe que para quaisquer
-$\epsilon_1,\epsilon_2>0$ podemos escolher $N_1,N_2$ tais que:
-\mathcols 2
-\cforall {i \geq N_1} {\abs{a_i - \ell_1} < \epsilon_1} &
-\cforall {j \geq N_2} {\abs{a_j - \ell_2} < \epsilon_2}.
-\endmathcols
-Tome $N \asseq \max\set{N_1, N_2}$.
-Logo
-\mathcols 2
-\abs{a_N - \ell_1} &< \epsilon_1 &
-\abs{a_N - \ell_2} &< \epsilon_2.
-\endmathcols
-Observando que $\abs{a_N - \ell_1} = \abs{\ell_1 - a_N}$
-e somando as desigualdades por lados temos
-$$
-\abs{\ell_1 - a_N} + \abs{a_N - \ell_2} < \epsilon_1 + \epsilon_2.
-$$
-Mas
-$$
-\mubrace {\abs{\ell_1 - a_N + a_N - \ell_2}} {\abs{\ell_1 - \ell_2}}
-\leq \abs{\ell_1 - a_N} + \abs{a_N - \ell_2}
-< \epsilon_1 + \epsilon_2.
-$$
-Lembre-se que isso é válido para quaisquer $\epsilon_1,\epsilon_2>0$, então
-basta selecioná-los para satisfazer $\epsilon_1+\epsilon_2\leq\epsilon$
-(tome pore exemplo ambos (menores ou) iguais ao $\epsilon/2$).
-Assim provamos que para todo $\epsilon > 0$,
-$$
-0 \leq \abs{\ell_1 - \ell_2} < \epsilon,
-$$
-ou seja, $\abs{\ell_1 - \ell_2} = 0$, e logo $\ell_1 - \ell_2 = 0$,
-e logo $\ell_1 = \ell_2$, que é o que queremos demonstrar!
-
-%%}}}
-
-%%{{{ x: exp_over_factorial_limit 
-\exercise.
-%%%{{{ meta 
-\label exp_over_factorial_limit
-%%%}}}
-
-Demonstre que
-$$
-\lim_n \frac {2^n} {\fac n} = 0.
-$$
-
-\hint
-$$
-\frac
-{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
-{1 \ntimes 2 \ntimes 3 \ntimes 4 \ntimes 5 \ntimes 6 \ntimes 7 \ntimes \dotsb}
-=
-\frac
-{2 \ntimes 2 \ntimes 2}
-{1 \ntimes 2 \ntimes 3}
-\ntimes
-\dotsc
-$$
-
-\hint
-$$
-\frac
-{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
-{1 \ntimes 2 \ntimes 3 \ntimes 4 \ntimes 5 \ntimes 6 \ntimes 7 \ntimes \dotsb}
-=
-\frac
-{2 \ntimes 2 \ntimes 2}
-{1 \ntimes 2 \ntimes 3}
-\ntimes
-\frac
-{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
-{4 \ntimes 5 \ntimes 6 \ntimes 7 \ntimes \dotsb}
-=
-\frac 4 3
-\ntimes
-\frac
-{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
-{4 \ntimes 5 \ntimes 6 \ntimes 7 \ntimes \dotsb}
-\leq
-\frac
-{2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes \dotsb}
-{4 \ntimes 4 \ntimes 4 \ntimes 4 \ntimes \dotsb}
-$$
-e agora?
-
-%%}}}
-
-%%{{{ x: exp_over_factorial_limit_gen 
-\exercise.
-%%%{{{ meta 
-\label exp_over_factorial_limit_gen
-%%%}}}
-
-No~\ref[exp_over_factorial_limit], podemos trocar o $2$
-por quais números?
-
-%%}}}
-
-%%{{{ thm: convergent_implies_bounded_in_reals 
-\theorem.
-%%%{{{ meta 
-\label convergent_implies_bounded_in_reals
-%%%}}}
-
-Toda seqüência convergente $\seqn a n$ é bounded.
-
-\sketch.
-Seja $\seqn a n$ tal que $\seqn a n \limto \ell$.
-Logo, usando $\epsilon \asseq 1$ seja $N\in\nats$
-tal que a partir do $a_N$, todos os $a_n$'s são
-$1$-perto de $\ell$.
-Observe que o conjunto $\set{a_0, \dotsc, a_{N-1}}$
-é finito, e logo possui mínimo $m$ e máximo $M$:
-$$
-m \leq a_0, \dotsc, a_{N-1} \leq M.
-$$
-Agora, observe que a seqüência é bounded below pelo
-$\min \set{ m , \ell - 1 }$ e similarmente bounded above pelo
-$\max \set{ M , \ell + 1 }$.
-
-%%}}}
-
-%%{{{ thm: monotone_and_bounded_implies_convergent 
-\theorem.
-%%%{{{ meta 
-\label monotone_and_bounded_implies_convergent
-%%%}}}
-
-Uma seqüência monótona e bounded é convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ thm: nested_interval_theorem 
-\theorem intervalos aninhados.
-%%%{{{ meta 
-\label nested_interval_theorem
-%%%}}}
-
-Seja $\seqn I n$ uma seqüência de intervalos não vazios, fechados e bounded,
-que forma uma $\supset$-chain:
-$$
-I_0 \supset I_1 \supset I_2 \supset \dotsb.
-$$
-Logo $\Inter_n I_n \neq \emptyset$.
-E se $\length(I_n) \limto 0$, 
-então $\Inter_n I_n$ é um singleton.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ x: closed_and_bounded_important_in_nested_interval_theorem 
-\exercise.
-%%%{{{ meta 
-\label closed_and_bounded_important_in_nested_interval_theorem
-%%%}}}
-
-Demonstre que as hipoteses do~\ref[nested_interval_theorem] sobre os
-intervalos ser fechados e bounded são \emph{necessárias}.
-
-%%}}}
-
-%%{{{ df: liminf_and_limsup_in_reals 
-\definition.
-%%%{{{ meta 
-%%%}}}
-
-Seja $\seqn a n$ uma seqüência de reais.
-Definimos
-$$
-\xalignat2
-\liminf_n &\defeq \sup_n\inf_{k\geq } a_k &
-\limsup_n &\defeq \inf_n\sup_{k\geq } a_k.
-\endxalignat
-$$
-Usamos também $\ulim_n$ para o $\liminf_n$ e
-similarmente $\olim_n$ para o $\limsup_n$.
-
-%%}}}
-
-\TODO elaborar e adicionar desenhos sobre os $\limsup$ e $\liminf$.
-
-%%{{{ remark 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Seja $\seqn a n$ seqüência bounded e seja
-$$
-M \asseq \limsup_n a_n = \lim_n \sup \setst {a_k} {k \geq n}.
-$$
-Logo
-$$
-\pforall {\epsilon > 0}
-\pexists {N \in \nats}
-\lforall {n \geq N}
-  {M - \epsilon < \sup\setst{a_k}{k \geq n} < M + \epsilon}.
-$$
-
-%%}}}
-
-%%{{{ criterion: limsup_liminf_criteria 
-\criterion.
-%%%{{{ meta 
-\label limsup_liminf_criteria
-%%%}}}
-
-Seja $\seqn a n$ bounded.
-Logo
-$$
-\align
-M = \limsup_n a_n
-&\iff
-\pforall {\epsilon > 0}
-\bracket{
-\aligned
-&\text{$a_n < M + \epsilon$ para eventualmente todos os $n$'s} \\
-&\text{$a_n > M - \epsilon$ para uma quantidade infinita de $n$'s}
-\endaligned
-}; \\
-m = \liminf_n a_n
-&\iff
-\pforall {\epsilon > 0}
-\bracket{
-\aligned
-&\text{$a_n > m - \epsilon$ para eventualmente todos os $n$'s} \\
-&\text{$a_n < m + \epsilon$ para uma quantidade infinita de $n$'s}
-\endaligned
-}.
-\endalign
-$$
-
-%%}}}
-
-\TODO demonstrar.
-
-\TODO elaborar e conectar com os equivalentes operadores em conjuntos.
-
-%%{{{ df: Cauchy_sequence_of_reals 
-\definition seqüência Cauchy.
-%%%{{{ meta 
-\label Cauchy_sequence_of_reals
-\defines
-    * Cauchy!reais
-    ;;
-%%%}}}
-
-Seja $\seqn a n$ uma seqüência de reais.
-Dizemos que $\seqn a n$ é \Cauchy[seqüência]\dterm{Cauchy}
-sse para qualquer $\epsilon > 0$ existe um membro da
-seqüência tal que a partir dele, todos os seus membros
-são $\epsilon$-perto entre si (dois a dois).
-Formalmente:
-$$
-\text{$\seqn a n$ é Cauchy}
-\defiff
-\pforall  {\epsilon > 0}
-\pexists  {N \in \nats}
-\lforallt {i,j \geq N}
-{$a_i,a_j$ são $\epsilon$-perto}.
-$$
-
-%%}}}
-
-%%{{{ thm: convergent_implies_Cauchy_in_reals 
-\theorem.
-%%%{{{ meta 
-\label convergent_implies_Cauchy_in_reals
-%%%}}}
-
-Se uma seqüência de reais é convergente, então ela é Cauchy.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ thm: Cauchy_implies_bounded_in_reals 
-\theorem.
-%%%{{{ meta 
-\label Cauchy_implies_bounded_in_reals
-%%%}}}
-
-Se uma seqüência de reais é Cauchy, então é bounded.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ thm: Cauchy_with_conv_subseq_implies_convergent_in_reals 
-\theorem.
-%%%{{{ meta 
-\label Cauchy_with_conv_subseq_implies_convergent_in_reals
-%%%}}}
-
-Se uma seqüência de reais é Cauchy e possui subseqüência
-convergente, então é convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ x: every_sequence_has_a_monotone_subsequence_in_reals 
-\exercise.
-%%%{{{ meta 
-\label every_sequence_has_a_monotone_subsequence_in_reals
-%%%}}}
-
-Toda seqüência de reais tem uma subseqüência monótona.
-
-%%}}}
-
-%%{{{ thm: Bolzano_Weierstrass_theorem 
-\theorem Bolzano--Weierstrass.
-%%%{{{ meta 
-\label Bolzano_Weierstrass_theorem
-\credits
-    * Bolzano : --Weierstrass, teorema
-    * Weierstrass : Bolzano--, teorema
-    ;;
-%%%}}}
-
-Toda seqüência bounded de reais possui subseqüência convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ cor: Cauchy_implies_convergent_in_reals 
-\corollary.
-%%%{{{ meta 
-\label Cauchy_implies_convergent_in_reals
-%%%}}}
-
-Uma seqüência de reais é Cauchy sse é convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ cor: bounded_implies_Cauchy_subseq_in_reals.
-\corollary.
-%%%{{{ meta 
-\label bounded_implies_Cauchy_subseq_in_reals
-%%%}}}
-
-Toda seqüência bounded possui subseqüência Cauchy.
-
-%%}}}
-
-\TODO sketch.
-
-\endsection
-%%}}}
-
-%%{{{ Continuity 
-\section Continuidade.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Elaborar.
-
-%%{{{ df: continuous_real_function 
-\definition funcção real contínua.
-%%%{{{ meta 
-\label continuous_real_function
-%%%}}}
-
-Sejam $X,Y\subset \reals$, $f : X \to Y$, e $x_0 \in X$.
-Chamamos
-$$
-\multline
-\text{$f$ contínua no $x_0$}
-\defiff
-\pforall {\epsilon > 0}
-\pexists {\delta > 0} \\
-\lforall {x \in X}
-{
-\text{$x,x_0$ são $\delta$-perto}
-\implies
-\text{$f x, f x_0$ são $\epsilon$-perto}
-}.
-\endmultline
-$$
-Dizemos que $f$ é \dterm{contínua} sse ela é contínua em
-cada ponto do seu domínio.
-
-%%}}}
-
-%%{{{ Continuity as a game 
-\note Continuidade como jogo.
-%%%{{{ meta 
-\label continuity_game
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ lemma: continuous_functions_preserve_sign 
-\lemma preservação de sinal.
-%%%{{{ meta 
-\label continuous_functions_preserve_sign
-%%%}}}
-
-Seja $f : A \to \reals$ contínua no $a$ com $fa \neq 0$.
-Logo existe $\ball \delta a$ tal que $f$ não muda sinal nela.
-
-\sketch.
-\proofpart{Caso $fa > 0$.}
-Usamos a continuidade da $f$ no $a$ com $\epsilon \asseq fa$,
-assim ganhando um $\delta > 0$ tal que
-todos os $\delta$-perto de $a$ são mapeados $\epsilon$-perto
-de $fa$.  Logo todos são positivos.
-\crproofpart{Caso $fa < 0$:} similar.
-
-%%}}}
-
-%%{{{ thm: Bolzano_theorem 
-\theorem Bolzano.
-%%%{{{ meta 
-\label Bolzano_theorem
-%%%}}}
-
-{\Bolzano[teorema]}%
-Seja $f : A \to \reals$ contínua em todo ponto dum intervalo
-$[a,b]$ tal que $(fa),(fb)$ têm sinais opostos.
-Logo existe $w \in (a,b)$ tal que $fw = 0$.
-
-\sketch.
-\proofpart{Caso $fa < 0 < fb$.}
-Observe que podem exisir vários $w \in (a,b)$ com $fw = 0$;
-a gente precisa achar um tal $w$.
-Seja
-$$
-L = \setst {x \in [a,b]} {f x \leq 0}.
-$$
-Observe $L \neq \emptyset$ (pois $a \in L$) e ele é
-bounded above (por $b$), e logo possui supremum:
-seja $w \asseq \sup L$.
-Basta demonstrar que (i) $fw = 0$; (ii) $a < w < b$.
-(i) Pela tricotomía da ordem basta eliminar as possibilidades
-$fw > 0$ e $fw < 0$.
-Fazemos isso usando a continuidade da $f$ e
-o~\ref[continuous_functions_preserve_sign].
-supondo a primeira chegamos na contradição de achar um
-upper bound de $L$ menor que $w$;
-supondo a segunda chegamos na contradição que o $w$
-não é um upper bound.
-(ii) Temos $w \in [a,b]$, basta eliminar as possibilidades
-de $w = a$ e $w = b$: imediato pois $fw = 0$ e $fa,fb\neq 0$.
-\crproofpart{Caso $fb < 0 < fa$:} similar.
-
-%%}}}
-
-%%{{{ df: preserves_limits_in_reals 
-\definition preserva limites.
-%%%{{{ meta 
-\label preserves_limits_in_reals
-%%%}}}
-
-Seja $f : A \to \reals$.
-Dizemos que \dterm{$f$ preserva os límites} sse
-para toda seqüência convergente $\seqn a n$
-$$
-f\funparen{ \liml_n a_n } = \liml_n (f a_n).
-$$
-
-%%}}}
-
-%%{{{ criterion: continuous_iff_preserves_limits_in_reals 
-\criterion.
-%%%{{{ meta 
-\label continuous_iff_preserves_limits_in_reals
-%%%}}}
-
-Seja $f : A \to \reals$.
-$$
-\text{$f$ contínua}
-\iff
-\text{$f$ preserva os limítes}.
-$$
-
-%%}}}
-
-\TODO Demonstrar.
-
-\endsection
-%%}}}
-
-%%{{{ Series 
-\section Séries.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ df: series_of_reals 
-\definition.
-%%%{{{ meta 
-\label series_of_reals
-%%%}}}
-
-Seja $\seqn a n$ uma seqüência de reais.
-Considere os números
-$$
-\align
-s_0 &= 0 \\
-s_1 &= a_0 \\
-s_2 &= a_0 + a_1 \\
-s_3 &= a_0 + a_1 + a_2 \\
-    &\eqvdots \\
-s_n &= \Sum_{i=0}^{n-1} a_i \\
-    &\eqvdots
-\endalign
-$$
-dos \dterm{somatórios parciais} (ou \dterm{iniciais})
-da $\seqn a n$.
-Escrevemos
-$$
-\Sum_{n=0}^{\infty} a_n
-\qqtext{como sinônimo de}
-\mubrace
-  {\liml_n \paren{\Sum_{i=0}^{n-1} a_i}}
-  {\liml_n s_n}
-$$
-e naturalmente usamos frases como
-<<a \dterm{série $\Sum a_n$ converge}>>, etc.
-Dizemos que a série $\Sum a_n$ \dterm{diverge} sse
-$\seqn s n \limto \pinfty$ ou se a $\seqn s n$ não possui limite.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Pointwise convergence 
-\section Convergência pointwise (ponto a ponto).
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ pointwise_limit_in_real_functions 
-\definition.
-%%%{{{ meta 
-\label pointwise_limit_in_real_functions
-%%%}}}
-
-Seja $\seqn f n$ uma seqüência \emph{de funcções}
-no $(A\to\reals)$.
-Observe que para cada $x \in A$, é determinada uma
-seqüência \emph{de reais} pelos valores das
-$f_n$'s nesse ponto: $\sequence {f_nx} n$.
-Se cada uma delas converge àlgum real definimos
-o \dterm{limite pointwise} da $\seqn f n$ para
-ser a funcção $f : A \to \reals$ definida pela
-$$
-f x = \liml_n {(f_n x)}.
-$$
-Dizemos que $\seqn f n$ \dterm{converge pointwise}
-(ou \dterm{ponto a ponto}) à $f$.
-
-%%}}}
-
-%%{{{ x: pointwise_limit_eg_monomials 
-\exercise.
-%%%{{{ meta 
-\label pointwise_limits_eg_monomials
-%%%}}}
-
-Seja $\seqn f n \subset ([0,1] \to \reals)$ a seqüência
-definida pelas
-$$
-\align
-f_n   &\eqtype [0,1] \to \reals \\
-f_n x &= x^n.
-\endalign
-$$
-A $\seqn f n$ converge àlguma funcção pointwise?
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Geometric_representation_of_reals 
-\section Representação geométrica e digital.
-%%%{{{ meta 
-\label Geometric_representation_of_reals
-%%%}}}
-
-\TODO Expansão como instruções.
-
-\endsection
-%%}}}
-
-%%{{{ The_surreals 
-\section Os surreais.
-%%%{{{ meta 
-\label The_surreals
-%%%}}}
-
-\TODO elaborar.
-
-\endsection
-%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ prob: alternative_formalization_of_ordered_fields_is_equivalent 
-\problem.
-%%%{{{ meta 
-\label alternative_formalization_of_ordered_fields_is_equivalent
-%%%}}}
-
-Na~\ref[alternative_formalization_of_ordered_fields] afirmei que
-as duas formalizações são equivalentes.
-O que isso significa mesmo?  Enuncie e demonstre.
-
-%%}}}
-
-%%{{{ prob: complex_cannot_by_ordered 
-\problem.
-%%%{{{ meta 
-\label complex_cannot_by_ordered
-%%%}}}
-
-Demonstre que não tem como definir uma ordem no corpo dos
-complexos em tal forma que ele vira um corpo ordenado.
-
-%%}}}
-
-%%{{{ prob: weird_convex_modulized 
-\problem.
-%%%{{{ meta 
-\label weird_convex_modulized
-%%%}}}
-
-O que muda no~\ref[weird_convex] se definir o $Q$ como
-$Q = \Union_n \set{\tup{\cos n, \sin n}}$?
-
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite[spivakcalculus],
-\cite[apostol1],
-\cite[hardypuremath],
-\cite[loomissternberg].
-\cite[knuthsurreals].
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
 %%{{{ chapter: Cantors_paradise 
 \chapter O paraíso de Cantor.
 %%%{{{ meta 
@@ -70307,17 +70307,17 @@ $$
 
 %%}}}
 
-%%{{{ x: fcompose_fresto_fcross
+%%{{{ x: fcompose_fresto_fprod
 \exercise.
 %%%{{{ meta 
-\label fcompose_fresto_fcross
+\label fcompose_fresto_fprod
 %%%}}}
 
 Defina formalmente as operações e construções de funcções que encontramos
 no~\ref[Functions]:
 composição (\reftag[fcompose]);
 restricção (\reftag[fresto]);
-produto (\reftag[fcross]).
+produto (\reftag[fprod]).
 
 %%}}}
 
