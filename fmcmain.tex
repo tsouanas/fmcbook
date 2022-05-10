@@ -35618,240 +35618,6 @@ $A = C$.
 
 %%}}}
 
-%%{{{ defining_functions_as_compositions 
-\note Definindo funcções como composições.
-%%%{{{ meta 
-\label defining_functions_as_compositions
-%%%}}}
-
-Como $\of$ é uma operação de funcções, ganhamos então mais uma maneira
-de definir funcções.
-Dadas componíveis funcções $A \toby f B \toby g C$ podemos
-definir uma funcção $h : A \to C$ apenas escrevendo:
-$$
-\textwq{Seja $h = g\of f$.}
-$$
-Claramente (e seguindo a discussão no~\reftag[useless_namings])
-não precisamos dar um nome para essa funcção.
-Podemos apenas falar sobre a $g\of f$, exatamente no mesmo
-jeito que falamos do número $2\ntimes 8$ sem precisar
-dar um nome pra ele!
-
-%%}}}
-
-%%{{{ factorize_a_function_example 
-\example.
-%%%{{{ meta 
-\label factorize_a_function_example
-%%%}}}
-
-Seja $f : \ints\to\ints$ a funcção definida pela
-$$
-f(x) = 2(x^2 + 3).
-$$
-Mostre como definir a $f$ como composição
-de três funcções $g,h,k : \ints\to\ints$
-sem nenhuma das $g,h,k$ ser a $\lam x x$.
-Sim, use lambdas (só pra praticá-los mais).
-
-\solution.
-Idéia: vamos tentar descrever o processo do que
-acontece na entrada $x$ passo por passo até
-chegar na saida $2(x^2 + 3)$.
-Primeiramente acontece um quadramento,
-depois um incremento por $3$,
-e depois uma dobração.
-Vamo lá então:
-sejam as $g,h,k : \ints\to\ints$
-definidas pelas
-$$
-\xalignat3
-g &= \lam x {x^2} &
-h &= \lam x {x + 3} &
-k &= \lam x {2x}.
-\endxalignat
-$$
-Assim definimos a $f$ como
-$$
-f = k \of h \of g.
-$$
-Sem ambigüidade podemos omitir os \sq{$\of$}
-pois já estamos em modo ``de longe'' (sem mexer
-com pontinhos):
-$$
-f = khg.
-$$
-Simplíssimo!
-
-%%}}}
-
-%%{{{ advice: to_name_or_not_to_name 
-\advice to name or not to name.
-%%%{{{ meta 
-\label to_name_or_not_to_name
-%%%}}}
-
-Observe que nem precisamos nomes para as funcções
-``intermediárias'' do~\ref[factorize_a_function_example].
-Poderiamos simplesmente definir a funcção
-$f : \ints\to\ints$ assim:
-$$
-f =
-\plam x {2x} \of
-\plam x {x + 3} \of
-\plam x {x^2}.
-$$
-(Nesse caso não vamos omitir os \sq{$\of$} pois aparecem os
-pontinhos (os \sq{$x$}) e poderia confundir entre composição
-e aplicação.)
-Então: usamos funcções anônimas ou epônimas?
-Depende!
-E a escolha não é nada de boba.
-Pelo contrário, é muito importante elaborar uma intuição
-boa sobre:
-% TODO: use bullets if not ref'ed
-\tlist:
-\li (i):  \emph{se} vamos nomear algo (lembra do~\reftag[useless_namings]);
-\li (ii): \emph{qual} vai ser o seu nome, caso que decidirmos dar um.
-\endtlist
-Isso tanto em programação quanto em matemática!
-Vamos voltar no nosso \ref[factorize_a_function_example] onde
-temos três ``componentes intermediários'' e precisamos
-decidir para cada um deles se vamos nomeá-lo e como.
-Uns fatores importantes para considerar:
-\tlist:
-\li: esse componente é algo já bem conhecido?  já possui um nome?
-\li: esse componente vai ser reutilizado?
-\endtlist
-Com essa guia, faria sentido definir a $f$ assim:
-$$
-f = \double \of \plam x {x+3} \of \square
-$$
-onde
-\mathcols 2
-\double    &\eqtype \ints\to\ints &
-\square    &\eqtype \ints\to\ints \\
-\double(x) &= 2x   &
-\square(x) &= x^2. \\
-\endmathcols
-Aqui não me pareceu tão útil ter um nome para a operação
-$\lam x {x+3}$ e logo escolhi deixá-la anônima.
-Se fosse $\lam x {x+1}$ teria escolhido usar o $\succ$.
-Não existe maneira correta ou errada aqui: nomeá-las por $g,h,k$
-também não foi bizarro não, nem deixá-las todas anônimas!
-Depende da situação, do contexto, da intenção, do uso, etc.
-
-%%}}}
-
-%%{{{ Comparison between pointfull and pointless defs 
-\note Uma comparação.
-%%%{{{ meta 
-%%%}}}
-
-Olhe para a definicão seguinte duma função $f : \nats \to \nats$:
-$$
-f \fa n = 2 \ntimes (n^2 + 1).
-$$
-Literalmente estamos definindo o que significa $f \fa n$, e não o que significa $f$.
-Mas, já que temos igualdade extensional entre funções, e já que $n$ é um natural
-arbitrário natural aqui, definindo $f \fa n$ é suficiente para determinar a $f$.
-A situação deve te lembrar algo (\ref[defining_sets]) por justa causa.
-\eop
-Agora olhe novamente na definição acima.
-Para entender \emph{quem é $f$} precisamos \emph{entrar na floresta do seu domínio},
-pegar uma arvore $n$, \emph{entrar na floresta do seu codomínio} e procurar passo
-por passo o que aconteceu com ela.
-Lendo o início da definição, <<$2 \ntimes {\ldots}$>> sabemos que alguém foi multiplicado
-por $2$, talvez não tem algo a ver como nossa arvore, precisamos andar ainda mais,
-e depois de muitas trilhas descubrir o que aconteceu.
-\eop
-Compare com a definição seguinte, que defina a mesma função $f$ sem sequer mencionar
-\dq{arvores:}
-$$
-f = \double \of \succ \of \square
-\qqqtext{ou}
-f = \square \dcom \succ \dcom \double.
-$$
-\endmathcols
-que é claríssima, defina \emph{diretamente} a própria $f$ (sem enrolar fazendo
-trilhas nas florestas), e dá pra ler e entender numa maneira entendível,
-tanto de esquerda para direita, quanto de direita para esquerda.
-
-%%}}}
-
-%%{{{ x: factorize_a_function_exercise 
-\exercise.
-%%%{{{ meta 
-\label factorize_a_function_exercise
-%%%}}}
-
-Fatorize as funcções seguintes na maneira mais legal que tu consegues:
-\mathcols 2
-f      &\eqtype \rats \to \rats &
-f(x)   &= \frac 1 {\sqrt{(x+1)^2 + 1}} \\
-g      &\eqtype \nats\cross\nats \to \nats &
-g(x,y) &= y^2 + 1 \\
-h      &\eqtype \nats\cross\nats \to \nats &
-h(x,y) &= 2(x+y) + 1 \\
-k      &\eqtype \nats\cross\nats \to \nats &
-k(x,y) &= 2(x+2y) + 1.
-\endmathcols
-
-\hint
-Aqui uma maneira de definir a $f$ como composição
-de $4$ fatores:
-$$
-f = \inverse \of \namedfun{squareRoot} \of \succ \of square \of succ.
-$$
-A definição de cada um deve ser óbvia pelo próprio nome.
-
-\hint
-Não se preocupe se não conseguir a $k$ neste momento.
-Daqui a pouco (\reftag[Pointfree_style]) vai parecer fácil.
-
-\solution
-Temos:
-$$
-\align
-f &= \inverse \of \namedfun{squareRoot} \of \succ \of \square \of succ \\
-g &= \succ \of \square \of \outl \\
-h &= \succ \of \double \of \plus \\
-k &= \succ \of \double \of \plus \of \namedfun{doubleHeight}.
-\endalign
-$$
-A definição de cada funcção-fator que aparece na direita
-deve ser óbvia pelo próprio nome, exceto talvez da
-$\namedfun{doubleHeight}$.
-(Tá vendo como é bom escolher nomes bons?)
-Definimos a $\namedfun{doubleHeight} : \nats^2\to\nats$
-pela $\namedfun{doubleHeight}(x,y) = \tupp{x,2y}$.
-Observe também que a $\succ$ da primeira linha é diferente
-da $\succ$ das outras, por causa do seu tipo.
-Mesma coisa sobre a $\square$.
-Teria sido melhor usar $\succ_\rats$ para diferenciá-la
-mas escolhi deixar pra lá essa decoração e todo o resto
-da informação de tipos dos componentes intermediários
-contando que tu consegues inferir cada domínio e cada
-codomínio envolvido.
-Espero que tu achou a resolução de $k$ meio ``meh'',
-por causa dessa bizarra (muito \emph{ad hoc}) funcção
-$\namedfun{doubleHeight}$ que talvez até ``forcei a
-barra'' para nomeá-la.
-Se preocupe não: como avisei na dica, daqui a pouco
-(\reftag[Pointfree_style]) vamos ver como resolver isso
-numa maneira bem legal mesmo.
-Por enquanto, podemos melhorar a resolução assim:
-\mathcol
-k &= h \of \namedfun{doubleHeight}
-\intertext{%
-que com certeza é mais elegante, já que
-}
-k &= {\mubrace {(\succ \of \double \of \plus)} h}
-     \of {\namedfun{doubleHeight}}.
-\endmathcol
-
-%%}}}
-
 %%{{{ why_not_compose_more 
 \note Por que não compor mais?.
 %%%{{{ meta 
@@ -37470,6 +37236,390 @@ Alternativamente, podemos nos livrar dum passo no calculo do lado esquerdo assim
 \endsection
 %%}}}
 
+%%{{{ Pointfree_style 
+\section Funcções estilo pointfree---``de fora''.
+%%%{{{ meta 
+\label Pointfree_style
+%%%}}}
+
+%%{{{ defining_functions_as_compositions 
+\note Definindo funcções como composições.
+%%%{{{ meta 
+\label defining_functions_as_compositions
+%%%}}}
+
+Como $\of$ é uma operação de funcções, ganhamos então mais uma maneira
+de definir funcções.
+Dadas componíveis funcções $A \toby f B \toby g C$ podemos
+definir uma funcção $h : A \to C$ apenas escrevendo:
+$$
+\textwq{Seja $h = g\of f$.}
+$$
+Claramente (e seguindo a discussão no~\reftag[useless_namings])
+não precisamos dar um nome para essa funcção.
+Podemos apenas falar sobre a $g\of f$, exatamente no mesmo
+jeito que falamos do número $2\ntimes 8$ sem precisar
+dar um nome pra ele!
+
+%%}}}
+
+%%{{{ factorize_a_function_example 
+\example.
+%%%{{{ meta 
+\label factorize_a_function_example
+%%%}}}
+
+Seja $f : \ints\to\ints$ a funcção definida pela
+$$
+f(x) = 2(x^2 + 3).
+$$
+Mostre como definir a $f$ como composição
+de três funcções $g,h,k : \ints\to\ints$
+sem nenhuma das $g,h,k$ ser a $\lam x x$.
+Sim, use lambdas (só pra praticá-los mais).
+
+\solution.
+Idéia: vamos tentar descrever o processo do que
+acontece na entrada $x$ passo por passo até
+chegar na saida $2(x^2 + 3)$.
+Primeiramente acontece um quadramento,
+depois um incremento por $3$,
+e depois uma dobração.
+Vamo lá então:
+sejam as $g,h,k : \ints\to\ints$
+definidas pelas
+$$
+\xalignat3
+g &= \lam x {x^2} &
+h &= \lam x {x + 3} &
+k &= \lam x {2x}.
+\endxalignat
+$$
+Assim definimos a $f$ como
+$$
+f = k \of h \of g.
+$$
+Sem ambigüidade podemos omitir os \sq{$\of$}
+pois já estamos em modo ``de longe'' (sem mexer
+com pontinhos):
+$$
+f = khg.
+$$
+Simplíssimo!
+
+%%}}}
+
+%%{{{ advice: to_name_or_not_to_name 
+\advice to name or not to name.
+%%%{{{ meta 
+\label to_name_or_not_to_name
+%%%}}}
+
+Observe que nem precisamos nomes para as funcções
+``intermediárias'' do~\ref[factorize_a_function_example].
+Poderiamos simplesmente definir a funcção
+$f : \ints\to\ints$ assim:
+$$
+f =
+\plam x {2x} \of
+\plam x {x + 3} \of
+\plam x {x^2}.
+$$
+(Nesse caso não vamos omitir os \sq{$\of$} pois aparecem os
+pontinhos (os \sq{$x$}) e poderia confundir entre composição
+e aplicação.)
+Então: usamos funcções anônimas ou epônimas?
+Depende!
+E a escolha não é nada de boba.
+Pelo contrário, é muito importante elaborar uma intuição
+boa sobre:
+% TODO: use bullets if not ref'ed
+\tlist:
+\li (i):  \emph{se} vamos nomear algo (lembra do~\reftag[useless_namings]);
+\li (ii): \emph{qual} vai ser o seu nome, caso que decidirmos dar um.
+\endtlist
+Isso tanto em programação quanto em matemática!
+Vamos voltar no nosso \ref[factorize_a_function_example] onde
+temos três ``componentes intermediários'' e precisamos
+decidir para cada um deles se vamos nomeá-lo e como.
+Uns fatores importantes para considerar:
+\tlist:
+\li: esse componente é algo já bem conhecido?  já possui um nome?
+\li: esse componente vai ser reutilizado?
+\endtlist
+Com essa guia, faria sentido definir a $f$ assim:
+$$
+f = \double \of \plam x {x+3} \of \square
+$$
+onde
+\mathcols 2
+\double    &\eqtype \ints\to\ints &
+\square    &\eqtype \ints\to\ints \\
+\double(x) &= 2x   &
+\square(x) &= x^2. \\
+\endmathcols
+Aqui não me pareceu tão útil ter um nome para a operação
+$\lam x {x+3}$ e logo escolhi deixá-la anônima.
+Se fosse $\lam x {x+1}$ teria escolhido usar o $\succ$.
+Não existe maneira correta ou errada aqui: nomeá-las por $g,h,k$
+também não foi bizarro não, nem deixá-las todas anônimas!
+Depende da situação, do contexto, da intenção, do uso, etc.
+
+%%}}}
+
+%%{{{ Comparison between pointfull and pointless defs 
+\note Uma comparação.
+%%%{{{ meta 
+%%%}}}
+
+Olhe para a definicão seguinte duma função $f : \nats \to \nats$:
+$$
+f \fa n = 2 \ntimes (n^2 + 1).
+$$
+Literalmente estamos definindo o que significa $f \fa n$, e não o que significa $f$.
+Mas, já que temos igualdade extensional entre funções, e já que $n$ é um natural
+arbitrário natural aqui, definindo $f \fa n$ é suficiente para determinar a $f$.
+A situação deve te lembrar algo (\ref[defining_sets]) por justa causa.
+\eop
+Agora olhe novamente na definição acima.
+Para entender \emph{quem é $f$} precisamos \emph{entrar na floresta do seu domínio},
+pegar uma arvore $n$, \emph{entrar na floresta do seu codomínio} e procurar passo
+por passo o que aconteceu com ela.
+Lendo o início da definição, <<$2 \ntimes {\ldots}$>> sabemos que alguém foi multiplicado
+por $2$, talvez não tem algo a ver como nossa arvore, precisamos andar ainda mais,
+e depois de muitas trilhas descubrir o que aconteceu.
+\eop
+Compare com a definição seguinte, que defina a mesma função $f$ sem sequer mencionar
+\dq{arvores:}
+$$
+f = \double \of \succ \of \square
+\qqqtext{ou}
+f = \square \dcom \succ \dcom \double.
+$$
+que é claríssima, defina \emph{diretamente} a própria $f$ (sem enrolar fazendo
+trilhas nas florestas), e dá pra ler e entender numa maneira entendível e sucinta,
+tanto de esquerda para direita, quanto de direita para esquerda.
+
+%%}}}
+
+%%{{{ x: factorize_a_function_exercise 
+\exercise.
+%%%{{{ meta 
+\label factorize_a_function_exercise
+%%%}}}
+
+Fatorize as funcções seguintes na maneira mais legal que tu consegues:
+\mathcols 2
+f      &\eqtype \rats \to \rats &
+f(x)   &= \frac 1 {\sqrt{(x+1)^2 + 1}} \\
+g      &\eqtype \nats\cross\nats \to \nats &
+g(x,y) &= y^2 + 1 \\
+h      &\eqtype \nats\cross\nats \to \nats &
+h(x,y) &= 2(x+y) + 1 \\
+k      &\eqtype \nats\cross\nats \to \nats &
+k(x,y) &= 2(x+2y) + 1.
+\endmathcols
+
+\hint
+Aqui uma maneira de definir a $f$ como composição
+de $4$ fatores:
+$$
+f = \inverse \of \namedfun{squareRoot} \of \succ \of square \of succ.
+$$
+A definição de cada um deve ser óbvia pelo próprio nome.
+
+\hint
+Não se preocupe se não conseguir a $k$ neste momento.
+Daqui a pouco (\reftag[Pointfree_style]) vai parecer fácil.
+
+\solution
+Temos:
+$$
+\align
+f &= \inverse \of \namedfun{squareRoot} \of \succ \of \square \of succ \\
+g &= \succ \of \square \of \outl \\
+h &= \succ \of \double \of \plus \\
+k &= \succ \of \double \of \plus \of \namedfun{doubleHeight}.
+\endalign
+$$
+A definição de cada funcção-fator que aparece na direita
+deve ser óbvia pelo próprio nome, exceto talvez da
+$\namedfun{doubleHeight}$.
+(Tá vendo como é bom escolher nomes bons?)
+Definimos a $\namedfun{doubleHeight} : \nats^2\to\nats$
+pela $\namedfun{doubleHeight}(x,y) = \tupp{x,2y}$.
+Observe também que a $\succ$ da primeira linha é diferente
+da $\succ$ das outras, por causa do seu tipo.
+Mesma coisa sobre a $\square$.
+Teria sido melhor usar $\succ_\rats$ para diferenciá-la
+mas escolhi deixar pra lá essa decoração e todo o resto
+da informação de tipos dos componentes intermediários
+contando que tu consegues inferir cada domínio e cada
+codomínio envolvido.
+Espero que tu achou a resolução de $k$ meio ``meh'',
+por causa dessa bizarra (muito \emph{ad hoc}) funcção
+$\namedfun{doubleHeight}$ que talvez até ``forcei a
+barra'' para nomeá-la.
+Se preocupe não: como avisei na dica, daqui a pouco
+(\reftag[Pointfree_style]) vamos ver como resolver isso
+numa maneira bem legal mesmo.
+Por enquanto, podemos melhorar a resolução assim:
+\mathcol
+k &= h \of \namedfun{doubleHeight}
+\intertext{%
+que com certeza é mais elegante, já que
+}
+k &= {\mubrace {(\succ \of \double \of \plus)} h}
+     \of {\namedfun{doubleHeight}}.
+\endmathcol
+
+%%}}}
+
+%%{{{ function_laws 
+\note Leis de funcções (com equações).
+%%%{{{ meta 
+\label function_laws
+%%%}}}
+
+As configurações na esquerda implicam as identidades na direita:
+$$
+\align
+A \toby f B \toby g C \toby h D
+& \;\;\implies\;\;
+(h \of g) \of f = h \of (g \of f)
+\tag{F-Ass}\\
+A \toby f B
+& \;\;\implies\;\;
+\leftbrace {
+\aligned
+f \of \idof A &= f \\
+\idof B \of f &= f
+\endaligned
+}
+\tag{F-Id} \\
+A \bijtoby f B
+& \;\;\implies\;\;
+\leftbrace {
+\aligned
+\finv f \of f &= \idof A \\
+f \of \finv f &= \idof B
+\endaligned
+}
+\tag{F-Inv}
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: cd_finv_laws 
+\exercise.
+%%%{{{ meta 
+\label cd_finv_laws
+%%%}}}
+
+Como podemos expressar as leis da inversa (F-Inv)
+usando apenas a comutatividade dum diagrama?
+
+\hint
+A forma do diagrama parece com o diagrama das
+leis de identidade (\ref[cd_id_laws]).
+
+\solution
+Assim:
+$$
+\cdopt{sep=2cm}
+A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
+                               \| A \ar[r, "f"'] \| B
+\endcd
+$$
+
+%%}}}
+
+%%{{{ Defining functions 
+\note Definindo funcções.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Elaborar.
+
+%%}}}
+
+%%{{{ eg: two_x_plus_one 
+\example.
+%%%{{{ meta 
+\label two_x_plus_one
+%%%}}}
+
+Defina a funcção $f = \lam x {2x+1} : \nats\to\nats$ diretamente como
+composição de funcções sem usar $\lambda$-notação.
+Desenha o diagrama externo da configuração e confirme tua resolução.
+\solution.
+Temos as funcções
+$$
+\cdopt{sep=1.666cm}
+\nats
+\ar[r, "\dsize\diag"]   \| \nats\cross\nats
+\ar[r, "\dsize\nplus"]  \| \nats
+\ar[r, "\dsize\succ"]   \| \nats.
+\endcd
+$$
+Assim defino
+$$
+f = \paren{{\succ} \of \mathord{\nplus} \of {\diagdom\nats}} : \nats \to \nats
+$$
+e tomando um $x\in\nats$ calculo:
+\compute
+f(x)
+&= \paren{\succ \of \mathord{\nplus} \of \diag} (x) \by {def.~$f$} \\
+&= \succ(\mathord{\nplus}(\diag(x)))                \by {def.~$\of$} \\
+&= \succ(\mathord{\nplus}(x,x))                     \by {def.~$\diag$} \\
+&= \succ(2x)                                        \\
+&= 2x+1                                             \by {def.~$\succ$} \\
+\endcompute
+confirmando assim que minha definição foi correta.
+
+%%}}}
+
+%%{{{ x: two_x_squared_pointfree 
+\exercise.
+%%%{{{ meta 
+\label two_x_squared_pointfree
+%%%}}}
+
+Faça a mesma coisa para a funcção $f = \lam x {2x^2} : \nats\to\nats$.
+
+\solution
+Temos as funcções
+$$
+\cd
+\nats
+\ar[r, "\diag"]   \| \nats\cross\nats
+\ar[r, "\ntimes"] \| \nats
+\ar[r, "\diag"]   \| \nats\cross\nats
+\ar[r, "+"]       \| \nats.
+\endcd
+$$
+Assim defino
+$$
+f = \paren{{+} \of \diagdom\nats \of {\ntimes} \of \diagdom\nats} : \nats \to \nats
+$$
+e tomando um $x\in\nats$ confirmo:
+\compute
+f(x)
+&= \paren{\mathord{+} \of \diag \of \mathord{\ntimes} \of \diag} (x) \by {def.~$f$} \\
+&= \mathord{+}(\diag(\mathord{\ntimes}(\diag(x))))                   \by {def.~$\of$} \\
+&= \mathord{+}(\diag(\mathord{\ntimes}(x,x)))                        \by {def.~$\diag$} \\
+&= \mathord{+}(\diag(x^2))                                           \\
+&= \mathord{+}(x^2,x^2)                                              \by {def.~$\diag$} \\
+&= x^2 + x^2                                                         \\
+&= 2x^2.
+\endcompute
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Commutative_diagrams 
 \section Diagramas comutativos.
 %%%{{{ meta 
@@ -37778,14 +37928,12 @@ O que significa ``legal'' aqui?
 %%%}}}
 
 Para qualquer uma das expressões seguintes, calcule seu valor quando tiver.
-$$
-\xalignat2
+\mathcols 2
 (\sin \cross \cos) (\pi)        &= &
 (\outl \cross \succ) (5, 6)     &= \\
 (\sin \cross \cos) (\pi/2, \pi) &= &
 (\idof\nats \cross \succ) (0,1) &= 
-\endxalignat
-$$
+\endmathcols
 Pode ser que umas delas tem type errors, e logo nenhum valor.
 
 %%}}}
@@ -38008,157 +38156,6 @@ Com o que já temos na nossa disposição podemos definir umas funcções
 interessantes apenas usando composições, e \emph{diretamente} definindo
 a funcção (sem utilizar um ponto do seu domínio nem a $\lambda$-notação).
 Vamos investigar isso no~\ref[Pointfree_style].
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Pointfree_style 
-\section Funcções estilo pointfree---``de fora''.
-%%%{{{ meta 
-\label Pointfree_style
-%%%}}}
-
-%%{{{ function_laws 
-\note Leis de funcções (com equações).
-%%%{{{ meta 
-\label function_laws
-%%%}}}
-
-As configurações na esquerda implicam as identidades na direita:
-$$
-\align
-A \toby f B \toby g C \toby h D
-& \;\;\implies\;\;
-(h \of g) \of f = h \of (g \of f)
-\tag{F-Ass}\\
-A \toby f B
-& \;\;\implies\;\;
-\leftbrace {
-\aligned
-f \of \idof A &= f \\
-\idof B \of f &= f
-\endaligned
-}
-\tag{F-Id} \\
-A \bijtoby f B
-& \;\;\implies\;\;
-\leftbrace {
-\aligned
-\finv f \of f &= \idof A \\
-f \of \finv f &= \idof B
-\endaligned
-}
-\tag{F-Inv}
-\endalign
-$$
-
-%%}}}
-
-%%{{{ x: cd_finv_laws 
-\exercise.
-%%%{{{ meta 
-\label cd_finv_laws
-%%%}}}
-
-Como podemos expressar as leis da inversa (F-Inv)
-usando apenas a comutatividade dum diagrama?
-
-\hint
-A forma do diagrama parece com o diagrama das
-leis de identidade (\ref[cd_id_laws]).
-
-\solution
-Assim:
-$$
-\cdopt{sep=2cm}
-A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
-                               \| A \ar[r, "f"'] \| B
-\endcd
-$$
-
-%%}}}
-
-%%{{{ Defining functions 
-\note Definindo funcções.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Elaborar.
-
-%%}}}
-
-%%{{{ eg: two_x_plus_one 
-\example.
-%%%{{{ meta 
-\label two_x_plus_one
-%%%}}}
-
-Defina a funcção $f = \lam x {2x+1} : \nats\to\nats$ diretamente como
-composição de funcções sem usar $\lambda$-notação.
-Desenha o diagrama externo da configuração e confirme tua resolução.
-\solution.
-Temos as funcções
-$$
-\cdopt{sep=1.666cm}
-\nats
-\ar[r, "\dsize\diag"]   \| \nats\cross\nats
-\ar[r, "\dsize\nplus"]  \| \nats
-\ar[r, "\dsize\succ"]   \| \nats.
-\endcd
-$$
-Assim defino
-$$
-f = \paren{{\succ} \of \mathord{\nplus} \of {\diagdom\nats}} : \nats \to \nats
-$$
-e tomando um $x\in\nats$ calculo:
-\compute
-f(x)
-&= \paren{\succ \of \mathord{\nplus} \of \diag} (x) \by {def.~$f$} \\
-&= \succ(\mathord{\nplus}(\diag(x)))                \by {def.~$\of$} \\
-&= \succ(\mathord{\nplus}(x,x))                     \by {def.~$\diag$} \\
-&= \succ(2x)                                        \\
-&= 2x+1                                             \by {def.~$\succ$} \\
-\endcompute
-confirmando assim que minha definição foi correta.
-
-%%}}}
-
-%%{{{ x: two_x_squared_pointfree 
-\exercise.
-%%%{{{ meta 
-\label two_x_squared_pointfree
-%%%}}}
-
-Faça a mesma coisa para a funcção $f = \lam x {2x^2} : \nats\to\nats$.
-
-\solution
-Temos as funcções
-$$
-\cd
-\nats
-\ar[r, "\diag"]   \| \nats\cross\nats
-\ar[r, "\ntimes"] \| \nats
-\ar[r, "\diag"]   \| \nats\cross\nats
-\ar[r, "+"]       \| \nats.
-\endcd
-$$
-Assim defino
-$$
-f = \paren{{+} \of \diagdom\nats \of {\ntimes} \of \diagdom\nats} : \nats \to \nats
-$$
-e tomando um $x\in\nats$ confirmo:
-\compute
-f(x)
-&= \paren{\mathord{+} \of \diag \of \mathord{\ntimes} \of \diag} (x) \by {def.~$f$} \\
-&= \mathord{+}(\diag(\mathord{\ntimes}(\diag(x))))                   \by {def.~$\of$} \\
-&= \mathord{+}(\diag(\mathord{\ntimes}(x,x)))                        \by {def.~$\diag$} \\
-&= \mathord{+}(\diag(x^2))                                           \\
-&= \mathord{+}(x^2,x^2)                                              \by {def.~$\diag$} \\
-&= x^2 + x^2                                                         \\
-&= 2x^2.
-\endcompute
 
 %%}}}
 
