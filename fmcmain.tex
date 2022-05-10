@@ -24569,12 +24569,10 @@ Para ilustrar, imagine que já temos definido uns conjuntos $A_1, A_2, A_3, B, C
 e agora queremos falar sobre os conjuntos $\set{A_1, A_2, A_3}$ e $\set{B,C}$
 e dar nomes para eles.
 Uma escolha razoável seria usar $\scr A$ e $\scr B$ para denotá-los:
-$$
-\xalignat2
+\mathcols 2
 \scr A &= \set{A_1, A_2, A_3} &
 \scr B &= \set{B,C}
-\endxalignat
-$$
+\endmathcols
 mas isso é apenas questão de costume.  Nada profundo aqui.
 
 %%}}}
@@ -25994,12 +25992,10 @@ Então se a ``saída'' (ou o ``resultado'') duma operação
 aceitáveis pela operação.
 E como determinamos um conjunto?
 Para começar, podemos usar um dos jeitos que já encontramos para definir um conjunto $A$:
-$$
-\xalignat2
+\mathcols 2
 A       &\defeq \setst x {\text{\thole$x$\thole}} &
 x \in A &\defiff \text{\thole$x$\thole}.
-\endxalignat
-$$
+\endmathcols
 Bora definir umas operações conhecidas para aquecer.
 
 %%}}}
@@ -35700,7 +35696,7 @@ Observe que nem precisamos nomes para as funcções
 Poderiamos simplesmente definir a funcção
 $f : \ints\to\ints$ assim:
 $$
-f = 
+f =
 \plam x {2x} \of
 \plam x {x + 3} \of
 \plam x {x^2}.
@@ -35732,18 +35728,54 @@ $$
 f = \double \of \plam x {x+3} \of \square
 $$
 onde
-$$
-\xalignat2
-\double &\eqtype \ints\to\ints & \square &\eqtype \ints\to\ints \\
-\double(x) &= 2x               & \square(x) &= x^2.
-\endxalignat
-$$
+\mathcols 2
+\double    &\eqtype \ints\to\ints &
+\square    &\eqtype \ints\to\ints \\
+\double(x) &= 2x   &
+\square(x) &= x^2. \\
+\endmathcols
 Aqui não me pareceu tão útil ter um nome para a operação
 $\lam x {x+3}$ e logo escolhi deixá-la anônima.
 Se fosse $\lam x {x+1}$ teria escolhido usar o $\succ$.
 Não existe maneira correta ou errada aqui: nomeá-las por $g,h,k$
 também não foi bizarro não, nem deixá-las todas anônimas!
 Depende da situação, do contexto, da intenção, do uso, etc.
+
+%%}}}
+
+%%{{{ Comparison between pointfull and pointless defs 
+\note Uma comparação.
+%%%{{{ meta 
+%%%}}}
+
+Olhe para a definicão seguinte duma função $f : \nats \to \nats$:
+$$
+f \fa n = 2 \ntimes (n^2 + 1).
+$$
+Literalmente estamos definindo o que significa $f \fa n$, e não o que significa $f$.
+Mas, já que temos igualdade extensional entre funções, e já que $n$ é um natural
+arbitrário natural aqui, definindo $f \fa n$ é suficiente para determinar a $f$.
+A situação deve te lembrar algo (\ref[defining_sets]) por justa causa.
+\eop
+Agora olhe novamente na definição acima.
+Para entender \emph{quem é $f$} precisamos \emph{entrar na floresta do seu domínio},
+pegar uma arvore $n$, \emph{entrar na floresta do seu codomínio} e procurar passo
+por passo o que aconteceu com ela.
+Lendo o início da definição, <<$2 \ntimes {\ldots}$>> sabemos que alguém foi multiplicado
+por $2$, talvez não tem algo a ver como nossa arvore, precisamos andar ainda mais,
+e depois de muitas trilhas descubrir o que aconteceu.
+\eop
+Compare com a definição seguinte, que defina a mesma função $f$ sem sequer mencionar
+\dq{arvores:}
+$$
+f = \double \of \succ \of \square
+\qqqtext{ou}
+f = \square \dcom \succ \dcom \double.
+$$
+\endmathcols
+que é claríssima, defina \emph{diretamente} a própria $f$ (sem enrolar fazendo
+trilhas nas florestas), e dá pra ler e entender numa maneira entendível,
+tanto de esquerda para direita, quanto de direita para esquerda.
 
 %%}}}
 
@@ -35754,8 +35786,7 @@ Depende da situação, do contexto, da intenção, do uso, etc.
 %%%}}}
 
 Fatorize as funcções seguintes na maneira mais legal que tu consegues:
-$$
-\xalignat2
+\mathcols 2
 f      &\eqtype \rats \to \rats &
 f(x)   &= \frac 1 {\sqrt{(x+1)^2 + 1}} \\
 g      &\eqtype \nats\cross\nats \to \nats &
@@ -35764,8 +35795,7 @@ h      &\eqtype \nats\cross\nats \to \nats &
 h(x,y) &= 2(x+y) + 1 \\
 k      &\eqtype \nats\cross\nats \to \nats &
 k(x,y) &= 2(x+2y) + 1.
-\endxalignat
-$$
+\endmathcols
 
 \hint
 Aqui uma maneira de definir a $f$ como composição
@@ -35811,16 +35841,14 @@ Se preocupe não: como avisei na dica, daqui a pouco
 (\reftag[Pointfree_style]) vamos ver como resolver isso
 numa maneira bem legal mesmo.
 Por enquanto, podemos melhorar a resolução assim:
-$$
-\align
+\mathcol
 k &= h \of \namedfun{doubleHeight}
 \intertext{%
 que com certeza é mais elegante, já que
 }
 k &= {\mubrace {(\succ \of \double \of \plus)} h}
      \of {\namedfun{doubleHeight}}.
-\endalign
-$$
+\endmathcol
 
 %%}}}
 
@@ -36467,6 +36495,139 @@ $$
 
 %%}}}
 
+%%{{{ df: function_iterations 
+\definition iterações.
+%%%{{{ meta 
+\label function_iterations
+\defines
+    * ~f^~n  -- a $n$-ésima iteração da $f$.
+    * funcção!iteração
+    ;;
+%%%}}}
+
+Seja $f : A \to A$.
+Definimos as \dterm{iterações} de $f$ pela recursão
+$$
+\align
+f^0     &= \idof A \\
+f^{n+1} &= f\of f^n.
+\endalign
+$$
+
+%%}}}
+
+%%{{{ eg: calculate_iterate_3_fx 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Seja $f : A \to A$.  Calculamos:
+\compute
+f^3(x)
+&= (f \of f^2)(x)                      \by {def.~$f^3$} \\
+&= (f \of (f \of f^1))(x)              \by {def.~$f^2$} \\
+&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$} \\
+&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$} \\
+&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$} \\
+&\dotseq f (f (f (x)))                 \by {def.~$\of$} \\
+\endcompute
+Em geral omitimos parenteses quando a expressão envolve apenas uma operação
+associativa;
+botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
+
+%%}}}
+
+%%{{{ x: succ3_is_plus_3 
+\exercise.
+%%%{{{ meta 
+\label succ3_is_plus_3
+%%%}}}
+
+Como definarias numa maneira simples a funcção $\succ^3$ para alguém
+que não sabe (e sequer quer saber) o que são as iterações duma funcção?
+
+\solution
+Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
+
+%%}}}
+
+%%{{{ beware: notation of functions with exponents 
+\beware.
+%%%{{{ meta 
+%%%}}}
+
+Em certos textos de matemática, aparece a notação $f^n(x)$ como
+sinónimo de $(f(x))^n$.
+Por exemplo:
+$$
+\text{quem escreveu\dots}
+\quad
+\sin^2 x + \cos^2 x
+\quad
+\aligned
+&\text{\dots quis dizer\dots}\\
+&\text{\dots mas aqui seria\dots}
+\endaligned
+\quad
+\aligned
+&(\sin x)^2   + (\cos x)^2    \\
+&\sin(\sin x) + \cos(\cos x).
+\endaligned
+$$
+
+%%}}}
+
+%%{{{ remark: function_iterations_altdef 
+\remark.
+%%%{{{ meta 
+\label function_iterations_altdef
+%%%}}}
+
+Poderiamos ter escolhido definir as potências de $f$ pelas:
+$$
+\align
+f^0     &= \idof A \\
+f^{n+1} &= f^n \of f
+\endalign
+$$
+em vez da recursão que usamos na~\ref[function_iterations].
+As duas definições são equivalentes, ou seja, as duas operações
+de exponenciação definidas são iguais.
+Por enquanto pode aceitar isso como um fato que vamos demonstrar
+depois (\ref[associative_with_identity_exp_defs_equiv]),
+ou esquecer completamente essa definição alternativa.
+
+%%}}}
+
+%%{{{ thm: properties_of_function_iterations 
+\theorem.
+%%%{{{ meta 
+\label properties_of_function_iterations
+%%%}}}
+
+A operação de iteração que definimos
+no~\ref[function_iterations]
+nos endomapas dum conjunto $A$ satisfaz as leis:
+% TODO: fix reflabs
+\tlist:
+\li (1): $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
+\li (2): $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
+\li (3): $\lforall {n\in\nats} {\id^n = \id}$.
+\endtlist
+
+\proof Já demonstrado.
+Demonstramos por indução as três leis nos exercícios~\reftag[law_of_natexp_1],
+\reftag[law_of_natexp_2], e~\reftag[law_of_natexp_3]---se tu não resolveu,
+volte a resolver!
+Verifique que nossas demonstrações precisaram apenas a \emph{associatividade}
+e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
+então podemos substituir a multiplicação por nossa $\of$.
+Sobre a outra operação envolvida nas provas, a adição, não precisamos
+verificar nada, pois nos dois casos é a mesma operação:
+a adição nos naturais.
+
+%%}}}
+
 %%{{{ df: characteristic_function 
 \definition Característica.
 %%%{{{ meta 
@@ -36758,148 +36919,6 @@ Inclusão.
 
 \solution
 $f\resto X = \incofin X A \of f$.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Iterations 
-\section Iterações.
-%%%{{{ meta 
-\label Iterations
-%%%}}}
-
-%%{{{ df: function_iterations 
-\definition iterações.
-%%%{{{ meta 
-\label function_iterations
-\defines
-    * ~f^~n  -- a $n$-ésima iteração da $f$.
-    * funcção!iteração
-    ;;
-%%%}}}
-
-Seja $f : A \to A$.
-Definimos as \dterm{iterações} de $f$ pela recursão
-$$
-\align
-f^0     &= \idof A \\
-f^{n+1} &= f\of f^n.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ eg: calculate_iterate_3_fx 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Seja $f : A \to A$.  Calculamos:
-\compute
-f^3(x)
-&= (f \of f^2)(x)                      \by {def.~$f^3$} \\
-&= (f \of (f \of f^1))(x)              \by {def.~$f^2$} \\
-&= (f \of (f \of (f \of f^0)))(x)      \by {def.~$f^1$} \\
-&= (f \of (f \of (f \of \idof A)))(x)  \by {def.~$f^0$} \\
-&\dotseq (f \of f \of f)(x)            \by {ass.~$\of$; lei da~$\idof A$} \\
-&\dotseq f (f (f (x)))                 \by {def.~$\of$} \\
-\endcompute
-Em geral omitimos parenteses quando a expressão envolve apenas uma operação
-associativa;
-botamos aqui para enfatizar cada aplicação de definição nesse cálculo.
-
-%%}}}
-
-%%{{{ x: succ3_is_plus_3 
-\exercise.
-%%%{{{ meta 
-\label succ3_is_plus_3
-%%%}}}
-
-Como definarias numa maneira simples a funcção $\succ^3$ para alguém
-que não sabe (e sequer quer saber) o que são as iterações duma funcção?
-
-\solution
-Temos $\succ^3 = \lam x {x+3} \eqtype \nats\to\nats$.
-
-%%}}}
-
-%%{{{ beware: notation of functions with exponents 
-\beware.
-%%%{{{ meta 
-%%%}}}
-
-Em certos textos de matemática, aparece a notação $f^n(x)$ como
-sinónimo de $(f(x))^n$.
-Por exemplo:
-$$
-\text{quem escreveu\dots}
-\quad
-\sin^2 x + \cos^2 x
-\quad
-\aligned
-&\text{\dots quis dizer\dots}\\
-&\text{\dots mas aqui seria\dots}
-\endaligned
-\quad
-\aligned
-&(\sin x)^2   + (\cos x)^2    \\
-&\sin(\sin x) + \cos(\cos x).
-\endaligned
-$$
-
-%%}}}
-
-%%{{{ remark: function_iterations_altdef 
-\remark.
-%%%{{{ meta 
-\label function_iterations_altdef
-%%%}}}
-
-Poderiamos ter escolhido definir as potências de $f$ pelas:
-$$
-\align
-f^0     &= \idof A \\
-f^{n+1} &= f^n \of f
-\endalign
-$$
-em vez da recursão que usamos na~\ref[function_iterations].
-As duas definições são equivalentes, ou seja, as duas operações
-de exponenciação definidas são iguais.
-Por enquanto pode aceitar isso como um fato que vamos demonstrar
-depois (\ref[associative_with_identity_exp_defs_equiv]),
-ou esquecer completamente essa definição alternativa.
-
-%%}}}
-
-%%{{{ thm: properties_of_function_iterations 
-\theorem.
-%%%{{{ meta 
-\label properties_of_function_iterations
-%%%}}}
-
-A operação de iteração que definimos
-no~\ref[function_iterations]
-nos endomapas dum conjunto $A$ satisfaz as leis:
-% TODO: fix reflabs
-\tlist:
-\li (1): $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m+n}        = a^m \of a^n}$;
-\li (2): $\pforall {n,m\in\nats} \lforall {f : A \to A} {a^{m\ntimes n} = (a^m)^n}$;
-\li (3): $\lforall {n\in\nats} {\id^n = \id}$.
-\endtlist
-
-\proof Já demonstrado.
-Demonstramos por indução as três leis nos exercícios~\reftag[law_of_natexp_1],
-\reftag[law_of_natexp_2], e~\reftag[law_of_natexp_3]---se tu não resolveu,
-volte a resolver!
-Verifique que nossas demonstrações precisaram apenas a \emph{associatividade}
-e a \emph{identidade} da multiplicação e \emph{nada da sua definição},
-então podemos substituir a multiplicação por nossa $\of$.
-Sobre a outra operação envolvida nas provas, a adição, não precisamos
-verificar nada, pois nos dois casos é a mesma operação:
-a adição nos naturais.
 
 %%}}}
 
@@ -37989,6 +38008,157 @@ Com o que já temos na nossa disposição podemos definir umas funcções
 interessantes apenas usando composições, e \emph{diretamente} definindo
 a funcção (sem utilizar um ponto do seu domínio nem a $\lambda$-notação).
 Vamos investigar isso no~\ref[Pointfree_style].
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Pointfree_style 
+\section Funcções estilo pointfree---``de fora''.
+%%%{{{ meta 
+\label Pointfree_style
+%%%}}}
+
+%%{{{ function_laws 
+\note Leis de funcções (com equações).
+%%%{{{ meta 
+\label function_laws
+%%%}}}
+
+As configurações na esquerda implicam as identidades na direita:
+$$
+\align
+A \toby f B \toby g C \toby h D
+& \;\;\implies\;\;
+(h \of g) \of f = h \of (g \of f)
+\tag{F-Ass}\\
+A \toby f B
+& \;\;\implies\;\;
+\leftbrace {
+\aligned
+f \of \idof A &= f \\
+\idof B \of f &= f
+\endaligned
+}
+\tag{F-Id} \\
+A \bijtoby f B
+& \;\;\implies\;\;
+\leftbrace {
+\aligned
+\finv f \of f &= \idof A \\
+f \of \finv f &= \idof B
+\endaligned
+}
+\tag{F-Inv}
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: cd_finv_laws 
+\exercise.
+%%%{{{ meta 
+\label cd_finv_laws
+%%%}}}
+
+Como podemos expressar as leis da inversa (F-Inv)
+usando apenas a comutatividade dum diagrama?
+
+\hint
+A forma do diagrama parece com o diagrama das
+leis de identidade (\ref[cd_id_laws]).
+
+\solution
+Assim:
+$$
+\cdopt{sep=2cm}
+A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
+                               \| A \ar[r, "f"'] \| B
+\endcd
+$$
+
+%%}}}
+
+%%{{{ Defining functions 
+\note Definindo funcções.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Elaborar.
+
+%%}}}
+
+%%{{{ eg: two_x_plus_one 
+\example.
+%%%{{{ meta 
+\label two_x_plus_one
+%%%}}}
+
+Defina a funcção $f = \lam x {2x+1} : \nats\to\nats$ diretamente como
+composição de funcções sem usar $\lambda$-notação.
+Desenha o diagrama externo da configuração e confirme tua resolução.
+\solution.
+Temos as funcções
+$$
+\cdopt{sep=1.666cm}
+\nats
+\ar[r, "\dsize\diag"]   \| \nats\cross\nats
+\ar[r, "\dsize\nplus"]  \| \nats
+\ar[r, "\dsize\succ"]   \| \nats.
+\endcd
+$$
+Assim defino
+$$
+f = \paren{{\succ} \of \mathord{\nplus} \of {\diagdom\nats}} : \nats \to \nats
+$$
+e tomando um $x\in\nats$ calculo:
+\compute
+f(x)
+&= \paren{\succ \of \mathord{\nplus} \of \diag} (x) \by {def.~$f$} \\
+&= \succ(\mathord{\nplus}(\diag(x)))                \by {def.~$\of$} \\
+&= \succ(\mathord{\nplus}(x,x))                     \by {def.~$\diag$} \\
+&= \succ(2x)                                        \\
+&= 2x+1                                             \by {def.~$\succ$} \\
+\endcompute
+confirmando assim que minha definição foi correta.
+
+%%}}}
+
+%%{{{ x: two_x_squared_pointfree 
+\exercise.
+%%%{{{ meta 
+\label two_x_squared_pointfree
+%%%}}}
+
+Faça a mesma coisa para a funcção $f = \lam x {2x^2} : \nats\to\nats$.
+
+\solution
+Temos as funcções
+$$
+\cd
+\nats
+\ar[r, "\diag"]   \| \nats\cross\nats
+\ar[r, "\ntimes"] \| \nats
+\ar[r, "\diag"]   \| \nats\cross\nats
+\ar[r, "+"]       \| \nats.
+\endcd
+$$
+Assim defino
+$$
+f = \paren{{+} \of \diagdom\nats \of {\ntimes} \of \diagdom\nats} : \nats \to \nats
+$$
+e tomando um $x\in\nats$ confirmo:
+\compute
+f(x)
+&= \paren{\mathord{+} \of \diag \of \mathord{\ntimes} \of \diag} (x) \by {def.~$f$} \\
+&= \mathord{+}(\diag(\mathord{\ntimes}(\diag(x))))                   \by {def.~$\of$} \\
+&= \mathord{+}(\diag(\mathord{\ntimes}(x,x)))                        \by {def.~$\diag$} \\
+&= \mathord{+}(\diag(x^2))                                           \\
+&= \mathord{+}(x^2,x^2)                                              \by {def.~$\diag$} \\
+&= x^2 + x^2                                                         \\
+&= 2x^2.
+\endcompute
 
 %%}}}
 
@@ -41604,162 +41774,11 @@ nossas frescuras.
 \endsection
 %%}}}
 
-%%{{{ Pointfree_style 
+%%{{{ Retractions_and_sections 
 \section Funcções estilo pointfree---``de fora''.
 %%%{{{ meta 
-\label Pointfree_style
+\label Retractions_and_sections
 %%%}}}
-
-%%{{{ Defining concepts 
-\note Definindo conceitos.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Elaborar.
-
-%%}}}
-
-%%{{{ function_laws 
-\note Leis de funcções (com equações).
-%%%{{{ meta 
-\label function_laws
-%%%}}}
-
-As configurações na esquerda implicam as identidades na direita:
-$$
-\align
-A \toby f B \toby g C \toby h D
-& \;\;\implies\;\;
-(h \of g) \of f = h \of (g \of f)
-\tag{F-Ass}\\
-A \toby f B
-& \;\;\implies\;\;
-\leftbrace {
-\aligned
-f \of \idof A &= f \\
-\idof B \of f &= f
-\endaligned
-}
-\tag{F-Id} \\
-A \bijtoby f B
-& \;\;\implies\;\;
-\leftbrace {
-\aligned
-\finv f \of f &= \idof A \\
-f \of \finv f &= \idof B
-\endaligned
-}
-\tag{F-Inv}
-\endalign
-$$
-
-%%}}}
-
-%%{{{ x: cd_finv_laws 
-\exercise.
-%%%{{{ meta 
-\label cd_finv_laws
-%%%}}}
-
-Como podemos expressar as leis da inversa (F-Inv)
-usando apenas a comutatividade dum diagrama?
-
-\hint
-A forma do diagrama parece com o diagrama das
-leis de identidade (\ref[cd_id_laws]).
-
-\solution
-Assim:
-$$
-\cdopt{sep=2cm}
-A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
-                               \| A \ar[r, "f"'] \| B
-\endcd
-$$
-
-%%}}}
-
-%%{{{ Defining functions 
-\note Definindo funcções.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Elaborar.
-
-%%}}}
-
-%%{{{ eg: two_x_plus_one 
-\example.
-%%%{{{ meta 
-\label two_x_plus_one
-%%%}}}
-
-Defina a funcção $f = \lam x {2x+1} : \nats\to\nats$ diretamente como
-composição de funcções sem usar $\lambda$-notação.
-Desenha o diagrama externo da configuração e confirme tua resolução.
-\solution.
-Temos as funcções
-$$
-\cdopt{sep=1.666cm}
-\nats
-\ar[r, "\dsize\diag"]   \| \nats\cross\nats
-\ar[r, "\dsize\nplus"]  \| \nats
-\ar[r, "\dsize\succ"]   \| \nats.
-\endcd
-$$
-Assim defino
-$$
-f = \paren{{\succ} \of \mathord{\nplus} \of {\diagdom\nats}} : \nats \to \nats
-$$
-e tomando um $x\in\nats$ calculo:
-\compute
-f(x)
-&= \paren{\succ \of \mathord{\nplus} \of \diag} (x) \by {def.~$f$} \\
-&= \succ(\mathord{\nplus}(\diag(x)))                \by {def.~$\of$} \\
-&= \succ(\mathord{\nplus}(x,x))                     \by {def.~$\diag$} \\
-&= \succ(2x)                                        \\
-&= 2x+1                                             \by {def.~$\succ$} \\
-\endcompute
-confirmando assim que minha definição foi correta.
-
-%%}}}
-
-%%{{{ x: two_x_squared_pointfree 
-\exercise.
-%%%{{{ meta 
-\label two_x_squared_pointfree
-%%%}}}
-
-Faça a mesma coisa para a funcção $f = \lam x {2x^2} : \nats\to\nats$.
-
-\solution
-Temos as funcções
-$$
-\cd
-\nats
-\ar[r, "\diag"]   \| \nats\cross\nats
-\ar[r, "\ntimes"] \| \nats
-\ar[r, "\diag"]   \| \nats\cross\nats
-\ar[r, "+"]       \| \nats.
-\endcd
-$$
-Assim defino
-$$
-f = \paren{{+} \of \diagdom\nats \of {\ntimes} \of \diagdom\nats} : \nats \to \nats
-$$
-e tomando um $x\in\nats$ confirmo:
-\compute
-f(x)
-&= \paren{\mathord{+} \of \diag \of \mathord{\ntimes} \of \diag} (x) \by {def.~$f$} \\
-&= \mathord{+}(\diag(\mathord{\ntimes}(\diag(x))))                   \by {def.~$\of$} \\
-&= \mathord{+}(\diag(\mathord{\ntimes}(x,x)))                        \by {def.~$\diag$} \\
-&= \mathord{+}(\diag(x^2))                                           \\
-&= \mathord{+}(x^2,x^2)                                              \by {def.~$\diag$} \\
-&= x^2 + x^2                                                         \\
-&= 2x^2.
-\endcompute
-
-%%}}}
 
 %%{{{ df: retraction_section 
 \definition Retracções, secções.
