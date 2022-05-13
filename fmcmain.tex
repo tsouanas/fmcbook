@@ -47763,14 +47763,12 @@ $a \sim b$ e $b \sim c$ mas $a\not\sim c$.
 %%%}}}
 
 Considere as relações seguintes no $(\ints\to\ints)$:
-$$
-\align
-f \simh g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x+u) } \\
-f \apph g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x+u) } \\
-f \simv g &\defiff \pexists {u\in\ints} \lforall {x \in\ints} {f(x) = g(x)+u } \\
-f \appv g &\defiff \pexists {u\in\nats} \lforall {x \in\ints} {f(x) = g(x)+u }.
-\endalign
-$$
+\mathcol
+f \simh g &\defiff \pexists {u\in\phints} \lforall {x \in\ints} {f(x) = g(x+u) } \\
+f \apph g &\defiff \pexists {u\in\nnints} \lforall {x \in\ints} {f(x) = g(x+u) } \\
+f \simv g &\defiff \pexists {u\in\phints} \lforall {x \in\ints} {f(x) = g(x)+u } \\
+f \appv g &\defiff \pexists {u\in\nnints} \lforall {x \in\ints} {f(x) = g(x)+u }.
+\endmathcol
 Para cada uma dessas relações, decida se é:
 (ir)reflexiva; transitiva; (a(nti)s)simétrica.
 
@@ -47794,7 +47792,7 @@ Vamos ver em detalhe apenas para a $\simh$.
 \crproofpart{Reflexividade da $\apph$.}
 \eop\noi
     Seja $f : \ints\to\ints$.
-    Temos para todo $x\in \ints$, $f(x) = f(x + 0)$, e como $0\in\nats$,
+    Temos para todo $x\in \ints$, $f(x) = f(x + 0)$, e como $0\in\nnints$,
     logo $f\apph f$.
 \eop\medskip
 \crtabproofpart{Transitividade.}
@@ -47806,12 +47804,10 @@ Vamos ver em detalhe apenas para a $\appv$:
 \eop\noi
     Sejam $f,g,h: \ints\to\ints$ tais que $f\simh g$ e $g\simh h$.
     Sejam então $i,j\in\ints$ tais que:
-    $$
-    \align
-    \text{para todo $x\in \ints$, }&f(x) = g(x+i) \tag{1} \\
-    \text{para todo $x\in \ints$, }&g(x) = h(x+j).\tag{2}
-    \endalign
-    $$
+    \mathcol
+    \text{para todo $x\in \ints$, } & f(x) = g(x+i) \tag{1} \\
+    \text{para todo $x\in \ints$, } & g(x) = h(x+j).\tag{2}
+    \endmathcol
     Seja $z\in\ints$ e calcule:
     \compute
     f(z)
@@ -47832,7 +47828,7 @@ dessas propriedades.
 Vamos demonstrar a simetria da $\simh$, a antissimetria da $\appv$,
 e refutar a simetria e a antissimetria da $\apph$.
 \crproofpart{Simetria da $\simh$.}
-\eop\noi
+    \eop\noi
     Sejam $f,g : \ints\to\ints$ tais que $f\simh g$.
     Então seja $i\in\ints$ tal que
     para todo $x\in \ints$, $f(x) = g(x+i)$\fact1.
@@ -47845,9 +47841,9 @@ e refutar a simetria e a antissimetria da $\apph$.
     \endcompute
     Ou seja, o $-i\in\ints$ mostra que $g\simh f$.
 \crproofpart{Antissimetria da $\appv$.}
-\eop\noi
+    \eop\noi
     Sejam $f,g : \ints\to\ints$ tais que $f\appv g$ e $g\appv f$.
-    Sejam então $i,j\in\nats$ tais que para todo $x\in \ints$
+    Sejam então $i,j\in\nnints$ tais que para todo $x\in \ints$
     $f(x) = g(x)+i$ e $g(x) = f(x)+j$.
     Seja $x\in\ints$ e calcule:
     $$
@@ -47860,15 +47856,13 @@ e refutar a simetria e a antissimetria da $\apph$.
     \eop\noi
     Como contraexemplo tome as funcções $f,g : \ints\to\ints$
     definidas pelas:
-    $$
-    \xalignat2
+    \mathcols 2
     f(0) &= 1                   & g(1) &= 1 \\
     f(x) &= 0 \quad (x \neq 0)  & g(x) &= 0 \quad (x \neq 1)
-    \endxalignat
-    $$
+    \endmathcols
     Observe que realmente $f \apph g$ pois temos
     que para todo $x \in \ints$, $f(x) = g(x+1)$.
-    Mas $g\not\apph f$.  Suponha que tem $u\in\nats$
+    Mas $g\not\apph f$.  Suponha que tem $u\in\nnints$
     tal que para todo $x\in\ints$, $g(x) = f(x + u)$.
     Basta ou achar um absurdo.
     Pela nossa hipótese, $g(1) = f(1 + u)$.
@@ -47879,21 +47873,18 @@ e refutar a simetria e a antissimetria da $\apph$.
     \eop\noi
     Como contraexemplo tome as funcções $f,g : \ints\to\ints$
     definidas pelas:
-    $$
-    \xalignat2
+    \mathcols 2
     f(x) &=
     \knuthcases {
-    0, & se $x$ é par; \cr
-    1, & se $x$ é ímpar;
-    }
-    &
+        0, & se $x$ é par; \cr
+        1, & se $x$ é ímpar;
+    } &
     g(x) &=
     \knuthcases {
-    1, & se $x$ é par; \cr
-    0, & se $x$ é ímpar;
+        1, & se $x$ é par; \cr
+        0, & se $x$ é ímpar;
     }
-    \endxalignat
-    $$
+    \endmathcols
     Observe que realmente $f \apph g$ (tome $u \asseq 1$)
     e $g \apph f$ (tome $u \asseq 1$ de novo).
     Mesmo assim, $f\neq g$.
