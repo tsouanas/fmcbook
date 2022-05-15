@@ -31442,13 +31442,15 @@ $$
 %%%{{{ meta 
 \label function_primitive
 \indexes
-    * codomínio    see: funcção
-    * domínio    see: funcção
+    * domínio!de funcção    see: funcção
+    * codomínio!de funcção  see: funcção
+    * target!de funcção     see: funcção
+    * source!de funcção     see: funcção
     ;;
 \defines
-    * funcção!codomínio
     * funcção!definição intuitiva
     * funcção!domínio
+    * funcção!codomínio
     * funcção!valor
     ;;
 %%%}}}
@@ -31457,8 +31459,8 @@ Sejam $A,B$ conjuntos.
 Chamamos $f$ uma \dterm{funcção de $A$ para $B$}, sse
 para todo $x \in A$, o símbolo $f(x)$ é definido e $f(x)\in B$.
 O $f(x)$ é o \dterm{valor} da $f$ no $x$.
-O \dterm{domínio} da $f$ é o conjunto $A$,
-e seu \dterm{codomínio} é o conjunto $B$.
+O \dterm{domínio} ou \dterm{source} da $f$ é o conjunto $A$,
+e seu \dterm{codomínio} ou \dterm{target} é o conjunto $B$.
 Consideramos então que a funcção $f$ associa \emph{para todo} elemento $a \in A$,
 \emph{exatamente um} elemento $f(a) \in B$.
 
@@ -31469,10 +31471,12 @@ Consideramos então que a funcção $f$ associa \emph{para todo} elemento $a \in
 %%%{{{ meta 
 \label function_notation
 \defines
-    * \cod {~f}  -- o codomínio da funcção $f$
+    * \src {~f}  -- o source da funcção $f$
+    * \tgt {~f}  -- o target da funcção $f$
     * \dom {~f}  -- o domínio da funcção $f$
+    * \cod {~f}  -- o codomínio da funcção $f$
     * ~A \toby {~f} ~B  -- $f$ é uma funcção de $A$ para $B$
-    * ~f : ~A \to ~B  -- $f$ é uma funcção de $A$ para $B$
+    * ~f : ~A \to ~B    -- $f$ é uma funcção de $A$ para $B$
     * ponto!de conjunto
     ;;
 %%%}}}
@@ -31501,6 +31505,8 @@ f : A \to B
 \;\mland\;
 \cod f = B.
 $$
+Escrevemos $\src(f)$ e $\tgt(f)$ como sinônimos
+de $\dom(f)$ e $\cod(f)$ respectivamente.
 Às vezes o tipo da funcção aparece olhando para a direção oposta:
 $f : B \from A$ em vez de $f : A \to B$.
 Escrevemos também $f\app x$ em vez de $f(x)$,
@@ -38115,6 +38121,142 @@ tanto de esquerda para direita, quanto de direita para esquerda.
 \endsection
 %%}}}
 
+%%{{{ Partial_functions 
+\section Funcções parciais.
+%%%{{{ meta 
+\label Partial_functions
+%%%}}}
+
+%%{{{ intro 
+\secintro
+A restricção que uma funcção $f : A \to B$ precisa ser \emph{totalmente}
+definida no $A$, não nos permite considerer naturalmente situações onde
+um certo programa, por exemplo, retorna valores para certas entradas
+aceitáveis, e para as outras não:
+talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
+ou simplesmente não termina com uma saída---não importa o porquê.
+Definimos então o conceito de \emph{funcção parcial}, que é exatamente
+isso: funcções que para certas entradas aceitáveis delas, possivelmente
+\dterm{divergem}.
+%%}}}
+
+%%{{{ df: partial_function 
+\definition.
+%%%{{{ meta 
+\label partial_function
+\defines
+    * funcção!parcial
+    * funcção!convergir
+    * funcção!divergir
+    * \pars {~A} {~B}      -- o conjunto das funcções parciais de $A$ para $B$
+    * ~f : ~A \parto ~B    -- $f$ é uma funcção parcial de $A$ para $B$
+    * \diverges {~f(~x)}   -- $f$ diverge no $x$
+    * \converges {~f(~x)}  -- $f$ converge no $x$
+    ;;
+%%%}}}
+
+Sejam $A,B$ conjuntos.
+Chamamos a $f$ uma \dterm{funcção parcial} de $A$ para $B$ sse:
+$$
+\text{para todo $x\in A$, se $f(x)$ é definido, então $f(x) \in B$.}
+$$
+Nesse caso, chamamos \dterm{domínio de convergência} o conjunto
+$$
+\domain f \defeq \setstt {x \in A} {$f(x)$ é definido}
+$$
+e \dterm{codomínio} o $B$ mesmo.
+Preferimos usar os sinônimos \dterm{source} e \dterm{target} para
+o $A$ e $B$ para não ter o conflito entre domínio e domínio de convergência,
+escrevendo $\src f$ e $\tgt f$ respectivamente.
+\eop
+Naturalmente não podemos usar o símbolo $f x$ em expressões matemáticas
+quando o $x \notin \domain f$, já que $f x$ é indefinido nesse caso.
+Mesmo assim, abrimos uma exceção, introduzindo a notação
+$$
+\diverges{f\app x} \defiff x \in A \mland x \notin \domain f
+$$
+que lemos assim: $f$ \dterm{diverge} no $x$.
+Dizemos que $f$ \dterm {converge} no $x$, e escrevemos $\converges{f \app x}$
+quando $x \in \domain f$.
+\eop
+Escrevemos $f : A \parto B$ para \wq{$f$ é uma funcção parcial de $A$ para $B$}.
+Naturalmente denotamos o conjunto de todas as funcções parciais de $A$ para $B$ por
+$$
+(A \parto B) \defeq \setst f {f : A \parto B}.
+$$
+
+%%}}}
+
+%%{{{ x: size_of_pars 
+\exercise.
+%%%{{{ meta 
+\label size_of_pars
+%%%}}}
+
+Se $A,B$ são finitos,
+qual a cardinalidade do $\pars A B$?
+
+\hint
+Já calculou como achar a cardinalidade de $\funs X Y$ para
+quaisquer finitos $X,Y$.
+Então \emph{hackeia!}
+
+\hint
+Considere um objeto $\bottom$ fora do $B$.
+
+%%}}}
+
+%%{{{ remark: total vs partial: default 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Com essas definições cada funcção total é uma funcção parcial.
+Escrevemos esse \wq{total} quando queremos enfatizar, mas normalmente
+\wq{funcção} sem o adjectivo \wq{parcial} significa \wq{funcção total}.
+Claramente, quando trabalhamos principalmente com funcções parciais,
+seguimos a convenção oposta.
+
+%%}}}
+
+%%{{{ x: composition_of_partial_functions 
+\exercise.
+%%%{{{ meta 
+\label composition_of_partial_functions
+\defines
+    * composição!de função parcial   see: função
+    * funcção!parcial!composição
+    ;;
+%%%}}}
+
+Sejam $A \partoby f B \partoby g C$.
+Como definarias a composição $g \of f$?
+
+%%}}}
+
+%%{{{ remark: partial function conditions 
+\remark Condições.
+%%%{{{ meta 
+%%%}}}
+
+Encontramos então aqui o que acontece se apagar a primeira das
+condições~\reftag[functionhood_conditions]:
+\tlist: \notags
+\li: \strikeout{(1)~totalidade};
+\li: (2)~determinabilidade.
+\endtlist
+e ficar só com a (2).
+No~\ref[implement_nondeterministic_functions] implementarás funções
+\dterm{não-deterministicas}, onde apagamos a (2), ficando apenas com a totalidade.
+E se apagar as duas?
+Esse conceito podemos facilmente implementar assim que
+conhecer melhor relações (\ref[Relations]).
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Fixpoints 
 \section Fixpoints.
 %%%{{{ meta 
@@ -38247,109 +38389,6 @@ e queria destacá-los desde já.
 %%}}}
 
 \TODO Adicionar refs para secções específicas.
-
-\endsection
-%%}}}
-
-%%{{{ Partial_functions 
-\section Funcções parciais.
-%%%{{{ meta 
-\label Partial_functions
-%%%}}}
-
-%%{{{ intro 
-\secintro
-A restricção que uma funcção $f : A \to B$ precisa ser \emph{totalmente}
-definida no $A$, não nos permite considerer naturalmente situações onde
-um certo programa, por exemplo, retorna valores para certas entradas
-aceitáveis, e para as outras não:
-talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
-ou simplesmente não termina com uma saída---não importa o porquê.
-Definimos então o conceito de \emph{funcção parcial}, que é exatamente
-isso: funcções que para certas entradas aceitáveis delas, possivelmente
-\dterm{divergem}.
-%%}}}
-
-%%{{{ df: partial_function 
-\definition.
-%%%{{{ meta 
-\label partial_function
-\defines
-    * \pars {~A} {~B}  -- o conjunto das funcções parciais de $A$ para $B$
-    * ~f : ~A \parto ~B  -- $f$ é uma funcção parcial de $A$ para $B$
-    * funcção!parcial
-    ;;
-%%%}}}
-
-Sejam $A,B$ conjuntos.
-Chamamos a $f$ uma \dterm{funcção parcial} de $A$ para $B$ sse:
-$$
-\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
-$$
-Nesse caso, chamamos \dterm{domínio de convergência} o conjunto
-$$
-\domain f \defeq \setstt {x \in A} {$f(x)$ é definido}
-$$
-e \dterm{codomínio} o $B$ mesmo.
-Escrevemos $f : A \parto B$ para \wq{$f$ é uma funcção parcial de $A$ para $B$}.
-Naturalmente denotamos o conjunto de todas as funcções parciais de $A$ para $B$ por
-$$
-(A \parto B) \defeq \setst f {f : A \parto B}.
-$$
-
-%%}}}
-
-%%{{{ x: size_of_pars 
-\exercise.
-%%%{{{ meta 
-\label size_of_pars
-%%%}}}
-
-Se $A,B$ são finitos,
-qual a cardinalidade do $\pars A B$?
-
-\hint
-Já calculou como achar a cardinalidade de $\funs X Y$ para
-quaisquer finitos $X,Y$.
-Então \emph{hackeia!}
-
-\hint
-Considere um objeto $\bottom$ fora do $B$.
-
-%%}}}
-
-%%{{{ remark: total vs partial: default 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Com essas definições cada funcção total é uma funcção parcial.
-Escrevemos esse \wq{total} quando queremos enfatizar, mas normalmente
-\wq{funcção} sem o adjectivo \wq{parcial} significa \wq{funcção total}.
-Claramente, quando trabalhamos principalmente com funcções parciais,
-seguimos a convenção oposta.
-
-%%}}}
-
-%%{{{ remark: partial function conditions 
-\remark Condições.
-%%%{{{ meta 
-%%%}}}
-
-Encontramos então aqui o que acontece se apagar a primeira das
-condições~\reftag[functionhood_conditions]:
-\tlist: \notags
-\li: \strikeout{(1)~totalidade};
-\li: (2)~determinabilidade.
-\endtlist
-e ficar só com a (2).
-No~\ref[implement_nondeterministic_functions] implementarás funções
-\dterm{não-deterministicas}, onde apagamos a (2), ficando apenas com a totalidade.
-E se apagar as duas?
-Esse conceito podemos facilmente implementar assim que
-conhecer melhor relações (\ref[Relations]).
-
-%%}}}
 
 \endsection
 %%}}}
