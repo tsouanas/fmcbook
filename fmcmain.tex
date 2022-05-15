@@ -38251,6 +38251,109 @@ e queria destacá-los desde já.
 \endsection
 %%}}}
 
+%%{{{ Partial_functions 
+\section Funcções parciais.
+%%%{{{ meta 
+\label Partial_functions
+%%%}}}
+
+%%{{{ intro 
+\secintro
+A restricção que uma funcção $f : A \to B$ precisa ser \emph{totalmente}
+definida no $A$, não nos permite considerer naturalmente situações onde
+um certo programa, por exemplo, retorna valores para certas entradas
+aceitáveis, e para as outras não:
+talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
+ou simplesmente não termina com uma saída---não importa o porquê.
+Definimos então o conceito de \emph{funcção parcial}, que é exatamente
+isso: funcções que para certas entradas aceitáveis delas, possivelmente
+\dterm{divergem}.
+%%}}}
+
+%%{{{ df: partial_function 
+\definition.
+%%%{{{ meta 
+\label partial_function
+\defines
+    * \pars {~A} {~B}  -- o conjunto das funcções parciais de $A$ para $B$
+    * ~f : ~A \parto ~B  -- $f$ é uma funcção parcial de $A$ para $B$
+    * funcção!parcial
+    ;;
+%%%}}}
+
+Sejam $A,B$ conjuntos.
+Chamamos a $f$ uma \dterm{funcção parcial} de $A$ para $B$ sse:
+$$
+\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
+$$
+Nesse caso, chamamos \dterm{domínio de convergência} o conjunto
+$$
+\domain f \defeq \setstt {x \in A} {$f(x)$ é definido}
+$$
+e \dterm{codomínio} o $B$ mesmo.
+Escrevemos $f : A \parto B$ para \wq{$f$ é uma funcção parcial de $A$ para $B$}.
+Naturalmente denotamos o conjunto de todas as funcções parciais de $A$ para $B$ por
+$$
+(A \parto B) \defeq \setst f {f : A \parto B}.
+$$
+
+%%}}}
+
+%%{{{ x: size_of_pars 
+\exercise.
+%%%{{{ meta 
+\label size_of_pars
+%%%}}}
+
+Se $A,B$ são finitos,
+qual a cardinalidade do $\pars A B$?
+
+\hint
+Já calculou como achar a cardinalidade de $\funs X Y$ para
+quaisquer finitos $X,Y$.
+Então \emph{hackeia!}
+
+\hint
+Considere um objeto $\bottom$ fora do $B$.
+
+%%}}}
+
+%%{{{ remark: total vs partial: default 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Com essas definições cada funcção total é uma funcção parcial.
+Escrevemos esse \wq{total} quando queremos enfatizar, mas normalmente
+\wq{funcção} sem o adjectivo \wq{parcial} significa \wq{funcção total}.
+Claramente, quando trabalhamos principalmente com funcções parciais,
+seguimos a convenção oposta.
+
+%%}}}
+
+%%{{{ remark: partial function conditions 
+\remark Condições.
+%%%{{{ meta 
+%%%}}}
+
+Encontramos então aqui o que acontece se apagar a primeira das
+condições~\reftag[functionhood_conditions]:
+\tlist: \notags
+\li: \strikeout{(1)~totalidade};
+\li: (2)~determinabilidade.
+\endtlist
+e ficar só com a (2).
+No~\ref[implement_nondeterministic_functions] implementarás funções
+\dterm{não-deterministicas}, onde apagamos a (2), ficando apenas com a totalidade.
+E se apagar as duas?
+Esse conceito podemos facilmente implementar assim que
+conhecer melhor relações (\ref[Relations]).
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 %%%{{{ meta 
@@ -38469,6 +38572,98 @@ Usamos a mesma definição mas exigimos que os $A,C$ são disjuntos.
 A primeira resolução consegue definir a $f \union g$ em mais casos
 que essa mas, por outro lado, essa seria aceitável também e é mais
 simples e \dq{arrumada}.
+
+%%}}}
+
+%%{{{ prob: implement_partial_functions 
+\problem Implementação: funcções parciais.
+%%%{{{ meta 
+\label implement_partial_functions
+\defines
+    * funcção!partial
+    ;;
+%%%}}}
+
+Pense numa maneira de \emph{implementar} o tipo das
+\dterm{funcções parciais} (\ref[Partial_functions])
+usando conceitos (tipos) que encontramos até agora:
+conjuntos, tuplas, seqüências, famílias indexadas, funcções, etc.
+\eop
+Para implementar um conceito não basta apenas definir o que são os
+objetos desse tipo em termos de já conhecidos.
+Precisamos implementar também a interface desejada, em termos de
+operações e relações que já temos em nossa disposição.
+
+\hint
+Cada funcção parcial $f : A \parto B$ pode ser representada
+como uma funcção total $f : A \to B'$ onde $B'$ é um outro
+conjunto.
+Qual $B'$ serve?
+
+\hint
+Uma idéia seria adicionar no $B$ um objeto ``fresco'' para representar
+a falta de valor; outra idéia seria tomar como $B'$ um subconjunto do $\pset B$.
+Qual?
+
+\hint
+A primeira idéia não precisa de mais dicas.
+Sobre a segunda:
+$$
+B' \asseq \setst {X \subset B} {\card X \leq 1}.
+$$
+
+%%}}}
+
+%%{{{ prob: implement_nondeterministic_functions 
+\problem Implementação: funcções não-determinísticas.
+%%%{{{ meta 
+\label implement_nondeterministic_functions
+\defines
+    * funcção!não-determinística
+    ;;
+%%%}}}
+
+Na~\ref[Partial_functions] definimos um conceito mais geral de
+``funcção'':
+as \emph{funcções parciais}, onde apagamos a primeira das
+condições~\reftag[functionhood_conditions]:
+\tlist: \notags
+\li: \strikeout{(1)~totalidade};
+\li: (2)~determinabilidade.
+\endtlist
+Neste problema, encontramos \dterm{funcções não-determinísticas}, ou seja,
+``funcções'' que não respeitam necessariamente a determinabilidade;
+apenas a totalidade.  Ou seja, agora apagamos a outra condição:
+\tlist: \notags
+\li: (1)~totalidade;
+\li: \strikeout{(2)~determinabilidade}.
+\endtlist
+O objectivo desse problema é \emph{implementar o tipo de funcção não-determinística}.
+\eop
+Como definarias a composição $g \cdot f$ de duas funcções não-determinísticas?
+Use a notação $f : A \ndeto B$ para <<$f$ é uma funcção não-determinística
+de $A$ para $B$>>.
+Que mais tu poderias fazer para tua implementação ser uma implementação boa?
+
+\solution
+Podemos representar a $f : A \ndeto B$ pela funcção
+$\bar f : A \to \pset B\setminus\set{\emptyset}$ definida pela
+$$
+\bar f(x) = \setst {y\in B} {x\mapstoby f y}.
+$$
+Sejam~$f : A \ndeto B$ e~$g : B \ndeto C$ funcções não-determinísticas.
+Logo temos $\bar f : A \to \pset B\setminus\set{\emptyset}$
+e          $\bar g : B \to \pset C\setminus\set{\emptyset}$.
+Definimos sua composição
+$g\cdot f : A \ndeto C$ pela
+$$
+(\overline{g\cdot f})(x) = \Union \img {\bar g} {\bar f (x)}.
+$$
+O que mais seria legal definir e mostrar para nossa implementação?
+Bem, seria bom definir pelo menos a identidade não-determinística
+$id_A : A \ndeto A$, e investigar se as leis que provamos sobre
+o caso de funcções que conectam composição e identidades estão válidas
+para nossas funcções não-determinísticas também.
 
 %%}}}
 
@@ -41965,105 +42160,6 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Partial_functions 
-\section Funcções parciais.
-%%%{{{ meta 
-\label Partial_functions
-%%%}}}
-
-%%{{{ intro 
-\secintro
-A restricção que uma funcção $f : A \to B$ precisa ser \emph{totalmente}
-definida no $A$, não nos permite considerer naturalmente situações onde
-um certo programa, por exemplo, retorna valores para certas entradas
-aceitáveis, e para as outras não:
-talvez ele fica num \emph{loop infinito}; ou ele faz a máquina explodir;
-ou simplesmente não termina com uma saída---não importa o porquê.
-Definimos então o conceito de \emph{funcção parcial}, que é exatamente
-isso: funcções que para certas entradas aceitáveis delas, possivelmente
-\dterm{divergem}.
-%%}}}
-
-%%{{{ df: partial_function 
-\definition.
-%%%{{{ meta 
-\label partial_function
-\defines
-    * \pars {~A} {~B}  -- o conjunto das funcções parciais de $A$ para $B$
-    * ~f : ~A \parto ~B  -- $f$ é uma funcção parcial de $A$ para $B$
-    * funcção!parcial
-    ;;
-%%%}}}
-
-Sejam $A,B$ conjuntos.
-Chamamos a $f$ uma \dterm{funcção parcial} de $A$ para $B$ sse:
-$$
-\text{para todo $x\in A$, se $f(x)$ é definido então $f(x) \in B$.}
-$$
-Nesse caso, chamamos \dterm{domínio de convergência} o conjunto
-$$
-\domain f \defeq \setstt {x \in A} {$f(x)$ é definido}
-$$
-e \dterm{codomínio} o $B$ mesmo.
-Escrevemos $f : A \parto B$ para \wq{$f$ é uma funcção parcial de $A$ para $B$}.
-Naturalmente denotamos o conjunto de todas as funcções parciais de $A$ para $B$ por
-$$
-(A \parto B) \defeq \setst f {f : A \parto B}.
-$$
-
-%%}}}
-
-%%{{{ x: size_of_pars 
-\exercise.
-%%%{{{ meta 
-\label size_of_pars
-%%%}}}
-
-Se $A,B$ são finitos,
-qual a cardinalidade do $\pars A B$?
-
-\hint
-Já calculou como achar a cardinalidade de $\funs X Y$ para
-quaisquer finitos $X,Y$.
-Então \emph{hackeia!}
-
-\hint
-Considere um objeto $\bottom$ fora do $B$.
-
-%%}}}
-
-%%{{{ remark: total vs partial: default 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Com essas definições cada funcção total é uma funcção parcial.
-Escrevemos esse \wq{total} quando queremos enfatizar, mas normalmente
-\wq{funcção} sem o adjectivo \wq{parcial} significa \wq{funcção total}.
-Claramente, quando trabalhamos principalmente com funcções parciais,
-seguimos a convenção oposta.
-
-%%}}}
-
-%%{{{ remark: partial function conditions 
-\remark Condições.
-%%%{{{ meta 
-%%%}}}
-
-Encontramos então aqui o que acontece se apagar a primeira das
-condições~\reftag[functionhood_conditions]:
-\tlist: \notags
-\li: \strikeout{(1)~totalidade};
-\li: (2)~determinabilidade.
-\endtlist
-e ficar só com a (2).
-No~\ref[Relations] vamos estudar também o caso onde apagamos ambas as condições.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Recursive_definitions_as_systems 
 \section Definições recursivas.
 %%%{{{ meta 
@@ -43809,98 +43905,6 @@ f \of g = h \of f \nimplies g = h\, ?
 $$
 Se sim mostre um exemplo;
 se não, refute mesmo a afirmação.
-
-%%}}}
-
-%%{{{ prob: implement_partial_functions 
-\problem Implementação: funcções parciais.
-%%%{{{ meta 
-\label implement_partial_functions
-\defines
-    * funcção!partial
-    ;;
-%%%}}}
-
-Pense numa maneira de \emph{implementar} o tipo das
-\dterm{funcções parciais} (\ref[Partial_functions])
-usando conceitos (tipos) que encontramos até agora:
-conjuntos, tuplas, seqüências, famílias indexadas, funcções, etc.
-\eop
-Para implementar um conceito não basta apenas definir o que são os
-objetos desse tipo em termos de já conhecidos.
-Precisamos implementar também a interface desejada, em termos de
-operações e relações que já temos em nossa disposição.
-
-\hint
-Cada funcção parcial $f : A \parto B$ pode ser representada
-como uma funcção total $f : A \to B'$ onde $B'$ é um outro
-conjunto.
-Qual $B'$ serve?
-
-\hint
-Uma idéia seria adicionar no $B$ um objeto ``fresco'' para representar
-a falta de valor; outra idéia seria tomar como $B'$ um subconjunto do $\pset B$.
-Qual?
-
-\hint
-A primeira idéia não precisa de mais dicas.
-Sobre a segunda:
-$$
-B' \asseq \setst {X \subset B} {\card X \leq 1}.
-$$
-
-%%}}}
-
-%%{{{ prob: implement_nondeterministic_functions 
-\problem Implementação: funcções não-determinísticas.
-%%%{{{ meta 
-\label implement_nondeterministic_functions
-\defines
-    * funcção!não-determinística
-    ;;
-%%%}}}
-
-Na~\ref[Partial_functions] definimos um conceito mais geral de
-``funcção'':
-as \emph{funcções parciais}, onde apagamos a primeira das
-condições~\reftag[functionhood_conditions]:
-\tlist: \notags
-\li: \strikeout{(1)~totalidade};
-\li: (2)~determinabilidade.
-\endtlist
-Neste problema, encontramos \dterm{funcções não-determinísticas}, ou seja,
-``funcções'' que não respeitam necessariamente a determinabilidade;
-apenas a totalidade.  Ou seja, agora apagamos a outra condição:
-\tlist: \notags
-\li: (1)~totalidade;
-\li: \strikeout{(2)~determinabilidade}.
-\endtlist
-O objectivo desse problema é \emph{implementar o tipo de funcção não-determinística}.
-\eop
-Como definarias a composição $g \cdot f$ de duas funcções não-determinísticas?
-Use a notação $f : A \ndeto B$ para <<$f$ é uma funcção não-determinística
-de $A$ para $B$>>.
-Que mais tu poderias fazer para tua implementação ser uma implementação boa?
-
-\solution
-Podemos representar a $f : A \ndeto B$ pela funcção
-$\bar f : A \to \pset B\setminus\set{\emptyset}$ definida pela
-$$
-\bar f(x) = \setst {y\in B} {x\mapstoby f y}.
-$$
-Sejam~$f : A \ndeto B$ e~$g : B \ndeto C$ funcções não-determinísticas.
-Logo temos $\bar f : A \to \pset B\setminus\set{\emptyset}$
-e          $\bar g : B \to \pset C\setminus\set{\emptyset}$.
-Definimos sua composição
-$g\cdot f : A \ndeto C$ pela
-$$
-(\overline{g\cdot f})(x) = \Union \img {\bar g} {\bar f (x)}.
-$$
-O que mais seria legal definir e mostrar para nossa implementação?
-Bem, seria bom definir pelo menos a identidade não-determinística
-$id_A : A \ndeto A$, e investigar se as leis que provamos sobre
-o caso de funcções que conectam composição e identidades estão válidas
-para nossas funcções não-determinísticas também.
 
 %%}}}
 
