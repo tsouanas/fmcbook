@@ -37386,14 +37386,6 @@ A \toby f B
 f \of \idof A &= f \\
 \idof B \of f &= f
 }
-\tag{F-Id} \\
-A \bijtoby f B
-& \;\;\implies\;\;
-\lsystemed {
-\finv f \of f &= \idof A \\
-f \of \finv f &= \idof B
-}
-\tag{F-Inv}
 \endmathcol
 
 %%}}}
@@ -37689,30 +37681,6 @@ A   \ar[r, "f"]\ar[rd, "g\of f"'] \| B \ar[d, "g"]  \ar[dr, "h\of g"] \\
 \endcd
 $$
 Questão de gosto.
-
-%%}}}
-
-%%{{{ x: cd_finv_laws 
-\exercise.
-%%%{{{ meta 
-\label cd_finv_laws
-%%%}}}
-
-Como podemos expressar as leis da inversa (F-Inv)
-usando apenas a comutatividade dum diagrama?
-
-\hint
-A forma do diagrama parece com o diagrama das
-leis de identidade (\ref[cd_id_laws]).
-
-\solution
-Assim:
-$$
-\cdopt{sep=2cm}
-A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
-                               \| A \ar[r, "f"'] \| B
-\endcd
-$$
 
 %%}}}
 
@@ -39185,14 +39153,9 @@ e logo $\finvp{\finv f} = f$.
 
 Seja $f: A \bijto B$.
 Para todo $a\in A$ e todo $b\in B$, temos:
-$$
-\xxalignat4
-\textrm{(L)} && \finv f (f a) &= a &
-f (\finv f b) &= b. &&\textrm{(R)}
-\endxxalignat
-$$
-(Esqueça o ``com pontos'' no rótulo desse exercício;
-vai fazer sentido depois.)
+\mathxcols 4
+\textrm{(L)} && \finv f (f a) &= a & f (\finv f b) &= b. && \textrm{(R)}
+\endmathxcols
 
 \solution
 Seja $a\in A$ e $b\in B$.
@@ -39209,6 +39172,53 @@ f(\finv f(b)) = y
 &\iff b = y    \by {$\finv f$ inj.~(\reftag[finv_is_bij])} \\
 &\iff \idof B (b) = y.
 \endcompute
+
+%%}}}
+
+%%{{{ x: finv_laws_pointfree 
+\exercise Leis da inversa (sem pontos).
+%%%{{{ meta 
+\label finv_laws_pointfree
+%%%}}}
+
+Como podemos expressar as leis da inversa (F-Inv)
+sem pontos?
+
+\solution
+A configuração na esquerda implica as equações na direita:
+\mathcol
+A \bijtoby f B
+& \;\;\implies\;\;
+\lsystemed {
+\finv f \of f &= \idof A \\
+f \of \finv f &= \idof B
+}
+\tag{F-Inv}
+\endmathcol
+
+%%}}}
+
+%%{{{ x: cd_finv_laws 
+\exercise Leis da inversa (com diagrama comutativo).
+%%%{{{ meta 
+\label cd_finv_laws
+%%%}}}
+
+Como podemos expressar as leis da inversa (F-Inv)
+usando apenas a comutatividade dum diagrama?
+
+\hint
+A forma do diagrama parece com o diagrama das
+leis de identidade (\ref[cd_id_laws]).
+
+\solution
+Assim:
+$$
+\cdopt{sep=2cm}
+A   \ar[dr, "\id"']\ar[r, "f"] \| B \ar[d, "\finv f"]  \ar[dr, "\id"]   \\
+                               \| A \ar[r, "f"'] \| B
+\endcd
+$$
 
 %%}}}
 
