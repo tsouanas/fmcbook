@@ -38800,7 +38800,280 @@ Como isso se compara com o~\ref[fixpoint_iff_iterations]?
 \endproblems
 %%}}}
 
-% INVERSE, JECTIONS, SHIFT
+% COPRODUCTS, INVERSE, JECTIONS, SHIFT
+
+%%{{{ Coproduct; disjoint union 
+\section Coproduto; união disjunta.
+%%%{{{ meta 
+\label Coproduct
+%%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Vamos voltar no~\ref[funion].
+(Se tu não resolveu ainda, volte a resolver agora, antes de continuar.)
+Definimos o $f \union g$ a partir de duas funcções $f$ e $g$ mas a
+situação não foi tão agradável como esperamos (cf.~$f \cross g$):
+necessitamos restrições adicionais.
+
+%%}}}
+
+%%{{{ Q: Whose fault is it? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Quem é o culpado?
+
+%%}}}
+
+\spoiler
+
+%%{{{ A: The union! 
+\note Resposta.
+%%%{{{ meta 
+%%%}}}
+
+A união!
+O conjunto que $\union$ construiu, ο $A\union B$, não é útil aqui.
+Nem se compara com o $A \cross B$, em questão de
+utilidade e elegância.
+Além disso---caso que os conjuntos são finitos por enquanto---%
+com o produto tivemos a lei bacana
+$$
+\align
+\card{A \cross B} &= \card A \ntimes \card B.
+\intertext{%
+A união não é tão legal, pois não consegue garantir igualdade
+mas apenas
+}
+\card{A \union B} &\leq \card A + \card B.
+\endalign
+$$
+Decepção de novo!
+Será que podemos descobrir um outro operador binário
+que comportaria numa maneira tão legal como o~$\cross$?
+
+%%}}}
+
+%%{{{ constructing the coproduct 
+\note Contruindo o coproduto.
+%%%{{{ meta 
+%%%}}}
+
+$$
+\tikzpicture
+\tikzi disjunion0;
+\endtikzpicture
+$$
+unindo:
+$$
+\tikzpicture
+\tikzi disjunion1;
+\endtikzpicture
+$$
+Em vez disso, vamos criar cópias $A',B'$ dos $A,B$ numa maneira
+que garanta que os $A',B'$ são disjuntos.
+Por exemplo, pintamos todos os membros de $A$ azuis e de $B$ vermelhos:\foot
+Leitores sem acesso nessas cores neste texto vão ficar confusos aqui;
+mas paciência pois uma definição formal tá chegando já já; uma que
+não necessita telas e impressoras (e olhos?)~chiques.
+\toof
+$$
+\tikzpicture
+\tikzi disjunion2;
+\endtikzpicture
+$$
+Os conjuntos agora são disjuntos
+(observe que $\aB 4 \neq \aR 4$ e $\aB5 \neq \aR 5$)
+então vamos simplesmente uni-los:
+$$
+\tikzpicture
+\tikzi disjunion3;
+\endtikzpicture
+$$
+e nesse caso vamos tomar $A \disjunion B \asseq A' \union B'$.
+Observe que esse processo descrito aqui garanta mesmo que
+\compute
+\card{A \disjunion B}
+&= \card{A' \union B'}      \by {def.~$A\disjunion B$} \\
+&= \card {A'} + \card {B'}  \by {$A',B'$ disjuntos} \\
+&= \card A + \card B.       \by {$\card A = \card A'$ e $\card B = \card B'$} \\
+\endcompute
+Parece então que conseguimos definir o operador de união disjunta.
+
+%%}}}
+
+%%{{{ the or one? 
+\note ``O'' ou ``um''?.
+%%%{{{ meta 
+%%%}}}
+
+A descripção acima envolve um passo bem ambiguo:
+a \emph{contruição das cópias} $A', B'$.
+Com certeza existem muitas maneiras diferentes de conseguir essas
+cópias e a gente so descreveu uma---inclusive nem formalmente, mas
+dá pra fazer (\ref[formal_equivalent_of_painting]).
+Precisamos escolher uma pra realmente definir nosso operador.
+
+%%}}}
+
+%%{{{ x: formal_equivalent_of_painting 
+\exercise.
+%%%{{{ meta 
+\label formal_equivalent_of_painting
+%%%}}}
+
+Ache algo matematicamente formal que podes usar em vez do informal
+<<pintar os membros do $A$ de azul e do $B$ de vermelho>>.
+
+\solution
+Em vez de cores, tagamos cada membro de $A$ com um $0$ e cada
+membro de $B$ com um $1$:
+$$
+\alignat2
+A' &\asseq \set{0} \cross A = \setst {(0,a)} {a \in A} &
+B' &\asseq \set{1} \cross B = \setst {(1,b)} {b \in B}.
+\endalignat
+$$
+
+%%}}}
+
+%%{{{ df: disjunion_aka_coproduct 
+\definition união disjunta ou coproduto.
+%%%{{{ meta 
+\label disjunion_aka_coproduct
+\defines
+    * ~A \coprod ~B     -- o coproduto de $A$ e $B$
+    * ~A \disjunion ~B  -- a união disjunta de $A$ e $B$
+    * coproduto
+    * união disjunta
+    ;;
+%%%}}}
+
+Sejam $A,B$ conjuntos.
+Definimos o \dterm{coproduto}
+$$
+A \coprod B \defeq \paren{\set{0} \cross A} \union \paren{\set{1} \cross B}.
+$$
+Generalizmos para qualquer família indexada $\famil A i {\cal I}$:
+$$
+\tsize\Coprod_i A_i \defeq \Union_i \paren{\set{i} \cross A_i}.
+$$
+Também usamos o termo \dterm{união disjunta};
+e a notações correspondente $A \dunion B$ para o caso binário;
+e a $\Dunion_i A_i$ para famílias.
+
+%%}}}
+
+%%{{{ remark: sum type notation teaser 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+No contexto de teoria dos tipos (\ref[Type_theory]) o tipo correspondente
+é chamado \dterm{sum type} e usamos as notações $A \plus B$ e $\Sum_i A_i$.
+
+%%}}}
+
+%%{{{ choosers_coproduct 
+\note Nível coração: escolhedores.
+%%%{{{ meta 
+\defines
+    * escolhedor!coproduto
+    ;;
+%%%}}}
+
+Seja $\famil A i {\cal I}$ família de conjuntos.
+Lembre-se que enxergamos (\reftag[choosers_product]) cada membro
+do produto $\Prod_i A_i$ como um escolhedor:
+ele escolhe exatamente um membro \emph{de cada $A_i$}.
+Podemos enxergar um membro do coproduto como um escolhedor
+também.
+Mas antes disso, vamos ver se podemos enxergar o arbitrário
+membro do $\Union_i A_i$ como escolhedor.
+Sim: o $a\in\Union_i A_i$ representa o escolhedor que escolha
+o $a$, entre todos os membros que pertencem a qualquer um dos $A_i$'s.
+No coproduto a situação é mais informativa e interessante:
+o arbitrário membro do $\Coprod_i A_i$ parece assim:
+$(j, a)$, onde $j\in\cal I$ e $a \in A_j$.
+Ou seja, parece uma escolha rotulada, que selecionou um membro do
+conjunto com seu rótulo e nada mais.
+Vamos comparar três escolhedores $P,C,U$ então:
+$$
+\xalignat3
+\vphantom{\Coprod_i}
+P &\tsize\in \Prod_i A_i &
+C &\tsize\in \Coprod_i A_i &
+U &\tsize\in \Union_i A_i.
+\endxalignat
+$$
+Podemos perguntar ao $P$:
+\dialogue
+\say Qual foi tua escolha para o $i\in\cal I$?
+\say Do $A_i$ escolhi o $u \in A_i$.
+\say E para o $j\in\cal I$?
+\say Do $A_j$ escolhi o $v \in A_j$.
+\say E para o $k\in\cal I$?
+\say Do $A_k$ escolhi o $w \in A_k$.
+\enddialogue
+etc., e vamos ter uma resposta para cada um dos $i$'s.
+Ao $C$ perguntamos:
+\dialogue
+\say Quem tu escolheu?
+\say Escolhi o $x$ por dentro do $w$-esimo: $x \in A_w$.
+\enddialogue
+E ao $U$ perguntamos:
+\dialogue
+\say Quem tu escolheu?
+\say Escolhi o $x$.
+\say Donde?
+\say Como assim?
+\say Onde tu achou esse $x$, em qual dos $A_i$'s?
+\say Sei-lá!  Foi num deles.  Não lembro.  Não quero dizer.
+\enddialogue
+
+%%}}}
+
+%%{{{ x: fpair_for_union_and_coprod 
+\exercise.
+%%%{{{ meta 
+\label fpair_for_union_and_coprod
+%%%}}}
+
+Imite a idéia da construcção do $\fpair f g$ (\ref[fpair]) que baseamos no
+$\cross$ para definir duas novas construcções parecidas:
+uma baseada no $\union$,
+e outra no $\coprod$.
+Qual das duas parece comportar melhor?
+(Nossa referência de comportamento aqui é a construcção baseada no $\cross$.)
+
+%%}}}
+
+%%{{{ x: product_vs_coproduct_diagrams 
+\exercise.
+%%%{{{ meta 
+\label product_vs_coproduct_diagrams
+%%%}}}
+
+O que tu percebes sobre os diagramas comutativos
+do $\cross$ (\ref[fpair]) e do $\coprod$ (que tu desenhou
+no~\ref[fpair_for_union_and_coprod])?
+
+\hint
+Olha nas setinhas.
+
+\solution
+Podemos obter um diagrama a partir do outro simplesmente
+trocando a direcção de cada uma das suas setas.
+
+%%}}}
+
+\endsection
+%%}}}
 
 %%{{{ Jections: injections, surjections, bijections 
 \section Jecções: injecções, sobrejecções, bijecções.
@@ -43118,279 +43391,6 @@ Collatz{\Collatz[conjectura]}~(\ref[collatz_conjecture]).
 Deixamos esse assunto por enquanto (até o~\ref[Theory_of_recursive_functions]),
 supondo que temos já um entendimento de como definições recursivas
 funccionam.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Coproduct; disjoint union 
-\section Coproduto; união disjunta.
-%%%{{{ meta 
-\label Coproduct
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Vamos voltar no~\ref[funion].
-(Se tu não resolveu ainda, volte a resolver agora, antes de continuar.)
-Definimos o $f \union g$ a partir de duas funcções $f$ e $g$ mas a
-situação não foi tão agradável como esperamos (cf.~$f \cross g$):
-necessitamos restrições adicionais.
-
-%%}}}
-
-%%{{{ Q: Whose fault is it? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-Quem é o culpado?
-
-%%}}}
-
-\spoiler
-
-%%{{{ A: The union! 
-\note Resposta.
-%%%{{{ meta 
-%%%}}}
-
-A união!
-O conjunto que $\union$ construiu, ο $A\union B$, não é útil aqui.
-Nem se compara com o $A \cross B$, em questão de
-utilidade e elegância.
-Além disso---caso que os conjuntos são finitos por enquanto---%
-com o produto tivemos a lei bacana
-$$
-\align
-\card{A \cross B} &= \card A \ntimes \card B.
-\intertext{%
-A união não é tão legal, pois não consegue garantir igualdade
-mas apenas
-}
-\card{A \union B} &\leq \card A + \card B.
-\endalign
-$$
-Decepção de novo!
-Será que podemos descobrir um outro operador binário
-que comportaria numa maneira tão legal como o~$\cross$?
-
-%%}}}
-
-%%{{{ constructing the coproduct 
-\note Contruindo o coproduto.
-%%%{{{ meta 
-%%%}}}
-
-$$
-\tikzpicture
-\tikzi disjunion0;
-\endtikzpicture
-$$
-unindo:
-$$
-\tikzpicture
-\tikzi disjunion1;
-\endtikzpicture
-$$
-Em vez disso, vamos criar cópias $A',B'$ dos $A,B$ numa maneira
-que garanta que os $A',B'$ são disjuntos.
-Por exemplo, pintamos todos os membros de $A$ azuis e de $B$ vermelhos:\foot
-Leitores sem acesso nessas cores neste texto vão ficar confusos aqui;
-mas paciência pois uma definição formal tá chegando já já; uma que
-não necessita telas e impressoras (e olhos?)~chiques.
-\toof
-$$
-\tikzpicture
-\tikzi disjunion2;
-\endtikzpicture
-$$
-Os conjuntos agora são disjuntos
-(observe que $\aB 4 \neq \aR 4$ e $\aB5 \neq \aR 5$)
-então vamos simplesmente uni-los:
-$$
-\tikzpicture
-\tikzi disjunion3;
-\endtikzpicture
-$$
-e nesse caso vamos tomar $A \disjunion B \asseq A' \union B'$.
-Observe que esse processo descrito aqui garanta mesmo que
-\compute
-\card{A \disjunion B}
-&= \card{A' \union B'}      \by {def.~$A\disjunion B$} \\
-&= \card {A'} + \card {B'}  \by {$A',B'$ disjuntos} \\
-&= \card A + \card B.       \by {$\card A = \card A'$ e $\card B = \card B'$} \\
-\endcompute
-Parece então que conseguimos definir o operador de união disjunta.
-
-%%}}}
-
-%%{{{ the or one? 
-\note ``O'' ou ``um''?.
-%%%{{{ meta 
-%%%}}}
-
-A descripção acima envolve um passo bem ambiguo:
-a \emph{contruição das cópias} $A', B'$.
-Com certeza existem muitas maneiras diferentes de conseguir essas
-cópias e a gente so descreveu uma---inclusive nem formalmente, mas
-dá pra fazer (\ref[formal_equivalent_of_painting]).
-Precisamos escolher uma pra realmente definir nosso operador.
-
-%%}}}
-
-%%{{{ x: formal_equivalent_of_painting 
-\exercise.
-%%%{{{ meta 
-\label formal_equivalent_of_painting
-%%%}}}
-
-Ache algo matematicamente formal que podes usar em vez do informal
-<<pintar os membros do $A$ de azul e do $B$ de vermelho>>.
-
-\solution
-Em vez de cores, tagamos cada membro de $A$ com um $0$ e cada
-membro de $B$ com um $1$:
-$$
-\alignat2
-A' &\asseq \set{0} \cross A = \setst {(0,a)} {a \in A} &
-B' &\asseq \set{1} \cross B = \setst {(1,b)} {b \in B}.
-\endalignat
-$$
-
-%%}}}
-
-%%{{{ df: disjunion_aka_coproduct 
-\definition união disjunta ou coproduto.
-%%%{{{ meta 
-\label disjunion_aka_coproduct
-\defines
-    * ~A \coprod ~B     -- o coproduto de $A$ e $B$
-    * ~A \disjunion ~B  -- a união disjunta de $A$ e $B$
-    * coproduto
-    * união disjunta
-    ;;
-%%%}}}
-
-Sejam $A,B$ conjuntos.
-Definimos o \dterm{coproduto}
-$$
-A \coprod B \defeq \paren{\set{0} \cross A} \union \paren{\set{1} \cross B}.
-$$
-Generalizmos para qualquer família indexada $\famil A i {\cal I}$:
-$$
-\tsize\Coprod_i A_i \defeq \Union_i \paren{\set{i} \cross A_i}.
-$$
-Também usamos o termo \dterm{união disjunta};
-e a notações correspondente $A \dunion B$ para o caso binário;
-e a $\Dunion_i A_i$ para famílias.
-
-%%}}}
-
-%%{{{ remark: sum type notation teaser 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-No contexto de teoria dos tipos (\ref[Type_theory]) o tipo correspondente
-é chamado \dterm{sum type} e usamos as notações $A \plus B$ e $\Sum_i A_i$.
-
-%%}}}
-
-%%{{{ choosers_coproduct 
-\note Nível coração: escolhedores.
-%%%{{{ meta 
-\defines
-    * escolhedor!coproduto
-    ;;
-%%%}}}
-
-Seja $\famil A i {\cal I}$ família de conjuntos.
-Lembre-se que enxergamos (\reftag[choosers_product]) cada membro
-do produto $\Prod_i A_i$ como um escolhedor:
-ele escolhe exatamente um membro \emph{de cada $A_i$}.
-Podemos enxergar um membro do coproduto como um escolhedor
-também.
-Mas antes disso, vamos ver se podemos enxergar o arbitrário
-membro do $\Union_i A_i$ como escolhedor.
-Sim: o $a\in\Union_i A_i$ representa o escolhedor que escolha
-o $a$, entre todos os membros que pertencem a qualquer um dos $A_i$'s.
-No coproduto a situação é mais informativa e interessante:
-o arbitrário membro do $\Coprod_i A_i$ parece assim:
-$(j, a)$, onde $j\in\cal I$ e $a \in A_j$.
-Ou seja, parece uma escolha rotulada, que selecionou um membro do
-conjunto com seu rótulo e nada mais.
-Vamos comparar três escolhedores $P,C,U$ então:
-$$
-\xalignat3
-\vphantom{\Coprod_i}
-P &\tsize\in \Prod_i A_i &
-C &\tsize\in \Coprod_i A_i &
-U &\tsize\in \Union_i A_i.
-\endxalignat
-$$
-Podemos perguntar ao $P$:
-\dialogue
-\say Qual foi tua escolha para o $i\in\cal I$?
-\say Do $A_i$ escolhi o $u \in A_i$.
-\say E para o $j\in\cal I$?
-\say Do $A_j$ escolhi o $v \in A_j$.
-\say E para o $k\in\cal I$?
-\say Do $A_k$ escolhi o $w \in A_k$.
-\enddialogue
-etc., e vamos ter uma resposta para cada um dos $i$'s.
-Ao $C$ perguntamos:
-\dialogue
-\say Quem tu escolheu?
-\say Escolhi o $x$ por dentro do $w$-esimo: $x \in A_w$.
-\enddialogue
-E ao $U$ perguntamos:
-\dialogue
-\say Quem tu escolheu?
-\say Escolhi o $x$.
-\say Donde?
-\say Como assim?
-\say Onde tu achou esse $x$, em qual dos $A_i$'s?
-\say Sei-lá!  Foi num deles.  Não lembro.  Não quero dizer.
-\enddialogue
-
-%%}}}
-
-%%{{{ x: fpair_for_union_and_coprod 
-\exercise.
-%%%{{{ meta 
-\label fpair_for_union_and_coprod
-%%%}}}
-
-Imite a idéia da construcção do $\fpair f g$ (\ref[fpair]) que baseamos no
-$\cross$ para definir duas novas construcções parecidas:
-uma baseada no $\union$,
-e outra no $\coprod$.
-Qual das duas parece comportar melhor?
-(Nossa referência de comportamento aqui é a construcção baseada no $\cross$.)
-
-%%}}}
-
-%%{{{ x: product_vs_coproduct_diagrams 
-\exercise.
-%%%{{{ meta 
-\label product_vs_coproduct_diagrams
-%%%}}}
-
-O que tu percebes sobre os diagramas comutativos
-do $\cross$ (\ref[fpair]) e do $\coprod$ (que tu desenhou
-no~\ref[fpair_for_union_and_coprod])?
-
-\hint
-Olha nas setinhas.
-
-\solution
-Podemos obter um diagrama a partir do outro simplesmente
-trocando a direcção de cada uma das suas setas.
 
 %%}}}
 
