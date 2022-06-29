@@ -1907,7 +1907,7 @@ fora as variáveis que não foram usadas; e a \sq{$p$} foi usada sim.
 %%%}}}
 
 Vamos encontrar e estudar vários tipos de números:
-naturais (\ref[Nat_rec_ind]), inteiros (\ref[The_integers]),
+naturais (\ref[Rec_ind]), inteiros (\ref[The_integers]),
 racionais (\ref[Galois_theory]), reais (\ref[The_reals]), \dots
 Além disso, nos capítulos~\reftag[Cantors_paradise]
 e~\reftag[Axiomatic_set_theory] vamos estudar bastante todos esses
@@ -2900,7 +2900,7 @@ Nem cálculos com números.
 Números.
 Quais números?
 Todos os números \emph{naturais} (veja~\reftag[Types_of_numbers]),
-cuja totalidade simbolizamos com $\nats$ e deixamos seu estudo para o \ref[Nat_rec_ind].
+cuja totalidade simbolizamos com $\nats$ e deixamos seu estudo para o \ref[Rec_ind].
 
 %%}}}
 
@@ -3435,7 +3435,7 @@ mesmo: \emph{caso que aparece no lado esquerdo de alguma das
 regras da nossa gramática, é para ser substituido}.
 Aqui um exemplo duma gramática escrita nesse jeito que define
 uma linguagem importantíssima que vamos amar bastante,
-logo no~\ref[Nat_rec_ind]:
+logo no~\ref[Rec_ind]:
 
 %%}}}
 
@@ -3461,7 +3461,7 @@ Quais são umas das palavras que podes gerar com a~\ref[Nat_grammar]?
 Podes pensar de algum uso para essa linguagem?
 
 \solution
-\ref[Nat_rec_ind].
+\ref[Rec_ind].
 
 %%}}}
 
@@ -4064,7 +4064,7 @@ Considero que o leitor já tem uma idéia básica sobre o significado de cada um
 dessas frases, e também considero que provavelmente tem uns mal-entendidos também,
 e logo não precisa se preocupar agora com seu significado.
 Analizamos cada um deles logo no~\ref[Proofs] (e aprofundamos ainda mais nos
-\reftag[Mathematical_logic], \reftag[Proof_theory], \reftag[Intuitionistic_logic]).
+\reftag[Mathematical_logic] e \reftag[Proof_theory]).
 Agora quero discutir só a sintaxe: \emph{como definir uma linguagem cujo
 objetivo é representar esse tipo de proposições}.
 
@@ -4349,7 +4349,7 @@ de \emph{definir formalmente uma semântica}
 para essa linguagem.
 Essa tarefa vai nos preocupar nos capítulos
 \reftag[Mathematical_logic], \reftag[Denotational_semantics],
-\reftag[Intuitionistic_logic], \reftag[Proof_theory].
+\reftag[Proof_theory].
 Por enquanto, deixe pra lá!
 
 %%}}}
@@ -14923,10 +14923,10 @@ mais, veja no \cite[taocp2: \S4.1].
 \endchapter
 %%}}}
 
-%%{{{ chapter: Nat_rec_ind 
-\chapter Naturais; recursão; indução.
+%%{{{ chapter: Rec_ind 
+\chapter Recursão; indução.
 %%%{{{ meta 
-\label Nat_rec_ind
+\label Rec_ind
 %%%}}}
 
 \TODO finish merging.
@@ -14937,7 +14937,7 @@ Vou começar definindo formalmente os naturais.
 Na verdade, não vou definir os próprios números naturais.
 Não: os \emph{números} estão lá nas núvens do nosso coração.
 Não vamos nos preocupar com a questão <<o que \emph{é} o número cinco?>>.
-Vamos começar definindo uns \emph{numerais}, que vou chamá-los de Nats,
+Vamos começar definindo uns \emph{numerais}, que vou chamá-los de \dterm{Nats},
 e a gente vai estudá-los e ver o que podemos definir, calcular, e demonstrar
 sobre eles.
 %%}}}
@@ -17309,6 +17309,810 @@ Na verdade, $\leq$ é ainda mais legal: olhe no~\ref[natleq_woset].
 \endsection
 %%}}}
 
+%%{{{ From low to high level 
+\section De ``low level'' para ``high level''.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Ninguém merece ficar escrevendo tudo sobre os naturais
+nessa forma ``low level'' que temos usado neste capítulo.
+Queremos escrever \symqq{$4$} em vez de \symqq{$SSSS0$}.
+e \symqq{$n+1$} em vez de \symqq{$Sn$}.
+
+%%}}}
+
+\TODO finish this.
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ prob: tetration 
+\problem.
+%%%{{{ meta 
+\label tetration
+\defines
+    * tetração
+    ;;
+%%%}}}
+
+Definimos as operações binárias de adição, multiplicação, e exponenciação no $\Nat$.
+Descubra um ``padrão'' nas definições dessas operações, e defina a próxima operação, \dterm{tetração}, nessa seqüência de operações.
+
+%%}}}
+
+%%{{{ prob: products_in_disguise 
+\problem.
+%%%{{{ meta 
+\label products_in_disguise
+%%%}}}
+
+Seja $h : \nats\to\nats$.
+Defina recursivamente as funcções $t : \nats \to \nats$ e $T : \nats^2 \to \nats$ que satisfazem:
+$$
+\align
+t(n)   &= h(0)h(1)\dotsb h(n-1)     = \Prod\limits_{i=0}^{n-1} h(i);\\
+T(m,n) &= h(m)h(m+1)\dotsb h(m+n-1) = \Prod\limits_{i=m}^{m+n-1} h(i).
+\endalign
+$$
+
+\hint
+Depois de definir confira tuas definições seguindo elas para calcular uns valores.
+Por exemplo, $t(2)$ e $T(5,2)$ devem dar os resultados
+$$
+\xalignat2
+t(2) &= h(0)h(1)
+&
+T(5,2) &= h(5)h(6).
+\endxalignat
+$$
+
+\hint
+Mesmo que a funcção $T$ tem aridade 2, escolhendo bem,
+tu não precisarás escrever 4 equações, mas apenas 2.
+
+\solution
+Definimos
+$$
+\xalignat2
+t      &\eqtype \nats\to\nats   &  T        &\eqtype \nats^2\to\reals\\
+t(0)   &= 1                     &  T(m,0)   &= 1                     \\
+t(n+1) &= h(n) \ntimes t(n)     &  T(m,k+1) &= h(m+k) \ntimes T(m,k).  
+\endxalignat
+$$
+Tendo definido primeiro a $T$, podemos definir a $t$ assim:
+$$
+t(n) = T(0,n).
+$$
+
+%%}}}
+
+%%{{{ prob: victors_mistake 
+\problem.
+%%%{{{ meta 
+\label victors_mistake
+%%%}}}
+
+Tentando resolver o~\ref[products_in_disguise],
+% STUDENT: Victor
+um aluno definiu corretamente a $t$ e depois a usou
+na sua definição de $T$, assim:
+$$
+T(m,n) = {t(m+n)}/{t(m)}.
+$$
+Qual o problema com essa definição?
+(Suponha como conhecida uma definição recursiva da
+operação $/$ de divisão inteira.)
+
+\hint
+Qual é o contradomínio da $h$?
+
+\hint
+$0\in\nats$.
+
+\hint
+O que acontece se $h(i) = 0$ para algum $i \in \nats$?
+
+\solution
+Se $h(i) = 0$ para algum $i \in \nats$,
+o $t(j)=0$ para todo $j>i$.
+Assim, a expressão
+${t(m+n)}/{t(m)}$ não é definida para qualquer $m>i$.
+Observe que a solução seria certa se
+o contradomínio da $h$ fosse o $\nats\setminus\set0$.
+
+%%}}}
+
+%%{{{ prob: every_finite_set_of_reals_has_min_and_max 
+\problem.
+%%%{{{ meta 
+\label every_finite_set_of_reals_has_min_and_max
+%%%}}}
+
+Cada conjunto finito e não vazio $A\subset\reals$ possui
+elemento mínimo $\min A$ e máximo $\max A$.
+
+\hint
+Indução no número de elementos do $A$.
+
+%%}}}
+
+%%{{{ prob: triminos 
+\problem Triminôs.
+%%%{{{ meta 
+\label triminos
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ prob: induction_iff_strong_induction 
+\problem.
+%%%{{{ meta 
+\label induction_iff_strong_induction
+\indexes
+    * PIFF
+    * PIF
+    ;;
+%%%}}}
+
+$\text{PIF} \iff \text{PIFF}$.
+
+%%}}}
+
+%%{{{ prob: where_is_the_base_of_strong_induction 
+\problem Cadê a base da indução forte?.
+%%%{{{ meta 
+\label where_is_the_base_of_strong_induction
+%%%}}}
+
+Seguindo o teorema acima, parece que não precisamos demonstrar uma ``base''
+na indução forte.
+Critique a seguinte afirmação:
+\quote
+Quando quero demonstrar um teorema da forma
+$\lforall n {\phi(n)}$
+usando indução, eu preciso demostrar uma(s) base(s)
+$\phi(0), \phi(1), \dotsc, \phi(b)$
+e depois demonstrar o $\phi(k+1)$,
+dado apenas umas $b+1$ hipoteses:
+$\phi(k), \phi(k-1), \dotsc, \phi(k-b)$.
+Por outro lado, usando indução forte eu preciso mostrar menos
+coisas: não tenho que mostrar nenhuma base;
+e, além disso, no meu esforço para demonstrar o $\phi(k+1)$,
+eu não vou ter apenas umas poucas hipoteses, mas
+todos os $\phi(i)$ para $i<k+1$.
+Como os dois princípios são válidos no $\nats$,
+eu vou sempre usar indução forte.
+\endquote
+
+\hint
+Quantos $i\in\nats$ satisfazem $i < 0$?
+
+%%}}}
+
+%%{{{ prob: ackermann_function 
+\problem.
+%%%{{{ meta 
+\label ackermann_function
+%%%}}}
+
+Considere a funcção recursiva $\alpha : \nats^2 \to \nats$ definida pelas equações:
+$$
+\align
+\alpha(0,x)     &= x+1                      \tag{K1}\\
+\alpha(n+1,0)   &= \alpha(n,1)              \tag{K2}\\
+\alpha(n+1,x+1) &= \alpha(n,\alpha(n+1, x)) \tag{K3}  
+\endalign
+$$
+\tlist:
+\li (i):   Calcule o valor $\alpha(3,2)$, indicando para cada passo qual equação foi usada.
+\li (ii):  Demonstre que para todo $x\in\nats$, $\alpha(1,x) = x + 2$.
+\li (iii): Demonstre que para todo $x\in\nats$, $\alpha(2,x) = 2x + 3$.
+\endtlist
+A funcção $\alpha$ é conhecida como funcção de {\Ackermann}Ackermann,
+e vamos encontrá-la novamente bem depois, no~\ref[Theory_of_recursive_functions].
+
+%%}}}
+
+%%{{{ prob: quot_rem_eq_prob 
+\problem.
+%%%{{{ meta 
+\label quot_rem_eq_prob
+%%%}}}
+
+Considere as funcções $q$, $r$, e $t$ definidas recursivamente:
+$$
+\xalignat3
+q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
+q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
+q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
+q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
+q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
+\endxalignat
+$$
+O que cada funcção calcula?
+
+\hint
+Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
+
+\solution
+Temos:
+\tlist:
+\li: $q(n) = \floor{n / 3}$.
+\li: O $r(n)$ é o resto da divisão do $n$ por $3$.
+\li: A $t$ decida se suas entradas são iguais ou não.
+\endtlist
+
+%%}}}
+
+%%{{{ prob: horses_and_birthdays 
+\problem Cavalos e aniversários.
+%%%{{{ meta 
+\label horses_and_birthdays
+%%%}}}
+
+Vamos demonstrar o seguinte:
+\quote
+<<Para todo $n$ natural, em qualquer conjunto de $n$ pessoas, só tem pessoas com o mesmo dia de aniversário.>>
+\endquote
+\proofstylize{Suposta demonstração.}
+\quote\it
+<<Por indução no $n$.
+\crproofpart{Base.}
+Trivial: em qualquer conjunto de $0$ pessoas, só tem pessoas com o mesmo aniversário, pois não tem nenhuma pessoa e logo não tem como achar pessoas de aniversários diferentes.
+\crproofpart{Passo indutivo.}
+Seja $k$ natural tal que \emph{em qualquer conjunto de $k$ pessoas, só tem pessoas com o mesmo dia de aniversário}.
+Seja $A$ conjunto de $k+1$ pessoas:
+$$
+A = \set{ p_0, p_1, \dotsc, p_{k-1}, p_k }.
+$$
+Considere os conjunto
+$$
+\align
+A'  &= \set{ p_0, p_1, \dotsc, p_{k-1} } \\
+A'' &= \set{      p_1, \dotsc, p_{k-1}, p_k }.
+\endalign
+$$
+Ambos os $A', A''$ têm $k$ pessoas, e logo pela hipótese indutiva todos os membros de $A'$ têm o mesmo aniversário entre si; e também todos os membros de $A''$ têm o mesmo aniversário entre si.
+Como a pessoa $p_1$ está no $A'$, todos os membros de $A'$ têm o mesmo aniversário com o $p_1$.
+Mas a pessoa $p_1$ também etsá no $A''$, e logo todos os membros de $A''$ têm o mesmo aniversário com o $p_1$.
+Ou seja:
+todos os $p_0, p_1, \dotsc, p_{k-1}, p_k$ têm aniversario no mesmo dia.>>
+\endquote
+Numa maneira parecida podemos demonstrar várias afirmações doidas, como por exemplo a seguinte:
+\quote
+<<Para todo $n$ natural, em qualquer conjunto de $n$ cavalos, só tem cavalos da mesma cor.>>
+\endquote
+Obviamente o que ``demonstramos'' é errado, e logo na demonstração existe pelo menos um erro---%
+caso contrário seria uma indicação que o princípio da indução não é válido!
+Qual é?
+
+%%}}}
+
+%%{{{ prob: consecutive_fibs_are_coprime 
+\problem.
+%%%{{{ meta 
+\label consecutive_fibs_are_coprime
+\indexes
+    * Fibonacci!seqüência
+    ;;
+%%%}}}
+
+Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
+onde $F_n$ é o $n$-ésimo termo da seqüência
+Fibonacci~(\ref[fibonacci]).
+
+\hint
+Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
+
+\solution
+Vamos demonstrar o pedido por indução.
+A base
+$$
+\gcd {F_0} {F_1} = \gcd 0 1 = 1.
+$$
+Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
+Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
+Calculando,
+\compute
+\gcd {F_{k+1}} {F_{k+2}}
+    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
+    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
+    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
+    &= 1.                               \by {pela hipótese indutiva} \\
+\endcompute
+
+%%}}}
+
+\endproblems
+%%}}}
+
+%% CURRENT WORK
+
+%%{{{ Bool_type 
+\section Os Bools.
+%%%{{{ meta 
+\label Bool_type
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Internalization of relations 
+\section Internalização.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ natleq_rec_def 
+\definition Ordem.
+%%%{{{ meta 
+\label natleq_rec_def
+%%%}}}
+
+Com que temos já definido podemos definir recursivamente
+uma \emph{relação} no $\nats$.  A relação de ordem $\preceq$:
+$$
+\align
+0  \preceq m  &\iff \True      \tag{LE1}\\
+Sn \preceq 0  &\iff \False     \tag{LE2}\\
+Sn \preceq Sm &\iff n \preceq m   \tag{LE3}
+\endalign
+$$
+
+%%}}}
+
+%%{{{ eg: two_leq_four_but_four_notleq_two 
+\example.
+%%%{{{ meta 
+\label two_leq_four_but_four_notleq_two
+%%%}}}
+
+Ache se $SS0 \preceq SSSS0$ e se $SSSS0 \preceq SS0$.
+
+\solution.
+Calculamos:
+\compute
+SS0 \preceq SSSS0
+&\iff S0 \preceq SSS0  \by {por (LE3)} \\
+&\iff 0  \preceq SS0   \by {por (LE3)} \\
+&\iff \True         \by {por (LE1)} \\
+\endcompute
+ou seja, realmente $SS0 \preceq SSSS0$.
+No outro lado, calculamos
+\compute
+SSSS0 \preceq SS0
+&\iff SSS0 \preceq S0  \by {por (LE3)} \\
+&\iff SS0  \preceq 0   \by {por (LE3)} \\
+&\iff \False        \by {por (LE2)} \\
+\endcompute
+ou seja, $SSSS0 \not\preceq SS0$.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Podemos demonstrar que $\preceq$ é uma ordem linear,
+demonstrando cada uma das propriedades como fizemos sobre a
+$\leq$ nos exercícios
+(\reftag[natleq_refl],
+\reftag[natleq_antisym],
+\reftag[natleq_trans],
+\reftag[natleq_total])
+mas uma maneira melhor que vai nos permitir ganhar
+muitos mais resultados de graça é demonstrar que $\leq$
+e $\preceq$ são na verdade a mesma relação.
+Ou seja, as definições~\reftag[natleq]
+e~\reftag[natleq_rec_def] são equivalentes.
+Tu demonstrarás isso no~\ref[rec_and_nonrec_def_of_order_agree].
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ ListNat_type 
+\section As ListNats.
+%%%{{{ meta 
+\label ListNat_type
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ ListNat_induction 
+\section Indução no ListNat.
+%%%{{{ meta 
+\label ListNat_induction
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Polymorphic_types 
+\section Tipos polimórficos.
+%%%{{{ meta 
+\label Polymorphic_types
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ List_types 
+\section Tipos de listas.
+%%%{{{ meta 
+\label List_types
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Structural_induction 
+\section Indução estrutural.
+%%%{{{ meta 
+\label Structural_induction
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Tree_types 
+\section Tipos de arvores.
+%%%{{{ meta 
+\label Tree_types
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Exp_types 
+\section Tipos de expressões.
+%%%{{{ meta 
+\label Exp_types
+%%%}}}
+
+\endsection
+%%}}}
+
+%% LEFTOVERS TO BE TIDIED UP
+
+%%{{{ When_one_base_is_not_enough 
+\section Quando uma base não é suficiente.
+%%%{{{ meta 
+\label When_one_base_is_not_enough
+%%%}}}
+
+%%{{{ df: fibonacci 
+\definition Os números Fibonacci.
+%%%{{{ meta 
+\label fibonacci
+\defines
+    * Fibonacci!números
+    ;;
+\credits
+    * Fibonacci : números
+    ;;
+%%%}}}
+
+Definimos os \dterm{números Fibonacci} recursivamente assim:
+$$
+\align
+    F_0     &= 0 \\
+    F_1     &= 1 \\
+    F_{n+2} &= F_{n+1} + F_n.
+\endalign
+$$
+
+%%}}}
+
+\TODO Computando seus valores.
+
+%%{{{ x: lucas 
+\exercise Os números Lucas.
+%%%{{{ meta 
+\label lucas
+\defines
+    * Lucas!números
+    ;;
+\indexes
+    * Lucas!números     seealso: Fibonacci
+    ;;
+\credits
+    * Lucas : números
+    ;;
+%%%}}}
+
+Os \dterm{números Lucas} são definidos similarmente:
+$$
+\align
+L_0     &= 2\\
+L_1     &= 1\\
+L_{n+2} &= L_{n+1} + L_n.
+\endalign
+$$
+Calcule o valor $L_{12}$.
+
+%%}}}
+
+%%{{{ prop: lucas_altdef_first_attempt 
+\proposition.
+%%%{{{ meta 
+\label lucas_altdef_first_attempt
+\indexes
+    * Fibonacci
+    ;;
+%%%}}}
+
+Para todo inteiro $n \geq 1$,
+seja $\ell : \nats\setminus\set0\to\nats$ a funcção definida pela equação
+$$
+    \ell(n) = F_{n-1} + F_{n+1},
+$$
+onde $F_n$ é o $n$-ésimo número {\Fibonacci}Fibonacci (veja~\ref[fibonacci]).
+Queremos mostrar que para todo $n \geq 1$, $L_n = \ell(n)$,
+onde $L_n$ é o $n$-ésimo número {\Lucas}Lucas (veja~\ref[lucas]).
+
+\wrongproof.
+Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
+Vamos primeiramente verificar que para $n=1$, realmente temos $L_n = \ell(n)$:
+\compute
+\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
+        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
+        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
+        &= 1              \\
+        &= L_1.           \by {def.~de $L_n$} \\
+\intertext{Seja $k\in\nats$ com $k\geq 2$, tal que $L_{k-1} = \ell(k-1)$.
+Realmente temos}
+L_k
+&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
+&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
+&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$} \\
+&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
+&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$} \\
+&= \ell(k).                                 \by {def.~de $\ell(n)$} \\
+\endcompute
+que termina nossa prova.
+
+%%}}}
+
+%%{{{ x: lucas_altdef_find_error 
+\exercise.
+%%%{{{ meta 
+\label lucas_altdef_find_error
+%%%}}}
+
+Na prova acima roubamos.
+Ache onde e explique como, e pense numa solução.
+
+%%}}}
+
+%%{{{ lucas_altdef_final 
+\proposition.
+%%%{{{ meta 
+\label lucas_altdef_final
+%%%}}}
+
+Com a notação da~\ref[lucas_altdef_first_attempt],
+para todo $n\geq 1$, $\ell(n) = L_n$.
+
+\proof.
+Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
+Vamos primeiramente verificar que para $n=1$ e $n=2$, realmente temos $L_n = \ell(n)$.
+Para $n=1$:
+\compute
+\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
+        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
+        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
+        &= 1              \\
+        &= L_1.           \by {def.~de $L_n$} \\
+\endcompute
+E para $n=2$:
+$$
+\xalignat2
+\computed {
+      L_2 &= L_1 + L_0  \by {def.~de $L_n$} \\
+          &= 1 + 2      \by {def.~de $L_n$} \\
+          &= 3          
+}
+&&
+\computed {
+\ell(2) &= F_1 + F_3          \by {def.~de $\ell(n)$} \\
+        &= 1 + F_2 + F_1      \by {def.~de $F_n$} \\
+        &= 1 + 1 + 1          \\
+        &= 3.
+}
+&
+\endxalignat
+$$
+Seja $k\in\nats$ com $k\geq 3$ tal que
+$$
+L_{k-1} = \ell(k-1)
+\qquad
+\text{e}
+\qquad
+L_{k-2} = \ell(k-2)
+$$
+(nossas \emph{duas} hipoteses indutivas).
+Vamos demonstrar que $L_k = \ell(k)$.
+Realmente temos
+\compute
+L_k
+&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
+&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
+&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$, $k\geq3$} \\
+&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
+&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$, $k\geq3$} \\
+&= \ell(k),                                 \by {def.~de $\ell(n)$} \\
+\endcompute
+que termina nossa prova.
+
+%%}}}
+
+%%{{{ x: new_proof_of_sum_of_threes_and_fives_with_three_bases 
+\exercise.
+%%%{{{ meta 
+\label new_proof_of_sum_of_threes_and_fives_with_three_bases
+%%%}}}
+
+Ache uma nova prova do~\ref[sum_of_threes_and_fives] por indução
+com três bases.
+
+\hint
+$k = (k-3) + 3$.
+
+\solution
+Seja $k\geq 8 + 3 = 11$ tal que $k-1$, $k-2$, e $k-3$
+podem ser escritos como somatórios de $3$'s e $5$'s (H.I.).
+Temos
+\compute
+k &= (k-3) + 3      \\
+  &= (3x + 5y) + 3  \quad\text{para alguns $x,y\in\nats$} \by {pela H.I.} \\
+  &= 3(x+1) + 5y.
+\endcompute
+Como precisamos a veracidade da proposição para o valor $k-3$,
+devemos mostrar as $3$ bases, para os inteiros $8$, $9$, e $10$:
+$$
+\alignat 2
+8  &= 3 + 5     &&= 3\ntimes 1 + 5\ntimes 1\\
+9  &= 3 + 3 + 3 &&= 3\ntimes 3 + 5\ntimes 0\\
+10 &= 5 + 5     &&= 3\ntimes 0 + 5\ntimes 2.
+\endalignat
+$$
+
+%%}}}
+
+%%{{{ two_ways_to_organize_inductive_step 
+\note Duas maneiras de organizar tua demonstração.
+%%%{{{ meta 
+\label two_ways_to_organize_inductive_step
+%%%}}}
+
+Ok, vamos supor que tu tá tentando demonstrar algo da forma
+$$
+\lforall {n \in \nats} {\phi(n)}
+$$
+por indução, e que tu decidiu usar duas bases
+(obviamente a $\phi(0)$ e a $\phi(1)$).
+Como seria teu passo indutivo?
+Tem duas maneiras boas para proceder agora:
+\crproofalt{Maneira 1:}
+<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k-2)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k)$.>>
+Nessa maneira, preciso tomar cuidado que nenhum inteiro menor que $k-2$ aparece
+em algum canto errado, pois não sei nada sobre eles; até pior pode ser
+que aparecem objetos que nem são definidos.
+\crproofalt{Maneira 2:}
+<<Seja $k\in\nats$ tal que $\phi(k)$\fact{H.I.1} e $\phi(k+1)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k+2)$.>>
+E agora preciso tomar o mesmo cuidado, só que agora com inteiros
+menores que~$k$.
+\eop
+\emph{Ambas as maneiras são corretas} e bem escritas e bem entendíveis
+e tudo mais---e dá pra variar também, não são
+únicas~(\ref[third_way_to_organize_inductive_step]).
+Qual vamos escolher?  Depende de gosto e às vezes do contexto também.
+Na maioria das vezes eu vou favorecer a primeira:
+meus olhos gostam da associação dos ``(H.I.$i$)'' com os $\phi(k-i)$.
+Na mesma linha de pensar, na segunda maneira as hipoteses indutivas são as
+$\phi(k)$ e $\phi(k+1)$, e o alvo seria o $\phi(k+2)$;
+então a (H.I.2) parece mais com o alvo do que com a (H.I.1).
+Ou seja: \emph{nos meus olhos}, os dados e o alvo ficam mais arrumados
+na maneira 1.
+Mas como falei: ambas corretas; questão de gosto; então consulte teus
+próprios olhos.
+
+%%}}}
+
+%%{{{ x: third_way_to_organize_inductive_step 
+\exercise.
+%%%{{{ meta 
+\label third_way_to_organize_inductive_step
+%%%}}}
+
+Qual seria a terceira ``óbvia'' maneira?
+Com que inteiros tem que tomar cuidado se escolhê-la?
+
+\solution
+<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k+1)$.>>
+Nessa maneira, preciso tomar cuidado com inteiros menores de $k-1$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Many variables 
+\section Muitas variáveis.
+%%%{{{ meta 
+%%%}}}
+
+%TODO explain that it's just one more tool to attack theorems
+%TODO XXX Maybe refer to a weaker result from "irrationality"?
+
+%%{{{ lemma: odd_to_any_power_is_odd 
+\lemma.
+%%%{{{ meta 
+\label odd_to_any_power_is_odd
+%%%}}}
+
+Para todo $n\in\nats$, e todo ímpar $k\in\ints$, $k^n$ é ímpar.
+
+\proof.
+Seja $k\in\ints$ ímpar, então $k=2a+1$ para um $a\in\ints$.\foot
+Aqui consideramos a seguinte definição de ``ímpar'':
+\emph{um inteiro $n$ é \dterm{ímpar} sse existe inteiro $k$ tal que $n = 2k+1$.}
+\toof
+Vamos demonstrar por indução que para todo $n\in\nats$, $k^n$ é ímpar.
+Se $n=0$, imediatamente $k^0 = 1$ e é ímpar ($1 = 2\ntimes 0 + 1$).
+Suponha que para algum $t\in\nats$, $k^t$ é ímpar, ou seja $k^t = 2b+1$ para um $b\in\ints$.
+Falta demonstrar que $k^{t+1}$ também é ímpar.
+Calculando,
+\compute
+k^{t+1}
+&= k k^t               \by {definição de exponenciação} \\
+&= (2a + 1) (2b + 1)   \by {hipoteses} \\
+&= 4ab + 2a + 2b + 1   \\
+&= 2(2ab + a + b) + 1.
+\endcompute
+Logo, como $2ab + a + b\in\ints$, $k^{t+1}$ é ímpar.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+No \ref[odd_to_any_power_is_odd_oneliner] tu demonstrarás esse
+lemma numa linha só!
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Sums and products, formally 
 \section Somatórios e produtórios formalmente.
 %%%{{{ meta 
@@ -17802,651 +18606,6 @@ que voltaremos estudar mais na~\ref[Structural_recursion_and_induction].
 \endsection
 %%}}}
 
-%%{{{ From low to high level 
-\section De ``low level'' para ``high level''.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Ninguém merece ficar escrevendo tudo sobre os naturais
-nessa forma ``low level'' que temos usado neste capítulo.
-Queremos escrever \symqq{$4$} em vez de \symqq{$SSSS0$}.
-e \symqq{$n+1$} em vez de \symqq{$Sn$}.
-
-%%}}}
-
-\TODO finish this.
-
-\endsection
-%%}}}
-
-%%{{{ PROBLEMS INTERMISSION 
-\problems Intervalo de problemas.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ prob: tetration 
-\problem.
-%%%{{{ meta 
-\label tetration
-\defines
-    * tetração
-    ;;
-%%%}}}
-
-Definimos as operações binárias de adição, multiplicação, e exponenciação no $\Nat$.
-Descubra um ``padrão'' nas definições dessas operações, e defina a próxima operação, \dterm{tetração}, nessa seqüência de operações.
-
-%%}}}
-
-%%{{{ prob: products_in_disguise 
-\problem.
-%%%{{{ meta 
-\label products_in_disguise
-%%%}}}
-
-Seja $h : \nats\to\nats$.
-Defina recursivamente as funcções $t : \nats \to \nats$ e $T : \nats^2 \to \nats$ que satisfazem:
-$$
-\align
-t(n)   &= h(0)h(1)\dotsb h(n-1)     = \Prod\limits_{i=0}^{n-1} h(i);\\
-T(m,n) &= h(m)h(m+1)\dotsb h(m+n-1) = \Prod\limits_{i=m}^{m+n-1} h(i).
-\endalign
-$$
-
-\hint
-Depois de definir confira tuas definições seguindo elas para calcular uns valores.
-Por exemplo, $t(2)$ e $T(5,2)$ devem dar os resultados
-$$
-\xalignat2
-t(2) &= h(0)h(1)
-&
-T(5,2) &= h(5)h(6).
-\endxalignat
-$$
-
-\hint
-Mesmo que a funcção $T$ tem aridade 2, escolhendo bem,
-tu não precisarás escrever 4 equações, mas apenas 2.
-
-\solution
-Definimos
-$$
-\xalignat2
-t      &\eqtype \nats\to\nats   &  T        &\eqtype \nats^2\to\reals\\
-t(0)   &= 1                     &  T(m,0)   &= 1                     \\
-t(n+1) &= h(n) \ntimes t(n)     &  T(m,k+1) &= h(m+k) \ntimes T(m,k).  
-\endxalignat
-$$
-Tendo definido primeiro a $T$, podemos definir a $t$ assim:
-$$
-t(n) = T(0,n).
-$$
-
-%%}}}
-
-%%{{{ prob: victors_mistake 
-\problem.
-%%%{{{ meta 
-\label victors_mistake
-%%%}}}
-
-Tentando resolver o~\ref[products_in_disguise],
-% STUDENT: Victor
-um aluno definiu corretamente a $t$ e depois a usou
-na sua definição de $T$, assim:
-$$
-T(m,n) = {t(m+n)}/{t(m)}.
-$$
-Qual o problema com essa definição?
-(Suponha como conhecida uma definição recursiva da
-operação $/$ de divisão inteira.)
-
-\hint
-Qual é o contradomínio da $h$?
-
-\hint
-$0\in\nats$.
-
-\hint
-O que acontece se $h(i) = 0$ para algum $i \in \nats$?
-
-\solution
-Se $h(i) = 0$ para algum $i \in \nats$,
-o $t(j)=0$ para todo $j>i$.
-Assim, a expressão
-${t(m+n)}/{t(m)}$ não é definida para qualquer $m>i$.
-Observe que a solução seria certa se
-o contradomínio da $h$ fosse o $\nats\setminus\set0$.
-
-%%}}}
-
-%%{{{ prob: every_finite_set_of_reals_has_min_and_max 
-\problem.
-%%%{{{ meta 
-\label every_finite_set_of_reals_has_min_and_max
-%%%}}}
-
-Cada conjunto finito e não vazio $A\subset\reals$ possui
-elemento mínimo $\min A$ e máximo $\max A$.
-
-\hint
-Indução no número de elementos do $A$.
-
-%%}}}
-
-%%{{{ prob: triminos 
-\problem Triminôs.
-%%%{{{ meta 
-\label triminos
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ prob: induction_iff_strong_induction 
-\problem.
-%%%{{{ meta 
-\label induction_iff_strong_induction
-\indexes
-    * PIFF
-    * PIF
-    ;;
-%%%}}}
-
-$\text{PIF} \iff \text{PIFF}$.
-
-%%}}}
-
-%%{{{ prob: where_is_the_base_of_strong_induction 
-\problem Cadê a base da indução forte?.
-%%%{{{ meta 
-\label where_is_the_base_of_strong_induction
-%%%}}}
-
-Seguindo o teorema acima, parece que não precisamos demonstrar uma ``base''
-na indução forte.
-Critique a seguinte afirmação:
-\quote
-Quando quero demonstrar um teorema da forma
-$\lforall n {\phi(n)}$
-usando indução, eu preciso demostrar uma(s) base(s)
-$\phi(0), \phi(1), \dotsc, \phi(b)$
-e depois demonstrar o $\phi(k+1)$,
-dado apenas umas $b+1$ hipoteses:
-$\phi(k), \phi(k-1), \dotsc, \phi(k-b)$.
-Por outro lado, usando indução forte eu preciso mostrar menos
-coisas: não tenho que mostrar nenhuma base;
-e, além disso, no meu esforço para demonstrar o $\phi(k+1)$,
-eu não vou ter apenas umas poucas hipoteses, mas
-todos os $\phi(i)$ para $i<k+1$.
-Como os dois princípios são válidos no $\nats$,
-eu vou sempre usar indução forte.
-\endquote
-
-\hint
-Quantos $i\in\nats$ satisfazem $i < 0$?
-
-%%}}}
-
-%%{{{ prob: ackermann_function 
-\problem.
-%%%{{{ meta 
-\label ackermann_function
-%%%}}}
-
-Considere a funcção recursiva $\alpha : \nats^2 \to \nats$ definida pelas equações:
-$$
-\align
-\alpha(0,x)     &= x+1                      \tag{K1}\\
-\alpha(n+1,0)   &= \alpha(n,1)              \tag{K2}\\
-\alpha(n+1,x+1) &= \alpha(n,\alpha(n+1, x)) \tag{K3}  
-\endalign
-$$
-\tlist:
-\li (i):   Calcule o valor $\alpha(3,2)$, indicando para cada passo qual equação foi usada.
-\li (ii):  Demonstre que para todo $x\in\nats$, $\alpha(1,x) = x + 2$.
-\li (iii): Demonstre que para todo $x\in\nats$, $\alpha(2,x) = 2x + 3$.
-\endtlist
-A funcção $\alpha$ é conhecida como funcção de {\Ackermann}Ackermann,
-e vamos encontrá-la novamente bem depois, no~\ref[Theory_of_recursive_functions].
-
-%%}}}
-
-%%{{{ prob: quot_rem_eq_prob 
-\problem.
-%%%{{{ meta 
-\label quot_rem_eq_prob
-%%%}}}
-
-Considere as funcções $q$, $r$, e $t$ definidas recursivamente:
-$$
-\xalignat3
-q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
-q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
-q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
-q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
-q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
-\endxalignat
-$$
-O que cada funcção calcula?
-
-\hint
-Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
-
-\solution
-Temos:
-\tlist:
-\li: $q(n) = \floor{n / 3}$.
-\li: O $r(n)$ é o resto da divisão do $n$ por $3$.
-\li: A $t$ decida se suas entradas são iguais ou não.
-\endtlist
-
-%%}}}
-
-%%{{{ prob: horses_and_birthdays 
-\problem Cavalos e aniversários.
-%%%{{{ meta 
-\label horses_and_birthdays
-%%%}}}
-
-Vamos demonstrar o seguinte:
-\quote
-<<Para todo $n$ natural, em qualquer conjunto de $n$ pessoas, só tem pessoas com o mesmo dia de aniversário.>>
-\endquote
-\proofstylize{Suposta demonstração.}
-\quote\it
-<<Por indução no $n$.
-\crproofpart{Base.}
-Trivial: em qualquer conjunto de $0$ pessoas, só tem pessoas com o mesmo aniversário, pois não tem nenhuma pessoa e logo não tem como achar pessoas de aniversários diferentes.
-\crproofpart{Passo indutivo.}
-Seja $k$ natural tal que \emph{em qualquer conjunto de $k$ pessoas, só tem pessoas com o mesmo dia de aniversário}.
-Seja $A$ conjunto de $k+1$ pessoas:
-$$
-A = \set{ p_0, p_1, \dotsc, p_{k-1}, p_k }.
-$$
-Considere os conjunto
-$$
-\align
-A'  &= \set{ p_0, p_1, \dotsc, p_{k-1} } \\
-A'' &= \set{      p_1, \dotsc, p_{k-1}, p_k }.
-\endalign
-$$
-Ambos os $A', A''$ têm $k$ pessoas, e logo pela hipótese indutiva todos os membros de $A'$ têm o mesmo aniversário entre si; e também todos os membros de $A''$ têm o mesmo aniversário entre si.
-Como a pessoa $p_1$ está no $A'$, todos os membros de $A'$ têm o mesmo aniversário com o $p_1$.
-Mas a pessoa $p_1$ também etsá no $A''$, e logo todos os membros de $A''$ têm o mesmo aniversário com o $p_1$.
-Ou seja:
-todos os $p_0, p_1, \dotsc, p_{k-1}, p_k$ têm aniversario no mesmo dia.>>
-\endquote
-Numa maneira parecida podemos demonstrar várias afirmações doidas, como por exemplo a seguinte:
-\quote
-<<Para todo $n$ natural, em qualquer conjunto de $n$ cavalos, só tem cavalos da mesma cor.>>
-\endquote
-Obviamente o que ``demonstramos'' é errado, e logo na demonstração existe pelo menos um erro---%
-caso contrário seria uma indicação que o princípio da indução não é válido!
-Qual é?
-
-%%}}}
-
-%%{{{ prob: consecutive_fibs_are_coprime 
-\problem.
-%%%{{{ meta 
-\label consecutive_fibs_are_coprime
-\indexes
-    * Fibonacci!seqüência
-    ;;
-%%%}}}
-
-Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
-onde $F_n$ é o $n$-ésimo termo da seqüência
-Fibonacci~(\ref[fibonacci]).
-
-\hint
-Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
-
-\solution
-Vamos demonstrar o pedido por indução.
-A base
-$$
-\gcd {F_0} {F_1} = \gcd 0 1 = 1.
-$$
-Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
-Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
-Calculando,
-\compute
-\gcd {F_{k+1}} {F_{k+2}}
-    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
-    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
-    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
-    &= 1.                               \by {pela hipótese indutiva} \\
-\endcompute
-
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ When_one_base_is_not_enough 
-\section Quando uma base não é suficiente.
-%%%{{{ meta 
-\label When_one_base_is_not_enough
-%%%}}}
-
-%%{{{ df: fibonacci 
-\definition Os números Fibonacci.
-%%%{{{ meta 
-\label fibonacci
-\defines
-    * Fibonacci!números
-    ;;
-\credits
-    * Fibonacci : números
-    ;;
-%%%}}}
-
-Definimos os \dterm{números Fibonacci} recursivamente assim:
-$$
-\align
-    F_0     &= 0 \\
-    F_1     &= 1 \\
-    F_{n+2} &= F_{n+1} + F_n.
-\endalign
-$$
-
-%%}}}
-
-\TODO Computando seus valores.
-
-%%{{{ x: lucas 
-\exercise Os números Lucas.
-%%%{{{ meta 
-\label lucas
-\defines
-    * Lucas!números
-    ;;
-\indexes
-    * Lucas!números     seealso: Fibonacci
-    ;;
-\credits
-    * Lucas : números
-    ;;
-%%%}}}
-
-Os \dterm{números Lucas} são definidos similarmente:
-$$
-\align
-L_0     &= 2\\
-L_1     &= 1\\
-L_{n+2} &= L_{n+1} + L_n.
-\endalign
-$$
-Calcule o valor $L_{12}$.
-
-%%}}}
-
-%%{{{ prop: lucas_altdef_first_attempt 
-\proposition.
-%%%{{{ meta 
-\label lucas_altdef_first_attempt
-\indexes
-    * Fibonacci
-    ;;
-%%%}}}
-
-Para todo inteiro $n \geq 1$,
-seja $\ell : \nats\setminus\set0\to\nats$ a funcção definida pela equação
-$$
-    \ell(n) = F_{n-1} + F_{n+1},
-$$
-onde $F_n$ é o $n$-ésimo número {\Fibonacci}Fibonacci (veja~\ref[fibonacci]).
-Queremos mostrar que para todo $n \geq 1$, $L_n = \ell(n)$,
-onde $L_n$ é o $n$-ésimo número {\Lucas}Lucas (veja~\ref[lucas]).
-
-\wrongproof.
-Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
-Vamos primeiramente verificar que para $n=1$, realmente temos $L_n = \ell(n)$:
-\compute
-\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
-        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
-        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
-        &= 1              \\
-        &= L_1.           \by {def.~de $L_n$} \\
-\intertext{Seja $k\in\nats$ com $k\geq 2$, tal que $L_{k-1} = \ell(k-1)$.
-Realmente temos}
-L_k
-&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
-&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
-&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$} \\
-&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
-&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$} \\
-&= \ell(k).                                 \by {def.~de $\ell(n)$} \\
-\endcompute
-que termina nossa prova.
-
-%%}}}
-
-%%{{{ x: lucas_altdef_find_error 
-\exercise.
-%%%{{{ meta 
-\label lucas_altdef_find_error
-%%%}}}
-
-Na prova acima roubamos.
-Ache onde e explique como, e pense numa solução.
-
-%%}}}
-
-%%{{{ lucas_altdef_final 
-\proposition.
-%%%{{{ meta 
-\label lucas_altdef_final
-%%%}}}
-
-Com a notação da~\ref[lucas_altdef_first_attempt],
-para todo $n\geq 1$, $\ell(n) = L_n$.
-
-\proof.
-Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
-Vamos primeiramente verificar que para $n=1$ e $n=2$, realmente temos $L_n = \ell(n)$.
-Para $n=1$:
-\compute
-\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
-        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
-        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
-        &= 1              \\
-        &= L_1.           \by {def.~de $L_n$} \\
-\endcompute
-E para $n=2$:
-$$
-\xalignat2
-\computed {
-      L_2 &= L_1 + L_0  \by {def.~de $L_n$} \\
-          &= 1 + 2      \by {def.~de $L_n$} \\
-          &= 3          
-}
-&&
-\computed {
-\ell(2) &= F_1 + F_3          \by {def.~de $\ell(n)$} \\
-        &= 1 + F_2 + F_1      \by {def.~de $F_n$} \\
-        &= 1 + 1 + 1          \\
-        &= 3.
-}
-&
-\endxalignat
-$$
-Seja $k\in\nats$ com $k\geq 3$ tal que
-$$
-L_{k-1} = \ell(k-1)
-\qquad
-\text{e}
-\qquad
-L_{k-2} = \ell(k-2)
-$$
-(nossas \emph{duas} hipoteses indutivas).
-Vamos demonstrar que $L_k = \ell(k)$.
-Realmente temos
-\compute
-L_k
-&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
-&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
-&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$, $k\geq3$} \\
-&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
-&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$, $k\geq3$} \\
-&= \ell(k),                                 \by {def.~de $\ell(n)$} \\
-\endcompute
-que termina nossa prova.
-
-%%}}}
-
-%%{{{ x: new_proof_of_sum_of_threes_and_fives_with_three_bases 
-\exercise.
-%%%{{{ meta 
-\label new_proof_of_sum_of_threes_and_fives_with_three_bases
-%%%}}}
-
-Ache uma nova prova do~\ref[sum_of_threes_and_fives] por indução
-com três bases.
-
-\hint
-$k = (k-3) + 3$.
-
-\solution
-Seja $k\geq 8 + 3 = 11$ tal que $k-1$, $k-2$, e $k-3$
-podem ser escritos como somatórios de $3$'s e $5$'s (H.I.).
-Temos
-\compute
-k &= (k-3) + 3      \\
-  &= (3x + 5y) + 3  \quad\text{para alguns $x,y\in\nats$} \by {pela H.I.} \\
-  &= 3(x+1) + 5y.
-\endcompute
-Como precisamos a veracidade da proposição para o valor $k-3$,
-devemos mostrar as $3$ bases, para os inteiros $8$, $9$, e $10$:
-$$
-\alignat 2
-8  &= 3 + 5     &&= 3\ntimes 1 + 5\ntimes 1\\
-9  &= 3 + 3 + 3 &&= 3\ntimes 3 + 5\ntimes 0\\
-10 &= 5 + 5     &&= 3\ntimes 0 + 5\ntimes 2.
-\endalignat
-$$
-
-%%}}}
-
-%%{{{ two_ways_to_organize_inductive_step 
-\note Duas maneiras de organizar tua demonstração.
-%%%{{{ meta 
-\label two_ways_to_organize_inductive_step
-%%%}}}
-
-Ok, vamos supor que tu tá tentando demonstrar algo da forma
-$$
-\lforall {n \in \nats} {\phi(n)}
-$$
-por indução, e que tu decidiu usar duas bases
-(obviamente a $\phi(0)$ e a $\phi(1)$).
-Como seria teu passo indutivo?
-Tem duas maneiras boas para proceder agora:
-\crproofalt{Maneira 1:}
-<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k-2)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k)$.>>
-Nessa maneira, preciso tomar cuidado que nenhum inteiro menor que $k-2$ aparece
-em algum canto errado, pois não sei nada sobre eles; até pior pode ser
-que aparecem objetos que nem são definidos.
-\crproofalt{Maneira 2:}
-<<Seja $k\in\nats$ tal que $\phi(k)$\fact{H.I.1} e $\phi(k+1)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k+2)$.>>
-E agora preciso tomar o mesmo cuidado, só que agora com inteiros
-menores que~$k$.
-\eop
-\emph{Ambas as maneiras são corretas} e bem escritas e bem entendíveis
-e tudo mais---e dá pra variar também, não são
-únicas~(\ref[third_way_to_organize_inductive_step]).
-Qual vamos escolher?  Depende de gosto e às vezes do contexto também.
-Na maioria das vezes eu vou favorecer a primeira:
-meus olhos gostam da associação dos ``(H.I.$i$)'' com os $\phi(k-i)$.
-Na mesma linha de pensar, na segunda maneira as hipoteses indutivas são as
-$\phi(k)$ e $\phi(k+1)$, e o alvo seria o $\phi(k+2)$;
-então a (H.I.2) parece mais com o alvo do que com a (H.I.1).
-Ou seja: \emph{nos meus olhos}, os dados e o alvo ficam mais arrumados
-na maneira 1.
-Mas como falei: ambas corretas; questão de gosto; então consulte teus
-próprios olhos.
-
-%%}}}
-
-%%{{{ x: third_way_to_organize_inductive_step 
-\exercise.
-%%%{{{ meta 
-\label third_way_to_organize_inductive_step
-%%%}}}
-
-Qual seria a terceira ``óbvia'' maneira?
-Com que inteiros tem que tomar cuidado se escolhê-la?
-
-\solution
-<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k+1)$.>>
-Nessa maneira, preciso tomar cuidado com inteiros menores de $k-1$.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Many variables 
-\section Muitas variáveis.
-%%%{{{ meta 
-%%%}}}
-
-%TODO explain that it's just one more tool to attack theorems
-%TODO XXX Maybe refer to a weaker result from "irrationality"?
-
-%%{{{ lemma: odd_to_any_power_is_odd 
-\lemma.
-%%%{{{ meta 
-\label odd_to_any_power_is_odd
-%%%}}}
-
-Para todo $n\in\nats$, e todo ímpar $k\in\ints$, $k^n$ é ímpar.
-
-\proof.
-Seja $k\in\ints$ ímpar, então $k=2a+1$ para um $a\in\ints$.\foot
-Aqui consideramos a seguinte definição de ``ímpar'':
-\emph{um inteiro $n$ é \dterm{ímpar} sse existe inteiro $k$ tal que $n = 2k+1$.}
-\toof
-Vamos demonstrar por indução que para todo $n\in\nats$, $k^n$ é ímpar.
-Se $n=0$, imediatamente $k^0 = 1$ e é ímpar ($1 = 2\ntimes 0 + 1$).
-Suponha que para algum $t\in\nats$, $k^t$ é ímpar, ou seja $k^t = 2b+1$ para um $b\in\ints$.
-Falta demonstrar que $k^{t+1}$ também é ímpar.
-Calculando,
-\compute
-k^{t+1}
-&= k k^t               \by {definição de exponenciação} \\
-&= (2a + 1) (2b + 1)   \by {hipoteses} \\
-&= 4ab + 2a + 2b + 1   \\
-&= 2(2ab + a + b) + 1.
-\endcompute
-Logo, como $2ab + a + b\in\ints$, $k^{t+1}$ é ímpar.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-No \ref[odd_to_any_power_is_odd_oneliner] tu demonstrarás esse
-lemma numa linha só!
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Strong induction 
 \section O princípio da indução finita forte (PIFF).
 %%%{{{ meta 
@@ -18500,81 +18659,6 @@ $$
     {n\in\nats}
     {P(n)}.
 $$
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Defining relations recursively 
-\section Definindo relações recursivamente.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ natleq_rec_def 
-\definition Ordem.
-%%%{{{ meta 
-\label natleq_rec_def
-%%%}}}
-
-Com que temos já definido podemos definir recursivamente
-uma \emph{relação} no $\nats$.  A relação de ordem $\preceq$:
-$$
-\align
-0  \preceq m  &\iff \True      \tag{LE1}\\
-Sn \preceq 0  &\iff \False     \tag{LE2}\\
-Sn \preceq Sm &\iff n \preceq m   \tag{LE3}
-\endalign
-$$
-
-%%}}}
-
-%%{{{ eg: two_leq_four_but_four_notleq_two 
-\example.
-%%%{{{ meta 
-\label two_leq_four_but_four_notleq_two
-%%%}}}
-
-Ache se $SS0 \preceq SSSS0$ e se $SSSS0 \preceq SS0$.
-
-\solution.
-Calculamos:
-\compute
-SS0 \preceq SSSS0
-&\iff S0 \preceq SSS0  \by {por (LE3)} \\
-&\iff 0  \preceq SS0   \by {por (LE3)} \\
-&\iff \True         \by {por (LE1)} \\
-\endcompute
-ou seja, realmente $SS0 \preceq SSSS0$.
-No outro lado, calculamos
-\compute
-SSSS0 \preceq SS0
-&\iff SSS0 \preceq S0  \by {por (LE3)} \\
-&\iff SS0  \preceq 0   \by {por (LE3)} \\
-&\iff \False        \by {por (LE2)} \\
-\endcompute
-ou seja, $SSSS0 \not\preceq SS0$.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Podemos demonstrar que $\preceq$ é uma ordem linear,
-demonstrando cada uma das propriedades como fizemos sobre a
-$\leq$ nos exercícios
-(\reftag[natleq_refl],
-\reftag[natleq_antisym],
-\reftag[natleq_trans],
-\reftag[natleq_total])
-mas uma maneira melhor que vai nos permitir ganhar
-muitos mais resultados de graça é demonstrar que $\leq$
-e $\preceq$ são na verdade a mesma relação.
-Ou seja, as definições~\reftag[natleq]
-e~\reftag[natleq_rec_def] são equivalentes.
-Tu demonstrarás isso no~\ref[rec_and_nonrec_def_of_order_agree].
 
 %%}}}
 
@@ -19030,25 +19114,6 @@ Indução!
 %%}}}
 
 \endproblems
-%%}}}
-
-%%{{{ Inductively_defined_types 
-\section Tipos inductivamente definidos.
-%%%{{{ meta 
-\label Inductively_defined_types
-%%%}}}
-
-\TODO Lists.
-
-\TODO Trees.
-
-\TODO Bools.
-
-\TODO Formulas.
-
-\TODO Terminar.
-
-\endsection
 %%}}}
 
 %%{{{ Structural_recursion_and_induction 
@@ -31730,7 +31795,6 @@ vai acabar sendo um dos assuntos mais importantes do nosso estudo nesse texto!
 Por enquanto paciêcia até esses capítulos
 (viz:
 \reftag[Functional_programming],
-\reftag[Intuitionistic_logic],
 \reftag[Proof_theory],
 \reftag[Type_theory]).
 
@@ -50527,8 +50591,6 @@ de grupo, $e$ para sua identidade, e $a^{-1}$ para denotar o inverso de~$a$.
 usados assim não carregam nenhum significado matemático mesmo: apenas mostram
 uma preferência notacional.
 Mas quando um conjunto já tem adição e/ou multiplicação definida
-(como por exemplo os reais), então usamos frases como
-``o grupo aditivo dos reais'' para referir ao $\sset \reals +$,
 (como por exemplo os reais), então usamos frases como
 ``o grupo aditivo dos reais'' para referir ao $\sset \reals +$,
 e até ``o grupo multiplicativo dos reais'' para referir ao
@@ -77027,6 +77089,14 @@ Sobre lógica matemática:
 \cite[shoenfieldlogic],
 \cite[bellmachover].
 
+Sobre intuicionismo:
+\cite[heytingintuitionism].
+\cite[dummettintuitionism].
+\cite[proofsandtypes].
+\cite[lecturesch].
+\cite[bishopfca]~\&~\cite[bishopbridgesconstructive].
+\cite[girardblindspot].
+
 \endfurther
 %%}}}
 
@@ -77176,36 +77246,6 @@ Sobre lógica matemática:
 \cite[alicebook],
 \cite[kozenac],
 \cite[davisccl: Part~2].
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Intuitionistic_logic 
-\chapter Lógica intuicionista.
-%%%{{{ meta 
-\label Intuitionistic_logic
-%%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite[heytingintuitionism].
-\cite[dummettintuitionism].
-\cite[proofsandtypes].
-\cite[lecturesch].
-\cite[bishopfca]~\&~\cite[bishopbridgesconstructive].
-\cite[girardblindspot].
 
 \endfurther
 %%}}}
