@@ -7141,9 +7141,10 @@ Estipulamos as proposições seguintes como axiomas:
 
 %%}}}
 
-%%{{{ Syntactic associativities 
+%%{{{ int_syntactic_associativities 
 \note Associatividades sintácticas.
 %%%{{{ meta 
+\label int_syntactic_associativities
 \defines
     * associatividade!sintáctica
     ;;
@@ -7172,9 +7173,10 @@ Assim, as expressões acima agora são apenas abreviações das
 
 %%}}}
 
-%%{{{ Syntactic precedence 
+%%{{{ int_syntactic_precedence 
 \note Precedência sintáctica.
 %%%{{{ meta 
+\label int_syntactic_precedence
 \defines
     * precedência!sintáctica
     ;;
@@ -7192,8 +7194,8 @@ Agora nem sabemos se elas denotam somatórios ou produtórios:
 A primeira é a soma dos 2 termos $a \ntimes b, c$ ou o produto dos termos $a, b+c$?
 E a segunda é a soma dos 3 termos $a \ntimes b, c \ntimes d \ntimes e, a$ ou o produto dos 4 termos
 $a, b+c, d, e+a$?
-Resolvemos atribuir à $(+)$ uma precedência mais alta, dizendo que ela
-\dterm{pega mais forte} do que a $(\ntimes)$.\foot
+Resolvemos atribuir à $(\ntimes)$ uma precedência mais alta, dizendo que ela
+\dterm{pega mais forte} do que a $(+)$.\foot
 A idéia aqui é imaginar as operações numa expressão como a $a + b \ntimes c$ como ímãs
 atraindo os argumentos, e pela nossa atribuição o ímã $(\ntimes)$ é mais forte e logo
 ele \dq{ganha} tal briga e a expressão denota o $a + (b \ntimes c)$.
@@ -7208,9 +7210,10 @@ Assim, as expressões acima denotam somatórios e não produtórios:
 
 %%}}}
 
-%%{{{ One more syntactic convention 
+%%{{{ int_juxtaposition_notation 
 \note Mais uma convenção sintáctica.
 %%%{{{ meta 
+\label int_juxtaposition_notation
 \defines
     * juxtaposição
     ;;
@@ -7252,9 +7255,10 @@ Ambas as $(+),(\ntimes)$ são comutativas.
 
 %%}}}
 
-%%{{{ Syntactic sugar: subtraction 
+%%{{{ int_subtraction_as_syntactic_sugar 
 \note Açúcar sintáctico: subtração.
 %%%{{{ meta 
+\label int_subtraction_as_syntactic_sugar
 \indexes
     * notação!sobrecarregar   see: sobrecarregamento
     ;;
@@ -7284,9 +7288,10 @@ está sendo usada.
 
 %%}}}
 
-%%{{{ Syntactic sugar: numerals and powers 
+%%{{{ int_numerals_and_powers 
 \note Açúcar sintáctico: numerais e potências.
 %%%{{{ meta 
+\label int_numerals_and_powers
 %%%}}}
 
 Introduzimos imediatamente as definições seguintes:
@@ -7553,10 +7558,10 @@ do \ref[int_uniqueness_of_solutions].
 
 %%}}}
 
-%%{{{ thm: int_neg_is_involutive 
+%%{{{ thm: int_neg_of_neg 
 \theorem Negação é involutiva.
 %%%{{{ meta 
-\label int_neg_is_involutive
+\label int_neg_of_neg
 %%%}}}
 
 Para todo $x$, $-(-x) = x$.
@@ -19071,6 +19076,10 @@ demais neste momento.
 \chapter Os reais.
 %%%{{{ meta 
 \label The_reals
+\pdefs
+    \pdef Pos {\mathord{\mathrm{Pos}}}
+    \pdef Neg {\mathord{\mathrm{Neg}}}
+    ;;
 %%%}}}
 
 %%{{{ intro 
@@ -19185,70 +19194,126 @@ Nessa secção, $F$ vai denotar um arbitrário corpo ordenado:
 
 %%}}}
 
-%%{{{ df: ordered_field 
-\definition Corpo ordenado.
+%%{{{ spec: real_spec_1 
+\specification Os reais (1/3).
 %%%{{{ meta 
-\label ordered_field
+\label real_spec_1
 \defines
-    * corpo!ordenado
+    * reais
     ;;
 %%%}}}
 
-Seja $F$ um conjunto, $0,1\in F$, $+$ e $\ntimes$ duas operações
-binárias no $F$, e $-$ uma operação unária.
-Seja também $P$ uma relação unária no $F$, que identificamos com
-seu gráfico: $P \subset F$.
-Seu papel é representar os membros \emph{positivos}.
-Chamamos o $\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, P}$
-um \dterm{corpo ordenado} sse as seguintes leis são satisfeitas:
+Usamos $\Real$ para denotar um tipo cujos membros chamamos de (números) inteiros e onde temos
+os seguintes componentes primitivos:
 \mathcol
-                      & {0 \neq 1}                      \tag{FNZ} \\
+0       &\is \Real \\
+1       &\is \Real \\
++       &\is \Real \times \Real \to \Real \\
+-       &\is \Real \to \Real \\
+\ntimes &\is \Real \times \Real \to \Real. \\
+\endmathcol
+Estipulamos as proposições seguintes como axiomas:
+\mathcol
+\cforall {a,b,c}  {a + (b + c) = (a + b) + c}   \stag[RA-Ass]\\
+\cforall {a}      {0 + a = a = a + 0}           \stag[RA-Id]\\
+\cforall {a}      {(-a) + a = 0 = a + (-a)}     \stag[RA-Inv]\\
+\cforall {a,b}    {a + b = b + a}               \stag[RA-Com]\\
 \\
-\cforall {a,b\in F}     {a + b \in F}                   \tag{FA0} \\
-\cforall {a,b,c\in F}   {a + (b + c) = (a + b) + c}     \tag{FA1} \\
-\cforall {a \in F}      {a + 0 = a}                     \tag{FA2} \\
-\cforall {a\in F}       {a + (-a) = 0}                  \tag{FA3} \\
-\cforall {a,b\in F}     {a + b = b + a}                 \tag{FA4} \\
+\cforall {a,b,c}  {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}
+                                                \stag[RM-Ass]\\
+\cforall {a}      {a\ntimes 1 = a}              \stag[RM-Id]\\
+\cforall {a}      {a\neq 0 \implies \lexists {a'}
+                      {a' \ntimes a = 1 = a \ntimes a'}} \stag[RM-Inv*]\\
+\cforall {a,b}    {a\ntimes b = b \ntimes a}    \stag[RM-Com]\\
 \\
-\cforall {a,b\in F}     {a\ntimes b \in F}                                     \tag{FM0} \\
-\cforall {a,b,c\in F}   {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}         \tag{FM1} \\
-\cforall {a \in F}      {a\ntimes 1 = a}                                       \tag{FM2} \\
-\cforall {a\in F}       {a\neq 0 \implies \lexists {y\in F} {a \ntimes y = 1}} \tag{FM3*}\\
-\cforall {a,b\in F}     {a\ntimes b = b \ntimes a}                             \tag{FM4} \\
-\\
-\cforall {a,b,c \in F}  {a\ntimes (b+c) = (a\ntimes b) + (a \ntimes c)}        \tag{FD}  \\
-\\
-\cforallt {a \in F}     {exatamente uma das: $-a \in P$; $a = 0$; $a \in P$}   \tag{FP3} \\
-\cforall {a,b\in P}     {a + b \in P}                   \tag{FPA}\\
-\cforall {a,b\in P}     {a\ntimes b \in P}              \tag{FPM}
+\cforall {d,a,b}  {(a+b) \ntimes d = (a \ntimes d) + (b \ntimes d) \mland
+                   d \ntimes (a+b) = (d \ntimes a) + (d \ntimes b)}.
+                                                \stag[R-Dist]\\
 \endmathcol
 
 %%}}}
 
-%%{{{ eg: rats_and_reals_are_ordered_fields 
-\example.
+%%{{{ remark: axioms_stronger_than_needed
+\remark Axiomas mais fortes do que precisamos.
 %%%{{{ meta 
+\label axioms_stronger_than_needed
 %%%}}}
 
-Os $\rats,\reals$ onde $P_\rats \asseq \rats_{>0}$ e $P_\reals \asseq \reals_{>0}$,
-e as operações e os constantes são os usuais.
+Observe que tanto sobre as identidades quanto sobre os inversos,
+optamos para incluir nos axiomas \dq{ambos os lados}.
+Compare isso com os axiomas que tivemos sobre os inteiros,
+onde \emph{demonstramos como teorema} que $0$ é uma
+$(+)$-identidade-L, e as demais versões esquerdas
+(\ref[int_left_versions_as_theorems]).
+A demonstração foi simplíssima, graças às comutatividades
+das operações, que aqui também temos.
+Ou seja, a gente poderia ter escolhido uma abordagem parecida aqui,
+mas não é sempre tão importante se obsecar economizando
+nos axiomas.  Listados na maneira que tenho acima, tem
+uma outra vantagem: não passam uma informação falsa sobre nossa
+pretenção, e, além disso, seria mais facil se perguntar
+<<o que acontece se apagar comutatividade de tal lista?>>,
+sem precisar nos preocupar para adicionar explicitamente
+as identidades e inversos esquerdos.
 
 %%}}}
 
-%%{{{ noneg: compex_order_field_noneg 
-\nonexample.
+%%{{{ Syntactic considerations 
+\note Considerações sintácticas.
 %%%{{{ meta 
-\label complex_cannot_by_ordered
+\defines
+    * associatividade!sintáctica
+    ;;
 %%%}}}
 
-Os complexos não são (\ref[complex_cannot_by_ordered]).
+Atribuimos as mesmas \dterm{associatividades sintácticas} e as mesmas
+\dterm{precedências sintácticas} nas operações $(+)$ e $(\ntimes)$
+que atribuimos no \ref[The_integers] (\ref[int_syntactic_associativities],
+\ref[int_syntactic_precedence], \ref[int_juxtaposition_notation]).
+Similarmente usamos as abreviações
+\mathcols 4
+2 &\eqtype \Real  & 3 &\eqtype \Real  & 4 &\eqtype \Real &~&\cdots \\
+2 &\defeq  1 + 1  & 3 &\defeq  2 + 1  & 4 &\defeq  3 + 1 &~&\cdots \\
+\endmathcols
+como fizemos no \ref[int_numerals_and_powers].
+
+%%}}}
+
+%%{{{ df: real_subtraction_as_syntactic_sugar 
+\definition Açúcar sintáctico: subtração.
+%%%{{{ meta 
+\label real_subtraction_as_syntactic_sugar
+\indexes
+    * notação!sobrecarregar   see: sobrecarregamento
+    * sobrecarregamento!notação
+    ;;
+\defines
+    * subtração!nos reais
+    ;;
+%%%}}}
+
+Como nos inteiros (\ref[int_subtraction_as_syntactic_sugar])
+definimos a operação \emph{binária}
+\mathcol
+{-} &\eqtype \Real \times \Real \to \Real \\
+\endmathcol
+de subtração pela
+\mathcol
+a - b &\defeq a + (-b).
+\endmathcol
+Novamente o símbolo ${-}$ tá sendo \dterm{sobrecarregado} mas
+o contexto sempre deixará claro qual das
+\mathcols 2
+{-} &\eqtype \Real \to \Real  &
+{-} &\eqtype \Real \times \Real \to \Real
+\endmathcols
+está sendo usada.
 
 %%}}}
 
 %%{{{ x: real_uniqueness_of_additive_identity 
 \exercise Unicidade da identidade aditiva.
 %%%{{{ meta 
-\headerize
 \label real_uniqueness_of_additive_identity
 %%%}}}
 
@@ -19263,7 +19328,6 @@ tal demonstração precisou apenas axiomas que temos aqui também.
 %%{{{ x: real_uniqueness_of_additive_inverses 
 \exercise Unicidade dos inversos aditivos.
 %%%{{{ meta 
-\headerize
 \label real_uniqueness_of_additive_inverses
 %%%}}}
 
@@ -19275,46 +19339,14 @@ tal demonstração precisou apenas axiomas que temos aqui também.
 
 %%}}}
 
-%%{{{ Syntactic sugar: subtraction 
-\note Açúcar sintáctico: subtração.
-%%%{{{ meta 
-\indexes
-    * notação!sobrecarregar   see: sobrecarregamento
-    * sobrecarregamento!notação
-    ;;
-\defines
-    * subtração!nos reais
-    ;;
-%%%}}}
-
-Como nos inteiros no \ref[The_integers], introduzimos
-açúcar sintáctico para denotar a aplicação da operação
-\emph{binária}
-\mathcol
-{-} &\eqtype \Real \times \Real \to \Real \\
-\endmathcol
-de subtração definindo
-\mathcol
-a - b &\defeq a + (-b).
-\endmathcol
-Novamente o símbolo ${-}$ tá sendo \dterm{sobrecarregado} mas
-o contexto sempre deixará claro qual das
-\mathcols 2
-{-} &\eqtype \Real \to \Real  &
-{-} &\eqtype \Real \times \Real \to \Real
-\endmathcols
-está sendo usada.
-
-%%}}}
-
 %%{{{ x: real_uniqueness_of_solutions 
 \exercise Unicidade de resoluções.
 %%%{{{ meta 
-\headerize
 \label real_uniqueness_of_solutions
 %%%}}}
 
-Para quaisquer $a,b$, existe único $x$ tal que $a + x = b$ e existe único $y$ tal que $y + a = b$.
+Para quaisquer $a,b$, existe único $x$ tal que $a + x = b$
+e existe único $y$ tal que $y + a = b$.
 
 \solution
 Utilizamos a mesma demonstração do \ref[int_uniqueness_of_solutions_proof],
@@ -19322,16 +19354,40 @@ já que ela não precisou nenhum axioma que não temos aqui.
 
 %%}}}
 
-%%{{{ x: real_cancellation_law_for_addition
-\exercise Cancelamento aditivo.
+%%{{{ x: real_neg_of_neg 
+\exercise Negação de negação.
 %%%{{{ meta 
-\headerize
+\label real_neg_of_neg
+%%%}}}
+
+Para todo $x$, $-(-x) = x$.
+
+\solution
+Veja o \ref[int_neg_of_neg]: não precisou nenhum axioma que não temos.
+
+%%}}}
+
+%%{{{ x: real_neg_of_sum 
+\exercise Negação de soma.
+%%%{{{ meta 
+\label real_neg_of_sum
+%%%}}}
+
+Para quaisquer $a,b$, temos $-(a-b) = b - a$ e $-(a+b) = -a-b$.
+
+%%}}}
+
+% enter multiplication
+
+%%{{{ x: real_cancellation_law_for_addition
+\exercise Lei de cancelamento aditivo.
+%%%{{{ meta 
 \label real_cancellation_law_for_addition
 %%%}}}
 
 \mathcol
-\cforall {a,b,c}  {a + c = b + c \implies a = b}; \stag[RA-CanR] \\
-\cforall {a,b,c}  {c + a = c + b \implies a = b}. \stag[RA-CanL] \\
+\cforall {a,b,c}  {\paren {c + a = c + b \implies a = b} \mland
+                   \paren {a + c = b + c \implies a = b}}. \stag[RA-Can] \\
 \endmathcol
 
 \solution
@@ -19339,10 +19395,62 @@ Feito no \ref[int_cancellation_law_for_addition_proof].
 
 %%}}}
 
+%%{{{ x: real_zero_annihilator 
+\exercise Anulador.
+%%%{{{ meta 
+\label real_zero_annihilator
+%%%}}}
+
+Demonstre que $0$ é um $(\ntimes)$-anulador:
+\mathcol
+\cforall {a}      {0 \ntimes a = 0 = a \ntimes 0}.   \stag[R-An] \\
+\endmathcol
+
+%%}}}
+
+%%{{{ x: real_zero_has_no_multipliative_inverse 
+\exercise.
+%%%{{{ meta 
+\label real_zero_has_no_multipliative_inverse
+%%%}}}
+
+Demonstre que $0$ não possui $(\ntimes)$-inverso.
+
+%%}}}
+
+%%{{{ x: real_neg_x_is_minus_one_times_x 
+\exercise.
+%%%{{{ meta 
+\label real_neg_x_is_minus_one_times_x
+%%%}}}
+
+Para todo $a$, $(-1)a = -a$.
+
+%%}}}
+
+%%{{{ x: real_product_and_neg 
+\exercise.
+%%%{{{ meta 
+\label real_product_and_neg
+%%%}}}
+
+$\lforall {a,b} {(-a)b = -(ab) = a(-b)}$.
+
+%%}}}
+
+%%{{{ x: real_product_with_two_minuses 
+\exercise.
+%%%{{{ meta 
+\label real_product_with_two_minuses
+%%%}}}
+
+Para quaisquer $a,b$, $(-a)(-b) = ab$.
+
+%%}}}
+
 %%{{{ x: real_uniqueness_of_multiplicative_identity 
 \exercise Unicidade da identidade multiplicativa.
 %%%{{{ meta 
-\headerize
 \label real_uniqueness_of_multiplicative_identity
 %%%}}}
 
@@ -19357,7 +19465,6 @@ tal demonstração precisou apenas axiomas que temos aqui também.
 %%{{{ x: real_uniqueness_of_multiplicative_inverses 
 \exercise Unicidade dos inversos multiplicativos.
 %%%{{{ meta 
-\headerize
 \label real_uniqueness_of_multiplicative_inverses
 %%%}}}
 
@@ -19378,94 +19485,146 @@ x'
 
 %%}}}
 
-%%{{{ x: real_zero_annihilator 
-\exercise.
+% enter inverses
+
+%%{{{ df: real_inv_notation 
+\definition Notação para inverso multiplicativo.
 %%%{{{ meta 
-\label real_zero_annihilator
+\label real_inv_notation
+\defines
+    * {{~a}^{-1}}  -- o inverso multiplicativo do real $a$
+    ;;
 %%%}}}
 
-Demonstre que $0$ é um $(\ntimes)$-anulador:
-\mathcol
-\cforall {a}      {0 \ntimes a = 0}     \stag[Z-AnL] \\
-\cforall {a}      {a \ntimes 0 = 0}.    \stag[Z-AnR] \\
-\endmathcol
-
-%%}}}
-
-%%{{{ x: real_zero_has_no_multipliative_inverse 
-\exercise.
-%%%{{{ meta 
-\label real_zero_has_no_multipliative_inverse
-%%%}}}
-
-Demonstre que $0$ não possui $(\ntimes)$-inverso.
-
-%%}}}
-
-%%{{{ x: real_neg_is_involutive 
-\exercise Negação é involutiva.
-%%%{{{ meta 
-\headerize
-\label real_neg_is_involutive
-%%%}}}
-
-Para todo $x$, $-(-x) = x$.
-
-\solution
-Veja o \ref[int_neg_is_involutive]: não precisou nenhum axioma que não temos.
-
-%%}}}
-
-%%{{{ x: real_neg_x_is_minus_one_times_x 
-\exercise.
-%%%{{{ meta 
-\label real_neg_x_is_minus_one_times_x
-%%%}}}
-
-Para todo $a$, $(-1)a = -a$.
-
-%%}}}
-
-%%{{{ x: real_product_and_neg 
-\exercise.
-%%%{{{ meta 
-\label real_product_and_neg
-%%%}}}
-
-Para quaisquer $a,b$, $(-a)b = -(ab) = a(-b)$.
-
-%%}}}
-
-%%{{{ x: real_product_with_two_minuses 
-\exercise.
-%%%{{{ meta 
-\label real_product_with_two_minuses
-%%%}}}
-
-Para quaisquer $a,b$, $(-a)(-b) = ab$.
-
-%%}}}
-
-%%{{{ x: real_neg_of_sum 
-\exercise.
-%%%{{{ meta 
-\label real_neg_of_sum
-%%%}}}
-
-Para quaisquer $a,b$, temos $-(a-b) = b - a$ e $-(a+b) = -a-b$.
+Seja $a \neq 0$.
+Denotamos por $a^{-1}$ o seu $(\ntimes)$-inverso, ou seja,
+o único real $a'$ tal que $a'a = 1 = aa'$.
 
 %%}}}
 
 %%{{{ x: real_cancellation_law_for_multiplication 
-\exercise A lei de cancelamento multiplicativo.
+\exercise Lei de cancelamento multiplicativo.
 %%%{{{ meta 
 \label real_cancellation_law_for_multiplication
 %%%}}}
 
 Temos:
 \mathcol
-\cforall {c,a,b}  {c \neq 0 \mland ca = cb \implies a = b}. \stag[R-CanL] \\
+\cforall {c,a,b}  {c \neq 0 \implies \paren{ca = cb \implies a = b} \mland \paren{ac = bc \implies a = b}}. \stag[R-Can] \\
 \endmathcol
+
+%%}}}
+
+%%{{{ x: real_inv_of_inv 
+\exercise Inverso de inverso.
+%%%{{{ meta 
+\headerize
+\label real_inv_of_inv
+%%%}}}
+
+Para todo $x\neq 0$, $-(-x) = x$.
+
+\solution
+Veja o \ref[int_neg_of_neg]: não precisou nenhum axioma que não temos.
+
+%%}}}
+
+% enter fractions
+
+%%{{{ df: real_fraction_as_syntactic_sugar
+\definition Açúcar sintáctico: fracção.
+%%%{{{ meta 
+\label real_fraction_as_syntactic_sugar
+\defines
+    * fracção!nos reais
+    ;;
+%%%}}}
+
+Dados $a,b$ com $b\neq0$, escrevemos $a/b$ ou $\frac a b$ como
+açúcar sintáctico para o produto $a\ntimes b^{-1}$.
+Note que as notações $1/b$ e $\frac 1 b$ são casos especiais disso.
+
+%%}}}
+
+%%{{{ x: real_product_of_fractions 
+\exercise Produto de fracções.
+%%%{{{ meta 
+\label real_product_of_fractions
+%%%}}}
+
+Para quaisquer $a,b,c,d$ com $b,d \neq 0$, temos:
+$$
+\frac a b \ntimes \frac c d = \frac {a \ntimes c} {b \ntimes d}.
+$$
+
+%%}}}
+
+%%{{{ x: real_sum_of_fractions 
+\exercise Soma de fracções.
+%%%{{{ meta 
+\label real_sum_of_fractions
+%%%}}}
+
+Para quaisquer $a,b,c,d$ com $b,d \neq 0$, temos:
+$$
+\frac a b + \frac c d = \frac {a \ntimes d + b \ntimes c} {b \ntimes d}.
+$$
+
+%%}}}
+
+%%{{{ x: real_fraction_of_fractions
+\exercise Fracção de frações.
+%%%{{{ meta 
+\label real_fraction_of_fractions
+%%%}}}
+
+Para quaisquer $a,b,c,d$ com $b,c,d \neq 0$, temos:
+$$
+\frac {~\frac a b~} {~\frac c d~} = \frac {ad} {bc}.
+$$
+
+%%}}}
+
+% enter powers
+
+%%{{{ real_natural_powers 
+\note Potências naturais.
+%%%{{{ meta 
+\label real_natural_powers
+%%%}}}
+
+Já que agora possuimos mesmo o tipo $\Nat$, podemos definir
+mesmo as potências naturais de qualquer real $x$, recursivamente,
+como uma operação de tipo:
+$$
+\Real \to \Nat \to \Real
+$$
+definida pela
+\mathcol
+x^0     &= 1 \\
+x^{n+1} &= xx^n. \\
+\endmathcol
+
+%%}}}
+
+%%{{{ real_integral_powers 
+\exercise Potências integrais.
+%%%{{{ meta 
+\label real_integral_powers
+%%%}}}
+
+Tendo o tipo dos inteiros $\Int$ gostariamos de estender
+as potências dum real $x$ para permitir expoentes inteiros.
+Parece que temos dois significados razoáveis para atribuir ao $x^{-n}$:
+$$
+x^{-n} \askeq
+\paths{
+\paren{x^{-1}}^n & (o inverso de $x$, elevado ao natural $n$) \cr
+\pathween {\dots\orword\dots}
+(x^n)^{-1}       & (o inverso de $x^n$)
+}
+$$
+Demonstre que as duas interpretações são equivalentes.
 
 %%}}}
 
@@ -19477,234 +19636,160 @@ Temos:
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ df: gt_in_ordered_fields 
+%%{{{ remark: alternative_formalization_of_order_axioms 
+\remark Formalização alternativa.
+%%%{{{ meta 
+\label alternative_formalization_of_order_axioms
+%%%}}}
+
+Como discutimos no \ref[int_positivity_intro], podemos optar
+para adicionar um predicado de positividade como noção primitiva,
+e \emph{definir} as relações binárias $(<),(\leq),(>),(\geq)$,
+ou escolher uma das relações binárias como primitiva e definir o resto.
+Nos inteiros escolhemos a primeira abordagem.
+Para variar, vamos tomar a $(>)$ como primitiva nos reais.
+Mas, realmente, tanto faz.
+
+%%}}}
+
+%%{{{ spec: real_spec_2 
+\specification Os reais (2/3).
+%%%{{{ meta 
+\label real_spec_2
+\indexes
+    * abuso notacional
+    ;;
+\defines
+    * reais
+    ;;
+%%%}}}
+
+Aumentamos a estrutura dos reais adicionando um predicado binário:
+$$
+\sset \reals {0,1,+,-,\ntimes,>}
+$$
+com
+$$
+(>) \is \Real \times \Real \to \Prop.
+$$
+Estipulamos os axiomas seguintes:
+\mathcol
+\cforall  {a,b,c} {a > b \mland b > c \implies a > c}     \stag[RO-Trans] \\
+\cforallt {a,b}   {e.u.d.: $a > b$; $a = b$; $b > a$}
+                                                          \stag[RO-Tri] \\
+\cforall  {a,b,c} {a > b \implies a + c > b + c}          \stag[RO-A]   \\
+\cforall  {a,b,c} {a > b \mland c > 0 \implies ac > bc}.  \stag[RO-M]   \\
+\endmathcol
+onde lembramos que <<e.u.d.>>~significa \emph{exatamente uma das}.
+
+%%}}}
+
+%%{{{ df: real_gt_related_notions
 \definition.
 %%%{{{ meta 
 \label gt_in_ordered_fields
 %%%}}}
 
-Definimos a relação binária $<$ pela
+Definimos as relaçõe binárias $(<),(\leq),(\geq)$ pelas
+\mathcols 3
+x < y &\defiff y > x &
+x \geq y &\defiff x > y \mlor x = y &
+x \leq y &\defiff y \geq x,
+\endmathcols
+e um predicado unário $\Pos \is \Real \to \Prop$ pela
 $$
-x < y \defiff y - x \in P.
+\Pos(x) \defiff x > 0.
 $$
-Naturalmente definimos as $>, \leq, \geq$ em termos das $<$ e $=$.
 
 %%}}}
 
-%%{{{ alternative_formalization_of_ordered_fields 
-\note Formalização alternativa.
-%%%{{{ meta 
-\label alternative_formalization_of_ordered_fields
-%%%}}}
-
-Em vez de adicionar a relação unária $P$ em nossa estrutura
-para representar os membros positivos, podemos considerar a
-$$
-\cal F = \sset F {+, \,\ntimes\,, -, 0, 1, <}
-$$
-onde $<$ é uma relação \emph{binária}, cujo papel é representar
-a ordem.
-Nesse caso vamos precisar substituir as leis (FP$\_$) sobre
-o $P$ com leis que afirmam que: $<$ é uma ordem estrita e total:
-\mathcol
-\cforall  {x,y,z \in F}  {x<y \mland y<z \implies x<z}                    \tag{FOT} \\
-\cforallt {x,y \in F}    {exatamente uma das: $x < y$; $x = y$; $x > y$}  \tag{FO3} \\
-\intertext{e que comporta bem com as operações:}
-\cforall  {a,b,c\in F}   {a<b \implies a+c < b+c}                         \tag{FOA} \\
-\cforall  {a,b\in F}     {0<a \mland 0<b \implies 0 < a\ntimes b}.        \tag{FOM} \\
-\endmathcol
-E podemos definir o conjunto $P$ (ou a relação unária $P$, dependente do ponto
-de visto) em termos da ordem $<$, e vice versa, definir a $<$ em termos de $P$:
-$$
-\xalignat 2
-&\gathered
-\sset F {+, \,\ntimes\,, -, 0, 1, P} \\
-x < y \defiff y-x \in P
-\endgathered
-&
-&\gathered
-\sset F {+, \,\ntimes\,, -, 0, 1, <} \\
-x \in P \defiff 0 < x.
-\endgathered
-\endxalignat
-$$
-As duas abordagens são equivalentes.
-
-%%}}}
-
-%%{{{ remark: rats is an ordered field too 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Como percebemos, os números racionais também formam um corpo ordenado.
-Ou seja, todas essas leis que listamos até agora,
-não são suficientes para determinar os reais, pois
-nem conseguem diferencia-los dos racionais.
-Falta só um axioma, o axioma da completude,
-que realmente vai determinar o conjunto $\reals$.
-Mas para entender esse axioma, precisamos primeiro
-entender um outro conceito: o \emph{supremum},
-e seu conceito dual, o \emph{infimum}.
-Faremos essas coisas
-nas~\reftag[Infimum_and_supremum_on_reals]--\reftag[Completeness_of_reals].
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Vamos agora investigar umas conseqüências dessas leis de corpo ordenado.
-
-%%}}}
-
-%%{{{ x: ordered_field_trichotomy 
-\exercise Tricotomia.
-%%%{{{ meta 
-\label ordered_field_trichotomy
-%%%}}}
-
-Para todo $a,b\in F$, exatamente uma das
-$$
-a < b;\qquad
-a = b;\qquad
-a > b;
-$$
-é válida.
-
-%%}}}
-
-%%{{{ x: ordered_field_transitivity 
-\exercise Transitividade.
-%%%{{{ meta 
-\label ordered_field_transitivity
-%%%}}}
-
-A $<$ é uma relação transitiva:
-$a < b \mland b < c \implies a < c$.
-
-%%}}}
-
-%%{{{ x: ordered_field_plus_c_monotone 
+%%{{{ x: real_sum_ineqs 
 \exercise.
 %%%{{{ meta 
-\label ordered_field_plus_c_monotone
+\label real_sum_ineqs
 %%%}}}
 
-Se $a < b$ então $a + c < b + c$.
+$\lforall {a,b,c,d} {a > b \mland c > d \implies a + c > b + d}$.
 
 %%}}}
 
-%%{{{ x: ordered_field_times_positive_c_monotone 
+%%{{{ x: real_negation_of_pos_is_neg 
 \exercise.
 %%%{{{ meta 
-\label ordered_field_times_positive_c_monotone
+\label real_negation_of_pos_is_neg
 %%%}}}
 
-Se $a < b \mland c > 0$ então $ac < bc$.
+$\lforall a {a > 0 \implies -a < 0}$.
 
 %%}}}
 
-%%{{{ x: ordered_field_product_of_negatives_is_positive 
+%%{{{ x: real_negation_of_neg_is_pos 
 \exercise.
 %%%{{{ meta 
-\label ordered_field_product_of_negatives_is_positive
+\label real_negation_of_neg_is_pos
 %%%}}}
 
-Se $a,b < 0$ então $ab > 0$.
+$\lforall a {a < 0 \implies -a > 0}$.
 
 %%}}}
 
-%%{{{ x: ordered_field_square_of_nonzero_is_positive 
+%%{{{ x: real_order_change_side 
 \exercise.
 %%%{{{ meta 
-\label ordered_field_square_of_nonzero_is_positive
+\label real_order_change_side
+%%%}}}
+
+$\lforall {a,b} {a > b \implies a - b > 0}$.
+
+%%}}}
+
+%%{{{ x: real_product_of_negs_is_pos 
+\exercise.
+%%%{{{ meta 
+\label real_product_of_negs_is_pos
+%%%}}}
+
+$\lforall {a,b} {a < 0 \mland b < 0 \implies ab > 0}$.
+
+%%}}}
+
+%%{{{ x: real_square_of_nonzero_is_positive 
+\exercise.
+%%%{{{ meta 
+\label real_square_of_nonzero_is_positive
 %%%}}}
 
 Se $a\neq 0$ então $a^2 > 0$.
 
 %%}}}
 
-%%{{{ x: ordered_field_one_is_greater_than_zero 
+%%{{{ x: real_square_of_subunit_is_smaller 
 \exercise.
 %%%{{{ meta 
-\label ordered_field_one_is_greater_than_zero
+\label real_square_of_subunit_is_smaller
+%%%}}}
+
+$\lforall a {0 < a < 1 \implies 0 < a^2 < a < 1}$.
+
+%%}}}
+
+%%{{{ x: real_one_is_greater_than_zero 
+\exercise.
+%%%{{{ meta 
+\label real_one_is_greater_than_zero
 %%%}}}
 
 $1 > 0$.
 
 %%}}}
 
-%%{{{ x: ordered_field_times_negative_c_antimonotone 
+%%{{{ x: real_plus_pos_increases 
 \exercise.
 %%%{{{ meta 
-\label ordered_field_times_negative_c_antimonotone
+\label real_plus_pos_increases
 %%%}}}
 
-Se $a < b \mland c < 0$ então $ac > bc$.
-
-%%}}}
-
-%%{{{ x: ordered_field_negate_is_antimonotone 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_negate_is_antimonotone
-%%%}}}
-
-Se $a < b$ então $-a > -b$.
-
-%%}}}
-
-%%{{{ x: ordered_field_negate_of_negative_is_positive 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_negate_of_negative_is_positive
-%%%}}}
-
-Se $a < 0$ então $-a > 0$.
-
-%%}}}
-
-%%{{{ x: ordered_field_product_positive_means_samesign 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_product_positive_means_samesign
-%%%}}}
-
-Se $ab > 0$ então $a,b$ são ou ambos positivos ou ambos negativos.
-
-%%}}}
-
-%%{{{ x: ordered_field_add_side_by_side 
-\exercise.
-%%%{{{ meta 
-\label ordered_field_add_side_by_side
-%%%}}}
-
-Se $a < c \mland b < d$ então $a + b < c + d$.
-
-%%}}}
-
-%%{{{ x: complex_cannot_be_ordered_in_disguise 
-\exercise.
-%%%{{{ meta 
-\label complex_cannot_be_ordered_in_disguise
-%%%}}}
-
-Não existe $x\in F$ com $x^2 + 1 = 0$.
-
-%%}}}
-
-%%{{{ x: sum_of_squares_in_ordered_field 
-\exercise.
-%%%{{{ meta 
-\label sum_of_squares_in_ordered_field
-%%%}}}
-
-Para todo $a,b\in F$, temos $a^2 + b^2 \geq 0$.
-Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
+$\lforall {a,b} {b > 0 \implies a + b > a}$.
 
 %%}}}
 
@@ -19714,9 +19799,154 @@ Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 \label order_fields_are_unbounded
 %%%}}}
 
-O $F$ não tem nem mínimo, nem máximo.
+O $\reals$ não tem nem mínimo, nem máximo.
 
 %%}}}
+
+%%{{{ x: real_trichotomy_of_positivity 
+\exercise Tricotomia da positividade.
+%%%{{{ meta 
+\label real_trichotomy_of_positivity
+%%%}}}
+
+Para todo $a$, exatamente uma das:
+$a$ é positivo; $a = 0$; $-a$ é positivo.
+
+%%}}}
+
+%%{{{ x: real_pos_is_closed_under_addition 
+\exercise.
+%%%{{{ meta 
+\label real_pos_is_closed_under_addition 
+%%%}}}
+
+O conjunto $\Pos$ é $(+)$-fechado.
+
+%%}}}
+
+%%{{{ x: real_pos_is_closed_under_multiplication 
+\exercise.
+%%%{{{ meta 
+\label real_pos_is_closed_under_multiplication 
+%%%}}}
+
+O conjunto $\Pos$ é $(\ntimes)$-fechado.
+
+%%}}}
+
+%%{{{ x: real_product_of_negs_is_pos 
+\exercise.
+%%%{{{ meta 
+\label real_product_of_negs_is_pos
+%%%}}}
+
+Se $a,b < 0$ então $ab > 0$.
+
+%%}}}
+
+%%{{{ x: real_times_negative_c_antimonotone 
+\exercise.
+%%%{{{ meta 
+\label real_times_negative_c_antimonotone
+%%%}}}
+
+Se $a < b \mland c < 0$ então $ac > bc$.
+
+%%}}}
+
+%%{{{ x: real_negate_is_antimonotone 
+\exercise.
+%%%{{{ meta 
+\label real_negate_is_antimonotone
+%%%}}}
+
+Se $a < b$ então $-a > -b$.
+
+%%}}}
+
+%%{{{ x: real_product_positive_means_samesign 
+\exercise.
+%%%{{{ meta 
+\label real_product_positive_means_samesign
+%%%}}}
+
+Se $ab > 0$ então $a,b$ são ou ambos positivos ou ambos negativos.
+
+%%}}}
+
+%%{{{ x: complex_cannot_be_ordered_in_disguise 
+\exercise.
+%%%{{{ meta 
+\label complex_cannot_be_ordered_in_disguise
+%%%}}}
+
+Não existe $x$ tal que $x^2 + 1 = 0$.
+
+%%}}}
+
+% inverses and fractions
+
+%%{{{ x: real_inv_does_not_affect_positivity 
+\exercise.
+%%%{{{ meta 
+\label real_inv_does_not_affect_positivity
+%%%}}}
+
+$\lforall a {a > 0 \iff a^{-1} > 0}$.
+
+%%}}}
+
+%%{{{ x: real_inv_is_antitone_for_pos 
+\exercise.
+%%%{{{ meta 
+\headerize
+\label real_inv_is_antitone_for_pos
+%%%}}}
+
+$\lforall {a,b} {0 < a < b \implies 0 < b^{-1} < a^{-1}}$.
+
+%%}}}
+
+%%{{{ x: real_midpoint 
+\exercise.
+%%%{{{ meta 
+\label real_midpoint
+%%%}}}
+
+$\lforall {a,b} {a < b \implies a < \frac 1 2 (a + b) < b}$.
+
+%%}}}
+
+%%{{{ x: real_halving_decreases_pos 
+\exercise.
+%%%{{{ meta 
+\label real_halving_decreases_pos
+%%%}}}
+
+$\lforall a {0 > a \implies 0 < \frac 1 2 a < a}$.
+
+%%}}}
+
+% nonbaby
+
+%%{{{ x: real_sum_of_squares 
+\exercise.
+%%%{{{ meta 
+\label real_sum_of_squares
+%%%}}}
+
+Para todo $a,b$, temos $a^2 + b^2 \geq 0$.
+Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Epsilon 
+\section Epsilon.
+%%%{{{ meta 
+%%%}}}
 
 %%{{{ x: only_zero_is_leq_than_all_positives 
 \exercise.
@@ -19728,6 +19958,26 @@ Se $x$ tem a propriedade que $0 \leq x < \epsilon$
 para todo $\epsilon > 0$, então $x = 0$.
 
 %%}}}
+
+%%{{{ x: real_lt_to_leq 
+\exercise.
+%%%{{{ meta 
+\label real_lt_to_leq
+%%%}}}
+
+Sejam $a,b$ reais.
+Se para todo $\epsilon > 0$, $a < b + \epsilon$, então $a \leq b$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Absolute_value_and_distance_on_reals 
+\section Valor absoluto e distância.
+%%%{{{ meta 
+\label Absolute_value_and_distance_on_reals
+%%%}}}
 
 %%{{{ df: abs_in_ordered_fields 
 \definition.
@@ -19746,10 +19996,10 @@ $$
 
 %%}}}
 
-%%{{{ x: ordered_field_abs_lemma 
+%%{{{ x: real_abs_lemma 
 \exercise.
 %%%{{{ meta 
-\label ordered_field_abs_lemma
+\label real_abs_lemma
 %%%}}}
 
 Sejam $x,w\in F$.  Logo
@@ -19761,10 +20011,10 @@ $$
 
 %%}}}
 
-%%{{{ x: ordered_field_triangular_inequality 
+%%{{{ x: real_triangular_inequality 
 \exercise Desigualdade triangular.
 %%%{{{ meta 
-\label ordered_field_triangular_inequality
+\label real_triangular_inequality
 %%%}}}
 
 Sejam $x,y,z\in F$.  Logo:
@@ -19777,8 +20027,6 @@ $$
 $$
 
 %%}}}
-
-\TODO Corpos arquimedeanos.
 
 %%{{{ Models 
 \note Modelos.
@@ -19793,6 +20041,26 @@ viz.~os reais e os racionais:
 ambos têm toda a estrutura exigida, e satisfazem todos os axiomas.
 Em palavras mais formais, eles são o que a gente chama
 de \dterm{modelos} de corpos ordenados.
+
+%%}}}
+
+%%{{{ remark: rats is an ordered field too 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Como percebemos, os números racionais também satisfazem
+todos os axiomas que temos listado até agora sobre os reais.
+Ou seja, o que temos estipulado não é suficientes para
+\dterm{determinar os reais}, pois nem consegue diferenciá-los
+dos racionais.
+Falta só um axioma, o axioma da completude,
+que realmente vai determinar os reais.
+Mas para entender esse axioma, precisamos primeiramente
+entender um outro conceito: o \emph{supremum},
+e seu conceito dual, o \emph{infimum}.
+Faremos essas coisas
+nas~\reftag[Infimum_and_supremum_on_reals]--\reftag[Completeness_of_reals].
 
 %%}}}
 
@@ -19827,7 +20095,17 @@ e finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
 \endsection
 %%}}}
 
-%%{{{ Infimum and supremum 
+%%{{{ Minima_and_maxima_on_reals 
+\section Mínima e máxima.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
+%%{{{ Infimum_and_supremum_on_reals 
 \section Infimum e supremum.
 %%%{{{ meta 
 \label Infimum_and_supremum_on_reals
@@ -20075,7 +20353,7 @@ a~\ref[how_can_we_separate_reals_from_rats]?
 \endsection
 %%}}}
 
-%%{{{ Completude 
+%%{{{ Completeness_of_reals 
 \section Completude.
 %%%{{{ meta 
 \label Completeness_of_reals
@@ -21544,10 +21822,10 @@ O que isso significa mesmo?  Enuncie e demonstre.
 
 %%}}}
 
-%%{{{ prob: complex_cannot_by_ordered 
+%%{{{ prob: complex_cannot_be_ordered 
 \problem.
 %%%{{{ meta 
-\label complex_cannot_by_ordered
+\label complex_cannot_be_ordered
 %%%}}}
 
 Demonstre que não tem como definir uma ordem no corpo dos
@@ -53452,7 +53730,7 @@ a^{-2} \askeq
 \ginvp{a^2}       & (o inverso do quadrado do $a$)
 }
 $$
-Demonstre que as duas interpretações são equivalentes, ou seja:
+As duas interpretações são equivalentes:
 
 %%}}}
 
