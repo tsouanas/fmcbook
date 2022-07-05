@@ -18868,8 +18868,8 @@ Denotamos a operação de concatenação de strings por $\concat$.
 Dois alunos definiram com as maneiras seguintes a ``exponenciação'':
 $$
 \xxalignat4
-\text{(L1)} && \lexp s to 0 &= \epsilon                    & \rexp s to 0 &= \epsilon                   && \text{(R1)}\\
-\text{(L2)} && \lexp s to n &= \lexp s to {n-1} \concat s  & \rexp s to n &= s \concat \rexp s to {n-1} && \text{(R2)}
+\text{(L1)} && \lexp s 0 &= \epsilon                    & \rexp s 0 &= \epsilon                   && \text{(R1)}\\
+\text{(L2)} && \lexp s n &= \lexp s {n-1} \concat s  & \rexp s n &= s \concat \rexp s {n-1} && \text{(R2)}
 \endxxalignat
 $$
 onde $\epsilon$ é o string vazio ``\,'', que é uma \dterm{identidade}
@@ -18878,13 +18878,13 @@ $$
 \lforall s {\epsilon \concat s = s = s \concat \epsilon}. \tag{E}
 $$
 Demonstre que as duas definições são equivalentes, ou seja,
-que para todo string $s$ e todo $n \geq 0$, $\lexp s to n = \rexp s to n$.
+que para todo string $s$ e todo $n \geq 0$, $\lexp s n = \rexp s n$.
 Cuidado: a operação $\concat$ é associativa mas não comutativa:
 \sq{oimundo} e \sq{mundooi} são palavras diferentes!
 
 \hint
 Tome um string arbitrário $s$, e demonstre por inducção
-que \emph{para todo $n\in\nats$, $\lexp s to n = \rexp s to n$}.
+que \emph{para todo $n\in\nats$, $\lexp s n = \rexp s n$}.
 
 \hint
 Uma base não é suficiente:
@@ -18892,59 +18892,59 @@ demonstre para $n \asseq 0,1$.
 
 \hint
 Para teu passo indutivo, tu terás um $k\geq 2$ tal que
-$\lexp s to {k-1} = \rexp s to {k-1}$\fact{HI1} e
-$\lexp s to {k-2} = \rexp s to {k-2}$\fact{HI2}.
+$\lexp s {k-1} = \rexp s {k-1}$\fact{HI1} e
+$\lexp s {k-2} = \rexp s {k-2}$\fact{HI2}.
 E com essas duas hipoteses indutivas basta demonstrar
 $
-\lexp s to k = \rexp s to k.
+\lexp s k = \rexp s k.
 $
 
 \solution
 Seja $s$ string.
 Vamos demonstrar por indução (com duas bases) que
-\emph{para todo $n\in\nats$, $\lexp s to n = \rexp s to n$}.
+\emph{para todo $n\in\nats$, $\lexp s n = \rexp s n$}.
 Primeiramente verificamos que para $n \asseq 0$ e $n \asseq 1$,
-realmente temos $\lexp s to n = \rexp s to n$.
+realmente temos $\lexp s n = \rexp s n$.
 \crproofpart{Base ($n \asseq 0$).}
 Calculamos:
 $$
-\lexp s to 0 \eqlabel{L1} \epsilon \eqlabel{R1} \rexp s to 0.
+\lexp s 0 \eqlabel{L1} \epsilon \eqlabel{R1} \rexp s 0.
 $$
 \crproofpart{Base ($n \asseq 1$).}
 Calculamos:
 $$
 \computed {
-\lexp s to 1 &= \lexp s to 0 \concat s \by {def.~$\lexp s to 1$} \\
-             &= \epsilon     \concat s \by {def.~$\lexp s to 0$} \\
+\lexp s 1 &= \lexp s 0 \concat s \by {def.~$\lexp s 1$} \\
+             &= \epsilon     \concat s \by {def.~$\lexp s 0$} \\
              &= s                      \by {E} \\
 }
 \qqqquad
 \computed {
-\rexp s to 1 &= s \concat \rexp s to 0  \by {def.~$\rexp s to 1$} \\
-             &= s \concat \epsilon      \by {def.~$\rexp s to 0$} \\
+\rexp s 1 &= s \concat \rexp s 0  \by {def.~$\rexp s 1$} \\
+             &= s \concat \epsilon      \by {def.~$\rexp s 0$} \\
              &= s.                      \by {E} \\
 }
 $$
-Logo $\lexp s to 1 = \rexp s to 1$.
+Logo $\lexp s 1 = \rexp s 1$.
 \crproofpart{Passo indutivo.}
 Seja $k\geq 2$ tal que
-$\lexp s to {k-1} = \rexp s to {k-1}$\fact{HI1} e
-$\lexp s to {k-2} = \rexp s to {k-2}$\fact{HI2}.
+$\lexp s {k-1} = \rexp s {k-1}$\fact{HI1} e
+$\lexp s {k-2} = \rexp s {k-2}$\fact{HI2}.
 Vou demonstrar que
 $
-\lexp s to k = \rexp s to k.
+\lexp s k = \rexp s k.
 $
 Calculamos:
 \compute
-\lexp s to k
-&= \lexp s to {k-1} \concat s               \by {L1} \\
-&= \rexp s to {k-1} \concat s               \by {HI1} \\
-&= (s \concat \rexp s to {k-2}) \concat s   \by {R2} \\
-&= (s \concat \lexp s to {k-2}) \concat s   \by {HI2} \\
-&= s \concat (\lexp s to {k-2}  \concat s)  \by {Assoc.} \\
-&= s \concat \lexp s to {k-1}               \by {L2} \\
-&= s \concat \rexp s to {k-1}               \by {HI1} \\
-&= \rexp s to k.                            \by {R2} \\
+\lexp s k
+&= \lexp s {k-1} \concat s               \by {L1} \\
+&= \rexp s {k-1} \concat s               \by {HI1} \\
+&= (s \concat \rexp s {k-2}) \concat s   \by {R2} \\
+&= (s \concat \lexp s {k-2}) \concat s   \by {HI2} \\
+&= s \concat (\lexp s {k-2}  \concat s)  \by {Assoc.} \\
+&= s \concat \lexp s {k-1}               \by {L2} \\
+&= s \concat \rexp s {k-1}               \by {HI1} \\
+&= \rexp s k.                            \by {R2} \\
 \endcompute
 
 %%}}}
@@ -19601,8 +19601,8 @@ $$
 
 % enter powers
 
-%%{{{ real_natural_powers 
-\note Potências naturais.
+%%{{{ df: real_natural_powers 
+\definition Potências naturais.
 %%%{{{ meta 
 \label real_natural_powers
 %%%}}}
@@ -19613,18 +19613,48 @@ como uma operação de tipo:
 $$
 \Real \to \Nat \to \Real
 $$
-definida pela
+definida pelas
 \mathcol
-x^0     &= 1 \\
-x^{n+1} &= xx^n. \\
+x^0     &\defeq 1 \\
+x^{n+1} &\defeq x \ntimes x^n. \\
 \endmathcol
 
 %%}}}
 
-%%{{{ real_integral_powers 
-\exercise Potências integrais.
+%%{{{ x: real_natural_powers_left_assoc 
+\exercise.
 %%%{{{ meta 
-\label real_integral_powers
+\label real_natural_powers_left_assoc
+%%%}}}
+
+Uma alternativa para definir as potências naturais dum real $x$ seria a seguinte:
+\mathcol
+x^0     &\defeq 1 \\
+x^{n+1} &\defeq x^n \ntimes x. \\
+\endmathcol
+Demonstre que essas duas definições são equivalentes.
+\eop
+Cuidado!  Duas definições alternativas usando a mesma notação não ajuda em demonstrar
+que são equivalentes.  Tu vai acabar escrevendo que precisa demonstrar que $x^n = x^n$,
+parecendo algo trivial (por reflexividade), só que não é o caso, pois
+num lado o $x^n$ é para seguir uma definição, e no outro outra!
+Por isso precisamos alterar a notação da definição alternativa.
+Sugiro assim:
+\mathcol
+\lexp x 0     &\defeq 1 \\
+\lexp x {n+1} &\defeq \lexp x n \ntimes x. \\
+\endmathcol
+Agora sim, o que precisas demonstrar é fácil de escrever:
+$$
+\pforall x \lforall n {\lexp x n = \rexp x n}.
+$$
+
+%%}}}
+
+%%{{{ remark: real_integral_powers_choice 
+\remark Potências integrais: qual definição escolher?.
+%%%{{{ meta 
+\label real_integral_powers_choice
 %%%}}}
 
 Tendo o tipo dos inteiros $\Int$ gostariamos de estender
@@ -19638,7 +19668,34 @@ x^{-n} \askeq
 (x^n)^{-1}       & (o inverso de $x^n$)
 }
 $$
-Demonstre que as duas interpretações são equivalentes.
+Felizmente as duas alternativas são equivalentes,
+e logo não importa tanto qual das duas vamos escolher.
+Demonstrarás isso agora no \ref[real_integral_powers_choices_are_equivalent],
+e logo depois (\ref[real_integral_powers] eu vou escolher uma para ser a definição mesmo.
+
+%%}}}
+
+%%{{{ x: real_integral_powers_choices_are_equivalent 
+\exercise.
+%%%{{{ meta 
+\label real_integral_powers_choices_are_equivalent
+%%%}}}
+
+Demonstre que as duas interpretações da \ref[real_integral_powers_choice]
+são equivalentes.
+
+%%}}}
+
+%%{{{ df: real_integral_powers 
+\definition Potências integrais.
+%%%{{{ meta 
+\label real_integral_powers
+%%%}}}
+
+Definimos
+$$
+x^{-n} \defeq (x^n)^{-1}.
+$$
 
 %%}}}
 
@@ -20147,13 +20204,139 @@ Logo $a=b$.
 \endsection
 %%}}}
 
-%%{{{ Sets_and_sequences_of_reals 
+%%{{{ Sets_and_sequences_in_reals 
 \section Conjuntos e seqüências.
 %%%{{{ meta 
-\label Sets_and_sequences_of_reals
+\label Sets_and_sequences_in_reals
 %%%}}}
 
 \TODO Escrever.
+
+%% Seq Real
+
+%%{{{ eg: a recursively defined seq 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Definimos a seqüência de reais $\seqn x n$ recursivamente pelas:
+\mathcol
+x_0     &= 0 \\
+x_{n+1} &= (1/2)x_n + 1.
+\endmathcol
+
+%%}}}
+
+%%{{{ x: prove increasing 
+\exercise.
+%%%{{{ meta 
+\defines
+    * seqüência!crescente
+    ;;
+\indexes
+    * crescente     see: seqüência
+    ;;
+%%%}}}
+
+Demonstre que a $\seqn x n$ definida acima é \dterm{crescente}, i.e.:
+$$
+\lforall n {\seqn x n \leq \seqn x {n+1}}.
+$$
+
+%%}}}
+
+%%{{{ remark: increasing_nimplies_unbounded 
+\remark Crescente não implica não ilimitada.
+%%%{{{ meta 
+\label increasing_nimplies_unbounded
+%%%}}}
+
+Mesmo que cada termo da seqüência $\seqn x n$ é \emph{estritamente maior}
+que o anterior, os termos dela são limitados por um certo valor,
+ou seja, existe um real $M$, tal que todos os componentes da seqüência são menores que $M$.
+
+%%}}}
+
+%%{{{ x: prove bounded 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Ache um tal $M$ para essa seqüência, e demonstre que realmente serve.
+
+%%}}}
+
+%%{{{ x: prove bounded 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Agora considere a seqüência $\seqn x n$ definida pelas
+\mathcol
+x_0     &\defeq 1 \\
+x_{n+1} &\defeq (3x_n + 4)/4. \\
+\endmathcol
+Resolva sobre esta as mesmas duas questões que resolveu sobre a seqüência anterior.
+
+%%}}}
+
+%%{{{ eg: a recursively defined seq 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Definimos a seqüência de reais $\seqn a n$ recursivamente pelas:
+\mathcol
+a_0     &= 0 \\
+a_{n+1} &= 1 - a_n.
+\endmathcol
+
+%%}}}
+
+%%{{{ eg: a sequence tending to 1
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Definimos a seqüência de reais $\seqn b n$ pela:
+\mathcol
+b_n     &\defeq 1 + 1/n.
+\endmathcol
+Observe que aqui consideramos como primeiro termo da seqüência o $b_1$, e não o $b_0$.
+Se, por motivos religiosos, queremos defini-la em tal forma que seu primeiro termo
+é o $b_0$ mesmo, basta definir pela $b_n \defeq 1 + 1/(n+1)$.
+
+%%}}}
+
+%% Set Real
+
+%%{{{ x: fun with sequences of sets 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Seja $\seqn A n$ uma seqüência de conjuntos de reais, tal que
+$$
+A_1 \supset A_2 \supset A_3 \supset \dotsb
+$$
+e tal que cada um deles possui uma infinidade de membros.
+Podemos concluir que sua intersecção
+$$
+A_1 \inter A_2 \inter A_3 \inter \dotsb
+$$
+também possui uma infinidade de reais?
+
+%%}}}
+
+%%{{{ x: fun with sequences of sets 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+E se, em vez de infinito, cada um dos $A_i$ é finito e habitado, podemos concluir
+que a interseção também é finita e habitada?
+
+%%}}}
 
 \endsection
 %%}}}
@@ -20162,6 +20345,195 @@ Logo $a=b$.
 \section Subconjuntos notáveis.
 %%%{{{ meta 
 \label Notable_subsets_of_reals 
+%%%}}}
+
+\TODO Escrever.
+
+%%{{{ df: real_inductive 
+\definition indutivo.
+%%%{{{ meta 
+\defines
+    * conjunto!inductivo (de reais)
+    ;;
+%%%}}}
+
+Seja $A$ um conjunto de reais.
+Chamamos o $A$ de \dterm{inductivo} sse:
+(i) $0 \in A$;
+(ii) $\lforall {a} {a \in A \implies a + 1 \in A}$.
+
+%%}}}
+
+%%{{{ eg: real_inductive_sets 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+O próprio conjunto $\reals$ com certeza é indutivo.
+Os conjuntos $\reals_{\geq 0}, \reals_{\geq -1}$ também.
+Os conjuntos
+\mathcol
+H &\defeq \set {
+\dotsc
+-3,
+-\frac 5 2,
+-2,
+-\frac 3 2,
+-1,
+-\frac 1 2,
+0,
+\frac 1 2,
+1,
+\frac 3 2,
+2,
+\frac 5 2,
+3,
+\dotsc
+} \\
+H_{\geq 0} &\defeq \setst {h \in H} {h \geq 0}
+\endmathcol
+também.
+
+%%}}}
+
+%%{{{ noneg: real_non_inductive_sets 
+\nonexample.
+%%%{{{ meta 
+%%%}}}
+
+Nenhum dos conjuntos seguintes é indutivo:
+$$
+\set {0},
+\set {0,1,2,3,\dotsc,83},
+\reals_{\neq 0},
+\reals_{\leq 0},
+\reals_{\neq -1}.
+$$
+
+%%}}}
+
+%%{{{ x: real_non_inductive_sets_why 
+\exercise.
+%%%{{{ meta 
+\label real_non_inductive_sets_why
+%%%}}}
+
+Por quê?
+
+%%}}}
+
+%%{{{ df: real_naturals 
+\definition Os reais naturais.
+%%%{{{ meta 
+\label real_naturals
+\defines
+    * real!natural
+    ;;
+\pdefs
+    \pdef I {{\cal I}}
+    ;;
+%%%}}}
+
+Seja $\I$ a coleção de todos os conjuntos indutivos de reais.
+Sabemos que $\reals \in \I$.
+Considere a interseção de todos os conjuntos indutivos de reais,
+ou seja, o conjunto
+$$
+\setstt {x \in \reals} {$x$ pertence a todo conjunto indutivo de reais}
+$$
+que denotaremos por $\reals_\nats$ e cujos membros chamamos de
+\dterm{reais naturais}.
+Seus membros são os
+$$
+\reals_\nats = \setst {0, 1, 2, 3, 4, \dotsc }.
+$$
+
+%%}}}
+
+%%{{{ thm: real_naturals_is_inductive 
+\theorem Os reais naturais.
+%%%{{{ meta 
+\label real_naturals_is_inductive
+%%%}}}
+
+O conjunto $\reals_\nats$ é inductivo.
+
+\proof.
+Precisamos verificar que:
+(i) $0 \in \reals_\nats$;
+(ii) $\lforall {x} {x \in \reals_\nats \implies x + 1 \in \reals_\nats}$.
+Lembre-se que para demonstrar que um real $a$ pertence ao $\reals_nats$
+basta demonstrar que $a$ pertence a todos os conjuntos indutivos, já que
+$\reals_\nats$ foi definido como interseção de todos eles.
+\eop
+(i) Seja $I$ conjunto indutivo de reais.  Logo $0 \in I$.
+(ii) Seja $x \in \reals_\nats$, ou seja, $x$ pertence em qualquer conjunto indutivo.
+Preciso mostrar que $x + 1 \in \reals_\nats$.
+Para conseguir isso, seja $I$ um conjunto indutivo de reais.
+Logo $x \in I$.  Como $I$ é indutivo, $x+1 \in I$, que é o que precisava mostrar.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Tendo definido os reais naturais $\reals_\nats$, definir os reais
+inteiros é fácil; e tendo eles, definir os reais racionais também!
+
+%%}}}
+
+%%{{{ df: real_integers
+\definition Os reais inteiros.
+%%%{{{ meta 
+\label real_integers
+\defines
+    * real!integer
+    ;;
+%%%}}}
+
+Definimos o conjunto dos \dterm{reais inteiros}
+$$
+\reals_\ints \defeq \reals_\nats \union \setst {-n} {n \in \reals_\nats}.
+$$
+
+%%}}}
+
+%%{{{ df: real_rationals
+\definition Os reais racionais.
+%%%{{{ meta 
+\label real_rationals
+\defines
+    * real!racional
+    ;;
+%%%}}}
+
+Definimos o conjunto dos \dterm{reais racionais}
+$$
+\reals_\rats \defeq \setst {m/n} {m \in \reals_\ints, n \in {\reals_\ints}_{>0}}.
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Intervals_of_reals 
+\section Intervalos.
+%%%{{{ meta 
+\label Intervals_of_reals
+%%%}}}
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
+%%{{{ The_extended_reals 
+\section Os reais estendidos.
+%%%{{{ meta 
+\label The_extended_reals
 %%%}}}
 
 \TODO Escrever.
@@ -20572,20 +20944,21 @@ Agora temos tudo que precisamos para responder
 a~\ref[how_can_we_separate_reals_from_rats].
 Nossa resposta com palavras de rua é
 \standout
-\emph{os reais não têm ``buracos''}
+\emph{a linha dos reais não tem ``buracos''}
 \endstandout
-mas precisamos formalizar essa afirmação.\foot
-No~\ref[Cantors_paradise] encontramos uma outra
+mas precisamos formalizar essa proposição.\foot
+No~\ref[Cantors_paradise] encontraremos uma outra
 resposta a~\ref[how_can_we_separate_reals_from_rats],
-de natureza completamente diferente.  Paciência!
+de natureza diferente.  Paciência!
 \toof
 A idéia é exigir que \emph{não falta nenhum supremum}---ou, dualmente,
 nenhum infimum, pois é a mesma coisa:
 uma afirmação acaba implicando a outra.
-Mas o que quis dizer que não falta nenhum supremum?
+Mas o que significa dizer que não falta nenhum supremum?
 E, nenhum mesmo?  Não.
 Um conjunto que nem é bounded above não tem chances de ter supremum.
-Vamos exigir suprema de todos os outros então:
+Um conjunto vazio, também não.
+Vamos exigir suprema para todos os outros então:
 
 %%}}}
 
@@ -20603,6 +20976,23 @@ todos os seus subconjuntos bounded above possuem supremum no $R$
 \mathcol
 \cforall {A\subset R} {A\neq\emptyset \mland \text{$A$ bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
 \endmathcol
+
+%%}}}
+
+%%{{{ blah: the rest of this chapter is a teaser to calculus/analysis 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Terminamos com este axioma a lista de todos os axiomas que vamos estipular
+sobre os números reais.  As conseqüências desses axiomas é o que estudamos em
+\dterm{calculus} e \dterm{análise real}.
+O resto deste capítulo é um teaserzinho dessa teoria linda;
+e, como sempre, no fim tenho ponteiros na literatura para mergulhar mais.
+No~\ref[Metric_spaces] voltamos nessa investigação de análise real,
+pois estudamos a teoria dos \emph{espaços métricos}:
+conjuntos equipados com uma noção de distância, ou seja,
+uma funcção binária \emph{com valores reais}, satisfazendo certas leis.
 
 %%}}}
 
@@ -20693,159 +21083,6 @@ esse supremum para definir o infimum de $A$.
 
 %%}}}
 
-%%{{{ Enough! 
-\note Chega!.
-%%%{{{ meta 
-%%%}}}
-
-Vamos revisar pouco a situação com as estruturas que estudamos até agora.
-Como a gente escolha os axiomas (leis) que botamos nas nossas definições?
-As mais leis que eu boto, as mais ferramentas que ganho para matar mais
-teoremas.  Minha teoria vai acabar sendo capaz de demonstrar mais coisas,
-mas o preço que pago para isso são modelos!
-\eop
-Quantos monóides encontramos?  Demais!  Todos os grupos são monóides,
-e a gente já encontrou ainda mais monóides que não são grupos (lembra?).
-E grupos?
-``Menos'', mas muitos também!
-E grupos abelianos?
-Provamos mais teoremas, mas temos menos exemplos de grupos abelianos.
-E anéis?  E anéis comutativos?  E domínios de integridade?
-Cada vez que adicionamos restricções (leis), a teoria correspondente
-cresce, e a colecção de models diminui.
-E corpos?
-Ainda encontramos vários modelos: racionais, reais, complexos, inteiros
-módulo primo $p$, \dots
-\eop
-E corpos ordenados?
-Aqui ganhamos muita teoria graças a ordem, mas perdemos os complexos e os
-inteiros módulo $p$, mas ainda temos os reais e os racionais e mais
-uns modelos, mas já estamos percebendo que fica mais e mais difícil
-achar modelos \emph{realmente} diferentes que satisfazem todas as leis!
-\eop
-E agora?
-Adicionamos mais uma lei: o axioma da completude; e assim chegamos nos
-\emph{corpos ordenados completos}.  E agora \emph{chega!}
-Estamos num ponto onde adicionamos tantos axiomas que nosso conceito
-foi tão exigente que perdemos todos os modelos exeto um: os reais!
-Realmente não encontramos outro exemplo, mas isso não quis dizer que
-não existem outros modelos.  Certo?  Certo, mas acontece que nessa
-situação não é o caso: \emph{essencialmente existe apenas um
-único corpo ordenado completo: os reais!}
-
-%%}}}
-
-%%{{{ Q: what does "essentially" mean above? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-O que significa a palavra \wq{essencialmente} acima?
-
-%%}}}
-
-\spoiler
-
-%%{{{ thm: uniqueness_of_complete_ordered_field 
-\theorem Unicidade.
-%%%{{{ meta 
-\label uniqueness_of_complete_ordered_field
-%%%}}}
-
-Se $R,R'$ são corpos ordenados completos então $R,R'$ são isómorfos.
-
-\sketch.
-Sejam
-$\sset R    {+, \;\ntimes\;, -, 0, 1, <}$ e
-$\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}$
-corpos ordenados completos.
-Precisamos definir um isomorfismo
-$$
-\phi
-\eqtype
-\sset R    {+, \;\ntimes\;, -, 0, 1, <}
-\longtoby{\iso}
-\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}.
-$$
-Obviamente botamos
-$$
-\align
-\phi0 &= 0' \\
-\phi1 &= 1'
-\intertext{Isso já determina a $\phi$ no resto dos
-``naturais'' $N\subset R$:}
-\phi2 &= \phi(1 + 1) = \phi1 + \phi1 = 1' + 1' = 2' \\
-\phi3 &= \phi(2 + 1) = \phi2 + \phi1 = 2' + 1' = 3' \\
-&\eqvdots \\
-\phi(n+1) &= \phi n + \phi1 = n' + 1' \\
-&\eqvdots
-\endalign
-$$
-ou seja, a $\phi$ (restrita no $N$) necessariamente embute
-isomorficamente o $N\subset R$ no $\img \phi N = N' \subset R'$:
-$$
-\phi \restosub N : N \isoto N'.
-$$
-Agora, como $\phi$ é homomorfismo, temos
-$$
-\phi(-x) = \mathord{-'}(\phi x)
-\quad\text{para todo $x\in R$},
-$$
-e logo a $\phi$ necessariamente embute os ``inteiros''
-$Z\subset R$ nos ``inteiros'' $Z' \subset R'$:
-$$
-\phi \restosub Z : Z \isoto Z'.
-$$
-Definimos a $\phi$ nos ``racionais'' $Q\subset R$ assim:
-$$
-\phi(m/n)
-= \phi(m \ntimes \ginv n)
-= \phi m \ntimes' \ginvp{\phi n}
-= \phi m \ntimes' \phi (\ginv n)
-= \phi m \mathbin{/'} \phi n
-$$
-e logo
-$$
-\phi \restosub Q : Q \isoto Q'.
-$$
-Estamos perto!
-Basta só definir a $\phi$ nos ``buracos'' (nos ``irracionais'')
-de $R$ e pronto!
-
-%}}}
-
-%%{{{ remark: we cannot finish this proof right now 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Infelizmente, por enquanto não temos todo o armamento para matar
-os detalhes e o que falta no esboço, mas é importante entender
-pelo menos tudo que tá lá.  Voltamos nesse assunto
-no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
-
-%%}}}
-
-%%{{{ warning: does_a_complete_ordered_field_exist_warning 
-\warning.
-%%%{{{ meta 
-\label does_a_complete_ordered_field_exist_warning
-%%%}}}
-
-Mesmo se aceitar que quaisquer corpos ordenados completos são
-isomorfos (o~\ref[uniqueness_of_complete_ordered_field]), ainda
-temos um ponto que roubamos: para existir único, precisamos duas
-coisas: \emph{pelo menos} um; \emph{no máximo} um.
-O~\reftag[uniqueness_of_complete_ordered_field] realmente ofereceu
-a segunda coisa; mas a primeira?
-Qual foi tua resolução
-do~\ref[can_we_prove_that_reals_is_a_complete_ordered_field]
-mesmo?
-Voltamos nesse assunto
-no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
-
-%%}}}
-
 \endsection
 %%}}}
 
@@ -20877,38 +21114,11 @@ tu já ouviste falar dela por uns dos seus apelidos:
 Na abordagem axiomática, não nos importa \emph{definir}\/ ou
 \emph{construir} os objetos que vamos chamar de \dterm{números reais}.
 Começamos aceitando a existência dum certo conjunto que denotamos
-por $\reals$, suas operações binárias de adição e multiplicação,
-seu zero $0$ e seu um $1$, e um conjunto de reais cujos membros
-chamamos de \dterm{positivos}.
-Estipulamos os axiomas seguintes.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Ou seja, estipulamos o seguinte:
-\standout
-\proclaimstyle $\reals$ é um corpo ordenado completo.
-\endstandout
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-As conseqüências desses axiomas é o que estudamos em
-\dterm{calculus} e \dterm{análise real}.
-O resto desse capítulo é um teaserzinho dessa teoria linda demais;
-e, como sempre, no fim tenho ponteiros na literatura para mergulhar mais.
-No~\ref[Metric_spaces] voltamos nessa investigação de análise real,
-pois estudamos a teoria dos \emph{espaços métricos}:
-conjuntos equipados com uma noção de distância, ou seja,
-uma funcção binária \emph{com valores reais}, satisfazendo certas leis.
+por $\reals$ e umas noções primitivas, e estipulamos uns axiomas
+sobre eles.
+A partir de tais noções primitivas e tais axiomas procedemos
+para definir mais conceitos, e demonstrar mais proposições (os teoremas),
+elaborando assim a teoria dos corpos ordenados completos.
 
 %%}}}
 
@@ -21858,6 +22068,17 @@ A $\seqn f n$ converge àlguma funcção pointwise?
 %%%}}}
 
 \TODO Expansão como instruções.
+
+\endsection
+%%}}}
+
+%%{{{ The_complex 
+\section Os complexos.
+%%%{{{ meta 
+\label The_complex
+%%%}}}
+
+\TODO elaborar.
 
 \endsection
 %%}}}
@@ -64475,6 +64696,169 @@ O estudo de espações vetorias e seus morfismos
 \endsection
 %%}}}
 
+%%{{{ Non purely algebraic structures 
+\section Estruturas não puramente algébricas.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%{{{ Enough! 
+\note Chega!.
+%%%{{{ meta 
+%%%}}}
+
+Vamos revisar pouco a situação com as estruturas que estudamos até agora.
+Como a gente escolha os axiomas (leis) que botamos nas nossas definições?
+As mais leis que eu boto, as mais ferramentas que ganho para matar mais
+teoremas.  Minha teoria vai acabar sendo capaz de demonstrar mais coisas,
+mas o preço que pago para isso são modelos!
+\eop
+Quantos monóides encontramos?  Demais!  Todos os grupos são monóides,
+e a gente já encontrou ainda mais monóides que não são grupos (lembra?).
+E grupos?
+``Menos'', mas muitos também!
+E grupos abelianos?
+Provamos mais teoremas, mas temos menos exemplos de grupos abelianos.
+E anéis?  E anéis comutativos?  E domínios de integridade?
+Cada vez que adicionamos restricções (leis), a teoria correspondente
+cresce, e a colecção de models diminui.
+E corpos?
+Ainda encontramos vários modelos: racionais, reais, complexos, inteiros
+módulo primo $p$, \dots
+\eop
+E corpos ordenados?
+Aqui ganhamos muita teoria graças a ordem, mas perdemos os complexos e os
+inteiros módulo $p$, mas ainda temos os reais e os racionais e mais
+uns modelos, mas já estamos percebendo que fica mais e mais difícil
+achar modelos \emph{realmente} diferentes que satisfazem todas as leis!
+\eop
+E agora?
+Adicionamos mais uma lei: o axioma da completude; e assim chegamos nos
+\emph{corpos ordenados completos}.  E agora \emph{chega!}
+Estamos num ponto onde adicionamos tantos axiomas que nosso conceito
+foi tão exigente que perdemos todos os modelos exeto um: os reais!
+Realmente não encontramos outro exemplo, mas isso não quis dizer que
+não existem outros modelos.  Certo?  Certo, mas acontece que nessa
+situação não é o caso: \emph{essencialmente existe apenas um
+único corpo ordenado completo: os reais!}
+
+%%}}}
+
+%%{{{ Q: what does "essentially" mean above? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+O que significa a palavra \wq{essencialmente} acima?
+
+%%}}}
+
+\spoiler
+
+%%{{{ thm: uniqueness_of_complete_ordered_field 
+\theorem Unicidade.
+%%%{{{ meta 
+\label uniqueness_of_complete_ordered_field
+%%%}}}
+
+Se $R,R'$ são corpos ordenados completos então $R,R'$ são isómorfos.
+
+\sketch.
+Sejam
+$\sset R    {+, \;\ntimes\;, -, 0, 1, <}$ e
+$\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}$
+corpos ordenados completos.
+Precisamos definir um isomorfismo
+$$
+\phi
+\eqtype
+\sset R    {+, \;\ntimes\;, -, 0, 1, <}
+\longtoby{\iso}
+\sset {R'} {+', \;\ntimes'\;, -', 0', 1', <'}.
+$$
+Obviamente botamos
+$$
+\align
+\phi0 &= 0' \\
+\phi1 &= 1'
+\intertext{Isso já determina a $\phi$ no resto dos
+``naturais'' $N\subset R$:}
+\phi2 &= \phi(1 + 1) = \phi1 + \phi1 = 1' + 1' = 2' \\
+\phi3 &= \phi(2 + 1) = \phi2 + \phi1 = 2' + 1' = 3' \\
+&\eqvdots \\
+\phi(n+1) &= \phi n + \phi1 = n' + 1' \\
+&\eqvdots
+\endalign
+$$
+ou seja, a $\phi$ (restrita no $N$) necessariamente embute
+isomorficamente o $N\subset R$ no $\img \phi N = N' \subset R'$:
+$$
+\phi \restosub N : N \isoto N'.
+$$
+Agora, como $\phi$ é homomorfismo, temos
+$$
+\phi(-x) = \mathord{-'}(\phi x)
+\quad\text{para todo $x\in R$},
+$$
+e logo a $\phi$ necessariamente embute os ``inteiros''
+$Z\subset R$ nos ``inteiros'' $Z' \subset R'$:
+$$
+\phi \restosub Z : Z \isoto Z'.
+$$
+Definimos a $\phi$ nos ``racionais'' $Q\subset R$ assim:
+$$
+\phi(m/n)
+= \phi(m \ntimes \ginv n)
+= \phi m \ntimes' \ginvp{\phi n}
+= \phi m \ntimes' \phi (\ginv n)
+= \phi m \mathbin{/'} \phi n
+$$
+e logo
+$$
+\phi \restosub Q : Q \isoto Q'.
+$$
+Estamos perto!
+Basta só definir a $\phi$ nos ``buracos'' (nos ``irracionais'')
+de $R$ e pronto!
+
+%}}}
+
+%%{{{ remark: we cannot finish this proof right now 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Infelizmente, por enquanto não temos todo o armamento para matar
+os detalhes e o que falta no esboço, mas é importante entender
+pelo menos tudo que tá lá.  Voltamos nesse assunto
+no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
+
+%%}}}
+
+%%{{{ warning: does_a_complete_ordered_field_exist_warning 
+\warning.
+%%%{{{ meta 
+\label does_a_complete_ordered_field_exist_warning
+%%%}}}
+
+Mesmo se aceitar que quaisquer corpos ordenados completos são
+isomorfos (o~\ref[uniqueness_of_complete_ordered_field]), ainda
+temos um ponto que roubamos: para existir único, precisamos duas
+coisas: \emph{pelo menos} um; \emph{no máximo} um.
+O~\reftag[uniqueness_of_complete_ordered_field] realmente ofereceu
+a segunda coisa; mas a primeira?
+Qual foi tua resolução
+do~\ref[can_we_prove_that_reals_is_a_complete_ordered_field]
+mesmo?
+Voltamos nesse assunto
+no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS 
 \problems.
 %%%{{{ meta 
@@ -76497,64 +76881,6 @@ $$
 \endchapter
 %%}}}
 
-%%{{{ chapter: Denotational_semantics 
-\chapter Semântica denotacional.
-%%%{{{ meta 
-\label Denotational_semantics
-%%%}}}
-
-%%{{{ A language of binary numerals 
-\section Uma linguagem de numerais binários.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ A little programming language 
-\section Uma pequena linguagem de programação.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Domain theory 
-\section Teoria de domínios.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-\cite[stoysemantics],
-\cite[tennent1976],
-\cite[tennentsemantics].
-
-\cite[streicherdomainsfp].
-
-\cite[lpbook].
-
-\cite[winskelsemantics],
-\cite[guntersemantics].
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
 %%{{{ chapter: Metric_spaces 
 \chapter Espaços métricos.
 %%%{{{ meta 
@@ -77341,6 +77667,64 @@ e~\cite[chartrandzhang].
 Depois continua com~\cite[diestelgraph]
 e~\cite[bondymurty2011].
 Finalmente, um nível ainda mais avançado, \cite[bollobasmodern].
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: Denotational_semantics 
+\chapter Semântica denotacional.
+%%%{{{ meta 
+\label Denotational_semantics
+%%%}}}
+
+%%{{{ A language of binary numerals 
+\section Uma linguagem de numerais binários.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ A little programming language 
+\section Uma pequena linguagem de programação.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Domain theory 
+\section Teoria de domínios.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+\cite[stoysemantics],
+\cite[tennent1976],
+\cite[tennentsemantics].
+
+\cite[streicherdomainsfp].
+
+\cite[lpbook].
+
+\cite[winskelsemantics],
+\cite[guntersemantics].
 
 \endfurther
 %%}}}
