@@ -14787,7 +14787,7 @@ mais, veja no \cite[taocp2: \S4.1].
 \label Rec_ind
 %%%}}}
 
-\TODO finish merging.
+\TODO limpar, terminar, organizar.
 
 %%{{{ intro: we define Nats, not the natural numbers 
 \chapintro
@@ -19082,6 +19082,8 @@ demais neste momento.
     ;;
 %%%}}}
 
+\TODO limpar, terminar, organizar.
+
 %%{{{ intro 
 \chapintro
 O $\sset \reals {+,\ntimes,0,1}$ é um \emph{corpo ordenado completo}.
@@ -19092,7 +19094,7 @@ de limites e séries.
 %%}}}
 
 %%{{{ Back to Ancient Greece: irrationals 
-\section De volta pra Grécia antiga: irracionais.
+\section De volta pra Grécia antiga: racionais e irracionais.
 %%%{{{ meta 
 %%%}}}
 
@@ -19180,6 +19182,17 @@ de limites e séries.
 \endsection
 %%}}}
 
+%%{{{ The_real_line 
+\section A reta real.
+%%%{{{ meta 
+\label The_real_line
+%%%}}}
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
 %%{{{ First steps 
 \section Primeiros passos.
 %%%{{{ meta 
@@ -19206,11 +19219,11 @@ Nessa secção, $F$ vai denotar um arbitrário corpo ordenado:
 Usamos $\Real$ para denotar um tipo cujos membros chamamos de (números) inteiros e onde temos
 os seguintes componentes primitivos:
 \mathcol
-0       &\is \Real \\
-1       &\is \Real \\
-+       &\is \Real \times \Real \to \Real \\
--       &\is \Real \to \Real \\
-\ntimes &\is \Real \times \Real \to \Real. \\
+0         &\is \Real \\
+1         &\is \Real \\
+(+)       &\is \Real \times \Real \to \Real \\
+(-)       &\is \Real \to \Real \\
+(\ntimes) &\is \Real \times \Real \to \Real. \\
 \endmathcol
 Estipulamos as proposições seguintes como axiomas:
 \mathcol
@@ -19222,8 +19235,9 @@ Estipulamos as proposições seguintes como axiomas:
 \cforall {a,b,c}  {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}
                                                 \stag[RM-Ass]\\
 \cforall {a}      {a\ntimes 1 = a}              \stag[RM-Id]\\
-\cforall {a}      {a\neq 0 \implies \lexists {a'}
-                      {a' \ntimes a = 1 = a \ntimes a'}} \stag[RM-Inv*]\\
+\cforall {a}      {a\neq 0 \implies
+                   \lexists {a'} {a' \ntimes a = 1 = a \ntimes a'}}
+                                                \stag[RM-Inv*]\\
 \cforall {a,b}    {a\ntimes b = b \ntimes a}    \stag[RM-Com]\\
 \\
 \cforall {d,a,b}  {(a+b) \ntimes d = (a \ntimes d) + (b \ntimes d) \mland
@@ -19519,7 +19533,6 @@ Temos:
 %%{{{ x: real_inv_of_inv 
 \exercise Inverso de inverso.
 %%%{{{ meta 
-\headerize
 \label real_inv_of_inv
 %%%}}}
 
@@ -19943,8 +19956,158 @@ Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 \endsection
 %%}}}
 
-%%{{{ Epsilon 
-\section Epsilon.
+%%{{{ Absolute_value_and_distance_on_reals 
+\section Valor absoluto e distância.
+%%%{{{ meta 
+\label Absolute_value_and_distance_on_reals
+%%%}}}
+
+%%{{{ df: real_abs 
+\definition.
+%%%{{{ meta 
+\label real_abs
+%%%}}}
+
+Definimos a operação $\abs{\dhole} : \Real \to \Real$
+$$
+\abs x \defeq
+\knuthcases {
+x,  & se $x\geq 0$ \cr
+-x, & se não.
+}
+$$
+
+%%}}}
+
+%%{{{ x: real_abs_lemma 
+\exercise.
+%%%{{{ meta 
+\label real_abs_lemma
+%%%}}}
+
+Sejam $x,w$ reais.
+Logo
+$$
+\abs x \leq w
+\iff
+-w \leq x \leq w.
+$$
+
+%%}}}
+
+%%{{{ x: real_abs_properties
+\exercise.
+%%%{{{ meta 
+\label real_abs_properties
+%%%}}}
+
+Sejam $a,b,c$ reais.
+Logo:
+$$
+\gather
+\abs a = 0 \iff a = 0 \\
+\abs a \geq 0 \\
+\abs {a \ntimes b} = \abs a \ntimes \abs b \\
+\abs {a + b} \leq \abs a + \abs b \\
+\abs {a - b} \leq \abs a + \abs b \\
+\bigabs {\abs a - \abs b} \leq \abs {a - b} \\
+\bigabs {\abs a - \abs b} \leq \abs {a + b} \\
+\abs {a - c} \leq \abs {a - b} + \abs {b - c}.
+\endgather
+$$
+
+%%}}}
+
+%%{{{ remark: distance from 0 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Uma maneira de interpretar o valor absoluto dum real $x$ é
+como uma medida de quão distante é o $x$ do real $0$.
+Ainda mais, podemos \emph{usar} o valor absoluto para
+falar sobre distâncias entre quaisquer dois reais:
+
+%%}}}
+
+%%{{{ df: real_metric 
+\definition.
+%%%{{{ meta 
+\label real_metric
+%%%}}}
+
+Sejam $a,b$ reais.
+Definimos a \dterm{distância} entre $a$ e $b$, que denotamos por $\dist d a b$, pela
+\mathcol
+d &\eqtype \Real \times \Real \to \Real \\
+\dist d a b &\defeq \abs{a - b}.
+\endmathcol
+
+%%}}}
+
+%%{{{ x: real_metric_zero 
+\exercise.
+%%%{{{ meta 
+\label real_metric_zero
+%%%}}}
+
+$\lforall {a} {\dist d a a = 0}$.
+
+%%}}}
+
+%%{{{ x: real_metric_indiscernibility 
+\exercise.
+%%%{{{ meta 
+\label real_metric_indiscernibility
+%%%}}}
+
+$\lforall {a,b} {\dist d a b = 0 \implies a = b}$.
+
+%%}}}
+
+%%{{{ x: real_metric_commutativity 
+\exercise.
+%%%{{{ meta 
+\label real_metric_commutativity
+%%%}}}
+
+Sejam $x,y \is \Real$.  Logo:
+$$
+\dist d x y = \dist d y x.
+$$
+
+%%}}}
+
+%%{{{ x: real_metric_triangular 
+\exercise Desigualdade triangular.
+%%%{{{ meta 
+\label real_metric_triangular 
+%%%}}}
+
+Sejam $x,y,z \is \Real$.  Logo:
+$$
+\dist d x z \leq \dist d x y + \dist d y z.
+$$
+
+%%}}}
+
+%%{{{ x: real_metric_nonneg 
+\exercise Não-negatividade.
+%%%{{{ meta 
+\label real_metric_nonneg
+%%%}}}
+
+$\lforall {a,b} {\dist d a b \geq 0}$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%%% acceptable up to here
+
+%%{{{ Epsilons 
+\section Epsilons.
 %%%{{{ meta 
 %%%}}}
 
@@ -19970,63 +20133,115 @@ Se para todo $\epsilon > 0$, $a < b + \epsilon$, então $a \leq b$.
 
 %%}}}
 
+%%{{{ x: real_ltlt_to_eq 
+\exercise.
+%%%{{{ meta 
+\label real_ltlt_to_eq
+%%%}}}
+
+Sejam $a,b$ reais tais que para todo $a - \epsilon < b < a + \epsilon$.
+Logo $a=b$.
+
+%%}}}
+
 \endsection
 %%}}}
 
-%%{{{ Absolute_value_and_distance_on_reals 
-\section Valor absoluto e distância.
+%%{{{ Sets_and_sequences_of_reals 
+\section Conjuntos e seqüências.
 %%%{{{ meta 
-\label Absolute_value_and_distance_on_reals
+\label Sets_and_sequences_of_reals
 %%%}}}
 
-%%{{{ df: abs_in_ordered_fields 
+\TODO Escrever.
+
+\endsection
+%%}}}
+
+%%{{{ Notable_subsets 
+\section Subconjuntos notáveis.
+%%%{{{ meta 
+\label Notable_subsets_of_reals 
+%%%}}}
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
+%%{{{ Minima_and_maxima_on_reals 
+\section Mínima e máxima.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ df: real_min_max_binary 
 \definition.
 %%%{{{ meta 
-\label abs_in_ordered_fields
+\label real_min_max_binary
 %%%}}}
 
-Definimos a operação $\abs{\dhole} : F \to F$ num corpo ordenado $F$ pela
-$$
-\abs x \defeq
-\knuthcases {
-x,  & se $x\geq 0$ \cr
--x, & se não.
-}
-$$
+Definimos as funções:
+\mathcols 2
+\min &\eqtype \Real \times \Real \to \Real &
+\max &\eqtype \Real \times \Real \to \Real \\
+\min (a,b) &\defeq \cases { a,  & se $a\leq b$ \\
+                            b,  & se não  } &
+\max (a,b) &\defeq \cases { b,  & se $a\leq b$ \\
+                            a,  & se não  }.
+\endmathcols
 
 %%}}}
 
-%%{{{ x: real_abs_lemma 
+%%{{{ x: real_min_max_formulas 
 \exercise.
 %%%{{{ meta 
-\label real_abs_lemma
+\label real_min_max_formulas
 %%%}}}
 
-Sejam $x,w\in F$.  Logo
-$$
-\abs x \leq w
-\iff
--w \leq x \leq w.
-$$
+Sejam $a,b$ reais.
+Logo
+\mathcols 2
+\min(a,b) &= \frac {a + b - \abs {b-a}} 2 &
+\max(a,b) &= \frac {a + b + \abs {b-a}} 2.
+\endmathcols
 
 %%}}}
 
-%%{{{ x: real_triangular_inequality 
-\exercise Desigualdade triangular.
+%%{{{ x: real_max_addition 
+\exercise.
 %%%{{{ meta 
-\label real_triangular_inequality
+\label real_max_addition
 %%%}}}
 
-Sejam $x,y,z\in F$.  Logo:
+Sejam $a,b,c,d$ reais.
+Logo
 $$
-\gather
-\abs{x + y} \leq \abs x + \abs y \\
-\bigabs{\abs x - \abs y} \leq \abs{x - y} \\
-\abs{x - z} \leq \abs{x - y} + \abs{y - z}.
-\endgather
+\max(a+c, b+d) \leq \max(a,b) + \max(c,d).
 $$
 
+Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
+
 %%}}}
+
+%%{{{ x: real_min_addition 
+\exercise.
+%%%{{{ meta 
+\label real_min_addition
+%%%}}}
+
+Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
+Enuncie e demonstre.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Models: a first encounter 
+\section Modelos: um primeiro encontro.
+%%%{{{ meta 
+\label Models_a_first_encounter
+%%%}}}
 
 %%{{{ Models 
 \note Modelos.
@@ -20036,31 +20251,24 @@ $$
     ;;
 %%%}}}
 
-Temos dois exemplos principais de corpos ordenados,
-viz.~os reais e os racionais:
-ambos têm toda a estrutura exigida, e satisfazem todos os axiomas.
-Em palavras mais formais, eles são o que a gente chama
-de \dterm{modelos} de corpos ordenados.
-
-%%}}}
-
-%%{{{ remark: rats is an ordered field too 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Como percebemos, os números racionais também satisfazem
-todos os axiomas que temos listado até agora sobre os reais.
-Ou seja, o que temos estipulado não é suficientes para
-\dterm{determinar os reais}, pois nem consegue diferenciá-los
-dos racionais.
-Falta só um axioma, o axioma da completude,
-que realmente vai determinar os reais.
-Mas para entender esse axioma, precisamos primeiramente
-entender um outro conceito: o \emph{supremum},
-e seu conceito dual, o \emph{infimum}.
-Faremos essas coisas
-nas~\reftag[Infimum_and_supremum_on_reals]--\reftag[Completeness_of_reals].
+Qualquer $\sset X {0,1,+,-,\ntimes,>}$ com
+\mathcol
+0         &\is X \\
+1         &\is X \\
+(+)       &\is X \times X \to X \\
+(-)       &\is X \to X \\
+(\ntimes) &\is X \times X \to X \\
+(>)       &\is X \times X \to X.
+\endmathcol
+que satisfaz todos os axiomas que temos estipulado até agora
+neste capítulo sobre os reais é chamado um \dterm{corpo ordenado}.
+Ou seja, até agora temos exigido que o $\sset \reals {0,1,+,-,\ntimes,>}$
+é \emph{um} corpo ordenado.
+Conhecendo o conjunto $\rats$ dos \dterm{racionais},
+percebemos que o $\sset \rats {0,1,+,-,\ntimes,>}$ também
+é um corpo ordenado.
+Em palavras mais formais, tanto os reais quanto os racionais são o que
+a gente chama de \dterm{modelos} de corpos ordenados.
 
 %%}}}
 
@@ -20070,8 +20278,11 @@ nas~\reftag[Infimum_and_supremum_on_reals]--\reftag[Completeness_of_reals].
 \label how_can_we_separate_reals_from_rats
 %%%}}}
 
+O que temos estipulado então, não é suficientes para
+\dterm{determinar os reais}, pois nem consegue diferenciá-los
+dos racionais.
 Podemos adicionar alguma lei capaz de separar os reais dos racionais?
-Ou seja, chegar numa estrutura com leis mais exigentes, tais que
+Ou seja, chegar numa lista de leis mais exigentes, tais que
 os reais vão ser um modelo, mas os racionais não.
 
 %%}}}
@@ -20083,24 +20294,17 @@ os reais vão ser um modelo, mas os racionais não.
 %%%{{{ meta 
 %%%}}}
 
-Responder nessa pergunta neste momento é um grande desafio.\foot
+A verdade é que falta só um axioma que realmente vai determinar os reais.
+Mas conseguir enxergá-lo neste momento é um grande desafio.\foot
 Vai desistir de pensar em alguma resposta por causa disso?
 \toof
-Mas já estamos prontos para encontrar o que falta para
-a pergunta virar mais fácil~(\reftag[Infimum_and_supremum_on_reals])
-e finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
+Pelo menos já estamos prontos para conhecer o que falta para
+a pergunta virar mais fácil:
+o \emph{supremum}, e seu conceito dual, o \emph{infimum}.
+Conhecemos agora (\reftag[Infimum_and_supremum_on_reals])
+para finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
 
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Minima_and_maxima_on_reals 
-\section Mínima e máxima.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
 
 \endsection
 %%}}}
@@ -20669,100 +20873,14 @@ que seguem pelos axiomas de anéis; etc.~etc.
 E a \emph{teoria dos corpos ordenados completos?}
 Ela não é muito famosa por esse nome, mas com certeza
 tu já ouviste falar dela por uns dos seus apelidos:
-\dterm{calculus},
-ou \dterm{análise real}, etc.
+\dterm{calculus}, ou \dterm{análise real}, etc.
 Na abordagem axiomática, não nos importa \emph{definir}\/ ou
 \emph{construir} os objetos que vamos chamar de \dterm{números reais}.
 Começamos aceitando a existência dum certo conjunto que denotamos
 por $\reals$, suas operações binárias de adição e multiplicação,
-seu zero $0$ e seu um $1$, e seu subconjunto $P$ cujos membros
+seu zero $0$ e seu um $1$, e um conjunto de reais cujos membros
 chamamos de \dterm{positivos}.
 Estipulamos os axiomas seguintes.
-
-%%}}}
-
-%%{{{ ax: closedness 
-\axiom Fechado.
-%%%{{{ meta 
-%%%}}}
-
-O $\reals$ é fechado sobre $+$ e $\,\ntimes\,$.
-
-%%}}}
-
-%%{{{ ax: associativity 
-\axiom Associatividade.
-%%%{{{ meta 
-%%%}}}
-
-As $+$ e $\ntimes$ são associativas.
-
-%%}}}
-
-%%{{{ ax: identities 
-\axiom Identidades.
-%%%{{{ meta 
-%%%}}}
-
-As $+$ e $\ntimes$ têm os distintos $0$ e $1$ como
-identidades respectivamente.
-
-%%}}}
-
-%%{{{ ax: inverses 
-\axiom Inversos.
-%%%{{{ meta 
-%%%}}}
-
-Todo $a\in \reals$ tem $+$-inverso (denotado por $-a$)
-e todo $a\neq 0$ tem $\,\ntimes\,$-inverso (denotado por $a^{-1}$).
-
-%%}}}
-
-%%{{{ ax: commutativity 
-\axiom Comutatividade.
-%%%{{{ meta 
-%%%}}}
-
-As $+$ e $\ntimes$ são comutativas.
-
-%%}}}
-
-%%{{{ ax: distributivity 
-\axiom Distributividade.
-%%%{{{ meta 
-%%%}}}
-
-A $\ntimes$ é distributiva sobre a $+$.
-
-%%}}}
-
-%%{{{ ax: positive closedness 
-\axiom Positivamente fechado.
-%%%{{{ meta 
-%%%}}}
-
-O $P$ é fechado sobre $+$ e $\,\ntimes\,$.
-
-%%}}}
-
-%%{{{ ax: trichotomy 
-\axiom Tricotomia.
-%%%{{{ meta 
-%%%}}}
-
-Para todo $x \in \reals$ exatamente uma das afirmações seguintes é válida:
-$-x$ é positivo; $x=0$; $x$ é positivo.
-
-%%}}}
-
-%%{{{ ax: completeness 
-\axiom Completude.
-%%%{{{ meta 
-%%%}}}
-
-Todo conjunto $A\neq\emptyset$ de reais que é limitado por cima,
-tem um supremum, ou seja, existe real $b\in\reals$ tal que $b = \sup A$.
 
 %%}}}
 
@@ -21734,7 +21852,7 @@ A $\seqn f n$ converge àlguma funcção pointwise?
 %%}}}
 
 %%{{{ Geometric_representation_of_reals 
-\section Representação geométrica e digital.
+\section Representação geométrica.
 %%%{{{ meta 
 \label Geometric_representation_of_reals
 %%%}}}
