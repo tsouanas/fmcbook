@@ -20013,10 +20013,62 @@ Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 \endsection
 %%}}}
 
-%%{{{ Absolute_value_and_distance_on_reals 
-\section Valor absoluto e distância.
+%%{{{ Intervals_of_reals 
+\section Intervalos.
 %%%{{{ meta 
-\label Absolute_value_and_distance_on_reals
+\label Intervals_of_reals
+%%%}}}
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
+%%{{{ Epsilons 
+\section Epsilons.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ x: only_zero_is_leq_than_all_positives 
+\exercise.
+%%%{{{ meta 
+\label only_zero_is_leq_than_all_positives
+%%%}}}
+
+Se $x$ tem a propriedade que $0 \leq x < \epsilon$
+para todo $\epsilon > 0$, então $x = 0$.
+
+%%}}}
+
+%%{{{ x: real_lt_to_leq 
+\exercise.
+%%%{{{ meta 
+\label real_lt_to_leq
+%%%}}}
+
+Sejam $a,b$ reais.
+Se para todo $\epsilon > 0$, $a < b + \epsilon$, então $a \leq b$.
+
+%%}}}
+
+%%{{{ x: real_ltlt_to_eq 
+\exercise.
+%%%{{{ meta 
+\label real_ltlt_to_eq
+%%%}}}
+
+Sejam $a,b$ reais tais que para todo $a - \epsilon < b < a + \epsilon$.
+Logo $a=b$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Absolute_value_on_reals 
+\section Valor absoluto.
+%%%{{{ meta 
+\label Absolute_value_on_reals
 %%%}}}
 
 %%{{{ df: real_abs 
@@ -20052,26 +20104,65 @@ $$
 
 %%}}}
 
-%%{{{ x: real_abs_properties
+%%{{{ x: real_abs_properties_zero 
 \exercise.
 %%%{{{ meta 
-\label real_abs_properties
+\label real_abs_properties_zero
 %%%}}}
 
-Sejam $a,b,c$ reais.
+Seja $a$ real.
 Logo:
 $$
 \gather
-\abs a = 0 \iff a = 0 \\
-\abs a \geq 0 \\
-\abs {a \ntimes b} = \abs a \ntimes \abs b \\
-\abs {a + b} \leq \abs a + \abs b \\
-\abs {a - b} \leq \abs a + \abs b \\
-\bigabs {\abs a - \abs b} \leq \abs {a - b} \\
-\bigabs {\abs a - \abs b} \leq \abs {a + b} \\
-\abs {a - c} \leq \abs {a - b} + \abs {b - c}.
+\abs a = 0 \iff a = 0; \\
+\abs a \geq 0. \\
 \endgather
 $$
+
+%%}}}
+
+%%{{{ x: real_abs_properties_ops 
+\exercise.
+%%%{{{ meta 
+\label real_abs_properties_ops
+%%%}}}
+
+Sejam $a,b$ reais.
+Logo:
+$$
+\gather
+\abs {a \ntimes b} = \abs a \ntimes \abs b; \\
+\abs {a + b} \leq \abs a + \abs b; \\
+\abs {a - b} \leq \abs a + \abs b. \\
+\endgather
+$$
+
+%%}}}
+
+%%{{{ x: real_abs_properties_bounds 
+\exercise.
+%%%{{{ meta 
+\label real_abs_properties_bounds
+%%%}}}
+
+Sejam $a,b$ reais.
+Logo:
+$$
+\gather
+\bigabs {\abs a - \abs b} \leq \abs {a + b} \leq \abs a + \abs b; \\
+\bigabs {\abs a - \abs b} \leq \abs {a - b} \leq \abs a + \abs b. \\
+\endgather
+$$
+
+%%}}}
+
+%%{{{ x: real_abs_properties_triangular 
+\exercise.
+%%%{{{ meta 
+\label real_abs_properties_triangular
+%%%}}}
+
+$\lforall {a,b,c} {\abs {a - c} \leq \abs {a - b} + \abs {b - c}}$.
 
 %%}}}
 
@@ -20083,9 +20174,18 @@ $$
 Uma maneira de interpretar o valor absoluto dum real $x$ é
 como uma medida de quão distante é o $x$ do real $0$.
 Ainda mais, podemos \emph{usar} o valor absoluto para
-falar sobre distâncias entre quaisquer dois reais:
+falar sobre \emph{distâncias} entre quaisquer dois reais.
 
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Distance_on_reals 
+\section Distância.
+%%%{{{ meta 
+\label Distance_on_reals
+%%%}}}
 
 %%{{{ df: real_metric 
 \definition.
@@ -20158,51 +20258,116 @@ $\lforall {a,b} {\dist d a b \geq 0}$.
 
 %%}}}
 
+%%{{{ df: epsilon_close_ball_hood 
+\definition ε-perto, ε-bola, ε-vizinhança.
+%%%{{{ meta 
+\label epsilon_close_ball_hood
+\defines
+    * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
+    * bola!de real
+    * perto!de real
+    * vizinhança!de real
+    ;;
+%%%}}}
+
+Sejam $x,y\in\reals$ e $\epsilon > 0$.
+Dizemos que
+$$
+\text{o $x$ é $\epsilon$-perto do $y$}
+\defiff
+\dist d x y < \epsilon.
+$$
+Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
+e logo podemos escrever também:
+$$
+\text{os $x,y$ são $\epsilon$-perto}.
+$$
+Dado um ponto $x_0\in\reals$, o conjunto de todos os pontos que
+são $\epsilon$-perto do $x_0$ é chamada \dterm{$\epsilon$-bola}
+ou \dterm{$\epsilon$-vizinhança} do $x_0$:
+$$
+\ball \epsilon {x_0}
+\defeq
+\setstt {x \in \reals} {$x,x_0$ são $\epsilon$-perto}.
+$$
+Também chamamos de \dterm{bola com centro $x_0$ e raio $\epsilon$}.
+
+%%}}}
+
+%%{{{ eg 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Os $1$ e $2/3$ são $1/2$-perto;
+a $1/3$-bola do $\sqrt 2$ é o intervalo $(\sqrt2 - 1/3, \sqrt2 + 1/3)$.
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_reflexive 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_reflexive
+%%%}}}
+
+Dado $\epsilon > 0$, seja $\sim_\epsilon$ a relação definida pela
+$$
+x \sim_\epsilon y
+\defiff
+\text{$x$ é $\epsilon$-perto do $y$}.
+$$
+Demonstre que $\sim_\epsilon$ é reflexiva.
+
+\hint
+$$
+\abs{x - x} = 0
+$$
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_symmetric 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_symmetric
+%%%}}}
+
+Dado $\epsilon > 0$, a $\sim_\epsilon$
+do~\ref[epsilon_close_is_reflexive] é simétrica,
+e logo podemos escrever frases como
+$$
+\text{<<os $x,y$ são $\epsilon$-perto>>}.
+$$
+
+\hint
+Olha:
+$$
+\abs{x - y}
+= \abs{-(y - x)}
+= \abs{y - x}
+$$
+Dá pra justificar ambas as $=$?
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_not_an_equivalence_relation
+%%%}}}
+
+A $\sim_\epsilon$ do~\ref[epsilon_close_is_reflexive]
+é uma relação de equivalência para qualquer $\epsilon$?
+
+\hint
+Não!
+Já fez o~\ref[distance_like_not_transitive]?
+
+%%}}}
+
 \endsection
 %%}}}
 
 %%%% acceptable up to here
-
-%%{{{ Epsilons 
-\section Epsilons.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ x: only_zero_is_leq_than_all_positives 
-\exercise.
-%%%{{{ meta 
-\label only_zero_is_leq_than_all_positives
-%%%}}}
-
-Se $x$ tem a propriedade que $0 \leq x < \epsilon$
-para todo $\epsilon > 0$, então $x = 0$.
-
-%%}}}
-
-%%{{{ x: real_lt_to_leq 
-\exercise.
-%%%{{{ meta 
-\label real_lt_to_leq
-%%%}}}
-
-Sejam $a,b$ reais.
-Se para todo $\epsilon > 0$, $a < b + \epsilon$, então $a \leq b$.
-
-%%}}}
-
-%%{{{ x: real_ltlt_to_eq 
-\exercise.
-%%%{{{ meta 
-\label real_ltlt_to_eq
-%%%}}}
-
-Sejam $a,b$ reais tais que para todo $a - \epsilon < b < a + \epsilon$.
-Logo $a=b$.
-
-%%}}}
-
-\endsection
-%%}}}
 
 %%{{{ Sets_and_sequences_in_reals 
 \section Conjuntos e seqüências.
@@ -20515,28 +20680,6 @@ $$
 $$
 
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Intervals_of_reals 
-\section Intervalos.
-%%%{{{ meta 
-\label Intervals_of_reals
-%%%}}}
-
-\TODO Escrever.
-
-\endsection
-%%}}}
-
-%%{{{ The_extended_reals 
-\section Os reais estendidos.
-%%%{{{ meta 
-\label The_extended_reals
-%%%}}}
-
-\TODO Escrever.
 
 \endsection
 %%}}}
@@ -21165,113 +21308,6 @@ $$
 %%%{{{ meta 
 \label Limits_of_reals
 %%%}}}
-
-%%{{{ df: epsilon_close_ball_hood 
-\definition ε-perto, ε-bola, ε-vizinhança.
-%%%{{{ meta 
-\label epsilon_close_ball_hood
-\defines
-    * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
-    * bola!de real
-    * perto!de real
-    * vizinhança!de real
-    ;;
-%%%}}}
-
-A distância entre dois $x,y\in\reals$ é calculada por $\abs{x-y}$.
-Sejam $x,y\in\reals$ e $\epsilon > 0$.
-Dizemos que
-$$
-\text{$x$ é $\epsilon$-perto do $y$}
-\defiff
-\abs{x-y} < \epsilon.
-$$
-Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
-e logo podemos escrever também:
-$$
-\text{$x,y$ são $\epsilon$-perto}.
-$$
-Dado um ponto $x_0\in\reals$, o conjunto de todos os pontos que
-são $\epsilon$-perto do $x_0$ é chamada \dterm{$\epsilon$-bola}
-ou \dterm{$\epsilon$-vizinhança} do $x_0$:
-$$
-\ball \epsilon {x_0}
-\defeq
-\setstt {x \in \reals} {$x,x_0$ são $\epsilon$-perto}.
-$$
-Também chamamos de \dterm{bola com centro $x_0$ e raio $\epsilon$}.
-
-%%}}}
-
-%%{{{ eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Os $1$ e $2/3$ são $1/2$-perto;
-a $1/3$-bola do $\sqrt 2$ é o intervalo $(\sqrt2 - 1/3, \sqrt2 + 1/3)$.
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_reflexive 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_reflexive
-%%%}}}
-
-Dado $\epsilon > 0$, seja $\sim_\epsilon$ a relação definida pela
-$$
-x \sim_\epsilon y
-\defiff
-\text{$x$ é $\epsilon$-perto do $y$}.
-$$
-Demonstre que $\sim_\epsilon$ é reflexiva.
-
-\hint
-$$
-\abs{x - x} = 0
-$$
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_symmetric 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_symmetric
-%%%}}}
-
-Dado $\epsilon > 0$, a $\sim_\epsilon$
-do~\ref[epsilon_close_is_reflexive] é simétrica,
-e logo podemos escrever frases como
-$$
-\text{<<os $x,y$ são $\epsilon$-perto>>}.
-$$
-
-\hint
-Olha:
-$$
-\abs{x - y}
-= \abs{-(y - x)}
-= \abs{y - x}
-$$
-Dá pra justificar ambas as $=$?
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_not_an_equivalence_relation
-%%%}}}
-
-A $\sim_\epsilon$ do~\ref[epsilon_close_is_reflexive]
-é uma relação de equivalência para qualquer $\epsilon$?
-
-\hint
-Não!
-Já fez o~\ref[distance_like_not_transitive]?
-
-%%}}}
 
 %%{{{ df: for_sufficiently_large_values_of 
 \definition <<para valores suficientemente grandes de>>.
