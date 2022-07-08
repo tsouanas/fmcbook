@@ -19536,10 +19536,7 @@ Temos:
 \label real_inv_of_inv
 %%%}}}
 
-Para todo $x\neq 0$, $-(-x) = x$.
-
-\solution
-Veja o \ref[int_neg_of_neg]: não precisou nenhum axioma que não temos.
+Para todo $x\neq 0$, $\minvp {\minv x} = x$.
 
 %%}}}
 
@@ -19611,13 +19608,15 @@ Já que agora possuimos mesmo o tipo $\Nat$, podemos definir
 mesmo as potências naturais de qualquer real $x$, recursivamente,
 como uma operação de tipo:
 $$
-\Real \to \Nat \to \Real
+(\expop) \is \Real \to \Nat \to \Real
 $$
 definida pelas
 \mathcol
 x^0     &\defeq 1 \\
 x^{n+1} &\defeq x \ntimes x^n. \\
 \endmathcol
+Como acabemos de fazer aqui, denotamos a aplicação da $(\expop)$ nos argumentos
+$a,b$ por $a^b$.
 
 %%}}}
 
@@ -19864,16 +19863,6 @@ $\lforall {a,b} {b > 0 \implies a + b > a}$.
 
 %%}}}
 
-%%{{{ x: order_fields_are_unbounded 
-\exercise.
-%%%{{{ meta 
-\label order_fields_are_unbounded
-%%%}}}
-
-O $\reals$ não tem nem mínimo, nem máximo.
-
-%%}}}
-
 %%{{{ x: real_trichotomy_of_positivity 
 \exercise Tricotomia da positividade.
 %%%{{{ meta 
@@ -20013,17 +20002,6 @@ Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 \endsection
 %%}}}
 
-%%{{{ Intervals_of_reals 
-\section Intervalos.
-%%%{{{ meta 
-\label Intervals_of_reals
-%%%}}}
-
-\TODO Escrever.
-
-\endsection
-%%}}}
-
 %%{{{ Epsilons 
 \section Epsilons.
 %%%{{{ meta 
@@ -20035,8 +20013,8 @@ Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 \label only_zero_is_leq_than_all_positives
 %%%}}}
 
-Se $x$ tem a propriedade que $0 \leq x < \epsilon$
-para todo $\epsilon > 0$, então $x = 0$.
+Seja $x$ real tal que para todo $\epsilon > 0$, $0 \leq x < \epsilon$.
+Logo $x = 0$.
 
 %%}}}
 
@@ -20178,6 +20156,114 @@ Uma maneira de interpretar o valor absoluto dum real $x$ é
 como uma medida de quão distante é o $x$ do real $0$.
 Ainda mais, podemos \emph{usar} o valor absoluto para
 falar sobre \emph{distâncias} entre quaisquer dois reais.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Intervals_of_reals 
+\section Intervalos.
+%%%{{{ meta 
+\label Intervals_of_reals
+%%%}}}
+
+%%{{{ intervals_of_reals 
+\definition Intervalos.
+%%%{{{ meta 
+\label intervals_of_reals
+\defines
+    * intervalos!de reais
+    ;;
+%%%}}}
+
+Sejam $a,b\in\reals$.
+Definimos os \dterm{intervalos} seguintes:
+\mathcols 2
+(a, b) &\defeq \setst {x\in\reals} {a < x < b} &
+(a, b] &\defeq \setst {x\in\reals} {a < x \leq b} \\
+[a, b) &\defeq \setst {x\in\reals} {a \leq x < b} &
+[a, b] &\defeq \setst {x\in\reals} {a \leq x \leq b}.
+\endmathcols
+Pronunciamos as parentêses de \utter{aberto} e os colchetes de \utter{fechado}.
+Definimos também:
+\mathcols 2
+(\minfty, b)        &\defeq \setst {x\in\reals} {x < b} &
+(\minfty, b]        &\defeq \setst {x\in\reals} {x \leq b} \\
+(a, \pinfty)        &\defeq \setst {x\in\reals} {a < x} &
+[a, \pinfty)        &\defeq \setst {x\in\reals} {a \leq x}.
+\endmathcols
+É conveniente também definir
+$$
+(\minfty, \pinfty) \defeq \reals.
+$$
+
+%%}}}
+
+%%{{{ beware: infties_not_reals 
+\beware.
+%%%{{{ meta 
+\label infties_not_reals
+%%%}}}
+
+Cuidado: não definimos os $\minfty,\pinfty$ como objetos matemáticos aqui.
+Por enquanto fazem parte de notação, e com certeza \emph{não} se trata de
+números reais.
+
+%%}}}
+
+%%{{{ x: running_intervals_on_reals 
+\exercise.
+%%%{{{ meta 
+\label running_intervals_on_reals
+%%%}}}
+
+Para $n=1,2,3,\dotsc$ defina os intervalos de reais
+$$
+\xalignat2
+F_n &= \ival[ {-1+\frac1n \,,\; 1-\frac1n} ] &
+G_n &= \ival( {-1-\frac1n \,,\; 1+\frac1n} ).
+\endxalignat
+$$
+Calcule os conjuntos $\Union_n F_n$ e $\Inter_n G_n$.
+
+\hint
+Use as definições!
+
+\solution
+Temos
+$$
+\align
+x \in \Unionl_n F_n
+&\iff \lexists {n\in \nats} {x\in F_n}
+\iff x \in (-1,1) \\
+x \in \Interl_n G_n
+&\iff \lforall {n\in \nats} {x\in G_n}
+\iff x \in [-1,1].
+\endalign
+$$
+Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
+
+%%}}}
+
+%%{{{ x: epsilon-dependent and n-dependent intersections 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Para todo real $\epsilon>0$ e todo $n\in\nats$,
+sejam os intervalos de reais
+\mathcols 2
+I_\epsilon &= [0,1 + \epsilon) &
+U_n        &= [n,+\infty).
+\endmathcols
+Calcule os conjuntos:
+(i) $\Inter \setst {I_\epsilon} {\epsilon>0}$;
+(ii) $\Inter_{n=2}^{\infty} U_n$.
+
+\solution
+(i) $[0,1]$;
+(ii) $\emptyset$.
 
 %%}}}
 
@@ -20513,8 +20599,6 @@ que a interseção também é finita e habitada?
 \label Notable_subsets_of_reals 
 %%%}}}
 
-\TODO Escrever.
-
 %%{{{ df: real_inductive 
 \definition indutivo.
 %%%{{{ meta 
@@ -20525,8 +20609,8 @@ que a interseção também é finita e habitada?
 
 Seja $A$ um conjunto de reais.
 Chamamos o $A$ de \dterm{inductivo} sse:
-(i) $0 \in A$;
-(ii) $\lforall {a} {a \in A \implies a + 1 \in A}$.
+(i) $A$ é $0$-fechado: $0 \in A$;
+(ii) $A$ é $(+1)$-fechado: $\lforall {a} {a \in A \implies a + 1 \in A}$.
 
 %%}}}
 
@@ -20570,10 +20654,11 @@ também.
 Nenhum dos conjuntos seguintes é indutivo:
 $$
 \set {0},
-\set {0,1,2,3,\dotsc,83},
-\reals_{\neq 0},
-\reals_{\leq 0},
-\reals_{\neq -1}.
+\quad \set {0,1,2,3,\dotsc,83},
+\quad \reals_{\neq 0},
+\quad \reals_{\leq 0},
+\quad \reals_{> 0},
+\quad \reals_{\neq -1}.
 $$
 
 %%}}}
@@ -20605,13 +20690,13 @@ Sabemos que $\reals \in \I$.
 Considere a interseção de todos os conjuntos indutivos de reais,
 ou seja, o conjunto
 $$
-\setstt {x \in \reals} {$x$ pertence a todo conjunto indutivo de reais}
+\reals_\nats \defeq \setstt {x \in \reals} {$x$ pertence a todo conjunto indutivo de reais}
 $$
 que denotaremos por $\reals_\nats$ e cujos membros chamamos de
 \dterm{reais naturais}.
 Seus membros são os
 $$
-\reals_\nats = \setst {0, 1, 2, 3, 4, \dotsc }.
+\reals_\nats = \set {0, 1, 2, 3, 4, \dotsc }.
 $$
 
 %%}}}
@@ -20650,35 +20735,41 @@ inteiros é fácil; e tendo eles, definir os reais racionais também!
 
 %%}}}
 
-%%{{{ df: real_integers
-\definition Os reais inteiros.
+%%{{{ df: real_notable_subsets 
+\definition.
 %%%{{{ meta 
-\label real_integers
+\label real_notable_subsets
 \defines
-    * real!integer
+    * real!inteiro
+    * real!racional
+    * real!irracional
+    * real!algébrico
+    * real!transcendental
     ;;
 %%%}}}
 
-Definimos o conjunto dos \dterm{reais inteiros}
-$$
-\reals_\ints \defeq \reals_\nats \union \setst {-n} {n \in \reals_\nats}.
-$$
+Definimos os subconjuntos de reais seguintes:
+\mathcols 2
+&\text{os reais naturais:}         & \reals_\nats &\\
+&\text{os reais inteiros:}         & \reals_\ints &\defeq \reals_\nats \union \setst {-n} {n \in \reals_\nats} \\
+&\text{os reais racionais:}        & \reals_\rats &\defeq \setst {m/n} {m \in \reals_\ints, n \in {\reals_\ints}_{>0}} \\
+&\text{os reais algébricos:}       & \reals_\algs &\defeq \setstt {x} {$x$ é raiz dum polinómio com coeficientes inteiros} \\
+\endmathcols
+Definimos também os \dterm{reais irracionais} $\reals \setminus \reals_\rats$
+e os \dterm{reais transcendentais} $\reals \setminus \reals_\algs$.
+Quando pelo contexto é inferível que estamos referindo a um conjunto de reais,
+é conveniente abusar a notação e escrever $\nats,\ints,\rats,\algs$ em vez de
+$\reals_\nats, \reals_\ints, \reals_\rats, \reals_\algs$, respectivamente.
 
 %%}}}
 
-%%{{{ df: real_rationals
-\definition Os reais racionais.
+%%{{{ x: real_inductive_numeric_sets 
+\exercise.
 %%%{{{ meta 
-\label real_rationals
-\defines
-    * real!racional
-    ;;
+\label real_inductive_numeric_sets
 %%%}}}
 
-Definimos o conjunto dos \dterm{reais racionais}
-$$
-\reals_\rats \defeq \setst {m/n} {m \in \reals_\ints, n \in {\reals_\ints}_{>0}}.
-$$
+Os $\reals_\ints,\reals_\rats,\reals_\algs$ são conjuntos indutivos.
 
 %%}}}
 
@@ -20747,6 +20838,31 @@ Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
 
 Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
 Enuncie e demonstre.
+
+%%}}}
+
+%%{{{ df: real_min_max_of_set 
+\definition.
+%%%{{{ meta 
+\label real_min_max_of_set
+%%%}}}
+
+Sejam $A$ um conjunto de reais e $x$ um real.
+Dizemos que:
+\mathcol
+\text{$m$ é um mínimo de $A$} &\defiff m \in A \mland m \leq A \\
+\text{$m$ é um máximo de $A$} &\defiff m \in A \mland m \leq A.
+\endmathcol
+
+%%}}}
+
+%%{{{ x: real_is_unbounded 
+\exercise.
+%%%{{{ meta 
+\label real_is_unbounded
+%%%}}}
+
+O $\reals$ não tem nem mínimo, nem máximo.
 
 %%}}}
 
@@ -20854,27 +20970,21 @@ para finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
 Seja $A\subset \reals$.
 Chamamos o $x$ um \dterm{lower bound} de $A$ sse $x \leq a$ para todo $a \in A$,
 e \emph{dualmente} $x$ é um \dterm{upper bound} de $A$ sse $x \geq a$ para todo $a \in A$:
-$$
-\align
+\mathcol
 \text{$x$ é um lower bound de $A$} &\defiff \lforall {a\in A} {x \leq a} \\
 \text{$x$ é um upper bound de $A$} &\defiff \lforall {a\in A} {a \leq x}.
-\endalign
-$$
+\endmathcol
 Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
-$$
-\align
+\mathcol
 x \leq A &\defiff \lforall {a \in A} {x \leq a} \\
 A \leq x &\defiff \lforall {a \in A} {a \leq x}.
-\endalign
-$$
+\endmathcol
 Denotamos o conjunto de todos os lower bounds de $A$ por $\lbs A$,
 e dualmente usamos $\ubs A$ para o conjunto de todos os seus upper bounds:
-$$
-\align
+\mathcol
 \lbs A &\defeq \setst {x \in \reals} {x \leq A} \\
 \ubs A &\defeq \setst {x \in \reals} {A \leq x}.
-\endalign
-$$
+\endmathcol
 Se um $A$ tem pelo menos um limitante por cima, dizemos que $A$
 é \dterm{limitado por cima} (ou, \dterm{bounded above});
 e se tem pelo menos um limitante por baixo, \dterm{limitado por baixo}
@@ -30535,92 +30645,6 @@ dessa seqüência.  Claramente, não todas as seqüências
 de conjuntos convergem em algum limite.  Investigamos
 isso nos problemas (\ref[set_liminf_limsup_problem]
 e~\ref[set_limits]).
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Intervals on the real line 
-\section Intervalos na reta real.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ intervals_of_reals 
-\definition Intervalos.
-%%%{{{ meta 
-\label intervals_of_reals
-\defines
-    * intervalos!de números
-    ;;
-%%%}}}
-
-Sejam $\alpha,\beta\in\reals$.
-Definimos os \dterm{intervalos} seguintes:
-$$
-\xalignat2
-(\alpha, \beta) &\defeq \setst {x\in\reals} {\alpha < x < \beta} &
-(\alpha, \beta] &\defeq \setst {x\in\reals} {\alpha < x \leq \beta} \\
-[\alpha, \beta) &\defeq \setst {x\in\reals} {\alpha \leq x < \beta} &
-[\alpha, \beta] &\defeq \setst {x\in\reals} {\alpha \leq x \leq \beta}.
-\endxalignat
-$$
-(Pronunciamos as parentêses de \utter{aberto} e os colchetes de \utter{fechado}.)
-
-%%}}}
-
-%%{{{ x: running_intervals_on_reals 
-\exercise.
-%%%{{{ meta 
-\label running_intervals_on_reals
-%%%}}}
-
-Para $n=1,2,3,\dotsc$ defina os intervalos de reais
-$$
-\xalignat2
-F_n &= \ival[ {-1+\frac1n \,,\; 1-\frac1n} ] &
-G_n &= \ival( {-1-\frac1n \,,\; 1+\frac1n} ).
-\endxalignat
-$$
-Calcule os conjuntos $\Union_n F_n$ e $\Inter_n G_n$.
-
-\hint
-Use as definições!
-
-\solution
-Temos
-$$
-\align
-x \in \Unionl_n F_n
-&\iff \lexists {n\in \nats} {x\in F_n}
-\iff x \in (-1,1) \\
-x \in \Interl_n G_n
-&\iff \lforall {n\in \nats} {x\in G_n}
-\iff x \in [-1,1].
-\endalign
-$$
-Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
-
-%%}}}
-
-%%{{{ x: epsilon-dependent and n-dependent intersections 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Para todo real $\epsilon>0$ e todo $n\in\nats$,
-sejam os intervalos de reais
-\mathcols 2
-I_\epsilon &= [0,1 + \epsilon) &
-U_n        &= [n,+\infty).
-\endmathcols
-Calcule os conjuntos:
-(i) $\Inter \setst {I_\epsilon} {\epsilon>0}$;
-(ii) $\Inter_{n=2}^{\infty} U_n$.
-
-\solution
-(i) $[0,1]$;
-(ii) $\emptyset$.
 
 %%}}}
 
