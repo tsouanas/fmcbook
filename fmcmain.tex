@@ -19540,6 +19540,16 @@ Para todo $x\neq 0$, $\minvp {\minv x} = x$.
 
 %%}}}
 
+%%{{{ x: real_nzd 
+\exercise R-NZD.
+%%%{{{ meta 
+\label real_nzd
+%%%}}}
+
+$\lforall {a,b} {ab = 0 \implies a = 0 \mlor a = b}$.
+
+%%}}}
+
 % enter fractions
 
 %%{{{ df: real_fraction_as_syntactic_sugar
@@ -20163,6 +20173,33 @@ $$
 
 %%}}}
 
+%%{{{ x: real_abs_and_signs
+\exercise.
+%%%{{{ meta 
+\label real_abs_and_signs
+%%%}}}
+
+Seja $a$ real.
+Logo:
+$$
+\abs a ^ 2 = \abs {a^2} = a^2.
+$$
+Para qualquer $x$ inteiro,
+$$
+{\abs a}^x = \abs {a^x}.
+$$
+Para qualquer $x$ par,
+$$
+{\abs a}^x = a^x.
+$$
+Para qualquer $x$ ímpar,
+\mathcols 2
+a \geq 0 &\implies {\abs a}^x = a^x &
+a \lt  0 &\implies {\abs a}^x = -a^x.
+\endmathcols
+
+%%}}}
+
 %%{{{ remark: distance from 0 
 \remark.
 %%%{{{ meta 
@@ -20172,114 +20209,7 @@ Uma maneira de interpretar o valor absoluto dum real $x$ é
 como uma medida de quão distante é o $x$ do real $0$.
 Ainda mais, podemos \emph{usar} o valor absoluto para
 falar sobre \emph{distâncias} entre quaisquer dois reais.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Intervals_of_reals 
-\section Intervalos.
-%%%{{{ meta 
-\label Intervals_of_reals
-%%%}}}
-
-%%{{{ intervals_of_reals 
-\definition Intervalos.
-%%%{{{ meta 
-\label intervals_of_reals
-\defines
-    * intervalos!de reais
-    ;;
-%%%}}}
-
-Sejam $a,b\in\reals$.
-Definimos os \dterm{intervalos} seguintes:
-\mathcols 2
-(a, b) &\defeq \setst {x\in\reals} {a < x < b} &
-(a, b] &\defeq \setst {x\in\reals} {a < x \leq b} \\
-[a, b) &\defeq \setst {x\in\reals} {a \leq x < b} &
-[a, b] &\defeq \setst {x\in\reals} {a \leq x \leq b}.
-\endmathcols
-Pronunciamos as parentêses de \utter{aberto} e os colchetes de \utter{fechado}.
-Definimos também:
-\mathcols 2
-(\minfty, b)        &\defeq \setst {x\in\reals} {x < b} &
-(\minfty, b]        &\defeq \setst {x\in\reals} {x \leq b} \\
-(a, \pinfty)        &\defeq \setst {x\in\reals} {a < x} &
-[a, \pinfty)        &\defeq \setst {x\in\reals} {a \leq x}.
-\endmathcols
-É conveniente também definir
-$$
-(\minfty, \pinfty) \defeq \reals.
-$$
-
-%%}}}
-
-%%{{{ beware: infties_not_reals 
-\beware.
-%%%{{{ meta 
-\label infties_not_reals
-%%%}}}
-
-Cuidado: não definimos os $\minfty,\pinfty$ como objetos matemáticos aqui.
-Por enquanto fazem parte de notação, e com certeza \emph{não} se trata de
-números reais.
-
-%%}}}
-
-%%{{{ x: running_intervals_on_reals 
-\exercise.
-%%%{{{ meta 
-\label running_intervals_on_reals
-%%%}}}
-
-Para $n=1,2,3,\dotsc$ defina os intervalos de reais
-$$
-\xalignat2
-F_n &= \ival[ {-1+\frac1n \,,\; 1-\frac1n} ] &
-G_n &= \ival( {-1-\frac1n \,,\; 1+\frac1n} ).
-\endxalignat
-$$
-Calcule os conjuntos $\Union_n F_n$ e $\Inter_n G_n$.
-
-\hint
-Use as definições!
-
-\solution
-Temos
-$$
-\align
-x \in \Unionl_n F_n
-&\iff \lexists {n\in \nats} {x\in F_n}
-\iff x \in (-1,1) \\
-x \in \Interl_n G_n
-&\iff \lforall {n\in \nats} {x\in G_n}
-\iff x \in [-1,1].
-\endalign
-$$
-Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
-
-%%}}}
-
-%%{{{ x: epsilon-dependent and n-dependent intersections 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Para todo real $\epsilon>0$ e todo $n\in\nats$,
-sejam os intervalos de reais
-\mathcols 2
-I_\epsilon &= [0,1 + \epsilon) &
-U_n        &= [n,+\infty).
-\endmathcols
-Calcule os conjuntos:
-(i) $\Inter \setst {I_\epsilon} {\epsilon>0}$;
-(ii) $\Inter_{n=2}^{\infty} U_n$.
-
-\solution
-(i) $[0,1]$;
-(ii) $\emptyset$.
+Fazemos isso na \ref[Distance_on_reals].
 
 %%}}}
 
@@ -20578,7 +20508,7 @@ Se, por motivos religiosos, queremos defini-la em tal forma que seu primeiro ter
 
 %% Set Real
 
-%%{{{ x: fun with sequences of sets 
+%%{{{ x: fun with sequences of sets (1) 
 \exercise.
 %%%{{{ meta 
 %%%}}}
@@ -20596,13 +20526,230 @@ também possui uma infinidade de reais?
 
 %%}}}
 
-%%{{{ x: fun with sequences of sets 
+%%{{{ x: fun with sequences of sets (2) 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
 E se, em vez de infinito, cada um dos $A_i$ é finito e habitado, podemos concluir
 que a interseção também é finita e habitada?
+
+%%}}}
+
+%% Notation for orders
+
+%%{{{ notation: leq_set_notation_abuse 
+\notation.
+%%%{{{ meta 
+\label leq_set_notation_abuse
+%%%}}}
+
+Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
+\mathcol
+x \leq A &\abuseiff \lforall {a \in A} {x \leq a} \\
+A \leq x &\abuseiff \lforall {a \in A} {a \leq x}.
+\endmathcol
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Minima_and_maxima_on_reals 
+\section Mínima e máxima.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ df: real_min_max_binary 
+\definition.
+%%%{{{ meta 
+\label real_min_max_binary
+%%%}}}
+
+Definimos as funções:
+\mathcols 2
+\min &\eqtype \Real \times \Real \to \Real &
+\max &\eqtype \Real \times \Real \to \Real \\
+\min (a,b) &\defeq \cases { a,  & se $a\leq b$ \\
+                            b,  & se não  } &
+\max (a,b) &\defeq \cases { b,  & se $a\leq b$ \\
+                            a,  & se não  }.
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_min_max_formulas 
+\exercise.
+%%%{{{ meta 
+\label real_min_max_formulas
+%%%}}}
+
+Sejam $a,b$ reais.
+Logo
+\mathcols 2
+\min(a,b) &= \frac {a + b - \abs {b-a}} 2 &
+\max(a,b) &= \frac {a + b + \abs {b-a}} 2.
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_max_addition 
+\exercise.
+%%%{{{ meta 
+\label real_max_addition
+%%%}}}
+
+Sejam $a,b,c,d$ reais.
+Logo
+$$
+\max(a+c, b+d) \leq \max(a,b) + \max(c,d).
+$$
+
+Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
+
+%%}}}
+
+%%{{{ x: real_min_addition 
+\exercise.
+%%%{{{ meta 
+\label real_min_addition
+%%%}}}
+
+Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
+Enuncie e demonstre.
+
+%%}}}
+
+%%{{{ df: real_min_max_of_set 
+\definition.
+%%%{{{ meta 
+\label real_min_max_of_set
+%%%}}}
+
+Sejam $A$ um conjunto de reais e $x$ um real.
+Dizemos que:
+\mathcol
+\text{$m$ é um mínimo de $A$} &\defiff m \in A \mland m \leq A \\
+\text{$m$ é um máximo de $A$} &\defiff m \in A \mland m \leq A.
+\endmathcol
+
+%%}}}
+
+%%{{{ x: real_is_unbounded 
+\exercise.
+%%%{{{ meta 
+\label real_is_unbounded
+%%%}}}
+
+O $\reals$ não tem nem mínimo, nem máximo.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Intervals_of_reals 
+\section Intervalos.
+%%%{{{ meta 
+\label Intervals_of_reals
+%%%}}}
+
+%%{{{ intervals_of_reals 
+\definition Intervalos.
+%%%{{{ meta 
+\label intervals_of_reals
+\defines
+    * intervalos!de reais
+    ;;
+%%%}}}
+
+Sejam $a,b\in\reals$.
+Definimos os \dterm{intervalos} seguintes:
+\mathcols 2
+(a, b) &\defeq \setst {x\in\reals} {a < x < b} &
+(a, b] &\defeq \setst {x\in\reals} {a < x \leq b} \\
+[a, b) &\defeq \setst {x\in\reals} {a \leq x < b} &
+[a, b] &\defeq \setst {x\in\reals} {a \leq x \leq b}.
+\endmathcols
+Pronunciamos as parentêses de \utter{aberto} e os colchetes de \utter{fechado}.
+Definimos também:
+\mathcols 2
+(\minfty, b)        &\defeq \setst {x\in\reals} {x < b} &
+(\minfty, b]        &\defeq \setst {x\in\reals} {x \leq b} \\
+(a, \pinfty)        &\defeq \setst {x\in\reals} {a < x} &
+[a, \pinfty)        &\defeq \setst {x\in\reals} {a \leq x}.
+\endmathcols
+É conveniente também definir
+$$
+(\minfty, \pinfty) \defeq \reals.
+$$
+
+%%}}}
+
+%%{{{ beware: infties_not_reals 
+\beware.
+%%%{{{ meta 
+\label infties_not_reals
+%%%}}}
+
+Cuidado: não definimos os $\minfty,\pinfty$ como objetos matemáticos aqui.
+Por enquanto fazem parte de notação, e com certeza \emph{não} se trata de
+números reais.
+
+%%}}}
+
+%%{{{ x: running_intervals_on_reals 
+\exercise.
+%%%{{{ meta 
+\label running_intervals_on_reals
+%%%}}}
+
+Para $n=1,2,3,\dotsc$ defina os intervalos de reais
+$$
+\xalignat2
+F_n &= \ival[ {-1+\frac1n \,,\; 1-\frac1n} ] &
+G_n &= \ival( {-1-\frac1n \,,\; 1+\frac1n} ).
+\endxalignat
+$$
+Calcule os conjuntos $\Union_n F_n$ e $\Inter_n G_n$.
+
+\hint
+Use as definições!
+
+\solution
+Temos
+$$
+\align
+x \in \Unionl_n F_n
+&\iff \lexists {n\in \nats} {x\in F_n}
+\iff x \in (-1,1) \\
+x \in \Interl_n G_n
+&\iff \lforall {n\in \nats} {x\in G_n}
+\iff x \in [-1,1].
+\endalign
+$$
+Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
+
+%%}}}
+
+%%{{{ x: epsilon-dependent and n-dependent intersections 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Para todo real $\epsilon>0$ e todo $n\in\nats$,
+sejam os intervalos de reais
+\mathcols 2
+I_\epsilon &= [0,1 + \epsilon) &
+U_n        &= [n,+\infty).
+\endmathcols
+Calcule os conjuntos:
+(i) $\Inter \setst {I_\epsilon} {\epsilon>0}$;
+(ii) $\Inter_{n=2}^{\infty} U_n$.
+
+\solution
+(i) $[0,1]$;
+(ii) $\emptyset$.
 
 %%}}}
 
@@ -20789,96 +20936,34 @@ Os $\reals_\ints,\reals_\rats,\reals_\algs$ são conjuntos indutivos.
 
 %%}}}
 
-\endsection
-%%}}}
-
-%%{{{ Minima_and_maxima_on_reals 
-\section Mínima e máxima.
+%%{{{ thm: reals_is_archimedean 
+\theorem.
 %%%{{{ meta 
+\label reals_is_archimedean
 %%%}}}
 
-%%{{{ df: real_min_max_binary 
-\definition.
-%%%{{{ meta 
-\label real_min_max_binary
-%%%}}}
-
-Definimos as funções:
-\mathcols 2
-\min &\eqtype \Real \times \Real \to \Real &
-\max &\eqtype \Real \times \Real \to \Real \\
-\min (a,b) &\defeq \cases { a,  & se $a\leq b$ \\
-                            b,  & se não  } &
-\max (a,b) &\defeq \cases { b,  & se $a\leq b$ \\
-                            a,  & se não  }.
-\endmathcols
-
-%%}}}
-
-%%{{{ x: real_min_max_formulas 
-\exercise.
-%%%{{{ meta 
-\label real_min_max_formulas
-%%%}}}
-
-Sejam $a,b$ reais.
-Logo
-\mathcols 2
-\min(a,b) &= \frac {a + b - \abs {b-a}} 2 &
-\max(a,b) &= \frac {a + b + \abs {b-a}} 2.
-\endmathcols
-
-%%}}}
-
-%%{{{ x: real_max_addition 
-\exercise.
-%%%{{{ meta 
-\label real_max_addition
-%%%}}}
-
-Sejam $a,b,c,d$ reais.
-Logo
+O $\reals$ é um corpo arquimedeano, ou seja:
+para todo $x,y\in\reals$,
 $$
-\max(a+c, b+d) \leq \max(a,b) + \max(c,d).
+x \neq 0
+\implies
+\lexists {n \in \nats} {xn > y}.
 $$
 
-Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
-
 %%}}}
 
-%%{{{ x: real_min_addition 
-\exercise.
+%%{{{ thm: rats_dense_in_reals 
+\theorem.
 %%%{{{ meta 
-\label real_min_addition
 %%%}}}
 
-Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
-Enuncie e demonstre.
-
-%%}}}
-
-%%{{{ df: real_min_max_of_set 
-\definition.
-%%%{{{ meta 
-\label real_min_max_of_set
-%%%}}}
-
-Sejam $A$ um conjunto de reais e $x$ um real.
-Dizemos que:
-\mathcol
-\text{$m$ é um mínimo de $A$} &\defiff m \in A \mland m \leq A \\
-\text{$m$ é um máximo de $A$} &\defiff m \in A \mland m \leq A.
-\endmathcol
-
-%%}}}
-
-%%{{{ x: real_is_unbounded 
-\exercise.
-%%%{{{ meta 
-\label real_is_unbounded
-%%%}}}
-
-O $\reals$ não tem nem mínimo, nem máximo.
+Os racionais são densos nos reais, ou seja:
+para todo $x,y\in \reals$,
+$$
+x < y
+\implies
+\lexists {q \in \rats} {x < q < y}.
+$$
 
 %%}}}
 
@@ -20957,6 +21042,8 @@ para finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
 \endsection
 %%}}}
 
+%%%% INTERMISSION
+
 %%{{{ Infimum_and_supremum_on_reals 
 \section Infimum e supremum.
 %%%{{{ meta 
@@ -20987,13 +21074,8 @@ Seja $A\subset \reals$.
 Chamamos o $x$ um \dterm{lower bound} de $A$ sse $x \leq a$ para todo $a \in A$,
 e \emph{dualmente} $x$ é um \dterm{upper bound} de $A$ sse $x \geq a$ para todo $a \in A$:
 \mathcol
-\text{$x$ é um lower bound de $A$} &\defiff \lforall {a\in A} {x \leq a} \\
-\text{$x$ é um upper bound de $A$} &\defiff \lforall {a\in A} {a \leq x}.
-\endmathcol
-Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
-\mathcol
-x \leq A &\defiff \lforall {a \in A} {x \leq a} \\
-A \leq x &\defiff \lforall {a \in A} {a \leq x}.
+\text{$x$ é um lower bound de $A$} &\defiff x \leq A \intiff \lforall {a\in A} {x \leq a} \\
+\text{$x$ é um upper bound de $A$} &\defiff A \leq x \intiff \lforall {a\in A} {a \leq x}.
 \endmathcol
 Denotamos o conjunto de todos os lower bounds de $A$ por $\lbs A$,
 e dualmente usamos $\ubs A$ para o conjunto de todos os seus upper bounds:
@@ -21352,80 +21434,6 @@ que será garantido ter um supremum, e use
 esse supremum para definir o infimum de $A$.
 
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ The reals 
-\section Os reais.
-%%%{{{ meta 
-\label The_reals_axioms
-%%%}}}
-
-%%{{{ Calculus, the real deal 
-\note Calculus, real e oficial.
-%%%{{{ meta 
-\defines
-    * calculus
-    * análise!real
-    ;;
-%%%}}}
-
-Como começamos a teoria dos grupos no~\ref[Group_theory]?
-Apresentamos os axiomas dos grupos e continumos investigando
-suas conseqüências.  A colecção dessas conseqüências (teoremas)
-é exatamente o que chamamos de \dterm{teoria}.
-E a \emph{teoria dos anéis} é feita por todos os teoremas
-que seguem pelos axiomas de anéis; etc.~etc.
-E a \emph{teoria dos corpos ordenados completos?}
-Ela não é muito famosa por esse nome, mas com certeza
-tu já ouviste falar dela por uns dos seus apelidos:
-\dterm{calculus}, ou \dterm{análise real}, etc.
-Na abordagem axiomática, não nos importa \emph{definir}\/ ou
-\emph{construir} os objetos que vamos chamar de \dterm{números reais}.
-Começamos aceitando a existência dum certo conjunto que denotamos
-por $\reals$ e umas noções primitivas, e estipulamos uns axiomas
-sobre eles.
-A partir de tais noções primitivas e tais axiomas procedemos
-para definir mais conceitos, e demonstrar mais proposições (os teoremas),
-elaborando assim a teoria dos corpos ordenados completos.
-
-%%}}}
-
-%%{{{ thm: reals_is_archimedean 
-\theorem.
-%%%{{{ meta 
-\label reals_is_archimedean
-%%%}}}
-
-O $\reals$ é um corpo arquimedeano, ou seja:
-para todo $x,y\in\reals$,
-$$
-x \neq 0
-\implies
-\lexists {n \in \nats} {xn > y}.
-$$
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ thm: rats_dense_in_reals 
-\theorem.
-%%%{{{ meta 
-%%%}}}
-
-Os racionais são densos nos reais, ou seja:
-para todo $x,y\in \reals$,
-$$
-x < y
-\implies
-\lexists {q \in \rats} {x < q < y}.
-$$
-
-%%}}}
-
-\TODO sketch.
 
 \endsection
 %%}}}
@@ -64794,9 +64802,9 @@ mas o preço que pago para isso são modelos!
 Quantos monóides encontramos?  Demais!  Todos os grupos são monóides,
 e a gente já encontrou ainda mais monóides que não são grupos (lembra?).
 E grupos?
-``Menos'', mas muitos também!
+Menos, mas muitos também!
 E grupos abelianos?
-Provamos mais teoremas, mas temos menos exemplos de grupos abelianos.
+Demonstramos mais teoremas, mas temos menos exemplos de grupos abelianos.
 E anéis?  E anéis comutativos?  E domínios de integridade?
 Cada vez que adicionamos restricções (leis), a teoria correspondente
 cresce, e a colecção de models diminui.
@@ -64815,7 +64823,7 @@ Adicionamos mais uma lei: o axioma da completude; e assim chegamos nos
 \emph{corpos ordenados completos}.  E agora \emph{chega!}
 Estamos num ponto onde adicionamos tantos axiomas que nosso conceito
 foi tão exigente que perdemos todos os modelos exeto um: os reais!
-Realmente não encontramos outro exemplo, mas isso não quis dizer que
+Realmente não encontramos outro exemplo, mas isso não significa que
 não existem outros modelos.  Certo?  Certo, mas acontece que nessa
 situação não é o caso: \emph{essencialmente existe apenas um
 único corpo ordenado completo: os reais!}
@@ -64930,6 +64938,38 @@ do~\ref[can_we_prove_that_reals_is_a_complete_ordered_field]
 mesmo?
 Voltamos nesse assunto
 no~\ref[Axiomatic_set_theory]~(\reftag[Constructing_more_numbers]).
+
+%%}}}
+
+\TODO Reorganizar o seguinte.
+
+%%{{{ Calculus, the real deal 
+\note Calculus, real e oficial.
+%%%{{{ meta 
+\defines
+    * calculus
+    * análise!real
+    ;;
+%%%}}}
+
+Como começamos a teoria dos grupos no~\ref[Group_theory]?
+Apresentamos os axiomas dos grupos e continumos investigando
+suas conseqüências.  A colecção dessas conseqüências (teoremas)
+é exatamente o que chamamos de \dterm{teoria}.
+E a \emph{teoria dos anéis} é feita por todos os teoremas
+que seguem pelos axiomas de anéis; etc.~etc.
+E a \emph{teoria dos corpos ordenados completos?}
+Ela não é muito famosa por esse nome, mas com certeza
+tu já ouviste falar dela por uns dos seus apelidos:
+\dterm{calculus}, ou \dterm{análise real}, etc.
+Na abordagem axiomática, não nos importa \emph{definir}\/ ou
+\emph{construir} os objetos que vamos chamar de \dterm{números reais}.
+Começamos aceitando a existência dum certo conjunto que denotamos
+por $\reals$ e umas noções primitivas, e estipulamos uns axiomas
+sobre eles.
+A partir de tais noções primitivas e tais axiomas procedemos
+para definir mais conceitos, e demonstrar mais proposições (os teoremas),
+elaborando assim a teoria dos corpos ordenados completos.
 
 %%}}}
 
