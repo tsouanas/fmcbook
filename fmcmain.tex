@@ -20564,17 +20564,15 @@ Podemos usar mais que um gerador, e quando isso acontece a idéia é
 que para cada escolha de membro por cada gerador fornece um membro
 do nosso conjunto.
 Por exemplo:
-$$
+\mathcol
 \setst {n^2 + 2m} {n \in \nats, m \in \set {10,20}}
-= \set { 0^2 + 2\ntimes 10
-       , 0^2 + 2\ntimes 20
-       , 1^2 + 2\ntimes 10
-       , 1^2 + 2\ntimes 20
-       , 2^2 + 2\ntimes 10
-       , 2^2 + 2\ntimes 20
-       , \dotsc }
-= \set { 20, 40, 21, 41, 24, 44, \dotsc }.
-$$
+&= \set { 0^2 + 2 \ntimes 10
+        , 0^2 + 2 \ntimes 20
+        , 1^2 + 2 \ntimes 10
+        , 1^2 + 2 \ntimes 20
+        , \dotsc } \\
+&= \set { 20, 40, 21, 41, 24, 44, \dotsc }.
+\endmathcol
 
 %%}}}
 
@@ -20597,14 +20595,14 @@ e o que significa \emph{pertencer à interseção deles}.
 Caso que a quantidade dos conjuntos é apenas $2$, vamos dizer $A_1,A_2$, já conhecemos
 até uma notação para sua união e sua interseção: $A_1 \union A_2$ e $A_1 \inter A_2$
 respectivamente.
-Vamo lembrar o que significam essas $(\union)$ e $(\inter)$ agora:
+Lembramos as definições de $(\union)$ e $(\inter)$:
 \mathcol
 x \in A_1 \union A_2 &\defiff x \in A_1 \mlor  x \in A_2 \\
 x \in A_1 \inter A_2 &\defiff x \in A_1 \mland x \in A_2.
 \endmathcol
 Mas se temos mais que dois conjuntos?
 As definições acima não são aplicáveis nesse caso.  Precisamos generalizá-las.
-Se temos uma quantidade finita de conjuntos para unir ou para intersetar,
+Se temos uma quantidade finita de conjuntos para unir ou para intersectar,
 até que dá para fazer aproveitando as $(\union)$ e $(\inter)$---e faremos
 isso no \ref[Sets] mesmo---mas aqui não nos interessa, pois não será suficiente
 considerar coleções de \emph{apenas} $8$, $84$, ou $4208$ conjuntos.
@@ -20613,7 +20611,7 @@ ou arrumada assim
 $$
 A_1, A_2, A_3, \dotsc
 $$
-numa seqüência $\seqn A n$, ou até sem sequer ter nomes legais esses conjuntos:
+numa seqüência $\seqn A n$, ou até sem sequer ter nomes legais para esses conjuntos:
 considere que temos uma coleção (possivelmente infinita) $\A$ de conjuntos de reais.
 Dizemos que
 \mathcol
@@ -20630,13 +20628,13 @@ Para referir à união ou à interseção de uma coleção de conjuntos usamos o
 \mathcol
 \Union \A &\defeq \text{a união dos conjuntos da coleção $\A$} \\
 \Inter \A &\defeq \text{a interseção dos conjuntos da coleção $\A$} \\
-\Union_{n\in\nats} A_n \defeq \Union_{i=0}^\infty A_i &\defeq \text{a união dos conjuntos $A_0,A_1,A_2,\dotsc$} \\
-\Inter_{n\in\nats} A_n \defeq \Inter_{i=0}^\infty A_i &\defeq \text{a interseção dos conjuntos $A_0,A_1,A_2,\dotsc$}. \\
+\Unionl_n A_n \defeq \Union_{n\in\nats} A_n \defeq \Union_{i=0}^\infty A_i &\defeq \text{a união dos conjuntos $A_0,A_1,A_2,\dotsc$} \\
+\Interl_n A_n \defeq \Inter_{n\in\nats} A_n \defeq \Inter_{i=0}^\infty A_i &\defeq \text{a interseção dos conjuntos $A_0,A_1,A_2,\dotsc$}. \\
 \endmathcol
 
 %%}}}
 
-%%{{{ intervals_of_reals 
+%%{{{ df: intervals_of_reals 
 \definition Intervalos.
 %%%{{{ meta 
 \label intervals_of_reals
@@ -21139,8 +21137,8 @@ Associamos com $a$ dois reais inteiros, que chamamos de \dterm{piso} e
 \dterm{teto} de $a$ e denotamos por $\floor a$ e $\ceil a$ respectivamente.
 Suas definições:
 \mathcols 2
-\floor a &= \max \setst {x\in\reals_\ints} {x \leq a} &
-\ceil a  &= \min \setst {x\in\reals_\ints} {a \leq x}.
+\floor a &\defeq \max \setst {x\in\reals_\ints} {x \leq a} &
+\ceil a  &\defeq \min \setst {x\in\reals_\ints} {a \leq x}.
 \endmathcols
 
 %%}}}
@@ -21164,9 +21162,12 @@ Identifique e demonstre que não há tal perigo mesmo.
 
 Temos:
 \mathcols 4
-\ceil  4  &= 4 & \ceil  {1/2} &= 1 & \ceil  {-3/2} &= -1 & \ceil  {0.999\dots} &= 1  \\
-\floor 4  &= 4 & \floor {1/2} &= 0 & \floor {-3/2} &= -2 & \floor {0.999\dots} &= 1. \\
+\ceil  4  &= 4 & \ceil  {1/2} &= 1 & \ceil  {-3/2} &= -1 & \ceil  {0.99} &= 1& \ceil  {0.999\dots} &= 1  \\
+\floor 4  &= 4 & \floor {1/2} &= 0 & \floor {-3/2} &= -2 & \floor {0.99} &= 0& \floor {0.999\dots} &= 1. \\
 \endmathcols
+As duas últimas colunas envolvem \emph{numerais de reais em notação decimal},
+algo que não temos discutido ainda, mas encontraremos logo depois, neste capítulo ainda.
+Inclui essas duas colunas aqui para o leitor que já é acostumado com eles.
 
 %%}}}
 
@@ -21178,8 +21179,22 @@ Temos:
 
 Adivinhe os \sq{$\askdots$} e demonstre:
 \mathcols 2
-\cforall x {\floor {\ceil  x} = \askdots} &
-\cforall x {\ceil  {\floor x} = \askdots}. \\
+\cforall {x\in\reals} {\floor {\ceil  x} = \askdots} &
+\cforall {x\in\reals} {\ceil  {\floor x} = \askdots}. \\
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_ceil_and_floor_of_plus_k 
+\exercise.
+%%%{{{ meta 
+\label real_ceil_of_floor_of_plus_k
+%%%}}}
+
+Adivinhe os \sq{$\askdots$} e demonstre:
+\mathcols 2
+\pforall {x\in\reals} \cforall {k\in\reals_\ints} {\floor {x+k} = \askdots} &
+\pforall {x\in\reals} \cforall {k\in\reals_\ints} {\ceil  {x+k} = \askdots}. \\
 \endmathcols
 
 %%}}}
@@ -22387,6 +22402,17 @@ Toda seqüência bounded possui subseqüência Cauchy.
 \endsection
 %%}}}
 
+%%{{{ Geometric_representation_of_reals 
+\section Representação geométrica.
+%%%{{{ meta 
+\label Geometric_representation_of_reals
+%%%}}}
+
+\TODO Expansão como instruções.
+
+\endsection
+%%}}}
+
 %%{{{ Continuity 
 \section Continuidade.
 %%%{{{ meta 
@@ -22610,17 +22636,6 @@ $$
 A $\seqn f n$ converge àlguma funcção pointwise?
 
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Geometric_representation_of_reals 
-\section Representação geométrica.
-%%%{{{ meta 
-\label Geometric_representation_of_reals
-%%%}}}
-
-\TODO Expansão como instruções.
 
 \endsection
 %%}}}
