@@ -20295,7 +20295,7 @@ e uns conjuntos e umas seqüências \emph{de conjuntos de reais}, e pronto, paro
 Nada mais profundo que isso.
 %%}}}
 
-%%{{{ Sequences
+%%{{{ Sequences 
 \note Seqüências.
 %%%{{{ meta 
 %%%}}}
@@ -20338,6 +20338,15 @@ Seria um \emph{type error} então escrever $1 \in \seqn x n$.
 Tão errado que nem chega a ser falso.  Simplesmente sem significado.
 Mesmo assim, é comum ver uma seqüência aparecendo num lugar onde pelo contexto
 é inferível que deveria aparecer um conjunto.
+Provavelmente o que tá sendo referido nesses casos não é a seqüência
+mas sim o \emph{conjunto do seus termos:}
+$$
+\seq {x_n} {n\in\nats}
+\qquad\leadsto\qquad
+\setst {x_n} {n\in\nats},
+\qquad
+\text{que também denotamos por $\seqnset x n$.}
+$$
 
 %%}}}
 
@@ -20362,9 +20371,10 @@ Aqui umas seqüências e seus primeiros componentes:
 
 %%}}}
 
-%%{{{ eg: a recursively defined seq 
+%%{{{ eg: a_recursively_defined_real_seq 
 \example.
 %%%{{{ meta 
+\label a_recursively_defined_real_seq
 %%%}}}
 
 Definimos a seqüência de reais $\seqn x n$ recursivamente pelas:
@@ -20400,7 +20410,7 @@ Seus primeiros termos então são os:
     ;;
 %%%}}}
 
-Demonstre que a $\seqn x n$ definida acima é \dterm{crescente}, i.e.:
+Demonstre que a $\seqn x n$ definida no \ref[a_recursively_defined_real_seq] é \dterm{crescente}, i.e.:
 $$
 \lforall n {x_n \leq x_{n+1}}.
 $$
@@ -20470,8 +20480,6 @@ Se, por motivos religiosos, queremos defini-la em tal forma que seu primeiro ter
 
 %%}}}
 
-%% Sets and sequences of sets 
-
 %%{{{ to_know_a_set_of_reals 
 \note Saber um conjunto de reais.
 %%%{{{ meta 
@@ -20482,6 +20490,91 @@ O que precisamos fazer para ter o direito de dizer que \dterm{definimos} um conj
 Precisamos definir o que significa \emph{pertencer ao conjunto $A$}.
 Se, e somente sem, para qualquer $x$ real, sabemos o que significa a afirmação $x \in A$,
 temos o direito de falar que sabemos quem é o $A$.
+E para falar que entendemos o que significa conjunto mesmo, precisamos saber
+o que significa a afirmação $A = B$, para quaisquer conjuntos $A,B$.
+Vamos lembrar isso agora:
+$$
+A = B
+\defiff
+\lforall x {x \in A \iff x \in B}.
+$$
+E para formar (definir) um conjunto $A$, o que precisamos fazer?
+Simplesmente definir o que $x \in A$ significa:
+$$
+x \in A \defiff \dotsc
+$$
+pois saber o que $x \in A$ é saber o que $A$ significa.
+
+%%}}}
+
+%%{{{ set_builder_in_reals
+\note Set-builder.
+%%%{{{ meta 
+\label set_builder_in_reals
+%%%}}}
+
+Quando o conjunto tem uma quantidade finita de membros, podemos simplesmente
+listar todos eles entre chaves:
+$$
+A \defeq \set {5,7,2}.
+$$
+Com essa definição definimos sim a proposição $x \in A$ para qualquer $x$ real
+para ser a seguinte:
+$$
+x \in A \intiff x = 5 \mlor x = 7 \mlor x = 2.
+$$
+Usamos a notação \dterm{set-builder}
+$$
+\setst {x\in\reals} {\phi(x)}
+$$
+para denotar o conjunto de todos os reais $x$ tais que $\phi(x)$.
+Dado qualquer real $a$, então, a proposição
+$$
+a \in \setst {x\in\reals} {\phi(x)}
+$$
+reduz-se à proposição $\phi(a)$.
+Dado um conjunto de reais $D$, escrevemos
+$$
+\setst {x \in D} {\phi(x)}
+$$
+para referir ao conjuto de todos os membros de $D$ que, ainda mais,
+possuem a propriedade $\phi$.
+Todos os usos até agora dessa notação usam apenas uma variável na sua parte
+esquerda, mas podemos escrever termos mais interessantes.  Por exemplo
+$$
+\setst {2^n + 1} {n \in \nats}
+= \set { 2^0 + 1
+       , 2^1 + 1
+       , 2^2 + 1
+       , 2^3 + 1
+       , \dotsc }
+= \set { 2, 3, 5, 9, \dotsc }.
+$$
+Quando um conjunto é definido nesta forma dizemos que é \dterm{indexado},
+aqui pelo conjunto $\nats$.
+Isso significa que para solicitar membros arbitrários deste conjunto
+basta solicitar indices arbitrários do conjunto de índices.
+Escrevendo \wq{Sejam $i,j \in \nats$}, então, querendo ou não,
+temos acesso em dois membros arbitrários do nosso conjunto:
+$2^i + 1, 2^j + 1$.
+O conjunto $\nats$ nesse exemplo também é chamado de \dterm{gerador},
+visto como um fornecedor de valores para a variável $n$ que aparece
+na parte esquerda, para formar os membros do conjunto mesmo.
+Podemos usar mais que um gerador, e quando isso acontece a idéia é
+que para cada escolha de membro por cada gerador fornece um membro
+do nosso conjunto.
+Por exemplo:
+$$
+\setst {n^2 + 2m} {n \in \nats, m \in \set {10,20}}
+= \set { 0^2 + 2\ntimes 10
+       , 0^2 + 2\ntimes 20
+       , 1^2 + 2\ntimes 10
+       , 1^2 + 2\ntimes 20
+       , 2^2 + 2\ntimes 10
+       , 2^2 + 2\ntimes 20
+       , \dotsc }
+= \set { 20, 40, 21, 41, 24, 44, \dotsc }.
+$$
 
 %%}}}
 
@@ -20520,8 +20613,8 @@ ou arrumada assim
 $$
 A_1, A_2, A_3, \dotsc
 $$
-numa listinha, ou até sem sequer ter notações para os membros dessa coleção $\A$
-de conjuntos de reais.
+numa seqüência $\seqn A n$, ou até sem sequer ter nomes legais esses conjuntos:
+considere que temos uma coleção (possivelmente infinita) $\A$ de conjuntos de reais.
 Dizemos que
 \mathcol
 \text{$x$ pertence à união de uns conjuntos}      &\defiff \text{$x$ pertence àlgum deles} \\
@@ -20542,43 +20635,6 @@ Para referir à união ou à interseção de uma coleção de conjuntos usamos o
 \endmathcol
 
 %%}}}
-
-%%{{{ x: fun with sequences of sets (1) 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Seja $\seqn A n$ uma seqüência de conjuntos de reais, tal que
-$$
-A_1 \supset A_2 \supset A_3 \supset \dotsb
-$$
-e tal que cada um deles possui uma infinidade de membros.
-Podemos concluir que sua intersecção
-$$
-A_1 \inter A_2 \inter A_3 \inter \dotsb
-$$
-também possui uma infinidade de reais?
-
-%%}}}
-
-%%{{{ x: fun with sequences of sets (2) 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-E se, em vez de infinito, cada um dos $A_i$ é finito e habitado, podemos concluir
-que a interseção também é finita e habitada?
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Intervals_of_reals 
-\section Intervalos.
-%%%{{{ meta 
-\label Intervals_of_reals
-%%%}}}
 
 %%{{{ intervals_of_reals 
 \definition Intervalos.
@@ -20624,6 +20680,44 @@ números reais.
 
 %%}}}
 
+%%{{{ blah: sequences of sets of reals 
+\blah Seqüências de conjuntos.
+%%%{{{ meta 
+%%%}}}
+
+Toda a notação e terminologia sobre seqüências de reais que elaboramos aqui
+aplica \emph{mutatis mutandis} para seqüências de \emph{conjuntos de reais}.
+
+%%}}}
+
+%%{{{ x: fun with sequences of sets (1) 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Seja $\seqn A n$ uma seqüência de conjuntos de reais, tal que
+$$
+A_1 \supset A_2 \supset A_3 \supset \dotsb
+$$
+e tal que cada um deles possui uma infinidade de membros.
+Podemos concluir que sua intersecção
+$$
+A_1 \inter A_2 \inter A_3 \inter \dotsb
+$$
+também possui uma infinidade de reais?
+
+%%}}}
+
+%%{{{ x: fun with sequences of sets (2) 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+E se, em vez de infinito, cada um dos $A_i$ é finito e habitado, podemos concluir
+que a interseção também é finita e habitada?
+
+%%}}}
+
 %%{{{ x: running_intervals_on_reals 
 \exercise.
 %%%{{{ meta 
@@ -20661,7 +20755,7 @@ Ou seja: $\Union_n F_n = (-1,1)$ e $\Inter_n G_n = [-1,1]$.
 %%%{{{ meta 
 %%%}}}
 
-Para todo real $\epsilon>0$ e todo $n\in\nats$,
+Para todo real $\epsilon > 0$ e todo $n\in\nats$,
 sejam os intervalos de reais
 \mathcols 3
 I_\epsilon &= [0,1 + \epsilon) &
@@ -21000,6 +21094,30 @@ Dizemos que:
 
 %%}}}
 
+%%{{{ x: real_uniqueness_of_min_and_max 
+\exercise Unicidades de máxima e mínima.
+%%%{{{ meta 
+\label real_uniqueness_of_min_and_max
+%%%}}}
+
+Seja $A$ conjunto de reais.
+Se $A$ possui um mínimo membro $m$, então $m$ é o único mínimo membro de $A$.
+Similarmente sobre os máxima.
+
+%%}}}
+
+%%{{{ notation: real_min_max_of_set_notation 
+\notation.
+%%%{{{ meta 
+\label real_min_max_of_set_notation
+%%%}}}
+
+Quando um conjunto $A$ de reais possui mínimo, denotamos por
+$\min A$ o seu único membro mínimo.
+Similarmente, quando $A$ possui máximo, o denotamos por $\max A$.
+
+%%}}}
+
 %%{{{ x: real_is_unbounded 
 \exercise.
 %%%{{{ meta 
@@ -21009,6 +21127,64 @@ Dizemos que:
 O $\reals$ não tem nem mínimo, nem máximo.
 
 %%}}}
+
+%%{{{ df: real_ceil_and_floor 
+\definition Pisos e tetos.
+%%%{{{ meta 
+\label real_ceil_and_floor
+%%%}}}
+
+Seja $a$ real.
+Associamos com $a$ dois reais inteiros, que chamamos de \dterm{piso} e
+\dterm{teto} de $a$ e denotamos por $\floor a$ e $\ceil a$ respectivamente.
+Suas definições:
+\mathcols 2
+\floor a &= \max \setst {x\in\reals_\ints} {x \leq a} &
+\ceil a  &= \min \setst {x\in\reals_\ints} {a \leq x}.
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_ceil_and_floor_dangerous_def 
+\exercise.
+%%%{{{ meta 
+\label real_ceil_and_floor_dangerous_def
+%%%}}}
+
+A definição \ref[real_ceil_and_floor] é potencialmente perigosa.
+Qual o perigo?
+Identifique e demonstre que não há tal perigo mesmo.
+
+%%}}}
+
+%%{{{ eg: ceil and floor examples 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Temos:
+\mathcols 4
+\ceil  4  &= 4 & \ceil  {1/2} &= 1 & \ceil  {-3/2} &= -1 & \ceil  {0.999\dots} &= 1  \\
+\floor 4  &= 4 & \floor {1/2} &= 0 & \floor {-3/2} &= -2 & \floor {0.999\dots} &= 1. \\
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_ceil_of_floor_and_floor_of_ceil 
+\exercise.
+%%%{{{ meta 
+\label real_ceil_of_floor_and_floor_of_ceil
+%%%}}}
+
+Adivinhe os \sq{$\askdots$} e demonstre:
+\mathcols 2
+\cforall x {\floor {\ceil  x} = \askdots} &
+\cforall x {\ceil  {\floor x} = \askdots}. \\
+\endmathcols
+
+%%}}}
+
+\TODO Add exercises.
 
 \endsection
 %%}}}
@@ -21240,7 +21416,15 @@ para finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
 \endsection
 %%}}}
 
-%%%% INTERMISSION
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Add problems.
+
+\endproblems
+%%}}}
 
 %%{{{ Infimum_and_supremum_on_reals 
 \section Infimum e supremum.
@@ -51066,6 +51250,8 @@ no~\ref[Axiomatic_set_theory].
 \problems.
 %%%{{{ meta 
 %%%}}}
+
+\TODO Add problems.
 
 \endproblems
 %%}}}
