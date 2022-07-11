@@ -19546,7 +19546,7 @@ Para todo $x\neq 0$, $\minvp {\minv x} = x$.
 \label real_nzd
 %%%}}}
 
-$\lforall {a,b} {ab = 0 \implies a = 0 \mlor a = b}$.
+$\lforall {a,b} {ab = 0 \implies a = 0 \mlor b = 0}$.
 
 %%}}}
 
@@ -20028,6 +20028,72 @@ Ainda mais: $a^2 + b^2 = 0$ sse $a = b = 0$.
 \endsection
 %%}}}
 
+%%{{{ Notable_subsets 
+\section Subconjuntos notáveis e inaceitáveis.
+%%%{{{ meta 
+\label Notable_subsets_of_reals 
+%%%}}}
+
+%%{{{ df: real_notable_subsets 
+\definition.
+%%%{{{ meta 
+\label real_notable_subsets
+\defines
+    * real!inteiro
+    * real!racional
+    * real!irracional
+    * real!algébrico
+    * real!transcendental
+    ;;
+%%%}}}
+
+Definimos os subconjuntos de reais seguintes:
+\mathcols 2
+&\text{os reais naturais:}   & \reals_\nats &\pseudodefeq \set { 0, 1, 2, 3, \dotsc } \\
+&\text{os reais inteiros:}   & \reals_\ints &\alethodefeq \reals_\nats \union \setst {-n} {n \in \reals_\nats} \\
+&\text{os reais racionais:}  & \reals_\rats &\alethodefeq \setst {m/n} {m \in \reals_\ints, n \in {\reals_{\ints_{>0}}}} \\
+&\text{os reais algébricos:} & \reals_\algs &\alethodefeq \setstt {x} {$x$ é raiz dum polinómio com coeficientes inteiros} \\
+\endmathcols
+Definimos também os \dterm{reais irracionais} $\reals \setminus \reals_\rats$
+e os \dterm{reais transcendentais} $\reals \setminus \reals_\algs$.
+Quando pelo contexto é inferível que estamos referindo a um conjunto de reais,
+é conveniente abusar a notação e escrever $\nats,\ints,\rats,\algs$ em vez de
+$\reals_\nats, \reals_\ints, \reals_\rats, \reals_\algs$, respectivamente.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Tendo finalmente definido os reais naturais $\reals_\nats$,
+ganhamos o resto dos subconjuntos da \ref[real_notable_subsets].
+
+%%}}}
+
+%%{{{ thm: reals_is_archimedean 
+\theorem.
+%%%{{{ meta 
+\label reals_is_archimedean
+\defines
+    * archimedeano
+    ;;
+%%%}}}
+
+O $\reals$ é \dterm{arquimedeano}, ou seja:
+para todo $x,y\in\reals$,
+$$
+x \neq 0
+\implies
+\lexists {n \in \reals_\nats} {xn > y}.
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Epsilons 
 \section Epsilons.
 %%%{{{ meta 
@@ -20224,78 +20290,75 @@ Fazemos isso na \ref[Distance_on_reals].
 %%{{{ intro 
 \secintro
 Conjuntos e seqüências mesmo, em forma geral, vamos estudar no \ref[Sets].
-Aqui vamos só usar um pouco uns conjuntos de reais, e uns conjuntos de conjuntos de reais,
-e pronto, parou.  Nada mais profundo que isso.
+Aqui vamos só usar um pouco uns conjuntos e umas seqüências \emph{de reais},
+e uns conjuntos e umas seqüências \emph{de conjuntos de reais}, e pronto, parou!
+Nada mais profundo que isso.
 %%}}}
 
-%%{{{ to_know_a_set_of_reals 
-\note Saber um conjunto de reais.
+%%{{{ Sequences
+\note Seqüências.
 %%%{{{ meta 
-\label to_know_a_set_of_reals
 %%%}}}
 
-O que precisamos fazer para ter o direito de dizer que \dterm{definimos} um conjunto de reais $A$?
-Precisamos definir o que significa \emph{pertencer ao conjunto $A$}.
-Se, e somente sem, para qualquer $x$ real, sabemos o que significa a afirmação $x \in A$,
-temos o direito de falar que sabemos quem é o $A$.
+Considere que temos definido os reais
+$$
+x_0, x_1, x_2, x_3, \dotsc
+$$
+Temos então, para cada $n \in \nats$, determinado um certo real $x_n \in \nats$.
+Dizemos que temos uma \dterm{seqüência de reais}, que denotamos por
+$$
+\seqnft x n 0 \infty
+\qqqtext{ou por}
+\sequence {x_n} {n\in\nats}
+\qqqtext{ou por}
+\seqn x n,
+$$
+dependendo de quanta informação podemos deixar implicita sem haver confusão ou ambigüidade.
+Dizemos que o $x_i$ é o $i$-ésimo \dterm{componente} ou \dterm{termo} da seqüência $\seqn x n$.
+A pergunta primitiva que podemos fazer numa seqüência é a seguinte: \wq{qual é teu $i$-ésimo componente?}.
+Consideramos duas seqüências como iguais sse concordam em todas as posições, ou seja:
+$$
+\seqn x n = \seqn y n \defiff \lforall {n \in \nats} {x_n = y_n}.
+$$
 
 %%}}}
 
-%%{{{ union_inter_of_sets_of_reals 
-\note União e interseção de coleções de conjuntos.
+%%{{{ beware: seqs_are_not_sets 
+\beware Seqüências não são conjuntos.
 %%%{{{ meta 
-\label union_inter_of_sets_of_reals
-\defines
-    * união!de conjuntos de reais
-    * intersecção!de conjuntos de reais
-    ;;
-\pdefs
-    \pdef A {{\cal A}}
-    ;;
+\label seqs_are_not_sets
 %%%}}}
 
-Tendo uns conjuntos de reais queremos definir a \dterm{união} e a \dterm{intersecção} deles;
-ou seja: definir o que significa \emph{pertencer à união deles}
-e o que significa \emph{pertencer à interseção deles}.
-Caso que a quantidade dos conjuntos é apenas $2$, vamos dizer $A_1,A_2$, já conhecemos
-até uma notação para sua união e sua interseção: $A_1 \union A_2$ e $A_1 \inter A_2$
-respectivamente.
-Vamo lembrar o que significam essas $(\union)$ e $(\inter)$ agora:
-\mathcol
-x \in A_1 \union A_2 &\defiff x \in A_1 \mlor  x \in A_2 \\
-x \in A_1 \inter A_2 &\defiff x \in A_1 \mland x \in A_2.
-\endmathcol
-Mas se temos mais que dois conjuntos?
-As definições acima não são aplicáveis nesse caso.  Precisamos generalizá-las.
-Se temos uma quantidade finita de conjuntos para unir ou para intersetar,
-até que dá para fazer aproveitando as $(\union)$ e $(\inter)$---e faremos
-isso no \ref[Sets] mesmo---mas aqui não nos interessa, pois não será suficiente
-considerar coleções de \emph{apenas} $8$, $84$, ou $4208$ conjuntos.
-Freqüentemente teremos uma infinidade de conjuntos,
-ou arrumada assim
+Mesmo que uma seqüência tem componentes (um para cada \dq{posição} dela)
+reservamos o verbo \wq{pertencer} e o símbolo $(\in)$ apenas para \emph{conjuntos}:
 $$
-A_1, A_2, A_3, \dotsc
+(\in) \is \Object \times \Set \to \Prop.
 $$
-numa listinha, ou até sem sequer ter notações para os membros dessa coleção $\A$
-de conjuntos de reais.
-Dizemos que
-\mathcol
-\text{$x$ pertence à união de uns conjuntos}      &\defiff \text{$x$ pertence àlgum deles} \\
-\text{$x$ pertence à interseção de uns conjuntos} &\defiff \text{$x$ pertence a todos eles} \\
-\intertext{Denotando a coleção de tais conjuntos por $\A$:}
-\text{$x$ pertence à união dos conjuntos da $\A$}        &\defiff \lexists {A \in \A} {x \in A} \\
-\text{$x$ pertence à interseção dos conjuntos da $\A$}   &\defiff \lforall {A \in \A} {x \in A} \\
-\intertext{E se temos nomes indexados de tais conjuntos $A_0, A_1, A_2, \dotsc$:}
-\text{$x$ pertence à união dos $A_0, A_1, A_2, \dotsc$}      &\defiff \lexists {i \in \nats}  {x \in A_i} \\
-\text{$x$ pertence à interseção dos $A_0, A_1, A_2, \dotsc$} &\defiff \lforall {i \in \nats}  {x \in A_i}. \\
-\endmathcol
-Para referir à união ou à interseção de uma coleção de conjuntos usamos os símbolos $\Union$ e $\Inter$, assim:
-\mathcol
-\Union \A &\defeq \text{a união dos conjuntos da coleção $\A$} \\
-\Inter \A &\defeq \text{a interseção dos conjuntos da coleção $\A$} \\
-\Union_{n\in\nats} A_n \defeq \Union_{i=0}^\infty A_i &\defeq \text{a união dos conjuntos $A_0,A_1,A_2,\dotsc$} \\
-\Inter_{n\in\nats} A_n \defeq \Inter_{i=0}^\infty A_i &\defeq \text{a interseção dos conjuntos $A_0,A_1,A_2,\dotsc$} \\
-\endmathcol
+Seria um \emph{type error} então escrever $1 \in \seqn x n$.
+Tão errado que nem chega a ser falso.  Simplesmente sem significado.
+Mesmo assim, é comum ver uma seqüência aparecendo num lugar onde pelo contexto
+é inferível que deveria aparecer um conjunto.
+
+%%}}}
+
+%%{{{ eg: some sequences of reals and their first terms 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Aqui umas seqüências e seus primeiros componentes:
+\mathcols 2
+\seqnft {1/2^n} n 0 \infty              &=   1, 1/2, 1/4, 1/8, \dotsc &
+\seq {3n + 1} n                         &=   1,   4,   7,  10, \dotsc \\
+\seq 1 {n\in\nats}                      &=   1,   1,   1,   1, \dotsc &
+\seqnft {(-1)^n} n 0 \infty             &=   1,  -1,   1,  -1, \dotsc \\
+\seqnft {n (-1)^n} n 3 \infty           &=  -3,   4,  -5,   6, \dotsc &
+\seqnft {\frac {n + 1} n} n 1 \infty    &=   2, 3/2, 4/3, 5/4, \dotsc \\
+\seqnft {x_{2n}} n 0 \infty             &= x_0, x_2, x_4, x_6, \dotsc &
+\seqnft {y_n z_{n+1}^2} n 1 \infty      &=  y_1z_2^2, y_2z_3^2, y_3z_4^2, y_4z_5^2, \dotsc \\
+\seqnft {\Sum_{i=0}^n i^2} n 0 \infty   &=   0,   1,   5,  14, \dotsc &
+\seqnft {\Sum_{n=1}^3 n} n 0 \infty     &=   6,   6,   6,   6, \dotsc \\
+\endmathcols
 
 %%}}}
 
@@ -20309,6 +20372,20 @@ Definimos a seqüência de reais $\seqn x n$ recursivamente pelas:
 x_0     &= 0 \\
 x_{n+1} &= (1/2)x_n + 1.
 \endmathcol
+Seus primeiros termos então são os:
+\mathtightcols 5
+&0,     \quad &
+&1,     \quad &
+&1+1/2, \quad &
+&1+3/4, \quad &
+&1+7/8, \quad \dotsc \\
+\intertext{ou, igualmente,}
+&0,       \quad &
+&1,       \quad &
+&2 - 1/2, \quad &
+&2 - 1/4, \quad &
+&2 - 1/8, \quad \dotsc \\
+\endmathtightcols
 
 %%}}}
 
@@ -20393,6 +20470,79 @@ Se, por motivos religiosos, queremos defini-la em tal forma que seu primeiro ter
 
 %%}}}
 
+%% Sets and sequences of sets 
+
+%%{{{ to_know_a_set_of_reals 
+\note Saber um conjunto de reais.
+%%%{{{ meta 
+\label to_know_a_set_of_reals
+%%%}}}
+
+O que precisamos fazer para ter o direito de dizer que \dterm{definimos} um conjunto de reais $A$?
+Precisamos definir o que significa \emph{pertencer ao conjunto $A$}.
+Se, e somente sem, para qualquer $x$ real, sabemos o que significa a afirmação $x \in A$,
+temos o direito de falar que sabemos quem é o $A$.
+
+%%}}}
+
+%%{{{ union_inter_of_sets_of_reals 
+\note União e interseção de coleções de conjuntos.
+%%%{{{ meta 
+\label union_inter_of_sets_of_reals
+\defines
+    * união!de conjuntos de reais
+    * intersecção!de conjuntos de reais
+    ;;
+\pdefs
+    \pdef A {{\cal A}}
+    ;;
+%%%}}}
+
+Tendo uns conjuntos de reais queremos definir a \dterm{união} e a \dterm{intersecção} deles;
+ou seja: definir o que significa \emph{pertencer à união deles}
+e o que significa \emph{pertencer à interseção deles}.
+Caso que a quantidade dos conjuntos é apenas $2$, vamos dizer $A_1,A_2$, já conhecemos
+até uma notação para sua união e sua interseção: $A_1 \union A_2$ e $A_1 \inter A_2$
+respectivamente.
+Vamo lembrar o que significam essas $(\union)$ e $(\inter)$ agora:
+\mathcol
+x \in A_1 \union A_2 &\defiff x \in A_1 \mlor  x \in A_2 \\
+x \in A_1 \inter A_2 &\defiff x \in A_1 \mland x \in A_2.
+\endmathcol
+Mas se temos mais que dois conjuntos?
+As definições acima não são aplicáveis nesse caso.  Precisamos generalizá-las.
+Se temos uma quantidade finita de conjuntos para unir ou para intersetar,
+até que dá para fazer aproveitando as $(\union)$ e $(\inter)$---e faremos
+isso no \ref[Sets] mesmo---mas aqui não nos interessa, pois não será suficiente
+considerar coleções de \emph{apenas} $8$, $84$, ou $4208$ conjuntos.
+Freqüentemente teremos uma infinidade de conjuntos,
+ou arrumada assim
+$$
+A_1, A_2, A_3, \dotsc
+$$
+numa listinha, ou até sem sequer ter notações para os membros dessa coleção $\A$
+de conjuntos de reais.
+Dizemos que
+\mathcol
+\text{$x$ pertence à união de uns conjuntos}      &\defiff \text{$x$ pertence àlgum deles} \\
+\text{$x$ pertence à interseção de uns conjuntos} &\defiff \text{$x$ pertence a todos eles} \\
+\intertext{Denotando a coleção de tais conjuntos por $\A$:}
+\text{$x$ pertence à união dos conjuntos da $\A$}        &\defiff \lexists {A \in \A} {x \in A} \\
+\text{$x$ pertence à interseção dos conjuntos da $\A$}   &\defiff \lforall {A \in \A} {x \in A} \\
+\intertext{E se temos nomes indexados de tais conjuntos $A_0, A_1, A_2, \dotsc$:}
+\text{$x$ pertence à união dos $A_0, A_1, A_2, \dotsc$}      &\defiff \lexists {i \in \nats}  {x \in A_i} \\
+\text{$x$ pertence à interseção dos $A_0, A_1, A_2, \dotsc$} &\defiff \lforall {i \in \nats}  {x \in A_i}. \\
+\endmathcol
+Para referir à união ou à interseção de uma coleção de conjuntos usamos os símbolos $\Union$ e $\Inter$, assim:
+\mathcol
+\Union \A &\defeq \text{a união dos conjuntos da coleção $\A$} \\
+\Inter \A &\defeq \text{a interseção dos conjuntos da coleção $\A$} \\
+\Union_{n\in\nats} A_n \defeq \Union_{i=0}^\infty A_i &\defeq \text{a união dos conjuntos $A_0,A_1,A_2,\dotsc$} \\
+\Inter_{n\in\nats} A_n \defeq \Inter_{i=0}^\infty A_i &\defeq \text{a interseção dos conjuntos $A_0,A_1,A_2,\dotsc$}. \\
+\endmathcol
+
+%%}}}
+
 %%{{{ x: fun with sequences of sets (1) 
 \exercise.
 %%%{{{ meta 
@@ -20418,223 +20568,6 @@ também possui uma infinidade de reais?
 
 E se, em vez de infinito, cada um dos $A_i$ é finito e habitado, podemos concluir
 que a interseção também é finita e habitada?
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Notable_subsets 
-\section Subconjuntos notáveis.
-%%%{{{ meta 
-\label Notable_subsets_of_reals 
-%%%}}}
-
-%%{{{ df: real_inductive 
-\definition indutivo.
-%%%{{{ meta 
-\defines
-    * conjunto!inductivo (de reais)
-    ;;
-%%%}}}
-
-Seja $A$ um conjunto de reais.
-Chamamos o $A$ de \dterm{inductivo} sse:
-(i) $A$ é $0$-fechado: $0 \in A$;
-(ii) $A$ é $(+1)$-fechado: $\lforall {a} {a \in A \implies a + 1 \in A}$.
-
-%%}}}
-
-%%{{{ eg: real_inductive_sets 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-O próprio conjunto $\reals$ com certeza é indutivo.
-Os conjuntos $\reals_{\geq 0}, \reals_{\geq -1}$ também.
-Os conjuntos
-\mathcol
-H &\defeq \set {
-\dotsc
--3,
--\frac 5 2,
--2,
--\frac 3 2,
--1,
--\frac 1 2,
-0,
-\frac 1 2,
-1,
-\frac 3 2,
-2,
-\frac 5 2,
-3,
-\dotsc
-} \\
-H_{\geq 0} &\defeq \setst {h \in H} {h \geq 0}
-\endmathcol
-também.
-
-%%}}}
-
-%%{{{ noneg: real_non_inductive_sets 
-\nonexample.
-%%%{{{ meta 
-%%%}}}
-
-Nenhum dos conjuntos seguintes é indutivo:
-$$
-\set {0},
-\quad \set {0,1,2,3,\dotsc,83},
-\quad \reals_{\neq 0},
-\quad \reals_{\leq 0},
-\quad \reals_{> 0},
-\quad \reals_{\neq -1}.
-$$
-
-%%}}}
-
-%%{{{ x: real_non_inductive_sets_why 
-\exercise.
-%%%{{{ meta 
-\label real_non_inductive_sets_why
-%%%}}}
-
-Por quê?
-
-%%}}}
-
-%%{{{ df: real_naturals 
-\definition Os reais naturais.
-%%%{{{ meta 
-\label real_naturals
-\defines
-    * real!natural
-    ;;
-\pdefs
-    \pdef I {{\cal I}}
-    ;;
-%%%}}}
-
-Seja $\I$ a coleção de todos os conjuntos indutivos de reais.
-Sabemos que $\reals \in \I$.
-Considere a interseção de todos os conjuntos indutivos de reais,
-ou seja, o conjunto
-$$
-\reals_\nats \defeq \setstt {x \in \reals} {$x$ pertence a todo conjunto indutivo de reais}
-$$
-que denotaremos por $\reals_\nats$ e cujos membros chamamos de
-\dterm{reais naturais}.
-Seus membros são os
-$$
-\reals_\nats = \set {0, 1, 2, 3, 4, \dotsc }.
-$$
-
-%%}}}
-
-%%{{{ thm: real_naturals_is_inductive 
-\theorem.
-%%%{{{ meta 
-\label real_naturals_is_inductive
-%%%}}}
-
-O conjunto $\reals_\nats$ é inductivo.
-
-\proof.
-Precisamos verificar que:
-(i) $0 \in \reals_\nats$;
-(ii) $\lforall {x} {x \in \reals_\nats \implies x + 1 \in \reals_\nats}$.
-Lembre-se que para demonstrar que um real $a$ pertence ao $\reals_\nats$
-basta demonstrar que $a$ pertence a todos os conjuntos indutivos, já que
-$\reals_\nats$ foi definido como interseção de todos eles.
-\eop
-(i) Seja $I$ conjunto indutivo de reais.  Logo $0 \in I$.
-(ii) Seja $x \in \reals_\nats$, ou seja, $x$ pertence em qualquer conjunto indutivo.
-Preciso mostrar que $x + 1 \in \reals_\nats$.
-Para conseguir isso, seja $I$ um conjunto indutivo de reais.
-Logo $x \in I$.  Como $I$ é indutivo, $x+1 \in I$, que é o que precisava mostrar.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Tendo definido os reais naturais $\reals_\nats$, definir os reais
-inteiros é fácil; e tendo eles, definir os reais racionais também!
-
-%%}}}
-
-%%{{{ df: real_notable_subsets 
-\definition.
-%%%{{{ meta 
-\label real_notable_subsets
-\defines
-    * real!inteiro
-    * real!racional
-    * real!irracional
-    * real!algébrico
-    * real!transcendental
-    ;;
-%%%}}}
-
-Definimos os subconjuntos de reais seguintes:
-\mathcols 2
-&\text{os reais naturais:}         & \reals_\nats &\\
-&\text{os reais inteiros:}         & \reals_\ints &\defeq \reals_\nats \union \setst {-n} {n \in \reals_\nats} \\
-&\text{os reais racionais:}        & \reals_\rats &\defeq \setst {m/n} {m \in \reals_\ints, n \in {\reals_\ints}_{>0}} \\
-&\text{os reais algébricos:}       & \reals_\algs &\defeq \setstt {x} {$x$ é raiz dum polinómio com coeficientes inteiros} \\
-\endmathcols
-Definimos também os \dterm{reais irracionais} $\reals \setminus \reals_\rats$
-e os \dterm{reais transcendentais} $\reals \setminus \reals_\algs$.
-Quando pelo contexto é inferível que estamos referindo a um conjunto de reais,
-é conveniente abusar a notação e escrever $\nats,\ints,\rats,\algs$ em vez de
-$\reals_\nats, \reals_\ints, \reals_\rats, \reals_\algs$, respectivamente.
-
-%%}}}
-
-%%{{{ x: real_inductive_numeric_sets 
-\exercise.
-%%%{{{ meta 
-\label real_inductive_numeric_sets
-%%%}}}
-
-Os $\reals_\ints,\reals_\rats,\reals_\algs$ são conjuntos indutivos.
-
-%%}}}
-
-%%{{{ thm: reals_is_archimedean 
-\theorem.
-%%%{{{ meta 
-\label reals_is_archimedean
-\defines
-    * archimedeano
-    ;;
-%%%}}}
-
-O $\reals$ é \dterm{arquimedeano}, ou seja:
-para todo $x,y\in\reals$,
-$$
-x \neq 0
-\implies
-\lexists {n \in \nats} {xn > y}.
-$$
-
-%%}}}
-
-%%{{{ thm: rats_dense_in_reals 
-\theorem.
-%%%{{{ meta 
-%%%}}}
-
-Os racionais são densos nos reais, ou seja:
-para todo $x,y\in \reals$,
-$$
-x < y
-\implies
-\lexists {q \in \rats} {x < q < y}.
-$$
 
 %%}}}
 
@@ -20685,7 +20618,7 @@ $$
 \label infties_not_reals
 %%%}}}
 
-Cuidado: não definimos os $\minfty,\pinfty$ como objetos matemáticos aqui.
+Não definimos os $\minfty,\pinfty$ como objetos matemáticos aqui.
 Por enquanto fazem parte de notação, e com certeza \emph{não} se trata de
 números reais.
 
@@ -20955,6 +20888,21 @@ A $1/3$-bola do $\sqrt 2$ é o intervalo $(\sqrt2 - 1/3, \sqrt2 + 1/3)$.
 
 %%}}}
 
+%%{{{ thm: rats_dense_in_reals 
+\theorem.
+%%%{{{ meta 
+%%%}}}
+
+Os racionais são densos nos reais, ou seja:
+para todo $x,y\in \reals$,
+$$
+x < y
+\implies
+\lexists {q \in \rats} {x < q < y}.
+$$
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -21065,6 +21013,161 @@ O $\reals$ não tem nem mínimo, nem máximo.
 \endsection
 %%}}}
 
+%%{{{ Real_inductive_subsets 
+\section Subconjuntos inductivos.
+%%%{{{ meta 
+\label Real_inductive_subsets
+%%%}}}
+
+%%{{{ df: real_inductive 
+\definition indutivo.
+%%%{{{ meta 
+\defines
+    * conjunto!inductivo (de reais)
+    ;;
+%%%}}}
+
+Seja $A$ um conjunto de reais.
+Chamamos o $A$ de \dterm{inductivo} sse:
+(i) $A$ é $0$-fechado: $0 \in A$;
+(ii) $A$ é $(+1)$-fechado: $\lforall {a} {a \in A \implies a + 1 \in A}$.
+
+%%}}}
+
+%%{{{ eg: real_inductive_sets 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+O próprio conjunto $\reals$ com certeza é indutivo.
+Os conjuntos $\reals_{\geq 0}, \reals_{\geq -1}$ também.
+Os conjuntos
+\mathcol
+H &\defeq \set {
+\dotsc
+-3,
+-\frac 5 2,
+-2,
+-\frac 3 2,
+-1,
+-\frac 1 2,
+0,
+\frac 1 2,
+1,
+\frac 3 2,
+2,
+\frac 5 2,
+3,
+\dotsc
+} \\
+H_{\geq 0} &\defeq \setst {h \in H} {h \geq 0}
+\endmathcol
+também.
+
+%%}}}
+
+%%{{{ noneg: real_non_inductive_sets 
+\nonexample.
+%%%{{{ meta 
+%%%}}}
+
+Nenhum dos conjuntos seguintes é indutivo:
+$$
+\set {0},
+\quad \set {0,1,2,3,\dotsc,83},
+\quad \reals_{\neq 0},
+\quad \reals_{\leq 0},
+\quad \reals_{> 0},
+\quad \reals_{\neq -1}.
+$$
+
+%%}}}
+
+%%{{{ x: real_non_inductive_sets_why 
+\exercise.
+%%%{{{ meta 
+\label real_non_inductive_sets_why
+%%%}}}
+
+Por quê?
+
+%%}}}
+
+%%{{{ df: real_naturals 
+\definition Os reais naturais.
+%%%{{{ meta 
+\label real_naturals
+\defines
+    * real!natural
+    ;;
+\pdefs
+    \pdef I {{\cal I}}
+    ;;
+%%%}}}
+
+Seja $\I$ a coleção de todos os conjuntos indutivos de reais.
+Sabemos que $\reals \in \I$.
+Considere a interseção de todos os conjuntos indutivos de reais,
+ou seja, o conjunto
+$$
+\reals_\nats \defeq \setstt {x \in \reals} {$x$ pertence a todo conjunto indutivo de reais}
+$$
+que denotaremos por $\reals_\nats$ e cujos membros chamamos de
+\dterm{reais naturais}.
+Seus membros são os
+$$
+\reals_\nats = \set {0, 1, 2, 3, 4, \dotsc }.
+$$
+
+%%}}}
+
+%%{{{ thm: real_naturals_is_inductive 
+\theorem.
+%%%{{{ meta 
+\label real_naturals_is_inductive
+%%%}}}
+
+O conjunto $\reals_\nats$ é inductivo.
+
+\proof.
+Precisamos verificar que:
+(i) $0 \in \reals_\nats$;
+(ii) $\lforall {x} {x \in \reals_\nats \implies x + 1 \in \reals_\nats}$.
+Lembre-se que para demonstrar que um real $a$ pertence ao $\reals_\nats$
+basta demonstrar que $a$ pertence a todos os conjuntos indutivos, já que
+$\reals_\nats$ foi definido como interseção de todos eles.
+\eop
+(i) Seja $I$ conjunto indutivo de reais.  Logo $0 \in I$.
+(ii) Seja $x \in \reals_\nats$, ou seja, $x$ pertence em qualquer conjunto indutivo.
+Preciso mostrar que $x + 1 \in \reals_\nats$.
+Para conseguir isso, seja $I$ um conjunto indutivo de reais.
+Logo $x \in I$.  Como $I$ é indutivo, $x+1 \in I$, que é o que precisava mostrar.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Tendo finalmente definido os reais naturais $\reals_\nats$,
+ganhamos o resto dos subconjuntos da \ref[real_notable_subsets].
+
+%%}}}
+
+%%{{{ x: real_inductive_numeric_sets 
+\exercise.
+%%%{{{ meta 
+\label real_inductive_numeric_sets
+%%%}}}
+
+Os $\reals_\ints,\reals_\rats,\reals_\algs$ são conjuntos indutivos.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Models: a first encounter 
 \section Modelos: um primeiro encontro.
 %%%{{{ meta 
@@ -21080,14 +21183,14 @@ O $\reals$ não tem nem mínimo, nem máximo.
 %%%}}}
 
 Qualquer $\sset X {0,1,+,-,\ntimes,>}$ com
-\mathcol
-0         &\is X \\
-1         &\is X \\
-(+)       &\is X \times X \to X \\
-(-)       &\is X \to X \\
+\mathcols 3
+0         &\is X &
+(+)       &\is X \times X \to X &
 (\ntimes) &\is X \times X \to X \\
-(>)       &\is X \times X \to \Prop.
-\endmathcol
+1         &\is X &
+(-)       &\is X \to X &
+(>)       &\is X \times X \to \Prop \\
+\endmathcols
 que satisfaz todos os axiomas que temos estipulado até agora
 neste capítulo sobre os reais é chamado um \dterm{corpo ordenado}.
 Ou seja, até agora temos exigido que o $\sset \reals {0,1,+,-,\ntimes,>}$
@@ -21100,7 +21203,7 @@ a gente chama de \dterm{modelos} de corpos ordenados.
 
 %%}}}
 
-%%{{{ Q: how_can_we_separate_reals_from_rats
+%%{{{ Q: how_can_we_separate_reals_from_rats 
 \question.
 %%%{{{ meta 
 \label how_can_we_separate_reals_from_rats
