@@ -20062,13 +20062,86 @@ $\reals_\nats, \reals_\ints, \reals_\rats, \reals_\algs$, respectivamente.
 
 %%}}}
 
-%%{{{ blah 
-\blah.
+%%{{{ beware: numerical_sets_are_incomparable 
+\beware Um mal-entendido comum.
 %%%{{{ meta 
+\label numerical_sets_are_incomparable
 %%%}}}
 
-Tendo finalmente definido os reais naturais $\reals_\nats$,
-ganhamos o resto dos subconjuntos da \ref[real_notable_subsets].
+É comum ouvir e ler a seguinte bobagem matemática:
+$$
+\nats  \subset
+\ints  \subset
+\rats  \subset
+\reals \subset
+\complex
+$$
+e outras bizarrices similares.
+Tais inclusões de conjuntos não fazem sentido.
+Todos os números seguintes são pronunciados e denotados pelo mesmo nome, \wq{zero}:
+\mathcols 5
+0 &\is \Nat     &
+0 &\is \Int     &
+0 &\is \Rat     &
+0 &\is \Real    &
+0 &\is \Complex.
+\endmathcols
+Mas seria errado pensar que se trata do mesmo objeto, já que são objetos de tipos
+diferentes e logo sequer faz sentido formular a pergunta se são iguais!
+Por outro lado, no conjunto $\ints$ de inteiros existe um subconjunto dele
+que serve como \emph{representaçaõ do conjunto dos naturais},
+e que chamamos de \dterm{inteiros naturais:}
+$$
+\ints_\nats \defeq \setst {x \in \ints} {x \geq 0}.
+$$
+E agora sim temos $\ints_\nats \subset \ints$.
+Similarmente, dentro do conjunto dos racionais, encontramos um subconjunto
+para representar os inteiros, e logo herdamos também seu subconjunto como representante
+dos naturais também:
+$$
+\rats_\nats \subset
+\rats_\ints \subset
+\rats.
+$$
+E nos reais temos
+$$
+\reals_\nats \subset
+\reals_\ints \subset
+\reals_\rats \subset
+\reals.
+$$
+Mas sobre os
+$$
+\nats, \quad
+\ints, \quad
+\rats, \quad
+\reals,
+$$
+o que podemos afirmar mesmo?
+E o que nos permite abusar a notação e a linguagem os tratando como se fossem
+subconjuntos mesmo?
+O que temos mesmo são \emph{embutimentos que respeitam as estruturas}
+$$
+\nats \embto
+\ints \embto
+\rats \embto
+\reals
+$$
+mas para entender o que essa frase significa vamos precisar de pouca paciência pois
+as ferramentas necessárias encontraremos nos \ref[Functions], \ref[Group_theory],
+e \ref[Algebraic_structures].
+A situação vai ser esclarecida ainda mais no \ref[Axiomatic_set_theory] onde vamos
+\emph{construir} mesmo todos esses conjuntos numéricos, em vez de tratá-los axiomaticamente,
+como fazemos neste capítulo por exemplo sobre os reais,
+e no \ref[The_integers] sobre os inteiros.
+Os construindo ficará ainda mais evidente que
+$$
+\nats \nsubset
+\ints \nsubset
+\rats \nsubset
+\reals
+$$
+numa maneira bem concreta.
 
 %%}}}
 
@@ -20331,11 +20404,14 @@ $$
 
 Mesmo que uma seqüência tem componentes (um para cada \dq{posição} dela)
 reservamos o verbo \wq{pertencer} e o símbolo $(\in)$ apenas para \emph{conjuntos}:
-$$
-(\in) \is \Object \times \Set \to \Prop.
-$$
-Seria um \emph{type error} então escrever $1 \in \seqn x n$.
-Tão errado que nem chega a ser falso.  Simplesmente sem significado.
+\mathcol
+(\in) &\is \Object \times \Set \to \Prop \\
+\intertext{ou, até melhor, trabalhando numa maneira mais cuidadosa com tipagens
+para cada tipo $\alpha$ teremos um $(\in_\alpha)$:}
+(\in_\alpha) &\is \alpha \times \Set \fa \alpha \to \Prop.
+\endmathcol
+De qualquer forma, seria um \emph{type error} escrever $1 \in \seqn x n$.
+Aquele \emph{tão errado que nem chega a ser falso}.  Simplesmente sem significado.
 Mesmo assim, é comum ver uma seqüência aparecendo num lugar onde pelo contexto
 é inferível que deveria aparecer um conjunto.
 Provavelmente o que tá sendo referido nesses casos não é a seqüência
@@ -20503,7 +20579,7 @@ Simplesmente definir o que $x \in A$ significa:
 $$
 x \in A \defiff \dotsc
 $$
-pois saber o que $x \in A$ é saber o que $A$ significa.
+pois saber o que $x \in A$ significa, é saber o que $A$ significa.
 
 %%}}}
 
@@ -20595,7 +20671,7 @@ e o que significa \emph{pertencer à interseção deles}.
 Caso que a quantidade dos conjuntos é apenas $2$, vamos dizer $A_1,A_2$, já conhecemos
 até uma notação para sua união e sua interseção: $A_1 \union A_2$ e $A_1 \inter A_2$
 respectivamente.
-Lembramos as definições de $(\union)$ e $(\inter)$:
+Lembramos as suas definições:
 \mathcol
 x \in A_1 \union A_2 &\defiff x \in A_1 \mlor  x \in A_2 \\
 x \in A_1 \inter A_2 &\defiff x \in A_1 \mland x \in A_2.
@@ -21009,11 +21085,12 @@ $$
 \label leq_set_notation_abuse
 %%%}}}
 
+Sejam $A$ um conjunto de reais e $x$ um real.
 Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
-\mathcol
-x \leq A &\abuseiff \lforall {a \in A} {x \leq a} \\
+\mathcols 2
+x \leq A &\abuseiff \lforall {a \in A} {x \leq a} &
 A \leq x &\abuseiff \lforall {a \in A} {a \leq x}.
-\endmathcol
+\endmathcols
 
 %%}}}
 
@@ -21166,7 +21243,7 @@ Temos:
 \floor 4  &= 4 & \floor {1/2} &= 0 & \floor {-3/2} &= -2 & \floor {0.99} &= 0& \floor {0.999\dots} &= 1. \\
 \endmathcols
 As duas últimas colunas envolvem \emph{numerais de reais em notação decimal},
-algo que não temos discutido ainda, mas encontraremos logo depois, neste capítulo ainda.
+algo que não temos discutido ainda, mas encontraremos logo depois, neste mesmo capítulo.
 Inclui essas duas colunas aqui para o leitor que já é acostumado com eles.
 
 %%}}}
@@ -22413,6 +22490,50 @@ Toda seqüência bounded possui subseqüência Cauchy.
 \endsection
 %%}}}
 
+%%{{{ Series 
+\section Séries.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ df: series_of_reals 
+\definition.
+%%%{{{ meta 
+\label series_of_reals
+%%%}}}
+
+Seja $\seqn a n$ uma seqüência de reais.
+Considere os números
+$$
+\align
+s_0 &= 0 \\
+s_1 &= a_0 \\
+s_2 &= a_0 + a_1 \\
+s_3 &= a_0 + a_1 + a_2 \\
+    &\eqvdots \\
+s_n &= \Sum_{i=0}^{n-1} a_i \\
+    &\eqvdots
+\endalign
+$$
+dos \dterm{somatórios parciais} (ou \dterm{iniciais})
+da $\seqn a n$.
+Escrevemos
+$$
+\Sum_{n=0}^{\infty} a_n
+\qqtext{como sinônimo de}
+\mubrace
+  {\liml_n \paren{\Sum_{i=0}^{n-1} a_i}}
+  {\liml_n s_n}
+$$
+e naturalmente usamos frases como
+<<a \dterm{série $\Sum a_n$ converge}>>, etc.
+Dizemos que a série $\Sum a_n$ \dterm{diverge} sse
+$\seqn s n \limto \pinfty$ ou se a $\seqn s n$ não possui limite.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Continuity 
 \section Continuidade.
 %%%{{{ meta 
@@ -22544,50 +22665,6 @@ $$
 %%}}}
 
 \TODO Demonstrar.
-
-\endsection
-%%}}}
-
-%%{{{ Series 
-\section Séries.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ df: series_of_reals 
-\definition.
-%%%{{{ meta 
-\label series_of_reals
-%%%}}}
-
-Seja $\seqn a n$ uma seqüência de reais.
-Considere os números
-$$
-\align
-s_0 &= 0 \\
-s_1 &= a_0 \\
-s_2 &= a_0 + a_1 \\
-s_3 &= a_0 + a_1 + a_2 \\
-    &\eqvdots \\
-s_n &= \Sum_{i=0}^{n-1} a_i \\
-    &\eqvdots
-\endalign
-$$
-dos \dterm{somatórios parciais} (ou \dterm{iniciais})
-da $\seqn a n$.
-Escrevemos
-$$
-\Sum_{n=0}^{\infty} a_n
-\qqtext{como sinônimo de}
-\mubrace
-  {\liml_n \paren{\Sum_{i=0}^{n-1} a_i}}
-  {\liml_n s_n}
-$$
-e naturalmente usamos frases como
-<<a \dterm{série $\Sum a_n$ converge}>>, etc.
-Dizemos que a série $\Sum a_n$ \dterm{diverge} sse
-$\seqn s n \limto \pinfty$ ou se a $\seqn s n$ não possui limite.
-
-%%}}}
 
 \endsection
 %%}}}
@@ -78161,6 +78238,8 @@ $\setst{q \in \rats}{a \leq q\leq b}$ também é incontável?
 
 \endchapter
 %%}}}
+
+%% TEASERS
 
 %%{{{ chapter: Graph_theory 
 \chapter Teoria dos grafos.
