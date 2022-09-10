@@ -7117,11 +7117,11 @@ o conjunto de todos os inteiros, que denotamos por $\ints$.
 
 Usamos $\Int$ para denotar um tipo cujos membros chamamos de (números) inteiros e onde temos:
 \mathcol
-0       &\is \Int \\
-1       &\is \Int \\
-+       &\is \Int \times \Int \to \Int \\
--       &\is \Int \to \Int \\
-\ntimes &\is \Int \times \Int \to \Int. \\
+0         &\is \Int \\
+1         &\is \Int \\
+(+)       &\is \Int \times \Int \to \Int \\
+(-)       &\is \Int \to \Int \\
+(\ntimes) &\is \Int \times \Int \to \Int. \\
 \endmathcol
 Estipulamos as proposições seguintes como axiomas:
 \mathcol
@@ -7272,7 +7272,7 @@ Será que esquecemos de adicionar nas operações primitivas a subtração?
 Não: introduzimos açúcar sintáctico para denotar a aplicação da operação
 \emph{binária}
 \mathcol
-{-} &\eqtype \Int \times \Int \to \Int \\
+(-) &\eqtype \Int \times \Int \to \Int \\
 \endmathcol
 de subtração definindo
 \mathcol
@@ -7281,8 +7281,8 @@ a - b &\defeq a + (-b).
 Observe que o símbolo ${-}$ tá sendo \dterm{sobrecarregado} mas
 o contexto sempre deixará claro qual das
 \mathcols 2
-{-} &\eqtype \Int \to \Int  &
-{-} &\eqtype \Int \times \Int \to \Int
+(-) &\eqtype \Int \to \Int  &
+(-) &\eqtype \Int \times \Int \to \Int
 \endmathcols
 está sendo usada.
 
@@ -7382,6 +7382,9 @@ $$
 \cforall {a,b,c}  {c + a = c + b \implies a = b}. \stag[ZA-CanL] \\
 \endmathcol
 
+\proof.
+Essa é tua: \ref[int_cancellation_law_for_addition_proof].
+
 %%}}}
 
 %%{{{ x: int_cancellation_law_for_addition_proof 
@@ -7391,6 +7394,7 @@ $$
 %%%}}}
 
 Demonstre o \ref[int_cancellation_law_for_addition].
+Cuidado: terminando uma, não faz sentido a outra ocupar um espaço parecido no teu texto!
 
 \hint
 Adicione o $(-c)$ nos dois lados pela direita para demonstrar a primeira.
@@ -7403,9 +7407,9 @@ Logo $(a + c) + (-c) = (b + c) + (-c)$ (pelo \ref[int_do_the_same_on_both_sides]
 Logo $a + (c + (-c)) = b + (c + (-c))$ pela $(+)$-associatividade nos dois lados.
 Logo $a + 0 = b + 0$ pela \mref[ZA-InvR] nos dois lados.
 Logo $a = b$ pela \mref[ZA-IdR] nos dois lados.
-A segunda é similar.
+A segunda é similar, algo que podemos afirmar apenas graças ao \ref[int_left_versions_as_theorems]!
 Alternativamente, podemos demonstrar a segunda aplicando a comutatividade
-da adição nos dois lados da hipótese, a reduzindo assim para a primeira.
+da adição nos dois lados da hipótese, virando assim um corolário simples da primeira.
 
 %%}}}
 
@@ -7457,7 +7461,7 @@ u &= u + 0 \by {pois $0$ é uma $(+)$-identidade-R} \\
 Existe único $u$ tal que para todo $x$, $ux = x = xu$.
 
 \proof.
-Essa é tua: \ref[int_uniqueness_of_multiplicative_identity_proof].
+Essa também é tua: \ref[int_uniqueness_of_multiplicative_identity_proof].
 
 %%}}}
 
@@ -7622,12 +7626,15 @@ Para quaisquer $a,b$, temos $-(a-b) = b - a$ e $-(a+b) = -a-b$.
 
 Três sugestões razoáveis nesse ponto seriam as seguintes:
 \mathcol
-\cforall {a}      {0 \ntimes a = 0}                        \stag[Z-AnL] \\
-\cforall {c,a,b}  {c \neq 0 \mland ca = cb \implies a = b} \stag[Z-CanL] \\
+\cforall {a}      {a \ntimes 0 = 0}                        \stag[Z-AnnR] \\
+\cforall {c,a,b}  {c \neq 0 \mland ac = bc \implies a = b} \stag[Z-MCanR] \\
 \cforall {a,b}    {ab = 0 \implies a = 0 \mlor b = 0}.     \stag[Z-NZD] \\
 \endmathcol
-Com certeza todas devem ser satisfeitos pelo nosso sistema de inteiros,
-então que tal adicioná-los como axiomas?
+O primeiro afirma que o $0$ é um \dterm{anulador};
+o segundo é a \dterm{lei de cancelamento multiplicativo pela direita};
+o terceiro afirma que não há \dterm{zerodivisores} (no mundo dos inteiros).
+Com certeza todas devem ser satisfeitos pelo nosso sistema de inteiros;
+então que tal adicioná-las como axiomas?
 
 %%}}}
 
@@ -7653,8 +7660,8 @@ Consegues alguma?
 
 Demonstre que $0$ é um $(\ntimes)$-anulador:
 \mathcol
-\cforall {a}      {0 \ntimes a = 0}     \stag[Z-AnL] \\
-\cforall {a}      {a \ntimes 0 = 0}.    \stag[Z-AnR] \\
+\cforall {a}      {0 \ntimes a = 0}     \stag[Z-AnnL] \\
+\cforall {a}      {a \ntimes 0 = 0}.    \stag[Z-AnnR] \\
 \endmathcol
 
 %%}}}
@@ -7664,7 +7671,7 @@ Demonstre que $0$ é um $(\ntimes)$-anulador:
 %%%{{{ meta 
 %%%}}}
 
-Os \mref[Z-CanL] e \mref[Z-NZD] são de fato \emph{indemonstráveis}
+Os \mref[Z-MCanR] e \mref[Z-NZD] são de fato \emph{indemonstráveis}
 pelos axiomas que temos até agora.
 Por enquanto---e apenas por enquanto!---aceite isso, pois realmente é
 um fato, e responda na próxima pergunta:
@@ -7727,7 +7734,8 @@ Imediatamente demonstramos a outra proposição como teorema antes de esquecer:
 
 Temos:
 \mathcol
-\cforall {c,a,b}  {c \neq 0 \mland ca = cb \implies a = b}. \stag[Z-CanL] \\
+\cforall {c,a,b}  {c \neq 0 \mland ac = bc \implies a = b}. \stag[Z-MCanR] \\
+\cforall {c,a,b}  {c \neq 0 \mland ca = cb \implies a = b}. \stag[Z-MCanL] \\
 \endmathcol
 
 \proof Demonstrarás agora.
@@ -7747,6 +7755,7 @@ Demonstre a lei de cancelamento multiplicativo.
 A chave principal na demonstração é nosso axioma mais recente de não zerodivisores, \mref[Z-NZD].
 
 \solution
+\crproofpart{Primeiramente} demonstrarei a \mref[Z-MCanL].
 Sejam $c,a,b$ inteiros tais que $c \neq 0$\fact1 e $ca = cb$\fact2.
 Vou demonstrar que $a = b$.
 Pela \byfact2, $ca - cb = 0$.
@@ -7755,6 +7764,9 @@ Logo $c = 0$ ou $a-b=0$.
 Separamos em casos, e o primeiro é impossível pelo \byfact1.
 Caso $a-b=0$.
 Logo $a = b$.
+\crproofpart{Segundamente} a \mref[Z-MCanR].
+Ela é similar, e também segue como corolário da \mref[Z-MCanL] aplicando
+a comutatividade da multiplicação na sua hipótese.
 
 %%}}}
 
@@ -7776,7 +7788,7 @@ a mais interessante relação para os inteiros.
 Será que vamos aumentar então a estrutura dos inteiros para incluí-la como
 \emph{noção primitiva} com
 $$
-{\divides} \eqtype \Int \times \Int \to \Prop?
+(\divides) \eqtype \Int \times \Int \to \Prop?
 $$
 Não!
 A noção de <<divide>> podemos realmente \emph{definir} em termos do que temos até agora
@@ -8305,7 +8317,7 @@ $$
 $$
 com
 \mathcols 2
-{<}    &\is \Int \times \Int \to \Prop &
+(<)    &\is \Int \times \Int \to \Prop &
 {\Pos} &\is \Int \to \Prop. \\
 \endmathcols
 Mas realmente não precisamos ambas.  Tendo uma (qualquer uma das duas), a outra
@@ -8384,7 +8396,7 @@ Como podemos definir o que significa $x < y$?
 \eop
 Sejam $x,y$ inteiros.  Definimos as relações
 $$
-{<},{\leq},{>},{\geq} \is \Int \times \Int \to \Prop
+(<),(\leq),(>),(\geq) \is \Int \times \Int \to \Prop
 $$
 pelas
 \mathcols 2
@@ -19416,7 +19428,7 @@ Feito no \ref[int_cancellation_law_for_addition_proof].
 
 Demonstre que $0$ é um $(\ntimes)$-anulador:
 \mathcol
-\cforall {a}      {0 \ntimes a = 0 = a \ntimes 0}.   \stag[R-An] \\
+\cforall {a}      {0 \ntimes a = 0 = a \ntimes 0}.   \stag[R-Ann] \\
 \endmathcol
 
 %%}}}
