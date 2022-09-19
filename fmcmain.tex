@@ -9464,68 +9464,6 @@ novamente são os inteiros positivos.
 
 %%}}}
 
-%%{{{ df: int_invertible 
-\definition invertibilidade.
-%%%{{{ meta 
-\label int_invertible
-\defines
-    * invertível!inteiro
-    ;;
-%%%}}}
-
-Seja $x$ inteiro.
-Dizemos que $x$ é \dterm{$(\ntimes)$-invertível na esquerda}
-sse
-existe $(\ntimes)$-inverso direito de $x$,
-e simetricamente definimos o que significa $(\ntimes)$-invertível na direita.
-Em símbolos:
-\mathcol
-\text{$x$ é invertível-L} &\defiff \lexists {x'} {xx' = 1}; \\
-\text{$x$ é invertível-R} &\defiff \lexists {x'} {x'x = 1}; \\
-\text{$x$ é invertível}   &\defiff \text{$x$ é invertível-L} \mland \text{$x$ é invertível-R}. \\
-\endmathcol
-Já que $(\ntimes)$ é comutativa as três afirmações são equivalentes para os inteiros
-(\ref[int_invertible_iff_onesided_invertible]).
-
-%%}}}
-
-%%{{{ x: int_invertible_iff_onesided_invertible 
-\exercise.
-%%%{{{ meta 
-\label int_invertible_iff_onesided_invertible
-%%%}}}
-
-Demonstre a afirmação da \ref[int_invertible].
-
-%%}}}
-
-%%{{{ x: if_ab_is_1_then_what 
-\exercise.
-%%%{{{ meta 
-\label if_ab_is_1_then_what
-%%%}}}
-
-Sejam $a,b$ inteiros com $ab=1$.
-Demonstre que $a,b \in \set{-1, 1}$.
-Os únicos inteiros invertíveis são os $1, -1$.
-Ainda mais, para quaisquer $a,b$ com $ab=1$, temos $a=b=1$ ou $a=b=-1$.
-
-%%}}}
-
-%%{{{ x: divides_is_almost_a_partial_order 
-\exercise.
-%%%{{{ meta 
-\label divides_is_almost_a_partial_order
-%%%}}}
-
-Demonstre:
-\mathcol
-\cforall {a,b}        {a \divides b \mland b \divides a \implies \abs a = \abs b}; \\
-\cforall {a,b \geq 0} {a \divides b \mland b \divides a \implies      a =      b}. \\
-\endmathcol
-
-%%}}}
-
 %% About (+,-)-closed sets
 
 %%{{{ blah 
@@ -10346,10 +10284,103 @@ que é um dos teoremas mais famosos e importantes na história de matemática
 \endsection
 %%}}}
 
-%{{{ Prime numbers 
+%{{{ Prime_numbers 
 \section Os números primos.
 %%%{{{ meta 
+\label Prime_numbers
 %%%}}}
+
+%% Invertibles
+
+%%{{{ df: int_invertible 
+\definition invertibilidade.
+%%%{{{ meta 
+\label int_invertible
+\defines
+    * invertível!inteiro
+    ;;
+%%%}}}
+
+Seja $x$ inteiro.
+Dizemos que $x$ é \dterm{$(\ntimes)$-invertível na esquerda}
+sse
+existe $(\ntimes)$-inverso direito de $x$,
+e simetricamente definimos o que significa $(\ntimes)$-invertível na direita.
+Em símbolos:
+\mathcol
+\text{$x$ é invertível-L} &\defiff \lexists {x'} {xx' = 1}; \\
+\text{$x$ é invertível-R} &\defiff \lexists {x'} {x'x = 1}; \\
+\text{$x$ é invertível}   &\defiff \text{$x$ é invertível-L} \mland \text{$x$ é invertível-R}. \\
+\endmathcol
+Já que $(\ntimes)$ é comutativa as três afirmações são equivalentes para os inteiros
+(\ref[int_invertible_iff_onesided_invertible]).
+
+%%}}}
+
+%%{{{ x: int_invertible_iff_onesided_invertible 
+\exercise.
+%%%{{{ meta 
+\label int_invertible_iff_onesided_invertible
+%%%}}}
+
+Demonstre a afirmação da \ref[int_invertible].
+
+%%}}}
+
+%%{{{ x: if_ab_is_1_then_what 
+\exercise.
+%%%{{{ meta 
+\label if_ab_is_1_then_what
+%%%}}}
+
+Sejam $a,b$ inteiros com $ab=1$.
+Demonstre que $a,b \in \set{-1, 1}$.
+Os únicos inteiros invertíveis são os $1, -1$.
+Ainda mais, para quaisquer $a,b$ com $ab=1$, temos $a=b=1$ ou $a=b=-1$.
+
+%%}}}
+
+%%{{{ x: divides_is_almost_a_partial_order 
+\exercise.
+%%%{{{ meta 
+\label divides_is_almost_a_partial_order
+%%%}}}
+
+Demonstre:
+\mathcol
+\cforall {a,b}        {a \divides b \mland b \divides a \implies \abs a = \abs b}; \\
+\cforall {a,b \geq 0} {a \divides b \mland b \divides a \implies      a =      b}. \\
+\endmathcol
+
+%%}}}
+
+%% Irreducibles
+
+%%{{{ df: irreducible_int  
+\definition Irredutível.
+%%%{{{ meta 
+\label prime
+\indexes
+    * irredutível   seealso: primo
+    * redutível     seealso: composto
+    ;;
+\defines
+    * irredutível
+    * redutível
+    ;;
+%%%}}}
+
+Seja $p$ inteiro.
+Chamamos o $p$ \dterm{irredutível} sse para quaisquer $a,b$ tais que $p = ab$,
+pelo menos um dos $a,b$ é unit:
+$$
+\text{$p$ irredutível} \defiff \lforall {a,b} { p = ab \implies \text{$a$ unit} \mlor \text{$b$ unit}.
+$$
+Caso contrário, $p$ é \dterm{redutível}.
+
+%%}}}
+
+%% Primes
 
 %%{{{ df: prime 
 \definition Primo.
