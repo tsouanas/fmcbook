@@ -9464,137 +9464,6 @@ novamente são os inteiros positivos.
 
 %%}}}
 
-%% About (+,-)-closed sets
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Vamos finalmente responder na pergunta \ref[int_does_subtraction_closed_imply_mZ].
-Um conjunto de inteiros fechado sob a \emph{subtração} $(-)$
-(e logo sob a $(+)$ também, pois \ref[minus_closed_implies_plus_closed]),
-não tem muita liberdade na \dq{forma} dele.
-O lemma seguinte mostra essa forma geral que todos eles devem ter.
-
-%%}}}
-
-%%{{{ lemma: form_of_closed_under_subtraction 
-\lemma.
-%%%{{{ meta 
-\label form_of_closed_under_subtraction
-%%%}}}
-
-Seja $S$ um conjunto de inteiros não vazio e $(-)$-fechado.
-Logo $S=\set{0}$ ou existe inteiro $d>0$ tal que
-$S$ é o conjunto de todos os múltiplos de $d$:
-$$
-S = \setst {md} {m \in \ints}.
-$$
-
-\proof.
-Suponha que $S\neq\set{0}$.  Basta demonstrar que
-existe inteiro $d>0$ tal que
-$$
-S = \setst {md} {m \in\ints}.
-$$
-Organizamos o resto da demonstração em três partes:
-\elist A:
-\li:form_of_closed_under_subtraction_part1_task
-Definir um $d>0$ que será o inteiro positivo desejado:
-\ref[form_of_closed_under_subtraction_part1].
-\li:form_of_closed_under_subtraction_part2_task
-Demonstrar que todos os multiplos de $d$ pertencem ao $S$:
-\ref[form_of_closed_under_subtraction_part2].
-\li:form_of_closed_under_subtraction_part3_task
-Demonstrar que nada mais pertence ao $S$:
-\ref[form_of_closed_under_subtraction_part3].
-\endelist
-Com isso temos que o conjunto $S$ e o conjunto de todos os
-múltiplos de $d$ possuem exatamente os mesmos membros,
-que foi o que precisamos demonstrar.
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_subtraction_part1 
-\exercise.
-%%%{{{ meta 
-\label form_of_closed_under_subtraction_part1
-%%%}}}
-
-Resolva a parte \reftag[form_of_closed_under_subtraction_part1_task] da
-demonstração do~\ref[form_of_closed_under_subtraction].
-
-\hint
-Use o PBO (mas cuidado pois precisas de demonstrar algo antes de usá-lo).
-
-\hint
-Antes de usar o PBO precisas demonstrar que o $S$ possui membros positivos.
-
-\solution
-Vou demonstrar que $S$ tem membros positivos.
-Seja $x \in S$ tal que $x \neq 0$ ($S\neq\emptyset$ e $S\neq\set{0}$).
-Caso $x>0$, já encontramos um membro positivo do $S$.
-Caso $x<0$, basta mostrar que $-x \in S$, pois $-x > 0$.
-Como $S$ é $(-)$-fechado, temos $x - x \in S$; ou seja, $0 \in S$.
-Usando novamente que $S$ é $-$-fechado, temos $0 - x \in S$, ou seja $-x \in S$.
-Pelo PBO, \emph{seja $d$ o menor membro positivo do $S$}.
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_subtraction_part2 
-\exercise.
-%%%{{{ meta 
-\label form_of_closed_under_subtraction_part2
-%%%}}}
-
-E a \reftag[form_of_closed_under_subtraction_part2_task].
-
-\hint
-Use indução, mas cuidado para não esquecer nada.
-
-\solution
-Primeiramente vou demonstrar por indução que
-para todo $n\in\nats$, $nd \in S$.
-A base é imediata: $0d = 0 \in S$.
-Seja $k \in \nats$ tal que $kd \in S$\fact{HI}.
-Calculamos:
-$$
-(k+1)d = kd + d \in S
-$$
-pois $d \in S$ e $kd \in S$ (pela HI) e $S$ é $+$-fechado
-(pelo~\ref[minus_closed_implies_plus_closed])
-Seja $x < 0$, e observe que $(-x)d\in S$ (pois $-x > 0$) e logo
-$0 - (-x)d \in S$, ou seja, $xd \in S$.
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_subtraction_part3 
-\exercise.
-%%%{{{ meta 
-\label form_of_closed_under_subtraction_part3
-%%%}}}
-
-Preciso mesmo enunciar?
-
-\hint
-Tome um arbitrário $a \in S$ e use o lemma da Divisão de Euclides.
-
-%%}}}
-
-%%{{{ x: form_of_closed_under_subtraction_without_disjunction 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Sem usar disjuncção, escreva uma proposição equivalente com a conclusão do
-\ref[form_of_closed_under_subtraction] e explique por que ela é equivalente.
-
-\hint
-Existe $n\in\ints_{\geq 0}$ tal que $S = \setst {kn} {k\in\ints}$.
-
-%%}}}
-
 %%{{{ Q: what more axioms would you add? 
 \question.
 %%%{{{ meta 
@@ -9817,6 +9686,137 @@ então $3 \divides n^2 - 1$.
 \hint
 Ou fatorize o $n^2-1$ e use o~\ref[n_divides_exactly_one_of_n_consecutive_integers],
 ou considere os casos possíveis dependendo dos restos da divisão de $n$ por $3$.
+
+%%}}}
+
+%% About (+,-)-closed sets
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Vamos finalmente responder na pergunta \ref[int_does_subtraction_closed_imply_mZ].
+Um conjunto de inteiros fechado sob a \emph{subtração} $(-)$
+(e logo sob a $(+)$ também, pois \ref[minus_closed_implies_plus_closed]),
+não tem muita liberdade na \dq{forma} dele.
+O lemma seguinte mostra essa forma geral que todos eles devem ter.
+
+%%}}}
+
+%%{{{ lemma: form_of_closed_under_subtraction 
+\lemma.
+%%%{{{ meta 
+\label form_of_closed_under_subtraction
+%%%}}}
+
+Seja $S$ um conjunto de inteiros não vazio e $(-)$-fechado.
+Logo $S=\set{0}$ ou existe inteiro $d>0$ tal que
+$S$ é o conjunto de todos os múltiplos de $d$:
+$$
+S = \setst {md} {m \in \ints}.
+$$
+
+\proof.
+Suponha que $S\neq\set{0}$.  Basta demonstrar que
+existe inteiro $d>0$ tal que
+$$
+S = \setst {md} {m \in\ints}.
+$$
+Organizamos o resto da demonstração em três partes:
+\elist A:
+\li:form_of_closed_under_subtraction_part1_task
+Definir um $d>0$ que será o inteiro positivo desejado:
+\ref[form_of_closed_under_subtraction_part1].
+\li:form_of_closed_under_subtraction_part2_task
+Demonstrar que todos os multiplos de $d$ pertencem ao $S$:
+\ref[form_of_closed_under_subtraction_part2].
+\li:form_of_closed_under_subtraction_part3_task
+Demonstrar que nada mais pertence ao $S$:
+\ref[form_of_closed_under_subtraction_part3].
+\endelist
+Com isso temos que o conjunto $S$ e o conjunto de todos os
+múltiplos de $d$ possuem exatamente os mesmos membros,
+que foi o que precisamos demonstrar.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_subtraction_part1 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_subtraction_part1
+%%%}}}
+
+Resolva a parte \reftag[form_of_closed_under_subtraction_part1_task] da
+demonstração do~\ref[form_of_closed_under_subtraction].
+
+\hint
+Use o PBO (mas cuidado pois precisas de demonstrar algo antes de usá-lo).
+
+\hint
+Antes de usar o PBO precisas demonstrar que o $S$ possui membros positivos.
+
+\solution
+Vou demonstrar que $S$ tem membros positivos.
+Seja $x \in S$ tal que $x \neq 0$ ($S\neq\emptyset$ e $S\neq\set{0}$).
+Caso $x>0$, já encontramos um membro positivo do $S$.
+Caso $x<0$, basta mostrar que $-x \in S$, pois $-x > 0$.
+Como $S$ é $(-)$-fechado, temos $x - x \in S$; ou seja, $0 \in S$.
+Usando novamente que $S$ é $-$-fechado, temos $0 - x \in S$, ou seja $-x \in S$.
+Pelo PBO, \emph{seja $d$ o menor membro positivo do $S$}.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_subtraction_part2 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_subtraction_part2
+%%%}}}
+
+E a \reftag[form_of_closed_under_subtraction_part2_task].
+
+\hint
+Use indução, mas cuidado para não esquecer nada.
+
+\solution
+Primeiramente vou demonstrar por indução que
+para todo $n\in\nats$, $nd \in S$.
+A base é imediata: $0d = 0 \in S$.
+Seja $k \in \nats$ tal que $kd \in S$\fact{HI}.
+Calculamos:
+$$
+(k+1)d = kd + d \in S
+$$
+pois $d \in S$ e $kd \in S$ (pela HI) e $S$ é $+$-fechado
+(pelo~\ref[minus_closed_implies_plus_closed])
+Seja $x < 0$, e observe que $(-x)d\in S$ (pois $-x > 0$) e logo
+$0 - (-x)d \in S$, ou seja, $xd \in S$.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_subtraction_part3 
+\exercise.
+%%%{{{ meta 
+\label form_of_closed_under_subtraction_part3
+%%%}}}
+
+Preciso mesmo enunciar?
+
+\hint
+Tome um arbitrário $a \in S$ e use o lemma da Divisão de Euclides.
+
+%%}}}
+
+%%{{{ x: form_of_closed_under_subtraction_without_disjunction 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Sem usar disjuncção, escreva uma proposição equivalente com a conclusão do
+\ref[form_of_closed_under_subtraction] e explique por que ela é equivalente.
+
+\hint
+Existe $n\in\ints_{\geq 0}$ tal que $S = \setst {kn} {k\in\ints}$.
 
 %%}}}
 
