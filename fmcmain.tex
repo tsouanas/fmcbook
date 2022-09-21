@@ -1924,11 +1924,11 @@ e os ordinais.
 
 Uma abordagem é começar considerando como conhecida ou dada
 a noção dos números reais, freqüentemente identificados com
-os pontos duma linha reta que extende infinitamente nas ambas
+os pontos duma linha reta que extende infinitamente para ambas
 as direcções; um ponto dela chamamos de $0$, botamos na sua direita
 mais um ponto chamado de $1$, e pensamos que a distancia entre
-esses pontos é medida pelo número real $1$ mesmo,
-ma outra direção temos o $-1$, etc., etc., e o leitor
+esses pontos é medida pelo número real $1$ mesmo;
+na outra direção temos o $-1$, etc., etc., e o leitor
 provavelmente já ouviu dessa estoria muitas vezes na vida.\foot
 Caso contrário vamos voltar a discutir isso numa
 maneira melhor bem depois, nos capítulos~\reftag[The_reals]
@@ -1936,7 +1936,7 @@ e~\reftag[Axiomatic_set_theory].
 \toof
 Nada disso faz sentido formalmente falando, mas não estamos
 falando formalmente neste momento, e com certeza essa
-imágem geométrica ajuda demais em elaborar uma intuição
+imagem geométrica ajuda demais em elaborar uma intuição
 sobre os reais.
 \eop
 Então: \emph{começando com a reta dos reais} como dada, podemos procurar
@@ -9153,15 +9153,15 @@ Em símbolos:
 
 Estipulamos o princípio da boa ordem como último axioma:
 \math
-\text{O conjunto dos inteiros positivos é bem ordenado.}  \stag[Z-PBO]
+\text{O conjunto dos inteiros positivos é bem ordenado.}  \stag[Z-WOP]
 \endmath
 
 %%}}}
 
-%%{{{ remark: ints_WOP_alt 
+%%{{{ remark: int_WOP_alt 
 \remark PBO.
 %%%{{{ meta 
-\label ints_WOP_alt
+\label int_WOP_alt
 %%%}}}
 
 Vamos supor que temos um conjunto de inteiros $A$ e, ainda mais,
@@ -9172,7 +9172,7 @@ Mesmo assim, seu subconjunto
 $$
 A_{>0} \defeq \setstt {a \in A} {$a$ positivo}
 $$
-é feito totalmente por inteiros e é habitado, e logo
+é feito totalmente por positivos e é habitado, e logo
 podemos sim usar o PBO para solicitar o menor membro de $A_{>0}$,
 ou seja, podemos solicitar o menor positivo de $A$.
 
@@ -9208,6 +9208,38 @@ ser o menor membro de $C$.
 
 %%}}}
 
+%%{{{ cor: no_int_between_two_consecutive_ints 
+\corollary.
+%%%{{{ meta 
+\label no_int_between_two_consecutive_ints
+%%%}}}
+
+Para todo inteiro $x$, não existe inteiro $k$ tal que\/ $x < k < x+1$.
+
+\proof.
+Tu demonstrarás isso agora no~\ref[no_int_between_two_consecutive_ints_proof].
+
+%%}}}
+
+%%{{{ x: no_int_between_two_consecutive_ints 
+\exercise.
+%%%{{{ meta 
+\label no_int_between_two_consecutive_ints
+%%%}}}
+
+Demonstre o \ref[cor].
+
+\hint
+Supondo que há inteiro estritamente entre dois inteiros consecutivos,
+forneça um inteiro entre $0$ e $1$.
+
+\solution
+Seja $x$ inteiro.
+Suponha que já inteiros entre $x$ e $x+1$, e logo seja $k$ tal que $x < k < x+1$.
+Logo $0 < k - x < 1$, contradizendo o \ref[no_int_between_0_and_1].
+
+%%}}}
+
 %%{{{ x: shifted_WOP 
 \exercise PBO shiftado.
 %%%{{{ meta 
@@ -9217,62 +9249,6 @@ ser o menor membro de $C$.
 Sejam $\ell$ inteiro e $A$ um conjunto de inteiros.
 Demonstre que se $A$ possui membro $a \geq \ell$,
 então o $\setst {a \in A} {\ell \leq a}$ possui mínimo.
-
-%%}}}
-
-%%{{{ thm: ints_principle_of_induction_set_form 
-\theorem Princípio da Indução (set form).
-%%%{{{ meta 
-\label ints_principle_of_induction_set_form
-\defines
-    * indução!para os inteiros positivos
-    ;;
-%XXX: This should not have to be repeated here,
-%     but chapter-wise pdefs become null in appendices.
-\pdefs
-    \pdef Pos {\mathord{\mathrm{Pos}}}
-    ;;
-%%%}}}
-
-Para qualquer conjunto de inteiros $P$,
-se $1 \in P$ e $P$ é $({+}1)$-fechado,\foot
-$\text{$P$ é $({+}1)$-fechado} \intiff \text{para todo $x \in P$, $x+1 \in P$}$
-\toof
-então todos os inteiros positivos pertencem ao $P$.
-
-\sketch.
-Caso contrário, existeriam \dq{contraexemplos}, ou seja,
-inteiros positivos que não pertencem ao $P$.
-Aplicamos a PBO para escolher $m$ como o menor deles
-e olhamos para o inteiro anterior que deve ser positivo
-e ainda mais menor que $m$ e logo pertence ao $P$
-algo que obrigaria $m$ também pertencer.
-
-\proof.
-Vou demonstrar que para todo $p$ positivo, $p \in P$.
-Seja $p$ positivo.
-Separo em casos:
-\crcase{Caso $p \in P$.}
-Imediato.
-\crcase{Caso $p \nin P$.}
-Basta achar uma contradição, eliminando este caso.
-Seja
-$$
-C \defeq \setst {c \in \Pos} {c \nin P}
-$$
-o conjunto de todos os positivos que \dq{escaparam} do $P$.
-Observe que pela sua construção, $C \subset \Pos$
-e que pela hipótese do caso, $p \in C$.
-Logo $C$ é habitado e logo (pela PBO) possui mínimo.
-Logo seja $m$ o menor membro de $C$.
-Ou seja: $m$ positivo, $m \nin P$, e para todo $x$ positivo com $x \nin P$, $x \leq m$.
-Observe que $m \neq 1$, pois $1 \in P$.
-Logo $m > 1$, já que $m$ é positivo.
-Logo $m - 1$ é positivo também, e logo $m - 1 \in P$,
-pela escolha de $m$ como mínimo positivo fora do $p$.
-Logo $(m-1) + 1 \in P$, pois $p$ é $(+1)$-fechado.
-Impossível, pois $(m-1) + 1 = m$ e $m \nin P$, chegando
-assim na contradição desejada.
 
 %%}}}
 
@@ -9286,182 +9262,22 @@ Já encontramos a idéia de identificar objetos do tipo
 $\Set(\Int)$ (conjuntos de inteiros) por predicados unários nos intéiros
 (objetos do tipo $\Int \to \Prop$).
 Aplicamos a mesma idéia aqui, no sentido contrário para olhar
-no princípio da indução na sua versão mais popular:
+no princípio da boa ordem (até shiftado) numa versão de predicados:
 
 %%}}}
 
-%%{{{ thm: ints_principle_of_induction_predicate_form 
-\theorem Princípio da Indução (predicate form).
-%%%{{{ meta 
-\label ints_principle_of_induction_predicate_form
-\defines
-    * indução!para os inteiros positivos
-    ;;
-%%%}}}
-
-Seja $P$ qualquer predicado unário afirmável sobre inteiros, ou seja:
-$$
-P \is \Int \to \Prop.
-$$
-Suponha que:
-\elist:
-\li: $P(1)$;
-\li: $\lforall x {P \fa x \implies P \fap {x+1}}$.
-\endelist
-Logo para todo inteiro positivo $p$, temos $P \fa p$.
-
-\proof Já demonstrado.
-Basta só traduzir as afirmações sobre conjuntos da demonstração
-do~\reftag[ints_principle_of_induction_set_form] para as correspondentes
-sobre predicados: $x \in P$ por $P \fa x$, etc.
-
-%%}}}
-
-%%{{{ x: no_int_between_0_and_1_by_induction 
+%%{{{ x: int_WOP_predicate_form 
 \exercise.
 %%%{{{ meta 
-\label no_int_between_0_and_1_by_induction
+\label int_WOP_predicate_form
 %%%}}}
 
-Demonstre o \ref[no_int_between_0_and_1] usando indução.
-
-\hint
-Nenhum inteiro negativo satisfaz $0 < m < 1$.
-Então para demonstrar que nenhum inteiro fica estritamente entre $0$ e $1$, basta demonstrar
-que todos os não-negativos $n$ satisfazem $n=0$ ou $n\geq 1$
-
-\hint
-Seja
-$
-\phi(n) \defiff \text{$n=0$ ou $n\geq1$}
-$.
-
-\hint
-A base é trivial.
-
-\hint
-Para o passo indutivo, tomando um $k\in\nats$ tal que $\phi(k)$, separa tua prova
-em dois casos, dependendo da razão que o $\phi(k)$ seja verdade.
-
-%%}}}
-
-%%{{{ thm: ints_shifted_induction 
-\theorem Indução shiftada.
-%%%{{{ meta 
-\label ints_shifted_induction
-%%%}}}
-
-Para qualquer conjunto de inteiros $P$,
-se $\ell \in P$ e $P$ é $({+}1)$-fechado,
-então todos os inteiros $x$ tais que $x \geq \ell$
-pertencem ao $P$.
-
-\sketch.
-Aplicamos o princípio da indução no conjunto
-$$
-P - \ell \defeq \setst {p - \ell} {p \in P}
-$$
-de todos os membros de $P$ \dq{shiftados} por $-\ell$.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-A versão seguinte, conhecida como \dq{indução forte}
-não merece seu apelido.  A demonstramos como teorema
-e logo não se trata de algo mais forte mesmo.
-Mesmo assim, é muito mais natural e conveniente
-em certos casos e logo faz sentido a destacar.
-
-%%}}}
-
-%%{{{ thm: ints_strong_induction 
-\theorem Indução forte.
-%%%{{{ meta 
-\label ints_strong_induction
-%%%}}}
-
-Seja $P$ conjunto de inteiros.
-Suponha
-$$
-\pforall x {
-    \lforall {0 < i < x} {i \in P}
-    \implies
-    x \in P
-    }.
-$$
-Logo todos os inteiros positivos pertencem ao $P$.\foot
-O quantificador no \symq{$\pforall {0 < i < x}$} quantifica o $i$.
-Ou seja, essa parte no que escrevi acima, \emph{desaçucarizando}, fica assim:
-$\lforall {i} {0 < i < x \implies i \in P}$.
-\toof
-
-\proof.
-Suponha que há inteiros positivos que não pertencem ao $P$.
-Seja $m$ o menor deles (PBO).
-Logo, para todo positivo $i < m$, $i \in P$.
-Logo $m \in P$, e chegamos numa contradição.
-
-%%}}}
-
-%%{{{ remark: int_induction_how_to_use 
-\remark.
-%%%{{{ meta 
-\label int_induction_how_to_use
-\indexes
-    * indução!como usar
-    ;;
-%%%}}}
-
-As três versões de indução que demonstramos aqui
-são enunciadas em termos dum conjunto $P$ que,
-satisfazendo certas condições, concluímos que deve
-possuir como membros todos os objetos do nosso interesse.
-\eop
-Na sua versão original, os objetos do nosso interesse
-são os inteiros positivos, e as condições que o $P$
-precisa satisfazer são:
-\mathcol
-& 1 \in P \\
-\cforall {x} {x \in P \implies x + 1 \in P} \\
-\endmathcol
-Lembre que quando a gente queria introduzir a noção dos
-inteiros positivos na nossa especificação, em vez de
-introduzí-la como conjunto, optamos para considerar
-como \emph{predicado unário}.
-(Se não lembra: \ref[int_positivity_intro].)
-Ainda mais, introduzimos logo apos açúcar sintáctico
-que nos permitiu identificar as duas abordagens, escrevendo
-$x \in \Pos$ e $\Pos \fa x$ sinonimamente.
-\eop
-Vamos aproveitar essa equivalência entre os dois conceitos
-só que na direção contrária agora.  Vamos visualizar
-o conjunto $P$ dos objetos do nosso interesse como
-o predicado de <<ser interessado>>, e escrever $P \fa x$
-em vez de $x \in P$.
-Visto assim, isso é uma ferramenta para demonstrar proposições
-da forma
-\mathcol
-\cforall {x \in \ints_{>0}} {P \fa x}
-\endmathcol
-onde $P$ é uma propriedade que inteiros podem ter ou não:
-$$
-{P} \is \Int \to \Prop.
-$$
-Para demonstrar então que todos os \emph{inteiros positivos}
-gozam da propriedade $P$, basta demonstrar:
-\mathcol
-& P \fa 1 \\
-\cforall {x \in \ints_{>0}} {P \fa x \implies P \fa (x+1)}. \\
-\endmathcol
-Na sua versão \dq{shifted}, os objetos do nosso interesse
-são todos os inteiros a partir dum certo inteiro $\ell$.
-\eop
-Finalmente, na sua versão \dq{forte}, os objetos de interesse
-novamente são os inteiros positivos.
+Sejam $\phi \oftype \Int \to \Prop$ e $\ell \oftype \Int$ tais que
+para algum $x \geq \ell$, $\phi(x)$.
+Logo existe um inteiro $m$ tal que:
+(i) $\phi(m)$;
+(ii) $m \geq \ell$;
+(iii) $\lforall {x < \ell} {\lnot \phi(x)}$.
 
 %%}}}
 
@@ -9538,7 +9354,7 @@ Demonstre que não tem como demonstrar $0 \neq 1$ usando o resto dos axiomas.
 Retire o $0 \neq 1$ dos axiomas, e no seu lugar adicione a proposição
 superficialmente mais fraca:
 \mathcol
-\cexists {u,v}   {u \neq v}                 \stag[Z-NTriv] \\
+\cexists {u,v} {u \neq v}  \stag[Z-NTriv] \\
 \endmathcol
 Demonstre $0 \neq 1$.
 
@@ -9550,17 +9366,14 @@ Demonstre $0 \neq 1$.
 \label WOP_iff_PFI
 %%%}}}
 
-$\text{Princípio da Boa Ordem dos inteiros} \iff \text{Princípio da Indução nos inteiros}$.
-
-\hint
-Nos já demonstramos a direção \lrdir.
-Para demonstrar a \rldir, considere o predicado
-``todos os conjuntos $A$ com $k\in A$ para algum natural $k\leq n$ têm mínimo'',
-ou o ``todos os conjuntos $A$ com $n\in A$ têm mínimo''.
-
-\hint
-Demonstre que todos os inteiros positivos satisfazem o predicado que tu consideraste.
-(Para um dos dois, tu precisará indução \emph{forte}.)
+Retire o \mref[Z-WOP] e para cada $\phi \oftype \Int \to \Prop$, adicione
+o axioma seguinte:
+$$
+\phi(1) \mland \lforall {k > 0} {\phi(k) \implies \phi(k+1)}
+    \implies \lforall {x > 0} {\phi(x)}.
+    \mtag[Z-PI=Z-PI$_\phi$]
+$$
+Consegues o \mref[Z-WOP] como teorema?
 
 %%}}}
 
@@ -11410,7 +11223,7 @@ que é um dos teoremas mais famosos e importantes na história de matemática
 %%}}}
 
 %{{{ Irreducibles_Primes 
-\section Irredutíveis, Primos.
+\section Irredutíveis, primos.
 %%%{{{ meta 
 \label Irreducibles_Primes
 %%%}}}
@@ -11590,57 +11403,18 @@ logo $pq \divides n$
 \label Prime_numbers
 %%%}}}
 
-%%{{{ df: prime 
-\definition Primo.
-%%%{{{ meta 
-\label prime
-\indexes
-    * composto   seealso: primo
-    * primo      seealso: composto
-    ;;
-\defines
-    * composto
-    * primo
-    ;;
-%%%}}}
-
-Seja $p$ inteiro.
-Chamamos o $p$ de \dterm{primo} sse $p$ não é unit e para quaisquer inteiros
-$a,b$, se $p$ divide o produto $ab$ então $p$ divide pelo menos um dos $a,b$:
-$$
-\Prime(p) \defiff 
-$$
-Caso contrário, ele é \dterm{composto}.
-
-%%}}}
-
-%%{{{ x: define_composite_by_formula 
+%%{{{ x: int_zero_and_one_are_what 
 \exercise.
 %%%{{{ meta 
-\label define_composite_by_formula
+\label int_zero_and_one_are_what
 %%%}}}
 
-Defina formulamente o predicado $\namedrel{Composite}$ unário de <<ser composto>>.
+O $0$ é primo?  Redutível?  Composto?
+O $1$?
 
 \solution
-Seja $x$ inteiro.
-$$
-\namedrel{Composite}(x) \defiff
-\lexists {a,b\in\ints\setminus\set{0,1}} { n = ab }.
-$$
-
-%%}}}
-
-%%{{{ x: zero_and_one_prime_or_composite 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-O $0$ é primo?  Composto?
-O $1$ é primo?  Composto?
-
-\solution
-Nenhum dos dois é nem primo nem composto: a definição começa declarando
+Nenhum dos dois é nem primo nem composto:
+a definição começa declarando
 $p$ como um natural tal que $p \geq 2$.
 Logo, não é aplicável nem para o 0 nem para o 1.
 
@@ -11652,7 +11426,7 @@ Logo, não é aplicável nem para o 0 nem para o 1.
 \label 2_is_the_only_even_prime
 %%%}}}
 
-2 é o único primo par.
+$2$ é o único primo par.
 
 %%}}}
 
@@ -12532,6 +12306,273 @@ Qual foi tua resposta no~\ref[canonical_representation_with_int_exponents]?
 \endproblems
 %%}}}
 
+%%{{{ Induction_principles_for_ints 
+\section Princípios de indução.
+%%%{{{ meta 
+\label Induction_principles_for_ints
+%%%}}}
+
+%%{{{ thm: ints_principle_of_induction_set_form 
+\theorem Princípio da Indução (set form).
+%%%{{{ meta 
+\label ints_principle_of_induction_set_form
+\defines
+    * indução!para os inteiros positivos
+    ;;
+%XXX: This should not have to be repeated here,
+%     but chapter-wise pdefs become null in appendices.
+\pdefs
+    \pdef Pos {\mathord{\mathrm{Pos}}}
+    ;;
+%%%}}}
+
+Para qualquer conjunto de inteiros $P$,
+se $1 \in P$ e $P$ é $({+}1)$-fechado,\foot
+$\text{$P$ é $({+}1)$-fechado} \intiff \text{para todo $x \in P$, $x+1 \in P$}$
+\toof
+então todos os inteiros positivos pertencem ao $P$.
+
+\sketch.
+Caso contrário, existeriam \dq{contraexemplos}, ou seja,
+inteiros positivos que não pertencem ao $P$.
+Aplicamos a PBO para escolher $m$ como o menor deles
+e olhamos para o inteiro anterior que deve ser positivo
+e ainda mais menor que $m$ e logo pertence ao $P$
+algo que obrigaria $m$ também pertencer.
+
+\proof.
+Vou demonstrar que para todo $p$ positivo, $p \in P$.
+Seja $p$ positivo.
+Separo em casos:
+\crcase{Caso $p \in P$.}
+Imediato.
+\crcase{Caso $p \nin P$.}
+Basta achar uma contradição, eliminando este caso.
+Seja
+$$
+C \defeq \setst {c \in \Pos} {c \nin P}
+$$
+o conjunto de todos os positivos que \dq{escaparam} do $P$.
+Observe que pela sua construção, $C \subset \Pos$
+e que pela hipótese do caso, $p \in C$.
+Logo $C$ é habitado e logo (pela PBO) possui mínimo.
+Logo seja $m$ o menor membro de $C$.
+Ou seja: $m$ positivo, $m \nin P$, e para todo $x$ positivo com $x \nin P$, $x \leq m$.
+Observe que $m \neq 1$, pois $1 \in P$.
+Logo $m > 1$, já que $m$ é positivo.
+Logo $m - 1$ é positivo também, e logo $m - 1 \in P$,
+pela escolha de $m$ como mínimo positivo fora do $p$.
+Logo $(m-1) + 1 \in P$, pois $p$ é $(+1)$-fechado.
+Impossível, pois $(m-1) + 1 = m$ e $m \nin P$, chegando
+assim na contradição desejada.
+
+%%}}}
+
+%%{{{ remark: sets_as_predicates 
+\remark Conjuntos como predicados.
+%%%{{{ meta 
+\label sets_as_predicates
+%%%}}}
+
+Já encontramos a idéia de identificar objetos do tipo
+$\Set(\Int)$ (conjuntos de inteiros) por predicados unários nos intéiros
+(objetos do tipo $\Int \to \Prop$).
+Aplicamos a mesma idéia aqui, no sentido contrário para olhar
+no princípio da indução na sua versão mais popular:
+
+%%}}}
+
+%%{{{ thm: ints_principle_of_induction_predicate_form 
+\theorem Princípio da Indução (predicate form).
+%%%{{{ meta 
+\label ints_principle_of_induction_predicate_form
+\defines
+    * indução!para os inteiros positivos
+    ;;
+%%%}}}
+
+Seja $P$ qualquer predicado unário afirmável sobre inteiros, ou seja:
+$$
+P \is \Int \to \Prop.
+$$
+Suponha que:
+\elist:
+\li: $P(1)$;
+\li: $\lforall x {P \fa x \implies P \fap {x+1}}$.
+\endelist
+Logo para todo inteiro positivo $p$, temos $P \fa p$.
+
+\proof Já demonstrado.
+Basta só traduzir as afirmações sobre conjuntos da demonstração
+do~\reftag[ints_principle_of_induction_set_form] para as correspondentes
+sobre predicados: $x \in P$ por $P \fa x$, etc.
+
+%%}}}
+
+%%{{{ x: no_int_between_0_and_1_by_induction 
+\exercise.
+%%%{{{ meta 
+\label no_int_between_0_and_1_by_induction
+%%%}}}
+
+Demonstre o \ref[no_int_between_0_and_1] usando indução.
+
+\hint
+Nenhum inteiro negativo satisfaz $0 < m < 1$.
+Então para demonstrar que nenhum inteiro fica estritamente entre $0$ e $1$, basta demonstrar
+que todos os não-negativos $n$ satisfazem $n=0$ ou $n\geq 1$
+
+\hint
+Seja
+$
+\phi(n) \defiff \text{$n=0$ ou $n\geq1$}
+$.
+
+\hint
+A base é trivial.
+
+\hint
+Para o passo indutivo, tomando um $k\in\nats$ tal que $\phi(k)$, separa tua prova
+em dois casos, dependendo da razão que o $\phi(k)$ seja verdade.
+
+%%}}}
+
+%%{{{ thm: ints_shifted_induction 
+\theorem Indução shiftada.
+%%%{{{ meta 
+\label ints_shifted_induction
+%%%}}}
+
+Para qualquer conjunto de inteiros $P$,
+se $\ell \in P$ e $P$ é $({+}1)$-fechado,
+então todos os inteiros $x$ tais que $x \geq \ell$
+pertencem ao $P$.
+
+\sketch.
+Aplicamos o princípio da indução no conjunto
+$$
+P - \ell \defeq \setst {p - \ell} {p \in P}
+$$
+de todos os membros de $P$ \dq{shiftados} por $-\ell$.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+A versão seguinte, conhecida como \dq{indução forte}
+não merece seu apelido.  A demonstramos como teorema
+e logo não se trata de algo mais forte mesmo.
+Mesmo assim, é muito mais natural e conveniente
+em certos casos e logo faz sentido a destacar.
+
+%%}}}
+
+%%{{{ thm: ints_strong_induction 
+\theorem Indução forte.
+%%%{{{ meta 
+\label ints_strong_induction
+%%%}}}
+
+Seja $P$ conjunto de inteiros.
+Suponha
+$$
+\pforall x {
+    \lforall {0 < i < x} {i \in P}
+    \implies
+    x \in P
+    }.
+$$
+Logo todos os inteiros positivos pertencem ao $P$.\foot
+O quantificador no \symq{$\pforall {0 < i < x}$} quantifica o $i$.
+Ou seja, essa parte no que escrevi acima, \emph{desaçucarizando}, fica assim:
+$\lforall {i} {0 < i < x \implies i \in P}$.
+\toof
+
+\proof.
+Suponha que há inteiros positivos que não pertencem ao $P$.
+Seja $m$ o menor deles (PBO).
+Logo, para todo positivo $i < m$, $i \in P$.
+Logo $m \in P$, e chegamos numa contradição.
+
+%%}}}
+
+%%{{{ remark: int_induction_how_to_use 
+\remark.
+%%%{{{ meta 
+\label int_induction_how_to_use
+\indexes
+    * indução!como usar
+    ;;
+%%%}}}
+
+As três versões de indução que demonstramos aqui
+são enunciadas em termos dum conjunto $P$ que,
+satisfazendo certas condições, concluímos que deve
+possuir como membros todos os objetos do nosso interesse.
+\eop
+Na sua versão original, os objetos do nosso interesse
+são os inteiros positivos, e as condições que o $P$
+precisa satisfazer são:
+\mathcol
+& 1 \in P \\
+\cforall {x} {x \in P \implies x + 1 \in P} \\
+\endmathcol
+Lembre que quando a gente queria introduzir a noção dos
+inteiros positivos na nossa especificação, em vez de
+introduzí-la como conjunto, optamos para considerar
+como \emph{predicado unário}.
+(Se não lembra: \ref[int_positivity_intro].)
+Ainda mais, introduzimos logo apos açúcar sintáctico
+que nos permitiu identificar as duas abordagens, escrevendo
+$x \in \Pos$ e $\Pos \fa x$ sinonimamente.
+\eop
+Vamos aproveitar essa equivalência entre os dois conceitos
+só que na direção contrária agora.  Vamos visualizar
+o conjunto $P$ dos objetos do nosso interesse como
+o predicado de <<ser interessado>>, e escrever $P \fa x$
+em vez de $x \in P$.
+Visto assim, isso é uma ferramenta para demonstrar proposições
+da forma
+\mathcol
+\cforall {x \in \ints_{>0}} {P \fa x}
+\endmathcol
+onde $P$ é uma propriedade que inteiros podem ter ou não:
+$$
+{P} \is \Int \to \Prop.
+$$
+Para demonstrar então que todos os \emph{inteiros positivos}
+gozam da propriedade $P$, basta demonstrar:
+\mathcol
+& P \fa 1 \\
+\cforall {x \in \ints_{>0}} {P \fa x \implies P \fa (x+1)}. \\
+\endmathcol
+Na sua versão \dq{shifted}, os objetos do nosso interesse
+são todos os inteiros a partir dum certo inteiro $\ell$.
+\eop
+Finalmente, na sua versão \dq{forte}, os objetos de interesse
+novamente são os inteiros positivos.
+
+%%}}}
+
+%%{{{ Q: what more axioms would you add? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Tu acha que deveriamos adicionar mais proposições como
+axiomas na nossa especificação?
+Cuidado: em geral, não queremos axiomas desnecessários:
+se podemos demonstrar algo a partir dos axiomas já
+estipulados, não faz sentido estipulá-lo como axioma também!
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ The idea behind congruence relation 
 \section A idéia da relação de congruência.
 %%%{{{ meta 
@@ -12572,8 +12613,8 @@ serão depois de 5 horas?  Nossos relógios não vou mostrar 26h00, mas 02h00.
 \endsection
 %%}}}
 
-%%{{{ Two equivalent definitions 
-\section Duas definições equivalentes.
+%%{{{ Two almost equivalent definitions 
+\section Duas definições quase equivalentes.
 %%%{{{ meta 
 %%%}}}
 
