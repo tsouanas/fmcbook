@@ -7823,36 +7823,6 @@ Naturalmente, usamos a notação $a \ndivides b$ quando $a$ não divide $b$.
 
 %%}}}
 
-%%{{{ ppty: divides_properties 
-\property.
-%%%{{{ meta 
-\label divides_properties
-%%%}}}
-
-Sejam $a,b,c,x,y,m$ inteiros.
-Logo:
-\elist:
-\li: $1 \divides a$;
-\li: $a \divides 0$;
-\li: $a \divides b \implies a \divides bx$;
-\li: $a \divides b \implies a \divides -b \mland -a \divides b$;
-\li: $a \divides b \mland a \divides c \implies a \divides b + c$;
-\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$;
-\li: se $c \neq 0$, então: $a \divides b \!\iff\! ca \divides cb$.
-\endelist
-
-%%}}}
-
-%%{{{ x: divides_properties_proof 
-\exercise.
-%%%{{{ meta 
-\label divides_properties_proof
-%%%}}}
-
-Demonstre todas as propriedades da \ref[divides_properties].
-
-%%}}}
-
 %%{{{ thm: divides_is_a_preorder 
 \theorem Divide é uma preordem.
 %%%{{{ meta 
@@ -7874,6 +7844,47 @@ Para todos $a,b,c\in\ints$,
 %%%}}}
 
 Demonstre o \ref[divides_is_a_preorder].
+
+%%}}}
+
+%%{{{ ppty: divides_properties 
+\property.
+%%%{{{ meta 
+\label divides_properties
+%%%}}}
+
+Sejam $a,b,c,x,y$ inteiros.
+Logo:
+\elist:
+\li: $1 \divides a$;
+\li: $a \divides 0$;
+\li: $a \divides b \implies a \divides -b \mland -a \divides b$;
+\li: $a \divides b \implies a \divides bx$;
+\li: $a \divides b \mland a \divides c \implies a \divides b + c$;
+\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$;
+\endelist
+
+%%}}}
+
+%%{{{ x: divides_properties_proof 
+\exercise.
+%%%{{{ meta 
+\label divides_properties_proof
+%%%}}}
+
+Demonstre todas as propriedades da \ref[divides_properties].
+Observe que todas são casos especiais da última.
+
+%%}}}
+
+%%{{{ x: divides_multiply_both_rule 
+\exercise.
+%%%{{{ meta 
+\label divides_multiply_both_rule
+%%%}}}
+
+Sejam $a,b,c$ inteiros com $c \neq 0$.
+Demonstre: $a \divides b \!\iff\! ca \divides cb$.
 
 %%}}}
 
@@ -9233,14 +9244,14 @@ Estipulamos o princípio da boa ordem como último axioma:
 Vamos supor que temos um conjunto de inteiros $A$ e, ainda mais,
 sabemos que ele tem pelo menos um membro positivo.
 A PBO não parece aplicável no $A$ já que ele pode possuir
-membros não positivos.
+membros não positivos, assim não sendo um subconjunto do $\Pos$.
 Mesmo assim, seu subconjunto
 $$
 A_{>0} \defeq \setstt {a \in A} {$a$ positivo}
 $$
 é feito totalmente por positivos e é habitado, e logo
 podemos sim usar o PBO para solicitar o menor membro de $A_{>0}$,
-ou seja, podemos solicitar o menor positivo de $A$.
+ou seja, podemos solicitar \emph{o menor membro positivo} de $A$.
 
 %%}}}
 
@@ -10280,68 +10291,13 @@ Demonstre.
 
 %%}}}
 
-%% Irreducibles & Primes
-
-%%{{{ df: int_irreducible 
-\definition Irredutível.
-%%%{{{ meta 
-\label int_irreducible
-\indexes
-    * irredutível   seealso: primo
-    * redutível     seealso: composto
-    * composto      seealso: primo
-    * composto      seealso: redutível
-    ;;
-\defines
-    * irredutível
-    * redutível
-    ;;
-%%%}}}
-
-Seja $p$ inteiro.
-Chamamos o $p$ \dterm{irredutível} sse $p$ não é unit e para quaisquer $a,b$ tais que $p = ab$,
-pelo menos um dos $a,b$ é unit:
-$$
-\text{$p$ irredutível} \defiff \text{$p$ não unit} \mland \lforall {a,b} { p = ab \implies \text{$a$ unit} \mlor \text{$b$ unit} }.
-$$
-Caso contrário, $p$ é \dterm{redutível}.
-Chamamos o $p$ de \dterm{composto} sse $p$ não é unit e existem não units $a,b$ tais que $p = ab$.
-
-%%}}}
-
-%%{{{ df: int_prime 
-\definition Primo.
-%%%{{{ meta 
-\label int_prime
-\indexes
-    * primo      seealso: composto
-    * primo      seealso: irreducible
-    * primo      seealso: reducible
-    ;;
-\defines
-    * primo
-    ;;
-%%%}}}
-
-Seja $p$ inteiro.
-Chamamos o $p$ de \dterm{primo} sse $p$ não é unit e para quaisquer inteiros
-$a,b$, se $p$ divide o produto $ab$ então $p$ divide pelo menos um dos $a,b$.
-Em símbolos:
-$$
-\Prime(p) \defiff
-  \text{$p$ não unit} \mland
-  \lforall {a,b} {p \divides ab \implies p \divides a \mlor p \divides b}.
-$$
-
-%%}}}
-
 \endsection
 %%}}}
 
-%%{{{ The_greatest_common_divisor 
-\section O máximo divisor comum.
+%%{{{ Greatest_common_divisor 
+\section Máximo divisor comum.
 %%%{{{ meta 
-\label The_greatest_common_divisor
+\label Greatest_common_divisor
 %%%}}}
 
 %%{{{ df: a_gcd 
@@ -10354,18 +10310,22 @@ $$
     ;;
 %%%}}}
 
-Sejam $a,b\in\ints$.
-O inteiro $d$ é \dterm{um máximo divisor comum (m.d.c.)} dos $a$~e~$b$,
+Sejam $a,b,d$ inteiros.
+O inteiro $d$ é \dterm{um máximo divisor comum (m.d.c.)} dos $a,b$
 sse $d$~é~um divisor comum e um multiplo de todos os divisores comuns.
 Em símbolos:
-\mathmistake
-d = \gcd a b
+$$
+\text{$d$ é um m.d.c.~dos $a,b$}
 \defiff
 \tubrace {d \divides a \mland d \divides b}
          {divisor comun}
 \mland
-\tubrace {\lforall c {c \divides a \mland c \divides b \implies c \divides d}}
-         {``máximo''}.
+\tubrace {\lforallt {\text{$d'$ divisor comum}} {$d$ é melhor que $d'$}}
+         {``melhor''}.
+$$
+Nesse caso, escrevemos:
+\mathmistake
+d = \gcd a b.
 \endmathmistake
 
 %%}}}
@@ -10392,13 +10352,33 @@ Duas coisas:
 
 %%}}}
 
-%%{{{ ppty: if d,d' are gcds then |d|=|d'| 
-\property.
+%%{{{ remark: no_hope_for_true_uniqueness 
+\remark.
 %%%{{{ meta 
+\indexes
+    * unicidade
+    ;;
 %%%}}}
 
-Sejam $a,b$ inteiros.  Se $d,d'$ são máximos divisores comuns
-dos $a$ e $b$, então $\abs d = \abs{d'}$.
+Definimos o conceito de m.d.c.~totalmente em termos da relação~$(\divides)$
+e logo não temos chances de conseguir \dterm{unicidade} de m.d.c.
+Para qualquer inteiro $d$ que acaba sendo um m.d.c.~dos $a,b$,
+com certeza seu sócio $-d$ também vai já que a $(\divides)$ não consegue
+distingüi-los.
+Então a melhor coisa que podemos esperar é uma noção de unicidade mais fraca:
+unicidade pelos olhos da $(\divides)$, ou, como falamos mesmo:
+\dterm{unicidade a menos de sócios:}
+
+%%}}}
+
+%%{{{ thm: gcd_uniqueness_up_to_associates 
+\theorem unicidade a menos de sócios.
+%%%{{{ meta 
+\label gcd_uniqueness_up_to_associates
+%%%}}}
+
+Sejam $a,b$ inteiros.
+Se $d,d'$ são m.d.c.~dos $a,b$, então $\abs d = \abs{d'}$.
 
 \sketch.
 Aplicamos a definição de m.d.c.~para cada um dos $d$ e $d'$,
@@ -10418,8 +10398,8 @@ Logo $d = \pm d'$ (por~\ref[divides_is_almost_a_partial_order]).
 %%%{{{ meta 
 %%%}}}
 
-Sejam $a,b\in\ints$.
-Existe único $d\in\ints_{\geq 0}$ tal que $d$ é um m.d.c.~de $a$ e~$b$.
+Sejam $a,b$ inteiros.
+Existe único $d\in\nnints$ tal que $d$ é um m.d.c.~dos $a,b$.
 
 %%}}}
 
@@ -10428,7 +10408,9 @@ Existe único $d\in\ints_{\geq 0}$ tal que $d$ é um m.d.c.~de $a$ e~$b$.
 %%%{{{ meta 
 %%%}}}
 
-Agora podemos finalmente definir o símbolo $\gcd a b$:
+Agora podemos finalmente definir o símbolo $\gcd a b$
+e tratar a expressão $d = \gcd a b$ como uma igualdade mesmo,
+para não desviar demais com a literatura popular.
 
 %%}}}
 
@@ -10446,13 +10428,13 @@ Agora podemos finalmente definir o símbolo $\gcd a b$:
     ;;
 %%%}}}
 
-Sejam $a,b\in\ints$.
+Sejam $a,b$ inteiros.
 $$
 d = \gcd a b
 \defiff
 \tubrace { d \divides a \mland d \divides b } {divisor comun}
 \mland
-\tubrace { d\in\nats \mland \lforall c {\paren{c \divides a \mland c \divides b} \implies c \divides d} } {o máximo}
+\tubrace { d\in\nnints \mland \lforall c {\paren{c \divides a \mland c \divides b} \implies c \divides d} } {o máximo}
 $$
 
 %%}}}
@@ -10472,7 +10454,8 @@ Podemos já demonstrar umas propriedades básicas de m.d.c.
 \label gcd_signs
 %%%}}}
 
-O m.d.c. não liga sobre sinais: para quaisquer inteiros $a,b$,
+O m.d.c. não liga sobre sinais:
+para quaisquer inteiros $a,b$,
 $$
 \gcd a b
 = \gcd a {-b}
@@ -10499,7 +10482,38 @@ Sejam $a,b,c$ inteiros.  Logo:
 
 %%}}}
 
+%%{{{ eg: gcd_example 
+\example.
+%%%{{{ meta 
+\label gcd_example
+%%%}}}
+
+Ache um m.d.c.~dos $12,18$.
+
+\solution.
+Vamos primeiramente calcular os divisores de cada um desses números:
+\mathcol
+\divs(12) &= \set{ \pm 1, \pm 2, \pm 3, \pm 4, \pm 6, \pm 12 } \\
+\divs(18) &= \set{ \pm 1, \pm 2, \pm 3, \pm 6, \pm 9, \pm 18 }.
+\intertext{Segundo a definição de m.d.c., se tem inteiro $d$ que merece
+esse nome, ele é um dos divisores comuns:}
+\comdivs(12,18) &= \divs(12) \inter \divs(18) = \set{ \pm 1, \pm 2, \pm 3, \pm 6 }.
+\endmathcol
+$$
+$$
+
+%%}}}
+
 %% Existence of GCD and coefficients form
+
+%%{{{ blah 
+\blah Existência.
+%%%{{{ meta 
+%%%}}}
+
+Podemos já demonstrar umas propriedades básicas de m.d.c.
+
+%%}}}
 
 %%{{{ lemma: bezout_lemma 
 \lemma Lemma de Bézout.
@@ -10575,8 +10589,8 @@ que seguem pelas propriedades de $\divides$ que já demonstramos.
 %%%}}}
 
 Demonstre ou refute:
-se um inteiro $m\geq 0$ é divisor comum dos $a,b$ e pode ser
-escrito como combinação linear deles, então $m = \gcd a b$.
+se um inteiro $m$ é divisor comum dos $a,b$ e pode ser
+escrito como combinação linear deles, então $m$ é um m.d.c.~dos $a,b$.
 
 \hint
 Já demonstramos que
@@ -10594,7 +10608,7 @@ $$
 \label gcd_of_two_is_gcd_of_one_plus_sum
 %%%}}}
 
-Sejam $a,b\in\ints$.
+Sejam $a,b$ inteiros.
 Demonstre que
 $$
 \gcd a b = \gcd a {a+b}.
@@ -10606,7 +10620,7 @@ Lembre a definição de m.d.c.\,.
 \hint
 Talvez as propriedades seguintes são úteis:
 \tlist:
-\li: para todos $x,y\in\nats$, $x \divides y \mland y \divides x \implies x = y$;
+\li: para todos $x,y\in\nnints$, $x \divides y \mland y \divides x \implies x = y$;
 \li: para todos $a,x,y\in\ints$, $a \divides x \mland a \divides y \implies a \divides {x+y}$.
 \endtlist
 
@@ -11413,27 +11427,6 @@ $2016 = 2^5 3^2 7$.
 
 %%}}}
 
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-\credits
-    * Euclid : Elementos
-    * Euclid : teorema fundamental de aritmética
-    * Gauss : Disquisitiones Arithmeticæ
-    * Gauss : teorema fundamental de aritmética
-    ;;
-%%%}}}
-
-Logo chegaremos no resultado principal que esclarecerá
-o que percebemos no~\ref[fundamental_theorem_of_arithmetic_omen]:
-o~\ref[fundamental_theorem_of_arithmetic],
-ilustrado (parcialmente) já por Euclides
-(circa~\yearof{300}~a.C.)~nos seus \emph{Elementos}~\cite[elements]
-e demonstrado completamente por Gauss (no ano \yearof{1798}) no seu
-\emph{Disquisitiones Arithmeticæ}~\cite[disquisitiones].
-
-%%}}}
-
 %%{{{ x: factorize_some_integers 
 \exercise.
 %%%{{{ meta 
@@ -11521,7 +11514,7 @@ que é um dos teoremas mais famosos e importantes na história de matemática
     ;;
 %%%}}}
 
-Seja $p$ inteiro.
+Seja $p\neq 0$ inteiro.
 Chamamos o $p$ \dterm{irredutível} sse $p$ não é unit e para quaisquer $a,b$ tais que $p = ab$,
 pelo menos um dos $a,b$ é unit:
 $$
@@ -11529,6 +11522,29 @@ $$
 $$
 Caso contrário, $p$ é \dterm{redutível}.
 Chamamos o $p$ de \dterm{composto} sse $p$ não é unit e existem não units $a,b$ tais que $p = ab$.
+
+%%}}}
+
+%%{{{ thm: int_irreducible_divisors 
+\theorem.
+%%%{{{ meta 
+\label int_irreducible_divisors
+%%%}}}
+
+Seja $x$ inteiro.
+Logo $x$ irredutível sse os únicos divisores de $x$ são os $1,-1,x,-x$.
+
+\proof Demonstrarás no~\ref[int_irreducible_divisors_proof].
+
+%%}}}
+
+%%{{{ x: int_irreducible_divisors_proof 
+\exercise.
+%%%{{{ meta 
+\label int_irreducible_divisors_proof
+%%%}}}
+
+Demonstre o \ref[int_irreducible_divisors].
 
 %%}}}
 
@@ -11546,7 +11562,7 @@ Chamamos o $p$ de \dterm{composto} sse $p$ não é unit e existem não units $a,
     ;;
 %%%}}}
 
-Seja $p$ inteiro.
+Seja $p \neq 0$ inteiro.
 Chamamos o $p$ de \dterm{primo} sse $p$ não é unit e para quaisquer inteiros
 $a,b$, se $p$ divide o produto $ab$ então $p$ divide pelo menos um dos $a,b$.
 Em símbolos:
@@ -11555,6 +11571,21 @@ $$
   \text{$p$ não unit} \mland
   \lforall {a,b} {p \divides ab \implies p \divides a \mlor p \divides b}.
 $$
+
+%%}}}
+
+%%{{{ warning: we have negative primes here 
+\warning.
+%%%{{{ meta 
+%%%}}}
+
+Nossas definições de irredutível e de primo, não conseguem discriminar
+a partir da positividade: se um inteiro $x$ é primo (ou irredutível),
+seu sócio $-x$ também é.
+É comum excluir os negativos dessas definições, mas não vou negá-los
+esse direito aqui.
+Mais sobre essa escolha logo depois de conhecer o teorema principal
+deste assunto, o \ref[fundamental_theorem_of_arithmetic].
 
 %%}}}
 
@@ -11704,15 +11735,6 @@ logo $pq \divides n$
 
 %%}}}
 
-\endsection
-%%}}}
-
-%{{{ Prime_numbers 
-\section Os números primos.
-%%%{{{ meta 
-\label Prime_numbers
-%%%}}}
-
 %%{{{ x: int_zero_and_one_are_what 
 \exercise.
 %%%{{{ meta 
@@ -11736,7 +11758,10 @@ Logo, não é aplicável nem para o 0 nem para o 1.
 \label 2_is_the_only_even_prime
 %%%}}}
 
-$2$ é o único primo par.
+$2$ é o \dq{único} primo par.\foot
+Em aspas, quando eu digo $2$ aqui, eu incluo seu sócio $-2$ também.
+(Óbvio?)
+\toof
 
 %%}}}
 
@@ -11746,7 +11771,7 @@ $2$ é o único primo par.
 \label first_primes
 %%%}}}
 
-Os primeiros 31 primos são os
+Os primeiros 31 primos positivos são os
   2,   3,   5,   7,  11,  13,  17,  19, 23,  29,
  31,  37,  41,  43,  47, 53,  59,  61,  67,  71,
  73,  79,  83,  89, 97, 101, 103, 107, 109, 113, e 127.
@@ -11759,8 +11784,8 @@ Os primeiros 31 primos são os
 \label in_primes_divides_means_equals
 %%%}}}
 
-Sejam $p$, $q$ primos, com $p \divides q$.
-Mostre que $p=q$.
+Sejam $p,q$ primos, tais que $p \divides q$.
+Mostre que $p,q$ são sócios.
 
 %%}}}
 
@@ -11770,8 +11795,8 @@ Mostre que $p=q$.
 \label every_composite_number_is_divisible_by_a_prime
 %%%}}}
 
-Seja $b$ composto.
-Demonstre que $b$ tem um divisor primo $d$ tal que $d^2 \leq b$.
+Seja $x$ composto.
+Demonstre que $x$ tem um divisor primo $p$ tal que $p^2 \leq x$.
 
 %%}}}
 
@@ -11846,8 +11871,7 @@ Como podemos achar todos os primos até um dado limitante $b$?
 
 Eratosthenes (276--194 a.C.)~conseguiu responder com sua método conhecida como
 o \dterm{crivo de Eratosthenes}.
-Antes de descrever o seu algoritmo formalmente, vamos aplicar sua idéia
-para achar todos os primos menores ou iguais que $b=128$.
+Eu a aplicarei aqui para achar todos os primos menores ou iguais que $b=128$.
 Primeiramente liste todos os números de $2$ até $b=128$:
 $$
 \matrix
@@ -11863,7 +11887,7 @@ $$
    {113}&   {114}&   { 115}&   { 116}&   { 117}&   { 118}&   { 119}&   { 120}&   { 121}&   { 122}&   { 123}&   { 124}&   { 125}&   { 126}&   { 127}&   { 128.}
 \endmatrix
 $$
-Agora começa com o primeiro número na lista, o $2$, e apaga todos os maiores múltiplos dele:
+Agora comece com o primeiro número na lista, o $2$, e apague todos os maiores múltiplos dele:
 $$
 \matrix
 \format
@@ -11878,7 +11902,7 @@ $$
    {113}&\ci{114}&   { 115}&\ci{ 116}&   { 117}&\ci{ 118}&   { 119}&\ci{ 120}&   { 121}&\ci{ 122}&   { 123}&\ci{ 124}&   { 125}&\ci{ 126}&   { 127}&\ci{ 128}
 \endmatrix
 $$
-Toma o próximo número que está ainda na lista, o $3$, e faça a mesma coisa:
+Tome o próximo número que está ainda na lista, o $3$, e faça a mesma coisa:
 $$
 \matrix
 \format
@@ -11893,7 +11917,7 @@ $$
    {113}&\co{114}&   { 115}&\co{ 116}&\ci{ 117}&\co{ 118}&   { 119}&\co{ 120}&   { 121}&\co{ 122}&\ci{ 123}&\co{ 124}&   { 125}&\co{ 126}&   { 127}&\co{ 128}
 \endmatrix
 $$
-Repeta o processo (o próximo agora seria o $5$) até não tem mais números para tomar.
+Repita o processo (o próximo agora seria o $5$) até não tem mais números para tomar.
 Os números que ficarão são todos os primos até o $128$:
 $$
 \matrix
@@ -11969,16 +11993,6 @@ O que pode afirmar sobre ele?
 
 %%}}}
 
-%%{{{ x: eratosthenian_algorithm 
-\exercise.
-%%%{{{ meta 
-\label eratosthenian_algorithm
-%%%}}}
-
-Escreva formalmente o algoritmo do Eratosthenes.
-
-%%}}}
-
 %%{{{ codeit: implement_eratosthenian_algorithm 
 \codeit.
 %%%{{{ meta 
@@ -11996,7 +12010,22 @@ Implemente o algoritmo de Eratosthenes e o usando ache todos os primos até o $1
 \section O teorema fundamental da aritmética.
 %%%{{{ meta 
 \label The_fundamental_theorem_of_arithmetic
+\credits
+    * Euclid : Elementos
+    * Gauss : Disquisitiones Arithmeticæ
+    ;;
 %%%}}}
+
+%%{{{ intro 
+\secintro
+Chegamos finalmente no resultado principal que esclarecerá
+o que percebemos no~\ref[fundamental_theorem_of_arithmetic_omen]:
+o~\ref[fundamental_theorem_of_arithmetic],
+ilustrado (parcialmente) já por Euclides
+(circa~\yearof{300}~a.C.)~nos seus \emph{Elementos}~\cite[elements]
+e demonstrado completamente por Gauss (no ano \yearof{1798}) no seu
+\emph{Disquisitiones Arithmeticæ}~\cite[disquisitiones].
+%%}}}
 
 %%{{{ thm: fundamental_theorem_of_arithmetic 
 \theorem Teorema fundamental da aritmética.
@@ -12015,17 +12044,17 @@ Implemente o algoritmo de Eratosthenes e o usando ache todos os primos até o $1
     ;;
 %%%}}}
 
-Todo $n\in\nats$ com $n > 1$, pode ser escrito como um produtório de primos.
-Essa expressão é única se desconsiderar a ordem dos fatores do produtório.
+Todo inteiro $x\neq 0$ pode ser escrito como um produtório de primos.
+Essa expressão é única a menos de sócios e desconsiderando a ordem dos fatores do produtório.
 
 \proof.
-Seja $n\in\nats$ com $n > 1$.
+Seja $x\in\ints$ com $x > 1$.
 \eop
 \proofstylize{Existência:}
 Usamos indução forte (veja~\reftag[Strong_induction]).
-Caso que $n$ seja primo,
+Caso $x$ primo,
 trivialmente ele mesmo é o produtório de primos (produtório de tamanho 1).
-Caso contrário, $n = ab$, para uns $a,b\in\nats$ com $1<a<n$ e $1<b<n$,
+Caso contrário, $x = ab$, para uns $a,b$ com $1<a<x$ e $1<b<x$,
 logo sabemos (hipoteses indutivas) que cada um deles pode ser
 escrito na forma desejada:
 \mathnote
@@ -12034,18 +12063,18 @@ b &= q_1q_2\dotsb q_{k_b}  \rtext{para alguns $q_j$'s primos.}
 \endmathnote
 Então temos
 $$
-n = ab = (p_1p_2\dotsb p_{k_a})(q_1q_2\dotsb )
+x = ab = (p_1p_2\dotsb p_{k_a})(q_1q_2\dotsb )
        = p_1p_2\dotsb p_{k_a}q_1q_2\dotsb q_{k_b}
 $$
 que realmente é um produtório de primos.
 \eop
 \proofstylize{Unicidade:}
-Suponha que para alguns primos $p_i$'s e $q_j$'s, e uns $s,t\in\nats$, temos:
+Suponha que para alguns primos $p_i$'s e $q_j$'s, e uns naturais $s,t$, temos:
 \mathcol
-n &= p_1 p_2 \dotsc p_s,\\
-n &= q_1 q_2 \dotsc q_t.
+x &= p_1 p_2 \dotsc p_s,\\
+x &= q_1 q_2 \dotsc q_t.
 \endmathcol
-Vamos mostrar que $s = t$ e que para todo $i\in\set{1,\dotsc,s}$,  $p_i = q_j$.
+Vamos mostrar que $s = t$ e que para todo $i\in\set{1,\dotsc,s}$, $p_i = q_j$.
 Temos
 $$
 p_1 p_2 \dotsc p_s = q_1 q_2 \dotsc q_t,
@@ -12068,8 +12097,6 @@ de primos igual com 1, impossível), ou seja: $s = t$.
 Note que as equações $p_i = q_{j_i}$ mostram a unicidade desejada.
 
 %%}}}
-
-\TODO Gauss, Euclides.
 
 %%{{{ blah 
 \blah.
@@ -12126,6 +12153,8 @@ Chamamos essa forma a \dterm{representação canônica completa} do $n$.
 
 %%}}}
 
+\TODO x to Q.
+
 %%{{{ x: canonical_representation_with_int_exponents 
 \exercise.
 %%%{{{ meta 
@@ -12133,7 +12162,9 @@ Chamamos essa forma a \dterm{representação canônica completa} do $n$.
 %%%}}}
 
 O que acontece se relaxar a restricção nos exponentes ainda mais?:
-$a_i\in\ints$.
+$a_i\in\ints$.\foot
+Essa pergunta é para o leitor que já viu algo que não encontramos ainda aqui.
+\toof
 
 %%}}}
 
@@ -12239,9 +12270,9 @@ $$
 a^n + b^n = c^n.
 $$
 
-\TODO Elaborar.
-
 %%}}}
+
+\TODO Elaborar.
 
 \endsection
 %%}}}
@@ -12628,9 +12659,9 @@ Qual foi tua resposta no~\ref[canonical_representation_with_int_exponents]?
 %%%{{{ meta 
 %%%}}}
 
-Vamos fixar um inteiro positivo $m\in\nats$.
-Graças à divisão de Euclides~(\reftag[euclidean_division]),
-qualquer inteiro $a\in\ints$ pode ser escrito na forma
+Vamos fixar um inteiro positivo $m$.
+Agora graças à divisão de Euclides~(\reftag[euclidean_division]),
+qualquer inteiro $a$ pode ser escrito na forma
 $$
 a = mk + r,
 \qquad
