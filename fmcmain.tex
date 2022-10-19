@@ -15175,13 +15175,13 @@ Vou começar definindo formalmente os naturais.
 Na verdade, não vou definir os próprios números naturais.
 Não: os \emph{números} estão lá nas núvens do nosso coração.
 Não vamos nos preocupar com a questão <<o que \emph{é} o número cinco?>>.
-Vamos começar definindo uns \emph{numerais}, que vou chamá-los de \dterm{Nats},
-e a gente vai estudá-los e ver o que podemos definir, calcular, e demonstrar
-sobre eles.
+Vamos começar definindo uns possíveis \emph{numerais} para tais números,
+que vou chamá-los de \dterm{Nats}, e a gente vai estudá-los e ver o que
+podemos definir, calcular, e demonstrar sobre eles.
 %%}}}
 
-%%{{{ The natural numbers formally 
-\section Os números naturais formalmente.
+%%{{{ The Nats 
+\section Os Nats.
 %%%{{{ meta 
 \label Nats_formally
 %%%}}}
@@ -15195,25 +15195,51 @@ sobre eles.
     ;;
 %%%}}}
 
-Definimos os \dterm{numerais $\Nat$} para representar os números naturais
-com uma definição inductiva:
+Definimos o tipo de dados {$\Nat$} com uma definição inductiva:
 \tlist:
-\li: $0$ é um $\Nat$;
-\li: Se $n$ é um $\Nat$, então $Sn$ é um $\Nat$;
+\li: $\Ze$ é um $\Nat$;
+\li: Se $n$ é um $\Nat$, então $\Su \fa n$ é um $\Nat$;
 \endtlist
 Nada mais é um $\Nat$.
 
 %%}}}
 
-%%{{{ With BNF 
-\note Com gramática BNF.
+%%{{{ nat_data_forms 
+\note Listando as formas.
 %%%{{{ meta 
+\label nat_dat_forms 
 %%%}}}
 
-Já fizemos isso na~\ref[Nat_grammar]:
+Escrevemos
 $$
-\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+\dataforms Nat = {\Ze \dataor \Su \fa \Nat}
 $$
+e introduzimos assim o tipo $\Nat$ listando todas as formas possíveis que seus
+membros podem ter: cada $\Nat$ ou é o $\cons O$, ou é o $\cons S$ de algum $\Nat$.
+Pronunciamos o símbolo \symq{$\dataorsymbol$} como \dq{ou}, entendendo que separa
+as alternativas formas listadas.
+
+%%}}}
+
+%%{{{ nat_data_cons 
+\note Listando os construtores.
+%%%{{{ meta 
+\label nat_data_cons
+%%%}}}
+
+Escrevemos
+$$
+\data Nat
+\co \Ze : \Nat ;
+\co \Su : \Nat \to \Nat ;
+\enddata
+$$
+para introduzir o tipo $\Nat$ listando todos os seus \dterm{construtores}
+e seus tipos.
+Assim sabemos que o $\cons O$ já é um $\Nat$ (ele é um construtor de aridade $0$: não
+precisa de argumentos).
+Por outro lado, o $\cons S$ \emph{não} é um $\Nat$, mas sim um $\Nat\to\Nat$, ou seja
+precisa ser aplicado num $\Nat$, para virar um $\Nat$.
 
 %%}}}
 
@@ -15222,28 +15248,28 @@ $$
 %%%{{{ meta 
 %%%}}}
 
-Uma maneira diferente de descrever a mesma idéia é com \dterm{regras de inferência}.
+Uma maneira diferente de descrever \emph{a mesma idéia} é com \dterm{regras de inferência}.
 Essa abordagem combina bem com as árvores sintácticas:
 escrevemos
 $$
 \PROOFm {
-\I0-------------- {}
-    {0 \is \Nat}
+\I0-------------------- {}
+    {\cons O \is \Nat}
 }
 $$
 e entendemos isso como
 $$
 \text{<<(do nada) posso concluir que $0$ é um $\Nat$>>}.
 $$
-Esse ``do nada'' aqui quis dizer ``sem nenhuma premissa''.
+Esse \dq{do nada} aqui quis dizer ``sem nenhuma premissa''.
 Vamos dar o nome \namedrule{Zero} para essa \emph{regra de inferência},
 pois vamos precisar referir a ela depois.
 Escrevemos seu nome no lado direito da linha de inferência.
 Fica assim:
 $$
 \PROOFmr {
-\I0-------------- {Zero}
-    {0 \is \Nat}
+\I0-------------------- {Zero}
+    {\cons O \is \Nat}
 }
 $$
 Olhando pra isso entendemos o seguinte:
@@ -15263,26 +15289,25 @@ de inferência?
 
 \spoiler
 
-%%{{{ with inference rules 
+%%{{{ nat_data_rules 
 \note Com regras de inferência.
 %%%{{{ meta 
+\label nat_data_rules 
 %%%}}}
 
-$$
-\xalignat2
+\mathcols 2
 &
 \PROOFmr {
-\I0----------- {Zero}
-{0 \is \Nat}
+\I0------------------- {Zero}
+   {\cons O \is \Nat}
 }
 &&
 \PROOFmr {
 \A  {n \is \Nat}
-\I1-------------- {Succ}
-   {Sn \is \Nat}
+\I1------------------------ {Succ}
+   {\cons S \fa n \is \Nat}
 }
-\endxalignat
-$$
+\endmathcols
 
 %%}}}
 
@@ -15305,7 +15330,7 @@ Vamos inferir que $SSSS0$ é um $\Nat$ mesmo.
 
 \solution.
 Vamos construir sua árvore ``bottom-up''.
-O desafio é inferir que
+O desafio é inferir
 $$
 SSSS0 \is \Nat
 $$
@@ -15317,7 +15342,7 @@ $$
     {SSSS0 \is \Nat}
 }
 $$
-Essa árvore tem afirmações ``abertas'' então não terminamos ainda.
+Essa árvore tem afirmações \dq{abertas} então não terminamos ainda.
 Usando a mesma regra reduzimos o $SSS0 \is \Nat$ para:
 $$
 \PROOFmr {
@@ -15329,7 +15354,7 @@ $$
 }
 $$
 e continuando nessa maneira, chegamos finalmente no
-$0 \is \Nat$ que inferimos com a regra \namedrule{Zero},
+$0 \is \Nat$; agora usamos a regra \namedrule{Zero},
 fechando assim a única coisa que tava aberta:
 $$
 \PROOFmr {
@@ -15534,6 +15559,18 @@ SSS0 \ntimes SS0.
 $$
 E espero que tu chegarás no resultado que eu chamaria de $6$,
 ou seja, no $SSSSSS0$.
+
+%%}}}
+
+%%{{{ With BNF 
+\note Com gramática BNF.
+%%%{{{ meta 
+%%%}}}
+
+Já fizemos isso na~\ref[Nat_grammar]:
+$$
+\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+$$
 
 %%}}}
 
@@ -54933,7 +54970,7 @@ $$
 são equivalentes, ou seja, as duas operações
 definidas são iguais.
 
-\proof Provado.
+\proof Demonstrado.
 No~\ref[powers_in_group_altdef], pois as únicas coisas que
 precisamos na sua prova foram exatamente as hipoteses
 desse teorema.
