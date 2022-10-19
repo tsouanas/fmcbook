@@ -12697,7 +12697,7 @@ serão depois de 5 horas?  Nossos relógios não vou mostrar 26h00, mas 02h00.
 %%%{{{ meta 
 %%%}}}
 
-Precisamos definir formalmente a noção de ``\emph{dois inteiros $a$ e $b$ pertencem na
+Precisamos definir formalmente a noção de ``\emph{dois inteiros $a$ e $b$ pertencem à
 mesma classe, quando separamos eles em grupos usando o inteiro $m$}''.
 A primeira coisa que precisamos perceber é que essa frase é uma afirmação sobre 3 objetos.
 Queremos então uma definição e uma notação que captura essa relação \emph{de aridade 3}.
@@ -13057,8 +13057,8 @@ $13\pmod 8 \cong 23 \pmod {18}$ não significa nada.
 \endsection
 %%}}}
 
-%%{{{ The relation congruence modulo some integer 
-\section A relação de congruência módulo um inteiro.
+%%{{{ Modular arithmetic 
+\section Aritmética modular.
 %%%{{{ meta 
 %%%}}}
 
@@ -13067,13 +13067,18 @@ $13\pmod 8 \cong 23 \pmod {18}$ não significa nada.
 %%%{{{ meta 
 %%%}}}
 
-Se fixar um inteiro $m>0$, então a expressão
+Observe que
 $$
-\holed a \cong \holed b \pmod m
+\hole \cong \hole \pmod \hole \hastype \Int \times \Int \times \Int \to \Prop.
 $$
-tem duas variáveis livres: a $a$ e a $b$.
-Assim, a ``congruência módulo~$m$'' é uma relação binária,
-cujas propriedades investigamos agora.
+Ou seja, se trata duma relação \emph{ternária}.
+Naturalmente, fixando um inteiro $m$, a expressão
+$$
+\hole \cong \hole \pmod m \hastype \Int \times \Int \to \Prop.
+$$
+é uma relação binária que chamamos de \dterm{congruência módulo~$m$} e denotamos
+também por $(\congmod m)$.
+Suas propriedades investigamos agora.
 
 %%}}}
 
@@ -13086,20 +13091,18 @@ cujas propriedades investigamos agora.
 Fixe um inteiro $m > 0$.
 Para todos os $a,b,c\in\ints$,
 temos:
-$$
-\xxalignat 2
-(1)\quad&a \cong a \pmod m                             &&\textrm{(reflexividade)}\\
+\mathcall
+(1)\quad&a \cong a \pmod m                             \called {reflexividade} \\
 (2)\quad&a \cong b \pmod m \mland b \cong c \pmod m
 \implies
-a \cong c \pmod m                                      &&\textrm{(transitividade)}\\
-(3)\quad&a \cong b \pmod m \implies b \cong a \pmod  m &&\textrm{(simetria)}.
-\endxxalignat
-$$
+a \cong c \pmod m                                      \called {transitividade} \\
+(3)\quad&a \cong b \pmod m \implies b \cong a \pmod  m \called {simetria}.
+\endmathcall
 
 \sketch.
 Todas são facilmente provadas aplicando diretamente
 a definição de congruência módulo~$m$ (\reftag[congruence_modulo_int])
-e as propriedades básicas da $\divides$.
+e as propriedades básicas da $(\divides)$.
 
 \proof.
 (1) Óbvio porque $m \divides a - a = 0$.
@@ -13122,14 +13125,6 @@ Uma relação que satisfaz essas três propriedades é chamada
 Estudamos relações no~\ref[Relations].  Paciência!
 
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Modular arithmetic 
-\section Aritmética modular.
-%%%{{{ meta 
-%%%}}}
 
 %%{{{ prop: modular_arithmetic_properties 
 \property.
@@ -13772,7 +13767,7 @@ Vamos ver isso na prática:
 
 Ache todos os inteiros $x\in\ints$ que satisfazem o sistema de congruências:
 \system
-x &\cong 1 \pmod 5\\
+x &\cong 1 \pmod 5 \\
 x &\cong 7 \pmod {12}.
 \endsystem
 
@@ -13783,13 +13778,12 @@ $$
 $$
 Basta achar os valores de $k$ tais que $5k+1$ também satisfaz a segunda,
 ou seja, resolver a
-$$
-\alignat 2
-5k+1 &\cong 7 &&\pmod {12}
+\modcompute
+5k+1 &\cong 7   \cmod {12} \\
 \intertext{por $k$.  Passando o $(+1)$ peloutro lado (por que podemos
 fazer isso numa congruência?)~temos}
-5k &\cong 7-1 &&\pmod {12}\\
-   &\cong 6   &&\pmod {12}.
+5k &\cong 7-1   \cmod {12}\\
+   &\cong 6     \cmod {12}.
 \intertext{Agora basta ``dividir por $5$'', ou seja, multiplicar ambos
 os lados pelo inverso de $5$ módulo $12$, que sabemos que existe pois
 $\gcd 5 {12} = 1$ e logo $5$ é invertível módulo $12$.
@@ -13800,11 +13794,10 @@ $$
 e se não percebemos isso, usamos o algoritmo de Euclides para calcular
 o inverso de $5$ módulo $12$.
 Temos:}
-k  &\cong 5\ntimes 6 &&\pmod {12}\\
-   &\cong 30         &&\pmod {12}\\
-   &\cong 6          &&\pmod {12}.
-\endalignat
-$$
+k  &\cong 5\ntimes 6   \cmod {12}\\
+   &\cong 30           \cmod {12}\\
+   &\cong 6            \cmod {12}.
+\endmodcompute
 Logo, para qualquer inteiro $k'$, tomando $k = 12k' + 6$,
 o $5k+1$ satisfaz ambas as congruências.
 Substituindo:
@@ -14073,11 +14066,7 @@ Considere as frases:
 \li (i):  Os inteiros $a_1, a_2, \dotsc, a_n$ são coprimos entre si.
 \li (ii): Os inteiros $a_1, a_2, \dotsc, a_n$ são coprimos dois-a-dois.
 \endtlist
-São equivalentes?
-Se sim, demonstre as duas direções da equivalência; se não, ache um contraexemplo.
-
-\hint
-Não são equivalentes.
+Mostre com um contraexemplo que as duas afirmações não são equivalentes.
 
 \hint
 Procure um contraexemplo com três inteiros.
