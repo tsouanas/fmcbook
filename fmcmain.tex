@@ -15230,7 +15230,7 @@ precisa ser aplicado num $\Nat$, para virar um $\Nat$.
 %%}}}
 
 %%{{{ With rules of inference 
-\note Com regras de inferência.
+\note Com regras de inferência (1/2).
 %%%{{{ meta 
 %%%}}}
 
@@ -15247,7 +15247,7 @@ e entendemos isso como
 $$
 \text{<<(do nada) posso concluir que $0$ é um $\Nat$>>}.
 $$
-Esse \dq{do nada} aqui quis dizer ``sem nenhuma premissa''.
+Esse \wq{do nada} aqui quer dizer \wq{sem premissa nenhuma}.
 Vamos dar o nome \namedrule{Zero} para essa \emph{regra de inferência},
 pois vamos precisar referir a ela depois.
 Escrevemos seu nome no lado direito da linha de inferência.
@@ -15276,7 +15276,7 @@ de inferência?
 \spoiler
 
 %%{{{ nat_data_rules 
-\note Com regras de inferência.
+\note Com regras de inferência (2/2).
 %%%{{{ meta 
 \label nat_data_rules 
 %%%}}}
@@ -15307,9 +15307,10 @@ linguagem-objeto \vs da metalinguagem nas definições acima.
 
 %%}}}
 
-%%{{{ eg: SSSS0 is a nat (inference tree) 
+%%{{{ eg: nat_four_check_tree 
 \example usando árvores.
 %%%{{{ meta 
+\label nat_four_check_tree 
 %%%}}}
 
 Vamos inferir que $SSSS0$ é um $\Nat$ mesmo.
@@ -15318,25 +15319,25 @@ Vamos inferir que $SSSS0$ é um $\Nat$ mesmo.
 Vamos construir sua árvore ``bottom-up''.
 O desafio é inferir
 $$
-SSSS0 \is \Nat
+\SuA (\SuA (\SuA (\SuA \Ze))) \is \Nat
 $$
 e usando a regra \namedrule{Succ} podemos \emph{reduzir} esse problema para
 $$
 \PROOFmr {
-\A  {SSS0 \is \Nat}
+\A  {\SuA (\SuA (\SuA \Ze) \is \Nat}
 \I1------------------ {Succ}
-    {SSSS0 \is \Nat}
+    {\SuA (\SuA (\SuA (\SuA \Ze) \is \Nat}
 }
 $$
 Essa árvore tem afirmações \dq{abertas} então não terminamos ainda.
-Usando a mesma regra reduzimos o $SSS0 \is \Nat$ para:
+Usando a mesma regra reduzimos o $\SuA (\SuA (\SuA \Ze)) \is \Nat$ para:
 $$
 \PROOFmr {
-\A {SS0 \is \Nat}
+\A {\SuA (\SuA \Ze) \is \Nat}
 \I1---------------- {Succ}
-   {SSS0 \is \Nat}
+   {\SuA (\SuA (\SuA \Ze) \is \Nat}
 \I1----------------- {Succ}
-   {SSSS0 \is \Nat}
+   {\SuA (\SuA (\SuA (\SuA \Ze) \is \Nat}
 }
 $$
 e continuando nessa maneira, chegamos finalmente no
@@ -15345,15 +15346,15 @@ fechando assim a única coisa que tava aberta:
 $$
 \PROOFmr {
 \I0------------ {Zero}
-   {0 \is \Nat}
+   {\Ze \is \Nat}
 \I1------------- {Succ}
-   {S0 \is \Nat}
+   {\SuA \Ze) \is \Nat}
 \I1-------------- {Succ}
-   {SS0 \is \Nat}
+   {\SuA (\SuA \Ze) \is \Nat}
 \I1--------------- {Succ}
-   {SSS0 \is \Nat}
+   {\SuA (\SuA (\SuA \Ze) \is \Nat}
 \I1---------------- {Succ}
-   {SSSS0 \is \Nat}
+   {\SuA (\SuA (\SuA (\SuA \Ze) \is \Nat}
 }
 $$
 
@@ -15368,44 +15369,90 @@ Leia essa árvore tanto de baixo pra cima, quanto de cima pra baixo!
 
 %%}}}
 
-%%{{{ eg: SSSS0 is a nat (grammar) 
-\example usando a gramática.
+%%{{{ eg: nat_four_check_words 
+\example usando palavras.
 %%%{{{ meta 
 %%%}}}
 
-Vamos inferir que $SSSS0 \is \Nat$ de novo, essa vez usando
-a definição com a gramática.
+Podemos inferir que $\SuA (\SuA (\SuA (\SuA \Ze))) \is \Nat$ usando palavras tambem,
+ficando assim mais perto da~\ref[Nat], mas para esse tipo de derivação fica bizarro:
+\quote
+<<Como $\Ze$ é um Nat (pela primeira cláusula),
+logo $\SuA \Ze$ é um Nat (pela segunda com $n\asseq \Ze$).
+Logo $\SuA (\SuA \Ze)$ é um Nat, de novo pela segunda cláusula,
+essa vez com $n\asseq \SuA \Ze$\dots>>
+\endquote
+E já cansei de escrever então vou parar aqui.
+Espero que apreciamos a laconicidade e clareza das árvores
+para esse tipo de inferência.
 
-\solution.
-Temos:
+%%}}}
+
+%%{{{ notation: nat_sugar 
+\notation Açúcar sintáctico.
+%%%{{{ meta 
+\label nat_sugar
+%%%}}}
+
+Escrever
+\mathtightcols 5
+&\Ze, &
+&\SuA \Ze, &
+&\SuA (\SuA \Ze), &
+&\SuA (\SuA (\SuA \Ze)), &
+&\dotsc
+\intertext{às vezes pode ser cansativo na mão ou nos olhos.
+Vamo introduzir pouco açúcar sintáctico então.
+Usarei as palavras}
+&0, &
+&S0, &
+&SS0, &
+&SSS0, &
+&\dotsc
+\intertext{como apelidos desses Nats.
+Ainda mais, vou usar os numerais mais populares}
+&0, &
+&1, &
+&2, &
+&3, &
+&\dotsc
+\endmathtightcols
+para denotar os mesmos objetos.
+Mas é importante entender que são apenas isso, um nome alternativo
+para os nomes \dq{oficiais}; então quando eu peço para calcular,
+por exemplo, \wq{quanto é $3\ntimes 2$}, ou \wq{quanto é $SSS0\ntimes SS0$},
+o que tu precisas calcular mesmo é o
 $$
-\align
+\SuA (\SuA (\SuA \Ze)) \ntimes \SuA (\SuA \Ze)
+$$
+e espero que tu chegarás no resultado que eu chamaria de $6$
+ou de $SSSSSS0$, ou seja, no $\SuA (\SuA (\SuA (\SuA (\SuA (\SuA \Ze)))))$.
+
+%%}}}
+
+%%{{{ A grammar for some abbrevs 
+\note Uns apelidos com gramática BNF.
+%%%{{{ meta 
+%%%}}}
+
+Olhe na sintaxe BNF para descrever a gramática que gera as palavras-apelidos
+$0,S0,SS0,SSS0,\dotsc$ que mencionei no 
+$$
+\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+$$
+Observe na semelhança dessa gramática e da \ref[nat_dat_forms].
+Ainda mais, para gerar a palavra $SSSS0$ a partir dessa gramática
+procedemos assim:
+\mathcol
 \bnf{Nat}
 &\leadsto S\bnf{Nat} \\
 &\leadsto SS\bnf{Nat} \\
 &\leadsto SSS\bnf{Nat} \\
 &\leadsto SSSS\bnf{Nat} \\
 &\leadsto SSSS0.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ Using words 
-\note Usando palavras.
-%%%{{{ meta 
-%%%}}}
-
-Podemos inferir que $SSSS0 \is \Nat$ usando palavras tambem, ficando assim
-mais perto da~\ref[Nat], mas para esse tipo de derivação fica bizarro:
-\quote
-<<Como $0$ é um Nat (pela primeira cláusula),
-logo $S0$ é um Nat (pela segunda com $n\asseq 0$).
-Logo $SS0$ é um Nat, de novo pela segunda cláusula, essa vez com $n\asseq S0$\dots>>
-\endquote
-E já cansei de escrever então vou parar aqui.
-Espero que apreciamos a laconicidade e clareza das árvores
-para esse tipo de inferência.
+\endmathcol
+Isso corresponde à inferência $\SuA (\SuA (\SuA (\SuA \Ze))) \hastype \Nat$
+do \ref[nat_four_check_tree].
 
 %%}}}
 
@@ -15461,10 +15508,11 @@ Todo esse capítulo é desenvolvido usando apenas essa definição.
     ;;
 %%%}}}
 
-Chamamos os termos da linguagem $\bnf{Nat}$ os Nats \dterm{canônicos:}
+Chamamos os termos
 $$
-0, S0, SS0, SSS0, SSSS0, \dotsc
+\Ze, \SuA \Ze, \SuA (\SuA \Ze), \SuA (\SuA (\SuA \Ze)), \SuA (\SuA (\SuA (\SuA \Ze))), \dotsc
 $$
+de \dterm{termos canônicos} ou \dterm{valores canônicos} do tipo $\Nat$.
 
 %%}}}
 
@@ -15504,59 +15552,42 @@ $2$ é $2$ ué.
 
 %%}}}
 
-%%{{{ property: Equality 
-\property Igualdade.
+%%{{{ Equality between Nats 
+\note Igualdade entre Nats.
 %%%{{{ meta 
 %%%}}}
 
 Naturalmente consideramos todos os valores canônicos como distintos,
-ou seja, para todos os $x,y\is\Nat$ temos:
-$$
-\align
-& 0 \neq Sx \\
-x \neq y &\implies Sx \neq Sy
-\intertext{e a segunda é freqüentemente usada na forma da sua contrapositiva:}
-Sx = Sy &\implies x = y
-\endalign
-$$
-que nos permite ``cortar os $S$'s'' numa igualdade entre sucessores.
+ou seja, para quaisquer $x,y\is\Nat$ temos:
+\mathcol
+                 & \Ze \neq \SuA x \\
+\SuA x = \SuA y  & \implies x = y. \\
+\intertext{A segunda nos permite \dq{cortar os $\Su$'s} numa igualdade
+entre sucessores.  Ela é freqüentemente usada na forma da sua contrapositiva:}
+x \neq y         & \implies \SuA x \neq \SuA y.
+\endmathcol
+Destacamos os dois princípios seguintes sobre tipos de dados definidos
+indutivamente na maneira que definimos o $\Nat$ aqui.
 
 %%}}}
 
-%%{{{ Syntactic sugar 
-\note Açúcar sintáctico.
+%%{{{ principle: datatype_disjointness_of_constructors 
+\principle Disjointness of constructors.
 %%%{{{ meta 
+\label datatype_disjointness_of_constructors
 %%%}}}
 
-Eu vou usar os
-$$
-0, 1, 2, 3, \dotsc
-$$
-como outros nomes dos Nats
-$$
-0, S0, SS0, SSS0, \dotsc
-$$
-ou seja, como açúcar sintáctico.
-Mas é importante entender que são apenas isso, um nome alternativo
-para os termos ``verdadeiros''; então quando eu peço para calcular,
-por exemplo, o $3\ntimes 2$, tu precisas calcular mesmo o
-$$
-SSS0 \ntimes SS0.
-$$
-E espero que tu chegarás no resultado que eu chamaria de $6$,
-ou seja, no $SSSSSS0$.
+Construtores distintos construem valores distintos.
 
 %%}}}
 
-%%{{{ With BNF 
-\note Com gramática BNF.
+%%{{{ principle: datatype_injectivity_of_constructors 
+\principle Injectivity of constructors.
 %%%{{{ meta 
+\label datatype_injectivity_of_constructors 
 %%%}}}
 
-Já fizemos isso na~\ref[Nat_grammar]:
-$$
-\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
-$$
+O mesmo construtor aplicado em valores distintos, construe valores distintos.
 
 %%}}}
 
