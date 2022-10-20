@@ -6567,9 +6567,9 @@ Esquecemos um terceiro caso:
 \quote
 Caso contrário.
 \endquote
-Como aprendemos no~\ref[The_integers],
+Como aprenderemos no~\ref[The_integers],
 a única possibilidade que deixamos,
-esse ``caso contrário'' é equivalente ao:
+esse \dq{caso contrário} é equivalente ao:
 \quote
 Caso $n = 3k+2$  para algum $k\in\ints$.
 \endquote
@@ -9497,6 +9497,20 @@ ou considere os casos possíveis dependendo dos restos da divisão de $n$ por $3
 
 %%}}}
 
+%%{{{ x: 3|n or 3|n²-1 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre que para todo $n\in\ints$, se $3 \ndivides n$
+então $3 \divides n^2 - 1$.
+
+\hint
+Ou fatorize o $n^2-1$ e use o~\ref[n_divides_exactly_one_of_n_consecutive_integers],
+ou considere os casos possíveis dependendo dos restos da divisão de $n$ por $3$.
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -9971,6 +9985,252 @@ estipulados, não faz sentido estipulá-lo como axioma também!
 \endsection
 %%}}}
 
+%%{{{ Sums_and_products_lame_version 
+\section Somatórios e produtórios formalmente.
+%%%{{{ meta 
+\label Sums_and_products_lame_version
+%%%}}}
+
+\TODO Definições recursivas de somatórios e produtórios.
+
+\TODO Generalizando operadores binários para $n$-ários.
+
+%%{{{ eg: gauss_child 
+\example.
+%%%{{{ meta 
+\label gauss_child
+%%%}}}
+
+Demonstre que para todo $n\in\nats$,
+$$
+2 \Sum_{i=1}^n i = n (n+1).
+$$
+
+\solution.
+Por indução.
+Primeiramente demonstramos a \proofpart{base:}
+$$
+2 \Sum_{i=1}^0 i \askeq 0 (0+1).
+$$
+Calculamos:
+\math
+2 \Sum_{i=1}^0 i
+= 2 \ntimes 0
+= 0
+= 0 (0+1).
+\endmath
+\proofpart{Passo indutivo.}
+Seja $k\in\nats$ tal que
+$$
+2 \Sum_{i=1}^k i = k (k+1).  \tag{H.I.}
+$$
+Calculamos:
+\compute
+2 \Sum_{i=1}^{k+1} i
+&= 2((k+1) + \Sum_{i=1}^k i) \\
+&= 2(k+1) + 2\Sum_{i=1}^k i \\
+&= 2(k+1) + k(k+1) \by {pela H.I.} \\
+&= (2+k)(k+1) \\
+&= (k+1)(k+2).
+\endcompute
+
+%%}}}
+
+%%{{{ x: sum_of_cubes_formula 
+\exercise.
+%%%{{{ meta 
+\label sum_of_cubes_formula
+%%%}}}
+
+Demonstre que
+$$
+4 \paren{1 + 8 + 27 + \dotsb + n^3} = n^2 (n+1)^2
+$$
+para todo $n\in\nats$.
+
+\hint
+Lembre que o somatório vazio é $0$.
+
+%%}}}
+
+%%{{{ x: sum_of_negative_powers_of_two_formula 
+\exercise.
+%%%{{{ meta 
+\label sum_of_negative_powers_of_two_formula
+%%%}}}
+
+Observando os valores de:
+$$
+\align
+    1
+    +
+    \frac 1 2
+    &= 2 - \frac 1 2\\
+    1
+    +
+    \frac 1 2
+    +
+    \frac 1 4
+    &= 2 - \frac 1 4\\
+    1
+    +
+    \frac 1 2
+    +
+    \frac 1 4
+    +
+    \frac 1 8
+    &= 2 - \frac 1 8,
+\intertext{adivinhe uma fórmula geral para o somatório}
+    1 + \frac 1 2 + \frac 1 4 + \cdots + \frac 1 {2^n} &= \text{?}
+\endalign
+$$
+e demonstre que ela é válida para todo $n\in\nats$.
+
+%%}}}
+
+%%{{{ x: one_minus_sum_of_1_over_n_formula 
+\exercise.
+%%%{{{ meta 
+\label one_minus_sum_of_1_over_n_formula
+%%%}}}
+
+Calculando os valores de:
+$$
+    \paren{1 - \frac 1 2},
+   \qquad 
+    \paren{1 - \frac 1 2}
+    \paren{1 - \frac 1 3},
+   \qquad
+    \paren{1 - \frac 1 2}
+    \paren{1 - \frac 1 3}
+    \paren{1 - \frac 1 4},
+$$
+adivinhe uma fórmula geral para o produtório
+$$
+\Prod_{i=2}^n\paren{ 1 - \frac 1 i}
+=
+    \paren{1 - \frac 1 2}
+    \paren{1 - \frac 1 3}
+    \paren{1 - \frac 1 4}
+\dotsb
+    \paren{1 - \frac 1 n}
+$$
+e demonstre que ela é válida para todo inteiro $n \geq 2$.
+
+%%}}}
+
+%%{{{ x: sum_of_squares_formula 
+\exercise.
+%%%{{{ meta 
+\label sum_of_squares_formula
+%%%}}}
+
+Demonstre que para todo $n \in\nats$,
+$$
+\Sum_{i=1}^n i^2
+= \frac {n^3} 3 + \frac {n^2} 2 + \frac n 6.
+$$
+
+%%}}}
+
+%%{{{ x: sum_of_cubes_and_gauss_formula 
+\exercise.
+%%%{{{ meta 
+\label sum_of_cubes_and_gauss_formula
+%%%}}}
+
+Demonstre que para todo $n \in\nats$,
+$$
+\align
+\Sum_{i=1}^n i^3 &= \paren{\Sum_{i=1}^n i}^2\\
+\text{ou seja,}\qquad
+1^3 + 2^3 + \dotsb + n^3 &= \paren{ 1 + 2 + 3 + \dotsb + n }^2.
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: sum_of_threes_and_fives 
+\exercise.
+%%%{{{ meta 
+\label sum_of_threes_and_fives
+%%%}}}
+
+Qualquer número inteiro positivo $n \geq 8$ pode ser escrito
+como somatório de $3$'s e $5$'s.
+
+%%}}}
+
+%%{{{ x 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Seja
+$$
+\phi(n) \defiff 1 + 2 + \dotsb + n = \frac 1 8 \paren{2n + 1}^2.
+$$
+\tlist:
+\li (i):
+Demonstre que para todo $k\in\nats$, se $\phi(k)$ então $\phi(k+1)$.
+\li (ii):
+Critique a oração:
+\emph{\wq{Logo, por indução, temos que para todo $n\in\nats$, $phi(n)$.}}.
+\li (iii):
+Mudando apenas o \sq{$=$} para \sq{$>$} ou \sq{$<$}, defina um outro
+predicado $\psi(\dhole)$ tal que para todo $n\in\nats$, $\psi(n)$
+(demonstre por indução).
+\endtlist
+
+%%}}}
+
+%%{{{ x fibonacci 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre que para todo $n\in\nats$,
+$$
+\Sum_{i=0}^n F_i = F_{n+2} - 1,
+$$
+onde $F_n$ o $n$-ésimo número Fibonacci.
+
+%%}}}
+
+%%{{{ x fibonacci 2 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre que para todo $n\in\nats$,
+$$
+\Sum_{i=1}^n F_i^2 = F_n F_{n+1},
+$$
+onde $F_n$ o $n$-ésimo número Fibonacci.
+
+%%}}}
+
+%%{{{ x: n_over_succ_n_formula 
+\exercise.
+%%%{{{ meta 
+\label n_over_succ_n_formula
+%%%}}}
+
+Demonstre que para todo inteiro $n \geq 1$.
+$$
+    \frac 1 {1 \cdot 2} +
+    \frac 1 {2 \cdot 3} +
+    \frac 1 {3 \cdot 4} + \cdots + 
+    \frac 1 {n (n+1)}
+    =
+    \frac n {n+1}
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ More on sets closed under subtraction 
 \section Mais sobre conjuntos fechados sob subtração.
 %%%{{{ meta 
@@ -10129,6 +10389,161 @@ $$
     \mtag[Z-PI=Z-PI$_\phi$]
 $$
 Consegues o \mref[Z-WOP] como teorema?
+
+%%}}}
+
+%%{{{ prob: induction_iff_strong_induction 
+\problem.
+%%%{{{ meta 
+\label induction_iff_strong_induction
+\indexes
+    * PIFF
+    * PIF
+    ;;
+%%%}}}
+
+$\text{PIF} \iff \text{PIFF}$.
+
+%%}}}
+
+%%{{{ prob: where_is_the_base_of_strong_induction 
+\problem Cadê a base da indução forte?.
+%%%{{{ meta 
+\label where_is_the_base_of_strong_induction
+%%%}}}
+
+Seguindo o teorema acima, parece que não precisamos demonstrar uma ``base''
+na indução forte.
+Critique a seguinte afirmação:
+\quote
+Quando quero demonstrar um teorema da forma
+$\lforall n {\phi(n)}$
+usando indução, eu preciso demostrar uma(s) base(s)
+$\phi(0), \phi(1), \dotsc, \phi(b)$
+e depois demonstrar o $\phi(k+1)$,
+dado apenas umas $b+1$ hipoteses:
+$\phi(k), \phi(k-1), \dotsc, \phi(k-b)$.
+Por outro lado, usando indução forte eu preciso mostrar menos
+coisas: não tenho que mostrar nenhuma base;
+e, além disso, no meu esforço para demonstrar o $\phi(k+1)$,
+eu não vou ter apenas umas poucas hipoteses, mas
+todos os $\phi(i)$ para $i<k+1$.
+Como os dois princípios são válidos no $\nats$,
+eu vou sempre usar indução forte.
+\endquote
+
+\hint
+Quantos $i\in\nats$ satisfazem $i < 0$?
+
+%%}}}
+
+%%{{{ prob: products_in_disguise 
+\problem.
+%%%{{{ meta 
+\label products_in_disguise
+%%%}}}
+
+Seja $h : \nats\to\nats$.
+Defina recursivamente as funcções $t : \nats \to \nats$ e $T : \nats^2 \to \nats$ que satisfazem:
+$$
+\align
+t(n)   &= h(0)h(1)\dotsb h(n-1)     = \Prod\limits_{i=0}^{n-1} h(i);\\
+T(m,n) &= h(m)h(m+1)\dotsb h(m+n-1) = \Prod\limits_{i=m}^{m+n-1} h(i).
+\endalign
+$$
+
+\hint
+Depois de definir confira tuas definições seguindo elas para calcular uns valores.
+Por exemplo, $t(2)$ e $T(5,2)$ devem dar os resultados
+$$
+\xalignat2
+t(2) &= h(0)h(1)
+&
+T(5,2) &= h(5)h(6).
+\endxalignat
+$$
+
+\hint
+Mesmo que a funcção $T$ tem aridade 2, escolhendo bem,
+tu não precisarás escrever 4 equações, mas apenas 2.
+
+\solution
+Definimos
+$$
+\xalignat2
+t      &\eqtype \nats\to\nats   &  T        &\eqtype \nats^2\to\reals\\
+t(0)   &= 1                     &  T(m,0)   &= 1                     \\
+t(n+1) &= h(n) \ntimes t(n)     &  T(m,k+1) &= h(m+k) \ntimes T(m,k).  
+\endxalignat
+$$
+Tendo definido primeiro a $T$, podemos definir a $t$ assim:
+$$
+t(n) = T(0,n).
+$$
+
+%%}}}
+
+%%{{{ prob: victors_mistake 
+\problem.
+%%%{{{ meta 
+\label victors_mistake
+%%%}}}
+
+Tentando resolver o~\ref[products_in_disguise],
+% STUDENT: Victor
+um aluno definiu corretamente a $t$ e depois a usou
+na sua definição de $T$, assim:
+$$
+T(m,n) = {t(m+n)}/{t(m)}.
+$$
+Qual o problema com essa definição?
+(Suponha como conhecida uma definição recursiva da
+operação $/$ de divisão inteira.)
+
+\hint
+Qual é o codomínio da $h$?
+
+\hint
+$0\in\nats$.
+
+\hint
+O que acontece se $h(i) = 0$ para algum $i \in \nats$?
+
+\solution
+Se $h(i) = 0$ para algum $i \in \nats$,
+o $t(j)=0$ para todo $j>i$.
+Assim, a expressão
+${t(m+n)}/{t(m)}$ não é definida para qualquer $m>i$.
+Observe que a solução seria certa se tivéssemos alguma garantia que
+$h$ não mapeia ninguém o $0$.
+
+%%}}}
+
+%%{{{ prob: every_finite_set_of_reals_has_min_and_max 
+\problem.
+%%%{{{ meta 
+\label every_finite_set_of_reals_has_min_and_max
+%%%}}}
+
+Cada conjunto finito e não vazio $A\subset\reals$ possui
+elemento mínimo $\min A$ e máximo $\max A$.
+
+\hint
+Indução no número de elementos do $A$.
+
+%%}}}
+
+\TODO Dar exemplos para o problema seguinte ou transformar em discussão.
+
+%%{{{ prob: not_all_that_seems_LEM_is_LEM 
+\problem.
+%%%{{{ meta 
+\label not_all_that_seems_LEM_is_LEM
+%%%}}}
+
+Uns leigos divulgando o LEM (\reftag[LEM_spell]) estão tentando
+vender a idéia que seria essencial para demonstrar mais
+proposições do que realmente é!
 
 %%}}}
 
@@ -17642,157 +18057,6 @@ Descubra um ``padrão'' nas definições dessas operações, e defina a próxima
 
 %%}}}
 
-%%{{{ prob: products_in_disguise 
-\problem.
-%%%{{{ meta 
-\label products_in_disguise
-%%%}}}
-
-Seja $h : \nats\to\nats$.
-Defina recursivamente as funcções $t : \nats \to \nats$ e $T : \nats^2 \to \nats$ que satisfazem:
-$$
-\align
-t(n)   &= h(0)h(1)\dotsb h(n-1)     = \Prod\limits_{i=0}^{n-1} h(i);\\
-T(m,n) &= h(m)h(m+1)\dotsb h(m+n-1) = \Prod\limits_{i=m}^{m+n-1} h(i).
-\endalign
-$$
-
-\hint
-Depois de definir confira tuas definições seguindo elas para calcular uns valores.
-Por exemplo, $t(2)$ e $T(5,2)$ devem dar os resultados
-$$
-\xalignat2
-t(2) &= h(0)h(1)
-&
-T(5,2) &= h(5)h(6).
-\endxalignat
-$$
-
-\hint
-Mesmo que a funcção $T$ tem aridade 2, escolhendo bem,
-tu não precisarás escrever 4 equações, mas apenas 2.
-
-\solution
-Definimos
-$$
-\xalignat2
-t      &\eqtype \nats\to\nats   &  T        &\eqtype \nats^2\to\reals\\
-t(0)   &= 1                     &  T(m,0)   &= 1                     \\
-t(n+1) &= h(n) \ntimes t(n)     &  T(m,k+1) &= h(m+k) \ntimes T(m,k).  
-\endxalignat
-$$
-Tendo definido primeiro a $T$, podemos definir a $t$ assim:
-$$
-t(n) = T(0,n).
-$$
-
-%%}}}
-
-%%{{{ prob: victors_mistake 
-\problem.
-%%%{{{ meta 
-\label victors_mistake
-%%%}}}
-
-Tentando resolver o~\ref[products_in_disguise],
-% STUDENT: Victor
-um aluno definiu corretamente a $t$ e depois a usou
-na sua definição de $T$, assim:
-$$
-T(m,n) = {t(m+n)}/{t(m)}.
-$$
-Qual o problema com essa definição?
-(Suponha como conhecida uma definição recursiva da
-operação $/$ de divisão inteira.)
-
-\hint
-Qual é o contradomínio da $h$?
-
-\hint
-$0\in\nats$.
-
-\hint
-O que acontece se $h(i) = 0$ para algum $i \in \nats$?
-
-\solution
-Se $h(i) = 0$ para algum $i \in \nats$,
-o $t(j)=0$ para todo $j>i$.
-Assim, a expressão
-${t(m+n)}/{t(m)}$ não é definida para qualquer $m>i$.
-Observe que a solução seria certa se
-o contradomínio da $h$ fosse o $\nats\setminus\set0$.
-
-%%}}}
-
-%%{{{ prob: every_finite_set_of_reals_has_min_and_max 
-\problem.
-%%%{{{ meta 
-\label every_finite_set_of_reals_has_min_and_max
-%%%}}}
-
-Cada conjunto finito e não vazio $A\subset\reals$ possui
-elemento mínimo $\min A$ e máximo $\max A$.
-
-\hint
-Indução no número de elementos do $A$.
-
-%%}}}
-
-%%{{{ prob: triminos 
-\problem Triminôs.
-%%%{{{ meta 
-\label triminos
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ prob: induction_iff_strong_induction 
-\problem.
-%%%{{{ meta 
-\label induction_iff_strong_induction
-\indexes
-    * PIFF
-    * PIF
-    ;;
-%%%}}}
-
-$\text{PIF} \iff \text{PIFF}$.
-
-%%}}}
-
-%%{{{ prob: where_is_the_base_of_strong_induction 
-\problem Cadê a base da indução forte?.
-%%%{{{ meta 
-\label where_is_the_base_of_strong_induction
-%%%}}}
-
-Seguindo o teorema acima, parece que não precisamos demonstrar uma ``base''
-na indução forte.
-Critique a seguinte afirmação:
-\quote
-Quando quero demonstrar um teorema da forma
-$\lforall n {\phi(n)}$
-usando indução, eu preciso demostrar uma(s) base(s)
-$\phi(0), \phi(1), \dotsc, \phi(b)$
-e depois demonstrar o $\phi(k+1)$,
-dado apenas umas $b+1$ hipoteses:
-$\phi(k), \phi(k-1), \dotsc, \phi(k-b)$.
-Por outro lado, usando indução forte eu preciso mostrar menos
-coisas: não tenho que mostrar nenhuma base;
-e, além disso, no meu esforço para demonstrar o $\phi(k+1)$,
-eu não vou ter apenas umas poucas hipoteses, mas
-todos os $\phi(i)$ para $i<k+1$.
-Como os dois princípios são válidos no $\nats$,
-eu vou sempre usar indução forte.
-\endquote
-
-\hint
-Quantos $i\in\nats$ satisfazem $i < 0$?
-
-%%}}}
-
 %%{{{ prob: ackermann_function 
 \problem.
 %%%{{{ meta 
@@ -17848,6 +18112,159 @@ Temos:
 
 %%}}}
 
+%%{{{ prob: consecutive_fibs_are_coprime 
+\problem.
+%%%{{{ meta 
+\label consecutive_fibs_are_coprime
+\indexes
+    * Fibonacci!seqüência
+    ;;
+%%%}}}
+
+Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
+onde $F_n$ é o $n$-ésimo termo da seqüência
+Fibonacci~(\ref[fibonacci]).
+
+\hint
+Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
+
+\solution
+Vamos demonstrar o pedido por indução.
+A base
+$$
+\gcd {F_0} {F_1} = \gcd 0 1 = 1.
+$$
+Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
+Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
+Calculando,
+\compute
+\gcd {F_{k+1}} {F_{k+2}}
+    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
+    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
+    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
+    &= 1.                               \by {pela hipótese indutiva} \\
+\endcompute
+
+%%}}}
+
+%%{{{ prob: natleq_woset 
+\problem.
+%%%{{{ meta 
+\label natleq_woset
+%%%}}}
+
+Demonstre por indução que a $\leq$, definida na~\ref[natleq]
+$$
+n \leq m \defiff \lexists {k\in\nats} {n + k = m}.
+$$
+é uma bem-ordem, i.e.,
+$$
+\text{para todo $A \subset \nats$,\quad
+se $A \neq \emptyset$ então $A$ tem elemento mínimo}.
+$$
+Dizemos que \dterm{mínimo membro de $A$} sse $m \in A$ e $\lforall {a \in A} {m \leq a}$.
+
+\hint
+Reductio ad absurdum.
+
+\hint
+Para chegar num absurdo suponha que existe $C \subset \nats$ não vazio
+tal que $C$ não possui mínimo.
+Vamos demonstrar que para todo $n\in\nats$, $C$ não possui membros $c \leq n$.
+Isso é suficiente para garantir que $C$ é vazio.
+
+\hint
+Agora indução.
+
+\hint
+\case{Base: $C$ não possui membros $c \leq 0$.}
+Imediato, pois o único natural $n \leq 0$ é o próprio $0$ que é o menor
+membro do $\nats$.  Sabemos então que $0 \nin C$ pois caso contrário
+o $C$ teria um mínimo.
+
+\hint
+\case{Passo Indutivo.}
+Seja $k$ tal que $C$ não possui membros $c \leq k$.
+Basta demonstrar que $C$ não possui membros $c \leq k+1$.
+
+\solution
+Usamos reductio ad absurdum.
+Para chegar num absurdo suponha que existe $C \subset \nats$ não vazio
+tal que $C$ não possui mínimo.
+Vamos demonstrar que para todo $n\in\nats$, $C$ não possui membros $c \leq n$.
+Isso é suficiente para garantir que $C$ é vazio.
+\case{Base: $C$ não possui membros $c \leq 0$.}
+Imediato, pois o único natural $n \leq 0$ é o próprio $0$ que é o menor
+membro do $\nats$.  Sabemos então que $0 \nin C$ pois caso contrário
+o $C$ teria um mínimo.
+\case{Passo Indutivo.}
+Seja $k$ tal que $C$ não possui membros $c \leq k$.
+Basta demonstrar que $C$ não possui membros $c \leq k+1$.
+Suponha então que $C$ possui $c_0 \leq k+1$.
+Logo $c_0 < k+1$ ou $c_0 = k+1$.
+O caso $c_0 < k+1$ é eliminado pela (HI).
+No outro caso temos $k+1 \in C$.
+% TODO: finish this
+
+%%}}}
+
+%%{{{ prob: rec_and_nonrec_def_of_order_agree 
+\problem.
+%%%{{{ meta 
+\label rec_and_nonrec_def_of_order_agree
+%%%}}}
+
+Na~\ref[natleq] definimos a ordem $\leq$ nos naturais.
+Na~\ref[natleq_rec_def] definimos a relação $\preceq$ nos naturais.
+Obviamente não podemos dar duas definições diferentes para a mesma coisa.
+Demonstre que as duas definições sempre concordam:
+$$
+\text{para todo $n,m\in\nats$, \quad $n \leq m \iff n \preceq m$.}
+$$
+
+%%}}}
+
+%%{{{ prob: nat_even_or_odd 
+\problem.
+%%%{{{ meta 
+\label nat_even_or_odd
+%%%}}}
+
+Qualquer Nat é par ou ímpar.
+
+\hint
+Indução!
+
+%%}}}
+
+%%{{{ prob: structural_induction_teaser_prob 
+\problem.
+%%%{{{ meta 
+\label structural_induction_teaser_prob
+%%%}}}
+
+Em qual outros (não-Nat) tipos de coisas tu pode enunciar um princípio
+de indução?  Como definarias algo por recursão?
+Tente demonstrar alguma propriedade simples sobre tua escolha.
+
+\hint
+Tente as fórmulas de lógica proposicional e de predicados (FOL) também.
+Podes definir uma funcção que conta quantos $\lor$ aparecem na sua entrada?
+Podes demonstrar que em cada fórmula bem formada a quantidade de \symq{$($}
+e a quantidade de \symq{$)$} são iguais?
+
+%%}}}
+
+%%{{{ prob: triminos 
+\problem Triminôs.
+%%%{{{ meta 
+\label triminos
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
 %%{{{ prob: horses_and_birthdays 
 \problem Cavalos e aniversários.
 %%%{{{ meta 
@@ -17889,41 +18306,6 @@ Numa maneira parecida podemos demonstrar várias afirmações doidas, como por e
 Obviamente o que ``demonstramos'' é errado, e logo na demonstração existe pelo menos um erro---%
 caso contrário seria uma indicação que o princípio da indução não é válido!
 Qual é?
-
-%%}}}
-
-%%{{{ prob: consecutive_fibs_are_coprime 
-\problem.
-%%%{{{ meta 
-\label consecutive_fibs_are_coprime
-\indexes
-    * Fibonacci!seqüência
-    ;;
-%%%}}}
-
-Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
-onde $F_n$ é o $n$-ésimo termo da seqüência
-Fibonacci~(\ref[fibonacci]).
-
-\hint
-Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
-
-\solution
-Vamos demonstrar o pedido por indução.
-A base
-$$
-\gcd {F_0} {F_1} = \gcd 0 1 = 1.
-$$
-Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
-Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
-Calculando,
-\compute
-\gcd {F_{k+1}} {F_{k+2}}
-    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
-    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
-    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
-    &= 1.                               \by {pela hipótese indutiva} \\
-\endcompute
 
 %%}}}
 
@@ -18405,247 +18787,13 @@ lemma numa linha só!
 \endsection
 %%}}}
 
-%%{{{ Sums and products, formally 
+%%{{{ Sums_and_products_done_right 
 \section Somatórios e produtórios formalmente.
 %%%{{{ meta 
+\label Sums_and_products_done_right 
 %%%}}}
 
-\TODO Definições recursivas de somatórios e produtórios.
-
-\TODO Generalizando operadores binários para $n$-ários.
-
-%%{{{ eg: gauss_child 
-\example.
-%%%{{{ meta 
-\label gauss_child
-%%%}}}
-
-Demonstre que para todo $n\in\nats$,
-$$
-2 \Sum_{i=1}^n i = n (n+1).
-$$
-
-\solution.
-Por indução.
-Primeiramente demonstramos a \proofpart{base:}
-$$
-2 \Sum_{i=1}^0 i \askeq 0 (0+1).
-$$
-Calculamos:
-\math
-2 \Sum_{i=1}^0 i
-= 2 \ntimes 0
-= 0
-= 0 (0+1).
-\endmath
-\proofpart{Passo indutivo.}
-Seja $k\in\nats$ tal que
-$$
-2 \Sum_{i=1}^k i = k (k+1).  \tag{H.I.}
-$$
-Calculamos:
-\compute
-2 \Sum_{i=1}^{k+1} i
-&= 2((k+1) + \Sum_{i=1}^k i) \\
-&= 2(k+1) + 2\Sum_{i=1}^k i \\
-&= 2(k+1) + k(k+1) \by {pela H.I.} \\
-&= (2+k)(k+1) \\
-&= (k+1)(k+2).
-\endcompute
-
-%%}}}
-
-%%{{{ x: sum_of_cubes_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_cubes_formula
-%%%}}}
-
-Demonstre que
-$$
-4 \paren{1 + 8 + 27 + \dotsb + n^3} = n^2 (n+1)^2
-$$
-para todo $n\in\nats$.
-
-\hint
-Lembre que o somatório vazio é $0$.
-
-%%}}}
-
-%%{{{ x: sum_of_negative_powers_of_two_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_negative_powers_of_two_formula
-%%%}}}
-
-Observando os valores de:
-$$
-\align
-    1
-    +
-    \frac 1 2
-    &= 2 - \frac 1 2\\
-    1
-    +
-    \frac 1 2
-    +
-    \frac 1 4
-    &= 2 - \frac 1 4\\
-    1
-    +
-    \frac 1 2
-    +
-    \frac 1 4
-    +
-    \frac 1 8
-    &= 2 - \frac 1 8,
-\intertext{adivinhe uma fórmula geral para o somatório}
-    1 + \frac 1 2 + \frac 1 4 + \cdots + \frac 1 {2^n} &= \text{?}
-\endalign
-$$
-e demonstre que ela é válida para todo $n\in\nats$.
-
-%%}}}
-
-%%{{{ x: one_minus_sum_of_1_over_n_formula 
-\exercise.
-%%%{{{ meta 
-\label one_minus_sum_of_1_over_n_formula
-%%%}}}
-
-Calculando os valores de:
-$$
-    \paren{1 - \frac 1 2},
-   \qquad 
-    \paren{1 - \frac 1 2}
-    \paren{1 - \frac 1 3},
-   \qquad
-    \paren{1 - \frac 1 2}
-    \paren{1 - \frac 1 3}
-    \paren{1 - \frac 1 4},
-$$
-adivinhe uma fórmula geral para o produtório
-$$
-\Prod_{i=2}^n\paren{ 1 - \frac 1 i}
-=
-    \paren{1 - \frac 1 2}
-    \paren{1 - \frac 1 3}
-    \paren{1 - \frac 1 4}
-\dotsb
-    \paren{1 - \frac 1 n}
-$$
-e demonstre que ela é válida para todo inteiro $n \geq 2$.
-
-%%}}}
-
-%%{{{ x: sum_of_squares_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_squares_formula
-%%%}}}
-
-Demonstre que para todo $n \in\nats$,
-$$
-\Sum_{i=1}^n i^2
-= \frac {n^3} 3 + \frac {n^2} 2 + \frac n 6.
-$$
-
-%%}}}
-
-%%{{{ x: sum_of_cubes_and_gauss_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_cubes_and_gauss_formula
-%%%}}}
-
-Demonstre que para todo $n \in\nats$,
-$$
-\align
-\Sum_{i=1}^n i^3 &= \paren{\Sum_{i=1}^n i}^2\\
-\text{ou seja,}\qquad
-1^3 + 2^3 + \dotsb + n^3 &= \paren{ 1 + 2 + 3 + \dotsb + n }^2.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ x: sum_of_threes_and_fives 
-\exercise.
-%%%{{{ meta 
-\label sum_of_threes_and_fives
-%%%}}}
-
-Qualquer número inteiro positivo $n \geq 8$ pode ser escrito
-como somatório de $3$'s e $5$'s.
-
-%%}}}
-
-%%{{{ x 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Seja
-$$
-\phi(n) \defiff 1 + 2 + \dotsb + n = \frac 1 8 \paren{2n + 1}^2.
-$$
-\tlist:
-\li (i):
-Demonstre que para todo $k\in\nats$, se $\phi(k)$ então $\phi(k+1)$.
-\li (ii):
-Critique a oração:
-\emph{\wq{Logo, por indução, temos que para todo $n\in\nats$, $phi(n)$.}}.
-\li (iii):
-Mudando apenas o \sq{$=$} para \sq{$>$} ou \sq{$<$}, defina um outro
-predicado $\psi(\dhole)$ tal que para todo $n\in\nats$, $\psi(n)$
-(demonstre por indução).
-\endtlist
-
-%%}}}
-
-%%{{{ x fibonacci 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Demonstre que para todo $n\in\nats$,
-$$
-\Sum_{i=0}^n F_i = F_{n+2} - 1,
-$$
-onde $F_n$ o $n$-ésimo número Fibonacci.
-
-%%}}}
-
-%%{{{ x fibonacci 2 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Demonstre que para todo $n\in\nats$,
-$$
-\Sum_{i=1}^n F_i^2 = F_n F_{n+1},
-$$
-onde $F_n$ o $n$-ésimo número Fibonacci.
-
-%%}}}
-
-%%{{{ x: n_over_succ_n_formula 
-\exercise.
-%%%{{{ meta 
-\label n_over_succ_n_formula
-%%%}}}
-
-Demonstre que para todo inteiro $n \geq 1$.
-$$
-    \frac 1 {1 \cdot 2} +
-    \frac 1 {2 \cdot 3} +
-    \frac 1 {3 \cdot 4} + \cdots + 
-    \frac 1 {n (n+1)}
-    =
-    \frac n {n+1}
-$$
-
-%%}}}
+\TODO Escrever.
 
 \endsection
 %%}}}
@@ -19186,67 +19334,6 @@ $m_* \leq m' \leq x$.
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ prob: natleq_woset 
-\problem.
-%%%{{{ meta 
-\label natleq_woset
-%%%}}}
-
-Demonstre por indução que a $\leq$, definida na~\ref[natleq]
-$$
-n \leq m \defiff \lexists {k\in\nats} {n + k = m}.
-$$
-é uma bem-ordem, i.e.,
-$$
-\text{para todo $A \subset \nats$,\quad
-se $A \neq \emptyset$ então $A$ tem elemento mínimo}.
-$$
-Dizemos que \dterm{mínimo membro de $A$} sse $m \in A$ e $\lforall {a \in A} {m \leq a}$.
-
-\hint
-Reductio ad absurdum.
-
-\hint
-Para chegar num absurdo suponha que existe $C \subset \nats$ não vazio
-tal que $C$ não possui mínimo.
-Vamos demonstrar que para todo $n\in\nats$, $C$ não possui membros $c \leq n$.
-Isso é suficiente para garantir que $C$ é vazio.
-
-\hint
-Agora indução.
-
-\hint
-\case{Base: $C$ não possui membros $c \leq 0$.}
-Imediato, pois o único natural $n \leq 0$ é o próprio $0$ que é o menor
-membro do $\nats$.  Sabemos então que $0 \nin C$ pois caso contrário
-o $C$ teria um mínimo.
-
-\hint
-\case{Passo Indutivo.}
-Seja $k$ tal que $C$ não possui membros $c \leq k$.
-Basta demonstrar que $C$ não possui membros $c \leq k+1$.
-
-\solution
-Usamos reductio ad absurdum.
-Para chegar num absurdo suponha que existe $C \subset \nats$ não vazio
-tal que $C$ não possui mínimo.
-Vamos demonstrar que para todo $n\in\nats$, $C$ não possui membros $c \leq n$.
-Isso é suficiente para garantir que $C$ é vazio.
-\case{Base: $C$ não possui membros $c \leq 0$.}
-Imediato, pois o único natural $n \leq 0$ é o próprio $0$ que é o menor
-membro do $\nats$.  Sabemos então que $0 \nin C$ pois caso contrário
-o $C$ teria um mínimo.
-\case{Passo Indutivo.}
-Seja $k$ tal que $C$ não possui membros $c \leq k$.
-Basta demonstrar que $C$ não possui membros $c \leq k+1$.
-Suponha então que $C$ possui $c_0 \leq k+1$.
-Logo $c_0 < k+1$ ou $c_0 = k+1$.
-O caso $c_0 < k+1$ é eliminado pela (HI).
-No outro caso temos $k+1 \in C$.
-% TODO: finish this
-
-%%}}}
-
 %%{{{ prob: finite_numbersets_have_min_quantifier_check 
 \problem.
 %%%{{{ meta 
@@ -19255,40 +19342,6 @@ No outro caso temos $k+1 \in C$.
 
 Faria sentido trocar o \sq{$\pexists {a \in A}$} por \sq{$\pforall {a \in A}$}
 na fim do \ref[finite_numbersets_have_min]?
-
-%%}}}
-
-%%{{{ prob: rec_and_nonrec_def_of_order_agree 
-\problem.
-%%%{{{ meta 
-\label rec_and_nonrec_def_of_order_agree
-%%%}}}
-
-Na~\ref[natleq] definimos a ordem $\leq$ nos naturais.
-Na~\ref[natleq_rec_def] definimos a relação $\preceq$ nos naturais.
-Obviamente não podemos dar duas definições diferentes para a mesma coisa.
-Demonstre que as duas definições sempre concordam:
-$$
-\text{para todo $n,m\in\nats$, \quad $n \leq m \iff n \preceq m$.}
-$$
-
-%%}}}
-
-%%{{{ prob: structural_induction_teaser_prob 
-\problem.
-%%%{{{ meta 
-\label structural_induction_teaser_prob
-%%%}}}
-
-Em qual outros (não-Nat) tipos de coisas tu pode enunciar um princípio
-de indução?  Como definarias algo por recursão?
-Tente demonstrar alguma propriedade simples sobre tua escolha.
-
-\hint
-Tente as fórmulas de lógica proposicional e de predicados (FOL) também.
-Podes definir uma funcção que conta quantos $\lor$ aparecem na sua entrada?
-Podes demonstrar que em cada fórmula bem formada a quantidade de \symq{$($}
-e a quantidade de \symq{$)$} são iguais?
 
 %%}}}
 
@@ -19380,28 +19433,6 @@ Calculamos:
 &= s \concat \rexp s {k-1}               \by {HI1} \\
 &= \rexp s k.                            \by {R2} \\
 \endcompute
-
-%%}}}
-
-%%{{{ prob: even_or_odd_without_LEM 
-\problem.
-%%%{{{ meta 
-\label even_or_odd_without_LEM
-%%%}}}
-
-Divulgando o LEM (\reftag[LEM_spell]) tentei vender
-a idéia que seria essencial para demonstrar mais
-proposições do que realmente é!
-Com as definições de par e ímpar seguintes
-\mathcol
-\text{$n$ par}   &\defiff \lexists {k \in \ints} {n = 2k} \\
-\text{$n$ ímpar} &\defiff \lexists {k \in \ints} {n = 2k+1}
-\endmathcol
-e sem usar nenhum dos feitiços do \ref[Proofs], demonstre a proposição:
-{\proclaimstyle todo número natural é par ou ímpar.}
-
-\hint
-Indução!
 
 %%}}}
 
