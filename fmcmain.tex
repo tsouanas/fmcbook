@@ -8993,7 +8993,7 @@ Demonstre que se $A$ possui mínimo, então $-A$ possui máximo e
 %%}}}
 
 %%{{{ Absolute value 
-\section Valor absoluto.
+\section Valor absoluto e distância.
 %%%{{{ meta 
 %%%}}}
 
@@ -12569,6 +12569,150 @@ Essa pergunta é para o leitor que já viu algo que não encontramos ainda aqui.
 \endsection
 %%}}}
 
+%%{{{ Valuations_of_ints 
+\section Valuações.
+%%%{{{ meta 
+\label Valuations_of_ints
+%%%}}}
+
+%%{{{ intro 
+\secintro
+Já temos, nos inteiros, um conceito de \emph{tamanho:} $\abs { \uhole }$.
+A partir dele, definimos uma idéia de \emph{distância:} $\abs {{\uhole} - {\uhole}}$.
+Agora vamos ver uma maneira bem diferente de definir tamanho nos inteiros,
+e logo uma nova idéia de distância também.
+%%}}}
+
+%%{{{ df: int_valuation 
+\definition Valuação.
+%%%{{{ meta 
+\label int_valuation
+\indexes
+    * valuação      seealso: primo
+    ;;
+\defines
+    * valuação
+    ;;
+%%%}}}
+
+Fixe um primo $p$.
+Definimos a função $V_p \hastype \Int \to \Int$ pelas
+$$
+V_p \fa a = \max \setst i {p^i \divides a}.
+$$
+Chamamos a $V_p$ de \dterm{$p$-valuação}.
+Defina o \dterm{tamanho $p$-ádico} e a \dterm{distância $p$-ádica} pelas
+\mathcols 2
+\normx p a     &\defeq p^{-(V_p~a)}; &
+d_p (x,y)      &\defeq \normx p {x - y}.
+\endmathcols
+Quando o \sq{${}_p$} é óbvio pelo contexto, o omitimos dessas notações.
+
+%%}}}
+
+%%{{{ x: p_valuation_of_zero 
+\exercise.
+%%%{{{ meta 
+\label p_valuation_of_zero
+%%%}}}
+
+A \ref[int_valuation] tem um erro.  Ache e corrija!
+
+%%}}}
+
+%%{{{ x: p_valuation_of_sum_and_product 
+\exercise.
+%%%{{{ meta 
+\label p_valuation_of_sum_and_product
+%%%}}}
+
+Seja $V$ uma $p$-valuação para algum primo $p$.
+Demonstre:
+\elist i:
+\li: $V \fa (a+b) \geq \min \set {V \fa a, V \fa b}$;
+\li: $V \fa (ab) = V \fa a + V \fa b$.
+\endelist
+
+%%}}}
+
+%%{{{ x: p_valuation_of_gcd_and_lcm 
+\exercise.
+%%%{{{ meta 
+\label p_valuation_of_gcd_and_lcm
+%%%}}}
+
+Seja $V$ uma $p$-valuação para algum primo $p$.
+Demonstre:
+\elist i:
+\li: $V \fa (a,b) = \min \set {V \fa a, V \fa b}$;
+\li: $V \fa [a,b] = \max \set {V \fa a, V \fa b}$.
+\endelist
+
+%%}}}
+
+%%{{{ x: p_norm_properties 
+\exercise.
+%%%{{{ meta 
+\label p_norm_properties
+%%%}}}
+
+Demonstre:
+\elist i:
+\li: $\norm {ab} = \norm a \norm b$;
+\li: $\norm {a + b} \leq \max \set {\norm a, \norm b} \leq \norm a + \norm b$.
+\endelist
+
+%%}}}
+
+%%{{{ x: product_of_p_norms 
+\exercise.
+%%%{{{ meta 
+\label product_of_p_norms
+%%%}}}
+
+Seja $x$ inteiro.
+Demonstre:
+$$
+x = \Prod_{\text{$p$ primo}} \normx p x.
+$$
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+A partir dum primo $p$, definimos a função $d_p$ que chamamos de
+distância $p$-ádica, mas devemos demonstrar que ela merece o nome \emph{distância:}
+
+%%}}}
+
+%%{{{ x: p_distance_properties 
+\exercise.
+%%%{{{ meta 
+\label p_distance_properties
+\indexes
+    * distância          seealso: métrica
+    * distância!função
+    ;;
+%%%}}}
+
+A distância definida a partir da $\normx p \uhole$ realmente
+é uma \dterm{função de distância}, ou seja:
+\elist i:
+\li: $d(x,y) \geq 0$;
+\li: $d(x,y) = 0 \implies x=y$;
+\li: $d(x,x) = 0$;
+\li: $d(x,y) = d(y,x)$;
+\li: $d(x,z) \leq d(x,y) + d(y,z)$.
+\endelist
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Conjectures_in_number_theory 
 \section Conjecturas.
 %%%{{{ meta 
@@ -13039,6 +13183,28 @@ Generalize a representação canônica de inteiros para racionais.
 
 \hint
 Qual foi tua resposta no~\ref[canonical_representation_with_int_exponents]?
+
+%%}}}
+
+%%{{{ prob: p_valuation_based_form 
+\problem.
+%%%{{{ meta 
+\label p_valuation_based_form
+%%%}}}
+
+Seja $V \hastype \Int \to \Int$ tal que goza das propriedades
+do~\ref[p_valuation_of_sum_and_product]:
+\elist i:
+\li: $V (a+b) \geq min (V \fa a) (V \fa b)$;
+\li: $V (ab) = V \fa a + V \fa b$.
+\endelist
+Demonstre que existem inteiro $c$ e primo $p$ tais que $V = cV_p$, onde
+$$
+V = cV_p \intiff \lforall a {V(a) = cV_p(a)}.
+$$
+
+\hint
+Comece achando um $p$ tal que $V(p) > 0$.
 
 %%}}}
 
