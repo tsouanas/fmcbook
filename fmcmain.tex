@@ -21327,6 +21327,2442 @@ $$
 \endsection
 %%}}}
 
+%%{{{ Number of subsets 
+\section Número de subconjuntos.
+%%%{{{ meta 
+\label Number_of_subsets
+%%%}}}
+
+%%{{{ Q: how many subsets of a finite set? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Quantos subconjuntos dum conjunto finito existem?
+
+%%}}}
+
+%%{{{ Idea 1: subset_count_using_strings 
+\note Idéia 1.
+%%%{{{ meta 
+\label subset_count_using_strings
+%%%}}}
+
+Começamos com um exemplo de um conjunto $A$ de tamanho 6:
+$$
+A = \set{a, b, c, d, e, f}.
+$$
+Uns subconjuntos de $A$ são os:
+$$
+\set{a,d,e},
+\qquad
+\emptyset,
+\qquad
+\set{a},
+\qquad
+\set{b,c,e,f},
+\qquad
+A,
+\qquad
+\set{f},
+\qquad
+\dotsc
+$$
+Queremos contar todos os subconjuntos de $A$.
+Vamos \emph{traduzir o problema} de contar os subconjuntos do $A$
+para um problema que envolve $n$-tuplas de dois símbolos ``0'' e ``1'', ``sim'' e ``não'', ``$\in$'' e ``$\nin$'', etc.
+(Obviamente \emph{quais} são esses símbolos não afeita nada; o que importa é
+que são dois símbolos distintos.)
+Podemos associar agora cada dessas tuplas (ou strings) de tamanho $n$ para um
+subconjunto de $A$, e vice-versa, chegando numa correspondência entre as duas
+colecções de objetos.
+Naturalmente associamos, por exemplo,
+$$
+\def\Y{1}
+\def\N{0}
+\underbrace{
+\matrix
+a  & b  & c  & d  & e  & f \\
+\Y & \N & \N & \Y & \Y & \N\\
+\N & \N & \N & \N & \N & \N\\
+\Y & \N & \N & \N & \N & \N\\
+\N & \Y & \Y & \N & \Y & \Y\\
+\Y & \Y & \Y & \Y & \Y & \Y\\
+\N & \N & \N & \N & \N & \Y\\
+\vdots&
+\vdots&
+\vdots&
+\vdots&
+\vdots&
+\vdots
+\endmatrix
+}_{\text{Strings de tamanho 6 do alfabeto $\set{\N,\Y}$}}
+\quad\bitrans\quad
+\underbrace{
+\matrix
+\format
+\c\\
+\\
+\set{a,d,e}\\
+\emptyset\\
+\set{a}\\
+\set{b,c,e,f}\\
+A\\
+\set{f}\\
+\vdots
+\endmatrix
+}_{\text{Subconjuntos de $A$}}
+$$
+e verificamos que realmente cada configuração do problema original de subconjuntos
+corresponde exatamente numa configuração do problema novo dos strings e vice-versa.
+\eop
+\emph{O que ganhamos?}
+Sabemos como contar todos esses strings: são $2^6$.
+Concluimos que os subconjuntos do $A$ são $2^6$ também.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Generalizando essa idéia chegamos no resultado:
+
+%%}}}
+
+%%{{{ prop: number_of_subsets_of_finite_set_as_power 
+\proposition.
+%%%{{{ meta 
+\label number_of_subsets_of_finite_set_as_power
+%%%}}}
+
+Seja $A$ conjunto finito.
+$$
+\card{\pset A} = 2^{\card A}.
+$$
+
+%%}}}
+
+%%{{{ Idea 2: subset_count_by_grouping 
+\note Idéia 2.
+%%%{{{ meta 
+\label subset_count_by_grouping
+%%%}}}
+
+Um outro jeito para contar todos os subconjuntos dum dado conjunto $A$, seria
+os separar em grupos baseados no seu tamanho.
+Assim, percebos que esses subconjuntos são naturalmente divididos em $n+1$ colecções:
+subconjuntos com $0$ elementos, com $1$ elemento, \dots, com $n$ elementos.
+\eop
+\emph{O que ganhamos?}
+Sabemos como contar os elementos de cada uma dessas colecções:
+para formar um subconjunto de tamanho $r$, precisamos escolher $r$ dos $n$ elementos,
+ou seja, existem $\comb n r$ subconjuntos de tamanho $r$.
+Agora, pelo princípio da adição basta apenas somar:
+são
+$\Sum_{i=0}^n \comb n i$.
+\eop
+\emph{Qual o problema?}
+Comparando essa solução com a do item~\reftag[subset_count_using_strings],
+aqui temos a dificuldade de realmente calcular todos os $n$ números $\comb n i$
+para os somar.
+O~\ref[sum_of_all_binomial_coefficients] mostre que na verdade,
+não é nada dificil calcular o somatório diretamente sem nem
+calcular nenhum dos seus termos separadamente!
+
+%%}}}
+
+%%{{{ prop: number_of_subsets_of_finite_set_as_sum 
+\proposition.
+%%%{{{ meta 
+\label number_of_subsets_of_finite_set_as_sum
+%%%}}}
+
+Seja $A$ conjunto finito.
+$$
+\card{\pset A} = \Sum_{i=0}^n \comb n i,\qquad\text{onde $n = \card A$}.
+$$
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Combinando as duas proposições chegamos num resultado interessante:
+
+%%}}}
+
+%%{{{ cor: sum_of_binom_coefs 
+\corollary.
+%%%{{{ meta 
+\label sum_of_binom_coefs
+%%%}}}
+
+Para todo $n\in\nats$,
+$$
+\Sum_{i=0}^n \binom n i
+= \binom n 0 + \binom n 1 + \dotsb + \binom n {n-1} + \binom n n
+= 2^n
+$$
+
+%%}}}
+
+%%{{{ x: sum_of_all_binomial_coefficients 
+\exercise.
+%%%{{{ meta 
+\label sum_of_all_binomial_coefficients
+%%%}}}
+
+Esqueça o corolário e demonstre que:
+$$
+\alignat 2
+\Sum_{i=0}^n \binom n i
+&= \binom n 0 + \binom n 1 + \binom n 2 + \dotsb + \binom n n
+&&= 2^n\\
+\Sum_{i=0}^n (-1)^i \binom n i
+&=\binom n 0 - \binom n 1 + \binom n 2 - \dotsb + (-1)^n \binom n n
+&&= 0
+\endalignat
+$$
+
+\hint
+Teorema binomial~\reftag[binomial_theorem].
+
+\hint
+Cada somatório é apenas um caso especial do teorema binomial.
+
+\hint
+Toma $x,y \asseq 1$ no teorema para resolver o primeiro.
+
+\hint
+Toma $x \asseq 1$ e $y \asseq -1$ para resolver o segundo.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Pascal's triangle 
+\section O triângulo de Pascal.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ The first powers of the binomial 
+\note As primeiras potências do binomial.
+%%%{{{ meta 
+%%%}}}
+
+Calculamos:
+$$
+\align
+(x+y)^0 &= 1\\
+(x+y)^1 &= x   + y\\
+(x+y)^2 &= x^2 + 2 xy    + y^2\\
+(x+y)^3 &= x^3 + 3 x^2y  + 3 xy^2     + y^3\\
+(x+y)^4 &= x^4 + 4 x^3y  + 6 x^2y^2   + 4xy^3      + y^4\\
+(x+y)^5 &= x^5 + 5 x^4y  + 10 x^3y^2  + 10 x^2y^3  + 5 xy^4     + y^5\\
+(x+y)^6 &= x^6 + 6 x^5y  + 15 x^4y^2  + 20 x^3y^3  + 15 x^2y^4  + 6 xy^5    + y^6\\
+(x+y)^7 &= x^7 + 7 x^6y  + 21 x^5y^2  + 35 x^4y^3  + 35 x^3y^4  + 21 x^2y^5 + 7 xy^6    + y^7\\
+(x+y)^8 &= x^8 + 8 x^7y  + 28 x^6y^2  + 56 x^5y^3  + 70 x^4y^4  + 56 x^3y^5 + 28 x^2y^6 + 8 xy^7 + y^8
+\endalign
+$$
+
+%%}}}
+
+%%{{{ pascal_triangle 
+\note O triângulo de Pascal.
+%%%{{{ meta 
+\label pascal_triangle
+\defines
+    * triângulo!de Pascal
+    ;;
+%%%}}}
+
+Tomando os coeficientes acima criamos o triângulo seguinte,
+conhecido como \dterm{triângulo de Pascal}{\Pascal[triângulo]}:%
+$$
+\matrix
+\format
+\;\c\; &
+\;\c\; &
+\;\c\; &
+\;\c\; &
+\;\c\; &
+\;\c\; &
+\;\c\; &
+\;\c\; &
+\;\c\; &
+\;\c\; &
+\;\c\; \\
+1\\
+1&1\\
+1&2&1\\
+1&3&3&1\\
+1&4&6&4&1\\
+1&5&10&10&5&1\\
+1&6&15&20&15&6&1\\
+1&7&21&35&35&21&7&1\\
+1&8&28&56&70&56&28&8&1\\
+\;\vdots\;&
+\phantom{00}&
+\phantom{00}&
+\phantom{00}&
+\phantom{00}&
+\phantom{00}&
+\phantom{00}&
+\phantom{00}&
+\phantom{00}&
+\ddots
+\endmatrix
+$$
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Observando o triângulo, percebemos que com umas exceções---quais?---cada
+número é igual à soma de dois números \emph{na linha em cima}:
+aquele que fica na mesma posição, e aquele que fica na posição anterior.
+(Consideramos os ``espaços'' no triângulo como se fossem $0$'s.)
+
+%%}}}
+
+%%{{{ x: write this formally 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Escreva essa relação formalmente.
+
+\hint
+O $\binom a b$ está na linha $a$, na posição $b$
+(começando contar com 0).
+
+\solution
+Temos as equações:
+$$
+\rightbrace {
+\aligned
+\binom 0 0          &= 1\\
+\binom 0 r          &= 0\\
+\binom n r          &= \binom {n-1} r + \binom {n-1} {r-1}
+\endaligned
+}
+\quad
+\text{equivalentemente}
+\quad
+\leftbrace {
+\aligned
+\binom 0     0      &= 1\\
+\binom 0     {r+1}  &= 0\\
+\binom {n+1} {r+1}  &= \binom n {r+1} + \binom n r.
+\endaligned
+}
+$$
+
+%%}}}
+
+%%{{{ thm: combinations_recursive_equation 
+\theorem.
+%%%{{{ meta 
+\label combinations_recursive_equation
+%%%}}}
+
+Para todos inteiros positivos $n$ e $r$ temos:
+$$
+\comb n r = \comb {n-1} r + \comb {n-1} {r-1}.
+$$
+
+\sketch.
+Lembramos que $\comb n r$ é o número das maneiras que podemos
+escolher $r$ de $n$ objetos.
+Fixe um dos $n$ objetos e o denote por $s$,
+para agir como \dq{separador de maneiras}:
+separamos as maneiras de escolher em dois:
+aquelas que escolhem (entre outros) o $s$ e aquelas que não o escolhem.
+Contamos cada colecção separadamente e somamos (princípio da adição)
+para achar o resultado:
+$$
+\comb n r
+= \tubrace {\comb {n-1} r}     {escolhas sem $s$}
++ \tubrace {\comb {n-1} {r-1}} {escolhas com $s$}.
+$$
+
+%%}}}
+
+%%{{{ x 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Demonstre o~\ref[combinations_recursive_equation] para todos os $n,r\in\nats$
+com $0 < r < n$, usando como definição do símbolo $\comb n r$ a
+$$
+\comb n r = \frac {n!} {(n-r)!\stimes r!}.
+$$
+
+\hint
+Demonstre diretamente usando apenas a definição de fatorial.
+
+\solution
+Sejam $r,n\in\nats$ com $0<r<n$.
+Calculamos:
+$$
+\alignat 4
+\intertext{$\comb n r = \comb {n-1} r + \comb {n-1} {r-1}$}
+&\iff\quad& \frac {n!} {(n-r)!\stimes r!} &= \frac {(n-1)!} {(n-1-r)!\stimes r!}              &\!\!{}+{}\ & \frac {(n-1)!} {(n-1-(r-1))!\stimes (r-1)!} &\qquad&\qquad\\
+&\iff\quad& n! &= \frac {(n-1)!\stimes(n-r)!\stimes r!} {(n-r-1)!\stimes r!}                  &\!\!{}+{}\ & \frac {(n-1)!\stimes(n-r)!\stimes r!} {(n-r)!\stimes (r-1)!}\\
+&\iff\quad& n! &= \frac {(n-1)!\stimes(n-r)!\stimes\cancel{r!}} {(n-r-1)!\stimes \cancel{r!}} &\!\!{}+{}\ & \frac {(n-1)!\stimes\cancel{(n-r)!}\stimes r!} {\cancel{(n-r)!}\stimes (r-1)!}\\
+&\iff\quad& n! &= \frac {(n-1)!\stimes(n-r)\!\cancel{\stimes!\stimes}} {\cancel{(n-r-1)!}}    &\!\!{}+{}\ & \frac {(n-1)!\stimes r\cancel{\stimes!\stimes}} {\cancel{(r-1)!}}\\
+&\iff\quad& n! &= {(n-1)!\stimes(n-r)} &\!\!{}+{}\ & {(n-1)!\stimes r} \\
+&\iff\quad& n! &= {(n-1)!\stimes((n-r) + r)}\\
+&\iff\quad& n! &= {(n-1)!\stimes n}\\
+&\iff\quad& n! &= n!
+\endalignat
+$$
+
+%%}}}
+
+%%{{{ x 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+\emph{Redefina} o símbolo $\comb n r$ para todo $n,r\in\nats$
+recursivamente com
+\mathcol
+\comb 0 0  &= 1\\
+\comb 0 r  &= 0\\
+\comb n r  &= \comb {n-1} r + \comb {n-1} {r-1},
+\endmathcol
+e demonstre que para todo $n,r\in\nats$,
+$\comb n r = \dfrac {n!} {(n-r)!\stimes r!}$\,.
+
+\hint
+Indução.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Counting recursively 
+\section Contando recursivamente.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ x: sequences_of_twos_and_threes 
+\exercise.
+%%%{{{ meta 
+\label sequences_of_twos_and_threes
+%%%}}}
+
+Defina uma funcção $f : \nats\to\nats$ que conta as seqüências feitas por os números 2 e 3 com soma sua entrada.
+Quantas seqüências de $2$'s e $3$'s existem cujos termos somam em $17$?
+
+\hint
+Recursão.
+
+\hint
+Separe as seqüências em dois grupos: aquelas que começam com 2, e aquelas que começam com 3.
+
+\hint
+Cuidado com a ``base'' $f(0)$.  Quantas seqüências de 2 e 3, somam em $0$?
+
+\hint
+Para calcular o valor de $f(17)$, \emph{não} use a definição recursiva ``top-down'',
+mas ``bottom-up'': calcule os valores em seqüência linear
+$f(0), f(1), f(2), \dotsc$ até o valor desejado.
+
+%%}}}
+
+%%{{{ x: sequences_of_twos_and_threes_restricted 
+\exercise.
+%%%{{{ meta 
+\label sequences_of_twos_and_threes_restricted
+%%%}}}
+
+Defina uma funcção $g : \nats\to\nats$ que conta as seqüências feitas por os números 2 e 3 com soma sua entrada, em quais aparecem os dois números (2 e 3).
+Quantas seqüências de $2$'s e $3$'s existem cujos termos somam em $18$?
+
+\hint
+Use a $f$ do~\ref[sequences_of_twos_and_threes].
+
+\hint
+Quando $g(n) \neq f(n)$?
+
+\hint
+Considere os casos:
+(1) $n$ não pode ser escrito nem como $n = 2 + 2 + \dotsb + 2$, nem como $n = 3 + 3 + \dotsb + 3$;
+(2) $n$ pode ser escrito como $n = 2 + 2 + \dotsb + 2$, e como $n = 3 + 3 + \dotsb + 3$ também;
+(3) nenhum dos casos (1)--(2).
+
+\hint
+$
+g(n) =
+\knuthcases {
+\cdots\vphantom{f(n)}\cr
+\cdots\vphantom{f(n)}\cr
+\cdots\vphantom{f(n)}
+}
+$
+
+%%}}}
+
+%%{{{ x: infinite_city_1 
+\exercise Dirigindo na cidade infinita (sem destino).
+%%%{{{ meta 
+\label infinite_city_1
+%%%}}}
+
+No ``meio'' duma ``cidade infinita'', tem um motorista no seu carro.
+Seu carro tá parado numa intersecção onde tem 3 opções:
+virar esquerda; dirigir reto; virar direita.
+No seu depósito tem $a$ unidades de combustível,
+e sempre gasta $1$ para dirigir até a próxima intersecção.
+De quantas maneiras diferentes ele pode dirigir até seu combustível acabar?
+(Veja na figura, dois caminhos possíveis com $a=12$.)
+\noi
+\midinsert
+\noi
+\centerline{
+\hfill
+\tikzpicture[scale=0.666]%%{{{
+%
+\foreach \i in {-4,-3,-2,-1,0,1,2,3,4}
+  \draw [-] (\i,-2.5) -- (\i,4.5);
+\foreach \j in {-2,-1,0,1,2,3,4}
+  \draw [-] (-4.5,\j) -- (4.5,\j);
+\draw[rounded corners,line width=2mm,color=blue!40] (0,0) -- (0,1) -- (0,2) -- (-1,2) -- (-1,1) -- (-1,0) -- (-1,-1) -- (-2,-1) -- (-3,-1) -- (-3,0) -- (-3,1) -- (-2,1) -- (-2,2);
+\draw[rounded corners,line width=2mm,color=green!40] (0,0) -- (1,0) -- (2,0) -- (3,0) -- (3,1) -- (3,2) -- (3,3) -- (3,4) -- (4,4) -- (4,3) -- (4,2) -- (3,2) -- (2,2);
+\node[circle,fill=gray!20] (CR)  at (0,0) {$C$};
+%
+\endtikzpicture
+%%}}}
+\hfill
+\tikzpicture[scale=0.666]%%{{{
+%
+\foreach \i in {-4,-3,-2,-1,0,1,2,3,4}
+  \draw [-] (\i,-2.5) -- (\i,4.5);
+\foreach \j in {-2,-1,0,1,2,3,4}
+  \draw [-] (-4.5,\j) -- (4.5,\j);
+\draw[rounded corners,line width=2mm,color=blue!40] (0,0) -- (-1.8,0) -- (-1.8,2);
+\draw[rounded corners,line width=2mm,color=cyan!60] (0,0) -- (4,0) -- (4,2) -- (-3, 2) -- (-3,3) -- (-2,3) -- (-2,2);
+\draw[rounded corners,line width=2mm,color=green!40] (0,0) -- (0,-1) -- (-2.1,-1) -- (-2.1,2);
+\node[circle,fill=gray!20] (CR)  at (0,0) {$C$};
+\node[circle,fill=gray!20] (DN)  at (-2,2) {$D$};
+%
+\endtikzpicture
+%%}}}
+\hfill
+}
+%\caption{Fig.~1}
+\eop\centerline{Caminhos possíveis para os exercícios~\reftag[infinite_city_1] e~\reftag[infinite_city_2] respectivamente.}
+%\endcaption
+\endinsert
+
+\hint
+Sem recursão!
+
+\hint
+Em cada intersecção tem $3$ opções: $\mathtt L$, $\mathtt F$, $\mathtt R$.
+
+\solution
+Em cada das $a$ intersecções que ele encontra ele tem $3$ opções.
+Logo, ele pode seguir $3^a$ caminhos diferentes dirigindo até seu combustível acabar.
+
+%%}}}
+
+%%{{{ x: infinite_mountain 
+\exercise Dirigindo na montanha infinita.
+%%%{{{ meta 
+\label infinite_mountain
+%%%}}}
+
+No ``meio'' duma montanha de altura infinita, tem um motorista no seu carro.
+Seu carro tá parado numa intersecção onde tem 4 opções:
+dirigir subindo (gasta $4$ unidades de combutível);
+dirigir descendo (gasta $1$);
+dirigir na mesma altura clockwise (gasta $2$);
+dirigir na mesma altura counter-clockwise (gasta $2$).
+No seu depósito tem $a$ unidades de combistível.
+De quantas maneiras diferentes ele pode dirigir até seu combustível acabar?
+\ignore{
+\midinsert
+\tikzpicture[scale=2]
+\axis[
+hide axis,
+domain=0:1,
+y domain=0:-2*pi,
+xmin=-1.5, xmax=1.5,
+ymin=-1.5, ymax=1.5, zmin=-1.2, zmax=-1.2,
+samples=10,
+samples y=40,
+z buffer=sort,
+]
+\addplot3[mesh,gray]
+({1.1*x*cos(deg(y))},{1.1*x*sin(deg(y))},{-x});
+\endaxis
+\endtikzpicture
+\endinsert
+}
+
+\hint
+Recursão.
+
+\hint
+Seja $f(a)$ o número de caminhos diferentes que o motorista pode seguir com $a$ unidades de combustível.
+
+\hint
+Separa todos os caminhos possíveis em 3 grupos, dependendo na primeira escolha do motorista.
+Conta o número de caminhos em cada grupo separadamente (recursivamente!),
+e e use o princípio da adição para contar quantos são todos.
+
+%%}}}
+
+%%{{{ x: infinite_city_2 
+\exercise Dirigindo na cidade infinita (com destino).
+%%%{{{ meta 
+\label infinite_city_2
+%%%}}}
+
+No ``meio'' duma ``cidade infinita'', tem um motorista no seu carro.
+Seu carro tá parado numa intersecção onde tem 4 opções:
+dirigir na direção do norte; do leste; do sul; do oeste.
+No seu depósito tem $c$ unidades de combustível
+e sempre gasta $1$ para dirigir até a próxima intersecção.
+De quantas maneiras diferentes ele pode dirigir até chegar no seu destino,
+que fica numa distância $y$ unidades para norte e $x$ para leste?
+Considere que números negativos representam descolamento para a direção oposta.
+(Veja na figura onde o carro $C$ tem destino $D$, ou seja, seu descolamento
+desejado é de $x=-2$, $y=2$.)
+
+\hint
+Recursão.
+
+\hint
+Seja $f(a,x,y)$ o número de caminhos diferentes que acabam com
+descolamento total de $y$ unidades para norte e $x$ para leste,
+para um motorista que tem $a$ unidades de combustível no seu carro.
+
+\hint
+Separa todos os caminhos possíveis em 4 grupos,
+dependendo na primeira escolha do motorista.
+Conta o número de caminhos em cada grupo separadamente (recursivamente!),
+e e use o princípio da adição para contar quantos são todos.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Solutions of equations in integers 
+\section Soluções de equações em inteiros.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Combinations with repetitions 
+\section Combinações com repetições.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ The inclusion--exclusion principle 
+\section O princípio da inclusão--exclusão.
+%%%{{{ meta 
+\label Inclusion_exclusion_principle
+%%%}}}
+
+%%{{{ x: 42_passengers_on_a_plane 
+\exercise.
+%%%{{{ meta 
+\label 42_passengers_on_a_plane
+%%%}}}
+
+$42$ passangeiros estão viajando num avião.
+\tlist:
+\li: 11 deles não comem beef.
+\li: 10 deles não comem peixe.
+\li: 12 deles não comem frango.
+\li: Os passangeiros que não comem nem beef nem frango são 6.
+\li: O número de passangeiros que não comem nem beef nem peixe, é o mesmo com o número de passangeiros que não comem nem peixe nem frango.
+\li: Os passangeiros que não comem nada disso são 3.
+\li: Os passangeiros que comem tudo são 22.
+\endtlist
+Quantos são os passangeiros que não comem nem beef nem peixe?
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Elementary probability 
+\section Probabilidade elementar.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ x: russian_roulette 
+\exercise Roleta russa.
+%%%{{{ meta 
+\label russian_roulette
+%%%}}}
+
+(Não tente isso em casa; vai acordar os vizinhos.)
+No jogo da roleta russa, uma única bala é posicionada num
+revolver de 6~balas e logo após o moinho é girado com força
+em tal forma que a posição da bala é desconhecida e ``justa'',
+ou seja, cada posição é igualmente provável de ter a bala.
+A partir disso, o jogador 1 pega a arma e atira na sua própria cabeça.
+Caso que sobreviveu, o jogador 2 faz a mesma coisa, e o jogo continua
+assim alterando esse processo até um jogador acaba se matando.
+Logo, a duração desse jogo é de 1 a 6 rodadas.
+Supondo que ambos os jogadores querem viver, algum dos dois
+tem vantagem?
+
+%%}}}
+
+%%{{{ x: russian_roulette_alt 
+\exercise.
+%%%{{{ meta 
+\label russian_roulette_alt
+%%%}}}
+
+O que muda se os jogadores giram o moinho do revolver antes
+de cada rodada e não apenas no começo do jogo?
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Derrangements 
+\section Desarranjos.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ The pigeonhole principle 
+\section O princípio da casa dos pombos.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Generating functions and recurrence relations 
+\section Funcções geradoras e relações de recorrência.
+%%%{{{ meta 
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ prob 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Uma turma de 28 alunos tem 12 mulheres e 16 homens.
+\elist a:
+\li:
+De quantas maneiras podemos escolher 5 desses alunos,
+para formar um time de basquete?
+(Considere que as posições de basquete não importam).
+\li:
+De quantas maneiras podemos escolher 6 desses alunos,
+para formar um time de volei, tal que o time tem pelo menos 4 homens?
+(Considere que as posições de volei não importam).
+\li:
+De quantas maneiras podemos escolher 11 desses alunos,
+para formar um time de futebol, tal que o time tem exatamente 3 mulheres,
+e um homem goleiro?
+(Considere que a única posição de futebol que importa é do goleiro.)
+\li:
+De quantas maneiras podemos escolher 3 times, um para cada esporte,
+sem restricção de sexo?
+\endelist
+
+%%}}}
+
+%%{{{ prob 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Uma noite, depois do treino 3 times (uma de basquete, uma de vólei, e uma de
+futebol), foram beber num bar que foi reservado para eles.
+Como os jogadores de cada time querem sentar juntos,
+o dono arrumou duas mesas cíclicas, uma com 5 e outra com 6 cadeiras, e 11 cadeiras no bar.
+\eop
+De quantas maneiras diferentes eles podem sentar?
+(Considere que nas mesas cíclicas o que importa é apenas quem tá no lado de quem, mas no bar o que importa é a posição da cadeira mesmo.)
+
+%%}}}
+
+%%{{{ prob 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Considere os inteiros $1,2,\dotsc, 30$.
+Quantas das suas $30!$ permutações totais têm a propriedade que
+não aparecem múltiplos de $3$ consecutivamente?
+
+\hint
+Construa cada configuração em passos e use o princípio da multiplicação.
+
+\hint
+Coloque os não-múltiplos de $3$ primeiramente numa ordem, deixando espaços entre-si
+para os múltiplos de $3$.
+
+\hint
+Escolhe 10 dos 21 lugares possíveis para colocar os múltiplos de $3$.
+
+\solution
+Primeiramente vamos esquecer os múltiplos de $3$.
+O resto dos (20) números pode ser permutado de $20!$ maneiras.
+Para qualquer dessa maneira, temos $\comb {21} {10}$
+opções para escolher em quais $10$ das $20+1$ possíveis posições
+vamos colocar os múltiplos de $3$,
+e para cada escolha, correspondem $10!$ diferentes permutações
+dos múltiplos de 3 nessas $10$ posições.
+Finalmente,
+$$
+\tubrace {\vphantom(20!}
+         {(ordenar os não-múltiplos)}
+\ntimes
+\tubrace {\,\comb {21} {10}\,}
+         {(escolher as posições dos múltiplos)}
+\ntimes
+\tubrace {\vphantom(10!}
+         {(escolher a ordem dos múltiplos)}
+$$
+das $30!$ permutações têm a propriedade desejada.
+
+%%}}}
+
+%%{{{ prob 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Numa turma de $28$ alunos
+precisamos formar duas comissões de $5$ e $6$ membros.
+Cada comição tem seu presidente, seu vice-presidente, e seus membros normais.
+De quantas maneiras podemos formar essas comissões\dots
+\elist a:
+\li: \dots sem restricções (cada um aluno pode participar nas duas comissões simultaneamente)?
+\li: \dots se nenhum aluno pode participar simultaneamente nas duas comissões?
+\li: \dots se os dois (únicos) irmãos entre os alunos não podem participar na mesma comissão,
+e cada aluno pode participar simultaneamente nas duas?
+\endelist
+
+%%}}}
+
+%%{{{ prob: {abc}* without ab 
+\problem.
+%%%{{{ meta 
+\pdefs
+    \pdef a {{\mathtt a}}
+    \pdef b {{\mathtt b}}
+    \pdef c {{\mathtt c}}
+    ;;
+%%%}}}
+
+Do alfabeto $\set{\a,\b,\c}$ desejamos formar strings de tamanho $\ell$
+onde não aparece o substring $\a\b$.
+Em quantas maneiras podemos fazer isso?
+
+%%}}}
+
+%%{{{ prob: domino 2×n 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Conte em quantas maneiras podemos cobrir um tabuleiro de dimensão
+$2\times n$ com peças-dominô (ou seja, peças de dimensão $2\times 1$).
+
+\hint
+Recursão.
+
+\hint
+O quadradinho na posição $(1,1)$ pode ser coberto em apenas duas maneiras:
+(A) por uma peça ocupando as posições $(1,1)$--$(1,2)$;
+(B) por uma peça ocupando as posições $(1,1)$--$(2,1)$.
+
+\solution
+Seja $f(n)$ a quantidade de maneiras que podemos cobrir
+um tabuleiro de tamanho $2 \times n$.
+Começamos observando que para um tabuleiro $2 \times 0$
+temos exatamente uma maneira de cobrir todos os quadradinhos:
+fazendo nada.
+Vamos pular outros casos específicos e voltar caso que precisar.
+O quadradinho na posição $(1,1)$ pode ser coberto em apenas duas maneiras:
+(A) por uma peça ocupando as posições $(1,1)$--$(2,1)$;
+(B) por uma peça ocupando as posições $(1,1)$--$(1,2)$.
+No caso (A), para cobrir o resto que é um tabuleiro
+de $2 \times (n-1)$, temos $f(n-1)$ maneiras.
+No caso (B), observe que tendo a peça cobrindo os $(1,1)$--$(1,2)$,
+o quadradinho $(2,1)$ só pode ser coberto por uma peça no $(2,1)$--$(2,2)$.
+Agora basta cobrir o resto que é um tabuleiro de $2 \times (n-2)$,
+e logo temos $f(n-2)$ maneiras de fazer isso.
+Agora percebemos que precisamos mais uma base (por causa do $n-2$).
+Obviamente para cobrir um tabuleiro de tamanho $2 \times 1$ temos
+exatamente uma maneira.
+Temos então:
+\mathcol
+f(0) &= 1 \\
+f(1) &= 1 \\
+f(n) &= \tubrace {f(n-1)} {(A)} + \tubrace {f(n-2)} {(B)}.
+\endmathcol
+
+%%}}}
+
+%%{{{ prob: nikos 
+\problem.
+%%%{{{ meta 
+\label nikos
+%%%}}}
+
+Na figura abaixo temos um mapa (as linhas correspondem em ruas).
+Nikos quer caminhar do ponto $A$ para o ponto $B$, \emph{o mais rápido possível}.
+\elist:
+\li: De quantas maneiras ele pode chegar?
+\li: Se ele precisa passar pelo ponto $S$?
+\li: Se ele precisa passar pelo ponto $S$ mas quer evitar o ponto $N$?
+\endelist
+\midinsert
+\noi
+\tikzpicture[scale=0.666]%%{{{
+%
+\foreach \i in {0,1,2,3,4,5,6,7,8,9}
+  \foreach \j in {0,1,2,3,4,5,6,7,8}
+    \node (a\i) at (\i,\j) {};
+\foreach \i in {0,1,2,3,4,5,6,7,8,9}
+  \draw [-] (\i,0) -- (\i,8);
+\foreach \j in {0,1,2,3,4,5,6,7,8}
+  \draw [-] (0,\j) -- (9,\j);
+\draw [rounded corners,line width=2mm,color=green!50] (0,0) -- (0,2) -- (3,2) -- (3,4) -- (7,4) -- (7,5) -- (8,5) -- (8,7) -- (9,7) -- (9,8);
+\node[circle,fill=gray!20]  (SW)    at (-0.3,-0.3) {$A$};
+\node[circle,fill=gray!20]  (NE)    at (9.3,8.3)   {$B$};
+\node[circle,             inner sep=2pt,fill=green!30] (nice)  at (3,2.5)     {{\niness S}};
+\node[star,star points=17,inner sep=2pt,fill=red!30]   (boom)  at (6.5,5)     {{\niness N}};
+%
+\endtikzpicture
+%%}}}
+\tikzpicture[scale=0.666]%%{{{
+%
+\foreach \i in {0,1,2,3,4,5,6,7,8,9}
+  \foreach \j in {0,1,2,3,4,5,6,7,8}
+    \node (a\i) at (\i,\j) {};
+\foreach \i in {0,1,2,3,4,5,6,7,8,9}
+  \draw [-] (\i,0) -- (\i,8);
+\foreach \j in {0,1,2,3,4,5,6,7,8}
+  \draw [-] (0,\j) -- (9,\j);
+\draw [rounded corners,line width=2mm,color=red!50] (0,0) -- (0,2) -- (3,2) -- (3,4) -- (5,4) -- (5,5) -- (7,5) -- (7,7) -- (8,7) -- (8,8) -- (9,8);
+\node[circle,fill=gray!20] (SW)  at (-0.3,-0.3) {$A$};
+\node[circle,fill=gray!20] (NE)  at (9.3,8.3) {$B$};
+\node[circle,             inner sep=2pt,fill=green!30] (nice)  at (3,2.5)     {{\niness S}};
+\node[star,star points=17,inner sep=2pt,fill=red!30]   (boom)  at (6.5,5)     {{\niness N}};
+%
+\endtikzpicture
+%%}}}
+\eop\centerline{Um caminho aceitável e um inaceitável no caso (3) do \ref[nikos].}
+\endinsert
+
+%%}}}
+
+%%{{{ prob 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Num jogo de lotéria, tem os números de $1$ até $60$:
+$$
+\matrix
+    01&02& 03 &04 &05 &06 &07 &08 &09 &10\\
+    11&12& 13 &14 &15 &16 &17 &18 &19 &20\\
+    21&22& 23 &24 &25 &26 &27 &28 &29 &30\\
+    31&32& 33 &34 &35 &36 &37 &38 &39 &40\\
+    41&42& 43 &44 &45 &46 &47 &48 &49 &50\\
+    51&52& 53 &54 &55 &56 &57 &58 &59 &60
+\endmatrix
+$$
+Os organizadores do jogo, escolhem aleatoriamente 6 números
+deles (sem repetições).
+Esses 6 números são chamados ``a megasena''.
+Um jogador marca pelo menos 6 números na sua
+lotéria e se conseguir ter marcados todos os 6 da megasena, ganha.
+
+(Marcando mais que 6 números,
+as chances do jogador aumentam, mas o preço da lotéria aumenta também.)
+
+(1)
+Um jogador marcou $6$ números.
+Qual a probabilidade que ele ganhe?
+
+(2)
+Uma jogadora marcou $9$ números.
+Qual a probabilidade que ela ganhe?
+
+(3)
+Generalize para um jogo com $N$ números, onde $w$ deles são escolhidos,
+e com um jogador que marcou $m$ números, sendo $w\leq m \leq N$.
+
+\solution
+(1)
+Apenas uma escolha é a certa, então a probabilidade de ganhar é:
+    $$
+    \dfrac 1 {\comb {60} 6}
+    = \dfrac{6!\stimes 54!} {60!}
+    = \dfrac {6!} {55 \ntimes 56 \ntimes 57 \ntimes 58 \ntimes 59 \ntimes 60}
+    = \dfrac {1} {11\ntimes 14\ntimes 19\ntimes 29\ntimes 59\ntimes 10}
+    = \dfrac 1 {50063860}\,.
+    $$
+(2)
+Para ganhar, com certeza acertamos nos 6 números da megasena,
+então temos que contar todas as maneiras de escolher os 3 outros números dos 9 que escolhemos:
+    $$
+    \dfrac {\comb {60-6} {9-6}} {\comb {60} 9}
+    = \dfrac {\comb {54} 3} {\comb {60} 9}
+    = \dfrac {54!\stimes \cancel{51!}\stimes 9!} {\cancel{51!} \stimes 3!\stimes 60!}
+    = \dfrac {4\ntimes 5 \ntimes 6 \ntimes 7 \ntimes 8 \ntimes 9} {55\ntimes 56\ntimes 57\ntimes 58\ntimes 59 \ntimes 60}
+    = \dfrac 3 {1787995}\,.
+    $$
+(3)
+Generalizando a solução do (2), a probabilidade é
+$$
+\align
+\frac
+{\comb {N-w} {m-w}}
+{\comb N m}
+&=
+\frac
+{(N-w)! \stimes (N-m)! \stimes m!}
+{((N-w)-(m-w))! \stimes (m-w)! \stimes N!}\\
+&=
+\frac
+{(N-w)! \stimes (N-m)! \stimes m!}
+{((N\cancel{{}-{}w}-m\cancel{{}+w}))! \stimes (m-w)! \stimes N!}\\
+&=
+\frac
+{(N-w)! \stimes \cancel{(N-m)!} \stimes m!}
+{\cancel{(N-m)!} \stimes (m-w)! \stimes N!}\\
+&=
+\frac
+{(N-w)! \stimes m!}
+{(m-w)! \stimes N!}\\
+&=
+\Prod_{i=0}^{w-1}
+\frac
+{m-i}
+{N-i}\,.
+\endalign
+$$
+
+%%}}}
+
+%%{{{ prob: aleco_bego 
+\problem.
+%%%{{{ meta 
+\label aleco_bego
+%%%}}}
+
+Aleco e Bego são dois sapos.
+Eles estão na frente de uma escada com 11 degraus.
+No 6o degrau, tem Cátia, uma cobra, com fome.
+Aleco pula 1 ou 2 degraus para cima.
+Bego, 1, 2 ou 3.  E ele é tóxico: se Cátia comê-lo, ela morre na hora.
+\midinsert
+% TODO: this should be on a separate file
+\tikzpicture[scale=0.666]%%{{{
+%
+\node[star,star points=17,fill=red!30,inner sep=3pt]    (boom) at (6.75,6.25) {\phantom{\niness C}};
+\node[                                             ]    (catia) at (6.666,6.333) {{\niness C}};
+\node[circle,fill=green!40]  (aleco) at (-0.333,0.5) {{\niness A}};
+\node[circle,fill=blue!30]   (bego)  at (-1.75,0.5) {{\niness B}};
+\draw [->,color=green!50,line width=1mm] (aleco) to [bend left=70] (2.333,2);
+\draw [->,color=blue!50,line width=1mm] (bego)  to [bend left=66] (1.666,1);
+\draw [->,color=green!50,line width=1mm] (aleco) to [bend left=60] (1.333,1);
+\draw [->,color=blue!50,line width=1mm] (bego)  to [bend left=62] (2.666,2);
+\draw [->,color=blue!50,line width=1mm] (bego)  to [bend left=60] (3.5,3);
+\foreach \i in {1,2,3,4,5,6,7,8,9,10,11} {
+  \path[fill=gray!10]
+    (\i,\i) -- (\i,\i-1) -- (15,\i-1) -- (15,\i) -- (\i,\i);
+  \node[circle,fill=black,inner sep=0pt] (b\i) at (\i,\i)   {};
+  \node[circle,fill=black,inner sep=0pt] (e\i) at (\i+1,\i) {};
+  \node[circle,fill=black,inner sep=0pt] (d\i) at (\i,\i-1) {};
+  \node[                  inner sep=0pt] (s\i) at (\i+0.5,\i) {};
+  \draw [-,line width=0.2mm] (b\i) -- (e\i);
+  \draw [-,line width=0.2mm] (b\i) -- (d\i);
+  \node[                  inner sep=0pt] (t\i) at (\i+0.5,\i-0.3) {\i};
+}
+\draw [-] (-3,0) -- (1,0);
+\draw [-] (12,11) -- (15,11);
+%\foreach \j in {0,1,2,3,4,5,6,7,8}
+%  \draw [-] (0,\j) -- (9,\j);
+%  \draw [line width=2mm,color=green!50] (0,0) -- (0,2) -- (3,2) -- (3,4) -- (7,4) -- (7,5) -- (8,5) -- (8,7) -- (9,7) -- (9,8);
+%\node[circle,fill=gray!20]  (SW)    at (-0.3,-0.3) {$A$};
+%\node[circle,fill=gray!20]  (NE)    at (9.3,8.3)   {$B$};
+%\node[circle,fill=green!30] (nice)  at (3,2.5)     {{\niness S}};
+%\node[circle,fill=red!30]   (boom)  at (6.5,5)     {{\niness N}};
+%
+\endtikzpicture
+%%}}}
+%\caption{Fig.~2}
+\eop\centerline{Os dois sapos do~\ref[aleco_bego] e suas possibilidades para começar.}
+%\endcaption
+\endinsert
+\tlist:
+\li (1): Por enquanto, Cátia está dormindo profundamente.
+         \tlist:
+         \li a.:  De quantas maneiras Aleco pode subir a escada toda?
+         \li b.:  De quantas maneiras Bego pode subir a escada toda?
+         \endtlist
+\li (2): Cátia acordou!
+         \tlist:
+         \li a.:  De quantas maneiras Aleco pode subir a escada toda?
+         \li b.:  De quantas maneiras Bego pode subir a escada toda?
+         \endtlist
+\li (3): Bego começou subir a escada\dots{}
+         Qual é a probabilidade que Cátia morra?
+         (Considere que antes de começar, ele já decidiu seus
+         saltos e não tem percebido a existência da cobra.)
+\ignore{% TODO
+\li (4): O que muda na questão (3) se ao invés de decidir seu caminho desde o
+         início, Bega decida cada vez aleatoriamente (com probabilidades iguais)
+         qual dos 3 possíveis saltos ele vai fazer?
+\li (5): Generalize o problema (4)~para o caso onde a escada
+         tem uma infinidade de degraus e Cátia fica no degrau $k$.
+}
+\endtlist
+
+\hint
+Recursão.
+
+\hint
+Sejam $a(n)$ e $b(n)$ o número de maneiras que Aleco e Bego
+podem subir uma escada de $n$ degraus, respectivamente.
+
+\hint
+Grupe as maneiras em colecções (para aplicar o princípio da adição),
+olhando para o primeiro salto.
+
+\solution
+Sejam $a(n)$ e $b(n)$ o número de maneiras que Aleco e Bego
+podem subir uma escada de $n$ degraus, respectivamente.
+Cada maneira do Aleco pode começar com 2 jeitos diferentes:
+salto de $1$ degrau, ou salto de $2$ degraus.
+Cada maneira do Bego pode começar com 3 jeitos diferentes:
+salto de $1$, de $2$, ou de $3$ degraus.
+Observe que, por exemplo, se Bego começar com um pulo de $2$
+degraus, falta subir uma escada de $n-2$ degraus.
+Pelo princípio da adição então, temos as equações recursivas:
+\mathcols 2
+a(n) &= a(n-1) + a(n-2)                & b(n) &= b(n-1) +  b(n-2) +  b(n-3)
+\intertext{válidas para $n\geq 2$ e $n \geq 3$ respectivamente.
+Devemos definir os casos básicos de cada funcção recursiva:
+$n=0,1$ para a $a(n)$, e $n=0,1,2$ para a $b(n)$:}
+     &                                 & b(0) &= 1 \qquad\explanation{fica} \\
+a(0) &= 1 \qquad\explanation{fica}     & b(1) &= 1 \qquad\explanation{pula $1$} \\
+a(1) &= 1 \qquad\explanation{pula $1$} & b(2) &= 2 \qquad\explanation{pula $1+1$; ou pula $2$} \\
+a(n) &= a(n-1) +  a(n-2)               & b(n) &= b(n-1) +  b(n-2) +  b(n-3)
+\endmathcols
+Calculamos os $11$ primeiros valores:
+$$
+\matrix
+a:\quad& \overbrace {1}^{a(0)}, & 1, & 2, & 3, & 5, & \phantom08,  & 13, & 21, & 34, & \phantom055,  & \phantom089,  & \overbrace {144}^{a(11)}, &\dotsc\\
+b:\quad& \underbrace{1}_{b(0)}, & 1, & 2, & 4, & 7, & 13,          & 24, & 44, & 81, & 149, & 274, & \underbrace{504}_{b(11)}, &\dotsc
+\endmatrix
+$$
+Agora temos tudo que precisamos para responder facilmente nas questões do problema.
+\eop
+{(1)}  Precisamos apenas os valores $a(11)$ e $b(11)$:
+{(1a)} De $a(11) = 144$ maneiras.
+{(1b)} De $b(11) = 504$ maneiras.
+\eop
+{(2)} Usamos \dq{$n\to m$} para \wq{pula diretamente do degrau $n$ para o degrau
+$m$} e \dq{$n\transto m$} para \wq{vai do degrau $n$ para o degrau $m$ pulando
+num jeito}.
+{(2a)} Para conseguir subir, Aleco necessariamente precisa chegar no degrau
+$5$, saltar até o degrau $7$, e depois continuar até o degrau $11$.
+Formamos cada maneira então em passos, e usando o princípio da multiplicação
+achamos que Aleco tem
+$$
+\mubrace {a(5)}        {0 \transto 5} \ntimes
+\mubrace {\vphantom(1} {5 \to 7}      \ntimes
+\mubrace {a(4)}        {7 \transto 11}
+= 8 \ntimes 1 \ntimes 5
+= 40
+$$
+maneiras de subir a escada toda.
+{(2b)}
+Para o Bego a situação não é tão simples, porque ele pode evitar a cobra de vários jeitos.
+Vamos agrupá-los assim:
+\tlist:
+\li (i):   aqueles onde ele pulou a cobra com salto de tamanho 2;
+\li (ii):  aqueles onde ele pulou a cobra com salto de tamanho 3 desde o degrau 5;
+\li (iii): aqueles onde ele pulou a cobra com salto de tamanho 3 desde o degrau 4.
+\endtlist
+Contamos as maneiras em cada grupo como na questão anterior, e no final as somamos (princípio da adição) para achar a resposta final: Bego tem
+$$
+\tobrace {
+\mubrace {b(5)}         {0 \transto 5}  \ntimes
+\mubrace {\vphantom(1}  {5 \to 7}       \ntimes
+\mubrace {b(4)}         {7 \transto 11}
+} {grupo (i)}
++
+\tobrace {
+\mubrace {b(5)}         {0 \transto 5}  \ntimes
+\mubrace {\vphantom(1}  {5 \to 8}       \ntimes
+\mubrace {b(3)}         {8 \transto 11}
+} {grupo (ii)}
++
+\tobrace {
+\mubrace {b(4)}         {0 \transto 4}  \ntimes
+\mubrace {\vphantom(1}  {4 \to 7}       \ntimes
+\mubrace {b(4)}         {7 \transto 11}
+} {grupo (iii)}
+= 13 \ntimes 7 + 13 \ntimes 4 + 7 \ntimes 7
+= 192
+$$
+maneiras de subir a escada toda.
+\eop
+{(3)}
+Pela definição, a probabilidade que Cátia morra é a fracção
+$$
+\frac
+{\text{todas as maneiras em quais Bego pisou no degrau 6}}
+{\text{todas as maneiras possíveis}}\,,
+$$
+ou seja,
+$$
+\frac {504-192} {504}
+= \frac {312} {504}
+= \frac {156} {252}
+= \frac {78} {126}
+= \frac {39} {63}
+= \frac {13} {21}
+\,.
+$$
+
+%%}}}
+
+%%{{{ prob: band_maker 
+\problem.
+%%%{{{ meta 
+\label band_maker
+%%%}}}
+
+Temos $6$ músicos disponíveis, onde cada um toca:
+\ttable
+\hfil##  & ##\hfil                 & \quad\hfil## & ##\hfil \cr
+Alex:    & violão, guitarra, baixo & Daniel:      & guitarra \cr
+Beatriz: & bateria                 & Eduardo:     & piano, teclado, violão, fláuto \cr
+Cynthia: & saxofone, clarineto     & Fagner:      & guitarra, baixo, teclado \cr
+\endttable
+(Considere que uma banda precisa \emph{pelo menos um membro},
+todos os membros duma banda \emph{precisam tocar pelo menos algo na banda},
+e que cada banda é diferenciada pelos músicos e
+suas funcções.
+Por exemplo: uma banda onde Alex toca o violão (apenas) e Beatriz a bateria,
+é diferente duma banda onde
+Alex toca o violão \emph{e} a guitarra, e Beatriz a bateria,
+mesmo que seus membros são os mesmos.
+\tlist:
+\li (1):
+Quantas bandas diferentes podemos formar?
+\li (2):
+Quantas bandas diferentes podemos formar com a restricção que nenhum
+músico tocará mais que um instrumento na banda (mesmo se em geral sabe tocar mais)?
+\li (3):
+Quantas bandas diferentes podemos formar onde todos os
+músicos fazem parte da banda?
+\endtlist
+
+\solution
+\proofpart{(1):}
+$2^{14}-1$: para cada músico e cada instrumento, temos 2 opções: ``sim'' ou ``não''.
+Tiramos $1$ porque hipercontamos (a ``banda vazia'').
+\crproofpart{(2):}
+Cada músico que toca $i$ instrumentos tem $i+1$ opções
+(a extra $+1$ corresponde no ``não participar na banda''):
+podemos formar $4 \ntimes 2 \ntimes 3 \ntimes 2 \ntimes 5 \ntimes 4 - 1$ bandas,
+onde de novo tiramos 1 para excluir a ``banda vazia''.
+\crproofpart{(3):}
+Cada músico que toca $i$ instrumentos tem $2^i - 1$ opções
+(tirando a opção de ``não tocar nada'').
+Então podemos formar $7\ntimes 1 \ntimes 3 \ntimes 1 \ntimes 15 \ntimes 7$ bandas.
+
+%%}}}
+
+%%{{{ prob 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+De quantas maneiras podemos escrever um string ternário
+(usando o alfabeto $\set{0, 1, 2}$)
+de tamanho 7,
+tais que \emph{não aparece neles o substring $00$}.
+\eop
+Por exemplo:
+$$
+\align
+0112220                                           &\qquad\text{é um string aceitável;}\\
+2\underline{00}1\underline{0\overline0}\overline0 &\qquad\text{não é.}
+\endalign
+$$
+
+\hint
+Recursão.
+
+\hint
+Seja $a(n)$ o número dos strings ternários de tamanho $n$ tais que não aparece
+neles o substring ${00}$.
+
+\hint
+Defina a $a(n)$ e depois calcule o $a(7)$, calculando em ordem os
+$a(0),a(1),\dotsc,a(7)$.
+
+\solution
+Seja $a(n)$ o número dos strings ternários de tamanho $n$ tais que não aparece
+neles o substring ${00}$.
+Queremos achar o $a(7)$.
+\eop
+Observe que:
+$$
+\align
+    a(0) &= 1 \qqqquad\explanation{o string vazio: ``$\,$''} \\
+    a(1) &= 3 \qqqquad\explanation{os strings: ``$0$'', ``$1$'', e ``$2$''} \\
+    a(n) &=
+      \underbrace{a(n-1)}_{1\ldots}
+    + \underbrace{a(n-1)}_{2\ldots}
+    + \underbrace{a(n-2)}_{{01}\ldots}
+    + \underbrace{a(n-2)}_{{02}\ldots}\\
+         &= 2a(n-1) + 2a(n-2)\\
+         &= 2(a(n-1) + a(n-2))
+\endalign
+$$
+Então calculamos os primeiros $8$ termos da seqüência:
+$$
+1,\quad 3,\quad 8,\quad 22,\quad 60,\quad 164,\quad 448,\quad \underbrace{1224}_{a(7)}.
+$$
+
+%%}}}
+
+%%{{{ prob: pessimissimo 
+\problem.
+%%%{{{ meta 
+\label pessimissimo
+%%%}}}
+
+Contar todas as palavras feitas por permutações das 12 letras da palavra
+$$
+\txt{PESSIMISSIMO}
+$$
+onde\dots
+% TODO: fix reflabs
+\tlist:
+\li (1): a palavra começa com $\txt P$;
+\li (2): todos os $\txt I$ aparecem \emph{juntos}\/;
+\li (3): os $\txt M$ aparecem \emph{separados}\/;
+\li (4): nenhum dos $\txt S$ aparece ao lado de outro $\txt S$.
+\endtlist
+
+\hint
+Para o (4), seria diferente se a restricção fosse
+``os $\txt S$ não aparecem todos juntos''.
+
+\solution
+(1):
+Como somos obrigados começar a palavra com ${\txt P}$,
+precisamos apenas contar as permutações das letras da palavra
+$
+\txt{ESSIMISSIMO}
+$,
+que sabemos que são
+$$
+\frac
+{11!}
+{4!\stimes3!\stimes 2!}.
+$$
+\eop\medskip\noi
+(2):
+Podemos considerar que temos apenas um $I$:
+$
+\dfrac
+ {10!}
+ {4!\stimes  2!}
+$
+\eop\medskip\noi
+(3):
+Contamos em quantas palavras eles aparecem juntos,
+e usando princípio da adição, os subtraimos das permutações sem restricção.
+$$
+\underbrace{
+\,
+\dfrac
+ {12!}
+ {4!\stimes  3!\stimes  2!}
+\,
+}_{\text{todas}}
+ -
+\underbrace{
+\,
+\dfrac
+ {11!}
+ {4!\stimes  3!}
+\,
+}_{\text{$\txt M$ juntos}}
+$$
+\eop\medskip\noi
+(4):
+Construimos cada dessas palavras em passos.
+Primeiramente escolhemos uma das permutações da palavra sem os ${\txt M}$'s:
+$$
+\phantom{\underline{\phantom{{\txt M}}}}*
+\phantom{\underline{\phantom{{\txt M}}}}*
+\phantom{\underline{\phantom{{\txt M}}}}*
+\phantom{\underline{\phantom{{\txt M}}}}*
+\phantom{\underline{\phantom{{\txt M}}}}*
+\phantom{\underline{\phantom{{\txt M}}}}*
+\phantom{\underline{\phantom{{\txt M}}}}*
+\phantom{\underline{\phantom{{\txt M}}}}*
+\phantom{\underline{\phantom{{\txt M}}}}
+$$
+(temos 
+$
+\dfrac
+{8!}
+{3!\stimes 2!}
+$
+opções).
+\eop
+\medskip
+No próximo passo escolemos em qual das $9$ posições possíves colocamos os $M$:
+$$
+\underline{\phantom{{\txt M}}}*
+\underline{\phantom{{\txt M}}}*
+\underline{\phantom{{\txt M}}}*
+\underline{\phantom{{\txt M}}}*
+\underline{\phantom{{\txt M}}}*
+\underline{\phantom{{\txt M}}}*
+\underline{\phantom{{\txt M}}}*
+\underline{\phantom{{\txt M}}}*
+\underline{\phantom{{\txt M}}}
+$$
+Pelo princípio da multiplicação então, temos
+$
+\dfrac
+{8!}
+{3!\stimes 2!}
+\cdot
+\comb 9 4
+$
+palavras que satisfazem essa restricção.
+
+%%}}}
+
+%%{{{ prob 
+\problem.
+%%%{{{ meta 
+% TODO: fix reflabs
+%%%}}}
+
+De quantas maneiras podemos escrever um string usando o alfabeto
+de 26 letras
+$$
+\txt A, \txt B, \txt C, \dotsc, \txt X, \txt Y, \txt Z,
+$$
+tais que as vogais aparecem na ordem estrita alfabética,
+e as consoantes na ordem oposta?
+(As vogais sendo as letras $\txt A$, $\txt E$, $\txt I$, $\txt O$,
+$\txt U$, $\txt Y$.)
+{Por exemplo:}
+$$
+\align
+\txt{TEDUCY}    &\qquad\text{é um string aceitável};\\
+\txt{DETUCY}    &\qquad\text{não é ($\txt D \not> \txt T$)};\\
+\txt{TEDUCA}    &\qquad\text{não é ($\txt U \not< \txt A$)}.
+\endalign
+$$
+\tlist:
+\li (1): \dots se os strings são de tamanho 26 e os vogais aparecem todos juntos;
+\li (2): \dots se os strings são de tamanho 12 e aparecem todos os vogais;
+\li (3): \dots se os strings são de tamanho 3;
+\li (4): \dots se os strings são de tamanho $\ell$, com $0\leq\ell\leq 26$.
+\endtlist
+
+\solution
+(1)
+Como a ordem das consoantes e das vogais é predeterminada e as vogais devem aparecer juntas,
+a única escolha que precisamos fazer é onde colocar as vogais, e temos $21$ possíveis posições.
+Então existem $21$ tais strings.
+\eop\medskip\noi
+(2)
+$$
+\tubrace {\comb {20} 6} {consoantes},
+\tubrace {\comb {12} 6} {suas posições}.
+$$
+\eop\medskip\noi
+(3)
+Separamos todos os strings que queremos contar em quatro grupos e contamos cada um separadamente:
+$$
+{
+\tobrace {
+\tubrace {\comb {20} 3} {as c.}
+} {3 c., 0 v.}
+}
++
+{
+\tobrace {
+\tubrace {\comb {20} 2} {as c.}
+\tubrace {\comb 6 1} {a v.}
+\tubrace {\comb 3 2} {pos.~c.}
+} {2 c., 1 v.}
+}
++
+\tobrace {
+\tubrace {\comb {20} 1} {a c.}
+\tubrace {\comb 6 2} {as v.}
+\tubrace {\comb 3 1} {pos.~c.}
+} {1 c., 2 v.}
++
+\tobrace {
+\tubrace {\comb 6 3} {as v.}
+} {0 c., 3 v.}.
+$$
+Podemos descrever o resultado numa forma mais uniforme e mais fácil para generalizar:
+$$
+\Sum_{i=0}^3
+\tubrace {\comb {20} {3-i}} {as $3-i$ c.}
+\tubrace {\comb 6 i} {as $i$ v.}
+\tubrace {\comb 3 i} {pos.~v.}
+=
+\Sum\submath{c+v=3\\c,v\in\nats}
+\tubrace {\comb {20} c} {as c.}
+\tubrace {\comb 6 v} {as v.}
+\tubrace {\comb 3 v} {pos.~v.}
+$$
+\eop\medskip\noi
+(4)
+Seguindo a última forma do (3), temos
+$$
+\Sum_{i=0}^{\ell}
+\tubrace {\comb {20} {\ell-i}} {as $\ell-i$ c.}
+\tubrace {\comb 6 i} {as $i$ v.}
+\tubrace {\comb {\ell} i} {pos.~v.}
+$$
+maneiras.  O somatório pode ser escrito também assim:
+$$
+\Sum
+\bigg\{
+\tubrace {\comb {20} c} {as c.}
+\tubrace {\comb 6 v} {as v.}
+\tubrace {\comb {\ell} v} {pos.~v.}
+\ \Big|\ 
+c+v=\ell, \ 0\leq c \leq 20, \ 0\leq v \leq 6, \ c,v\in\nats
+\bigg\}.
+$$
+Note que como o conjunto acima é finito,
+a adição é comutativa e associativa; logo, nosso somatório é bem-definido.
+
+%%}}}
+
+%%{{{ prob: roulette_multiple_balls 
+\problem.
+%%%{{{ meta 
+\label roulette_multiple_balls
+%%%}}}
+
+Numa roleta dum cassino tem ``pockets'' (ou ``casas'') numerados com:
+$$
+00, 0, 1, 2, \dotsc, 36
+$$
+e cada um deles é suficientemente profundo para caber até 8 bolinhas.
+O crupiê joga 8 bolinas na roleta no mesmo tempo.
+De quantas maneiras elas podem cair nos pockets se\dots
+\tlist:
+\li (i):  \dots as bolinhas são distintas e não importa sua ordem dentro um pocket.
+\li (ii): \dots as bolinhas são todas iguais.
+\endtlist
+
+\solution
+\tlist:
+\li (i):  Permutações com repetições: $38^8$.
+\li (ii): Combinações com repetições: $\comb {38 + 8 - 1} 8 = \comb {45} 8$.
+\endtlist
+
+%%}}}
+
+%%{{{ prob 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+De quantas maneiras podemos escrever um string usando
+letras do alfabeto $\set{\txt A, \txt B, \txt C, \txt D}$,
+tais que \emph{cada letra é usada exatamente duas vezes
+mas não aparece consecutivamente no string}?
+Por exemplo:
+$$
+\align
+\txt{ABADCDBC}                      &\qquad\text{é um string aceitável;}\\
+\txt{ABAC$\underline{\txt{DD}}$BC}  &\qquad\text{não é.}
+\endalign
+$$
+
+\hint
+Inclusão--exclusão.
+
+\hint
+Considere as propriedades:
+$$
+\xalignat 4
+ \alpha  &: \text{aparece o $\txt{AA}$}
+&\beta   &: \text{aparece o $\txt{BB}$}
+&\gamma  &: \text{aparece o $\txt{CC}$}
+&\delta  &: \text{aparece o $\txt{DD}$}.
+\endxalignat
+$$
+
+\solution
+Seja $N$ o número de permutações totais das létras
+e defina as 4 propriedades
+$$
+\xalignat 4
+ \alpha  &: \text{aparece o $\txt{AA}$}
+&\beta   &: \text{aparece o $\txt{BB}$}
+&\gamma  &: \text{aparece o $\txt{CC}$}
+&\delta  &: \text{aparece o $\txt{DD}$}.
+\endxalignat
+$$
+Procuramos o número dos strings de tamanho 8 que não tenham nenhuma dessas 4 propriedades.
+Assim que calcular os $N(\alpha),\dotsc,N(\alpha,\beta,\gamma,\delta)$
+o princípio da inclusão--exclusão, vai nos dar o número que procuramos.
+\eop
+Observamos que
+$$
+\gather
+N(\alpha) =N(\beta) =N(\gamma) =N(\delta)\\
+N(\alpha,\beta) =N(\alpha,\gamma) = \dotsb = N(\gamma,\delta)\\
+N(\alpha,\beta,\gamma) = \dotsb = N(\beta,\gamma,\delta).
+\endgather
+$$
+\eop
+Calculamos os
+$$
+\align
+N
+&= \frac {8!} {2!\stimes 2!\stimes 2!\stimes 2!} = 2520\\
+N(\alpha)
+&= \frac {7!} {2!\stimes 2!\stimes 2!} = \frac {7!} 8 = 7\ntimes 6 \ntimes 5 \ntimes 3 = 630\\
+N(\alpha,\beta)
+&= \frac {6!} {2!\stimes 2!} = \frac {6!} 4 = 180 \\
+N(\alpha,\beta,\gamma)
+&= \frac {5!} {2!} = \frac {5!} 2 = 60 \\
+N(\alpha,\beta,\gamma,\delta)
+&= {4!} = 24.
+\endalign
+$$
+\eop
+Para responder, temos
+$$
+\multline
+    N
+    - \comb 4 1 N(\alpha)
+    + \comb 4 2 N(\alpha,\beta)
+    - \comb 4 3 N(\alpha,\beta,\gamma)
+    + N(\alpha,\beta,\gamma,\delta)\\
+    =
+    2520 - 4\ntimes 630 + 6\ntimes 180 - 4\ntimes 60 + 24
+    =
+    864
+\endmultline
+$$
+tais permutações.
+
+%%}}}
+
+%%{{{ prob: parity_respecting_strings_mutual_recursion 
+\problem.
+%%%{{{ meta 
+\label parity_respecting_strings_mutual_recursion
+%%%}}}
+
+De quantas maneiras podemos escrever um string binário
+(usando o alfabeto $\set{0, 1}$) de tamanho 12,
+tais que: 
+\elist i:
+\li: os $0$'s aparecem apenas em grupos maximais de tamanho par;
+\li: os $1$'s aparecem apenas em grupos maximais de tamanho ímpar.
+\endelist
+Por exemplo:
+$$
+\align
+{000000111001}                         &\qquad\text{é um string aceitável;}\\
+{100\underline{11}001\underline{000}1} &\qquad\text{não é.}
+\endalign
+$$
+
+\hint
+Separe os strings em dois grupos,
+aqueles que terminam em $0$ e aqueles que terminam em $1$,
+e conta os strings de cada grupo usando recursão.
+
+\hint
+Sejam $a(n)$ e $b(n)$ o número de strings binários de tamánho $n$
+que terminam em $0$ e em $1$ respectivamente.
+
+%%}}}
+
+%%{{{ prob: xyzzy_lemmings 
+\problem.
+%%%{{{ meta 
+\label xyzzy_lemmings
+\pdefs
+    \pdef FB {{\mathtt F}}
+    \pdef MM {{\mathtt M}}
+    \pdef ST {{\mathtt B}}
+    ;;
+%%%}}}
+
+Xÿźźÿ o Mago Bravo decidiu matar todos os lemmings que ele guarda no seu quintal.
+Seus feitiços são os:
+\tlist:
+\li: ``magic missile'', que mata 2 lemmings simultaneamente, e gasta 1 ponto ``mana'';
+\li: ``fireball'', que mata 3 lemmings simultaneamente, e gasta 2 pontos mana.
+\endtlist
+Além dos feitiços, Xÿźźÿ pode usar seu bastão para matar
+os lemmings (que não custa nada, e mata 1 lemming com cada batida).
+\eop
+Suponha que o mago \emph{nunca} lançará um feitiço que mataria mais lemmings do
+que tem (ou seu quintal vai se queimar).
+Ele tem $m$ pontos mana e existem $n$ lemmings no seu quintal.
+Em quantas maneiras diferentes ele pode destruir todos os lemmings se\dots
+\elist i:
+\li: os lemmings são indistinguíveis?
+\li: os lemmings são distinguíveis?
+\li: os lemmings são distinguíveis e cada vez que Xÿźźÿ mata um usando seu bastão,
+ele \emph{ganha} um ponto de mana?
+\endelist
+(Para os casos que os lemmings são distinguíveis,
+o mago escolhe também \emph{quais} dos lemmings ele matará cada vez.)
+
+\hint
+Recursão.
+
+\hint
+Seja $f(m,n)$ o número de maneiras que Xÿźźÿ pode matar todos os $n$ lemmings,
+começando com $m$ pontos de mana.
+
+%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ History 
+\history.
+
+Pascal não foi o primeiro de estudar o ``triângulo aritmético'',
+cuja existência e sua relação com o teorema binomial já eram
+conhecidas desde uns séculos antes do seu nascimento.
+Mesmo assim, seu estudo
+\emph{``Traité du triangle arithmétique,
+avec quelques autres petits traitez
+sur la mesme matière''},
+publicado no ano \yearof{1654} (depois da sua morte)
+popularizou o triângulo e suas diversas aplicações e
+propriedades~(\cite[pascaltriangle]).
+
+\endhistory
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+Veja o~\cite[nivencount].
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
+%%{{{ chapter: The_reals 
+\chapter Os reais.
+%%%{{{ meta 
+\label The_reals
+\pdefs
+    \pdef Pos {\mathord{\mathrm{Pos}}}
+    \pdef Neg {\mathord{\mathrm{Neg}}}
+    ;;
+%%%}}}
+
+\TODO limpar, terminar, organizar.
+
+%%{{{ intro 
+\chapintro
+O $\sset \reals {+,\ntimes,0,1}$ é um \emph{corpo ordenado completo}.
+Neste capítulo vamos estudar o que isso significa e investigar as
+primeiras conseqüências dos axiomas dos reais.
+Além disso, vamos definir e estudar os conceitos fundamentais
+de limites e séries.
+%%}}}
+
+%%{{{ Back to Ancient Greece: irrationals 
+\section De volta pra Grécia antiga: racionais e irracionais.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ √2 is not rational 
+\note O √2 não é racional.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ But √2 surely is a number 
+\note Mas o √2 com certeza é um número.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ Irrational numbers 
+\note Números irracionais.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ √3 is irrational 
+\note O √3 é irracional.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ A lemma 
+\note Um lemma.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ What happens with √4 and √5 
+\note O que acontece com √4 e √5.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ A generalization theorem 
+\note Um teorema de generalização.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ More irrational numbers 
+\note Mais números irracionais.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ Algebraic and transcendental numbers 
+\note Números algébricos e transcendentais.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ The_real_line 
+\section A reta real.
+%%%{{{ meta 
+\label The_real_line
+%%%}}}
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
+%%{{{ First steps 
+\section Primeiros passos.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Nessa secção, $F$ vai denotar um arbitrário corpo ordenado:
+
+%%}}}
+
+%%{{{ spec: real_spec_1 
+\specification Os reais (1/3).
+%%%{{{ meta 
+\label real_spec_1
+\defines
+    * reais
+    ;;
+%%%}}}
+
+Usamos $\Real$ para denotar um tipo cujos membros chamamos de (números) inteiros e onde temos
+os seguintes componentes primitivos:
+\mathcol
+0         &\is \Real \\
+1         &\is \Real \\
+(+)       &\is \Real \times \Real \to \Real \\
+(-)       &\is \Real \to \Real \\
+(\ntimes) &\is \Real \times \Real \to \Real. \\
+\endmathcol
+Estipulamos as proposições seguintes como axiomas:
+\mathcol
+\cforall {a,b,c}  {a + (b + c) = (a + b) + c}   \stag[RA-Ass]\\
+\cforall {a}      {0 + a = a = a + 0}           \stag[RA-Id]\\
+\cforall {a}      {(-a) + a = 0 = a + (-a)}     \stag[RA-Inv]\\
+\cforall {a,b}    {a + b = b + a}               \stag[RA-Com]\\
+\\
+\cforall {a,b,c}  {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}
+                                                \stag[RM-Ass]\\
+\cforall {a}      {a\ntimes 1 = a}              \stag[RM-Id]\\
+\cforall {a}      {a\neq 0 \implies
+                   \lexists {a'} {a' \ntimes a = 1 = a \ntimes a'}}
+                                                \stag[RM-Inv*]\\
+\cforall {a,b}    {a\ntimes b = b \ntimes a}    \stag[RM-Com]\\
+\\
+\cforall {d,a,b}  {(a+b) \ntimes d = (a \ntimes d) + (b \ntimes d) \mland
+                   d \ntimes (a+b) = (d \ntimes a) + (d \ntimes b)}.
+                                                \stag[R-Dist]\\
+\endmathcol
+
+%%}}}
+
+%%{{{ remark: axioms_stronger_than_needed
+\remark Axiomas mais fortes do que precisamos.
+%%%{{{ meta 
+\label axioms_stronger_than_needed
+%%%}}}
+
+Observe que tanto sobre as identidades quanto sobre os inversos,
+optamos para incluir nos axiomas \dq{ambos os lados}.
+Compare isso com os axiomas que tivemos sobre os inteiros,
+onde \emph{demonstramos como teorema} que $0$ é uma
+$(+)$-identidade-L, e as demais versões esquerdas
+(\ref[int_left_versions_as_theorems]).
+A demonstração foi simplíssima, graças às comutatividades
+das operações, que aqui também temos.
+Ou seja, a gente poderia ter escolhido uma abordagem parecida aqui,
+mas não é sempre tão importante se obsecar economizando
+nos axiomas.  Listados na maneira que tenho acima, tem
+uma outra vantagem: não passam uma informação falsa sobre nossa
+pretenção, e, além disso, seria mais facil se perguntar
+<<o que acontece se apagar comutatividade de tal lista?>>,
+sem precisar nos preocupar para adicionar explicitamente
+as identidades e inversos esquerdos.
+
+%%}}}
+
+%%{{{ Syntactic considerations 
+\note Considerações sintácticas.
+%%%{{{ meta 
+\defines
+    * associatividade!sintáctica
+    ;;
+%%%}}}
+
+Atribuimos as mesmas \dterm{associatividades sintácticas} e as mesmas
+\dterm{precedências sintácticas} nas operações $(+)$ e $(\ntimes)$
+que atribuimos no \ref[The_integers] (\ref[int_syntactic_associativities],
+\ref[int_syntactic_precedence], \ref[int_juxtaposition_notation]).
+Similarmente usamos as abreviações
+\mathcols 4
+2 &\eqtype \Real  & 3 &\eqtype \Real  & 4 &\eqtype \Real &~&\cdots \\
+2 &\defeq  1 + 1  & 3 &\defeq  2 + 1  & 4 &\defeq  3 + 1 &~&\cdots \\
+\endmathcols
+como fizemos no \ref[int_numerals_and_powers].
+
+%%}}}
+
+%%{{{ df: real_subtraction_as_syntactic_sugar 
+\definition Açúcar sintáctico: subtração.
+%%%{{{ meta 
+\label real_subtraction_as_syntactic_sugar
+\indexes
+    * notação!sobrecarregar   see: sobrecarregamento
+    * sobrecarregamento!notação
+    ;;
+\defines
+    * subtração!nos reais
+    ;;
+%%%}}}
+
+Como nos inteiros (\ref[int_subtraction_as_syntactic_sugar])
+definimos a operação \emph{binária}
+\mathcol
+{-} &\eqtype \Real \times \Real \to \Real \\
+\endmathcol
+de subtração pela
+\mathcol
+a - b &\defeq a + (-b).
+\endmathcol
+Novamente o símbolo ${-}$ tá sendo \dterm{sobrecarregado} mas
+o contexto sempre deixará claro qual das
+\mathcols 2
+{-} &\eqtype \Real \to \Real  &
+{-} &\eqtype \Real \times \Real \to \Real
+\endmathcols
+está sendo usada.
+
+%%}}}
+
+%%{{{ x: real_uniqueness_of_additive_identity 
+\exercise Unicidade da identidade aditiva.
+%%%{{{ meta 
+\label real_uniqueness_of_additive_identity
+%%%}}}
+
+Existe único $z$ tal que para todo $x$, $z + x = x = x + z$.
+
+\solution
+Demonstrado no \ref[int_uniqueness_of_additive_identity], pois
+tal demonstração precisou apenas axiomas que temos aqui também.
+
+%%}}}
+
+%%{{{ x: real_uniqueness_of_additive_inverses 
+\exercise Unicidade dos inversos aditivos.
+%%%{{{ meta 
+\label real_uniqueness_of_additive_inverses
+%%%}}}
+
+Para todo $x$, existe único $x'$ tal que $x' + x = 0 = x + x'$.
+
+\solution
+Demonstrado no \ref[int_uniqueness_of_additive_inverses], pois
+tal demonstração precisou apenas axiomas que temos aqui também.
+
+%%}}}
+
+%%{{{ x: real_uniqueness_of_solutions 
+\exercise Unicidade de resoluções.
+%%%{{{ meta 
+\label real_uniqueness_of_solutions
+%%%}}}
+
+Para quaisquer $a,b$, existe único $x$ tal que $a + x = b$
+e existe único $y$ tal que $y + a = b$.
+
+\solution
+Utilizamos a mesma demonstração do \ref[int_uniqueness_of_solutions_proof],
+já que ela não precisou nenhum axioma que não temos aqui.
+
+%%}}}
+
+%%{{{ x: real_neg_of_neg 
+\exercise Negação de negação.
+%%%{{{ meta 
+\label real_neg_of_neg
+%%%}}}
+
+Para todo $x$, $-(-x) = x$.
+
+\solution
+Veja o \ref[int_neg_of_neg]: não precisou nenhum axioma que não temos.
+
+%%}}}
+
+%%{{{ x: real_neg_of_sum 
+\exercise Negação de soma.
+%%%{{{ meta 
+\label real_neg_of_sum
+%%%}}}
+
+Para quaisquer $a,b$, temos $-(a-b) = b - a$ e $-(a+b) = -a-b$.
+
+%%}}}
+
+% enter multiplication
+
+%%{{{ x: real_cancellation_law_for_addition
+\exercise Lei de cancelamento aditivo.
+%%%{{{ meta 
+\label real_cancellation_law_for_addition
+%%%}}}
+
+Temos:
+\mathcol
+\cforall {a,b,c}  {\paren {c + a = c + b \implies a = b} \mland
+                   \paren {a + c = b + c \implies a = b}}. \stag[RA-Can] \\
+\endmathcol
+
+\solution
+Feito no \ref[int_cancellation_law_for_addition_proof].
+
+%%}}}
+
+%%{{{ x: real_zero_annihilator 
+\exercise Anulador.
+%%%{{{ meta 
+\label real_zero_annihilator
+%%%}}}
+
+Demonstre que $0$ é um $(\ntimes)$-anulador:
+\mathcol
+\cforall {a}      {0 \ntimes a = 0 = a \ntimes 0}.   \stag[R-Ann] \\
+\endmathcol
+
+%%}}}
+
+%%{{{ x: real_zero_has_no_multipliative_inverse 
+\exercise.
+%%%{{{ meta 
+\label real_zero_has_no_multipliative_inverse
+%%%}}}
+
+Demonstre que $0$ não possui $(\ntimes)$-inverso.
+
+%%}}}
+
+%%{{{ x: real_neg_x_is_minus_one_times_x 
+\exercise.
+%%%{{{ meta 
+\label real_neg_x_is_minus_one_times_x
+%%%}}}
+
+Para todo $a$, $(-1)a = -a$.
+
+%%}}}
+
+%%{{{ x: real_product_and_neg 
+\exercise.
+%%%{{{ meta 
+\label real_product_and_neg
+%%%}}}
+
+$\lforall {a,b} {(-a)b = -(ab) = a(-b)}$.
+
+%%}}}
+
+%%{{{ x: real_product_with_two_minuses 
+\exercise.
+%%%{{{ meta 
+\label real_product_with_two_minuses
+%%%}}}
+
+Para quaisquer $a,b$, $(-a)(-b) = ab$.
+
+%%}}}
+
+%%{{{ x: real_uniqueness_of_multiplicative_identity 
+\exercise Unicidade da identidade multiplicativa.
+%%%{{{ meta 
+\label real_uniqueness_of_multiplicative_identity
+%%%}}}
+
+Existe único $u$ tal que para todo $x$, $ux = x = xu$.
+
+\solution
+Demonstrado no \ref[int_uniqueness_of_multiplicative_identity], pois
+tal demonstração precisou apenas axiomas que temos aqui também.
+
+%%}}}
+
+%%{{{ x: real_uniqueness_of_multiplicative_inverses 
+\exercise Unicidade dos inversos multiplicativos.
+%%%{{{ meta 
+\label real_uniqueness_of_multiplicative_inverses
+%%%}}}
+
+Para todo $x\neq 0$, existe único $x'$ tal que $x'x = 1 = xx'$.
+
+\solution
+Seja $x \neq 0$ e sejam $x', x''$ $(\ntimes)$-inversos de $x$.
+Preciso demonstrar que $x' = x''$.
+Calculamos:
+\compute
+x'
+&= x'1       \by {$1$ é uma $(\ntimes)$-identidade-R} \\
+&= x'(xx'')  \by {$x''$ é um $(\ntimes)$-inverso-R de $x$} \\
+&= (x'x)x''  \by {$(\ntimes)$-assoc.} \\
+&= 1x''      \by {$x'$ é um $(\ntimes)$-inverso-L de $x$} \\
+&= x''.      \by {$1$ é uma $(\ntimes)$-identidade-R}
+\endcompute
+
+%%}}}
+
+% enter inverses
+
+%%{{{ notation: real_inv_notation 
+\notation Inverso multiplicativo.
+%%%{{{ meta 
+\label real_inv_notation
+\defines
+    * {{~a}^{-1}}  -- o inverso multiplicativo do real $a$
+    ;;
+%%%}}}
+
+Seja $a \neq 0$.
+Denotamos por $a^{-1}$ o seu $(\ntimes)$-inverso, ou seja,
+o único real $a'$ tal que $a'a = 1 = aa'$.
+
+%%}}}
+
+%%{{{ x: real_cancellation_law_for_multiplication 
+\exercise Lei de cancelamento multiplicativo.
+%%%{{{ meta 
+\label real_cancellation_law_for_multiplication
+%%%}}}
+
+Temos:
+\mathcol
+\cforall {c,a,b}  {c \neq 0 \implies \paren{ca = cb \implies a = b} \mland \paren{ac = bc \implies a = b}}. \stag[R-Can] \\
+\endmathcol
+
+%%}}}
+
+%%{{{ x: real_inv_of_inv 
+\exercise Inverso de inverso.
+%%%{{{ meta 
+\label real_inv_of_inv
+%%%}}}
+
+Para todo $x\neq 0$, $\minvp {\minv x} = x$.
+
+%%}}}
+
+%%{{{ x: real_nzd 
+\exercise R-NZD.
+%%%{{{ meta 
+\label real_nzd
+%%%}}}
+
+$\lforall {a,b} {ab = 0 \implies a = 0 \mlor b = 0}$.
+
+%%}}}
+
+% enter fractions
+
+%%{{{ df: real_fraction_as_syntactic_sugar
+\definition Açúcar sintáctico: fracção.
+%%%{{{ meta 
+\label real_fraction_as_syntactic_sugar
+\defines
+    * fracção!nos reais
+    ;;
+%%%}}}
+
+Dados $a,b$ com $b\neq0$, escrevemos $a/b$ ou $\frac a b$ como
+açúcar sintáctico para o produto $a\ntimes b^{-1}$.
+Note que as notações $1/b$ e $\frac 1 b$ são casos especiais disso.
+
+%%}}}
+
+%%{{{ x: real_product_of_fractions 
+\exercise Produto de fracções.
+%%%{{{ meta 
+\label real_product_of_fractions
+%%%}}}
+
+Para quaisquer $a,b,c,d$ com $b,d \neq 0$, temos:
+$$
+\frac a b \ntimes \frac c d = \frac {a \ntimes c} {b \ntimes d}.
+$$
+
+%%}}}
+
+%%{{{ x: real_sum_of_fractions 
+\exercise Soma de fracções.
+%%%{{{ meta 
+\label real_sum_of_fractions
+%%%}}}
+
+Para quaisquer $a,b,c,d$ com $b,d \neq 0$, temos:
+$$
+\frac a b + \frac c d = \frac {a \ntimes d + b \ntimes c} {b \ntimes d}.
+$$
+
+%%}}}
+
+%%{{{ x: real_fraction_of_fractions
+\exercise Fracção de frações.
+%%%{{{ meta 
+\label real_fraction_of_fractions
+%%%}}}
+
+Para quaisquer $a,b,c,d$ com $b,c,d \neq 0$, temos:
+$$
+\frac {~\frac a b~} {~\frac c d~} = \frac {ad} {bc}.
+$$
+
+%%}}}
+
+% enter powers
+
+%%{{{ df: real_natural_powers 
+\definition Potências naturais.
+%%%{{{ meta 
+\label real_natural_powers
+%%%}}}
+
+Já que agora possuimos mesmo o tipo $\Nat$, podemos definir
+mesmo as potências naturais de qualquer real $x$, recursivamente,
+como uma operação de tipo:
+$$
+(\expop) \is \Real \to \Nat \to \Real
+$$
+definida pelas
+\mathcol
+x^0     &\defeq 1 \\
+x^{n+1} &\defeq x \ntimes x^n. \\
+\endmathcol
+Como acabemos de fazer aqui, denotamos a aplicação da $(\expop)$ nos argumentos
+$a,b$ por $a^b$.
+
+%%}}}
+
+%%{{{ x: real_natural_powers_left_assoc 
+\exercise.
+%%%{{{ meta 
+\label real_natural_powers_left_assoc
+%%%}}}
+
+Uma alternativa para definir as potências naturais dum real $x$ seria a seguinte:
+\mathcol
+x^0     &\defeq 1 \\
+x^{n+1} &\defeq x^n \ntimes x. \\
+\endmathcol
+Demonstre que essas duas definições são equivalentes.
+\eop
+Cuidado!  Duas definições alternativas usando a mesma notação não ajuda em demonstrar
+que são equivalentes.  Tu vai acabar escrevendo que precisa demonstrar que $x^n = x^n$,
+parecendo algo trivial (por reflexividade), só que não é o caso, pois
+num lado o $x^n$ é para seguir uma definição, e no outro outra!
+Por isso precisamos alterar a notação da definição alternativa.
+Sugiro assim:
+\mathcol
+\lexp x 0     &\defeq 1 \\
+\lexp x {n+1} &\defeq \lexp x n \ntimes x. \\
+\endmathcol
+Agora sim, o que precisas demonstrar é fácil de escrever:
+$$
+\pforall {x \is \Real} \lforall {n \is \Nat} {\lexp x n = \rexp x n}.
+$$
+
+%%}}}
+
+%%{{{ x: real_natural_powers_properties 
+\exercise.
+%%%{{{ meta 
+\label real_natural_powers_properties
+%%%}}}
+
+Sejam $a$ real e $n,m$ naturais.
+Logo:
+\mathcol
+a^{n+m} &= a^n \ntimes a^m \\
+a^{n\ntimes m} &= (a^n)^m.
+\endmathcol
+
+%%}}}
+
+%%{{{ remark: real_integral_powers_choice 
+\remark Potências integrais: qual definição escolher?.
+%%%{{{ meta 
+\label real_integral_powers_choice
+%%%}}}
+
+Tendo o tipo dos inteiros $\Int$ gostariamos de estender
+as potências dum real $x$ para permitir expoentes inteiros.
+Parece que temos dois significados razoáveis para atribuir ao $x^{-n}$:
+$$
+x^{-n} \askeq
+\paths{
+\paren{x^{-1}}^n & (o inverso de $x$, elevado ao natural $n$) \cr
+\pathween {\dots\orword\dots}
+(x^n)^{-1}       & (o inverso de $x^n$)
+}
+$$
+Felizmente as duas alternativas são equivalentes,
+e logo não importa tanto qual das duas vamos escolher.
+Demonstrarás isso agora no \ref[real_integral_powers_choices_are_equivalent],
+e logo depois (\ref[real_integral_powers] eu vou escolher uma para ser a definição mesmo.
+
+%%}}}
+
+%%{{{ x: real_integral_powers_choices_are_equivalent 
+\exercise.
+%%%{{{ meta 
+\label real_integral_powers_choices_are_equivalent
+%%%}}}
+
+Demonstre que as duas interpretações da \ref[real_integral_powers_choice]
+são equivalentes.
+
+%%}}}
+
+%%{{{ df: real_integral_powers 
+\definition Potências integrais.
+%%%{{{ meta 
+\label real_integral_powers
+%%%}}}
+
+Definimos
+$$
+x^{-n} \defeq (x^n)^{-1}.
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Order_and_positivity_on_reals 
 \section Ordem e positividade.
 %%%{{{ meta 
@@ -24464,2980 +26900,6 @@ $Q = \Union_n \set{\tup{\cos n, \sin n}}$?
 \cite[hardypuremath],
 \cite[loomissternberg].
 \cite[knuthsurreals].
-
-\endfurther
-%%}}}
-
-\endchapter
-%%}}}
-
-%%{{{ chapter: Enumerative_combinatorics 
-\chapter Combinatória enumerativa.
-%%%{{{ meta 
-\label Enumerative_combinatorics
-%%%}}}
-
-\TODO terminar e arrumar.
-
-%%{{{ Counting principles 
-\section Princípios de contagem.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ Informally 
-\note Informalmente.
-%%%{{{ meta 
-%%%}}}
-
-Queremos contar todas as maneiras possíveis para algo acontecer,
-certas configurações, certos objetos ser escolhidos, ou ordenados, etc.
-Baseamos nossas idéias em dois princípios de contagem:
-da \emph{adição} e da \emph{multiplicação}.
-\eop
-{O princípio da adição, informalmente:}
-Se podemos agrupar todos esses objetos em grupos \emph{distintos},
-tais que cada objeto pertence em \emph{exatamente um} grupo,
-o número total dos objetos é igual o somatório dos tamanhos dos grupos.
-\eop
-{O princípio da multiplicação, informalmente:}
-Se cada configuração pode ser descrita completamente em $n$ passos,
-onde para o primeiro passo temos $a_1$ opções,
-para o segundo passo temos $a_2$ opções, etc., e
-\emph{em cada passo a quantidade das opções disponíveis
-não depende nas escolhas anteriores},
-então existem em total $a_1a_2\dotsb a_n$ configurações possíveis.
-
-%%}}}
-
-%%{{{ principle: principle_of_addition 
-\principle Princípio da adição.
-%%%{{{ meta 
-\headerize
-\label principle_of_addition
-\defines
-    * princípio!da adição
-    ;;
-%%%}}}
-
-Seja $A$ conjunto finito, e $A_1,\dotsc,A_n$ subconjuntos dele tais que cada elemento $a\in A$, pertence em \emph{exatamente} um dos $A_i$.
-Logo,
-$$
-|A| = \Sum_{i=1}^n |A_i|.
-$$
-
-%%}}}
-
-%%{{{ principle: principle_of_multiplication 
-\principle Princípio da multiplicação.
-%%%{{{ meta 
-\headerize
-\label principle_of_multiplication
-\defines
-    * princípio!da multiplicação
-    ;;
-%%%}}}
-
-Sejam $A_1,\dotsc,A_n$ conjuntos finitos.
-Logo
-$$
-|A_1\times\dotsb\times A_n| = |A_1|\dotsb|A_n|.
-$$
-
-%%}}}
-
-%%{{{ eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-De quantas maneiras podemos escrever um string de tamanho $3$\dots
-\tlist:
-\li (i): Usando o alfabeto
-$\set{\txt A, \txt B, \txt C, \dotsc, \txt X, \txt Y, \txt Z}$?
-\li (ii): Usando o mesmo alfabeto, mas proibindo o mesmo caractere se repetir no string?
-\endtlist
-
-\solution.
-Consideramos a formação de cada string em passos, caractere a caractere.
-Temos 3 posições para colocar os caracteres:
-$
-\underline{\phantom{\txt Z}}
-\;
-\underline{\phantom{\txt Z}}
-\;
-\underline{\phantom{\txt Z}}
-\;
-$.
-\eop
-Para a questão (i), temos:
-$26$ maneiras para escolher o primeiro caractere,
-$26$ para o segundo, e
-$26$ para o último:
-$$
-\underbrace{
-\underline{\phantom{\txt Z}}
-}_{26}
-\;
-\underbrace{
-\underline{\phantom{\txt Z}}
-}_{26}
-\;
-\underbrace{
-\underline{\phantom{\txt Z}}
-}_{26}
-\;.
-$$
-A escolha em cada passo não é afeitada por as escolhas dos passos anteriores.
-Logo, pelo princípio da multiplicação tem
-$$
-26\ntimes 26\ntimes 26 = 26^3
-$$
-strings possíveis.
-\eop
-Para a questão (ii), temos:
-$26$ maneiras para escolher o primeiro caractere,
-$25$ para o segundo (todos menos aquele que escolhemos no passo anterior), e
-$24$ para o último (similarmente):
-$$
-\underbrace{
-\underline{\phantom{\txt Z}}
-}_{26}
-\;
-\underbrace{
-\underline{\phantom{\txt Z}}
-}_{25}
-\;
-\underbrace{
-\underline{\phantom{\txt Z}}
-}_{24}
-\;.
-$$
-Agora a escolha em cada passo realmente \emph{é afeitada} por as escolhas
-dos passos anteriores!
-Por exemplo, se no primeiro passo escolher o caractere $\txt C$, para
-o segundo passo as opções incluem o caractere $\txt A$; 
-mas se no primeiro passo escolher o caractere $\txt A$, as opções para o segundo
-mudam: não temos essa opção mais.
-\emph{Mesmo assim, podemos usar o princípio da multiplicação!}
-Por quê?
-As escolhas dos passos anteriores afeitam \emph{quais} são as escolhas do passo atual,
-mas não afeitam \emph{quantas} elas são!
-Por isso, chegamos no resultado aplicando mais uma vez o princípio da multiplicação:
-temos
-$$
-26\ntimes 25\ntimes 24
-$$
-maneiras possíveis.
-
-%%}}}
-
-%%{{{ x: 4 gifts for 3 kids 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Temos $4$ presentes e queremos dar para $3$ crianças tal que cada criança vai
-receber apenas um presente.
-\tlist:
-\li (i): De quantas maneiras podemos disribuir os presentes para as crianças?
-\li (ii): O que muda se as crianças são $4$?  Explique.
-\endtlist
-
-%%}}}
-
-%%{{{ x: in how many ways can we write strings of length 2 using ABCD 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-De quantas maneiras podemos escrever strings de tamanho $2$ usando o alfabeto
-$$
-\set{\txt A, \txt B, \txt C, \txt D},
-$$
-tais que as letras aparecem em ordem que concorda com a do alfabeto?
-Por exemplo os string $\txt A \txt C$, $\txt B \txt B$, e $\txt C \txt D$ são aceitáveis,
-mas os $\txt D \txt C$ e $\txt B \txt A$, não.
-
-\hint
-Cuidado: aqui a \emph{quantidade} das opções da segunda escolha, depende sim na escolha
-anterior!
-
-\hint
-Separa os strings possíveis em colecções e conta os strings de cada colecção separadamente,
-somando no final (princípio de adição) para achar o resultado.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Permutations and combinations 
-\section Permutações e combinações.
-%%%{{{ meta 
-\label Permutations_and_combinations
-%%%}}}
-
-%%{{{ Q: in how many ways can we choose r from n? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-De quantas maneiras podemos escolher $r$ objetos de $n$?
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Essa questão é bastante ambígua;
-por exemplo:
-Os $n$ objetos são todos distintos?
-Podemos repetir o mesmo objeto na nossa escolha?
-
-%%}}}
-
-%%{{{ df: comb_perm_totperm 
-\definition.
-%%%{{{ meta 
-\label comb_perm_totperm
-\defines
-    * \comb {~n} {~r}  -- o número de $r$-combinações de $n$ objetos
-    * \perm {~n} {~r}  -- o número de $r$-permutações de $n$ objetos
-    * \totperm {~n}  -- o número de permutações (totais) de $n$ objetos
-    ;;
-%%%}}}
-
-Usamos os símbolos:
-$$
-\align
-\totperm n &:\quad\text{o número de permutações totais de $n$ objetos}\\
-\perm n r  &:\quad\text{o número de $r$-permutações de $n$ objetos}\\
-\comb n r  &:\quad\text{o número de $r$-combinações de $n$ objetos}
-\endalign
-$$
-Onde entendemos que:
-\elist i:
-\li: os $n$ objetos são distíntos;
-\li: não podemos repeti-los.
-\endelist
-Observe que as permutações totais são apenas casos especiais de $r$-permutações.
-Na literatura encontramos $r$-permutações também com o nome \dterm{arranjos},
-mas nós vamos evitar esse termo aqui para evitar confusão.
-
-%%}}}
-
-%%{{{ prop: total_permutations 
-\proposition Permutações totais.
-%%%{{{ meta 
-\label total_permutations
-\defines
-    * permutação!total
-    ;;
-\indexes
-    * arranjo    see: permutação
-    ;;
-%%%}}}
-
-$$
-\totperm n = {n!}.
-$$
-
-%%}}}
-
-%%{{{ prop: permutations 
-\proposition Permutações.
-%%%{{{ meta 
-\defines
-    * permutação
-    ;;
-%%%}}}
-
-$$
-\perm n r = \frac {n!} {(n-r)!}.
-$$
-
-%%}}}
-
-%%{{{ prop: combinations 
-\proposition Combinações.
-%%%{{{ meta 
-\defines
-    * combinação
-    ;;
-%%%}}}
-
-$$
-\comb n r = \frac {n!} {(n-r)!\stimes r!}.
-$$
-
-%%}}}
-
-%%{{{ eg: 10_friends_car_trip 
-\example.
-%%%{{{ meta 
-\label 10_friends_car_trip
-%%%}}}
-
-$10$ amigos têm vontade viajar com um carro de $5$ vagas.
-De quantas maneiras diferentes $5$ deles podem entrar no carro?
-Considere que o que diferencia mesmo a configuração são apenas a posição
-do motorista e do copiloto.
-
-\solution.
-Vamos ver dois jeitos diferentes para contar essas configurações:
-\crtabproofalt{Jeito 1:}
-Escrevendo
-$$
-\comb {10} 1
-\ntimes
-\comb 9 1
-\ntimes
-\comb 8 3
-$$
-já é meio auto-explicativo: formamos cada configuração em passos:
-{(i)}      escolher o motorista;
-{(ii)}     escolher o copiloto;
-{(iii)}    escolher os passangeiros de trás.
-\crtabproofalt{Jeito 2:}
-Outra método para formar cada configuração seria:
-{(i)}      escolher os 5 que vão entrar no carro;
-{(ii)}     escolher qual vai ser o motorista;
-{(iii)}    escolher qual vai ser o copiloto.
-pensando assim chegamos no cálculo
-$$
-\tubrace{\comb {10} 5} {(i)}
-\ntimes
-\tubrace{\comb 5 1} {(ii)}
-\ntimes
-\tubrace{\comb 4 1} {(iii)}.
-$$
-\eop
-Olhando para os dois cálculos
-$$
-\comb {10} 1 \ntimes \comb 9 1 \ntimes \comb 8 3
-\askeq
-\comb {10} 5 \ntimes \comb 5 1 \ntimes \comb 4 1
-$$
-não é óbvio que seus valores são iguais.
-Calculamos
-$$
-\alignat2
-\comb {10} 1 \ntimes \comb 9 1 \ntimes \comb 8 3
-&= 10 \ntimes 9 \ntimes \frac {8!} {5!\stimes3!}
-&&= \frac {10!} {5!\stimes3!}
-\\
-\comb {10} 5 \ntimes \comb 5 1 \ntimes \comb 4 1
-&= \frac {10!} {5!\stimes 5!} \ntimes 5 \ntimes 4
-&&= \frac {10!} {5!\stimes 3!}
-\endalignat
-$$
-e respondemos (felizmente) que em total temos
-$$
-\frac {10!} {5!\stimes3!}
-= \frac{10 \ntimes 9 \ntimes 8\ntimes7\ntimes6} { 3! }
-= 10 \ntimes 9 \ntimes 8\ntimes7
-= 5040
-$$
-configurações diferentes.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Permutations in a circle 
-\section Permutações cíclicas.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ eg: circle_dance_of_8 
-\example.
-%%%{{{ meta 
-\label circle_dance_of_8
-%%%}}}
-
-$8$ pessoas querem dançar uma dança em qual
-todos precisam formar um ciclo pegando as mãos
-(e olhando para o interior do ciclo).
-Em quantas configurações diferentes essa dança pode começar?
-
-\solution.
-Vamos resolver esse problema seguindo duas idéias bem diferentes:
-\crtabproofalt{Idéia~1.}
-Consideramos primeiro a questão:
-``\emph{de quantas maneiras podemos permutar as $8$ pessoas numa ordem?}''
-Respondemos $8!$, o número das permutações totais de $8$ objetos
-(sabendo que hipercontamos para o problema original).
-Mas podemos calcular \emph{exatamente quanto} hipercontamos:
-cada resposta do problema original corresponde em exatamente
-$8$ respostas do problema novo (uma para cada ``circular shift'').
-Então basta só dividir a ``hiperconta'' por $8$, e chegamos
-no resultado final: $8! / 8$, ou seja, $7!$.
-\crtabproofalt{Idéia~2.}
-\emph{Fixamos uma pessoa como ``determinante'' da configuração;}
-a idéia sendo que para comparar duas configurações nós vamos
-começar com o determinante, e depois comparar em ordem fixa
-o resto da configuração
-(por exemplo indo cada vez de uma pessoa
-para quem tá no lado direito dela).
-Assim, para cada permutação total das 7 outras pessoas,
-temos uma permutação circular das 8 e vice-versa,
-ou seja, a resposta final é $7!$.
-
-%%}}}
-
-%%{{{ fig for circle_dance_of_8 
-\midinsert
-\hfil
-\tikzpicture[scale=0.8]%%{{{
-\draw (0,0) circle (2cm);
-\foreach \t in {0,45,90,135,180,225,270,315}
-    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{p_0}$};
-\node[circle,fill=white] at (a0)   {$p_0$};
-\node[circle,fill=white] at (a45)  {$p_1$};
-\node[circle,fill=white] at (a90)  {$p_2$};
-\node[circle,fill=white] at (a135) {$p_3$};
-\node[circle,fill=white] at (a180) {$p_4$};
-\node[circle,fill=white] at (a225) {$p_5$};
-\node[circle,fill=white] at (a270) {$p_6$};
-\node[circle,fill=white] at (a315) {$p_7$};
-\endtikzpicture
-%%}}}
-\hfil
-\tikzpicture[scale=0.8]%%{{{
-\draw (0,0) circle (2cm);
-\foreach \t in {0,45,90,135,180,225,270,315}
-    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{a_0}$};
-\node[circle,fill=white] at (a315)  {$p_0$};
-\node[circle,fill=white] at (a0)    {$p_1$};
-\node[circle,fill=white] at (a45)   {$p_2$};
-\node[circle,fill=white] at (a90)   {$p_3$};
-\node[circle,fill=white] at (a135)  {$p_4$};
-\node[circle,fill=white] at (a180)  {$p_5$};
-\node[circle,fill=white] at (a225)  {$p_6$};
-\node[circle,fill=white] at (a270)  {$p_7$};
-\endtikzpicture
-%%}}}
-\hfil
-\eop\centerline{Uma configuração do~\reftag[circle_dance_of_8] representada em dois jeitos diferentes no papel.}
-\endinsert
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Generalizando concluimos que:
-
-%%}}}
-
-%%{{{ prop: permutations_in_circle 
-\proposition.
-%%%{{{ meta 
-\label permutations_in_circle
-%%%}}}
-
-As configurações circulares diferentes de $n$ objetos, $n>0$ são
-$$
-(n-1)!.
-$$
-
-%%}}}
-
-%%{{{ x: circle_dance_of_8_inorout 
-\exercise.
-%%%{{{ meta 
-\label circle_dance_of_8_inorout
-%%%}}}
-
-O que mudará na contagem do~\ref[circle_dance_of_8],
-se cada dançador pode olhar ou para o interior ou para o exterior do círculo?
-
-\hint
-Começando com a mesma resposta ($7!$) do~\ref[circle_dance_of_8],
-claramente nos hipocontamos---mas quanto?
-
-\hint
-Considere uma configuração do~\ref[circle_dance_of_8].
-Com quantas configurações do problema atual ela corresponde?
-
-%%}}}
-
-%%{{{ x: circle_dance_of_8_couples 
-\exercise.
-%%%{{{ meta 
-\label circle_dance_of_8_couples
-%%%}}}
-
-O que mudará na contagem do~\ref[circle_dance_of_8],
-se temos $4$ mulheres e $4$ homens e as regras da dança
-mandam alternar os sexos na configuração?
-
-\hint
-Construa cada configuração em passos.
-
-\hint
-Primeiramente, esqueça os homens (ou as mulheres)
-e coloca as $4$ mulheres (ou os $4$ homens)
-num ciclo.
-De quantas maneiras pode escolher o resto para
-entrar no círculo?
-
-%%}}}
-
-%%{{{ x: 8_bead_bracelet 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Temos $8$
-miçangas
-diferentes, e queremos pôr todas
-numa
-corrente
-para criar uma pulseira.
-Quantas maneiras diferentes temos para o criar?
-
-\hint
-Se tu achar o problema igual com o~\ref[circle_dance_of_8],
-tu hipercontarás\dots Quanto?
-
-\hint
-Veja a figura.
-Pode explicar por que as três representações
-correspondem na mesma configuração?
-\topinsert
-\centerline{
-\tikzpicture[scale=0.8]%%{{{
-\draw (0,0) circle (2cm);
-\foreach \t in {0,45,90,135,180,225,270,315}
-    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{a_0}$};
-\node[circle,fill=red!33]       at (a0)   {$a_0$};
-\node[circle,fill=green!33]     at (a45)  {$a_1$};
-\node[circle,fill=blue!33]      at (a90)  {$a_2$};
-\node[circle,fill=cyan!33]      at (a135) {$a_3$};
-\node[circle,fill=magenta!33]   at (a180) {$a_4$};
-\node[circle,fill=yellow!33]    at (a225) {$a_5$};
-\node[circle,fill=orange!33]    at (a270) {$a_6$};
-\node[circle,fill=brown!33]     at (a315) {$a_7$};
-\endtikzpicture
-%%}}}
-\hfil
-\tikzpicture[scale=0.8]%%{{{
-\draw (0,0) circle (2cm);
-\foreach \t in {0,45,90,135,180,225,270,315}
-    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{a_0}$};
-\node[circle,fill=red!33]       at (a315)  {$a_0$};
-\node[circle,fill=green!33]     at (a0)    {$a_1$};
-\node[circle,fill=blue!33]      at (a45)   {$a_2$};
-\node[circle,fill=cyan!33]      at (a90)   {$a_3$};
-\node[circle,fill=magenta!33]   at (a135)  {$a_4$};
-\node[circle,fill=yellow!33]    at (a180)  {$a_5$};
-\node[circle,fill=orange!33]    at (a225)  {$a_6$};
-\node[circle,fill=brown!33]     at (a270)  {$a_7$};
-\endtikzpicture
-%%}}}
-\hfil
-\tikzpicture[scale=0.8]%%{{{
-\draw (0,0) circle (2cm);
-\foreach \t in {0,45,90,135,180,225,270,315}
-    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{a_0}$};
-\node[circle,fill=red!33]       at (a315)  {$a_0$};
-\node[circle,fill=green!33]     at (a270)  {$a_1$};
-\node[circle,fill=blue!33]      at (a225)  {$a_2$};
-\node[circle,fill=cyan!33]      at (a180)  {$a_3$};
-\node[circle,fill=magenta!33]   at (a135)  {$a_4$};
-\node[circle,fill=yellow!33]    at (a90)   {$a_5$};
-\node[circle,fill=orange!33]    at (a45)   {$a_6$};
-\node[circle,fill=brown!33]     at (a0)    {$a_7$};
-\endtikzpicture
-%%}}}
-}
-\botcaption{}
-\emph{Apenas uma} das configurações da pulseira, representada em três desenhos.
-\endcaption
-\endinsert
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Together or separated 
-\section Juntos ou separados.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ x: dinner_of_8_with_couple 
-\example.
-%%%{{{ meta 
-\label dinner_of_8_with_couple
-%%%}}}
-
-Suponha que $8$ pessoas $A,B,C,D,E,F,G,H$ querem sentar num bar
-mas $C$ e $D$ querem sentar juntos.
-De quantas maneiras isso pode acontecer?
-
-\solution.
-\emph{Vamos imaginar que $C$ e $D$ são uma pessoa, chamada $CD$.}
-Nos perguntamos de quantas maneiras as 7 pessoas $A,B,CD,E,F,G,H$ podem sentar
-numa mesa de bar com $7$ banquinhos.
-A resposta é os permutações totais de tamanho 7, ou seja, $7!$.
-Mas para cada configuração desse problema,
-correspondem \emph{duas} configurações do problema original, porque os
-$C$ e $D$ podem sentar em duas ordens diferentes juntos.
-A resposta final:
-$7! \ntimes 2$.
-
-%%}}}
-
-%%{{{ x: 8_persons_are_sitting_on_a_bar 
-\exercise.
-%%%{{{ meta 
-% TODO: fix reflabs 
-%%%}}}
-
-Suponha que 8 pessoas $A,B,C,D,E,F,G,H$ querem jantar numa mesa de bar.
-Em quantas configurações diferentes eles podem sentar se\dots:
-\tlist:
-\li (1): os $C$ e $D$ e $E$ querem sentar juntos;
-\li (2): os $F$ e $G$ não podem sentar juntos;
-\li (3): as duas restricções (1) e (2).
-\endtlist
-
-\hint
-\tlist:
-\li (1): Como no \ref[dinner_of_8_with_couple],
-         considere o problema onde $C$, $D$, e $E$ são uma pessoa só.
-\li (2): Conte o complementar e subtraia do total sem restricção;
-\li (3): Conte as configurações em quais $C$, $D$, e $E$ sentam juntos e subtraia
-         as configurações onde, além disso, $F$ e $G$ também sentam juntos.
-\endtlist
-
-\solution
-(1) Como no \ref[dinner_of_8_with_couple], traduzimos o problema para um onde
-$C$, $D$, e $E$, são uma pessoa---vamos chamá-la de $CDE$---e as
-$6$ pessoas $A,B,CDE,F,G,H$ querem jantar numa mesa de bar com 6 banquinhos.
-Cada solução desse problema corresponde em tantas configurações quantas as $3$ pessoas
-$C$, $D$, $E$ podem sentar numa ordem, ou seja $\totperm 3$ configurações.
-A resposta final:
-$$
-\totperm 6 \ntimes \totperm 3 = 6!\stimes3! = 6!\stimes 6
-$$
-\eop
-(2) Contamos o complementar:
-todas as maneiras onde $F$ e $G$ sentam juntos ($7!\ntimes 2$),
-e o tiramos de todas as maneiras sem restricção ($8!$):
-$$
-\totperm 8 - \totperm 7 \ntimes \totperm 2
-= 8! - 7!\ntimes 2! = 7!(8 - 2)
-= 7!\stimes 6
-$$
-(3) Já achamos quantas maneiras tem onde $C$, $D$, e $E$ sentam juntos: $6!\stimes6$.
-Disso, precisamos subtrair as configurações onde $F$ e $G$ também sentam juntos:
-para satisfazer as duas restricções, consideramos as $5$ ``pessoas''
-$A,B,CDE,FG,H$, quais podem sentar numa mesa de bar de tamanho $5$ de
-$$
-\totperm 5 \stimes \totperm 3 \stimes \totperm 2
-= 5! \stimes 3! \stimes 2!
-= 5! \stimes 6 \stimes 2
-= 6! \stimes 2
-$$
-maneiras.
-A resposta final então é
-$$
-6!\stimes6 - 6!\stimes2 = 6!(6-2) = 6! \stimes 4.
-$$
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Generalizando:
-
-%%}}}
-
-%%{{{ prop: total_permutations_with_consecutives_restriction 
-\proposition.
-%%%{{{ meta 
-\label total_permutations_with_consecutives_restriction
-%%%}}}
-
-O número das permutações totais de $m$ objetos distintos com a restricção que
-certos $c$ deles tem que estar consecutivos é
-$$
-(m-c+1)! \stimes c!.
-$$
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Permutations of things not all distinct 
-\section Permutações de objetos não todos distintos.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ Q: in how many ways can we permute n not-all-distinct objects? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-De quantas maneiras podemos permutar $n$ objetos se
-eles não são todos distíntos?
-
-%%}}}
-
-%%{{{ eg: pessimissimo 
-\example.
-%%%{{{ meta 
-\label pessimissimo
-%%%}}}
-
-Conte todas as palavras feitas por permutações das 12 letras da palavra
-$$
-\txt{PESSIMISSIMO}.
-$$
-
-\solution.
-Vamos contar em dois jeitos diferentes:
-\crproofalt{Idéia 1:}
-Construimos cada palavra possível ``em passos'',
-usando o princípio da multplicação para achar o número total.
-$$
-\alignat 2
-\text{Começamos com 12 espaços:}
-\qquad&
-\underline{\phantom {\txt M}} \ 
-\underline{\phantom {\txt I}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt I}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt I}} \ 
-\underline{\phantom {\txt P}} \ 
-\underline{\phantom {\txt O}} \ 
-\underline{\phantom {\txt E}} \ 
-\underline{\phantom {\txt M}}
-\\
-\text{escolhemos onde colocar o ${\txt P}$:}
-\qquad&
-\underline{\phantom {\txt M}} \ 
-\underline{\phantom {\txt I}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt I}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt I}} \ 
-          {         {\txt P}} \ 
-\underline{\phantom {\txt O}} \ 
-\underline{\phantom {\txt E}} \ 
-\underline{\phantom {\txt M}}
-&\qquad&
-\text{tivemos $\comb {12} 1$ opções;}
-\\
-\text{depois o ${\txt E}$:}
-\qquad&
-\underline{\phantom {\txt M}} \ 
-\underline{\phantom {\txt I}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt I}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt S}} \ 
-\underline{\phantom {\txt I}} \ 
-          {         {\txt P}} \ 
-\underline{\phantom {\txt O}} \ 
-          {         {\txt E}} \ 
-\underline{\phantom {\txt M}}
-&\qquad&
-\text{tivemos $\comb {11} 1$ opções;}
-\\
-\text{depois os 4 ${\txt S}$:}
-\qquad&
-\underline{\phantom {\txt M}} \ 
-\underline{\phantom {\txt I}} \ 
-          {         {\txt S}} \ 
-          {         {\txt S}} \ 
-\underline{\phantom {\txt I}} \ 
-          {         {\txt S}} \ 
-          {         {\txt S}} \ 
-\underline{\phantom {\txt I}} \ 
-          {         {\txt P}} \ 
-\underline{\phantom {\txt O}} \ 
-          {         {\txt E}} \ 
-\underline{\phantom {\txt M}}
-&\qquad&
-\text{tivemos $\comb {10} 4$ opções;}
-\\
-\text{depois os 3 ${\txt I}$:}
-\qquad&
-\underline{\phantom {\txt M}} \ 
-          {         {\txt I}} \ 
-          {         {\txt S}} \ 
-          {         {\txt S}} \ 
-          {         {\txt I}} \ 
-          {         {\txt S}} \ 
-          {         {\txt S}} \ 
-          {         {\txt I}} \ 
-          {         {\txt P}} \ 
-\underline{\phantom {\txt O}} \ 
-          {         {\txt E}} \ 
-\underline{\phantom {\txt M}}
-&\qquad&
-\text{tivemos $\comb 6 3$ opções;}
-\\
-\text{depois os 2 ${\txt M}$:}
-\qquad&
-          {         {\txt M}} \ 
-          {         {\txt I}} \ 
-          {         {\txt S}} \ 
-          {         {\txt S}} \ 
-          {         {\txt I}} \ 
-          {         {\txt S}} \ 
-          {         {\txt S}} \ 
-          {         {\txt I}} \ 
-          {         {\txt P}} \ 
-\underline{\phantom {\txt O}} \ 
-          {         {\txt E}} \ 
-          {         {\txt M}}
-&\qquad&
-\text{tivemos $\comb 3 2$ opções;}
-\\
-\text{e finalmente o ${\txt O}$:}
-\qquad&
-          {         {\txt M}} \ 
-          {         {\txt I}} \ 
-          {         {\txt S}} \ 
-          {         {\txt S}} \ 
-          {         {\txt I}} \ 
-          {         {\txt S}} \ 
-          {         {\txt S}} \ 
-          {         {\txt I}} \ 
-          {         {\txt P}} \ 
-          {         {\txt O}} \ 
-          {         {\txt E}} \ 
-          {         {\txt M}}
-&\qquad&
-\text{tivemos $\comb 1 1$ opção.}
-\endalignat
-$$
-Pelo princípio da multiplicação, a resposta é o produto
-$$
-\align
-\underbrace{\comb {12} 1}_{\dsize {\txt P}}
-\underbrace{\comb {11} 1}_{\dsize {\txt E}}
-\underbrace{\comb {10} 4}_{\dsize4{\txt S}}
-\underbrace{\comb {6}  3}_{\dsize3{\txt I}}
-\underbrace{\comb {3}  2}_{\dsize2{\txt M}}
-\underbrace{\comb {1}  1}_{\dsize {\txt O}}
-&=
-\frac
-{12!}
-{\cancel{11!}\stimes 1!}
-\frac
-{\cancel{11!}}
-{\cancel{10!}\stimes 1!}
-\frac
-{\cancel{10!}}
-{\cancel{6!}\stimes 4!}
-\frac
-{\cancel{6!}}
-{\cancel{3!}\stimes 3!}
-\frac
-{\cancel{3!}}
-{\cancel{1!}\stimes 2!}
-\frac
-{\cancel{1!}}
-{0!\stimes 1!}\\
-&=
-\frac
-{12!}
-{1!
-\stimes 1!
-\stimes 4!
-\stimes 3!
-\stimes 2!
-\stimes 1!
-}
-=
-\frac
-{12!}
-{
-4!
-\stimes 3!
-\stimes 2!
-}.
-\endalign
-$$
-\crproofalt{Idéia 2:}
-Contamos as maneiras como se todas as letras fossem distintas,
-por exemplo marcando cada letra com índices:
-$$
-{\txt P}_1\ 
-{\txt E}_1\ 
-{\txt S}_1\ 
-{\txt S}_2\ 
-{\txt I}_1\ 
-{\txt M}_1\ 
-{\txt I}_2\ 
-{\txt S}_3\ 
-{\txt S}_4\ 
-{\txt I}_3\ 
-{\txt M}_2\ 
-{\txt O}_1\,.
-$$
-Sabemos que são $12!$ e que
-assim temos \emph{hipercontado} para nosso problema.
-Por exemplo, a palavra 
-$
-{\txt M}
-{\txt I}
-{\txt S}
-{\txt S}
-{\txt I}
-{\txt S}
-{\txt S}
-{\txt I}
-{\txt P}
-{\txt O}
-{\txt E}
-{\txt M}
-$
-corresponde em várias palavras do problema novo;
-escrevemos três delas aqui como exemplos:
-$$
-{\txt M}\ 
-{\txt I}\ 
-{\txt S}\ 
-{\txt S}\ 
-{\txt I}\ 
-{\txt S}\ 
-{\txt S}\ 
-{\txt I}\ 
-{\txt P}\ 
-{\txt O}\ 
-{\txt E}\ 
-{\txt M}
-\ 
-\transto
-\ 
-\brace{
-\gathered
-{\txt M}_1\ 
-{\txt I}_1\ 
-{\txt S}_1\ 
-{\txt S}_2\ 
-{\txt I}_2\ 
-{\txt S}_3\ 
-{\txt S}_4\ 
-{\txt I}_3\ 
-{\txt P}_1\ 
-{\txt O}_1\ 
-{\txt E}_1\ 
-{\txt M}_2
-\\
-{\txt M}_2\ 
-{\txt I}_1\ 
-{\txt S}_1\ 
-{\txt S}_2\ 
-{\txt I}_2\ 
-{\txt S}_3\ 
-{\txt S}_4\ 
-{\txt I}_3\ 
-{\txt P}_1\ 
-{\txt O}_1\ 
-{\txt E}_1\ 
-{\txt M}_1
-\\
-{\txt M}_2\ 
-{\txt I}_1\ 
-{\txt S}_4\ 
-{\txt S}_3\ 
-{\txt I}_2\ 
-{\txt S}_2\ 
-{\txt S}_1\ 
-{\txt I}_3\ 
-{\txt P}_1\ 
-{\txt O}_1\ 
-{\txt E}_1\ 
-{\txt M}_1
-\\
-\vdots
-\endgathered
-\quad\qquad
-}
-\ \text{\dots quantas?}
-$$
-Mas é fácil calcular quanto hipercontamos:
-\emph{cada} palavra do problema original corresponde em exatamente tantas palavras
-quantas as maneiras de permutar cada grupo de letras ``subindicadas'' entre si,
-ou seja:
-$$
-\underbrace{1!}_{{\txt P}} \ntimes
-\underbrace{1!}_{{\txt E}} \ntimes
-\underbrace{4!}_{{\txt S}} \ntimes
-\underbrace{3!}_{{\txt I}} \ntimes
-\underbrace{2!}_{{\txt M}} \ntimes
-\underbrace{1!}_{{\txt O}}
-$$
-maneiras.
-Para responder então, basta dividir o número da ``hipercontagem'' por esse:
-$$
-\frac
-{12!}
-{4!\stimes 3!\stimes 2!}.
-$$
-Pronto.
-
-%%}}}
-
-%%{{{ x: choices_may_depend_on_past_ones_but_not_their_quantity 
-\exercise.
-%%%{{{ meta 
-\label choices_may_depend_on_past_ones_but_not_their_quantity
-%%%}}}
-
-Escolhendo outra ordem de colocar as letras
-na \proofstylize{Idéia 1} do~\ref[pessimissimo]
-nossas opções em cada passo seriam diferentes.
-Explique porque podemos usar o princípio da multiplicação mesmo assim.
-
-\hint
-Presta atenção na frase
-``\emph{em cada passo a quantidade das opções disponíveis
-não depende nas escolhas anteriores}''.
-
-\solution
-O imporante é que em cada passo, qual das nossas disponíveis opções
-será escolhida, não vai afeitar a quantidade das nossas opções no passo seguinte.
-Isso é realmente válido nesse caso.
-Se escolher colocar as letras em outra ordem, por exemplo a
-$
-{\txt S},
-{\txt E},
-{\txt I},
-{\txt P},
-{\txt O},
-{\txt M}
-$, teriamos quantidades diferentes para cada passo sim,
-\emph{mas}\/:
-cada uma das nossas escolhas, não afeitaria a quantidade das escolhas próximas.
-Com essa ordem, chegamos no mesmo resultado (com um cálculo que de longe aparece diferente):
-$$
-\align
-\underbrace{\comb {12} 4}_{\dsize4{\txt S}}
-\underbrace{\comb {8}  1}_{\dsize {\txt E}}
-\underbrace{\comb {7}  3}_{\dsize3{\txt I}}
-\underbrace{\comb {4}  1}_{\dsize {\txt P}}
-\underbrace{\comb {3}  1}_{\dsize {\txt O}}
-\underbrace{\comb {2}  2}_{\dsize2{\txt M}}
-&=
-\frac
-{12!}
-{\cancel{8!}\stimes 4!}
-\frac
-{\cancel{8!}}
-{\cancel{7!}\stimes 1!}
-\frac
-{\cancel{7!}}
-{\cancel{4!}\stimes 3!}
-\frac
-{\cancel{4!}}
-{\cancel{3!}\stimes 1!}
-\frac
-{\cancel{3!}}
-{\cancel{2!}\stimes 1!}
-\frac
-{\cancel{2!}}
-{0!\stimes 2!}\\
-\vphantom{
-\underbrace{\comb {12} 4}_{\dsize4{\txt S}}
-\underbrace{\comb {8}  1}_{\dsize {\txt E}}
-\underbrace{\comb {7}  3}_{\dsize3{\txt I}}
-\underbrace{\comb {4}  1}_{\dsize {\txt P}}
-\underbrace{\comb {3}  1}_{\dsize {\txt O}}
-\underbrace{\comb {2}  2}_{\dsize2{\txt M}}
-}
-&=
-\frac
-{12!}
-{4!
-\stimes 1!
-\stimes 3!
-\stimes 1!
-\stimes 1!
-\stimes 2!
-}\\
-&=
-\frac
-{12!}
-{
-4!
-\stimes 3!
-\stimes 2!
-}.
-\endalign
-$$
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Binomial coefficients 
-\section Binomial e seus coeficientes.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ thm: binomial_theorem 
-\theorem Binomial.
-%%%{{{ meta 
-\label binomial_theorem
-\indexes
-    * binomial!teorema    see: teorema
-    * teorema!binomial
-    ;;
-%%%}}}
-
-Sejam $x,y\in\ints$ e $n\in\nats$.
-$$
-\align
-(x+y)^n
-&= \binom n 0 x^n + \binom n 1 x^{n-1}y + \dotsb + \binom n {n-1} xy^{n-1} + \binom n n y^n\\
-&= \Sum_{i=0}^n \binom n i x^{n-i}y^i.
-\endalign
-$$
-
-\sketch.
-Queremos achar quantas vezes o termo $x^{n-r}y^r$ aparece na expansão do binomial.
-Escrevendo
-$$
-(x+y)^n = \tubrace {(x+y)(x+y)\dotsb(x+y)} {$n$ vezes}
-$$
-observamos que para cada das $\comb n r$ maneiras de escolher $r$ dos termos acima,
-corresponde um termo $x^{n-r}y^r$:
-``escolha quais dos termos do produto vão oferecer seu $y$
-(o resto dos termos oferecerá seus $x$'s)''.
-Isso justifica os coeficientes $\binom n r$.
-Por exemplo, para $n=7$ e $r=4$, a escolha
-$$
-(x+y)^7
-=
-(x+y)
-\tubrace {(x+y)} {``$y$''}\,
-(x+y)
-\tubrace {(x+y)} {``$y$''}
-\tubrace {(x+y)} {``$y$''}\,
-(x+y)
-\tubrace {(x+y)} {``$y$''}
-$$
-corresponde no produto
-$xyxyyxy = x^3y^4$, e cada diferente escolha das $\binom 7 4$
-correspondará com uma maneira diferente para formar o $x^3y^4$.
-
-%%}}}
-
-%%{{{ x: binomial_theorem_proof_by_induction 
-\exercise Teorema binomial: por indução.
-%%%{{{ meta 
-\label binomial_theorem_proof_by_induction
-\indexes
-    * teorema!binomial (por indução)
-    ;;
-%%%}}}
-
-Demonstre o teorema binomial por indução.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Number of subsets 
-\section Número de subconjuntos.
-%%%{{{ meta 
-\label Number_of_subsets
-%%%}}}
-
-%%{{{ Q: how many subsets of a finite set? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-Quantos subconjuntos dum conjunto finito existem?
-
-%%}}}
-
-%%{{{ Idea 1: subset_count_using_strings 
-\note Idéia 1.
-%%%{{{ meta 
-\label subset_count_using_strings
-%%%}}}
-
-Começamos com um exemplo de um conjunto $A$ de tamanho 6:
-$$
-A = \set{a, b, c, d, e, f}.
-$$
-Uns subconjuntos de $A$ são os:
-$$
-\set{a,d,e},
-\qquad
-\emptyset,
-\qquad
-\set{a},
-\qquad
-\set{b,c,e,f},
-\qquad
-A,
-\qquad
-\set{f},
-\qquad
-\dotsc
-$$
-Queremos contar todos os subconjuntos de $A$.
-Vamos \emph{traduzir o problema} de contar os subconjuntos do $A$
-para um problema que envolve $n$-tuplas de dois símbolos ``0'' e ``1'', ``sim'' e ``não'', ``$\in$'' e ``$\nin$'', etc.
-(Obviamente \emph{quais} são esses símbolos não afeita nada; o que importa é
-que são dois símbolos distintos.)
-Podemos associar agora cada dessas tuplas (ou strings) de tamanho $n$ para um
-subconjunto de $A$, e vice-versa, chegando numa correspondência entre as duas
-colecções de objetos.
-Naturalmente associamos, por exemplo,
-$$
-\def\Y{1}
-\def\N{0}
-\underbrace{
-\matrix
-a  & b  & c  & d  & e  & f \\
-\Y & \N & \N & \Y & \Y & \N\\
-\N & \N & \N & \N & \N & \N\\
-\Y & \N & \N & \N & \N & \N\\
-\N & \Y & \Y & \N & \Y & \Y\\
-\Y & \Y & \Y & \Y & \Y & \Y\\
-\N & \N & \N & \N & \N & \Y\\
-\vdots&
-\vdots&
-\vdots&
-\vdots&
-\vdots&
-\vdots
-\endmatrix
-}_{\text{Strings de tamanho 6 do alfabeto $\set{\N,\Y}$}}
-\quad\bitrans\quad
-\underbrace{
-\matrix
-\format
-\c\\
-\\
-\set{a,d,e}\\
-\emptyset\\
-\set{a}\\
-\set{b,c,e,f}\\
-A\\
-\set{f}\\
-\vdots
-\endmatrix
-}_{\text{Subconjuntos de $A$}}
-$$
-e verificamos que realmente cada configuração do problema original de subconjuntos
-corresponde exatamente numa configuração do problema novo dos strings e vice-versa.
-\eop
-\emph{O que ganhamos?}
-Sabemos como contar todos esses strings: são $2^6$.
-Concluimos que os subconjuntos do $A$ são $2^6$ também.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Generalizando essa idéia chegamos no resultado:
-
-%%}}}
-
-%%{{{ prop: number_of_subsets_of_finite_set_as_power 
-\proposition.
-%%%{{{ meta 
-\label number_of_subsets_of_finite_set_as_power
-%%%}}}
-
-Seja $A$ conjunto finito.
-$$
-\card{\pset A} = 2^{\card A}.
-$$
-
-%%}}}
-
-%%{{{ Idea 2: subset_count_by_grouping 
-\note Idéia 2.
-%%%{{{ meta 
-\label subset_count_by_grouping
-%%%}}}
-
-Um outro jeito para contar todos os subconjuntos dum dado conjunto $A$, seria
-os separar em grupos baseados no seu tamanho.
-Assim, percebos que esses subconjuntos são naturalmente divididos em $n+1$ colecções:
-subconjuntos com $0$ elementos, com $1$ elemento, \dots, com $n$ elementos.
-\eop
-\emph{O que ganhamos?}
-Sabemos como contar os elementos de cada uma dessas colecções:
-para formar um subconjunto de tamanho $r$, precisamos escolher $r$ dos $n$ elementos,
-ou seja, existem $\comb n r$ subconjuntos de tamanho $r$.
-Agora, pelo princípio da adição basta apenas somar:
-são
-$\Sum_{i=0}^n \comb n i$.
-\eop
-\emph{Qual o problema?}
-Comparando essa solução com a do item~\reftag[subset_count_using_strings],
-aqui temos a dificuldade de realmente calcular todos os $n$ números $\comb n i$
-para os somar.
-O~\ref[sum_of_all_binomial_coefficients] mostre que na verdade,
-não é nada dificil calcular o somatório diretamente sem nem
-calcular nenhum dos seus termos separadamente!
-
-%%}}}
-
-%%{{{ prop: number_of_subsets_of_finite_set_as_sum 
-\proposition.
-%%%{{{ meta 
-\label number_of_subsets_of_finite_set_as_sum
-%%%}}}
-
-Seja $A$ conjunto finito.
-$$
-\card{\pset A} = \Sum_{i=0}^n \comb n i,\qquad\text{onde $n = \card A$}.
-$$
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Combinando as duas proposições chegamos num resultado interessante:
-
-%%}}}
-
-%%{{{ cor: sum_of_binom_coefs 
-\corollary.
-%%%{{{ meta 
-\label sum_of_binom_coefs
-%%%}}}
-
-Para todo $n\in\nats$,
-$$
-\Sum_{i=0}^n \binom n i
-= \binom n 0 + \binom n 1 + \dotsb + \binom n {n-1} + \binom n n
-= 2^n
-$$
-
-%%}}}
-
-%%{{{ x: sum_of_all_binomial_coefficients 
-\exercise.
-%%%{{{ meta 
-\label sum_of_all_binomial_coefficients
-%%%}}}
-
-Esqueça o corolário e demonstre que:
-$$
-\alignat 2
-\Sum_{i=0}^n \binom n i
-&= \binom n 0 + \binom n 1 + \binom n 2 + \dotsb + \binom n n
-&&= 2^n\\
-\Sum_{i=0}^n (-1)^i \binom n i
-&=\binom n 0 - \binom n 1 + \binom n 2 - \dotsb + (-1)^n \binom n n
-&&= 0
-\endalignat
-$$
-
-\hint
-Teorema binomial~\reftag[binomial_theorem].
-
-\hint
-Cada somatório é apenas um caso especial do teorema binomial.
-
-\hint
-Toma $x,y \asseq 1$ no teorema para resolver o primeiro.
-
-\hint
-Toma $x \asseq 1$ e $y \asseq -1$ para resolver o segundo.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Pascal's triangle 
-\section O triângulo de Pascal.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ The first powers of the binomial 
-\note As primeiras potências do binomial.
-%%%{{{ meta 
-%%%}}}
-
-Calculamos:
-$$
-\align
-(x+y)^0 &= 1\\
-(x+y)^1 &= x   + y\\
-(x+y)^2 &= x^2 + 2 xy    + y^2\\
-(x+y)^3 &= x^3 + 3 x^2y  + 3 xy^2     + y^3\\
-(x+y)^4 &= x^4 + 4 x^3y  + 6 x^2y^2   + 4xy^3      + y^4\\
-(x+y)^5 &= x^5 + 5 x^4y  + 10 x^3y^2  + 10 x^2y^3  + 5 xy^4     + y^5\\
-(x+y)^6 &= x^6 + 6 x^5y  + 15 x^4y^2  + 20 x^3y^3  + 15 x^2y^4  + 6 xy^5    + y^6\\
-(x+y)^7 &= x^7 + 7 x^6y  + 21 x^5y^2  + 35 x^4y^3  + 35 x^3y^4  + 21 x^2y^5 + 7 xy^6    + y^7\\
-(x+y)^8 &= x^8 + 8 x^7y  + 28 x^6y^2  + 56 x^5y^3  + 70 x^4y^4  + 56 x^3y^5 + 28 x^2y^6 + 8 xy^7 + y^8
-\endalign
-$$
-
-%%}}}
-
-%%{{{ pascal_triangle 
-\note O triângulo de Pascal.
-%%%{{{ meta 
-\label pascal_triangle
-\defines
-    * triângulo!de Pascal
-    ;;
-%%%}}}
-
-Tomando os coeficientes acima criamos o triângulo seguinte,
-conhecido como \dterm{triângulo de Pascal}{\Pascal[triângulo]}:%
-$$
-\matrix
-\format
-\;\c\; &
-\;\c\; &
-\;\c\; &
-\;\c\; &
-\;\c\; &
-\;\c\; &
-\;\c\; &
-\;\c\; &
-\;\c\; &
-\;\c\; &
-\;\c\; \\
-1\\
-1&1\\
-1&2&1\\
-1&3&3&1\\
-1&4&6&4&1\\
-1&5&10&10&5&1\\
-1&6&15&20&15&6&1\\
-1&7&21&35&35&21&7&1\\
-1&8&28&56&70&56&28&8&1\\
-\;\vdots\;&
-\phantom{00}&
-\phantom{00}&
-\phantom{00}&
-\phantom{00}&
-\phantom{00}&
-\phantom{00}&
-\phantom{00}&
-\phantom{00}&
-\ddots
-\endmatrix
-$$
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Observando o triângulo, percebemos que com umas exceções---quais?---cada
-número é igual à soma de dois números \emph{na linha em cima}:
-aquele que fica na mesma posição, e aquele que fica na posição anterior.
-(Consideramos os ``espaços'' no triângulo como se fossem $0$'s.)
-
-%%}}}
-
-%%{{{ x: write this formally 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Escreva essa relação formalmente.
-
-\hint
-O $\binom a b$ está na linha $a$, na posição $b$
-(começando contar com 0).
-
-\solution
-Temos as equações:
-$$
-\rightbrace {
-\aligned
-\binom 0 0          &= 1\\
-\binom 0 r          &= 0\\
-\binom n r          &= \binom {n-1} r + \binom {n-1} {r-1}
-\endaligned
-}
-\quad
-\text{equivalentemente}
-\quad
-\leftbrace {
-\aligned
-\binom 0     0      &= 1\\
-\binom 0     {r+1}  &= 0\\
-\binom {n+1} {r+1}  &= \binom n {r+1} + \binom n r.
-\endaligned
-}
-$$
-
-%%}}}
-
-%%{{{ thm: combinations_recursive_equation 
-\theorem.
-%%%{{{ meta 
-\label combinations_recursive_equation
-%%%}}}
-
-Para todos inteiros positivos $n$ e $r$ temos:
-$$
-\comb n r = \comb {n-1} r + \comb {n-1} {r-1}.
-$$
-
-\sketch.
-Lembramos que $\comb n r$ é o número das maneiras que podemos
-escolher $r$ de $n$ objetos.
-Fixe um dos $n$ objetos e o denote por $s$,
-para agir como \dq{separador de maneiras}:
-separamos as maneiras de escolher em dois:
-aquelas que escolhem (entre outros) o $s$ e aquelas que não o escolhem.
-Contamos cada colecção separadamente e somamos (princípio da adição)
-para achar o resultado:
-$$
-\comb n r
-= \tubrace {\comb {n-1} r}     {escolhas sem $s$}
-+ \tubrace {\comb {n-1} {r-1}} {escolhas com $s$}.
-$$
-
-%%}}}
-
-%%{{{ x 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Demonstre o~\ref[combinations_recursive_equation] para todos os $n,r\in\nats$
-com $0<r<n$, usando como definição do símbolo $\comb n r$ a
-$$
-\comb n r = \frac {n!} {(n-r)!\stimes r!}.
-$$
-
-\hint
-Demonstre diretamente usando apenas a definição de fatorial.
-
-\solution
-Sejam $r,n\in\nats$ com $0<r<n$.
-Calculamos:
-$$
-\alignat 4
-\intertext{$\comb n r = \comb {n-1} r + \comb {n-1} {r-1}$}
-&\iff\quad& \frac {n!} {(n-r)!\stimes r!} &= \frac {(n-1)!} {(n-1-r)!\stimes r!}              &\!\!{}+{}\ & \frac {(n-1)!} {(n-1-(r-1))!\stimes (r-1)!} &\qquad&\qquad\\
-&\iff\quad& n! &= \frac {(n-1)!\stimes(n-r)!\stimes r!} {(n-r-1)!\stimes r!}                  &\!\!{}+{}\ & \frac {(n-1)!\stimes(n-r)!\stimes r!} {(n-r)!\stimes (r-1)!}\\
-&\iff\quad& n! &= \frac {(n-1)!\stimes(n-r)!\stimes\cancel{r!}} {(n-r-1)!\stimes \cancel{r!}} &\!\!{}+{}\ & \frac {(n-1)!\stimes\cancel{(n-r)!}\stimes r!} {\cancel{(n-r)!}\stimes (r-1)!}\\
-&\iff\quad& n! &= \frac {(n-1)!\stimes(n-r)\!\cancel{\stimes!\stimes}} {\cancel{(n-r-1)!}}    &\!\!{}+{}\ & \frac {(n-1)!\stimes r\cancel{\stimes!\stimes}} {\cancel{(r-1)!}}\\
-&\iff\quad& n! &= {(n-1)!\stimes(n-r)} &\!\!{}+{}\ & {(n-1)!\stimes r} \\
-&\iff\quad& n! &= {(n-1)!\stimes((n-r) + r)}\\
-&\iff\quad& n! &= {(n-1)!\stimes n}\\
-&\iff\quad& n! &= n!
-\endalignat
-$$
-
-%%}}}
-
-%%{{{ x 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-\emph{Redefina} o símbolo $\comb n r$ para todo $n,r\in\nats$
-recursivamente com
-\mathcol
-\comb 0 0  &= 1\\
-\comb 0 r  &= 0\\
-\comb n r  &= \comb {n-1} r + \comb {n-1} {r-1},
-\endmathcol
-e demonstre que para todo $n,r\in\nats$,
-$\comb n r = \dfrac {n!} {(n-r)!\stimes r!}$\,.
-
-\hint
-Indução.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Counting recursively 
-\section Contando recursivamente.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ x: sequences_of_twos_and_threes 
-\exercise.
-%%%{{{ meta 
-\label sequences_of_twos_and_threes
-%%%}}}
-
-Defina uma funcção $f : \nats\to\nats$ que conta as seqüências feitas por os números 2 e 3 com soma sua entrada.
-Quantas seqüências de $2$'s e $3$'s existem cujos termos somam em $17$?
-
-\hint
-Recursão.
-
-\hint
-Separe as seqüências em dois grupos: aquelas que começam com 2, e aquelas que começam com 3.
-
-\hint
-Cuidado com a ``base'' $f(0)$.  Quantas seqüências de 2 e 3, somam em $0$?
-
-\hint
-Para calcular o valor de $f(17)$, \emph{não} use a definição recursiva ``top-down'',
-mas ``bottom-up'': calcule os valores em seqüência linear
-$f(0), f(1), f(2), \dotsc$ até o valor desejado.
-
-%%}}}
-
-%%{{{ x: sequences_of_twos_and_threes_restricted 
-\exercise.
-%%%{{{ meta 
-\label sequences_of_twos_and_threes_restricted
-%%%}}}
-
-Defina uma funcção $g : \nats\to\nats$ que conta as seqüências feitas por os números 2 e 3 com soma sua entrada, em quais aparecem os dois números (2 e 3).
-Quantas seqüências de $2$'s e $3$'s existem cujos termos somam em $18$?
-
-\hint
-Use a $f$ do~\ref[sequences_of_twos_and_threes].
-
-\hint
-Quando $g(n) \neq f(n)$?
-
-\hint
-Considere os casos:
-(1) $n$ não pode ser escrito nem como $n = 2 + 2 + \dotsb + 2$, nem como $n = 3 + 3 + \dotsb + 3$;
-(2) $n$ pode ser escrito como $n = 2 + 2 + \dotsb + 2$, e como $n = 3 + 3 + \dotsb + 3$ também;
-(3) nenhum dos casos (1)--(2).
-
-\hint
-$
-g(n) =
-\knuthcases {
-\cdots\vphantom{f(n)}\cr
-\cdots\vphantom{f(n)}\cr
-\cdots\vphantom{f(n)}
-}
-$
-
-%%}}}
-
-%%{{{ x: infinite_city_1 
-\exercise Dirigindo na cidade infinita (sem destino).
-%%%{{{ meta 
-\label infinite_city_1
-%%%}}}
-
-No ``meio'' duma ``cidade infinita'', tem um motorista no seu carro.
-Seu carro tá parado numa intersecção onde tem 3 opções:
-virar esquerda; dirigir reto; virar direita.
-No seu depósito tem $a$ unidades de combustível,
-e sempre gasta $1$ para dirigir até a próxima intersecção.
-De quantas maneiras diferentes ele pode dirigir até seu combustível acabar?
-(Veja na figura, dois caminhos possíveis com $a=12$.)
-\noi
-\midinsert
-\noi
-\centerline{
-\hfill
-\tikzpicture[scale=0.666]%%{{{
-%
-\foreach \i in {-4,-3,-2,-1,0,1,2,3,4}
-  \draw [-] (\i,-2.5) -- (\i,4.5);
-\foreach \j in {-2,-1,0,1,2,3,4}
-  \draw [-] (-4.5,\j) -- (4.5,\j);
-\draw[rounded corners,line width=2mm,color=blue!40] (0,0) -- (0,1) -- (0,2) -- (-1,2) -- (-1,1) -- (-1,0) -- (-1,-1) -- (-2,-1) -- (-3,-1) -- (-3,0) -- (-3,1) -- (-2,1) -- (-2,2);
-\draw[rounded corners,line width=2mm,color=green!40] (0,0) -- (1,0) -- (2,0) -- (3,0) -- (3,1) -- (3,2) -- (3,3) -- (3,4) -- (4,4) -- (4,3) -- (4,2) -- (3,2) -- (2,2);
-\node[circle,fill=gray!20] (CR)  at (0,0) {$C$};
-%
-\endtikzpicture
-%%}}}
-\hfill
-\tikzpicture[scale=0.666]%%{{{
-%
-\foreach \i in {-4,-3,-2,-1,0,1,2,3,4}
-  \draw [-] (\i,-2.5) -- (\i,4.5);
-\foreach \j in {-2,-1,0,1,2,3,4}
-  \draw [-] (-4.5,\j) -- (4.5,\j);
-\draw[rounded corners,line width=2mm,color=blue!40] (0,0) -- (-1.8,0) -- (-1.8,2);
-\draw[rounded corners,line width=2mm,color=cyan!60] (0,0) -- (4,0) -- (4,2) -- (-3, 2) -- (-3,3) -- (-2,3) -- (-2,2);
-\draw[rounded corners,line width=2mm,color=green!40] (0,0) -- (0,-1) -- (-2.1,-1) -- (-2.1,2);
-\node[circle,fill=gray!20] (CR)  at (0,0) {$C$};
-\node[circle,fill=gray!20] (DN)  at (-2,2) {$D$};
-%
-\endtikzpicture
-%%}}}
-\hfill
-}
-%\caption{Fig.~1}
-\eop\centerline{Caminhos possíveis para os exercícios~\reftag[infinite_city_1] e~\reftag[infinite_city_2] respectivamente.}
-%\endcaption
-\endinsert
-
-\hint
-Sem recursão!
-
-\hint
-Em cada intersecção tem $3$ opções: $\mathtt L$, $\mathtt F$, $\mathtt R$.
-
-\solution
-Em cada das $a$ intersecções que ele encontra ele tem $3$ opções.
-Logo, ele pode seguir $3^a$ caminhos diferentes dirigindo até seu combustível acabar.
-
-%%}}}
-
-%%{{{ x: infinite_mountain 
-\exercise Dirigindo na montanha infinita.
-%%%{{{ meta 
-\label infinite_mountain
-%%%}}}
-
-No ``meio'' duma montanha de altura infinita, tem um motorista no seu carro.
-Seu carro tá parado numa intersecção onde tem 4 opções:
-dirigir subindo (gasta $4$ unidades de combutível);
-dirigir descendo (gasta $1$);
-dirigir na mesma altura clockwise (gasta $2$);
-dirigir na mesma altura counter-clockwise (gasta $2$).
-No seu depósito tem $a$ unidades de combistível.
-De quantas maneiras diferentes ele pode dirigir até seu combustível acabar?
-\ignore{
-\midinsert
-\tikzpicture[scale=2]
-\axis[
-hide axis,
-domain=0:1,
-y domain=0:-2*pi,
-xmin=-1.5, xmax=1.5,
-ymin=-1.5, ymax=1.5, zmin=-1.2, zmax=-1.2,
-samples=10,
-samples y=40,
-z buffer=sort,
-]
-\addplot3[mesh,gray]
-({1.1*x*cos(deg(y))},{1.1*x*sin(deg(y))},{-x});
-\endaxis
-\endtikzpicture
-\endinsert
-}
-
-\hint
-Recursão.
-
-\hint
-Seja $f(a)$ o número de caminhos diferentes que o motorista pode seguir com $a$ unidades de combustível.
-
-\hint
-Separa todos os caminhos possíveis em 3 grupos, dependendo na primeira escolha do motorista.
-Conta o número de caminhos em cada grupo separadamente (recursivamente!),
-e e use o princípio da adição para contar quantos são todos.
-
-%%}}}
-
-%%{{{ x: infinite_city_2 
-\exercise Dirigindo na cidade infinita (com destino).
-%%%{{{ meta 
-\label infinite_city_2
-%%%}}}
-
-No ``meio'' duma ``cidade infinita'', tem um motorista no seu carro.
-Seu carro tá parado numa intersecção onde tem 4 opções:
-dirigir na direção do norte; do leste; do sul; do oeste.
-No seu depósito tem $c$ unidades de combustível
-e sempre gasta $1$ para dirigir até a próxima intersecção.
-De quantas maneiras diferentes ele pode dirigir até chegar no seu destino,
-que fica numa distância $y$ unidades para norte e $x$ para leste?
-Considere que números negativos representam descolamento para a direção oposta.
-(Veja na figura onde o carro $C$ tem destino $D$, ou seja, seu descolamento
-desejado é de $x=-2$, $y=2$.)
-
-\hint
-Recursão.
-
-\hint
-Seja $f(a,x,y)$ o número de caminhos diferentes que acabam com
-descolamento total de $y$ unidades para norte e $x$ para leste,
-para um motorista que tem $a$ unidades de combustível no seu carro.
-
-\hint
-Separa todos os caminhos possíveis em 4 grupos,
-dependendo na primeira escolha do motorista.
-Conta o número de caminhos em cada grupo separadamente (recursivamente!),
-e e use o princípio da adição para contar quantos são todos.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Solutions of equations in integers 
-\section Soluções de equações em inteiros.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Combinations with repetitions 
-\section Combinações com repetições.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ The inclusion--exclusion principle 
-\section O princípio da inclusão--exclusão.
-%%%{{{ meta 
-\label Inclusion_exclusion_principle
-%%%}}}
-
-%%{{{ x: 42_passengers_on_a_plane 
-\exercise.
-%%%{{{ meta 
-\label 42_passengers_on_a_plane
-%%%}}}
-
-$42$ passangeiros estão viajando num avião.
-\tlist:
-\li: 11 deles não comem beef.
-\li: 10 deles não comem peixe.
-\li: 12 deles não comem frango.
-\li: Os passangeiros que não comem nem beef nem frango são 6.
-\li: O número de passangeiros que não comem nem beef nem peixe, é o mesmo com o número de passangeiros que não comem nem peixe nem frango.
-\li: Os passangeiros que não comem nada disso são 3.
-\li: Os passangeiros que comem tudo são 22.
-\endtlist
-Quantos são os passangeiros que não comem nem beef nem peixe?
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Elementary probability 
-\section Probabilidade elementar.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ x: russian_roulette 
-\exercise Roleta russa.
-%%%{{{ meta 
-\label russian_roulette
-%%%}}}
-
-(Não tente isso em casa; vai acordar os vizinhos.)
-No jogo da roleta russa, uma única bala é posicionada num
-revolver de 6~balas e logo após o moinho é girado com força
-em tal forma que a posição da bala é desconhecida e ``justa'',
-ou seja, cada posição é igualmente provável de ter a bala.
-A partir disso, o jogador 1 pega a arma e atira na sua própria cabeça.
-Caso que sobreviveu, o jogador 2 faz a mesma coisa, e o jogo continua
-assim alterando esse processo até um jogador acaba se matando.
-Logo, a duração desse jogo é de 1 a 6 rodadas.
-Supondo que ambos os jogadores querem viver, algum dos dois
-tem vantagem?
-
-%%}}}
-
-%%{{{ x: russian_roulette_alt 
-\exercise.
-%%%{{{ meta 
-\label russian_roulette_alt
-%%%}}}
-
-O que muda se os jogadores giram o moinho do revolver antes
-de cada rodada e não apenas no começo do jogo?
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Derrangements 
-\section Desarranjos.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ The pigeonhole principle 
-\section O princípio da casa dos pombos.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Generating functions and recurrence relations 
-\section Funcções geradoras e relações de recorrência.
-%%%{{{ meta 
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ PROBLEMS 
-\problems.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Uma turma de 28 alunos tem 12 mulheres e 16 homens.
-\elist a:
-\li:
-De quantas maneiras podemos escolher 5 desses alunos,
-para formar um time de basquete?
-(Considere que as posições de basquete não importam).
-\li:
-De quantas maneiras podemos escolher 6 desses alunos,
-para formar um time de volei, tal que o time tem pelo menos 4 homens?
-(Considere que as posições de volei não importam).
-\li:
-De quantas maneiras podemos escolher 11 desses alunos,
-para formar um time de futebol, tal que o time tem exatamente 3 mulheres,
-e um homem goleiro?
-(Considere que a única posição de futebol que importa é do goleiro.)
-\li:
-De quantas maneiras podemos escolher 3 times, um para cada esporte,
-sem restricção de sexo?
-\endelist
-
-%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Uma noite, depois do treino 3 times (uma de basquete, uma de vólei, e uma de
-futebol), foram beber num bar que foi reservado para eles.
-Como os jogadores de cada time querem sentar juntos,
-o dono arrumou duas mesas cíclicas, uma com 5 e outra com 6 cadeiras, e 11 cadeiras no bar.
-\eop
-De quantas maneiras diferentes eles podem sentar?
-(Considere que nas mesas cíclicas o que importa é apenas quem tá no lado de quem, mas no bar o que importa é a posição da cadeira mesmo.)
-
-%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Considere os inteiros $1,2,\dotsc, 30$.
-Quantas das suas $30!$ permutações totais têm a propriedade que
-não aparecem múltiplos de $3$ consecutivamente?
-
-\hint
-Construa cada configuração em passos e use o princípio da multiplicação.
-
-\hint
-Coloque os não-múltiplos de $3$ primeiramente numa ordem, deixando espaços entre-si
-para os múltiplos de $3$.
-
-\hint
-Escolhe 10 dos 21 lugares possíveis para colocar os múltiplos de $3$.
-
-\solution
-Primeiramente vamos esquecer os múltiplos de $3$.
-O resto dos (20) números pode ser permutado de $20!$ maneiras.
-Para qualquer dessa maneira, temos $\comb {21} {10}$
-opções para escolher em quais $10$ das $20+1$ possíveis posições
-vamos colocar os múltiplos de $3$,
-e para cada escolha, correspondem $10!$ diferentes permutações
-dos múltiplos de 3 nessas $10$ posições.
-Finalmente,
-$$
-\tubrace {\vphantom(20!}
-         {(ordenar os não-múltiplos)}
-\ntimes
-\tubrace {\,\comb {21} {10}\,}
-         {(escolher as posições dos múltiplos)}
-\ntimes
-\tubrace {\vphantom(10!}
-         {(escolher a ordem dos múltiplos)}
-$$
-das $30!$ permutações têm a propriedade desejada.
-
-%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Numa turma de $28$ alunos
-precisamos formar duas comissões de $5$ e $6$ membros.
-Cada comição tem seu presidente, seu vice-presidente, e seus membros normais.
-De quantas maneiras podemos formar essas comissões\dots
-\elist a:
-\li: \dots sem restricções (cada um aluno pode participar nas duas comissões simultaneamente)?
-\li: \dots se nenhum aluno pode participar simultaneamente nas duas comissões?
-\li: \dots se os dois (únicos) irmãos entre os alunos não podem participar na mesma comissão,
-e cada aluno pode participar simultaneamente nas duas?
-\endelist
-
-%%}}}
-
-%%{{{ prob: {abc}* without ab 
-\problem.
-%%%{{{ meta 
-\pdefs
-    \pdef a {{\mathtt a}}
-    \pdef b {{\mathtt b}}
-    \pdef c {{\mathtt c}}
-    ;;
-%%%}}}
-
-Do alfabeto $\set{\a,\b,\c}$ desejamos formar strings de tamanho $\ell$
-onde não aparece o substring $\a\b$.
-Em quantas maneiras podemos fazer isso?
-
-%%}}}
-
-%%{{{ prob: domino 2×n 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Conte em quantas maneiras podemos cobrir um tabuleiro de dimensão
-$2\times n$ com peças-dominô (ou seja, peças de dimensão $2\times 1$).
-
-\hint
-Recursão.
-
-\hint
-O quadradinho na posição $(1,1)$ pode ser coberto em apenas duas maneiras:
-(A) por uma peça ocupando as posições $(1,1)$--$(1,2)$;
-(B) por uma peça ocupando as posições $(1,1)$--$(2,1)$.
-
-\solution
-Seja $f(n)$ a quantidade de maneiras que podemos cobrir
-um tabuleiro de tamanho $2 \times n$.
-Começamos observando que para um tabuleiro $2 \times 0$
-temos exatamente uma maneira de cobrir todos os quadradinhos:
-fazendo nada.
-Vamos pular outros casos específicos e voltar caso que precisar.
-O quadradinho na posição $(1,1)$ pode ser coberto em apenas duas maneiras:
-(A) por uma peça ocupando as posições $(1,1)$--$(2,1)$;
-(B) por uma peça ocupando as posições $(1,1)$--$(1,2)$.
-No caso (A), para cobrir o resto que é um tabuleiro
-de $2 \times (n-1)$, temos $f(n-1)$ maneiras.
-No caso (B), observe que tendo a peça cobrindo os $(1,1)$--$(1,2)$,
-o quadradinho $(2,1)$ só pode ser coberto por uma peça no $(2,1)$--$(2,2)$.
-Agora basta cobrir o resto que é um tabuleiro de $2 \times (n-2)$,
-e logo temos $f(n-2)$ maneiras de fazer isso.
-Agora percebemos que precisamos mais uma base (por causa do $n-2$).
-Obviamente para cobrir um tabuleiro de tamanho $2 \times 1$ temos
-exatamente uma maneira.
-Temos então:
-\mathcol
-f(0) &= 1 \\
-f(1) &= 1 \\
-f(n) &= \tubrace {f(n-1)} {(A)} + \tubrace {f(n-2)} {(B)}.
-\endmathcol
-
-%%}}}
-
-%%{{{ prob: nikos 
-\problem.
-%%%{{{ meta 
-\label nikos
-%%%}}}
-
-Na figura abaixo temos um mapa (as linhas correspondem em ruas).
-Nikos quer caminhar do ponto $A$ para o ponto $B$, \emph{o mais rápido possível}.
-\elist:
-\li: De quantas maneiras ele pode chegar?
-\li: Se ele precisa passar pelo ponto $S$?
-\li: Se ele precisa passar pelo ponto $S$ mas quer evitar o ponto $N$?
-\endelist
-\midinsert
-\noi
-\tikzpicture[scale=0.666]%%{{{
-%
-\foreach \i in {0,1,2,3,4,5,6,7,8,9}
-  \foreach \j in {0,1,2,3,4,5,6,7,8}
-    \node (a\i) at (\i,\j) {};
-\foreach \i in {0,1,2,3,4,5,6,7,8,9}
-  \draw [-] (\i,0) -- (\i,8);
-\foreach \j in {0,1,2,3,4,5,6,7,8}
-  \draw [-] (0,\j) -- (9,\j);
-\draw [rounded corners,line width=2mm,color=green!50] (0,0) -- (0,2) -- (3,2) -- (3,4) -- (7,4) -- (7,5) -- (8,5) -- (8,7) -- (9,7) -- (9,8);
-\node[circle,fill=gray!20]  (SW)    at (-0.3,-0.3) {$A$};
-\node[circle,fill=gray!20]  (NE)    at (9.3,8.3)   {$B$};
-\node[circle,             inner sep=2pt,fill=green!30] (nice)  at (3,2.5)     {{\niness S}};
-\node[star,star points=17,inner sep=2pt,fill=red!30]   (boom)  at (6.5,5)     {{\niness N}};
-%
-\endtikzpicture
-%%}}}
-\tikzpicture[scale=0.666]%%{{{
-%
-\foreach \i in {0,1,2,3,4,5,6,7,8,9}
-  \foreach \j in {0,1,2,3,4,5,6,7,8}
-    \node (a\i) at (\i,\j) {};
-\foreach \i in {0,1,2,3,4,5,6,7,8,9}
-  \draw [-] (\i,0) -- (\i,8);
-\foreach \j in {0,1,2,3,4,5,6,7,8}
-  \draw [-] (0,\j) -- (9,\j);
-\draw [rounded corners,line width=2mm,color=red!50] (0,0) -- (0,2) -- (3,2) -- (3,4) -- (5,4) -- (5,5) -- (7,5) -- (7,7) -- (8,7) -- (8,8) -- (9,8);
-\node[circle,fill=gray!20] (SW)  at (-0.3,-0.3) {$A$};
-\node[circle,fill=gray!20] (NE)  at (9.3,8.3) {$B$};
-\node[circle,             inner sep=2pt,fill=green!30] (nice)  at (3,2.5)     {{\niness S}};
-\node[star,star points=17,inner sep=2pt,fill=red!30]   (boom)  at (6.5,5)     {{\niness N}};
-%
-\endtikzpicture
-%%}}}
-\eop\centerline{Um caminho aceitável e um inaceitável no caso (3) do \ref[nikos].}
-\endinsert
-
-%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Num jogo de lotéria, tem os números de $1$ até $60$:
-$$
-\matrix
-    01&02& 03 &04 &05 &06 &07 &08 &09 &10\\
-    11&12& 13 &14 &15 &16 &17 &18 &19 &20\\
-    21&22& 23 &24 &25 &26 &27 &28 &29 &30\\
-    31&32& 33 &34 &35 &36 &37 &38 &39 &40\\
-    41&42& 43 &44 &45 &46 &47 &48 &49 &50\\
-    51&52& 53 &54 &55 &56 &57 &58 &59 &60
-\endmatrix
-$$
-Os organizadores do jogo, escolhem aleatoriamente 6 números
-deles (sem repetições).
-Esses 6 números são chamados ``a megasena''.
-Um jogador marca pelo menos 6 números na sua
-lotéria e se conseguir ter marcados todos os 6 da megasena, ganha.
-
-(Marcando mais que 6 números,
-as chances do jogador aumentam, mas o preço da lotéria aumenta também.)
-
-(1)
-Um jogador marcou $6$ números.
-Qual a probabilidade que ele ganhe?
-
-(2)
-Uma jogadora marcou $9$ números.
-Qual a probabilidade que ela ganhe?
-
-(3)
-Generalize para um jogo com $N$ números, onde $w$ deles são escolhidos,
-e com um jogador que marcou $m$ números, sendo $w\leq m \leq N$.
-
-\solution
-(1)
-Apenas uma escolha é a certa, então a probabilidade de ganhar é:
-    $$
-    \dfrac 1 {\comb {60} 6}
-    = \dfrac{6!\stimes 54!} {60!}
-    = \dfrac {6!} {55 \ntimes 56 \ntimes 57 \ntimes 58 \ntimes 59 \ntimes 60}
-    = \dfrac {1} {11\ntimes 14\ntimes 19\ntimes 29\ntimes 59\ntimes 10}
-    = \dfrac 1 {50063860}\,.
-    $$
-(2)
-Para ganhar, com certeza acertamos nos 6 números da megasena,
-então temos que contar todas as maneiras de escolher os 3 outros números dos 9 que escolhemos:
-    $$
-    \dfrac {\comb {60-6} {9-6}} {\comb {60} 9}
-    = \dfrac {\comb {54} 3} {\comb {60} 9}
-    = \dfrac {54!\stimes \cancel{51!}\stimes 9!} {\cancel{51!} \stimes 3!\stimes 60!}
-    = \dfrac {4\ntimes 5 \ntimes 6 \ntimes 7 \ntimes 8 \ntimes 9} {55\ntimes 56\ntimes 57\ntimes 58\ntimes 59 \ntimes 60}
-    = \dfrac 3 {1787995}\,.
-    $$
-(3)
-Generalizando a solução do (2), a probabilidade é
-$$
-\align
-\frac
-{\comb {N-w} {m-w}}
-{\comb N m}
-&=
-\frac
-{(N-w)! \stimes (N-m)! \stimes m!}
-{((N-w)-(m-w))! \stimes (m-w)! \stimes N!}\\
-&=
-\frac
-{(N-w)! \stimes (N-m)! \stimes m!}
-{((N\cancel{{}-{}w}-m\cancel{{}+w}))! \stimes (m-w)! \stimes N!}\\
-&=
-\frac
-{(N-w)! \stimes \cancel{(N-m)!} \stimes m!}
-{\cancel{(N-m)!} \stimes (m-w)! \stimes N!}\\
-&=
-\frac
-{(N-w)! \stimes m!}
-{(m-w)! \stimes N!}\\
-&=
-\Prod_{i=0}^{w-1}
-\frac
-{m-i}
-{N-i}\,.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ prob: aleco_bego 
-\problem.
-%%%{{{ meta 
-\label aleco_bego
-%%%}}}
-
-Aleco e Bego são dois sapos.
-Eles estão na frente de uma escada com 11 degraus.
-No 6o degrau, tem Cátia, uma cobra, com fome.
-Aleco pula 1 ou 2 degraus para cima.
-Bego, 1, 2 ou 3.  E ele é tóxico: se Cátia comê-lo, ela morre na hora.
-\midinsert
-% TODO: this should be on a separate file
-\tikzpicture[scale=0.666]%%{{{
-%
-\node[star,star points=17,fill=red!30,inner sep=3pt]    (boom) at (6.75,6.25) {\phantom{\niness C}};
-\node[                                             ]    (catia) at (6.666,6.333) {{\niness C}};
-\node[circle,fill=green!40]  (aleco) at (-0.333,0.5) {{\niness A}};
-\node[circle,fill=blue!30]   (bego)  at (-1.75,0.5) {{\niness B}};
-\draw [->,color=green!50,line width=1mm] (aleco) to [bend left=70] (2.333,2);
-\draw [->,color=blue!50,line width=1mm] (bego)  to [bend left=66] (1.666,1);
-\draw [->,color=green!50,line width=1mm] (aleco) to [bend left=60] (1.333,1);
-\draw [->,color=blue!50,line width=1mm] (bego)  to [bend left=62] (2.666,2);
-\draw [->,color=blue!50,line width=1mm] (bego)  to [bend left=60] (3.5,3);
-\foreach \i in {1,2,3,4,5,6,7,8,9,10,11} {
-  \path[fill=gray!10]
-    (\i,\i) -- (\i,\i-1) -- (15,\i-1) -- (15,\i) -- (\i,\i);
-  \node[circle,fill=black,inner sep=0pt] (b\i) at (\i,\i)   {};
-  \node[circle,fill=black,inner sep=0pt] (e\i) at (\i+1,\i) {};
-  \node[circle,fill=black,inner sep=0pt] (d\i) at (\i,\i-1) {};
-  \node[                  inner sep=0pt] (s\i) at (\i+0.5,\i) {};
-  \draw [-,line width=0.2mm] (b\i) -- (e\i);
-  \draw [-,line width=0.2mm] (b\i) -- (d\i);
-  \node[                  inner sep=0pt] (t\i) at (\i+0.5,\i-0.3) {\i};
-}
-\draw [-] (-3,0) -- (1,0);
-\draw [-] (12,11) -- (15,11);
-%\foreach \j in {0,1,2,3,4,5,6,7,8}
-%  \draw [-] (0,\j) -- (9,\j);
-%  \draw [line width=2mm,color=green!50] (0,0) -- (0,2) -- (3,2) -- (3,4) -- (7,4) -- (7,5) -- (8,5) -- (8,7) -- (9,7) -- (9,8);
-%\node[circle,fill=gray!20]  (SW)    at (-0.3,-0.3) {$A$};
-%\node[circle,fill=gray!20]  (NE)    at (9.3,8.3)   {$B$};
-%\node[circle,fill=green!30] (nice)  at (3,2.5)     {{\niness S}};
-%\node[circle,fill=red!30]   (boom)  at (6.5,5)     {{\niness N}};
-%
-\endtikzpicture
-%%}}}
-%\caption{Fig.~2}
-\eop\centerline{Os dois sapos do~\ref[aleco_bego] e suas possibilidades para começar.}
-%\endcaption
-\endinsert
-\tlist:
-\li (1): Por enquanto, Cátia está dormindo profundamente.
-         \tlist:
-         \li a.:  De quantas maneiras Aleco pode subir a escada toda?
-         \li b.:  De quantas maneiras Bego pode subir a escada toda?
-         \endtlist
-\li (2): Cátia acordou!
-         \tlist:
-         \li a.:  De quantas maneiras Aleco pode subir a escada toda?
-         \li b.:  De quantas maneiras Bego pode subir a escada toda?
-         \endtlist
-\li (3): Bego começou subir a escada\dots{}
-         Qual é a probabilidade que Cátia morra?
-         (Considere que antes de começar, ele já decidiu seus
-         saltos e não tem percebido a existência da cobra.)
-\ignore{% TODO
-\li (4): O que muda na questão (3) se ao invés de decidir seu caminho desde o
-         início, Bega decida cada vez aleatoriamente (com probabilidades iguais)
-         qual dos 3 possíveis saltos ele vai fazer?
-\li (5): Generalize o problema (4)~para o caso onde a escada
-         tem uma infinidade de degraus e Cátia fica no degrau $k$.
-}
-\endtlist
-
-\hint
-Recursão.
-
-\hint
-Sejam $a(n)$ e $b(n)$ o número de maneiras que Aleco e Bego
-podem subir uma escada de $n$ degraus, respectivamente.
-
-\hint
-Grupe as maneiras em colecções (para aplicar o princípio da adição),
-olhando para o primeiro salto.
-
-\solution
-Sejam $a(n)$ e $b(n)$ o número de maneiras que Aleco e Bego
-podem subir uma escada de $n$ degraus, respectivamente.
-Cada maneira do Aleco pode começar com 2 jeitos diferentes:
-salto de $1$ degrau, ou salto de $2$ degraus.
-Cada maneira do Bego pode começar com 3 jeitos diferentes:
-salto de $1$, de $2$, ou de $3$ degraus.
-Observe que, por exemplo, se Bego começar com um pulo de $2$
-degraus, falta subir uma escada de $n-2$ degraus.
-Pelo princípio da adição então, temos as equações recursivas:
-\mathcols 2
-a(n) &= a(n-1) + a(n-2)                & b(n) &= b(n-1) +  b(n-2) +  b(n-3)
-\intertext{válidas para $n\geq 2$ e $n \geq 3$ respectivamente.
-Devemos definir os casos básicos de cada funcção recursiva:
-$n=0,1$ para a $a(n)$, e $n=0,1,2$ para a $b(n)$:}
-     &                                 & b(0) &= 1 \qquad\explanation{fica} \\
-a(0) &= 1 \qquad\explanation{fica}     & b(1) &= 1 \qquad\explanation{pula $1$} \\
-a(1) &= 1 \qquad\explanation{pula $1$} & b(2) &= 2 \qquad\explanation{pula $1+1$; ou pula $2$} \\
-a(n) &= a(n-1) +  a(n-2)               & b(n) &= b(n-1) +  b(n-2) +  b(n-3)
-\endmathcols
-Calculamos os $11$ primeiros valores:
-$$
-\matrix
-a:\quad& \overbrace {1}^{a(0)}, & 1, & 2, & 3, & 5, & \phantom08,  & 13, & 21, & 34, & \phantom055,  & \phantom089,  & \overbrace {144}^{a(11)}, &\dotsc\\
-b:\quad& \underbrace{1}_{b(0)}, & 1, & 2, & 4, & 7, & 13,          & 24, & 44, & 81, & 149, & 274, & \underbrace{504}_{b(11)}, &\dotsc
-\endmatrix
-$$
-Agora temos tudo que precisamos para responder facilmente nas questões do problema.
-\eop
-{(1)}  Precisamos apenas os valores $a(11)$ e $b(11)$:
-{(1a)} De $a(11) = 144$ maneiras.
-{(1b)} De $b(11) = 504$ maneiras.
-\eop
-{(2)} Usamos \dq{$n\to m$} para \wq{pula diretamente do degrau $n$ para o degrau
-$m$} e \dq{$n\transto m$} para \wq{vai do degrau $n$ para o degrau $m$ pulando
-num jeito}.
-{(2a)} Para conseguir subir, Aleco necessariamente precisa chegar no degrau
-$5$, saltar até o degrau $7$, e depois continuar até o degrau $11$.
-Formamos cada maneira então em passos, e usando o princípio da multiplicação
-achamos que Aleco tem
-$$
-\mubrace {a(5)}        {0 \transto 5} \ntimes
-\mubrace {\vphantom(1} {5 \to 7}      \ntimes
-\mubrace {a(4)}        {7 \transto 11}
-= 8 \ntimes 1 \ntimes 5
-= 40
-$$
-maneiras de subir a escada toda.
-{(2b)}
-Para o Bego a situação não é tão simples, porque ele pode evitar a cobra de vários jeitos.
-Vamos agrupá-los assim:
-\tlist:
-\li (i):   aqueles onde ele pulou a cobra com salto de tamanho 2;
-\li (ii):  aqueles onde ele pulou a cobra com salto de tamanho 3 desde o degrau 5;
-\li (iii): aqueles onde ele pulou a cobra com salto de tamanho 3 desde o degrau 4.
-\endtlist
-Contamos as maneiras em cada grupo como na questão anterior, e no final as somamos (princípio da adição) para achar a resposta final: Bego tem
-$$
-\tobrace {
-\mubrace {b(5)}         {0 \transto 5}  \ntimes
-\mubrace {\vphantom(1}  {5 \to 7}       \ntimes
-\mubrace {b(4)}         {7 \transto 11}
-} {grupo (i)}
-+
-\tobrace {
-\mubrace {b(5)}         {0 \transto 5}  \ntimes
-\mubrace {\vphantom(1}  {5 \to 8}       \ntimes
-\mubrace {b(3)}         {8 \transto 11}
-} {grupo (ii)}
-+
-\tobrace {
-\mubrace {b(4)}         {0 \transto 4}  \ntimes
-\mubrace {\vphantom(1}  {4 \to 7}       \ntimes
-\mubrace {b(4)}         {7 \transto 11}
-} {grupo (iii)}
-= 13 \ntimes 7 + 13 \ntimes 4 + 7 \ntimes 7
-= 192
-$$
-maneiras de subir a escada toda.
-\eop
-{(3)}
-Pela definição, a probabilidade que Cátia morra é a fracção
-$$
-\frac
-{\text{todas as maneiras em quais Bego pisou no degrau 6}}
-{\text{todas as maneiras possíveis}}\,,
-$$
-ou seja,
-$$
-\frac {504-192} {504}
-= \frac {312} {504}
-= \frac {156} {252}
-= \frac {78} {126}
-= \frac {39} {63}
-= \frac {13} {21}
-\,.
-$$
-
-%%}}}
-
-%%{{{ prob: band_maker 
-\problem.
-%%%{{{ meta 
-\label band_maker
-%%%}}}
-
-Temos $6$ músicos disponíveis, onde cada um toca:
-\ttable
-\hfil##  & ##\hfil                 & \quad\hfil## & ##\hfil \cr
-Alex:    & violão, guitarra, baixo & Daniel:      & guitarra \cr
-Beatriz: & bateria                 & Eduardo:     & piano, teclado, violão, fláuto \cr
-Cynthia: & saxofone, clarineto     & Fagner:      & guitarra, baixo, teclado \cr
-\endttable
-(Considere que uma banda precisa \emph{pelo menos um membro},
-todos os membros duma banda \emph{precisam tocar pelo menos algo na banda},
-e que cada banda é diferenciada pelos músicos e
-suas funcções.
-Por exemplo: uma banda onde Alex toca o violão (apenas) e Beatriz a bateria,
-é diferente duma banda onde
-Alex toca o violão \emph{e} a guitarra, e Beatriz a bateria,
-mesmo que seus membros são os mesmos.
-\tlist:
-\li (1):
-Quantas bandas diferentes podemos formar?
-\li (2):
-Quantas bandas diferentes podemos formar com a restricção que nenhum
-músico tocará mais que um instrumento na banda (mesmo se em geral sabe tocar mais)?
-\li (3):
-Quantas bandas diferentes podemos formar onde todos os
-músicos fazem parte da banda?
-\endtlist
-
-\solution
-\proofpart{(1):}
-$2^{14}-1$: para cada músico e cada instrumento, temos 2 opções: ``sim'' ou ``não''.
-Tiramos $1$ porque hipercontamos (a ``banda vazia'').
-\crproofpart{(2):}
-Cada músico que toca $i$ instrumentos tem $i+1$ opções
-(a extra $+1$ corresponde no ``não participar na banda''):
-podemos formar $4 \ntimes 2 \ntimes 3 \ntimes 2 \ntimes 5 \ntimes 4 - 1$ bandas,
-onde de novo tiramos 1 para excluir a ``banda vazia''.
-\crproofpart{(3):}
-Cada músico que toca $i$ instrumentos tem $2^i - 1$ opções
-(tirando a opção de ``não tocar nada'').
-Então podemos formar $7\ntimes 1 \ntimes 3 \ntimes 1 \ntimes 15 \ntimes 7$ bandas.
-
-%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-De quantas maneiras podemos escrever um string ternário
-(usando o alfabeto $\set{0, 1, 2}$)
-de tamanho 7,
-tais que \emph{não aparece neles o substring $00$}.
-\eop
-Por exemplo:
-$$
-\align
-0112220                                           &\qquad\text{é um string aceitável;}\\
-2\underline{00}1\underline{0\overline0}\overline0 &\qquad\text{não é.}
-\endalign
-$$
-
-\hint
-Recursão.
-
-\hint
-Seja $a(n)$ o número dos strings ternários de tamanho $n$ tais que não aparece
-neles o substring ${00}$.
-
-\hint
-Defina a $a(n)$ e depois calcule o $a(7)$, calculando em ordem os
-$a(0),a(1),\dotsc,a(7)$.
-
-\solution
-Seja $a(n)$ o número dos strings ternários de tamanho $n$ tais que não aparece
-neles o substring ${00}$.
-Queremos achar o $a(7)$.
-\eop
-Observe que:
-$$
-\align
-    a(0) &= 1 \qqqquad\explanation{o string vazio: ``$\,$''} \\
-    a(1) &= 3 \qqqquad\explanation{os strings: ``$0$'', ``$1$'', e ``$2$''} \\
-    a(n) &=
-      \underbrace{a(n-1)}_{1\ldots}
-    + \underbrace{a(n-1)}_{2\ldots}
-    + \underbrace{a(n-2)}_{{01}\ldots}
-    + \underbrace{a(n-2)}_{{02}\ldots}\\
-         &= 2a(n-1) + 2a(n-2)\\
-         &= 2(a(n-1) + a(n-2))
-\endalign
-$$
-Então calculamos os primeiros $8$ termos da seqüência:
-$$
-1,\quad 3,\quad 8,\quad 22,\quad 60,\quad 164,\quad 448,\quad \underbrace{1224}_{a(7)}.
-$$
-
-%%}}}
-
-%%{{{ prob: pessimissimo 
-\problem.
-%%%{{{ meta 
-\label pessimissimo
-%%%}}}
-
-Contar todas as palavras feitas por permutações das 12 letras da palavra
-$$
-\txt{PESSIMISSIMO}
-$$
-onde\dots
-% TODO: fix reflabs
-\tlist:
-\li (1): a palavra começa com $\txt P$;
-\li (2): todos os $\txt I$ aparecem \emph{juntos}\/;
-\li (3): os $\txt M$ aparecem \emph{separados}\/;
-\li (4): nenhum dos $\txt S$ aparece ao lado de outro $\txt S$.
-\endtlist
-
-\hint
-Para o (4), seria diferente se a restricção fosse
-``os $\txt S$ não aparecem todos juntos''.
-
-\solution
-(1):
-Como somos obrigados começar a palavra com ${\txt P}$,
-precisamos apenas contar as permutações das letras da palavra
-$
-\txt{ESSIMISSIMO}
-$,
-que sabemos que são
-$$
-\frac
-{11!}
-{4!\stimes3!\stimes 2!}.
-$$
-\eop\medskip\noi
-(2):
-Podemos considerar que temos apenas um $I$:
-$
-\dfrac
- {10!}
- {4!\stimes  2!}
-$
-\eop\medskip\noi
-(3):
-Contamos em quantas palavras eles aparecem juntos,
-e usando princípio da adição, os subtraimos das permutações sem restricção.
-$$
-\underbrace{
-\,
-\dfrac
- {12!}
- {4!\stimes  3!\stimes  2!}
-\,
-}_{\text{todas}}
- -
-\underbrace{
-\,
-\dfrac
- {11!}
- {4!\stimes  3!}
-\,
-}_{\text{$\txt M$ juntos}}
-$$
-\eop\medskip\noi
-(4):
-Construimos cada dessas palavras em passos.
-Primeiramente escolhemos uma das permutações da palavra sem os ${\txt M}$'s:
-$$
-\phantom{\underline{\phantom{{\txt M}}}}*
-\phantom{\underline{\phantom{{\txt M}}}}*
-\phantom{\underline{\phantom{{\txt M}}}}*
-\phantom{\underline{\phantom{{\txt M}}}}*
-\phantom{\underline{\phantom{{\txt M}}}}*
-\phantom{\underline{\phantom{{\txt M}}}}*
-\phantom{\underline{\phantom{{\txt M}}}}*
-\phantom{\underline{\phantom{{\txt M}}}}*
-\phantom{\underline{\phantom{{\txt M}}}}
-$$
-(temos 
-$
-\dfrac
-{8!}
-{3!\stimes 2!}
-$
-opções).
-\eop
-\medskip
-No próximo passo escolemos em qual das $9$ posições possíves colocamos os $M$:
-$$
-\underline{\phantom{{\txt M}}}*
-\underline{\phantom{{\txt M}}}*
-\underline{\phantom{{\txt M}}}*
-\underline{\phantom{{\txt M}}}*
-\underline{\phantom{{\txt M}}}*
-\underline{\phantom{{\txt M}}}*
-\underline{\phantom{{\txt M}}}*
-\underline{\phantom{{\txt M}}}*
-\underline{\phantom{{\txt M}}}
-$$
-Pelo princípio da multiplicação então, temos
-$
-\dfrac
-{8!}
-{3!\stimes 2!}
-\cdot
-\comb 9 4
-$
-palavras que satisfazem essa restricção.
-
-%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
-% TODO: fix reflabs
-%%%}}}
-
-De quantas maneiras podemos escrever um string usando o alfabeto
-de 26 letras
-$$
-\txt A, \txt B, \txt C, \dotsc, \txt X, \txt Y, \txt Z,
-$$
-tais que as vogais aparecem na ordem estrita alfabética,
-e as consoantes na ordem oposta?
-(As vogais sendo as letras $\txt A$, $\txt E$, $\txt I$, $\txt O$,
-$\txt U$, $\txt Y$.)
-{Por exemplo:}
-$$
-\align
-\txt{TEDUCY}    &\qquad\text{é um string aceitável};\\
-\txt{DETUCY}    &\qquad\text{não é ($\txt D \not> \txt T$)};\\
-\txt{TEDUCA}    &\qquad\text{não é ($\txt U \not< \txt A$)}.
-\endalign
-$$
-\tlist:
-\li (1): \dots se os strings são de tamanho 26 e os vogais aparecem todos juntos;
-\li (2): \dots se os strings são de tamanho 12 e aparecem todos os vogais;
-\li (3): \dots se os strings são de tamanho 3;
-\li (4): \dots se os strings são de tamanho $\ell$, com $0\leq\ell\leq 26$.
-\endtlist
-
-\solution
-(1)
-Como a ordem das consoantes e das vogais é predeterminada e as vogais devem aparecer juntas,
-a única escolha que precisamos fazer é onde colocar as vogais, e temos $21$ possíveis posições.
-Então existem $21$ tais strings.
-\eop\medskip\noi
-(2)
-$$
-\tubrace {\comb {20} 6} {consoantes},
-\tubrace {\comb {12} 6} {suas posições}.
-$$
-\eop\medskip\noi
-(3)
-Separamos todos os strings que queremos contar em quatro grupos e contamos cada um separadamente:
-$$
-{
-\tobrace {
-\tubrace {\comb {20} 3} {as c.}
-} {3 c., 0 v.}
-}
-+
-{
-\tobrace {
-\tubrace {\comb {20} 2} {as c.}
-\tubrace {\comb 6 1} {a v.}
-\tubrace {\comb 3 2} {pos.~c.}
-} {2 c., 1 v.}
-}
-+
-\tobrace {
-\tubrace {\comb {20} 1} {a c.}
-\tubrace {\comb 6 2} {as v.}
-\tubrace {\comb 3 1} {pos.~c.}
-} {1 c., 2 v.}
-+
-\tobrace {
-\tubrace {\comb 6 3} {as v.}
-} {0 c., 3 v.}.
-$$
-Podemos descrever o resultado numa forma mais uniforme e mais fácil para generalizar:
-$$
-\Sum_{i=0}^3
-\tubrace {\comb {20} {3-i}} {as $3-i$ c.}
-\tubrace {\comb 6 i} {as $i$ v.}
-\tubrace {\comb 3 i} {pos.~v.}
-=
-\Sum\submath{c+v=3\\c,v\in\nats}
-\tubrace {\comb {20} c} {as c.}
-\tubrace {\comb 6 v} {as v.}
-\tubrace {\comb 3 v} {pos.~v.}
-$$
-\eop\medskip\noi
-(4)
-Seguindo a última forma do (3), temos
-$$
-\Sum_{i=0}^{\ell}
-\tubrace {\comb {20} {\ell-i}} {as $\ell-i$ c.}
-\tubrace {\comb 6 i} {as $i$ v.}
-\tubrace {\comb {\ell} i} {pos.~v.}
-$$
-maneiras.  O somatório pode ser escrito também assim:
-$$
-\Sum
-\bigg\{
-\tubrace {\comb {20} c} {as c.}
-\tubrace {\comb 6 v} {as v.}
-\tubrace {\comb {\ell} v} {pos.~v.}
-\ \Big|\ 
-c+v=\ell, \ 0\leq c \leq 20, \ 0\leq v \leq 6, \ c,v\in\nats
-\bigg\}.
-$$
-Note que como o conjunto acima é finito,
-a adição é comutativa e associativa; logo, nosso somatório é bem-definido.
-
-%%}}}
-
-%%{{{ prob: roulette_multiple_balls 
-\problem.
-%%%{{{ meta 
-\label roulette_multiple_balls
-%%%}}}
-
-Numa roleta dum cassino tem ``pockets'' (ou ``casas'') numerados com:
-$$
-00, 0, 1, 2, \dotsc, 36
-$$
-e cada um deles é suficientemente profundo para caber até 8 bolinhas.
-O crupiê joga 8 bolinas na roleta no mesmo tempo.
-De quantas maneiras elas podem cair nos pockets se\dots
-\tlist:
-\li (i):  \dots as bolinhas são distintas e não importa sua ordem dentro um pocket.
-\li (ii): \dots as bolinhas são todas iguais.
-\endtlist
-
-\solution
-\tlist:
-\li (i):  Permutações com repetições: $38^8$.
-\li (ii): Combinações com repetições: $\comb {38 + 8 - 1} 8 = \comb {45} 8$.
-\endtlist
-
-%%}}}
-
-%%{{{ prob 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-De quantas maneiras podemos escrever um string usando
-letras do alfabeto $\set{\txt A, \txt B, \txt C, \txt D}$,
-tais que \emph{cada letra é usada exatamente duas vezes
-mas não aparece consecutivamente no string}?
-Por exemplo:
-$$
-\align
-\txt{ABADCDBC}                      &\qquad\text{é um string aceitável;}\\
-\txt{ABAC$\underline{\txt{DD}}$BC}  &\qquad\text{não é.}
-\endalign
-$$
-
-\hint
-Inclusão--exclusão.
-
-\hint
-Considere as propriedades:
-$$
-\xalignat 4
- \alpha  &: \text{aparece o $\txt{AA}$}
-&\beta   &: \text{aparece o $\txt{BB}$}
-&\gamma  &: \text{aparece o $\txt{CC}$}
-&\delta  &: \text{aparece o $\txt{DD}$}.
-\endxalignat
-$$
-
-\solution
-Seja $N$ o número de permutações totais das létras
-e defina as 4 propriedades
-$$
-\xalignat 4
- \alpha  &: \text{aparece o $\txt{AA}$}
-&\beta   &: \text{aparece o $\txt{BB}$}
-&\gamma  &: \text{aparece o $\txt{CC}$}
-&\delta  &: \text{aparece o $\txt{DD}$}.
-\endxalignat
-$$
-Procuramos o número dos strings de tamanho 8 que não tenham nenhuma dessas 4 propriedades.
-Assim que calcular os $N(\alpha),\dotsc,N(\alpha,\beta,\gamma,\delta)$
-o princípio da inclusão--exclusão, vai nos dar o número que procuramos.
-\eop
-Observamos que
-$$
-\gather
-N(\alpha) =N(\beta) =N(\gamma) =N(\delta)\\
-N(\alpha,\beta) =N(\alpha,\gamma) = \dotsb = N(\gamma,\delta)\\
-N(\alpha,\beta,\gamma) = \dotsb = N(\beta,\gamma,\delta).
-\endgather
-$$
-\eop
-Calculamos os
-$$
-\align
-N
-&= \frac {8!} {2!\stimes 2!\stimes 2!\stimes 2!} = 2520\\
-N(\alpha)
-&= \frac {7!} {2!\stimes 2!\stimes 2!} = \frac {7!} 8 = 7\ntimes 6 \ntimes 5 \ntimes 3 = 630\\
-N(\alpha,\beta)
-&= \frac {6!} {2!\stimes 2!} = \frac {6!} 4 = 180 \\
-N(\alpha,\beta,\gamma)
-&= \frac {5!} {2!} = \frac {5!} 2 = 60 \\
-N(\alpha,\beta,\gamma,\delta)
-&= {4!} = 24.
-\endalign
-$$
-\eop
-Para responder, temos
-$$
-\multline
-    N
-    - \comb 4 1 N(\alpha)
-    + \comb 4 2 N(\alpha,\beta)
-    - \comb 4 3 N(\alpha,\beta,\gamma)
-    + N(\alpha,\beta,\gamma,\delta)\\
-    =
-    2520 - 4\ntimes 630 + 6\ntimes 180 - 4\ntimes 60 + 24
-    =
-    864
-\endmultline
-$$
-tais permutações.
-
-%%}}}
-
-%%{{{ prob: parity_respecting_strings_mutual_recursion 
-\problem.
-%%%{{{ meta 
-\label parity_respecting_strings_mutual_recursion
-%%%}}}
-
-De quantas maneiras podemos escrever um string binário
-(usando o alfabeto $\set{0, 1}$) de tamanho 12,
-tais que: 
-\elist i:
-\li: os $0$'s aparecem apenas em grupos maximais de tamanho par;
-\li: os $1$'s aparecem apenas em grupos maximais de tamanho ímpar.
-\endelist
-Por exemplo:
-$$
-\align
-{000000111001}                         &\qquad\text{é um string aceitável;}\\
-{100\underline{11}001\underline{000}1} &\qquad\text{não é.}
-\endalign
-$$
-
-\hint
-Separe os strings em dois grupos,
-aqueles que terminam em $0$ e aqueles que terminam em $1$,
-e conta os strings de cada grupo usando recursão.
-
-\hint
-Sejam $a(n)$ e $b(n)$ o número de strings binários de tamánho $n$
-que terminam em $0$ e em $1$ respectivamente.
-
-%%}}}
-
-%%{{{ prob: xyzzy_lemmings 
-\problem.
-%%%{{{ meta 
-\label xyzzy_lemmings
-\pdefs
-    \pdef FB {{\mathtt F}}
-    \pdef MM {{\mathtt M}}
-    \pdef ST {{\mathtt B}}
-    ;;
-%%%}}}
-
-Xÿźźÿ o Mago Bravo decidiu matar todos os lemmings que ele guarda no seu quintal.
-Seus feitiços são os:
-\tlist:
-\li: ``magic missile'', que mata 2 lemmings simultaneamente, e gasta 1 ponto ``mana'';
-\li: ``fireball'', que mata 3 lemmings simultaneamente, e gasta 2 pontos mana.
-\endtlist
-Além dos feitiços, Xÿźźÿ pode usar seu bastão para matar
-os lemmings (que não custa nada, e mata 1 lemming com cada batida).
-\eop
-Suponha que o mago \emph{nunca} lançará um feitiço que mataria mais lemmings do
-que tem (ou seu quintal vai se queimar).
-Ele tem $m$ pontos mana e existem $n$ lemmings no seu quintal.
-Em quantas maneiras diferentes ele pode destruir todos os lemmings se\dots
-\elist i:
-\li: os lemmings são indistinguíveis?
-\li: os lemmings são distinguíveis?
-\li: os lemmings são distinguíveis e cada vez que Xÿźźÿ mata um usando seu bastão,
-ele \emph{ganha} um ponto de mana?
-\endelist
-(Para os casos que os lemmings são distinguíveis,
-o mago escolhe também \emph{quais} dos lemmings ele matará cada vez.)
-
-\hint
-Recursão.
-
-\hint
-Seja $f(m,n)$ o número de maneiras que Xÿźźÿ pode matar todos os $n$ lemmings,
-começando com $m$ pontos de mana.
-
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ History 
-\history.
-
-Pascal não foi o primeiro de estudar o ``triângulo aritmético'',
-cuja existência e sua relação com o teorema binomial já eram
-conhecidas desde uns séculos antes do seu nascimento.
-Mesmo assim, seu estudo
-\emph{``Traité du triangle arithmétique,
-avec quelques autres petits traitez
-sur la mesme matière''},
-publicado no ano \yearof{1654} (depois da sua morte)
-popularizou o triângulo e suas diversas aplicações e
-propriedades~(\cite[pascaltriangle]).
-
-\endhistory
-%%}}}
-
-%%{{{ Further reading 
-\further.
-
-Veja o~\cite[nivencount].
 
 \endfurther
 %%}}}
