@@ -15214,51 +15214,72 @@ O livro \cite[serrearithmetic: Chapter VI] dedica um capítulo inteiro
     ;;
 %%%}}}
 
-\TODO elaborar Fermat~(\yearof{1607}--\yearof{1665}).
+%%{{{ intro 
+\secintro
+Fermat~(\yearof{1607}--\yearof{1665}) percebeu
+que para qualquer primo $p$, e qualquer inteiro $a$,
+o $a^p - a$ era sempre múltiplo de $p$:
+$$
+p \divides a^p - a.
+$$
+Observe que como $a^p - a = a(a^{p-1} - 1)$, temos
+\mathcol
+p \divides a^p - a
+&\iff p \divides a(a^{p-1} - 1) \\
+&\iff p \divides a \mlor p \divides a^{p-1} - 1.
+\endmathcol
+Hoje a gente escreveria a observação de Fermat
+$$
+a^p \cong a \pmod p,
+$$
+notação e precepção inacessível a Fermat nessa epoca, uns 150 anos
+antes do \cite[disquisitiones] (\yearof{1798}) de Gauss.
+%%}}}
 
-%%{{{ thm: fermat_little_theorem_2 
-\theorem Fermat.
+%%{{{ thm: fermat_little_theorem 
+\theorem.
 %%%{{{ meta 
-\label fermat_little_theorem_2
-\aka segundo pequeno Fermat.
+\label fermat_little_theorem
+\aka Fermatinho.
 \credits
-    * Fermat : segundo teorema pequeno
+    * Fermat : teorema pequeno
     ;;
 \indexes
-    * teorema!segundo pequeno Fermat
+    * teorema!pequeno Fermat
+    * teorema!Fermatinho
     ;;
 %%%}}}
 
 Sejam $p$ primo e $a$ inteiro.
 Então
 $$
-a^p \cong a \pmod p.
+a^p \congmod p a.
 $$
 
 \sketch.
-Considere dois casos: $\gcd a p = 1$ ou $\gcd a p > 1$.
-No primeiro usamos o~\ref[fermat_little_theorem_1].
+Considere dois casos: $a,p$ coprimos ou não.
+No primeiro usamos o~\ref[fermat_little_theorem].
 No segundo, necessariamente temos $0\cong a^p\cong a \pmod p$.
 
 \proof.
 Temos dois casos:
 \eop
 \case{Caso $\gcd a p$ = 1}:
-Pelo~\ref[fermat_little_theorem_1] temos:
-$$
-\align
-a^{p-1} &\cong 1 \pmod p
+Pelo~\ref[fermat_little_theorem] temos:
+\compute
+a^{p-1} &\congmod p 1
 \intertext{e multiplicando por $a$,}
-a^p     &\cong a \pmod p.
-\endalign
-$$
-\case{Caso $\gcd a p$ > 1}:
+a^p     &\congmod p a
+\endcompute
+\case{Caso contrário}:
 Nesse caso, como $p$ é primo, necessariamente $p \divides a$,
 ou seja, $a \cong 0 \pmod p$,
 logo $a^p \cong 0 \pmod p$.
 Agora pela transitividade e
 simetria da $congruência$ módulo~$m$, finalmente temos:
-$a^p \cong a \pmod p$
+$$
+a^p \cong a \pmod p.
+$$
 
 %%}}}
 
@@ -15273,7 +15294,7 @@ Ache o último dígito do $2^{800}$.
 \solution.
 Procuramos um $y$ tal que $2^{800}\cong y \pmod {10}$
 (por quê?).
-Usando o teorema de Fermat~(\ref[fermat_little_theorem_1]) temos:
+Usando o teorema de Fermat~(\ref[fermat_little_theorem]) temos:
 $$
 \align
 2^4 &\cong 1 \pmod 5,
@@ -15374,7 +15395,7 @@ $41^{75} = 41^{74}\ntimes 41$.
 Fermat.
 
 \solution
-Como $\gcd {41} 3 = 1$, pelo teorema de Fermat (\ref[fermat_little_theorem_1])
+Como $\gcd {41} 3 = 1$, pelo teorema de Fermat (\ref[fermat_little_theorem])
 temos
 $$
 41^{\tot 3} = 41^2 \cong 1 \pmod 3,
@@ -15405,15 +15426,52 @@ Então $41^{75} \bmod 3 = 2$.
 
 %%}}}
 
-\TODO Nova maneira de achar inversos.
-
-\endsection
-%%}}}
-
-%%{{{ Exponentiation 
-\section Exponenciação.
+%%{{{ New way to perform modular exponentiation 
+\note Nova maneira para exponenciação modular.
 %%%{{{ meta 
 %%%}}}
+
+O Fermatinho nos permite calcular rapidamente potências módulo um inteiro.
+
+%%}}}
+
+%%{{{ x: how? 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Como?
+
+%%}}}
+
+%%{{{ New way to compute modular inverse 
+\note Nova maneira de calcular inversos.
+%%%{{{ meta 
+\credits
+    * Fermat : inverso modular
+    ;;
+%%%}}}
+
+O Fermatinho nos permite calcular rapidamente inversos.
+
+%%}}}
+
+%%{{{ x: how? 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Como?
+
+\hint
+$a^{p-1} = a^{p-2}a$.
+
+\solution
+Dado um $a$ coprimo com $p$, já que $a^{p-1} \congmod p 1$,
+logo $a^{p-2}a = a^{p-1} \congmod p 1$, e logo $a^{p-2}$ é
+um inverso de $a$ módulo $p$.
+
+%%}}}
 
 \endsection
 %%}}}
@@ -15422,6 +15480,8 @@ Então $41^{75} \bmod 3 = 2$.
 \section Primalidade.
 %%%{{{ meta 
 %%%}}}
+
+\TODO terminar.
 
 \endsection
 %%}}}
@@ -15751,11 +15811,11 @@ Trabalhando na última congruência chegamos na congruência desejada.
 
 %%}}}
 
-%%{{{ cor: fermat_little_theorem_1 
+%%{{{ cor: fermat_little_theorem 
 \corollary.
 %%%{{{ meta 
-\label fermat_little_theorem_1
-\aka primeiro pequeno Fermat.
+\label fermat_little_theorem_as 
+\aka Fermatinho.
 \credits
     * Fermat : primeiro teorema pequeno
     ;;
@@ -15888,7 +15948,7 @@ Temos
 %%%}}}
 
 Ache uma nova prova, \emph{por indução},
-do teorema de Fermat~\reftag[fermat_little_theorem_2]:
+do teorema de Fermat~\reftag[fermat_little_theorem]:
 \eop\noi
 \proclaim{Para todo primo $p$ e todo $a\in\ints$,}
 $$
