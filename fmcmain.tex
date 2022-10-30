@@ -14540,7 +14540,7 @@ $$
 \label ax_cong_1_mod_m
 %%%}}}
 
-Dados inteiros $a,b$, a congruência
+Dados inteiros $a,m$, a congruência
 $$
 ax \cong 1 \pmod m
 $$
@@ -14553,9 +14553,44 @@ Observe que aqui \wq{$x$ é resolução} significa
 
 %%}}}
 
-\TODO a congruência $ax \cong b \pmod m$.
+%%{{{ cor: ax_cong_b_mod_m 
+\corollary.
+%%%{{{ meta 
+\label ax_cong_b_mod_m
+%%%}}}
 
-\TODO a congruência $x^2 \cong 1 \pmod m$.
+Dados inteiros $a,b,m$ com $a,m$ coprimos, a congruência
+$$
+ax \cong b \pmod m
+$$
+tem resolução para $x$.
+
+\sketch.
+Suponha $a,m$ coprimos.
+Logo o $a$ possui inverso $a'$.
+É rotina verificar que o $a'b$ satisfaz a congruência desejada.
+
+%%}}}
+
+%%{{{ x: ax_cong_b_mod_m_converse 
+\exercise.
+%%%{{{ meta 
+\label ax_cong_b_mod_m_converse
+%%%}}}
+
+Enuncie o reciproco do \ref[ax_cong_b_mod_m] e demonstre ou refute.
+
+%%}}}
+
+%%{{{ x: roots_of_1_mod_m 
+\exercise raizes quadradas de 1.
+%%%{{{ meta 
+\label roots_of_1_mod_m
+%%%}}}
+
+Podemos, em geral, resolver a congruência $x^2 \cong 1 \pmod m$?
+
+%%}}}
 
 \endsection
 %%}}}
@@ -14586,9 +14621,8 @@ de congruências.
 \label chinese_remainder_theorem_binary_case
 %%%}}}
 
-Sejam $m_1,m_2,b_1,b_2\in\ints$,
-com $\gcd {m_1} {m_2} = 1$.
-Então existe $x\in\ints$ que satisfaz o sistema de congruências
+Sejam $m_1,m_2,b_1,b_2$ inteiros com $\gcd {m_1} {m_2} = 1$.
+Então existe inteiro $x$ que satisfaz o sistema de congruências
 \system
 x &\cong    b_1    \pmod {m_1}\\
 x &\cong    b_2    \pmod {m_2}.
@@ -14837,24 +14871,24 @@ de $\divides$, mostramos que $x' \cong x \pmod M$.
 %%%{{{ meta 
 %%%}}}
 
-Ache todos os inteiros $x\in\ints$ que satisfazem o sistema de congruências:
+Bora achar todos os inteiros $x$ que satisfazem o sistema de congruências:
 \mathcol
 x &\cong 2 \pmod 9 \\
 x &\cong 1 \pmod 5 \\
 x &\cong 2 \pmod 4.
 \endmathcol
 
-\solution.
+\solution Bora.
 Observamos primeiramente que os módulos $9$, $5$, e $4$ realmente são coprimos
 dois-a-dois.  Então, pelo teorema chinês do resto,
 o sistema realmente tem solução.
 Seguindo sua método---e usando os mesmos nomes para as variáveis como
 no~\ref[chinese_remainder_theorem] mesmo---calculamos os:
 \mathcols 2
-M_{\phantom0}   &= 9\ntimes5\ntimes4 = 180  &      &               \\
-M_1 &= \phantom{9\ntimes{}}5\ntimes4 = 20   &  B_1 &\cong 5 \pmod 9\\
-M_2 &= 9\phantom{{}\ntimes5}\ntimes4 = 36   &  B_2 &\cong 1 \pmod 5\\
-M_3 &= 9\ntimes5\phantom{{}\ntimes4} = 45   &  B_3 &\cong 1 \pmod 4, 
+M_{\phantom0}   &= 9\ntimes5\ntimes4 = 180  &      &                \\
+M_1 &= \phantom{9\ntimes{}}5\ntimes4 = 20   &  B_1 &\cong 5 \pmod 9 \\
+M_2 &= 9\phantom{{}\ntimes5}\ntimes4 = 36   &  B_2 &\cong 1 \pmod 5 \\
+M_3 &= 9\ntimes5\phantom{{}\ntimes4} = 45   &  B_3 &\cong 1 \pmod 4,
 \endmathcols
 onde os invérsos $B_i$'s podemos calcular usando o algoritmo estendido de
 Euclides~(\reftag[extended_euclidean_algorithm]) como na prova
@@ -14862,10 +14896,13 @@ do~\ref[find_inverse_modulo_m]), mas nesse caso, sendo os módulos tão pequenos
 fez mas sentido os achar testando, com ``força bruta''.
 Então, graças ao teorema chinês, as soluções são exatamente os inteiros $x$ que satisfazem
 \modcompute
-x &\cong a_1M_1B_1 + a_2M_2B_2 + a_3M_3B_3                                      \cmod M \noby \\
-  &\cong 2 \ntimes 20\ntimes 5 + 1 \ntimes 36\ntimes 1 + 2 \ntimes 45\ntimes 1  \cmod {180} \\
-  &\cong 200 + 36 + 90                                                          \cmod {180} \\
-  &\cong 146                                                                    \cmod {180}.
+x
+&\cong a_1M_1B_1 + a_2M_2B_2 + a_3M_3B_3
+                      \cmod M \noby \\
+&\cong 2 \ntimes 20\ntimes 5 + 1 \ntimes 36\ntimes 1 + 2 \ntimes 45\ntimes 1
+                      \cmod {180} \\
+&\cong 200 + 36 + 90  \cmod {180} \\
+&\cong 146            \cmod {180}.
 \endmodcompute
 Para resumir, as soluções do sistema são todos os elementos do
 $\setst {180k + 146} {k\in\ints}$.
@@ -14877,14 +14914,14 @@ $\setst {180k + 146} {k\in\ints}$.
 %%%{{{ meta 
 %%%}}}
 
-Ache todos os inteiros $x\in\ints$ com $\abs x < 64$ que satisfazem o sistema de congruências:
+Vamo achar todos os inteiros $x$ com $\abs x < 64$ que satisfazem o sistema de congruências:
 \mathcol
 x  &\cong 1 \pmod 3 \\
 3x &\cong 1 \pmod 4 \\
 4x &\cong 2 \pmod 5.
 \endmathcol
 
-\solution.
+\solution Vamo.
 Para aplicar o teorema chinês do resto precisamos os $3$, $4$, e $5$ coprimos dois-a-dois,
 que realmente são.
 Mas observe que o sistema não está na forma do teorema;
@@ -14977,18 +15014,18 @@ $\gcd 2 4 = 2$.
 Ache as soluções dos sistemas de congruências seguintes:
 \mathcols 2
 \text{(1)}\quad&
-\lsystemed {
-x  &\cong 3\phantom0 \pmod 4\\
-5x &\cong 1\phantom0 \pmod 7\\
-x  &\cong 2\phantom0 \pmod 9
+\lmodsystemed {
+x  &\cong 3  \cmod 4 \\
+5x &\cong 1  \cmod 7 \\
+x  &\cong 2  \cmod 9
 }
 &
 \text{(2)}\quad&
-\lsystemed {
-x  &\cong 3\phantom0 \pmod 3\\
-3x &\cong 3\phantom0 \pmod 4\\
-4x &\cong 2\phantom0 \pmod 5\\
-5x &\cong 1\phantom0 \pmod 7.
+\lmodsystemed {
+x  &\cong 3  \cmod 3 \\
+3x &\cong 3  \cmod 4 \\
+4x &\cong 2  \cmod 5 \\
+5x &\cong 1  \cmod 7.
 }
 \endmathcols
 
@@ -15012,17 +15049,17 @@ em casos mais gerais do que aparece inicialmente!
 Resolva os sistemas de congruências:
 \mathcols 2
 \text{(1)}\quad&
-\lsystemed {
-5x &\cong 2\phantom0  \pmod 6\\
-x  &\cong 13 \pmod {15}\\
-x  &\cong 2\phantom0  \pmod 7
+\lmodsystemed {
+5x &\cong 2   \cmod 6 \\
+x  &\cong 13  \cmod {15} \\
+x  &\cong 2   \cmod 7
 }
 &
 \text{(2)}\quad&
-\lsystemed {
-x  &\cong 2\phantom0  \pmod 6\\
-x  &\cong 13 \pmod {15}\\
-x  &\cong 2\phantom0  \pmod 7.
+\lmodsystemed {
+x  &\cong 2   \cmod 6 \\
+x  &\cong 13  \cmod {15} \\
+x  &\cong 2   \cmod 7.
 }
 \endmathcols
 
@@ -15046,7 +15083,7 @@ a &\cong 2 \pmod 3.
 $$
 
 \hint
-Não todos os sistemas de congruências tem soluções.
+Não todos os sistemas de congruências têm soluções.
 (Acontéce quando temos restricções contraditórias.)
 Nesse exercício um dos dois sistemas não tem solução.
 
