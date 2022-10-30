@@ -10212,6 +10212,248 @@ $$
 \endsection
 %%}}}
 
+%%{{{ Binomial coefficients 
+\section Binomial e seus coeficientes.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ x: binomial_theorem_for_2 
+\exercise.
+%%%{{{ meta 
+\label binomial_theorem_for_2
+%%%}}}
+
+Demonstre que para quaisquer inteiros $x,y$,
+$$
+(x+y)^2 = x^2 + 2xy + y^2.
+$$
+
+%%}}}
+
+%%{{{ x: binomial_theorem_for_3 
+\exercise.
+%%%{{{ meta 
+\label binomial_theorem_for_3
+%%%}}}
+
+Demonstre que para quaisquer inteiros $x,y$,
+$$
+(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3.
+$$
+
+\hint
+Use o que tu acabou de demonstrar sobre o $(x+y)^2$, no \ref[binomial_theorem_for_2].
+
+%%}}}
+
+%%{{{ binomial_theorem_discussion 
+\note Binomial.
+%%%{{{ meta 
+\label binomial_theorem_discussion
+%%%}}}
+
+Nosso objetivo agora generalizar para responder ao
+\mathcol
+(x+y)^n &= ?
+\intertext{Facilmente percebemos que}
+(x+y)^n &= x^n + \dotsb + y^n
+\intertext{mas esse uso de \sq{${}\dotsb{}$} é tão abusivo que parece
+até piada considerar como resposta.  Podemos melhorar pouco, percebendo
+que no final das contas nossa resposta deve ser um somatório de termos
+$x^iy^j$.  Por exemplo, no \ref[binomial_theorem_for_3] achamos}
+(x+y)^3
+&= xxx + xxy + xyx + yxx + xyy + yxy + yyx + yyy \\
+&= x^3y^0 + x^2y + x^2y + x^2y + xy^2 + xy^2 + xy^2 + x^0y^3.
+\intertext{O objetivo é \emph{achar os coeficientes} de cada termo desses:}
+&= \mubrace {x^3y^0} 1
+   + \mubrace {x^2y + x^2y + x^2y} 3
+   + \mubrace {xy^2 + xy^2 + xy^2} 3
+   + \mubrace {x^0y^3} 1 \\
+&= 1\,x^3y^0 + 3\,x^2y + 3\,xy^2 + 1\,x^0y^3.
+\intertext{Observe também como podemos melhorar os $i,j$ no $x^iy^j$:
+temos $i+j = n$, e logo podemos escrever tudo em termos de apenas uma variável
+(vou escolher a \sq{r}): $x^{n-r}y^r$.
+Sabemos então que $(x+y)^n$ pode ser escrito como um somatório de termos $x^{n-r}y^r$
+e o desafio é achar para um deles quantas vezes precisamos somá-lo.
+Em outras palavras, procuramos o coeficiente de tal termo no somatório.
+Vamos denotar por $\binom n r$ o coeficiente do termo $x^{n-r}y^r$:}
+(x + y)^n
+&= \binom n 0 x^n + \binom n 1 x^{n-1}y + \dotsb + \binom n {n-1} xy^{n-1} + \binom n n y^n \\
+&= \Sum_{r=0}^n \binom n r x^{n-r}y^r.
+\endmathcol
+
+%%}}}
+
+%%{{{ thm: binomial_theorem 
+\theorem Binomial.
+%%%{{{ meta 
+\label binomial_theorem
+\indexes
+    * binomial!teorema    see: teorema
+    * teorema!binomial
+    ;;
+%%%}}}
+
+Para qualquer $n$ natural e qualquer $0 \leq i \leq n$, temos
+$$
+\binom n r = \comb n r.
+$$
+
+\preproof Argumentação combinatorial.
+Queremos achar quantas vezes o termo $x^{n-r}y^r$ aparece na expansão do binomial.
+Escrevendo
+$$
+(x+y)^n = \tubrace {(x+y)(x+y)\dotsb(x+y)} {$n$ vezes}
+$$
+observamos que para cada das $\comb n r$ maneiras de escolher $r$ dos termos acima,
+corresponde um termo $x^{n-r}y^r$:
+\dq{escolha quais dos termos desse produtório vão oferecer seus $y$'s
+(o resto dos termos oferecerá seu $x$)}.
+Isso justifica o $\binom n r = \comb n r$.
+
+\proof.
+Por indução.
+\crproofpart{Base.}
+Temos
+\compute
+(x+y)^0 &= 1 \noby \\
+\Sum_{r=0}^0 \comb 0 r x^{n-r}y^r &= \comb 0 0 x^{0-0}y^0 = 1.
+\endcompute
+\proofpart{Passo indutivo.}
+Seja $k$ tal que $(x+y)^k = \Sum_{r=0}^k \comb k r x^{k-r}y^k$\fact{HI}.
+Calculamos:
+\compute
+(x+y)^{k+1}
+&= (x+y) (x+y)^k \noby \\
+&= x(x+y)^k y(x+y)^k \\
+&\dotseq \Sum_{r=0}^{k+1} \comb {k+1} r x^{k-(r-1)}y^r.
+\endcompute
+Onde o \sq{$\dotseq$} é trabalho teu (\ref[binomial_theorem_proof_by_induction_exercise]).
+
+%%}}}
+
+%%{{{ eg: binomial_theorem_for_7_combinations 
+\example.
+%%%{{{ meta 
+\label binomial_theorem_for_7_combinations
+%%%}}}
+
+Para $n=7$ e $r=4$, a escolha
+$$
+(x+y)^7
+  =
+(x+y)
+\tubrace {(x+y)} {``$y$''}\,
+(x+y)
+\tubrace {(x+y)} {``$y$''}
+\tubrace {(x+y)} {``$y$''}\,
+(x+y)
+\tubrace {(x+y)} {``$y$''}
+$$
+corresponde no termo
+$xyxyyxy = x^3y^4$, e cada diferente escolha das $\binom 7 4$
+correspondará com uma maneira diferente para formar o $x^3y^4$:
+$$
+\tubrace
+    {xxxyyyy, xxyxyyy, xxyyxyy, xxyyyxy, xxyyyyx, xyxxyyy, \dotsc, yyxyxx, yyyyxxx}
+    {$\comb 7 4 = 35$}.
+$$
+
+%%}}}
+
+%%{{{ x: binomial_theorem_proof_by_induction_exercise 
+\exercise Teorema binomial: por indução.
+%%%{{{ meta 
+\label binomial_theorem_proof_by_induction_exercise
+\indexes
+    * teorema!binomial (por indução)
+    ;;
+%%%}}}
+
+Demonstre o teorema binomial por indução.
+
+\hint
+Aplique a hipótese indutiva.
+
+\hint
+$$
+x(x+y)^k y(x+y)^k
+= x\Sum_{r=0}^k \comb k r x^{k-r} y^r
++ y\Sum_{r=0}^k \comb k r x^{k-r} y^r.
+$$
+
+\hint
+O $x$ sendo distribuido no primeiro somatório aumenta $+1$ no expoente de $x$,
+e similarmente o $y$ no segundo aumenta $+1$ no expoente de $y$.
+
+\hint
+$$
+  x\Sum_{r=0}^k \comb k r x^{k-r} y^r
++ y\Sum_{r=0}^k \comb k r x^{k-r} y^r
+=  \Sum_{r=0}^k \comb k r x^{(k-r)+1} y^r
++  \Sum_{r=0}^k \comb k r x^{k-r} y^{r+1}.
+$$
+
+\hint
+Separe o primeiro termo do primeiro somatório e o último termo do segundo.
+
+\hint
+\longmath
+  \Sum_{r=0}^k \comb k r x^{(k-r)+1}y^r
++ \Sum_{r=0}^k \comb k r x^{k-r}y^{r+1} \\
+= x^{k+1}
++ \Sum_{r=1}^k     \comb k r x^{(k-r)+1}y^r
++ \Sum_{r=0}^{k-1} \comb k r x^{k-r}y^{r+1}
++ y^{k+1}.
+\endlongmath
+
+\hint
+Mexa com os índices utilizados nos dois somatórios para conseguir
+que ambos começam e terminam no mesmo $r$.
+
+\solution
+Calculamos:
+\widecompute
+(x+y)^{k+1} \\
+&= (x+y) (x+y)^k \\
+&= x(x+y)^k + y(x+y)^k \\
+&= x\paren{\Sum_{r=0}^k \comb k r x^{k-r} y^r}
+ + y\paren{\Sum_{r=0}^k \comb k r x^{k-r} y^r} \\
+&=  \paren{\Sum_{r=0}^k \comb k r x^{(k-r)+1} y^r}
+ +  \paren{\Sum_{r=0}^k \comb k r x^{k-r}     y^{r+1}} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k     \comb k r x^{(k-r)+1} y^r}
+ + \paren{\Sum_{r=0}^{k-1} \comb k r x^{k-r}     y^{r+1}}
+ + y^{k+1} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k \comb k r     x^{(k-r)+1} y^r}
+ + \paren{\Sum_{r=1}^k \comb k {r-1} x^{k-(r-1)} y^{(r-1)+1}}
+ + y^{k+1} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k \comb k r     x^{k-(r-1)} y^r}
+ + \paren{\Sum_{r=1}^k \comb k {r-1} x^{k-(r-1)} y^r}
+ + y^{k+1} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k (\comb k r
+                     + \comb k {r-1}) x^{k-(r-1)} y^r}
+ + y^{k+1} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k \comb {k+1} r x^{k-(r-1)} y^r}
+ + y^{k+1} \\
+&= \comb {k+1} 0 x^{k+1}
+ + \paren{\Sum_{r=1}^k \comb {k+1} r x^{k-(r-1)} y^r}
+ + \comb {k+1} {k+1} y^{k+1} \\
+&= \comb {k+1} 0 x^{(k+1)-0} y^0
+ + \paren{\Sum_{r=1}^k \comb {k+1} r x^{(k+1)-r} y^r}
+ + \comb {k+1} {k+1} x^{(k+1)-(k+1)} \rlap{$y^{k+1}$} \\
+&= \Sum_{r=0}^{k+1} \comb {k+1} r x^{(k+1)-r} y^r.
+\endwidecompute
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ More on sets closed under subtraction 
 \section Mais sobre conjuntos fechados sob subtração.
 %%%{{{ meta 
@@ -19707,653 +19949,1122 @@ demais neste momento.
 \endchapter
 %%}}}
 
-%%{{{ chapter: The_reals 
-\chapter Os reais.
+%%{{{ chapter: Enumerative_combinatorics 
+\chapter Combinatória enumerativa.
 %%%{{{ meta 
-\label The_reals
-\pdefs
-    \pdef Pos {\mathord{\mathrm{Pos}}}
-    \pdef Neg {\mathord{\mathrm{Neg}}}
+\label Enumerative_combinatorics
+%%%}}}
+
+\TODO terminar e arrumar.
+
+%%{{{ Counting principles 
+\section Princípios de contagem.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ Informally 
+\note Informalmente.
+%%%{{{ meta 
+%%%}}}
+
+Queremos contar todas as maneiras possíveis para algo acontecer,
+certas configurações, certos objetos ser escolhidos, ou ordenados, etc.
+Baseamos nossas idéias em dois princípios de contagem:
+da \emph{adição} e da \emph{multiplicação}.
+\eop
+{O princípio da adição, informalmente:}
+Se podemos agrupar todos esses objetos em grupos \emph{distintos},
+tais que cada objeto pertence em \emph{exatamente um} grupo,
+o número total dos objetos é igual o somatório dos tamanhos dos grupos.
+\eop
+{O princípio da multiplicação, informalmente:}
+Se cada configuração pode ser descrita completamente em $n$ passos,
+onde para o primeiro passo temos $a_1$ opções,
+para o segundo passo temos $a_2$ opções, etc., e
+\emph{em cada passo a quantidade das opções disponíveis
+não depende nas escolhas anteriores},
+então existem em total $a_1a_2\dotsb a_n$ configurações possíveis.
+
+%%}}}
+
+%%{{{ principle: principle_of_addition 
+\principle Princípio da adição.
+%%%{{{ meta 
+\headerize
+\label principle_of_addition
+\defines
+    * princípio!da adição
     ;;
 %%%}}}
 
-\TODO limpar, terminar, organizar.
-
-%%{{{ intro 
-\chapintro
-O $\sset \reals {+,\ntimes,0,1}$ é um \emph{corpo ordenado completo}.
-Neste capítulo vamos estudar o que isso significa e investigar as
-primeiras conseqüências dos axiomas dos reais.
-Além disso, vamos definir e estudar os conceitos fundamentais
-de limites e séries.
-%%}}}
-
-%%{{{ Back to Ancient Greece: irrationals 
-\section De volta pra Grécia antiga: racionais e irracionais.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ √2 is not rational 
-\note O √2 não é racional.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
+Seja $A$ conjunto finito, e $A_1,\dotsc,A_n$ subconjuntos dele tais que cada elemento $a\in A$, pertence em \emph{exatamente} um dos $A_i$.
+Logo,
+$$
+|A| = \Sum_{i=1}^n |A_i|.
+$$
 
 %%}}}
 
-%%{{{ But √2 surely is a number 
-\note Mas o √2 com certeza é um número.
+%%{{{ principle: principle_of_multiplication 
+\principle Princípio da multiplicação.
 %%%{{{ meta 
+\headerize
+\label principle_of_multiplication
+\defines
+    * princípio!da multiplicação
+    ;;
 %%%}}}
 
-\TODO Escrever.
+Sejam $A_1,\dotsc,A_n$ conjuntos finitos.
+Logo
+$$
+|A_1\times\dotsb\times A_n| = |A_1|\dotsb|A_n|.
+$$
 
 %%}}}
 
-%%{{{ Irrational numbers 
-\note Números irracionais.
+%%{{{ eg 
+\example.
 %%%{{{ meta 
 %%%}}}
 
-\TODO Escrever.
+De quantas maneiras podemos escrever um string de tamanho $3$\dots
+\tlist:
+\li (i): Usando o alfabeto
+$\set{\txt A, \txt B, \txt C, \dotsc, \txt X, \txt Y, \txt Z}$?
+\li (ii): Usando o mesmo alfabeto, mas proibindo o mesmo caractere se repetir no string?
+\endtlist
+
+\solution.
+Consideramos a formação de cada string em passos, caractere a caractere.
+Temos 3 posições para colocar os caracteres:
+$
+\underline{\phantom{\txt Z}}
+\;
+\underline{\phantom{\txt Z}}
+\;
+\underline{\phantom{\txt Z}}
+\;
+$.
+\eop
+Para a questão (i), temos:
+$26$ maneiras para escolher o primeiro caractere,
+$26$ para o segundo, e
+$26$ para o último:
+$$
+\underbrace{
+\underline{\phantom{\txt Z}}
+}_{26}
+\;
+\underbrace{
+\underline{\phantom{\txt Z}}
+}_{26}
+\;
+\underbrace{
+\underline{\phantom{\txt Z}}
+}_{26}
+\;.
+$$
+A escolha em cada passo não é afeitada por as escolhas dos passos anteriores.
+Logo, pelo princípio da multiplicação tem
+$$
+26\ntimes 26\ntimes 26 = 26^3
+$$
+strings possíveis.
+\eop
+Para a questão (ii), temos:
+$26$ maneiras para escolher o primeiro caractere,
+$25$ para o segundo (todos menos aquele que escolhemos no passo anterior), e
+$24$ para o último (similarmente):
+$$
+\underbrace{
+\underline{\phantom{\txt Z}}
+}_{26}
+\;
+\underbrace{
+\underline{\phantom{\txt Z}}
+}_{25}
+\;
+\underbrace{
+\underline{\phantom{\txt Z}}
+}_{24}
+\;.
+$$
+Agora a escolha em cada passo realmente \emph{é afeitada} por as escolhas
+dos passos anteriores!
+Por exemplo, se no primeiro passo escolher o caractere $\txt C$, para
+o segundo passo as opções incluem o caractere $\txt A$; 
+mas se no primeiro passo escolher o caractere $\txt A$, as opções para o segundo
+mudam: não temos essa opção mais.
+\emph{Mesmo assim, podemos usar o princípio da multiplicação!}
+Por quê?
+As escolhas dos passos anteriores afeitam \emph{quais} são as escolhas do passo atual,
+mas não afeitam \emph{quantas} elas são!
+Por isso, chegamos no resultado aplicando mais uma vez o princípio da multiplicação:
+temos
+$$
+26\ntimes 25\ntimes 24
+$$
+maneiras possíveis.
 
 %%}}}
 
-%%{{{ √3 is irrational 
-\note O √3 é irracional.
+%%{{{ x: 4 gifts for 3 kids 
+\exercise.
 %%%{{{ meta 
 %%%}}}
 
-\TODO Escrever.
+Temos $4$ presentes e queremos dar para $3$ crianças tal que cada criança vai
+receber apenas um presente.
+\tlist:
+\li (i): De quantas maneiras podemos disribuir os presentes para as crianças?
+\li (ii): O que muda se as crianças são $4$?  Explique.
+\endtlist
 
 %%}}}
 
-%%{{{ A lemma 
-\note Um lemma.
+%%{{{ x: in how many ways can we write strings of length 2 using ABCD 
+\exercise.
 %%%{{{ meta 
 %%%}}}
 
-\TODO Escrever.
+De quantas maneiras podemos escrever strings de tamanho $2$ usando o alfabeto
+$$
+\set{\txt A, \txt B, \txt C, \txt D},
+$$
+tais que as letras aparecem em ordem que concorda com a do alfabeto?
+Por exemplo os string $\txt A \txt C$, $\txt B \txt B$, e $\txt C \txt D$ são aceitáveis,
+mas os $\txt D \txt C$ e $\txt B \txt A$, não.
 
-%%}}}
+\hint
+Cuidado: aqui a \emph{quantidade} das opções da segunda escolha, depende sim na escolha
+anterior!
 
-%%{{{ What happens with √4 and √5 
-\note O que acontece com √4 e √5.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ A generalization theorem 
-\note Um teorema de generalização.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ More irrational numbers 
-\note Mais números irracionais.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ Algebraic and transcendental numbers 
-\note Números algébricos e transcendentais.
-%%%{{{ meta 
-%%%}}}
-
-\TODO Escrever.
+\hint
+Separa os strings possíveis em colecções e conta os strings de cada colecção separadamente,
+somando no final (princípio de adição) para achar o resultado.
 
 %%}}}
 
 \endsection
 %%}}}
 
-%%{{{ The_real_line 
-\section A reta real.
+%%{{{ Permutations and combinations 
+\section Permutações e combinações.
 %%%{{{ meta 
-\label The_real_line
+\label Permutations_and_combinations
 %%%}}}
 
-\TODO Escrever.
+%%{{{ Q: in how many ways can we choose r from n? 
+\question.
+%%%{{{ meta 
+%%%}}}
 
-\endsection
+De quantas maneiras podemos escolher $r$ objetos de $n$?
+
 %%}}}
-
-%%{{{ First steps 
-\section Primeiros passos.
-%%%{{{ meta 
-%%%}}}
 
 %%{{{ blah 
 \blah.
 %%%{{{ meta 
 %%%}}}
 
-Nessa secção, $F$ vai denotar um arbitrário corpo ordenado:
+Essa questão é bastante ambígua;
+por exemplo:
+Os $n$ objetos são todos distintos?
+Podemos repetir o mesmo objeto na nossa escolha?
 
 %%}}}
 
-%%{{{ spec: real_spec_1 
-\specification Os reais (1/3).
+%%{{{ df: comb_perm_totperm 
+\definition.
 %%%{{{ meta 
-\label real_spec_1
+\label comb_perm_totperm
 \defines
-    * reais
+    * \comb {~n} {~r}  -- o número de $r$-combinações de $n$ objetos
+    * \perm {~n} {~r}  -- o número de $r$-permutações de $n$ objetos
+    * \totperm {~n}  -- o número de permutações (totais) de $n$ objetos
     ;;
 %%%}}}
 
-Usamos $\Real$ para denotar um tipo cujos membros chamamos de (números) inteiros e onde temos
-os seguintes componentes primitivos:
-\mathcol
-0         &\is \Real \\
-1         &\is \Real \\
-(+)       &\is \Real \times \Real \to \Real \\
-(-)       &\is \Real \to \Real \\
-(\ntimes) &\is \Real \times \Real \to \Real. \\
-\endmathcol
-Estipulamos as proposições seguintes como axiomas:
-\mathcol
-\cforall {a,b,c}  {a + (b + c) = (a + b) + c}   \stag[RA-Ass]\\
-\cforall {a}      {0 + a = a = a + 0}           \stag[RA-Id]\\
-\cforall {a}      {(-a) + a = 0 = a + (-a)}     \stag[RA-Inv]\\
-\cforall {a,b}    {a + b = b + a}               \stag[RA-Com]\\
-\\
-\cforall {a,b,c}  {a\ntimes(b\ntimes c) = (a\ntimes b)\ntimes c}
-                                                \stag[RM-Ass]\\
-\cforall {a}      {a\ntimes 1 = a}              \stag[RM-Id]\\
-\cforall {a}      {a\neq 0 \implies
-                   \lexists {a'} {a' \ntimes a = 1 = a \ntimes a'}}
-                                                \stag[RM-Inv*]\\
-\cforall {a,b}    {a\ntimes b = b \ntimes a}    \stag[RM-Com]\\
-\\
-\cforall {d,a,b}  {(a+b) \ntimes d = (a \ntimes d) + (b \ntimes d) \mland
-                   d \ntimes (a+b) = (d \ntimes a) + (d \ntimes b)}.
-                                                \stag[R-Dist]\\
-\endmathcol
+Usamos os símbolos:
+$$
+\align
+\totperm n &:\quad\text{o número de permutações totais de $n$ objetos}\\
+\perm n r  &:\quad\text{o número de $r$-permutações de $n$ objetos}\\
+\comb n r  &:\quad\text{o número de $r$-combinações de $n$ objetos}
+\endalign
+$$
+Onde entendemos que:
+\elist i:
+\li: os $n$ objetos são distíntos;
+\li: não podemos repeti-los.
+\endelist
+Observe que as permutações totais são apenas casos especiais de $r$-permutações.
+Na literatura encontramos $r$-permutações também com o nome \dterm{arranjos},
+mas nós vamos evitar esse termo aqui para evitar confusão.
 
 %%}}}
 
-%%{{{ remark: axioms_stronger_than_needed
-\remark Axiomas mais fortes do que precisamos.
+%%{{{ prop: total_permutations 
+\proposition Permutações totais.
 %%%{{{ meta 
-\label axioms_stronger_than_needed
-%%%}}}
-
-Observe que tanto sobre as identidades quanto sobre os inversos,
-optamos para incluir nos axiomas \dq{ambos os lados}.
-Compare isso com os axiomas que tivemos sobre os inteiros,
-onde \emph{demonstramos como teorema} que $0$ é uma
-$(+)$-identidade-L, e as demais versões esquerdas
-(\ref[int_left_versions_as_theorems]).
-A demonstração foi simplíssima, graças às comutatividades
-das operações, que aqui também temos.
-Ou seja, a gente poderia ter escolhido uma abordagem parecida aqui,
-mas não é sempre tão importante se obsecar economizando
-nos axiomas.  Listados na maneira que tenho acima, tem
-uma outra vantagem: não passam uma informação falsa sobre nossa
-pretenção, e, além disso, seria mais facil se perguntar
-<<o que acontece se apagar comutatividade de tal lista?>>,
-sem precisar nos preocupar para adicionar explicitamente
-as identidades e inversos esquerdos.
-
-%%}}}
-
-%%{{{ Syntactic considerations 
-\note Considerações sintácticas.
-%%%{{{ meta 
+\label total_permutations
 \defines
-    * associatividade!sintáctica
+    * permutação!total
     ;;
-%%%}}}
-
-Atribuimos as mesmas \dterm{associatividades sintácticas} e as mesmas
-\dterm{precedências sintácticas} nas operações $(+)$ e $(\ntimes)$
-que atribuimos no \ref[The_integers] (\ref[int_syntactic_associativities],
-\ref[int_syntactic_precedence], \ref[int_juxtaposition_notation]).
-Similarmente usamos as abreviações
-\mathcols 4
-2 &\eqtype \Real  & 3 &\eqtype \Real  & 4 &\eqtype \Real &~&\cdots \\
-2 &\defeq  1 + 1  & 3 &\defeq  2 + 1  & 4 &\defeq  3 + 1 &~&\cdots \\
-\endmathcols
-como fizemos no \ref[int_numerals_and_powers].
-
-%%}}}
-
-%%{{{ df: real_subtraction_as_syntactic_sugar 
-\definition Açúcar sintáctico: subtração.
-%%%{{{ meta 
-\label real_subtraction_as_syntactic_sugar
 \indexes
-    * notação!sobrecarregar   see: sobrecarregamento
-    * sobrecarregamento!notação
+    * arranjo    see: permutação
     ;;
+%%%}}}
+
+$$
+\totperm n = {n!}.
+$$
+
+%%}}}
+
+%%{{{ prop: permutations 
+\proposition Permutações.
+%%%{{{ meta 
 \defines
-    * subtração!nos reais
+    * permutação
     ;;
 %%%}}}
 
-Como nos inteiros (\ref[int_subtraction_as_syntactic_sugar])
-definimos a operação \emph{binária}
-\mathcol
-{-} &\eqtype \Real \times \Real \to \Real \\
-\endmathcol
-de subtração pela
-\mathcol
-a - b &\defeq a + (-b).
-\endmathcol
-Novamente o símbolo ${-}$ tá sendo \dterm{sobrecarregado} mas
-o contexto sempre deixará claro qual das
-\mathcols 2
-{-} &\eqtype \Real \to \Real  &
-{-} &\eqtype \Real \times \Real \to \Real
-\endmathcols
-está sendo usada.
+$$
+\perm n r = \frac {n!} {(n-r)!}.
+$$
 
 %%}}}
 
-%%{{{ x: real_uniqueness_of_additive_identity 
-\exercise Unicidade da identidade aditiva.
+%%{{{ prop: combinations 
+\proposition Combinações.
 %%%{{{ meta 
-\label real_uniqueness_of_additive_identity
-%%%}}}
-
-Existe único $z$ tal que para todo $x$, $z + x = x = x + z$.
-
-\solution
-Demonstrado no \ref[int_uniqueness_of_additive_identity], pois
-tal demonstração precisou apenas axiomas que temos aqui também.
-
-%%}}}
-
-%%{{{ x: real_uniqueness_of_additive_inverses 
-\exercise Unicidade dos inversos aditivos.
-%%%{{{ meta 
-\label real_uniqueness_of_additive_inverses
-%%%}}}
-
-Para todo $x$, existe único $x'$ tal que $x' + x = 0 = x + x'$.
-
-\solution
-Demonstrado no \ref[int_uniqueness_of_additive_inverses], pois
-tal demonstração precisou apenas axiomas que temos aqui também.
-
-%%}}}
-
-%%{{{ x: real_uniqueness_of_solutions 
-\exercise Unicidade de resoluções.
-%%%{{{ meta 
-\label real_uniqueness_of_solutions
-%%%}}}
-
-Para quaisquer $a,b$, existe único $x$ tal que $a + x = b$
-e existe único $y$ tal que $y + a = b$.
-
-\solution
-Utilizamos a mesma demonstração do \ref[int_uniqueness_of_solutions_proof],
-já que ela não precisou nenhum axioma que não temos aqui.
-
-%%}}}
-
-%%{{{ x: real_neg_of_neg 
-\exercise Negação de negação.
-%%%{{{ meta 
-\label real_neg_of_neg
-%%%}}}
-
-Para todo $x$, $-(-x) = x$.
-
-\solution
-Veja o \ref[int_neg_of_neg]: não precisou nenhum axioma que não temos.
-
-%%}}}
-
-%%{{{ x: real_neg_of_sum 
-\exercise Negação de soma.
-%%%{{{ meta 
-\label real_neg_of_sum
-%%%}}}
-
-Para quaisquer $a,b$, temos $-(a-b) = b - a$ e $-(a+b) = -a-b$.
-
-%%}}}
-
-% enter multiplication
-
-%%{{{ x: real_cancellation_law_for_addition
-\exercise Lei de cancelamento aditivo.
-%%%{{{ meta 
-\label real_cancellation_law_for_addition
-%%%}}}
-
-Temos:
-\mathcol
-\cforall {a,b,c}  {\paren {c + a = c + b \implies a = b} \mland
-                   \paren {a + c = b + c \implies a = b}}. \stag[RA-Can] \\
-\endmathcol
-
-\solution
-Feito no \ref[int_cancellation_law_for_addition_proof].
-
-%%}}}
-
-%%{{{ x: real_zero_annihilator 
-\exercise Anulador.
-%%%{{{ meta 
-\label real_zero_annihilator
-%%%}}}
-
-Demonstre que $0$ é um $(\ntimes)$-anulador:
-\mathcol
-\cforall {a}      {0 \ntimes a = 0 = a \ntimes 0}.   \stag[R-Ann] \\
-\endmathcol
-
-%%}}}
-
-%%{{{ x: real_zero_has_no_multipliative_inverse 
-\exercise.
-%%%{{{ meta 
-\label real_zero_has_no_multipliative_inverse
-%%%}}}
-
-Demonstre que $0$ não possui $(\ntimes)$-inverso.
-
-%%}}}
-
-%%{{{ x: real_neg_x_is_minus_one_times_x 
-\exercise.
-%%%{{{ meta 
-\label real_neg_x_is_minus_one_times_x
-%%%}}}
-
-Para todo $a$, $(-1)a = -a$.
-
-%%}}}
-
-%%{{{ x: real_product_and_neg 
-\exercise.
-%%%{{{ meta 
-\label real_product_and_neg
-%%%}}}
-
-$\lforall {a,b} {(-a)b = -(ab) = a(-b)}$.
-
-%%}}}
-
-%%{{{ x: real_product_with_two_minuses 
-\exercise.
-%%%{{{ meta 
-\label real_product_with_two_minuses
-%%%}}}
-
-Para quaisquer $a,b$, $(-a)(-b) = ab$.
-
-%%}}}
-
-%%{{{ x: real_uniqueness_of_multiplicative_identity 
-\exercise Unicidade da identidade multiplicativa.
-%%%{{{ meta 
-\label real_uniqueness_of_multiplicative_identity
-%%%}}}
-
-Existe único $u$ tal que para todo $x$, $ux = x = xu$.
-
-\solution
-Demonstrado no \ref[int_uniqueness_of_multiplicative_identity], pois
-tal demonstração precisou apenas axiomas que temos aqui também.
-
-%%}}}
-
-%%{{{ x: real_uniqueness_of_multiplicative_inverses 
-\exercise Unicidade dos inversos multiplicativos.
-%%%{{{ meta 
-\label real_uniqueness_of_multiplicative_inverses
-%%%}}}
-
-Para todo $x\neq 0$, existe único $x'$ tal que $x'x = 1 = xx'$.
-
-\solution
-Seja $x \neq 0$ e sejam $x', x''$ $(\ntimes)$-inversos de $x$.
-Preciso demonstrar que $x' = x''$.
-Calculamos:
-\compute
-x'
-&= x'1       \by {$1$ é uma $(\ntimes)$-identidade-R} \\
-&= x'(xx'')  \by {$x''$ é um $(\ntimes)$-inverso-R de $x$} \\
-&= (x'x)x''  \by {$(\ntimes)$-assoc.} \\
-&= 1x''      \by {$x'$ é um $(\ntimes)$-inverso-L de $x$} \\
-&= x''.      \by {$1$ é uma $(\ntimes)$-identidade-R}
-\endcompute
-
-%%}}}
-
-% enter inverses
-
-%%{{{ notation: real_inv_notation 
-\notation Inverso multiplicativo.
-%%%{{{ meta 
-\label real_inv_notation
 \defines
-    * {{~a}^{-1}}  -- o inverso multiplicativo do real $a$
+    * combinação
     ;;
 %%%}}}
 
-Seja $a \neq 0$.
-Denotamos por $a^{-1}$ o seu $(\ntimes)$-inverso, ou seja,
-o único real $a'$ tal que $a'a = 1 = aa'$.
-
-%%}}}
-
-%%{{{ x: real_cancellation_law_for_multiplication 
-\exercise Lei de cancelamento multiplicativo.
-%%%{{{ meta 
-\label real_cancellation_law_for_multiplication
-%%%}}}
-
-Temos:
-\mathcol
-\cforall {c,a,b}  {c \neq 0 \implies \paren{ca = cb \implies a = b} \mland \paren{ac = bc \implies a = b}}. \stag[R-Can] \\
-\endmathcol
-
-%%}}}
-
-%%{{{ x: real_inv_of_inv 
-\exercise Inverso de inverso.
-%%%{{{ meta 
-\label real_inv_of_inv
-%%%}}}
-
-Para todo $x\neq 0$, $\minvp {\minv x} = x$.
-
-%%}}}
-
-%%{{{ x: real_nzd 
-\exercise R-NZD.
-%%%{{{ meta 
-\label real_nzd
-%%%}}}
-
-$\lforall {a,b} {ab = 0 \implies a = 0 \mlor b = 0}$.
-
-%%}}}
-
-% enter fractions
-
-%%{{{ df: real_fraction_as_syntactic_sugar
-\definition Açúcar sintáctico: fracção.
-%%%{{{ meta 
-\label real_fraction_as_syntactic_sugar
-\defines
-    * fracção!nos reais
-    ;;
-%%%}}}
-
-Dados $a,b$ com $b\neq0$, escrevemos $a/b$ ou $\frac a b$ como
-açúcar sintáctico para o produto $a\ntimes b^{-1}$.
-Note que as notações $1/b$ e $\frac 1 b$ são casos especiais disso.
-
-%%}}}
-
-%%{{{ x: real_product_of_fractions 
-\exercise Produto de fracções.
-%%%{{{ meta 
-\label real_product_of_fractions
-%%%}}}
-
-Para quaisquer $a,b,c,d$ com $b,d \neq 0$, temos:
 $$
-\frac a b \ntimes \frac c d = \frac {a \ntimes c} {b \ntimes d}.
+\comb n r = \frac {n!} {(n-r)!\stimes r!}.
 $$
 
 %%}}}
 
-%%{{{ x: real_sum_of_fractions 
-\exercise Soma de fracções.
+%%{{{ eg: 10_friends_car_trip 
+\example.
 %%%{{{ meta 
-\label real_sum_of_fractions
+\label 10_friends_car_trip
 %%%}}}
 
-Para quaisquer $a,b,c,d$ com $b,d \neq 0$, temos:
+$10$ amigos têm vontade viajar com um carro de $5$ vagas.
+De quantas maneiras diferentes $5$ deles podem entrar no carro?
+Considere que o que diferencia mesmo a configuração são apenas a posição
+do motorista e do copiloto.
+
+\solution.
+Vamos ver dois jeitos diferentes para contar essas configurações:
+\crtabproofalt{Jeito 1:}
+Escrevendo
 $$
-\frac a b + \frac c d = \frac {a \ntimes d + b \ntimes c} {b \ntimes d}.
+\comb {10} 1
+\ntimes
+\comb 9 1
+\ntimes
+\comb 8 3
 $$
-
-%%}}}
-
-%%{{{ x: real_fraction_of_fractions
-\exercise Fracção de frações.
-%%%{{{ meta 
-\label real_fraction_of_fractions
-%%%}}}
-
-Para quaisquer $a,b,c,d$ com $b,c,d \neq 0$, temos:
+já é meio auto-explicativo: formamos cada configuração em passos:
+{(i)}      escolher o motorista;
+{(ii)}     escolher o copiloto;
+{(iii)}    escolher os passangeiros de trás.
+\crtabproofalt{Jeito 2:}
+Outra método para formar cada configuração seria:
+{(i)}      escolher os 5 que vão entrar no carro;
+{(ii)}     escolher qual vai ser o motorista;
+{(iii)}    escolher qual vai ser o copiloto.
+pensando assim chegamos no cálculo
 $$
-\frac {~\frac a b~} {~\frac c d~} = \frac {ad} {bc}.
+\tubrace{\comb {10} 5} {(i)}
+\ntimes
+\tubrace{\comb 5 1} {(ii)}
+\ntimes
+\tubrace{\comb 4 1} {(iii)}.
 $$
-
-%%}}}
-
-% enter powers
-
-%%{{{ df: real_natural_powers 
-\definition Potências naturais.
-%%%{{{ meta 
-\label real_natural_powers
-%%%}}}
-
-Já que agora possuimos mesmo o tipo $\Nat$, podemos definir
-mesmo as potências naturais de qualquer real $x$, recursivamente,
-como uma operação de tipo:
-$$
-(\expop) \is \Real \to \Nat \to \Real
-$$
-definida pelas
-\mathcol
-x^0     &\defeq 1 \\
-x^{n+1} &\defeq x \ntimes x^n. \\
-\endmathcol
-Como acabemos de fazer aqui, denotamos a aplicação da $(\expop)$ nos argumentos
-$a,b$ por $a^b$.
-
-%%}}}
-
-%%{{{ x: real_natural_powers_left_assoc 
-\exercise.
-%%%{{{ meta 
-\label real_natural_powers_left_assoc
-%%%}}}
-
-Uma alternativa para definir as potências naturais dum real $x$ seria a seguinte:
-\mathcol
-x^0     &\defeq 1 \\
-x^{n+1} &\defeq x^n \ntimes x. \\
-\endmathcol
-Demonstre que essas duas definições são equivalentes.
 \eop
-Cuidado!  Duas definições alternativas usando a mesma notação não ajuda em demonstrar
-que são equivalentes.  Tu vai acabar escrevendo que precisa demonstrar que $x^n = x^n$,
-parecendo algo trivial (por reflexividade), só que não é o caso, pois
-num lado o $x^n$ é para seguir uma definição, e no outro outra!
-Por isso precisamos alterar a notação da definição alternativa.
-Sugiro assim:
-\mathcol
-\lexp x 0     &\defeq 1 \\
-\lexp x {n+1} &\defeq \lexp x n \ntimes x. \\
-\endmathcol
-Agora sim, o que precisas demonstrar é fácil de escrever:
+Olhando para os dois cálculos
 $$
-\pforall {x \is \Real} \lforall {n \is \Nat} {\lexp x n = \rexp x n}.
+\comb {10} 1 \ntimes \comb 9 1 \ntimes \comb 8 3
+\askeq
+\comb {10} 5 \ntimes \comb 5 1 \ntimes \comb 4 1
+$$
+não é óbvio que seus valores são iguais.
+Calculamos
+$$
+\alignat2
+\comb {10} 1 \ntimes \comb 9 1 \ntimes \comb 8 3
+&= 10 \ntimes 9 \ntimes \frac {8!} {5!\stimes3!}
+&&= \frac {10!} {5!\stimes3!}
+\\
+\comb {10} 5 \ntimes \comb 5 1 \ntimes \comb 4 1
+&= \frac {10!} {5!\stimes 5!} \ntimes 5 \ntimes 4
+&&= \frac {10!} {5!\stimes 3!}
+\endalignat
+$$
+e respondemos (felizmente) que em total temos
+$$
+\frac {10!} {5!\stimes3!}
+= \frac{10 \ntimes 9 \ntimes 8\ntimes7\ntimes6} { 3! }
+= 10 \ntimes 9 \ntimes 8\ntimes7
+= 5040
+$$
+configurações diferentes.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Permutations in a circle 
+\section Permutações cíclicas.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ eg: circle_dance_of_8 
+\example.
+%%%{{{ meta 
+\label circle_dance_of_8
+%%%}}}
+
+$8$ pessoas querem dançar uma dança em qual
+todos precisam formar um ciclo pegando as mãos
+(e olhando para o interior do ciclo).
+Em quantas configurações diferentes essa dança pode começar?
+
+\solution.
+Vamos resolver esse problema seguindo duas idéias bem diferentes:
+\crtabproofalt{Idéia~1.}
+Consideramos primeiro a questão:
+``\emph{de quantas maneiras podemos permutar as $8$ pessoas numa ordem?}''
+Respondemos $8!$, o número das permutações totais de $8$ objetos
+(sabendo que hipercontamos para o problema original).
+Mas podemos calcular \emph{exatamente quanto} hipercontamos:
+cada resposta do problema original corresponde em exatamente
+$8$ respostas do problema novo (uma para cada ``circular shift'').
+Então basta só dividir a ``hiperconta'' por $8$, e chegamos
+no resultado final: $8! / 8$, ou seja, $7!$.
+\crtabproofalt{Idéia~2.}
+\emph{Fixamos uma pessoa como ``determinante'' da configuração;}
+a idéia sendo que para comparar duas configurações nós vamos
+começar com o determinante, e depois comparar em ordem fixa
+o resto da configuração
+(por exemplo indo cada vez de uma pessoa
+para quem tá no lado direito dela).
+Assim, para cada permutação total das 7 outras pessoas,
+temos uma permutação circular das 8 e vice-versa,
+ou seja, a resposta final é $7!$.
+
+%%}}}
+
+%%{{{ fig for circle_dance_of_8 
+\midinsert
+\hfil
+\tikzpicture[scale=0.8]%%{{{
+\draw (0,0) circle (2cm);
+\foreach \t in {0,45,90,135,180,225,270,315}
+    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{p_0}$};
+\node[circle,fill=white] at (a0)   {$p_0$};
+\node[circle,fill=white] at (a45)  {$p_1$};
+\node[circle,fill=white] at (a90)  {$p_2$};
+\node[circle,fill=white] at (a135) {$p_3$};
+\node[circle,fill=white] at (a180) {$p_4$};
+\node[circle,fill=white] at (a225) {$p_5$};
+\node[circle,fill=white] at (a270) {$p_6$};
+\node[circle,fill=white] at (a315) {$p_7$};
+\endtikzpicture
+%%}}}
+\hfil
+\tikzpicture[scale=0.8]%%{{{
+\draw (0,0) circle (2cm);
+\foreach \t in {0,45,90,135,180,225,270,315}
+    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{a_0}$};
+\node[circle,fill=white] at (a315)  {$p_0$};
+\node[circle,fill=white] at (a0)    {$p_1$};
+\node[circle,fill=white] at (a45)   {$p_2$};
+\node[circle,fill=white] at (a90)   {$p_3$};
+\node[circle,fill=white] at (a135)  {$p_4$};
+\node[circle,fill=white] at (a180)  {$p_5$};
+\node[circle,fill=white] at (a225)  {$p_6$};
+\node[circle,fill=white] at (a270)  {$p_7$};
+\endtikzpicture
+%%}}}
+\hfil
+\eop\centerline{Uma configuração do~\reftag[circle_dance_of_8] representada em dois jeitos diferentes no papel.}
+\endinsert
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Generalizando concluimos que:
+
+%%}}}
+
+%%{{{ prop: permutations_in_circle 
+\proposition.
+%%%{{{ meta 
+\label permutations_in_circle
+%%%}}}
+
+As configurações circulares diferentes de $n$ objetos, $n>0$ são
+$$
+(n-1)!.
 $$
 
 %%}}}
 
-%%{{{ x: real_natural_powers_properties 
+%%{{{ x: circle_dance_of_8_inorout 
 \exercise.
 %%%{{{ meta 
-\label real_natural_powers_properties
+\label circle_dance_of_8_inorout
 %%%}}}
 
-Sejam $a$ real e $n,m$ naturais.
-Logo:
-\mathcol
-a^{n+m} &= a^n \ntimes a^m \\
-a^{n\ntimes m} &= (a^n)^m.
-\endmathcol
+O que mudará na contagem do~\ref[circle_dance_of_8],
+se cada dançador pode olhar ou para o interior ou para o exterior do círculo?
+
+\hint
+Começando com a mesma resposta ($7!$) do~\ref[circle_dance_of_8],
+claramente nos hipocontamos---mas quanto?
+
+\hint
+Considere uma configuração do~\ref[circle_dance_of_8].
+Com quantas configurações do problema atual ela corresponde?
 
 %%}}}
 
-%%{{{ remark: real_integral_powers_choice 
-\remark Potências integrais: qual definição escolher?.
+%%{{{ x: circle_dance_of_8_couples 
+\exercise.
 %%%{{{ meta 
-\label real_integral_powers_choice
+\label circle_dance_of_8_couples
 %%%}}}
 
-Tendo o tipo dos inteiros $\Int$ gostariamos de estender
-as potências dum real $x$ para permitir expoentes inteiros.
-Parece que temos dois significados razoáveis para atribuir ao $x^{-n}$:
-$$
-x^{-n} \askeq
-\paths{
-\paren{x^{-1}}^n & (o inverso de $x$, elevado ao natural $n$) \cr
-\pathween {\dots\orword\dots}
-(x^n)^{-1}       & (o inverso de $x^n$)
+O que mudará na contagem do~\ref[circle_dance_of_8],
+se temos $4$ mulheres e $4$ homens e as regras da dança
+mandam alternar os sexos na configuração?
+
+\hint
+Construa cada configuração em passos.
+
+\hint
+Primeiramente, esqueça os homens (ou as mulheres)
+e coloca as $4$ mulheres (ou os $4$ homens)
+num ciclo.
+De quantas maneiras pode escolher o resto para
+entrar no círculo?
+
+%%}}}
+
+%%{{{ x: 8_bead_bracelet 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Temos $8$
+miçangas
+diferentes, e queremos pôr todas
+numa
+corrente
+para criar uma pulseira.
+Quantas maneiras diferentes temos para o criar?
+
+\hint
+Se tu achar o problema igual com o~\ref[circle_dance_of_8],
+tu hipercontarás\dots Quanto?
+
+\hint
+Veja a figura.
+Pode explicar por que as três representações
+correspondem na mesma configuração?
+\topinsert
+\centerline{
+\tikzpicture[scale=0.8]%%{{{
+\draw (0,0) circle (2cm);
+\foreach \t in {0,45,90,135,180,225,270,315}
+    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{a_0}$};
+\node[circle,fill=red!33]       at (a0)   {$a_0$};
+\node[circle,fill=green!33]     at (a45)  {$a_1$};
+\node[circle,fill=blue!33]      at (a90)  {$a_2$};
+\node[circle,fill=cyan!33]      at (a135) {$a_3$};
+\node[circle,fill=magenta!33]   at (a180) {$a_4$};
+\node[circle,fill=yellow!33]    at (a225) {$a_5$};
+\node[circle,fill=orange!33]    at (a270) {$a_6$};
+\node[circle,fill=brown!33]     at (a315) {$a_7$};
+\endtikzpicture
+%%}}}
+\hfil
+\tikzpicture[scale=0.8]%%{{{
+\draw (0,0) circle (2cm);
+\foreach \t in {0,45,90,135,180,225,270,315}
+    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{a_0}$};
+\node[circle,fill=red!33]       at (a315)  {$a_0$};
+\node[circle,fill=green!33]     at (a0)    {$a_1$};
+\node[circle,fill=blue!33]      at (a45)   {$a_2$};
+\node[circle,fill=cyan!33]      at (a90)   {$a_3$};
+\node[circle,fill=magenta!33]   at (a135)  {$a_4$};
+\node[circle,fill=yellow!33]    at (a180)  {$a_5$};
+\node[circle,fill=orange!33]    at (a225)  {$a_6$};
+\node[circle,fill=brown!33]     at (a270)  {$a_7$};
+\endtikzpicture
+%%}}}
+\hfil
+\tikzpicture[scale=0.8]%%{{{
+\draw (0,0) circle (2cm);
+\foreach \t in {0,45,90,135,180,225,270,315}
+    \node[circle,fill=white] (a\t) at (\t:2cm) {$\phantom{a_0}$};
+\node[circle,fill=red!33]       at (a315)  {$a_0$};
+\node[circle,fill=green!33]     at (a270)  {$a_1$};
+\node[circle,fill=blue!33]      at (a225)  {$a_2$};
+\node[circle,fill=cyan!33]      at (a180)  {$a_3$};
+\node[circle,fill=magenta!33]   at (a135)  {$a_4$};
+\node[circle,fill=yellow!33]    at (a90)   {$a_5$};
+\node[circle,fill=orange!33]    at (a45)   {$a_6$};
+\node[circle,fill=brown!33]     at (a0)    {$a_7$};
+\endtikzpicture
+%%}}}
 }
-$$
-Felizmente as duas alternativas são equivalentes,
-e logo não importa tanto qual das duas vamos escolher.
-Demonstrarás isso agora no \ref[real_integral_powers_choices_are_equivalent],
-e logo depois (\ref[real_integral_powers] eu vou escolher uma para ser a definição mesmo.
+\botcaption{}
+\emph{Apenas uma} das configurações da pulseira, representada em três desenhos.
+\endcaption
+\endinsert
 
 %%}}}
 
-%%{{{ x: real_integral_powers_choices_are_equivalent 
+\endsection
+%%}}}
+
+%%{{{ Together or separated 
+\section Juntos ou separados.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ x: dinner_of_8_with_couple 
+\example.
+%%%{{{ meta 
+\label dinner_of_8_with_couple
+%%%}}}
+
+Suponha que $8$ pessoas $A,B,C,D,E,F,G,H$ querem sentar num bar
+mas $C$ e $D$ querem sentar juntos.
+De quantas maneiras isso pode acontecer?
+
+\solution.
+\emph{Vamos imaginar que $C$ e $D$ são uma pessoa, chamada $CD$.}
+Nos perguntamos de quantas maneiras as 7 pessoas $A,B,CD,E,F,G,H$ podem sentar
+numa mesa de bar com $7$ banquinhos.
+A resposta é os permutações totais de tamanho 7, ou seja, $7!$.
+Mas para cada configuração desse problema,
+correspondem \emph{duas} configurações do problema original, porque os
+$C$ e $D$ podem sentar em duas ordens diferentes juntos.
+A resposta final:
+$7! \ntimes 2$.
+
+%%}}}
+
+%%{{{ x: 8_persons_are_sitting_on_a_bar 
 \exercise.
 %%%{{{ meta 
-\label real_integral_powers_choices_are_equivalent
+% TODO: fix reflabs 
 %%%}}}
 
-Demonstre que as duas interpretações da \ref[real_integral_powers_choice]
-são equivalentes.
+Suponha que 8 pessoas $A,B,C,D,E,F,G,H$ querem jantar numa mesa de bar.
+Em quantas configurações diferentes eles podem sentar se\dots:
+\tlist:
+\li (1): os $C$ e $D$ e $E$ querem sentar juntos;
+\li (2): os $F$ e $G$ não podem sentar juntos;
+\li (3): as duas restricções (1) e (2).
+\endtlist
+
+\hint
+\tlist:
+\li (1): Como no \ref[dinner_of_8_with_couple],
+         considere o problema onde $C$, $D$, e $E$ são uma pessoa só.
+\li (2): Conte o complementar e subtraia do total sem restricção;
+\li (3): Conte as configurações em quais $C$, $D$, e $E$ sentam juntos e subtraia
+         as configurações onde, além disso, $F$ e $G$ também sentam juntos.
+\endtlist
+
+\solution
+(1) Como no \ref[dinner_of_8_with_couple], traduzimos o problema para um onde
+$C$, $D$, e $E$, são uma pessoa---vamos chamá-la de $CDE$---e as
+$6$ pessoas $A,B,CDE,F,G,H$ querem jantar numa mesa de bar com 6 banquinhos.
+Cada solução desse problema corresponde em tantas configurações quantas as $3$ pessoas
+$C$, $D$, $E$ podem sentar numa ordem, ou seja $\totperm 3$ configurações.
+A resposta final:
+$$
+\totperm 6 \ntimes \totperm 3 = 6!\stimes3! = 6!\stimes 6
+$$
+\eop
+(2) Contamos o complementar:
+todas as maneiras onde $F$ e $G$ sentam juntos ($7!\ntimes 2$),
+e o tiramos de todas as maneiras sem restricção ($8!$):
+$$
+\totperm 8 - \totperm 7 \ntimes \totperm 2
+= 8! - 7!\ntimes 2! = 7!(8 - 2)
+= 7!\stimes 6
+$$
+(3) Já achamos quantas maneiras tem onde $C$, $D$, e $E$ sentam juntos: $6!\stimes6$.
+Disso, precisamos subtrair as configurações onde $F$ e $G$ também sentam juntos:
+para satisfazer as duas restricções, consideramos as $5$ ``pessoas''
+$A,B,CDE,FG,H$, quais podem sentar numa mesa de bar de tamanho $5$ de
+$$
+\totperm 5 \stimes \totperm 3 \stimes \totperm 2
+= 5! \stimes 3! \stimes 2!
+= 5! \stimes 6 \stimes 2
+= 6! \stimes 2
+$$
+maneiras.
+A resposta final então é
+$$
+6!\stimes6 - 6!\stimes2 = 6!(6-2) = 6! \stimes 4.
+$$
 
 %%}}}
 
-%%{{{ df: real_integral_powers 
-\definition Potências integrais.
+%%{{{ blah 
+\blah.
 %%%{{{ meta 
-\label real_integral_powers
 %%%}}}
 
-Definimos
+Generalizando:
+
+%%}}}
+
+%%{{{ prop: total_permutations_with_consecutives_restriction 
+\proposition.
+%%%{{{ meta 
+\label total_permutations_with_consecutives_restriction
+%%%}}}
+
+O número das permutações totais de $m$ objetos distintos com a restricção que
+certos $c$ deles tem que estar consecutivos é
 $$
-x^{-n} \defeq (x^n)^{-1}.
+(m-c+1)! \stimes c!.
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Permutations of things not all distinct 
+\section Permutações de objetos não todos distintos.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ Q: in how many ways can we permute n not-all-distinct objects? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+De quantas maneiras podemos permutar $n$ objetos se
+eles não são todos distíntos?
+
+%%}}}
+
+%%{{{ eg: pessimissimo 
+\example.
+%%%{{{ meta 
+\label pessimissimo
+%%%}}}
+
+Conte todas as palavras feitas por permutações das 12 letras da palavra
+$$
+\txt{PESSIMISSIMO}.
+$$
+
+\solution.
+Vamos contar em dois jeitos diferentes:
+\crproofalt{Idéia 1:}
+Construimos cada palavra possível ``em passos'',
+usando o princípio da multplicação para achar o número total.
+$$
+\alignat 2
+\text{Começamos com 12 espaços:}
+\qquad&
+\underline{\phantom {\txt M}} \ 
+\underline{\phantom {\txt I}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt I}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt I}} \ 
+\underline{\phantom {\txt P}} \ 
+\underline{\phantom {\txt O}} \ 
+\underline{\phantom {\txt E}} \ 
+\underline{\phantom {\txt M}}
+\\
+\text{escolhemos onde colocar o ${\txt P}$:}
+\qquad&
+\underline{\phantom {\txt M}} \ 
+\underline{\phantom {\txt I}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt I}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt I}} \ 
+          {         {\txt P}} \ 
+\underline{\phantom {\txt O}} \ 
+\underline{\phantom {\txt E}} \ 
+\underline{\phantom {\txt M}}
+&\qquad&
+\text{tivemos $\comb {12} 1$ opções;}
+\\
+\text{depois o ${\txt E}$:}
+\qquad&
+\underline{\phantom {\txt M}} \ 
+\underline{\phantom {\txt I}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt I}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt S}} \ 
+\underline{\phantom {\txt I}} \ 
+          {         {\txt P}} \ 
+\underline{\phantom {\txt O}} \ 
+          {         {\txt E}} \ 
+\underline{\phantom {\txt M}}
+&\qquad&
+\text{tivemos $\comb {11} 1$ opções;}
+\\
+\text{depois os 4 ${\txt S}$:}
+\qquad&
+\underline{\phantom {\txt M}} \ 
+\underline{\phantom {\txt I}} \ 
+          {         {\txt S}} \ 
+          {         {\txt S}} \ 
+\underline{\phantom {\txt I}} \ 
+          {         {\txt S}} \ 
+          {         {\txt S}} \ 
+\underline{\phantom {\txt I}} \ 
+          {         {\txt P}} \ 
+\underline{\phantom {\txt O}} \ 
+          {         {\txt E}} \ 
+\underline{\phantom {\txt M}}
+&\qquad&
+\text{tivemos $\comb {10} 4$ opções;}
+\\
+\text{depois os 3 ${\txt I}$:}
+\qquad&
+\underline{\phantom {\txt M}} \ 
+          {         {\txt I}} \ 
+          {         {\txt S}} \ 
+          {         {\txt S}} \ 
+          {         {\txt I}} \ 
+          {         {\txt S}} \ 
+          {         {\txt S}} \ 
+          {         {\txt I}} \ 
+          {         {\txt P}} \ 
+\underline{\phantom {\txt O}} \ 
+          {         {\txt E}} \ 
+\underline{\phantom {\txt M}}
+&\qquad&
+\text{tivemos $\comb 6 3$ opções;}
+\\
+\text{depois os 2 ${\txt M}$:}
+\qquad&
+          {         {\txt M}} \ 
+          {         {\txt I}} \ 
+          {         {\txt S}} \ 
+          {         {\txt S}} \ 
+          {         {\txt I}} \ 
+          {         {\txt S}} \ 
+          {         {\txt S}} \ 
+          {         {\txt I}} \ 
+          {         {\txt P}} \ 
+\underline{\phantom {\txt O}} \ 
+          {         {\txt E}} \ 
+          {         {\txt M}}
+&\qquad&
+\text{tivemos $\comb 3 2$ opções;}
+\\
+\text{e finalmente o ${\txt O}$:}
+\qquad&
+          {         {\txt M}} \ 
+          {         {\txt I}} \ 
+          {         {\txt S}} \ 
+          {         {\txt S}} \ 
+          {         {\txt I}} \ 
+          {         {\txt S}} \ 
+          {         {\txt S}} \ 
+          {         {\txt I}} \ 
+          {         {\txt P}} \ 
+          {         {\txt O}} \ 
+          {         {\txt E}} \ 
+          {         {\txt M}}
+&\qquad&
+\text{tivemos $\comb 1 1$ opção.}
+\endalignat
+$$
+Pelo princípio da multiplicação, a resposta é o produto
+$$
+\align
+\underbrace{\comb {12} 1}_{\dsize {\txt P}}
+\underbrace{\comb {11} 1}_{\dsize {\txt E}}
+\underbrace{\comb {10} 4}_{\dsize4{\txt S}}
+\underbrace{\comb {6}  3}_{\dsize3{\txt I}}
+\underbrace{\comb {3}  2}_{\dsize2{\txt M}}
+\underbrace{\comb {1}  1}_{\dsize {\txt O}}
+&=
+\frac
+{12!}
+{\cancel{11!}\stimes 1!}
+\frac
+{\cancel{11!}}
+{\cancel{10!}\stimes 1!}
+\frac
+{\cancel{10!}}
+{\cancel{6!}\stimes 4!}
+\frac
+{\cancel{6!}}
+{\cancel{3!}\stimes 3!}
+\frac
+{\cancel{3!}}
+{\cancel{1!}\stimes 2!}
+\frac
+{\cancel{1!}}
+{0!\stimes 1!}\\
+&=
+\frac
+{12!}
+{1!
+\stimes 1!
+\stimes 4!
+\stimes 3!
+\stimes 2!
+\stimes 1!
+}
+=
+\frac
+{12!}
+{
+4!
+\stimes 3!
+\stimes 2!
+}.
+\endalign
+$$
+\crproofalt{Idéia 2:}
+Contamos as maneiras como se todas as letras fossem distintas,
+por exemplo marcando cada letra com índices:
+$$
+{\txt P}_1\ 
+{\txt E}_1\ 
+{\txt S}_1\ 
+{\txt S}_2\ 
+{\txt I}_1\ 
+{\txt M}_1\ 
+{\txt I}_2\ 
+{\txt S}_3\ 
+{\txt S}_4\ 
+{\txt I}_3\ 
+{\txt M}_2\ 
+{\txt O}_1\,.
+$$
+Sabemos que são $12!$ e que
+assim temos \emph{hipercontado} para nosso problema.
+Por exemplo, a palavra 
+$
+{\txt M}
+{\txt I}
+{\txt S}
+{\txt S}
+{\txt I}
+{\txt S}
+{\txt S}
+{\txt I}
+{\txt P}
+{\txt O}
+{\txt E}
+{\txt M}
+$
+corresponde em várias palavras do problema novo;
+escrevemos três delas aqui como exemplos:
+$$
+{\txt M}\ 
+{\txt I}\ 
+{\txt S}\ 
+{\txt S}\ 
+{\txt I}\ 
+{\txt S}\ 
+{\txt S}\ 
+{\txt I}\ 
+{\txt P}\ 
+{\txt O}\ 
+{\txt E}\ 
+{\txt M}
+\ 
+\transto
+\ 
+\brace{
+\gathered
+{\txt M}_1\ 
+{\txt I}_1\ 
+{\txt S}_1\ 
+{\txt S}_2\ 
+{\txt I}_2\ 
+{\txt S}_3\ 
+{\txt S}_4\ 
+{\txt I}_3\ 
+{\txt P}_1\ 
+{\txt O}_1\ 
+{\txt E}_1\ 
+{\txt M}_2
+\\
+{\txt M}_2\ 
+{\txt I}_1\ 
+{\txt S}_1\ 
+{\txt S}_2\ 
+{\txt I}_2\ 
+{\txt S}_3\ 
+{\txt S}_4\ 
+{\txt I}_3\ 
+{\txt P}_1\ 
+{\txt O}_1\ 
+{\txt E}_1\ 
+{\txt M}_1
+\\
+{\txt M}_2\ 
+{\txt I}_1\ 
+{\txt S}_4\ 
+{\txt S}_3\ 
+{\txt I}_2\ 
+{\txt S}_2\ 
+{\txt S}_1\ 
+{\txt I}_3\ 
+{\txt P}_1\ 
+{\txt O}_1\ 
+{\txt E}_1\ 
+{\txt M}_1
+\\
+\vdots
+\endgathered
+\quad\qquad
+}
+\ \text{\dots quantas?}
+$$
+Mas é fácil calcular quanto hipercontamos:
+\emph{cada} palavra do problema original corresponde em exatamente tantas palavras
+quantas as maneiras de permutar cada grupo de letras ``subindicadas'' entre si,
+ou seja:
+$$
+\underbrace{1!}_{{\txt P}} \ntimes
+\underbrace{1!}_{{\txt E}} \ntimes
+\underbrace{4!}_{{\txt S}} \ntimes
+\underbrace{3!}_{{\txt I}} \ntimes
+\underbrace{2!}_{{\txt M}} \ntimes
+\underbrace{1!}_{{\txt O}}
+$$
+maneiras.
+Para responder então, basta dividir o número da ``hipercontagem'' por esse:
+$$
+\frac
+{12!}
+{4!\stimes 3!\stimes 2!}.
+$$
+Pronto.
+
+%%}}}
+
+%%{{{ x: choices_may_depend_on_past_ones_but_not_their_quantity 
+\exercise.
+%%%{{{ meta 
+\label choices_may_depend_on_past_ones_but_not_their_quantity
+%%%}}}
+
+Escolhendo outra ordem de colocar as letras
+na \proofstylize{Idéia 1} do~\ref[pessimissimo]
+nossas opções em cada passo seriam diferentes.
+Explique porque podemos usar o princípio da multiplicação mesmo assim.
+
+\hint
+Presta atenção na frase
+``\emph{em cada passo a quantidade das opções disponíveis
+não depende nas escolhas anteriores}''.
+
+\solution
+O imporante é que em cada passo, qual das nossas disponíveis opções
+será escolhida, não vai afeitar a quantidade das nossas opções no passo seguinte.
+Isso é realmente válido nesse caso.
+Se escolher colocar as letras em outra ordem, por exemplo a
+$
+{\txt S},
+{\txt E},
+{\txt I},
+{\txt P},
+{\txt O},
+{\txt M}
+$, teriamos quantidades diferentes para cada passo sim,
+\emph{mas}\/:
+cada uma das nossas escolhas, não afeitaria a quantidade das escolhas próximas.
+Com essa ordem, chegamos no mesmo resultado (com um cálculo que de longe aparece diferente):
+$$
+\align
+\underbrace{\comb {12} 4}_{\dsize4{\txt S}}
+\underbrace{\comb {8}  1}_{\dsize {\txt E}}
+\underbrace{\comb {7}  3}_{\dsize3{\txt I}}
+\underbrace{\comb {4}  1}_{\dsize {\txt P}}
+\underbrace{\comb {3}  1}_{\dsize {\txt O}}
+\underbrace{\comb {2}  2}_{\dsize2{\txt M}}
+&=
+\frac
+{12!}
+{\cancel{8!}\stimes 4!}
+\frac
+{\cancel{8!}}
+{\cancel{7!}\stimes 1!}
+\frac
+{\cancel{7!}}
+{\cancel{4!}\stimes 3!}
+\frac
+{\cancel{4!}}
+{\cancel{3!}\stimes 1!}
+\frac
+{\cancel{3!}}
+{\cancel{2!}\stimes 1!}
+\frac
+{\cancel{2!}}
+{0!\stimes 2!}\\
+\vphantom{
+\underbrace{\comb {12} 4}_{\dsize4{\txt S}}
+\underbrace{\comb {8}  1}_{\dsize {\txt E}}
+\underbrace{\comb {7}  3}_{\dsize3{\txt I}}
+\underbrace{\comb {4}  1}_{\dsize {\txt P}}
+\underbrace{\comb {3}  1}_{\dsize {\txt O}}
+\underbrace{\comb {2}  2}_{\dsize2{\txt M}}
+}
+&=
+\frac
+{12!}
+{4!
+\stimes 1!
+\stimes 3!
+\stimes 1!
+\stimes 1!
+\stimes 2!
+}\\
+&=
+\frac
+{12!}
+{
+4!
+\stimes 3!
+\stimes 2!
+}.
+\endalign
 $$
 
 %%}}}
