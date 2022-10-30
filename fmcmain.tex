@@ -14432,6 +14432,102 @@ uma maneira legal de achar inversos módulo um inteiro.
 \endsection
 %%}}}
 
+%%{{{ Exponentiation 
+\section Exponenciação.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ Never gets big 
+\note Nunca grande demais.
+%%%{{{ meta 
+%%%}}}
+
+Calculando nos inteiros (com igualdade) expressões que envolvem
+diversas operações os passos intermediários podem acabar precisando
+um espaço grande, e o processo todo um tempo longo também.
+Por exemplo, queremos calcular o inteiro $106^{1540}$:
+$$
+106^{1540}
+=
+935475693614
+\mubrace {\dots\quad\dots} {\mathclap{\text{($3095$ dígitos omitidos)}}}
+159789080576.
+$$
+O que muda quando a gente \emph{trabalha módulo um inteiro?}
+\eop
+A maneira leiguíssima seria calcular o inteiro $106^{1540}$, achar seu
+valor, e depois dividir este número---boa sorte---com o $50$, para achar
+o resto da divisão que seria um $x$ satisfatório para nossa busca.
+Observe que o problema não está apenas no último passo da exponenciação:
+durante esse cálculo precisamos fazer $1539$ multiplicações
+entre números enormes.  Podemos fazer melhor?
+\eop
+Antes de tudo, observe que graças à congruência podemos substituir o $106$
+por qualquer congruente seu (módulo $50$), por exemplo o $6$.
+Precisamos calcular o $6^{1540}$ (módulo $50$) então.
+\eop
+Mas, seguindo fielmente a definição de exponenciação,
+essa melhoria não vai acabar fazendo alguma diferença grande:
+continuamos precisando performar $1539$ multiplicações custosas.
+\eop
+Uma observação critical aqui é que precisando calcular várias operações
+\dq{modulares}, temos controle para não permitir ao tamanho dos resultados intermediários
+crescer muito: \emph{em vez de deixar a modularização para o final, a performamos
+no fim de cada operação que chegou num resultado grande}.
+E o que significa grande?  Bem, alguém pode ser satisfeito trabalhando com números
+no $\set {0,1,\dots,49}$, mas eu prefiro menores ainda:
+dá para substituir os $49,48,\dotsc,26$ pelos seus congruentes $-1,-2,\dotsc,-24$.
+Assim teriamos:
+$$
+\llap{\text{1539 multiplicações}}
+\quad\leftbrace {
+\quad\mathcoled {
+6 ^ 2 &= 6     \ntimes 6  = 36   \cong -14 \\
+6 ^ 3 &= (-14) \ntimes 6  = -84  \cong 16  \\
+6 ^ 4 &= 16    \ntimes 6  = 96   \cong -4  \\
+6 ^ 5 &= (-4)  \ntimes 6  = -24  \cong -24 \\
+      &\eqvdots \\
+6 ^ {1540}
+      &= (-4)  \ntimes 6  = -24  \cong -24.
+}}
+$$
+
+%%}}}
+
+%%{{{ Q: how can we improve this? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Como procederia para achar um $x$ \dq{pequeno} tal que $6^{1540} \congmod {50} x$?
+
+%%}}}
+
+\spoiler
+
+%%{{{ A cool way 
+\blah Resposta: quadrados iterados.
+%%%{{{ meta 
+%%%}}}
+
+Calculamos os quadrados
+\mathcols 2
+6^2      &= 36             \cong -14 & 6^{64}   &\cong -4   \\
+6^4      &= (-14)^2  = 196 \cong -4  & 6^{128}  &\cong -16  \\
+6^8      &= (-4)^2   = 16  \cong 16  & 6^{256}  &\cong 6    \\
+6^{16}   &= 16^2     = 256 \cong 6   & 6^{512}  &\cong -14  \\
+6^{32}   &= 6^2      = 36  \cong -14 & 6^{1024} &\cong -4.  \\
+\endmathcols
+E agora temos:
+$$
+6^{1540} = 6^{1024 + 512 + 4} = 6^{1024} 6^{512} 6^4 = (-4)(-14)(-4) = -224 \cong -24 \pmod {50}.
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Solving_some_congruences 
 \section Resolvendo umas congruências.
 %%%{{{ meta 
