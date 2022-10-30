@@ -10212,9 +10212,10 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Binomial coefficients 
+%%{{{ Binomial_theorem 
 \section Binomial e seus coeficientes.
 %%%{{{ meta 
+\label Binomial_theorem
 %%%}}}
 
 %%{{{ x: binomial_theorem_for_2 
@@ -10224,9 +10225,7 @@ $$
 %%%}}}
 
 Demonstre que para quaisquer inteiros $x,y$,
-$$
-(x+y)^2 = x^2 + 2xy + y^2.
-$$
+$(x+y)^2 = x^2 + 2xy + y^2$.
 
 %%}}}
 
@@ -10237,19 +10236,16 @@ $$
 %%%}}}
 
 Demonstre que para quaisquer inteiros $x,y$,
-$$
-(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3.
-$$
+$(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3$.
 
 \hint
 Use o que tu acabou de demonstrar sobre o $(x+y)^2$, no \ref[binomial_theorem_for_2].
 
 %%}}}
 
-%%{{{ binomial_theorem_discussion 
+%%{{{ binomial theorem discussion 
 \note Binomial.
 %%%{{{ meta 
-\label binomial_theorem_discussion
 %%%}}}
 
 Nosso objetivo agora é generalizar para responder ao
@@ -10266,13 +10262,13 @@ $x^iy^j$.  Por exemplo, no \ref[binomial_theorem_for_3] achamos}
 &= x^3y^0 + x^2y + x^2y + x^2y + xy^2 + xy^2 + xy^2 + x^0y^3.
 \intertext{O objetivo é \emph{achar os coeficientes} de cada termo desses:}
 &= \mubrace {x^3y^0} 1
-   + \mubrace {x^2y + x^2y + x^2y} 3
-   + \mubrace {xy^2 + xy^2 + xy^2} 3
-   + \mubrace {x^0y^3} 1 \\
+ + \mubrace {x^2y + x^2y + x^2y} 3
+ + \mubrace {xy^2 + xy^2 + xy^2} 3
+ + \mubrace {x^0y^3} 1 \\
 &= 1\,x^3y^0 + 3\,x^2y + 3\,xy^2 + 1\,x^0y^3.
 \intertext{Observe também como podemos melhorar os $i,j$ no $x^iy^j$:
 temos $i+j = n$, e logo podemos escrever tudo em termos de apenas uma variável
-(vou escolher a \sq{r}): $x^{n-r}y^r$.
+(vou escolher a \sq{$r$}): $x^{n-r}y^r$.
 Sabemos então que $(x+y)^n$ pode ser escrito como um somatório de termos $x^{n-r}y^r$
 e o desafio é achar para um deles quantas vezes precisamos somá-lo.
 Em outras palavras, procuramos o coeficiente de tal termo no somatório.
@@ -10285,9 +10281,10 @@ Vamos denotar por $\binom n r$ o coeficiente do termo $x^{n-r}y^r$:}
 %%}}}
 
 %%{{{ thm: binomial_theorem 
-\theorem Binomial.
+\theorem Teorema binomial.
 %%%{{{ meta 
 \label binomial_theorem
+\headerize
 \indexes
     * binomial!teorema    see: teorema
     * teorema!binomial
@@ -10310,6 +10307,7 @@ corresponde um termo $x^{n-r}y^r$:
 \dq{escolha quais dos termos desse produtório vão oferecer seus $y$'s
 (o resto dos termos oferecerá seu $x$)}.
 Isso justifica o $\binom n r = \comb n r$.
+(Veja o~\ref[binomial_theorem_for_7_combinations] para um exemplo.)
 
 \proof.
 Por indução.
@@ -10317,7 +10315,7 @@ Por indução.
 Temos
 \compute
 (x+y)^0 &= 1 \noby \\
-\Sum_{r=0}^0 \comb 0 r x^{n-r}y^r &= \comb 0 0 x^{0-0}y^0 = 1.
+\Sum_{r=0}^0 \comb 0 r x^{n-r}y^r &= \comb 0 0 x^{0-0}y^0 = 1 \ntimes 1 \ntimes 1 = 1.
 \endcompute
 \proofpart{Passo indutivo.}
 Seja $k$ tal que $(x+y)^k = \Sum_{r=0}^k \comb k r x^{k-r}y^k$\fact{HI}.
@@ -10346,9 +10344,9 @@ $$
 corresponde ao termo $xyxyyxy = x^3y^4$, e cada diferente escolha das $\comb 7 4$
 corresponde ao mesmo termo mas com uma maneira diferente para formá-lo:
 $$
-\mubrace
-    {xxxyyyy, xxyxyyy, xxyyxyy, xxyyyxy, xxyyyyx, xyxxyyy, \dotsc, yyxyxx, yyyyxxx}
-    {\comb 7 4 = 35}.
+\tubrace
+    {xxxyyyy,~xxyxyyy,~xxyyxyy,~xxyyyxy,~xxyyyyx,~xyxxyyy,~\dotsc,~yyxyxx,~yyyyxxx}
+    {$\comb 7 4 = 35$ strings feitos por $3$ $x$'s e $4$ $y$'s}.
 $$
 
 %%}}}
@@ -10362,7 +10360,7 @@ $$
     ;;
 %%%}}}
 
-Demonstre o teorema binomial por indução.
+Demonstre o \ref[binomial_theorem].
 
 \hint
 Aplique a hipótese indutiva.
