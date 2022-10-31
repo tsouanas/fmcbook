@@ -16539,7 +16539,7 @@ para esse tipo de inferência.
 %%%}}}
 
 Escrever
-\mathtightcols 5
+\mathcols 5
 &\Ze, &
 &\SuA \Ze, &
 &\SuA (\SuA \Ze), &
@@ -16560,7 +16560,7 @@ Ainda mais, vou usar os numerais mais populares}
 &2, &
 &3, &
 &\dotsc
-\endmathtightcols
+\endmathcols
 para denotar os mesmos objetos.
 Mas é importante entender que são apenas isso, um nome alternativo
 para os nomes \dq{oficiais}; então quando eu peço para calcular,
@@ -16571,6 +16571,15 @@ $$
 $$
 e espero que tu chegarás no resultado que eu chamaria de $6$
 ou de $SSSSSS0$, ou seja, no $\SuA (\SuA (\SuA (\SuA (\SuA (\SuA \Ze)))))$.
+Finalmente, estendemos este açúcar para aplicá-lo até quando temos variáveis envolvidas:
+tendo $n \hastype \Nat$, escrevemos, por exemplo,
+$$
+SS2 + SSSn
+$$
+como abreviação da
+$$
+\SuA (\SuA (\SuA (\SuA \Ze))) + \SuA (\SuA (\SuA n)).
+$$
 
 %%}}}
 
@@ -16606,14 +16615,15 @@ do \ref[nat_four_check_tree].
 %%%}}}
 
 Aqui os numerais de $\Nat$ que correspondem nos primeiros
-quatro números naturais:
+$5$ números naturais:
 $$
 0,\quad
 S0,\quad
 SS0,\quad
-SSS0.
+SSS0,\quad
+SSSS0.
 $$
-Escrevemos a seqüência de primos então assim:
+Escrevemos a seqüência de \dq{primos naturais} então assim:
 $$
 SS0,\quad
 SSS0,\quad
@@ -16639,7 +16649,7 @@ ou o decimal, já parece deficiente nesse sentido.
 Mas uma \emph{vantagem} para a gente nesse caso é sua simplicidade
 na sua definição recursiva:
 \emph{cada $\Nat$ ou é o zero, ou o sucessor de um $\Nat$}.
-Todo esse capítulo é desenvolvido usando apenas essa definição.
+Tudo sobre os Nats é desenvolvido usando apenas essa definição simplíssima.
 
 %%}}}
 
@@ -16654,9 +16664,14 @@ Todo esse capítulo é desenvolvido usando apenas essa definição.
 
 Chamamos os termos
 $$
-\Ze, \SuA \Ze, \SuA (\SuA \Ze), \SuA (\SuA (\SuA \Ze)), \SuA (\SuA (\SuA (\SuA \Ze))), \dotsc
+\Ze, \quad
+\SuA \Ze, \quad
+\SuA (\SuA \Ze), \quad
+\SuA (\SuA (\SuA \Ze)), \quad
+\SuA (\SuA (\SuA (\SuA \Ze))), \quad
+\dotsc
 $$
-de \dterm{termos canônicos} ou \dterm{valores canônicos} do tipo $\Nat$.
+de \dterm{valores canônicos} ou \dterm{literais} do tipo $\Nat$.
 
 %%}}}
 
@@ -16711,7 +16726,7 @@ entre sucessores.  Ela é freqüentemente usada na forma da sua contrapositiva:}
 x \neq y         & \implies \SuA x \neq \SuA y.
 \endmathcol
 Destacamos os dois princípios seguintes sobre tipos de dados definidos
-indutivamente na maneira que definimos o $\Nat$ aqui.
+indutivamente na maneira que definimos o $\Nat$ aqui:
 
 %%}}}
 
@@ -16746,15 +16761,44 @@ O mesmo construtor aplicado em valores distintos, construe valores distintos.
 %%{{{ df: nats_plus_recursive_def 
 \definition Adição.
 %%%{{{ meta 
+\label nats_plus_recursive_def
 %%%}}}
 
-Definimos a operação $+$ no $\Nat$ pelas:
-$$
-\align
-n + 0   &= n      \tag{a1}\\
-n + S m &= S(n+m) \tag{a2}
-\endalign
-$$
+Definimos a operação $(+)$ no $\Nat$:
+\fundef
+(+) : \Nat \to \Nat \to \Nat \\
+n + \Ze      &= n \\
+n + (\SuA m) &= \SuA (n + m).
+\endfundef
+
+%%}}}
+
+%%{{{ implicit_tags 
+\note Tags implicitos.
+%%%{{{ meta 
+\label implicit_tags
+%%%}}}
+
+Em vez de ficar dando rótulos para cada \dq{equação}
+de definições como a \ref[nats_plus_recursive_def],
+adotamos a convenção que usamos a notação \funref[f.i]
+para referir à $i$-ésima \dq{equação} da definição da $f$.
+Assim, escrevemos \funref[(+).1] e \funref[(+).2] para referir
+às duas equações da \reftag[nats_plus_recursive_def], respeitando
+a ordem que elas foram escritas.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Antes de tudo, precisamos aprender bem \emph{como calcular}.
+O modelo computacional que seguimos é bem simples:
+foque numa subexpressão e a substitua por seu igual.
+No exemplo seguinte calculamos e confirmamos que\dots
+$3 + 2 = 5$.
 
 %%}}}
 
