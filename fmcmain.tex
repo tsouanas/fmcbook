@@ -17406,13 +17406,13 @@ Tem como continuar?
 
 Tem!
 O problema foi que não sabemos nem sobre o $m$ nem sobre o $y$
-se são da forma $0$ ou da forma $S\bnf{Nat}$ e por isso não conseguimos
+se são da forma $\Ze$ ou da forma $\SuA \phole$ e por isso não conseguimos
 aplicar nenhuma das \funref[(+).1]--\funref[(+).2].
 Mas podemos \emph{separar em casos}.
 Vamos escolher um desses Nats então, o $y$, e considerar:
 \tlist:
-\li: \case{Caso} $y$ é o $0$: \dots
-\li: \case{Caso} $y$ é o successor de algum Nat: \dots
+\li: \case{Caso} $y = 0$: \dots
+\li: \case{Caso} $y = Sy'$ para algum $y'$: \dots
 \endtlist
 Lembre-se que cada vez que separamos em casos, nosso alvo
 tá sendo \emph{copiado e colado} para cada um deles.
@@ -17503,8 +17503,8 @@ $$
 Só com $a,m,y'$ em vez de $a,m,y$.  E daí?
 Podemos separar esse caso em dois subcasos:
 \tlist:
-\li: \case{Caso $y'=0$}: \dots
-\li: \case{Caso $y'=Sy''$} para algum $y''\in\Nat$: \dots
+\li: \case{Caso $y' = 0$}: \dots
+\li: \case{Caso $y' = Sy''$} para algum $y''$: \dots
 \endtlist
 O primeiro subcaso vamos conseguir matar, pois é igual ao
 primeiro caso.  Mas a melhor coisa que conseguimos no segundo
@@ -17534,33 +17534,27 @@ Obviamente precisamos uma outra técnica para demonstrar esse teorema.
 \label Induction
 %%%}}}
 
-%%{{{ principle: nats_principle_of_induction 
-\principle Princípio da indução finita (PIF).
+%%{{{ nats_induction_principle 
+\principle Indução.
 %%%{{{ meta 
-\headerize
-\label nats_principle_of_induction
-\indexes
-    * PIF                        seealso: indução
-    * princípio!da indução finita    see: indução
-    ;;
+\label nats_induction_principle
 \defines
-    * PIF
-    * indução
+    * indução!para o tipo Nat
     ;;
 %%%}}}
 
-Seja $\phi(\dhole)$ uma propriedade de naturais.
-Se $\phi(0)$ e para todo $k\in\nats$
-$\phi(k)$ implica $\phi(Sk)$,
-então para todo $n\in\nats$, $\phi(n)$.
+Seja $\phi : \Nat \to \Prop$.
+Para demonstrar $\lforall {n \is \Nat} {\phi(n)}$, basta demonstrar
+$\phi(0)$ e $\lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)}$.
 
 %%}}}
 
-%%{{{ induction_scheme_rule 
-\note Schema da indução.
+%%{{{ nat_induction_inference_rule 
+\note Indução: regra de inferência.
 %%%{{{ meta 
-\label induction_scheme_rule 
+\label nat_induction_inference_rule
 \defines
+    * indução!para o tipo Nat
     * indução!base
     * indução!passo indutivo
     * indução!hipótese indutiva
@@ -17574,13 +17568,12 @@ então para todo $n\in\nats$, $\phi(n)$.
     ;;
 %%%}}}
 
-Suponha que $\phi(x)$ é uma afirmação que depende num $x\in\nats$.
 Em forma de regra de inferência, o princípio da indução é o seguinte:
 $$
 \PROOFmr {
-     \A {\phi(0)}      \A {\lforall k {\phi(k) \implies \phi(Sk)}}
-\I2---------------------------------------------------------------- {Ind$_\phi$}
-                     {\lforall n {\phi(n)}}
+     \A {\phi(0)}     \A {\lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)}}
+\I2-------------------------------------------------------------------------- {Ind$_\phi$}
+                     {\lforall {n \is \Nat} {\phi(n)}}
 }
 $$
 onde chamamos
@@ -17591,9 +17584,12 @@ a $\lforall k {\phi(k) \implies \phi(Sk)}$
 de \dterm{passo indutivo}:
 $$
 \PROOFmr {
-\A {\tobrace {\phi(0)} {\explanation{Base}}}   \A {\tobrace {\lforall k {\phi(k) \implies \phi(Sk)}} {\explanation{Passo indutivo}}}
+\A {\tobrace {\phi(0)}
+        {\explanation{Base}}}
+                \A {\tobrace {\lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)}}
+                                    {\explanation{Passo indutivo}}}
 \I2---------------------------------------------------------------- {Ind$_\phi$}
-                     {\lforall n {\phi(n)}}
+                     {\lforall {n \is \Nat} {\phi(n)}}
 }
 $$
 Mas esses são apenas os apelidos que usamos freqüentemente; nada mais que isso.
@@ -17608,35 +17604,38 @@ Como vamos ver logo, a proposição $\phi(k)$ no esquema acima também tem um ap
 \label induction_as_a_new_attack
 %%%}}}
 
-Para usar então a indução, precisamos ter algo dessa forma:
+Sabemos que regras de inferência correspondem em \dq{comandos} do nosso low-level
+sistema de demonstrações.  Precisamos então um comando para essa, e isso será um pleno
+\dq{Por indução.}
+Para utilizá-lo, nosso algo \emph{precisa} ter essa forma:
 \repls
-\maxproof  : \qquad Seja $k\in\nats$ tal que $\phi(k)$ (H.I.). ;
-\maxgiven  : \qquad k \in \nats ;
-\maxgoal   : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+\maxproof  : \qquad Seja $k \is \Nat$ tal que $\phi(k)$\fact{(HI)}. ;
+\maxgiven  : \qquad k \is \Nat ;
+\maxgoal   : \lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)} ;
 \hidenum
 \repl
 \givens
 \goals
-~    : \lforall {n \in \ints} {\phi(n)} ;
+~    : \lforall {n \is \Nat} {\phi(n)} ;
 \endrepl
 \repl
-~a   : Indução no $n$. ;
+~a   : Por indução. ;
 \givens
 \goals
-~a / : \lforall {n \in \nats} {\phi(n)} ;
+~a / : \lforall {n \is \Nat} {\phi(n)} ;
 ~a   : \phi(0) ;
-~a   : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+~a   : \lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)} ;
 \endrepl
 \repl
-~    : Indução no $n$. ;
+~    : Por indução. ;
 ~a   : \proofpart{Base.} ;
 \givens
 \goals
 ~    : \phi(0) ;
-~f   : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+~f   : \lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)} ;
 \endrepl
 \repl
-~    : Indução no $n$. ;
+~    : Por indução. ;
 ~    : \proofpart{Base.} ;
 ~a   : \qquad $\vdots$ ;
 ~a   : \qquad (demonstração de $\phi(0)$) ;
@@ -17644,10 +17643,10 @@ Para usar então a indução, precisamos ter algo dessa forma:
 ~a   : \phi(0) ;
 \goals
 ~a / : \phi(0) ;
-~    : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+~    : \lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)} ;
 \endrepl
 \repl
-~    : Indução no $n$. ;
+~    : Por indução. ;
 ~    : \proofpart{Base.} ;
 ~    : \qquad $\vdots$ ;
 ~    : \qquad (demonstração de $\phi(0)$) ;
@@ -17655,49 +17654,49 @@ Para usar então a indução, precisamos ter algo dessa forma:
 \givens
 ~    : \phi(0) ;
 \goals
-~    : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+~    : \lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)} ;
 \endrepl
 \repl
-~    : Indução no $n$. ;
+~    : Por indução. ;
 ~    : \proofpart{Base.} ;
 ~    : \qquad $\vdots$ ;
 ~    : \qquad (demonstração de $\phi(0)$) ;
 ~    : \proofpart{Passo indutivo.} ;
-~a   : \qquad Seja $k\in\nats$ ;
+~a   : \qquad Seja $k \is \Nat$. ;
 \givens
 ~    : \phi(0) ;
-~a   : k\in\nats ;
+~a   : k \is \Nat ;
 \goals
-~a / : \lforall {k \in \nats} {\phi(k) \implies \phi(Sk)} ;
+~a / : \lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)} ;
 ~a   : \phi(k) \implies \phi(Sk) ;
 \endrepl
 \repl
-~    : Indução no $n$. ;
+~    : Por indução. ;
 ~    : \proofpart{Base.} ;
 ~    : \qquad $\vdots$ ;
 ~    : \qquad (demonstração de $\phi(0)$) ;
 ~    : \proofpart{Passo indutivo.} ;
-~    : \qquad Seja $k\in\nats$ \alert{tal que $\phi(k)$ (H.I.).} ;
+~    : \qquad Seja $k \is \Nat$ \alert{tal que $\phi(k)$\fact{HI}.} ;
 \givens
 ~    : \phi(0) ;
-~    : k\in\nats ;
+~    : k \is \Nat ;
 ~a   : \phi(k) ;
 \goals
 ~a / : \phi(k) \implies \phi(Sk) ;
 ~a   : \phi(Sk) ;
 \endrepl
 \repl
-~    : Indução no $n$. ;
+~    : Por indução. ;
 ~    : \proofpart{Base.} ;
 ~    : \qquad $\vdots$ ;
 ~    : \qquad (demonstração de $\phi(0)$). ;
 ~    : \proofpart{Passo indutivo.} ;
-~    : \qquad Seja $k\in\nats$ tal que $\phi(k)$ (H.I.). ;
+~    : \qquad Seja $k \is \Nat$ tal que $\phi(k)$\fact{HI}. ;
 ~a   : \qquad $\vdots$ ;
 ~a   : \qquad (demonstração de $\phi(Sk)$)\qed ;
 \givens
 ~    : \phi(0) ;
-~    : k\in\nats ;
+~    : k \is \Nat ;
 ~    : \phi(k) ;
 ~a   : \phi(Sk) ;
 \goals
@@ -17714,29 +17713,27 @@ Para usar então a indução, precisamos ter algo dessa forma:
 
 Observe que no momento que escrevemos
 \quote
-<<Seja $k \in \nats$ tal que $\phi(k)$ (H.I.).>>
+<<Seja $k \is \Nat$ tal que $\phi(k)$\fact{(HI)}.>>
 \endquote
 no~\reftag[induction_as_a_new_attack]
-não fizemos nada especial relacionado a indução!
+não fizemos nada especial relacionado à indução!
 Isso é o ``ataque padrão'' duma fórmula da forma
 $$
-\lforall {x \in A} {\phi(x) \implies \psi(x)}
+\lforall {x \is A} {\phi(x) \implies \psi(x)}
 $$
 onde juntamos os passos de atacar o \symq{$\forall$} e o \symq{$\impliessymbol$}
 numa frase só.
 Em geral, podes considerar a indução como um ``feitiço'' que
 quando usado transforma um alvo da forma
 $$
-\lforall {x \in \nats} {\phi(x)}
+\lforall {x \is \Nat} {\phi(x)}
 $$
 para \emph{dois} novos alvos (com nomes chique):
-$$
-\align
+\mathcol
 \text{\proofpart{Base}:}\quad           & \phi(0) \\
-\text{\proofpart{Passo indutivo}:}\quad & \lforall {k\in\nats} {\phi(k) \implies \phi(Sk)}
-\endalign
-$$
-(exatamente como a regra do~\reftag[induction_scheme_rule]
+\text{\proofpart{Passo indutivo}:}\quad & \lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)}
+\endmathcol
+(exatamente como a regra do~\reftag[nat_induction_inference_rule]
 disse, lida de baixo para cima).
 Fora disso, \emph{não tem nada mais mágico} que acontece:
 o feitiço já foi feito e seu efeito já aconteceu.
