@@ -17315,54 +17315,57 @@ A adição é essa operação $+$ que definimos na~\ref[natops_rec_defs].
 Vamos tentar escrever essa afirmação numa maneira mais formal
 para expor sua estrutura lógica:
 $$
-\forall n \forall m \forall k
-\bigparen{ (n+m) + k = n + (m+k) }.
+\pforall n
+\pforall m
+\lforall k
+    {(n+m) + k = n + (m+k)}.
 $$
 Nosso alvo tem a forma
 $$
-\lforall {x\in\nats} {\phi(x)}
+\lforall {x \is \Nat} {\phi(x)}
 $$
 olhando como
 $$
-\forall n
+\pforall n
 \mubrace
-    {\aB{\forall m \forall k \bigparen{ (n+m) + k = n + (m+k) }}}
+    {\quantified{\aB{\pforall m \pforall k \quantified{(n+m) + k = n + (m+k)}}}}
     {\aB{\phi_1(n)}}
 $$
 podemos atacá-la tomando um arbitrario membro de $\Nat$ e mostrando
-que ele goza a propriedade $\phi$.
+que ele goza a propriedade $\phi$:
 \eop
-Seja $a \in \Nat$ então.
+Seja $a \is \Nat$.
 Agora precisamos mostrar que $\phi(a)$, ou seja nosso alvo é
 $$
-\forall m \forall k
-\bigparen{ (a+m) + k = a + (m+k) }.
+\pforall m
+\lforall k
+    {(a+m) + k = a + (m+k)}.
 $$
 Observe que nosso alvo é apenas uma afirmação sobre o natural $a$.
 Beleza.
 Mas nosso alvo tem a mesma forma,
 $$
 \mubrace
-  {\forall m \mubrace
-               {\aB{\forall k \bigparen{ (a+m) + k = a + (m+k) }}}
+  {\pforall m \mubrace
+               {\aB{\pforall k \quantified{(a+m) + k = a + (m+k)}}}
                {\aB{\phi_2(m)}}}
   {\phi_1(a)}
 $$
 então podemos atacar novamente
-com a mesma idéia, ``sejando'' mais um natural.
+com a mesma idéia, \dq{sejando} mais um natural.
 \eop
-Seja $m\in\Nat$.
+Seja $m \is \Nat$.
 Preciso demonstrar que
 $$
 \mubrace
-  {\forall k \mubrace
-               {\aB{(a+m) + k = a + (m+k)}}
+  {\pforall k \mubrace
+               {\quantified{\aB{(a+m) + k = a + (m+k)}}}
                {\aB{\phi_3(k)}}}
   {\phi_2(m)}.
 $$
 Atacamos uma última vez com a mesma estratégia:
 \eop
-Seja $y\in\Nat$.
+Seja $y \is \Nat$.
 Agora precisamos demonstrar
 $$
 \mubrace
