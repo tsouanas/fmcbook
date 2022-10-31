@@ -16783,7 +16783,7 @@ Em vez de ficar dando rótulos para cada \dq{equação}
 de definições como a \ref[nats_plus_recursive_def],
 adotamos a convenção que usamos a notação \funref[f.i]
 para referir à $i$-ésima \dq{equação} da definição da $f$.
-Assim, escrevemos \funref[(+).1] e \funref[(+).2] para referir
+Assim, escrevemos \sq{\funref[(+).1]} e \sq{\funref[(+).2]} para referir
 às duas equações da \reftag[nats_plus_recursive_def], respeitando
 a ordem que elas foram escritas.
 
@@ -16819,17 +16819,17 @@ Qual equação aplica?
 Com certeza não podemos aplicar a primeira (na direção ``$\Rightarrow$''),
 pois nossa expressão não tem a forma $n + 0$.
 Por que não?  O primeiro termo na nossa expressão, o $SSS0$, não é um problema
-pois ele pode ``casar'' com o $n$ do lado esquerdo da (a1).
+pois ele pode ``casar'' com o $n$ do lado esquerdo da \funref[(+).1].
 Mas nosso segundo termo, o $SS0$,
-não pode casar com o $0$, então a (a1) não é aplicável.
+não pode casar com o $0$, então a \funref[(+).1] não é aplicável.
 A segunda equação é sim, pois nossos termos podem casar assim
-com as variáveis da (a2):
+com as variáveis da \funref[(+).2]:
 \compute
 {\mubrace{SSS0}n} + {S\mubrace{S0}m} \\
 \intertext{Tomando $n\asseq SSS0$ e $m\asseq S0$
-substituimos nossa expressão por seu igual seguindo a (a2):}
+substituimos nossa expressão por seu igual seguindo a \funref[(+).2]:}
 {\mubrace{SSS0}n} + {S\mubrace{S0}m}
-&= S\bigparen{ {\mubrace{SSS0}n} + {\mubrace{S0}m} }  \by {por (a2)} \\
+&= S\bigparen{ {\mubrace{SSS0}n} + {\mubrace{S0}m} }  \by {por \funref[(+).2]} \\
 \intertext{Depois um passo de cálculo então chegamos na expressão
 $S(SSS0 + S0)$.
 Como nenhuma equação tem a forma $S(\text{\thole}) = \text{\lthole}$,
@@ -16839,27 +16839,27 @@ Focamos então na subexpressão sublinhada
 $S(\underline{SSS0 + S0})$:
 vamos tentar substituí-la por algo igual.
 Novamente a primeira equação não é aplicavel
-por causa do novo segundo termo ($S0$), mas a (a2) é:}
+por causa do novo segundo termo ($S0$), mas a \funref[(+).2] é:}
 S\bigparen{{\mubrace{SSS0}n} + {S\mubrace{0}m}}\\
 \intertext{Tomando agora $n\asseq SSS0$ e $m\asseq 0$ substituimos de novo
-seguindo a (a2):}
+seguindo a \funref[(+).2]:}
 S\tobrace{\bigparen{{\mubrace{SSS0}n} + {S\mubrace{0}m}}}{isso}
-&= S\tobrace{S\bigparen{ {\mubrace{SSS0}n} + {\mubrace{0}m} }}{por isso}  \by {por (a2)} \\
+&= S\tobrace{S\bigparen{ {\mubrace{SSS0}n} + {\mubrace{0}m} }}{por isso}  \by {por \funref[(+).2]} \\
 \intertext{Agora focamos na subexpressão $SS(\underline{SSS0 + 0})$ e podemos finalmente
 aplicar a primeira equação:}
 SS\bigparen{{\mubrace{SSS0}n} + 0}\\
 \intertext{então tomando $n\asseq SSS0$ substituimos}
 SS\tobrace{\bigparen{{\mubrace{SSS0}n} + 0}}{isso}
-&= SS\tobrace{ {\mubrace{SSS0}n} }{por isso}  \by {por (a1)} \\
+&= SS\tobrace{ {\mubrace{SSS0}n} }{por isso}  \by {por \funref[(+).1]} \\
 \endcompute
 Finalmente chegamos no resultado: no termo $SSSSS0$.
 Nunca mais vamos escrever tudo isso com tanto detalhe!
 Esse cálculo que acabamos de fazer, escrevemos curtamente nessa forma:
 \compute
 SSS0 + SS0
-&= S(SSS0 + S0) \by {por (a2)} \\
-&= SS(SSS0 + 0) \by {por (a2)} \\
-&= SSSSS0       \by {por (a1)} \\
+&= S(SSS0 + S0) \by {por \funref[(+).2]} \\
+&= SS(SSS0 + 0) \by {por \funref[(+).2]} \\
+&= SSSSS0       \by {por \funref[(+).1]} \\
 \endcompute
 escrevendo apenas em cada linha o que foi usado.
 
@@ -16924,14 +16924,14 @@ $$
 0 + \bigparen{0 + S\bigparen{(SS0 + 0) + 0}}.
 $$
 Como procedimos?
-A expressão inteira não pode ser substituida pois nenhuma das (a1)--(a2) tem
+A expressão inteira não pode ser substituida pois nenhuma das \funref[(+).1]--\funref[(+).2] tem
 essa forma, mas aparecem várias subexpressões em quais podemos \emph{focar}
 para nosso próximo passo de cálculo:
 $$
 \align
-0 + \underline{\bigparen{0 + S\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com (a2)}\\
-0 + \bigparen{0 + S\underline{\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com (a1)}\\
-0 + \bigparen{0 + S\bigparen{\underline{(SS0 + 0)} + 0}},&\quad\text{casando com (a1)}.
+0 + \underline{\bigparen{0 + S\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com \funref[(+).2]}\\
+0 + \bigparen{0 + S\underline{\bigparen{(SS0 + 0) + 0}}},&\quad\text{casando com \funref[(+).1]}\\
+0 + \bigparen{0 + S\bigparen{\underline{(SS0 + 0)} + 0}},&\quad\text{casando com \funref[(+).1]}.
 \endalign
 $$
 Podemos seguir uma \dterm{estratégia de evaluação} específica, por exemplo,
@@ -16954,19 +16954,19 @@ Calcule os valores das expressões $SSS0 + (SS0 + S0)$ e $(SSS0 + SS0) + S0$.
 Um caminho para calcular a primeira é o seguinte:
 \compute
 SSS0 + \underline{(SS0 + S0)}
-&= SSS0 + S\underline{(SS0 + 0)} \by {por (a2)} \\
-&= \underline{SSS0 + SSS0}       \by {por (a1)} \\
-&= S\underline{(SSS0 + SS0)}     \by {por (a2)} \\
-&= SS\underline{(SSS0 + S0)}     \by {por (a2)} \\
-&= SSS\underline{(SSS0 + 0)}     \by {por (a2)} \\
-&= SSSSSS0                       \by {por (a1)} \\
+&= SSS0 + S\underline{(SS0 + 0)} \by {por \funref[(+).2]} \\
+&= \underline{SSS0 + SSS0}       \by {por \funref[(+).1]} \\
+&= S\underline{(SSS0 + SS0)}     \by {por \funref[(+).2]} \\
+&= SS\underline{(SSS0 + S0)}     \by {por \funref[(+).2]} \\
+&= SSS\underline{(SSS0 + 0)}     \by {por \funref[(+).2]} \\
+&= SSSSSS0                       \by {por \funref[(+).1]} \\
 \intertext{e um caminho para calcular a segunda é o:}
 \underline{(SSS0 + SS0) + S0}
-&= S(\underline{(SSS0 + SS0)} + 0)  \by {por (a2)} \\
-&= S(S\underline{(SSS0 + S0)} + 0)  \by {por (a2)} \\
-&= S\underline{(SS(SSS0 + 0) + 0)}  \by {por (a2)} \\
-&= SSS\underline{(SSS0 + 0)}        \by {por (a1)} \\
-&= SSSSSS0                          \by {por (a1)} \\
+&= S(\underline{(SSS0 + SS0)} + 0)  \by {por \funref[(+).2]} \\
+&= S(S\underline{(SSS0 + S0)} + 0)  \by {por \funref[(+).2]} \\
+&= S\underline{(SS(SSS0 + 0) + 0)}  \by {por \funref[(+).2]} \\
+&= SSS\underline{(SSS0 + 0)}        \by {por \funref[(+).1]} \\
+&= SSSSSS0                          \by {por \funref[(+).1]} \\
 \endcompute
 
 %%}}}
@@ -16999,7 +16999,8 @@ quantidade finita} de perguntas <<e o que é\dots?>>.
 \label nats_double_def
 %%%}}}
 
-Defina (recursivamente) a funcção $d : \Nat \to \Nat$ que dobra sua entrada.
+Defina (recursivamente), e sem usar a $(+)$, uma funcção
+$\fun{double} : \Nat \to \Nat$ que dobra sua entrada.
 Verifique que o dobro de três ($SSS0$) é seis ($SSSSSS0$).
 
 \hint
@@ -17011,20 +17012,20 @@ qualquer número menor de $n+1$?
 $2(n+1) = 2n + 2$.
 
 \solution
+\DefFun double
 Definimos:
-$$
-\align
-d( 0 )  &= 0        \tag{D1}\\
-d( Sn ) &= SSd(n).  \tag{D2}
-\endalign
-$$
+\fundef
+\double : \Nat \to \Nat \\
+\doubleA \Ze      &= \Ze \\
+\doubleA (\SuA n) &= \SuA (\SuA (\doubleA n)).
+\endfundef
 Calculamos:
 \compute
-d( SSS0 )
-&= SSd(SS0)    \by {por (D2)} \\
-&= SSSSd(S0)   \by {por (D2)} \\
-&= SSSSSSd(0)  \by {por (D2)} \\
-&= SSSSSS0.    \by {por (D1)} \\
+\doubleA (\SuA (\SuA (\SuA \Ze)))
+&= \SuA (\SuA (\doubleA (\SuA (\SuA \Ze))))                 \by {por \funref[double.2]} \\
+&= \SuA (\SuA (\SuA (\SuA (\doubleA (\SuA \Ze)))))          \by {por \funref[double.2]} \\
+&= \SuA (\SuA (\SuA (\SuA (\SuA (\SuA (\doubleA \Ze))))))   \by {por \funref[double.2]} \\
+&= \SuA (\SuA (\SuA (\SuA (\SuA (\SuA \Ze))))).             \by {por \funref[double.1]}
 \endcompute
 
 %%}}}
@@ -17248,25 +17249,21 @@ multiplicação, e exponenciação:
 
 Definimos as operações de adição, multiplicação, e exponenciação
 recursivamente assim:
-$$
-\xxalignat3
-&
-\alignedat2
-\text{(a1)}&\quad&  n + 0  &= n     \\
-\text{(a2)}&&       n + Sm &= S(n+m)
-\endalignedat
-&&
-\alignedat2
-\text{(m1)}&\quad&  n \ntimes 0  &= 0   \\
-\text{(m2)}&&       n \ntimes Sm &= (n \ntimes m) + n
-\endalignedat
-&&
-\alignedat2
-\text{(e1)}&\quad&  n \expop 0  &= S0   \\
-\text{(e2)}&&       n \expop Sm &= (n \expop m) \ntimes n.
-\endalignedat
-\endxxalignat
-$$
+\mathcols 3
+&\fundefed {
+(+) : \Nat \to \Nat \to \Nat \\
+n + 0  &= n \\
+n + Sm &= S(n+m)
+}&&\fundefed {
+(\ntimes) : \Nat \to \Nat \to \Nat \\
+n \ntimes 0  &= 0 \\
+n \ntimes Sm &= (n \ntimes m) + n
+}&&\fundefed {
+(\expop) : \Nat \to \Nat \to \Nat \\
+n \expop 0  &= S0 \\
+n \expop Sm &= (n \expop m) \ntimes n.
+}
+\endmathcols
 Observe que cada uma dessas equações tem um implícito
 $\forall n$ ou $\forall n\forall m$ na frente dela.
 
@@ -17377,10 +17374,10 @@ Como chegamos numa igualdade, precisamos verificar que seus dois lados
 realmente denotam o mesmo valor.
 Vamos calcular então.
 Tomando o lado esquerdo, $(a+m)+y$, tantamos casá-lo com as equações
-(a1)--(a2), mas ele não casa com nenhuma delas, então não tem como
+\funref[(+).1]--\funref[(+).2], mas ele não casa com nenhuma delas, então não tem como
 simplificá-lo.\foot
 Isso não é exatamente verdade, pois o lado direito
-da (a1), sendo apenas uma variável, casa com qualquer coisa.
+da \funref[(+).1], sendo apenas uma variável, casa com qualquer coisa.
 Mas escolhendo qualquer (sub)expressão da $(a+m)+y$, para casar
 com $n$, não vamos ter progresso nenhum, pois vamos acabar
 adicionando apenas uns ``$+0$'' até cansar, sem nenhuma
@@ -17410,7 +17407,7 @@ Tem como continuar?
 Tem!
 O problema foi que não sabemos nem sobre o $m$ nem sobre o $y$
 se são da forma $0$ ou da forma $S\bnf{Nat}$ e por isso não conseguimos
-aplicar nenhuma das (a1)--(a2).
+aplicar nenhuma das \funref[(+).1]--\funref[(+).2].
 Mas podemos \emph{separar em casos}.
 Vamos escolher um desses Nats então, o $y$, e considerar:
 \tlist:
@@ -17452,7 +17449,7 @@ Calculamos:
 \compute
 (a + m) + y
 &= (a + m) + 0 \by {hipótese do caso} \\
-&= a + m       \by {pela~(a1)} \\
+&= a + m       \by {pela~\funref[(+).1]} \\
 \intertext{Se travou aqui, sem problema:
 trabalhe no outro lado até chegar em $a + m$:}
 a + (m + y) &= \dots? \\
@@ -17465,10 +17462,10 @@ Calculamos:
 \compute
 (a + m) + y
 &= (a + m) + 0 \by {hipótese do caso} \\
-&= a + m       \by {pela~(a1)} \\
+&= a + m       \by {pela~\funref[(+).1]} \\
 a + (m + y)
 &= a + (m + 0) \by {hipótese do caso} \\
-&= a + m       \by {pela~(a1)} \\
+&= a + m       \by {pela~\funref[(+).1]} \\
 \endcompute
 
 %%}}}
@@ -17485,12 +17482,12 @@ Calculamos:
 \compute
 (a + m) + y
 &= (a + m) + Sy'       \by {hipótese~\byfact1} \\
-&= S\paren{(a+m) + y'} \by {(a2), com $n\asseq (a+m)$, $m\asseq y'$} \\
+&= S\paren{(a+m) + y'} \by {\funref[(+).2], com $n\asseq (a+m)$, $m\asseq y'$} \\
 \intertext{e o outro lado}
 a + (m + y)
 &= a + (m + Sy')   \by {hipótese~\byfact1} \\
-&= a + S(m + y')   \by {(a2) com $n\asseq m$, $m\asseq y'$} \\
-&= S(a + (m + y')) \by {(a2) com $n\asseq a$, $m\asseq m+y'$} \\
+&= a + S(m + y')   \by {\funref[(+).2] com $n\asseq m$, $m\asseq y'$} \\
+&= S(a + (m + y')) \by {\funref[(+).2] com $n\asseq a$, $m\asseq m+y'$} \\
 \endcompute
 E agora peguntamos
 $$
@@ -17848,9 +17845,9 @@ $$
 Calculamos:
 \compute
 n + (m + 0)
-&= n + m    \by {pela (a1) com $n \asseq m$} \\
+&= n + m    \by {pela \funref[(+).1] com $n \asseq m$} \\
 (n + m) + 0
-&= n + m    \by {pela (a1) com $n \asseq n + m$} \\
+&= n + m    \by {pela \funref[(+).1] com $n \asseq n + m$} \\
 \endcompute
 \proofpart {Passo indutivo.}
 Precisamos mostrar que
@@ -17873,10 +17870,10 @@ $$
 Calculamos:
 \compute
 n + (m + Sw)
-&= n + S(m + w)     \by {(a2): $n \asseq m$; $m \asseq w$} \\
-&= S(n + (m + w))   \by {(a2): $n \asseq n$; $m \asseq m + w$} \\
+&= n + S(m + w)     \by {\funref[(+).2]: $n \asseq m$; $m \asseq w$} \\
+&= S(n + (m + w))   \by {\funref[(+).2]: $n \asseq n$; $m \asseq m + w$} \\
 (n + m) + Sw
-&= S((n + m) + w)   \by {(a2): $n \asseq n + m$; $m \asseq w$} \\
+&= S((n + m) + w)   \by {\funref[(+).2]: $n \asseq n + m$; $m \asseq w$} \\
 \endcompute
 Basta então mostrar que
 $$
@@ -17985,8 +17982,8 @@ Calculamos:
 \underline{(u + v) + Sw}
 &= S(\underline{(u + v) + w})  \by {a2} \\
 &= \underline{S(u + (v + w))}  \by {H.I., com $n := u$, $m := v$} \\
-&= u + \underline{S(v + w)}    \by {(a2)$^{\leftarrow}$} \\
-&= u + (v + Sw).               \by {(a2)$^{\leftarrow}$} \\
+&= u + \underline{S(v + w)}    \by {\funref[(+).2]$^{\leftarrow}$} \\
+&= u + (v + Sw).               \by {\funref[(+).2]$^{\leftarrow}$} \\
 \endcompute
 Isso termina nossa demonstração.
 
@@ -18067,10 +18064,10 @@ $$
 Calculamos:
 \compute
 0 + Sk
-&= S(0 + k)  \by {(a2)} \\
+&= S(0 + k)  \by {\funref[(+).2]} \\
 &= S(k + 0)  \by {(S.H.I.)} \\
-&= Sk        \by {(a1)} \\
-&= Sk + 0.   \by {(a1)} \\
+&= Sk        \by {\funref[(+).1]} \\
+&= Sk + 0.   \by {\funref[(+).1]} \\
 \endcompute
 Isso termina nossa base.
 \endleftindent
@@ -18099,9 +18096,9 @@ Seja $m\in\nats$.
 Calculamos:
 \compute
 Sk + m
-&= S(k+m)   \by {(a2)} \\
+&= S(k+m)   \by {\funref[(+).2]} \\
 &= S(m+k)   \by {(H.I.)} \\
-&= m + Sk.  \by {(a2)} \\
+&= m + Sk.  \by {\funref[(+).2]} \\
 \endcompute
 Isso termina nossa demonstração.
 
@@ -18208,7 +18205,7 @@ Sa + Sk
 &= a + SSk.     \by {a2} \\
 \endcompute
 Isso termina nossa demonstração, e logo substituindo a
-justificativa~\wq{(a2)} na demonstração do~\ref[natadd_is_commutative] por
+justificativa~\wq{\funref[(+).2]} na demonstração do~\ref[natadd_is_commutative] por
 \wq{pelo~\ref[succx_plus_y_eq_x_plus_succy]} ganhamos também o direito de
 substituir seu~\symq{\mistakesymbol} por um legítimo~\symq{\qedsymbol}:
 
@@ -18242,10 +18239,10 @@ Sejam $n,m$ naturais.
 Calculamos:
 \compute
 (n \ntimes m) \ntimes 0
-&= 0            \by {(m1)} \\
+&= 0            \by {\funref[(\ntimes).1]} \\
 n \ntimes (m \ntimes 0)
-&= n \ntimes 0  \by {(m1)} \\
-&= 0.           \by {(m1)} \\
+&= n \ntimes 0  \by {\funref[(\ntimes).1]} \\
+&= 0.           \by {\funref[(\ntimes).1]} \\
 \endcompute
 \proofpart{Passo indutivo.}
 Seja $w$ natural tal que
@@ -18261,9 +18258,9 @@ Sejam $n,m$ naturais.
 Calculamos:
 \compute
 (n \ntimes m) \ntimes Sw
-&= ((n \ntimes m) \ntimes w) + (n \ntimes m)    \by {(m2)} \\
+&= ((n \ntimes m) \ntimes w) + (n \ntimes m)    \by {\funref[(\ntimes).2]} \\
 n \ntimes (m \ntimes Sw)
-&= n \ntimes ((m \ntimes w) + m)                \by {(m2)} \\
+&= n \ntimes ((m \ntimes w) + m)                \by {\funref[(\ntimes).2]} \\
 &= (n \ntimes (m \ntimes w)) + (n \ntimes m)    \by {(*)} \\
 &= ((n \ntimes m) \ntimes w) + (n \ntimes m).   \by {(H.I.)} \\
 \endcompute
@@ -18311,12 +18308,12 @@ Ou seja, \emph{$k$ é um número que comuta com o $0$}.
 Vamos demonstrar que $Sk \ntimes 0 = 0 \ntimes Sk$.
 Calculamos:
 \compute
-Sk \ntimes 0  &= 0  \by {(m1)} \\
+Sk \ntimes 0  &= 0  \by {\funref[(\ntimes).1]} \\
 0 \ntimes Sk
-&= 0 \ntimes k + 0  \by {(m2)} \\
-&= 0 \ntimes k      \by {(a1)} \\
+&= 0 \ntimes k + 0  \by {\funref[(\ntimes).2]} \\
+&= 0 \ntimes k      \by {\funref[(+).1]} \\
 &= k \ntimes 0      \by {(S.H.I.1)} \\
-&= 0.               \by {(m1)} \\
+&= 0.               \by {\funref[(\ntimes).1]} \\
 \endcompute
 Isso prova nossa base.
 \endleftindent
@@ -18336,11 +18333,11 @@ Vamos demonstrar por mais uma indução!
 Calculamos:
 \compute
 0 \ntimes Sw
-&= 0 \ntimes w + 0 \by {(m2)} \\
-&= 0 \ntimes w     \by {(a1)} \\
+&= 0 \ntimes w + 0 \by {\funref[(\ntimes).2]} \\
+&= 0 \ntimes w     \by {\funref[(+).1]} \\
 &= w \ntimes 0     \by {Base ($0$ comuta com todos) ou (H.I.) ($w$ comuta com todos)} \\
-&= 0               \by {(m1)} \\
-&= Sw \ntimes 0.   \by {(m1)} \\
+&= 0               \by {\funref[(\ntimes).1]} \\
+&= Sw \ntimes 0.   \by {\funref[(\ntimes).1]} \\
 \endcompute
 \crproofpart{Sub-passo indutivo.}
 Seja $p\in\nats$ tal que ele comuta com o $Sw$:
@@ -18354,17 +18351,17 @@ $$
 Calculamos:
 \compute
 Sp \ntimes Sw
-&= Sp \ntimes w + Sp        \by {(m2)} \\
+&= Sp \ntimes w + Sp        \by {\funref[(\ntimes).2]} \\
 &= w \ntimes Sp + Sp        \by {(H.I.): $w$ comuta com todos} \\
-&= (w \ntimes p + w) + Sp   \by {(m2)} \\
+&= (w \ntimes p + w) + Sp   \by {\funref[(\ntimes).2]} \\
 &= w \ntimes p + (w + Sp)   \by {associatividade da $+$} \\
-&= w \ntimes p + S(w + p)   \by {(a2)} \\
+&= w \ntimes p + S(w + p)   \by {\funref[(+).2]} \\
 &= w \ntimes p + S(p + w)   \by {comutatividade da $+$} \\
-&= w \ntimes p + (p + Sw)   \by {(a2)} \\
+&= w \ntimes p + (p + Sw)   \by {\funref[(+).2]} \\
 Sw \ntimes Sp
-&= Sw \ntimes p + Sw        \by {(m2)} \\
+&= Sw \ntimes p + Sw        \by {\funref[(\ntimes).2]} \\
 &= p \ntimes Sw + Sw        \by {(S.H.I.2): $p$ comuta com o $Sw$} \\
-&= (p \ntimes w + p) + Sw   \by {(m2)} \\
+&= (p \ntimes w + p) + Sw   \by {\funref[(\ntimes).2]} \\
 &= p \ntimes w + (p + Sw)   \by {associatividade da $+$} \\
 &= w \ntimes p + (p + Sw).  \by {(H.I.): $w$ comuta com todos} \\
 \endcompute
@@ -18399,9 +18396,9 @@ $$
 Calculamos:
 \compute
 x \ntimes (y + 0)
-&= x \ntimes y                 \by {(a1)} \\
-&= x \ntimes y + 0             \by {(a1)} \\
-&= x \ntimes y + x \ntimes 0.  \by {(m1)} \\
+&= x \ntimes y                 \by {\funref[(+).1]} \\
+&= x \ntimes y + 0             \by {\funref[(+).1]} \\
+&= x \ntimes y + x \ntimes 0.  \by {\funref[(\ntimes).1]} \\
 \endcompute
 \proofpart{Passo indutivo.}
 Seja $k\in \nats$ tal que
@@ -18420,11 +18417,11 @@ Sejam $x,y\in\nats$.
 Calculamos
 \compute
 x \ntimes (y + Sk)
-&= x \ntimes S(y + k)                \by {(a1)} \\
-&= \bigparen{x \ntimes (y + k)} + x  \by {(m2)} \\
+&= x \ntimes S(y + k)                \by {\funref[(+).1]} \\
+&= \bigparen{x \ntimes (y + k)} + x  \by {\funref[(\ntimes).2]} \\
 &= (x \ntimes y + x \ntimes k) + x   \by {(H.I.) com $x\asseq x$, $y\asseq y$} \\
 &= x \ntimes y + (x \ntimes k + x)   \by {associatividade de $+$} \\
-&= x \ntimes y + x \ntimes Sk.       \by {(m2)} \\
+&= x \ntimes y + x \ntimes Sk.       \by {\funref[(\ntimes).2]} \\
 \endcompute
 
 %%}}}
@@ -18445,10 +18442,10 @@ Seja $x\in \nats$.
 Calculamos:
 \compute
 x \ntimes S0
-&= (x \ntimes 0) + x    \by {(m2), $n\asseq x$, $m\asseq 0$} \\
-&= 0 + x                \by {(m1)} \\
+&= (x \ntimes 0) + x    \by {\funref[(\ntimes).2], $n\asseq x$, $m\asseq 0$} \\
+&= 0 + x                \by {\funref[(\ntimes).1]} \\
 &= x + 0                \by {$+$ comut.~(\reftag[natadd_is_commutative])} \\
-&= x.                   \by {(a1)} \\
+&= x.                   \by {\funref[(+).1]} \\
 \endcompute
 Como já demonstramos a comutatividade da $\ntimes$, isso termina nossa demonstração.
 
@@ -18495,9 +18492,9 @@ Sejam $x,a\in\nats$.
 Calculamos:
 \compute
 x^{a+0}
-&= x^a              \by {(a1)} \\
+&= x^a              \by {\funref[(+).1]} \\
 &= x^a \ntimes S0   \by {$S0$ identidade (\reftag[natmult_identity])} \\
-&= x^a \ntimes x^0. \by {(e1)} \\
+&= x^a \ntimes x^0. \by {\funref[(\expop).1]} \\
 \endcompute
 \crproofpart{Passo indutivo.}
 Seja $k\in\nats$ tal que
@@ -18513,11 +18510,11 @@ Queremos demonstrar $x^{a+Sk} = x^a \ntimes x^{Sk}$.
 Calculamos:
 \compute
 x^{a + Sk}
-&= x^{S(a + k)}                 \by {(a2)} \\
-&= x^{a+k} \ntimes x            \by {(e2)} \\
+&= x^{S(a + k)}                 \by {\funref[(+).2]} \\
+&= x^{a+k} \ntimes x            \by {\funref[(\expop).2]} \\
 &= (x^a\ntimes x^k) \ntimes x   \by {(H.I.)} \\
 &= x^a\ntimes (x^k \ntimes x)   \by {assoc.~da~$\ntimes$~(\reftag[natmult_is_associative])} \\
-&= x^a\ntimes x^{Sk}.             \by {(e2)} \\
+&= x^a\ntimes x^{Sk}.             \by {\funref[(\expop).2]} \\
 \endcompute
 
 %%}}}
@@ -18559,10 +18556,10 @@ Sejam $a,b\in\nats$.
 Calculamos:
 \compute
 a^{b \ntimes 0}
-&= a^0    \by {(m1)} \\
-&= S0     \by {(e1)} \\
+&= a^0    \by {\funref[(\ntimes).1]} \\
+&= S0     \by {\funref[(\expop).1]} \\
 (a^b)^0
-&= S0.    \by {(e1)} \\
+&= S0.    \by {\funref[(\expop).1]} \\
 \endcompute
 \crproofpart{Passo indutivo.}
 Seja $k\in\nats$ tal que
@@ -18578,10 +18575,10 @@ Basta mostrar que $a^{b \ntimes Sk} = (a^b)^{Sk}$.
 Calculamos:
 \compute
 (a^b)^{Sk}
-&= (a^b)^k \ntimes (a^b)        \by {(e2), $n\asseq a^b$, $m\asseq k$} \\
+&= (a^b)^k \ntimes (a^b)        \by {\funref[(\expop).2], $n\asseq a^b$, $m\asseq k$} \\
 &= a^{b \ntimes k} \ntimes a^b  \by {(H.I.), $a\asseq a$, $b\asseq b$} \\
 &= a^{(b \ntimes k) + b}        \by {\reftag[law_of_natexp_1], $x\asseq a$, $a\asseq b \ntimes k$, $b\asseq b$} \\
-&= a^{b \ntimes Sk}.            \by {(m2), $n\asseq b$, $m\asseq k$} \\
+&= a^{b \ntimes Sk}.            \by {\funref[(\ntimes).2], $n\asseq b$, $m\asseq k$} \\
 \endcompute
 
 %%}}}
@@ -18630,7 +18627,7 @@ $$
 Calculamos:
 \compute
 (S0)^{Sk}
-&= S0 \ntimes S0^k              \by {(e2),   $n\asseq S0$, $m\asseq k$} \\
+&= S0 \ntimes S0^k              \by {\funref[(\expop).2],   $n\asseq S0$, $m\asseq k$} \\
 &= S0^k                         \by {$S0$ é identidade da $\ntimes$ (\ref[natmult_identity])} \\
 &= S0.                          \by {(H.I.)} \\
 \endcompute
@@ -18696,9 +18693,9 @@ Separamos em casos.
 \case{Caso $n \leq m$}.
 Logo seja $u$ tal que $n + u = m$.
 Logo $S(n + u) = Sm$.
-E pela (a1) temos $n + Su = Sm$, e logo $n \leq Sm$.
+E pela \funref[(+).1] temos $n + Su = Sm$, e logo $n \leq Sm$.
 \case{Caso $n = Sm$}.
-Nesse caso imediatamente $n + 0 = Sm$ (pois $n + 0 = n$ pela (a2))
+Nesse caso imediatamente $n + 0 = Sm$ (pois $n + 0 = n$ pela \funref[(+).2])
 e logo $n \leq Sm$.
 
 %%}}}
@@ -74787,8 +74784,8 @@ Para qualquer sistema Peano $\cal N = \sset \Nats {\Zero, \Succ}$,
 definimos as operações de adição e de multiplicação
 $$
 \xxalignat5
-&\text{(a1)}  & n + \Zero   &= n          &&& n \ntimes \Zero   &= \Zero                &&\text{(m1)}\\
-&\text{(a2)}  & n + \Succ m &= \Succ(n+m) &&& n \ntimes \Succ m &= (n \ntimes m) + n    &&\text{(m2)}
+&\text{(a1)}  & n + \Zero   &= n          &&& n \ntimes \Zero   &= \Zero                &&\text{\funref[(\ntimes).1]}\\
+&\text{(a2)}  & n + \Succ m &= \Succ(n+m) &&& n \ntimes \Succ m &= (n \ntimes m) + n    &&\text{\funref[(\ntimes).2]}
 \endxxalignat
 $$
 e a relação de ordem no $\Nats$
