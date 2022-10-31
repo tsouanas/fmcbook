@@ -17782,7 +17782,8 @@ $$
 \pforall n \pforall m \lforall k { n + (m + k) = (n + m) + k }.
 $$
 
-\preproof.
+%%{{{ preproof 
+\preproof. 
 Vamos demonstrar esse teorema duas vezes.
 É importantíssimo entender a diferença e seguir todos os detalhes.
 Antes de começar, lembre nossa tentativa~\reftag[natadd_is_associative_failed_proof_attempt] e como e onde exatamente a gente travou:
@@ -17824,6 +17825,7 @@ Vamos fazer uns ``undo'' então na nossa prova e voltar nesse momento:
 \endrepl
 Agora sim!  Nosso alvo tem uma forma que casa com o padrão que precisamos para aplicar indução.
 Bora ver essa demonstração primeiro então.
+%%}}}
 
 \proof Primeira demonstração.
 Sejam $n, m$ naturais.
@@ -17872,9 +17874,13 @@ n + (m + Sw)
 \endcompute
 Basta então mostrar que
 $$
-S(n + (m + w)) = S((n + m) + w)
+S(n + (m + w)) = S((n + m) + w).
 $$
-que realmente temos pela (H.I.).
+E para demonstrar isso, basta mostrar que 
+$$
+n + (m + w) = (n + m) + w.
+$$
+que realmente temos pela \byfact{HI}.
 
 %%}}}
 
@@ -17883,42 +17889,37 @@ que realmente temos pela (H.I.).
 %%%{{{ meta 
 %%%}}}
 
-Precisamos discutir o que aconteceu.
+Precisamos discutir o que acabou de acontecer.
 Agora bora ver uma demonstração que também usa indução, mas numa maneira bem diferente:
 Queremos demonstrar a afirmação
 $$
-\forall n
-\forall m
-\sforall k
-\psi(n,m,k)
+\pforall n \pforall m \lforall k {\psi(n,m,k)}
 $$
 onde
 $$
 \psi(x,y,z) \abbriff x + (y + z) = (x + y) + z.
 $$
-Talvez parece que ela não está no formato $\sforall n \phi(n)$
+Talvez parece que ela não está no formato $\lforall n {\phi(n)}$
 e que não podemos atacá-la diretamente com indução.
 Mas, na verdade, reescrevendo como
 $$
-\forall n
-\mubrace {\forall m \sforall k \psi(n,m,k)} {\phi_1(n)}
+\pforall n
+\mubrace {\pforall m \lforall k {\psi(n,m,k)}} {\phi_1(n)}
 $$
 já percebemos que tem a forma certa.
 E podemos trocar a ordem de quantificadores consecutivos
 \emph{do mesmo tipo}, então o que queremos demonstrar é equivalente aos
-$$
-\xalignat3
+\mathcols 3
 \forall n & \mubrace {\forall m \sforall k \psi(n,m,k)} {\phi_1(n)}; &
 \forall m & \mubrace {\forall n \sforall k \psi(n,m,k)} {\phi_2(m)}; &
 \forall k & \mubrace {\forall n \sforall m \psi(n,m,k)} {\phi_3(k)};
-\endxalignat
-$$
+\endmathcols
 etc.~(tem ainda mais três opções que não escrevi),
 onde em cada caso o $\phi_i$ tem uma definição diferente,
 mas o $\psi$ tem sempre a mesma.
 Escolhemos demonstrar a
 $$
-\forall k \mubrace {\forall n \sforall m \psi(n,m,k)} {\phi(k)}.
+\pforall k \mubrace {\quantified{\forall n \sforall m \psi(n,m,k)}} {\phi(k)}.
 $$
 por indução.
 Vamos ver o que vai acontecer.
