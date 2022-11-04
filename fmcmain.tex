@@ -18656,6 +18656,129 @@ Calculamos:
 \endsection
 %%}}}
 
+%%{{{ Why accept the induction principle? 
+\section Por que aceitar o princípio da indução?.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ Intuition 
+\note Intuição.
+%%%{{{ meta 
+%%%}}}
+
+Por que demonstrar $\phi(0)$ e $\lforall {k\in\nats} {\phi(k) \implies \phi(Sk)}$
+é suficiente para demonstrar o $\lforall {n\in\nats} {\phi(n)}$?
+Estabelecendo esses dois alvos significa que ganhamos como regras de inferência
+as seguintes:
+$$
+\xalignat2
+&
+\PROOFmr {
+\I0------------ {IndZero$_\phi$}
+    {\phi(0)}
+}
+&&
+\PROOFmr {
+\A  {\phi(n)}
+\I1------------ {IndSucc$_\phi$}
+    {\phi(Sn)}
+}
+\endxalignat
+$$
+onde $n$ é uma metavariável pegando valores em todos os naturais,
+e onde eu escolhi esses rótulos talvez estranhos para nomear essas regras.
+Vamos ver o que podemos demonstrar graças essas duas regras agora:
+com certeza temos o próprio $\phi(0)$ pela primeira que não tem
+nenhuma premissa.
+Mas, agora, usando a segunda com $n\asseq 0$ temos uma demonstração
+do $\phi(S0)$:
+$$
+\PROOFmr {
+\I0---------- {IndZero$_\phi$}
+   {\phi(0)}
+\I1----------- {IndStep$_\phi$}
+   {\phi(S0)}
+}
+$$
+Ou seja, ganhamos o $\phi(S0)$.
+Então podemos usar a regra \namedrule{IndZero$_\phi$} agora com $n\asseq S0$
+para ganhar o $\phi(SS0)$:
+$$
+\PROOFmr {
+\I0---------- {IndZero$_\phi$}
+   {\phi(0)}
+\I1----------- {IndStep$_\phi$}
+   {\phi(S0)}
+\I1------------ {IndStep$_\phi$}
+   {\phi(SS0)}
+}
+$$
+E por aí vai!
+Olhando para as duas regras 
+$$
+\xalignat2
+&
+\PROOFmr {
+\I0------------ {IndZero$_\phi$}
+   {\phi(0)}
+}
+&&
+\PROOFmr {
+\A {\phi(n)}
+\I1------------ {IndSucc$_\phi$}
+   {\phi(Sn)}
+}
+\intertext{observamos que são bem parecidas com as}
+&
+\PROOFmr {
+\I0------------ {Zero}
+   {0 \is \Nat}
+}
+&&
+\PROOFmr {
+\A  {n \is \Nat}
+\I1-------------- {Succ}
+   {Sn \is \Nat}
+}
+\endxalignat
+$$
+e logo dado qualquer natural $n$, o desafio de estabelecer que $n$ tem
+a propriedade $\phi$, acaba sendo o mesmo com o ``desafio'' de estabelecer
+que $n$ é um natural mesmo!
+Em outras palavras, assim que demonstrar os dois alvos da indução para
+matar o $\lforall {n\in\nats} {\phi(n)}$, temos:
+$$
+n \is \Nat \implies \phi(n).
+$$
+Ou seja: \emph{todos os naturais têm a propriedade $\phi$ mesmo}.
+
+%%}}}
+
+%%{{{ Does this blah-blah mean anything? 
+\note Esse bla-bla presta mesmo?.
+%%%{{{ meta 
+%%%}}}
+
+O leitor alerto justamente ficaria com dúvidas sobre o texto acima.
+Realmente faz sentido essa descripção e essa intuição, mas todo esse
+``bla-bla'' serve como uma demonstração mesmo do princípio da indução?
+Serve não.  E por isso que o chamamos de \dterm{princípio}, ou seja
+axioma!  Mas calma:
+dependendo na fundação de matemática que trabalhamos,
+o princípio pode virar teorema mesmo!  No~\ref[Axiomatic_set_theory]
+por exemplo, vamos \emph{demonstrar mesmo} o princípio da indução
+para os naturais.  Mas por enquanto não temos as ferramentas
+nem a maturidade que precisamos para entender essas idéias;
+então paciência.
+O que podes mesmo fazer desde já é demonstrar a equivalência
+desse princípio com um outro, que também é facilmente aceitável:
+o princípio da boa ordem (\ref[WOP_iff_PFI]).
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Order in the naturals 
 \section Ordem nos naturais.
 %%%{{{ meta 
@@ -19260,6 +19383,18 @@ $$
 \label ListNat_induction
 %%%}}}
 
+%%{{{ how_about_non_nats 
+\note E os não-naturais?.
+%%%{{{ meta 
+\label how_about_non_nats
+%%%}}}
+
+O que nos permite usar recursão e indução nos naturais é sua definição inductiva.
+Ou seja, podemos usar essas ferramentas em qualquer tipo que
+foi definido assim.
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -19294,6 +19429,26 @@ Exemplos de uso:
 \endproblems
 %%}}}
 
+%%{{{ Structural_induction 
+\section Indução estrutural.
+%%%{{{ meta 
+\label Structural_induction
+%%%}}}
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
+%%{{{ Destructors 
+\section Destrutores.
+%%%{{{ meta 
+\label Destructors
+%%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Polymorphic_types 
 \section Tipos polimórficos.
 %%%{{{ meta 
@@ -19326,6 +19481,69 @@ Exemplos de uso:
 %%%{{{ meta 
 \label Exp_types
 %%%}}}
+
+%%{{{ eg: bincon_count 
+\example.
+%%%{{{ meta 
+\label bincon_count
+%%%}}}
+
+Defina uma funcção $f : \zolang \to \nats$ que calcula o número
+de conectivos binários que aparecem na sua entrada.
+Use-lá para calcular os conectivos binários da expressão
+$$
+\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
+$$
+
+\solution.
+Seguindo a definição de $\zolang$, cada um dos seus elementos
+é formado por uma de certas regras.  Basta escrever então como
+calcular o número desejado para cada um desses casos:
+$$
+\alignat2
+f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
+f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
+f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
+f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
+f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
+\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
+f((A \heartop B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartop \in \set{\limplies,\land,\lor}$)}
+\endalignat
+$$
+Aplicando nossa funcção na fórmula dada calculamos:
+\compute
+f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
+&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \by {por BC$_{\lnot}$} \\
+&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \by {por BC$_{\limplies}$} \\
+&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \by {por BC$_{P}$} \\
+&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \by {por BC$_{\land}$} \\
+&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \by {por BC$_{P}$} \\
+&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \by {por BC$_{\lnot}$} \\
+&= 0 + 1 + ( 0 + 1 + 0 )                        \by {por BC$_{P}$} \\
+&= 2
+\endcompute
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Folding 
+\section Folding.
+%%%{{{ meta 
+\label Folding
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Sums_and_products_done_right 
+\section Somatórios e produtórios formalmente.
+%%%{{{ meta 
+\label Sums_and_products_done_right 
+%%%}}}
+
+\TODO Escrever.
 
 \endsection
 %%}}}
@@ -19648,140 +19866,6 @@ lemma numa linha só!
 \endsection
 %%}}}
 
-%%{{{ Sums_and_products_done_right 
-\section Somatórios e produtórios formalmente.
-%%%{{{ meta 
-\label Sums_and_products_done_right 
-%%%}}}
-
-\TODO Escrever.
-
-\endsection
-%%}}}
-
-%%{{{ Why accept the induction principle? 
-\section Por que aceitar o princípio da indução?.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ Intuition 
-\note Intuição.
-%%%{{{ meta 
-%%%}}}
-
-Por que demonstrar $\phi(0)$ e $\lforall {k\in\nats} {\phi(k) \implies \phi(Sk)}$
-é suficiente para demonstrar o $\lforall {n\in\nats} {\phi(n)}$?
-Estabelecendo esses dois alvos significa que ganhamos como regras de inferência
-as seguintes:
-$$
-\xalignat2
-&
-\PROOFmr {
-\I0------------ {IndZero$_\phi$}
-    {\phi(0)}
-}
-&&
-\PROOFmr {
-\A  {\phi(n)}
-\I1------------ {IndSucc$_\phi$}
-    {\phi(Sn)}
-}
-\endxalignat
-$$
-onde $n$ é uma metavariável pegando valores em todos os naturais,
-e onde eu escolhi esses rótulos talvez estranhos para nomear essas regras.
-Vamos ver o que podemos demonstrar graças essas duas regras agora:
-com certeza temos o próprio $\phi(0)$ pela primeira que não tem
-nenhuma premissa.
-Mas, agora, usando a segunda com $n\asseq 0$ temos uma demonstração
-do $\phi(S0)$:
-$$
-\PROOFmr {
-\I0---------- {IndZero$_\phi$}
-   {\phi(0)}
-\I1----------- {IndStep$_\phi$}
-   {\phi(S0)}
-}
-$$
-Ou seja, ganhamos o $\phi(S0)$.
-Então podemos usar a regra \namedrule{IndZero$_\phi$} agora com $n\asseq S0$
-para ganhar o $\phi(SS0)$:
-$$
-\PROOFmr {
-\I0---------- {IndZero$_\phi$}
-   {\phi(0)}
-\I1----------- {IndStep$_\phi$}
-   {\phi(S0)}
-\I1------------ {IndStep$_\phi$}
-   {\phi(SS0)}
-}
-$$
-E por aí vai!
-Olhando para as duas regras 
-$$
-\xalignat2
-&
-\PROOFmr {
-\I0------------ {IndZero$_\phi$}
-   {\phi(0)}
-}
-&&
-\PROOFmr {
-\A {\phi(n)}
-\I1------------ {IndSucc$_\phi$}
-   {\phi(Sn)}
-}
-\intertext{observamos que são bem parecidas com as}
-&
-\PROOFmr {
-\I0------------ {Zero}
-   {0 \is \Nat}
-}
-&&
-\PROOFmr {
-\A  {n \is \Nat}
-\I1-------------- {Succ}
-   {Sn \is \Nat}
-}
-\endxalignat
-$$
-e logo dado qualquer natural $n$, o desafio de estabelecer que $n$ tem
-a propriedade $\phi$, acaba sendo o mesmo com o ``desafio'' de estabelecer
-que $n$ é um natural mesmo!
-Em outras palavras, assim que demonstrar os dois alvos da indução para
-matar o $\lforall {n\in\nats} {\phi(n)}$, temos:
-$$
-n \is \Nat \implies \phi(n).
-$$
-Ou seja: \emph{todos os naturais têm a propriedade $\phi$ mesmo}.
-
-%%}}}
-
-%%{{{ Does this blah-blah mean anything? 
-\note Esse bla-bla presta mesmo?.
-%%%{{{ meta 
-%%%}}}
-
-O leitor alerto justamente ficaria com dúvidas sobre o texto acima.
-Realmente faz sentido essa descripção e essa intuição, mas todo esse
-``bla-bla'' serve como uma demonstração mesmo do princípio da indução?
-Serve não.  E por isso que o chamamos de \dterm{princípio}, ou seja
-axioma!  Mas calma:
-dependendo na fundação de matemática que trabalhamos,
-o princípio pode virar teorema mesmo!  No~\ref[Axiomatic_set_theory]
-por exemplo, vamos \emph{demonstrar mesmo} o princípio da indução
-para os naturais.  Mas por enquanto não temos as ferramentas
-nem a maturidade que precisamos para entender essas idéias;
-então paciência.
-O que podes mesmo fazer desde já é demonstrar a equivalência
-desse princípio com um outro, que também é facilmente aceitável:
-o princípio da boa ordem (\ref[WOP_iff_PFI]).
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Two sides of the same coin 
 \section Dois lados da mesma moeda.
 %%%{{{ meta 
@@ -19883,24 +19967,9 @@ Se recursão é indução são dois lados da mesma moeda mesmo,
 e já encontramos e enunciamos o princípio da indução;
 a gente não deveria ter analogamente um princípio da recursão
 também?
-Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois,
-pois precisamos mais ferramentas e maturidade
-(\ref[Theory_of_recursive_functions] e~\ref[Axiomatic_set_theory]).
-
-%%}}}
-
-%%{{{ how_about_non_nats 
-\note E os não-naturais?.
-%%%{{{ meta 
-\label how_about_non_nats
-%%%}}}
-
-Como falei no~\ref[inductive_definitions] o que nos permite
-usar recursão e indução nos naturais é sua definição inductiva.
-Ou seja, podemos usar essas ferramentas em qualquer tipo que
-foi definido assim.  Nos problemas peço a você formalizar
-o princípio da indução como um pequeno ``teaser'' da teoria
-que voltaremos estudar mais na~\ref[Structural_recursion_and_induction].
+Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois
+(\ref[Axiomatic_set_theory]),
+pois precisamos mais ferramentas e maturidade.
 
 %%}}}
 
@@ -20298,58 +20367,6 @@ Calculamos:
 %%}}}
 
 \endproblems
-%%}}}
-
-%%{{{ Structural_recursion_and_induction 
-\section Recursão e indução estrutural.
-%%%{{{ meta 
-\label Structural_recursion_and_induction
-%%%}}}
-
-%%{{{ eg: bincon_count 
-\example.
-%%%{{{ meta 
-\label bincon_count
-%%%}}}
-
-Defina uma funcção $f : \zolang \to \nats$ que calcula o número
-de conectivos binários que aparecem na sua entrada.
-Use-lá para calcular os conectivos binários da expressão
-$$
-\lnot(P_4 \limplies (P_9 \land \lnot P_9)).
-$$
-
-\solution.
-Seguindo a definição de $\zolang$, cada um dos seus elementos
-é formado por uma de certas regras.  Basta escrever então como
-calcular o número desejado para cada um desses casos:
-$$
-\alignat2
-f(p)                &= 0,          &\quad&\text{($p\in \mathrm{Pvar}$)} \tag{BC$_{P}$}\\
-f(\lnot A)          &= f(A),            &&\text{($A\in \zolang$)}       \tag{BC$_{\lnot}$}\\
-f((A \limplies B))  &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\limplies}$}\\
-f((A \land B))      &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\land}$}\\
-f((A \lor B))       &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$)}     \tag{BC$_{\lor}$}\\
-\intertext{Preguiçosamente, podemos condensar as três últimas equações em úma só, assim:}
-f((A \heartop B)) &= f(A) + 1 + f(B), &&\text{($A,B\in \zolang$, e $\heartop \in \set{\limplies,\land,\lor}$)}
-\endalignat
-$$
-Aplicando nossa funcção na fórmula dada calculamos:
-\compute
-f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
-&= f( (P_4 \limplies (P_9 \land \lnot P_9)) )   \by {por BC$_{\lnot}$} \\
-&= f( P_4 ) + 1 + f( (P_9 \land \lnot P_9) )    \by {por BC$_{\limplies}$} \\
-&= 0 + 1 + f( (P_9 \land \lnot P_9) )           \by {por BC$_{P}$} \\
-&= 0 + 1 + ( f( P_9 ) + 1 + f ( \lnot P_9 ) )   \by {por BC$_{\land}$} \\
-&= 0 + 1 + ( 0 + 1 + f ( \lnot P_9 ) )          \by {por BC$_{P}$} \\
-&= 0 + 1 + ( 0 + 1 + f ( P_9 ) )                \by {por BC$_{\lnot}$} \\
-&= 0 + 1 + ( 0 + 1 + 0 )                        \by {por BC$_{P}$} \\
-&= 2
-\endcompute
-
-%%}}}
-
-\endsection
 %%}}}
 
 %%{{{ PROBLEMS 
