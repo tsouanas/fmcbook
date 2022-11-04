@@ -10745,6 +10745,19 @@ Indução no número de elementos do $A$.
 
 %%}}}
 
+%%{{{ prob: squares_smaller_than_powers_of_two_induction 
+\problem.
+%%%{{{ meta 
+\label squares_smaller_than_powers_of_two_induction
+%%%}}}
+
+Demonstre que para todo $n \geq 5$,
+$$
+n^2 < 2^n.
+$$
+
+%%}}}
+
 \TODO Dar exemplos para o problema seguinte ou transformar em discussão.
 
 %%{{{ prob: not_all_that_seems_LEM_is_LEM 
@@ -16360,8 +16373,8 @@ as alternativas formas listadas.
 Escrevemos
 $$
 \data Nat
-\co \Ze : \Nat ;
-\co \Su : \Nat \to \Nat ;
+\co \Ze : \Nat \\
+\co \Su : \Nat \to \Nat \\
 \enddata
 $$
 para introduzir o tipo $\Nat$ listando todos os seus \dterm{construtores}
@@ -17833,8 +17846,8 @@ Bora ver essa demonstração primeiro então.
 Sejam $n, m$ naturais.
 Vamos demonstrar por indução no $k$ que
 $$
-\forall k
-\mubrace {n + (m + k) = (n + m) + k} {\phi(k)}.
+\pforall k
+\mubrace {\quantified{n + (m + k) = (n + m) + k}} {\phi(k)}.
 $$
 \proofpart {Base.}
 Precisamos mostrar que
@@ -17907,7 +17920,7 @@ $$
 $$
 onde
 $$
-\psi(x,y,z) \intiff x + (y + z) = (x + y) + z.
+\psi(x,y,z) \abbriff x + (y + z) = (x + y) + z.
 $$
 Talvez parece que ela não está no formato $\lforall n {\phi(n)}$
 e que não podemos atacá-la diretamente com indução.
@@ -17920,16 +17933,16 @@ já percebemos que tem a forma certa.
 E podemos trocar a ordem de quantificadores consecutivos
 \emph{do mesmo tipo}, então o que queremos demonstrar é equivalente aos
 \mathcols 3
-\forall n & \mubrace {\forall m \sforall k \psi(n,m,k)} {\phi_1(n)}; &
-\forall m & \mubrace {\forall n \sforall k \psi(n,m,k)} {\phi_2(m)}; &
-\forall k & \mubrace {\forall n \sforall m \psi(n,m,k)} {\phi_3(k)};
+& \pforall n \mubrace {\pforall m \lforall k {\psi(n,m,k)}} {\phi_1(n)}; &
+& \pforall m \mubrace {\pforall n \lforall k {\psi(n,m,k)}} {\phi_2(m)}; &
+& \pforall k \mubrace {\pforall n \lforall m {\psi(n,m,k)}} {\phi_3(k)};
 \endmathcols
 etc.~(tem ainda mais três opções que não escrevi),
 onde em cada caso o $\phi_i$ tem uma definição diferente,
 mas o $\psi$ tem sempre a mesma.
 Escolhemos demonstrar a
 $$
-\pforall k \mubrace {\quantified{\forall n \sforall m \psi(n,m,k)}} {\phi(k)}.
+\pforall k \mubrace {\pforall n \lforall m {\psi(n,m,k)}} {\phi(k)}.
 $$
 por indução.
 Vamos ver o que vai acontecer.
@@ -17948,7 +17961,7 @@ Por indução no $k$.
 \crproofpart {Base.}
 Precisamos demonstrar que
 $$
-\mubrace {\forall n \sforall m \bracket{n + (m + 0) = (n + m) + 0}} {\phi(0)}.
+\mubrace {\pforall n \lforall m {n + (m + 0) = (n + m) + 0}} {\phi(0)}.
 $$
 Sejam $n,m$ naturais.
 Calculamos os dois lados:
@@ -17960,15 +17973,15 @@ Ou seja, a $\phi(0)$ realmente é verdade.
 \crproofpart {Passo indutivo.}
 Precisamos demonstrar a afirmação:
 $$
-\forall t \bracket{\phi(t) \implies \phi(St)},
+\lforall t {\phi(t) \implies \phi(St)},
 $$
 ou seja,
 $$
-\forall t
-\bigbracket{
-\paren{\forall n\forall m \bracket{ (n + m) + t  = n + (m + t) }}
+\lforall t
+{
+\paren{\pforall n \lforall m {(n + m) + t  = n + (m + t)}}
 \implies
-\paren{\forall u\forall v \bracket{ (u + v) + St = u + (v + St)}}
+\paren{\pforall u \lforall v {(u + v) + St = u + (v + St)}}
 }
 $$
 onde escolhi nomes diferentes nas variáveis quantificadas apenas para
@@ -18659,7 +18672,7 @@ Calculamos:
 
 Definimos a relação de ordem $\leq$ nos naturais pela:
 $$
-n \leq m \defiff \lexists {k\in\nats} {n + k = m}.
+n \leq m \defiff \lexists {k \is \Nat} {n + k = m}.
 $$
 
 %%}}}
@@ -18672,7 +18685,7 @@ $$
 
 Demonstre que
 $$
-\forall n \forall m \bigparen{ n \leq S m  \iff  n \leq m  \mlor  n = S m}
+\pforall n \lforall m {n \leq S m  \iff  n \leq m  \mlor  n = S m}.
 $$
 
 \hint
@@ -18711,7 +18724,7 @@ e logo $n \leq Sm$.
 %%%{{{ meta 
 %%%}}}
 
-Nos exercícios seguintes vamos demonstrar que $\leq$ é uma \dterm{ordem linear}, i.e.:
+Nos exercícios seguintes vamos demonstrar que $(\leq)$ é uma \dterm{ordem linear}, i.e.:
 
 %%}}}
 
@@ -18721,9 +18734,9 @@ Nos exercícios seguintes vamos demonstrar que $\leq$ é uma \dterm{ordem linear
 \label natleq_refl
 %%%}}}
 
-A $\leq$ é \dterm{reflexiva}, i.e.,
+A $(\leq)$ é \dterm{reflexiva}, i.e.,
 $$
-\forall x \bigparen{ x \leq x }.
+\lforall x { x \leq x }.
 $$
 
 %%}}}
@@ -18734,9 +18747,9 @@ $$
 \label natleq_antisym
 %%%}}}
 
-A $\leq$ é \dterm{antissimétrica}, i.e.,
+A $(\leq)$ é \dterm{antissimétrica}, i.e.,
 $$
-\forall x \forall y \bigparen{x \leq y  \mland  y \leq x  \implies  x = y}.
+\pforall x \lforall y {x \leq y  \mland  y \leq x  \implies  x = y}.
 $$
 
 %%}}}
@@ -18747,9 +18760,9 @@ $$
 \label natleq_trans
 %%%}}}
 
-A $\leq$ é \dterm{transitiva}, i.e.,
+A $(\leq)$ é \dterm{transitiva}, i.e.,
 $$
-\forall x \forall y \forall z \bigparen{x \leq y  \mland  y \leq z  \implies  x \leq z}.
+\pforall x \pforall y \lforall z {x \leq y  \mland  y \leq z  \implies  x \leq z}.
 $$
 
 %%}}}
@@ -18760,22 +18773,9 @@ $$
 \label natleq_total
 %%%}}}
 
-A $\leq$ é \dterm{total}, i.e.,
+A $(\leq)$ é \dterm{total}, i.e.,
 $$
-\forall x \forall y \bigparen{x \leq y  \mlor  y \leq x}.
-$$
-
-%%}}}
-
-%%{{{ x: squares_smaller_than_powers_of_two_induction 
-\exercise.
-%%%{{{ meta 
-\label squares_smaller_than_powers_of_two_induction
-%%%}}}
-
-Demonstre que para todo $n \geq 5$,
-$$
-n^2 < 2^n.
+\pforall x \lforall y {x \leq y  \mlor  y \leq x}.
 $$
 
 %%}}}
@@ -18788,28 +18788,6 @@ $$
 Na verdade, $\leq$ é ainda mais legal: olhe no~\ref[natleq_woset].
 
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ From low to high level 
-\section De ``low level'' para ``high level''.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Ninguém merece ficar escrevendo tudo sobre os naturais
-nessa forma ``low level'' que temos usado neste capítulo.
-Queremos escrever \symqq{$4$} em vez de \symqq{$SSSS0$}.
-e \symqq{$n+1$} em vez de \symqq{$Sn$}.
-
-%%}}}
-
-\TODO finish this.
 
 \endsection
 %%}}}
@@ -19099,11 +19077,84 @@ Qual é?
 \label Bool_type
 %%%}}}
 
+%%{{{ df: Bool 
+\definition Bool.
+%%%{{{ meta 
+\label Bool
+\defines
+    * Bool
+    ;;
+%%%}}}
+
+Definimos o tipo de dados {$\Bool$}:
+$$
+\data Bool
+\co \False : \Bool \\
+\co \True  : \Bool \\
+\enddata
+$$
+
+%%}}}
+
 \endsection
 %%}}}
 
-%%{{{ Internalization of relations 
-\section Internalização.
+%%{{{ Unit_type 
+\section O Unit.
+%%%{{{ meta 
+\label Unit_type
+%%%}}}
+
+%%{{{ df: Unit 
+\definition Unit.
+%%%{{{ meta 
+\label Bool
+\defines
+    * Bool
+    ;;
+%%%}}}
+
+Definimos o tipo de dados {$\Unit$}:
+$$
+\data Unit
+\co \star : \Unit \\
+\enddata
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Empty_type 
+\section O Empty.
+%%%{{{ meta 
+\label Empty_type
+%%%}}}
+
+%%{{{ df: Empty 
+\definition Empty.
+%%%{{{ meta 
+\label Bool
+\defines
+    * Bool
+    ;;
+%%%}}}
+
+Definimos o tipo de dados {$\Empty$}:
+$$
+\data Empty
+\enddata
+$$
+Sim.  Não tem nenhum construtor, e logo não tem nenhum habitante!
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Internalization of concepts 
+\section Internalização de conceitos.
 %%%{{{ meta 
 %%%}}}
 
@@ -19113,15 +19164,13 @@ Qual é?
 \label natleq_rec_def
 %%%}}}
 
-Com que temos já definido podemos definir recursivamente
-uma \emph{relação} no $\nats$.  A relação de ordem $\preceq$:
-$$
-\align
-0  \preceq m  &\iff \True      \tag{LE1}\\
-Sn \preceq 0  &\iff \False     \tag{LE2}\\
-Sn \preceq Sm &\iff n \preceq m   \tag{LE3}
-\endalign
-$$
+Com que temos já definido podemos definir recursivamente a função
+\fundef
+\fleq : \Nat \to \Nat \to \Bool \\
+\fleqAA 0    m    &= \True \\
+\fleqAA {Sn} 0    &= \False \\
+\fleqAA {Sn} {Sm} &= \fleqAA n m.
+\endfundef
 
 %%}}}
 
@@ -19183,6 +19232,25 @@ Tu demonstrarás isso no~\ref[rec_and_nonrec_def_of_order_agree].
 \label ListNat_type
 %%%}}}
 
+%%{{{ df: ListNat 
+\definition ListNat.
+%%%{{{ meta 
+\label ListNat
+\defines
+    * ListNat
+    ;;
+%%%}}}
+
+Definimos o tipo de dados {$\ListNat$}:
+$$
+\data ListNat
+\co \Empty : \ListNat \\
+\co \Cons  : \Nat \to \ListNat \to \ListNat \\
+\enddata
+$$
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -19239,15 +19307,6 @@ Exemplos de uso:
 \section Tipos de listas.
 %%%{{{ meta 
 \label List_types
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Structural_induction 
-\section Indução estrutural.
-%%%{{{ meta 
-\label Structural_induction
 %%%}}}
 
 \endsection
