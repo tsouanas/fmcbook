@@ -19194,6 +19194,27 @@ Qual é?
 
 %% CURRENT WORK
 
+%%{{{ Abusing_a_type_to_implement_another 
+\section Abusando um tipo para implementar outro.
+%%%{{{ meta 
+\label Abusing_a_type_to_implement_another
+%%%}}}
+
+\TODO Escrever.
+
+%%{{{ x: int_implemented_as_type_synonym_to_nat
+\exercise Os inteiros como nats.
+%%%{{{ meta 
+\label int_implemented_as_type_synonym_to_nat
+%%%}}}
+
+Implemente o tipo de inteiros $\Int$ como type synonym do $\Nat$.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Bool_type 
 \section Os Bools.
 %%%{{{ meta 
@@ -19367,9 +19388,74 @@ Tu demonstrarás isso no~\ref[rec_and_nonrec_def_of_order_agree].
 Definimos o tipo de dados {$\ListNat$}:
 $$
 \data ListNat
-\co \Empty : \ListNat \\
+\co \Nil   : \ListNat \\
 \co \Cons  : \Nat \to \ListNat \to \ListNat \\
 \enddata
+$$
+
+%%}}}
+
+%%{{{ df: length_ListNat 
+\definition length.
+%%%{{{ meta 
+\label length_ListNat
+\defines
+    * \length {~\ell}  -- o tamanho da ListNat $\ell$
+    ;;
+%%%}}}
+
+\fundef
+\length : \ListNat \to \Nat \\
+\lengthA \Empty           &= \Ze \\
+\lengthA (\ConsAA n {ns}) &= \SuA (\lengthA {ns}).
+\endfundef
+
+%%}}}
+
+%%{{{ x: map_prequel 
+\exercise addNat, mulNat, expNat, powNat.
+%%%{{{ meta 
+\label map_prequel 
+%%%}}}
+
+Defina as funções:
+$$
+\addNat,
+\mulNat,
+\expNat,
+\powNat
+\is \Nat \to \ListNat \to \ListNat.
+$$
+
+%%}}}
+
+%%{{{ x: sum_and_product_ListNat 
+\exercise sum, product.
+%%%{{{ meta 
+\label sum_and_product_ListNat
+%%%}}}
+
+Defina as funções:
+$$
+\sum,
+\product
+\is \ListNat \to \Nat
+$$
+
+%%}}}
+
+%%{{{ x: zipWith_prequel 
+\exercise pwAdd, pwMul, pwExp.
+%%%{{{ meta 
+\label zipwith_prequel
+%%%}}}
+
+Defina as funções:
+$$
+\pwAdd,
+\pwMul,
+\pwExp
+\is \ListNat \to \ListNat \to \ListNat.
 $$
 
 %%}}}
@@ -19402,6 +19488,26 @@ foi definido assim.
 \problems Intervalo de problemas.
 %%%{{{ meta 
 %%%}}}
+
+%%{{{ prob: listnat_implemented_as_type_synonym_to_nat
+\problem Listas de nats como nats.
+%%%{{{ meta 
+\label listnat_implemented_as_type_synonym_to_nat
+%%%}}}
+
+Implemente o tipo de listas-de-nats $\ListNat$ como type synonym do $\Nat$.
+
+%%}}}
+
+%%{{{ prob: pairnat_implemented_as_type_synonym_to_nat
+\problem Os inteiros como nats.
+%%%{{{ meta 
+\label pairnat_implemented_as_type_synonym_to_nat
+%%%}}}
+
+Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\Nat$.
+
+%%}}}
 
 %%{{{ prob: stretch_countdown_take 
 \problem.
@@ -26354,7 +26460,7 @@ $$
 I_0 \supset I_1 \supset I_2 \supset \dotsb.
 $$
 Logo $\Inter_n I_n \neq \emptyset$.
-E se $\length(I_n) \limto 0$, 
+E se $\len(I_n) \limto 0$, 
 então $\Inter_n I_n$ é um singleton.
 
 %%}}}
