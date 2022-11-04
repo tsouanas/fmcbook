@@ -9829,6 +9829,48 @@ em dois casos, dependendo da razão que o $\phi(k)$ seja verdade.
 
 %%}}}
 
+\TODO settle type errors in exponents.
+
+%%{{{ lemma: odd_to_any_power_is_odd 
+\lemma.
+%%%{{{ meta 
+\label odd_to_any_power_is_odd
+%%%}}}
+
+Para todo $n\in\nats$, e todo ímpar $k$, $k^n$ é ímpar.
+
+\proof.
+Seja $k$ inteiro ímpar.
+Logo $k=2a+1$ para um $a\in\ints$.\foot
+Aqui consideramos a seguinte definição de ``ímpar'':
+\emph{um inteiro $n$ é \dterm{ímpar} sse existe inteiro $k$ tal que $n = 2k+1$.}
+\toof
+Vamos demonstrar por indução que para todo $n\in\nats$, $k^n$ é ímpar.
+Se $n=0$, imediatamente $k^0 = 1$ e é ímpar ($1 = 2\ntimes 0 + 1$).
+Suponha que para algum $t\in\nats$, $k^t$ é ímpar, ou seja $k^t = 2b+1$ para um $b\in\ints$.
+Falta demonstrar que $k^{t+1}$ também é ímpar.
+Calculando,
+\compute
+k^{t+1}
+&= k k^t               \by {definição de exponenciação} \\
+&= (2a + 1) (2b + 1)   \by {hipoteses} \\
+&= 4ab + 2a + 2b + 1   \\
+&= 2(2ab + a + b) + 1.
+\endcompute
+Logo, como $2ab + a + b\in\ints$, $k^{t+1}$ é ímpar.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+No \ref[odd_to_any_power_is_odd_oneliner] tu demonstrarás esse
+lemma numa linha só!
+
+%%}}}
+
 %%{{{ thm: ints_shifted_induction 
 \theorem Indução shiftada.
 %%%{{{ meta 
@@ -19634,15 +19676,6 @@ f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
 \endsection
 %%}}}
 
-%%{{{ Folding 
-\section Folding.
-%%%{{{ meta 
-\label Folding
-%%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Sums_and_products_done_right 
 \section Somatórios e produtórios formalmente.
 %%%{{{ meta 
@@ -19654,7 +19687,126 @@ f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
 \endsection
 %%}}}
 
+%%{{{ Folding 
+\section Folding.
+%%%{{{ meta 
+\label Folding
+%%%}}}
+
+\endsection
+%%}}}
+
 %% LEFTOVERS TO BE TIDIED UP
+
+%%{{{ Two sides of the same coin 
+\section Dois lados da mesma moeda.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ Inductive definition 
+\note Definição inductiva.
+%%%{{{ meta 
+\label inductive_definitions
+%%%}}}
+
+Definimos o tipo Nat assim:
+$$
+\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+$$
+Note que o Nat aparece no lado direito também;
+e nesse sentido podemos dizer que essa foi uma definição recursiva.
+Esse tipo de definição chamamos de \dterm{definição inductiva}.
+Ele libera duas ferramentas poderosas:
+definir operações e relações por recursão;
+e demonstrar propriedades por indução.
+
+%%}}}
+
+%%{{{ inductive_vs_recursive_definitions 
+\beware.
+%%%{{{ meta 
+\label inductive_vs_recursive_definitions
+%%%}}}
+
+Muitas vezes ``definição inductiva'' acaba sendo chamada ``definição recursiva''.
+Vários autores, dependendo da área que estão trabalhando adoptam um uso ou
+o outro, ou ambos, ou até diferenciando o que cada um significa.
+Tradicionalmente o slogan seria:
+\standout
+<<define por recursão; demonstre por indução>>.
+\endstandout
+
+%%}}}
+
+%%{{{ the_power_of_recursion 
+\note O poder da recursão.
+%%%{{{ meta 
+\label the_power_of_recursion
+%%%}}}
+
+Estamos tentando \emph{definir algo por recursão},
+por exemplo a operação de multiplicação
+(\ref[nats_ntimes_recursive_def]).
+Escrevemos já
+$$
+\align
+n \ntimes 0  &= 0 \\
+n \ntimes Sm &= \text{\lthole}
+\endalign
+$$
+e estamos pensando em como completar nossa definição.
+E a Recursão chega e nos oferece um presente:
+\quote
+<<Para definir o $n \ntimes Sm$, considere o valor do $n \ntimes m$ como dado,
+de graça por mim; e veja se tu consegues definir o valor de $n \ntimes Sm$ com isso.>>
+\endquote
+E é exatamente o que fizemos.
+É isto o \dterm{poder da recursão}.
+
+%%}}}
+
+%%{{{ the_power_of_induction 
+\note O poder da indução.
+%%%{{{ meta 
+\label the_power_of_induction
+%%%}}}
+
+Estamos tentando \emph{demonstrar algo por indução}
+por exemplo a associatividade da adição.
+Já demonstramos a base (o $\phi(0)$), e queremos
+demonstrar o $\phi(Sn)$.
+E a Indução chega e nos oferece um presente:
+\quote
+<<Para demonstrar o $\phi(Sn)$, considere o $\phi(n)$ como dado, de graça por mim;
+e veja se tu consegues demonstrar o $\phi(Sn)$ com isso agora.>>
+\endquote
+E é exatamente o que fizemos.
+É isto o \dterm{poder da indução}.
+Compare com nossa primeira tentativa de demonstrar a associatividade da adição
+(sem indução) onde nossa única maneira de andar era separar em casos,
+mas cada vez que conseguimos matar o ``caso 0'' o ``caso sucessor'' tava
+sempre gerando mais dois casos: um novo ``caso 0'' e um novo ``caso sucessor''.
+E nossos dados não eram suficientes para matar o ``caso sucessor''.
+
+%%}}}
+
+%%{{{ Where is recursion's principle? 
+\note E a recursão?  Não tem princípio não?.
+%%%{{{ meta 
+%%%}}}
+
+Se recursão é indução são dois lados da mesma moeda mesmo,
+e já encontramos e enunciamos o princípio da indução;
+a gente não deveria ter analogamente um princípio da recursão
+também?
+Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois
+(\ref[Axiomatic_set_theory]),
+pois precisamos mais ferramentas e maturidade.
+
+%%}}}
+
+\endsection
+%%}}}
 
 %%{{{ When_one_base_is_not_enough 
 \section Quando uma base não é suficiente.
@@ -19929,155 +20081,6 @@ Nessa maneira, preciso tomar cuidado com inteiros menores de $k-1$.
 
 %TODO explain that it's just one more tool to attack theorems
 %TODO XXX Maybe refer to a weaker result from "irrationality"?
-
-%%{{{ lemma: odd_to_any_power_is_odd 
-\lemma.
-%%%{{{ meta 
-\label odd_to_any_power_is_odd
-%%%}}}
-
-Para todo $n\in\nats$, e todo ímpar $k\in\ints$, $k^n$ é ímpar.
-
-\proof.
-Seja $k\in\ints$ ímpar, então $k=2a+1$ para um $a\in\ints$.\foot
-Aqui consideramos a seguinte definição de ``ímpar'':
-\emph{um inteiro $n$ é \dterm{ímpar} sse existe inteiro $k$ tal que $n = 2k+1$.}
-\toof
-Vamos demonstrar por indução que para todo $n\in\nats$, $k^n$ é ímpar.
-Se $n=0$, imediatamente $k^0 = 1$ e é ímpar ($1 = 2\ntimes 0 + 1$).
-Suponha que para algum $t\in\nats$, $k^t$ é ímpar, ou seja $k^t = 2b+1$ para um $b\in\ints$.
-Falta demonstrar que $k^{t+1}$ também é ímpar.
-Calculando,
-\compute
-k^{t+1}
-&= k k^t               \by {definição de exponenciação} \\
-&= (2a + 1) (2b + 1)   \by {hipoteses} \\
-&= 4ab + 2a + 2b + 1   \\
-&= 2(2ab + a + b) + 1.
-\endcompute
-Logo, como $2ab + a + b\in\ints$, $k^{t+1}$ é ímpar.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-No \ref[odd_to_any_power_is_odd_oneliner] tu demonstrarás esse
-lemma numa linha só!
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Two sides of the same coin 
-\section Dois lados da mesma moeda.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ Inductive definition 
-\note Definição inductiva.
-%%%{{{ meta 
-\label inductive_definitions
-%%%}}}
-
-Definimos o tipo Nat assim:
-$$
-\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
-$$
-Note que o Nat aparece no lado direito também;
-e nesse sentido podemos dizer que essa foi uma definição recursiva.
-Esse tipo de definição chamamos de \dterm{definição inductiva}.
-Ele libera duas ferramentas poderosas:
-definir operações e relações por recursão;
-e demonstrar propriedades por indução.
-
-%%}}}
-
-%%{{{ inductive_vs_recursive_definitions 
-\beware.
-%%%{{{ meta 
-\label inductive_vs_recursive_definitions
-%%%}}}
-
-Muitas vezes ``definição inductiva'' acaba sendo chamada ``definição recursiva''.
-Vários autores, dependendo da área que estão trabalhando adoptam um uso ou
-o outro, ou ambos, ou até diferenciando o que cada um significa.
-Tradicionalmente o slogan seria:
-\standout
-<<define por recursão; demonstre por indução>>.
-\endstandout
-
-%%}}}
-
-%%{{{ the_power_of_recursion 
-\note O poder da recursão.
-%%%{{{ meta 
-\label the_power_of_recursion
-%%%}}}
-
-Estamos tentando \emph{definir algo por recursão},
-por exemplo a operação de multiplicação
-(\ref[nats_ntimes_recursive_def]).
-Escrevemos já
-$$
-\align
-n \ntimes 0  &= 0 \\
-n \ntimes Sm &= \text{\lthole}
-\endalign
-$$
-e estamos pensando em como completar nossa definição.
-E a Recursão chega e nos oferece um presente:
-\quote
-<<Para definir o $n \ntimes Sm$, considere o valor do $n \ntimes m$ como dado,
-de graça por mim; e veja se tu consegues definir o valor de $n \ntimes Sm$ com isso.>>
-\endquote
-E é exatamente o que fizemos.
-É isto o \dterm{poder da recursão}.
-
-%%}}}
-
-%%{{{ the_power_of_induction 
-\note O poder da indução.
-%%%{{{ meta 
-\label the_power_of_induction
-%%%}}}
-
-Estamos tentando \emph{demonstrar algo por indução}
-por exemplo a associatividade da adição.
-Já demonstramos a base (o $\phi(0)$), e queremos
-demonstrar o $\phi(Sn)$.
-E a Indução chega e nos oferece um presente:
-\quote
-<<Para demonstrar o $\phi(Sn)$, considere o $\phi(n)$ como dado, de graça por mim;
-e veja se tu consegues demonstrar o $\phi(Sn)$ com isso agora.>>
-\endquote
-E é exatamente o que fizemos.
-É isto o \dterm{poder da indução}.
-Compare com nossa primeira tentativa de demonstrar a associatividade da adição
-(sem indução) onde nossa única maneira de andar era separar em casos,
-mas cada vez que conseguimos matar o ``caso 0'' o ``caso sucessor'' tava
-sempre gerando mais dois casos: um novo ``caso 0'' e um novo ``caso sucessor''.
-E nossos dados não eram suficientes para matar o ``caso sucessor''.
-
-%%}}}
-
-%%{{{ Where is recursion's principle? 
-\note E a recursão?  Não tem princípio não?.
-%%%{{{ meta 
-%%%}}}
-
-Se recursão é indução são dois lados da mesma moeda mesmo,
-e já encontramos e enunciamos o princípio da indução;
-a gente não deveria ter analogamente um princípio da recursão
-também?
-Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois
-(\ref[Axiomatic_set_theory]),
-pois precisamos mais ferramentas e maturidade.
-
-%%}}}
 
 \endsection
 %%}}}
