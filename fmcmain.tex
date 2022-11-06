@@ -17383,12 +17383,11 @@ $$
 $$
 olhando como
 $$
-\pforall n
-\mubrace
-    {\quantified{\aB{\pforall m \pforall k \quantified{(n+m) + k = n + (m+k)}}}}
-    {\aB{\phi_1(n)}}
+\bforall n
+    {\mubrace {\aB{\pforall m \pforall k \quantified{(n+m) + k = n + (m+k)}}}
+              {\aB{\phi_1(n)}}}
 $$
-podemos atacá-la tomando um arbitrario membro de $\Nat$ e mostrando
+podemos atacá-la tomando um arbitrario $\Nat$ e mostrando
 que ele goza a propriedade $\phi$:
 \eop
 Seja $a \is \Nat$.
@@ -17403,9 +17402,9 @@ Beleza.
 Mas nosso alvo tem a mesma forma,
 $$
 \mubrace
-  {\pforall m \mubrace
-                {\aB{\lforall k {(a+m) + k = a + (m+k)}}}
-                {\aB{\phi_2(m)}}}
+  {\bforall m
+    {\mubrace {\aB{\lforall k {(a+m) + k = a + (m+k)}}}
+              {\aB{\phi_2(m)}}}}
   {\phi_1(a)}
 $$
 então podemos atacar novamente
@@ -17415,9 +17414,9 @@ Seja $m \is \Nat$.
 Preciso demonstrar que
 $$
 \mubrace
-  {\pforall k \mubrace
-                {\quantified{\aB{(a+m) + k = a + (m+k)}}}
-                {\aB{\phi_3(k)}}}
+  {\bforall k
+    {\mubrace {\aB{(a+m) + k = a + (m+k)}}
+              {\aB{\phi_3(k)}}}}
   {\phi_2(m)}.
 $$
 Atacamos uma última vez com a mesma estratégia:
@@ -17838,7 +17837,7 @@ quando escrevemos nosso alvo.  (Muitas vezes isso faz parte do enunciado.)
 
 A operação $(+)$ da~\ref[natops_rec_defs] é associativa:
 $$
-\pforall n \pforall m \lforall k { n + (m + k) = (n + m) + k }.
+\pforall n \pforall m \lforall k {n + (m + k) = (n + m) + k}.
 $$
 
 %%{{{ preproof 
@@ -17880,7 +17879,7 @@ Vamos fazer uns ``undo'' então na nossa demonstração e voltar nesse momento:
 ~    : n \is \Nat ;
 ~    : m \is \Nat ;
 \goals
-~    : \sforall k \mubrace {n + (m + k) = (n + m) + k} {\phi(k)} ;
+~    : \bforall k {\mubrace {n {+} (m {+} k) = (n {+} m) {+} k} {\phi(k)}} ;
 \endrepl
 Agora sim!  Nosso alvo tem uma forma que casa com o padrão que precisamos para aplicar indução.
 Bora ver essa demonstração primeiro então.
@@ -17890,8 +17889,8 @@ Bora ver essa demonstração primeiro então.
 Sejam $n, m$ naturais.
 Vamos demonstrar por indução no $k$ que
 $$
-\pforall k
-\mubrace {\quantified{n + (m + k) = (n + m) + k}} {\phi(k)}.
+\bforall k
+    {\mubrace {n + (m + k) = (n + m) + k} {\phi(k)}}.
 $$
 \proofpart {Base.}
 Precisamos mostrar que
@@ -17908,12 +17907,12 @@ n + (m + 0)
 \proofpart {Passo indutivo.}
 Precisamos mostrar que
 $$
-\pforall t
-\bigbracket {
-\mubrace {n + (m + t) = (n + m) + t} {\phi(t)}
-\implies
-\mubrace {n + (m + St) = (n + m) + St} {\phi(St)}
-}
+\bforall t
+    { \mubrace {n + (m + t) = (n + m) + t}
+               {\phi(t)}
+      \implies
+      \mubrace {n + (m + St) = (n + m) + St}
+               {\phi(St)} }.
 $$
 Seja $w$ natural tal que
 $$
@@ -17986,7 +17985,7 @@ onde em cada caso o $\phi_i$ tem uma definição diferente,
 mas o $\psi$ tem sempre a mesma.
 Escolhemos demonstrar a
 $$
-\pforall k \mubrace {\pforall n \lforall m {\psi(n,m,k)}} {\phi(k)}.
+\pforall k \mubrace {\pforall n \lforall m {\psi(n,m,k)}} {\phi(k)}
 $$
 por indução.
 Vamos ver o que vai acontecer.
@@ -18010,8 +18009,8 @@ $$
 Sejam $n,m$ naturais.
 Calculamos os dois lados:
 \compute
-\underline{\paren{n+m} + 0} &= n + m \by {a1)} \\
-n + \paren{\underline{m+0}} &= n + m \by {a1)} \\
+\underline{\paren{n+m} + 0} &= n + m \by {\funref[(+).1]} \\
+n + \paren{\underline{m+0}} &= n + m \by {\funref[(+).1]} \\
 \endcompute
 Ou seja, a $\phi(0)$ realmente é verdade.
 \crproofpart {Passo indutivo.}
@@ -18043,7 +18042,7 @@ Sejam $u,v\in\nats$.
 Calculamos:
 \compute
 \underline{(u + v) + Sw}
-&= S(\underline{(u + v) + w})  \by {a2} \\
+&= S(\underline{(u + v) + w})  \by {\funref[(+).2]} \\
 &= \underline{S(u + (v + w))}  \by {H.I., com $n := u$, $m := v$} \\
 &= u + \underline{S(v + w)}    \by {\funref[(+).2]$^{\leftarrow}$} \\
 &= u + (v + Sw).               \by {\funref[(+).2]$^{\leftarrow}$} \\
@@ -18089,21 +18088,24 @@ e o $m$ uma como primeiro e uma como segundo.
 
 A operação $+$ da~\ref[natops_rec_defs] é comutativa:
 $$
-\forall n
-\forall m
-\bigparen{n + m = m + n}.
+\pforall n
+\lforall m
+    {n + m = m + n}.
 $$
 
 \wrongproof.
 Demonstramos a
 $$
-\forall n
-\mubrace {\forall m \bigparen{n + m = m + n}} {\phi(n)}.
+\pforall n
+\mubrace {\lforall m {n + m = m + n}}
+         {\phi(n)}.
 $$
 \proofpart {Base.}
 Queremos demonstrar o $\phi(0)$, ou seja, o seguinte:
 $$
-\forall m \mubrace {\bigparen{0 + m = m + 0}} {\psi(m)}.
+\pforall m
+\mubrace {\quantified {0 + m = m + 0}}
+         {\psi(m)}.
 $$
 Vamos demonstrar por indução!
 \leftindent
@@ -18186,9 +18188,9 @@ Está no último cálculo.
 O erro está na primeira equação do último cálculo:
 \compute
 Sk + m
-&= S(k+m). \by {a2} \\
+&= S(k+m). \by {\funref[(+).2]} \\
 \endcompute
-A \byfact{a2} não nos permite concluir isso; só o seguinte:
+A \funref[(+).2] não nos permite concluir isso; só o seguinte:
 $$
 k + Sm = S(k+m).
 $$
@@ -18196,7 +18198,7 @@ Se soubessimos que $Sk + m = k + Sm$ seria fácil
 terminar essa demonstração corretamente.
 Essa propriedade parece razoável para afirmar:
 $$
-\forall x \forall y \bracket{ Sx + y = x + Sy }
+\pforall x \lforall y {Sx + y = x + Sy}.
 $$
 Bora demonstrar então!
 
@@ -18208,64 +18210,64 @@ Bora demonstrar então!
 \label succx_plus_y_eq_x_plus_succy
 %%%}}}
 
-A operação $+$ satisfaz:
+A operação $(+)$ satisfaz:
 $$
-\forall a
-\forall b
-\bigparen{ Sa + b = a + Sb }.
+\pforall a
+\lforall b
+    {Sa + b = a + Sb}.
 $$
 
 \proof.
 Provamos por indução que
 $$
-\forall b
-\mubrace {\forall a \bigparen{ Sa + b = a + Sb }} {\phi(b)}.
+\pforall b
+\mubrace {\lforall a {Sa + b = a + Sb}} {\phi(b)}.
 $$
 \proofpart {Base.}
 Precisamos demonstrar que
 $$
-\mubrace {\forall a \bigparen{ Sa + 0 = a + S0 }} {\phi(0)}.
+\mubrace {\lforall a {Sa + 0 = a + S0}} {\phi(0)}.
 $$
 Calculamos:
 \compute
-Sa + 0 &= Sa        \by {a1} \\
-a + S0 &= S(a + 0)  \by {a2} \\
-       &= Sa.       \by {a1} \\
+Sa + 0 &= Sa        \by {\funref[(+).1]} \\
+a + S0 &= S(a + 0)  \by {\funref[(+).2]} \\
+       &= Sa.       \by {\funref[(+).1]} \\
 \endcompute
 \proofpart {Passo indutivo.}
 Queremos demonstrar:
 $$
-\forall k
-\Bigbracket{
-\mubrace
-    {\forall a \bigparen{ Sa + k = a + Sk }}
-    {\phi(k)}
-\implies
-\mubrace
-    {\forall a \bigparen{ Sa + Sk = a + SSk }}
-    {\phi(Sk)}
+\pforall k
+\Bigbracket {
+    \mubrace
+        {\lforall a {Sa + k = a + Sk}}
+        {\phi(k)}
+    \implies
+    \mubrace
+        {\lforall a {Sa + Sk = a + SSk}}
+        {\phi(Sk)}
 }.
 $$
-Seja $k\in\nats$ tal que
+Seja $k\is\Nat$ tal que
 $$
 \mubrace
-    {\forall a \bigparen{ Sa + k = a + Sk }}
+    {\lforall a {Sa + k = a + Sk}}
     {\phi(k)}.
 \tag{H.I.}
 $$
 Basta mostrar que
 $$
 \mubrace
-    {\forall a \bigparen{ Sa + Sk = a + SSk }}
+    {\lforall a {Sa + Sk = a + SSk}}
     {\phi(Sk)}.
 $$
-Seja $a\in\nats$.
+Seja $a\is\Nat$.
 Calculamos
 \compute
 Sa + Sk
-&= S(Sa + k)    \by {a2} \\
+&= S(Sa + k)    \by {\funref[(+).2]} \\
 &= S(a + Sk)    \by {H.I.~com $a := a$} \\
-&= a + SSk.     \by {a2} \\
+&= a + SSk.     \by {\funref[(+).2]} \\
 \endcompute
 Isso termina nossa demonstração, e logo substituindo a
 justificativa~\wq{\funref[(+).2]} na demonstração do~\ref[natadd_is_commutative] por
@@ -18283,10 +18285,10 @@ substituir seu~\symq{\mistakesymbol} por um legítimo~\symq{\qedsymbol}:
 %%%}}}
 
 $
-\forall n
-\forall m
-\forall k
-\bigparen{(n \ntimes m) \ntimes k = n \ntimes (m \ntimes k)}.
+\pforall n
+\pforall m
+\lforall k
+    {(n \ntimes m) \ntimes k = n \ntimes (m \ntimes k)}.
 $
 
 \hint
@@ -18338,9 +18340,9 @@ Onde devemos para o (*) demonstrar como lemma a distributividade (esquerda) da $
 %%%}}}
 
 $
-\forall n
-\forall m
-\bigparen{n \ntimes m = m \ntimes n}.
+\pforall n
+\lforall m
+    {n \ntimes m = m \ntimes n}.
 $
 
 \hint
@@ -18357,13 +18359,13 @@ como lemmas nas tua prova.
 
 \solution
 Por indução no $m$.
-\crproofpart {Base: $\forall n \paren{n \ntimes 0 = 0 \ntimes n}$.}
+\crproofpart {Base: $\lforall n {n \ntimes 0 = 0 \ntimes n}$.}
 Vamos demonstrar por indução!
 \leftindent
 \proofpart {Sub-base: $0 \ntimes 0 = 0 \ntimes 0$.}
 Trivial!
 \crproofpart {Sub-passo indutivo.}
-Seja $k\in\nats$ tal que
+Seja $k\is\Nat$ tal que
 $$
 k \ntimes 0 = 0 \ntimes k.  \tag{S.H.I.1}
 $$
@@ -18439,10 +18441,10 @@ Sw \ntimes Sp
 %%%}}}
 
 $
-\forall x
-\forall y
-\forall z
-\bigbracket{x \ntimes (y + z) = (x \ntimes y) + (x \ntimes z)}.
+\pforall x
+\pforall y
+\lforall z
+    {x \ntimes (y + z) = (x \ntimes y) + (x \ntimes z)}.
 $
 
 \hint
@@ -18450,8 +18452,8 @@ Indução no $z$.
 
 \solution
 Provamos a afirmação por indução no $z$.
-\crproofpart {Base: $\forall x \forall y \bracket{x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0)}$}.
-Sejam $x,y \in \nats$.
+\crproofpart {Base: $\pforall x \lforall y {x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0)}$.}
+Sejam $x,y \is \Nat$.
 Queremos demonstrar que
 $$
 x \ntimes (y + 0) = (x \ntimes y) + (x \ntimes 0).
@@ -18464,27 +18466,27 @@ x \ntimes (y + 0)
 &= x \ntimes y + x \ntimes 0.  \by {\funref[(\ntimes).1]} \\
 \endcompute
 \proofpart {Passo indutivo.}
-Seja $k\in \nats$ tal que
+Seja $k \is \Nat$ tal que
 $$
-\forall x
-\forall y
-\bracket{x \ntimes (y + k) = (x \ntimes y) + (x \ntimes k)}. \tag{H.I.}
+\pforall x
+\lforall y
+    {x \ntimes (y + k) = (x \ntimes y) + (x \ntimes k)}. \tag{H.I.}
 $$
 Vamos demonstrar que
 $$
-\forall x
-\forall y
-\bracket{x \ntimes (y + Sk) = (x \ntimes y) + (x \ntimes Sk)}.
+\pforall x
+\lforall y
+    {x \ntimes (y + Sk) = (x \ntimes y) + (x \ntimes Sk)}.
 $$
-Sejam $x,y\in\nats$.
+Sejam $x,y\is\Nat$.
 Calculamos
 \compute
 x \ntimes (y + Sk)
-&= x \ntimes S(y + k)                \by {\funref[(+).1]} \\
-&= \bigparen{x \ntimes (y + k)} + x  \by {\funref[(\ntimes).2]} \\
-&= (x \ntimes y + x \ntimes k) + x   \by {(H.I.) com $x\asseq x$, $y\asseq y$} \\
-&= x \ntimes y + (x \ntimes k + x)   \by {associatividade de $+$} \\
-&= x \ntimes y + x \ntimes Sk.       \by {\funref[(\ntimes).2]} \\
+&= x \ntimes S(y + k)               \by {\funref[(+).1]} \\
+&= (x \ntimes (y + k)) + x          \by {\funref[(\ntimes).2]} \\
+&= (x \ntimes y + x \ntimes k) + x  \by {(H.I.) com $x\asseq x$, $y\asseq y$} \\
+&= x \ntimes y + (x \ntimes k + x)  \by {associatividade de $+$} \\
+&= x \ntimes y + x \ntimes Sk.      \by {\funref[(\ntimes).2]} \\
 \endcompute
 
 %%}}}
@@ -18496,12 +18498,11 @@ x \ntimes (y + Sk)
 %%%}}}
 
 $
-\forall x
-\bigparen{ x \ntimes S0 = x = S0 \ntimes x}.
+\lforall x {x \ntimes S0 = x = S0 \ntimes x}.
 $
 
 \proof.
-Seja $x\in \nats$.
+Seja $x\is\Nat$.
 Calculamos:
 \compute
 x \ntimes S0
@@ -18510,7 +18511,8 @@ x \ntimes S0
 &= x + 0                \by {$+$ comut.~(\reftag[natadd_is_commutative])} \\
 &= x.                   \by {\funref[(+).1]} \\
 \endcompute
-Como já demonstramos a comutatividade da $\ntimes$, isso termina nossa demonstração.
+Como já demonstramos a comutatividade da $\ntimes$ (\reftag[natmult_is_commutative])
+isso termina nossa demonstração.
 
 %%}}}
 
@@ -18525,33 +18527,33 @@ Como já demonstramos a comutatividade da $\ntimes$, isso termina nossa demonstr
 %%%}}}
 
 $
-\forall x
-\forall a
-\forall b
-\bigparen{x^{a + b} = (x^a) \ntimes (x^b)}.
+\pforall x
+\pforall a
+\lforall b
+    {x^{a + b} = (x^a) \ntimes (x^b)}.
 $
 
 \hint
 Indução no $b$.
 
 \hint
-\proofpart {Base: $\forall x \forall a \bigbracket{x^{a+0} = x^a \ntimes x^0}$}:
+\proofpart {Base: $\pforall x \lforall a {x^{a+0} = x^a \ntimes x^0}$.}
 
 \hint
 \proofpart {Passo indutivo.}
-Seja $k\in\nats$ tal que
+Seja $k\is\Nat$ tal que
 $$
-\forall x \forall a \bigbracket{x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
+\pforall x \lforall a {x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
 $$
 Agora precisas demonstrar que
 $$
-\forall x \forall a \bigbracket{x^{a+Sk} = x^a \ntimes x^Sk}.
+\pforall x \lforall a {x^{a+Sk} = x^a \ntimes x^Sk}.
 $$
 
 \solution
 Por indução no $b$.
-\crproofpart {Base: $\forall x \forall a \bigbracket{x^{a+0} = x^a \ntimes x^0}$}.
-Sejam $x,a\in\nats$.
+\crproofpart {Base: $\pforall x \lforall a {x^{a+0} = x^a \ntimes x^0}$.}
+Sejam $x,a\is\Nat$.
 Calculamos:
 \compute
 x^{a+0}
@@ -18560,13 +18562,13 @@ x^{a+0}
 &= x^a \ntimes x^0. \by {\funref[(\expop).1]} \\
 \endcompute
 \crproofpart {Passo indutivo.}
-Seja $k\in\nats$ tal que
+Seja $k\is\Nat$ tal que
 $$
-\forall x \forall a \bigbracket{x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
+\pforall x \lforall a {x^{a+k} = x^a \ntimes x^k}. \tag{H.I.}
 $$
 Basta demonstrar que
 $$
-\forall x \forall a \bigbracket{x^{a+Sk} = x^a \ntimes x^{Sk}}.
+\pforall x \lforall a {x^{a+Sk} = x^a \ntimes x^{Sk}}.
 $$
 Sejam $x,a\in\nats$.
 Queremos demonstrar $x^{a+Sk} = x^a \ntimes x^{Sk}$.
@@ -18577,7 +18579,7 @@ x^{a + Sk}
 &= x^{a+k} \ntimes x            \by {\funref[(\expop).2]} \\
 &= (x^a\ntimes x^k) \ntimes x   \by {(H.I.)} \\
 &= x^a\ntimes (x^k \ntimes x)   \by {assoc.~da~$\ntimes$~(\reftag[natmult_is_associative])} \\
-&= x^a\ntimes x^{Sk}.             \by {\funref[(\expop).2]} \\
+&= x^a\ntimes x^{Sk}.           \by {\funref[(\expop).2]} \\
 \endcompute
 
 %%}}}
@@ -18589,33 +18591,33 @@ x^{a + Sk}
 %%%}}}
 
 $
-\forall a
-\forall b
-\forall c
-\bigparen{a^{b \ntimes c} = (a^b)^c}.
+\pforall a
+\pforall b
+\lforall c
+    {a^{b \ntimes c} = (a^b)^c}.
 $
 
 \hint
 Indução no $c$.
 
 \hint
-\proofpart {Base: $\forall a \forall b \bigparen{ a^{b \ntimes 0} = (a^b)^0 }$.}
+\proofpart {Base: $\pforall a \lforall b { a^{b \ntimes 0} = (a^b)^0 }$.}
 
 \hint
 \proofpart {Passo indutivo.}
-Seja $k\in\nats$ tal que
+Seja $k\is\Nat$ tal que
 $$
-\forall a \forall b \bigbracket{ a^{b \ntimes k} = (a^b)^k }.\tag{H.I.}
+\pforall a \lforall b { a^{b \ntimes k} = (a^b)^k }.\tag{H.I.}
 $$
 Agora precisas demonstrar que
 $$
-\forall a \forall b \bigbracket{ a^{b \ntimes Sk} = (a^b)^{Sk} }.
+\pforall a \lforall b { a^{b \ntimes Sk} = (a^b)^{Sk} }.
 $$
 
 \solution
 Por indução no $c$.
-\crproofpart {Base: $\forall a \forall b \bigbracket{ a^{b \ntimes 0} = (a^b)^0 }$.}
-Sejam $a,b\in\nats$.
+\crproofpart {Base: $\pforall a \lforall b { a^{b \ntimes 0} = (a^b)^0 }$.}
+Sejam $a,b\is\Nat$.
 Calculamos:
 \compute
 a^{b \ntimes 0}
@@ -18625,15 +18627,15 @@ a^{b \ntimes 0}
 &= S0.    \by {\funref[(\expop).1]} \\
 \endcompute
 \crproofpart {Passo indutivo.}
-Seja $k\in\nats$ tal que
+Seja $k\is\Nat$ tal que
 $$
-\forall a \forall b \bigbracket{ a^{b \ntimes k} = (a^b)^k }.\tag{H.I.}
+\pforall a \lforall b { a^{b \ntimes k} = (a^b)^k }.\tag{H.I.}
 $$
 Queremos demonstrar que
 $$
-\forall a \forall b \bigbracket{ a^{b \ntimes Sk} = (a^b)^{Sk} }.
+\pforall a \lforall b { a^{b \ntimes Sk} = (a^b)^{Sk} }.
 $$
-Sejam $a,b\in\nats$.
+Sejam $a,b\is\Nat$.
 Basta mostrar que $a^{b \ntimes Sk} = (a^b)^{Sk}$.
 Calculamos:
 \compute
@@ -18653,8 +18655,7 @@ Calculamos:
 %%%}}}
 
 $
-\forall n
-\bigparen{S0^n = S0}
+\lforall n {S0^n = S0}
 $
 
 \hint
@@ -18665,7 +18666,7 @@ Indução no $n$.
 
 \hint
 \proofpart {Passo indutivo.}
-Seja $k\in\nats$ tal que
+Seja $k\is\Nat$ tal que
 $$
 S0^k = S0.\tag{H.I.}
 $$
@@ -18679,7 +18680,7 @@ Por indução no $n$.
 \crproofpart {Base: $S0^0 \askeq S0$.}
 Imediato pela definição de $S0^0$.
 \crproofpart {Passo indutivo.}
-Seja $k\in\nats$ tal que
+Seja $k\is\Nat$ tal que
 $$
 S0^k = S0.\tag{H.I.}
 $$
@@ -18690,9 +18691,9 @@ $$
 Calculamos:
 \compute
 (S0)^{Sk}
-&= S0 \ntimes S0^k              \by {\funref[(\expop).2],   $n\asseq S0$, $m\asseq k$} \\
-&= S0^k                         \by {$S0$ é identidade da $\ntimes$ (\ref[natmult_identity])} \\
-&= S0.                          \by {(H.I.)} \\
+&= S0 \ntimes S0^k  \by {\funref[(\expop).2],   $n\asseq S0$, $m\asseq k$} \\
+&= S0^k             \by {$S0$ é identidade da $\ntimes$ (\ref[natmult_identity])} \\
+&= S0.              \by {(H.I.)}
 \endcompute
 
 %%}}}
@@ -18944,6 +18945,10 @@ A $(\leq)$ é \dterm{total}, i.e.,
 $$
 \pforall x \lforall y {x \leq y  \mlor  y \leq x}.
 $$
+
+\hint
+Uma idéia é usar um legalzão em vez dum legalzinho.
+Outra é usar um legalzinho mesmo, mas aproveitar o \ref[natleq_lemma].
 
 %%}}}
 
