@@ -56783,6 +56783,294 @@ Voltamos a estudar a teoria dos grupos agora.
 \endsection
 %%}}}
 
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ prob: group_actors_are_bijective_proof 
+\problem.
+%%%{{{ meta 
+\label group_actors_are_bijective_proof
+%%%}}}
+
+Sejam $G$ grupo e $a,b\in G$.
+Definimos as funcções $f,g,h : G \to G$ pelas
+$$
+\xalignat3
+f(x) &= ax  &
+g(x) &= xa  &
+h(x) &= axb.
+\endxalignat
+$$
+Demonstre que as $f,g,h$ são bijecções e ache suas inversas.
+
+\solution
+\proofpart {Injectividade:}
+$$
+f(x) = f(y)
+\implies ax = ay
+\implies x = y.
+$$
+\proofpart {Sobrejectividade:}
+Seja $y \in G$.
+Considere o $\ginv a y \in G$.
+Observe que
+$$
+f(\ginv a y)
+= a (\ginv a y)
+= (a \ginv a) y
+= y.
+$$
+A $\finv f$ é definida pela:
+$$
+\finv f (y) = \ginv a y
+$$
+pois, de fato, $f(\ginv a y) = a \ginv a y = y$.
+Similar para a $g$.
+Sobre a $h$, observe que $h = g\of f$ e logo ela é bijetora
+como composição de bijetoras, e sua inversa é dada
+pela~\ref[finv_of_fcompose].
+
+%%}}}
+
+%%{{{ prob: how_come_the_cancellation_laws_hold_in_nongroup_without_inverses 
+\problem.
+%%%{{{ meta 
+\label how_come_the_cancellation_laws_hold_in_nongroup_without_inverses
+%%%}}}
+
+Na~\ref[First_consequences_of_group_laws] demonstramos que as leis de cancelamento
+implicam a existência de únicos inversos.
+Lembre-se que o $\sset {\nats} {+}$ não é um grupo pois não satisfaz a (G3).
+Mesmo assim, no $\sset {\nats} {+}$ ambas as leis de cancelamento são válidas.
+Então, isso implica a existência de inversos únicos!
+Qual o erro aqui?
+
+\hint
+O que precisamos na demonstração do fato que as leis de cancelamento implicam
+a existência de inversos únicos?
+
+\solution
+Na demonstração do fato que as leis de cancelamento implicam a existência
+de inversos únicos, \emph{usamos} a (G3) que garanta a existência,
+e demonstramos a unicidade.  No caso do $\sset {\nats} {+}$ não temos a
+(G3) (existência de inversos).  Então nossa demonstração nesse caso mostra
+que cada membro de $\sset {\nats} +$ tem \emph{no máximo} um inverso,
+algo que realmente é verdade: o $0$ tem exatamente um, e nenhum dos
+outros tem.
+
+%%}}}
+
+%%{{{ prob: bust_proof_of_uniqueness_of_identity_in_group 
+\problem.
+%%%{{{ meta 
+\label bust_proof_of_uniqueness_of_identity_in_group
+%%%}}}
+
+Considere essa suposta demonstração da unicidade da identidade~(\ref[uniqueness_of_identity_in_group]):
+\quote
+\indent<<Seja $G$ grupo e suponha que temos identidades $e_1,e_2 \in G$.
+Seja $a\in G$.
+Como $e_1$ é identidade, temos $a \ast \ginv a = e_1$\fact1.
+Como $e_2$ é identidade, também temos $a \ast \ginv a = e_2$\fact2.
+Pelas \byfact1~e~\byfact2, como os lados esquerdos são iguais,
+o lados direitos também são.
+Ou seja, $e_1 = e_2$ que foi o que queremos demonstrar.>>
+\endquote
+Identifique todos os erros nessa tentativa de demonstração.
+
+%}}}
+
+%%{{{ prob: onesided_group_def_proof 
+\problem leis unilaterais de grupo.
+%%%{{{ meta 
+\label onesided_group_def_proof
+%%%}}}
+
+Demonstre o~\ref[onesided_group_def].
+Cuidado: lembre-se o~\ref[onesided_group_def_catch].
+
+\hint
+Para diminuir as chances de ``roubar'' sem querer,
+use uma notação adaptada às novas leis:
+chame $\idr$ a identidade-direita grantida pela (G2R)
+e use $\invr a$ para o inverso-direito de $a$, garantido pela (G3R);
+similarmente use $\idl$ e $\invl a$ para a identidade-esquerda
+e os inversos-esquerdos, garantidos pelas (G2L) e (G3L).
+
+\hint
+Precisas mostrar as (G2)--(G3).
+Ou seja, verificar que o $\idr$ é uma identidade-esquerda,
+\mathcol
+\cforall {a\in G} {\idr a = a}             \tag{G2'} \\
+\intertext{e que para todo $a\in G$,
+seu inverso direito $\invr a$ é um inverso esquerdo também:}
+\cforall {a\in G} {\invr a \ast a = \idr}. \tag{G3'} \\
+\endmathcol
+
+\hint
+Para demonstrar a (G2') tome um $a\in G$ e comece com:
+\compute
+\idr \go a
+&= (\idr \go a) \go \idr \\
+&= \idr \go (a \go \idr) \\
+&= \idr \go (a \go (\; \alert? \go \invr{\alert?}\;)) \by {qual membro de $G$ serve aqui?} \\
+&\eqvdots \\
+&= a
+\endcompute
+Para a (G3'), o lemma seguinte pode ajudar:
+$$
+\lforall {g \in G} {gg = g \implies g = \idr}.
+$$
+Use isso para demonstrar que um inverso direito é esquerdo também.
+
+\hint
+Para a (G2'), qual produto podes botar no lugar do $(\;?\;)$ da dica anterior?
+Sabendo que (G2R) é válida, faz sentido substituí-lo com um termo
+$\paren{x \invr x}$ para algum $x\in G$, mas qual seria esse $x$?
+\emph{Não precisamos adivinhar ainda!}
+Continue assim com um $x$ não-especificado por enquanto,
+e logo tu vai chegar numa expressão que vai te ajudar escolher teu $x$ para
+continuar, pois tu vai querer que esse $x$ ``anula'' a coisa que aparecerá
+na sua esquerda.
+\eop
+Para a (G3'), teu objectivo é demonstrar que dado qualquer $a \in G$,
+$\invr a a = \idr$; e o Lemma te oferece um critério para
+decidir que algo é o $\idr$.  Use!
+
+\solution
+Vamos demonstrar em detalhe o critério unilateral direito.
+A demonstração do esquerdo é simétricamente análoga.
+\proofpart {Demonstração da (G2').}
+Preciso demonstrar que a identidade direita $\idr$
+é uma identidade esquerda.  Seja $a \in G$.
+Basta verificar que $\idr a \askeq a$.
+Calculamos:
+\compute
+\idr a
+&= \idr a \idr                       \by {def.~$\idr$} \\
+&= \idr a (\invr a \invr {\invr a})  \by {def.~$\invr {\invr a}$} \\
+&= \idr (a \invr a) \invr {\invr a}  \\
+&= \idr \idr \invr {\invr a}         \by {def.~$\invr a$} \\
+&= (\idr \idr) \invr {\invr a}       \\
+&= \idr \invr {\invr a}              \by {def.~$\idr$} \\
+&= (a \invr a) \invr {\invr a}       \by {def.~$\invr a$} \\
+&= a (\invr a \invr {\invr a})       \\
+&= a \idr                            \by {def.~$\invr {\invr a}$} \\
+&= a.                                \by {def.~$\idr$} \\
+\endcompute
+onde botei parenteses apenas para ajudar a leitura;
+seu uso sendo opcional graças a (G1).
+\eop
+Para demonstrar o (G3'), eu vou usar o Lemma:
+$$
+\lforall {g \in G} {gg = g \implies g = \idr}.
+$$
+\proofpart {Demonstração do Lemma.}
+Seja $g\in G$.  Temos
+\compute
+gg = g
+&\implies (gg)\invr g = g \invr g  \by {$(\go g)$} \\
+&\implies g(g\invr g) = \idr       \by {(G1); def.~$\invr g$} \\
+&\implies g \idr = \idr            \by {def.~$\invr g$} \\
+&\implies g = \idr                 \by {def.~$\idr$} \\
+\endcompute
+\proofpart {Demonstração da (G3').}
+Vou demonstrar que para todo $a \in G$, o $\invr a$ é um inverso
+esquerdo do $a$.  Seja $a \in G$ então; preciso mostrar que
+$\invr a a \askeq \invr \gid$.
+Verificamos que $(\invr a a)(\invr a a) = (\invr a a)$:
+\compute
+(\invr a a)(\invr a a)
+&= \invr a (a\invr a) a  \by {(G1)} \\
+&= \invr a (\idr) a      \by {def.~$\invr a$} \\
+&= (\invr a \idr) a      \by {(G1)} \\
+&= \invr a a.            \by {def.~$\idr$} \\
+\endcompute
+e logo pelo Lemma concluimos que $(\invr a a) = \idr$.
+
+%%}}}
+
+%%{{{ prob: cancellation_based_group_def_proof 
+\problem.
+%%%{{{ meta 
+\label cancellation_based_group_def_proof
+%%%}}}
+
+Demonstre o~\ref[cancellation_based_group_def].
+
+\hint
+Como podemos usar o fato que um conjunto é finito?
+
+\hint
+O $G$ é finito, logo sejam $G \eqass \set{a_1, \dotsc, a_n}$.
+
+\hint
+Seja $g \in G = \set{a_1, \dotsc, a_n}$.
+Considere o $Ga \defeq \setst {ga} {a \in G} = \set{ga_1, \dotsc, ga_n}$.
+E agora?
+
+%%}}}
+
+%%{{{ prob: cancellation_based_group_def_both_cancellations 
+\problem.
+%%%{{{ meta 
+\label cancellation_based_group_def_both_cancellations
+%%%}}}
+
+Podemos apagar um dos (GCL), (GCR) das hipoteses do~\ref[cancellation_based_group_def]?
+
+\hint
+Não.
+Como podemos demonstrar isso?
+
+\hint
+Basta achar um contraexemplo: um conjunto estruturado $\sset G \ast$
+tal que $G$ é finito e satisfaz as (G0),(G1),(GCL) mas mesmo assim
+não é um grupo; isso mostraria que não podemos apagar o (GCR).
+Similarmente para o (GCL).
+
+%%}}}
+
+%%{{{ prob: Futurama 
+\problem Futurama.
+%%%{{{ meta 
+\label Futurama
+\indexes
+    * Futurama
+    ;;
+\defines
+    * teorema!Futurama
+    ;;
+\credits
+    * Keeler
+    ;;
+%%%}}}
+
+No episódio <<The prisoner of Benda>> do seriado \emph{Futurama},
+a galera resolve seu problema usando teoria dos grupos!
+um teorema ficou enunciado e demonstrado por Keeler,
+o escritor desse episódio, e foi a primeira (e provavelmente única)
+vez que um teorema matemático foi publicado num seriado!
+o teorema ficou conhecido como o \emph{Futurama theorem}.
+Assista o episódio, entenda o enunciado do teorema, e demonstre!
+
+%%}}}
+
+%%{{{ prob: kunen_implies_group 
+\problem.
+%%%{{{ meta 
+\label kunen_implies_group
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ Subgroups 
 \section Subgrupos.
 %%%{{{ meta 
@@ -58951,276 +59239,6 @@ são muito interessantes.  Paciência.
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ prob: group_actors_are_bijective_proof 
-\problem.
-%%%{{{ meta 
-\label group_actors_are_bijective_proof
-%%%}}}
-
-Sejam $G$ grupo e $a,b\in G$.
-Definimos as funcções $f,g,h : G \to G$ pelas
-$$
-\xalignat3
-f(x) &= ax  &
-g(x) &= xa  &
-h(x) &= axb.
-\endxalignat
-$$
-Demonstre que as $f,g,h$ são bijecções e ache suas inversas.
-
-\solution
-\proofpart {Injectividade:}
-$$
-f(x) = f(y)
-\implies ax = ay
-\implies x = y.
-$$
-\proofpart {Sobrejectividade:}
-Seja $y \in G$.
-Considere o $\ginv a y \in G$.
-Observe que
-$$
-f(\ginv a y)
-= a (\ginv a y)
-= (a \ginv a) y
-= y.
-$$
-A $\finv f$ é definida pela:
-$$
-\finv f (y) = \ginv a y
-$$
-pois, de fato, $f(\ginv a y) = a \ginv a y = y$.
-Similar para a $g$.
-Sobre a $h$, observe que $h = g\of f$ e logo ela é bijetora
-como composição de bijetoras, e sua inversa é dada
-pela~\ref[finv_of_fcompose].
-
-%%}}}
-
-%%{{{ prob: how_come_the_cancellation_laws_hold_in_nongroup_without_inverses 
-\problem.
-%%%{{{ meta 
-\label how_come_the_cancellation_laws_hold_in_nongroup_without_inverses
-%%%}}}
-
-Na~\ref[First_consequences_of_group_laws] demonstramos que as leis de cancelamento
-implicam a existência de únicos inversos.
-Lembre-se que o $\sset {\nats} {+}$ não é um grupo pois não satisfaz a (G3).
-Mesmo assim, no $\sset {\nats} {+}$ ambas as leis de cancelamento são válidas.
-Então, isso implica a existência de inversos únicos!
-Qual o erro aqui?
-
-\hint
-O que precisamos na demonstração do fato que as leis de cancelamento implicam
-a existência de inversos únicos?
-
-\solution
-Na demonstração do fato que as leis de cancelamento implicam a existência
-de inversos únicos, \emph{usamos} a (G3) que garanta a existência,
-e demonstramos a unicidade.  No caso do $\sset {\nats} {+}$ não temos a
-(G3) (existência de inversos).  Então nossa demonstração nesse caso mostra
-que cada membro de $\sset {\nats} +$ tem \emph{no máximo} um inverso,
-algo que realmente é verdade: o $0$ tem exatamente um, e nenhum dos
-outros tem.
-
-%%}}}
-
-%%{{{ prob: bust_proof_of_uniqueness_of_identity_in_group 
-\problem.
-%%%{{{ meta 
-\label bust_proof_of_uniqueness_of_identity_in_group
-%%%}}}
-
-Considere essa suposta demonstração da unicidade da identidade~(\ref[uniqueness_of_identity_in_group]):
-\quote
-\indent<<Seja $G$ grupo e suponha que temos identidades $e_1,e_2 \in G$.
-Seja $a\in G$.
-Como $e_1$ é identidade, temos $a \ast \ginv a = e_1$\fact1.
-Como $e_2$ é identidade, também temos $a \ast \ginv a = e_2$\fact2.
-Pelas \byfact1~e~\byfact2, como os lados esquerdos são iguais,
-o lados direitos também são.
-Ou seja, $e_1 = e_2$ que foi o que queremos demonstrar.>>
-\endquote
-Identifique todos os erros nessa tentativa de demonstração.
-
-%}}}
-
-%%{{{ prob: onesided_group_def_proof 
-\problem leis unilaterais de grupo.
-%%%{{{ meta 
-\label onesided_group_def_proof
-%%%}}}
-
-Demonstre o~\ref[onesided_group_def].
-Cuidado: lembre-se o~\ref[onesided_group_def_catch].
-
-\hint
-Para diminuir as chances de ``roubar'' sem querer,
-use uma notação adaptada às novas leis:
-chame $\idr$ a identidade-direita grantida pela (G2R)
-e use $\invr a$ para o inverso-direito de $a$, garantido pela (G3R);
-similarmente use $\idl$ e $\invl a$ para a identidade-esquerda
-e os inversos-esquerdos, garantidos pelas (G2L) e (G3L).
-
-\hint
-Precisas mostrar as (G2)--(G3).
-Ou seja, verificar que o $\idr$ é uma identidade-esquerda,
-\mathcol
-\cforall {a\in G} {\idr a = a}             \tag{G2'} \\
-\intertext{e que para todo $a\in G$,
-seu inverso direito $\invr a$ é um inverso esquerdo também:}
-\cforall {a\in G} {\invr a \ast a = \idr}. \tag{G3'} \\
-\endmathcol
-
-\hint
-Para demonstrar a (G2') tome um $a\in G$ e comece com:
-\compute
-\idr \go a
-&= (\idr \go a) \go \idr \\
-&= \idr \go (a \go \idr) \\
-&= \idr \go (a \go (\; \alert? \go \invr{\alert?}\;)) \by {qual membro de $G$ serve aqui?} \\
-&\eqvdots \\
-&= a
-\endcompute
-Para a (G3'), o lemma seguinte pode ajudar:
-$$
-\lforall {g \in G} {gg = g \implies g = \idr}.
-$$
-Use isso para demonstrar que um inverso direito é esquerdo também.
-
-\hint
-Para a (G2'), qual produto podes botar no lugar do $(\;?\;)$ da dica anterior?
-Sabendo que (G2R) é válida, faz sentido substituí-lo com um termo
-$\paren{x \invr x}$ para algum $x\in G$, mas qual seria esse $x$?
-\emph{Não precisamos adivinhar ainda!}
-Continue assim com um $x$ não-especificado por enquanto,
-e logo tu vai chegar numa expressão que vai te ajudar escolher teu $x$ para
-continuar, pois tu vai querer que esse $x$ ``anula'' a coisa que aparecerá
-na sua esquerda.
-\eop
-Para a (G3'), teu objectivo é demonstrar que dado qualquer $a \in G$,
-$\invr a a = \idr$; e o Lemma te oferece um critério para
-decidir que algo é o $\idr$.  Use!
-
-\solution
-Vamos demonstrar em detalhe o critério unilateral direito.
-A demonstração do esquerdo é simétricamente análoga.
-\proofpart {Demonstração da (G2').}
-Preciso demonstrar que a identidade direita $\idr$
-é uma identidade esquerda.  Seja $a \in G$.
-Basta verificar que $\idr a \askeq a$.
-Calculamos:
-\compute
-\idr a
-&= \idr a \idr                       \by {def.~$\idr$} \\
-&= \idr a (\invr a \invr {\invr a})  \by {def.~$\invr {\invr a}$} \\
-&= \idr (a \invr a) \invr {\invr a}  \\
-&= \idr \idr \invr {\invr a}         \by {def.~$\invr a$} \\
-&= (\idr \idr) \invr {\invr a}       \\
-&= \idr \invr {\invr a}              \by {def.~$\idr$} \\
-&= (a \invr a) \invr {\invr a}       \by {def.~$\invr a$} \\
-&= a (\invr a \invr {\invr a})       \\
-&= a \idr                            \by {def.~$\invr {\invr a}$} \\
-&= a.                                \by {def.~$\idr$} \\
-\endcompute
-onde botei parenteses apenas para ajudar a leitura;
-seu uso sendo opcional graças a (G1).
-\eop
-Para demonstrar o (G3'), eu vou usar o Lemma:
-$$
-\lforall {g \in G} {gg = g \implies g = \idr}.
-$$
-\proofpart {Demonstração do Lemma.}
-Seja $g\in G$.  Temos
-\compute
-gg = g
-&\implies (gg)\invr g = g \invr g  \by {$(\go g)$} \\
-&\implies g(g\invr g) = \idr       \by {(G1); def.~$\invr g$} \\
-&\implies g \idr = \idr            \by {def.~$\invr g$} \\
-&\implies g = \idr                 \by {def.~$\idr$} \\
-\endcompute
-\proofpart {Demonstração da (G3').}
-Vou demonstrar que para todo $a \in G$, o $\invr a$ é um inverso
-esquerdo do $a$.  Seja $a \in G$ então; preciso mostrar que
-$\invr a a \askeq \invr \gid$.
-Verificamos que $(\invr a a)(\invr a a) = (\invr a a)$:
-\compute
-(\invr a a)(\invr a a)
-&= \invr a (a\invr a) a  \by {(G1)} \\
-&= \invr a (\idr) a      \by {def.~$\invr a$} \\
-&= (\invr a \idr) a      \by {(G1)} \\
-&= \invr a a.            \by {def.~$\idr$} \\
-\endcompute
-e logo pelo Lemma concluimos que $(\invr a a) = \idr$.
-
-%%}}}
-
-%%{{{ prob: cancellation_based_group_def_proof 
-\problem.
-%%%{{{ meta 
-\label cancellation_based_group_def_proof
-%%%}}}
-
-Demonstre o~\ref[cancellation_based_group_def].
-
-\hint
-Como podemos usar o fato que um conjunto é finito?
-
-\hint
-O $G$ é finito, logo sejam $G \eqass \set{a_1, \dotsc, a_n}$.
-
-\hint
-Seja $g \in G = \set{a_1, \dotsc, a_n}$.
-Considere o $Ga \defeq \setst {ga} {a \in G} = \set{ga_1, \dotsc, ga_n}$.
-E agora?
-
-%%}}}
-
-%%{{{ prob: cancellation_based_group_def_both_cancellations 
-\problem.
-%%%{{{ meta 
-\label cancellation_based_group_def_both_cancellations
-%%%}}}
-
-Podemos apagar um dos (GCL), (GCR) das hipoteses do~\ref[cancellation_based_group_def]?
-
-\hint
-Não.
-Como podemos demonstrar isso?
-
-\hint
-Basta achar um contraexemplo: um conjunto estruturado $\sset G \ast$
-tal que $G$ é finito e satisfaz as (G0),(G1),(GCL) mas mesmo assim
-não é um grupo; isso mostraria que não podemos apagar o (GCR).
-Similarmente para o (GCL).
-
-%%}}}
-
-%%{{{ prob: Futurama 
-\problem Futurama.
-%%%{{{ meta 
-\label Futurama
-\indexes
-    * Futurama
-    ;;
-\defines
-    * teorema!Futurama
-    ;;
-\credits
-    * Keeler
-    ;;
-%%%}}}
-
-No episódio <<The prisoner of Benda>> do seriado \emph{Futurama},
-a galera resolve seu problema usando teoria dos grupos!
-um teorema ficou enunciado e demonstrado por Keeler,
-o escritor desse episódio, e foi a primeira (e provavelmente única)
-vez que um teorema matemático foi publicado num seriado!
-o teorema ficou conhecido como o \emph{Futurama theorem}.
-Assista o episódio, entenda o enunciado do teorema, e demonstre!
-
-%%}}}
-
 %%{{{ df: group_center 
 \definition Centro.
 %%%{{{ meta 
@@ -59460,16 +59478,6 @@ $$
 \text{$G$ abeliano} \iff (\gconjrel) = (\eqof G)
 $$
 Demonstre!
-
-%%}}}
-
-%%{{{ prob: kunen_implies_group 
-\problem.
-%%%{{{ meta 
-\label kunen_implies_group
-%%%}}}
-
-\TODO Escrever.
 
 %%}}}
 
