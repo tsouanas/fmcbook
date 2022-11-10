@@ -19292,60 +19292,6 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Unit_type 
-\section O Unit.
-%%%{{{ meta 
-\label Unit_type
-%%%}}}
-
-%%{{{ df: Unit 
-\definition Unit.
-%%%{{{ meta 
-\label Bool
-\defines
-    * Bool
-    ;;
-%%%}}}
-
-Definimos o tipo de dados {$\Unit$}:
-$$
-\data Unit
-\co \star : \Unit \\
-\enddata
-$$
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Empty_type 
-\section O Empty.
-%%%{{{ meta 
-\label Empty_type
-%%%}}}
-
-%%{{{ df: Empty 
-\definition Empty.
-%%%{{{ meta 
-\label Bool
-\defines
-    * Bool
-    ;;
-%%%}}}
-
-Definimos o tipo de dados {$\Empty$}:
-$$
-\data Empty
-\enddata
-$$
-Sim.  Não tem nenhum construtor, e logo não tem nenhum habitante!
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Internalization of concepts 
 \section Internalização de conceitos.
 %%%{{{ meta 
@@ -19411,6 +19357,60 @@ e $\fleq$ são na verdade a mesma relação.
 Ou seja, as definições~\reftag[natleq]
 e~\reftag[natleq_rec_def] são equivalentes.
 Tu demonstrarás isso no~\ref[rec_and_nonrec_def_of_order_agree].
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Unit_type 
+\section O Unit.
+%%%{{{ meta 
+\label Unit_type
+%%%}}}
+
+%%{{{ df: Unit 
+\definition Unit.
+%%%{{{ meta 
+\label Bool
+\defines
+    * Bool
+    ;;
+%%%}}}
+
+Definimos o tipo de dados {$\Unit$}:
+$$
+\data Unit
+\co \star : \Unit \\
+\enddata
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Empty_type 
+\section O Empty.
+%%%{{{ meta 
+\label Empty_type
+%%%}}}
+
+%%{{{ df: Empty 
+\definition Empty.
+%%%{{{ meta 
+\label Bool
+\defines
+    * Bool
+    ;;
+%%%}}}
+
+Definimos o tipo de dados {$\Empty$}:
+$$
+\data Empty
+\enddata
+$$
+Sim.  Não tem nenhum construtor, e logo não tem nenhum habitante!
 
 %%}}}
 
@@ -19602,19 +19602,69 @@ Exemplos de uso:
 \endsection
 %%}}}
 
-%%{{{ Polymorphic_types 
-\section Tipos polimórficos.
+%%{{{ List_types 
+\section Tipos de listas.
 %%%{{{ meta 
-\label Polymorphic_types
+\label List_types
 %%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ List_types 
-\section Tipos de listas.
+%%{{{ Some_higher_order_functions 
+\section Umas funções de ordem superior.
 %%%{{{ meta 
-\label List_types
+\label Some_higher_order_functions
+%%%}}}
+
+%%{{{ df: map_fundef 
+\definition map.
+%%%{{{ meta 
+\label map_fundef
+%%%}}}
+
+Definimos a função $\fmap$:
+\fundef
+\fmap : (\alpha \to \beta) \to (\ListA \alpha) \to (\ListA \beta) \\
+\fmapAA f \nilist &= \nilist \\
+\fmapSS f (x:xs)  &= f \fa x : \fmapSS f xs \\
+\endfundef
+
+%%}}}
+
+%%{{{ df: filter_fundef 
+\definition filter.
+%%%{{{ meta 
+\label filter_fundef
+%%%}}}
+
+Definimos a função $\ffilter$:
+\fundef
+\ffilter : (\alpha \to \beta) \to (\ListA \alpha) \to (\ListA \beta) \\
+\ffilterAA p \nilist  &= \nilist \\
+\ffilterAA p (x:xs)   &= \IF p\fa x
+                             \THEN p\fa x : \ffilterSS p xs
+                             \ELSE \ffilterSS p xs \FI \\
+\endfundef
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Maybe_types 
+\section Tipos de Maybes.
+%%%{{{ meta 
+\label Maybe_types
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Either_types 
+\section Tipos de Either.
+%%%{{{ meta 
+\label Either_types
 %%%}}}
 
 \endsection
@@ -19681,6 +19731,15 @@ f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
 \endsection
 %%}}}
 
+%%{{{ Folding 
+\section Folding.
+%%%{{{ meta 
+\label Folding
+%%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Sums_and_products_done_right 
 \section Somatórios e produtórios formalmente.
 %%%{{{ meta 
@@ -19688,15 +19747,6 @@ f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
 %%%}}}
 
 \TODO Escrever.
-
-\endsection
-%%}}}
-
-%%{{{ Folding 
-\section Folding.
-%%%{{{ meta 
-\label Folding
-%%%}}}
 
 \endsection
 %%}}}
