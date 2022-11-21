@@ -16415,12 +16415,10 @@ as alternativas formas listadas.
 %%%}}}
 
 Escrevemos
-$$
-\data Nat
+\data \Nat
 \co \Ze : \Nat \\
 \co \Su : \Nat \to \Nat \\
 \enddata
-$$
 para introduzir o tipo $\Nat$ listando todos os seus \dterm{construtores}
 e seus tipos.
 Assim sabemos que o $\cons O$ já é um $\Nat$ (ele é um construtor de aridade $0$: não
@@ -16824,8 +16822,8 @@ O mesmo construtor aplicado em valores distintos, construe valores distintos.
 Definimos a operação $(+)$ no $\Nat$:
 \fundef
 (+) : \Nat \to \Nat \to \Nat \\
-n + \Ze      &= n \\
-n + (\SuA m) &= \SuA (n + m).
+n + \Ze      &= n  \\
+n + (\SuA m) &= \SuA {(n + m)}. \\
 \endfundef
 
 %%}}}
@@ -17093,14 +17091,13 @@ Calculamos:
 %%%}}}
 
 Alguém definiu a adição usando essas quatro equações:
-$$
-\align
-0  + 0  &= 0  \\
-Sn + 0  &= Sn \\
-0  + Sm &= Sm \\
-Sn + Sm &= S(Sn + m)
-\endalign
-$$
+\fundef
+(+) : \Nat \to \Nat \to \Nat \\
+0  &+ &0  &= 0  \\
+Sn &+ &0  &= Sn \\
+0  &+ &Sm &= Sm \\
+Sn &+ &Sm &= S(Sn + m).
+\endfundef
 Ou seja, para cada argumento da operação, ele tratou os dois
 casos principais separadamente, resultando assim em quatro
 equações.
@@ -17306,21 +17303,23 @@ multiplicação, e exponenciação:
 
 Definimos as operações de adição, multiplicação, e exponenciação
 recursivamente assim:
-\mathcols 3
-&\fundefed {
+\fundefs 3
+\fundefed {
 (+) : \Nat \to \Nat \to \Nat \\
 n + 0  &= n \\
 n + Sm &= S(n+m)
-}&&\fundefed {
+}
+& \fundefed {
 (\ntimes) : \Nat \to \Nat \to \Nat \\
 n \ntimes 0  &= 0 \\
 n \ntimes Sm &= (n \ntimes m) + n
-}&&\fundefed {
+}
+& \fundefed {
 (\expop) : \Nat \to \Nat \to \Nat \\
 n \expop 0  &= S0 \\
 n \expop Sm &= (n \expop m) \ntimes n.
 }
-\endmathcols
+\endfundefs
 Observe que cada uma dessas equações tem um implícito
 $\pforall n$ ou $\pforall n \pforall m$ na frente dela.
 
@@ -17336,7 +17335,7 @@ mas mesmo assim consideramos isso como um açúcar sintáctico para
 a expressão $x \expop y$.  Entendemos então que no $x^y$ temos
 uma aplicação duma operação binária (aplicada nos argumentos $x$ e $y$).
 Vamos seguir também a convenção que a exponenciação
-``pega mais forte'' que as outras duas operações,
+\dq{pega mais forte} que as outras duas operações,
 e que multiplicação pega mais forte que a adição:
 $a \ntimes b^c$ escrito sem parênteses quis dizer
 $a \ntimes (b \expop c)$ e não $(a \ntimes b) \expop c$;
@@ -19280,12 +19279,10 @@ Implemente o tipo de inteiros $\Int$ como type synonym do $\Nat\times\Nat$.
 %%%}}}
 
 Definimos o tipo de dados {$\Bool$}:
-$$
-\data Bool
+\data \Bool
 \co \False : \Bool \\
 \co \True  : \Bool \\
 \enddata
-$$
 
 %%}}}
 
@@ -19303,12 +19300,12 @@ $$
 \label natleq_rec_def
 %%%}}}
 
-Com que temos já definido podemos definir recursivamente a função
+Com o que temos já definido podemos definir recursivamente a função
 \fundef
 \fleq : \Nat \to \Nat \to \Bool \\
-\fleqAA 0    m    &= \True \\
-\fleqAA {Sn} 0    &= \False \\
-\fleqAA {Sn} {Sm} &= \fleqAA n m.
+\fleqCC 0  m  &= \True \\
+\fleqCC Sn 0  &= \False \\
+\fleqCC Sn Sm &= \fleqAA n m.
 \endfundef
 
 %%}}}
@@ -19319,23 +19316,25 @@ Com que temos já definido podemos definir recursivamente a função
 \label two_leq_four_but_four_notleq_two
 %%%}}}
 
-Ache se $\fleqAA {SS0} {SSSS0}$ e se $\fleqAA {SSSS0} {SS0}$.
+Calcule os $\fleqAA {SS0} {SSSS0}$ e $\fleqAA {SSSS0} {SS0}$.
 
 \solution.
 Calculamos:
-\compute
-\fleqSS SS0 SSSS0
-&= \fleqSS S0 SSS0  \by {pela \funref[\fleq.3]} \\
-&= \fleqSS 0  SS0   \by {pela \funref[\fleq.3]} \\
-&= \True.           \by {pela \funref[\fleq.1]}
-\endcompute
-No outro lado, calculamos
-\compute
-\fleqSS SSSS0 SS0
-&= \fleqSS SSS0 S0  \by {\funref[\fleq.3]} \\
-&= \fleqSS SS0  0   \by {\funref[\fleq.3]} \\
-&= \False.          \by {\funref[\fleq.2]}
-\endcompute
+\poemcomputes 2
+\poemcomputed {
+\fleqSS SS0 SSSS0 \\
+  = \fleqSS S0 SSS0 \by {\funref[\fleq.3]} \\
+  = \fleqSS 0  SS0  \by {\funref[\fleq.3]} \\
+  = \True.          \by {\funref[\fleq.1]} \\
+}
+&
+\poemcomputed {
+\fleqSS SSSS0 SS0 \\
+  = \fleqSS SSS0 S0 \by {\funref[\fleq.3]} \\
+  = \fleqSS SS0  0  \by {\funref[\fleq.3]} \\
+  = \False.         \by {\funref[\fleq.2]} \\
+}
+\endpoemcomputes
 
 %%}}}
 
@@ -19379,11 +19378,9 @@ Tu demonstrarás isso no~\ref[rec_and_nonrec_def_of_order_agree].
 %%%}}}
 
 Definimos o tipo de dados {$\Unit$}:
-$$
-\data Unit
+\data \Unit
 \co \star : \Unit \\
 \enddata
-$$
 
 %%}}}
 
@@ -19406,10 +19403,8 @@ $$
 %%%}}}
 
 Definimos o tipo de dados {$\Empty$}:
-$$
-\data Empty
+\data \Empty
 \enddata
-$$
 Sim.  Não tem nenhum construtor, e logo não tem nenhum habitante!
 
 %%}}}
@@ -19418,7 +19413,7 @@ Sim.  Não tem nenhum construtor, e logo não tem nenhum habitante!
 %%}}}
 
 %%{{{ ListNat_type 
-\section As ListNats.
+\section O ListNat.
 %%%{{{ meta 
 \label ListNat_type
 %%%}}}
@@ -19433,12 +19428,10 @@ Sim.  Não tem nenhum construtor, e logo não tem nenhum habitante!
 %%%}}}
 
 Definimos o tipo de dados {$\ListNat$}:
-$$
-\data ListNat
+\data \ListNat
 \co \Nil   : \ListNat \\
 \co \Cons  : \Nat \to \ListNat \to \ListNat \\
 \enddata
-$$
 
 %%}}}
 
