@@ -19311,13 +19311,13 @@ Calculamos:
 
 Podemos demonstrar que $\fleq$ \dq{é uma ordem linear},
 demonstrando cada uma das propriedades como fizemos sobre a
-$\leq$ nos exercícios
+$(\leq)$ nos exercícios
 (\reftag[natleq_refl],
 \reftag[natleq_antisym],
 \reftag[natleq_trans],
 \reftag[natleq_total])
 mas uma maneira melhor que vai nos permitir ganhar
-muitos mais resultados de graça é demonstrar que $\leq$
+muitos mais resultados de graça é demonstrar que $(\leq)$
 e $\fleq$ são na verdade a mesma relação.
 Ou seja, as definições~\reftag[natleq]
 e~\reftag[natleq_rec_def] são equivalentes.
@@ -19434,6 +19434,21 @@ Definimos o tipo de dados {$\ListNat$}:
 
 %%}}}
 
+%%{{{ x: sum_and_product_ListNat 
+\exercise sum, product.
+%%%{{{ meta 
+\label sum_and_product_ListNat
+%%%}}}
+
+Defina as funções:
+$$
+\sum,
+\product
+\is \ListNat \to \Nat
+$$
+
+%%}}}
+
 %%{{{ x: map_prequel 
 \exercise addNat, mulNat, expNat, powNat.
 %%%{{{ meta 
@@ -19451,25 +19466,10 @@ $$
 
 %%}}}
 
-%%{{{ x: sum_and_product_ListNat 
-\exercise sum, product.
-%%%{{{ meta 
-\label sum_and_product_ListNat
-%%%}}}
-
-Defina as funções:
-$$
-\sum,
-\product
-\is \ListNat \to \Nat
-$$
-
-%%}}}
-
-%%{{{ x: zipWith_prequel 
+%%{{{ x: pw_prequel 
 \exercise pwAdd, pwMul, pwExp.
 %%%{{{ meta 
-\label zipwith_prequel
+\label pw_prequel
 %%%}}}
 
 Defina as funções:
@@ -19479,6 +19479,35 @@ $$
 \pwExp
 \is \ListNat \to \ListNat \to \ListNat.
 $$
+Exemplos de input--output:
+\funio
+\pwAddCC [3,6,2]   [100,500,7] &= [103, 506, 9]  \\
+\pwAddCC [1,2,3,4] [100,40]    &= [101, 42]      \\
+\pwMulCC [1,2,3,4] [100,40,50] &= [100, 80, 150] \\
+\pwExpCC [5,2,3,4] [2,8,3]     &= [25, 256, 27]  \\
+\endfunio
+
+%%}}}
+
+%%{{{ x: stretch_countdown 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Defina as funções
+\mathcols 2
+&\stretch \is \Nat \to \ListNat \to \ListNat &
+&\countdown \is \Nat \to \ListNat
+\intertext {com exemplos de input--output}
+&\funcoleqs {
+\stretchCC 3 [2,8]      &= [2,2,2,8,8,8]     \\
+\stretchCC 2 [1,9,8,3]  &= [1,1,9,9,8,8,3,3] \\
+} &
+&\funcoleqs {
+\countdownC 4  &= [4,3,2,1,0] \\
+\countdownC 1  &= [1,0]. \\
+}
+\endmathcols
 
 %%}}}
 
@@ -19528,29 +19557,6 @@ Implemente o tipo de listas-de-nats $\ListNat$ como type synonym do $\Nat$.
 %%%}}}
 
 Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\Nat$.
-
-%%}}}
-
-%%{{{ prob: stretch_countdown_take 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Defina as funcções com equações (recursivas):
-\mathcols 3
-\stretch    &\eqtype \nats \to [\nats] \to [\nats] &
-\countdown  &\eqtype \nats \to [\nats] &
-\take       &\eqtype \nats \to [\nats] \to [\nats].\\
-\endmathcols
-Exemplos de uso:
-\mathcol
-\stretch \fa 3 \fa [2,8]        &= [2,2,2,8,8,8]    \\
-\stretch \fa 2 \fa [1,9,8,3]    &= [1,1,9,9,8,8,3,3]\\
-\countdown \fa 3                &= [3,2,1,0]        \\
-\countdown \fa 1                &= [1,0]            \\
-\take \fa 3 \fa [2,3,5,7,11]    &= [2,3,5]          \\
-\take \fa 8 \fa [0,1,2,4]       &= [0,1,2,4]
-\endmathcol
 
 %%}}}
 
