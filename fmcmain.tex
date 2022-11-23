@@ -19706,7 +19706,7 @@ Calculamos:
 \poemcompute
 (\ffilterA p \of \fmapA f) \fa (x \lcons \xs) \\
   = \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}                  \by {\funref[(\of).1]} \\
-  = \ffilterAA p {((\fA f x) \lcons \fmapAA f \xs)}              \by {\funref[\fmap.2]} \\
+  = \ffilterAA p {(\fA f x \lcons \fmapAA f \xs)}                \by {\funref[\fmap.2]} \\
   = \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \by {\funref[\ffilter.2] e HC} \\
   = \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs            \by {\funref[(\of).1]} \\
   = \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs  \by {HI} \\
@@ -19719,7 +19719,7 @@ Calculamos:
 \poemcompute
 (\ffilterA p \of \fmapA f) \fa (x \lcons \xs) \\
   = \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}      \by {\funref[(\of).1]} \\
-  = \ffilterAA p {((\fA f x) \lcons \fmapAA f \xs)}  \by {\funref[\fmap.2]} \\
+  = \ffilterAA p {(\fA f x \lcons \fmapAA f \xs)}    \by {\funref[\fmap.2]} \\
   = \ffilterAA p {(\fmapAA f \xs)}                   \by {\funref[\ffilter.2] e HC} \\
   = (\ffilterA p \of \fmapA f) \fa \xs               \by {\funref[(\of).1]} \\
   = (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs     \by {HI} \\
@@ -19727,9 +19727,10 @@ Calculamos:
 
 %%}}}
 
-%%{{{ Working with if-then-else instead of case splitting 
+%%{{{ note: ifthenelse_instead_of_splitting 
 \note.
 %%%{{{ meta 
+\label ifthenelse_instead_of_splitting 
 %%%}}}
 
 Na demonstração do \ref[filter_map], escolhi separar em casos, para evitar
@@ -19740,7 +19741,7 @@ Sem separar em casos, este cálculo ficaria assim:
   \does = \by {\funref[(\of).1]} \\
   \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}
   \does = \by {\funref[\fmap.2]} \\
-  \ffilterAA p {((\fA f x) \lcons \fmapAA f \xs)}
+  \ffilterAA p {(\fA f x \lcons \fmapAA f \xs)}
   \does = \by {\funref[\ffilter.2]} \\
   \IF \fAP p (\fA f x) \THEN \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \ELSE \ffilterAA p {(\fmapAA f \xs)} \FI
   \does = \by {\funref[(\of).1]} \\
@@ -19760,6 +19761,16 @@ Sem separar em casos, este cálculo ficaria assim:
   \does = \by {\funref[(\of).1]} \\
   (\fmapA f \of \ffilterA {(p \of f)}) \fa (x \lcons \xs)
 \endfuncompute
+
+%%}}}
+
+%%{{{ x: ifthenelse_distr 
+\exercise.
+%%%{{{ meta 
+\label ifthenelse_distr
+%%%}}}
+
+Enuncie e demosntre o (ifthenelse-distr) citado acima.
 
 %%}}}
 
