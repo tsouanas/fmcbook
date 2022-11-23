@@ -19715,7 +19715,7 @@ Calculamos:
   = \fmapAA f {(\ffilterAA {(p \of f)} {(x \lcons \xs)}))}       \by {\funref[\ffilter.2] e HC} \\
   = (\fmapA f \of {\ffilterA {(p \of f)}}) \fa (x \lcons \xs)    \by {\funref[(\of).1]} \\
 \endpoemcompute
-\crcase{Caso $\fAP p (\fA f x) = \False$.}
+\crcase{Caso $(p \of f) \fa x = \False$}, e logo $p \fa (f \fa x) = \False$.
 \poemcompute
 (\ffilterA p \of \fmapA f) \fa (x \lcons \xs) \\
   = \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}      \by {\funref[(\of).1]} \\
@@ -19723,6 +19723,9 @@ Calculamos:
   = \ffilterAA p {(\fmapAA f \xs)}                   \by {\funref[\ffilter.2] e HC} \\
   = (\ffilterA p \of \fmapA f) \fa \xs               \by {\funref[(\of).1]} \\
   = (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs     \by {HI} \\
+  = \fmapAA f {(\ffilterA {(p \of f)} \xs}           \by {\funref[(\of).1]} \\
+  = \fmapAA f {(\ffilterAA {(p \of f)} {(x \lcons \xs)}}      \by {\funref[\ffilter.2] e HC} \\
+  = (\fmapA f \of \ffilterA {(p \of f)}) \fap {x \lcons \xs}  \by {\funref[(\of).1]} \\
 \endpoemcompute
 
 %%}}}
@@ -19743,11 +19746,11 @@ Sem separar em casos, este cálculo ficaria assim:
   \does = \by {\funref[\fmap.2]} \\
   \ffilterAA p {(\fA f x \lcons \fmapAA f \xs)}
   \does = \by {\funref[\ffilter.2]} \\
-  \IF \fAP p (\fA f x) \THEN \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \ELSE \ffilterAA p {(\fmapAA f \xs)} \FI
+  \IF \fP p {\fA f x} \THEN \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \ELSE \ffilterAA p {(\fmapAA f \xs)} \FI
   \does = \by {\funref[(\of).1]} \\
-  \IF \fAP p (\fA f x) \THEN \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs            \ELSE (\ffilterA p \of \fmapA f) \fa \xs \FI
+  \IF \fP p {\fA f x} \THEN \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs            \ELSE (\ffilterA p \of \fmapA f) \fa \xs \FI
   \does = \by {HI} \\
-  \IF \fAP p (\fA f x) \THEN \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs  \ELSE (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs \FI
+  \IF \fP p {\fA f x} \THEN \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs  \ELSE (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs \FI
   \does = \by {\funref[(\of).1]} \\
   \IF (p \of f) \fa x  \THEN \fA f x \lcons (\fmapAA f {(\ffilterAA {(p \of f)} \xs)})    \ELSE \fmapAA f {(\ffilterA {(p \of f)} \fa \xs)} \FI
   \does = \by {\funref[\fmap.2]} \\
