@@ -19459,17 +19459,17 @@ Definimos o tipo de dados {$\ListNat$}:
 %%}}}
 
 %%{{{ x: sum_and_product_ListNat 
-\exercise sum, product.
+\exercise.
 %%%{{{ meta 
 \label sum_and_product_ListNat
 %%%}}}
 
 Defina as funções:
-$$
+$
 \sum,
 \product
-\is \ListNat \to \Nat
-$$
+\is \ListNat \to \Nat.
+$
 
 %%}}}
 
@@ -19480,13 +19480,13 @@ $$
 %%%}}}
 
 Defina as funções:
-$$
+$
 \addNat,
 \mulNat,
 \expNat,
 \powNat
 \is \Nat \to \ListNat \to \ListNat.
-$$
+$
 
 %%}}}
 
@@ -19503,6 +19503,9 @@ $$
 \pwExp
 \is \ListNat \to \ListNat \to \ListNat.
 $$
+O \wq{pw} vem de \dterm{pointwise},
+a idéia sendo que aplicamos uma certa operação \dterm{ponto a ponto}
+numa lista inteira, chegando numa nova lista.
 Exemplos de input--output:
 \funio
 \pwAddCC [3,6,2]   [100,500,7] &= [103, 506, 9]  \\
@@ -19587,13 +19590,11 @@ Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\N
 \endproblems
 %%}}}
 
-%%{{{ Structural_induction 
-\section Indução estrutural.
+%%{{{ List_types 
+\section Tipos de listas.
 %%%{{{ meta 
-\label Structural_induction
+\label List_types
 %%%}}}
-
-\TODO Escrever.
 
 \endsection
 %%}}}
@@ -19602,15 +19603,6 @@ Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\N
 \section Destrutores.
 %%%{{{ meta 
 \label Destructors
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ List_types 
-\section Tipos de listas.
-%%%{{{ meta 
-\label List_types
 %%%}}}
 
 \endsection
@@ -19631,8 +19623,8 @@ Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\N
 Definimos a função $\fmap$:
 \fundef
 \fmap : (\alpha \to \beta) \to (\ListA \alpha) \to (\ListA \beta) \\
-\fmapAA f \nilist &= \nilist \\
-\fmapSS f (x:xs)  &= f \fa x : \fmapSS f xs \\
+\fmapAA f \lnil         &= \lnil \\
+\fmapSS f (x\lcons\xs)  &= \fA f x : \fmapAA f \xs \\
 \endfundef
 
 %%}}}
@@ -19646,11 +19638,128 @@ Definimos a função $\fmap$:
 Definimos a função $\ffilter$:
 \fundef
 \ffilter : (\alpha \to \beta) \to (\ListA \alpha) \to (\ListA \beta) \\
-\ffilterAA p \nilist  &= \nilist \\
-\ffilterAA p (x:xs)   &= \IF p\fa x
-                             \THEN p\fa x : \ffilterSS p xs
-                             \ELSE \ffilterSS p xs \FI \\
+\ffilterAA p \lnil    &= \lnil \\
+\ffilterSS p (x:\xs)  &= \IF p\fa x
+                             \THEN p\fa x : \ffilterAA p \xs
+                             \ELSE \ffilterAA p \xs \FI \\
 \endfundef
+
+%%}}}
+
+%%{{{ thm: filter_map 
+\theorem.
+%%%{{{ meta 
+\label filter_map
+%%%}}}
+
+$$
+\pforall {f : \alpha \to \beta}
+\lforall {p : \beta \to \Bool}
+    {\ffilterA p \of \fmapA f = \fmapA f \of \ffilterA {(p \of f)}}.
+\stag[filter-map]
+$$
+
+\proof.
+Sejam $f : \alpha \to \beta$ e $p : \beta \to \Bool$.
+Para demonstrar
+$$
+{\ffilterA p \of \fmapA f = \fmapA f \of \ffilterA {(p \of f)}}
+$$
+pela definição de igualdade entre funções, preciso demonstrar
+$$
+\lforall {\ell : \List \alpha}
+    {\paren{\ffilterA p \of \fmapA f} \fa \ell = \paren{\fmapA f \of \ffilterA {(p \of f)}} \fa \ell}
+$$
+Por indução no $\ell$.
+\crcase{Caso $\lnil$.}
+Precisamos demonstrar:
+$$
+\paren{\ffilterA p \of \fmapA f} \fa \lnil
+\askeq
+\paren{\fmapA f \of \ffilterA {(p \of f)}} \fa \lnil.
+$$
+Calculamos os dois lados:
+\poemcomputes2
+\poemcomputed {
+(\ffilterA p \of \fmapA f) \fa \lnil \\
+  = \ffilterAA p (\fmapAA f \lnil)  \by {\funref[(\of).1]} \\
+  = \ffilterAA p \lnil  \by {\funref[\fmap.1]}    \\
+  = \lnil              \by {\funref[\ffilter.1]} \\
+} &
+\poemcomputed {
+(\fmapA f \of \ffilterA {(p \of f)}) \fa \lnil \\
+  = \fmapAA f {(\ffilterAA {(p \of f)} \lnil)} \by {\funref[(\of).1]} \\
+  = \fmapAA f \lnil  \by {\funref[\ffilter.1]} \\
+  = \lnil.           \by {\funref[\fmap.1]}    \\
+}
+\endpoemcomputes
+\case{Caso $(x \lcons \xs)$.}
+Aqui temos a hipótese indutiva
+$$
+\paren{\ffilterA p \of \fmapA f} \fa \xs
+=
+\paren{\fmapA f \of \ffilterA {(p \of f)}} \fa \xs.
+$$
+Separamos em casos:
+\crcase{Caso $(p \of f) \fa x = \True$}, e logo $p \fa (f \fa x) = \True$.
+Calculamos:
+\poemcompute
+(\ffilterA p \of \fmapA f) \fa (x \lcons \xs) \\
+  = \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}                  \by {\funref[(\of).1]} \\
+  = \ffilterAA p {((\fA f x) \lcons \fmapAA f \xs)}              \by {\funref[\fmap.2]} \\
+  = \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \by {\funref[\ffilter.2] e HC} \\
+  = \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs            \by {\funref[(\of).1]} \\
+  = \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs  \by {HI} \\
+  = \fA f x \lcons (\fmapAA f {(\ffilterAA {(p \of f)} \xs)})    \by {\funref[(\of).1]} \\
+  = \fmapAA f {(x \lcons \ffilterAA {(p \of f)} \xs)}            \by {\funref[\fmap.2]} \\
+  = \fmapAA f {(\ffilterAA {(p \of f)} {(x \lcons \xs)}))}       \by {\funref[\ffilter.2] e HC} \\
+  = (\fmapA f \of {\ffilterA {(p \of f)}}) \fa (x \lcons \xs)    \by {\funref[(\of).1]} \\
+\endpoemcompute
+\crcase{Caso $\fAP p (\fA f x) = \False$.}
+\poemcompute
+(\ffilterA p \of \fmapA f) \fa (x \lcons \xs) \\
+  = \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}      \by {\funref[(\of).1]} \\
+  = \ffilterAA p {((\fA f x) \lcons \fmapAA f \xs)}  \by {\funref[\fmap.2]} \\
+  = \ffilterAA p {(\fmapAA f \xs)}                   \by {\funref[\ffilter.2] e HC} \\
+  = (\ffilterA p \of \fmapA f) \fa \xs               \by {\funref[(\of).1]} \\
+  = (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs     \by {HI} \\
+\endpoemcompute
+
+%%}}}
+
+%%{{{ Working with if-then-else instead of case splitting 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Na demonstração do \ref[filter_map], escolhi separar em casos, para evitar
+carregar a expressão com o if-then-else nas costas.
+Sem separar em casos, este cálculo ficaria assim:
+\funcompute
+(\ffilterA p \of \fmapA f) \fa (x \lcons \xs)
+  \does = \by {\funref[(\of).1]} \\
+  \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}
+  \does = \by {\funref[\fmap.2]} \\
+  \ffilterAA p {((\fA f x) \lcons \fmapAA f \xs)}
+  \does = \by {\funref[\ffilter.2]} \\
+  \IF \fAP p (\fA f x) \THEN \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \ELSE \ffilterAA p {(\fmapAA f \xs)} \FI
+  \does = \by {\funref[(\of).1]} \\
+  \IF \fAP p (\fA f x) \THEN \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs            \ELSE (\ffilterA p \of \fmapA f) \fa \xs \FI
+  \does = \by {HI} \\
+  \IF \fAP p (\fA f x) \THEN \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs  \ELSE (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs \FI
+  \does = \by {\funref[(\of).1]} \\
+  \IF (p \of f) \fa x  \THEN \fA f x \lcons (\fmapAA f {(\ffilterAA {(p \of f)} \xs)})    \ELSE \fmapAA f {(\ffilterA {(p \of f)} \fa \xs)} \FI
+  \does = \by {\funref[\fmap.2]} \\
+  \IF (p \of f) \fa x  \THEN \fmapAA f {(x \lcons \ffilterAA {(p \of f)} \xs)}            \ELSE \fmapAA f {(\ffilterA {(p \of f)} \fa \xs)} \FI
+  \does = \by {ifthenelse-distr} \\
+  \fmapAA f {(\IF (p \of f) \fa x  \THEN x \lcons \ffilterAA {(p \of f)} \xs              \ELSE \ffilterAA {(p \of f)} \xs \FI)}
+  \does = \by {\funref[(\of).1]} \\
+  \fmapAA f {(\IF (p \of f) \fa x \THEN \ffilterAA {(p \of f)} {(x \lcons \xs)}           \ELSE \ffilterAA {(p \of f)} \xs \FI)}
+  \does = \by {\funref[\ffilter.2]} \\
+  \fmapAA f {(\ffilterAA {(p \of f)} {(x \lcons \xs)})}
+  \does = \by {\funref[(\of).1]} \\
+  (\fmapA f \of \ffilterA {(p \of f)}) \fa (x \lcons \xs)
+\endfuncompute
 
 %%}}}
 
