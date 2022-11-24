@@ -19585,7 +19585,7 @@ Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\N
 %%}}}
 
 %%{{{ List_types 
-\section Tipos de listas.
+\section Tipos de List.
 %%%{{{ meta 
 \label List_types
 %%%}}}
@@ -19734,29 +19734,36 @@ Na demonstração do \ref[filter_map], escolhi separar em casos, para evitar
 carregar a expressão com o if-then-else nas costas.
 Sem separar em casos, este cálculo ficaria assim:
 \funcompute
-(\ffilterA p \of \fmapA f) \fa (x \lcons \xs)
-  \does = \by {\funref[(\of).1]} \\
-  \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}
-  \does = \by {\funref[\fmap.2]} \\
-  \ffilterAA p {(\fA f x \lcons \fmapAA f \xs)}
-  \does = \by {\funref[\ffilter.2]} \\
-  \IF \fA p {(\fA f x)} \THEN \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \ELSE \ffilterAA p {(\fmapAA f \xs)} \FI
-  \does = \by {\funref[(\of).1]} \\
-  \IF \fA p {(\fA f x)} \THEN \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs            \ELSE (\ffilterA p \of \fmapA f) \fa \xs \FI
-  \does = \by {HI} \\
-  \IF \fA p {(\fA f x)} \THEN \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs  \ELSE (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs \FI
-  \does = \by {\funref[(\of).1]} \\
-  \IF (p \of f) \fa x \THEN \fA f x \lcons (\fmapAA f {(\ffilterAA {(p \of f)} \xs)})    \ELSE \fmapAA f {(\ffilterA {(p \of f)} \fa \xs)} \FI
-  \does = \by {\funref[\fmap.2]} \\
-  \IF (p \of f) \fa x \THEN \fmapAA f {(x \lcons \ffilterAA {(p \of f)} \xs)}            \ELSE \fmapAA f {(\ffilterA {(p \of f)} \fa \xs)} \FI
-  \does = \by {ifthenelse-distr} \\
-  \fmapAA f {(\IF (p \of f) \fa x  \THEN x \lcons \ffilterAA {(p \of f)} \xs             \ELSE \ffilterAA {(p \of f)} \xs \FI)}
-  \does = \by {\funref[(\of).1]} \\
-  \fmapAA f {(\IF (p \of f) \fa x \THEN \ffilterAA {(p \of f)} {(x \lcons \xs)}          \ELSE \ffilterAA {(p \of f)} \xs \FI)}
-  \does = \by {\funref[\ffilter.2]} \\
-  \fmapAA f {(\ffilterAA {(p \of f)} {(x \lcons \xs)})}
-  \does = \by {\funref[(\of).1]} \\
-  (\fmapA f \of \ffilterA {(p \of f)}) \fa (x \lcons \xs)
+        (\ffilterA p \of \fmapA f) \fa (x \lcons \xs)
+\does = \by {\funref[(\of).1]} \\
+        \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}
+\does = \by {\funref[\fmap.2]} \\
+        \ffilterAA p {(\fA f x \lcons \fmapAA f \xs)}
+\does = \by {\funref[\ffilter.2]} \\
+        \IF \fA p {(\fA f x)} \THEN \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}
+                              \ELSE \ffilterAA p {(\fmapAA f \xs)} \FI
+\does = \by {\funref[(\of).1]} \\
+        \IF \fA p {(\fA f x)} \THEN \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs
+                              \ELSE (\ffilterA p \of \fmapA f) \fa \xs \FI
+\does = \by {HI} \\
+        \IF \fA p {(\fA f x)} \THEN \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs
+                              \ELSE (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs \FI
+\does = \by {\funref[(\of).1]} \\
+        \IF (p \of f) \fa x \THEN \fA f x \lcons (\fmapAA f {(\ffilterAA {(p \of f)} \xs)})
+                            \ELSE \fmapAA f {(\ffilterA {(p \of f)} \fa \xs)} \FI
+\does = \by {\funref[\fmap.2]} \\
+        \IF (p \of f) \fa x \THEN \fmapAA f {(x \lcons \ffilterAA {(p \of f)} \xs)}
+                            \ELSE \fmapAA f {(\ffilterA {(p \of f)} \fa \xs)} \FI
+\does = \by {ifthenelse-distr} \\
+        \fmapAA f {(\IF (p \of f) \fa x \THEN x \lcons \ffilterAA {(p \of f)} \xs
+                                        \ELSE \ffilterAA {(p \of f)} \xs \FI)}
+\does = \by {\funref[(\of).1]} \\
+        \fmapAA f {(\IF (p \of f) \fa x \THEN \ffilterAA {(p \of f)} {(x \lcons \xs)}
+                                        \ELSE \ffilterAA {(p \of f)} \xs \FI)}
+\does = \by {\funref[\ffilter.2]} \\
+        \fmapAA f {(\ffilterAA {(p \of f)} {(x \lcons \xs)})}
+\does = \by {\funref[(\of).1]} \\
+        (\fmapA f \of \ffilterA {(p \of f)}) \fa (x \lcons \xs).
 \endfuncompute
 
 %%}}}
@@ -19775,7 +19782,7 @@ Enuncie e demosntre o (ifthenelse-distr) citado acima.
 %%}}}
 
 %%{{{ Maybe_types 
-\section Tipos de Maybes.
+\section Tipos de Maybe.
 %%%{{{ meta 
 \label Maybe_types
 %%%}}}
