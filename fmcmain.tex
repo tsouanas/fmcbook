@@ -26017,10 +26017,10 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Models: a first encounter 
-\section Modelos: um primeiro encontro.
+%%{{{ On models 
+\section Sobre modelos.
 %%%{{{ meta 
-\label Models_a_first_encounter
+\label On_models_of_reals
 %%%}}}
 
 %%{{{ Models 
@@ -26106,7 +26106,7 @@ para finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
 %%%}}}
 
 %%{{{ df: lower_and_upper_bounds_reals 
-\definition Lower e upper bounds.
+\definition cotas.
 %%%{{{ meta 
 \label lower_and_upper_bounds_reals
 \defines
@@ -26118,10 +26118,10 @@ para finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
     * bounded!below
     * bound!lower
     * bound!upper
-    * limitado!por baixo
-    * limitado!por cima
-    * limitante!por baixo
-    * limitante!por cima
+    * cotado!superiormente
+    * cotado!inferiormente
+    * cota!superior
+    * cota!inferior
     ;;
 %%%}}}
 
@@ -26131,19 +26131,18 @@ sse para todo $a \in A$, $x \leq a$;
 e, \emph{dualmente}, $x$ é uma \dterm{cota superior} ou \dterm{upper bound} de $A$
 sse para todo $a \in A$, $x \geq a$:
 \mathcol
-\text{$x$ é um lower bound de $A$} &\defiff x \leq A \intiff \lforall {a\in A} {x \leq a} \\
-\text{$x$ é um upper bound de $A$} &\defiff A \leq x \intiff \lforall {a\in A} {a \leq x}.
+\text{$x$ é uma cota inferior de $A$} &\defiff x \leq A \intiff \lforall {a\in A} {x \leq a} \\
+\text{$x$ é uma cota superior de $A$} &\defiff A \leq x \intiff \lforall {a\in A} {a \leq x}.
 \endmathcol
-Denotamos o conjunto de todos os lower bounds de $A$ por $\lbs A$,
-e dualmente usamos $\ubs A$ para o conjunto de todos os seus upper bounds:
+Denotamos o conjunto de todas as cotas inferiores de $A$ por $\lbs A$ ou por $(\leq A)$,
+e dualmente usamos $\ubs A$ ou $(A\leq)$ para o conjunto de todas as suas cotas superiores:
 \mathcol
-\lbs A &\defeq \setst {x \in \reals} {x \leq A} \\
-\ubs A &\defeq \setst {x \in \reals} {A \leq x}.
+(\leq A) \defeq \lbs A &\defeq \setst {x \in \reals} {x \leq A} \\
+(A\leq ) \defeq \ubs A &\defeq \setst {x \in \reals} {A \leq x}.
 \endmathcol
-Se um $A$ tem pelo menos um limitante por cima, dizemos que $A$
-é \dterm{limitado por cima} (ou, \dterm{bounded above});
-e se tem pelo menos um limitante por baixo, \dterm{limitado por baixo}
-(ou, \dterm{bounded below}).
+Se um conjunto $A$ tem pelo menos uma cota inferior, dizemos que
+$A$ é \dterm{cotado inferiormente} (ou, \dterm{bounded below});
+e se tem pelo menos uma cota superior, ele é \dterm{cotado superiormente} (ou, \dterm{bounded above}).
 
 %%}}}
 
@@ -26165,52 +26164,38 @@ e se tem pelo menos um limitante por baixo, \dterm{limitado por baixo}
     ;;
 %%%}}}
 
-Definimos os $\inf A$ e $\sup A$ pelas:
-$$
-\align
-\text{$x$ é um infimum  de $A$} &\defiff x \leq A \mland \lforall {w \leq A} {w \leq x} \\
-\text{$x$ é um supremum de $A$} &\defiff x \geq A \mland \lforall {w \geq A} {x \leq w}.
-\endalign
-$$
-Mais curtamente:
-$$
-\xalignat 2
-\inf A &\defeq \max {\lbs A} &
-\sup A &\defeq \min {\ubs A}.
-\intertext{Outros nomes (e notações correspondentes) desses dois conceitos
-são muito comuns e vamos ficar os usando também:
-o infimum é chamado também de \dterm{greatest lower bound} e o supremum
-de \dterm{least upper bound}, e denotados por $\glb$ e $\lub$ respectivamente:}
-\glb A &\defeq \inf A & 
-\lub A &\defeq \sup A.
-\endxalignat
-$$
+A \dterm{melhor cota inferior} é chamada \dterm{ínfimo} ou \dterm{infimum} e
+a \dterm{melhor cota superior} é chamada \dterm{supremo} ou \dterm{supremum}:
+\mathcol
+\text{$x$ é um infimum  de $A$} &\defiff x \leq A \mland \lforall {x' \leq A} {x' \leq x} \\
+\text{$x$ é um supremum de $A$} &\defiff x \geq A \mland \lforall {x' \geq A} {x \leq x'}.
+\endmathcol
+Escrevemos $x = \inf A$ e $x = \sup A$ respectivamente, mas, como o leito deve
+ter suspeitado, \emph{não se tratam literamente de igualdades,} pois suas partes direitas
+sequer foram definidas como operações mesmo (veja mais sobre essa possibilidade no
+\ref[inf_and_sup_are_partial_on_reals].)
+As tipagens corretas aqui são as
+\mathcols 2
+\uhole = \inf \uhole &\is \Real \cross \SetP \Real \to \Prop &
+\uhole = \sup \uhole &\is \Real \cross \SetP \Real \to \Prop.
+\endmathcols
 
 %%}}}
 
-%%{{{ warning: later on we'll meet even more names and notations 
-\warning.
+%%{{{ x: inf_sup_what_must_we_prove_to_justify_notation 
+\exercise.
 %%%{{{ meta 
+\label inf_sup_what_must_we_prove_to_justify_notation
 %%%}}}
 
-No~\ref[Posets_Lattices] encontramos ainda mais nomes e notações!
+O que \emph{devemos} demonstrar agora para justificar esse abuso notacional
+que criou essas \dq{conjunções desfarçadas com roupas de igualdades}?
 
-%%}}}
+\hint
+O que fizemos sobre mínima e máxima tanto estudando inteiros, quanto estudando reais?
 
-%%{{{ remark: inf and sup are partial 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Observe que assim, $\inf$ e $\sup$ não são operações totais nos reais,
-mas \emph{parciais:}
-$$
-\inf,\sup \eqtype \pset \reals \parto \reals.
-$$
-Ou seja, ninguém garanta que para qualquer
-$A\subset\reals$ existe mesmo um real $x$ que satisfaz as
-condições das definições acima.
-Mas se existem, são únicos~(\ref[inf_and_sup_are_unique]):
+\solution
+Devemos demonstrar a unicidade dos infima e dos suprema.
 
 %%}}}
 
@@ -26230,6 +26215,48 @@ pois $\ell'$ é maior que qualquer lower bound, e $\ell$ é um lower bound.
 No outro lado $\ell' \leq \ell$ pois $\ell$ é maior que qualquer lowe bound,
 e $\ell'$ é um lower bound.  Logo $\ell \leq \ell'$ e $\ell' \leq \ell$
 e pela antissimetria da $\leq$ temos $\ell = \ell'$.
+
+%%}}}
+
+%%{{{ notation: nat_sugar 
+\notation Açúcar sintáctico.
+%%%{{{ meta 
+\label nat_sugar
+%%%}}}
+
+Com as unicidades estabelecidas podemos introduzir realmente os símbolos
+\mathcols 2
+\inf A &\defeq \max {\lbs A} &
+\sup A &\defeq \min {\ubs A}.
+\intertext{Outros nomes (e notações correspondentes) desses dois conceitos
+são muito comuns e vamos ficar os usando também:
+o infimum é chamado também de \dterm{greatest lower bound} e o supremum
+de \dterm{least upper bound}, e denotados por $\glb$ e $\lub$ respectivamente:}
+\glb A &\defeq \inf A & 
+\lub A &\defeq \sup A.
+\endmathcols
+E olha que no~\ref[Posets_Lattices] encontramos ainda mais nomes e notações!
+
+%%}}}
+
+%%{{{ beware: inf_and_sup_are_partial_on_reals 
+\beware.
+%%%{{{ meta 
+\label inf_and_sup_are_partial_on_reals
+%%%}}}
+
+assim, $\inf$ e $\sup$ não são operações totais nos reais,
+mas \emph{parciais:}
+$$
+\inf,\sup \is \SetP \Real \parto \Real.
+$$
+Ou seja, ninguém garanta que para qualquer
+$A \is \SetP\Real$ existe mesmo um real $x$ que satisfaz as
+condições das definições acima, traduzidas aqui assim:
+\mathcol
+\inf A &\defeq \text{o único infimum de $A$, se existe}; &
+\sup A &\defeq \text{o único supremum de $A$, se existe}.
+\endmathcol
 
 %%}}}
 
