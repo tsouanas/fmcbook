@@ -25989,34 +25989,6 @@ Os $\reals_\ints,\reals_\rats,\reals_\algs$ são conjuntos indutivos.
 \endsection
 %%}}}
 
-%%{{{ Archimedean_property_of_reals 
-\section Propriedade arquimedeana dos reais.
-%%%{{{ meta 
-\label Archimedean_property_of_reals
-%%%}}}
-
-%%{{{ thm: reals_is_archimedean 
-\theorem.
-%%%{{{ meta 
-\label reals_is_archimedean
-\defines
-    * archimedeano
-    ;;
-%%%}}}
-
-O $\reals$ é \dterm{arquimedeano}, ou seja:
-para todo $x,y\in\reals$,
-$$
-x \neq 0
-\implies
-\lexists {n \in \reals_\nats} {xn > y}.
-$$
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ On models 
 \section Sobre modelos.
 %%%{{{ meta 
@@ -26364,10 +26336,10 @@ a~\ref[how_can_we_separate_reals_from_rats]?
 \endsection
 %%}}}
 
-%%{{{ Limits_of_reals 
+%%{{{ Limits_of_reals_before_completeness 
 \section Limites.
 %%%{{{ meta 
-\label Limits_of_reals
+\label Limits_of_reals_before_completeness
 %%%}}}
 
 %%{{{ df: for_sufficiently_large_values_of 
@@ -26697,47 +26669,99 @@ $\max \set{ M , \ell + 1 }$.
 
 %%}}}
 
-%%{{{ thm: monotone_and_bounded_implies_convergent 
+\endsection
+%%}}}
+
+%%{{{ Cauchy_sequences 
+\section Seqüências Cauchy.
+%%%{{{ meta 
+\label Limits_of_reals
+\credits
+    * Cauchy : seqüências
+    ;;
+%%%}}}
+
+%%{{{ df: Cauchy_sequence_of_reals 
+\definition seqüência Cauchy.
+%%%{{{ meta 
+\label Cauchy_sequence_of_reals
+\defines
+    * Cauchy!reais
+    ;;
+%%%}}}
+
+Seja $\seqn a n$ uma seqüência de reais.
+Dizemos que $\seqn a n$ é \Cauchy[seqüência]\dterm{Cauchy}
+sse para qualquer $\epsilon > 0$ existe um membro da
+seqüência tal que a partir dele, todos os seus membros
+são $\epsilon$-perto entre si (dois a dois).
+Formalmente:
+$$
+\text{$\seqn a n$ é Cauchy}
+\defiff
+\pforall  {\epsilon > 0}
+\pexists  {N \in \nats}
+\lforallt {i,j \geq N}
+{$a_i,a_j$ são $\epsilon$-perto}.
+$$
+
+%%}}}
+
+%%{{{ thm: convergent_implies_Cauchy_in_reals 
 \theorem.
 %%%{{{ meta 
-\label monotone_and_bounded_implies_convergent
+\label convergent_implies_Cauchy_in_reals
 %%%}}}
 
-Uma seqüência monótona e bounded é convergente.
+Se uma seqüência de reais é convergente, então ela é Cauchy.
 
 %%}}}
 
 \TODO sketch.
 
-%%{{{ thm: nested_interval_theorem 
-\theorem intervalos aninhados.
+%%{{{ thm: Cauchy_implies_bounded_in_reals 
+\theorem.
 %%%{{{ meta 
-\label nested_interval_theorem
+\label Cauchy_implies_bounded_in_reals
 %%%}}}
 
-Seja $\seqn I n$ uma seqüência de intervalos não vazios, fechados e bounded,
-que forma uma $\supset$-chain:
-$$
-I_0 \supset I_1 \supset I_2 \supset \dotsb.
-$$
-Logo $\Inter_n I_n \neq \emptyset$.
-E se $\len(I_n) \limto 0$, 
-então $\Inter_n I_n$ é um singleton.
+Se uma seqüência de reais é Cauchy, então é bounded.
 
 %%}}}
 
 \TODO sketch.
 
-%%{{{ x: closed_and_bounded_important_in_nested_interval_theorem 
+%%{{{ thm: Cauchy_with_conv_subseq_implies_convergent_in_reals 
+\theorem.
+%%%{{{ meta 
+\label Cauchy_with_conv_subseq_implies_convergent_in_reals
+%%%}}}
+
+Se uma seqüência de reais é Cauchy e possui subseqüência
+convergente, então é convergente.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ x: every_sequence_has_a_monotone_subsequence_in_reals 
 \exercise.
 %%%{{{ meta 
-\label closed_and_bounded_important_in_nested_interval_theorem
+\label every_sequence_has_a_monotone_subsequence_in_reals
 %%%}}}
 
-Demonstre que as hipoteses do~\ref[nested_interval_theorem] sobre os
-intervalos ser fechados e bounded são \emph{necessárias}.
+Toda seqüência de reais tem uma subseqüência monótona.
 
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Liminf_and_limsup_in_reals 
+\section Liminf e limsup.
+%%%{{{ meta 
+\label Liminf_and_limsup_in_reals
+%%%}}}
 
 %%{{{ df: liminf_and_limsup_in_reals 
 \definition.
@@ -26814,119 +26838,6 @@ $$
 \TODO demonstrar.
 
 \TODO elaborar e conectar com os equivalentes operadores em conjuntos.
-
-%%{{{ df: Cauchy_sequence_of_reals 
-\definition seqüência Cauchy.
-%%%{{{ meta 
-\label Cauchy_sequence_of_reals
-\defines
-    * Cauchy!reais
-    ;;
-%%%}}}
-
-Seja $\seqn a n$ uma seqüência de reais.
-Dizemos que $\seqn a n$ é \Cauchy[seqüência]\dterm{Cauchy}
-sse para qualquer $\epsilon > 0$ existe um membro da
-seqüência tal que a partir dele, todos os seus membros
-são $\epsilon$-perto entre si (dois a dois).
-Formalmente:
-$$
-\text{$\seqn a n$ é Cauchy}
-\defiff
-\pforall  {\epsilon > 0}
-\pexists  {N \in \nats}
-\lforallt {i,j \geq N}
-{$a_i,a_j$ são $\epsilon$-perto}.
-$$
-
-%%}}}
-
-%%{{{ thm: convergent_implies_Cauchy_in_reals 
-\theorem.
-%%%{{{ meta 
-\label convergent_implies_Cauchy_in_reals
-%%%}}}
-
-Se uma seqüência de reais é convergente, então ela é Cauchy.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ thm: Cauchy_implies_bounded_in_reals 
-\theorem.
-%%%{{{ meta 
-\label Cauchy_implies_bounded_in_reals
-%%%}}}
-
-Se uma seqüência de reais é Cauchy, então é bounded.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ thm: Cauchy_with_conv_subseq_implies_convergent_in_reals 
-\theorem.
-%%%{{{ meta 
-\label Cauchy_with_conv_subseq_implies_convergent_in_reals
-%%%}}}
-
-Se uma seqüência de reais é Cauchy e possui subseqüência
-convergente, então é convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ x: every_sequence_has_a_monotone_subsequence_in_reals 
-\exercise.
-%%%{{{ meta 
-\label every_sequence_has_a_monotone_subsequence_in_reals
-%%%}}}
-
-Toda seqüência de reais tem uma subseqüência monótona.
-
-%%}}}
-
-%%{{{ thm: Bolzano_Weierstrass_theorem 
-\theorem Bolzano--Weierstrass.
-%%%{{{ meta 
-\label Bolzano_Weierstrass_theorem
-\credits
-    * Bolzano : --Weierstrass, teorema
-    * Weierstrass : Bolzano--, teorema
-    ;;
-%%%}}}
-
-Toda seqüência bounded de reais possui subseqüência convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ cor: Cauchy_implies_convergent_in_reals 
-\corollary.
-%%%{{{ meta 
-\label Cauchy_implies_convergent_in_reals
-%%%}}}
-
-Uma seqüência de reais é Cauchy sse é convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ cor: bounded_implies_Cauchy_subseq_in_reals.
-\corollary.
-%%%{{{ meta 
-\label bounded_implies_Cauchy_subseq_in_reals
-%%%}}}
-
-Toda seqüência bounded possui subseqüência Cauchy.
-
-%%}}}
-
-\TODO sketch.
 
 \endsection
 %%}}}
@@ -27084,6 +26995,125 @@ que será garantido ter um supremum, e use
 esse supremum para definir o infimum de $A$.
 
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Archimedean_property_of_reals 
+\section Propriedade arquimedeana dos reais.
+%%%{{{ meta 
+\label Archimedean_property_of_reals
+%%%}}}
+
+%%{{{ thm: reals_is_archimedean 
+\theorem.
+%%%{{{ meta 
+\label reals_is_archimedean
+\defines
+    * archimedeano
+    ;;
+%%%}}}
+
+O $\reals$ é \dterm{arquimedeano}, ou seja:
+para todo $x,y\in\reals$,
+$$
+x \neq 0
+\implies
+\lexists {n \in \reals_\nats} {xn > y}.
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Limits_of_reals 
+\section Limites de novo.
+%%%{{{ meta 
+\label Limits_of_reals
+%%%}}}
+
+%%{{{ thm: monotone_and_bounded_implies_convergent 
+\theorem.
+%%%{{{ meta 
+\label monotone_and_bounded_implies_convergent
+%%%}}}
+
+Uma seqüência monótona e bounded é convergente.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ thm: nested_interval_theorem 
+\theorem intervalos aninhados.
+%%%{{{ meta 
+\label nested_interval_theorem
+%%%}}}
+
+Seja $\seqn I n$ uma seqüência de intervalos não vazios, fechados e bounded,
+que forma uma $\supset$-chain:
+$$
+I_0 \supset I_1 \supset I_2 \supset \dotsb.
+$$
+Logo $\Inter_n I_n \neq \emptyset$.
+E se $\len(I_n) \limto 0$, 
+então $\Inter_n I_n$ é um singleton.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ x: closed_and_bounded_important_in_nested_interval_theorem 
+\exercise.
+%%%{{{ meta 
+\label closed_and_bounded_important_in_nested_interval_theorem
+%%%}}}
+
+Demonstre que as hipoteses do~\ref[nested_interval_theorem] sobre os
+intervalos ser fechados e bounded são \emph{necessárias}.
+
+%%}}}
+
+%%{{{ thm: Bolzano_Weierstrass_theorem 
+\theorem Bolzano--Weierstrass.
+%%%{{{ meta 
+\label Bolzano_Weierstrass_theorem
+\credits
+    * Bolzano : --Weierstrass, teorema
+    * Weierstrass : Bolzano--, teorema
+    ;;
+%%%}}}
+
+Toda seqüência bounded de reais possui subseqüência convergente.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ cor: Cauchy_implies_convergent_in_reals 
+\corollary.
+%%%{{{ meta 
+\label Cauchy_implies_convergent_in_reals
+%%%}}}
+
+Uma seqüência de reais é Cauchy sse é convergente.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ cor: bounded_implies_Cauchy_subseq_in_reals.
+\corollary.
+%%%{{{ meta 
+\label bounded_implies_Cauchy_subseq_in_reals
+%%%}}}
+
+Toda seqüência bounded possui subseqüência Cauchy.
+
+%%}}}
+
+\TODO sketch.
 
 \endsection
 %%}}}
