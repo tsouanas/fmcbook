@@ -1,0 +1,1333 @@
+%%{{{ [vim] 
+% vim:foldmarker=%{{{,%}}}
+% vim:foldmethod=marker
+% vim:foldcolumn=7
+%%}}}
+
+%% fmcarchive.tex
+%% author: Thanos Tsouanas <thanos@tsouanas.org>
+%% Copyright (c) 2022 Thanos Tsouanas
+%% All rights reserved.
+
+%%{{{ chapter: Mathematical_logic 
+\chapter Lógica matemática.
+%%%{{{ meta 
+\label Mathematical_logic
+%%%}}}
+
+%%{{{ A_propositional_language 
+\section Uma linguagem proposicional.
+%%%{{{ meta 
+\label A_propositional_language
+%%%}}}
+
+%%{{{ atomic_vs_composite_prop 
+\note Atômicas \vs compostas.
+%%%{{{ meta 
+\label atomic_vs_composite_prop
+%%%}}}
+
+Queremos desenvolver uma linguagem para escrever proposições do tipo que
+encontramos em matemática.
+A idéia é que as proposições ou são \dterm{atómicas}
+(diretamente afirmando algo) ou \dterm{compostas} por outras
+sub-proposições que conectamos com os \dterm{conectivos lógicos}:
+
+%%}}}
+
+%%{{{ logical_connectives_prop 
+\note Conectivos lógicos.
+%%%{{{ meta 
+\label logical_connectives_prop
+%%%}}}
+
+Considere os seguintes
+$$
+\xalignat2
+\text{conjuncção}:    && (A \land B)       &\qqtext{significa} \textwq{$A$ e $B$} \\
+\text{disjuncção}:    && (A \lor B)        &\qqtext{significa} \textwq{$A$ ou $B$} \\
+\text{implicação}:    && (A \limplies B)   &\qqtext{significa} \textwq{se $A$ então $B$} \\
+\text{equivalência}:  && (A \liff B)       &\qqtext{significa} \textwq{$A$ se e somente se $B$} \\
+\text{negação}:       && \lnot A           &\qqtext{significa} \textwq{não $A$}.
+\endxalignat
+$$
+onde os $A,B$ denotam proposições.
+O que cada uma dessas cinco proposições significa mesmo, vamos deixar para depois.\foot
+Também deixamos para depois a pergunta ainda mais interessante:
+o que significa responder na pergunta \wq{O que significa $(A \lor B)$?}?
+\toof
+Considero que o leitor já tem uma idéia básica sobre o significado de cada uma
+dessas frases, e também considero que provavelmente tem uns mal-entendidos também,
+e logo não precisa se preocupar agora com seu significado.
+Analizamos cada um deles logo no~\ref[Proofs] (e aprofundamos ainda mais nos
+\reftag[Mathematical_logic] e \reftag[Proof_theory]).
+Agora quero discutir só a sintaxe: \emph{como definir uma linguagem cujo
+objetivo é representar esse tipo de proposições}.
+
+%%}}}
+
+%%{{{ examples_of_propositions 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Considere as seguinte proposições:
+% TODO: fix reflabs
+\elist:
+\li: Se $x < y$ e $y < z$ então $z < x$.
+\li: $\sqrt 2$ é irracional.
+\li: $5$ é primo
+\li: $5$ é primo ou par
+\li: $5$ é primo ou $8$ é primo
+\li: O $5$ é um divisor dos $25$ e $26$.
+\li: Se $p$ é primo então: $p$ divide $8$ se e somente se $p$ é par
+\li: Eu não sei onde $p$ nasceu.
+\endelist
+
+%%}}}
+
+%%{{{ Its syntax 
+\note Sua sintaxe.
+%%%{{{ meta 
+%%%}}}
+
+\TODO Escrever, mencionar $\zolang$ ou retirar a notação usada logo depois.
+
+%%}}}
+
+%%{{{ Givens 
+\note Variáveis proposicionais.
+%%%{{{ meta 
+\indexes
+    * metavariável
+    * variável!proposicional
+    * variável
+    ;;
+%%%}}}
+
+Considere dado o conjunto dos símbolos
+$$
+\zolvars = \set{ \lsym p_0, \lsym p_1, \lsym p_2, \dotsc }
+$$
+chamados \dterm{variáveis proposicionais}.
+Não importa quais são esses símbolos; o que ímporta é que temos
+uma infinidade deles, e planejamos usá-los
+para representar proposições atômicas.
+Esses símbolos então são \emph{variáveis da linguagem-objeto}.
+E vamos usar as \emph{metavariáveis} $p,q,r,\dots$ para representá-los.
+(Lembre da~\ref[Language_vs_metalanguage]).
+Observe que metavariáveis diferentes não necessariamente representam
+variáveis diferentes, mesmo que muitas vezes isso é implícito pelo contexto.
+Por exemplo, querendo traduzir a proposição
+$$
+\textwq{$5$ é primo ou par}
+$$
+podemos escolher atribuir os significados
+$$
+\rightbrace {
+\aligned
+\lsym p_0 & : \textwq{$5$ é primo} \\
+\lsym p_1 & : \textwq{$5$ é par}
+\endaligned
+}
+\qqtext{e logo usar}
+\lsym p_0 \lor \lsym p_1
+$$
+mas também poderiamos ter escolhido
+$$
+\rightbrace {
+\aligned
+\lsym p_9 & : \textwq{$5$ é primo} \\
+\lsym p_2 & : \textwq{$5$ é par}
+\endaligned
+}
+\qqtext{e logo usar}
+\lsym p_9 \lor \lsym p_2
+$$
+etc.
+Mesmo quando as escolhas são poucas (como aqui),
+\emph{preferimos usar metavariáveis} escrevendo
+$$
+\rightbrace {
+\aligned
+p & : \textwq{$5$ é primo} \\
+q & : \textwq{$5$ é par}
+\endaligned
+}
+\qqtext{e logo usar}
+p \lor q
+$$
+pois \emph{não importa qual} dos símbolos escolhemos para a proposição \wq{$5$ é primo}
+e qual para a \wq{$5$ é par}, o importante é que temos dois deles e conseguimos formar a expressão que queremos.
+
+%%}}}
+
+\TODO
+Começar com duas definições erradas:
+uma sem parens outra com conectivos apenas entre atômicas.
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Finalmente chegamos na definição correta do que é uma fórmula:
+
+%%}}}
+
+%%{{{ df: propositional_formula 
+\definition Fórmula.
+%%%{{{ meta 
+\label propositional_formula
+\defines
+    * fórmula!atômica
+    * fórmula!proposicional
+    ;;
+%%%}}}
+
+\tlist:
+\li (A): Se $p$ é uma variável proposicional, então $p$ é uma fórmula.
+\li (N): Se $F$ é uma fórmula, então $\lnot F$ é uma fórmula.
+\li (B): Se $F,G$ são fórmulas, então:
+         \tlist: \withtag --
+         \li: $(F \limplies G)$ é uma fórmula;
+         \li: $(F \lor G)$ é uma fórmula;
+         \li: $(F \land G)$ é uma fórmula.
+         \endtlist
+\endtlist
+Nada mais é uma fórmula.
+Uma fórmula que consiste em apenas uma variável proposicional é chamada
+\dterm{fórmula atômica}.
+
+%%}}}
+
+%%{{{ note: zolang_bnf 
+\note.
+%%%{{{ meta 
+\label zolang_bnf
+%%%}}}
+
+Escrevemos
+\mathcol
+F &\bnfeq A \bnfor \lnot F \bnfor (F \limplies F) \bnfor (F \land F) \bnfor (F \lor F) \\
+\intertext {onde $A$ denota as fórmulas atômicas da $\zolang$, ou seja as variáveis proposicionais:}
+A &\bnfeq \lsym p_0 \bnfor \lsym p_1 \bnfor \lsym p_2 \bnfor \dotsb
+\endmathcol
+
+%%}}}
+
+%%{{{ x: metavar_vs_vats_in_propositional_formula 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+No texto da \ref[propositional_formula], identifique todas as metavariáveis
+e todas as variáveis (veja~\reftag[Language_vs_metalanguage], \reftag[metavariables]).
+
+
+%%}}}
+
+%%{{{ Sugar 
+\note Açúcar.
+%%%{{{ meta 
+%%%}}}
+
+Se $F,G$ são fórmulas, usamos as seguintes abreviações:
+$$
+\align
+(F \liff G)     &\sugareq ((F \limplies G) \land (G \limplies F))\\
+(F \limplied G) &\sugareq (G \limplies F)
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: second_character_of_limplied_abbr 
+\exercise.
+%%%{{{ meta 
+\label second_character_of_limplied_abbr
+%%%}}}
+
+Qual é o segundo caráter da fórmula $(A \limplied B)$?
+
+\hint
+Lembre-se que aqui $A,B$ são apenas \emph{metavariáveis}
+que denotam algumas fórmulas, sobre quais não sabemos nada mais
+fora do fato que são fórmulas (bem formadas).
+
+\solution
+O primeiro caráter da fórmula $B$.
+
+%%}}}
+
+%%{{{ Parentheses 
+\note Parenteses.
+%%%{{{ meta 
+%%%}}}
+
+Nos permitimos esquecer as parenteses mais externas
+duma fórmula.
+$$
+F \limplies G \abbreq (F \limplies G).
+$$
+
+%%}}}
+
+%%{{{ Precedences 
+\note Precedências.
+%%%{{{ meta 
+%%%}}}
+
+Não vamos escolher nenhuma das $\land$, $\lor$ para considerá-la
+mais forte, ou seja, \emph{nunca} vamos escrever algo do tipo
+$$
+F \lor G \land H.
+$$
+Por outro lado é comum considerar que elas têm precedência contra
+a $\limplies$: com as
+$$
+F \limplies G \land H
+\qqtext{e}
+F \lor G \limplies H
+$$
+denotamos as fórmulas
+$$
+(F \limplies (G \land H))
+\qqtext{e}
+((F \lor G) \limplies H)
+$$
+respectivamente.
+Mesmo assim, eu vou tentar botar essas parenteses quando considero
+que ajudam na leitura da fórmula!
+
+%%}}}
+
+%%{{{ Associativities 
+\note Associatividades.
+%%%{{{ meta 
+\indexes
+    * associatividade!sintáctica
+    ;;
+%%%}}}
+
+Atribuimos às $\land$ e $\lor$ uma associatividade à esquerda,
+e a $\limplies$ uma associatividade à direita.
+Pela semântica desejada a primeira escolha é arbitraria,
+pois a conjuncção e a disjuncção são operações \emph{associativas}.
+Mas a implicação não é.  Nossa escolha então importa!
+
+%%}}}
+
+%%{{{ Its semantics 
+\note Sua semântica.
+%%%{{{ meta 
+%%%}}}
+
+Definimos então a \emph{sintaxe} da nossa linguagem.
+Mas por enquanto nenhuma das suas expressões válidas
+tem significado!
+A gente deixou claro o que é uma fórmula, mas não
+o que ela \emph{denota}.
+Neste capítulo não vamos definir formalmente alguma
+\emph{semântica} para nossa linguagem.
+Pelo contrário, usando exemplos e umas explicações
+\emph{informais}, eu vou dar uma primeira idéia do que
+todas essas fórmulas significam.
+O importante é conseguir traduzir uma afirmação escrita
+em portugues numa fórmula dessa linguagem, pois assim
+ficará mais clara a \emph{estrutúra lógica} que tá
+escondida atrás das palavras (e suas ambigüidades)
+da linguagem natural.
+Depois de bastante trabalho vamos voltar para a questão
+de \emph{definir formalmente uma semântica}
+para essa linguagem.
+Essa tarefa vai nos preocupar nos capítulos
+\reftag[Mathematical_logic] e \reftag[Proof_theory].
+Por enquanto, deixe pra lá!
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ ZOL_limitations 
+\section Limitações da linguagem de proposições.
+%%%{{{ meta 
+\label ZOL_limitations
+%%%}}}
+
+%%{{{ related propositions seem unrelated 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Considere a afirmação
+\quote
+Se Igor é brasileiro ele toca violão.
+\endquote
+Qual é a melhor maneira para traduzir essa afirmação na
+nossa linguagem de lógica proposicional?
+Estamos procurando então uma \emph{fórmula} da $\zolang$
+que poderia representar essa afirmação.
+Podemos usar a fórmula seguinte:
+$$
+(P_0 \limplies P_1)
+$$
+mas precisamos ainda declarar quais são as proposições
+denotadas por as variáveis proposicionais que usamos ($P_0$ e $P_1$).
+A escolha é óbvia:
+$$
+\align
+P_0 &:\ \text{Igor é brasileiro}\\
+P_1 &:\ \text{Igor toca violão}
+\endalign
+$$
+Note aqui que $P_0$ não poderia ser ``ele toca violão'', pois
+na afirmação original esse ``ele'' refere ao Igor, então seria
+errado mudar isso para o indefinido e ambiguo ``ele''.
+Tudo bem até agora, mas como vamos traduzir as frases:
+% TODO: fix reflabs
+\tlist:
+\li (1): Se Thanos é brasileiro ele toca violão.
+\li (2): Se Igor é brasileiro ele toca piano.
+\li (3): Se Igor é grego ele toca violão.
+\endtlist
+Note que cada uma dessas proposições afirma algo muito parecido
+com a original, e mesmo assim o melhor jeito que temos
+para representar cada uma delas, é:
+$$
+\align
+&(P_2 \limplies P_3)\\
+&(P_0 \limplies P_4)\\
+&(P_5 \limplies P_1)
+\endalign
+$$
+O problema é que perdemos muita informação nessa traduação,
+e olhando apenas para essas fórmulas não conseguimos ver
+as conexões que alguém vê lendo as afirmações escritas na
+lingua natural acima.
+
+%%}}}
+
+%%{{{ zolang_is_way_too_poor_for_some_propositions 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Até pior, vamos tentar traduzir a afirmação seguinte:
+\quote
+Todo brasileiro que fala grego toca piano.
+\endquote
+
+%%}}}
+
+%%{{{ Q: what is the best way you can translate this to zolang? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Qual é a melhor forma que você consegue traduzir essa proposição para a linguagem
+$\zolang$?
+
+%%}}}
+
+\spoiler
+
+%%{{{ a_wrong_translation_to_zolang 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Uma tentativa errada seria pensar numa fórmula como
+$$
+((B \land G) \limplies P)
+$$
+onde escolhendo as proposições denotadas por nossos
+$B$, $G$, e $P$, acabamos falando algo sem sentido:
+$$
+\align
+B &: \text{todo brasileiro}\\
+G &: \text{alguém que fala grego}\\
+P &: \text{ele toca piano}
+\endalign
+$$
+ou algo parecido com isso.
+Agora pare e resolva o exercício seguinte:
+
+%%}}}
+
+%%{{{ x: what_is_wrong_with_this_translation_to_zolang 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Qual o problema com essa tradução?
+
+%%}}}
+
+%%{{{ we accept the best is the worst 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Infelizmente temos que aceitar que a melhor tradução que conseguimos
+é denotar a afirmação inteira por alguma variável proposicional.
+Ou seja, pelos olhos da $\zolang$, essa é uma afirmação atômica.
+
+%%}}}
+
+%%{{{ x: zolang_limitation_examples 
+\exercise.
+%%%{{{ meta 
+\label zolang_limitation_examples
+%%%}}}
+
+Para um exemplo ``mais matemático'', considere as proposições:
+\elist:
+\li: Para todo inteiro $n$, se $n$ é primo e $n>2$, então $n+2$ é primo.
+\li: Existem $n > 2$ e inteiros positivos $a,b,c$, tais que $a^n + b^n = c^n$.
+\li: Uma linguagem é regular se e somente se ela é reconhecida por um autômato finito.
+\li: Um espaço topológico é normal se e somente se quaisquer dois conjuntos disjuntos e fechados podem ser separados por uma funcção contínua.
+\li: Para todo $\alpha\neq0$ algébrico, $e^\alpha$ é transcendental.
+\endelist
+Qual é a melhor tradução de cada uma dessas na linguagem $\zolang$?
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ FOLs 
+\section Linguagens de predicados.
+%%%{{{ meta 
+\label FOLs 
+%%%}}}
+
+%%{{{ the alphabet 
+\note O alfabeto.
+%%%{{{ meta 
+\defines
+    * FOL
+    ;;
+%%%}}}
+
+Pelas limitações da linguagem da lógica proposicional que encontramos
+já na~\reftag[ZOL_limitations] faz sentido adicionar pelo menos os dois
+símbolos que correspondem nos quantificadores ``para todo'' e ``existe'',
+além do resto dos símbolos que já temos:
+$$
+\lnot, \limplies, \land, \lor, \forall, \exists
+$$
+\eop
+O que mais vamos precisar?
+Com certeza precisamos uma nova infinidade de símbolos para \emph{variáveis}
+$$
+\lsym x_0, \lsym x_1, \lsym x_2, \dots
+$$
+Essas variáveis não tem nada a ver com as variáveis proposicionais,
+pois elas não denotam proposições, mas objetos (indivíduos).
+\eop
+Que mais?
+Faria sentido permitir símbolos de \emph{nomes} ou \emph{constantes}
+para denotar certos indivíduos.  Por exemplo, estudando números,
+$3$ e $\pi$ são constantes, símbolos que assim que determinar uma
+linguagem, eles vão sempre denotar o mesmo objeto.
+Observe que não faz sentido falar <<existe $3$ tal que\dots>>
+nem <<para todo $3$ \dots>>.  Nossa sintaxe deve proibir essas
+abominagens.\foot
+Mesmo assim, isso já aconteceu na turma do meu amigo Fagner:
+corrigindo provas de cálculo ele viu a frase ``$\forall 3 > 0$''.
+Um aluno que, enquanto colando na prova, provavelmente pensou
+que seu colega tinha errado no ``$\forall \epsilon > 0$'' escrevendo
+o $3$ de cabeça pra baixo.
+Depois dele, muitos mais alunos acabaram entregando essa prova com
+``$\forall 3 > 0$''.  Ai ai\dots
+\toof
+Adicionamos então símbolos para constantes
+$$
+c,d,e,\dots
+$$
+\eop
+Que mais?
+Bem, se é para conseguir \emph{formular afirmações sobre objetos},
+vamos precisar símbolos para \emph{predicados} que recebem argumentos.
+E com eles vamos substituir os símbolos de variáveis proposicionais.
+Já discutimos (\reftag[ZOL_limitations]) que uma das limitações que
+queremos atender com essa nova linguagem é que afirmações bem parecidas
+acabam sendo denotadas por fórmulas que não tem nada em comum:
+nossa melhor tradução das afirmações \wq{$8$ é múltiplo de $2$}
+e \wq{$10$ é múltiplo de $3$} é algo do tipo $\lsym p_0$ para uma e
+$\lsym p_1$ para a outra.
+Não serve.  Queremos conseguir usar algo do tipo $P(8,2)$ para uma
+e $P(10,3)$ para a outra, onde o $P$ \emph{é o mesmo símbolo},
+preservando assim a conexão entre as afirmações.
+Jogamos fora então todos os símbolos de variáveis proposicionais
+para usar símbolos de \emph{predicados}:
+$$
+P, Q, R, \dots
+$$
+e bora botar a virgula \symq{$,$} também para separar os argumentos.
+\eop
+Algo mais?
+Sim, precisamos de uma última coisa.
+Símbolos para denotar \emph{funcções}.
+Eles nos permitem apontar para algum individual dados outros.
+Por exemplo \wq{a mãe da Bárbara}; ou $\lsym x_0 + \sin(\pi)$
+que seria \wq{a soma do $\lsym x_0$ com o seno do $\pi$}, etc.
+Aqui a gente usaria símbolos como $\lsym{mother}$, $+$, $\ntimes$,
+$\sin$, $\cos$, nos números.
+Vamos adicionar então símbolos de \emph{funcções}
+$$
+f, g, h, \dots
+$$
+e pronto.
+Então o alfabeto duma \dterm{linguagem da primeira ordem}
+ou \dterm{FOL}, parece assim:
+$$
+\def\symsnames##1##2{\tubrace{\;\vphantom {g_g} ##1\;} {##2}}
+\symsnames {\lnot\ \limplies\ \land\ \lor\ \forall\ \exists\;} {lógica}\ 
+\symsnames {(\ )\ ,\;} {puntuação}\ 
+\symsnames {\lsym x_0\ \lsym x_1\ \lsym x_2\ \dots\;} {variáveis}\ 
+\symsnames {c\ d\ e\ \dots\;} {constantes}\ 
+\symsnames {f\ g\ h\ \dots\;} {funcções}\ 
+\symsnames {P\ Q\ R\ \dots\;} {predicados}.
+$$
+
+%%}}}
+
+%%{{{ givens_for_a_FOL 
+\note Os dados para uma linguagem de FOL.
+%%%{{{ meta 
+%%%}}}
+
+Um conjunto infinito de símbolos de variáveis
+$$
+\folvars  = \set{\lsym x_0, \lsym x_1, \lsym x_2, \lsym x_3, \dotsc}.
+$$
+Conjuntos de símbolos de constantes, de funcções, e de predicados:
+$$
+\folcons,\quad
+\folfuns,\quad
+\folpreds.
+$$
+Vamos separar os símbolos de funcções por \dterm{aridade},
+ou seja, pela quantidade de argumentos que ele necessita ``consumir''.
+Similarmente para os símbolos de predicados, escrevendo assim
+$\folfuns_n$ e $\folpreds_n$, para o conjunto de símbolos de funcções
+e de predicados de aridade $n$ respectivamente.
+
+%%}}}
+
+%%{{{ remark: nullary functions as constants 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Podemos usar funcções de aridade $0$ como constantes,
+e assim nem precisamos um conjunto especial para esses símbolos.
+Mesmo assim, não vamos fazer isso aqui.
+Questão de gosto.\foot
+Mentira.
+Tem uns detalhes inessenciais neste momento sobre essa escolha.
+Vamos discutir isso no~\ref[Mathematical_logic].
+\toof
+
+%%}}}
+
+%%{{{ remark: alternative approach with arity metafunction 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Alternativamente, podemos deixar os símbolos de aridades
+diferentes juntos e exigir uma funcção $\folarity$ que
+atribua a cada deles sua aridade.
+Por exemplo, numa FOL que usariamos para cálculo, faria
+sentido ter símbolos $\lsym +,\lsym{cos},\lsym{<}$ entre outros, com aridades
+$\folarity(\lsym{+}) = 2$, $\folarity(\lsym{cos}) = 1$,
+$\folarity(\lsym{<}) = 2$, etc.
+As duas abordagens são equivalentes:
+$$
+\align
+f \in \folfuns_n  &\iff f \in \folfuns  \mland \folarity(f) = n\\
+P \in \folpreds_n &\iff P \in \folpreds \mland \folarity(P) = n.
+\endalign
+$$
+Vamos discutir mais sobre isso no~\ref[Mathematical_logic].
+
+%%}}}
+
+%%{{{ eg: FOL_example_number_theory 
+\example.
+%%%{{{ meta 
+\label FOL_example_number_theory
+%%%}}}
+
+Para estudar teoria dos números alguém poderia escolher essa linguagem:
+$$
+\align
+\folcons    &= \set{\lsym 0, \lsym 1, \lsym 2, \dots} \\
+\folfuns_1  &= \set{{-}} \\
+\folfuns_2  &= \set{{+}, {\cdot}, \lsym{gcd}} \\
+\folpreds_1 &= \set{\lsym{Prime}, \lsym{Even}, \lsym{Odd}, \lsym{IsZero}} \\
+\folpreds_2 &= \set{{=}, {<}, {\leq}, {\divides}}
+\endalign
+$$
+Note que aqui o símbolo \symq{$-$} foi escolhido para ter aridade $1$.
+O usuário dessa linguagem vai usá-lo para representar a operação
+unária de negação de números, para formas termos como os:
+$-1$, $-(1 + x)$, etc.
+
+%%}}}
+
+%%{{{ eg: FOL_example_people 
+\example.
+%%%{{{ meta 
+\label FOL_example_people
+%%%}}}
+
+Para estudar pessoas e suas relações uma linguagem poderia ser:
+$$
+\align
+\folcons    &= \set{\lsym{Thanos}, \lsym{Ramile}, \lsym{Eva}, \lsym{Sam}, \lsym{Maroui}, \lsym{Jebinos}} \\
+\folfuns_1  &= \set{\lsym{mother}, \lsym{father}} \\
+\folpreds_1 &= \set{\lsym{Male}, \lsym{Female}, \lsym{Adult}, \lsym{Mother}, \lsym{Father}, \lsym{Brazilian}, \lsym{Greek}} \\
+\folpreds_2 &= \set{=, \lsym{Loves}, \lsym{SiblingOf}, \lsym{MotherOf}, \lsym{FatherOf}}
+\endalign
+$$
+Qual a diferença entre os símbolos $\lsym{mother}$ e $\lsym{Mother}$?
+Ambos são símbolos de aridade $1$, mas $\lsym{mother}$ é um símbolo de funcção
+e $\lsym{Mother}$ é um símbolo de predicado.
+O que isso quis dizer?
+Suponha que $p$ é qualquer objeto do meu mundo (vamos pensar em pessoas).
+A expressão $\lsym{mother}(p)$ vai acabar denotando um objeto do meu mundo
+também.  A intenção do criador dessa linguagem provavelmente foi que
+$\lsym{mother}(p)$ denota a mãe de $p$.
+Similarmente, $\lsym{mother}(\lsym{mother}(p))$ denota a mãe da mãe
+da pessoa $p$.  E por aí vai.
+Por outro lado, a expressão $\lsym{Mother}(p)$ não denota pessoa, mas
+sim uma afirmação \emph{sobre} a pessoa $p$.  Adivinhando novamente
+a intenção do criador, a proposição $\lsym{Mother}(p)$ afirma que
+a pessoa $p$ \emph{é uma mãe}.
+E o símbolo $\lsym{MotherOf}$?
+Como ele tem aridade $2$, ele precisa de $2$ objetos, e assim
+que recebé-los ele denota uma afirmação (pois é símbolo de \emph{predicado}).
+Aqui a idéia é que $\lsym{MotherOf}(p,q)$ denota a afirmação
+<<$p$ é a mãe de $q$>>.
+
+%%}}}
+
+%%{{{ eg: full_FOL_example 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Tomamos
+$$
+\xalignat2
+\bigparen{\;\folcons =\;}\quad
+\folfuns_0   &= \set{\lsym f^0_0, \lsym f^0_1, \lsym f^0_2, \lsym f^0_3, \dotsc} & \folpreds_0  &= \set{\lsym P^0_0, \lsym P^0_1, \lsym P^0_2, \lsym P^0_3, \dotsc}\\
+\folfuns_1   &= \set{\lsym f^1_0, \lsym f^1_1, \lsym f^1_2, \lsym f^1_3, \dotsc} & \folpreds_1  &= \set{\lsym P^1_0, \lsym P^1_1, \lsym P^1_2, \lsym P^1_3, \dotsc}\\
+\folfuns_2   &= \set{\lsym f^2_0, \lsym f^2_1, \lsym f^2_2, \lsym f^2_3, \dotsc} & \folpreds_2  &= \set{\lsym P^2_0, \lsym P^2_1, \lsym P^2_2, \lsym P^2_3, \dotsc}\\
+             &\eqvdots                                                                   &              &\eqvdots                                                                  
+\endxalignat
+$$
+onde temos denotado a aridade de cada símbolo como um ``exponente''.
+
+%%}}}
+
+%%{{{ Equality 
+\remark Igualdade.
+%%%{{{ meta 
+%%%}}}
+
+Note que podemos considerar o símbolo \symq{$=$} de
+igualdade como símbolo da lógica, botando junto com os
+$$
+\lnot, \limplies, \land, \lor, \forall, \exists, =
+$$
+e nesse caso falamos que temos uma FOL \emph{com igualdade}.
+Ou podemos considerar \symq{$=$} como mais um predicado,
+cuja existência ou não na linguagem depende do usuário,
+e---ainda mais importante---cuja \emph{interpretação}
+também depende do usuário.
+Nesse primeiro encontro com lógica e fórmulas, vamos considerar
+que $=$ é um símbolo de predicado de aridade $2$, cujo significado
+é sempre afirmar que seus $2$ argumentos \emph{denotam o mesmo objeto},
+e que sempre faz parte do $\folpreds_2$.
+Quando a gente voltar para estudar lógica matemática no
+\ref[Mathematical_logic], vamos discutir mais sobre isso.
+Por enquanto não importa!
+
+%%}}}
+
+%%{{{ Terms vs. formulae 
+\note Terms \vs fórmulas.
+%%%{{{ meta 
+%%%}}}
+
+Não vamos dar diretamente uma definição de quando uma expressão é uma fórmula.
+Em vez disso, vamos primeiro definir o que são os \emph{termos} duma FOL.
+A idéia é que o termos representam os objetos (indivíduos) do nosso universo.
+Se estamos estudando pessoas, cada termo vai acabar apontando (denotando)
+uma pessoa.  Estudando cálculo, os termos denotariam números reais, etc.
+Um termo então é um caso especifico de fórmula?
+Não!  Temos um ``type error'' se pensar assim!
+Os termos denotam objetos.
+As fórmulas denotam proposições (afirmações)
+(possivelmente \emph{sobre} objetos).
+Talvez uns exemplos ajudem.
+
+%%}}}
+
+%%{{{ eg: terms_vs_formulas_example 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Estudando cálculo, as expressões seguintes são termos:
+$$
+\xalignat7
+ &0
+&&\pi
+&&x
+&&-1
+&&1/2
+&&\sin(\pi/x)
+&&x\sin(\pi/3) + y\cos(\pi^2)
+\endxalignat
+$$
+Por outro lado, as expressões seguintes são fórmulas:
+$$
+\xalignat4
+&
+\gathered
+{0 < 1} \land {x < 0} \\
+{x^2 = 0} \limplies {x = 0}
+\endgathered
+&&
+\gathered
+\lnot\exists y (y^2 > 4) \\
+x^2 + y^2 = 1
+\endgathered
+&&
+\gathered
+\forall x (0 \leq x^2 0) \\
+\exists x \forall y (x + y = 0)
+\endgathered
+&&
+\gathered
+\forall y \exists y (x + y = 0) \\
+\forall z \paren{{z = 0} \lor \forall w \lnot (w + z = w)}
+\endgathered
+\endxalignat
+$$
+Uns dos termos chamamos de atômicos e similarmente umas das fórmulas
+chamamos de atômicas.  Tente agora (antes de ver a definição) adivinhar
+quais desses termos são atômicos e quais dessas fórmulas são atômicas.
+
+%%}}}
+
+%%{{{ df: FOL_term 
+\definition Termo.
+%%%{{{ meta 
+\label FOL_term
+\defines
+    * FOL!termo
+    ;;
+%%%}}}
+
+\tlist:
+\li: Se $c \in \folcons$ então $c$ é um termo.
+\li: Se $f \in \folfuns_n$ e $t_1,\dotsc,t_n$ são termos, então $f(t_1,\dotsc,t_n)$ é um termo.
+\li: Se $x \in \folvars$ então $x$ é um termo.
+\endtlist
+Nada mais é um termo.
+Denotamos o conjunto de termos com $\folterms$.
+Resumindo esquematicamente a definição, temos:
+$$
+\align
+x \in \folvars &\implies x \in \folterms\\
+c \in \folcons &\implies c \in \folterms\\
+\rightbrace {
+\aligned
+f &\in \folfuns_n\\
+t_1,\dotsc,t_n &\in \folterms
+\endaligned
+}
+&\implies f(t_1,\dotsc,t_n) \in \folterms\\
+\endalign
+$$
+
+%%}}}
+
+%%{{{ df: FOL_atomic_formula 
+\definition Fórmula atômica.
+%%%{{{ meta 
+\label FOL_atomic_formula
+\defines
+    * FOL!fórmula atômica
+    ;;
+%%%}}}
+
+Se $P \in \folpreds_n$ e $t_1,\dotsc,t_n$ são termos,
+então $P(t_1,\dotsc,t_n)$ é uma \dterm{fórmula atômica}.
+
+%%}}}
+
+%%{{{ df: FOL_formula 
+\definition Fórmula.
+%%%{{{ meta 
+\label FOL_formula
+\defines
+    * FOL!fôrmula
+    ;;
+%%%}}}
+
+\tlist:
+\li (A): Se $A$ é uma fórmula atômica, então $A$ é uma fórmula.
+\li (N): Se $F$ é uma fórmula, então $\lnot F$ é uma fórmula.
+\li (B): Se $F,G$ são fórmulas, então:
+         \tlist: \withtag --
+         \li: $(F \limplies G)$ é uma fórmula;
+         \li: $(F \lor G)$ é uma fórmula;
+         \li: $(F \land G)$ é uma fórmula.
+         \endtlist
+\li (Q): Se $F$ é uma fórmula e $x$ é uma variável, então:
+         \tlist: \withtag --
+         \li: $\forall x F$ é uma fórmula;
+         \li: $\exists x F$ é uma fórmula.
+         \endtlist
+\endtlist
+
+%%}}}
+
+%%{{{ Practical abuse of BNF for FOL 
+\grammar FOL.
+%%%{{{ meta 
+\label FOL_grammar
+%%%}}}
+
+Seguindo uma práctica comum, escrevemos apenas
+$$
+\align
+F &\bnfeq
+\mathit{A}
+\bnfor \lnot F
+\bnfor (F \limplies F)
+\bnfor (F \land F)
+\bnfor (F \lor F)
+\bnfor \forall v F
+\bnfor \exists v F
+\endalign
+$$
+onde $A$ denota fórmulas atômicas e $v$ denota qualquer variável da nossa FOL.
+
+%%}}}
+
+%%{{{ x: BNF_for_FOL 
+\exercise.
+%%%{{{ meta 
+\label BNF_for_FOL
+%%%}}}
+
+Supondo que $\bnf{At}$ pode ser substituito por qualquer fórmula atômica duma FOL (e por nada mais),
+defina umas gramáticas em BNF para gerar a linguagem das suas fórmulas bem formadas.
+
+\solution
+Aqui uma solução:
+$$
+\align
+\bnf{F}     &\bnfeq \bnf{At} \bnfor \lnot \bnf{F} \bnfor (\bnf{F} \bnf{Bin} \bnf{F}) \bnfor \bnf{Q}\bnf{Var}\bnf{F}\\
+\bnf{Bin}   &\bnfeq \lor \bnfor \land \bnfor \limplies\\
+\bnf{Q}     &\bnfeq \forall \bnfor \exists\\
+\bnf{Var}   &\bnfeq x_0 \bnfor x_1 \bnfor x_2 \bnfor \dotsb\\
+\intertext{Como já encontramos, um fácil jeito para evitar os ``$\dotsb$'' seria usar:}
+\bnf{Var}   &\bnfeq x \bnfor \bnf{Var}'
+\endalign
+$$
+
+%%}}}
+
+%%{{{ Q: What do we need in order to have a FOL language? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+O que precisamos especificar para ter uma linguagem FOL?
+
+%%}}}
+
+%%{{{ A: pick symbols and their arities 
+\blah Resposta.
+%%%{{{ meta 
+%%%}}}
+
+Olhando cuidadosamente para a sua sintaxe, é claro que precisamos
+deixar claro quais são os símbolos de variáveis, constantes,
+funcções, e predicados, que vamos usar, e suas aridades para
+os símbolos de funcções e predicados.
+
+%%}}}
+
+%%{{{ Its semantics 
+\note Sua semântica.
+%%%{{{ meta 
+%%%}}}
+
+Tanto como na lógica proposicional, não vamos nos preocupar
+neste momento para definir formalmente uma semântica para
+as linguagens de lógica da primeira ordem.
+Para conseguir isso, precisamos ganhar muita experiência
+com conjuntos (\ref[Sets]), funcções (\ref[Functions]),
+e relações (\ref[Relations]), e uma certa
+\emph{maturidade matemática} que vai chegando durante
+nossos estudos.
+Finalmente no~\ref[Mathematical_logic] vamos voltar
+nessa questão.
+Mesmo assim, precisamos dar pelo menos uma primeira idéia
+da semântica da FOL, mesmo sem rigidez.
+
+%%}}}
+
+%%{{{ Interpretations 
+\note Interpretações.
+%%%{{{ meta 
+\label Interpretations
+\defines
+    * interpretação
+    ;;
+%%%}}}
+
+Dada uma linguagem de FOL, para suas fórmulas ganharem
+significado, precisamos deixar claro:
+\tlist:
+\li: Qual é o \dterm{universo}, ou seja, todos os objetos
+onde as variáveis (e constantes) tomam seus valores.
+Todos os nossos termos vão acabar denotando objetos
+desse universo.
+\li: Para cada \emph{símbolo de funcção}, qual é a \emph{funcção mesmo}
+que ele representa no universo escolhido.
+\li: Para cada \emph{símbolo de predicado}, qual é a \emph{relação mesmo}
+que ele representa no universo escolhido.
+\endtlist
+Assim que der tudo isso, digamos que temos uma \dterm{interpretação}
+da linguagem.
+
+%%}}}
+
+%%{{{ Definition of truth 
+\note Definição de verdade.
+%%%{{{ meta 
+%%%}}}
+
+Mas o que significa que uma fórmula é verdadeira?
+Tendo uma interpretação (\reftag[Interpretations])%
+---ou seja, assim que especificar tudo isso---se numa fórmula
+não aparecem variáveis livres, podemos investigar já sua veracidade,
+testando a correspondente afirmação na interpretação.
+Se aparecem variáveis livres, tendo uma atribuição de objetos
+nelas também podemos decidir sua veracidade.
+Essa curta explicação informal deve servir por enquanto,
+junta com os exemplos abaixo.
+No~\ref[Mathematical_logic] vamos ver tudo formalmente e com carinho.
+Paciência.
+
+%%}}}
+
+%%{{{ eg: mother_of_all 
+\example.
+%%%{{{ meta 
+\label mother_of_all
+%%%}}}
+
+Considere as fórmulas
+\elist:
+\li: $\forall x (P(x) \limplies Q(x))$;
+\li: $\exists x \forall y R(x,y)$.
+\li: $\forall y \exists x R(x,y)$.
+\endelist
+Escolhendo que o universo é feito por todas as pessoas
+(tanto vivas quanto mortas) e que $P$ e $Q$ são os predicados de
+``ser pai'' e ``ser homem'', a primeira fórmula vira-se verdade:
+realmente cada pai é um homem.  Escolhendo interpretar o $R(u,v)$
+como ``$u$ é a mãe de $v$'', a segunda frase se-traduza como
+``existe pessoa que é mãe de todos'' (que é falso),
+mas a terceira diz ``toda pessoa tem mãe'' (que é verdadeiro).
+
+%%}}}
+
+%%{{{ x: interpretting_formulas_exercise
+\exercise.
+%%%{{{ meta 
+\label interpretting_formulas_exercise
+%%%}}}
+
+Para cada uma das fórmulas abaixo, quando possível,
+ache uma interpretação que a satisfaz e uma que não.
+\elist:
+\li: $\forall x \forall y \paren{R(x,y) \land \lnot R(y,x)}$;
+\li: $\forall x \forall z \exists y \paren{R(x,y) \land R(y,z)}$;
+\li: $\exists x \exists y \exists z Q(f(x,y),z)$.
+\endelist
+
+%%}}}
+
+%%{{{ Translations to and from FOL 
+\note Traduzindo de e para FOL.
+%%%{{{ meta 
+\label FOL_translations
+%%%}}}
+
+\TODO.
+
+%%}}}
+
+%%{{{ Non-limitations 
+\note Não-limitações.
+%%%{{{ meta 
+%%%}}}
+
+Numa primeira olhada a linguagem pode parecer limitada
+para expressar umas afirmações que encontramos o tempo
+todo em matemática:
+$$
+\gathered
+\text{``existe único $x$ tal que \dots''} \\
+\text{``para todo número primo $p$, \dots''} \\
+\text{``existe $x\in A$ tal que \dots''} \\
+\text{``para todo $x\in A$, \dots''} \\
+\text{``existe único $x\in A$ tal que \dots''}
+\endgathered
+$$
+etc.
+Podemos expressar essas afirmações numa linguagem de FOL?
+Se não, vamos precisar aumentar nossa linguagem
+com novos quantificadores, mas felizmente isso
+não é necessário.  Podemos realmente escrever
+todas essas afirmações e logo basta só descrever
+como, e definir mais \emph{acúcar sintáctico}.
+Trabalhe nos exercícios seguintes para ver como.
+
+%%}}}
+
+%%{{{ x: forall_x_in_A_sugar 
+\exercise.
+%%%{{{ meta 
+\label forall_x_in_A_sugar
+%%%}}}
+
+Ache uma fórmula de linguagem de FOL equivalente à
+$\lforall {x \in A} {\phi(x)}$, onde $\phi(x)$ é
+uma fórmula que envolve o $x$.  Podes supor que
+tua linguagem tem o símbolo \symq{$\in$} nos seus predicados.
+
+\hint
+Só para ajudar, suponha que o universo é feito
+por todas as pessoas da terra, e que $A$ é o conjunto
+de todos os alunos.
+E só para ficar mais concreto ainda, suponha
+que a fórmula $\phi(x)$ quis dizer que
+<<$x$ é uma pessoa legal>>.
+O desafio é conseguir escrever a afirmação
+$$
+\text{<<todo aluno é legal>>}
+$$
+O problema é que minha linguagem me permite dizer
+$$
+\forall x {\lthole}
+$$
+ou seja
+$$
+\text{<<toda pessoa, \dots>>},
+\qquad
+\text{<<para toda pessoa $x$, $\psi(x)$>>},
+$$
+etc., mas não <<para todo aluno $x$, $\psi(x)$>>.
+O que você precisa afirmar \emph{para toda pessoa $x$} mesmo,
+tal que a afirmação inteira vai acabar sendo equivalente a
+$$
+\text{<<todo aluno é legal>>}?
+$$
+
+\hint
+Tu tens que afirmar algo para toda pessoa $x$.
+Em vez de afirmar que $x$ é legal, afirme uma implicação:
+afirme que
+$$
+\text{se $x$ {\lthole}, então {\lthole}}.
+$$
+
+\solution
+$$
+\lforall {x \in A} {\phi(x)}
+\iff
+\forall x \paren{ x\in A \limplies \phi(x) }
+$$
+
+%%}}}
+
+%%{{{ x: exists_x_in_A_sugar 
+\exercise.
+%%%{{{ meta 
+\label exists_x_in_A_sugar
+%%%}}}
+
+Similarmente para a $\lexists {x \in A} {\phi(x)}$.
+
+\hint
+A idéia é parecida com o~\ref[forall_x_in_A_sugar],
+mas cuidado, pois é fácil errar!
+
+\hint
+Se eu quiser afirmar que existe \emph{um aluno} $x$ tal que $\phi(x)$,
+mas eu posso apenas afirmar que existe \emph{uma pessoa} $x$ tal que $\psi(x)$, como eu posso escolher esse $\psi(x)$ para conseguir dizer o que eu quero?
+Observe que afirmando que existe aluno $x$ tal que $\phi(x)$,
+é a mesma coisa de afirmar que existe pessoa $x$ tal que $\phi(x)$ e\dots
+mais uma coisa!
+Qual?
+
+\solution
+$$
+\lexists {x \in A} {\phi(x)}
+\iff
+\lexists x {x\in A \land \phi(x)}
+$$
+
+%%}}}
+
+%%{{{ x: unique_x_sugar 
+\exercise.
+%%%{{{ meta 
+\label unique_x_sugar
+%%%}}}
+
+Similarmente para
+$\lunique x {\phi(x)}$ e uma da $\lunique {x \in A} {\phi(x)}$.
+Lemos o ``$\unique{}$'' como ``existe único''.
+
+%%}}}
+
+%%{{{ x: is_this_sugar_good_for_unique_1 
+\exercise.
+%%%{{{ meta 
+\label is_this_sugar_good_for_unique_1
+%%%}}}
+
+$
+\lunique x {\phi(x)}
+\askiff
+\pexists u \lforall y { \phi(y) \liff y = u }
+$
+
+%%}}}
+
+%%{{{ x: is_this_sugar_good_for_unique_2 
+\exercise.
+%%%{{{ meta 
+\label is_this_sugar_good_for_unique_2
+%%%}}}
+
+$
+\lunique x {\phi(x)}
+\askiff
+\lexists x { \phi(x) \mland \lforall y { \phi(y) \limplies \phi(x) } }
+$
+
+%%}}}
+
+%%{{{ x: square_of_odd_is_odd 
+\exercise.
+%%%{{{ meta 
+\label square_of_odd_is_odd
+%%%}}}
+
+Considere a afirmação:
+$$
+\textwq{Todos os quadrados de ímpares são ímpares.}
+$$
+Usando a notação encontrada neste capítulo, escreva a afirmação em tal forma
+que sua estrutura lógica é claramente exposta.
+Considere o \wq{{\thole} é ímpar} como um predicado primitivo.
+
+\hint
+$\lforall {n \in \ints} {\dots?\dots}$.
+
+\hint
+$\lforall {n \in \ints} {\text{$n$ ímpar} \askiff \text{$n^2$ ímpar}}$.
+
+\solution
+$\lforall {n \in \ints} {\text{$n$ ímpar} \implies \text{$n^2$ ímpar}}$.
+
+%%}}}
+
+%%{{{ Limitations 
+\note Limitações.
+%%%{{{ meta 
+%%%}}}
+
+Para a maioria das afirmações que encontramos em matemática normalmente
+a FOL é suficiente.  Mesmo assim, ela tem suas limitações tanto
+para expressar certas proposições matemáticas, quanto para certas afirmações
+que encontramos com freqüência na nossa vida.
+
+%%}}}
+
+%%{{{ x: limitation_of_fol_in_math 
+\exercise.
+%%%{{{ meta 
+\label limitation_of_fol_in_math
+%%%}}}
+
+Ache uma afirmação matemática que FOL não é capaz para traduzir bem.
+
+%%}}}
+
+%%{{{ x: modal_temporal_logics 
+\exercise.
+%%%{{{ meta 
+\label modal_temporal_logics
+%%%}}}
+
+Pense em outras afirmações que aparecem freqüentemente na nossa fala
+que FOL seria pobre para traduzir bem.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS 
+\problems.
+%%%{{{ meta 
+%%%}}}
+
+\endproblems
+%%}}}
+
+%%{{{ Further reading 
+\further.
+
+Sobre lógica matemática:
+\cite[kleeneIM],
+\cite[curryfoundations];
+\cite[kleenelogic],
+\cite[smullyanfol];
+\cite[corilascar1]~\&~\cite[corilascar2],
+\cite[shoenfieldlogic],
+\cite[bellmachover].
+
+Sobre intuicionismo:
+\cite[heytingintuitionism].
+\cite[dummettintuitionism].
+\cite[proofsandtypes].
+\cite[lecturesch].
+\cite[bishopfca]~\&~\cite[bishopbridgesconstructive].
+\cite[girardblindspot].
+
+\endfurther
+%%}}}
+
+\endchapter
+%%}}}
+
