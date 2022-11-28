@@ -18314,6 +18314,76 @@ as leis seguintes são satisfeitas:
 
 %%}}}
 
+%%{{{ thm: List_functor 
+\theorem List-functor.
+%%%{{{ meta 
+\label List_functor
+%%%}}}
+
+O $\List \is \Type \to \Type$ com seu
+$\fmap \is (\alpha\to\beta) \to (\ListA \alpha \to \ListA \beta)$
+é um functor.
+
+\proof.
+Precisamos demonstrar as duas leis de functors.
+A primeira é pra ti (\ref[List_functor_first_law_proof]),
+e a segunda, i.e.,
+$$
+\noflex
+\lforall {\alpha \toby g \beta \toby f \gamma}
+         {\fmapA {(f \of g)} = \fmapA f \of \fmapA g},
+$$
+pra mim.
+Sejam $\alpha \toby g \beta \toby f \gamma$.
+Agora, pela definição de igualdade sobre funções, preciso demonstrar
+$$
+\lforall {\ell \is \List \alpha}
+         { \fmapPA {f \of g} \ell
+             =
+           \fA {(\fmapA f \of \fmapA g)} \ell }.
+$$
+Seja $\ell \is \List \alpha$.
+Por indução.
+\crcase{Caso $\lnil$.}
+Calculamos:
+\compute
+\fmapPA {f \of g} \lnil
+  &= \lnil                         \by {\funref[\fmap.1]} \\
+\fA {(\fmapA f \of \fmapA g)} \lnil
+  &= \fmapAP f {\fmapAA g \lnil} \by {\funref[(\of).1]} \\
+  &= \fmapAA f \lnil             \by {\funref[\fmap.1]} \\
+  &= \lnil.                      \by {\funref[\fmap.1]}
+\endcompute
+\case{Caso $(x \lcons \xs)$.}
+Calculamos os dois lados:
+\poemcomputes 2
+\poemcomputed {
+\fmapPP {f \of g} {x \lcons \xs} \\
+  = \fA {(f \of g)} x \lcons \fmapPA {f \of g} \xs              \by {\funref[\fmap.2]} \\
+  = \fA {(f \of g)} x \lcons (\fmapAA f \xs \of \fmapAA g \xs)  \by {HI} \\
+  = {\fP f {\fA g x}} \lcons (\fmapAA f \xs \of \fmapAA g \xs)  \by {\funref[(\of).1]} \\
+  = {\fP f {\fA g x}} \lcons \fmapAP f {\fmapAA g \xs}          \by {\funref[(\of).1]} \\
+} &
+\poemcomputed {
+\fP {(\fmapA f \of \fmapA g)} {x \lcons \xs} \\
+  = \fmapAP f {\fmapAA g {(x \lcons \xs)}}              \by {\funref[(\of).1]} \\
+  = \fmapAP f {\fA g x \lcons \fmapAA g \xs}            \by {\funref[\fmap.2]} \\
+  = {\fP f {\fA g x}} \lcons \fmapAP f {\fmapAA g \xs}  \by {\funref[\fmap.2]} \\
+}
+\endpoemcomputes
+
+%%}}}
+
+%%{{{ x: List_functor_first_law_proof 
+\exercise.
+%%%{{{ meta 
+\label List_functor_first_law_proof
+%%%}}}
+
+Demonstre a primeira lei de functor para o $\List$ com $\fmap$.
+
+%%}}}
+
 \endsection
 %%}}}
 
