@@ -14927,28 +14927,28 @@ linguagem-objeto \vs da metalinguagem nas definições acima.
 Vamos inferir que $SSSS0$ é um $\Nat$ mesmo.
 
 \solution.
-Vamos construir sua árvore ``bottom-up''.
+Vamos construir sua árvore \emph{bottom-up}.
 O desafio é inferir
 $$
-\SuA (\SuA (\SuA (\SuA \Ze))) \is \Nat
+\SuP {\SuP {\SuP {\SuA \Ze}}} \is \Nat
 $$
 e usando a regra \namedrule{Succ} podemos \emph{reduzir} esse problema para
 $$
 \PROOFmr {
-\A  {\SuA (\SuA (\SuA \Ze) \is \Nat}
-\I1------------------ {Succ}
-    {\SuA (\SuA (\SuA (\SuA \Ze) \is \Nat}
+\A     {\SuP {\SuP {\SuA \Ze}} \is \Nat}
+\I1------------------------------------------ {Succ}
+    {\SuP {\SuP {\SuP {\SuA \Ze}}} \is \Nat}
 }
 $$
 Essa árvore tem afirmações \dq{abertas} então não terminamos ainda.
-Usando a mesma regra reduzimos o $\SuA (\SuA (\SuA \Ze)) \is \Nat$ para:
+Usando a mesma regra reduzimos o $\SuP {\SuP {\SuA \Ze}} \is \Nat$ para:
 $$
 \PROOFmr {
-\A {\SuA (\SuA \Ze) \is \Nat}
-\I1---------------- {Succ}
-   {\SuA (\SuA (\SuA \Ze) \is \Nat}
-\I1----------------- {Succ}
-   {\SuA (\SuA (\SuA (\SuA \Ze) \is \Nat}
+\A        {\SuP {\SuA \Ze} \is \Nat}
+  \I1------------------------------------ {Succ}
+      {\SuP {\SuP {\SuA \Ze}} \is \Nat}
+\I1------------------------------------------ {Succ}
+    {\SuP {\SuP {\SuP {\SuA \Ze}}} \is \Nat}
 }
 $$
 e continuando nessa maneira, chegamos finalmente no
@@ -14956,16 +14956,16 @@ $0 \is \Nat$; agora usamos a regra \namedrule{Zero},
 fechando assim a única coisa que tava aberta:
 $$
 \PROOFmr {
-\I0------------ {Zero}
-   {\Ze \is \Nat}
-\I1------------- {Succ}
-   {\SuA \Ze) \is \Nat}
-\I1-------------- {Succ}
-   {\SuA (\SuA \Ze) \is \Nat}
-\I1--------------- {Succ}
-   {\SuA (\SuA (\SuA \Ze) \is \Nat}
-\I1---------------- {Succ}
-   {\SuA (\SuA (\SuA (\SuA \Ze) \is \Nat}
+            \I0---------------- {Zero}
+                {\Ze \is \Nat}
+         \I1---------------------- {Succ}
+             {\SuA \Ze) \is \Nat}
+      \I1----------------------------- {Succ}
+          {\SuP {\SuA \Ze} \is \Nat}
+   \I1----------------------------------- {Succ}
+       {\SuP {\SuP {\SuA \Ze}} \is \Nat}
+\I1------------------------------------------- {Succ}
+    {\SuP {\SuP {\SuP {\SuA \Ze}}} \is \Nat}
 }
 $$
 
