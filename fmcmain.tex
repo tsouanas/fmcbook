@@ -17880,7 +17880,7 @@ $
 %%}}}
 
 %%{{{ x: map_prequel 
-\exercise addNat, mulNat, expNat, powNat.
+\exercise.
 %%%{{{ meta 
 \label map_prequel 
 %%%}}}
@@ -17897,7 +17897,7 @@ $
 %%}}}
 
 %%{{{ x: pw_prequel 
-\exercise pwAdd, pwMul, pwExp.
+\exercise.
 %%%{{{ meta 
 \label pw_prequel
 %%%}}}
@@ -18002,9 +18002,10 @@ Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\N
 \label List_types
 %%%}}}
 
-%%{{{ df: List
-\definition.
+%%{{{ df: List 
+\definition List.
 %%%{{{ meta 
+\headerize
 \label List
 \defines
     * \ListA {~\alpha}  -- o tipo de dados $\ListA \alpha$
@@ -18225,8 +18226,9 @@ Enuncie e demosntre o (ifthenelse-distr) citado acima.
 %%%}}}
 
 %%{{{ df: Maybe
-\definition.
+\definition Maybe.
 %%%{{{ meta 
+\headerize
 \label Maybe
 \defines
     * \MaybeA {~\alpha}  -- o tipo de dados $\MaybeA \alpha$
@@ -18252,9 +18254,10 @@ Definimos o construtor de tipos $\Maybe$ assim:
 \label Either_types
 %%%}}}
 
-%%{{{ df: Either
-\definition.
+%%{{{ df: Either 
+\definition Either.
 %%%{{{ meta 
+\headerize
 \label Either
 \defines
     * \EitherAA {~\alpha} {~\beta}  -- o tipo de dados $\EitherAA \alpha \beta$
@@ -18273,21 +18276,69 @@ Note que $\Either \is \Type \to \Type \to \Type$.
 \endsection
 %%}}}
 
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ prob: inhabited_list_type 
+\problem IList.
+%%%{{{ meta 
+\label inhabited_list_type
+%%%}}}
+
+Defina o construtor de tipos $\IList \is \Type \to \Type$, que construa
+tipos de listas \emph{habitadas}.
+Defina também funções $\head$ e $\tail$ pare este tipo, e uma função
+$$
+\toList \is \IList \to \List.
+$$
+
+%%}}}
+
+%%{{{ prob: evenlist_and_oddlist 
+\problem EList, OList.
+%%%{{{ meta 
+\label evenlist_and_oddlist 
+%%%}}}
+
+Defina \emph{usando recursão mútua} os construtores de tipos $\EList, \OList \is \Type \to \Type$,
+que construam tipos de listas de tamanhos garantidamente par (a $\OList$) e ímpar (a $\EList$).
+Defina também funções $\head$ e $\tail$ pare cada uma dessas listas, e funções
+$\toList$.
+
+%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ Tree_types 
 \section Tipos de arvores.
 %%%{{{ meta 
 \label Tree_types
 %%%}}}
 
-\endsection
-%%}}}
+\TODO Desenhar uns exemplos de arvores.
 
-%%{{{ PROBLEMS INTERMISSION 
-\problems Intervalo de problemas.
+%%{{{ df: BTree
+\definition BTree.
 %%%{{{ meta 
+\headerize
+\label BTree
+\defines
+    * \BTreeA {~\alpha}   -- o tipo de arvores binárias $\BTreeA \alpha$
+    ;;
 %%%}}}
 
-\endproblems
+Para qualquer $\alpha \is \Type$, definimos o tipo
+\data \BTreeA \alpha \\
+\co \Tip    : \alpha \to \BTreeA \alpha \\
+\co \Fork   : \BTreeA \alpha \to \BTreeA \alpha \to \BTreeA \alpha \\
+\enddata
+
+%%}}}
+
+\endsection
 %%}}}
 
 %%{{{ Folding 
@@ -18299,8 +18350,17 @@ Note que $\Either \is \Type \to \Type \to \Type$.
 \endsection
 %%}}}
 
+%%{{{ Sorting 
+\section Ordenando.
+%%%{{{ meta 
+\label Sorting
+%%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Sums_and_products_done_right 
-\section Somatórios e produtórios formalmente.
+\section Somatórios e produtórios.
 %%%{{{ meta 
 \label Sums_and_products_done_right 
 %%%}}}
