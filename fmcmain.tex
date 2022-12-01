@@ -23307,10 +23307,10 @@ $\lforall a {0 < a < 1 \implies 0 < a^2 < a < 1}$.
 
 %%}}}
 
-%%{{{ x: real_one_is_greater_than_zero 
+%%{{{ x: real_one_is_positive 
 \exercise.
 %%%{{{ meta 
-\label real_one_is_greater_than_zero
+\label real_one_is_positive
 %%%}}}
 
 $1 > 0$.
@@ -25259,7 +25259,7 @@ $$
 %%%{{{ meta 
 \label limit_of_sequence_of_reals
 \defines
-    * ~{\seqn a n} \limto ~\ell  -- a seqüência $\seqn a n$ tende ao $\ell$
+    * ~{\seqn a n} \tends ~\ell  -- a seqüência $\seqn a n$ tende ao $\ell$
     * limite!reais
     ;;
 %%%}}}
@@ -25270,7 +25270,7 @@ sse a partir dum membro $a_N$, todos os seus membros
 ficam $\epsilon$-perto do $\ell$.
 Ou seja:
 $$
-\seqn a n \limto \ell
+\seqn a n \tends \ell
 \defiff
 \pforall  {\epsilon > 0}
 \pexists  {N \in \nats}
@@ -25281,7 +25281,7 @@ Escrevemos
 $$
 \liml_n a_n = \ell
 $$
-como sinônimo de $\seqn a n \limto \ell$.
+como sinônimo de $\seqn a n \tends \ell$.
 \mistake
 
 %%}}}
@@ -25293,7 +25293,7 @@ como sinônimo de $\seqn a n \limto \ell$.
 
 É muito comum usar o nome \symq{$n_0$}
 onde usei o \symq{$N$} na~\ref[limit_of_sequence_of_reals].
-O \symq{$n_0$} é freqüêntemente lido ``$n$ nought'' em inglês.
+O \symq{$n_0$} é freqüêntemente lido \wq{$n$ nought} em inglês.
 
 %%}}}
 
@@ -25315,12 +25315,14 @@ com três quantificadores ficarão mais e mais digeríveis.
 Mesmo com essa experiência, num momento vamos encontrar
 uma afirmação com \emph{quatro} quantificações alternantes,
 e a dificuldade vai voltar e te lembrar dessa dificuldade
-que sentes agora.
+que talvez sentes agora.
 Felizmente, temos as ferramentas formais de lógica matemática
 que nos permitem trabalhar com proposições sem digeri-las
 completamente!
 
 %%}}}
+
+\TODO Mention gírias.
 
 %%{{{ x: limit_of_sequence_of_reals_uniqueness_needed 
 \exercise.
@@ -25341,19 +25343,15 @@ Qual é?
 Precisamos demonstrar a unicidade dos limites para usar
 o símbolo \symq{$=$} da \emph{igualdade}.  Pois, se uma
 seqüência tende a dois limites
-$$
-\xalignat2
-\seqn a n &\limto \ell &
-\seqn a n &\limto \ell'
-\endxalignat
-$$
+\mathcols 2
+\seqn a n &\tends \ell &
+\seqn a n &\tends \ell'
+\endmathcols
 com $\ell = \ell'$, então escrevendo
-$$
-\xalignat2
+\mathcols 2
 \liml_n a_n &= \ell &
 \liml_n a_n &= \ell'
-\endxalignat
-$$
+\endmathcols
 teriamos (pela simetria e transitividade da igualdade)
 $\ell = \ell'$, contradizendo nossa hipótese.
 
@@ -25364,7 +25362,7 @@ $\ell = \ell'$, contradizendo nossa hipótese.
 %%%{{{ meta 
 %%%}}}
 
-A seqüência $1, 1, 1, \dotsc$ tende ao limite $1$.
+A seqüência $1, 1, 1, \dotsc$ tende a $1$.
 
 \solution.
 Seja $\epsilon>0$.
@@ -25394,31 +25392,91 @@ então precisamos tomar cuidado com o símbolo $\lim$:
 
 %%}}}
 
-%%{{{ x: alternating_zero_one_does_not_have_a_limit 
-\exercise.
+%%{{{ eg: alternating_zero_one_does_not_have_a_limit 
+\example.
 %%%{{{ meta 
 \label alternating_zero_one_does_not_have_a_limit
 %%%}}}
 
-A seqüência $0,1,0,1,\dotsc$, formalmente definida pela
+A seqüência $0,1,0,1,\dotsc$, definida pela
 $$
 a_n = \knuthcases {
-0, & se $n$ par \cr
-1, & caso contrário.
+0, & se $n$ par; \cr
+1, & caso contrário;
 }
 $$
-tende àlgum limite?
-Se sim, ache e demonstre; se não, refute.
+é divergente.
 
-\hint
-Não tende a limite nenhum!
-Como podemos demonstrar isso?
-
-\hint
-Demonstre que para qualquer possível limite $\ell \in \reals$,
+%%{{{ Proof and analysis 
+\solution Como demonstrar?.
+Primeiramente o que precisamos demonstrar:
+que para qualquer possível limite $\ell$,
 $$
 \seqn a n \ntendsto \ell.
 $$
+Seja $\ell$ tal que $\seqn a n \tends \ell$.
+O que isso significa?
+$$
+\seqn a n \tends \ell
+\intiff
+\pforall  {\epsilon > 0}
+\lexistst {N}
+          {$N$ garanta que a partir dele todos são $\epsilon$-perto de $\ell$}.
+$$
+Para conseguir usar esse dado (um $(\forall)$),
+basta aplicá-lo em qualquer real positivo que queremos, e ele vai fornecer
+de volta um novo dado.
+Por exemplo, o aplicando no $1$ (que de fato é positivo---\reftag[real_one_is_positive]),
+obtemos o novo dado
+$$
+\lexistst {N}
+          {$N$ garanta que a partir dele todos os $a_i$'s são $1$-perto de $\ell$}.
+$$
+Para aproveitar esse novo dado agora, solicitamos tal $N$.
+Seja $N$ tal que
+$$
+\lforallt {n \geq N} {$a_n,\ell$ são $1$-perto}.
+$$
+Novamente um $(\forall)$; essa vez para utilizá-lo precisamos o aplicar
+em naturais a partir do $N$.
+Agora a idéia é conseguir dois membros da seqüência que são suficientemente longe
+entre si para garantir que não tem como ambos estar $1$-perto de $\ell$.
+\eop
+Refletindo pouco deve parecer óbvio que não temos como conseguir isso.
+Nossa seqüência só pega os valores $0,1$, cuja distância é $1$, e logo
+considerando o $\frac 1 2$ como um possível $\ell$ percebemos que 
+ambos conseguem ficar $1$-perto dele.
+Qual foi o problema?
+\eop
+Nossa escolha de $\epsilon > 0$ foi grande demais.
+A gente poderia ter escolhido um epsilonzinho melhor,
+como por exemplo o $\sfrac 1 2$ ou o $\sfrac 1 4$.
+Precisamos um tal que, para qualquer candidato $\ell$,
+a $\epsilon$-vizinhança dele vai ser tão pequena que
+seria impossível possuir dois membros com distança $1$,
+como os únicos membros da nossa seqüência tem ($d(0,1) = 1$).
+Aqui poderíamos escolher o $\sfrac 1 2$, e daria certo,
+mas não existe motivo de ser tão dramáticos.
+Vamo escolher algo menor ainda; que tal $\sfrac 1 3$.
+Obtemos assim um novo $N$, essa vez garantindo que a partir dele
+todos os membros da seqüência são $\sfrac 1 3$ perto de $\ell$.
+Como $2N, 2N+1 \geq N$, logo os $a_{2N}$ e $a_{2N+1}$ ambos são $\sfrac 1 3$-perto de $\ell$.
+Calculamos:
+\compute
+d(a_{2N}, a_{2N+1})
+&\leq d(a_{2N}, \ell) + d(\ell, a_{2N+1})  \by {desigualdade triangular} \\
+&< \sfrac 1 3 + d(\ell, a_{2N+1}) \\
+&< \sfrac 1 3 + \sfrac 1 3 \\
+&= \sfrac 2 3 \\
+\qtext{Mas}
+d(a_{2N}, a_{2N+1})
+&= d(0, 1)
+ = \abs{0 - 1}
+ = 1
+\endcompute
+chegando assim na contradiçaõ $1 < \frac 2 3$.
+
+%%}}}
 
 %%}}}
 
@@ -25430,12 +25488,10 @@ $$
 
 Uma seqüência não pode ter mais que um limite.
 Formalmente, seja $\seqn a n$ seqüência de reais tal que
-$$
-\xalignat 2
-\seqn a n &\limto \ell_1 &
-\seqn a n &\limto \ell_2.
-\endxalignat
-$$
+\mathcols 2
+\seqn a n &\tends \ell_1 &
+\seqn a n &\tends \ell_2.
+\endmathcols
 Então $\ell_1 = \ell_2$.
 
 \proof.
@@ -25545,10 +25601,10 @@ por quais números?
 \label convergent_implies_bounded_in_reals
 %%%}}}
 
-Toda seqüência convergente $\seqn a n$ é bounded.
+Toda seqüência convergente é cotada.
 
 \sketch.
-Seja $\seqn a n$ tal que $\seqn a n \limto \ell$.
+Seja $\seqn a n$ tal que $\seqn a n \tends \ell$.
 Logo, usando $\epsilon \asseq 1$ seja $N\in\nats$
 tal que a partir do $a_N$, todos os $a_n$'s são
 $1$-perto de $\ell$.
@@ -25885,7 +25941,7 @@ $$
 I_0 \supset I_1 \supset I_2 \supset \dotsb.
 $$
 Logo $\Inter_n I_n \neq \emptyset$.
-E se $\len(I_n) \limto 0$, 
+E se $\len(I_n) \tends 0$, 
 então $\Inter_n I_n$ é um singleton.
 
 %%}}}
@@ -26087,7 +26143,7 @@ $$
 e naturalmente usamos frases como
 <<a \dterm{série $\Sum a_n$ converge}>>, etc.
 Dizemos que a série $\Sum a_n$ \dterm{diverge} sse
-$\seqn s n \limto \pinfty$ ou se a $\seqn s n$ não possui limite.
+$\seqn s n \tends \pinfty$ ou se a $\seqn s n$ não possui limite.
 
 %%}}}
 
@@ -29134,16 +29190,14 @@ falando---eles correspondem na união e na intersecção dos seus membros.
 %%%}}}
 
 Aplicamos as operações $\Union$ e $\Inter$ nos conjuntos seguintes:
-$$
-\align
+\mathcol
 \Union \set{ \set{1,2,4,8}, \set{0,2,4,6}, \set{2,10} } &= \set{0,1,2,4,6,8,10}\\
 \Inter \set{ \set{1,2,4,8}, \set{0,2,4,6}, \set{2,10} } &= \set{2}\\
 \Union \set{ \nats, \ints, \rats, \reals }              &= \reals\\
 \Inter \set{ \nats, \ints, \rats, \reals }              &= \nats\\
 \Union \set{ 2, 3, \set{4,5}, \set{4,6} }               &= \set{4,5,6}\\
 \Inter \set{ 2, 3, \set{4,5}, \set{4,6} }               &= \emptyset
-\endalign
-$$
+\endmathcol
 
 %%}}}
 
@@ -78296,7 +78350,7 @@ Literalmente copiamos a~\ref[limit_of_sequence_of_reals]:
 %%%{{{ meta 
 \label limit_in_metric
 \defines
-    * {~{\seqn a n}} \limto ~\ell  -- a seqüência $\seqn a n$ tende ao $\ell$
+    * {~{\seqn a n}} \tends ~\ell  -- a seqüência $\seqn a n$ tende ao $\ell$
     * limite!espaço métrico
     ;;
 %%%}}}
@@ -78307,7 +78361,7 @@ sse a partir dum membro $a_N$, todos os seus membros
 ficam $\epsilon$-perto do $\ell$.
 Ou seja:
 $$
-\seqn a n \limto \ell
+\seqn a n \tends \ell
 \defiff
 \pforall  {\epsilon > 0}
 \pexists  {N \in \nats}
@@ -78318,7 +78372,7 @@ Escrevemos
 $$
 \liml_n a_n = \ell
 $$
-como sinônimo de $\seqn a n \limto \ell$.
+como sinônimo de $\seqn a n \tends \ell$.
 \mistake
 
 %%}}}
@@ -78497,7 +78551,7 @@ Chamamos o $\ell$ um \dterm{limit point} de $A$ sse
 existe seqüência $\seqn a n \subset A\setminus\set{\ell}$
 que tende ao $\ell$:
 $$
-\seqn a n \limto \ell.
+\seqn a n \tends \ell.
 $$
 
 %%}}}
