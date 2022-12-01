@@ -25230,10 +25230,10 @@ a~\ref[how_can_we_separate_reals_from_rats]?
 \endsection
 %%}}}
 
-%%{{{ Limits_of_reals_before_completeness 
+%%{{{ Limits_of_real_seqs_before_completeness 
 \section Limites.
 %%%{{{ meta 
-\label Limits_of_reals_before_completeness
+\label Limits_of_real_seqs_before_completeness
 %%%}}}
 
 %%{{{ df: for_sufficiently_large_values_of 
@@ -25250,6 +25250,24 @@ $$
 \pexists {n_0\in\nats}
 \lforall {i \geq n_0}
 {R(i)}.
+$$
+
+%%}}}
+
+%%{{{ df: eventually 
+\definition <<eventualmente>>.
+%%%{{{ meta 
+\label eventually
+%%%}}}
+
+Considere um predicado $\phi \is \SetA \Real \to \Real$,
+e seja $\seqn a n$ uma seqüência de reais.
+Dizemos que a $\seqn a n$ \dterm{eventualmente} satisfaz o $\phi$
+sse para algum $N$, a subseqüência $\seq {a_i} {i \geq N}$ satisfaz o $\phi$,
+ou seja, sse
+$$
+\lexists {N}
+         {\phi(\seq {a_i} {i \geq N})}.
 $$
 
 %%}}}
@@ -25669,7 +25687,7 @@ $$
 \label convergent_implies_Cauchy_in_reals
 %%%}}}
 
-Se uma seqüência de reais é convergente, então ela é autoconvergente.
+Toda seqüência convergente, é autoconvergente.
 
 %%}}}
 
@@ -25681,7 +25699,7 @@ Se uma seqüência de reais é convergente, então ela é autoconvergente.
 \label Cauchy_implies_bounded_in_reals
 %%%}}}
 
-Se uma seqüência de reais é autoconvergente, então ela é bounded.
+Toda seqüência autoconvergente, é cotada.
 
 %%}}}
 
@@ -25693,15 +25711,32 @@ Se uma seqüência de reais é autoconvergente, então ela é bounded.
 \label Cauchy_with_conv_subseq_implies_convergent_in_reals
 %%%}}}
 
-Se uma seqüência de reais é autoconvergente e possui subseqüência
-convergente, então ela é convergente.
+Toda seqüência autoconvergente que possui subseqüência convergente, é convergente.
 
 %%}}}
 
 \TODO sketch.
 
-%%{{{ x: every_sequence_has_a_monotone_subsequence_in_reals 
-\exercise.
+%%{{{ df: subsequence_of_real_seq 
+\definition Subseqüência.
+%%%{{{ meta 
+\label subsequence_of_real_seq
+%%%}}}
+
+Seja $\seqn a n \is \SeqA \Real$.
+Dada qualquer estritamente crescente $\seqn n i \is \SeqA \Nat$,
+chamamos a $\seq {a_{n_i}} i$ de \dterm{subseqüência} da $\seqn a n$.
+Equivalentemente, dizemos que uma seqüência $\seqn b n$ é uma subseqüência
+da $\seqn a n$ sse existem
+$$
+n_0 < n_1 < n_2 < \dotsc
+$$
+tais que para todo $i$, temos $b_i = a_{n_i}$.
+
+%%}}}
+
+%%{{{ thm: every_sequence_has_a_monotone_subsequence_in_reals 
+\theorem.
 %%%{{{ meta 
 \label every_sequence_has_a_monotone_subsequence_in_reals
 %%%}}}
@@ -25709,6 +25744,8 @@ convergente, então ela é convergente.
 Toda seqüência de reais tem uma subseqüência monótona.
 
 %%}}}
+
+\TODO sketch.
 
 \endsection
 %%}}}
@@ -25908,10 +25945,10 @@ $$
 \endsection
 %%}}}
 
-%%{{{ Limits_of_reals 
+%%{{{ Limits_of_real_seqs 
 \section Limites de novo.
 %%%{{{ meta 
-\label Limits_of_reals
+\label Limits_of_real_seqs
 %%%}}}
 
 %%{{{ thm: monotone_and_bounded_implies_convergent 
@@ -26057,7 +26094,7 @@ M = \limsup_n a_n
 \pforall {\epsilon > 0}
 \bracket{
 \aligned
-&\text{$a_n < M + \epsilon$ para eventualmente todos os $n$'s} \\
+&\text{$a_n < M + \epsilon$ eventualmente para todos os $n$'s} \\
 &\text{$a_n > M - \epsilon$ para uma quantidade infinita de $n$'s}
 \endaligned
 }; \\
@@ -26066,7 +26103,7 @@ m = \liminf_n a_n
 \pforall {\epsilon > 0}
 \bracket{
 \aligned
-&\text{$a_n > m - \epsilon$ para eventualmente todos os $n$'s} \\
+&\text{$a_n > m - \epsilon$ eventualmente para todos os $n$'s} \\
 &\text{$a_n < m + \epsilon$ para uma quantidade infinita de $n$'s}
 \endaligned
 }.
