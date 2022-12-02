@@ -25272,27 +25272,6 @@ $$
 
 %%}}}
 
-\TODO Examples.
-
-%%{{{ eg: ones tends to one 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-A seqüência $1, 1, 1, \dotsc$ tende a $1$.
-
-\solution.
-Seja $\epsilon>0$.
-O desafio é achar $N \in \nats$ tal que a partir de $N$,
-todos os membros da seqüência são $\epsilon$-perto de $1$.
-Tome $N \asseq 0$, e seja $n \geq N$.
-Obviamente o $n$-ésimo termo da seqüência é $\epsilon$-perto
-do $1$ pois, ele é igual ao $1$ mesmo e logo a distância
-deles é $0$, e logo menor que $\epsilon$.
-Observe que qualquer escolha de $N$ aqui seria correta!
-
-%%}}}
-
 %%{{{ df: limit_of_sequence_of_reals 
 \definition limite.
 %%%{{{ meta 
@@ -25305,17 +25284,32 @@ Observe que qualquer escolha de $N$ aqui seria correta!
 
 Seja $\seqn a n$ uma seqüência de reais e seja $\ell\in\reals$.
 Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
-sse a partir dum membro $a_N$, todos os seus membros
-ficam $\epsilon$-perto do $\ell$.
+sse para qualquer bola de $\ell$,
+a seqüência $\seqn a n$ eventualmente fica dentro dela.
 Ou seja:
-$$
+\mathcol
 \seqn a n \tends \ell
-\defiff
+&\defiff
+\lforallt {\epsilon > 0}
+          {$\seqn a n$ está eventualmente contida na $\ball \epsilon \ell$} \\
+&\intiff
+\lforallt {\epsilon > 0}
+          {p.v.s.g.d.~$n$, $a_n$ é $\epsilon$-perto de $\ell$} \\
+&\intiff
+\pforall  {\epsilon > 0}
+\lexistst {N \in \nats}
+          {a partir de $N$, todos os membros da $\seqn a n$ são $\epsilon$-perto de $\ell$} \\
+&\intiff
 \pforall  {\epsilon > 0}
 \pexists  {N \in \nats}
 \lforallt {i \geq N}
-{$a_i$ é $\epsilon$-perto de $\ell$}.
-$$
+          {$a_i$ é $\epsilon$-perto de $\ell$} \\
+&\intiff
+\pforall  {\epsilon > 0}
+\pexists  {N \in \nats}
+\lforall  {i \geq N}
+          {d(a_i, \ell) < \epsilon}.
+\endmathcol
 Escrevemos
 $$
 \liml_n a_n = \ell
@@ -25333,6 +25327,25 @@ como sinônimo de $\seqn a n \tends \ell$.
 É muito comum usar o nome \symq{$n_0$}
 onde usei o \symq{$N$} nessas definições.
 O \symq{$n_0$} é freqüêntemente lido \wq{$n$ nought} em inglês.
+
+%%}}}
+
+%%{{{ eg: ones tends to one 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+A seqüência $1, 1, 1, \dotsc$ tende a $1$.
+
+\solution Esboço.
+Seja $\epsilon>0$.
+O desafio é achar $N \in \nats$ tal que a partir de $N$,
+todos os membros da seqüência são $\epsilon$-perto de $1$.
+Tome $N \asseq 0$, e seja $n \geq N$.
+Obviamente o $n$-ésimo termo da seqüência é $\epsilon$-perto
+do $1$ pois, ele é igual ao $1$ mesmo e logo a distância
+deles é $0$, e logo menor que $\epsilon$.
+Observe que qualquer escolha de $N$ aqui seria correta!
 
 %%}}}
 
