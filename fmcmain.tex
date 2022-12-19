@@ -23967,6 +23967,65 @@ Resolva sobre esta as mesmas duas questões que resolveu sobre a seqüência ant
 
 %%}}}
 
+%%{{{ x: square_root_of_small_reals_seq_bounded_above 
+\exercise.
+%%%{{{ meta 
+\label square_root_of_small_reals_seq_bounded_above
+%%%}}}
+
+Seja $\theta$ um real pequeno: $0 < \theta < 1$.
+Definimos a seqüência $\seqn t n$ pelas
+\mathcol
+t_0     &\defeq 0; \\
+t_{n+1} &\defeq t_n + \frac 1 2 (\theta - t_n^2).
+\endmathcol
+Demonstre que $\seqn t n$ é cotada por cima.
+
+\solution
+Vou mostrar que $\seqn t n \leq 1$.
+Seu primeiro termo é o $0 < 1 \leq 1$.
+Seja $k$ natural.  Temos:
+\compute
+t_{k+1}
+    &= t_k + \frac 1 2 (\theta - t_k^2) \\
+    &= \frac 1 2 (\theta + 2t_k - t_k^2) \\
+    &= \frac 1 2 (\theta - (t_k^2 - 2t_k)) \\
+    &= \frac 1 2 (\theta - (t_k^2 - 2t_k + 1 - 1)) \\
+    &= \frac 1 2 (\theta - (t_k^2 - 2t_k + 1) + 1) \\
+    &= \frac 1 2 ((\theta + 1) - (t_k^2 - 2t_k + 1)) \\
+    &= \frac 1 2 ((\theta + 1) - (t_k - 1)^2) \\
+    &\leq \frac 1 2 (\theta + 1) \\
+    &\leq 1.
+\endcompute
+
+%%}}}
+
+%%{{{ x: square_root_of_small_reals_seq_increasing 
+\exercise.
+%%%{{{ meta 
+\label square_root_of_small_reals_seq_increasing
+%%%}}}
+
+Demonstre que a mesma seqüência é crescente.
+
+\solution
+Basta mostrar por indução que para todo $n$, temos $t_{n+1} - t_n \geq 0$.
+A base é trivial.
+Seja $k\geq 1$ tal que $t_k - t_{k-1} \geq 0$.
+Calculamos:
+\compute
+t_{k+1} - t_k
+&= (t_k + \frac 1 2 (\theta - t_k^2)) - (t_{k-1} + \frac 1 2 (\theta - t_{k-1}^2)) \\
+&= (t_k - t_{k-1}) + \frac 1 2 \paren{(\theta - t_k^2) - (\theta - t_{k-1}^2)} \\
+&= (t_k - t_{k-1}) - \frac 1 2 \paren{t_k^2 - t_{k-1}^2} \\
+&= (t_k - t_{k-1}) - \frac 1 2 \paren{t_k + t_{k-1}}\paren{t_k - t_{k-1}} \\
+&= \mubrace {\vphantom{\paren{\frac 0 0}}(t_k - t_{k-1})} {\geq 0} \mubrace{\paren{1 - \frac 1 2 \paren{t_k + t_{k-1}}}} {\geq 0} \\
+&\geq 0
+\endcompute
+onde no último passo usamos a (HI) e que a $\seqn t n \leq 1$ (e logo $t_i + t_j \leq 2$ para quaisquer $i,j$).
+
+%%}}}
+
 %%{{{ eg: a recursively defined seq 
 \example.
 %%%{{{ meta 
@@ -25627,8 +25686,8 @@ $\max \set{ M , \ell + 1 }$.
 
 Toda seqüência eventualmente constante é convergente.
 
-\solution.
-Seja $\seqn a n$ seqüência de reais eventualmente constante.
+\solution
+Seja $\seqn a n$ eventualmente constante.
 Logo seja $N$ tal que $\pexists c \lforall {n \geq N} {a_n = c}$.
 Logo seja $c$ tal que $\lforall {n \geq N} {a_n = c}$.
 Vou demonstrar que $\seqn a n \to c$.
@@ -25688,7 +25747,7 @@ Logo $d(a_n,a) < \epsilon/\abs{c}$ (pela escolha de $N$).
 Calculamos:
 \compute
     d(ca_n, ca)
-    &=    \abs{ca_n + ca} \\
+    &=    \abs{ca_n + ca} \noby \\
     &=    \abs{c(a_n - a)} \\
     &=    \abs{c}\abs{a_n - a} \\
     &=    \abs c d(a_n,a) \\
@@ -25740,6 +25799,8 @@ Calculamos:
 
 %%}}}
 
+\TODO analisar o próximo exercício.
+
 %%{{{ x: algebraic_limit_theorem_for_reals_pw_mult 
 \exercise.
 %%%{{{ meta 
@@ -25752,6 +25813,30 @@ Logo:
 $$
 \seq {a_n b_n} n \tends a b.
 $$
+
+\solution
+Vou demonstrar $\sequence {a_nb_n} n \to ab$.
+Seja $\epsilon > 0$.
+Como $\seqn a n$ é cotada, seja $M_a > 0$ uma cota dela.
+Pelas escolhas de $a,b$, sejam $N_a$ e $N_b$ tais que
+\mathcols 3
+\cforall {n \geq N_a} {d(a_n,a) < \frac \epsilon {2|b|+1}} & \mland &&
+\cforall {n \geq N_b} {d(b_n,b) < \frac \epsilon {2M_a}}.
+\endmathcols
+Seja $N = \max(N_a,N_b)$.
+Calculamos:
+\compute
+    d(a_n b_n, a b)
+    &=    \abs{(a_n b_n) - (a b)} \noby \\
+    &=    \abs{(a_n b_n) - a_n b + a_n b - (a b)} \\
+    &=    \abs{a_n (b_n- b) + (a_n - a) b} \\
+    &\leq \abs{a_n (b_n- b)} + \abs{(a_n - a) b} \\
+    &\leq \abs{a_n} \abs{b_n- b} + \abs{a_n - a}\abs{b} \\
+    &\leq M_a \abs{b_n- b} + \abs{a_n - a}\abs{b} \\
+    &<    M_a \frac \epsilon {2M_a} + \frac \epsilon {2\abs{b}+1}\abs{b} \\
+    &<    \epsilon/2 + \epsilon/2 \\
+    &=    \epsilon.
+\endcompute
 
 %%}}}
 
@@ -26199,17 +26284,63 @@ Ainda mais, se $\seq {\diam(I_n)} \tends 0$, então a interseção é um singlet
 
 \TODO sketch.
 
-%%{{{ x: powers_of_leq_one_tends_to_zero 
+%%{{{ x: powers_of_small_tends_to_zero 
 \exercise.
 %%%{{{ meta 
-\label powers_of_leq_one_tends_to_zero
+\label powers_of_small_tends_to_zero
 %%%}}}
 
 Seja $0 < \theta < 1$.
-Demonstre que $\seqn \theta n \tends 0$.
+Demonstre que $\seq {\theta^n} n \tends 0$.
 
 \hint
-Mostre que $\seqn \theta n$ é decrescente e inf-cotada (por quém mesmo?).
+Mostre que $\seq {\theta^n} n$ é decrescente e inf-cotada (por quem mesmo?).
+
+\hint
+Pelo (MCT), seja $\ell$ o limite da $\seq {\theta^n} n$.
+
+\hint
+Calcule o $\ell$ para chegar no $\ell = \theta\ell$, e obtenha $\ell = 0$ a partir disso.
+
+\hint
+Em geral, $\lim_n a n = \lim_n {a_{n+1}}$, onde entendemos esta igualdade como:
+ou ambas as seqüências convergem no mesmo limite, ou ambas as seqüências divergem.
+
+\solution
+Primeiramente vou mostrar que $\seq {\theta^n} n$ é inf-cotada e decrescente,
+assim garantido que é convergente; depois vou garantir que tal limite só pode ser o $0$.
+\eop
+Vou mostrar por indução que $\seq {\theta^n} n \geq 0$.
+Temos $\theta^0 = 1 \geq 0$, estabelecendo a base da indução.
+Seja $k$ natural tal que $\theta^k \geq 0$.
+Temos:
+$$
+\theta^{k+1}
+  =    \theta^k\theta
+  \geq 0
+$$
+como produto de não-negativos.
+\eop
+Vou mostrar que $\seq {\theta^n} n$ é decrescente.
+Seja $k$ natural.
+Calculamos:
+$$
+\theta^{k+1}
+= \theta^k \theta
+< \theta^k.
+$$
+Pelo (MCT), seja $\ell = \lim_n {\theta^n}$.
+Basta mostrar $\ell = 0$.
+Usando o \ref[algebraic_limit_theorem_for_reals_map_mult_c], calculamos:
+$$
+\ell
+= \lim_n {\theta^n}
+= \lim_n {\theta^{n+1}}
+= \lim_n {\theta^n \theta}
+= \theta \lim_n {\theta^n}
+= \theta \ell.
+$$
+Logo $\ell = 0$, pois caso $\ell\neq0$ poderiamos aplicar o cancelamento multiplicativo para obter $\theta = 1$, contradizendo nossa hipotese sobre $\theta$.
 
 %%}}}
 
@@ -26229,6 +26360,14 @@ Mostre que $\seqn \theta n$ é decrescente e inf-cotada (por quém mesmo?).
 %%%}}}
 
 O $\natreals$ não é cotado.
+
+\proof.
+Suponha que $\natreals$ cotado, e logo seja $s = \sup \natreals$ (pelo axioma da completude, pois $\natreals$ habitado também).
+Considere o $s - 1$.
+Temos $s - 1 < s$, e logo $s - 1$ não é uma supcota do $\natreals$.
+Logo seja $n \in \natreals$ tal que $s - 1 < n$.
+Como $\natreals$ é $(+1)$-fechado, logo $n + 1 \in \natreals$.
+Mas $s < n + 1$, contradizendo que $s > \natreals$.
 
 %%}}}
 
@@ -26349,11 +26488,20 @@ por quais números?
 \label monotone_convergence_thm
 %%%}}}
 
-Uma seqüência monótona e bounded é convergente.
+Toda seqüência monótona e cotada é convergente.
+
+\proof.
+Seja $\seqn a n$ seqüência crescente e supcotada.
+Logo $\seqnset a n$ supcatado e logo seja $s$ o seu supremum.
+Vou demonstrar que $\seqn a n \tends s$.
+Seja $\epsilon > 0$.
+Pela escolha de $s$, $s - \epsilon$ não pode ser supcota da $\seqn a n$,
+e logo seja $N$ tal que $a_N > s - \epsilon$.
+Temos então $s - \epsilon < a_N < s$.
+Como $\seqn a n$ crescente, temos $s - \epsilon < \seq {a_n} {n \geq N} < s$.
+Logo $\seq {a_n} {n \geq N} \subset \ball \epsilon (s)$.
 
 %%}}}
-
-\TODO sketch.
 
 %%{{{ thm: nested_interval_theorem 
 \theorem intervalos aninhados.
