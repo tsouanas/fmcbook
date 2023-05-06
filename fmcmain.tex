@@ -56672,6 +56672,258 @@ Voltamos a estudar a teoria dos grupos agora.
 \endsection
 %%}}}
 
+%%{{{ Group_conjugation 
+\section Conjugação de grupo.
+%%%{{{ meta 
+\label Group_conjugation
+%%%}}}
+
+%%{{{ df: conjugates_of_group_element 
+\definition Conjugados.
+%%%{{{ meta 
+\label conjugates_of_group_element
+\defines
+    * conjugado!de elemento de grupo
+    ;;
+%%%}}}
+
+Seja $G$ grupo e $a\in G$.
+Para qualquer $g\in G$, o $ga\ginv g$ é chamado
+um \dterm{conjugado} de $a$.
+
+%%}}}
+
+%%{{{ df: conjugation_of_group 
+\definition conjugação.
+%%%{{{ meta 
+\indexes
+    * relação!conjugação    see: conjugação
+    ;;
+\defines
+    * ~a \gconjrel ~b  -- conjugação de grupo
+    * conjugação!de grupo
+    ;;
+%%%}}}
+
+Seja $G$ um grupo.
+A \dterm{conjugação do $G$}
+é a relação ${\gconjrel} : \reltype{G,G}$ definida pela
+$$
+\align
+a \gconjrel b
+&\defiff \text{$a$ é um conjugado de $b$}\\
+&\intiff \lexists {g\in G} {a = gb\ginv g}.
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: gconjrel_is_an_eqrel 
+\exercise.
+%%%{{{ meta 
+\label gconjrel_is_an_eqrel
+%%%}}}
+
+Seja $G$ grupo.  A conjugação $\gconjrel$ do $G$
+é uma relação de equivalência.
+
+\solution
+\proofpart {Reflexividade:}
+Seja $a \in G$.
+Procuramos $g\in G$ tal que $a = ga\ginv g$.
+Como $a = e a \ginv e$, temos que realmente $a \gconjrel a$.
+\eop
+\proofpart {Simetria:}
+Sejam $a,b \in G$ tais que $a \gconjrel b$.
+Daí, seja $x\in G$ tal que $a = xb\ginv x$.
+Operando pela esquerda com $\ginv x$ e pela direita com $x$, temos:
+$$
+\ginv x a x = \ginv x x b \ginv x x = b.
+$$
+Mas $x = \ginvp {\ginv x}$, ou seja
+$b = \ginv x a \ginvp{\ginv x}$
+e logo $b \gconjrel a$.
+\eop
+\proofpart {Transitividade:}
+Sejam $a,b,c \in G$ tais que $a \gconjrel b$ e $b \gconjrel c$.
+Daí, sejam $x,y \in G$ tais que:
+\compute
+a &= x b \ginv x \\
+b &= y c \ginv y.
+\intertext{Substituindo a segunda na primeira, temos}
+a &= x \paren{ y c \ginv y } \ginv x                \\
+  &= \paren{ xy } c \paren{ \ginv y \ginv x} \by {ass.} \\
+  &= \paren{ xy } c \ginvp{ xy }.            \by {inverso de produto (\reftag[inverse_of_product_in_group])} \\
+\endcompute
+Ou seja, $a \gconjrel c$.
+
+%%}}}
+
+%%{{{ df: conjugacy_class 
+\definition Classe de conjugação.
+%%%{{{ meta 
+\label conjugacy_class
+\defines
+    * \gcl {~a}  -- a classe de conjugação de $a$
+    * classe de conjugação
+    ;;
+%%%}}}
+
+Seja $G$ grupo e $a\in G$.
+A \dterm{classe de conjugação} de $a$ é o conjunto
+$$
+\gcl a \defeq \setst {ga\ginv g} {g \in G},
+$$
+ou seja, $\gcl a$ é a classe de equivalência do $a$
+através da relação <<é um conjugado de>>.
+
+%%}}}
+
+%%{{{ x: conjugacy_class_of_e 
+\exercise.
+%%%{{{ meta 
+\label conjugacy_class_of_e
+%%%}}}
+
+Seja $G$ grupo.
+Calcule a $\gcl e$.
+
+\hint
+$\gcl e = \set{e}$.
+Por quê?
+
+%%}}}
+
+%%{{{ x: conjugacy_classes_of_S3 
+\exercise.
+%%%{{{ meta 
+\label conjugacy_classes_of_S3
+%%%}}}
+
+Ache todas as classes de conjugação de $\sym 3$.
+
+\hint
+Já achou uma no \ref[conjugacy_class_of_e].
+
+%%}}}
+
+%%{{{ df: conjugator 
+\definition conjugadores.
+%%%{{{ meta 
+\label conjugator
+\defines
+    * \gconj {~g}  -- o $g$-conjugador
+    * conjugador
+    ;;
+%%%}}}
+
+Seja $G$ grupo e $g\in G$.
+Definimos a funcção $\gconj g : G \to G$ pela
+$$
+\gconj g x = gx\ginv g.
+$$
+Chamamos a $\gconj g$ de \dterm{$g$-conjugador}.
+Observe que o conjugador $\gconj g$ é um ator:
+$\actorS g {\ginv g}$.
+
+%%}}}
+
+%%{{{ x: conjugators_respect_powers 
+\exercise.
+%%%{{{ meta 
+\label conjugators_respect_powers
+%%%}}}
+
+Sejam $G$ grupo e $g,a\in G$.
+Para todo $n\in\ints$,
+$\paren{ga\ginv g}^n = g a^n \ginv g$.
+Em outras palavras, a conjugação por membro respeita as potências:
+$$
+\gconj g (a^n) = \paren{\gconj g a}^n
+$$
+para todo $n\in\ints$.
+
+\hint
+Indução para os inteiros não-negativos.
+E os negativos?
+
+\solution
+Demonstramos primeiramente por indução que para todo $n \in \nats$,
+$\paren{ga\ginv g}^n = g a^n \ginv g$.
+Observe que
+$$
+\align
+(ga\ginv g)^0 &= e \\
+g a^0 \ginv g &= g e \ginv g = g \ginv g = e.
+\endalign
+$$
+Agora seja $k\in\nats$ tal que
+$$
+(ga\ginv g)^k = g a^k \ginv g. \tag{H.I.}
+$$
+Calculamos
+\compute
+(ga\ginv g)^{k+1}
+&= (ga\ginv g)^k (ga\ginv g) \\
+&= (ga^k\ginv g) (ga\ginv g) \by {pela H.I.} \\
+&= ga^k(\ginv g g)a\ginv g \\
+&= ga^ka\ginv g \\
+&= ga^{k+1}\ginv g.
+\endcompute
+Para terminar a demonstração basta observar que para qualquer $n \in \nats$ temos:
+\compute
+\paren{ga\ginv g}^n = g a^n \ginv g
+& \implies \ginvp{\paren{ga\ginv g}^n} = \ginvp{g a^n \ginv g} \\
+& \implies \paren{ga\ginv g}^{-n} = \ginvp{\ginv g} \ginvp{a^n} \ginv g \\
+& \implies \paren{ga\ginv g}^{-n} = g a^{-n} \ginv g.
+\endcompute
+
+%%}}}
+
+%%{{{ x: exponentiation_respects_conjugation 
+\exercise.
+%%%{{{ meta 
+\label exponentiation_respects_conjugation
+%%%}}}
+
+Se $x,y$ são conjugados, então para todo $n$ inteiro,
+$x^n$ e $y^n$ também são.
+
+\hint
+Lembre o~\ref[conjugators_respect_powers].
+
+\solution
+Isso é um corolário imediato
+do~\ref[conjugators_respect_powers]:
+Como $x,y$ conjugados, temos $x = gy\ginv g$ para algum $g\in G$.
+E agora calculamos:
+\compute
+x^n
+&= \paren{gy\ginv g}^n \\
+&= gy^n\ginv g.  \by {pelo \reftag[conjugators_respect_powers]} \\
+\endcompute
+e logo $x^n,y^n$ conjugados também.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+A idéia de conjugação deve aparecer meio aleatória
+pra ti neste momento, mas não tanto como logo depois
+da definição (agora pelo menos tu já demonstrou
+muitas propriedades interessantes).
+Logo vamos descobrir que os subgrupos que são
+\emph{fechados pela conjugação} (ou \emph{fechados pelos conjugados}\/)
+são muito interessantes.  Paciência.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 %%%{{{ meta 
@@ -56919,6 +57171,80 @@ Basta achar um contraexemplo: um conjunto estruturado $\sset G \ast$
 tal que $G$ é finito e satisfaz as (G0),(G1),(GCL) mas mesmo assim
 não é um grupo; isso mostraria que não podemos apagar o (GCR).
 Similarmente para o (GCL).
+
+%%}}}
+
+%%{{{ prob: conjugates_have_the_same_order 
+\problem.
+%%%{{{ meta 
+\label conjugates_have_the_same_order
+%%%}}}
+
+Membros da mesma classe de conjugação tem a mesma ordem.
+
+\hint
+Separe os casos em $\gord a = n \in\nats$ e $\gord a = \infty$.
+
+\hint
+Lembre o~\ref[exponentiation_respects_conjugation]
+e o~\ref[conjugacy_class_of_e].
+
+\solution
+Sejam $a,b$ conjugados.
+\crproofcase {Caso que $\gord a < \infty$.}
+\crproofpart {Resolução 1.}
+Preciso mostrar:
+(i) $b^n = e$;
+(ii) para todo $m$ com $0<m<n$, $b^m \neq e$.
+\eop
+(i) Pelo~\ref[exponentiation_respects_conjugation],
+temos que $a^n$ e $b^n$ são conjugados,
+mas $a^n = e$, e a classe de conjugação de $e$ é o singleton $\set{e}$
+(\ref[conjugacy_class_of_e]).
+Logo $b^n = e$.
+\eop
+(ii) Pela mesma observação cada suposto $b^m = e$
+obrigaria $a^m = e$ também.
+Logo $\gord b = n$.
+\crproofpart {Resolução 2.}
+Pelo~\ref[exponentiation_respects_conjugation]
+temos $a^{\gord a}$ conjugado com $b^{\gord a}$.
+Logo $b^{\gord a} = e$ e logo $\gord b \divides \gord a$.
+Similarmente $\gord a \divides \gord b$ e logo $\gord a = \gord b$
+pois ambos são naturais.
+\crproofcase {Caso que $\gord a = \infty$.}
+Tenho que para todo $n > 0$, $a^n \neq e$,
+e preciso mostrar a mesma coisa sobe os $b^n$.
+De novo, de qualquer suposto contraexemplo $m\in \nats$ com $b^m = e$
+concluimos $a^m = e$ que é absurdo pois $\gord a = \infty$.
+\eop
+Para uma resolução mais poderosa e simples,
+veja o~\ref[conjugates_look_alike].
+
+%%}}}
+
+%%{{{ prob: G abelian iff something with conjugates 
+\problem.
+%%%{{{ meta 
+%%%}}}
+
+Ache uma propriedade interessante que tem a ver com conjugados,
+tal que para todo grupo $G$,
+$$
+\text{$G$ abeliano} \iff \text{essa propriedade}.
+$$
+Demonstre tua afirmação!
+
+\hint
+Num grupo abeliano, o que podes afirmar se $a \gconjrel b$?
+(A próxima dica já tem a resposta, depois disso vai faltar
+só demonstrá-la.)
+
+\hint
+$$
+\text{$G$ abeliano} \iff (\gconjrel) = (\eqof G)
+$$
+Demonstre!
 
 %%}}}
 
@@ -57553,7 +57879,7 @@ então $\Inter {\scr H} \subgroup G$.
 
 %%}}}
 
-%%{{{ x: ongruence_mod_H_teaser 
+%%{{{ x: congruence_mod_H_teaser 
 \exercise.
 %%%{{{ meta 
 \label congruence_mod_H_teaser
@@ -58871,258 +59197,6 @@ No~\ref[Posets_Lattices] vamos revisitar esse assunto num contexto abstrato.
 \endsection
 %%}}}
 
-%%{{{ Group_conjugation 
-\section Conjugação de grupo.
-%%%{{{ meta 
-\label Group_conjugation
-%%%}}}
-
-%%{{{ df: conjugates_of_group_element 
-\definition Conjugados.
-%%%{{{ meta 
-\label conjugates_of_group_element
-\defines
-    * conjugado!de elemento de grupo
-    ;;
-%%%}}}
-
-Seja $G$ grupo e $a\in G$.
-Para qualquer $g\in G$, o $ga\ginv g$ é chamado
-um \dterm{conjugado} de $a$.
-
-%%}}}
-
-%%{{{ df: conjugation_of_group 
-\definition conjugação.
-%%%{{{ meta 
-\indexes
-    * relação!conjugação    see: conjugação
-    ;;
-\defines
-    * ~a \gconjrel ~b  -- conjugação de grupo
-    * conjugação!de grupo
-    ;;
-%%%}}}
-
-Seja $G$ um grupo.
-A \dterm{conjugação do $G$}
-é a relação ${\gconjrel} : \reltype{G,G}$ definida pela
-$$
-\align
-a \gconjrel b
-&\defiff \text{$a$ é um conjugado de $b$}\\
-&\intiff \lexists {g\in G} {a = gb\ginv g}.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ x: gconjrel_is_an_eqrel 
-\exercise.
-%%%{{{ meta 
-\label gconjrel_is_an_eqrel
-%%%}}}
-
-Seja $G$ grupo.  A conjugação $\gconjrel$ do $G$
-é uma relação de equivalência.
-
-\solution
-\proofpart {Reflexividade:}
-Seja $a \in G$.
-Procuramos $g\in G$ tal que $a = ga\ginv g$.
-Como $a = e a \ginv e$, temos que realmente $a \gconjrel a$.
-\eop
-\proofpart {Simetria:}
-Sejam $a,b \in G$ tais que $a \gconjrel b$.
-Daí, seja $x\in G$ tal que $a = xb\ginv x$.
-Operando pela esquerda com $\ginv x$ e pela direita com $x$, temos:
-$$
-\ginv x a x = \ginv x x b \ginv x x = b.
-$$
-Mas $x = \ginvp {\ginv x}$, ou seja
-$b = \ginv x a \ginvp{\ginv x}$
-e logo $b \gconjrel a$.
-\eop
-\proofpart {Transitividade:}
-Sejam $a,b,c \in G$ tais que $a \gconjrel b$ e $b \gconjrel c$.
-Daí, sejam $x,y \in G$ tais que:
-\compute
-a &= x b \ginv x \\
-b &= y c \ginv y.
-\intertext{Substituindo a segunda na primeira, temos}
-a &= x \paren{ y c \ginv y } \ginv x                \\
-  &= \paren{ xy } c \paren{ \ginv y \ginv x} \by {ass.} \\
-  &= \paren{ xy } c \ginvp{ xy }.            \by {inverso de produto (\reftag[inverse_of_product_in_group])} \\
-\endcompute
-Ou seja, $a \gconjrel c$.
-
-%%}}}
-
-%%{{{ df: conjugacy_class 
-\definition Classe de conjugação.
-%%%{{{ meta 
-\label conjugacy_class
-\defines
-    * \gcl {~a}  -- a classe de conjugação de $a$
-    * classe de conjugação
-    ;;
-%%%}}}
-
-Seja $G$ grupo e $a\in G$.
-A \dterm{classe de conjugação} de $a$ é o conjunto
-$$
-\gcl a \defeq \setst {ga\ginv g} {g \in G},
-$$
-ou seja, $\gcl a$ é a classe de equivalência do $a$
-através da relação <<é um conjugado de>>.
-
-%%}}}
-
-%%{{{ x: conjugacy_class_of_e 
-\exercise.
-%%%{{{ meta 
-\label conjugacy_class_of_e
-%%%}}}
-
-Seja $G$ grupo.
-Calcule a $\gcl e$.
-
-\hint
-$\gcl e = \set{e}$.
-Por quê?
-
-%%}}}
-
-%%{{{ x: conjugacy_classes_of_S3 
-\exercise.
-%%%{{{ meta 
-\label conjugacy_classes_of_S3
-%%%}}}
-
-Ache todas as classes de conjugação de $\sym 3$.
-
-\hint
-Já achou uma no \ref[conjugacy_class_of_e].
-
-%%}}}
-
-%%{{{ df: conjugator 
-\definition conjugadores.
-%%%{{{ meta 
-\label conjugator
-\defines
-    * \gconj {~g}  -- o $g$-conjugador
-    * conjugador
-    ;;
-%%%}}}
-
-Seja $G$ grupo e $g\in G$.
-Definimos a funcção $\gconj g : G \to G$ pela
-$$
-\gconj g x = gx\ginv g.
-$$
-Chamamos a $\gconj g$ de \dterm{$g$-conjugador}.
-Observe que o conjugador $\gconj g$ é um ator:
-$\actorS g {\ginv g}$.
-
-%%}}}
-
-%%{{{ x: conjugators_respect_powers 
-\exercise.
-%%%{{{ meta 
-\label conjugators_respect_powers
-%%%}}}
-
-Sejam $G$ grupo e $g,a\in G$.
-Para todo $n\in\ints$,
-$\paren{ga\ginv g}^n = g a^n \ginv g$.
-Em outras palavras, a conjugação por membro respeita as potências:
-$$
-\gconj g (a^n) = \paren{\gconj g a}^n
-$$
-para todo $n\in\ints$.
-
-\hint
-Indução para os inteiros não-negativos.
-E os negativos?
-
-\solution
-Demonstramos primeiramente por indução que para todo $n \in \nats$,
-$\paren{ga\ginv g}^n = g a^n \ginv g$.
-Observe que
-$$
-\align
-(ga\ginv g)^0 &= e \\
-g a^0 \ginv g &= g e \ginv g = g \ginv g = e.
-\endalign
-$$
-Agora seja $k\in\nats$ tal que
-$$
-(ga\ginv g)^k = g a^k \ginv g. \tag{H.I.}
-$$
-Calculamos
-\compute
-(ga\ginv g)^{k+1}
-&= (ga\ginv g)^k (ga\ginv g) \\
-&= (ga^k\ginv g) (ga\ginv g) \by {pela H.I.} \\
-&= ga^k(\ginv g g)a\ginv g \\
-&= ga^ka\ginv g \\
-&= ga^{k+1}\ginv g.
-\endcompute
-Para terminar a demonstração basta observar que para qualquer $n \in \nats$ temos:
-\compute
-\paren{ga\ginv g}^n = g a^n \ginv g
-& \implies \ginvp{\paren{ga\ginv g}^n} = \ginvp{g a^n \ginv g} \\
-& \implies \paren{ga\ginv g}^{-n} = \ginvp{\ginv g} \ginvp{a^n} \ginv g \\
-& \implies \paren{ga\ginv g}^{-n} = g a^{-n} \ginv g.
-\endcompute
-
-%%}}}
-
-%%{{{ x: exponentiation_respects_conjugation 
-\exercise.
-%%%{{{ meta 
-\label exponentiation_respects_conjugation
-%%%}}}
-
-Se $x,y$ são conjugados, então para todo $n$ inteiro,
-$x^n$ e $y^n$ também são.
-
-\hint
-Lembre o~\ref[conjugators_respect_powers].
-
-\solution
-Isso é um corolário imediato
-do~\ref[conjugators_respect_powers]:
-Como $x,y$ conjugados, temos $x = gy\ginv g$ para algum $g\in G$.
-E agora calculamos:
-\compute
-x^n
-&= \paren{gy\ginv g}^n \\
-&= gy^n\ginv g.  \by {pelo \reftag[conjugators_respect_powers]} \\
-\endcompute
-e logo $x^n,y^n$ conjugados também.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-A idéia de conjugação deve aparecer meio aleatória
-pra ti neste momento, mas não tanto como logo depois
-da definição (agora pelo menos tu já demonstrou
-muitas propriedades interessantes).
-Logo vamos descobrir que os subgrupos que são
-\emph{fechados pela conjugação} (ou \emph{fechados pelos conjugados}\/)
-são muito interessantes.  Paciência.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 %%%{{{ meta 
@@ -59293,80 +59367,6 @@ Por enquanto só podemos responder ``não'' por causa desse
 buraco.  Tem outros buracos?
 Paciência até o~\ref[Cantors_paradise], onde revisitamos essa
 pergunta nos seus problemas.
-
-%%}}}
-
-%%{{{ prob: conjugates_have_the_same_order 
-\problem.
-%%%{{{ meta 
-\label conjugates_have_the_same_order
-%%%}}}
-
-Membros da mesma classe de conjugação tem a mesma ordem.
-
-\hint
-Separe os casos em $\gord a = n \in\nats$ e $\gord a = \infty$.
-
-\hint
-Lembre o~\ref[exponentiation_respects_conjugation]
-e o~\ref[conjugacy_class_of_e].
-
-\solution
-Sejam $a,b$ conjugados.
-\crproofcase {Caso que $\gord a < \infty$.}
-\crproofpart {Resolução 1.}
-Preciso mostrar:
-(i) $b^n = e$;
-(ii) para todo $m$ com $0<m<n$, $b^m \neq e$.
-\eop
-(i) Pelo~\ref[exponentiation_respects_conjugation],
-temos que $a^n$ e $b^n$ são conjugados,
-mas $a^n = e$, e a classe de conjugação de $e$ é o singleton $\set{e}$
-(\ref[conjugacy_class_of_e]).
-Logo $b^n = e$.
-\eop
-(ii) Pela mesma observação cada suposto $b^m = e$
-obrigaria $a^m = e$ também.
-Logo $\gord b = n$.
-\crproofpart {Resolução 2.}
-Pelo~\ref[exponentiation_respects_conjugation]
-temos $a^{\gord a}$ conjugado com $b^{\gord a}$.
-Logo $b^{\gord a} = e$ e logo $\gord b \divides \gord a$.
-Similarmente $\gord a \divides \gord b$ e logo $\gord a = \gord b$
-pois ambos são naturais.
-\crproofcase {Caso que $\gord a = \infty$.}
-Tenho que para todo $n > 0$, $a^n \neq e$,
-e preciso mostrar a mesma coisa sobe os $b^n$.
-De novo, de qualquer suposto contraexemplo $m\in \nats$ com $b^m = e$
-concluimos $a^m = e$ que é absurdo pois $\gord a = \infty$.
-\eop
-Para uma resolução mais poderosa e simples,
-veja o~\ref[conjugates_look_alike].
-
-%%}}}
-
-%%{{{ prob: G abelian iff something with conjugates 
-\problem.
-%%%{{{ meta 
-%%%}}}
-
-Ache uma propriedade interessante que tem a ver com conjugados,
-tal que para todo grupo $G$,
-$$
-\text{$G$ abeliano} \iff \text{essa propriedade}.
-$$
-Demonstre tua afirmação!
-
-\hint
-Num grupo abeliano, o que podes afirmar se $a \gconjrel b$?
-(A próxima dica já tem a resposta, depois disso vai faltar
-só demonstrá-la.)
-
-\hint
-$$
-\text{$G$ abeliano} \iff (\gconjrel) = (\eqof G)
-$$
-Demonstre!
 
 %%}}}
 
