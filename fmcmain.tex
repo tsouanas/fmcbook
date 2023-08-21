@@ -1840,7 +1840,7 @@ diferentes.
 \label used_but_unused_variables_phrases
 %%%}}}
 
-Antes de fechar nossa discução sobre variáveis tenho
+Antes de fechar nossa discussão sobre variáveis tenho
 uma última coisa para expôr.
 Considere as frases:
 % TODO: fix reflabs
@@ -38508,12 +38508,12 @@ da $\family {a_i} i$.
 %%%}}}
 
 Chamamos qualquer $a : \nats \to A$
-de \dterm{seqüência}.
+de \dterm{seqüência de $A$}.
 Introduzimos como açúcar sintáctico o
 $$
 a_n \sugeq a(n).
 $$
-Com essa definição, quando duas \emph{seqüências} são iguais?
+Com essa definição, quando duas seqüências de $A$ são iguais?
 Elas precisam concordar em cada $n \in \dom a$;
 e essa implementação atende a especificação pois concorda com
 a definição de igualdade do tipo que estamos implementando
@@ -38528,13 +38528,13 @@ a definição de igualdade do tipo que estamos implementando
 %%%}}}
 
 Chamamos qualquer $a : \cal I \to A$.
-de \dterm{família indexada por $\cal I$}.
+de \dterm{família de $A$ indexada por $\cal I$}.
 Introduzimos como açúcar sintáctico o
 $$
 a_i \sugeq a(i).
 $$
-Com essa definição, quando duas \emph{famílias} indexadas são iguais?
-Os conjuntos de índices têm que ser iguais, e as famílias precisam
+Com essa definição, quando duas tais famílias são iguais?
+Os conjuntos de índices precisam ser iguais, e as famílias precisam
 concordar em cada índice.
 Essa implementação atende a especificação pois concorda com
 a definição de igualdade do tipo que estamos implementando
@@ -38636,46 +38636,10 @@ pois $f(0) = u \neq v = g(0)$, e logo $f\neq g$.
 
 %%}}}
 
-%%{{{ prob: flip_definition 
-\problem flip.
-%%%{{{ meta 
-\label flip_definition
-%%%}}}
-
-No \ref[powTwo] da~\reftag[Currying] definimos a funcção $\namedfun{powTwo}$
-diretamente como aplicação parcial da funcção $\namedfun{exp}$
-$$
-\namedfun{powTwo} = \namedfun{exp} \fa 2
-$$
-evitando o uso de pontos ou lambdas:
-\mathcols 2
-\namedfun{powTwo} \fa n &= \namedfun{exp} \fa 2 \fa n; &
-\namedfun{powTwo}       &= \lam n {\namedfun{exp} \fa 2 \fa n}.
-\endmathcols
-Similarmente podemos definir a funcção que corresponde seqüência das potências
-de qualquer outro número real.
-Mas parece que não podemos criar com a mesma laconicidade (apenas como
-aplicação parcial) uma funcção $\namedfun{square}$ ou $\namedfun{cube}$,
-pois os argumentos da $\namedfun{exp}$ estão ``na ordem errada''.
-O objectivo desse problema é fazer exatamente isso.
-\eop
-Defina uma funcção de ordem superior $\namedfun{flip}$, que recebe qualquer
-funcção binária currificada, e retorna a funcção binária currificada que
-comporta no mesmo jeito mas recebendo seus argumentos na ordem oposta.
-Por exemplo:
-\mathcols 2
-\namedfun{exp} \fa 2 \fa 3 &= 8; &
-\paren{\namedfun{flip} \fa \namedfun{exp}} \fa 2 \fa 3 &= 9
-\endmathcols
-Começa escrevendo o tipo da $\namedfun{flip}$ e o lendo com as duas
-maneiras diferentes que discutimos na~\ref[human_eyes_and_ho_types].
-
-%%}}}
-
 \endproblems
 %%}}}
 
-% ENTER COMPOSITIONS, IDENTITY, JECTIONS, INVERSION, SHIFT
+% ENTER COMPOSITIONS, IDENTITY, INVERSION, SHIFTS
 
 %%{{{ Composition 
 \section Composição.
@@ -39131,7 +39095,8 @@ conjuntos, funcções, etc.
     * identidade    see: funcção
     ;;
 \defines
-    * \idof {~A}  -- a identidade do $A$
+    * \idof  {~A}  -- a identidade do conjunto $A$
+    * \oneof {~A}  -- a identidade do conjunto $A$
     * funcção!identidade
     ;;
 %%%}}}
@@ -39139,7 +39104,7 @@ conjuntos, funcções, etc.
 Seja $A$ conjunto.
 A funcção $\lam x x : A \to A$ é chamada
 \dterm{identidade do $A$}.
-Denotamos a identidade do conjunto $A$ por $\idof A : A \to A$ ou $1_A : A \to A$.
+Denotamos a identidade do conjunto $A$ por $\idof A : A \to A$ ou $\oneof A : A \to A$.
 
 %%}}}
 
@@ -42569,6 +42534,44 @@ E o outro $\emptyset$ diria:
 Vamos voltar nisso bem, bem, bem depois,
 no~\ref[Type_theory]: teoria dos tipos.
 Por enquanto, esqueça.
+
+%%}}}
+
+% currying (flip)
+
+%%{{{ prob: flip_definition 
+\problem flip.
+%%%{{{ meta 
+\label flip_definition
+%%%}}}
+
+No \ref[powTwo] da~\reftag[Currying] definimos a funcção $\namedfun{powTwo}$
+diretamente como aplicação parcial da funcção $\namedfun{exp}$
+$$
+\namedfun{powTwo} = \namedfun{exp} \fa 2
+$$
+evitando o uso de pontos ou lambdas:
+\mathcols 2
+\namedfun{powTwo} \fa n &= \namedfun{exp} \fa 2 \fa n; &
+\namedfun{powTwo}       &= \lam n {\namedfun{exp} \fa 2 \fa n}.
+\endmathcols
+Similarmente podemos definir a funcção que corresponde seqüência das potências
+de qualquer outro número real.
+Mas parece que não podemos criar com a mesma laconicidade (apenas como
+aplicação parcial) uma funcção $\namedfun{square}$ ou $\namedfun{cube}$,
+pois os argumentos da $\namedfun{exp}$ estão ``na ordem errada''.
+O objectivo desse problema é fazer exatamente isso.
+\eop
+Defina uma funcção de ordem superior $\namedfun{flip}$, que recebe qualquer
+funcção binária currificada, e retorna a funcção binária currificada que
+comporta no mesmo jeito mas recebendo seus argumentos na ordem oposta.
+Por exemplo:
+\mathcols 2
+\namedfun{exp} \fa 2 \fa 3 &= 8; &
+\paren{\namedfun{flip} \fa \namedfun{exp}} \fa 2 \fa 3 &= 9
+\endmathcols
+Começa escrevendo o tipo da $\namedfun{flip}$ e o lendo com as duas
+maneiras diferentes que discutimos na~\ref[human_eyes_and_ho_types].
 
 %%}}}
 
@@ -73390,7 +73393,7 @@ Não são 4.
 Não é um número finito de axiomas!
 
 \solution
-Veja a discução no~\reftag[axioms_vs_axiomatic_schemata].
+Veja a discussão no~\reftag[axioms_vs_axiomatic_schemata].
 
 %%}}}
 
