@@ -6096,27 +6096,44 @@ Demonstre: $a \divides b \!\iff\! ca \divides cb$.
 \endsection
 %%}}}
 
-%%{{{ Sets closed under operations 
-\section Conjuntos fechados sobre operações.
+%%{{{ Sets_of_ints_closed_under_operations 
+\section Conjuntos fechados sob operações.
 %%%{{{ meta 
+\label Sets_of_ints_closed_under_operations
 %%%}}}
 
-%%{{{ df: closed_under_addition 
-\definition operação-fechado.
+%%{{{ df: int_closed_under_addition 
+\definition $(+)$-fechado.
 %%%{{{ meta 
-\label closed_under_addition
+\label int_closed_under_addition
 \defines
     * conjunto!$(+)$-fechado
     ;;
 %%%}}}
 
-Seja $A$ conjunto de inteiros.
+Seja $A$ um conjunto de inteiros.
+(Escrevemos: $A \is \Set\fa\Int$.)
 Dizemos que $A$ é \dterm{fechado sob adição} sse
-a soma de quaisquer $a,b\in A$ pertence ao $A$ também:
+a soma de quaisquer $a,b\in A$ pertence ao $A$:
 $$
 \lforall {a,b \in A} {a+b \in A}.
 $$
 Também chamamos o $A$ de $(+)$-\dterm{fechado}.
+
+%%}}}
+
+%%{{{ remark: What does (∀a,b∈A)[...] mean? 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Dessugarizando a forma que escrevi a proposição na \ref[int_closed_under_addition]
+obtemos
+$$
+\lforall {a,b \in A} {a+b \in A}
+\intiff
+\lforall {a,b \is \Int} {a,b \in A \implies a+b \in A}.
+$$
 
 %%}}}
 
@@ -6126,7 +6143,7 @@ Também chamamos o $A$ de $(+)$-\dterm{fechado}.
 %%%}}}
 
 A definição generaliza-se para qualquer operação $n$-ária
-(de aridade $n$, veja~\ref[arity_first_contact]).
+(i.e., de aridade $n$---veja~\ref[arity_first_contact]).
 
 %%}}}
 
@@ -6627,6 +6644,22 @@ x \geq y &\defiff y \leq x \\
 
 %%}}}
 
+%%{{{ Strict and nonstrict orders 
+\note Conjuntos ordenados.
+%%%{{{ meta 
+%%%}}}
+
+Relações binárias como a $(<)$ e a $(\leq)$ que definimos aqui
+são chamadas relações de ordem: a $(<)$ é uma ordem estrita, a $(\leq)$ não.
+Um conjunto cujos membros podemos comparar com uma relação de ordem
+destacada é chamado conjunto ordenado e mais pra frente vamos dedicar
+capítulos inteiros para seu estudo numa abstrata.
+Por enquanto precisamos só trabalhar com o conjunto de inteiros,
+e com certeza sabemos como comparar inteiros: tanto com a $(<)$,
+quanto com a $(\leq)$.
+
+%%}}}
+
 %%{{{ x: int_negative_iff_lt_zero 
 \exercise.
 %%%{{{ meta 
@@ -7087,43 +7120,26 @@ Para quaisquer inteiros $a,b,u,v$, se $a < b$ e $u < v$, então $a + u < b + v$.
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ Strict and nonstrict orders 
-\note Conjuntos ordenados.
-%%%{{{ meta 
-%%%}}}
-
-Relações binárias como a $(<)$ e a $(\leq)$ que definimos aqui
-são chamadas relações de ordem: a $(<)$ é uma ordem estrita, a $(\leq)$ não.
-Um conjunto cujos membros podemos comparar com uma relação de ordem
-é chamado conjunto ordenado e mais pra frente vamos dedicar capítulos
-inteiros para seu estudo.
-Por enquanto precisamos só trabalhar com o conjunto de inteiros,
-e com certeza sabemos como comparar inteiros: tanto com a $(<)$,
-quanto com a $(\leq)$.
-
-%%}}}
-
 %%{{{ df: int_min 
 \definition Membro mínimo.
 %%%{{{ meta 
 \label int_min
 \defines
-    * \min {~A}  -- mínimo do $A$
+    * {~x} = \min {~A}  -- $x$ é membro mínimo do $A$
     * mínimo
     ;;
 %%%}}}
 
 Seja $A$ um conjunto de inteiros.
-(Escrevemos: $A \is \Set(\Int)$.)
-Um membro $m\in A$ é chamado \dterm{(membro) mínimo do $A$}
+Um membro $m\in A$ é chamado de \dterm{(membro) mínimo do $A$}
 sse para todo $a \in A$, $m \leq a$.
-Quando o conjunto $A$ possui mínimo, escrevemos $\min A$ para denotá-lo:
+Escrevemos
 $$
 m = \min A
 \defiff
 m \in A \mland \lforall {a \in A} {m \leq a}.
 $$
-Note que necessariamente o mínimo dum conjunto $A$, se existe, pertence ao $A$.
+Note que necessariamente um mínimo dum conjunto $A$, se existe, pertence ao $A$.
 
 %%}}}
 
