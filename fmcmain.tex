@@ -7141,13 +7141,65 @@ ti (\ref[unprovability_of_nontriviality_of_ints]).
 %%%{{{ meta 
 %%%}}}
 
+%%{{{ df: int_minb_and_maxb 
+\definition.
+%%%{{{ meta 
+\label int_minb_and_maxb
+%%%}}}
+
+Definimos as operações binárias de mínimo e máximo:
+\mathcols 2
+\minb &\is \Int \times \Int \to \Int &
+\maxb &\is \Int \times \Int \to \Int \\
+\minb (x,y) &\defeq \cases {
+x, & caso $x \leq y$; \\
+y, & caso $x > y$;\\
+} & 
+\maxb (x,y) &\defeq \cases {
+y, & caso $x \leq y$; \\
+x, & caso $x > y$.\\
+}
+\endmathcols
+Em notação infixa usamos os símbolos $(\meet)$ e $(\join)$, respectivamente.
+
+%%}}}
+
+%%{{{ x: int_min_max_algebraic_properties 
+\exercise.
+%%%{{{ meta 
+\label int_min_max_algebraic_properties
+%%%}}}
+
+Para cada uma das propriedades algébricas que temos destacado até agora
+investigue quais são satisfeitas pelos $(\meet)$ e $(\join)$.
+Não esqueça investigar possíveis distributividades.
+
+%%}}}
+
+%%{{{ notation: leq_set_notation_abuse 
+\notation.
+%%%{{{ meta 
+\label leq_set_notation_abuse
+%%%}}}
+
+Sejam $A$ um conjunto de inteiros e $x$ um inteiro.
+Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
+\mathcols 2
+x \leq A &\abuseiff \lforall {a \in A} {x \leq a} &
+A \leq x &\abuseiff \lforall {a \in A} {a \leq x}.
+\endmathcols
+
+%%}}}
+
 %%{{{ df: int_min 
-\definition Membro mínimo.
+\definition mínimo, máximo.
 %%%{{{ meta 
 \label int_min
 \defines
     * {~x} = \min {~A}  -- $x$ é membro mínimo do $A$
+    * {~x} = \max {~A}  -- $x$ é membro máximo do $A$
     * mínimo
+    * máximo
     ;;
 %%%}}}
 
@@ -7158,9 +7210,22 @@ Escrevemos
 $$
 m = \min A
 \defiff
-m \in A \mland \lforall {a \in A} {m \leq a}.
+m \in A \mland m \leq A.
 $$
 Note que necessariamente um mínimo dum conjunto $A$, se existe, pertence ao $A$.
+Similarmente definimos a noção de \dterm{(membro) máximo} (\ref[int_max]).
+
+%%}}}
+
+%%{{{ warning: notational_abuse_of_equals_min 
+\warning abuso notacional.
+%%%{{{ meta 
+\label notational_abuse_of_equals_min
+%%%}}}
+
+Escrevendo \symq{$m = \min A$} dá para confundir e pensar que se trata de
+uma igualdade.  Na verdade é apenas uma conjunção desfarçada, vestindo roupas
+notacionais de $(=)$.
 
 %%}}}
 
@@ -7205,14 +7270,42 @@ Portanto, $m_1 = m_2$ (pela antissimetria da $\leq$).
 
 %%}}}
 
+%%{{{ x: int_min_eq_min_means_what 
+\exercise.
+%%%{{{ meta 
+\label int_min_eq_min_means_what
+%%%}}}
+
+Tecnicamente expressões como \symq{$\min A = \min B$}
+e \symq{$\max A < \min B$} também não foram definidas.
+Mesmo assim, é útil ter essas notações significando algo.
+Defina ambas atribuindo a elas seus significados desejados.
+
+%%}}}
+
+%%{{{ beware: no_standalone_use_of_min 
+\beware.
+%%%{{{ meta 
+\label no_standalone_use_of_min
+%%%}}}
+
+Definimos o predicado
+$$
+\uhole = \min \uhole : \Int \times \Set\fa\Int \to \Prop
+$$
+assim podendo escrever coisas como \symq{$1 = \min A$};
+mas a expressão \symq{$\min A$} sozinha não foi definida.
+
+%%}}}
+
 %%{{{ x: int_max 
 \exercise E o máximo?.
 %%%{{{ meta 
 \label int_max
 %%%}}}
 
-Defina o que significa \dterm{máximo} dum conjunto de inteiros $A$,
-demonstre que quando um conjunto $A$ possui máximo, é único.
+Defina o que significa \dterm{(membro) máximo} dum conjunto de inteiros $A$,
+e demonstre o que deves demonstrar junto com tua definição.
 
 %%}}}
 
@@ -7245,11 +7338,12 @@ Demonstre que se $A$ possui mínimo, então $-A$ possui máximo e
 %%%{{{ meta 
 %%%}}}
 
-\TODO Trocar para usar especificação de valor absoluto / valuação.
-
 %%{{{ df: int_absolute_value 
 \definition valor absoluto.
 %%%{{{ meta 
+\defines
+  * valor absoluto
+  ;;
 %%%}}}
 
 Introduzimos o operador unário
@@ -7258,18 +7352,36 @@ $$
 $$
 definido por casos assim:
 $$
-\abs x
-\defeq
-\knuthcases {
- x, & se $x \geq 0$; \cr
+\abs x \defeq \cases {
+ x, & se $x \geq 0$; \\
 -x, & se $x < 0$.
 }
 $$
 Chamamos o $\abs x$ de \dterm{valor absoluto de $x$}.\foot
 O $\abs x$ é conhecido em português como \dterm{módulo de $x$},
-mas vamos falar tanto a palavra ``módulo'' que acho melhor emprestar
-o ``valor absoluto'' do \emph{absolute value} para esse uso.
+mas vamos falar tanto a palavra ``módulo'' que acho melhor usar
+o ``valor absoluto'' do \emph{absolute value} para este uso.
 \toof
+
+%%}}}
+
+%%{{{ x: int_abs_nonneg 
+\exercise.
+%%%{{{ meta 
+\label int_abs_nonneg
+%%%}}}
+
+Para todo $x$ inteiro, $\abs x \geq 0$.
+
+%%}}}
+
+%%{{{ x: int_abs_zero 
+\exercise.
+%%%{{{ meta 
+\label int_abs_zero
+%%%}}}
+
+Para todo $x$ inteiro, $\abs x = 0 \iff x = 0$.
 
 %%}}}
 
@@ -7299,17 +7411,23 @@ Use a \mref[ZO-Tri] para separar em casos.
 
 %%}}}
 
-%%{{{ x: int_abs_props 
+%%{{{ x: int_abs_leq_abs 
 \exercise.
 %%%{{{ meta 
-\label int_abs_props
+\label int_abs_leq_abs
 %%%}}}
 
-Demonstre:
-\mathcol
-\cforall {a,u} {\abs a \leq \abs u  \iff  -\abs u \leq a \leq \abs u} \\
-\cforall {a}   {-\abs a \leq a \leq \abs a}. \\
-\endmathcol
+Demonstre: $\lforall {a,u} {\abs a \leq \abs u  \iff  -\abs u \leq a \leq \abs u}$.
+
+%%}}}
+
+%%{{{ x: int_abs_bounds 
+\exercise.
+%%%{{{ meta 
+\label int_abs_bounds
+%%%}}}
+
+Demonstre: $\lforall {a}   {-\abs a \leq a \leq \abs a}$.
 
 %%}}}
 
@@ -7347,27 +7465,35 @@ Justifique em detalhe cada <<logo>> da demonstração do \ref[int_triangle_ineq]
 
 %%}}}
 
-%%{{{ x: int_abs_of_prod 
+%%{{{ x: int_abs_eq_abs 
 \exercise.
+%%%{{{ meta 
+\label int_abs_eq_abs
+%%%}}}
+
+Sejam $a,b$ inteiros.  Demonstre:
+$\abs a = \abs b \implies a = b \mlor a = -b$.
+
+%%}}}
+
+%%{{{ x: int_abs_of_diff 
+\exercise.
+%%%{{{ meta 
+\label int_abs_of_diff
+%%%}}}
+
+Sejam $a,b$ inteiros.  Demonstre:
+$\abs {\abs a - \abs b} \leq \abs {a - b} \leq \abs a + \abs b$.
+
+%%}}}
+
+%%{{{ x: int_abs_of_prod 
+\exercise multiplicatividade.
 %%%{{{ meta 
 \label int_abs_of_prod
 %%%}}}
 
 $\lforall {a,b} {\abs {ab} = \abs a \abs b}$.
-
-%%}}}
-
-%%{{{ x: int_triangle_ineq_corollaries
-\exercise.
-%%%{{{ meta 
-\label int_triangle_ineq_corollaries
-%%%}}}
-
-Sejam $a,b$ inteiros.  Demonstre:
-\math
-\abs a = \abs b \implies a = b \mlor a = -b \\
-\abs {\abs a - \abs b} \leq \abs {a - b} \leq \abs a + \abs b.
-\endmath
 
 %%}}}
 
@@ -7379,10 +7505,10 @@ Sejam $a,b$ inteiros.  Demonstre:
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ prob: Z-NZD_iff_Z-LCL 
-\problem Ordem como primitiva.
+%%{{{ prob: Z-NZD_iff_Z-MCanL 
+\problem NZD \vs MCan.
 %%%{{{ meta 
-\label Z-NZD_iff_Z-LCL
+\label Z-NZD_iff_Z-MCanL
 %%%}}}
 
 No texto escolhi adicionar como axioma a lei de não zerodivisores~\mref[Z-NZD]
@@ -23694,8 +23820,8 @@ Logo $a=b$.
 Definimos a operação $\abs{\dhole} : \Real \to \Real$
 $$
 \abs x \defeq \cases {
-x,  & se $x\geq 0$ \\
--x, & se não. \\
+x,  & caso $x \geq 0$; \\
+-x, & caso $x < 0$. \\
 }
 $$
 
@@ -24624,21 +24750,6 @@ $$
 \section Mínima e máxima.
 %%%{{{ meta 
 %%%}}}
-
-%%{{{ notation: leq_set_notation_abuse 
-\notation.
-%%%{{{ meta 
-\label leq_set_notation_abuse
-%%%}}}
-
-Sejam $A$ um conjunto de reais e $x$ um real.
-Abusando a notação escrevemos $x \leq A$ e $A \leq x$:
-\mathcols 2
-x \leq A &\abuseiff \lforall {a \in A} {x \leq a} &
-A \leq x &\abuseiff \lforall {a \in A} {a \leq x}.
-\endmathcols
-
-%%}}}
 
 %%{{{ df: real_min_max_binary 
 \definition.
