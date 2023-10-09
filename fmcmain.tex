@@ -8179,6 +8179,238 @@ onde $F_n$ o $n$-ésimo número Fibonacci.
 \endsection
 %%}}}
 
+%%{{{ Binomial_theorem 
+\section Binomial e seus coeficientes.
+%%%{{{ meta 
+\label Binomial_theorem
+%%%}}}
+
+%%{{{ x: binomial_theorem_for_2 
+\exercise.
+%%%{{{ meta 
+\label binomial_theorem_for_2
+%%%}}}
+
+Demonstre que para quaisquer inteiros $x,y$,
+$(x+y)^2 = x^2 + 2xy + y^2$.
+
+%%}}}
+
+%%{{{ x: binomial_theorem_for_3 
+\exercise.
+%%%{{{ meta 
+\label binomial_theorem_for_3
+%%%}}}
+
+Demonstre que para quaisquer inteiros $x,y$,
+$(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3$.
+
+\hint
+Use o que tu acabou de demonstrar sobre o $(x+y)^2$, no \ref[binomial_theorem_for_2].
+
+%%}}}
+
+%%{{{ binomial theorem discussion 
+\note Binomial.
+%%%{{{ meta 
+%%%}}}
+
+Nosso objetivo agora é generalizar para responder ao
+\mathcol
+(x+y)^n &= ?
+\intertext{Facilmente percebemos que}
+(x+y)^n &= x^n + \dotsb + y^n
+\intertext{mas esse uso de \sq{${}\dotsb{}$} é tão abusivo que parece
+até piada considerar como progresso.  Podemos melhorar pouco, percebendo
+que no final das contas nossa resposta deve ser um somatório de termos
+$x^iy^j$.  Por exemplo, no \ref[binomial_theorem_for_3] achamos}
+(x+y)^3
+&= xxx + xxy + xyx + yxx + xyy + yxy + yyx + yyy \\
+&= x^3y^0 + x^2y + x^2y + x^2y + xy^2 + xy^2 + xy^2 + x^0y^3.
+\intertext{O objetivo é \emph{achar os coeficientes} de cada termo desses:}
+&= \mubrace {x^3y^0} 1
+ + \mubrace {x^2y + x^2y + x^2y} 3
+ + \mubrace {xy^2 + xy^2 + xy^2} 3
+ + \mubrace {x^0y^3} 1 \\
+&= 1\,x^3y^0 + 3\,x^2y + 3\,xy^2 + 1\,x^0y^3.
+\intertext{Observe também como podemos melhorar os $i,j$ no $x^iy^j$:
+temos $i+j = n$, e logo podemos escrever tudo em termos de apenas uma variável
+(vou escolher a \sq{$r$}): $x^{n-r}y^r$.
+Sabemos então que $(x+y)^n$ pode ser escrito como um somatório de termos $x^{n-r}y^r$
+e o desafio é achar para um deles quantas vezes precisamos somá-lo.
+Em outras palavras, procuramos o coeficiente de tal termo no somatório.
+Vamos denotar por $\binom n r$ o coeficiente do termo $x^{n-r}y^r$:}
+(x + y)^n
+&= \binom n 0 x^n + \binom n 1 x^{n-1}y + \dotsb + \binom n {n-1} xy^{n-1} + \binom n n y^n \\
+&= \Sum_{r=0}^n \binom n r x^{n-r}y^r.
+\endmathcol
+
+%%}}}
+
+%%{{{ thm: binomial_theorem 
+\theorem Teorema binomial.
+%%%{{{ meta 
+\label binomial_theorem
+\headerize
+\indexes
+    * binomial!teorema    see: teorema
+    * teorema!binomial
+    ;;
+%%%}}}
+
+Para qualquer $n$ natural e qualquer $0 \leq i \leq n$, temos
+$$
+\binom n r = \comb n r.
+$$
+
+\preproof Argumentação combinatorial.
+Queremos achar quantas vezes o termo $x^{n-r}y^r$ aparece na expansão do binomial.
+Escrevendo
+$$
+(x+y)^n = \tubrace {(x+y)(x+y)\dotsb(x+y)} {$n$ vezes}
+$$
+observamos que para cada das $\comb n r$ maneiras de escolher $r$ dos termos acima,
+corresponde um termo $x^{n-r}y^r$:
+\dq{escolha quais dos termos desse produtório vão oferecer seus $y$'s
+(o resto dos termos oferecerá seu $x$)}.
+Isso justifica o $\binom n r = \comb n r$.
+(Veja o~\ref[binomial_theorem_for_7_combinations] para um exemplo.)
+
+\proof.
+Por indução.
+\crproofpart {Base.}
+Temos
+\compute
+(x+y)^0 &= 1 \noby \\
+\Sum_{r=0}^0 \comb 0 r x^{n-r}y^r &= \comb 0 0 x^{0-0}y^0 = 1 \ntimes 1 \ntimes 1 = 1.
+\endcompute
+\proofpart {Passo indutivo.}
+Seja $k$ tal que $(x+y)^k = \Sum_{r=0}^k \comb k r x^{k-r}y^k$\fact{HI}.
+Calculamos:
+\compute
+(x+y)^{k+1}
+&= (x+y) (x+y)^k \noby \\
+&= x(x+y)^k y(x+y)^k \\
+&\dotseq \Sum_{r=0}^{k+1} \comb {k+1} r x^{k-(r-1)}y^r.
+\endcompute
+Onde o \sq{$\dotseq$} é trabalho teu (\ref[binomial_theorem_proof_by_induction_exercise]).
+
+%%}}}
+
+%%{{{ eg: binomial_theorem_for_7_combinations 
+\example.
+%%%{{{ meta 
+\label binomial_theorem_for_7_combinations
+%%%}}}
+
+Para $n \asseq 7$ e $r \asseq 4$, a escolha indicada pelos termos sublinhados no
+$$
+\let\ul=\underline
+(x+y)^7 = (x+y) \, \ul{(x+y)} \, (x+y) \, \ul{(x+y)} \, \ul{(x+y)} \, (x+y) \, \ul {(x+y)}
+$$
+corresponde ao termo $xyxyyxy = x^3y^4$, e cada diferente escolha das $\comb 7 4$
+corresponde ao mesmo termo mas com uma maneira diferente para formá-lo:
+$$
+\tubrace
+    {xxxyyyy,~xxyxyyy,~xxyyxyy,~xxyyyxy,~xxyyyyx,~xyxxyyy,~\dotsc,~yyxyxx,~yyyyxxx}
+    {$\comb 7 4 = 35$ strings feitos por $3$ $x$'s e $4$ $y$'s}.
+$$
+
+%%}}}
+
+%%{{{ x: binomial_theorem_proof_by_induction_exercise 
+\exercise Teorema binomial: por indução.
+%%%{{{ meta 
+\label binomial_theorem_proof_by_induction_exercise
+\indexes
+    * teorema!binomial (por indução)
+    ;;
+%%%}}}
+
+Demonstre o \ref[binomial_theorem].
+
+\hint
+Aplique a hipótese indutiva.
+
+\hint
+$$
+x(x+y)^k y(x+y)^k
+= x\Sum_{r=0}^k \comb k r x^{k-r} y^r
++ y\Sum_{r=0}^k \comb k r x^{k-r} y^r.
+$$
+
+\hint
+O $x$ sendo distribuido no primeiro somatório aumenta $+1$ no expoente de $x$,
+e similarmente o $y$ no segundo aumenta $+1$ no expoente de $y$.
+
+\hint
+$$
+  x\Sum_{r=0}^k \comb k r x^{k-r} y^r
++ y\Sum_{r=0}^k \comb k r x^{k-r} y^r
+=  \Sum_{r=0}^k \comb k r x^{(k-r)+1} y^r
++  \Sum_{r=0}^k \comb k r x^{k-r} y^{r+1}.
+$$
+
+\hint
+Separe o primeiro termo do primeiro somatório e o último termo do segundo.
+
+\hint
+\longmath
+  \Sum_{r=0}^k \comb k r x^{(k-r)+1}y^r
++ \Sum_{r=0}^k \comb k r x^{k-r}y^{r+1} \\
+= x^{k+1}
++ \Sum_{r=1}^k     \comb k r x^{(k-r)+1}y^r
++ \Sum_{r=0}^{k-1} \comb k r x^{k-r}y^{r+1}
++ y^{k+1}.
+\endlongmath
+
+\hint
+Mexa com os índices utilizados nos dois somatórios para conseguir
+que ambos começam e terminam no mesmo $r$.
+
+\solution
+Calculamos:
+\widecompute
+(x+y)^{k+1} \\
+&= (x+y) (x+y)^k \\
+&= x(x+y)^k + y(x+y)^k \\
+&= x\paren{\Sum_{r=0}^k \comb k r x^{k-r} y^r}
+ + y\paren{\Sum_{r=0}^k \comb k r x^{k-r} y^r} \\
+&=  \paren{\Sum_{r=0}^k \comb k r x^{(k-r)+1} y^r}
+ +  \paren{\Sum_{r=0}^k \comb k r x^{k-r}     y^{r+1}} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k     \comb k r x^{(k-r)+1} y^r}
+ + \paren{\Sum_{r=0}^{k-1} \comb k r x^{k-r}     y^{r+1}}
+ + y^{k+1} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k \comb k r     x^{(k-r)+1} y^r}
+ + \paren{\Sum_{r=1}^k \comb k {r-1} x^{k-(r-1)} y^{(r-1)+1}}
+ + y^{k+1} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k \comb k r     x^{k-(r-1)} y^r}
+ + \paren{\Sum_{r=1}^k \comb k {r-1} x^{k-(r-1)} y^r}
+ + y^{k+1} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k (\comb k r
+                     + \comb k {r-1}) x^{k-(r-1)} y^r}
+ + y^{k+1} \\
+&= x^{k+1}
+ + \paren{\Sum_{r=1}^k \comb {k+1} r x^{k-(r-1)} y^r}
+ + y^{k+1} \\
+&= \comb {k+1} 0 x^{k+1}
+ + \paren{\Sum_{r=1}^k \comb {k+1} r x^{k-(r-1)} y^r}
+ + \comb {k+1} {k+1} y^{k+1} \\
+&= \comb {k+1} 0 x^{(k+1)-0} y^0
+ + \paren{\Sum_{r=1}^k \comb {k+1} r x^{(k+1)-r} y^r}
+ + \comb {k+1} {k+1} x^{(k+1)-(k+1)} \rlap{$y^{k+1}$} \\
+&= \Sum_{r=0}^{k+1} \comb {k+1} r x^{(k+1)-r} y^r.
+\endwidecompute
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Euclid's division lemma 
 \section O lemma da divisão de Euclides.
 %%%{{{ meta 
@@ -8421,323 +8653,6 @@ Use a divisão de Euclides.
 
 %%}}}
 
-%%{{{ x: balanced_ternary 
-\exercise Balanced ternary.
-%%%{{{ meta 
-\label balanced_ternary
-\pdefs
-    \pdef T {{\mathtt T}}
-    \pdef O {{\mathtt O}}
-    \pdef I {{\mathtt I}}
-    ;;
-%%%}}}
-
-Para qualquer inteiro $x$ existem únicos $m,d_0,\dotsc,d_m$ tais que
-$$
-x = d_m 3^m + \dotsb + d_1 3^1 + d_0 3^0,
-$$
-onde:
-\tlist:
-\li  (i): para todo $i \in \set{0,\dotsc,m}$, $d_i \in \set{-1,0,1}$;
-\li (ii): $d_m = 0 \implies m=0$.
-\endtlist
-Usando como digitos os símbolos $\T$, $\O$, $\I$ com valores $-1$, $0$, $1$ respectivamente
-podemos então escrever qualquer inteiro sem sequer precisar um símbolo de sinal para os negativos.  Uns exemplos:
-$$
-\matrix
-\format
-\r\ &\;\c\;& \ \r\         &\c & \ \r\           &\c & \ \r\           &\c & \ \r\            &\quad\c\quad& \ \r     \\
-0   &=     &               &   &                 &   &                 &   &    0 \ntimes 3^0 &\leadsto    & \O       \\
-1   &=     &               &   &                 &   &                 &   &    1 \ntimes 3^0 &\leadsto    & \I       \\
-7   &=     &               &   &   1 \ntimes 3^2 & + &(-1) \ntimes 3^1 & + &    1 \ntimes 3^0 &\leadsto    & \I\T\I   \\
--7  &=     &               &   &(-1) \ntimes 3^2 & + &   1 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \T\I\T   \\
-26  &=     & 1 \ntimes 3^3 & + &   0 \ntimes 3^2 & + &   0 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \I\O\O\T \\
-\endmatrix
-$$
-
-%%}}}
-
-%%{{{ x: factorial_base_system_lemma 
-\exercise.
-%%%{{{ meta 
-\label factorial_base_system_lemma
-%%%}}}
-
-Demonstre por indução que para todo $n \in \nats$,
-$\quad\dsize\Sum\limits_{i=0}^n i \ntimes \factorial i = \factorialp {n+1} - 1$.
-
-%%}}}
-
-%%{{{ x: factorial_base_system 
-\exercise.
-%%%{{{ meta 
-\label factorial_base_system
-%%%}}}
-
-Os sistemas posicionais de numerais que encontramos até agora usam um fixo conjunto de dígitos para cada posição.
-Agora vamos encontrar um onde para cada posição $i$, podemos usar dígitos com valores nos $0,\dotsc,i$.
-Na posição $0$ então temos apénas uma opção: o próprio $0$, e logo essa posição sempre tá ocupada por $0$.
-Na posição $1$ já temos dois dígitos disponíveis, com valores $0$ e $1$.
-Na posição $42$ temos quarenta e dois dígitos disponíveis; seus valores são: o $0$, o $1$, o $2$, \dots, o $40$, o $41$, e o $42$.
-Cuidado, vamos usar aqui seus valores como dígitos, mesmo que no papel o $42$
-que acabei de escrever dá a impressão que ele mesmo é composto por dois dígitos,
-mas não é o caso aqui!
-Por isso, usamos o $:$ para separarar ``as casas''.
-O primeiro numeral em baixo seria válido, mas o segundo não
-\mathcols 2
-&4:0:2:2:0:0 &
-&5:2:4:2:0:0
-\endmathcols
-pois na posição $3$ tem o $4>3$.
-Novamente os valores dos dígitos vão acabar sendo coeficientes de algo que depende da posição e todos os termos serão somados.
-Como sempre, escrevemos um número $x$ como
-\mathcols 2
-x & = d_n a_n + d_{n-1} a_{n-1} + \dotsb d_2 a_2 + d_1 a_1 + d_0 a_0  &
-0 &\leq d_i \leq D_i
-\endmathcols
-onde $D_i$ denota o maior valor de dígito para a $i$-ésima posição.
-Neste sistema temos:
-\mathcols 3
-a_i &= \factorial i    &
-D_i &= i
-\endmathcols
-Demonstre que tal sistema \dq{funciona}:
-cada inteiro pode ser escrito neste sistema numa única maneira.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Binomial_theorem 
-\section Binomial e seus coeficientes.
-%%%{{{ meta 
-\label Binomial_theorem
-%%%}}}
-
-%%{{{ x: binomial_theorem_for_2 
-\exercise.
-%%%{{{ meta 
-\label binomial_theorem_for_2
-%%%}}}
-
-Demonstre que para quaisquer inteiros $x,y$,
-$(x+y)^2 = x^2 + 2xy + y^2$.
-
-%%}}}
-
-%%{{{ x: binomial_theorem_for_3 
-\exercise.
-%%%{{{ meta 
-\label binomial_theorem_for_3
-%%%}}}
-
-Demonstre que para quaisquer inteiros $x,y$,
-$(x+y)^3 = x^3 + 3x^2y + 3xy^2 + y^3$.
-
-\hint
-Use o que tu acabou de demonstrar sobre o $(x+y)^2$, no \ref[binomial_theorem_for_2].
-
-%%}}}
-
-%%{{{ binomial theorem discussion 
-\note Binomial.
-%%%{{{ meta 
-%%%}}}
-
-Nosso objetivo agora é generalizar para responder ao
-\mathcol
-(x+y)^n &= ?
-\intertext{Facilmente percebemos que}
-(x+y)^n &= x^n + \dotsb + y^n
-\intertext{mas esse uso de \sq{${}\dotsb{}$} é tão abusivo que parece
-até piada considerar como progresso.  Podemos melhorar pouco, percebendo
-que no final das contas nossa resposta deve ser um somatório de termos
-$x^iy^j$.  Por exemplo, no \ref[binomial_theorem_for_3] achamos}
-(x+y)^3
-&= xxx + xxy + xyx + yxx + xyy + yxy + yyx + yyy \\
-&= x^3y^0 + x^2y + x^2y + x^2y + xy^2 + xy^2 + xy^2 + x^0y^3.
-\intertext{O objetivo é \emph{achar os coeficientes} de cada termo desses:}
-&= \mubrace {x^3y^0} 1
- + \mubrace {x^2y + x^2y + x^2y} 3
- + \mubrace {xy^2 + xy^2 + xy^2} 3
- + \mubrace {x^0y^3} 1 \\
-&= 1\,x^3y^0 + 3\,x^2y + 3\,xy^2 + 1\,x^0y^3.
-\intertext{Observe também como podemos melhorar os $i,j$ no $x^iy^j$:
-temos $i+j = n$, e logo podemos escrever tudo em termos de apenas uma variável
-(vou escolher a \sq{$r$}): $x^{n-r}y^r$.
-Sabemos então que $(x+y)^n$ pode ser escrito como um somatório de termos $x^{n-r}y^r$
-e o desafio é achar para um deles quantas vezes precisamos somá-lo.
-Em outras palavras, procuramos o coeficiente de tal termo no somatório.
-Vamos denotar por $\binom n r$ o coeficiente do termo $x^{n-r}y^r$:}
-(x + y)^n
-&= \binom n 0 x^n + \binom n 1 x^{n-1}y + \dotsb + \binom n {n-1} xy^{n-1} + \binom n n y^n \\
-&= \Sum_{r=0}^n \binom n r x^{n-r}y^r.
-\endmathcol
-
-%%}}}
-
-%%{{{ thm: binomial_theorem 
-\theorem Teorema binomial.
-%%%{{{ meta 
-\label binomial_theorem
-\headerize
-\indexes
-    * binomial!teorema    see: teorema
-    * teorema!binomial
-    ;;
-%%%}}}
-
-Para qualquer $n$ natural e qualquer $0 \leq i \leq n$, temos
-$$
-\binom n r = \comb n r.
-$$
-
-\preproof Argumentação combinatorial.
-Queremos achar quantas vezes o termo $x^{n-r}y^r$ aparece na expansão do binomial.
-Escrevendo
-$$
-(x+y)^n = \tubrace {(x+y)(x+y)\dotsb(x+y)} {$n$ vezes}
-$$
-observamos que para cada das $\comb n r$ maneiras de escolher $r$ dos termos acima,
-corresponde um termo $x^{n-r}y^r$:
-\dq{escolha quais dos termos desse produtório vão oferecer seus $y$'s
-(o resto dos termos oferecerá seu $x$)}.
-Isso justifica o $\binom n r = \comb n r$.
-(Veja o~\ref[binomial_theorem_for_7_combinations] para um exemplo.)
-
-\proof.
-Por indução.
-\crproofpart {Base.}
-Temos
-\compute
-(x+y)^0 &= 1 \noby \\
-\Sum_{r=0}^0 \comb 0 r x^{n-r}y^r &= \comb 0 0 x^{0-0}y^0 = 1 \ntimes 1 \ntimes 1 = 1.
-\endcompute
-\proofpart {Passo indutivo.}
-Seja $k$ tal que $(x+y)^k = \Sum_{r=0}^k \comb k r x^{k-r}y^k$\fact{HI}.
-Calculamos:
-\compute
-(x+y)^{k+1}
-&= (x+y) (x+y)^k \noby \\
-&= x(x+y)^k y(x+y)^k \\
-&\dotseq \Sum_{r=0}^{k+1} \comb {k+1} r x^{k-(r-1)}y^r.
-\endcompute
-Onde o \sq{$\dotseq$} é trabalho teu (\ref[binomial_theorem_proof_by_induction_exercise]).
-
-%%}}}
-
-%%{{{ eg: binomial_theorem_for_7_combinations 
-\example.
-%%%{{{ meta 
-\label binomial_theorem_for_7_combinations
-%%%}}}
-
-Para $n \asseq 7$ e $r \asseq 4$, a escolha indicada pelos termos sublinhados no
-$$
-\let\ul=\underline
-(x+y)^7 = (x+y) \, \ul{(x+y)} \, (x+y) \, \ul{(x+y)} \, \ul{(x+y)} \, (x+y) \, \ul {(x+y)}
-$$
-corresponde ao termo $xyxyyxy = x^3y^4$, e cada diferente escolha das $\comb 7 4$
-corresponde ao mesmo termo mas com uma maneira diferente para formá-lo:
-$$
-\tubrace
-    {xxxyyyy,~xxyxyyy,~xxyyxyy,~xxyyyxy,~xxyyyyx,~xyxxyyy,~\dotsc,~yyxyxx,~yyyyxxx}
-    {$\comb 7 4 = 35$ strings feitos por $3$ $x$'s e $4$ $y$'s}.
-$$
-
-%%}}}
-
-%%{{{ x: binomial_theorem_proof_by_induction_exercise 
-\exercise Teorema binomial: por indução.
-%%%{{{ meta 
-\label binomial_theorem_proof_by_induction_exercise
-\indexes
-    * teorema!binomial (por indução)
-    ;;
-%%%}}}
-
-Demonstre o \ref[binomial_theorem].
-
-\hint
-Aplique a hipótese indutiva.
-
-\hint
-$$
-x(x+y)^k y(x+y)^k
-= x\Sum_{r=0}^k \comb k r x^{k-r} y^r
-+ y\Sum_{r=0}^k \comb k r x^{k-r} y^r.
-$$
-
-\hint
-O $x$ sendo distribuido no primeiro somatório aumenta $+1$ no expoente de $x$,
-e similarmente o $y$ no segundo aumenta $+1$ no expoente de $y$.
-
-\hint
-$$
-  x\Sum_{r=0}^k \comb k r x^{k-r} y^r
-+ y\Sum_{r=0}^k \comb k r x^{k-r} y^r
-=  \Sum_{r=0}^k \comb k r x^{(k-r)+1} y^r
-+  \Sum_{r=0}^k \comb k r x^{k-r} y^{r+1}.
-$$
-
-\hint
-Separe o primeiro termo do primeiro somatório e o último termo do segundo.
-
-\hint
-\longmath
-  \Sum_{r=0}^k \comb k r x^{(k-r)+1}y^r
-+ \Sum_{r=0}^k \comb k r x^{k-r}y^{r+1} \\
-= x^{k+1}
-+ \Sum_{r=1}^k     \comb k r x^{(k-r)+1}y^r
-+ \Sum_{r=0}^{k-1} \comb k r x^{k-r}y^{r+1}
-+ y^{k+1}.
-\endlongmath
-
-\hint
-Mexa com os índices utilizados nos dois somatórios para conseguir
-que ambos começam e terminam no mesmo $r$.
-
-\solution
-Calculamos:
-\widecompute
-(x+y)^{k+1} \\
-&= (x+y) (x+y)^k \\
-&= x(x+y)^k + y(x+y)^k \\
-&= x\paren{\Sum_{r=0}^k \comb k r x^{k-r} y^r}
- + y\paren{\Sum_{r=0}^k \comb k r x^{k-r} y^r} \\
-&=  \paren{\Sum_{r=0}^k \comb k r x^{(k-r)+1} y^r}
- +  \paren{\Sum_{r=0}^k \comb k r x^{k-r}     y^{r+1}} \\
-&= x^{k+1}
- + \paren{\Sum_{r=1}^k     \comb k r x^{(k-r)+1} y^r}
- + \paren{\Sum_{r=0}^{k-1} \comb k r x^{k-r}     y^{r+1}}
- + y^{k+1} \\
-&= x^{k+1}
- + \paren{\Sum_{r=1}^k \comb k r     x^{(k-r)+1} y^r}
- + \paren{\Sum_{r=1}^k \comb k {r-1} x^{k-(r-1)} y^{(r-1)+1}}
- + y^{k+1} \\
-&= x^{k+1}
- + \paren{\Sum_{r=1}^k \comb k r     x^{k-(r-1)} y^r}
- + \paren{\Sum_{r=1}^k \comb k {r-1} x^{k-(r-1)} y^r}
- + y^{k+1} \\
-&= x^{k+1}
- + \paren{\Sum_{r=1}^k (\comb k r
-                     + \comb k {r-1}) x^{k-(r-1)} y^r}
- + y^{k+1} \\
-&= x^{k+1}
- + \paren{\Sum_{r=1}^k \comb {k+1} r x^{k-(r-1)} y^r}
- + y^{k+1} \\
-&= \comb {k+1} 0 x^{k+1}
- + \paren{\Sum_{r=1}^k \comb {k+1} r x^{k-(r-1)} y^r}
- + \comb {k+1} {k+1} y^{k+1} \\
-&= \comb {k+1} 0 x^{(k+1)-0} y^0
- + \paren{\Sum_{r=1}^k \comb {k+1} r x^{(k+1)-r} y^r}
- + \comb {k+1} {k+1} x^{(k+1)-(k+1)} \rlap{$y^{k+1}$} \\
-&= \Sum_{r=0}^{k+1} \comb {k+1} r x^{(k+1)-r} y^r.
-\endwidecompute
-
-%%}}}
-
 \endsection
 %%}}}
 
@@ -8913,6 +8828,91 @@ Demonstre que para todo $n \geq 5$,
 $$
 n^2 < 2^n.
 $$
+
+%%}}}
+
+%%{{{ prob: balanced_ternary 
+\problem Balanced ternary.
+%%%{{{ meta 
+\label balanced_ternary
+\pdefs
+    \pdef T {{\mathtt T}}
+    \pdef O {{\mathtt O}}
+    \pdef I {{\mathtt I}}
+    ;;
+%%%}}}
+
+Para qualquer inteiro $x$ existem únicos $m,d_0,\dotsc,d_m$ tais que
+$$
+x = d_m 3^m + \dotsb + d_1 3^1 + d_0 3^0,
+$$
+onde:
+\tlist:
+\li  (i): para todo $i \in \set{0,\dotsc,m}$, $d_i \in \set{-1,0,1}$;
+\li (ii): $d_m = 0 \implies m=0$.
+\endtlist
+Usando como digitos os símbolos $\T$, $\O$, $\I$ com valores $-1$, $0$, $1$ respectivamente
+podemos então escrever qualquer inteiro sem sequer precisar um símbolo de sinal para os negativos.  Uns exemplos:
+$$
+\matrix
+\format
+\r\ &\;\c\;& \ \r\         &\c & \ \r\           &\c & \ \r\           &\c & \ \r\            &\quad\c\quad& \ \r     \\
+0   &=     &               &   &                 &   &                 &   &    0 \ntimes 3^0 &\leadsto    & \O       \\
+1   &=     &               &   &                 &   &                 &   &    1 \ntimes 3^0 &\leadsto    & \I       \\
+7   &=     &               &   &   1 \ntimes 3^2 & + &(-1) \ntimes 3^1 & + &    1 \ntimes 3^0 &\leadsto    & \I\T\I   \\
+-7  &=     &               &   &(-1) \ntimes 3^2 & + &   1 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \T\I\T   \\
+26  &=     & 1 \ntimes 3^3 & + &   0 \ntimes 3^2 & + &   0 \ntimes 3^1 & + & (-1) \ntimes 3^0 &\leadsto    & \I\O\O\T \\
+\endmatrix
+$$
+
+%%}}}
+
+%%{{{ prob: factorial_base_system_lemma 
+\problem.
+%%%{{{ meta 
+\label factorial_base_system_lemma
+%%%}}}
+
+Demonstre por indução que para todo $n \in \nats$,
+$\quad\dsize\Sum\limits_{i=0}^n i \ntimes \factorial i = \factorialp {n+1} - 1$.
+
+%%}}}
+
+%%{{{ prob: factorial_base_system 
+\problem Factorial base system.
+%%%{{{ meta 
+\label factorial_base_system
+%%%}}}
+
+Os sistemas posicionais de numerais que encontramos até agora usam um fixo conjunto de dígitos para cada posição.
+Agora vamos encontrar um onde para cada posição $i$, podemos usar dígitos com valores nos $0,\dotsc,i$.
+Na posição $0$ então temos apénas uma opção: o próprio $0$, e logo essa posição sempre tá ocupada por $0$.
+Na posição $1$ já temos dois dígitos disponíveis, com valores $0$ e $1$.
+Na posição $42$ temos quarenta e dois dígitos disponíveis; seus valores são: o $0$, o $1$, o $2$, \dots, o $40$, o $41$, e o $42$.
+Cuidado, vamos usar aqui seus valores como dígitos, mesmo que no papel o $42$
+que acabei de escrever dá a impressão que ele mesmo é composto por dois dígitos,
+mas não é o caso aqui!
+Por isso, usamos o $:$ para separarar ``as casas''.
+O primeiro numeral em baixo seria válido, mas o segundo não
+\mathcols 2
+&4:0:2:2:0:0 &
+&5:2:4:2:0:0
+\endmathcols
+pois na posição $3$ tem o $4>3$.
+Novamente os valores dos dígitos vão acabar sendo coeficientes de algo que depende da posição e todos os termos serão somados.
+Como sempre, escrevemos um número $x$ como
+\mathcols 2
+x & = d_n a_n + d_{n-1} a_{n-1} + \dotsb d_2 a_2 + d_1 a_1 + d_0 a_0  &
+0 &\leq d_i \leq D_i
+\endmathcols
+onde $D_i$ denota o maior valor de dígito para a $i$-ésima posição.
+Neste sistema temos:
+\mathcols 3
+a_i &= \factorial i    &
+D_i &= i
+\endmathcols
+Demonstre que tal sistema \dq{funciona}:
+cada inteiro pode ser escrito neste sistema numa única maneira.
 
 %%}}}
 
