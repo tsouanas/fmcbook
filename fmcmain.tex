@@ -7766,7 +7766,7 @@ estipulados, não faz sentido estipulá-lo como axioma também!
 %%%}}}
 
 %%{{{ thm: ints_principle_of_induction_set_form 
-\theorem Princípio da Indução (set form).
+\theorem Indução (set form).
 %%%{{{ meta 
 \label ints_principle_of_induction_set_form
 \defines
@@ -7821,138 +7821,6 @@ assim na contradição desejada.
 
 %%}}}
 
-%%{{{ x: no_int_between_0_and_1_by_induction 
-\exercise.
-%%%{{{ meta 
-\label no_int_between_0_and_1_by_induction
-%%%}}}
-
-Demonstre o \ref[no_int_between_0_and_1] usando indução.
-
-\hint
-Nenhum inteiro negativo satisfaz $0 < m < 1$.
-Então para demonstrar que nenhum inteiro fica estritamente entre $0$ e $1$, basta demonstrar
-que todos os não-negativos $n$ satisfazem $n=0$ ou $n\geq 1$
-
-\hint
-Seja
-$
-\phi(n) \defiff \text{$n=0$ ou $n\geq1$}
-$.
-
-\hint
-A base é trivial.
-
-\hint
-Para o passo indutivo, tomando um $k\in\nats$ tal que $\phi(k)$, separa tua prova
-em dois casos, dependendo da razão que o $\phi(k)$ seja verdade.
-
-%%}}}
-
-\TODO settle type errors in exponents.
-
-%%{{{ x: odd_to_any_power_is_odd 
-\exercise.
-%%%{{{ meta 
-\label odd_to_any_power_is_odd
-%%%}}}
-
-Demonstre que para todo $n\in\nats$, e todo ímpar $k$, $k^n$ é ímpar.\foot
-Aqui consideramos a seguinte definição de \wq{ímpar}:
-\emph{um inteiro $n$ é \dterm{ímpar} sse existe inteiro $k$ tal que $n = 2k+1$.}
-\toof
-
-\solution
-Seja $k$ inteiro ímpar.
-Logo $k=2a+1$ para um $a\in\ints$.
-Vamos demonstrar por indução que para todo $n\in\nats$, $k^n$ é ímpar.
-Se $n=0$, imediatamente $k^0 = 1$ e é ímpar ($1 = 2\ntimes 0 + 1$).
-Suponha que para algum $t\in\nats$, $k^t$ é ímpar, ou seja $k^t = 2b+1$ para um $b\in\ints$.
-Falta demonstrar que $k^{t+1}$ também é ímpar.
-Calculando,
-\compute
-k^{t+1}
-&= k k^t               \by {definição de exponenciação} \\
-&= (2a + 1) (2b + 1)   \by {hipoteses} \\
-&= 4ab + 2a + 2b + 1   \\
-&= 2(2ab + a + b) + 1.
-\endcompute
-Logo, como $2ab + a + b\in\ints$, $k^{t+1}$ é ímpar.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-No \ref[odd_to_any_power_is_odd_oneliner] tu demonstrarás esse
-lemma numa linha só!
-
-%%}}}
-
-%%{{{ thm: ints_shifted_induction 
-\theorem Indução shiftada.
-%%%{{{ meta 
-\label ints_shifted_induction
-%%%}}}
-
-Para qualquer conjunto de inteiros $P$,
-se $\ell \in P$ e $P$ é $({+}1)$-fechado,
-então todos os inteiros $x$ tais que $x \geq \ell$
-pertencem ao $P$.
-
-\sketch.
-Aplicamos o princípio da indução no conjunto
-$$
-P - \ell \defeq \setst {p - \ell} {p \in P}
-$$
-de todos os membros de $P$ \dq{shiftados} por $-\ell$.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-A versão seguinte, conhecida como \dq{indução forte}
-não merece seu apelido.  A demonstramos como teorema
-e logo não se trata de algo mais forte mesmo.
-Mesmo assim, é muito mais natural e conveniente
-em certos casos e logo faz sentido a destacar.
-
-%%}}}
-
-%%{{{ thm: ints_strong_induction 
-\theorem Indução forte.
-%%%{{{ meta 
-\label ints_strong_induction
-%%%}}}
-
-Seja $P$ conjunto de inteiros.
-Suponha
-$$
-\pforall x {
-    \lforall {0 < i < x} {i \in P}
-    \implies
-    x \in P
-    }.
-$$
-Logo todos os inteiros positivos pertencem ao $P$.\foot
-O quantificador no \symq{$\pforall {0 < i < x}$} quantifica o $i$.
-Ou seja, essa parte no que escrevi acima, \emph{desaçucarizando}, fica assim:
-$\lforall {i} {0 < i < x \implies i \in P}$.
-\toof
-
-\proof.
-Suponha que há inteiros positivos que não pertencem ao $P$.
-Seja $m$ o menor deles (PBO).
-Logo, para todo positivo $i < m$, $i \in P$.
-Logo $m \in P$, e chegamos numa contradição.
-
-%%}}}
-
 %%{{{ int_induction_how_to_use
 \note Como usar.
 %%%{{{ meta 
@@ -8001,16 +7869,14 @@ $$
 Para demonstrar então que todos os \emph{inteiros positivos}
 gozam da propriedade $\phi$, basta demonstrar:
 \mathcols 2
-& P \fa 1 &
-& \lforall {x \in \ints_{>0}} {P \fa x \implies P \fa (x+1)}. \\
+&\phi(1) &
+&\lforall {x \geq 1} {\phi(x) \implies \phi(x+1)}. \\
 \endmathcols
-Na sua versão \dq{shifted}, os objetos do nosso interesse
-são todos os inteiros a partir dum certo inteiro $\ell$.
 
 %%}}}
 
 %%{{{ thm: ints_principle_of_induction_predicate_form 
-\theorem Princípio da Indução (predicate form).
+\theorem Indução (predicate form).
 %%%{{{ meta 
 \label ints_principle_of_induction_predicate_form
 \defines
@@ -8031,6 +7897,96 @@ Logo para todo inteiro positivo $p$, $\phi(p)$.
 Basta só traduzir as afirmações sobre conjuntos da demonstração
 do~\reftag[ints_principle_of_induction_set_form] para as correspondentes
 sobre predicados: $x \in P$ por $\phi(x)$, etc.
+
+%%}}}
+
+%%{{{ x: no_int_between_0_and_1_by_induction 
+\exercise.
+%%%{{{ meta 
+\label no_int_between_0_and_1_by_induction
+%%%}}}
+
+Demonstre o \ref[no_int_between_0_and_1] usando indução.
+
+\hint
+Nenhum inteiro negativo satisfaz $0 < m < 1$.
+Então para demonstrar que nenhum inteiro fica estritamente entre $0$ e $1$, basta demonstrar
+que todos os não-negativos $n$ satisfazem $n=0$ ou $n\geq 1$
+
+\hint
+Seja
+$
+\phi(n) \defiff \text{$n=0$ ou $n\geq1$}
+$.
+
+\hint
+A base é trivial.
+
+\hint
+Para o passo indutivo, tomando um $k\in\nats$ tal que $\phi(k)$, separa tua prova
+em dois casos, dependendo da razão que o $\phi(k)$ seja verdade.
+
+%%}}}
+
+%%{{{ cor: ints_shifted_induction 
+\corollary Indução shiftada.
+%%%{{{ meta 
+\label ints_shifted_induction
+%%%}}}
+
+Para qualquer conjunto de inteiros $P$,
+se $\ell \in P$ e $P$ é $({+}1)$-fechado,
+então todos os inteiros $x$ tais que $x \geq \ell$
+pertencem ao $P$.
+
+\sketch.
+Aplicamos o princípio da indução no conjunto
+$$
+P - \ell \defeq \setst {p - \ell} {p \in P}
+$$
+de todos os membros de $P$ \dq{shiftados} por $-\ell$.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+A versão seguinte, conhecida como \dq{indução forte}
+não merece seu apelido.  A demonstramos como teorema
+e logo não se trata de algo mais forte mesmo.
+Mesmo assim, é muito mais natural e conveniente
+em certos casos e logo faz sentido a destacar.
+
+%%}}}
+
+%%{{{ cor: ints_strong_induction 
+\corollary Indução forte.
+%%%{{{ meta 
+\label ints_strong_induction
+%%%}}}
+
+Seja $P$ conjunto de inteiros.
+Suponha
+$$
+\pforall x {
+    \lforall {0 < i < x} {i \in P}
+    \implies
+    x \in P
+    }.
+$$
+Logo todos os inteiros positivos pertencem ao $P$.\foot
+O quantificador no \symq{$\pforall {0 < i < x}$} quantifica o $i$.
+Ou seja, essa parte no que escrevi acima, \emph{desaçucarizando}, fica assim:
+$\lforall {i} {0 < i < x \implies i \in P}$.
+\toof
+
+\proof.
+Suponha que há inteiros positivos que não pertencem ao $P$.
+Seja $m$ o menor deles (PBO).
+Logo, para todo positivo $i < m$, $i \in P$.
+Logo $m \in P$, e chegamos numa contradição.
 
 %%}}}
 
@@ -8067,200 +8023,6 @@ Escreva como regras de inferência as variações de indução que encontramos (
 
 %%}}}
 
-%%{{{ induction_on_such_and_such 
-\note Indução em tal coisa.
-%%%{{{ meta 
-\label induction_on_such_and_such
-%%%}}}
-
-Até agora usamos indução para demonstrar proposições da forma
-$$
-\text{para todo inteiro positivo $n$, $\phi(n)$}.
-$$
-Já encontramos como ``hackear o sistema'' escolhendo um apropriado
-$\phi(\dhole)$, conseguindo assim demonstrar proposições que variaram
-um pouco do padrão original.
-Bora hackear pouco mais!
-
-%%}}}
-
-%%{{{ on the size of sets 
-\note Todo conjunto finito.
-%%%{{{ meta 
-%%%}}}
-
-Vamos supor que estamos tentando demostrar algo da forma
-$$
-\text{para todo conjunto $S$, $\phi(S)$}.
-$$
-Podemos usar indução?  Parece que estamos bem longe do padrão permitido,
-essa mudança de <<todo natural>> para <<todo conjunto>> não vai ser tão
-fácil de hackear como quando mudamos para conseguir um <<todo natural maior que $8$>>.
-E se for realmente <<todo conjunto>> podemos esquecer a indução
-que aprendemos; mas se for <<todo conjunto \emph{finito}>>?
-$$
-\text{para todo conjunto finito $S$, $\phi(S)$}.
-$$
-
-%%}}}
-
-%%{{{ Q: how can we use induction now? 
-\question.
-%%%{{{ meta 
-%%%}}}
-
-Agora podemos usar indução sim, mas em que?
-
-%%}}}
-
-\spoiler
-
-%%{{{ A 
-\blah Resposta.
-%%%{{{ meta 
-%%%}}}
-
-Indução \emph{no tamanho de $S$}.
-
-%%}}}
-
-%%{{{ x: why_standard_induction_on_size_does_not_prove_WOP 
-\exercise.
-%%%{{{ meta 
-\label why_standard_induction_on_size_does_not_prove_WOP
-%%%}}}
-
-Podemos demonstrar o princípio da boa ordem usando
-indução no tamanho do subconjunto $A$?
-
-\solution
-Não, isso nos levaria dum resultado apenas
-para os subconjuntos finítos de $A$.
-O princípio da boa ordem aplica para qualquer
-subconjunto não vazio de $\nats$, até para os infinitos.
-
-%%}}}
-
-%%{{{ df: finite_cardinality_recursively 
-\definition Cardinalidade de conjunto recursivamente.
-%%%{{{ meta 
-\label finite_cardinality_recursively
-%%%}}}
-
-Definimos a cardinalidade $\card A$ dum conjunto finito $A$ pelas:
-\mathcol
-\card A = 0   & \iff A = \emptyset \\
-\card A = Sn  & \iff
-\pexists {a \in A}
-\lexists {A' \subset A}
-         { a \nin A'
-           \mland \card {A'} = n
-           \mland \mubrace {\lforall {x \in A} {\text{$x = a$ ou $x \in A'$}}}
-                               {A \subset \set{a} \union A'}
-         }
-\endmathcol
-Se existe $n \in \nats$ tal que $\card A = n$ dizemos que $A$ é \dterm{finito}.
-
-%%}}}
-
-%%{{{ lemma: finite_numbersets_have_min 
-\lemma.
-%%%{{{ meta 
-\label finite_numbersets_have_min
-%%%}}}
-
-Qualquer conjunto finito de números $A$ possui mínimo ou é vazio.
-
-\sketch.
-Indução no tamanho do conjunto.
-A base é trivial (quando um conjunto é vazio, ele é vazio).
-Seja $k\in\nats$ tal que
-$$
-\text{todos os conjuntos de tamanho $k$ possuem mínimo ou são vazios.} \tag{HI}
-$$
-Considere um conjunto $A$ de tamanho $k+1$, ou seja,
-$$
-A = \set {a_1, \dotsc, a_k, a_{k+1}}.
-$$
-Pela hipótese indutiva sabemos que $\set{a_1,\dotsc,a_k}$ possui mínimo $m$
-ou é vazio pois ele tem tamanho $k$.
-Caso que ele é vazio, o $a_{k+1}$ é o menor membro do $A$.
-Caso que possui mínimo $m$, o menor membro do $A$ é o menor dos $m$ e $a_{k+1}$.
-$$
-\pforall {n \in \nats}
-         {\card A = n \implies \text{$A$ vazio ou $A$ possui mínimo}}.
-$$
-
-\proof.
-Por indução no tamanho do conjunto $A$ demonstramos que
-$$
-\pforall {n \in \nats}
-\lforall {\text{$A$ conjunto}}
-         {\card A = n \implies \text{$A$ vazio ou $A$ possui mínimo}}.
-$$
-Observe que agora nossa indução virou <<indução original>>.
-\proofpart {Base:}
-demonstrar que \emph{se $\card A = 0$ então $A$ vazio ou $A$ possui mínimo}.
-Suponha $\card A = 0$.
-Logo temos que $A$ vazio e pronto.
-\proofpart {Passo Indutivo.}
-Seja $k \in \nats$ tal que
-$$
-         {\card H = k \implies \text{$H$ vazio ou $H$ possui mínimo}}.
-         \tag{H.I.}
-$$
-Preciso demonstrar que
-$$
-\lforall {A \subset \nats}
-         {\card A = Sk \implies \text{$A$ vazio ou $A$ possui mínimo}}.
-$$
-Seja $A \subset \nats$ tal que $\card A = Sk$.
-Basta verificar que $A$ vazio ou $A$ possui mínimo.
-Vou conseguir a segunda parte: vou demonstrar que $A$ possui mínimo.
-Como $\card A = Sk$, temos:
-$$
-\pexists {a \in A}
-\lexists {A' \subset A}
-         { a \nin A'
-           \mland \card {A'} = k
-           \mland \lforall {x \in A} {\text{$x = a$ ou $x \in A'$}}
-         }
-$$
-e logo sejam $m \in A$, $A' \subset A$, tais que
-$$
-\tubrace {m \nin A'} {(1a)}
-\mland \tubrace {\card {A'} = k} {(1b)}
-\mland \tubrace {\lforall {x \in A} {\text{$x = m$ ou $x \in A'$}}} {(1c)}.
-\tag {1}
-$$
-Usamos a (HI) agora $H \asseq A'$, e já que $\card {A'} = k$ (pela (1b)) temos:
-$$
-\text{$A'$ vazio ou $A'$ possui mínimo}.
-$$
-Separamos em casos.
-\proofcase {Caso $A'$ vazio.}
-Afirmo que $\min A = m$.
-Basta verificar, ou seja, mostrar que $m$ é menor de qualquer membro de $A$.
-Seja $x \in A$.
-Pela escolha dos $m,A'$ ((1c) com $x \asseq x$) temos que $x = m$ ou $x \in A'$.
-No primeiro subcaso temos imediatamente que $m \leq x$ e o segundo subcaso é
-impossível pela hipótese do caso ($A'$ vazio).
-\proofcase {Caso $A'$ possui mínimo.}
-Seja $m' = \min A'$ então.
-Seja $m_*$ o menor dos $m,m'$.
-Afirmo que $\min A = m_*$.
-Basta verificar, ou seja, mostrar que $m_*$ é menor de qualquer membro de $A$.
-Seja $x \in A$ então.
-Novamente pela escolha dos $m,A'$ temos que $x = m$ ou $x \in A'$.
-Tem cada subcaso vou demonstrar que $m_* \leq x$.
-\proofcase {Subcaso $x = m$.}
-Imediato pois pela escolha de $m_* \leq m = x$.
-\proofcase {Subcaso $x \in A'$.}
-Pela escolha dos $m_*$ e $m'$ respectivamente temos
-$m_* \leq m' \leq x$.
-
-%%}}}
-
 \endsection
 %%}}}
 
@@ -8271,6 +8033,34 @@ $m_* \leq m' \leq x$.
 %%%}}}
 
 \TODO Definições recursivas de somatórios e produtórios.
+
+%%{{{ df: iterative_sum_recursive_def 
+\definition Somatório iterativo.
+%%%{{{ meta 
+\label iterative_sum_recursive_def
+\defines
+    * somatório iterativo
+    * quociente!divisão
+    * resto!divisão
+    * \Sum_{i=1}^n \tau(i))  -- o somatório $\tau(1) + \dotsb + \tau(n)$
+    * \rem(~a,~b)            -- o resto de $a$ dividido por $b$
+    ;;
+%%%}}}
+
+Sejam $n \geq 0$ e $\tau(i)$ uma expressão em qual ocorre possivelmente a variável $i$.
+Queremos definir a notação $\Sum_{i=1}^n\tau(i)$ para denotar a soma de todos os inteiros
+denotados pelos termos $\tau(1), \dotsc, \tau(n)$:
+$$
+\Sum_{i=1}^n \tau(i)
+= \tau(1) + \dotsb + \tau(n).
+$$
+Definimos recursivamente:
+\mathcol
+\Sum_{i=1}^0 \tau(i)     &\defeq 0 \\
+\Sum_{i=1}^{n+1} \tau(i) &\defeq \Sum_{i=1}^n \tau(i) + \tau(n+1)
+\endmathcol
+
+%%}}}
 
 \TODO Generalizando operadores binários para $n$-ários.
 
@@ -14645,7 +14435,7 @@ por Leibniz, e redescoberta depois por Euler.
 %%%}}}
 
 Demonstre numa linha o~\ref[odd_to_any_power_is_odd]:
-\proclaim{para todo $n\in\nats$ e todo ímpar $k\in\ints$, $k^n$ é ímpar.}
+\proclaim{para todo $n\in\nats$ e todo inteiro ímpar $a$, $a^n$ é ímpar.}
 
 \hint
 Considere módulo $2$.
@@ -17299,6 +17089,33 @@ Calculamos:
 
 %%}}}
 
+%%{{{ x: odd_to_any_power_is_odd 
+\exercise.
+%%%{{{ meta 
+\label odd_to_any_power_is_odd
+%%%}}}
+
+Demonstre que para todo $n$, e todo ímpar $x$, $x^n$ é ímpar.\foot
+Aqui consideramos a seguinte definição de \wq{ímpar}:
+\emph{um $n \is \Nat$ é \dterm{ímpar} sse existe $k$ tal que $n = S(k+k)$.}
+\toof
+
+%%}}}
+
+%%{{{ remark: exponentiation as an operation vs defining powers of integers 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Parece que o \ref[odd_to_any_power_is_odd_oneliner] é demonstrar esse teorema numa linha só!
+Mas não exatamente.  Aqui demonstramos uma propriedade que envolve uma operação nos $\Nat$.
+Por outro lado, no \reftag[odd_to_any_power_is_odd_oneliner] demonstramos algo sobre as potências
+de certos inteiros.  Veja que definimos as potências $x^n$ para qualquer \emph{inteiro} $x$
+e qualquer $n\in\nats$ recursivamente; mas não temos (nem teremos) uma \emph{operação}
+entre inteiros de exponenciação.
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -17559,6 +17376,272 @@ Outra é usar um legalzinho mesmo, mas aproveitar o \ref[natleq_lemma].
 %%%}}}
 
 Na verdade, $\leq$ é ainda mais legal: olhe no~\ref[natleq_woset].
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ When_one_base_is_not_enough 
+\section Quando uma base não é suficiente.
+%%%{{{ meta 
+\label When_one_base_is_not_enough
+%%%}}}
+
+%%{{{ df: fibonacci 
+\definition Os números Fibonacci.
+%%%{{{ meta 
+\label fibonacci
+\defines
+    * Fibonacci!números
+    ;;
+\credits
+    * Fibonacci : números
+    ;;
+%%%}}}
+
+Definimos os \dterm{números Fibonacci} recursivamente assim:
+$$
+\align
+    F_0     &= 0 \\
+    F_1     &= 1 \\
+    F_{n+2} &= F_{n+1} + F_n.
+\endalign
+$$
+
+%%}}}
+
+\TODO Computando seus valores.
+
+%%{{{ x: lucas 
+\exercise Os números Lucas.
+%%%{{{ meta 
+\label lucas
+\defines
+    * Lucas!números
+    ;;
+\indexes
+    * Lucas!números     seealso: Fibonacci
+    ;;
+\credits
+    * Lucas : números
+    ;;
+%%%}}}
+
+Os \dterm{números Lucas} são definidos similarmente:
+$$
+\align
+L_0     &= 2\\
+L_1     &= 1\\
+L_{n+2} &= L_{n+1} + L_n.
+\endalign
+$$
+Calcule o valor $L_{12}$.
+
+%%}}}
+
+%%{{{ prop: lucas_altdef_first_attempt 
+\proposition.
+%%%{{{ meta 
+\label lucas_altdef_first_attempt
+\indexes
+    * Fibonacci
+    ;;
+%%%}}}
+
+Para todo inteiro $n \geq 1$,
+seja $\ell : \nats\setminus\set0\to\nats$ a funcção definida pela equação
+$$
+    \ell(n) = F_{n-1} + F_{n+1},
+$$
+onde $F_n$ é o $n$-ésimo número {\Fibonacci}Fibonacci (veja~\ref[fibonacci]).
+Queremos mostrar que para todo $n \geq 1$, $L_n = \ell(n)$,
+onde $L_n$ é o $n$-ésimo número {\Lucas}Lucas (veja~\ref[lucas]).
+
+\wrongproof.
+Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
+Vamos primeiramente verificar que para $n=1$, realmente temos $L_n = \ell(n)$:
+\compute
+\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
+        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
+        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
+        &= 1              \\
+        &= L_1.           \by {def.~de $L_n$} \\
+\intertext{Seja $k\in\nats$ com $k\geq 2$, tal que $L_{k-1} = \ell(k-1)$.
+Realmente temos}
+L_k
+&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
+&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
+&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$} \\
+&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
+&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$} \\
+&= \ell(k).                                 \by {def.~de $\ell(n)$} \\
+\endcompute
+que termina nossa demonstração.
+
+%%}}}
+
+%%{{{ x: lucas_altdef_find_error 
+\exercise.
+%%%{{{ meta 
+\label lucas_altdef_find_error
+%%%}}}
+
+Na demonstração acima roubamos.
+Ache onde e explique como, e pense numa solução.
+
+%%}}}
+
+%%{{{ lucas_altdef_final 
+\proposition.
+%%%{{{ meta 
+\label lucas_altdef_final
+%%%}}}
+
+Com a notação da~\ref[lucas_altdef_first_attempt],
+para todo $n\geq 1$, $\ell(n) = L_n$.
+
+\proof.
+Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
+Vamos primeiramente verificar que para $n=1$ e $n=2$, realmente temos $L_n = \ell(n)$.
+Para $n=1$:
+\compute
+\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
+        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
+        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
+        &= 1              \\
+        &= L_1.           \by {def.~de $L_n$} \\
+\endcompute
+E para $n=2$:
+$$
+\xalignat2
+\computed {
+      L_2 &= L_1 + L_0  \by {def.~de $L_n$} \\
+          &= 1 + 2      \by {def.~de $L_n$} \\
+          &= 3          
+}
+&&
+\computed {
+\ell(2) &= F_1 + F_3          \by {def.~de $\ell(n)$} \\
+        &= 1 + F_2 + F_1      \by {def.~de $F_n$} \\
+        &= 1 + 1 + 1          \\
+        &= 3.
+}
+&
+\endxalignat
+$$
+Seja $k\in\nats$ com $k\geq 3$ tal que
+$$
+L_{k-1} = \ell(k-1)
+\qquad
+\text{e}
+\qquad
+L_{k-2} = \ell(k-2)
+$$
+(nossas \emph{duas} hipoteses indutivas).
+Vamos demonstrar que $L_k = \ell(k)$.
+Realmente temos
+\compute
+L_k
+&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
+&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
+&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$, $k\geq3$} \\
+&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
+&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$, $k\geq3$} \\
+&= \ell(k),                                 \by {def.~de $\ell(n)$} \\
+\endcompute
+que termina nossa demonstração.
+
+%%}}}
+
+%%{{{ x: new_proof_of_sum_of_threes_and_fives_with_three_bases 
+\exercise.
+%%%{{{ meta 
+\label new_proof_of_sum_of_threes_and_fives_with_three_bases
+%%%}}}
+
+Ache uma nova demonstração do~\ref[sum_of_threes_and_fives] por indução
+com três bases.
+
+\hint
+$k = (k-3) + 3$.
+
+\solution
+Seja $k\geq 8 + 3 = 11$ tal que $k-1$, $k-2$, e $k-3$
+podem ser escritos como somatórios de $3$'s e $5$'s (H.I.).
+Temos
+\compute
+k &= (k-3) + 3      \\
+  &= (3x + 5y) + 3  \quad\text{para alguns $x,y\in\nats$} \by {pela H.I.} \\
+  &= 3(x+1) + 5y.
+\endcompute
+Como precisamos a veracidade da proposição para o valor $k-3$,
+devemos mostrar as $3$ bases, para os inteiros $8$, $9$, e $10$:
+$$
+\alignat 2
+8  &= 3 + 5     &&= 3\ntimes 1 + 5\ntimes 1\\
+9  &= 3 + 3 + 3 &&= 3\ntimes 3 + 5\ntimes 0\\
+10 &= 5 + 5     &&= 3\ntimes 0 + 5\ntimes 2.
+\endalignat
+$$
+
+%%}}}
+
+%%{{{ two_ways_to_organize_inductive_step 
+\note Duas maneiras de organizar tua demonstração.
+%%%{{{ meta 
+\label two_ways_to_organize_inductive_step
+%%%}}}
+
+Ok, vamos supor que tu tá tentando demonstrar algo da forma
+$$
+\lforall {n \in \nats} {\phi(n)}
+$$
+por indução, e que tu decidiu usar duas bases
+(obviamente a $\phi(0)$ e a $\phi(1)$).
+Como seria teu passo indutivo?
+Tem duas maneiras boas para proceder agora:
+\crproofalt{Maneira 1:}
+<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k-2)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k)$.>>
+Nessa maneira, preciso tomar cuidado que nenhum inteiro menor que $k-2$ aparece
+em algum canto errado, pois não sei nada sobre eles; até pior pode ser
+que aparecem objetos que nem são definidos.
+\crproofalt{Maneira 2:}
+<<Seja $k\in\nats$ tal que $\phi(k)$\fact{H.I.1} e $\phi(k+1)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k+2)$.>>
+E agora preciso tomar o mesmo cuidado, só que agora com inteiros
+menores que~$k$.
+\eop
+\emph{Ambas as maneiras são corretas} e bem escritas e bem entendíveis
+e tudo mais---e dá pra variar também, não são
+únicas~(\ref[third_way_to_organize_inductive_step]).
+Qual vamos escolher?  Depende de gosto e às vezes do contexto também.
+Na maioria das vezes eu vou favorecer a primeira:
+meus olhos gostam da associação dos ``(H.I.$i$)'' com os $\phi(k-i)$.
+Na mesma linha de pensar, na segunda maneira as hipoteses indutivas são as
+$\phi(k)$ e $\phi(k+1)$, e o alvo seria o $\phi(k+2)$;
+então a (H.I.2) parece mais com o alvo do que com a (H.I.1).
+Ou seja: \emph{nos meus olhos}, os dados e o alvo ficam mais arrumados
+na maneira 1.
+Mas como falei: ambas corretas; questão de gosto; então consulte teus
+próprios olhos.
+
+%%}}}
+
+%%{{{ x: third_way_to_organize_inductive_step 
+\exercise.
+%%%{{{ meta 
+\label third_way_to_organize_inductive_step
+%%%}}}
+
+Qual seria a terceira ``óbvia'' maneira?
+Com que inteiros tem que tomar cuidado se escolhê-la?
+
+\solution
+<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k+1)$.>>
+Nessa maneira, preciso tomar cuidado com inteiros menores de $k-1$.
 
 %%}}}
 
@@ -19288,336 +19371,204 @@ pois precisamos mais ferramentas e maturidade.
 \endsection
 %%}}}
 
-%%{{{ When_one_base_is_not_enough 
-\section Quando uma base não é suficiente.
+%%{{{ Induction_on_such_and_such 
+\section Indução em tal coisa.
 %%%{{{ meta 
-\label When_one_base_is_not_enough
+\label Induction_on_such_and_such
 %%%}}}
 
-%%{{{ df: fibonacci 
-\definition Os números Fibonacci.
+%%{{{ induction_on_such_and_such 
+\note Indução em tal coisa.
 %%%{{{ meta 
-\label fibonacci
-\defines
-    * Fibonacci!números
-    ;;
-\credits
-    * Fibonacci : números
-    ;;
+\label induction_on_such_and_such
 %%%}}}
 
-Definimos os \dterm{números Fibonacci} recursivamente assim:
+Até agora usamos indução para demonstrar proposições da forma
 $$
-\align
-    F_0     &= 0 \\
-    F_1     &= 1 \\
-    F_{n+2} &= F_{n+1} + F_n.
-\endalign
+\text{para todo $x \is \alpha$, $\phi(x)$}
+$$
+onde $\alpha$ sempre é um tipo que definimos indutivamente
+ou da forma
+$$
+\text{para todo $x \in S$, $\phi(x)$}
+$$
+onde $S$ é um conjunto como o dos inteiros positivos, sobre qual
+temos demonstrado um teorema de induç
+ou um 
+Também já encontramos como \dq{hackear a regra} escolhendo um apropriado
+$\phi(\dhole)$, conseguindo assim demonstrar proposições que variaram
+um pouco do padrão original.
+Bora hackear pouco mais!
+
+%%}}}
+
+%%{{{ on the size of sets 
+\note Todo conjunto finito.
+%%%{{{ meta 
+%%%}}}
+
+Vamos supor que estamos tentando demostrar algo da forma
+$$
+\text{para todo conjunto $S$, $\phi(S)$}.
+$$
+Podemos usar indução?  Parece que estamos bem longe do padrão permitido,
+essa mudança de \wq{todo inteiro positivo} para \wq{todo conjunto} não vai ser tão
+fácil de hackear como quando mudamos para conseguir um \wq{todo natural maior que $\ell$}.
+E se for realmente \wq{todo conjunto} podemos esquecer a indução
+que aprendemos até agora; mas se for \wq{todo conjunto \emph{finito}}?
+Tipo assim:
+$$
+\text{para todo conjunto finito $S$, $\phi(S)$}.
 $$
 
 %%}}}
 
-\TODO Computando seus valores.
-
-%%{{{ x: lucas 
-\exercise Os números Lucas.
+%%{{{ Q: how can we use induction now? 
+\question.
 %%%{{{ meta 
-\label lucas
-\defines
-    * Lucas!números
-    ;;
-\indexes
-    * Lucas!números     seealso: Fibonacci
-    ;;
-\credits
-    * Lucas : números
-    ;;
 %%%}}}
 
-Os \dterm{números Lucas} são definidos similarmente:
-$$
-\align
-L_0     &= 2\\
-L_1     &= 1\\
-L_{n+2} &= L_{n+1} + L_n.
-\endalign
-$$
-Calcule o valor $L_{12}$.
+Agora podemos usar indução sim, mas em que?
 
 %%}}}
 
-%%{{{ prop: lucas_altdef_first_attempt 
-\proposition.
+\spoiler
+
+%%{{{ A 
+\blah Resposta.
 %%%{{{ meta 
-\label lucas_altdef_first_attempt
-\indexes
-    * Fibonacci
-    ;;
 %%%}}}
 
-Para todo inteiro $n \geq 1$,
-seja $\ell : \nats\setminus\set0\to\nats$ a funcção definida pela equação
-$$
-    \ell(n) = F_{n-1} + F_{n+1},
-$$
-onde $F_n$ é o $n$-ésimo número {\Fibonacci}Fibonacci (veja~\ref[fibonacci]).
-Queremos mostrar que para todo $n \geq 1$, $L_n = \ell(n)$,
-onde $L_n$ é o $n$-ésimo número {\Lucas}Lucas (veja~\ref[lucas]).
-
-\wrongproof.
-Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
-Vamos primeiramente verificar que para $n=1$, realmente temos $L_n = \ell(n)$:
-\compute
-\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
-        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
-        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
-        &= 1              \\
-        &= L_1.           \by {def.~de $L_n$} \\
-\intertext{Seja $k\in\nats$ com $k\geq 2$, tal que $L_{k-1} = \ell(k-1)$.
-Realmente temos}
-L_k
-&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
-&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
-&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$} \\
-&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
-&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$} \\
-&= \ell(k).                                 \by {def.~de $\ell(n)$} \\
-\endcompute
-que termina nossa demonstração.
+Indução \emph{no tamanho de $S$}.
 
 %%}}}
 
-%%{{{ x: lucas_altdef_find_error 
+%%{{{ x: why_standard_induction_on_size_does_not_prove_WOP 
 \exercise.
 %%%{{{ meta 
-\label lucas_altdef_find_error
+\label why_standard_induction_on_size_does_not_prove_WOP
 %%%}}}
 
-Na demonstração acima roubamos.
-Ache onde e explique como, e pense numa solução.
+Podemos demonstrar o princípio da boa ordem usando
+indução no tamanho do subconjunto $A$?
+
+\solution
+Não, isso nos levaria dum resultado apenas
+para os subconjuntos finítos de $A$.
+O princípio da boa ordem aplica para qualquer
+subconjunto habitado de $\nats$, até para os infinitos.
 
 %%}}}
 
-%%{{{ lucas_altdef_final 
-\proposition.
+%%{{{ df: cardinality_of_finite_set 
+\definition Cardinalidade.
 %%%{{{ meta 
-\label lucas_altdef_final
+\label cardinality_of_finite_set
 %%%}}}
 
-Com a notação da~\ref[lucas_altdef_first_attempt],
-para todo $n\geq 1$, $\ell(n) = L_n$.
+Definimos a cardinalidade $\card A$ dum conjunto finito e habitado $A$ pelas:
+\mathcol
+\card A = 1      & \iff \text{$A$ é um singleton} \\
+\card A = n + 1  & \iff
+\pexists {a \in A}
+\lexists {A' \subset A}
+         { a \nin A'
+           \mland \card {A'} = n
+           \mland \mubrace {\lforall {x \in A} {\text{$x = a$ ou $x \in A'$}}}
+                               {A \subset \set{a} \union A'}
+         }
+\endmathcol
+Se existe $n \in \nats$ tal que $\card A = n$ dizemos que $A$ é \dterm{finito}.
+
+%%}}}
+
+%%{{{ lemma: finite_numbersets_have_min 
+\lemma.
+%%%{{{ meta 
+\label finite_numbersets_have_min
+%%%}}}
+
+Qualquer conjunto finito de números $A$ habitado, possui mínimo.
+
+\sketch.
+Por indução no tamanho do conjunto.
+A base é trivial: um conjunto com apenas um membro $a$, tem o $a$ como mínimo.
+Seja $k \geq 1$ tal que
+$$
+\text{todos os conjuntos de tamanho $k$ possuem mínimo.} \tag{HI}
+$$
+Considere um conjunto $A$ de tamanho $k+1$, ou seja,
+$$
+A = \set {a_1, \dotsc, a_k, a_{k+1}}.
+$$
+Pela hipótese indutiva sabemos que $\set{a_1,\dotsc,a_k}$ possui mínimo $m$.
+Agora o menor membro do $A$ é o menor dos $m$ e $a_{k+1}$.
 
 \proof.
-Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
-Vamos primeiramente verificar que para $n=1$ e $n=2$, realmente temos $L_n = \ell(n)$.
-Para $n=1$:
-\compute
-\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
-        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
-        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
-        &= 1              \\
-        &= L_1.           \by {def.~de $L_n$} \\
-\endcompute
-E para $n=2$:
+Por indução no tamanho do conjunto $A$ demonstramos que
 $$
-\xalignat2
-\computed {
-      L_2 &= L_1 + L_0  \by {def.~de $L_n$} \\
-          &= 1 + 2      \by {def.~de $L_n$} \\
-          &= 3          
-}
-&&
-\computed {
-\ell(2) &= F_1 + F_3          \by {def.~de $\ell(n)$} \\
-        &= 1 + F_2 + F_1      \by {def.~de $F_n$} \\
-        &= 1 + 1 + 1          \\
-        &= 3.
-}
-&
-\endxalignat
+\pforall {x \geq 1}
+\lforall {\text{$A$ conjunto}}
+         {\card A = x \implies \text{$A$ possui mínimo}}.
 $$
-Seja $k\in\nats$ com $k\geq 3$ tal que
+Observe que agora nossa indução virou \dq{indução original}.
+\crproofpart {Base:}
+demonstrar que \emph{se $\card A = 1$ então $A$ possui mínimo}.
+Suponha $\card A = 1$.
+Logo temos que $A$ é um singleton e pronto: seu único membro é seu mínimo.
+\proofpart {Passo Indutivo.}
+Seja $k \geq 1$ tal que para qualquer conjunto $H$
 $$
-L_{k-1} = \ell(k-1)
-\qquad
-\text{e}
-\qquad
-L_{k-2} = \ell(k-2)
+         {\card H = k \implies \text{$H$ possui mínimo}}.
+         \tag{H.I.}
 $$
-(nossas \emph{duas} hipoteses indutivas).
-Vamos demonstrar que $L_k = \ell(k)$.
-Realmente temos
-\compute
-L_k
-&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
-&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
-&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$, $k\geq3$} \\
-&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
-&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$, $k\geq3$} \\
-&= \ell(k),                                 \by {def.~de $\ell(n)$} \\
-\endcompute
-que termina nossa demonstração.
+Preciso demonstrar que para qualquer conjunto $A$
+$$
+         {\card A = k + 1 \implies \text{$A$ possui mínimo}}.
+$$
+Seja $A$ conjunto de inteiros tal que $\card A = k + 1$.
+Basta verificar que $A$ possui mínimo.
+Como $\card A = k + 1$, temos:
+$$
+\pexists {a \in A}
+\lexists {A' \subset A}
+         { a \nin A'
+           \mland \card {A'} = k
+           \mland \lforall {x \in A} {\text{$x = a$ ou $x \in A'$}}
+         }
+$$
+e logo sejam $m \in A$, $A' \subset A$, tais que
+$$
+\tubrace {m \nin A'} {(1a)}
+\mland \tubrace {\card {A'} = k} {(1b)}
+\mland \tubrace {\lforall {x \in A} {\text{$x = m$ ou $x \in A'$}}} {(1c)}.
+\tag {1}
+$$
+Usamos a (HI) agora com $H \asseq A'$, e já que $\card {A'} = k$ (pela (1b)) temos que
+$A'$ possui mínimo.
+Seja $m' = \min A'$ então.
+Seja $m_*$ o menor dos $m,m'$.
+Afirmo que $\min A = m_*$.
+Basta verificar, ou seja, mostrar que $m_*$ é menor de qualquer membro de $A$.
+Seja $x \in A$ então.
+Novamente pela escolha dos $m,A'$ temos que $x = m$ ou $x \in A'$.
+Tem cada subcaso vou demonstrar que $m_* \leq x$.
+\proofcase {Subcaso $x = m$.}
+Imediato pois pela escolha de $m_* \leq m = x$.
+\proofcase {Subcaso $x \in A'$.}
+Pela escolha dos $m_*$ e $m'$ respectivamente temos
+$m_* \leq m' \leq x$.
 
 %%}}}
 
-%%{{{ x: new_proof_of_sum_of_threes_and_fives_with_three_bases 
+%%{{{ x: finite_numbersets_have_min_quantifier_check 
 \exercise.
 %%%{{{ meta 
-\label new_proof_of_sum_of_threes_and_fives_with_three_bases
+\label finite_numbersets_have_min_quantifier_check
 %%%}}}
 
-Ache uma nova demonstração do~\ref[sum_of_threes_and_fives] por indução
-com três bases.
-
-\hint
-$k = (k-3) + 3$.
-
-\solution
-Seja $k\geq 8 + 3 = 11$ tal que $k-1$, $k-2$, e $k-3$
-podem ser escritos como somatórios de $3$'s e $5$'s (H.I.).
-Temos
-\compute
-k &= (k-3) + 3      \\
-  &= (3x + 5y) + 3  \quad\text{para alguns $x,y\in\nats$} \by {pela H.I.} \\
-  &= 3(x+1) + 5y.
-\endcompute
-Como precisamos a veracidade da proposição para o valor $k-3$,
-devemos mostrar as $3$ bases, para os inteiros $8$, $9$, e $10$:
-$$
-\alignat 2
-8  &= 3 + 5     &&= 3\ntimes 1 + 5\ntimes 1\\
-9  &= 3 + 3 + 3 &&= 3\ntimes 3 + 5\ntimes 0\\
-10 &= 5 + 5     &&= 3\ntimes 0 + 5\ntimes 2.
-\endalignat
-$$
-
-%%}}}
-
-%%{{{ two_ways_to_organize_inductive_step 
-\note Duas maneiras de organizar tua demonstração.
-%%%{{{ meta 
-\label two_ways_to_organize_inductive_step
-%%%}}}
-
-Ok, vamos supor que tu tá tentando demonstrar algo da forma
-$$
-\lforall {n \in \nats} {\phi(n)}
-$$
-por indução, e que tu decidiu usar duas bases
-(obviamente a $\phi(0)$ e a $\phi(1)$).
-Como seria teu passo indutivo?
-Tem duas maneiras boas para proceder agora:
-\crproofalt{Maneira 1:}
-<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k-2)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k)$.>>
-Nessa maneira, preciso tomar cuidado que nenhum inteiro menor que $k-2$ aparece
-em algum canto errado, pois não sei nada sobre eles; até pior pode ser
-que aparecem objetos que nem são definidos.
-\crproofalt{Maneira 2:}
-<<Seja $k\in\nats$ tal que $\phi(k)$\fact{H.I.1} e $\phi(k+1)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k+2)$.>>
-E agora preciso tomar o mesmo cuidado, só que agora com inteiros
-menores que~$k$.
-\eop
-\emph{Ambas as maneiras são corretas} e bem escritas e bem entendíveis
-e tudo mais---e dá pra variar também, não são
-únicas~(\ref[third_way_to_organize_inductive_step]).
-Qual vamos escolher?  Depende de gosto e às vezes do contexto também.
-Na maioria das vezes eu vou favorecer a primeira:
-meus olhos gostam da associação dos ``(H.I.$i$)'' com os $\phi(k-i)$.
-Na mesma linha de pensar, na segunda maneira as hipoteses indutivas são as
-$\phi(k)$ e $\phi(k+1)$, e o alvo seria o $\phi(k+2)$;
-então a (H.I.2) parece mais com o alvo do que com a (H.I.1).
-Ou seja: \emph{nos meus olhos}, os dados e o alvo ficam mais arrumados
-na maneira 1.
-Mas como falei: ambas corretas; questão de gosto; então consulte teus
-próprios olhos.
-
-%%}}}
-
-%%{{{ x: third_way_to_organize_inductive_step 
-\exercise.
-%%%{{{ meta 
-\label third_way_to_organize_inductive_step
-%%%}}}
-
-Qual seria a terceira ``óbvia'' maneira?
-Com que inteiros tem que tomar cuidado se escolhê-la?
-
-\solution
-<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k+1)$.>>
-Nessa maneira, preciso tomar cuidado com inteiros menores de $k-1$.
-
-%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Many variables 
-\section Muitas variáveis.
-%%%{{{ meta 
-%%%}}}
-
-%TODO explain that it's just one more tool to attack theorems
-%TODO XXX Maybe refer to a weaker result from "irrationality"?
-
-\endsection
-%%}}}
-
-%%{{{ Strong induction 
-\section O princípio da indução finita forte (PIFF).
-%%%{{{ meta 
-\label Strong_induction
-%%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-O seguinte princípio parece mais forte que o PIF.
-Na verdade, nos naturais, os dois princípios são equivalentes:
-
-%%}}}
-
-%%{{{ thm: nats_principle_of_strong_induction
-\theorem Princípio da indução finita forte (PIFF).
-%%%{{{ meta 
-\label nats_principle_of_strong_induction
-\indexes
-    * PIFF    seealso: indução
-    * princípio!da indução finita forte    see: indução forte
-    ;;
-\defines
-    * PIFF
-    * indução!forte
-    ;;
-%%%}}}
-
-Seja $P(n)$ uma propriedade de naturais.
-Se para todo $k\in\nats$,
-a hipótese que $P(i)$ é verdade para todo $i<k$
-implica que $P(k)$ também é,
-então $P(n)$ é verdade para todo $n\in\nats$.
-
-%%}}}
-
-%%{{{ note: PIFF in symbols 
-\note.
-%%%{{{ meta 
-%%%}}}
-
-Esquematicamente o PIFF:
-$$
-\lforall
-    {k\in\nats}
-    {\vphantom{\bigg(}\Big(\lforall {i < k} {P(i)}\Big) \limplies P(k)}
-\implies
-\lforall
-    {n\in\nats}
-    {P(n)}.
-$$
+Faria sentido trocar o \sq{$\pexists {a \in A}$} por \sq{$\pforall {a \in A}$}
+na fim do \ref[finite_numbersets_have_min]?
 
 %%}}}
 
@@ -19628,17 +19579,6 @@ $$
 \problems Intervalo de problemas.
 %%%{{{ meta 
 %%%}}}
-
-%%{{{ prob: finite_numbersets_have_min_quantifier_check 
-\problem.
-%%%{{{ meta 
-\label finite_numbersets_have_min_quantifier_check
-%%%}}}
-
-Faria sentido trocar o \sq{$\pexists {a \in A}$} por \sq{$\pforall {a \in A}$}
-na fim do \ref[finite_numbersets_have_min]?
-
-%%}}}
 
 %%{{{ prob: concat_iterations_equivalent 
 \problem.
