@@ -6502,7 +6502,7 @@ $$
 $$
 com
 $$
-{<} \is \Int \times \Int \to \Prop.
+(<) \is \Int \times \Int \to \Prop.
 $$
 Isso apenas declara que tipo de coisa é esse $<$: é uma relação binária nos inteiros.
 Não confunda isso com uma definição do que significa mesmo $x < y$.
@@ -7061,78 +7061,6 @@ Demonstre que a equação $x^2 + 1 = 0$ não possui resolução no incógnito $x
 
 %%}}}
 
-%%{{{ Why not try harder 
-\note Por que desistimos de demonstrá-la?.
-%%%{{{ meta 
-%%%}}}
-
-Se a gente tentar demonstrar uma proposição a partir duns axiomas
-e não conseguir produzir uma demonstração correta, podemos concluir
-que tal proposição é indemonstrável?
-Não necessariamente.  Nosso insucesso não garanta que não vai chegar
-daqui uns dias um matemático que vai pensar em algo que nós não conseguimos
-pensar ainda.
-Enquanto demonstrar ou refutar uma proposição, se trata duma \dterm{questão aberta}.
-Mesmo assim, em certos casos podemos sim demonstrar que ninguém nunca vai conseguir
-nem demonstrar nem refutar uma certa proposição.
-\eop
-Neste exemplo aqui, podemos realmente \emph{demonstrar} a
-\emph{indemonstrabilidade da proposição $0 \neq 1$ a partir dos axiomas anteriores}.
-Isso se trata duma \dterm{metademonstração}, já que é uma demonstração
-sobre demonstrações sobre inteiros.
-Efetivamente podemos demonstrar a (meta)proposição:
-\emph{não existe demonstração de $0 \neq 1$ a partir dos axiomas anteriores}.
-Podemos também demonstrar a \emph{irrefutabilidade da $0 \neq 1$ a partir
-dos mesmos axiomas}, ou seja, a indemonstrabilidade da sua negação.
-Essas duas informações juntas fazem tal proposição ser chamada \dterm{independente} dos axiomas anteriores: os axiomas não determinam sua vericidade.
-\eop
-Talvez numa primeira lida isso parece muito louco.
-Como demonstrar que algo é indemonstrável?
-Na verdade a idéia é bem simples:
-basta fazer duas coisas:
-(i) Construir um mundo onde todos os axiomas são válidos (precisamos verificar isso), e onde nossa proposição também é.
-(Isso significa que nossa proposição é \emph{compatível} com tais axiomas.)
-(ii) Construir um mundo onde todos os axiomas são válidos e onde nossa proposiçaõ não é.
-(Isso significa que a negação da nossa proposição também é compatível com tais axiomas.)
-Se alguém chegar alegando que conseguiu demonstrar tal demonstração, sabemos que sua suposta demonstração seria errada pois a usando poderiamos inferir que a proposição deveria ser válida no mundo do (ii), que é impossível.
-Similarmente, se alguém afirmar que conseguiu refutar a mesma proposição, com certeza não conseguiu, pois tal suposta refutação geraria uma contradição graças ao mundo do (i).
-Concluimos então que ninguém pode nem demonstrar nem refutar tal proposição a partir dos axiomas.
-
-%%}}}
-
-%%{{{ The unprovability of 0 ≠ 1 
-\note A indemonstrabilidade de $0 \neq 1$.
-%%%{{{ meta 
-%%%}}}
-
-Mas o que mesmo significa \emph{construir um mundo para o
-$\sset \ints {0, 1, +, -, \ntimes, \Pos}$?}
-Simplesmente interpretar cada um dos seus componentes, em forma compatível
-com sua tipágem, e em forma que todos os axiomas são válidos.\foot
-Nesse caso dizemos que nosso mundo é um \dterm{modelo} dos axiomas escolhidos.
-\toof
-Para nosso exemplo precisamos decidir:
-qual coleção de objetos vai servir o papel de $\ints$;
-qual objeto deles vai ser o $0$;
-qual objeto deles vai ser o $1$;
-quais vão ser as operações $+,-,\ntimes$; e
-qual vai ser o predicado $\Pos$
-(quais dos nossos \dq{inteiros} vão ser chamados de \dq{positivos}).
-\eop
-Agora se a gente construir um mundo de
-$$
-\sset \ints {0, 1, +, -, \ntimes, \Pos}
-$$
-onde todos os axiomas até agora são válidos, mas onde $0 \neq 1$ não é,
-seria uma garantia que não há tal demonstração e logo não faz sentido
-continuar pensando em achar uma, e portanto vamos adicioná-la como axioma,
-já que é algo fundamental para os inteiros que queremos axiomatizar aqui.
-\eop
-Eu deixo esse papel de construir tal mundo para
-ti (\ref[unprovability_of_nontriviality_of_ints]).
-
-%%}}}
-
 \endsection
 %%}}}
 
@@ -7494,6 +7422,91 @@ $\abs {\abs a - \abs b} \leq \abs {a - b} \leq \abs a + \abs b$.
 %%%}}}
 
 $\lforall {a,b} {\abs {ab} = \abs a \abs b}$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Unprovability and metatheorems 
+\section Indemonstrabilidade e metateoremas.
+%%%{{{ meta 
+\label Unprovability_and_metatheorems
+%%%}}}
+
+%%{{{ Why not try harder 
+\note Por que desistimos de demonstrá-la?.
+%%%{{{ meta 
+%%%}}}
+
+Se a gente tentar demonstrar uma proposição a partir duns axiomas
+e não conseguir produzir uma demonstração correta, podemos concluir
+que tal proposição é indemonstrável?
+Não necessariamente.  Nosso insucesso não garanta que não vai chegar
+daqui uns dias um matemático que vai pensar em algo que nós não conseguimos
+pensar ainda.
+Enquanto demonstrar ou refutar uma proposição, se trata duma \dterm{questão aberta}.
+Mesmo assim, em certos casos podemos sim demonstrar que ninguém nunca vai conseguir
+nem demonstrar nem refutar uma certa proposição.
+\eop
+Considere como exemplo a proposição $0 \neq 1$.
+Podemos realmente \emph{demonstrar} a \emph{indemonstrabilidade da proposição $0 \neq 1$ a partir dos axiomas anteriores}.
+Isso se trata na verdade duma \dterm{metademonstração}, já que é uma demonstração
+sobre demonstrações sobre inteiros.
+Efetivamente podemos demonstrar a (meta)proposição:
+\emph{não existe demonstração de $0 \neq 1$ a partir dos axiomas anteriores}.
+Podemos também demonstrar a \emph{irrefutabilidade da $0 \neq 1$ a partir
+dos mesmos axiomas}, ou seja, a indemonstrabilidade da sua negação.
+Essas duas informações juntas fazem tal proposição ser \dterm{independente}
+dos axiomas anteriores: os axiomas não determinam sua vericidade, ou seja
+tanto a $0 \neq 1$ quanto a sua negação são \dterm{compatíveis} com os axiomas
+que trabalhávamos no momento.
+\eop
+Talvez numa primeira lida isso parece muito louco.
+Como demonstrar que algo é indemonstrável?
+Na verdade a idéia é bem simples:
+basta fazer duas coisas:
+(i) Construir um mundo onde todos os axiomas são válidos (precisamos verificar isso), e onde nossa proposição também é.
+(Isso significa que nossa proposição é \emph{compatível} com tais axiomas.)
+(ii) Construir um mundo onde todos os axiomas são válidos e onde nossa proposiçaõ não é.
+(Isso significa que a negação da nossa proposição também é compatível com tais axiomas.)
+Se alguém chegar alegando que conseguiu demonstrar tal demonstração, sabemos que sua suposta demonstração seria errada pois a usando poderiamos inferir que a proposição deveria ser válida no mundo do (ii), que é impossível.
+Similarmente, se alguém afirmar que conseguiu refutar a mesma proposição, com certeza não conseguiu, pois tal suposta refutação geraria uma contradição graças ao mundo do (i).
+Concluimos então que ninguém pode nem demonstrar nem refutar tal proposição a partir dos axiomas.
+
+%%}}}
+
+%%{{{ The unprovability of 0 ≠ 1 
+\note A indemonstrabilidade de $0 \neq 1$.
+%%%{{{ meta 
+%%%}}}
+
+Mas o que mesmo significa \emph{construir um mundo para o
+$\sset \ints {0, 1, +, -, \ntimes, \Pos}$?}
+Simplesmente interpretar cada um dos seus componentes, em forma compatível
+com sua tipágem.
+E se todos os axiomas da especificação são válidos quando os interpretamos nesse mundo,
+o chamamos de \dterm{modelo} (ou \dterm{implementação}) da especificação.\foot
+\toof
+Para nosso exemplo precisamos decidir:
+qual coleção de objetos vai servir o papel de $\ints$;
+qual objeto deles vai ser o $0$;
+qual objeto deles vai ser o $1$;
+quais vão ser as operações $+,-,\ntimes$; e
+qual vai ser o predicado $\Pos$
+(quais dos nossos \dq{inteiros} vão ser chamados de \dq{positivos}).
+\eop
+Agora se a gente construir um mundo de
+$$
+\sset \ints {0, 1, +, -, \ntimes, \Pos}
+$$
+onde todos os axiomas até agora são válidos, mas onde $0 \neq 1$ não é,
+seria uma garantia que não há tal demonstração e logo não faz sentido
+continuar pensando em achar uma, e portanto vamos adicioná-la como axioma,
+já que é algo fundamental para os inteiros que queremos axiomatizar aqui.
+\eop
+Eu deixo esse papel de construir tal mundo para
+ti (\ref[unprovability_of_nontriviality_of_ints]).
 
 %%}}}
 
@@ -8009,7 +8022,7 @@ $$
                      {\lforall {x > 1} {\phi(x)}}
 }
 $$
-Essa corresponde à versão original; adaptar para as outras versões, é pra ti.
+Essa corresponde à versão original; adaptá-la para as outras versões, é pra ti.
 
 %%}}}
 
