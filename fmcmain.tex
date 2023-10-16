@@ -8043,50 +8043,193 @@ Escreva como regras de inferência as variações de indução que encontramos (
 %%}}}
 
 %%{{{ Sums_and_products_lame_version 
-\section Somatórios e produtórios formalmente.
+\section Somatórios e produtórios iterativos.
 %%%{{{ meta 
 \label Sums_and_products_lame_version
 %%%}}}
 
-\TODO Definições recursivas de somatórios e produtórios.
-
-%%{{{ df: iterative_sum_recursive_def 
-\definition Somatório iterativo.
+%%{{{ iterative_sum_and_product 
+\note.
 %%%{{{ meta 
-\label iterative_sum_recursive_def
+\label iterative_sum_and_product
 \defines
     * somatório iterativo
-    * quociente!divisão
-    * resto!divisão
-    * \Sum_{i=1}^n \tau(i))  -- o somatório $\tau(1) + \dotsb + \tau(n)$
-    * \rem(~a,~b)            -- o resto de $a$ dividido por $b$
+    * produtório iterativo
+    * \Sum_{i=s}^t \tau(i))   -- o somatório $\tau(s) + \dotsb + \tau(t)$
+    * \Prod_{i=s}^t \tau(i))  -- o produtório $\tau(s) \ntimes \dotsb \ntimes \tau(t)$
     ;;
 %%%}}}
 
-Sejam $n \geq 0$ e $\tau(i)$ uma expressão em qual ocorre possivelmente a variável $i$.
-Queremos definir a notação $\Sum_{i=1}^n\tau(i)$ para denotar a soma de todos os inteiros
-denotados pelos termos $\tau(1), \dotsc, \tau(n)$:
-$$
-\Sum_{i=1}^n \tau(i)
-= \tau(1) + \dotsb + \tau(n).
-$$
+Sejam $s,t$ inteiros e $\tau(i)$ uma expressão em qual ocorre possivelmente a variável $i$.
+Queremos definir a notação $\Sum_{i=s}^t\tau(i)$ para denotar a soma de todos os inteiros
+denotados pelos termos $\tau(s), \dotsc, \tau(t)$, e similarmente a $\Prod_{i=s}^t\tau(i)$
+para denotar o seu produto:
+\mathcols 2
+\Sum_{i=s}^t  \tau(i) &= \tau(s) + \dotsb + \tau(t) &
+\Prod_{i=s}^t \tau(i) &= \tau(s) \ntimes \dotsb \ntimes \tau(t).
+\intertext {Caso $s > t$ não temos nenhum termo para operar,
+e logo se trata de somatório vazio e de produtório vazio respectivamente;
+e precisamos pensar qual seria o valor correto para cada um desses casos:}
+\Sum_{i=s}^t  \tau(i) &= \alert? &
+\Prod_{i=s}^t \tau(i) &= \alert?
+\intertext {Caso $s \leq t$ existem duas maneiras óbvias para definir
+cada um deles, ambas recursivas:}
+\Sum_{i=s}^t \tau(i) &\defeq \paths {
+\paren{\Sum_{i=s}^{t-1} \tau(i)} + \tau(t) \\
+\pathween {\dots\orword\dots}
+\tau(s) + \Sum_{i=s+1}^t \tau(i)
+}
+&
+\Prod_{i=s}^t \tau(i) &\defeq \paths {
+\paren{\Prod_{i=s}^{t-1} \tau(i)} \ntimes \tau(t) \\
+\pathween {\dots\orword\dots}
+\tau(s) \ntimes \Prod_{i=s+1}^t \tau(i).\\
+}
+\endmathcols
+
+%%}}}
+
+%%{{{ df: iterative_sum_of_ints_def 
+\definition Somatório iterativo.
+%%%{{{ meta 
+\label iterative_sum_of_ints_def
+\defines
+    * somatório iterativo
+    * \Sum_{i=s}^t \tau(i))  -- o somatório $\tau(s) + \dotsb + \tau(t)$
+    ;;
+%%%}}}
+
+Sejam $s,t$ inteiros e $\tau(i)$ uma expressão em qual ocorre possivelmente a variável $i$.
 Definimos recursivamente:
 \mathcol
-\Sum_{i=1}^0 \tau(i)     &\defeq 0 \\
-\Sum_{i=1}^{n+1} \tau(i) &\defeq \Sum_{i=1}^n \tau(i) + \tau(n+1)
+\Sum_{i=s}^t \tau(i) &\defeq \cases {
+0, & caso $s > t$; \\
+\paren{\Sum_{i=s}^{t-1} \tau(i)} + \tau(t), & caso $s \leq t$. \\
+}
 \endmathcol
 
 %%}}}
 
-\TODO Generalizando operadores binários para $n$-ários.
-
-%%{{{ eg: gauss_child 
-\example.
+%%{{{ x: iterative_sum_of_ints_calc 
+\exercise.
 %%%{{{ meta 
-\label gauss_child
+\label iterative_sum_of_ints_calc
 %%%}}}
 
-Demonstre que para todo $n\in\nats$,
+Verifique que $\Sum_{i=1}^4 i = 10$, mostrando todos os passos do cálculo.
+
+%%}}}
+
+%%{{{ x: iterative_sum_of_ints_equiv 
+\exercise.
+%%%{{{ meta 
+\label iterative_sum_of_ints_equiv
+%%%}}}
+
+Demonstre que a definição alternativa
+\mathcol
+\Sum_{i=s}^t \tau(i) &\defeq \cases {
+0, & caso $s > t$; \\
+\tau(s) + \Sum_{i=s+1}^t \tau(i), & caso $s \leq t$ \\
+}
+\endmathcol
+é equivalente à \ref[iterative_sum_of_ints_def].
+
+%%}}}
+
+%%{{{ x: iterative_sum_of_ints_calc 
+\exercise.
+%%%{{{ meta 
+\label iterative_sum_of_ints_calc
+%%%}}}
+
+Verifique que $\Sum_{i=1}^4 i = 10$, essa vez aplicando pelo menos uma
+vez a definição e pelo menos uma vez a propriedade do ,
+novamente mostrando todos os passos do cálculo.
+
+%%}}}
+
+%%{{{ x: iterative_sum_of_ints_intension 
+\exercise.
+%%%{{{ meta 
+\label iterative_sum_of_ints_intension
+%%%}}}
+
+Já sabemos que não há diferença extensional entre as duas maneiras e definir somatórios.
+Há diferença intensional?
+
+%%}}}
+
+%%{{{ Q: How would you define iterative products? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Como definarias produtórios iterativos?
+Verifique tua tentativa calculando um produtório curto como o $\Prod_{i=1}^3 i$
+antes de continuar.
+
+%%}}}
+
+\spoiler.
+
+%%{{{ df: iterative_sum_of_ints_def 
+\definition Produtório iterativo.
+%%%{{{ meta 
+\label iterative_product_of_ints_def
+\defines
+    * produtório iterativo
+    * \Prod_{i=s}^t \tau(i))  -- o produtório $\tau(s) \ntimes \dotsb \ntimes \tau(t)$
+    ;;
+%%%}}}
+
+Sejam $s,t$ inteiros e $\tau(i)$ uma expressão em qual ocorre possivelmente a variável $i$.
+Definimos recursivamente:
+\mathcol
+\Prod_{i=s}^t \tau(i) &\defeq \cases {
+1, & caso $s > t$; \\
+\paren{\Prod_{i=s}^{t-1} \tau(i)} \ntimes \tau(t), & caso $s \leq t$. \\
+}
+\endmathcol
+
+%%}}}
+
+%%{{{ x: iterative_product_of_ints_def 
+\exercise Produtório iterativo.
+%%%{{{ meta 
+\label iterative_product_of_ints_def
+\defines
+    * produtório iterativo
+    * \Prod_{i=s}^t \tau(i))  -- o produtório $\tau(s) \ntimes \dotsb \ntimes \tau(t)$
+    ;;
+%%%}}}
+
+Obtenha os resultados correspondente aos exercícios \reftag[iterative_sum_of_ints_equiv] e \reftag[iterative_sum_of_ints_intension].
+
+\hint
+Cuidado sobre o produtório vazio.
+
+\solution
+Definimos recursivamente:
+\mathcol
+\Prod_{i=s}^t \tau(i) &\defeq \cases {
+1, & caso $s > t$; \\
+\Prod_{i=s}^{t-1} \tau(i) \ntimes \tau(t), & caso $s \leq t$. \\
+}
+\endmathcol
+
+%%}}}
+
+%%{{{ eg: gauss_child 
+\example Somatório de Gauss.
+%%%{{{ meta 
+\label gauss_child
+\credits
+    * Gauss : somatório
+    ;;
+%%%}}}
+
+Demonstre que para todo inteiro $n\geq 0$,
 $$
 2 \Sum_{i=1}^n i = n (n+1).
 $$
@@ -8736,6 +8879,19 @@ eu vou sempre usar indução forte.
 
 \hint
 Quantos $i\in\nats$ satisfazem $i < 0$?
+
+%%}}}
+
+%%{{{ prob: generalizing_binary_ops_on_ints 
+\problem.
+%%%{{{ meta 
+\label generalizing_binary_ops_on_ints
+%%%}}}
+
+Na \ref[Sums_and_products_lame_version] generalizamos os operadores binários
+$(+)$ e $(\ntimes)$ para versões iterativas.
+Mostre como fazer a mesma coisa para um operador binário arbitrário $(\heart)$.
+Quais propriedades dele precisamos?
 
 %%}}}
 
@@ -56000,8 +56156,7 @@ O que você acha que deveria ser denotado por $a^{-2}$?
 
 Bem, tem duas interpretações, ambas razoáveis:
 $$
-a^{-2} \askeq
-\paths{
+a^{-2} \askeq \paths {
 \paren{\ginv a}^2 & (o quadrado do inverso do $a$) \cr
 \pathween {\dots\orword\dots}
 \ginvp{a^2}       & (o inverso do quadrado do $a$)
