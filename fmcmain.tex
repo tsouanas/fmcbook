@@ -4196,7 +4196,7 @@ $8 \ndivides 12$, porque, nenhum inteiro $u$ satisfaz $12 = 8u$.
 Qual o problema no~\ref[divides_and_ndivides_examples]?
 
 \solution
-A segunda ocorrência da palavra <<porque>> não faz sentido nenhum:
+A segunda ocorrência da palavra \wq{porque} não faz sentido nenhum:
 o que segue depois não é uma justificação da tese $8 \ndivides 12$,
 mas sim apenas uma repetição da mesma afirmação.
 Essencialmenteo que tá escrito nessa frase é:
@@ -8220,10 +8220,10 @@ Definimos recursivamente:
 
 %%}}}
 
-%%{{{ eg: gauss_child 
-\example Somatório de Gauss.
+%%{{{ eg: gauss_sum 
+\exercise Somatório de Gauss.
 %%%{{{ meta 
-\label gauss_child
+\label gauss_sum
 \credits
     * Gauss : somatório
     ;;
@@ -8234,7 +8234,10 @@ $$
 2 \Sum_{i=1}^n i = n (n+1).
 $$
 
-\solution.
+\hint
+Indução.
+
+\solution
 Por indução.
 Primeiramente demonstramos a \proofpart {base:}
 $$
@@ -8248,53 +8251,34 @@ Calculamos:
 = 0 (0+1).
 \endmath
 \proofpart {Passo indutivo.}
-Seja $k\in\nats$ tal que
+Seja $k \geq 0$ tal que
 $$
 2 \Sum_{i=1}^k i = k (k+1).  \tag{H.I.}
 $$
 Calculamos:
 \compute
-2 \Sum_{i=1}^{k+1} i
-&= 2((k+1) + \Sum_{i=1}^k i) \\
-&= 2(k+1) + 2\Sum_{i=1}^k i \\
-&= 2(k+1) + k(k+1) \by {pela H.I.} \\
-&= (2+k)(k+1) \\
+2 \Suml_{i=1}^{k+1} i
+&= 2\paren{\paren{\Suml_{i=1}^k i} + (k+1)} \\
+&= 2\paren{\Suml_{i=1}^k i} + 2(k+1) \\
+&= k(k+1) + 2(k+1) \by {pela H.I.} \\
+&= (k+2)(k+1) \\
 &= (k+1)(k+2).
 \endcompute
 
 %%}}}
 
-%%{{{ x: sum_of_cubes_formula 
+%%{{{ x: sum_of_cubes_eq_square_of_sum 
 \exercise.
 %%%{{{ meta 
-\label sum_of_cubes_formula
-%%%}}}
-
-Demonstre que
-$$
-4 \paren{1 + 8 + 27 + \dotsb + n^3} = n^2 (n+1)^2
-$$
-para todo $n\in\nats$.
-
-\hint
-Lembre que o somatório vazio é $0$.
-
-%%}}}
-
-%%{{{ x: sum_of_cubes_and_gauss_formula 
-\exercise.
-%%%{{{ meta 
-\label sum_of_cubes_and_gauss_formula
+\label sum_of_cubes_eq_square_of_sum
 %%%}}}
 
 Demonstre que para todo $n \in\nats$,
-$$
-\align
-\Sum_{i=1}^n i^3 &= \paren{\Sum_{i=1}^n i}^2\\
+\mathcol
+\Sum_{i=1}^n i^3 &= \paren{\Sum_{i=1}^n i}^2 \\
 \text{ou seja,}\qquad
 1^3 + 2^3 + \dotsb + n^3 &= \paren{ 1 + 2 + 3 + \dotsb + n }^2.
-\endalign
-$$
+\endmathcol
 
 %%}}}
 
@@ -8332,6 +8316,21 @@ $$
 \Sum_{i=1}^n F_i^2 = F_n F_{n+1},
 $$
 onde $F_n$ o $n$-ésimo número Fibonacci.
+
+%%}}}
+
+%%{{{ remark: sum_and_product_doing_too_much 
+\remark.
+%%%{{{ meta 
+\label sum_and_product_doing_too_much
+%%%}}}
+
+Os $\Sum$ e $\Prod$ que definimos aqui estão fazendo uma mistura de trabalhos
+e isso não é uma idéia boa: eles mesmo geram uma lista de termos simultaneamente
+somando e multiplicando seus termos.  Seria melhor separar o trabalho de gerar
+uma lista a partir duma expressão-padrão, um início, e um fim, e o trabalho
+de operar em forma generalizada nos seus componentes.  Faremos isso no
+\ref[Recursion_induction].
 
 %%}}}
 
