@@ -8431,11 +8431,11 @@ Calculamos:
 \label sum_of_cubes_eq_square_of_sum
 %%%}}}
 
-Demonstre que para todo $n \in\nats$,
+Demonstre que para todo inteiro $n$,
 \mathcol
 \Sum_{i=1}^n i^3 &= \paren{\Sum_{i=1}^n i}^2 \\
 \text{ou seja,}\qquad
-1^3 + 2^3 + \dotsb + n^3 &= \paren{ 1 + 2 + 3 + \dotsb + n }^2.
+1^3 + 2^3 + \dotsb + n^3 &= \paren{ 1 + 2 + \dotsb + n }^2.
 \endmathcol
 
 %%}}}
@@ -9034,88 +9034,6 @@ Na \ref[Sums_and_products_lame_version] generalizamos os operadores binários
 $(+)$ e $(\ntimes)$ para versões iterativas.
 Mostre como fazer a mesma coisa para um operador binário arbitrário $(\heart)$.
 Quais propriedades dele precisamos?
-
-%%}}}
-
-%%{{{ prob: products_in_disguise 
-\problem.
-%%%{{{ meta 
-\label products_in_disguise
-%%%}}}
-
-Seja $h : \nats\to\nats$.
-Defina recursivamente as funcções $t : \nats \to \nats$ e $T : \nats^2 \to \nats$ que satisfazem:
-$$
-\align
-t(n)   &= h(0)h(1)\dotsb h(n-1)     = \Prod\limits_{i=0}^{n-1} h(i);\\
-T(m,n) &= h(m)h(m+1)\dotsb h(m+n-1) = \Prod\limits_{i=m}^{m+n-1} h(i).
-\endalign
-$$
-
-\hint
-Depois de definir confira tuas definições seguindo elas para calcular uns valores.
-Por exemplo, $t(2)$ e $T(5,2)$ devem dar os resultados
-$$
-\xalignat2
-t(2) &= h(0)h(1)
-&
-T(5,2) &= h(5)h(6).
-\endxalignat
-$$
-
-\hint
-Mesmo que a funcção $T$ tem aridade 2, escolhendo bem,
-tu não precisarás escrever 4 equações, mas apenas 2.
-
-\solution
-Definimos
-$$
-\xalignat2
-t      &\eqtype \nats\to\nats   &  T        &\eqtype \nats^2\to\reals\\
-t(0)   &= 1                     &  T(m,0)   &= 1                     \\
-t(n+1) &= h(n) \ntimes t(n)     &  T(m,k+1) &= h(m+k) \ntimes T(m,k).  
-\endxalignat
-$$
-Tendo definido primeiro a $T$, podemos definir a $t$ assim:
-$$
-t(n) = T(0,n).
-$$
-
-%%}}}
-
-%%{{{ prob: victors_mistake 
-\problem.
-%%%{{{ meta 
-\label victors_mistake
-%%%}}}
-
-Tentando resolver o~\ref[products_in_disguise],
-% STUDENT: Victor
-um aluno definiu corretamente a $t$ e depois a usou
-na sua definição de $T$, assim:
-$$
-T(m,n) = {t(m+n)}/{t(m)}.
-$$
-Qual o problema com essa definição?
-(Suponha como conhecida uma definição recursiva da
-operação $/$ de divisão inteira.)
-
-\hint
-Qual é o codomínio da $h$?
-
-\hint
-$0\in\nats$.
-
-\hint
-O que acontece se $h(i) = 0$ para algum $i \in \nats$?
-
-\solution
-Se $h(i) = 0$ para algum $i \in \nats$,
-o $t(j)=0$ para todo $j>i$.
-Assim, a expressão
-${t(m+n)}/{t(m)}$ não é definida para qualquer $m>i$.
-Observe que a solução seria certa se tivéssemos alguma garantia que
-$h$ não mapeia ninguém o $0$.
 
 %%}}}
 
@@ -17905,6 +17823,81 @@ Temos:
 \li: O $r(n)$ é o resto da divisão do $n$ por $3$.
 \li: A $t$ decida se suas entradas são iguais ou não.
 \endtlist
+
+%%}}}
+
+%%{{{ prob: products_in_disguise 
+\problem.
+%%%{{{ meta 
+\label products_in_disguise
+%%%}}}
+
+Defina recursivamente as funcções $t : (\nats \to \nats) \to \nats \to \nats$
+e $T : (\nats \to \nats) \to \nats\times\nats \to \nats$ que satisfazem:
+\mathcol
+t \fa h \fa n     &= h(0)h(1)\dotsb h(n-1)     = \Prod\limits_{i=0}^{n-1} h(i);\\
+T \fa h \fa (m,n) &= h(m)h(m+1)\dotsb h(m+n-1) = \Prod\limits_{i=m}^{m+n-1} h(i).
+\endmathcol
+
+\hint
+Depois de definir confira tuas definições seguindo elas para calcular uns valores.
+Por exemplo, $t \fa h\fa 2$ e $T \fa h \fa (5,2)$ devem dar os resultados
+\mathcols 2
+t \fa h \fa 2     &= (h \fa 0)(h \fa 1) &
+T \fa h \fa (5,2) &= (h \fa 5)(h \fa 6).
+\endmathcols
+
+\hint
+Mesmo que a funcção $T$ tem aridade 2, escolhendo bem,
+tu não precisarás escrever 4 equações, mas apenas 2.
+
+\solution
+Definimos
+\mathcols 2
+t      &\eqtype \nats\to\nats   &  T        &\eqtype \nats^2\to\reals\\
+t(0)   &= 1                     &  T(m,0)   &= 1                     \\
+t(n+1) &= h(n) \ntimes t(n)     &  T(m,k+1) &= h(m+k) \ntimes T(m,k).  
+\endmathcols
+Tendo definido primeiro a $T$, podemos definir a $t$ simplesmente assim:
+$$
+t \fa h \fa n = T \fa h \fa (0,n).
+$$
+
+%%}}}
+
+%%{{{ prob: victors_mistake 
+\problem.
+%%%{{{ meta 
+\label victors_mistake
+%%%}}}
+
+Tentando resolver o~\ref[products_in_disguise],
+% STUDENT: Victor
+um aluno definiu corretamente a $t$ e depois a usou
+na sua definição de $T$, assim:
+$$
+T(m,n) = {t(m+n)}/{t(m)}.
+$$
+Qual o problema com essa definição?
+(Suponha como conhecida uma definição recursiva da
+operação $/$ de divisão inteira.)
+
+\hint
+Qual é o codomínio da $h$?
+
+\hint
+$0\in\nats$.
+
+\hint
+O que acontece se $h(i) = 0$ para algum $i \in \nats$?
+
+\solution
+Se $h(i) = 0$ para algum $i \in \nats$,
+o $t(j)=0$ para todo $j>i$.
+Assim, a expressão
+${t(m+n)}/{t(m)}$ não é definida para qualquer $m>i$.
+Observe que a solução seria certa se tivéssemos alguma garantia que
+$h$ não mapeia ninguém ao $0$.
 
 %%}}}
 
