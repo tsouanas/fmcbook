@@ -8173,7 +8173,7 @@ antes de continuar.
 
 \spoiler.
 
-%%{{{ df: iterative_sum_of_ints_def 
+%%{{{ df: iterative_product_of_ints_def 
 \definition Produtório iterativo.
 %%%{{{ meta 
 \label iterative_product_of_ints_def
@@ -8217,6 +8217,164 @@ Definimos recursivamente:
 \Prod_{i=s}^{t-1} \tau(i) \ntimes \tau(t), & caso $s \leq t$. \\
 }
 \endmathcol
+
+%%}}}
+
+%%{{{ x: distributivity_over_iterative_sum 
+\exercise.
+%%%{{{ meta 
+\label distributivity_over_iterative_sum
+%%%}}}
+
+Adivinhe um lado direito interessante e demonstre:
+$\Sum_{i=s}^t c\tau(i) = {?}$.
+
+\hint
+$\Sum_{i=s}^t c\tau(i) = c\Sum_{i=s}^t \tau(i)$.
+
+%%}}}
+
+%%{{{ x: iterative_sum_distributes_over_addition 
+\exercise.
+%%%{{{ meta 
+\label iterative_sum_distributes_over_addition
+%%%}}}
+
+Mesma coisa:
+$\Sum_{i=s}^t \paren{\tau(i) + \sigma(i)} = {?}$.
+
+\hint
+$\Sum_{i=s}^t \paren{\tau(i) + \sigma(i)} = \paren{\Sum_{i=s}^t \tau(i)} + \paren{\Sum_{i=s}^t \sigma(i)}$.
+
+%%}}}
+
+%%{{{ x: iterative_sum_split 
+\exercise split.
+%%%{{{ meta 
+\label iterative_sum_split
+%%%}}}
+
+$\Sum_{i=s}^t \tau(i) = \Sum_{i=s}^{?} \tau(i) + \Sum_{i={?}}^t \tau(i)$.
+
+\hint
+Para qualquer $w$ tal que $s \leq w \leq t$, $\Sum_{i=s}^t \tau(i) = \Sum_{i=s}^{w-1} \tau(i) + \Sum_{i=w}^t \tau(i)$.
+
+%%}}}
+
+%%{{{ x: iterative_sum_index_shift 
+\exercise index shift.
+%%%{{{ meta 
+\label iterative_sum_index_shift
+%%%}}}
+
+$\Sum_{i=s}^t \tau(i) = \Sum_{i={?}}^{?} \tau(i-d)$.
+
+\hint
+$\Sum_{i=s}^t \tau(i) = \Sum_{i=s+d}^{t+d} \tau(i-d)$.
+
+%%}}}
+
+%%{{{ x: iterative_sum_count 
+\exercise.
+%%%{{{ meta 
+\label iterative_sum_count
+%%%}}}
+
+$\Sum_{i=s}^t 1 = {?}$
+
+\hint
+$
+\Sum_{i=s}^t 1 = \cases {
+t - s + 1, & caso $s \leq t$; \\
+0,         & caso $s > t$.
+}
+$
+
+%%}}}
+
+%%{{{ x: distributivity_over_iterative_product 
+\exercise.
+%%%{{{ meta 
+\label distributivity_over_iterative_product
+%%%}}}
+
+$\Prod_{i=s}^t c\tau(i) = {?}$.
+
+\hint
+$\Prod_{i=s}^t c\tau(i) = c^n\Prod_{i=s}^t \tau(i)$,
+onde $n = \cases {
+t - s + 1, & caso $s \leq t$; \\
+0,         & caso $s > t$.
+}$
+
+%%}}}
+
+%%{{{ x: iterative_product_distributes_over_multiplication 
+\exercise.
+%%%{{{ meta 
+\label iterative_product_distributes_over_multiplication
+%%%}}}
+
+$\Prod_{i=s}^t \paren{\tau(i) \ntimes \sigma(i)} = {?}$.
+
+\hint
+$\Prod_{i=s}^t \paren{\tau(i) \ntimes \sigma(i)} = \paren{\Prod_{i=s}^t \tau(i)} \ntimes \paren{\Prod_{i=s}^t \sigma(i)}$.
+
+%%}}}
+
+%%{{{ x: iterative_product_split 
+\exercise split.
+%%%{{{ meta 
+\label iterative_product_split
+%%%}}}
+
+$\Prod_{i=s}^t \tau(i) = \Prod_{i=s}^{?} \tau(i) + \Prod_{i={?}}^t \tau(i)$.
+
+\hint
+Para qualquer $w$ tal que $s \leq w \leq t$, $\Prod_{i=s}^t \tau(i) = \Prod_{i=s}^{w-1} \tau(i) + \Prod_{i=w}^t \tau(i)$.
+
+%%}}}
+
+%%{{{ x: iterative_product_index_shift 
+\exercise index shift.
+%%%{{{ meta 
+\label iterative_product_index_shift
+%%%}}}
+
+$\Prod_{i=s}^t \tau(i) = \Prod_{i={?}}^{?} \tau(i-d)$.
+
+\hint
+$\Prod_{i=s}^t \tau(i) = \Prod_{i=s+d}^{t+d} \tau(i-d)$.
+
+%%}}}
+
+%%{{{ x: iterative_product_exp 
+\exercise.
+%%%{{{ meta 
+\label iterative_product_exp
+%%%}}}
+
+$\Prod_{i=s}^t c^{\tau(i)} = {?}$
+
+\hint
+$\Prod_{i=s}^t c^{\tau(i)} = c^{\Sum_{i=s}^t \tau(i)}$.
+
+%%}}}
+
+%%{{{ complaint: sum_and_product_doing_too_much 
+\complaint.
+%%%{{{ meta 
+\label sum_and_product_doing_too_much
+%%%}}}
+
+Os \symq{$\Sum$} e \symq{$\Prod$} que definimos aqui estão fazendo uma mistura
+de trabalhos e isso não é uma idéia boa: eles mesmo geram uma lista de termos
+simultaneamente somando e multiplicando seus termos.
+Isso dificulta tanto o trabalho de definir e manipular certos objetos,
+quanto o trabalho de demonstrar teoremas sobre eles.
+Seria melhor separar o trabalho de gerar uma lista a partir duma
+expressão-padrão, um início, e um fim, e o trabalho de operar em forma
+generalizada nos seus componentes. Faremos isso no \ref[Recursion_induction].
 
 %%}}}
 
@@ -8316,21 +8474,6 @@ $$
 \Sum_{i=1}^n F_i^2 = F_n F_{n+1},
 $$
 onde $F_n$ o $n$-ésimo número Fibonacci.
-
-%%}}}
-
-%%{{{ remark: sum_and_product_doing_too_much 
-\remark.
-%%%{{{ meta 
-\label sum_and_product_doing_too_much
-%%%}}}
-
-Os \symq{$\Sum$} e \symq{$\Prod$} que definimos aqui estão fazendo uma mistura
-de trabalhos e isso não é uma idéia boa: eles mesmo geram uma lista de termos
-simultaneamente somando e multiplicando seus termos.  Seria melhor separar
-o trabalho de gerar uma lista a partir duma expressão-padrão, um início,
-e um fim, e o trabalho de operar em forma generalizada nos seus componentes.
-Faremos isso no \ref[Recursion_induction].
 
 %%}}}
 
