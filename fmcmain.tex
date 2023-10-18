@@ -8956,6 +8956,270 @@ Use a divisão de Euclides.
 \endsection
 %%}}}
 
+%%{{{ When_one_base_is_not_enough 
+\section Quando uma base não é suficiente.
+%%%{{{ meta 
+\label When_one_base_is_not_enough
+%%%}}}
+
+%%{{{ df: fibonacci 
+\definition Os números Fibonacci.
+%%%{{{ meta 
+\label fibonacci
+\defines
+    * Fibonacci!números
+    ;;
+\credits
+    * Fibonacci : números
+    ;;
+%%%}}}
+
+Definimos os \dterm{números Fibonacci} recursivamente assim:
+\mathcol
+    F_0     &= 0 \\
+    F_1     &= 1 \\
+    F_{n+2} &= F_{n+1} + F_n.
+\endmathcol
+
+%%}}}
+
+\TODO Computando seus valores.
+
+%%{{{ x: lucas 
+\exercise Os números Lucas.
+%%%{{{ meta 
+\label lucas
+\defines
+    * Lucas!números
+    ;;
+\indexes
+    * Lucas!números     seealso: Fibonacci
+    ;;
+\credits
+    * Lucas : números
+    ;;
+%%%}}}
+
+Os \dterm{números Lucas} são definidos similarmente:
+$$
+\align
+L_0     &= 2\\
+L_1     &= 1\\
+L_{n+2} &= L_{n+1} + L_n.
+\endalign
+$$
+Calcule o valor $L_{12}$.
+
+%%}}}
+
+%%{{{ prop: lucas_altdef_first_attempt 
+\proposition.
+%%%{{{ meta 
+\label lucas_altdef_first_attempt
+\indexes
+    * Fibonacci
+    ;;
+%%%}}}
+
+Para todo inteiro $n \geq 1$,
+seja $\ell : \nats\setminus\set0\to\nats$ a funcção definida pela equação
+$$
+    \ell(n) = F_{n-1} + F_{n+1},
+$$
+onde $F_n$ é o $n$-ésimo número {\Fibonacci}Fibonacci (veja~\ref[fibonacci]).
+Queremos mostrar que para todo $n \geq 1$, $L_n = \ell(n)$,
+onde $L_n$ é o $n$-ésimo número {\Lucas}Lucas (veja~\ref[lucas]).
+
+\wrongproof.
+Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
+Vamos primeiramente verificar que para $n=1$, realmente temos $L_n = \ell(n)$:
+\compute
+\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
+        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
+        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
+        &= 1              \\
+        &= L_1.           \by {def.~de $L_n$} \\
+\intertext{Seja $k\in\nats$ com $k\geq 2$, tal que $L_{k-1} = \ell(k-1)$.
+Realmente temos}
+L_k
+&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
+&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
+&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$} \\
+&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
+&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$} \\
+&= \ell(k).                                 \by {def.~de $\ell(n)$} \\
+\endcompute
+que termina nossa demonstração.
+
+%%}}}
+
+%%{{{ x: lucas_altdef_find_error 
+\exercise.
+%%%{{{ meta 
+\label lucas_altdef_find_error
+%%%}}}
+
+Na demonstração acima roubamos.
+Ache onde e explique como, e pense numa solução.
+
+%%}}}
+
+%%{{{ lucas_altdef_final 
+\proposition.
+%%%{{{ meta 
+\label lucas_altdef_final
+%%%}}}
+
+Com a notação da~\ref[lucas_altdef_first_attempt],
+para todo $n\geq 1$, $\ell(n) = L_n$.
+
+\proof.
+Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
+Vamos primeiramente verificar que para $n=1$ e $n=2$, realmente temos $L_n = \ell(n)$.
+Para $n=1$:
+\compute
+\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
+        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
+        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
+        &= 1              \\
+        &= L_1.           \by {def.~de $L_n$} \\
+\endcompute
+E para $n=2$:
+$$
+\xalignat2
+\computed {
+      L_2 &= L_1 + L_0  \by {def.~de $L_n$} \\
+          &= 1 + 2      \by {def.~de $L_n$} \\
+          &= 3          
+}
+&&
+\computed {
+\ell(2) &= F_1 + F_3          \by {def.~de $\ell(n)$} \\
+        &= 1 + F_2 + F_1      \by {def.~de $F_n$} \\
+        &= 1 + 1 + 1          \\
+        &= 3.
+}
+&
+\endxalignat
+$$
+Seja $k\in\nats$ com $k\geq 3$ tal que
+$$
+L_{k-1} = \ell(k-1)
+\qquad
+\text{e}
+\qquad
+L_{k-2} = \ell(k-2)
+$$
+(nossas \emph{duas} hipoteses indutivas).
+Vamos demonstrar que $L_k = \ell(k)$.
+Realmente temos
+\compute
+L_k
+&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
+&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
+&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$, $k\geq3$} \\
+&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
+&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$, $k\geq3$} \\
+&= \ell(k),                                 \by {def.~de $\ell(n)$} \\
+\endcompute
+que termina nossa demonstração.
+
+%%}}}
+
+%%{{{ x: new_proof_of_sum_of_threes_and_fives_with_three_bases 
+\exercise.
+%%%{{{ meta 
+\label new_proof_of_sum_of_threes_and_fives_with_three_bases
+%%%}}}
+
+Ache uma nova demonstração do~\ref[sum_of_threes_and_fives] por indução
+com três bases.
+
+\hint
+$k = (k-3) + 3$.
+
+\solution
+Seja $k\geq 8 + 3 = 11$ tal que $k-1$, $k-2$, e $k-3$
+podem ser escritos como somatórios de $3$'s e $5$'s (H.I.).
+Temos
+\compute
+k &= (k-3) + 3      \\
+  &= (3x + 5y) + 3  \quad\text{para alguns $x,y\in\nats$} \by {pela H.I.} \\
+  &= 3(x+1) + 5y.
+\endcompute
+Como precisamos a veracidade da proposição para o valor $k-3$,
+devemos mostrar as $3$ bases, para os inteiros $8$, $9$, e $10$:
+$$
+\alignat 2
+8  &= 3 + 5     &&= 3\ntimes 1 + 5\ntimes 1\\
+9  &= 3 + 3 + 3 &&= 3\ntimes 3 + 5\ntimes 0\\
+10 &= 5 + 5     &&= 3\ntimes 0 + 5\ntimes 2.
+\endalignat
+$$
+
+%%}}}
+
+%%{{{ two_ways_to_organize_inductive_step 
+\note Duas maneiras de organizar tua demonstração.
+%%%{{{ meta 
+\label two_ways_to_organize_inductive_step
+%%%}}}
+
+Ok, vamos supor que tu tá tentando demonstrar algo da forma
+$$
+\lforall {n \in \nats} {\phi(n)}
+$$
+por indução, e que tu decidiu usar duas bases
+(obviamente a $\phi(0)$ e a $\phi(1)$).
+Como seria teu passo indutivo?
+Tem duas maneiras boas para proceder agora:
+\crproofalt{Maneira 1:}
+<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k-2)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k)$.>>
+Nessa maneira, preciso tomar cuidado que nenhum inteiro menor que $k-2$ aparece
+em algum canto errado, pois não sei nada sobre eles; até pior pode ser
+que aparecem objetos que nem são definidos.
+\crproofalt{Maneira 2:}
+<<Seja $k\in\nats$ tal que $\phi(k)$\fact{H.I.1} e $\phi(k+1)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k+2)$.>>
+E agora preciso tomar o mesmo cuidado, só que agora com inteiros
+menores que~$k$.
+\eop
+\emph{Ambas as maneiras são corretas} e bem escritas e bem entendíveis
+e tudo mais---e dá pra variar também, não são
+únicas~(\ref[third_way_to_organize_inductive_step]).
+Qual vamos escolher?  Depende de gosto e às vezes do contexto também.
+Na maioria das vezes eu vou favorecer a primeira:
+meus olhos gostam da associação dos ``(H.I.$i$)'' com os $\phi(k-i)$.
+Na mesma linha de pensar, na segunda maneira as hipoteses indutivas são as
+$\phi(k)$ e $\phi(k+1)$, e o alvo seria o $\phi(k+2)$;
+então a (H.I.2) parece mais com o alvo do que com a (H.I.1).
+Ou seja: \emph{nos meus olhos}, os dados e o alvo ficam mais arrumados
+na maneira 1.
+Mas como falei: ambas corretas; questão de gosto; então consulte teus
+próprios olhos.
+
+%%}}}
+
+%%{{{ x: third_way_to_organize_inductive_step 
+\exercise.
+%%%{{{ meta 
+\label third_way_to_organize_inductive_step
+%%%}}}
+
+Qual seria a terceira ``óbvia'' maneira?
+Com que inteiros tem que tomar cuidado se escolhê-la?
+
+\solution
+<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k)$\fact{H.I.2}.
+Vou demonstrar que $\phi(k+1)$.>>
+Nessa maneira, preciso tomar cuidado com inteiros menores de $k-1$.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 %%%{{{ meta 
@@ -9059,6 +9323,95 @@ Demonstre que para todo $n \geq 5$,
 $$
 n^2 < 2^n.
 $$
+
+%%}}}
+
+%%{{{ prob: consecutive_fibs_are_coprime 
+\problem.
+%%%{{{ meta 
+\label consecutive_fibs_are_coprime
+\indexes
+    * Fibonacci!seqüência
+    ;;
+%%%}}}
+
+Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
+onde $F_n$ é o $n$-ésimo termo da seqüência
+Fibonacci~(\ref[fibonacci]).
+
+\hint
+Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
+
+\solution
+Vamos demonstrar o pedido por indução.
+A base
+$$
+\gcd {F_0} {F_1} = \gcd 0 1 = 1.
+$$
+Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
+Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
+Calculando,
+\compute
+\gcd {F_{k+1}} {F_{k+2}}
+    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
+    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
+    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
+    &= 1.                               \by {pela hipótese indutiva} \\
+\endcompute
+
+%%}}}
+
+%%{{{ prob: triminos 
+\problem Triminôs.
+%%%{{{ meta 
+\label triminos
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ prob: horses_and_birthdays 
+\problem Cavalos e aniversários.
+%%%{{{ meta 
+\label horses_and_birthdays
+%%%}}}
+
+Vamos demonstrar o seguinte:
+\quote
+<<Para todo $n$ natural, em qualquer conjunto de $n$ pessoas, só tem pessoas com o mesmo dia de aniversário.>>
+\endquote
+\proofstylize{Suposta demonstração.}
+\quote\it
+<<Por indução no $n$.
+\crproofpart {Base.}
+Trivial: em qualquer conjunto de $0$ pessoas, só tem pessoas com o mesmo aniversário, pois não tem nenhuma pessoa e logo não tem como achar pessoas de aniversários diferentes.
+\crproofpart {Passo indutivo.}
+Seja $k$ natural tal que \emph{em qualquer conjunto de $k$ pessoas, só tem pessoas com o mesmo dia de aniversário}.
+Seja $A$ conjunto de $k+1$ pessoas:
+$$
+A = \set{ p_0, p_1, \dotsc, p_{k-1}, p_k }.
+$$
+Considere os conjunto
+$$
+\align
+A'  &= \set{ p_0, p_1, \dotsc, p_{k-1} } \\
+A'' &= \set{      p_1, \dotsc, p_{k-1}, p_k }.
+\endalign
+$$
+Ambos os $A', A''$ têm $k$ pessoas, e logo pela hipótese indutiva todos os membros de $A'$ têm o mesmo aniversário entre si; e também todos os membros de $A''$ têm o mesmo aniversário entre si.
+Como a pessoa $p_1$ está no $A'$, todos os membros de $A'$ têm o mesmo aniversário com o $p_1$.
+Mas a pessoa $p_1$ também etsá no $A''$, e logo todos os membros de $A''$ têm o mesmo aniversário com o $p_1$.
+Ou seja:
+todos os $p_0, p_1, \dotsc, p_{k-1}, p_k$ têm aniversario no mesmo dia.>>
+\endquote
+Numa maneira parecida podemos demonstrar várias afirmações doidas, como por exemplo a seguinte:
+\quote
+<<Para todo $n$ natural, em qualquer conjunto de $n$ cavalos, só tem cavalos da mesma cor.>>
+\endquote
+Obviamente o que ``demonstramos'' é errado, e logo na demonstração existe pelo menos um erro---%
+caso contrário seria uma indicação que o princípio da indução não é válido!
+Qual é?
 
 %%}}}
 
@@ -17482,272 +17835,6 @@ Na verdade, $\leq$ é ainda mais legal: olhe no~\ref[natleq_woset].
 \endsection
 %%}}}
 
-%%{{{ When_one_base_is_not_enough 
-\section Quando uma base não é suficiente.
-%%%{{{ meta 
-\label When_one_base_is_not_enough
-%%%}}}
-
-%%{{{ df: fibonacci 
-\definition Os números Fibonacci.
-%%%{{{ meta 
-\label fibonacci
-\defines
-    * Fibonacci!números
-    ;;
-\credits
-    * Fibonacci : números
-    ;;
-%%%}}}
-
-Definimos os \dterm{números Fibonacci} recursivamente assim:
-$$
-\align
-    F_0     &= 0 \\
-    F_1     &= 1 \\
-    F_{n+2} &= F_{n+1} + F_n.
-\endalign
-$$
-
-%%}}}
-
-\TODO Computando seus valores.
-
-%%{{{ x: lucas 
-\exercise Os números Lucas.
-%%%{{{ meta 
-\label lucas
-\defines
-    * Lucas!números
-    ;;
-\indexes
-    * Lucas!números     seealso: Fibonacci
-    ;;
-\credits
-    * Lucas : números
-    ;;
-%%%}}}
-
-Os \dterm{números Lucas} são definidos similarmente:
-$$
-\align
-L_0     &= 2\\
-L_1     &= 1\\
-L_{n+2} &= L_{n+1} + L_n.
-\endalign
-$$
-Calcule o valor $L_{12}$.
-
-%%}}}
-
-%%{{{ prop: lucas_altdef_first_attempt 
-\proposition.
-%%%{{{ meta 
-\label lucas_altdef_first_attempt
-\indexes
-    * Fibonacci
-    ;;
-%%%}}}
-
-Para todo inteiro $n \geq 1$,
-seja $\ell : \nats\setminus\set0\to\nats$ a funcção definida pela equação
-$$
-    \ell(n) = F_{n-1} + F_{n+1},
-$$
-onde $F_n$ é o $n$-ésimo número {\Fibonacci}Fibonacci (veja~\ref[fibonacci]).
-Queremos mostrar que para todo $n \geq 1$, $L_n = \ell(n)$,
-onde $L_n$ é o $n$-ésimo número {\Lucas}Lucas (veja~\ref[lucas]).
-
-\wrongproof.
-Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
-Vamos primeiramente verificar que para $n=1$, realmente temos $L_n = \ell(n)$:
-\compute
-\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
-        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
-        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
-        &= 1              \\
-        &= L_1.           \by {def.~de $L_n$} \\
-\intertext{Seja $k\in\nats$ com $k\geq 2$, tal que $L_{k-1} = \ell(k-1)$.
-Realmente temos}
-L_k
-&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
-&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
-&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$} \\
-&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
-&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$} \\
-&= \ell(k).                                 \by {def.~de $\ell(n)$} \\
-\endcompute
-que termina nossa demonstração.
-
-%%}}}
-
-%%{{{ x: lucas_altdef_find_error 
-\exercise.
-%%%{{{ meta 
-\label lucas_altdef_find_error
-%%%}}}
-
-Na demonstração acima roubamos.
-Ache onde e explique como, e pense numa solução.
-
-%%}}}
-
-%%{{{ lucas_altdef_final 
-\proposition.
-%%%{{{ meta 
-\label lucas_altdef_final
-%%%}}}
-
-Com a notação da~\ref[lucas_altdef_first_attempt],
-para todo $n\geq 1$, $\ell(n) = L_n$.
-
-\proof.
-Nos vamos demonstrar por indução que \emph{para todo $n \geq 1$, $L_n = \ell(n)$}.
-Vamos primeiramente verificar que para $n=1$ e $n=2$, realmente temos $L_n = \ell(n)$.
-Para $n=1$:
-\compute
-\ell(1) &= F_0 + F_2      \by {def.~de $\ell(n)$} \\
-        &= 0 + F_1 + F_0  \by {def.~de $F_n$} \\
-        &= 0 + 1 + 0      \by {def.~de $F_n$} \\
-        &= 1              \\
-        &= L_1.           \by {def.~de $L_n$} \\
-\endcompute
-E para $n=2$:
-$$
-\xalignat2
-\computed {
-      L_2 &= L_1 + L_0  \by {def.~de $L_n$} \\
-          &= 1 + 2      \by {def.~de $L_n$} \\
-          &= 3          
-}
-&&
-\computed {
-\ell(2) &= F_1 + F_3          \by {def.~de $\ell(n)$} \\
-        &= 1 + F_2 + F_1      \by {def.~de $F_n$} \\
-        &= 1 + 1 + 1          \\
-        &= 3.
-}
-&
-\endxalignat
-$$
-Seja $k\in\nats$ com $k\geq 3$ tal que
-$$
-L_{k-1} = \ell(k-1)
-\qquad
-\text{e}
-\qquad
-L_{k-2} = \ell(k-2)
-$$
-(nossas \emph{duas} hipoteses indutivas).
-Vamos demonstrar que $L_k = \ell(k)$.
-Realmente temos
-\compute
-L_k
-&= L_{k-1} + L_{k-2}                        \by {def.~de $L_n$} \\
-&= \ell(k-1) + \ell(k-2)                    \by {H.I.} \\
-&= (F_{k-2} + F_k) + (F_{k-3} + F_{k-1})    \by {def.~de $\ell(n)$, $k\geq3$} \\
-&= (F_{k-2} + F_{k-3}) + (F_k + F_{k-1})    \by {ass.~e com.~de $+$} \\
-&= F_{k-1} + F_{k+1}                        \by {def.~de $F_n$, $k\geq3$} \\
-&= \ell(k),                                 \by {def.~de $\ell(n)$} \\
-\endcompute
-que termina nossa demonstração.
-
-%%}}}
-
-%%{{{ x: new_proof_of_sum_of_threes_and_fives_with_three_bases 
-\exercise.
-%%%{{{ meta 
-\label new_proof_of_sum_of_threes_and_fives_with_three_bases
-%%%}}}
-
-Ache uma nova demonstração do~\ref[sum_of_threes_and_fives] por indução
-com três bases.
-
-\hint
-$k = (k-3) + 3$.
-
-\solution
-Seja $k\geq 8 + 3 = 11$ tal que $k-1$, $k-2$, e $k-3$
-podem ser escritos como somatórios de $3$'s e $5$'s (H.I.).
-Temos
-\compute
-k &= (k-3) + 3      \\
-  &= (3x + 5y) + 3  \quad\text{para alguns $x,y\in\nats$} \by {pela H.I.} \\
-  &= 3(x+1) + 5y.
-\endcompute
-Como precisamos a veracidade da proposição para o valor $k-3$,
-devemos mostrar as $3$ bases, para os inteiros $8$, $9$, e $10$:
-$$
-\alignat 2
-8  &= 3 + 5     &&= 3\ntimes 1 + 5\ntimes 1\\
-9  &= 3 + 3 + 3 &&= 3\ntimes 3 + 5\ntimes 0\\
-10 &= 5 + 5     &&= 3\ntimes 0 + 5\ntimes 2.
-\endalignat
-$$
-
-%%}}}
-
-%%{{{ two_ways_to_organize_inductive_step 
-\note Duas maneiras de organizar tua demonstração.
-%%%{{{ meta 
-\label two_ways_to_organize_inductive_step
-%%%}}}
-
-Ok, vamos supor que tu tá tentando demonstrar algo da forma
-$$
-\lforall {n \in \nats} {\phi(n)}
-$$
-por indução, e que tu decidiu usar duas bases
-(obviamente a $\phi(0)$ e a $\phi(1)$).
-Como seria teu passo indutivo?
-Tem duas maneiras boas para proceder agora:
-\crproofalt{Maneira 1:}
-<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k-2)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k)$.>>
-Nessa maneira, preciso tomar cuidado que nenhum inteiro menor que $k-2$ aparece
-em algum canto errado, pois não sei nada sobre eles; até pior pode ser
-que aparecem objetos que nem são definidos.
-\crproofalt{Maneira 2:}
-<<Seja $k\in\nats$ tal que $\phi(k)$\fact{H.I.1} e $\phi(k+1)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k+2)$.>>
-E agora preciso tomar o mesmo cuidado, só que agora com inteiros
-menores que~$k$.
-\eop
-\emph{Ambas as maneiras são corretas} e bem escritas e bem entendíveis
-e tudo mais---e dá pra variar também, não são
-únicas~(\ref[third_way_to_organize_inductive_step]).
-Qual vamos escolher?  Depende de gosto e às vezes do contexto também.
-Na maioria das vezes eu vou favorecer a primeira:
-meus olhos gostam da associação dos ``(H.I.$i$)'' com os $\phi(k-i)$.
-Na mesma linha de pensar, na segunda maneira as hipoteses indutivas são as
-$\phi(k)$ e $\phi(k+1)$, e o alvo seria o $\phi(k+2)$;
-então a (H.I.2) parece mais com o alvo do que com a (H.I.1).
-Ou seja: \emph{nos meus olhos}, os dados e o alvo ficam mais arrumados
-na maneira 1.
-Mas como falei: ambas corretas; questão de gosto; então consulte teus
-próprios olhos.
-
-%%}}}
-
-%%{{{ x: third_way_to_organize_inductive_step 
-\exercise.
-%%%{{{ meta 
-\label third_way_to_organize_inductive_step
-%%%}}}
-
-Qual seria a terceira ``óbvia'' maneira?
-Com que inteiros tem que tomar cuidado se escolhê-la?
-
-\solution
-<<Seja $k\in\nats$ tal que $\phi(k-1)$\fact{H.I.1} e $\phi(k)$\fact{H.I.2}.
-Vou demonstrar que $\phi(k+1)$.>>
-Nessa maneira, preciso tomar cuidado com inteiros menores de $k-1$.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 %%%{{{ meta 
@@ -17900,41 +17987,6 @@ $h$ não mapeia ninguém ao $0$.
 
 %%}}}
 
-%%{{{ prob: consecutive_fibs_are_coprime 
-\problem.
-%%%{{{ meta 
-\label consecutive_fibs_are_coprime
-\indexes
-    * Fibonacci!seqüência
-    ;;
-%%%}}}
-
-Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
-onde $F_n$ é o $n$-ésimo termo da seqüência
-Fibonacci~(\ref[fibonacci]).
-
-\hint
-Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
-
-\solution
-Vamos demonstrar o pedido por indução.
-A base
-$$
-\gcd {F_0} {F_1} = \gcd 0 1 = 1.
-$$
-Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
-Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
-Calculando,
-\compute
-\gcd {F_{k+1}} {F_{k+2}}
-    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
-    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
-    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
-    &= 1.                               \by {pela hipótese indutiva} \\
-\endcompute
-
-%%}}}
-
 %%{{{ prob: natleq_woset 
 \problem.
 %%%{{{ meta 
@@ -18006,60 +18058,6 @@ Qualquer Nat é par ou ímpar.
 
 \hint
 Indução!
-
-%%}}}
-
-%%{{{ prob: triminos 
-\problem Triminôs.
-%%%{{{ meta 
-\label triminos
-%%%}}}
-
-\TODO Escrever.
-
-%%}}}
-
-%%{{{ prob: horses_and_birthdays 
-\problem Cavalos e aniversários.
-%%%{{{ meta 
-\label horses_and_birthdays
-%%%}}}
-
-Vamos demonstrar o seguinte:
-\quote
-<<Para todo $n$ natural, em qualquer conjunto de $n$ pessoas, só tem pessoas com o mesmo dia de aniversário.>>
-\endquote
-\proofstylize{Suposta demonstração.}
-\quote\it
-<<Por indução no $n$.
-\crproofpart {Base.}
-Trivial: em qualquer conjunto de $0$ pessoas, só tem pessoas com o mesmo aniversário, pois não tem nenhuma pessoa e logo não tem como achar pessoas de aniversários diferentes.
-\crproofpart {Passo indutivo.}
-Seja $k$ natural tal que \emph{em qualquer conjunto de $k$ pessoas, só tem pessoas com o mesmo dia de aniversário}.
-Seja $A$ conjunto de $k+1$ pessoas:
-$$
-A = \set{ p_0, p_1, \dotsc, p_{k-1}, p_k }.
-$$
-Considere os conjunto
-$$
-\align
-A'  &= \set{ p_0, p_1, \dotsc, p_{k-1} } \\
-A'' &= \set{      p_1, \dotsc, p_{k-1}, p_k }.
-\endalign
-$$
-Ambos os $A', A''$ têm $k$ pessoas, e logo pela hipótese indutiva todos os membros de $A'$ têm o mesmo aniversário entre si; e também todos os membros de $A''$ têm o mesmo aniversário entre si.
-Como a pessoa $p_1$ está no $A'$, todos os membros de $A'$ têm o mesmo aniversário com o $p_1$.
-Mas a pessoa $p_1$ também etsá no $A''$, e logo todos os membros de $A''$ têm o mesmo aniversário com o $p_1$.
-Ou seja:
-todos os $p_0, p_1, \dotsc, p_{k-1}, p_k$ têm aniversario no mesmo dia.>>
-\endquote
-Numa maneira parecida podemos demonstrar várias afirmações doidas, como por exemplo a seguinte:
-\quote
-<<Para todo $n$ natural, em qualquer conjunto de $n$ cavalos, só tem cavalos da mesma cor.>>
-\endquote
-Obviamente o que ``demonstramos'' é errado, e logo na demonstração existe pelo menos um erro---%
-caso contrário seria uma indicação que o princípio da indução não é válido!
-Qual é?
 
 %%}}}
 
