@@ -9803,13 +9803,13 @@ $$
 \tubrace {d \divides a \mland d \divides b}
          {divisor comun}
 \mland
-\tubrace {\lforallt {\text{$d'$ divisor comum}} {$d$ é melhor que $d'$}}
-         {``melhor''}.
+\tubrace {\lforall {\text{$c$ divisor comum}} {c \divides d}}
+         {o \dq{melhor} dos divisores comuns}.
 $$
 Nesse caso, escrevemos:
-\mathmistake
+$$
 d = \gcd a b.
-\endmathmistake
+$$
 Se $1 = \gcd a b$, dizemos que os $a,b$ são \dterm{coprimos} (entre si).
 
 %%}}}
@@ -9819,7 +9819,7 @@ Se $1 = \gcd a b$, dizemos que os $a,b$ são \dterm{coprimos} (entre si).
 %%%{{{ meta 
 %%%}}}
 
-A~\ref[a_gcd] tem um erro: o símbolo $\gcd a b$ não foi bem-definido!
+Parece que a~\ref[a_gcd] tem um erro: o símbolo $\gcd a b$ não foi bem-definido!
 O que precisamos demonstrar para conseguir realmente a tipagem
 $$
 \gcd \uhole \uhole \oftype \Int \times \Int \to \Int?
@@ -9832,7 +9832,7 @@ Duas coisas:
 \emph{para todos inteiros $a$, $b$, existe inteiro $d$ que satisfaz as relações acima.}
 \eop
 \proofstylize{Unicidade:}
-\emph{se $d$, $d'$, são inteiros que satisfazem essas relações, então $d=d'$.}
+\emph{se $g$, $g'$, são inteiros que satisfazem essas relações, então $g=g'$.}
 
 %%}}}
 
@@ -9920,6 +9920,22 @@ d = \gcd a b
 \mland
 \tubrace { d\in\nnints \mland \lforall c {\paren{c \divides a \mland c \divides b} \implies c \divides d} } {o máximo}
 $$
+
+%%}}}
+
+%%{{{ x: coprime_def_needs_a_proof 
+\exercise.
+%%%{{{ meta 
+\label coprime_def_needs_a_proof
+%%%}}}
+
+Na \ref[a_gcd] definimos o que significa que dois inteiros $a,b$
+são coprimos (entre si).  Para essa definição \dq{compilar}
+algo precisa ser demonstrado.  Enuncie e demonstre.
+
+\solution
+Precisamos demonstrar a comutatividade: $\gcd a b = \gcd b a$,
+que faz parte do \ref[gcd_op_properties].
 
 %%}}}
 
