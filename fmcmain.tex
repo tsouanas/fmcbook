@@ -9266,24 +9266,19 @@ Seguindo o teorema acima, parece que não precisamos demonstrar uma ``base''
 na indução forte.
 Critique a seguinte afirmação:
 \quote
-Quando quero demonstrar um teorema da forma
-$\lforall n {\phi(n)}$
-usando indução, eu preciso demostrar uma(s) base(s)
-$\phi(0), \phi(1), \dotsc, \phi(b)$
-e depois demonstrar o $\phi(k+1)$,
-dado apenas umas $b+1$ hipoteses:
-$\phi(k), \phi(k-1), \dotsc, \phi(k-b)$.
-Por outro lado, usando indução forte eu preciso mostrar menos
-coisas: não tenho que mostrar nenhuma base;
-e, além disso, no meu esforço para demonstrar o $\phi(k+1)$,
-eu não vou ter apenas umas poucas hipoteses, mas
-todos os $\phi(i)$ para $i<k+1$.
-Como os dois princípios são válidos no $\nats$,
-eu vou sempre usar indução forte.
+Quando quero demonstrar um teorema da forma $\lforall n {\phi(n)}$ usando indução,
+eu preciso demostrar uma(s) base(s) $\phi(0), \phi(1), \dotsc, \phi(b-1)$
+e depois demonstrar $\phi(k)$ para algum $k$ sobre qual tenho dadas as $b$ hipoteses:
+$\phi(k-1), \phi(k-2), \dotsc, \phi(k-b)$.
+Por outro lado, usando indução forte eu preciso mostrar menos coisas:
+não tenho nenhuma base para demonstrar; e, além disso, no meu esforço
+para demonstrar o $\phi(k)$, eu não vou ter apenas umas poucas $b$ hipoteses indutivas,
+mas sim todos os $\phi(i)$, um para cada $i<k$.
+Como os dois princípios são válidos, eu vou sempre usar indução forte.
 \endquote
 
 \hint
-Quantos $i\in\nats$ satisfazem $i < 0$?
+Quantos $i\in\nnints$ satisfazem $i < 0$?
 
 %%}}}
 
@@ -9323,41 +9318,6 @@ Demonstre que para todo $n \geq 5$,
 $$
 n^2 < 2^n.
 $$
-
-%%}}}
-
-%%{{{ prob: consecutive_fibs_are_coprime 
-\problem.
-%%%{{{ meta 
-\label consecutive_fibs_are_coprime
-\indexes
-    * Fibonacci!seqüência
-    ;;
-%%%}}}
-
-Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
-onde $F_n$ é o $n$-ésimo termo da seqüência
-Fibonacci~(\ref[fibonacci]).
-
-\hint
-Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
-
-\solution
-Vamos demonstrar o pedido por indução.
-A base
-$$
-\gcd {F_0} {F_1} = \gcd 0 1 = 1.
-$$
-Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
-Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
-Calculando,
-\compute
-\gcd {F_{k+1}} {F_{k+2}}
-    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
-    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
-    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
-    &= 1.                               \by {pela hipótese indutiva} \\
-\endcompute
 
 %%}}}
 
@@ -9975,8 +9935,7 @@ Podemos já demonstrar umas propriedades básicas de m.d.c.
 \label gcd_signs
 %%%}}}
 
-O m.d.c. não liga sobre sinais:
-para quaisquer inteiros $a,b$,
+Um m.d.c.~não enxerga sinais: para quaisquer inteiros $a,b$,
 $$
 \gcd a b
 = \gcd a {-b}
@@ -9996,7 +9955,7 @@ Sejam $a,b,c$ inteiros.  Logo:
 \mathcall
 &\gcd a a = a                           \called {idempotência} \\
 &\gcd a 0 = a                           \called {identidade-R} \\
-&\gcd a 1 = 1                           \called {absorvente-R} \\
+&\gcd a 1 = 1                           \called {absorção-R} \\
 &\gcd a b = \gcd b a                    \called {comutatividade} \\
 &\gcd {\gcd a b} c = \gcd a {\gcd b c}  \called {associatividade}
 \endmathcall
@@ -10168,6 +10127,41 @@ Seja $c\in\ints$ tal que $c \divides a$ e $c \divides {a+b}$.
 Logo, $c \divides a - (a+b)=-b$.  Concluimos que $c \divides b$, então
 $c$ é um divisor comum dos $a$ e $b$, então $c \divides d$ pela definição do $d$
 como m.d.c.~dos $a$ e $b$.
+
+%%}}}
+
+%%{{{ x: consecutive_fibs_are_coprime 
+\exercise.
+%%%{{{ meta 
+\label consecutive_fibs_are_coprime
+\indexes
+    * Fibonacci!seqüência
+    ;;
+%%%}}}
+
+Demonstre que para todo $n\in\nats$, $\gcd {F_n} {F_{n+1}} = 1$,
+onde $F_n$ é o $n$-ésimo termo da seqüência
+Fibonacci~(\ref[fibonacci]).
+
+\hint
+Tu não pulou o~\ref[gcd_of_two_is_gcd_of_one_plus_sum], certo?
+
+\solution
+Vamos demonstrar o pedido por indução.
+A base
+$$
+\gcd {F_0} {F_1} = \gcd 0 1 = 1.
+$$
+Seja $k\in\nats$ tal que $\gcd {F_k} {F_{k+1}} = 1$\fact{HI}.
+Precisamos mostrar que $\gcd {F_{k+1}} {F_{k+2}} = 1$.
+Calculando,
+\compute
+\gcd {F_{k+1}} {F_{k+2}}
+    &= \gcd {F_{k+1}} {F_{k+1} + F_k}   \by {pela definição da $F_n$} \\
+    &= \gcd {F_{k+1}} {F_k}             \by {pelo~\ref[gcd_of_two_is_gcd_of_one_plus_sum], com $a\asseq F_{k+1},\ b\asseq F_k$} \\
+    &= \gcd {F_k} {F_{k+1}}             \by {pelo~\ref[gcd_op_properties]} \\
+    &= 1.                               \by {pela hipótese indutiva} \\
+\endcompute
 
 %%}}}
 
