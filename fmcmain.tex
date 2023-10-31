@@ -14596,8 +14596,6 @@ Demonstre a parte (ii) do~\ref[rarity_of_fermat_pseudoprimes].
 \label Residue_systems
 %%%}}}
 
-\TODO terminar.
-
 %%{{{ df: residue_systems_modulo_int 
 \definition.
 %%%{{{ meta 
@@ -14607,29 +14605,107 @@ Demonstre a parte (ii) do~\ref[rarity_of_fermat_pseudoprimes].
     * sistema completo de resíduos
     * sistema reduzido de resíduos
     ;;
+\indexes
+    * s.r.r.     see: teorema reduzido de resíduos
+    * s.c.r.     see: sistema completo de resíduos
+    ;;
 %%%}}}
 
 Se $x \cong y \pmod m$ dizemos que $y$ é \dterm{um resíduo de $x$ módulo $m$}.
-Seja conjunto $R = \set{r_1,r_2,\dotsc,r_n}$ de inteiros.
-Chamamos o $R$ de \dterm{sistéma completo de resíduos módulo $m$} sse
-para todo inteiro $x$ existe único $r \in R$ tal que $r$ é um resíduo de $x$ módulo $m$.
-Chamamos o $R$ de \dterm{sistéma reduzido de resíduos módulo $m$} sse:
-(i) todos os membros de $R$ são coprimos com $m$;
-(ii) $r_i \congmod m r_j$ implica $i=j$;
-(iii) para todo inteiro $x$ coprimo com $m$, existe $r \in R$ tal que
+Seja $S = \set{r_1,r_2,\dotsc,r_n}$ um conjunto de inteiros.
+Chamamos o $S$ de \dterm{sistéma completo de resíduos módulo $m$} sse
+para todo inteiro $x$ existe único $r \in S$ tal que $r$ é um resíduo de $x$ módulo $m$.
+Ou seja, cada inteiro tem exatamente um representante seu (do seu time) nesse conjunto $R$.
+Chamamos o $S$ de \dterm{sistéma reduzido de resíduos módulo $m$} sse:
+(i) todos os membros de $S$ são coprimos com $m$;
+(ii) $r_i \congmod m r_j$ implica $i=j$ (ou seja, os membros de $R$ são distintos dois-a-dois módulo $m$);
+(iii) para todo inteiro $x$ coprimo com $m$, existe $r \in S$ tal que
 $r$ é um resíduo de $x$ módulo $m$.
+Se falar apenas de sistema completo ({s.c.}) ou de sistema reduzido ({s.r.})
+sem mencionar o módulo $m$, é porque o consideramos implícito pelo contexto.
 
 %%}}}
 
-%%{{{ x: R complete => aR complete 
+%%{{{ x: all s.r. of the same type have the same cardinality 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
-Sejam $a,m$ coprimos, e $R = \set{r_1, r_2, \dotsc, r_n}$ um sistema
-completo de resíduos módulo $m$.
-Então o conjunto $aR = \set {ar_1, ar_2, \dotsc, ar_n}$ também é um sistéma
-completo de resíduos módulo $m$.
+Todos os sistemas de resíduos módulo $m$ do mesmo tipo (completo ou reduzido)
+têm a mesma cardinalidade entre si.
+
+%%}}}
+
+%%{{{ notation: first definition of φ(m) 
+\notation.
+%%%{{{ meta 
+%%%}}}
+
+Denotamos a cardinalide (comum) dos sistemas \emph{reduzidos}
+de resíduos módulo $m$ por $\tot m$.
+Investigamos a função $\tot$ logo na \ref[Enter_euler].
+
+%%}}}
+
+%%{{{ Systems for free 
+\note Sistemas de graça.
+%%%{{{ meta 
+%%%}}}
+
+Tendo um sistema (completo ou reduzido) de resíduos módulo $m$, ganhamos \dq{gratuitamente}
+outros sistemas (do mesmo tipo) de resíduos módulo o mesmo $m$.
+A idéia dos próximos exercícios é investigar o que podemos concluir se começar
+mexendo com um tal sistema $S$ para gerar outros.
+O que podemos concluir sobre o $S + \ell$?  Sobre o $aS$?
+Virando as mesas, se por acaso o $R + \ell$ ou o $aS$ acaba,
+sendo sistemas também, o que podemos concluir sobre o $\ell$?  Sobre o $a$?
+
+%%}}}
+
+\spoiler.
+
+%%{{{ x: C complete ⇒ C + ℓ complete 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Sejam $C$ um sistema completo de resíduos módulo $m$
+Então o conjunto $C + \ell$ também é um sistéma completo de resíduos módulo $m$.
+
+%%}}}
+
+%%{{{ x: C complete ⇒ (aC complete ⇔ coprime a,m) 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Sejam $C$ sistema completo e $a$ inteiro.
+Suponha que $aC$ também é um sistema completo.
+O que podes concluir sobre o $a$?
+O recíproco da tua resposta é válido?
+
+%%}}}
+
+%%{{{ x: R reduced ⇒ (R + ℓ reduced ⇔ ℓ ≡ₘ 0) 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Sejam $R$ sistema reduzido e $\ell$ inteiro.
+Suponha que $R + \ell$ também é um sistema reduzido.
+O que podes concluir sobre o $\ell$?
+
+%%}}}
+
+%%{{{ x: R reduced ⇒ (aR reduced ⇔ coprime a,m) 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Seja $R$ sistema reduzido e $a$ inteiro.
+Suponha que $aR$ também é um sistema reduzido.
+O que podes concluir sobre o $a$?
+O recíproco da tua resposta é válido?
 
 %%}}}
 
@@ -14639,41 +14715,31 @@ completo de resíduos módulo $m$.
 %%%}}}
 
 Usamos a palavra \dq{sistema} em vez da \dq{conjunto}.  Por quê?
+A idéia é que estamos interessados não apenas nos membros de tais conjuntos,
+mas sim na estrutura algébrica que herdam dos inteiros.
+Os exercícios seguintes devem deixar isso mais claro.
 
 %%}}}
 
-%%{{{ x: R reduced => R (·)-closed-modulo-m
+%%{{{ x: R complete => R (int)-closed-modulo-m 
 \exercise.
 %%%{{{ meta 
 %%%}}}
 
-$R = \set{r_1, r_2, \dotsc, r_n}$ um sistema
+Seja $R = \set{r_1, r_2, \dotsc, r_m}$ um sistema
+completo de resíduos módulo $m$.
+Mostre que $R$ é fechado módulo $m$ sobre a estrutura algébrica dos inteiros ($0$, $1$, $(+)$, $(\ntimes)$, $(-\uhole)$). 
+
+%%}}}
+
+%%{{{ x: R reduced => R (·)-closed-modulo-m 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Seja $R = \set{r_1, r_2, \dotsc, r_n}$ um sistema
 reduzido de resíduos módulo $m$.
 Então $R$ é $(\ntimes)$-fechado módulo $m$.
-
-%%}}}
-
-%%{{{ x: R reduced => aR reduced 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Sejam $a,m$ coprimos, e $R = \set{r_1, r_2, \dotsc, r_n}$ um sistema
-reduzido de resíduos módulo $m$.
-Então o conjunto $aR = \set {ar_1, ar_2, \dotsc, ar_n}$ também é um sistéma
-reduzido de resíduos módulo $m$.
-
-%%}}}
-
-%%{{{ x: R reduced => R (·)-closed-modulo-m
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-$R = \set{r_1, r_2, \dotsc, r_n}$ um sistema
-reduzido de resíduos módulo $m$.
-Então o conjunto $aR = \set {ar_1, ar_2, \dotsc, ar_n}$ também é um sistéma
-reduzido de resíduos módulo $m$.
 
 %%}}}
 
