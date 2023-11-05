@@ -13212,6 +13212,38 @@ uma maneira legal de achar inversos módulo um inteiro.
 
 %%}}}
 
+%%{{{ thm: wilsons_theorem 
+\theorem Wilson.
+%%%{{{ meta 
+\label wilsons_theorem
+%%%}}}
+
+Seja $p$ inteiro.
+$$
+\text{$p$ primo}
+\iff
+(p-1)! \congmod p {-1}.
+$$
+
+\proof Demonstrarás agora no~\ref[wilsons_theorem_proof].
+
+%%}}}
+
+%%{{{ x: wilsons_theorem_proof 
+\exercise.
+%%%{{{ meta 
+\label wilsons_theorem_proof
+%%%}}}
+
+Demonstre o~\ref[wilsons_theorem_proof].
+
+\hint
+Para a {\rldir}, considere sua contrapositiva.
+Para a {\lrdir}, lembre que os $(\ntimes)$-inversos vêm
+em parzinhos (uns casando com eles mesmo).
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -14494,8 +14526,6 @@ Investigamos aqui o problema seguinte:
 \proclaim{dado um inteiro $x$, verifique se $x$ é primo ou não.}
 %%}}}
 
-\TODO Terminar.
-
 %%{{{ What we have so far 
 \note O que temos até agora.
 %%%{{{ meta 
@@ -14523,11 +14553,96 @@ Aqui \wq{pequena em comparação} significa de ordem de complexidade menor.
 
 %%}}}
 
-\TODO Wilson.
+%%{{{ criterion: wilson_criterion
+\criterion Wilson.
+%%%{{{ meta 
+\label wilson_criterion
+%%%}}}
 
-\TODO Hipotese chinesa.
+Para qualquer inteiro $p$,
+$$
+\text{$p$ primo}
+\iff
+(p-1)! \congmod p {-1}.
+$$
 
-\TODO Numeros Carmichael.
+\proof Demonstrado no~\ref[wilsons_theorem].
+
+%%}}}
+
+%%{{{ chinese_hypothesis 
+\note Hipotese chinesa.
+%%%{{{ meta 
+\label chinese_hypothesis
+%%%}}}
+
+Começando testar uns números contra o teste de Fermat, observamos que
+todos que \dq{são pegos} por ele, já estão pegos aplicando o teste
+$2$-fermatinho.  Assim parece que nem precisamos testar contra os
+$a$-fermatinhos para $a > 2$.
+Essa hipotese é conhecida como \dterm{hipotese chinesa:}
+$$
+\lforall x
+    {
+      \lexists {1 < a < x - 1} {a^x \ncongmod x a}
+      \implies
+      2^x \ncongmod x 2
+    }.
+$$
+É fácil ver como tal conjectura chegou a ser estipulada: de fato, todos
+os inteiros até o $340$ são testemunhas dela.  Mas é um $(\lforall)$ que
+está sendo alegado aqui, e não há quantidade suficiente de testemunhas
+que podemos testar para de fato confiar nela.
+Surpreendentemente, o próximo número, o $341$ é o primeiro contraexemplo
+para essa hipotese: de fato, $2^341 \congmod {341} 2$, mas mesmo assim
+tem $a$-fermatinho que o $341$ não consegue enganar.
+
+%%}}}
+
+%%{{{ x: fooler_of_chinese 
+\exercise Enganador da chinesa.
+%%%{{{ meta 
+\label fooler_of_chinese
+%%%}}}
+
+Verique que $2^{341} \ncongmod 341 2$, e que $341$ não consegue enganar mesmo o fermatinho:
+ache um $a$-fermatinho por qual o $341$ é pego.
+
+%%}}}
+
+%%{{{ Carmichael_numbers 
+\note Números Carmichael.
+%%%{{{ meta 
+\label Carmichael_numbers
+\defines
+    * número!Carmichael
+    ;;
+\credits
+    * Carmichael
+    ;;
+\indexes
+    * Carmichael!número   see: Carmichael
+    ;;
+%%%}}}
+
+O $341$ foi o primeiro que conseguiu enganar o $2$-fermatinho, mas
+mesmo assim não conseguiu enganar o próprio fermatinho,
+como tu descubriu no \ref[fooler_of_chinese], achando um $a$ tal
+que o $a$-fermatinho pegou o $341$ em flagrante.
+Continuando testando os próximos números, parece de novo que
+ninguém consegue enganar o fermatinho.
+Novamente tal conclusão é errada: chegando no número $561$ encontramos
+o primeiro exemplo de enganador de fermatinho.
+O $561$ não é primo ($561 = 3 \ntimes 11 \ntimes 17$), mas mesmo assim
+ele consegue enganar todos os $a$-fermatinhos!
+Tais inteiros chamamos de \dterm{números Carmichael}, e eles são
+bem raros em comparação com os primos---algo que vai acabar
+facilitando nossa vida daqui a pouco.
+Para um tempão não sabíamos se há uma quantidade infinita deles ou não;
+de fato, há uma infinidade de números Carmichael, algo que foi demonstrado
+só em 1994; mas não vamos precisar disso aqui.
+
+%%}}}
 
 %%{{{ thm: rarity_of_fermat_pseudoprimes 
 \theorem Raridade dos pseudoprimos de Fermat.
