@@ -10095,8 +10095,8 @@ $$
 %%{{{ lemma: bezout_lemma 
 \lemma Lemma de Bézout.
 %%%{{{ meta 
-\label bezout_lemma
 \headerize
+\label bezout_lemma
 \credits
     * Bezout : lemma
     ;;
@@ -11937,9 +11937,8 @@ as conjecturas seguintes:
 %%}}}
 
 %%{{{ conjecture: weak_goldbach_conjecture 
-\conjecture.
+\conjecture fraca de Goldbach.
 %%%{{{ meta 
-\aka fraca de Goldbach.
 \label weak_goldbach_conjecture
 \credits
     * Goldbach : conjectura
@@ -13235,7 +13234,7 @@ $$
 \label wilsons_theorem_proof
 %%%}}}
 
-Demonstre o~\ref[wilsons_theorem_proof].
+Demonstre o~\ref[wilsons_theorem].
 
 \hint
 Para a {\rldir}, considere sua contrapositiva.
@@ -13437,11 +13436,11 @@ de congruências.
 \label chinese_remainder_theorem_binary_case
 %%%}}}
 
-Sejam $m_1,m_2,b_1,b_2$ inteiros com $\gcd {m_1} {m_2} = 1$.
-Então existe inteiro $x$ que satisfaz o sistema de congruências
+Sejam $m_1,m_2,b_1,b_2$ inteiros tais que $m_1, m_2$ são coprimos.
+Logo existe inteiro $x$ que satisfaz o sistema de congruências
 \system
-x &\cong    b_1    \pmod {m_1}\\
-x &\cong    b_2    \pmod {m_2}.
+x &\cong    b_1   \pmod {m_1} \\
+x &\cong    b_2   \pmod {m_2}.
 \endsystem
 Além disso, a solução do sistema é única módulo~$m_1m_2$.
 
@@ -14223,54 +14222,61 @@ Hoje a gente escreveria a observação de Fermat
 $$
 a^p \cong a \pmod p,
 $$
-notação e precepção inacessível a Fermat nessa epoca, uns 150 anos
+notação e precepção inacessível a Fermat nessa epoca, uns 158 anos
 antes do \cite[disquisitiones] (\yearof{1798}) de Gauss.
 %%}}}
 
 %%{{{ thm: fermat_little_theorem 
-\theorem.
+\theorem Teorema pequeno de Fermat.
 %%%{{{ meta 
-\label fermat_little_theorem
 \aka Fermatinho.
+\headerize
+\label fermat_little_theorem
 \credits
-    * Fermat : teorema pequeno
+    * Fermat : teorema pequeno (Fermatinho)
+    * Euler : primeira demonstração de Fermatinho
+    * Leibniz : primeira demonstração de Fermatinho
     ;;
 \indexes
-    * teorema!pequeno Fermat
     * teorema!Fermatinho
+    * teorema!pequeno de Fermat    see: Fermatinho
+    * Fermatinho                   see: teorema, Fermatinho
     ;;
 %%%}}}
 
-Sejam $p$ primo e $a$ inteiro.
-Então
+Seja $p$ primo.
+Logo
 $$
-a^p \congmod p a.
+\lforall a {a^p \congmod p a}.
 $$
 
-\sketch.
-Considere dois casos: $a,p$ coprimos ou não.
-No primeiro usamos o~\ref[fermat_little_theorem].
-No segundo, necessariamente temos $0\cong a^p\cong a \pmod p$.
+\preproof.
+Fermat não demonstrou este teorema; alegou que não quis
+encher o saco do seu leitor com os detalhes da demonstração.
+Pelo contrário, eu vou encher teu saco mesmo.
+Quem de fato demonstrou (e publicou) esse teorema primeiro,
+foi o suiço Euler, no ano \yearof{1736}.
+Leibniz tinha também escrito efetivamente a mesma demonstração de Euler
+em algum momento antes do ano \yearof{1683}, mas nunca chegou a publicá-la.
+Agora chega de história, bora demonstrar.
 
 \proof.
-Temos dois casos:
+Basta demonstrar o teorema para todo $a \geq 0$, ou, ainda mais,
+basta verificar apenas os $a \in \set {0, \dotsc, p-1}$, pois estamos
+trabalhando módulo $p$.
 \eop
-\proofcase {Caso $\gcd a p$ = 1}:
-Pelo~\ref[fermat_little_theorem] temos:
+Por indução no $a$.
+\proofcase {Base.}  Calculamos $0^p = 0 \congmod p 0$ e pronto.
+\proofcase {Passo indutivo.}
+Seja $k$ tal que $k^p \congmod p k$.
+Precisamos mostrar que $(k+1)^p \congmod p {k + 1}$.
+Calculamos:
 \compute
-a^{p-1} &\congmod p 1
-\intertext{e multiplicando por $a$,}
-a^p     &\congmod p a
+(k+1)^p
+&\congmod p {k^p + 1^p}  \by {\ref[freshmans_dream]} \\
+&\congmod p {k + 1^p}    \by {h.i.} \\
+&\congmod p {k + 1}.
 \endcompute
-\proofcase {Caso contrário}:
-Nesse caso, como $p$ é primo, necessariamente $p \divides a$,
-ou seja, $a \cong 0 \pmod p$,
-logo $a^p \cong 0 \pmod p$.
-Agora pela transitividade e
-simetria da $congruência$ módulo~$m$, finalmente temos:
-$$
-a^p \cong a \pmod p.
-$$
 
 %%}}}
 
@@ -14282,12 +14288,11 @@ $$
     * Fermat : teorema pequeno
     ;;
 \indexes
-    * teorema!pequeno Fermat
     * teorema!Fermatinho
     ;;
 %%%}}}
 
-Sejam $p$ primo e $a$ inteiro tais que $a,p$ coprimos.
+Sejam $p$ primo e $a$ inteiro tais que $a,p$ são coprimos.
 Então
 $$
 a^{p-1} \congmod p 1.
@@ -14319,10 +14324,57 @@ Substituindo obtemos
 $$
 aa^{p-1} \congmod p a1.
 $$
-Como $a$ é coprimo com $p$, logo $a$ é invertível módulo $p$, e logo cancelável, e logo
+Como $a$ é coprimo com $p$, logo $a$ é cancelável, e logo
 $$
 a^{p-1} \congmod p 1.
 $$
+
+%%}}}
+
+%%{{{ New way to compute modular inverse 
+\note Nova maneira de calcular inversos.
+%%%{{{ meta 
+\credits
+    * Fermat : inverso modular
+    ;;
+%%%}}}
+
+O Fermatinho nos permite calcular rapidamente inversos.
+
+%%}}}
+
+%%{{{ x: how? 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Como?
+
+\hint
+$a^{p-1} = a^{p-2}a$.
+
+\solution
+Dado um $a$ coprimo com $p$, já que $a^{p-1} \congmod p 1$,
+logo $a^{p-2}a = a^{p-1} \congmod p 1$, e logo $a^{p-2}$ é
+um inverso de $a$ módulo $p$.
+
+%%}}}
+
+%%{{{ New way to perform modular exponentiation 
+\note Nova maneira para exponenciação modular.
+%%%{{{ meta 
+%%%}}}
+
+O Fermatinho nos permite calcular rapidamente potências módulo um inteiro.
+
+%%}}}
+
+%%{{{ x: how? 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Como?
 
 %%}}}
 
@@ -14337,7 +14389,7 @@ Ache o último dígito do $2^{800}$.
 \solution.
 Procuramos um $y$ tal que $2^{800}\cong y \pmod {10}$
 (por quê?).
-Usando o teorema de Fermat~(\ref[fermat_little_theorem]) temos:
+Usando o \ref[fermat_little_theorem] temos:
 $$
 \align
 2^4 &\cong 1 \pmod 5,
@@ -14394,7 +14446,7 @@ para cada um, para enfatizar a diferença entre os dois conceitos.)
 %%%}}}
 
 Responda no segundo também, e ache um outro caminho para chegar no resultado,
-usando o teorema chinês do resto (\ref[chinese_remainder_theorem]).
+usando o \ref[chinese_remainder_theorem].
 
 \hint
 Qual a solução do sistema
@@ -14461,53 +14513,6 @@ $$
         &\cong  2           &&\pmod 3.
 \endalignat
 $$
-
-%%}}}
-
-%%{{{ New way to perform modular exponentiation 
-\note Nova maneira para exponenciação modular.
-%%%{{{ meta 
-%%%}}}
-
-O Fermatinho nos permite calcular rapidamente potências módulo um inteiro.
-
-%%}}}
-
-%%{{{ x: how? 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Como?
-
-%%}}}
-
-%%{{{ New way to compute modular inverse 
-\note Nova maneira de calcular inversos.
-%%%{{{ meta 
-\credits
-    * Fermat : inverso modular
-    ;;
-%%%}}}
-
-O Fermatinho nos permite calcular rapidamente inversos.
-
-%%}}}
-
-%%{{{ x: how? 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Como?
-
-\hint
-$a^{p-1} = a^{p-2}a$.
-
-\solution
-Dado um $a$ coprimo com $p$, já que $a^{p-1} \congmod p 1$,
-logo $a^{p-2}a = a^{p-1} \congmod p 1$, e logo $a^{p-2}$ é
-um inverso de $a$ módulo $p$.
 
 %%}}}
 
@@ -14590,9 +14595,9 @@ $$
     }.
 $$
 É fácil ver como tal conjectura chegou a ser estipulada: de fato, todos
-os inteiros até o $340$ são testemunhas dela.  Mas é um $(\lforall)$ que
-está sendo alegado aqui, e não há quantidade suficiente de testemunhas
-que podemos testar para de fato confiar nela.
+os inteiros até o $340$ são testemunhas dela.
+Mas é um $\lforall x {\dots}$ que está sendo alegado aqui, e não há quantidade
+suficiente de testemunhas que podemos testar para de fato confiar nela.
 Surpreendentemente, o próximo número, o $341$ é o primeiro contraexemplo
 para essa hipotese: de fato, $2^341 \congmod {341} 2$, mas mesmo assim
 tem $a$-fermatinho que o $341$ não consegue enganar.
@@ -14625,9 +14630,9 @@ ache um $a$-fermatinho por qual o $341$ é pego.
     ;;
 %%%}}}
 
-O $341$ foi o primeiro que conseguiu enganar o $2$-fermatinho, mas
-mesmo assim não conseguiu enganar o próprio fermatinho,
-como tu descubriu no \ref[fooler_of_chinese], achando um $a$ tal
+O $341$ foi o primeiro número que conseguiu enganar o $2$-fermatinho,
+mas mesmo assim não conseguiu enganar o próprio fermatinho,
+como tu descubriu no \ref[fooler_of_chinese] (né?)~achando um $a$ tal
 que o $a$-fermatinho pegou o $341$ em flagrante.
 Continuando testando os próximos números, parece de novo que
 ninguém consegue enganar o fermatinho.
@@ -15182,12 +15187,11 @@ Trabalhando na última congruência chegamos na congruência desejada.
 \corollary.
 %%%{{{ meta 
 \label fermat_little_theorem_as_euler_corollary
-\aka Fermatinho.
 \credits
-    * Fermat : primeiro teorema pequeno
+    * Euler
     ;;
 \indexes
-    * teorema!primeiro pequeno Fermat
+    * teorema!Fermatinho
     ;;
 %%%}}}
 
