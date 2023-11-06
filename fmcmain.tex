@@ -14105,6 +14105,41 @@ O quadrado dum número que não é múltiplo de $3$ é congruente ao $1$ módulo
 
 %%}}}
 
+%%{{{ prob: freshmans_dream 
+\problem O sonho do calouro.
+%%%{{{ meta 
+\headerize
+\label freshmans_dream
+\indexes
+    * sonho do calouro
+    ;;
+%%%}}}
+
+Seja $p$ primo, $x,y\in\ints$.
+$$
+(x + y)^p \cong x^p + y^p \pmod p.
+$$
+
+\hint
+Use o teorema binomial~\reftag[binomial_theorem].
+
+\hint
+Use o \ref[p_divides_comb_p_r].
+
+\solution
+Temos
+\compute
+(x + y)^p
+&= \Sum_{i=0}^p \binom p i x^{p-i}y^i             \by {por~\ref[binomial_theorem]} \\
+&= \binom p 0 x^p + \Sum_{i=1}^{p-1} \binom p i x^{p-i}y^i + \binom p p y^p             \by {$p\geq2$} \\
+&= x^p + \Sum_{i=1}^{p-1} \binom p i x^{p-i}y^i + y^p     \\
+&= x^p + \Sum_{i=1}^{p-1} p c_i x^{p-i}y^i + y^p, \quad\text{para algum $c_i\in\ints$}  \by {por~\ref[p_divides_comb_p_r]} \\
+&= x^p + p \Sum_{i=1}^{p-1} c_i x^{p-i}y^i + y^p          \\
+&\cong x^p + y^p \pmod p.
+\endcompute
+
+%%}}}
+
 %%{{{ prob: infinitely_many_primes_3_mod_4 
 \problem.
 %%%{{{ meta 
@@ -15275,59 +15310,6 @@ Considere módulo $m$.
 
 Demonstre que para todo $m\in\nats$, o produto de quaisquer $m$
 consecutivos inteiros é divisível por $m!$.
-
-%%}}}
-
-%%{{{ prob: freshmans_dream 
-\problem O sonho do calouro.
-%%%{{{ meta 
-\label freshmans_dream
-\indexes
-    * sonho do calouro
-    ;;
-%%%}}}
-
-Seja $p$ primo, $x,y\in\ints$.
-$$
-(x + y)^p \cong x^p + y^p \pmod p.
-$$
-
-\hint
-Use o teorema binomial~\reftag[binomial_theorem].
-
-\hint
-Use o \ref[p_divides_comb_p_r].
-
-\solution
-Temos
-\compute
-(x + y)^p
-&= \Sum_{i=0}^p \binom p i x^{p-i}y^i             \by {por~\ref[binomial_theorem]} \\
-&= \binom p 0 x^p + \Sum_{i=1}^{p-1} \binom p i x^{p-i}y^i + \binom p p y^p             \by {$p\geq2$} \\
-&= x^p + \Sum_{i=1}^{p-1} \binom p i x^{p-i}y^i + y^p     \\
-&= x^p + \Sum_{i=1}^{p-1} p c_i x^{p-i}y^i + y^p, \quad\text{para algum $c_i\in\ints$}  \by {por~\ref[p_divides_comb_p_r]} \\
-&= x^p + p \Sum_{i=1}^{p-1} c_i x^{p-i}y^i + y^p          \\
-&\cong x^p + y^p \pmod p.
-\endcompute
-
-%%}}}
-
-%%{{{ prob: little_fermat_new_proof 
-\problem.
-%%%{{{ meta 
-\label little_fermat_new_proof
-%%%}}}
-
-Ache uma nova demonstração do teorema de Fermat~\reftag[fermat_little_theorem],
-\eop\noi
-\proclaim{Para todo primo $p$ e todo $a\in\ints$,}
-$$
-a^p \cong a \pmod p.
-$$
-(Note que $a\in\ints$ e não $a\in\nats$.)
-
-\hint
-Use o sonho de calouro (\ref[freshmans_dream]).
 
 %%}}}
 
