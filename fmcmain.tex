@@ -10318,12 +10318,12 @@ Vamos agora descrever o algoritmo formalmente, e demonstrar
 {\hrule width \hsize height 1pt\relax}
 \vskip4pt
 \algospec
- INPUT: $a,b\in\nats$
+ INPUT: $a,b \is \Int$
 OUTPUT: $\gcd a b$
 \endspec
 \elist:
 \li: Se $b=0$, retorna $a$.
-\li: Retorna $\euclid(b,r)$, onde $r = a \bmod b$.
+\li: Retorna $\euclid(b,r)$, onde $r = \rem(a,b)$.
 \endelist
 {\hrule width \hsize height 1pt\relax}
 
@@ -11021,12 +11021,10 @@ Ilustrando com o mesmo número $2016$, um outro caminho para processar seria o s
 %%%}}}
 
 O que tu percebes sobre as duas desconstruções?:
-$$
-\align
-2016 &= 2\ntimes 2 \ntimes 3 \ntimes 7 \ntimes 2\ntimes2 \ntimes 2\ntimes3;\\
+\mathcol
+2016 &= 2\ntimes 2 \ntimes 3 \ntimes 7 \ntimes 2\ntimes2 \ntimes 2\ntimes3; \\
 2016 &= 2 \ntimes 2 \ntimes 2 \ntimes 2 \ntimes 3 \ntimes 2 \ntimes 3 \ntimes 7.
-\endalign
-$$
+\endmathcol
 
 \solution
 Esquecendo a ordem que os fatores parecem, são iguais:
@@ -12846,32 +12844,30 @@ Suas propriedades investigamos agora.
 %%}}}
 
 %%{{{ thm: congruence_mod_m_is_an_eqrel 
-\theorem.
+\theorem relação de equivalência.
 %%%{{{ meta 
 \label congruence_mod_m_is_an_eqrel
 %%%}}}
 
-Fixe um inteiro $m > 0$.
-Para todos os $a,b,c\in\ints$,
-temos:
+Fixe um inteiro $m$.
+Para todos os inteiros $a,b,c$, temos:
 \mathcall
-(1)\quad&a \cong a \pmod m                             \called {reflexividade} \\
-(2)\quad&a \cong b \pmod m \mland b \cong c \pmod m
-\implies
-a \cong c \pmod m                                      \called {transitividade} \\
-(3)\quad&a \cong b \pmod m \implies b \cong a \pmod  m \called {simetria}.
+(1)\quad&a \congmod m a                                               \called {(reflexividade)} \\
+(2)\quad&a \congmod m b \mland b \congmod m c \implies a \congmod m c \called {(transitividade)} \\
+(3)\quad&a \congmod m b \implies b \congmod m a.                      \called {(simetria)}
 \endmathcall
 
 \sketch.
-Todas são facilmente provadas aplicando diretamente
+Todas são facilmente demonstradas aplicando diretamente
 a definição de congruência módulo~$m$ (\reftag[congruence_modulo_int])
 e as propriedades básicas da $(\divides)$.
 
 \proof.
-(1) Óbvio porque $m \divides a - a = 0$.
-(2) Pela hipótese temos $m \divides a-b$ e $m \divides b-c$.
+(1) Segue imediatamente pois $m \divides a - a = 0$.
+(2) Pela hipótese temos $m \divides a - b$ e $m \divides b - c$.
 Então pelo~\ref[divides_properties] $m \divides (a-b) + (b-c) = a-c$.
-(3) Pela hipótese temos $m \divides a - b$\thinspace; logo (\reftag[divides_properties] de novo) $m \divides -(a - b) = b - a$.
+(3) Pela hipótese temos $m \divides a - b$\thinspace;
+logo (\reftag[divides_properties] de novo) $m \divides -(a - b) = b - a$.
 
 %%}}}
 
@@ -12885,6 +12881,8 @@ Então pelo~\ref[divides_properties] $m \divides (a-b) + (b-c) = a-c$.
 
 Uma relação que satisfaz essas três propriedades é chamada
 \dterm{relação de equivalência}~(\reftag[Equivalence_relations]).
+Ou seja, o \ref[congruence_mod_m_is_an_eqrel] que acabamos de demonstrar
+afirma simplesmente que \proclaim{$(\congmod m)$ é uma relação de equivalência}.
 Estudamos relações no~\ref[Relations].  Paciência!
 
 %%}}}
@@ -12909,13 +12907,56 @@ Todas seguem facilmente pela definição (\reftag[congruence_modulo_int]) de con
 
 %%}}}
 
+%%{{{ thm: congruence_mod_m_is_a_congruence 
+\theorem congruência.
+%%%{{{ meta 
+\label congruence_mod_m_is_a_congruence
+%%%}}}
+
+Fixe um inteiro $m$.
+Sejam $a,a',b,b'$ tais que $a \congmod m a'$ e $b \congmod m b'$.
+Logo:
+\mathcall
+(1)\quad&a + b \congmod m a' + b'              \called {$(+)$-compatível} \\
+(2)\quad&a \ntimes b \congmod m a' \ntimes b'  \called {(transitividade)} \\
+(3)\quad&-a \congmod m -a'
+\endmathcall
+
+\sketch.
+Todas são facilmente demonstradas aplicando diretamente
+a definição de congruência módulo~$m$ (\reftag[congruence_modulo_int])
+e as propriedades básicas da $(\divides)$.
+
+\proof.
+(1) Segue imediatamente pois $m \divides a - a = 0$.
+(2) Pela hipótese temos $m \divides a - b$ e $m \divides b - c$.
+Então pelo~\ref[divides_properties] $m \divides (a-b) + (b-c) = a-c$.
+(3) Pela hipótese temos $m \divides a - b$\thinspace;
+logo (\reftag[divides_properties] de novo) $m \divides -(a - b) = b - a$.
+
+%%}}}
+
+%%{{{ note: congruences_first_contact 
+\note Congruências.
+%%%{{{ meta 
+\label congruences_first_contact 
+%%%}}}
+
+O que foi isso?
+Efetivamente, o \ref[congruence_mod_m_is_a_congruence]
+está nos permitindo substituir congruentes por congruentes em qualquer
+expressão de soma, de multiplicação, e de negação, garantindo que o novo resultado
+vai ser congruente ao original.
+
+%%}}}
+
 %%{{{ beware: wrong_cancellation_law_modulo_m 
 \beware.
 %%%{{{ meta 
 \label wrong_cancellation_law_modulo_m
 %%%}}}
 
-O lei de cancelamento, mesmo válido nas igualdades,
+A lei de cancelamento, mesmo válido nas igualdades,
 não é válido nas congruências em geral.
 Por exemplo,
 $3\ntimes 2 \cong 3\ntimes 8 \pmod {18}$,
@@ -13091,7 +13132,7 @@ pela transitividade e reflexividade da congruência módulo~$m$, temos:
 $$
 ab \cong ab' \pmod m.
 $$
-Pela~\ref[modular_arithmetic_properties], podemos multiplicar os dois
+Pelo~\ref[modular_arithmetic_properties], podemos multiplicar os dois
 lados por $b$:\foot
 Nada especial sobre $b$ contra o $b'$.
 Poderiamos multiplicar por qualquer inverso do $a$ aqui.
@@ -14261,16 +14302,16 @@ Hoje a gente escreveria a observação de Fermat
 $$
 a^p \cong a \pmod p,
 $$
-notação e precepção inacessível a Fermat nessa epoca, uns 158 anos
-antes do \cite[disquisitiones] (\yearof{1798}) de Gauss.
+notação e percepção inacessível a Fermat naquela epoca,
+uns 158 anos antes do \cite[disquisitiones] (\yearof{1798}) de Gauss.
 %%}}}
 
-%%{{{ thm: fermat_little_theorem 
+%%{{{ thm: fermatinho 
 \theorem Teorema pequeno de Fermat.
 %%%{{{ meta 
 \aka Fermatinho.
 \headerize
-\label fermat_little_theorem
+\label fermatinho
 \credits
     * Fermat : teorema pequeno (Fermatinho)
     * Euler : primeira demonstração de Fermatinho
@@ -14319,10 +14360,10 @@ Calculamos:
 
 %%}}}
 
-%%{{{ cor: fermat_little_theorem_coprime_case 
+%%{{{ cor: fermatinho_coprime_case 
 \corollary.
 %%%{{{ meta 
-\label fermat_little_theorem_coprime_case
+\label fermatinho_coprime_case
 \credits
     * Fermat : teorema pequeno
     ;;
@@ -14338,23 +14379,23 @@ a^{p-1} \congmod p 1.
 $$
 
 \proof.
-Tua: \ref[fermat_little_theorem_coprime_case_proof].
+Tua: \ref[fermatinho_coprime_case_proof].
 
 %%}}}
 
-%%{{{ x: fermat_little_theorem_coprime_case_proof 
+%%{{{ x: fermatinho_coprime_case_proof 
 \exercise.
 %%%{{{ meta 
-\label fermat_little_theorem_coprime_case_proof
+\label fermatinho_coprime_case_proof
 %%%}}}
 
-Obtenha o \ref[fermat_little_theorem_coprime_case] pelo \ref[fermat_little_theorem].
+Obtenha o \ref[fermatinho_coprime_case] pelo \ref[fermatinho].
 
 \hint
 Sendo $a$ coprimo com $p$, $a$ é invertível módulo $p$.
 
 \solution
-Pelo \ref[fermat_little_theorem], temos
+Pelo \ref[fermatinho], temos
 $$
 a^p \congmod p a = a1
 $$
@@ -14399,6 +14440,23 @@ um inverso de $a$ módulo $p$.
 
 %%}}}
 
+%%{{{ x: Compute the inverse of 108 modulo 241
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Calcule (na mão!) o $(\ntimes)$-inverso de $108$ módulo $241$.
+
+\hint
+Tome $a := 108$ e $p := 241$ no Fermatinho.
+
+\solution
+Pelo \ref[fermatinho], $108^{240} \congmod {241} 1$, ou seja,
+$108^{239} 108 \congmod {241} 1$.
+Segue que $108^{239}$ é um inverso de $108$ módulo $241$.
+
+%%}}}
+
 %%{{{ New way to perform modular exponentiation 
 \note Nova maneira para exponenciação modular.
 %%%{{{ meta 
@@ -14428,7 +14486,7 @@ Ache o último dígito do $2^{800}$.
 \solution.
 Procuramos um $y$ tal que $2^{800}\cong y \pmod {10}$
 (por quê?).
-Usando o \ref[fermat_little_theorem] temos:
+Usando o \ref[fermatinho] temos:
 $$
 \align
 2^4 &\cong 1 \pmod 5,
@@ -14525,7 +14583,7 @@ $41^{75} = 41^{74}\ntimes 41$.
 Fermat.
 
 \solution
-Como $\gcd {41} 3 = 1$, pelo teorema de Fermat (\ref[fermat_little_theorem])
+Como $\gcd {41} 3 = 1$, pelo teorema de Fermat (\ref[fermatinho])
 temos
 $$
 41^2 \cong 1 \pmod 3,
@@ -14745,7 +14803,111 @@ Demonstre a parte (ii) do~\ref[rarity_of_fermat_pseudoprimes].
 \label Prime_generation
 %%%}}}
 
-\TODO Escrever.
+%%{{{ prime generation 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Já temos umas maneiras de \emph{gerar} primos à vontade.
+O crivo de Eratosthenes (\reftag[sieve_of_eratosthenes])
+gera todos os primos até um dado número, e a demonstração
+de Euclides sobre a quantidade dos primos fornece um gerador
+de primos também.
+Mas, aqui um desafio: achar um primo grande.
+Nenhuma dessas idéias funciona bem aqui, pois aqui \wq{bem} significa
+que tu vai achar tal primo antes de morrer.
+E o que significa \wq{grande}?
+Depende da situação, obviamente, então vamos considerar que um desafiador
+escolha um comprimento $\ell$ e uma base $b$ e nosso objetivo é achar um primo $p$ cujo
+númeral canônico na base $b$ tem tamanho $\ell$.
+Efetivamente procuramos primo $b^\ell \leq p < b^{\ell+1}$.
+Vamo concretizar a situação?
+Ache um primo $p$ que, escrito no sistema posicional binário,
+ocupa $4096$ bits.
+
+%%}}}
+
+%%{{{ Q: How would you proceed? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Como procederias?
+
+%%}}}
+
+\spoiler
+
+%%{{{ A: chutando
+\note Chutando.
+%%%{{{ meta 
+%%%}}}
+
+Pelo incrível que parece, uma maneira muito eficiente é \emph{chutando}.
+Escolhe aleatoriamente cada bit; verifique se o número gerado é primo;
+se é, acabou, senão, chute novamente.
+
+%%}}}
+
+%%{{{ note: but does this work? 
+\note Mas isso funciona?.
+%%%{{{ meta 
+%%%}}}
+
+Essa idéia só vai funcionar se os primos não são muito raros.
+Apresento aqui, sem demonstração, o famoso \emph{teorema dos números primos}
+que estabelece exatamente a freqüência asintótica dos primos.
+
+%%}}}
+
+%%{{{ thm: prime_number_theorem 
+\theorem Teorema dos Números Primos.
+%%%{{{ meta 
+\headerize
+\label prime_number_theorem
+\credits
+    * Poussin : teorema dos números primos
+    * Hadamard : teorema dos números primos
+    * Riemann : função zeta
+    ;;
+\indexes
+    * teorema!dos números primos
+    * PNT       see: teorema dos números primos
+    ;;
+%%%}}}
+
+Seja $\pi(x) \defeq \card {\setstt {p \leq x} {$p$ primo}}$.
+Logo
+$$
+$$
+
+\preproof.
+A pergunta a qual este teorema responde tinha preocupado muitas lendas
+(incluindo Euler, Gauss, Legendre, Dirichlet, Chebychev, e Riemann)
+até finalmente foi demonstrado, por Hadamard e Poussin independentemente,
+no ano \yearof{1896}, utilizando ferramentas de análise complexa, introduzidas
+pelo Riemann.
+
+\sketch Cadê a demonstração?.
+As demonstrações mais conhecidas utilizam ferramentas de análise complexa
+e, mesmo que existem umas elementares, ficam fora tanto do nosso alcance
+quanto do nosso foco aqui.
+O leitor interessado pode encontrar a demonstração em textos de teoria
+dos números (analítica), por exemplo no \cite[apostolant: Chapter 13]
+ou no \cite[hardywright: Chapter XXII].
+
+%%}}}
+
+%%{{{ note: what does that mean? 
+\note O que isso significa, na prática?.
+%%%{{{ meta 
+%%%}}}
+
+Que, existem por volta de $1/\ell$ primos com $\ell$ dígitos.
+Ou seja, chutando $\ell$ algarismos $b$-ários, temos por volta de $1/\ell$ chances
+de \dq{acertar} um primo.
+
+%%}}}
 
 \endsection
 %%}}}
@@ -15222,10 +15384,10 @@ Trabalhando na última congruência chegamos na congruência desejada.
 
 %%}}}
 
-%%{{{ cor: fermat_little_theorem_as_euler_corollary 
+%%{{{ cor: fermatinho_as_euler_corollary 
 \corollary.
 %%%{{{ meta 
-\label fermat_little_theorem_as_euler_corollary
+\label fermatinho_as_euler_corollary
 \credits
     * Euler
     ;;
@@ -74483,7 +74645,7 @@ $$
 \definition.
 %%%{{{ meta 
 \indexes
-    * conjunto!de partes    see: powerset
+    * conjunto!de partes   see: powerset
     * conjunto!potência    see: powerset
     ;;
 \defines
