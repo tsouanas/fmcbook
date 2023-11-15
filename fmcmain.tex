@@ -9872,9 +9872,13 @@ $$
 \definition.
 %%%{{{ meta 
 \label a_gcd
-\defines
+\indexes
+    * mdc               see: divisor, máximo comum
     * máximo divisor    see: divisor
-    * divisor!máximo comum
+    ;;
+\defines
+    * melhor!divisor comum
+    * {~d} = \gcd {~a} {~b}  -- $d$ é um mdc dos $a$ e $b$
     * divisor!máximo comum, um
     * coprimos
     ;;
@@ -10019,15 +10023,9 @@ do mundinho da $(\divides)$.
 \definition O máximo divisor comum.
 %%%{{{ meta 
 \label the_gcd
-\indexes
-    * mdc    seealso: divisor
-    ;;
 \defines
-    * máximo divisor    see: divisor
-    * melhor!divisor comum
     * \gcd {~a} {~b}  -- o máximo divisor comum de $a$ e $b$
     * divisor!máximo comum, o
-    * mdc
     ;;
 %%%}}}
 
@@ -10125,6 +10123,29 @@ $$
 
 %% Existence of GCD and coefficients form
 
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Ainda não tratamos a \emph{existência} de mdc.
+Definir o que um objeto precisa satisfazer para ser chamado por um nome
+não garanta que de fato existe tal objeto.
+Por enquanto, pode ser que para certos inteiros existe um mdc deles,
+mas para outros, não.
+Demonstraremos que não é o caso, com duas demostrações bem diferentes.
+Primeiramente apresentamos uma demonstração não-construtiva, que depende
+do princípio da boa ordem, conhecida como Lemma de Bézout.
+Ele não apenas garanta a existência de mdc, mas, também afirma que
+ele pode ser escrito numa certa forma.
+Na próxima secção, melhoramos a situação mostrando o \emph{algoritmo}
+de Euclides, que, ainda mais mostra uma maneira efetiva de construir
+(achar) o mdc de quaisquer inteiros dados, e ainda-ainda mais, aproveitando
+sua versão \dq{estendida}, fornecer a forma de escrevê-lo garantida
+pelo Lemma de Bézout.
+
+%%}}}
+
 %%{{{ lemma: bezout_lemma 
 \lemma Lemma de Bézout.
 %%%{{{ meta 
@@ -10148,9 +10169,13 @@ $$
 Além disso, o $\gcd a b$ divide qualquer combinação linear dos $a$ e $b$.
 
 \sketch.
-Considere o conjunto $L$ de todas as combinações lineares.
-Demonstre que existe $d \geq 0$ tal que $L = d\ints$.
-Verifique que $\gcd a b = d$.
+Considere o conjunto $C$ de todas as combinações lineares dos $a,b$:
+$$
+L \defeq \setst {sa + tb} {s,t \in \ints}.
+$$
+Infira que existe $d$ tal que $L = d\ints$.
+Verifique que $d$ é um mdc dos $a,b$.
+Como $d \in L = d\ints$, conclua que $d$ divide qualquer combinação linear dos $a,b$.
 
 %%}}}
 
@@ -10186,7 +10211,7 @@ Especificamente, $\gcd a 0 = a$.
 
 \sketch.
 Precisamos apenas verificar as condições da definição de mdc,
-que seguem pelas propriedades de $\divides$ que já demonstramos.
+que seguem pelas propriedades de $(\divides)$ que já demonstramos.
 
 %%}}}
 
@@ -10196,17 +10221,32 @@ que seguem pelas propriedades de $\divides$ que já demonstramos.
 \label common_divisor_written_as_linear_combination_means_gcd
 %%%}}}
 
-Demonstre ou refute:
-se um inteiro $m$ é divisor comum dos $a,b$ e pode ser
-escrito como combinação linear deles, então $m$ é um mdc dos $a,b$.
+Sejam $a,b$ inteiros.  Demonstre ou refute:
+para qualquer inteiro $c$ tal que
+(i) $c$ é divisor comum dos $a,b$ e
+(ii) $c$ pode ser escrito como combinação linear dos $a,b$,
+temos que $c$ é um mdc dos $a,b$.
 
 \hint
-Já demonstramos que
+Já demonstramos (\ref[bezout_lemma]) que
 $$
-\setst {ax + by} {x,y \in \ints}
+C = \setst {ax + by} {x,y \in \ints}
 =
-\setst {md} {m \in \ints}.
+d\ints
 $$
+onde $d$ é um mdc dos $a,b$.
+
+\solution
+Pelo \ref[bezout_lemma] temos que
+$$
+C = \setst {ax + by} {x,y \in \ints}
+=
+d\ints
+$$
+onde $d$ é um mdc dos $a,b$.
+Pela hipotese (ii), $c \in C = d\ints$, e logo $d \divides c$.
+Pela hipotese (i), $c$ sendo um divisor comum dos $a,b$, divide o mdc deles: $c \divides d$.
+Portanto $c$ é um mdc dos $a,b$.
 
 %%}}}
 
