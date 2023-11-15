@@ -6055,33 +6055,59 @@ Demonstre o \ref[divides_is_a_preorder].
 
 %%}}}
 
-%%{{{ ppty: divides_properties 
-\property.
+%%{{{ ppty: divides_bottom 
+\property bottom.
 %%%{{{ meta 
-\label divides_properties
+\label divides_bottom
 %%%}}}
 
-Sejam $a,b,c,x,y$ inteiros.
-Logo:
-\elist:
-\li: $1 \divides a$;
-\li: $a \divides 0$;
-\li: $a \divides b \implies a \divides -b \mland -a \divides b$;
-\li: $a \divides b \implies a \divides bx$;
-\li: $a \divides b \mland a \divides c \implies a \divides b + c$;
-\li: $a \divides b \mland a \divides c \implies a \divides bx + cy$;
+$\lforall a {1 \divides a}$.
+
+%%}}}
+
+%%{{{ ppty: divides_top 
+\property top.
+%%%{{{ meta 
+\label divides_top
+%%%}}}
+
+$\lforall a {a \divides 0}$.
+
+%%}}}
+
+%%{{{ ppty: divides_sign_blind 
+\property sign-blind.
+%%%{{{ meta 
+\label divides_sign_blind
+%%%}}}
+
+Para quaisquer $a,b$, se $a \divides b$, então $-a \divides b$, $a \divides -b$, e (logo) $-a \divides -b$.
+
+%%}}}
+
+%%{{{ ppty: divides_linear_combinations 
+\property combinações lineares.
+%%%{{{ meta 
+\label divides_linear_combinations
+%%%}}}
+
+\elist i:
+\li: $d \divides a \implies \lforall x {d \divides ax}$;
+\li: $d \divides a \mland d \divides b \implies d \divides a + b$;
+\li: $d \divides a \mland d \divides b \implies \lforall {x,y} {d \divides ax + by}$.
 \endelist
 
 %%}}}
 
-%%{{{ x: divides_properties_proof 
+%%{{{ x: divides_linear_combinations_proof 
 \exercise.
 %%%{{{ meta 
-\label divides_properties_proof
+\label divides_linear_combinations_proof
 %%%}}}
 
-Demonstre todas as propriedades da \ref[divides_properties].
-Observe que todas são casos especiais da última.
+Demonstre todas as propriedades da \ref[divides_linear_combinations], com duas estratégias diferentes:
+(A) demonstre as duas primeiras, e mostre como ganhar a terceira como corolário delas;
+(B) demonstre a terceira, e mostre como ganhar as duas primeiras como corolário ela.
 
 %%}}}
 
@@ -10266,35 +10292,19 @@ $$
 Lembre a definição de mdc.
 
 \hint
-Talvez as propriedades seguintes são úteis:
-\tlist:
-\li: para todos $x,y\in\nnints$, $x \divides y \mland y \divides x \implies x = y$;
-\li: para todos $a,x,y\in\ints$, $a \divides x \mland a \divides y \implies a \divides {x+y}$.
-\endtlist
+Talvez as propriedades do \reftag[divides_linear_combinations] são úteis.
 
 \solution
-\proofstylize{Idéia 1:}
-Sejam $d = \gcd a b$ e $d' = \gcd a {a + b}$.
-Pela definição, $d$ é divisor comum dos $a$ e $b$,
-então $d \divides a $ e $d \divides b$, e logo $d \divides a + b$.
-Temos então que $d$ é um divisor comum dos $a$ e $a + b$, e, pela definição de mdc,
-como $d' = \gcd a {b+c}$, temos $d' \divides d$.
-Similarmente, $d \divides d'$.
-Então $|d| = |d'|$ e como ambos são naturais (parte da definição de $\gcd x y$), temos:
-$$
-\gcd a b = d = d' = \gcd a {a + b}.
-$$
-\eop
-\proofstylize{Idéia 2:}
-Seja $d = \gcd a b$.  Vamos mostrar que $d = \gcd a {a + b}$.
-Pela definição, $d\geq0$ e é divisor comum dos $a$ e $b$,
-então $d \divides a$ e $d \divides b$, e logo $d \divides a + b$.
-Temos então que $d\geq0$ e é um divisor comum dos $a$ e $a + b$, e, pela definição de mdc,
-falta só demonstrar que cada divisor comum deles divide o $d$.
-Seja $c\in\ints$ tal que $c \divides a$ e $c \divides {a+b}$.
-Logo, $c \divides a - (a+b)=-b$.  Concluimos que $c \divides b$, então
-$c$ é um divisor comum dos $a$ e $b$, então $c \divides d$ pela definição do $d$
-como mdc dos $a$ e $b$.
+Basta mostrar que os conjuntos dos divisores comuns dos $a,b$ e dos $a,a+b$ são iguais.
+\crproofpart{$\comdivs(a,b) \subset \comdivs(a,a+b)$.}
+Seja $c$ divisor comum dos $a,b$.
+Preciso mostrar que $c \divides a$ (que é imediato pela escolha de $c$),
+e que $c \divides a + b$, que segue pela \ref[divides_linear_combinations].
+\crproofpart{$\comdivs(a,b) \supset \comdivs(a,a+b)$.}
+Seja $c$ divisor comum dos $a,a+b$.
+Preciso mostrar que $c \divides a$ (que é imediato pela escolha de $c$),
+e que $c \divides b$, que segue pela \ref[divides_linear_combinations]
+pois $b = 1\ntimes(a + b) + (-1)\ntimes a$.
 
 %%}}}
 
@@ -10566,7 +10576,7 @@ d \divides b
 d \divides b
 \mland
 d \divides r.\\
-\intertext{Realmente, usando as propriedades~\reftag[divides_properties], temos:}
+\intertext{Realmente, usando as propriedades~\reftag[divides_linear_combinations], temos:}
 d \divides a
 \mland
 d \divides b
@@ -11294,7 +11304,7 @@ ou seja, existem $s,t\in\ints$ tais que:
 \intertext{Multiplicando os dois lados por $b$, temos:}
 b &= asb + ptb.
 \endmathcol
-Observe que como $p \divides ab$, segue que $p \divides asb$ (por~\ref[divides_properties]).
+Observe que como $p \divides ab$, segue que $p \divides asb$ (por~\ref[divides_linear_combinations]).
 Obviamente $p \divides ptb$ também.
 Logo, $p \divides asb + ptb = b$.
 
@@ -12925,9 +12935,9 @@ e as propriedades básicas da $(\divides)$.
 \proof.
 (1) Segue imediatamente pois $m \divides a - a = 0$.
 (2) Pela hipótese temos $m \divides a - b$ e $m \divides b - c$.
-Então pelo~\ref[divides_properties] $m \divides (a-b) + (b-c) = a-c$.
+Então pelo~\ref[divides_linear_combinations] $m \divides (a-b) + (b-c) = a-c$.
 (3) Pela hipótese temos $m \divides a - b$\thinspace;
-logo (\reftag[divides_properties] de novo) $m \divides -(a - b) = b - a$.
+logo (\reftag[divides_linear_combinations] de novo) $m \divides -(a - b) = b - a$.
 
 %%}}}
 
