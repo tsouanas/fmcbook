@@ -9874,17 +9874,18 @@ $$
 \label a_gcd
 \defines
     * máximo divisor    see: divisor
-    * divisor!um máximo comum
+    * divisor!máximo comum
+    * divisor!máximo comum, um
     * coprimos
     ;;
 %%%}}}
 
 Sejam $a,b,d$ inteiros.
-O inteiro $d$ é \dterm{um máximo divisor comum (m.d.c.)} dos $a,b$
+O inteiro $d$ é \dterm{um máximo divisor comum (mdc)} dos $a,b$
 sse $d$~é~um divisor comum e um multiplo de todos os divisores comuns.
 Em símbolos:
 $$
-\text{$d$ é um m.d.c.~dos $a,b$}
+\text{$d$ é um mdc dos $a,b$}
 \defiff
 \tubrace {d \divides a \mland d \divides b}
          {divisor comun}
@@ -9900,9 +9901,29 @@ Se $1 = \gcd a b$, dizemos que os $a,b$ são \dterm{coprimos} (entre si).
 
 %%}}}
 
-%%{{{ x: gcd is not well-defined yet 
+%%{{{ beware: not_really_an_equality_gcd 
+\beware Desfarçando como igualdade.
+%%%{{{ meta 
+\label not_really_an_equality_gcd
+%%%}}}
+
+Mais uma vez, abusamos aqui a notação para escrever uma proposição
+\dq{com roupas de igualdade}, quando na verdade não é.
+Veja primeiramente (\ref[gcd_symbol_is_not_welldefined]) que seu lado
+direito nem significa algo sozinho.
+Entendemos então a notação inteira como um predicado ternário nos inteiros
+$$
+\uhole = \gcd {\uhole} {\uhole}
+\is
+\Int\times\Int\times\Int \to \Prop.
+$$
+
+%%}}}
+
+%%{{{ x: gcd_symbol_is_not_welldefined 
 \exercise.
 %%%{{{ meta 
+\label gcd_symbol_is_not_welldefined
 %%%}}}
 
 Parece que a~\ref[a_gcd] tem um erro: o símbolo $\gcd a b$ não foi bem-definido!
@@ -9930,9 +9951,9 @@ Duas coisas:
     ;;
 %%%}}}
 
-Definimos o conceito de m.d.c.~totalmente em termos da relação~$(\divides)$
-e logo não temos chances de conseguir \dterm{unicidade} de m.d.c.
-Para qualquer inteiro $d$ que acaba sendo um m.d.c.~dos $a,b$,
+Definimos o conceito de mdc totalmente em termos da relação~$(\divides)$
+e logo não temos chances de conseguir \dterm{unicidade} de mdc.
+Para qualquer inteiro $d$ que acaba sendo um mdc dos $a,b$,
 com certeza seu sócio $-d$ também vai já que a $(\divides)$ não consegue
 distingüi-los.
 Então a melhor coisa que podemos esperar é uma noção de unicidade mais fraca:
@@ -9948,18 +9969,17 @@ unicidade pelos olhos da $(\divides)$, ou, como falamos mesmo:
 %%%}}}
 
 Sejam $a,b$ inteiros.
-Se $d,d'$ são m.d.c.~dos $a,b$, então $d,d'$ são sócios.
+Se $d,d'$ são mdc dos $a,b$, então $d,d'$ são sócios.
 
 \sketch.
-Aplicamos a definição de m.d.c.~para cada um dos $d$ e $d'$,
+Aplicamos a definição de mdc para cada um dos $d$ e $d'$,
 para chegar em $d \divides d'$ e $d' \divides d$.
 
 \proof.
-Suponha que $d,d'$ são m.d.c.'s de $a$ e $b$.
-Como $d$ é um m.d.c., todos os divisores em comum dos $a$ e $b$ o dividem.
+Suponha que $d,d'$ são mdc's de $a$ e $b$.
+Como $d$ é um mdc, todos os divisores em comum dos $a$ e $b$ o dividem.
 Mas, como $d'$ é um divisor em comum, então $d' \divides d$.
-Simetricamente concluimos que $d \divides d'$.
-Logo $d = \pm d'$ (por~\ref[divides_is_almost_a_partial_order]).
+Simetricamente concluimos que $d \divides d'$, e logo $d,d'$ são sócios.
 
 %%}}}
 
@@ -9969,31 +9989,44 @@ Logo $d = \pm d'$ (por~\ref[divides_is_almost_a_partial_order]).
 %%%}}}
 
 Sejam $a,b$ inteiros.
-Existe único $d\in\nnints$ tal que $d$ é um m.d.c.~dos $a,b$.
+Existe único $d\in\nnints$ tal que $d$ é um mdc dos $a,b$.
 
 %%}}}
 
-%%{{{ blah 
-\blah.
+%%{{{ generalized_the_gcd 
+\note Artigo definido generalizado.
 %%%{{{ meta 
+\label generalized_the_gcd
 %%%}}}
 
-Agora podemos finalmente definir o símbolo $\gcd a b$
-e tratar a expressão $d = \gcd a b$ como uma igualdade mesmo,
-para não desviar demais com a literatura popular.
+Agora podemos sim definir o símbolo $\gcd a b$
+e tratar a expressão $d = \gcd a b$ como uma igualdade mesmo;
+o leitor que não quer desviar muito com a literatura popular
+pode fazer isso.  Mas não havendo motivo de prejudicar uns inteiros
+contra seus sócios, e para introduzir a idéia de \dterm{um artigo definido generalizado},
+vou insistir que falar \emph{do} {mdc}~em vez \emph{de um} {mdc}, faz sentido,
+dado que entendemos que estamos olhando o mundo dos inteiros pelos olhos da preordem $(\divides)$.
+Nesse uso, encontrando o símbolo $\gcd a b$, a idéia é que ele denota um mdc, e que
+qual dos possíveis sócios ele é, não vai importar, pois não vamos sair desse mundinho.
+Por exemplo, não faz sentido perguntar se $\gcd a b > 0$ ou não, já que isso está
+misturando uma outra ordem (a $(>)$) com a ordem utilizada no mdc, e, querendo
+investigar esse tipo de perguntas, precisamos abandonar o conforto da abstração
+do mundinho da $(\divides)$.
 
 %%}}}
 
-%%{{{ df: gcd 
+%%{{{ df: the_gcd 
 \definition O máximo divisor comum.
 %%%{{{ meta 
-\label gcd
+\label the_gcd
 \indexes
     * mdc    seealso: divisor
     ;;
 \defines
+    * máximo divisor    see: divisor
+    * melhor!divisor comum
     * \gcd {~a} {~b}  -- o máximo divisor comum de $a$ e $b$
-    * divisor!o máximo comum
+    * divisor!máximo comum, o
     * mdc
     ;;
 %%%}}}
@@ -10031,7 +10064,7 @@ comutatividade: $\gcd a b = \gcd b a$, que faz parte do \ref[gcd_op_properties].
 %%%{{{ meta 
 %%%}}}
 
-Podemos já demonstrar umas propriedades básicas de m.d.c.
+Podemos já demonstrar umas propriedades básicas de mdc.
 
 %%}}}
 
@@ -10041,7 +10074,7 @@ Podemos já demonstrar umas propriedades básicas de m.d.c.
 \label gcd_signs
 %%%}}}
 
-Um m.d.c.~não enxerga sinais: para quaisquer inteiros $a,b$,
+Um mdc não enxerga sinais: para quaisquer inteiros $a,b$,
 $$
 \gcd a b
 = \gcd a {-b}
@@ -10074,14 +10107,14 @@ Sejam $a,b,c$ inteiros.  Logo:
 \label gcd_example
 %%%}}}
 
-Ache um m.d.c.~dos $12,18$.
+Ache um mdc dos $12,18$.
 
 \solution.
 Vamos primeiramente calcular os divisores de cada um desses números:
 \mathcol
 \divs(12) &= \set{ \pm 1, \pm 2, \pm 3, \pm 4, \pm 6, \pm 12 } \\
 \divs(18) &= \set{ \pm 1, \pm 2, \pm 3, \pm 6, \pm 9, \pm 18 }.
-\intertext{Segundo a definição de m.d.c., se tem inteiro $d$ que merece
+\intertext{Segundo a definição de mdc, se tem inteiro $d$ que merece
 esse nome, ele é um dos divisores comuns:}
 \comdivs(12,18) &= \divs(12) \inter \divs(18) = \set{ \pm 1, \pm 2, \pm 3, \pm 6 }.
 \endmathcol
@@ -10152,7 +10185,7 @@ $a \divides b \implies \gcd a b = a$.
 Especificamente, $\gcd a 0 = a$.
 
 \sketch.
-Precisamos apenas verificar as condições da definição de m.d.c.,
+Precisamos apenas verificar as condições da definição de mdc,
 que seguem pelas propriedades de $\divides$ que já demonstramos.
 
 %%}}}
@@ -10165,7 +10198,7 @@ que seguem pelas propriedades de $\divides$ que já demonstramos.
 
 Demonstre ou refute:
 se um inteiro $m$ é divisor comum dos $a,b$ e pode ser
-escrito como combinação linear deles, então $m$ é um m.d.c.~dos $a,b$.
+escrito como combinação linear deles, então $m$ é um mdc dos $a,b$.
 
 \hint
 Já demonstramos que
@@ -10190,7 +10223,7 @@ $$
 $$
 
 \hint
-Lembre a definição de m.d.c.\,.
+Lembre a definição de mdc.
 
 \hint
 Talvez as propriedades seguintes são úteis:
@@ -10221,7 +10254,7 @@ falta só demonstrar que cada divisor comum deles divide o $d$.
 Seja $c\in\ints$ tal que $c \divides a$ e $c \divides {a+b}$.
 Logo, $c \divides a - (a+b)=-b$.  Concluimos que $c \divides b$, então
 $c$ é um divisor comum dos $a$ e $b$, então $c \divides d$ pela definição do $d$
-como m.d.c.~dos $a$ e $b$.
+como mdc dos $a$ e $b$.
 
 %%}}}
 
@@ -10533,9 +10566,9 @@ que estabeleça a corretude do algoritmo.
 Qual é o problema com a demonstração do~\ref[euclid_gcd_lemma]?
 
 \solution
-A definição do maior divisor comum $(a,b)$ não foi
-``o maior divisor comum dos $a$ e $b$''.
-Lembre-se a~\ref[gcd].
+A definição do mdc $(a,b)$ não foi
+\wq{o $(\leq)$-maior divisor comum dos $a$ e $b$}.
+Lembre-se a~\ref[a_gcd].
 Veja também o~\ref[gcd_alternative_definition].
 
 %%}}}
@@ -10612,7 +10645,7 @@ pra formalizá-los em demonstrações usamos indução.
 %%%{{{ meta 
 %%%}}}
 
-Nós já demonstramos que o m.d.c.~de dois inteiros $a$ e $b$
+Nós já demonstramos que o mdc de dois inteiros $a$ e $b$
 pode ser escrito como uma combinação linear deles, mas como podemos
 realmente \emph{achar}\/ inteiros $s,t\in\ints$ que satisfazem a
 $$
@@ -10651,7 +10684,7 @@ OUTPUT: $s,t\in\ints$ tais que $\gcd a b = as + bt$.
 Escreva o $\gcd {101} {73}$ como combinação linear dos $101$ e $73$.
 
 \solution.
-Primeiramente, precisamos aplicar o algoritmo de Euclides para achar o m.d.c.,
+Primeiramente, precisamos aplicar o algoritmo de Euclides para achar o mdc,
 como no~\ref[euclidean_algorithm_example],
 mas vamos também resolver cada equação por o seu resto:
 $$
@@ -10690,7 +10723,7 @@ $$
 \endalignat
 $$
 No lado direto mostramos nosso progresso, no sentido de ter conseguido
-escrever o m.d.c.~como combinação linear de quais dois números.
+escrever o mdc como combinação linear de quais dois números.
 Sublinhamos os inteiros que nos interessam para não perder nosso foco.
 Em cada nova linha, escolhemos o menor dos dois números sublinhados,
 e o substituimos pela combinação linear que temos graças ao algoritmo de Euclides.
@@ -12212,16 +12245,16 @@ $m!+m$.
 %%}}}
 
 %%{{{ prob: gcd_alternative_definition 
-\problem {Definição alternativa de m.d.c.}.
+\problem {Definição alternativa de mdc}.
 %%%{{{ meta 
 \label gcd_alternative_definition
 %%%}}}
 
-Uma definição alternativa do m.d.c.~é a seguinte:
+Uma definição alternativa do mdc é a seguinte:
 {\it Sejam $a,b\in\ints$.
-O m.d.c.~dos $a$ e $b$ é o maior dos divisores em comum de $a$ e $b$.}
+O mdc dos $a$ e $b$ é o maior dos divisores em comum de $a$ e $b$.}
 Ache um problema com essa definição, corrige-o, e depois compare
-com a~\ref[gcd].
+com a \ref[the_gcd].
 
 \hint
 O que acontece se $a=b=0$?
@@ -13848,7 +13881,7 @@ Mostre com um contraexemplo que as duas afirmações não são equivalentes.
 Procure um contraexemplo com três inteiros.
 
 \solution
-Os $2$, $4$, $5$ são coprimos entre si (têm m.d.c.~$1$)
+Os $2$, $4$, $5$ são coprimos entre si (têm mdc $1$)
 mas mesmo assim não são coprimos dois-a-dois:
 $\gcd 2 4 = 2$.
 
