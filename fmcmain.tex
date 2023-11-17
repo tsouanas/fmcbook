@@ -13090,74 +13090,6 @@ vai ser congruente ao original.
 
 %%}}}
 
-%%{{{ beware: wrong_cancellation_law_modulo_m 
-\beware.
-%%%{{{ meta 
-\label wrong_cancellation_law_modulo_m
-%%%}}}
-
-A lei de cancelamento, mesmo válido nas igualdades,
-não é válido nas congruências em geral.
-Por exemplo,
-$3\ntimes 2 \cong 3\ntimes 8 \pmod {18}$,
-mas não podemos cancelar os $3$ nos dois lados:
-$2 \ncong 8 \pmod {18}$.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Felizmente, o teorema seguinte mostra quando realmente podemos cancelar:
-
-%%}}}
-
-%%{{{ thm: cancellation_law_modulo_m 
-\theorem Lei de cancelamento módulo $m$.
-%%%{{{ meta 
-\label cancellation_law_modulo_m
-%%%}}}
-
-Seja $m$ inteiro.  Para todo $c$ coprimo com $m$,
-$$
-ca\cong cb\pmod m \implies a \cong b \pmod m.
-$$
-
-\sketch.
-Multiplicamos tudo por $c^{-1}$, cuja existência (módulo~$m$) é garantida
-pela hipótese (aplicando o~\ref[find_inverse_modulo_m]).
-
-\proof.
-Como $\gcd c m = 1$, existe $c^{-1}$ (módulo~$m$) então:
-$$
-\align
-ca\cong cb\pmod m
-&\implies          c^{-1}c a\cong          c^{-1}c b\pmod m\\
-&\implies \phantom{c^{-1}c}a\cong \phantom{c^{-1}c}b\pmod m.
-\endalign
-$$
-
-%%}}}
-
-%%{{{ x: cancellation_law_modulo_m_altproof 
-\exercise.
-%%%{{{ meta 
-\label cancellation_law_modulo_m_altproof
-%%%}}}
-
-Aplicando as definições e propriedades de congruência e da relação $(\divides)$,
-ache uma outra demonstração do~\reftag[cancellation_law_modulo_m].
-
-\solution
-Pela hipótese $m \divides ca - cb = c(a - b)$.
-Mas $\gcd m c = 1$, então
-(pelo~\ref[lemma_euclides_coprime_version])
-$m \divides a - b$, ou seja, $a \cong b \pmod m$.
-
-%%}}}
-
 %%{{{ x: from_mod_m_to_mod_am 
 \exercise.
 %%%{{{ meta 
@@ -13169,7 +13101,7 @@ O que podemos concluir sobre o $x$ módulo~$ma$?
 
 \hint
 Use as definições de congruência (\reftag[congruence_modulo_int]) e de $\divides$ (\reftag[divides])
-para escrever o $x$ na forma $x = mk + t$ para algum $k\in\ints$.
+para escrever o $x$ na forma $x = mk + t$.
 
 \hint
 Agora divida o $k$ por $a$.
@@ -13178,7 +13110,7 @@ Agora divida o $k$ por $a$.
 Pela definição de congruência (\reftag[congruence_modulo_int]) e de $\divides$ (\reftag[divides]) temos que:
 $$
 \align
-x &= mk + t, \quad\text{para algum $k\in\ints$}.
+x &= mk + t, \quad\text{para algum $k$ inteiro}.
 \intertext{Dividindo o $k$ por $a$,
 temos $k = aq + i$, onde $q,i\in\ints$ e $0\leq i < a$.  Substituindo:}
 x &= m(aq + i) + t\\
@@ -13198,7 +13130,18 @@ e $x$ tem que satisfazer (exatamente) uma delas.
 %%%}}}
 
 Sejam $a,b$ inteiros.
-Se $a = b$, então $a\cong b\pmod m$ para qualquer inteiro $m$.
+Se $a = b$, então $a \congmod m b$ para qualquer inteiro $m$.
+
+%%}}}
+
+%%{{{ x: from_congruence_to_equality 
+\exercise De congruências para igualdades?.
+%%%{{{ meta 
+\label from_congruece_to_equality
+%%%}}}
+
+Há inteiros $m$ tais que o recíproco é válido?
+Ou seja, tais que podemos inferir $a = b$ a partir de apenas $a \congmod m b$.
 
 %%}}}
 
@@ -13389,6 +13332,74 @@ logo $\gcd a m = 1$.
 
 Logo (\ref[Some_ideas_of_Fermat]) vamos encontrar mais
 uma maneira legal de achar inversos módulo um inteiro.
+
+%%}}}
+
+%%{{{ beware: wrong_cancellation_law_modulo_m 
+\beware.
+%%%{{{ meta 
+\label wrong_cancellation_law_modulo_m
+%%%}}}
+
+A lei de cancelamento, mesmo válido nas igualdades,
+não é válido nas congruências em geral.
+Por exemplo,
+$3\ntimes 2 \cong 3\ntimes 8 \pmod {18}$,
+mas não podemos cancelar os $3$ nos dois lados:
+$2 \ncong 8 \pmod {18}$.
+
+%%}}}
+
+%%{{{ blah: the following shows when we can actually cancel 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Felizmente, o teorema seguinte mostra quando realmente podemos cancelar:
+
+%%}}}
+
+%%{{{ thm: cancellation_law_modulo_m 
+\theorem Lei de cancelamento módulo $m$.
+%%%{{{ meta 
+\label cancellation_law_modulo_m
+%%%}}}
+
+Seja $m$ inteiro.  Para todo $c$ coprimo com $m$,
+$$
+ca\cong cb\pmod m \implies a \cong b \pmod m.
+$$
+
+\sketch.
+Multiplicamos tudo por $c^{-1}$, cuja existência (módulo~$m$) é garantida
+pela hipótese (aplicando o~\ref[find_inverse_modulo_m]).
+
+\proof.
+Como $\gcd c m = 1$, existe $c^{-1}$ (módulo~$m$) então:
+$$
+\align
+ca\cong cb\pmod m
+&\implies          c^{-1}c a\cong          c^{-1}c b\pmod m\\
+&\implies \phantom{c^{-1}c}a\cong \phantom{c^{-1}c}b\pmod m.
+\endalign
+$$
+
+%%}}}
+
+%%{{{ x: cancellation_law_modulo_m_altproof 
+\exercise.
+%%%{{{ meta 
+\label cancellation_law_modulo_m_altproof
+%%%}}}
+
+Aplicando as definições e propriedades de congruência e da relação $(\divides)$,
+ache uma outra demonstração do~\reftag[cancellation_law_modulo_m].
+
+\solution
+Pela hipótese $m \divides ca - cb = c(a - b)$.
+Mas $\gcd m c = 1$, então
+(pelo~\ref[lemma_euclides_coprime_version])
+$m \divides a - b$, ou seja, $a \cong b \pmod m$.
 
 %%}}}
 
