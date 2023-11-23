@@ -19176,6 +19176,118 @@ Definimos a função $(\concat)$:
 \endsection
 %%}}}
 
+%%{{{ Two sides of the same coin 
+\section Dois lados da mesma moeda.
+%%%{{{ meta 
+%%%}}}
+
+\TODO conectar 3-eq defs com 3-pattern induction, match-with, etc.
+
+%%{{{ Inductive definition 
+\note Definição inductiva.
+%%%{{{ meta 
+\label inductive_definitions
+%%%}}}
+
+Definimos o tipo Nat assim:
+$$
+\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+$$
+Note que o Nat aparece no lado direito também;
+e nesse sentido podemos dizer que essa foi uma definição recursiva.
+Esse tipo de definição chamamos de \dterm{definição inductiva}.
+Ele libera duas ferramentas poderosas:
+definir operações e relações por recursão;
+e demonstrar propriedades por indução.
+
+%%}}}
+
+%%{{{ inductive_vs_recursive_definitions 
+\beware.
+%%%{{{ meta 
+\label inductive_vs_recursive_definitions
+%%%}}}
+
+Muitas vezes ``definição inductiva'' acaba sendo chamada ``definição recursiva''.
+Vários autores, dependendo da área que estão trabalhando adoptam um uso ou
+o outro, ou ambos, ou até diferenciando o que cada um significa.
+Tradicionalmente o slogan seria:
+\standout
+<<define por recursão; demonstre por indução>>.
+\endstandout
+
+%%}}}
+
+%%{{{ the_power_of_recursion 
+\note O poder da recursão.
+%%%{{{ meta 
+\label the_power_of_recursion
+%%%}}}
+
+Estamos tentando \emph{definir algo por recursão},
+por exemplo a operação de multiplicação
+(\ref[nats_ntimes_recursive_def]).
+Escrevemos já
+$$
+\align
+n \ntimes 0  &= 0 \\
+n \ntimes Sm &= \text{\lthole}
+\endalign
+$$
+e estamos pensando em como completar nossa definição.
+E a Recursão chega e nos oferece um presente:
+\quote
+<<Para definir o $n \ntimes Sm$, considere o valor do $n \ntimes m$ como dado,
+de graça por mim; e veja se tu consegues definir o valor de $n \ntimes Sm$ com isso.>>
+\endquote
+E é exatamente o que fizemos.
+É isto o \dterm{poder da recursão}.
+
+%%}}}
+
+%%{{{ the_power_of_induction 
+\note O poder da indução.
+%%%{{{ meta 
+\label the_power_of_induction
+%%%}}}
+
+Estamos tentando \emph{demonstrar algo por indução}
+por exemplo a associatividade da adição.
+Já demonstramos a base (o $\phi(0)$), e queremos
+demonstrar o $\phi(Sn)$.
+E a Indução chega e nos oferece um presente:
+\quote
+<<Para demonstrar o $\phi(Sn)$, considere o $\phi(n)$ como dado, de graça por mim;
+e veja se tu consegues demonstrar o $\phi(Sn)$ com isso agora.>>
+\endquote
+E é exatamente o que fizemos.
+É isto o \dterm{poder da indução}.
+Compare com nossa primeira tentativa de demonstrar a associatividade da adição
+(sem indução) onde nossa única maneira de andar era separar em casos,
+mas cada vez que conseguimos matar o ``caso 0'' o ``caso sucessor'' tava
+sempre gerando mais dois casos: um novo ``caso 0'' e um novo ``caso sucessor''.
+E nossos dados não eram suficientes para matar o ``caso sucessor''.
+
+%%}}}
+
+%%{{{ Where is recursion's principle? 
+\note E a recursão?  Não tem princípio não?.
+%%%{{{ meta 
+%%%}}}
+
+Se recursão é indução são dois lados da mesma moeda mesmo,
+e já encontramos e enunciamos o princípio da indução;
+a gente não deveria ter analogamente um princípio da recursão
+também?
+Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois
+(\ref[Axiomatic_set_theory]),
+pois precisamos mais ferramentas e maturidade.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ Destructors 
 \section Destrutores.
 %%%{{{ meta 
@@ -19407,6 +19519,17 @@ Definimos o construtor de tipos $\Maybe$ assim:
 %%}}}
 
 \TODO Explain notation.
+
+\endsection
+%%}}}
+
+%%{{{ Sum_for_types 
+\section Soma de tipos.
+%%%{{{ meta 
+\label Sum_for_types
+%%%}}}
+
+\TODO Escrever.
 
 \endsection
 %%}}}
@@ -20238,116 +20361,6 @@ f( \lnot(P_4 \limplies (P_9 \land \lnot P_9)) )
 \section Uma pequena linguagem de programação.
 %%%{{{ meta 
 %%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Two sides of the same coin 
-\section Dois lados da mesma moeda.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ Inductive definition 
-\note Definição inductiva.
-%%%{{{ meta 
-\label inductive_definitions
-%%%}}}
-
-Definimos o tipo Nat assim:
-$$
-\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
-$$
-Note que o Nat aparece no lado direito também;
-e nesse sentido podemos dizer que essa foi uma definição recursiva.
-Esse tipo de definição chamamos de \dterm{definição inductiva}.
-Ele libera duas ferramentas poderosas:
-definir operações e relações por recursão;
-e demonstrar propriedades por indução.
-
-%%}}}
-
-%%{{{ inductive_vs_recursive_definitions 
-\beware.
-%%%{{{ meta 
-\label inductive_vs_recursive_definitions
-%%%}}}
-
-Muitas vezes ``definição inductiva'' acaba sendo chamada ``definição recursiva''.
-Vários autores, dependendo da área que estão trabalhando adoptam um uso ou
-o outro, ou ambos, ou até diferenciando o que cada um significa.
-Tradicionalmente o slogan seria:
-\standout
-<<define por recursão; demonstre por indução>>.
-\endstandout
-
-%%}}}
-
-%%{{{ the_power_of_recursion 
-\note O poder da recursão.
-%%%{{{ meta 
-\label the_power_of_recursion
-%%%}}}
-
-Estamos tentando \emph{definir algo por recursão},
-por exemplo a operação de multiplicação
-(\ref[nats_ntimes_recursive_def]).
-Escrevemos já
-$$
-\align
-n \ntimes 0  &= 0 \\
-n \ntimes Sm &= \text{\lthole}
-\endalign
-$$
-e estamos pensando em como completar nossa definição.
-E a Recursão chega e nos oferece um presente:
-\quote
-<<Para definir o $n \ntimes Sm$, considere o valor do $n \ntimes m$ como dado,
-de graça por mim; e veja se tu consegues definir o valor de $n \ntimes Sm$ com isso.>>
-\endquote
-E é exatamente o que fizemos.
-É isto o \dterm{poder da recursão}.
-
-%%}}}
-
-%%{{{ the_power_of_induction 
-\note O poder da indução.
-%%%{{{ meta 
-\label the_power_of_induction
-%%%}}}
-
-Estamos tentando \emph{demonstrar algo por indução}
-por exemplo a associatividade da adição.
-Já demonstramos a base (o $\phi(0)$), e queremos
-demonstrar o $\phi(Sn)$.
-E a Indução chega e nos oferece um presente:
-\quote
-<<Para demonstrar o $\phi(Sn)$, considere o $\phi(n)$ como dado, de graça por mim;
-e veja se tu consegues demonstrar o $\phi(Sn)$ com isso agora.>>
-\endquote
-E é exatamente o que fizemos.
-É isto o \dterm{poder da indução}.
-Compare com nossa primeira tentativa de demonstrar a associatividade da adição
-(sem indução) onde nossa única maneira de andar era separar em casos,
-mas cada vez que conseguimos matar o ``caso 0'' o ``caso sucessor'' tava
-sempre gerando mais dois casos: um novo ``caso 0'' e um novo ``caso sucessor''.
-E nossos dados não eram suficientes para matar o ``caso sucessor''.
-
-%%}}}
-
-%%{{{ Where is recursion's principle? 
-\note E a recursão?  Não tem princípio não?.
-%%%{{{ meta 
-%%%}}}
-
-Se recursão é indução são dois lados da mesma moeda mesmo,
-e já encontramos e enunciamos o princípio da indução;
-a gente não deveria ter analogamente um princípio da recursão
-também?
-Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois
-(\ref[Axiomatic_set_theory]),
-pois precisamos mais ferramentas e maturidade.
-
-%%}}}
 
 \endsection
 %%}}}
