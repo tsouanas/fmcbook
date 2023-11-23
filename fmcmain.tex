@@ -19183,9 +19183,9 @@ Definimos a função $\fmap$:
 Definimos a função $\ffilter$:
 \fundef
 \ffilter : (\alpha \to \beta) \to (\ListA \alpha) \to (\ListA \beta) \\
-\ffilterAA p \lnil    &= \lnil \\
-\ffilterSS p (x:\xs)  &= \IF p\fa x
-                             \THEN x : \ffilterAA p \xs
+\ffilterAA p \lnil &= \lnil \\
+\ffilterSS p (x\lcons\xs) &= \IF p\fa x
+                             \THEN x \lcons \ffilterAA p \xs
                              \ELSE \ffilterAA p \xs \FI \\
 \endfundef
 
@@ -19212,7 +19212,7 @@ $$
 $$
 pela definição de igualdade entre funções, preciso demonstrar
 $$
-\lforall {\ell : \List \alpha}
+\lforall {\ell : \ListA \alpha}
     {\paren{\ffilterA p \of \fmapA f} \fa \ell = \paren{\fmapA f \of \ffilterA {(p \of f)}} \fa \ell}
 $$
 Por indução no $\ell$.
@@ -19534,14 +19534,14 @@ $$
 $$
 pra mim.
 Sejam $\alpha \toby g \beta \toby f \gamma$.
-Agora, pela definição de igualdade sobre funções, preciso demonstrar
+Agora, pela definição da igualdade sobre funções, preciso demonstrar
 $$
-\lforall {\ell \is \List \alpha}
+\lforall {\ell \is \ListA \alpha}
          { \fmapPA {f \of g} \ell
              =
            \fA {(\fmapA f \of \fmapA g)} \ell }.
 $$
-Seja $\ell \is \List \alpha$.
+Seja $\ell \is \ListA \alpha$.
 Por indução.
 \crproofcase {Caso $\lnil$.}
 Calculamos:
@@ -20445,7 +20445,7 @@ na fim do \ref[finite_numbersets_have_min]?
 \label concat_iterations_equivalent
 %%%}}}
 
-Denotamos a operação de concatenação de strings por $\concat$.
+Denotamos a operação de concatenação de strings por $(\concat)$.
 Dois alunos definiram com as maneiras seguintes a ``exponenciação'':
 $$
 \xxalignat4
