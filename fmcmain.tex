@@ -19686,7 +19686,7 @@ Calculamos:
     \by {\funref[\reverse.2]} \\
   = ((((\reverseS \lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
     \by {\funref[\reverse.2]} \\
-  \dotseq ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+  = ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
     \by {\funref[\reverse.1]} \\
   \dotseq (((\list{5} \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
     \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
@@ -19703,7 +19703,30 @@ Vamos separar esse cálculo em duas partes.
 Na primeira (onde aparecem só $(=)$) cada linha corresponde em exatamente um passo, em qual aplicamos a definição de $\reverse$ para efetuar uma substituição.
 Na segunda (onde aparecem só $(\dotseq)$) \emph{cada linha corresponde numa seqüência de passos}, em quais aplicamos repetidamente a $(\concat).2$ até esvasiar a lista à esquerda para finalmente aplicar a $(\concat).1$.
 Queremos contar a quantidade de passos que todo esse cálculo precisou até termianar.
-
+A primeira parte é fácil: de fato, cada $(=)$ é 1 passo, e tem $6$ em total; então
+vou escrever
+\poemcompute
+\reverseS \list{1,2,3,4,5} \\
+  \eqtag 6 ((((\reverseS \lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}.
+    \by {$(4\times)$ \funref[\reverse.2]; $(1\times)$ \funref[\reverse.1]}
+\endpoemcompute
+Agora precisamos contar quantas $(=)$'s estão escondidas atrás de cada uma das $(\dotseq)$'s.
+Lembrando que o cálculo de $\ell_1 \concat \ell_2$ precisa de $\size{\ell_1}$ passos, chegamos na conta seguinte:
+\poemcompute
+\reverseS \list{1,2,3,4,5} \\
+  \eqtag 6 ((((\reverseS \lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {$(4\times)$ \funref[\reverse.2]; $(1\times)$ \funref[\reverse.1]}
+  \eqtag 1 (((\list{5} \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {$(0\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
+  \eqtag 2 ((\list{5,4} \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {$(1\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
+  \eqtag 3 (\list{5,4,3} \concat \list{2}) \concat \list{1}
+    \by {$(2\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
+  \eqtag 4 \list{5,4,3,2} \concat \list{1}
+    \by {$(3\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
+  \eqtag 5 \list{5,4,3,2,1}.
+    \by {$(4\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]}
+\endpoemcompute
 %%}}}
 
 \endsection
