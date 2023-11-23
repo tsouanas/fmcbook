@@ -15924,7 +15924,7 @@ Nada mais é um $\Nat$.
 
 Escrevemos
 $$
-\dataforms Nat = {\Ze \dataor \Su \fa \Nat}
+\dataforms \Nat = {\Ze \dataor \Su \fa \Nat}
 $$
 e introduzimos assim o tipo $\Nat$ listando todas as formas possíveis que seus
 membros podem ter: cada $\Nat$ ou é o $\cons O$, ou é o $\cons S$ de algum $\Nat$.
@@ -16037,7 +16037,7 @@ linguagem-objeto \vs da metalinguagem nas definições acima.
 \label nat_four_check_tree 
 %%%}}}
 
-Vamos inferir que $SSSS0$ é um $\Nat$ mesmo.
+Vamos inferir que $\SuP {\SuP {\SuP {\SuA \Ze}}}$ é um $\Nat$ mesmo.
 
 \solution.
 Vamos construir sua árvore \emph{bottom-up}.
@@ -16228,7 +16228,7 @@ Comparando com os sistemas mais comuns com bases $b > 1$ como o binário
 ou o decimal, já parece deficiente nesse sentido.
 Mas uma \emph{vantagem} para a gente nesse caso é sua simplicidade
 na sua definição recursiva:
-\emph{cada $\Nat$ ou é o zero, ou o sucessor de um $\Nat$}.
+\emph{cada Nat ou é o zero, ou o sucessor de um Nat}.
 Tudo sobre os Nats é desenvolvido usando apenas essa definição simplíssima.
 
 %%}}}
@@ -19191,16 +19191,25 @@ Definimos a função $(\concat)$:
 \label inductive_definitions
 %%%}}}
 
-Definimos o tipo Nat assim:
+Definimos o tipo $\Nat$ listando suas formas (\reftag[nat_data_forms]) assim:
 $$
-\bnf{Nat} \bnfeq 0 \bnfor S \bnf{Nat}
+\dataforms \alert{\Nat} = {\Ze \dataor \Su \fa \alert{\Nat}}
 $$
-Note que o Nat aparece no lado direito também;
-e nesse sentido podemos dizer que essa foi uma definição recursiva.
+Note o $\Nat$ que aparece no lado direito também;
+é nesse sentido podemos dizer que essa foi uma definição recursiva.
+Alternativamente, optando para listar seus construtores (\reftag[nat_data_cons]) foi assim:
+\data \alert{\Nat} \\
+\co \Ze : \Nat \\
+\co \Su : \alert{\Nat} \to \Nat \\
+\enddata
+Aqui note o $\alert{\Nat}$ que reaparece \emph{como argumento}
+para um dos seus próprios construtores.
 Esse tipo de definição chamamos de \dterm{definição inductiva}.
-Ele libera duas ferramentas poderosas:
+Ela libera duas ferramentas poderosas:
 definir operações e relações por recursão;
 e demonstrar propriedades por indução.
+Na verdade se trata da mesma ferramenta,
+algo que analizamos na \ref[Two_sides_of_the_same_coin_recind].
 
 %%}}}
 
