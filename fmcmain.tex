@@ -19135,6 +19135,44 @@ Note que $\List \is \Type \to \Type$.
 
 %%}}}
 
+%%{{{ df: reverse_fundef 
+\definition reverse.
+%%%{{{ meta 
+\headerize
+\label reverse_fundef
+\defines
+    * \reverseA {~\ell}  -- a reversa da lista $\ell$
+    ;;
+%%%}}}
+
+Definimos a função $\reverse$:
+\fundef
+\reverse : \ListA \alpha \to \ListA \alpha \\
+\reverseA \lnil         &= \lnil \\
+\reverseS (x\lcons\xs)  &= \reverseA \xs \concat \list {x}.
+\endfundef
+
+%%}}}
+
+%%{{{ df: concat_fundef 
+\definition concat.
+%%%{{{ meta 
+\headerize
+\label concat_fundef
+\defines
+    * {~{\ell_1}} \concat {~{\ell_2}}  -- a concatenação da lista $\ell_1$ com a $\ell_2$
+    ;;
+%%%}}}
+
+Definimos a função $(\concat)$:
+\fundef
+(\concat) : \ListA \alpha \to \ListA \alpha \to \ListA \alpha \\
+\lnil        \concat ys &= ys    \\
+(x\lcons xs) \concat ys &= x \lcons (xs \concat ys).
+\endfundef
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -19617,6 +19655,40 @@ Observe primeiramente que todos são tipos mesmo.
 %%%{{{ meta 
 \label From_correctness_to_efficiency
 %%%}}}
+
+%%{{{ intro 
+\secintro
+Nosso foco tem sido definir funções corretamente e demonstrar suas propriedades,
+incluindo a corretude dos nossos programas.
+Sem aprofundar nos terrenos da complexidade computational, quero aproveitar o momento
+para falar de eficiência.  Vamos ver como podemos usar a teoria que temos elaborado
+aqui para ganhar versões bem mais eficientes dumas funções com quais nos sofreríamos
+se iríamos trabalhar com suas versões originais.
+%%}}}
+
+%%{{{ How about lists of maybes or similar types? 
+\note Reverse.
+%%%{{{ meta 
+%%%}}}
+
+Lembre a definição da $\reverse$.
+Quantos passos precisamos para calcular seu valor, ficando fieis na sua definição?
+
+Calculamos:
+\poemcompute
+(\ffilterA p \of \fmapA f) \fa (x \lcons \xs) \\
+  = \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}                  \by {\funref[(\of).1]} \\
+  = \ffilterAA p {(\fA f x \lcons \fmapAA f \xs)}                \by {\funref[\fmap.2]} \\
+  = \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \by {\funref[\ffilter.2] e HC} \\
+  = \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs            \by {\funref[(\of).1]} \\
+  = \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs  \by {HI} \\
+  = \fA f x \lcons (\fmapAA f {(\ffilterAA {(p \of f)} \xs)})    \by {\funref[(\of).1]} \\
+  = \fmapAA f {(x \lcons \ffilterAA {(p \of f)} \xs)}            \by {\funref[\fmap.2]} \\
+  = \fmapAA f {(\ffilterAA {(p \of f)} {(x \lcons \xs)}))}       \by {\funref[\ffilter.2] e HC} \\
+  = (\fmapA f \of {\ffilterA {(p \of f)}}) \fa (x \lcons \xs)    \by {\funref[(\of).1]} \\
+\endpoemcompute
+
+%%}}}
 
 \endsection
 %%}}}
