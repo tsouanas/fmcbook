@@ -19673,20 +19673,36 @@ se iríamos trabalhar com suas versões originais.
 
 Lembre a definição da $\reverse$.
 Quantos passos precisamos para calcular seu valor, ficando fieis na sua definição?
-
 Calculamos:
 \poemcompute
-(\ffilterA p \of \fmapA f) \fa (x \lcons \xs) \\
-  = \ffilterAA p {(\fmapAA f {(x \lcons \xs)})}                  \by {\funref[(\of).1]} \\
-  = \ffilterAA p {(\fA f x \lcons \fmapAA f \xs)}                \by {\funref[\fmap.2]} \\
-  = \fA f x \lcons \ffilterAA p {(\fmapAA f \xs)}                \by {\funref[\ffilter.2] e HC} \\
-  = \fA f x \lcons (\ffilterA p \of \fmapA f) \fa \xs            \by {\funref[(\of).1]} \\
-  = \fA f x \lcons (\fmapA f \of \ffilterA {(p \of f)}) \fa \xs  \by {HI} \\
-  = \fA f x \lcons (\fmapAA f {(\ffilterAA {(p \of f)} \xs)})    \by {\funref[(\of).1]} \\
-  = \fmapAA f {(x \lcons \ffilterAA {(p \of f)} \xs)}            \by {\funref[\fmap.2]} \\
-  = \fmapAA f {(\ffilterAA {(p \of f)} {(x \lcons \xs)}))}       \by {\funref[\ffilter.2] e HC} \\
-  = (\fmapA f \of {\ffilterA {(p \of f)}}) \fa (x \lcons \xs)    \by {\funref[(\of).1]} \\
+\reverseS \list{1,2,3,4,5} \\
+  = \reverseS \list{1,2,3,4} \concat \list{5}
+    \by {\funref[\reverse.2]} \\
+  = (\reverseS \list{1,2,3} \concat \list{5}) \concat \list{4}
+    \by {\funref[\reverse.2]} \\
+  = ((\reverseS \list{1,2} \concat \list{5}) \concat \list{4}) \concat \list{3}
+    \by {\funref[\reverse.2]} \\
+  = (((\reverseS \list{1} \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}
+    \by {\funref[\reverse.2]} \\
+  = ((((\reverseS \lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {\funref[\reverse.2]} \\
+  \dotseq ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {\funref[\reverse.1]} \\
+  \dotseq (((\list{5} \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
+  \dotseq ((\list{5,4} \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
+  \dotseq (\list{5,4,3} \concat \list{2}) \concat \list{1}
+    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
+  \dotseq \list{5,4,3,2} \concat \list{1}
+    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
+  \dotseq \list{5,4,3,2,1}.
+    \by {\funref[(\concat).2]; \funref[(\concat).1]}
 \endpoemcompute
+Vamos separar esse cálculo em duas partes.
+Na primeira (onde aparecem só $(=)$) cada linha corresponde em exatamente um passo, em qual aplicamos a definição de $\reverse$ para efetuar uma substituição.
+Na segunda (onde aparecem só $(\dotseq)$) \emph{cada linha corresponde numa seqüência de passos}, em quais aplicamos repetidamente a $(\concat).2$ até esvasiar a lista à esquerda para finalmente aplicar a $(\concat).1$.
+Queremos contar a quantidade de passos que todo esse cálculo precisou até termianar.
 
 %%}}}
 
