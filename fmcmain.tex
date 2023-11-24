@@ -19963,73 +19963,131 @@ versões bem mais eficientes dumas funções com quais nos sofreríamos se iría
 trabalhar com suas versões originais.
 %%}}}
 
-%%{{{ How about lists of maybes or similar types? 
-\note Reverse.
+%%{{{ What went wrong? 
+\note O que deu errado?.
 %%%{{{ meta 
 %%%}}}
 
-Lembre a definição da $\reverse$.
-Quantos passos precisamos para calcular seu valor, ficando fieis na sua definição?
+Descubrimos (\ref[reverse_complexity]) que nossa $\reverse$ tem complexidade de tempo $O(n^2)$:
+para reverter uma lista de tamanho $n$ ela precisa $\frac 1 2 n^2 + \frac 3 2 n + 1$ passos.
+Uma alternativa sensata agora seria pensar criativamente uma nova definição de $\reverse$
+que seria mais eficiente.  Mas com o que temos estudado até agora, dá para evitar
+esse processo; limitando a inspiração necessária.  Vamos ver como aproveitar nossa
+experiência com indução e usá-la como guia para chegar quase gratuitamente numa
+nova definição de $\reverse$ que vai acabar sendo \emph{muito} mais eficiente!
+
+%%}}}
+
+%%{{{ revcat_via_induction 
+\note Revcat via indução.
+%%%{{{ meta 
+\label revcat_via_induction
+%%%}}}
+
+Vamos fingir por um momento que alguém já definiu uma tal função, e que ela é rápida.
+Observe que tendo uma tal $\revcat$, podemos definir nossa $\reverse$ para ser simplesmente
+uma aplicação parcial da $\revcat$:
+$$
+\reverseA \xs \defeq \revcatAA \xs \lnil.
+$$
+Então basta definir uma eficiente $\revcat$.
+Vamos usar indução como guia para chegar em tal definição, sem pecisar pensar muito.
+Começa fingindo que estamos tentando demonstrar por indução a especificação da $\revcat$:
+$$
+\pforall {\xs : \ListA \alpha}
+\lforall {\ys : \ListA \alpha}
+         {\revcatAA \xs \ys = \reverseA \xs \concat \ys}.
+$$
+Seja $\xs : \ListA \alpha$ então.  Por indução no $\xs$.
+\crproofpart{Caso $\lnil$.}
+Seja $\ys : \ListA \alpha$.
+$$
+\revcatAA \lnil \ys \askeq \reverseA \lnil \concat \ys.
+$$
+Não tendo como trabalhar no lado esquerdo, trabalhe no lado direito:
+\poemcompute
+\reverseA \lnil \concat \ys \\
+  = \lnil \concat \ys \by {\funref[\reverse.1]} \\
+  = \ys               \by {\funref[(\concat).1]}
+\endpoemcompute
+E assim a \dq{base da indução} nos fornece a primeira das duas linhas que precisamos
+para definir a desejada $\revcat$:
+$$
+\revcatAA \lnil \ys \defeq \ys.
+$$
+Agora falta o \dq{passo indutivo} nos fornecer a segunda linha.
+\crproofpart{Caso $(x\lcons\xs)$.}
+Nossa \dq{hipotese indutiva} aqui é que $\xs$ é \emph{legalzão}, ou seja:
+$$
+\lforall {\ell : \ListA \alpha}
+         {\revcatAA \xs \ell = \reverseA \xs \concat \ell}.
+$$
+Vamos brincar de demonstradores de
+$$
+\lforall {\ys : \ListA \alpha}
+         {\revcatPA {x\lcons\xs} \ys = \reverseP {x\lcons\xs} \concat \ys}.
+$$
+Seja $\ys : \ListA \alpha$.
+Calculamos novamente no lado direito:
+\poemcompute
+\revcatPA {x\lcons\xs} \ys \\
+  \bangeq \reverseP {x\lcons\xs} \concat \ys             \by {especificação da $\revcat$} \\
+  = (\reverseA \xs \concat \list{x}) \concat \ys         \by {\funref[\reverse.2]} \\
+  = \reverseA \xs \concat (\list{x} \concat \ys)         \by {$(\concat)$-assoc.} \\
+  = \reverseA \xs \concat (\lnil \concat (x \lcons \ys)) \by {\funref[(\concat).2]} \\
+  = \reverseA \xs \concat (x \lcons \ys)                 \by {\funref[(\concat).1]} \\
+  = \revcatAP \xs {x\lcons\ys}                           \by {h.i.~com $\ell \asseq x \lcons \ys$}
+\endpoemcompute
+finalmente chegando numa expressão que não envolve nem $\reverse$ nem $(\concat)$,
+que usamos para completar nossa definição de $\revcat$, cuja versão final fica assim:
+
+%%}}}
+
+%%{{{ df: revcat_reverse_fundef 
+\definition revcat.
+%%%{{{ meta 
+\label revcat_fundef
+\defines
+    * \revcat {~{\ell_1}} {~{\ell_2}}  -- a reversa da $\ell_1$, concatenada na $\ell_2$
+    ;;
+%%%}}}
+
+\fundefs 2
+\fundefed {
+\reverseA : \ListA \alpha \to \ListA \alpha \\
+\reverseA \xs &= \revcatAA \xs \lnil \\
+}
+& \fundefed {
+\revcat : \ListA \alpha \to \ListA \alpha \to \ListA \alpha \\
+\revcatAA \lnil        \ys &\defeq \ys \\
+\revcatPA (x\lcons\xs) \ys &\defeq \revcatAP \xs {x\lcons\ys}.
+}
+\endfundefs
+
+%%}}}
+
+%%{{{ reverse_new_complexity 
+\note Reverse: nova complexidade.
+%%%{{{ meta 
+\label reverse_new_complexity
+%%%}}}
+
+Quantos passos precisamos para calcular o valor da $\reverse {\list{1,2,3,4,5}}$ com
+nossa nova \ref[revcat_reverse_fundef]?
 Calculamos:
 \poemcompute
 \reverseS \list{1,2,3,4,5} \\
-  = \reverseS \list{1,2,3,4} \concat \list{5}
-    \by {\funref[\reverse.2]} \\
-  = (\reverseS \list{1,2,3} \concat \list{5}) \concat \list{4}
-    \by {\funref[\reverse.2]} \\
-  = ((\reverseS \list{1,2} \concat \list{5}) \concat \list{4}) \concat \list{3}
-    \by {\funref[\reverse.2]} \\
-  = (((\reverseS \list{1} \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}
-    \by {\funref[\reverse.2]} \\
-  = ((((\reverseS \lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
-    \by {\funref[\reverse.2]} \\
-  = ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
-    \by {\funref[\reverse.1]} \\
-  \dotseq (((\list{5} \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
-    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
-  \dotseq ((\list{5,4} \concat \list{3}) \concat \list{2}) \concat \list{1}
-    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
-  \dotseq (\list{5,4,3} \concat \list{2}) \concat \list{1}
-    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
-  \dotseq \list{5,4,3,2} \concat \list{1}
-    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
-  \dotseq \list{5,4,3,2,1}.
-    \by {\funref[(\concat).2]; \funref[(\concat).1]}
+  = \revcatAA {\list{1,2,3,4,5}}  {\lnil} \by {\funref[\reverse.1]} \\
+  = \revcatAA {\list{2,3,4,5}} {\list{1}} \by {\funref[\revcat.2]} \\
+  = \revcatAA {\list{3,4,5}} {\list{2,1}} \by {\funref[\revcat.2]} \\
+  = \revcatAA {\list{4,5}} {\list{3,2,1}} \by {\funref[\revcat.2]} \\
+  = \revcatAA {\list{5}} {\list{4,3,2,1}} \by {\funref[\revcat.2]} \\
+  = \revcatAA {\lnil}  {\list{5,4,3,2,1}} \by {\funref[\revcat.2]} \\
+  = \list{5,4,3,2,1}.                     \by {\funref[\revcat.1]}
 \endpoemcompute
-Vamos separar esse cálculo em duas partes.
-Na primeira (onde aparecem só $(=)$) cada linha corresponde em exatamente um passo,
-em qual aplicamos a definição de $\reverse$ para efetuar uma substituição.
-Na segunda (onde aparecem só $(\dotseq)$) cada linha corresponde numa seqüência de passos,
-em quais aplicamos repetidamente a $(\concat).2$ até esvasiar a lista à esquerda
-para finalmente aplicar a $(\concat).1$.
-Queremos contar a quantidade de passos que todo esse cálculo precisou até terminar.
-A primeira parte é fácil: de fato, cada $(=)$ é 1 passo, e tem $6$ em total;
-então vou escrever
-\poemcompute
-\reverseS \list{1,2,3,4,5} \\
-  \eqtag 6 ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}.
-    \by {$(4\times)$ \funref[\reverse.2]; $(1\times)$ \funref[\reverse.1]}
-\endpoemcompute
-Agora precisamos contar quantas $(=)$'s estão escondidas atrás de cada uma das $(\dotseq)$'s.
-Lembrando que o cálculo de $\ell_1 \concat \ell_2$ precisa de $\size{\ell_1}+1$ passos,
-chegamos na conta seguinte:
-\poemcompute
-\reverseS \list{1,2,3,4,5} \\
-  \eqtag 6 ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
-    \by {$(5\times)$ \funref[\reverse.2]; $(1\times)$ \funref[\reverse.1]} \\
-  \eqtag 1 (((\list{5} \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
-    \by {$(0\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
-  \eqtag 2 ((\list{5,4} \concat \list{3}) \concat \list{2}) \concat \list{1}
-    \by {$(1\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
-  \eqtag 3 (\list{5,4,3} \concat \list{2}) \concat \list{1}
-    \by {$(2\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
-  \eqtag 4 \list{5,4,3,2} \concat \list{1}
-    \by {$(3\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
-  \eqtag 5 \list{5,4,3,2,1}.
-    \by {$(4\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]}
-\endpoemcompute
-Assim, a primeira parte precisou $6$ passos e a segunda $1 + \dotsb + 5 = 15$ passos,
-isto é, $21$ passos para uma lista de tamanho $5$.
+Precisou $7$ passos: $1$ no início para chamar a $\revcat$, $5$ chamadas da \funref[\revcat.2], e finalmente $1$ chamada da \funref[\revcat.1].
+Em forma geral, sendo aplcada numa lista de tamanho $n$, vai precisar apenas $n+2$ passos.
+Ou seja conseguimos uma implementação de tempo $O(n)$, em vez da velha e lenta versão que precisa $O(n^2)$.
 
 %%}}}
 
