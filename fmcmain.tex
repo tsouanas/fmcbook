@@ -20034,7 +20034,7 @@ Calculamos novamente no lado direito:
   \bangeq \reverseP {x\lcons\xs} \concat \ys             \by {especificação da $\revcat$} \\
   = (\reverseA \xs \concat \list{x}) \concat \ys         \by {\funref[\reverse.2]} \\
   = \reverseA \xs \concat (\list{x} \concat \ys)         \by {$(\concat)$-assoc.} \\
-  = \reverseA \xs \concat (\lnil \concat (x \lcons \ys)) \by {\funref[(\concat).2]} \\
+  = \reverseA \xs \concat (x \lcons (\lnil \concat \ys)) \by {\funref[(\concat).2]} \\
   = \reverseA \xs \concat (x \lcons \ys)                 \by {\funref[(\concat).1]} \\
   = \revcatAP \xs {x\lcons\ys}                           \by {h.i.~com $\ell \asseq x \lcons \ys$}
 \endpoemcompute
@@ -20054,13 +20054,14 @@ que usamos para completar nossa definição de $\revcat$, cuja versão final fic
 
 \fundefs 2
 \fundefed {
-\reverseA : \ListA \alpha \to \ListA \alpha \\
+\reverse : \ListA \alpha \to \ListA \alpha \\
 \reverseA \xs &= \revcatAA \xs \lnil \\
+\vphantom {\revcatPA {x\lcons\xs} \ys} \\
 }
 & \fundefed {
 \revcat : \ListA \alpha \to \ListA \alpha \to \ListA \alpha \\
-\revcatAA \lnil        \ys &\defeq \ys \\
-\revcatPA (x\lcons\xs) \ys &\defeq \revcatAP \xs {x\lcons\ys}.
+\revcatAA \lnil        \ys &= \ys \\
+\revcatPA {x\lcons\xs} \ys &= \revcatAP \xs {x\lcons\ys}.
 }
 \endfundefs
 
