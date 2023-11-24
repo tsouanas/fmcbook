@@ -19178,8 +19178,8 @@ Definimos a função $\reverse$:
 Definimos a função $(\concat)$:
 \fundef
 (\concat) : \ListA \alpha \to \ListA \alpha \to \ListA \alpha \\
-\lnil        \concat ys &= ys    \\
-(x\lcons xs) \concat ys &= x \lcons (xs \concat ys).
+\lnil        \concat \ys &= \ys    \\
+(x\lcons\xs) \concat \ys &= x \lcons (\xs \concat \ys).
 \endfundef
 
 %%}}}
@@ -19806,18 +19806,18 @@ Sem aprofundar nos terrenos da complexidade computational, quero aproveitar o mo
 para falar de eficiência.
 %%}}}
 
-%%{{{ Length 
-\note Legth.
+%%{{{ length_complexity 
+\note Length.
 %%%{{{ meta 
+\label length_complexity
 %%%}}}
 
 Lembre a definição da $\length$:
 \fundef
 \length : \ListA \alpha \to \Nat \\
-\lengthA \lnil         &= \Ze \\
-\lengthP {n \lcons ns} &= \SuP {\lengthA {ns}}.
+\lengthA \lnil        &= \Ze \\
+\lengthP {n\lcons\ns} &= \SuP {\lengthA {\ns}}.
 \endfundef
-
 Quantos passos precisamos para calcular o valor da $\lengthA {\list{1,2,3,4}}$
 ficando fieis na sua definição?
 Calculamos:
@@ -19834,45 +19834,34 @@ Calculamos:
   = \SuP {\SuP {\SuP {\SuA \Ze}}}.
     \by {\funref[\length.1]}
 \endpoemcompute
-Precisou $5$ passos: $4$ usos de \funref[length.2] e $1$ uso de \funref[length.1].
+Precisou $5$ passos: $4$ usos de \funref[\length.2] e $1$ uso de \funref[\length.1].
 É fácil perceber a maneira certa de generalizar isso para contar os passos de cálculo
 da $\lengthA \ell$, onde $\ell$ é uma lista arbitrária:
 vamos precisar $\size{\ell} + 1$ passos, onde $\size{\ell}$ denota o tamanho da lista $\ell$.
 
 %%}}}
 
-%%{{{ Concatenation 
-\note Concatenação.
+%%{{{ x: concat_complexity 
+\exercise Concatenação.
 %%%{{{ meta 
+\label concat_complexity
 %%%}}}
 
-Lembre a definição da $\length$:
-Quantos passos precisamos para calcular o valor da $\lengthA {\list{1,2,3,4}}$,
-ficando fieis na sua definição?
-Calculamos:
-\poemcompute
-\lengthA {\list{1,2,3,4}} \\
-  = \SuP {\lengthA {\list{1,2,3}}}
-    \by {\funref[\length.2]} \\
-  = \SuP {\SuP {\lengthA {\list{1,2}}}}
-    \by {\funref[\length.2]} \\
-  = \SuP {\SuP {\SuP {\lengthA {\list{1}}}}}
-    \by {\funref[\length.2]} \\
-  = \SuP {\SuP {\SuP {\SuP {\lengthA \lnil}}}}
-    \by {\funref[\length.2]} \\
-  = \SuP {\SuP {\SuP {\SuA \Ze}}}.
-    \by {\funref[\length.1]}
-\endpoemcompute
-Precisou $5$ passos: $4$ usos de \funref[length.2] e $1$ uso de \funref[length.1].
-É fácil perceber a maneira certa de generalizar isso para contar os passos de cálculo
-da $\lengthA \ell$, onde $\ell$ é uma lista arbitrária:
-vamos precisar $\size{\ell} + 1$ passos, onde $\size{\ell}$ denota o tamanho da lista $\ell$.
+Lembre a definição da $(\concat)$ \reftag[concat_fundef]:
+\fundef
+(\concat) : \ListA \alpha \to \ListA \alpha \to \ListA \alpha \\
+\lnil        \concat \ys &= \ys    \\
+(x\lcons\xs) \concat \ys &= x \lcons (\xs \concat \ys).
+\endfundef
+Quantos passos precisamos para calcular o valor da $\xs \concat \ys$?
+Tua resposta deve depender dos tamanhos das listas $\xs$ e $\ys$.
 
 %%}}}
 
-%%{{{ Reverse 
+%%{{{ reverse_complexity 
 \note Complexidade de Reverse.
 %%%{{{ meta 
+\label reverse_complexity
 %%%}}}
 
 Lembre a definição da $\reverse$.
