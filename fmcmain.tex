@@ -19110,6 +19110,17 @@ Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\N
 \endproblems
 %%}}}
 
+%%{{{ Polymorphic_types 
+\section Tipos polimórficos.
+%%%{{{ meta 
+\label Polymorphic_types
+%%%}}}
+
+\TODO Escrever.
+
+\endsection
+%%}}}
+
 %%{{{ List_types 
 \section Tipos de List.
 %%%{{{ meta 
@@ -19620,16 +19631,16 @@ $\toList$.
 \endproblems
 %%}}}
 
-%%{{{ Functors_in_Recursion_induction 
+%%{{{ Functors_recind 
 \section Functors.
 %%%{{{ meta 
-\label Functors_in_Recursion_induction
+\label Functors_recind
 %%%}}}
 
-%%{{{ spec: Functor
+%%{{{ spec: Functor_spec_recind 
 \specification Functor.
 %%%{{{ meta 
-\label Functor_spec
+\label Functor_spec_recind
 \defines
     * Functor
     ;;
@@ -19748,6 +19759,8 @@ Para qualquer $\alpha \is \Type$, definimos o tipo
 
 %%}}}
 
+\TODO Terminar.
+
 \endsection
 %%}}}
 
@@ -19774,6 +19787,159 @@ Observe primeiramente que todos são tipos mesmo.
 
 %%}}}
 
+\TODO Terminar.
+
+\endsection
+%%}}}
+
+%%{{{ A_touch_of_complexity 
+\section Um toque de complexidade.
+%%%{{{ meta 
+\label A_touch_of_complexity
+%%%}}}
+
+%%{{{ intro 
+\secintro
+Nosso foco tem sido definir funções corretamente e demonstrar suas propriedades,
+incluindo a corretude dos nossos programas.
+Sem aprofundar nos terrenos da complexidade computational, quero aproveitar o momento
+para falar de eficiência.
+%%}}}
+
+%%{{{ Length 
+\note Legth.
+%%%{{{ meta 
+%%%}}}
+
+Lembre a definição da $\length$:
+\fundef
+\length : \ListA \alpha \to \Nat \\
+\lengthA \lnil         &= \Ze \\
+\lengthP {n \lcons ns} &= \SuP {\lengthA {ns}}.
+\endfundef
+
+Quantos passos precisamos para calcular o valor da $\lengthA {\list{1,2,3,4}}$
+ficando fieis na sua definição?
+Calculamos:
+\poemcompute
+\lengthA {\list{1,2,3,4}} \\
+  = \SuP {\lengthA {\list{1,2,3}}}
+    \by {\funref[\length.2]} \\
+  = \SuP {\SuP {\lengthA {\list{1,2}}}}
+    \by {\funref[\length.2]} \\
+  = \SuP {\SuP {\SuP {\lengthA {\list{1}}}}}
+    \by {\funref[\length.2]} \\
+  = \SuP {\SuP {\SuP {\SuP {\lengthA \lnil}}}}
+    \by {\funref[\length.2]} \\
+  = \SuP {\SuP {\SuP {\SuA \Ze}}}.
+    \by {\funref[\length.1]}
+\endpoemcompute
+Precisou $5$ passos: $4$ usos de \funref[length.2] e $1$ uso de \funref[length.1].
+É fácil perceber a maneira certa de generalizar isso para contar os passos de cálculo
+da $\lengthA \ell$, onde $\ell$ é uma lista arbitrária:
+vamos precisar $\size{\ell} + 1$ passos, onde $\size{\ell}$ denota o tamanho da lista $\ell$.
+
+%%}}}
+
+%%{{{ Concatenation 
+\note Concatenação.
+%%%{{{ meta 
+%%%}}}
+
+Lembre a definição da $\length$:
+Quantos passos precisamos para calcular o valor da $\lengthA {\list{1,2,3,4}}$,
+ficando fieis na sua definição?
+Calculamos:
+\poemcompute
+\lengthA {\list{1,2,3,4}} \\
+  = \SuP {\lengthA {\list{1,2,3}}}
+    \by {\funref[\length.2]} \\
+  = \SuP {\SuP {\lengthA {\list{1,2}}}}
+    \by {\funref[\length.2]} \\
+  = \SuP {\SuP {\SuP {\lengthA {\list{1}}}}}
+    \by {\funref[\length.2]} \\
+  = \SuP {\SuP {\SuP {\SuP {\lengthA \lnil}}}}
+    \by {\funref[\length.2]} \\
+  = \SuP {\SuP {\SuP {\SuA \Ze}}}.
+    \by {\funref[\length.1]}
+\endpoemcompute
+Precisou $5$ passos: $4$ usos de \funref[length.2] e $1$ uso de \funref[length.1].
+É fácil perceber a maneira certa de generalizar isso para contar os passos de cálculo
+da $\lengthA \ell$, onde $\ell$ é uma lista arbitrária:
+vamos precisar $\size{\ell} + 1$ passos, onde $\size{\ell}$ denota o tamanho da lista $\ell$.
+
+%%}}}
+
+%%{{{ Reverse 
+\note Complexidade de Reverse.
+%%%{{{ meta 
+%%%}}}
+
+Lembre a definição da $\reverse$.
+Quantos passos precisamos para calcular seu valor, ficando fieis na sua definição?
+Calculamos:
+\poemcompute
+\reverseS \list{1,2,3,4,5} \\
+  = \reverseS \list{1,2,3,4} \concat \list{5}
+    \by {\funref[\reverse.2]} \\
+  = (\reverseS \list{1,2,3} \concat \list{5}) \concat \list{4}
+    \by {\funref[\reverse.2]} \\
+  = ((\reverseS \list{1,2} \concat \list{5}) \concat \list{4}) \concat \list{3}
+    \by {\funref[\reverse.2]} \\
+  = (((\reverseS \list{1} \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}
+    \by {\funref[\reverse.2]} \\
+  = ((((\reverseS \lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {\funref[\reverse.2]} \\
+  = ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {\funref[\reverse.1]} \\
+  \dotseq (((\list{5} \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
+  \dotseq ((\list{5,4} \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
+  \dotseq (\list{5,4,3} \concat \list{2}) \concat \list{1}
+    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
+  \dotseq \list{5,4,3,2} \concat \list{1}
+    \by {\funref[(\concat).2]; \funref[(\concat).1]} \\
+  \dotseq \list{5,4,3,2,1}.
+    \by {\funref[(\concat).2]; \funref[(\concat).1]}
+\endpoemcompute
+Vamos separar esse cálculo em duas partes.
+Na primeira (onde aparecem só $(=)$) cada linha corresponde em exatamente um passo,
+em qual aplicamos a definição de $\reverse$ para efetuar uma substituição.
+Na segunda (onde aparecem só $(\dotseq)$) cada linha corresponde numa seqüência de passos,
+em quais aplicamos repetidamente a $(\concat).2$ até esvasiar a lista à esquerda
+para finalmente aplicar a $(\concat).1$.
+Queremos contar a quantidade de passos que todo esse cálculo precisou até terminar.
+A primeira parte é fácil: de fato, cada $(=)$ é 1 passo, e tem $6$ em total;
+então vou escrever
+\poemcompute
+\reverseS \list{1,2,3,4,5} \\
+  \eqtag 6 ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}.
+    \by {$(4\times)$ \funref[\reverse.2]; $(1\times)$ \funref[\reverse.1]}
+\endpoemcompute
+Agora precisamos contar quantas $(=)$'s estão escondidas atrás de cada uma das $(\dotseq)$'s.
+Lembrando que o cálculo de $\ell_1 \concat \ell_2$ precisa de $\size{\ell_1}+1$ passos,
+chegamos na conta seguinte:
+\poemcompute
+\reverseS \list{1,2,3,4,5} \\
+  \eqtag 6 ((((\lnil \concat \list{5}) \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {$(5\times)$ \funref[\reverse.2]; $(1\times)$ \funref[\reverse.1]} \\
+  \eqtag 1 (((\list{5} \concat \list{4}) \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {$(0\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
+  \eqtag 2 ((\list{5,4} \concat \list{3}) \concat \list{2}) \concat \list{1}
+    \by {$(1\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
+  \eqtag 3 (\list{5,4,3} \concat \list{2}) \concat \list{1}
+    \by {$(2\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
+  \eqtag 4 \list{5,4,3,2} \concat \list{1}
+    \by {$(3\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]} \\
+  \eqtag 5 \list{5,4,3,2,1}.
+    \by {$(4\times)$ \funref[(\concat).2]; $(1\times)$ \funref[(\concat).1]}
+\endpoemcompute
+Assim, a primeira parte precisou $6$ passos e a segunda $1 + \dotsb + 5 = 15$ passos,
+isto é, $21$ passos para uma lista de tamanho $5$.
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -19785,12 +19951,9 @@ Observe primeiramente que todos são tipos mesmo.
 
 %%{{{ intro 
 \secintro
-Nosso foco tem sido definir funções corretamente e demonstrar suas propriedades,
-incluindo a corretude dos nossos programas.
-Sem aprofundar nos terrenos da complexidade computational, quero aproveitar o momento
-para falar de eficiência.  Vamos ver como podemos usar a teoria que temos elaborado
-aqui para ganhar versões bem mais eficientes dumas funções com quais nos sofreríamos
-se iríamos trabalhar com suas versões originais.
+Vamos ver como podemos usar a teoria que temos elaborado aqui para ganhar
+versões bem mais eficientes dumas funções com quais nos sofreríamos se iríamos
+trabalhar com suas versões originais.
 %%}}}
 
 %%{{{ How about lists of maybes or similar types? 
