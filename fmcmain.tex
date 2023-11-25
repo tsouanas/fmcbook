@@ -19963,18 +19963,44 @@ versões bem mais eficientes dumas funções com quais nos sofreríamos se iría
 trabalhar com suas versões originais.
 %%}}}
 
-%%{{{ What went wrong? 
-\note O que deu errado?.
+%%{{{ Don't think too hard 
+\note Melhor não pensar tanto.
 %%%{{{ meta 
 %%%}}}
 
 Descubrimos (\ref[reverse_complexity]) que nossa $\reverse$ tem complexidade de tempo $O(n^2)$:
 para reverter uma lista de tamanho $n$ ela precisa $\frac 1 2 n^2 + \frac 3 2 n + 1$ passos.
-Uma alternativa sensata agora seria pensar criativamente uma nova definição de $\reverse$
-que seria mais eficiente.  Mas com o que temos estudado até agora, dá para evitar
-esse processo; limitando a inspiração necessária.  Vamos ver como aproveitar nossa
+Uma alternativa sensata agora seria pensar criativamente para achar uma nova definição
+de $\reverse$, mais eficiente.  Mas com o que temos estudado até agora, dá para evitar
+esse processo, limitando a inspiração necessária.  Vamos ver como aproveitar nossa
 experiência com indução e usá-la como guia para chegar quase gratuitamente numa
 nova definição de $\reverse$ que vai acabar sendo \emph{muito} mais eficiente!
+
+%%}}}
+
+%%{{{ What went wrong?  What would be nice? 
+\note O que deu errado?  O que seria legal?.
+%%%{{{ meta 
+%%%}}}
+
+O problema visto na \ref[reverse_complexity] é que temos dois trabalhos acontecendo
+e gastando tempo: reverter e concatenar.
+Que tal imaginar uma função $\revcat$ que retornaria seu primeiro argumento revertido
+e já concatenado com seu segundo?  Tipo assim:
+\math
+\revcat : \ListA \alpha \to \ListA \alpha \to \ListA \alpha \\
+\lforall {\xs, \ys : \ListA \alpha}
+         {\revcatAA \xs \ys = \reverseA \xs \concat \ys}.
+\endmath
+Note que isso não é uma definição, mas sim uma especificação que tal desejada $\revcat$
+precisa atender.
+Vamos fingir por um momento que alguém já definiu uma tal função, e que ela é rápida.
+Observe que tendo uma tal $\revcat$, podemos definir nossa $\reverse$ para ser simplesmente
+uma aplicação parcial da $\revcat$:
+$$
+\reverseA \xs \defeq \revcatAA \xs \lnil.
+$$
+Então basta definir uma eficiente $\revcat$.  Bora.
 
 %%}}}
 
@@ -19984,15 +20010,28 @@ nova definição de $\reverse$ que vai acabar sendo \emph{muito} mais eficiente!
 \label revcat_via_induction
 %%%}}}
 
-Vamos fingir por um momento que alguém já definiu uma tal função, e que ela é rápida.
-Observe que tendo uma tal $\revcat$, podemos definir nossa $\reverse$ para ser simplesmente
-uma aplicação parcial da $\revcat$:
+Por que não usar simplesmente sua especificação como definição mesmo?
+Se tentar definir
 $$
-\reverseA \xs \defeq \revcatAA \xs \lnil.
+\revcatAA \xs \ys = \reverseA \xs \concat \ys
 $$
-Então basta definir uma eficiente $\revcat$.
-Vamos usar indução como guia para chegar em tal definição, sem pecisar pensar muito.
-Começa fingindo que estamos tentando demonstrar por indução a especificação da $\revcat$:
+onde $\reverse$ e $(\concat)$ são nossas funções já definidas, a $\revcat$
+vai ser lenta, mas isso nem é o maior problema: queremos usar a $\revcat$
+para definir a $\reverse$ na maneira escrita acima, e se tentar usar
+essas duas definições mesmo, vamos ter uma tijolada.
+Mesmo que não serve como definição, a especificação precisa ser satisfeita
+por qualquer implementação de $\revcat$, e logo temos sim as igualdades
+\mathcol
+\revcatAA \lnil \ys        &= \reverseA \lnil \concat \ys \\
+\revcatPA {x\lcons\xs} \ys &= \reverseP {x\lcons\xs} \concat \ys.
+\intertext {Basta substituir cada uma delas por algo igual que não envolve
+nem $\reverse$ nem $(\concat)$:}
+\revcatAA \lnil \ys        &\defeq {\alert?} \quad (= \reverseA \lnil \concat \ys) \\
+\revcatPA {x\lcons\xs} \ys &\defeq {\alert?} \quad (= \reverseP {x\lcons\xs} \concat \ys).
+\endmathcol
+A parte criativa que queremos evitar é pensar nesses {\alert ?} aí.
+Usaremos indução como guia para chegar em tal definição, sem pecisar pensar muito.
+Começa fingindo que estamos tentando demonstrar por indução que, de fato,
 $$
 \pforall {\xs : \ListA \alpha}
 \lforall {\ys : \ListA \alpha}
@@ -20017,7 +20056,7 @@ $$
 $$
 Agora falta o \dq{passo indutivo} nos fornecer a segunda linha.
 \crproofpart{Caso $(x\lcons\xs)$.}
-Nossa \dq{hipotese indutiva} aqui é que $\xs$ é \emph{legalzão}, ou seja:
+Nossa \dq{hipotese indutiva} aqui é que a lista $\xs$ é \emph{legalzona}, ou seja:
 $$
 \lforall {\ell : \ListA \alpha}
          {\revcatAA \xs \ell = \reverseA \xs \concat \ell}.
