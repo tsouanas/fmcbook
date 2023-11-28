@@ -26553,11 +26553,11 @@ Seja $d : \alpha \times \alpha \to \Real$.
 Dizemos que $d$ é uma \dterm{distância} (ou \dterm{métrica}) no $\alpha$
 sse todas as propriedades seguintes são satisfeitas:
 \mathcall
-& \dist d x y \geq 0                          \called {positividade (1)}  \stag[D-Range] \\
-& \dist d x y = \dist d y x                   \called {simetria}          \stag[D-Sym]   \\
-& \dist d x y \leq \dist d x w + \dist d w y  \called {triangular}        \stag[D-Tri]   \\
-& \dist d x x = 0                             \called {positividade (2)}  \stag[D-Zero]  \\
-& \dist d x y = 0 \implies x = y.             \called {positividade (3)}  \stag[D-Pos]   \\
+& \dist d x y \geq 0                          \called {positividade (1)}  \stag[D-Range]  \\
+& \dist d x y = \dist d y x                   \called {simetria}          \stag[D-Sym]    \\
+& \dist d x y \leq \dist d x w + \dist d w y  \called {triangular}        \stag[D-Tri]    \\
+& \dist d x x = 0                             \called {positividade (2)}  \stag[D-EqZero] \\
+& \dist d x y = 0 \implies x = y.             \called {positividade (3)}  \stag[D-ZeroEq] \\
 \endmathcall
 Chamamos a $d$ de \dterm{pré-distância} (ou \dterm{pré-métrica}, ou \dterm{pseudométrica})
 sse ela satisfaz as primeiras quatro dessas propriedades.
@@ -26572,11 +26572,11 @@ sse ela satisfaz as primeiras quatro dessas propriedades.
 Qual propriedade exatamente está sendo referida pelo termo \wq{positividade} varia
 na literatura, mas costuma ser uma ou uma combinação das (1)--(3) anotadas acima;
 eu vou evitar esse termo aqui.
-A \mref[D-Zero] é equivalente à recíproca da \mref[D-Pos], e por isso às vezes são
+A \mref[D-EqZero] é equivalente à recíproca da \mref[D-ZeroEq], e por isso às vezes são
 juntadas em uma proposição só:
 \mathcol
 & \dist d x y = 0 \iff x = y. \\
-\intertext {A contrapositiva da \mref[D-Pos], graças à \mref[D-Range] acaba sendo equivalente à}
+\intertext {A contrapositiva da \mref[D-ZeroEq], graças à \mref[D-Range] acaba sendo equivalente à}
 & x \neq y \implies \dist d x y > 0. \\
 \endmathcol
 que deixa mais clara a escolha do seu rótulo; em muitos textos é apresentada assim---aqui não.
@@ -27448,16 +27448,15 @@ Calculamos
 \dist d {\ell_1} {\ell_2}
 &\leq \dist d {\ell_1} {a_N} + \dist d {a_N} {\ell_2} \by {\mref[D-Tri]} \\
 &= \dist d {\ell_1} {a_N} + \dist d {\ell_2} {a_N}    \by {\mref[D-Sym]} \\
-&< \epsilon_1 + \epsilon_2.                           \by {escolha dos $\epsilon_1,\epsilon_2$]} \\
-\endcompute
-Lembre-se que isso é válido para quaisquer $\epsilon_1,\epsilon_2>0$, então
-basta selecioná-los para satisfazer $\epsilon_1+\epsilon_2\leq\epsilon$
+&< \epsilon_1 + \epsilon_2.                           \by {escolha dos $\epsilon_1,\epsilon_2$} \\
+\intertext {Lembre-se que isso é válido para quaisquer $\epsilon_1,\epsilon_2>0$,
+então basta selecioná-los para satisfazer $\epsilon_1+\epsilon_2\leq\epsilon$
 (tome pore exemplo ambos (menores ou) iguais ao $\epsilon/2$).
-Assim demonstramos que para todo $\epsilon > 0$,
-$$
-0 \leq \dist d {\ell_1} {\ell_2} < \epsilon,
-$$
-ou seja, $\dist d {\ell_1} {\ell_2} = 0$, e portanto $\ell_1 = \ell_2$ (pela \mref[D-Pos]).
+Assim demonstramos que para todo $\epsilon > 0$,}
+0 \leq \dist d {\ell_1} {\ell_2} &< \epsilon,         \by {a $(0 \leq)$ vem pela \mref[D-Range]}
+\endcompute
+e logo $\dist d {\ell_1} {\ell_2} = 0$ (pelo \ref[only_zero_is_leq_pos]),
+e portanto $\ell_1 = \ell_2$ (pela \mref[D-ZeroEq]).
 
 %%}}}
 
