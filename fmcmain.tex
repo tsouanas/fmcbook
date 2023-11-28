@@ -26877,7 +26877,7 @@ de \dterm{reais estendidos} e denotamos esse conjunto por
 $\xreals$ e $[\minfty,\pinfty]$ também.
 Então podemos considerar ambas as operações agora como
 $$
-\inf,\sup \eqtype \SetA \Real \parto [\minfty,\pinfty].
+\inf,\sup \eqtype \pset \reals \parto [\minfty,\pinfty].
 $$
 
 %%}}}
@@ -26888,12 +26888,11 @@ $$
 %%%}}}
 
 Meu leitor alerto talvez teve uns suspeitos de type errors na \ref[extended_reals].
-De fato tem, mas felizmente são todos resolvíveis com uns type castings---e logo não
-tem (\ref[extended_reals_details]).
-Tecnicamente precisamos de um novo tipo $\ExtReal$ de dados
+De fato tem, mas felizmente são todos resolvíveis
+com uns type castings.  Tecnicamente precisamos de um novo tipo $\ExtReal$ de dados
 para os reais extendidos, e umas funções para os trabalhos burocráticos que
 precisam ser feitos quando ocorre real num contexto onde esperamos real estendido
-e vice versa.
+e vice versa.  O \ref[extended_reals_details] é dedicado a isso:
 
 %%}}}
 
@@ -27210,10 +27209,8 @@ então precisamos tomar cuidado com o símbolo $\lim$:
 
 A seqüência $0,1,0,1,\dotsc$, definida pela
 $$
-a_n = \knuthcases {
-0, & se $n$ par; \cr
-1, & caso contrário;
-}
+a_n = \cases { 0, & se $n$ par; \\
+               1, & caso contrário; }
 $$
 é divergente.
 
@@ -27307,35 +27304,30 @@ que $\dist d {\ell_1} {\ell_2} < \epsilon$ para todo $\epsilon > 0$.
 Seja $\epsilon > 0$ então, e agora observe que para quaisquer
 $\epsilon_1,\epsilon_2>0$ podemos escolher $N_1,N_2$ tais que:
 \mathcols 2
-\cforall {i \geq N_1} {\abs{a_i - \ell_1} < \epsilon_1} &
-\cforall {j \geq N_2} {\abs{a_j - \ell_2} < \epsilon_2}.
+\cforall {i \geq N_1} {\dist d {a_i} {\ell_1} < \epsilon_1} &
+\cforall {i \geq N_2} {\dist d {a_i} {\ell_2} < \epsilon_2}.
 \endmathcols
 Tome $N \asseq \max\set{N_1, N_2}$.
 Logo
 \mathcols 2
-\abs{a_N - \ell_1} &< \epsilon_1 &
-\abs{a_N - \ell_2} &< \epsilon_2.
+\dist {a_N} {\ell_1} &< \epsilon_1 &
+\dist {a_N} {\ell_2} &< \epsilon_2.
 \endmathcols
-Observando que $\abs{a_N - \ell_1} = \abs{\ell_1 - a_N}$
-e somando as desigualdades por lados temos
-$$
-\abs{\ell_1 - a_N} + \abs{a_N - \ell_2} < \epsilon_1 + \epsilon_2.
-$$
-Mas
-$$
-\mubrace {\abs{\ell_1 - a_N + a_N - \ell_2}} {\abs{\ell_1 - \ell_2}}
-\leq \abs{\ell_1 - a_N} + \abs{a_N - \ell_2}
+Calculamos
+\compute
+\dist d {\ell_1} {\ell_2}}
+\leq \dist d {\ell_1} {a_N} + \dist d {a_N} {\ell_2}
+= \dist d {\ell_1} {a_N} + \dist d {\ell_2} {a_N}
 < \epsilon_1 + \epsilon_2.
-$$
+\endcompute
 Lembre-se que isso é válido para quaisquer $\epsilon_1,\epsilon_2>0$, então
 basta selecioná-los para satisfazer $\epsilon_1+\epsilon_2\leq\epsilon$
 (tome pore exemplo ambos (menores ou) iguais ao $\epsilon/2$).
 Assim demonstramos que para todo $\epsilon > 0$,
 $$
-0 \leq \abs{\ell_1 - \ell_2} < \epsilon,
+0 \leq \dist d {\ell_1} {\ell_2} < \epsilon,
 $$
-ou seja, $\abs{\ell_1 - \ell_2} = 0$, e logo $\ell_1 - \ell_2 = 0$,
-e logo $\ell_1 = \ell_2$, que é o que queremos demonstrar!
+ou seja, $\dist d {\ell_1} {\ell_2} = 0$, e portanto $\ell_1 = \ell_2$ (pela \mref[D-Pos]).
 
 %%}}}
 
