@@ -26016,12 +26016,12 @@ medindo via terceiros pontos ($w$), em geral, pode aumentar a distância.
 \label euclidean_metric_reals
 %%%}}}
 
-Seja $d : \Real \times \Real \to \Real$.
+Chamamos a função
 \mathcol
 d &\eqtype \Real \times \Real \to \Real \\
 \dist d a b &\defeq \abs{a - b}.
 \endmathcol
-Dados reais $a,b$, chamamos o $\dist d a b$ de \dterm{distância euclideana} entre os $a,b$.
+de \dterm{distância eulideana}.
 
 %%}}}
 
@@ -26053,57 +26053,38 @@ Precisamos verificar que ela atende a \ref[metric_reals].
 
 %%}}}
 
-%%{{{ x: real_metric_zero 
+%%{{{ x: euclidean_metric_justify_reals 
 \exercise.
 %%%{{{ meta 
-\label real_metric_zero
+\label euclidean_metric_justify_reals
 %%%}}}
 
-$\lforall {a} {\dist d a a = 0}$.
+Justifique: a distância euclideana, de fato, é uma distância, ou seja, atende
+a \ref[metric_reals].
 
 %%}}}
 
-%%{{{ x: real_metric_indiscernibility 
+%%{{{ x: discrete_metric_justify_reals 
 \exercise.
 %%%{{{ meta 
-\label real_metric_indiscernibility
+\label discrete_metric_justify_reals
 %%%}}}
 
-$\lforall {a,b} {\dist d a b = 0 \implies a = b}$.
+A distância discreta também.
 
 %%}}}
 
-%%{{{ x: real_metric_commutativity 
-\exercise.
+%%{{{ Which metric? 
+\note Qual distância?.
 %%%{{{ meta 
-\label real_metric_commutativity
 %%%}}}
 
-$\lforall {a,b} {\dist d a b = \dist d b a}$.
-
-%%}}}
-
-%%{{{ x: real_metric_triangular 
-\exercise Desigualdade triangular.
-%%%{{{ meta 
-\label real_metric_triangular 
-%%%}}}
-
-Sejam $x,z$ reais.
-Logo para todo $y$ real,
-$$
-\dist d x z \leq \dist d x y + \dist d y z.
-$$
-
-%%}}}
-
-%%{{{ x: real_metric_nonneg 
-\exercise Não-negatividade.
-%%%{{{ meta 
-\label real_metric_nonneg
-%%%}}}
-
-$\lforall {a,b} {\dist d a b \geq 0}$.
+O estudo abstrato de distâncias, viz., a teoria dos espaços métricos, é o assunto
+do \ref[Metric_spaces].
+Para meus propósitos neste capítulo vamos concordar que quando é envolvida
+uma métrica ou mencionada a palavra distância na conversa, sempre será a distância euclideana
+(\reftag[euclidean_metric_reals]) exceto se especificamente mencionar outra.
+No que segue, $d$ denota uma métrica, ou seja, uma função que satisfaz a \ref[metric_reals].
 
 %%}}}
 
@@ -26116,7 +26097,7 @@ $\lforall {a,b} {\dist d a b \geq 0}$.
     ;;
 %%%}}}
 
-Sejam $x,y\in\reals$ e $\epsilon > 0$.
+Seja $x,y$ reais e $\epsilon > 0$.
 Dizemos que
 $$
 \text{o $x$ é $\epsilon$-perto do $y$}
@@ -26126,7 +26107,7 @@ $$
 Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
 e logo podemos escrever também:
 $$
-\text{os $x,y$ são $\epsilon$-perto}.
+\text{os $x,y$ são $\epsilon$-perto (entre si)}.
 $$
 
 %%}}}
@@ -26136,7 +26117,7 @@ $$
 %%%{{{ meta 
 %%%}}}
 
-Os $1$ e $2/3$ são $1/2$-perto.
+Os $1$ e $2/3$ são $1/2$-perto (com a distância euclideana, mas não com a distância discreta).
 
 %%}}}
 
@@ -26171,17 +26152,16 @@ Dado $\epsilon > 0$, a $(\sim_\epsilon)$
 do~\ref[epsilon_close_is_reflexive] é simétrica,
 e logo podemos escrever frases como
 $$
-\text{<<os $x,y$ são $\epsilon$-perto (entre si)>>}.
+\textwq{os $x,y$ são $\epsilon$-perto (entre si)}.
 $$
 
-\hint
-Olha:
+\solution
+Precisamos demonstrar
 $$
-\abs{x - y}
-= \abs{-(y - x)}
-= \abs{y - x}
+\dist d x y < \epsilon \iff
+\dist d y x < \epsilon
 $$
-Dá pra justificar ambas as igualdades?
+que segue imediatamente pela simetria da distância $d$ (\mref[D-Sym]).
 
 %%}}}
 
@@ -26200,7 +26180,7 @@ $$
 
 \hint
 Não!
-Já fez o~\ref[distance_like_not_transitive]?
+Por quê?
 
 %%}}}
 
@@ -26699,8 +26679,6 @@ para finalmente chegar numa resposta (\reftag[Completeness_of_reals]).
 \defines
     * ~A \leq ~x  -- $x$ é um upper bound de $A$
     * ~x \leq ~A  -- $x$ é um lower bound de $A$
-    * \lbs {~A}  -- o conjunto de todos os lower bounds de $A$
-    * \ubs {~A}  -- o conjunto de todos os upper bounds de $A$
     * bounded!below
     * bounded!above
     * bound!lower
@@ -26819,8 +26797,8 @@ Finja que leu a palavra \emph{similar} aqui.
 
 Com as unicidades estabelecidas podemos introduzir realmente os símbolos
 \mathcols 2
-\inf A &\defeq \max {\lbs A} &
-\sup A &\defeq \min {\ubs A}.
+\inf A &\defeq \max (\leq A) &
+\sup A &\defeq \min (\geq A).
 \intertext{Outros nomes (e notações correspondentes) desses dois conceitos
 são muito comuns e vamos ficar os usando também:
 o infimum é chamado também de \dterm{greatest lower bound} e o supremum
@@ -26906,7 +26884,7 @@ Demonstre que:
 %%%}}}
 
 Seja $A \subset \reals$.
-Demonstre que $\lbs A$ é vazio ou infinito, e a mesma coisa sobre o $\ubs A$.
+Demonstre que $(\leq A)$ é vazio ou infinito, e a mesma coisa sobre o $(A \leq)$.
 
 %%}}}
 
@@ -51782,11 +51760,12 @@ $$
 A $\approx_\epsilon$ é uma relação de equivalência?
 
 \hint
-Primeiramente resolve o mesmo problema mas para a relação:
+Primeiramente lembre o mesmo problema mas para a relação:
 $$
 x \sim_\epsilon y \defiff |x-y| < \epsilon
 $$
-onde $\epsilon > 0$.
+onde $\epsilon > 0$;
+foi resolvido---eu espero---no \ref[epsilon_close_is_not_an_equivalence_relation].
 
 \hint
 Reflexividade e simetria das $(\sim_\epsilon)$ e $(\approx_\epsilon)$ são imediatas.
@@ -72711,19 +72690,19 @@ $$
     * \ubs {~A}  -- o conjunto dos upper bounds de $A$
     * lower bound
     * upper bound
+    * cota!inferior
+    * cota!superior
     ;;
 %%%}}}
 
-Sejam $A\subset P$ e $m\in P$.
-O $m$ é um \dterm{upper bound} de $A$ sse $x \leq m$ para todo $x\in A$.
-Dualmente, o $m$ é um \dterm{lower bound} de $A$ sse $m \leq x$ para todo $x \in A$.
+Sejam $A\subset P$ e $p\in P$.
+O $p$ é uma \dterm{cota superior} (ou \dterm{upper bound}) de $A$ sse $p \geq A$.
+Dualmente, o $p$ é uma \dterm{cota inferior} (ou \dterm{lower bound}) de $A$ sse $p \leq A$.
 Usamos a notação
-$$
-\align
-\ubs A &\defeq \setstt {m\in P} {$m$ é um upper bound de $A$}\\
-\lbs A &\defeq \setstt {m\in P} {$m$ é um lower bound de $A$}.
-\endalign
-$$
+\mathcol
+(A \leq) \defeq \ubs A &\defeq \setst {p \in P} {A \leq p} \\
+(\leq A) \defeq \lbs A &\defeq \setst {p \in P} {p \leq A}.
+\endmathcol
 
 %%}}}
 
