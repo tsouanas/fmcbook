@@ -19095,6 +19095,8 @@ Ou seja, podemos usar essas ferramentas em qualquer tipo que foi definido assim.
 
 %%}}}
 
+\TODO Escrever.
+
 \endsection
 %%}}}
 
@@ -19213,16 +19215,17 @@ Definimos a função $(\concat)$:
 \endsection
 %%}}}
 
-%%{{{ Two sides of the same coin 
+%%{{{ Recursion_induction_same_coin 
 \section Dois lados da mesma moeda.
 %%%{{{ meta 
+\label Recursion_induction_same_coin
 %%%}}}
 
 \TODO conectar 3-eq defs com 3-pattern induction, match-with, etc.
 
 \TODO quais são os presentes numa dessas; teaser wf-induction.
 
-%%{{{ Inductive definition 
+%%{{{ inductive_definition 
 \note Definição inductiva.
 %%%{{{ meta 
 \label inductive_definitions
@@ -19245,8 +19248,8 @@ Esse tipo de definição chamamos de \dterm{definição inductiva}.
 Ela libera duas ferramentas poderosas:
 definir operações e relações por recursão;
 e demonstrar propriedades por indução.
-Na verdade se trata da mesma ferramenta,
-algo que analizamos na \ref[Two_sides_of_the_same_coin_recind].
+Na verdade se trata da mesma ferramenta;
+dois lados da mesma moeda.
 
 %%}}}
 
@@ -19256,20 +19259,20 @@ algo que analizamos na \ref[Two_sides_of_the_same_coin_recind].
 \label inductive_vs_recursive_definitions
 %%%}}}
 
-Muitas vezes ``definição inductiva'' acaba sendo chamada ``definição recursiva''.
+Muitas vezes \emph{definição inductiva} acaba sendo chamada \emph{definição recursiva}.
 Vários autores, dependendo da área que estão trabalhando adoptam um uso ou
 o outro, ou ambos, ou até diferenciando o que cada um significa.
-Tradicionalmente o slogan seria:
+Tradicionalmente o slogan é:
 \standout
-<<define por recursão; demonstre por indução>>.
+\wq{define por recursão; demonstre por indução}.
 \endstandout
 
 %%}}}
 
-%%{{{ the_power_of_recursion 
-\note O poder da recursão.
+%%{{{ the_gift_of_recursion 
+\note O presente da recursão.
 %%%{{{ meta 
-\label the_power_of_recursion
+\label the_gift_of_recursion
 %%%}}}
 
 Estamos tentando \emph{definir algo por recursão},
@@ -19293,10 +19296,10 @@ E é exatamente o que fizemos.
 
 %%}}}
 
-%%{{{ the_power_of_induction 
-\note O poder da indução.
+%%{{{ the_gift_of_induction 
+\note O presente da indução.
 %%%{{{ meta 
-\label the_power_of_induction
+\label the_gift_of_induction
 %%%}}}
 
 Estamos tentando \emph{demonstrar algo por indução}
@@ -19305,16 +19308,16 @@ Já demonstramos a base (o $\phi(0)$), e queremos
 demonstrar o $\phi(Sn)$.
 E a Indução chega e nos oferece um presente:
 \quote
-<<Para demonstrar o $\phi(Sn)$, considere o $\phi(n)$ como dado, de graça por mim;
-e veja se tu consegues demonstrar o $\phi(Sn)$ com isso agora.>>
+<<Para demonstrar a $\phi(Sn)$, considere a $\phi(n)$ como dado, de graça por mim;
+e veja se tu consegues demonstrar a $\phi(Sn)$ com isso agora.>>
 \endquote
 E é exatamente o que fizemos.
 É isto o \dterm{poder da indução}.
 Compare com nossa primeira tentativa de demonstrar a associatividade da adição
 (sem indução) onde nossa única maneira de andar era separar em casos,
-mas cada vez que conseguimos matar o ``caso 0'' o ``caso sucessor'' tava
-sempre gerando mais dois casos: um novo ``caso 0'' e um novo ``caso sucessor''.
-E nossos dados não eram suficientes para matar o ``caso sucessor''.
+mas cada vez que conseguimos matar o \dq{caso 0}, o \dq{caso sucessor} tava
+sempre gerando mais dois subcasos: um novo \dq{caso 0} e um novo \dq{caso sucessor}.
+E nossos dados continuavam insuficientes para matar o segundo.
 
 %%}}}
 
@@ -19323,13 +19326,28 @@ E nossos dados não eram suficientes para matar o ``caso sucessor''.
 %%%{{{ meta 
 %%%}}}
 
-Se recursão é indução são dois lados da mesma moeda mesmo,
+Se recursão e indução são dois lados da mesma moeda mesmo,
 e já encontramos e enunciamos o princípio da indução;
 a gente não deveria ter analogamente um princípio da recursão
 também?
-Temos sim, e vamos voltar a estudá-lo e demonstrá-lo depois
-(\ref[Axiomatic_set_theory]),
-pois precisamos mais ferramentas e maturidade.
+Tem sim, e temos o usado repetidamente cada vez que definimos
+uma função por recursão.
+Dependendo de quais são os fundamentos matemáticos em cima
+de quais estamos trabalhando e do contexto também,
+os \dq{dois} princípios podem ser, de fato, apenas um e o mesmo,
+ou pode ser que um tem papel de princípio e o outro é demonstrável
+a partir dele (e vice versa), ou que ambos acabam sendo teoremas.
+Encontramos essas situações mais pra frente:
+no \ref[Functions] voltamos a esse assunto de justificar definições recursivas
+(\ref[Recursive_definitions_as_systems]);
+no \ref[Posets_Lattices] obtemos resultados que garantam e mostram como computar
+funções assim definidas (\ref[Fixpoints_in_posets]);
+no \ref[Axiomatic_set_theory]
+demonstramos o teorema da indução dos naturais (\ref[Constructing_the_natural_numbers])
+e o teorema da recursão dos naturais (\ref[Recursion_theorems]).
+Sugiro paciência pois precisamos mais ferramentas e maturidade.
+O ponto, agora, é que não precisamos nada disso para conseguir trabalhar
+em forma correta com demonstrações indutivas e definições recursivas.
 
 %%}}}
 
@@ -78046,9 +78064,10 @@ e nosso próximo trabalho será achar um jeito para nos livrar desse lixo!
 \endsection
 %%}}}
 
-%%{{{ Constructing the natural numbers 
+%%{{{ Constructing_the_natural_numbers 
 \section Construindo os números naturais.
 %%%{{{ meta 
+\label Constructing_the_natural_numbers
 %%%}}}
 
 %%{{{ Specification 
