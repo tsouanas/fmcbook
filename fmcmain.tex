@@ -26034,12 +26034,12 @@ $\lforall {a,b} {\dist d a b \geq 0}$.
 
 %%}}}
 
-%%{{{ df: epsilon_close 
+%%{{{ df: epsilon_close_reals 
 \definition ε-perto.
 %%%{{{ meta 
-\label epsilon_close_ball_hood
+\label epsilon_close_reals
 \defines
-    * perto!de um real
+    * perto!$\epsilon$-, de um real
     ;;
 %%%}}}
 
@@ -26131,26 +26131,24 @@ Já fez o~\ref[distance_like_not_transitive]?
 
 %%}}}
 
-%%{{{ df: epsilon_close_ball_hood 
-\definition ε-bola, ε-vizinhança.
+%%{{{ df: epsilon_ball_reals 
+\definition ε-bola.
 %%%{{{ meta 
-\label epsilon_ball_hood
+\label epsilon_ball_reals
 \defines
     * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
-    * bola!de real
-    * vizinhança!de real
+    * bola!$\epsilon$-, de real
     ;;
 %%%}}}
 
-Dado um ponto $a\in\reals$, o conjunto de todos os pontos que
-são $\epsilon$-perto do $a$ é chamada \dterm{$\epsilon$-bola}
-ou \dterm{$\epsilon$-vizinhança} do $a$:
+Dado um ponto $c\in\reals$, o conjunto de todos os pontos que
+são $\epsilon$-perto do $a$ é chamado de \dterm{$\epsilon$-bola} do $c$:
 $$
-\ball \epsilon {a}
+\ball \epsilon {c}
 \defeq
-\setstt {x \in \reals} {$x,a$ são $\epsilon$-perto}.
+\setstt {x \in \reals} {$x$ é $\epsilon$-perto de $c$}.
 $$
-Também chamamos de \dterm{bola com centro $a$ e raio $\epsilon$}.
+Também chamamos de \dterm{bola com centro $c$ e raio $\epsilon$}.
 
 %%}}}
 
@@ -26159,22 +26157,8 @@ Também chamamos de \dterm{bola com centro $a$ e raio $\epsilon$}.
 %%%{{{ meta 
 %%%}}}
 
-A $1/3$-bola do $\sqrt 2$ é o intervalo $(\sqrt2 - 1/3, \sqrt2 + 1/3)$.
-
-%%}}}
-
-%%{{{ thm: rats_dense_in_reals 
-\theorem.
-%%%{{{ meta 
-%%%}}}
-
-Os racionais são densos nos reais, ou seja:
-para todo $x,y\in \reals$,
-$$
-x < y
-\implies
-\lexists {q \in \rats} {x < q < y}.
-$$
+A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e
+a $1$-bola do $0$ o $(-1,1)$.
 
 %%}}}
 
@@ -26697,17 +26681,17 @@ e se tem pelo menos uma cota superior, ele é \dterm{cotado superiormente} (ou, 
 A \dterm{melhor cota inferior} é chamada \dterm{ínfimo} ou \dterm{infimum}, e
 a \dterm{melhor cota superior} é chamada \dterm{supremo} ou \dterm{supremum}:
 \mathcol
-\text{$x$ é um infimum  de $A$} &\defiff x \leq A \mland \lforall {x' \leq A} {x' \leq x} \\
-\text{$x$ é um supremum de $A$} &\defiff x \geq A \mland \lforall {x' \geq A} {x \leq x'}.
+\text{$c$ é um infimum  de $A$} &\defiff c \leq A \mland \lforall {c' \leq A} {c \geq c'} \\
+\text{$c$ é um supremum de $A$} &\defiff c \geq A \mland \lforall {c' \geq A} {c \leq c'}.
 \endmathcol
-Escrevemos $x = \inf A$ e $x = \sup A$ respectivamente, mas, como o leito deve
+Escrevemos $c = \inf A$ e $c = \sup A$ respectivamente, mas, como o leito deve
 ter suspeitado, \emph{não se tratam literamente de igualdades,} pois suas partes direitas
 sequer foram definidas \dq{em isolação} mesmo (veja mais sobre essa possibilidade no
 \ref[inf_and_sup_are_partial_on_reals].)
 As tipagens corretas aqui então são as:
 \mathcols 2
-\uhole = \inf \uhole &\is \Real \cross \SetP \Real \to \Prop &
-\uhole = \sup \uhole &\is \Real \cross \SetP \Real \to \Prop.
+\uhole = \inf \uhole &\is \Real \cross \SetA \Real \to \Prop &
+\uhole = \sup \uhole &\is \Real \cross \SetA \Real \to \Prop.
 \endmathcols
 
 %%}}}
@@ -27179,7 +27163,7 @@ Nossa escolha de $\epsilon > 0$ foi grande demais.
 A gente poderia ter escolhido um epsilonzinho melhor,
 como por exemplo o $\sfrac 1 2$ ou o $\sfrac 1 4$.
 Precisamos um tal que, para qualquer candidato $\ell$,
-a $\epsilon$-vizinhança dele vai ser tão pequena que
+a $\epsilon$-bola dele vai ser tão pequena que
 seria impossível possuir dois membros com distança $1$,
 como os únicos membros da nossa seqüência tem ($d(0,1) = 1$).
 Aqui poderíamos escolher o $\sfrac 1 2$, e daria certo,
@@ -27196,7 +27180,7 @@ d(a_{2N}, a_{2N+1})
  = 1;
 \intertext {mas também:}
 d(a_{2N}, a_{2N+1})
-&\leq d(a_{2N}, \ell) + d(\ell, a_{2N+1})  \by {desigualdade triangular} \\
+&\leq d(a_{2N}, \ell) + d(\ell, a_{2N+1})  \by {$(\leq)$-triangular} \\
 &< \sfrac 1 3 + d(\ell, a_{2N+1}) \\
 &< \sfrac 1 3 + \sfrac 1 3 \\
 &= \sfrac 2 3,
@@ -28019,6 +28003,22 @@ $$
 x \neq 0
 \implies
 \lexists {n \in \natreals} {xn > y}.
+$$
+
+%%}}}
+
+%%{{{ thm: rats_dense_in_reals 
+\theorem.
+%%%{{{ meta 
+\label rats_dense_in_reals
+%%%}}}
+
+Os racionais são densos nos reais, ou seja:
+para todo $x,y\in \reals$,
+$$
+x < y
+\implies
+\lexists {q \in \rats} {x < q < y}.
 $$
 
 %%}}}
