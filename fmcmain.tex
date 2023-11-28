@@ -6540,9 +6540,10 @@ a resolver mesmo essa questão (com o \ref[form_of_closed_under_subtraction]).
 \endsection
 %%}}}
 
-%%{{{ Order and positivity 
+%%{{{ Order_and_positivity_ints 
 \section Ordem e positividade.
 %%%{{{ meta 
+\label Order_and_positivity_ints
 %%%}}}
 
 %%{{{ int_something_missing_order 
@@ -24900,10 +24901,10 @@ membros do conjunto à esquerda que não pertencem ao conjunto à direita.
 \endsection
 %%}}}
 
-%%{{{ Order_and_positivity_on_reals 
+%%{{{ Order_and_positivity_reals 
 \section Ordem e positividade.
 %%%{{{ meta 
-\label Order_and_positivity_on_reals
+\label Order_and_positivity_reals
 %%%}}}
 
 %%{{{ remark: alternative_specification_of_ordered_fields 
@@ -25234,10 +25235,10 @@ Logo $a=b$.
 \endsection
 %%}}}
 
-%%{{{ Absolute_value_on_reals 
+%%{{{ Absolute_value_reals 
 \section Valor absoluto.
 %%%{{{ meta 
-\label Absolute_value_on_reals
+\label Absolute_value_reals
 %%%}}}
 
 %%{{{ df: real_abs 
@@ -25396,10 +25397,10 @@ Fazemos isso na \ref[Distance_on_reals].
 \endsection
 %%}}}
 
-%%{{{ Sets_and_sequences_in_reals 
+%%{{{ Sets_and_sequences_reals 
 \section Conjuntos e seqüências.
 %%%{{{ meta 
-\label Sets_and_sequences_in_reals
+\label Sets_and_sequences_reals
 %%%}}}
 
 %%{{{ intro 
@@ -25965,18 +25966,90 @@ Calcule os conjuntos:
 \label Distance_on_reals
 %%%}}}
 
-%%{{{ df: real_metric 
-\definition.
+%%{{{ spec: metric_reals 
+\specification distância.
 %%%{{{ meta 
-\label real_metric
+\label metric_reals
 %%%}}}
 
-Sejam $a,b$ reais.
-Definimos a \dterm{distância} entre $a$ e $b$, que denotamos por $\dist d a b$, pela
+Seja $d : \alpha \times \alpha \to \Real$.
+Dizemos que $d$ é uma \dterm{distância} (ou \dterm{métrica}) no $\alpha$
+sse todas as propriedades seguintes são satisfeitas:
+\mathcall
+& \dist d x y \geq 0                          \called {positividade (1)}  \stag[D-Range] \\
+& \dist d x y = \dist d y x                   \called {simetria}          \stag[D-Sym]   \\
+& \dist d x y \leq \dist d x w + \dist d w y  \called {triangular}        \stag[D-Tri]   \\
+& \dist d x x = 0                             \called {positividade (2)}  \stag[D-Zero]  \\
+& \dist d x y = 0 \implies x = y.             \called {positividade (3)}  \stag[D-Pos]   \\
+\endmathcall
+Chamamos a $d$ de \dterm{pré-distância} (ou \dterm{pré-métrica}, ou \dterm{pseudométrica})
+sse ela satisfaz as primeiras quatro dessas propriedades.
+
+%%}}}
+
+%%{{{ remark: variations and observations on metric_reals 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Qual propriedade exatamente está sendo referida pelo termo \wq{positividade} varia
+na literatura, mas costuma ser uma ou uma combinação das (1)--(3) anotadas acima;
+eu vou evitar esse termo aqui.
+A \mref[D-Zero] é equivalente à recíproca da \mref[D-Pos], e por isso às vezes são
+juntadas em uma proposição só:
+\mathcol
+& \dist d x y = 0 \iff x = y. \\
+\intertext {A contrapositiva da \mref[D-Pos], graças à \mref[D-Range] acaba sendo equivalente à}
+& x \neq y \implies \dist d x y > 0. \\
+\endmathcol
+que deixa mais clara a escolha do seu rótulo; em muitos textos é apresentada assim---aqui não.
+A \mref[D-Tri] é conhecida como \dterm{desigualdade triangular}, um nome melhor justificado
+quando consideramos distâncias num plano, onde corresponde à idéia que o melhor (mais curto)
+caminho entre dois pointos é aquele que vai direto de um ($x$) para o outro ($y$);
+medindo via terceiros pontos ($w$), em geral, pode aumentar a distância.
+
+%%}}}
+
+%%{{{ df: euclidean_metric_reals 
+\definition distância euclideana.
+%%%{{{ meta 
+\label euclidean_metric_reals
+%%%}}}
+
+Seja $d : \Real \times \Real \to \Real$.
 \mathcol
 d &\eqtype \Real \times \Real \to \Real \\
 \dist d a b &\defeq \abs{a - b}.
 \endmathcol
+Dados reais $a,b$, chamamos o $\dist d a b$ de \dterm{distância euclideana} entre os $a,b$.
+
+%%}}}
+
+%%{{{ df: discrete_metric_reals 
+\definition distância discreta.
+%%%{{{ meta 
+\label discrete_metric_reals
+%%%}}}
+
+Chamamos a função
+\mathcol
+d_0 &\eqtype \Real \times \Real \to \Real \\
+\dist {d_0} a b
+&\defeq \cases { 0,   & se $a = b$; \\
+                 1,   & se $a \neq b$. }
+\endmathcol
+de \dterm{distância discreta}.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Decidir chamar uma função de \wq{distância} não signifia que, de fato é.
+Precisamos verificar que ela atende a \ref[metric_reals].
+\wq{Precisamos}?  Quis dizer, precisas.  Agora.
 
 %%}}}
 
@@ -26180,10 +26253,10 @@ Definimos as funções:
 \mathcols 2
 \min &\eqtype \Real \times \Real \to \Real &
 \max &\eqtype \Real \times \Real \to \Real \\
-\min (a,b) &\defeq \cases { a,  & se $a\leq b$ \\
-                            b,  & se não  } &
+\min (a,b) &\defeq \cases { a,  & se $a\leq b$; \\
+                            b,  & se não;  }; &
 \max (a,b) &\defeq \cases { b,  & se $a\leq b$ \\
-                            a,  & se não  }.
+                            a,  & se não. pseudométricé }.
 \endmathcols
 
 %%}}}
@@ -80594,25 +80667,24 @@ Um conjunto estruturado $\sset X d$ onde $d$ é uma métrica no $X$
 
 %%}}}
 
-%%{{{ df: pseudometric 
-\definition pseudométrica.
+%%{{{ df: premetric 
+\definition premétrica.
 %%%{{{ meta 
-\label pseudometric
+\label premetric
 %%%}}}
 
 Uma funcção $d : X^2 \to \reals$ que satisfaz as primeiras 4 propriedades
-da \ref[metric_space] é chamada \dterm{pseudométrica}.
+da \ref[metric_space] é chamada \dterm{premétrica} (ou \dterm{pseudométrica}).
 
 %%}}}
 
-%%{{{ x: pseudometric 
+%%{{{ x: premetric_justify 
 \exercise.
 %%%{{{ meta 
-\label pseudometric
+\label premetric_justify
 %%%}}}
 
-Justifique o nome \wq{pseudométrica}.
-Dica: um nome melhor teria sido \emph{pré-métrica}.
+Justifique o nome \wq{pré-métrica}.
 
 %%}}}
 
