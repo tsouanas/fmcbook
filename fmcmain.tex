@@ -1574,8 +1574,8 @@ Vamos analizar:
 
 Leia o texto seguinte:
 \quote
-\flwq{Seja $p$ a maior potência de $2$ que divide o $x$.\CR
-Qualquer número que divide $p$, também divide $x$.}
+\flwq {Seja $p$ a maior potência de $2$ que divide o $x$.\CR
+       Qualquer número que divide $p$, também divide $x$.}
 \endquote
 Aqui conseguimos evitar o uso de variável na segunda linha para referir
 nesse número que divide o $p$.
@@ -1586,8 +1586,8 @@ Precisamos tomar cuidado.
 Vamos tentar usar uma \dterm{variável fresca}, ou seja,
 uma variável que não temos usado ainda:
 \quote
-\flwq{Seja $p$ a maior potência de $2$ que divide o $x$.\CR
-Para todo número $d$, se $d$ divide $p$, então $d$ divide $x$.}
+\flwq {Seja $p$ a maior potência de $2$ que divide o $x$.\CR
+       Para todo número $d$, se $d$ divide $p$, então $d$ divide $x$.}
 \endquote
 Primeiramente confirme que \emph{nada mudou no significado} do texto.
 Usamos a variável \sq{$d$} para referir ao divisor arbitrário de $p$.
@@ -1595,19 +1595,19 @@ Essa (usar uma variável fresca) seria a melhor e mais segura escolha aqui.
 Mas, o que acontece se usar, por exemplo, a \sq{$x$}?
 Vamos ver:
 \quote
-\flwq{Seja $p$ a maior potência de $2$ que divide o $x$.\CR
-Para todo número $x$, se $x$ divide $p$, então $x$ divide $x$.}
+\flwq {Seja $p$ a maior potência de $2$ que divide o $x$.\CR
+       Para todo número $x$, se $x$ divide $p$, então $x$ divide $x$.}
 \endquote
 Acabou de acontecer sombreamento e capturamento.
 Para explicar vou pintar as variáveis no texto anterior onde usamos \sq{$d$}:
 \quote
-\flwq{Seja $\aG p$ a maior potência de $2$ que divide o $\aR x$.\CR
-Para todo número $\aB d$, se $\aB d$ divide $\aG p$, então $\aB d$ divide $\aR x$.}
+\flwq {Seja $\aG p$ a maior potência de $2$ que divide o $\aR x$.\CR
+       Para todo número $\aB d$, se $\aB d$ divide $\aG p$, então $\aB d$ divide $\aR x$.}
 \endquote
 e no novo, onde usamos a \sq{$x$}:
 \quote
-\flwq{Seja $\aG p$ a maior potência de $2$ que divide o $\aR x$.\CR
-Para todo número $\aB x$, se $\aB x$ divide $\aG p$, então $\aB x$ divide $\aB x$.}
+\flwq {Seja $\aG p$ a maior potência de $2$ que divide o $\aR x$.\CR
+       Para todo número $\aB x$, se $\aB x$ divide $\aG p$, então $\aB x$ divide $\aB x$.}
 \endquote
 A partir da frase \wq{Para todo número $\aB x$},
 o $\aR x$ da linha anterior não tem mais como ser referido
@@ -16824,10 +16824,10 @@ como uma funcção de $\Nat$ para $\Nat$.
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ prob: injectivity_of_succ_failed_proof_attempt 
+%%{{{ prob: injectivity_of_succ_proof_fail 
 \problem.
 %%%{{{ meta 
-\label injectivity_of_succ_failed_proof_attempt
+\label injectivity_of_succ_proof_fail
 %%%}}}
 
 No \ref[Functions] aprendemos que conseguir uma $(\of)$-L-inversa
@@ -16840,7 +16840,57 @@ $$
 $$
 \lforall {a, a' \is \alpha} {\fA f a = \fA f {a'} \implies a = a'}.
 $$
-Dado isso, alguém tentou
+Dado isso, alguém tentou demonstrar a $\Su$-injetividade assim:
+\proofpart{Injetividade de $\Su$.}
+A demonstração é válida?
+Se não, especifique o erro;
+senão, por que estipulamos tal injetividade como princípio em vez de consegui-la como teorema?
+
+\hint
+A demonstração compila sim, mas mesmo assim ela não pode ser usada para
+nos livrar da estipulação da injetividade como princípio para o $\Nat$.
+Por que não?
+
+\hint
+A demonstração depende desse mesmo princípio que está demonstrando, e logo
+acaba sendo uma demonstração trivial (tendo já o princípio),
+ou incompilável (não o tendo).
+O desafio é perceber onde que tal princípio foi usado nesta demonstração.
+
+\hint
+A demonstração usa a $\Pd$, mas como ela foi definida mesmo?
+
+\solution
+A demonstração usa a $\Pd$, mas para sua definição \emph{funcionar}
+já precisamos da injetividade de $\Su$; sem ela, a $\Pd$, recebendo seu argumento $n$,
+não teria como aproveitar o pattern-matching para obter acesso \emph{ao}
+$n'$ tal que $n = \SuA {n'}$, para conseguir retorná-lo.
+Se tivesse outro (distinto) $n''$ tal que $n = \SuA {n''}$, qual dos $n', n''$
+a $\Pd$ retornaria?
+\eop
+O que acontece se tentar resolver isso escolhendo um específico deles para retornar
+(por exemplo, o menor)?  Note que a $\Pd$ viraria, de fato, função.
+E agora: com esse ajuste, a demonstração compila e pode ser usada
+para conseguir o princípio como teorema?
+
+%%}}}
+
+%%{{{ prob: injectivity_of_succ_proof_fail_again 
+\problem.
+%%%{{{ meta 
+\label injectivity_of_succ_proof_fail_again 
+%%%}}}
+
+(Apenas depois de resolver o \ref[injectivity_of_succ_proof_fail].)
+Responda na pergunta surgida no fim da minha resolução de \ref[injectivity_of_succ_proof_fail].
+
+\hint
+Não dá.  Agora a demonstração não compila por outro motivo.
+
+\solution
+A nova versão de $\Pd$ não é mais um $(\circ)$-L-inverso.
+Considere tais $n' < n''$ com $\SuA {n'} = \SuA {n''} (= n)$.
+Assim temos $\PdP {\SuA {n''}} = n' \neq n''$.
 
 %%}}}
 
@@ -44028,12 +44078,12 @@ Similar: é só seguir os passos da {\lrdirset} em reverso.
 \label big_intersection_respected_by_img_wrong_proof
 %%%}}}
 
-Um aluno ``demonstrou'' que se $f : A \to B$ e $\seqn A n$ é uma
+Um aluno \dq{demonstrou} que se $f : A \to B$ e $\seqn A n$ é uma
 seqüência de subconjuntos de $A$, então
 $$
 \img f {\Interl_{n=0}^\infty A_n} = \Interl_{n=0}^\infty \img f {A_n}.
 $$
-Sua ``demonstração'' foi a seguinte:
+Sua \dq{demonstração} foi a seguinte:
 \quote
 <<Calculamos:
 \compute
