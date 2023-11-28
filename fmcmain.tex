@@ -25960,264 +25960,6 @@ Calcule os conjuntos:
 \endsection
 %%}}}
 
-%%{{{ Distance_on_reals 
-\section Distância.
-%%%{{{ meta 
-\label Distance_on_reals
-%%%}}}
-
-%%{{{ spec: metric_reals 
-\specification distância.
-%%%{{{ meta 
-\label metric_reals
-%%%}}}
-
-Seja $d : \alpha \times \alpha \to \Real$.
-Dizemos que $d$ é uma \dterm{distância} (ou \dterm{métrica}) no $\alpha$
-sse todas as propriedades seguintes são satisfeitas:
-\mathcall
-& \dist d x y \geq 0                          \called {positividade (1)}  \stag[D-Range] \\
-& \dist d x y = \dist d y x                   \called {simetria}          \stag[D-Sym]   \\
-& \dist d x y \leq \dist d x w + \dist d w y  \called {triangular}        \stag[D-Tri]   \\
-& \dist d x x = 0                             \called {positividade (2)}  \stag[D-Zero]  \\
-& \dist d x y = 0 \implies x = y.             \called {positividade (3)}  \stag[D-Pos]   \\
-\endmathcall
-Chamamos a $d$ de \dterm{pré-distância} (ou \dterm{pré-métrica}, ou \dterm{pseudométrica})
-sse ela satisfaz as primeiras quatro dessas propriedades.
-
-%%}}}
-
-%%{{{ remark: variations and observations on metric_reals 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Qual propriedade exatamente está sendo referida pelo termo \wq{positividade} varia
-na literatura, mas costuma ser uma ou uma combinação das (1)--(3) anotadas acima;
-eu vou evitar esse termo aqui.
-A \mref[D-Zero] é equivalente à recíproca da \mref[D-Pos], e por isso às vezes são
-juntadas em uma proposição só:
-\mathcol
-& \dist d x y = 0 \iff x = y. \\
-\intertext {A contrapositiva da \mref[D-Pos], graças à \mref[D-Range] acaba sendo equivalente à}
-& x \neq y \implies \dist d x y > 0. \\
-\endmathcol
-que deixa mais clara a escolha do seu rótulo; em muitos textos é apresentada assim---aqui não.
-A \mref[D-Tri] é conhecida como \dterm{desigualdade triangular}, um nome melhor justificado
-quando consideramos distâncias num plano, onde corresponde à idéia que o melhor (mais curto)
-caminho entre dois pointos é aquele que vai direto de um ($x$) para o outro ($y$);
-medindo via terceiros pontos ($w$), em geral, pode aumentar a distância.
-
-%%}}}
-
-%%{{{ df: euclidean_metric_reals 
-\definition distância euclideana.
-%%%{{{ meta 
-\label euclidean_metric_reals
-%%%}}}
-
-Chamamos a função
-\mathcol
-d &\eqtype \Real \times \Real \to \Real \\
-\dist d a b &\defeq \abs{a - b}.
-\endmathcol
-de \dterm{distância eulideana}.
-
-%%}}}
-
-%%{{{ df: discrete_metric_reals 
-\definition distância discreta.
-%%%{{{ meta 
-\label discrete_metric_reals
-%%%}}}
-
-Chamamos a função
-\mathcol
-d_0 &\eqtype \Real \times \Real \to \Real \\
-\dist {d_0} a b
-&\defeq \cases { 0,   & se $a = b$; \\
-                 1,   & se $a \neq b$. }
-\endmathcol
-de \dterm{distância discreta}.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Decidir chamar uma função de \wq{distância} não signifia que, de fato é.
-Precisamos verificar que ela atende a \ref[metric_reals].
-\wq{Precisamos}?  Quis dizer, precisas.  Agora.
-
-%%}}}
-
-%%{{{ x: euclidean_metric_justify_reals 
-\exercise.
-%%%{{{ meta 
-\label euclidean_metric_justify_reals
-%%%}}}
-
-Justifique: a distância euclideana, de fato, é uma distância, ou seja, atende
-a \ref[metric_reals].
-
-%%}}}
-
-%%{{{ x: discrete_metric_justify_reals 
-\exercise.
-%%%{{{ meta 
-\label discrete_metric_justify_reals
-%%%}}}
-
-A distância discreta também.
-
-%%}}}
-
-%%{{{ Which metric? 
-\note Qual distância?.
-%%%{{{ meta 
-%%%}}}
-
-O estudo abstrato de distâncias, viz., a teoria dos espaços métricos, é o assunto
-do \ref[Metric_spaces].
-Para meus propósitos neste capítulo vamos concordar que quando é envolvida
-uma métrica ou mencionada a palavra distância na conversa, sempre será a distância euclideana
-(\reftag[euclidean_metric_reals]) exceto se especificamente mencionar outra.
-No que segue, $d$ denota uma métrica, ou seja, uma função que satisfaz a \ref[metric_reals].
-
-%%}}}
-
-%%{{{ df: epsilon_close_reals 
-\definition ε-perto.
-%%%{{{ meta 
-\label epsilon_close_reals
-\defines
-    * perto!$\epsilon$-, de um real
-    ;;
-%%%}}}
-
-Seja $x,y$ reais e $\epsilon > 0$.
-Dizemos que
-$$
-\text{o $x$ é $\epsilon$-perto do $y$}
-\defiff
-\dist d x y < \epsilon.
-$$
-Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
-e logo podemos escrever também:
-$$
-\text{os $x,y$ são $\epsilon$-perto (entre si)}.
-$$
-
-%%}}}
-
-%%{{{ eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Os $1$ e $2/3$ são $1/2$-perto (com a distância euclideana, mas não com a distância discreta).
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_reflexive 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_reflexive
-%%%}}}
-
-Dado $\epsilon > 0$, seja $(\sim_\epsilon)$ a relação definida pela
-$$
-x \sim_\epsilon y
-\defiff
-\text{$x$ é $\epsilon$-perto do $y$}.
-$$
-Demonstre que $(\sim_\epsilon)$ é reflexiva.
-
-\hint
-$$
-\abs{x - x} = 0
-$$
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_symmetric 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_symmetric
-%%%}}}
-
-Dado $\epsilon > 0$, a $(\sim_\epsilon)$
-do~\ref[epsilon_close_is_reflexive] é simétrica,
-e logo podemos escrever frases como
-$$
-\textwq{os $x,y$ são $\epsilon$-perto (entre si)}.
-$$
-
-\solution
-Precisamos demonstrar
-$$
-\dist d x y < \epsilon \iff
-\dist d y x < \epsilon
-$$
-que segue imediatamente pela simetria da distância $d$ (\mref[D-Sym]).
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_not_an_equivalence_relation
-%%%}}}
-
-Existe algum $\epsilon > 0$ para qual
-a $(\sim_\epsilon)$ do~\ref[epsilon_close_is_reflexive]
-é uma relação \dterm{transitiva}?
-$$
-\text{$(\sim_\epsilon)$ é transitiva} \intiff \lforall {a,b,c} {a \sim_\epsilon b \mland b \sim_\epsilon c \implies a \sim_\epsilon c}.
-$$
-
-\hint
-Não!
-Por quê?
-
-%%}}}
-
-%%{{{ df: epsilon_ball_reals 
-\definition ε-bola.
-%%%{{{ meta 
-\label epsilon_ball_reals
-\defines
-    * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
-    * bola!$\epsilon$-, de real
-    ;;
-%%%}}}
-
-Dado um ponto $c\in\reals$, o conjunto de todos os pontos que
-são $\epsilon$-perto do $a$ é chamado de \dterm{$\epsilon$-bola} do $c$:
-$$
-\ball \epsilon {c}
-\defeq
-\setstt {x \in \reals} {$x$ é $\epsilon$-perto de $c$}.
-$$
-Também chamamos de \dterm{bola com centro $c$ e raio $\epsilon$}.
-
-%%}}}
-
-%%{{{ eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e
-a $1$-bola do $0$ o $(-1,1)$.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Minima_and_maxima_on_reals 
 \section Mínima e máxima.
 %%%{{{ meta 
@@ -26584,6 +26326,275 @@ Os $\intreals,\ratreals,\algreals$ são conjuntos indutivos.
 \endsection
 %%}}}
 
+%%{{{ Distance_on_reals 
+\section Distância.
+%%%{{{ meta 
+\label Distance_on_reals
+%%%}}}
+
+%%{{{ spec: metric_reals 
+\specification distância.
+%%%{{{ meta 
+\label metric_reals
+%%%}}}
+
+Seja $d : \alpha \times \alpha \to \Real$.
+Dizemos que $d$ é uma \dterm{distância} (ou \dterm{métrica}) no $\alpha$
+sse todas as propriedades seguintes são satisfeitas:
+\mathcall
+& \dist d x y \geq 0                          \called {positividade (1)}  \stag[D-Range] \\
+& \dist d x y = \dist d y x                   \called {simetria}          \stag[D-Sym]   \\
+& \dist d x y \leq \dist d x w + \dist d w y  \called {triangular}        \stag[D-Tri]   \\
+& \dist d x x = 0                             \called {positividade (2)}  \stag[D-Zero]  \\
+& \dist d x y = 0 \implies x = y.             \called {positividade (3)}  \stag[D-Pos]   \\
+\endmathcall
+Chamamos a $d$ de \dterm{pré-distância} (ou \dterm{pré-métrica}, ou \dterm{pseudométrica})
+sse ela satisfaz as primeiras quatro dessas propriedades.
+
+%%}}}
+
+%%{{{ remark: variations and observations on metric_reals 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Qual propriedade exatamente está sendo referida pelo termo \wq{positividade} varia
+na literatura, mas costuma ser uma ou uma combinação das (1)--(3) anotadas acima;
+eu vou evitar esse termo aqui.
+A \mref[D-Zero] é equivalente à recíproca da \mref[D-Pos], e por isso às vezes são
+juntadas em uma proposição só:
+\mathcol
+& \dist d x y = 0 \iff x = y. \\
+\intertext {A contrapositiva da \mref[D-Pos], graças à \mref[D-Range] acaba sendo equivalente à}
+& x \neq y \implies \dist d x y > 0. \\
+\endmathcol
+que deixa mais clara a escolha do seu rótulo; em muitos textos é apresentada assim---aqui não.
+A \mref[D-Tri] é conhecida como \dterm{desigualdade triangular}, um nome melhor justificado
+quando consideramos distâncias num plano, onde corresponde à idéia que o melhor (mais curto)
+caminho entre dois pointos é aquele que vai direto de um ($x$) para o outro ($y$);
+medindo via terceiros pontos ($w$), em geral, pode aumentar a distância.
+
+%%}}}
+
+%%{{{ df: euclidean_metric_reals 
+\definition distância euclideana.
+%%%{{{ meta 
+\label euclidean_metric_reals
+%%%}}}
+
+Chamamos a função
+\mathcol
+d &\eqtype \Real \times \Real \to \Real \\
+\dist d a b &\defeq \abs{a - b}.
+\endmathcol
+de \dterm{distância eulideana}.
+
+%%}}}
+
+%%{{{ df: discrete_metric_reals 
+\definition distância discreta.
+%%%{{{ meta 
+\label discrete_metric_reals
+%%%}}}
+
+Chamamos a função
+\mathcol
+d_0 &\eqtype \Real \times \Real \to \Real \\
+\dist {d_0} a b
+&\defeq \cases { 0,   & se $a = b$; \\
+                 1,   & se $a \neq b$. }
+\endmathcol
+de \dterm{distância discreta}.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Decidir chamar uma função de \wq{distância} não signifia que, de fato é.
+Precisamos verificar que ela atende a \ref[metric_reals].
+\wq{Precisamos}?  Quis dizer, precisas.  Agora.
+
+%%}}}
+
+%%{{{ x: euclidean_metric_justify_reals 
+\exercise.
+%%%{{{ meta 
+\label euclidean_metric_justify_reals
+%%%}}}
+
+Justifique: a distância euclideana, de fato, é uma distância, ou seja, atende
+a \ref[metric_reals].
+
+%%}}}
+
+%%{{{ x: discrete_metric_justify_reals 
+\exercise.
+%%%{{{ meta 
+\label discrete_metric_justify_reals
+%%%}}}
+
+A distância discreta também.
+
+%%}}}
+
+%%{{{ Which metric? 
+\note Qual distância?.
+%%%{{{ meta 
+%%%}}}
+
+O estudo abstrato de distâncias, viz., a teoria dos espaços métricos, é o assunto
+do \ref[Metric_spaces].
+Para meus propósitos neste capítulo vamos concordar que quando é envolvida
+uma métrica ou mencionada a palavra distância na conversa, sempre será a distância euclideana
+(\reftag[euclidean_metric_reals]) exceto se especificamente mencionar outra.
+No que segue, $d$ denota uma métrica, ou seja, uma função que satisfaz a \ref[metric_reals].
+
+%%}}}
+
+%%{{{ df: epsilon_close_reals 
+\definition ε-perto.
+%%%{{{ meta 
+\label epsilon_close_reals
+\defines
+    * perto!$\epsilon$-, de um real
+    ;;
+%%%}}}
+
+Seja $x,y$ reais e $\epsilon > 0$.
+Dizemos que
+$$
+\text{o $x$ é $\epsilon$-perto do $y$}
+\defiff
+\dist d x y < \epsilon.
+$$
+Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
+e logo podemos escrever também:
+$$
+\text{os $x,y$ são $\epsilon$-perto (entre si)}.
+$$
+
+%%}}}
+
+%%{{{ eg 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Os $1$ e $2/3$ são $1/2$-perto (com a distância euclideana, mas não com a distância discreta).
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_reflexive 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_reflexive
+%%%}}}
+
+Dado $\epsilon > 0$, seja $(\sim_\epsilon)$ a relação definida pela
+$$
+x \sim_\epsilon y
+\defiff
+\text{$x$ é $\epsilon$-perto do $y$}.
+$$
+Demonstre que $(\sim_\epsilon)$ é reflexiva.
+
+\hint
+$$
+\abs{x - x} = 0
+$$
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_symmetric 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_symmetric
+%%%}}}
+
+Dado $\epsilon > 0$, a $(\sim_\epsilon)$
+do~\ref[epsilon_close_is_reflexive] é simétrica,
+e logo podemos escrever frases como
+$$
+\textwq{os $x,y$ são $\epsilon$-perto (entre si)}.
+$$
+
+\solution
+Precisamos demonstrar
+$$
+\dist d x y < \epsilon \iff
+\dist d y x < \epsilon
+$$
+que segue imediatamente pela simetria da distância $d$ (\mref[D-Sym]).
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_not_an_equivalence_relation
+%%%}}}
+
+Existe algum $\epsilon > 0$ para qual
+a $(\sim_\epsilon)$ do~\ref[epsilon_close_is_reflexive]
+é uma relação \dterm{transitiva}?
+$$
+\text{$(\sim_\epsilon)$ é transitiva} \intiff \lforall {a,b,c} {a \sim_\epsilon b \mland b \sim_\epsilon c \implies a \sim_\epsilon c}.
+$$
+
+\hint
+Não!
+Por quê?
+
+%%}}}
+
+%%{{{ df: epsilon_ball_reals 
+\definition ε-bola.
+%%%{{{ meta 
+\label epsilon_ball_reals
+\defines
+    * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
+    * bola!$\epsilon$-, de real
+    ;;
+%%%}}}
+
+Dado um ponto $c$, chamamos o conjunto de todos os pontos que
+são $\epsilon$-perto do $c$ de \dterm{$\epsilon$-bola do $c$}:
+$$
+\ball \epsilon c
+\defeq
+\setstt {x} {$x$ é $\epsilon$-perto de $c$}.
+$$
+Também chamamos de \dterm{bola com centro $c$ e raio $\epsilon$}.
+
+%%}}}
+
+%%{{{ eg: couple of balls 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e a $2$-bola do $0$ o $(-2,2)$.
+
+%%}}}
+
+%%{{{ x: same balls but now discrete 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Ache as mesmas bolas mas considerando como distância a discreta.
+
+\solution
+A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e a $2$-bola do $0$ o $(-2,2)$.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ On models 
 \section Sobre modelos.
 %%%{{{ meta 
@@ -26599,23 +26610,24 @@ Os $\intreals,\ratreals,\algreals$ são conjuntos indutivos.
 %%%}}}
 
 Qualquer $\sset X {0,1,+,-,\ntimes,>}$ com
-\mathcols 3
-0         &\is X &
-(+)       &\is X \times X \to X &
-(\ntimes) &\is X \times X \to X \\
-1         &\is X &
-(-)       &\is X \to X &
-(>)       &\is X \times X \to \Prop \\
+\mathcols 4
+0, 1            &\is X &
+(+), (\ntimes)  &\is X \times X \to X &
+(-)             &\is X \to X &
+(>)             &\is X \times X \to \Prop
 \endmathcols
 que satisfaz todos os axiomas que temos estipulado até agora
 neste capítulo sobre os reais é chamado um \dterm{corpo ordenado}.
-Ou seja, até agora temos exigido que o $\sset \reals {0,1,+,-,\ntimes,>}$
+Ou seja: até agora temos exigido que o $\sset \reals {0,1,+,-,\ntimes,>}$
 é \emph{um} corpo ordenado.
 Conhecendo o conjunto $\rats$ dos \dterm{racionais},
 percebemos que o $\sset \rats {0,1,+,-,\ntimes,>}$ também
 é um corpo ordenado.
 Em palavras mais formais, tanto os reais quanto os racionais são o que
 a gente chama de \dterm{modelos} de corpos ordenados.
+O que temos estipulado então, não é suficiente para
+\dterm{determinar os reais}, pois nem consegue diferenciá-los
+dos racionais.
 
 %%}}}
 
@@ -26625,9 +26637,6 @@ a gente chama de \dterm{modelos} de corpos ordenados.
 \label how_can_we_separate_reals_from_rats
 %%%}}}
 
-O que temos estipulado então, não é suficiente para
-\dterm{determinar os reais}, pois nem consegue diferenciá-los
-dos racionais.
 Podemos adicionar alguma lei capaz de separar os reais dos racionais?
 Ou seja, chegar numa lista de leis mais exigentes, tais que
 os reais vão ser um modelo, mas os racionais não.
