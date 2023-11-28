@@ -16819,84 +16819,6 @@ como uma funcção de $\Nat$ para $\Nat$.
 \endsection
 %%}}}
 
-%%{{{ PROBLEMS INTERMISSION 
-\problems Intervalo de problemas.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ prob: injectivity_of_succ_proof_fail 
-\problem.
-%%%{{{ meta 
-\label injectivity_of_succ_proof_fail
-%%%}}}
-
-No \ref[Functions] aprendemos que conseguir uma $(\of)$-L-inversa
-uma função $f : \alpha \to \beta$, i.e., uma $f' : \alpha \from \beta$
-tal que
-$$
-f' \of f = \idof \alpha
-$$
-é suficiente para garantir que $f$ é injetiva, ou seja, que
-$$
-\lforall {a, a' \is \alpha} {\fA f a = \fA f {a'} \implies a = a'}.
-$$
-Dado isso, alguém tentou demonstrar a $\Su$-injetividade assim:
-\proofpart{Injetividade de $\Su$.}
-A demonstração é válida?
-Se não, especifique o erro;
-senão, por que estipulamos tal injetividade como princípio em vez de consegui-la como teorema?
-
-\hint
-A demonstração compila sim, mas mesmo assim ela não pode ser usada para
-nos livrar da estipulação da injetividade como princípio para o $\Nat$.
-Por que não?
-
-\hint
-A demonstração depende desse mesmo princípio que está demonstrando, e logo
-acaba sendo uma demonstração trivial (tendo já o princípio),
-ou incompilável (não o tendo).
-O desafio é perceber onde que tal princípio foi usado nesta demonstração.
-
-\hint
-A demonstração usa a $\Pd$, mas como ela foi definida mesmo?
-
-\solution
-A demonstração usa a $\Pd$, mas para sua definição \emph{funcionar}
-já precisamos da injetividade de $\Su$; sem ela, a $\Pd$, recebendo seu argumento $n$,
-não teria como aproveitar o pattern-matching para obter acesso \emph{ao}
-$n'$ tal que $n = \SuA {n'}$, para conseguir retorná-lo.
-Se tivesse outro (distinto) $n''$ tal que $n = \SuA {n''}$, qual dos $n', n''$
-a $\Pd$ retornaria?
-\eop
-O que acontece se tentar resolver isso escolhendo um específico deles para retornar
-(por exemplo, o menor)?  Note que a $\Pd$ viraria, de fato, função.
-E agora: com esse ajuste, a demonstração compila e pode ser usada
-para conseguir o princípio como teorema?
-
-%%}}}
-
-%%{{{ prob: injectivity_of_succ_proof_fail_again 
-\problem.
-%%%{{{ meta 
-\label injectivity_of_succ_proof_fail_again 
-%%%}}}
-
-(Apenas depois de resolver o \ref[injectivity_of_succ_proof_fail].)
-Responda na pergunta surgida no fim da minha resolução de \ref[injectivity_of_succ_proof_fail].
-
-\hint
-Não dá.  Agora a demonstração não compila por outro motivo.
-
-\solution
-A nova versão de $\Pd$ não é mais um $(\circ)$-L-inverso.
-Considere tais $n' < n''$ com $\SuA {n'} = \SuA {n''} (= n)$.
-Assim temos $\PdP {\SuA {n''}} = n' \neq n''$.
-
-%%}}}
-
-\endproblems
-%%}}}
-
 %%{{{ Proving properties of natural numbers without induction 
 \section Demonstrando propriedades de naturais sem indução.
 %%%{{{ meta 
@@ -19616,6 +19538,129 @@ Enuncie e demosntre o (ifthenelse-distr) citado acima.
 \endsection
 %%}}}
 
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ prob: inhabited_list_type 
+\problem IList.
+%%%{{{ meta 
+\label inhabited_list_type
+%%%}}}
+
+Defina o construtor de tipos $\IList \is \Type \to \Type$, que construa
+tipos de listas \emph{habitadas}.
+Defina também funções $\head$ e $\tail$ pare este tipo, e uma função
+$$
+\toList \is \IList \to \List.
+$$
+
+%%}}}
+
+%%{{{ prob: evenlist_and_oddlist 
+\problem EList, OList.
+%%%{{{ meta 
+\label evenlist_and_oddlist 
+%%%}}}
+
+Defina \emph{usando recursão mútua} os construtores de tipos $\EList, \OList \is \Type \to \Type$,
+que construam tipos de listas de tamanhos garantidamente par (a $\OList$) e ímpar (a $\EList$).
+Defina também funções $\head$ e $\tail$ para cada uma dessas listas, e funções
+$\toList$.
+
+%%}}}
+
+%%{{{ prob: injectivity_of_succ_proof_fail 
+\problem.
+%%%{{{ meta 
+\label injectivity_of_succ_proof_fail
+%%%}}}
+
+No \ref[Functions] aprendemos que conseguir uma função $(\of)$-L-inversa
+duma função $f : \alpha \to \beta$, i.e., uma $f' : \alpha \from \beta$
+tal que
+$$
+f' \of f = \idof \alpha
+$$
+é suficiente para garantir que $f$ é \dterm{injetiva:}
+$$
+\lforall {a, a' \is \alpha} {\fA f a = \fA f {a'} \implies a = a'}.
+$$
+Dado isso,
+% STUDENT: Hannah
+um aluno tentou demonstrar a $\Su$-injetividade assim:
+\quote
+\proofpart{Injetividade de $\Su$.}
+Considere a $\Pd : \Nat \from \Nat$.
+Basta mostrar que ela é uma $(\of)$-L-inversa da $\Su$:
+$
+(\Pd \of \Su) \fa n
+= \PdP {\SuA n}
+= n
+= \id n
+$.
+\endquote
+A demonstração é válida?
+Se não, especifique o erro;
+senão, por que estipulamos tal injetividade como princípio em vez de consegui-la como teorema?
+
+\hint
+A demonstração compila sim, mas mesmo assim ela não pode ser usada para
+nos livrar da estipulação da injetividade como princípio para o $\Nat$.
+Por que não?
+
+\hint
+A demonstração depende desse mesmo princípio que está demonstrando, e logo
+acaba sendo uma demonstração trivial (tendo já o princípio),
+ou incompilável (não o tendo).
+O desafio é perceber onde que tal princípio foi usado nesta demonstração.
+
+\hint
+A demonstração usa a $\Pd$, mas como ela foi definida mesmo?
+
+\solution
+A demonstração usa a $\Pd$, mas para sua definição \emph{funcionar}
+já precisamos da injetividade de $\Su$; sem ela, a $\Pd$, recebendo seu argumento $n$,
+não teria como aproveitar o pattern-matching para obter acesso \emph{ao}
+$n'$ tal que $n = \SuA {n'}$, para conseguir retorná-lo.
+Se tivesse outro (distinto) $n''$ tal que $n = \SuA {n''}$, qual dos $n', n''$
+a $\Pd$ retornaria?
+\eop
+O que acontece se tentar resolver isso escolhendo um específico deles para retornar
+(por exemplo, o menor)?  Note que a $\Pd$ viraria, de fato, função.
+E agora: com esse ajuste, a demonstração compila e pode ser usada
+para conseguir o princípio como teorema?
+
+%%}}}
+
+%%{{{ prob: injectivity_of_succ_proof_fail_again 
+\problem.
+%%%{{{ meta 
+\label injectivity_of_succ_proof_fail_again 
+%%%}}}
+
+(Apenas depois de resolver o \ref[injectivity_of_succ_proof_fail].) \CR
+Responda na pergunta surgida no fim da minha resolução de \ref[injectivity_of_succ_proof_fail].
+
+\hint
+Não dá.  Agora a demonstração não compila por outro motivo.
+
+\solution
+A nova versão de $\Pd$ não é mais um $(\circ)$-L-inverso.
+Considere tais $n' \neq n''$ com $\SuA {n'} = n = \SuA {n''}$,
+e com $n'$ o menor tal $\Nat$ (e logo o retornado pela $\Pd$ recebendo $n$).
+Assim temos
+$$
+\PdP {\SuA {n''}} = \PdA n = n' \neq n''
+$$
+e logo $\Pd$ não é uma inversa esquerda da $\Su$.
+
+%%}}}
+
+\endproblems
+%%}}}
+
 %%{{{ Sorting 
 \section Ordenando.
 %%%{{{ meta 
@@ -19715,33 +19760,7 @@ Note que $\Either \is \Type \to \Type \to \Type$.
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ prob: inhabited_list_type 
-\problem IList.
-%%%{{{ meta 
-\label inhabited_list_type
-%%%}}}
-
-Defina o construtor de tipos $\IList \is \Type \to \Type$, que construa
-tipos de listas \emph{habitadas}.
-Defina também funções $\head$ e $\tail$ pare este tipo, e uma função
-$$
-\toList \is \IList \to \List.
-$$
-
-%%}}}
-
-%%{{{ prob: evenlist_and_oddlist 
-\problem EList, OList.
-%%%{{{ meta 
-\label evenlist_and_oddlist 
-%%%}}}
-
-Defina \emph{usando recursão mútua} os construtores de tipos $\EList, \OList \is \Type \to \Type$,
-que construam tipos de listas de tamanhos garantidamente par (a $\OList$) e ímpar (a $\EList$).
-Defina também funções $\head$ e $\tail$ para cada uma dessas listas, e funções
-$\toList$.
-
-%%}}}
+\TODO Add problems.
 
 \endproblems
 %%}}}
