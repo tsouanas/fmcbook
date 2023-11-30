@@ -25589,6 +25589,15 @@ para cada tipo $\alpha$ teremos um $(\in_\alpha)$:}
 \endmathcol
 De qualquer forma, seria um \emph{type error} escrever $1 \in \seqn x n$.
 Aquele \emph{tão errado que nem chega a ser falso}.  Simplesmente sem significado.
+
+%%}}}
+
+%%{{{ seqs_as_sets_type_coercion 
+\note Type coercion: seqüências como conjuntos.
+%%%{{{ meta 
+\label seqs_as_sets_type_coercion
+%%%}}}
+
 Mesmo assim, é comum ver uma seqüência aparecendo num lugar onde pelo contexto
 é inferível que deveria aparecer um conjunto.
 Provavelmente o que tá sendo referido nesses casos não é a seqüência em si
@@ -25602,8 +25611,6 @@ $$
 $$
 
 %%}}}
-
-\TODO Define $(\leq)$ between seqs.
 
 %%{{{ eg: some sequences of reals and their first terms 
 \example.
@@ -25704,6 +25711,83 @@ x_0     &\defeq 1 \\
 x_{n+1} &\defeq (3x_n + 4)/4. \\
 \endmathcol
 Resolva sobre esta as mesmas duas questões que resolveu sobre a seqüência anterior.
+
+%%}}}
+
+%%{{{ df: leq_between_seqs 
+\definition ordem pointwise.
+%%%{{{ meta 
+\label leq_between_seqs
+\defines
+    * seqüência!ordem
+    ;;
+\indexes
+    * pointwise
+    ;;
+%%%}}}
+
+Aproveitando as ordens que já temos nos reais, as elevamos para definir
+correspondentes ordens entre seqüências de reais, em forma \dterm{pointwise:}
+$$
+\seqn a n \leq \seqn b n
+\defiff
+\lforall n {a_n \leq b_n},
+$$
+e similarmente para as outras ordens que definimos: $(<)$, $(\geq)$, etc.
+
+%%}}}
+
+%%{{{ beware: leq_between_seqs_vs_between_sets 
+\beware.
+%%%{{{ meta 
+\label leq_between_seqs_vs_between_sets 
+%%%}}}
+
+Antes da \ref[leq_between_seqs], a expressão
+$$
+\seqn a n \leq \seqn b n
+$$
+seria interpretada através de \emph{type coercion} como
+$$
+\seqnset a n \leq \seqnset b n
+$$
+pois temos estabelecido já o que $A \leq B$ significa para conjuntos de reais $A,B$:
+$$
+A \leq B
+\intiff \lforall {a \in A} {a \leq B}
+\intiff \pforall {a \in A} \lforall {b \in B} {a \leq b}.
+$$
+Mas a partir da \ref[leq_between_seqs] a expressão
+$$
+\seqn a n \leq \seqn b n
+$$
+já ganhou seu próprio significado, e logo não entra mais nenhum \emph{type coercion}
+nesse processo.
+Mas será que as duas interpretações acabam sendo equivalentes?
+
+%%}}}
+
+%%{{{ x: leq_between_seqs_vs_between_sets
+\exercise.
+%%%{{{ meta 
+\label leq_between_seqs_vs_between_sets_wa
+%%%}}}
+
+Será?
+
+\hint
+Não.
+
+\solution
+Não.  Considere como contraxemplo as seqüências
+\mathcols 2
+\seq n     n &= 0, 1, 2, \ldots &
+\seq {n+1} n &= 1, 2, 3, \ldots
+\endmathcols
+e veja que temos
+$\seq n n \leq \seq {n+1} n$
+mas
+$\seqset n n \nleq \seqset {n+1} n$.
 
 %%}}}
 
