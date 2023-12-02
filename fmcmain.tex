@@ -20148,30 +20148,26 @@ $$
 Agora defina as $\search$ e $\fetch$.
 
 \solution
-Definimos a
-$$
-\def\lpaths{\fun{lpaths}}
-\def\rpaths{\fun{lpaths}}
-\funcoleqs {
+\DefVar ds
+\DefFpf lpaths
+\DefFpf rpaths
+Definimos a $\search$ pelas
+\fundef
+\search : \alpha \to \BTreeA \alpha \to \ListP {\Path} \\
 \searchAP w {\TipA x}     &=  \IF w = x \THEN \list\lnil \ELSE \lnil \FI \\
 \searchAP w {\ForkAA l r} &=
-\mathcoled {
-\LET (\lpaths,\rpaths) = (\searchAA w l, \searchAA w r)
- \IN \fmapPA {\cons L \lcons} \lpaths \concat \fmapPA {\cons R \lcons} \rpaths
- \TEL
-}
-}
-$$
-e a
-$$
-\DefVar  ds
-\funcoleqs {
-\fetch &\paren{\cons L \lcons \ds}  &\paren{\ForkAA l \uhole} &= \fetchAA \ds \ell \\
-\fetch &\paren{\cons R \lcons \ds}  &\paren{\ForkAA \uhole r} &= \fetchAA \ds r \\
-\fetch &\lnil                  &\paren{\TipA x}          &= \JustA x \\
-\fetch &\uhole                 &\uhole                   &= \Nothing
-}
-$$
+    \LET (\lpaths,\rpaths) = (\searchAA w l, \searchAA w r)
+     \IN \fmapPA {\cons L \lcons} \lpaths \concat \fmapPA {\cons R \lcons} \rpaths
+     \TEL
+\endfundef
+e a $\fetch$ assim:
+\fundef
+\fetch : \Path  \to \BTreeA \alpha \to \MaybeA \alpha \\
+\fetch &\paren{\cons L \lcons \ds}  &\paren{\ForkAA l \phole} &= \fetchAA \ds \ell \\
+\fetch &\paren{\cons R \lcons \ds}  &\paren{\ForkAA \phole r} &= \fetchAA \ds r \\
+\fetch &\lnil   &\paren{\TipA x}    &= \JustA x \\
+\fetch &\phole  &\phole             &= \Nothing
+\endfundef
 
 %%}}}
 
