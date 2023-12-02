@@ -20097,6 +20097,117 @@ Feche o que faltou para fechar na demonstração de \ref[BTree_leaves_depth_thm]
 
 %%}}}
 
+%%{{{ x: BTree_subtrees_def 
+\exercise subtrees.
+%%%{{{ meta 
+\label BTree_subtrees_def
+%%%}}}
+
+Defina a $\subtrees : \BTreeA \alpha \to \ListP {\BTreeA \alpha}$
+que retorna uma lista com todas as subarvores da sua entrada.
+
+%%}}}
+
+%%{{{ x: BTree_flatten_def 
+\exercise flatten.
+%%%{{{ meta 
+\label BTree_flatten_def
+%%%}}}
+
+Defina a $\flatten : \BTreeA \alpha \to \ListP {\BTreeA \alpha}$
+que retorna uma lista com todas as subarvores da sua entrada.
+
+%%}}}
+
+%%{{{ x: BTree_search_fetch 
+\exercise search, fetch.
+%%%{{{ meta 
+\label BTree_search_fetch
+%%%}}}
+
+Queremos definir funções
+\mathcols 2
+\search &\is \alpha \to \BTreeA \alpha \to \ListP {\Path} &
+\fetch  &\is \Path  \to \BTreeA \alpha \to \MaybeA \alpha
+\endmathcols
+para arvores.
+No caso de listas, a busca da $\search$ retorna uma lista de Nats,
+já que cada tal Nat visto como índice é a informação que corresponde numa posição numa lista.
+Numa arvore não faz sentido perguntar \wq{quem está na posição $4$?}.
+Ou seja, o $\Nat$ não serve como tipo para descrever uma posição.
+Cada posição é descrita por um caminho, ou seja, uma lista de direções (esquerda--direita).
+Usamos o tipo $\Path$ de caminhos então, que é definido apenas como um sinônimo
+$$
+\Path \defeq \ListA \Dir
+\qqtext{onde}
+\dataed { \Dir \\
+\cons L : \Dir \\
+\cons R : \Dir \\
+}
+$$
+Agora defina as $\search$ e $\fetch$.
+
+\solution
+Definimos a
+$$
+\def\lpaths{\fun{lpaths}}
+\def\rpaths{\fun{lpaths}}
+\funcoleqs {
+\searchAP w {\TipA x}     &=  \IF w = x \THEN \list\lnil \ELSE \lnil \FI \\
+\searchAP w {\ForkAA l r} &=
+\mathcoled {
+\LET (\lpaths,\rpaths) = (\searchAA w l, \searchAA w r)
+ \IN \fmapPA {\cons L \lcons} \lpaths \concat \fmapPA {\cons R \lcons} \rpaths
+ \TEL
+}
+}
+$$
+e a
+$$
+\DefVar  ds
+\funcoleqs {
+\fetch &\paren{\cons L \lcons \ds}  &\paren{\ForkAA l \uhole} &= \fetchAA \ds \ell \\
+\fetch &\paren{\cons R \lcons \ds}  &\paren{\ForkAA \uhole r} &= \fetchAA \ds r \\
+\fetch &\lnil                  &\paren{\TipA x}          &= \JustA x \\
+\fetch &\uhole                 &\uhole                   &= \Nothing
+}
+$$
+
+%%}}}
+
+%%{{{ x: BTree_functor 
+\exercise functor.
+%%%{{{ meta 
+\label BTree_functor
+%%%}}}
+
+O $\BTree : \Type \to \Type$ pode ser um functor?
+Se sim, defina o que precisa ser definido e demonstre o que precisa ser demonstrado.
+Senão, por que não?
+
+\hint
+Pode sim.  Basta definir uma $\fmap$ que atende a \ref[functor_spec_recind]
+(demonstrar as duas leis de functor).
+
+\hint
+Defina a
+\fundef
+\fmap : (\alpha \to \beta) \to \TreeA \alpha \to \TreeA \beta \\
+\fmapAP f {\TipA x}        &= \TipP {\fA f x} \\
+\fmapAP f {\ForkAA \ell r} &= \ForkPP {\fmapAA f \ell} {\fmapAA f r} \\
+\endfundef
+e demonstre por indução as duas leis:
+\mathcol
+\fmapA \fid        &= \fid \\
+\fmapA {(f \of g)} &= \fmapA f \of \fmapA g.
+\endmathcol
+Note que, traduzindo essas igualdades, ambas são proposições da forma
+$$
+\lforall {t \is \BTreeA \alpha} {\dots}.
+$$
+
+%%}}}
+
 \endsection
 %%}}}
 
