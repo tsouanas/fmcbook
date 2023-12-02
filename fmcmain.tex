@@ -25541,6 +25541,161 @@ e uns conjuntos e umas seqüências \emph{de conjuntos de reais}, e pronto, paro
 Nada mais profundo que isso.
 %%}}}
 
+% SETS OF REALS
+
+%%{{{ to_know_a_set_of_reals 
+\note Saber um conjunto de reais.
+%%%{{{ meta 
+\label to_know_a_set_of_reals
+%%%}}}
+
+O que precisamos fazer para ter o direito de dizer que \dterm{definimos} um conjunto de reais $A$?
+Precisamos definir o que significa \emph{pertencer ao conjunto $A$}.
+Se, e somente se, para qualquer $x$ real sabemos o que significa a afirmação $x \in A$,
+temos o direito de falar que sabemos quem é o $A$.
+E para falar que entendemos o que significa conjunto mesmo, precisamos saber
+o que significa a afirmação $A = B$, para quaisquer conjuntos $A,B$.
+Vamos lembrar isso agora:
+$$
+A = B
+\defiff
+\lforall x {x \in A \iff x \in B}.
+$$
+E para formar (definir) um conjunto $A$, o que precisamos fazer?
+Simplesmente definir o que $x \in A$ significa:
+$$
+x \in A \defiff \dotsc
+$$
+pois saber o que $x \in A$ significa, é saber o que $A$ significa.
+
+%%}}}
+
+%%{{{ set_builder_in_reals
+\note Set-builder.
+%%%{{{ meta 
+\label set_builder_in_reals
+\defines
+    * set-builder
+    * conjunto!indexado
+    * conjunto!gerado
+    * gerador!de conjunto
+    ;;
+\indexes
+    * indexado!conjunto   see: conjunto
+    * gerado!conjunto     see: conjunto
+    * gerado!conjunto     seealso: indexado
+    ;;
+%%%}}}
+
+Quando o conjunto tem uma quantidade finita de membros, podemos simplesmente
+listar todos eles entre chaves:
+$$
+A \defeq \set {5,7,2}.
+$$
+Com essa definição definimos sim a proposição $x \in A$ para qualquer $x$ real
+para ser a seguinte:
+$$
+x \in A \intiff x = 5 \mlor x = 7 \mlor x = 2.
+$$
+Usamos a notação \dterm{set-builder}
+$$
+\setst {x\in\reals} {\phi(x)}
+$$
+para denotar o conjunto de todos os reais $x$ tais que $\phi(x)$.
+Dado qualquer real $a$, então, a proposição
+$$
+a \in \setst {x\in\reals} {\phi(x)}
+$$
+reduz-se à proposição $\phi(a)$.
+Dado um conjunto de reais $D$, escrevemos
+$$
+\setst {x \in D} {\phi(x)}
+$$
+para referir ao conjuto de todos os membros de $D$ que, ainda mais,
+possuem a propriedade $\phi$.
+Todos os usos até agora dessa notação usam apenas uma variável na sua parte
+esquerda, mas podemos escrever termos mais interessantes.  Por exemplo
+$$
+\setst {2^n + 1} {n \in \nats}
+= \set { 2^0 + 1
+       , 2^1 + 1
+       , 2^2 + 1
+       , 2^3 + 1
+       , \dotsc }
+= \set { 2, 3, 5, 9, \dotsc }.
+$$
+Quando um conjunto é definido nesta forma dizemos que é \dterm{indexado},
+aqui pelo conjunto $\nats$.
+Isso significa que para solicitar membros arbitrários deste conjunto
+basta solicitar indices arbitrários do conjunto de índices.
+Escrevendo \wq{Sejam $i,j \in \nats$}, então, querendo ou não,
+temos acesso em dois membros arbitrários do nosso conjunto:
+$2^i + 1, 2^j + 1$.
+O conjunto $\nats$ nesse exemplo também é chamado de \dterm{gerador},
+visto como um fornecedor de valores para a variável $n$ que aparece
+na parte esquerda, para formar os membros do conjunto mesmo.
+Podemos usar mais que um gerador, e quando isso acontece a idéia é
+que para cada escolha de membro por cada gerador fornece um membro
+do nosso conjunto.
+Por exemplo:
+\mathcol
+\setst {n^2 + 2m} {n \in \nats, m \in \set {10,20}}
+&= \set { 0^2 + 2 \ntimes 10
+        , 0^2 + 2 \ntimes 20
+        , 1^2 + 2 \ntimes 10
+        , 1^2 + 2 \ntimes 20
+        , \dotsc } \\
+&= \set { 20, 40, 21, 41, 24, 44, \dotsc }.
+\endmathcol
+
+%%}}}
+
+%%{{{ df: intervals_of_reals 
+\definition Intervalos.
+%%%{{{ meta 
+\label intervals_of_reals
+\defines
+    * intervalos!de reais
+    ;;
+%%%}}}
+
+Sejam $a,b$ reais.
+Definimos os conjuntos de reais seguintes, que chamamos de \dterm{intervalos:}
+\mathcols 2
+(a, b) &\defeq \setst {x} {a < x < b} &
+(a, b] &\defeq \setst {x} {a < x \leq b} \\
+[a, b) &\defeq \setst {x} {a \leq x < b} &
+[a, b] &\defeq \setst {x} {a \leq x \leq b}.
+\endmathcols
+Pronunciamos as parentêses de \utter{aberto} e os colchetes de \utter{fechado}.
+Definimos também:
+\mathcols 2
+(\minfty, b) &\defeq \setst {x} {x < b} &
+(\minfty, b] &\defeq \setst {x} {x \leq b} \\
+(a, \pinfty) &\defeq \setst {x} {a < x} &
+[a, \pinfty) &\defeq \setst {x} {a \leq x}.
+\endmathcols
+É conveniente também definir
+$$
+(\minfty, \pinfty) \defeq \reals.
+$$
+
+%%}}}
+
+%%{{{ beware: infties_not_reals 
+\beware.
+%%%{{{ meta 
+\label infties_not_reals
+%%%}}}
+
+Não definimos os $\minfty,\pinfty$ como objetos matemáticos aqui.
+Por enquanto fazem parte de notação, e com certeza \emph{não} se trata de
+números reais.
+
+%%}}}
+
+% SEQS OF REALS
+
 %%{{{ df: sequence_of_reals 
 \definition seqüência.
 %%%{{{ meta 
@@ -25661,6 +25816,34 @@ Seus primeiros termos então são os:
 
 %%}}}
 
+%%{{{ eg: a recursively defined seq 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Definimos a seqüência de reais $\seqn a n$ recursivamente pelas:
+\mathcol
+a_0     &\defeq 0 \\
+a_{n+1} &\defeq 1 - a_n.
+\endmathcol
+
+%%}}}
+
+%%{{{ eg: a sequence tending to 1
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Definimos a seqüência de reais $\seqn b n$ pela:
+\mathcol
+b_n     &\defeq 1 + 1/n.
+\endmathcol
+Observe que aqui consideramos como primeiro termo da seqüência o $b_1$, e não o $b_0$.
+Se, por motivos religiosos, queremos defini-la em tal forma que seu primeiro termo
+é o $b_0$ mesmo, basta definir pela $b_n \defeq 1 + 1/(n+1)$.
+
+%%}}}
+
 %%{{{ x: prove increasing 
 \exercise.
 %%%{{{ meta 
@@ -25686,7 +25869,7 @@ $$
 %%%}}}
 
 Mesmo que cada termo da seqüência $\seqn x n$ é \emph{estritamente maior}
-que o anterior, os termos dela são limitados por um certo valor,
+que o anterior, os termos dela são cotados superiormente,
 ou seja, existe um real $M$, tal que todos os componentes da seqüência são menores que $M$.
 
 %%}}}
@@ -25714,82 +25897,7 @@ Resolva sobre esta as mesmas duas questões que resolveu sobre a seqüência ant
 
 %%}}}
 
-%%{{{ df: leq_between_seqs 
-\definition ordem pointwise.
-%%%{{{ meta 
-\label leq_between_seqs
-\defines
-    * seqüência!ordem
-    ;;
-\indexes
-    * pointwise
-    ;;
-%%%}}}
-
-Aproveitando as ordens que já temos nos reais, as elevamos para definir
-correspondentes ordens entre seqüências de reais, em forma \dterm{pointwise:}
-$$
-\seqn a n \leq \seqn b n
-\defiff
-\lforall n {a_n \leq b_n},
-$$
-e similarmente para as outras ordens que definimos: $(<)$, $(\geq)$, etc.
-
-%%}}}
-
-%%{{{ beware: leq_between_seqs_vs_between_sets 
-\beware.
-%%%{{{ meta 
-\label leq_between_seqs_vs_between_sets 
-%%%}}}
-
-Antes da \ref[leq_between_seqs], a expressão
-$$
-\seqn a n \leq \seqn b n
-$$
-seria interpretada através de \emph{type coercion} como
-$$
-\seqnset a n \leq \seqnset b n
-$$
-pois temos estabelecido já o que $A \leq B$ significa para conjuntos de reais $A,B$:
-$$
-A \leq B
-\intiff \lforall {a \in A} {a \leq B}
-\intiff \pforall {a \in A} \lforall {b \in B} {a \leq b}.
-$$
-Mas a partir da \ref[leq_between_seqs] a expressão
-$$
-\seqn a n \leq \seqn b n
-$$
-já ganhou seu próprio significado, e logo não entra mais nenhum \emph{type coercion}
-nesse processo.
-Mas será que as duas interpretações acabam sendo equivalentes?
-
-%%}}}
-
-%%{{{ x: leq_between_seqs_vs_between_sets
-\exercise.
-%%%{{{ meta 
-\label leq_between_seqs_vs_between_sets_wa
-%%%}}}
-
-Será?
-
-\hint
-Não.
-
-\solution
-Não.  Considere como contraxemplo as seqüências
-\mathcols 2
-\seq n     n &= 0, 1, 2, \ldots &
-\seq {n+1} n &= 1, 2, 3, \ldots
-\endmathcols
-e veja que temos
-$\seq n n \leq \seq {n+1} n$
-mas
-$\seqset n n \nleq \seqset {n+1} n$.
-
-%%}}}
+% BOUNDED COLLECTIONS
 
 %%{{{ x: square_root_of_small_reals_seq_bounded_above 
 \exercise.
@@ -25824,6 +25932,8 @@ t_{k+1}
 
 %%}}}
 
+% INCREASING SEQS
+
 %%{{{ x: square_root_of_small_reals_seq_increasing 
 \exercise.
 %%%{{{ meta 
@@ -25850,129 +25960,7 @@ onde no último passo usamos a (HI) e que a $\seqn t n \leq 1$ (e logo $t_i + t_
 
 %%}}}
 
-%%{{{ eg: a recursively defined seq 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Definimos a seqüência de reais $\seqn a n$ recursivamente pelas:
-\mathcol
-a_0     &\defeq 0 \\
-a_{n+1} &\defeq 1 - a_n.
-\endmathcol
-
-%%}}}
-
-%%{{{ eg: a sequence tending to 1
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Definimos a seqüência de reais $\seqn b n$ pela:
-\mathcol
-b_n     &\defeq 1 + 1/n.
-\endmathcol
-Observe que aqui consideramos como primeiro termo da seqüência o $b_1$, e não o $b_0$.
-Se, por motivos religiosos, queremos defini-la em tal forma que seu primeiro termo
-é o $b_0$ mesmo, basta definir pela $b_n \defeq 1 + 1/(n+1)$.
-
-%%}}}
-
-%%{{{ to_know_a_set_of_reals 
-\note Saber um conjunto de reais.
-%%%{{{ meta 
-\label to_know_a_set_of_reals
-%%%}}}
-
-O que precisamos fazer para ter o direito de dizer que \dterm{definimos} um conjunto de reais $A$?
-Precisamos definir o que significa \emph{pertencer ao conjunto $A$}.
-Se, e somente se, para qualquer $x$ real sabemos o que significa a afirmação $x \in A$,
-temos o direito de falar que sabemos quem é o $A$.
-E para falar que entendemos o que significa conjunto mesmo, precisamos saber
-o que significa a afirmação $A = B$, para quaisquer conjuntos $A,B$.
-Vamos lembrar isso agora:
-$$
-A = B
-\defiff
-\lforall x {x \in A \iff x \in B}.
-$$
-E para formar (definir) um conjunto $A$, o que precisamos fazer?
-Simplesmente definir o que $x \in A$ significa:
-$$
-x \in A \defiff \dotsc
-$$
-pois saber o que $x \in A$ significa, é saber o que $A$ significa.
-
-%%}}}
-
-%%{{{ set_builder_in_reals
-\note Set-builder.
-%%%{{{ meta 
-\label set_builder_in_reals
-%%%}}}
-
-Quando o conjunto tem uma quantidade finita de membros, podemos simplesmente
-listar todos eles entre chaves:
-$$
-A \defeq \set {5,7,2}.
-$$
-Com essa definição definimos sim a proposição $x \in A$ para qualquer $x$ real
-para ser a seguinte:
-$$
-x \in A \intiff x = 5 \mlor x = 7 \mlor x = 2.
-$$
-Usamos a notação \dterm{set-builder}
-$$
-\setst {x\in\reals} {\phi(x)}
-$$
-para denotar o conjunto de todos os reais $x$ tais que $\phi(x)$.
-Dado qualquer real $a$, então, a proposição
-$$
-a \in \setst {x\in\reals} {\phi(x)}
-$$
-reduz-se à proposição $\phi(a)$.
-Dado um conjunto de reais $D$, escrevemos
-$$
-\setst {x \in D} {\phi(x)}
-$$
-para referir ao conjuto de todos os membros de $D$ que, ainda mais,
-possuem a propriedade $\phi$.
-Todos os usos até agora dessa notação usam apenas uma variável na sua parte
-esquerda, mas podemos escrever termos mais interessantes.  Por exemplo
-$$
-\setst {2^n + 1} {n \in \nats}
-= \set { 2^0 + 1
-       , 2^1 + 1
-       , 2^2 + 1
-       , 2^3 + 1
-       , \dotsc }
-= \set { 2, 3, 5, 9, \dotsc }.
-$$
-Quando um conjunto é definido nesta forma dizemos que é \dterm{indexado},
-aqui pelo conjunto $\nats$.
-Isso significa que para solicitar membros arbitrários deste conjunto
-basta solicitar indices arbitrários do conjunto de índices.
-Escrevendo \wq{Sejam $i,j \in \nats$}, então, querendo ou não,
-temos acesso em dois membros arbitrários do nosso conjunto:
-$2^i + 1, 2^j + 1$.
-O conjunto $\nats$ nesse exemplo também é chamado de \dterm{gerador},
-visto como um fornecedor de valores para a variável $n$ que aparece
-na parte esquerda, para formar os membros do conjunto mesmo.
-Podemos usar mais que um gerador, e quando isso acontece a idéia é
-que para cada escolha de membro por cada gerador fornece um membro
-do nosso conjunto.
-Por exemplo:
-\mathcol
-\setst {n^2 + 2m} {n \in \nats, m \in \set {10,20}}
-&= \set { 0^2 + 2 \ntimes 10
-        , 0^2 + 2 \ntimes 20
-        , 1^2 + 2 \ntimes 10
-        , 1^2 + 2 \ntimes 20
-        , \dotsc } \\
-&= \set { 20, 40, 21, 41, 24, 44, \dotsc }.
-\endmathcol
-
-%%}}}
+% UNIONS AND INTERSECTIONS OF COLLECTIONS OF REALS
 
 %%{{{ union_inter_of_sets_of_reals 
 \note União e interseção de coleções de conjuntos.
@@ -26032,50 +26020,6 @@ Para referir à união ou à interseção de uma coleção de conjuntos usamos o
 \Unionl_n A_n &\defeq \text{a união dos $A_n$'s} \\
 \Interl_n A_n &\defeq \text{a interseção dos $A_n$'s}.
 \endmathcol
-
-%%}}}
-
-%%{{{ df: intervals_of_reals 
-\definition Intervalos.
-%%%{{{ meta 
-\label intervals_of_reals
-\defines
-    * intervalos!de reais
-    ;;
-%%%}}}
-
-Sejam $a,b$ reais.
-Definimos os conjuntos de reais seguintes, que chamamos de \dterm{intervalos:}
-\mathcols 2
-(a, b) &\defeq \setst {x} {a < x < b} &
-(a, b] &\defeq \setst {x} {a < x \leq b} \\
-[a, b) &\defeq \setst {x} {a \leq x < b} &
-[a, b] &\defeq \setst {x} {a \leq x \leq b}.
-\endmathcols
-Pronunciamos as parentêses de \utter{aberto} e os colchetes de \utter{fechado}.
-Definimos também:
-\mathcols 2
-(\minfty, b) &\defeq \setst {x} {x < b} &
-(\minfty, b] &\defeq \setst {x} {x \leq b} \\
-(a, \pinfty) &\defeq \setst {x} {a < x} &
-[a, \pinfty) &\defeq \setst {x} {a \leq x}.
-\endmathcols
-É conveniente também definir
-$$
-(\minfty, \pinfty) \defeq \reals.
-$$
-
-%%}}}
-
-%%{{{ beware: infties_not_reals 
-\beware.
-%%%{{{ meta 
-\label infties_not_reals
-%%%}}}
-
-Não definimos os $\minfty,\pinfty$ como objetos matemáticos aqui.
-Por enquanto fazem parte de notação, e com certeza \emph{não} se trata de
-números reais.
 
 %%}}}
 
@@ -26170,6 +26114,85 @@ Calcule os conjuntos:
 (i) $[0,1]$;
 (ii) $[0,1]$;
 (iii) $\emptyset$.
+
+%%}}}
+
+% ORDER (AND OPS?) BETWEEN SEQS OF REALS
+
+%%{{{ df: leq_between_seqs 
+\definition ordem pointwise.
+%%%{{{ meta 
+\label leq_between_seqs
+\defines
+    * seqüência!ordem
+    ;;
+\indexes
+    * pointwise
+    ;;
+%%%}}}
+
+Aproveitando as ordens que já temos nos reais, as elevamos para definir
+correspondentes ordens entre seqüências de reais, em forma \dterm{pointwise:}
+$$
+\seqn a n \leq \seqn b n
+\defiff
+\lforall n {a_n \leq b_n},
+$$
+e similarmente para as outras ordens que definimos: $(<)$, $(\geq)$, etc.
+
+%%}}}
+
+%%{{{ beware: leq_between_seqs_vs_between_sets 
+\beware.
+%%%{{{ meta 
+\label leq_between_seqs_vs_between_sets 
+%%%}}}
+
+Antes da \ref[leq_between_seqs], a expressão
+$$
+\seqn a n \leq \seqn b n
+$$
+seria interpretada através de \emph{type coercion} como
+$$
+\seqnset a n \leq \seqnset b n
+$$
+pois temos estabelecido já o que $A \leq B$ significa para conjuntos de reais $A,B$:
+$$
+A \leq B
+\intiff \lforall {a \in A} {a \leq B}
+\intiff \pforall {a \in A} \lforall {b \in B} {a \leq b}.
+$$
+Mas a partir da \ref[leq_between_seqs] a expressão
+$$
+\seqn a n \leq \seqn b n
+$$
+já ganhou seu próprio significado, e logo não entra mais nenhum \emph{type coercion}
+nesse processo.
+Mas será que as duas interpretações acabam sendo equivalentes?
+
+%%}}}
+
+%%{{{ x: leq_between_seqs_vs_between_sets
+\exercise.
+%%%{{{ meta 
+\label leq_between_seqs_vs_between_sets_wa
+%%%}}}
+
+Será?
+
+\hint
+Não.
+
+\solution
+Não.  Considere como contraxemplo as seqüências
+\mathcols 2
+\seq n     n &= 0, 1, 2, \ldots &
+\seq {n+1} n &= 1, 2, 3, \ldots
+\endmathcols
+e veja que temos
+$\seq n n \leq \seq {n+1} n$
+mas
+$\seqset n n \nleq \seqset {n+1} n$.
 
 %%}}}
 
@@ -26539,6 +26562,30 @@ ganhamos o resto dos subconjuntos da \ref[real_notable_subsets].
 %%%}}}
 
 Os $\intreals,\ratreals,\algreals$ são conjuntos indutivos.
+
+%%}}}
+
+%%{{{ x: naturally_inductive_sets_of_ints_and_rats 
+\exercise.
+%%%{{{ meta 
+\label naturally_inductive_sets_of_ints_and_rats
+%%%}}}
+
+Daria certo utilizar a mesma idéia para definir os inteiros naturais $\natints \subset \ints$?
+Os racionais naturais $\natrats \subset \rats$?
+
+\hint
+Daria, mas não faria sentido essa abordagem, pois seria complicada demais.
+Tanto para os inteiros, quanto para os racionais, existem maneiras bem mais fáceis
+para definir seus correspondentes conjuntos naturais.  Como?
+
+\solution
+Daria, mas não faria sentido essa abordagem, pois seria complicada demais.
+Poderíamos simplesmente definir esses conjuntos assim:
+\mathcols 2
+\natints &\defeq \set{0} \union \Pos &
+\natrats &\defeq \setst {\frac x 1} {x \in \natints}.
+\endmathcols
 
 %%}}}
 
