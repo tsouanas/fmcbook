@@ -20115,7 +20115,9 @@ que retorna uma lista com todas as subarvores da sua entrada.
 %%%}}}
 
 Defina a $\flatten : \BTreeA \alpha \to \ListP {\BTreeA \alpha}$
-que retorna uma lista com todas as subarvores da sua entrada.
+que retorna o \dterm{achatamento} da sua entrada:
+uma lista com todos os valores das folhas, na ordem que aparecem
+projetando a arvore a um piso horizontal.
 
 %%}}}
 
@@ -20142,8 +20144,7 @@ $$
 \qqtext{onde}
 \dataed { \Dir \\
 \cons L : \Dir \\
-\cons R : \Dir \\
-}
+\cons R : \Dir \\ }
 $$
 Agora defina as $\search$ e $\fetch$.
 
@@ -20162,7 +20163,7 @@ Definimos a $\search$ pelas
 \endfundef
 e a $\fetch$ assim:
 \fundef
-\fetch : \Path  \to \BTreeA \alpha \to \MaybeA \alpha \\
+\fetch : \Path \to \BTreeA \alpha \to \MaybeA \alpha \\
 \fetch &\paren{\cons L \lcons \ds}  &\paren{\ForkAA l \phole} &= \fetchAA \ds \ell \\
 \fetch &\paren{\cons R \lcons \ds}  &\paren{\ForkAA \phole r} &= \fetchAA \ds r \\
 \fetch &\lnil   &\paren{\TipA x}    &= \JustA x \\
