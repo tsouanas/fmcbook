@@ -17156,10 +17156,10 @@ Obviamente precisamos uma outra técnica para demonstrar esse teorema.
 \label Induction
 %%%}}}
 
-%%{{{ nats_induction_principle 
+%%{{{ Nat_induction_principle 
 \principle Indução.
 %%%{{{ meta 
-\label nats_induction_principle
+\label Nat_induction_principle
 \defines
     * indução!para o tipo Nat
     ;;
@@ -17171,10 +17171,10 @@ $\phi(0)$ e $\lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)}$.
 
 %%}}}
 
-%%{{{ nat_induction_inference_rule 
+%%{{{ Nat_induction_inference_rule 
 \note Indução: regra de inferência.
 %%%{{{ meta 
-\label nat_induction_inference_rule
+\label Nat_induction_inference_rule
 \defines
     * indução!para o tipo Nat
     * indução!base
@@ -17355,7 +17355,7 @@ para \emph{dois} novos alvos (com nomes chique):
 \text{\proofpart {Base}:}\quad           & \phi(0) \\
 \text{\proofpart {Passo indutivo}:}\quad & \lforall {k \is \Nat} {\phi(k) \implies \phi(Sk)}
 \endmathcol
-(exatamente como a regra do~\reftag[nat_induction_inference_rule]
+(exatamente como a regra do~\reftag[Nat_induction_inference_rule]
 disse, lida de baixo para cima).
 Fora disso, \emph{não tem nada mais mágico} que acontece:
 o comando já foi executado e seu efeito já aconteceu.
@@ -19095,6 +19095,32 @@ Ou seja, podemos usar essas ferramentas em qualquer tipo que foi definido assim.
 
 %%}}}
 
+%%{{{ ListNat_induction_inference_rule 
+\note Com de inferência.
+%%%{{{ meta 
+\label ListNat_induction_inference_rule
+\defines
+    * indução!para o tipo $\ListNat$
+    ;;
+%%%}}}
+
+Em forma de regra de inferência, o princípio da indução do $\ListNat$ é o seguinte:
+$$
+\PROOFmr {
+\A {\tobrace {\phi(\Nil)}
+             {\explanation {$\Nil$ preserva a $\phi$}}}
+                      \A {\tobrace {\lforall {\ks \is \ListNat}
+                                             {\phi(\ks) \implies
+                                                \lforall {k \is \Nat}
+                                                         {\phi(\ConsAA k \ks)}}}
+                                   {\explanation {$\Cons$ preserva a $\phi$}}}
+\I2--------------------------------------------------------------------------- {Ind$^{\ListNat}_\phi$}
+                  {\lforall {\ns \is \ListNat} {\phi(\ns)}}
+}
+$$
+
+%%}}}
+
 \TODO Escrever.
 
 \endsection
@@ -19129,7 +19155,7 @@ Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\N
 %%}}}
 
 %%{{{ List_types 
-\section Tipos de List.
+\section Listas.
 %%%{{{ meta 
 \label List_types
 %%%}}}
@@ -19150,6 +19176,29 @@ Para qualquer $\alpha \is \Type$, definimos o tipo de dados {$\ListA \alpha$}:
 \co \Cons  : \alpha \to \ListA \alpha \to \ListA \alpha \\
 \enddata
 Note que $\List \is \Type \to \Type$.
+
+%%}}}
+
+%%{{{ List_induction_inference_rule 
+\note List-induction.
+%%%{{{ meta 
+\label List_induction_inference_rule
+\defines
+    * indução!para o tipo $\ListA \alpha$
+    ;;
+%%%}}}
+
+Em forma de regra de inferência, o princípio da indução do $\List \alpha$ é o seguinte:
+$$
+\PROOFmr {
+\A {\tobrace {\phi(\lnil)}
+        {\explanation{$\lnil$ preserva a $\phi$}}}
+                \A {\tobrace {\lforall {\xs \is \ListA \alpha} {\phi(\xs) \implies \lforall {x \is \alpha} {\phi(x \lcons \xs)}}}
+                                    {\explanation{$(\lcons)$ preserva a $\phi$}}}
+\I2------------------------------------------------------------------------------ {Ind$^{\ListA \alpha}_\phi$}
+                       {\lforall {\ns \is \Nat} {\phi(\ns)}}
+}
+$$
 
 %%}}}
 
@@ -19729,18 +19778,7 @@ Definimos o construtor de tipos $\Maybe$ assim:
 
 %%}}}
 
-\TODO Explain notation.
-
-\endsection
-%%}}}
-
-%%{{{ Sum_for_types 
-\section Soma de tipos.
-%%%{{{ meta 
-\label Sum_for_types
-%%%}}}
-
-\TODO Escrever.
+\TODO Terminar.
 
 \endsection
 %%}}}
@@ -19769,6 +19807,19 @@ Para quaisquer $\alpha, \beta \is \Type$, definimos o tipo de dados {$\EitherAA 
 Note que $\Either \is \Type \to \Type \to \Type$.
 
 %%}}}
+
+\TODO Terminar.
+
+\endsection
+%%}}}
+
+%%{{{ Sum_for_types 
+\section Soma de tipos.
+%%%{{{ meta 
+\label Sum_for_types
+%%%}}}
+
+\TODO Escrever.
 
 \endsection
 %%}}}
@@ -19886,14 +19937,14 @@ Demonstre a primeira lei de functor para o $\List$ com $\fmap$.
 %%}}}
 
 %%{{{ Tree_types 
-\section Tipos de arvores.
+\section Arvores.
 %%%{{{ meta 
 \label Tree_types
 %%%}}}
 
 \TODO Desenhar uns exemplos de arvores.
 
-%%{{{ df: BTree
+%%{{{ df: BTree 
 \definition BTree.
 %%%{{{ meta 
 \headerize
@@ -19911,7 +19962,139 @@ Para qualquer $\alpha \is \Type$, definimos o tipo
 
 %%}}}
 
-\TODO Terminar.
+%%{{{ x: BTree_nodes_leaves_depth_def 
+\exercise nodes, leaves, depth.
+%%%{{{ meta 
+\label BTree_nodes_leaves_depth_def
+\defines
+    * \nodesA  {~t}   -- a quantidade de nós na arvore $t$
+    * \leavesA {~t}   -- a quantidade de folhas na arvore $t$
+    * \depthA  {~t}   -- a quantidade de andares (a profundidade) da arvore $t$
+    ;;
+%%%}}}
+
+Defina as funções
+\mathcols 3
+\nodes  &\is \BTreeA \alpha \to \Nat &
+\leaves &\is \BTreeA \alpha \to \Nat &
+\depth  &\is \BTreeA \alpha \to \Nat.
+\endmathcols
+que contam os nós, as folhas, e os andares duma arvore.
+
+\hint
+Recursão!
+
+\hint
+Cada uma dessas funções é definida por exatamente duas equações,
+uma para cada construtor de $\BTree alpha$.
+
+\hint
+Por exemplo, a definição da $\nodes$ tem essa forma:
+\fundef
+\nodes : \BTreeA \alpha \to \Nat \\
+\nodesP {\TipA x}         &= \askhole \\
+\nodesP {\ForkAA \ell r}  &= \askhole.
+\endfundef
+
+\solution
+Definimos a $\nodes$ que conta os nós duma arvore
+\fundef
+\nodes : \BTreeA \alpha \to \Nat \\
+\nodesP {\TipA \phole}    &= 0 \\
+\nodesP {\ForkAA \ell r}  &= 1 + (\nodesA \ell) + (\nodesA r);
+\endfundef
+a $\leaves$ que conta as folhas
+\fundef
+\leaves : \BTreeA \alpha \to \Nat \\
+\leavesP {\TipA \phole}    &= 1 \\
+\leavesP {\ForkAA \ell r}  &= (\leavesA \ell) + (\leavesA r).
+\endfundef
+e a $\depth$ que conta a altura, ou a profundidade (ou os \dq{andares})
+\fundef
+\depth : \BTreeA \alpha \to \Nat \\
+\depthP {\TipA \phole}    &= 0 \\
+\depthP {\ForkAA \ell r}  &= 1 + (\fmaxPP {\depthA \ell} {\depthA r}).
+\endfundef
+
+%%}}}
+
+%%{{{ thm: BTree_nodes_leaves_thm
+\theorem nodes-leaves.
+%%%{{{ meta 
+\label BTree_nodes_leaves_thm
+%%%}}}
+
+Para toda arvore $t \is \BTreeA \alpha$,
+$$
+\leavesA t = 1 + \nodesA t.
+$$
+
+\proof Demonstrarás agora no~\ref[BTree_nodes_leaves_thm_proof].
+
+%%}}}
+
+%%{{{ x: BTree_leaves_nodes_thm_proof 
+\exercise.
+%%%{{{ meta 
+\label BTree_leaves_nodes_thm_proof
+%%%}}}
+
+Demonstre o \ref[BTree_nodes_leaves_thm].
+
+\hint
+Indução!
+
+\hint
+O formato da indução aqui vai ter dois casos:
+\proofcase {Caso $(\TipA t')$}; \proofcase{Caso $(\ForkAA \ell r)$}.
+No primeiro não há hipótese indutiva; no segundo temos duas:
+uma sobre $\ell$ e uma sobre $r$.
+
+%%}}}
+
+%%{{{ thm: BTree_leaves_depth_thm 
+\theorem leaves-depth.
+%%%{{{ meta 
+\label BTree_leaves_depth_thm
+%%%}}}
+
+Para toda arvore $t \is \BTreeA \alpha$,
+$$
+\leavesA t \leq 2 \expop \depthA t.
+$$
+
+\proof.
+Seja $t \is \BTreeA \alpha$.
+Por induçaõ no $t$.
+\crproofcase {Caso $(\TipA x)$}.
+Calculamos:
+\compute
+\leavesP {\TipA x}
+&= 1 \by {\funref[\leaves.1]} \\
+2 \expop \depthP {\TipA x} &= 2 \expop 0 = 1. \by {\funref[\depth.1]}
+\endcompute
+\crproofcase {Caso $(\ForkAA \ell r)$}.
+Calculamos:
+\poemcompute
+\leavesP {\ForkAA \ell r} \\
+  =    \leavesA \ell + \leavesA r                   \by {\funref[\leaves.2]} \\
+  \leq 2 \expop \depthA \ell + \leavesA r           \by {hi-$\ell$} \\
+  \leq 2 \expop \depthA \ell + 2 \expop \depthA r   \by {hi-$r$} \\
+  \eqvdots                                          \by {\ref[BTree_leaves_depth_thm_proof]} \\
+  =    2 \expop \depthP {\ForkAA \ell r}.           \by {\funref[\depth.2]}
+\endpoemcompute
+
+%%}}}
+
+%%{{{ x: BTree_leaves_depth_thm_proof 
+\exercise.
+%%%{{{ meta 
+\label BTree_leaves_depth_thm_proof
+%%%}}}
+
+Feche o que faltou para fechar na demonstração de \ref[BTree_leaves_depth_thm].
+
+%%}}}
 
 \endsection
 %%}}}
