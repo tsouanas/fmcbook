@@ -19760,7 +19760,7 @@ e logo $\Pd$ não é uma inversa esquerda da $\Su$.
 \label Maybe_types
 %%%}}}
 
-%%{{{ df: Maybe
+%%{{{ df: Maybe 
 \definition Maybe.
 %%%{{{ meta 
 \headerize
@@ -19775,6 +19775,7 @@ Definimos o construtor de tipos $\Maybe$ assim:
 \co \Nothing : \MaybeA \alpha \\
 \co \Just    : \alpha \to \MaybeA \alpha \\
 \enddata
+Podemos abreviar o $\MaybeA \alpha$ por $\fA {\type M} \alpha$ quando o contexto permite.
 
 %%}}}
 
@@ -19805,6 +19806,7 @@ Para quaisquer $\alpha, \beta \is \Type$, definimos o tipo de dados {$\EitherAA 
 \co \Right : \beta  \to \EitherAA \alpha \beta \\
 \enddata
 Note que $\Either \is \Type \to \Type \to \Type$.
+Como esperado, quando o contexto permite, abreviamos o $\EitherAA \alpha \beta$ por $\fAA {\type E} \alpha \beta$.
 
 %%}}}
 
@@ -19813,10 +19815,10 @@ Note que $\Either \is \Type \to \Type \to \Type$.
 \endsection
 %%}}}
 
-%%{{{ Sum_for_types 
-\section Soma de tipos.
+%%{{{ Products_sums_etc_types 
+\section Produtos, somas, {etc.}.
 %%%{{{ meta 
-\label Sum_for_types
+\label Products_sums_etc_types
 %%%}}}
 
 \TODO Escrever.
@@ -19933,6 +19935,177 @@ Calculamos os dois lados:
 Demonstre a primeira lei de functor para o $\List$ com $\fmap$.
 
 %%}}}
+
+%%{{{ x: type_ops_functor_check 
+\exercise.
+%%%{{{ meta 
+\label type_ops_functor_check
+%%%}}}
+
+Para cada um dos
+$$
+\fsec \alpha +, \quad
+\fsec + \beta, \quad
+\fsec \alpha \times, \quad
+\fsec \times \beta, \quad
+\fsec \gamma \to, \quad
+\fsec \to \delta \quad
+\is \Type \to \Type
+$$
+verifique se faz parte dum functor:
+procure definir correspondente $\fmap$ que satisfaz as leis de functor,
+assim satisfazendo a \ref[functor_spec_recind].
+
+%%}}}
+
+%%{{{ How about lists of maybes or similar types? 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+E os $\Nat$, $\Bool$, $\ListA \Nat$, etc.?
+Será que são functors também?
+A resposta imediata nesse momento deve ser que até a pergunta tem um
+type error, pois, pela especificação de functor (\reftag[functor_spec_recind])
+apenas coisas de tipo $\Type \to \Type$ tem chances de ser functor (sim, junto
+com uma $\fmap$ apropriada), mas esses bichos que botei na mesa na minha pergunta
+todos são tipos, ou seja, tem tipo $\Type$, ou seja, não tem como eles serem
+considerados functors.
+Ou tem?
+Lembre que o $0 \is \Nat$ também não é uma função, como nenhuma constante é,
+mas podemos considerá-la como se fosse, com o simples hackinho de considerar a
+$0 \is \Unit \to \Nat$ em vez do próprio $0 \is \Nat$.
+Podemos fazer algo parecido com os tipos e aproveitar uma maneira de considerá-los
+como possíveis functors.  Diga \wq{bem vindo} ao functor-constante:
+
+%%}}}
+
+%%{{{ df: Konst_type 
+\definition Konst.
+%%%{{{ meta 
+\label Konst_type
+\defines
+    * \KonstA {~\kappa}   -- o functor constante $\kappa$
+    ;;
+%%%}}}
+
+Dado qualquer tipo $\kappa$, o $\KonstAA \kappa \is \Type \to \Type$ simplesmente ignora
+seu argumento e retorna o próprio $\kappa$:
+\fundef
+\Konst : \Type \to \Type \to \Type \\
+\KonstAA \kappa \alpha &\defeq \kappa.
+\endfundef
+
+%%}}}
+
+%%{{{ blah: Konst κ : Type → Type
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Observe o tipo do próprio $\Konst \is \Type \to \Type \to \Type$; o aplicando
+(parcialmente) a um tipo $\kappa$, obtemos o $\KonstA \kappa \is \Type \to \Type$,
+e esse tem o tipo certo para ter chances de ser um functor!
+Será que ele é?
+
+%%}}}
+
+%%{{{ x: Konst_functor 
+\exercise Konst-functor.
+%%%{{{ meta 
+\label Konst_is_a_functor
+%%%}}}
+
+É sim!
+
+%%}}}
+
+%%{{{ x: Id_type 
+\exercise Id.
+%%%{{{ meta 
+\label Id_type
+\defines
+    * \Id   -- o functor identidade
+    ;;
+%%%}}}
+
+Definimos já o functor constante $\KonstA \kappa : \Type \to \Type$,
+agora queremos definir um tal de $\Id : \Type \to \Type$.
+Defina.
+
+%%}}}
+
+%%{{{ x: Id_is_a_functor 
+\exercise Id-functor.
+%%%{{{ meta 
+\label Id_is_a_functor
+%%%}}}
+
+Preciso enunciar?
+
+%%}}}
+
+% COMPOSING FUNCTORS
+
+%%{{{ x: composing_functors_warmup_1 
+\exercise.
+%%%{{{ meta 
+\label composing_functors_warmup_1
+%%%}}}
+
+Ache tipos $\alpha$ e $\beta$ tais que as tipagens seguintes são válidas:
+\mathcol
+\JustA {\list {5,6,1}}, \quad
+\JustA {\list {1}}, \quad
+\JustA \lnil, \quad
+\Nothing, \quad
+\dots \quad
+&\is \alpha \\
+\list {\JustA 5, \JustA 1, \Nothing, \JustA 1}, \quad
+\list {\Nothing}, \quad
+\list {1,1,2}, \quad
+\lnil, \quad
+\dots \quad
+&\is \beta \\
+\endmathcol
+
+%%}}}
+
+%%{{{ x: composing_functors_warmup_2 
+\exercise.
+%%%{{{ meta 
+\label composing_functors_warmup_2
+%%%}}}
+
+Escreva uns habitantes dos tipos seguintes:
+\mathcol
+\dots \quad &\is \ListP {\ListP {\Nat \to \Bool}} \\
+\dots \quad &\is \ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}}.
+\endmathcol
+
+%%}}}
+
+%%{{{ How about lists of maybes or similar types? 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Considere tipos como os
+\mathcols 2
+\MaybeP {\ListA \Nat} &\is \Type &
+\ListP {\MaybeA \Nat} &\is \Type \\
+\ListP {\ListP {\Nat \to \Bool}} &\is \Type &
+\ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}} &\is \Type.
+\endmathcols
+Observe que todos são tipos mesmo, e que são construidos aplicando
+uns functors em outros tipos, que também foram construidos via functors.
+Uns habitantes desses tipos deves ter percebido nos exercícios
+\reftag[composing_functors_warmup_1] e \reftag[composing_functors_warmup_2].
+
+
+%%}}}
+
+\TODO Composing functors.
 
 \endsection
 %%}}}
@@ -20204,34 +20377,6 @@ $$
 $$
 
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Composing_functors 
-\section Compondo functors.
-%%%{{{ meta 
-\label Composing_functors
-%%%}}}
-
-%%{{{ How about lists of maybes or similar types? 
-\note.
-%%%{{{ meta 
-%%%}}}
-
-Considere os:
-\mathcols 5
-&\MaybeA {(\ListA \Nat)}, &
-&\ListA {(\MaybeA \Nat)}, &
-&\ListA {(\ListA \Nat)}, &
-&\ListA {(\EitherAA \epsilon {(\MaybeA {(\ListA \Nat)})}}, &
-&\dotsc
-\endmathcols
-Observe primeiramente que todos são tipos mesmo.
-
-%%}}}
-
-\TODO Terminar.
 
 \endsection
 %%}}}
