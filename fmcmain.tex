@@ -16816,6 +16816,55 @@ como uma função de $\Nat$ para $\Nat$.
 
 %%}}}
 
+%%{{{ x: quot_rem_by_three 
+\exercise.
+%%%{{{ meta 
+\label quot_rem_by_three
+%%%}}}
+
+Considere as funções seguintes definidas recursivamente:
+\fundefs 2
+\fundefed {
+q  : \Nat \to \Nat \\
+\fA q \Ze                     &= \Ze \\
+\fP q {\SuA \Ze}              &= \Ze \\
+\fP q {\SuP {\SuA \Ze}}       &= \Ze \\
+\fP q {\SuP {\SuP {\SuA n}}}  &= \SuP {\fA q n} \\
+} &
+\fundefed {
+r : \Nat \to \Nat \\
+\fA r \Ze                     &= \Ze \\
+\fP r {\SuA \Ze}              &= \SuA \Ze \\
+\fP r {\SuP {\SuA \Ze}}       &= \SuP {\SuA \Ze} \\
+\fP r {\SuP {\SuP {\SuA n}}}) &= \fA r n \\
+}
+\endfundefs
+\tlist:
+\li (i):  Re-escreva essas definições numa maneira mais abreviada.
+\li (ii): O que cada função calcula?
+\endtlist
+
+\hint
+Para a (ii), calcule os $\fA q {11}$, $\fA q {12}$, $\fA r {11}$, e $\fA r {12}$.
+
+\solution
+(i) Uma maneira bem mais curta para defini-las:
+\fundefs 2
+\fundefed {
+q  : \Nat \to \Nat \\
+\fP q {\SuP {\SuP {\SuA \Ze}}}  &= \SuP {\fA q n} \\
+\fA q \phole                    &= \Ze \\
+} &
+\fundefed {
+r : \Nat \to \Nat \\
+\fP r {\SuP {\SuP {\SuA n}}}) &= \fA r n \\
+\fA r n                       &= n \\
+}
+\endfundefs
+(ii) A $q$ calcula o quociente da divisão da sua entrada por $3$, e a $r$ o resto.
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -16873,13 +16922,13 @@ recursivamente assim:
 (+) : \Nat \to \Nat \to \Nat \\
 n + 0  &= n \\
 n + Sm &= S(n+m)
-}
-& \fundefed {
+} &
+\fundefed {
 (\ntimes) : \Nat \to \Nat \to \Nat \\
 n \ntimes 0  &= 0 \\
 n \ntimes Sm &= (n \ntimes m) + n
-}
-& \fundefed {
+} &
+\fundefed {
 (\expop) : \Nat \to \Nat \to \Nat \\
 n \expop 0  &= S0 \\
 n \expop Sm &= (n \expop m) \ntimes n.
@@ -18620,20 +18669,6 @@ enquanto ordenado pela $(\leq)$ só tem bottom (\ref[natleq_bottom]).
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ prob: tetration 
-\problem.
-%%%{{{ meta 
-\label tetration
-\defines
-    * tetração
-    ;;
-%%%}}}
-
-Definimos as operações binárias de adição, multiplicação, e exponenciação no $\Nat$.
-Descubra um ``padrão'' nas definições dessas operações, e defina a próxima operação, \dterm{tetração}, nessa seqüência de operações.
-
-%%}}}
-
 %%{{{ prob: ackermann_function 
 \problem Ackermann.
 %%%{{{ meta 
@@ -18654,12 +18689,12 @@ Considere a função \dterm{aninhamente} recursiva:
 \ack : \Nat \to \Nat \to \Nat \\
 \ack &\Ze            &x                 &= \SuA x \\
 \ack &\paren{\SuA n} &\Ze               &= \ackAA n 1 \\
-\ack &\paren{\SuA n} &\paren{\SuA x}    &= \ackAP n {\ackPA {n+1} x}. \\
+\ack &\paren{\SuA n} &\paren{\SuA x}    &= \ackAP n {\ackPA {\Su n} x}. \\
 \endfundef
 \tlist:
 \li (i):   Calcule o valor $\ackAA 3 2$, indicando para cada passo qual equação foi usada.
-\li (ii):  Demonstre que $\ackA 1 = \fsec + 2$, ou seja, que para todo $x\in\nats$, $\ackAA 1 x = x + 2$.
-\li (iii): Demonstre que para todo $x\in\nats$, $\ackAA 2 x = 2x + 3$.
+\li (ii):  Demonstre que $\ackA 1 = \fsec + 2$, ou seja, que para todo $x\is\Nat$, $\ackAA 1 x = x + 2$.
+\li (iii): Demonstre que para todo $x\is\Nat$, $\ackAA 2 x = 2x + 3$.
 \endtlist
 A função $\ack$ é conhecida como função de Ackermann,
 e vamos encontrá-la novamente bem depois, no~\ref[Computability_theory].
@@ -18669,34 +18704,17 @@ O que percebes?
 
 %%}}}
 
-%%{{{ prob: quot_rem_eq_prob 
+%%{{{ prob: tetration 
 \problem.
 %%%{{{ meta 
-\label quot_rem_eq_prob
+\label tetration
+\defines
+    * tetração
+    ;;
 %%%}}}
 
-Considere as funções $q$, $r$, e $t$ definidas recursivamente:
-$$
-\xalignat3
-q       &\eqtype \nats \to \nats   & r      &\eqtype \nats \to \nats   &  t          &\eqtype \nats^2 \to \bools     \\
-q(0)    &=       0\phantom{666}    & r(0)   &=       0\phantom{666}    &  t(0,   0)  &=       \True          \\
-q(1)    &=       0\phantom{666}    & r(1)   &=       1\phantom{666}    &  t(0,  Sn)  &=       \False         \\
-q(2)    &=       0\phantom{666}    & r(2)   &=       2\phantom{666}    &  t(Sm,  0)  &=       \False         \\
-q(n+3)  &=       q(n) + 1          & r(n+3) &=       r(n)              &  t(Sm, Sn)  &=       t(m,n)             
-\endxalignat
-$$
-O que cada função calcula?
-
-\hint
-Calcule os valores $q(11)$, $q(12)$, $r(11)$, e $r(12)$.
-
-\solution
-Temos:
-\tlist:
-\li: $q(n) = \floor{n / 3}$.
-\li: O $r(n)$ é o resto da divisão do $n$ por $3$.
-\li: A $t$ decida se suas entradas são iguais ou não.
-\endtlist
+Definimos as operações binárias de adição, multiplicação, e exponenciação no $\Nat$.
+Descubra um ``padrão'' nas definições dessas operações, e defina a próxima operação, \dterm{tetração}, nessa seqüência de operações.
 
 %%}}}
 
@@ -18779,18 +18797,18 @@ $h$ não mapeia ninguém ao $0$.
 \problem.
 %%%{{{ meta 
 \label natleq_woset
+\defines
+    * bem-ordem
+    ;;
 %%%}}}
 
-Demonstre por indução que a $(\leq)$, definida na~\ref[natleq]
-$$
-n \leq m \defiff \lexists {k\in\nats} {n + k = m}.
-$$
+Demonstre por indução que a $(\leq)$ (definida na~\ref[natleq])
 é uma bem-ordem, i.e.,
 $$
-\text{para todo $A \subset \nats$,\quad
-se $A \neq \emptyset$ então $A$ tem elemento mínimo}.
+\text{para todo habitado $A\is\SetA \Nat$,\quad $A$ tem membro mínimo}.
 $$
-Dizemos que \dterm{mínimo membro de $A$} sse $m \in A$ e $\lforall {a \in A} {m \leq a}$.
+Dizemos que $m$ é um \dterm{membro mínimo de $A$} sse $m \in A$ e
+$\lforall {a \in A} {m \leq a}$.
 
 \hint
 Reductio ad absurdum.
@@ -18985,6 +19003,26 @@ Demonstre que as duas definições sempre concordam:
 $$
 \text{para todo $n,m\in\nats$, \quad $n \leq m \iff n \preceq m$.}
 $$
+
+%%}}}
+
+%%{{{ x: nateq_internalize 
+\exercise eq.
+%%%{{{ meta 
+\label nateq_internalize
+%%%}}}
+
+Internalize a relação $(=)$ entre Nats.
+
+\solution
+Definimos a internalização da $(=)$, $\feq$, assim:
+\fundef
+\feq : \Nat \times \Nat \to \Bool \\
+\feqA {(\Ze, \Ze)}         &= \True \\
+\feqA {(\Ze, \SuA \phole)} &= \False \\
+\feqA {(\SuA \phole, \Ze)} &= \False \\
+\feqA {(\SuA m, \SuA n)}   &= \feqA {(m,n)}. \\
+\endfundef
 
 %%}}}
 
@@ -19293,6 +19331,7 @@ Para qualquer $\alpha \is \Type$, definimos o tipo de dados {$\ListA \alpha$}:
 \co \Cons  : \alpha \to \ListA \alpha \to \ListA \alpha \\
 \enddata
 Note que $\List \is \Type \to \Type$.
+O contexto permitindo, podemos abreviar o $\ListA \alpha$ por $\fA {\type L} \alpha$.
 
 %%}}}
 
@@ -19923,7 +19962,8 @@ Definimos o construtor de tipos $\Maybe$ assim:
 \co \Nothing : \MaybeA \alpha \\
 \co \Just    : \alpha \to \MaybeA \alpha \\
 \enddata
-Podemos abreviar o $\MaybeA \alpha$ por $\fA {\type M} \alpha$ quando o contexto permite.
+Podemos abreviar o $\MaybeA \alpha$ por $\fA {\type M} \alpha$ quando o contexto permite,
+a seus construtores também, por $\cons N$ e $\cons J$ respectivamente.
 
 %%}}}
 
@@ -19953,7 +19993,11 @@ Para quaisquer $\alpha, \beta \is \Type$, definimos o tipo de dados {$\EitherAA 
 \co \Right : \beta  \to \EitherAA \alpha \beta \\
 \enddata
 Note que $\Either \is \Type \to \Type \to \Type$.
-Como esperado, quando o contexto permite, abreviamos o $\EitherAA \alpha \beta$ por $\fAA {\type E} \alpha \beta$.
+Como esperado, quando o contexto permite
+podemos abreviar os $\Either$, $\Left$, $\Right$ por $\type E$, $\cons L$,
+$\cons R$ respectivamente.\foot
+o meio ambiente agradece
+\toof
 
 %%}}}
 
@@ -20099,9 +20143,12 @@ $$
 \fsec \to \delta \quad
 \is \Type \to \Type
 $$
-verifique se faz parte dum functor:
-procure definir correspondente $\fmap$ que satisfaz as leis de functor,
-assim satisfazendo a \ref[functor_spec_recind].
+verifique se pode fazer parte dum functor:
+se pode, defina correspondente $\fmap$ que satisfaz as leis de functor
+(assim satisfazendo a \ref[functor_spec_recind]); senão, explique o porquê.
+
+\hint
+Com uma exeção, todos têm como atender a especificação de functor.
 
 %%}}}
 
@@ -20201,20 +20248,44 @@ Preciso enunciar?
 %%%}}}
 
 Ache tipos $\alpha$ e $\beta$ tais que as tipagens seguintes são válidas:
-\mathcol
+\math
 \JustA {\list {5,6,1}}, \quad
-\JustA {\list {1}}, \quad
+\JustA {\list {7}}, \quad
 \JustA \lnil, \quad
 \Nothing, \quad
 \dots \quad
-&\is \alpha \\
-\list {\JustA 5, \JustA 1, \Nothing, \JustA 1}, \quad
+\is \alpha \\
+\list {\JustA 3,\JustA 1, \JustA 3}, \quad
+\list {\JustA 4}, \quad
 \list {\Nothing}, \quad
-\list {1,1,2}, \quad
+\list {\JustA 5, \Nothing, \JustA 1}, \quad
 \lnil, \quad
 \dots \quad
-&\is \beta \\
-\endmathcol
+\is \beta
+\endmath
+
+%%}}}
+
+%%{{{ x: composing_functors_warmup_1_map 
+\exercise.
+%%%{{{ meta 
+\label composing_functors_warmup_1_map
+%%%}}}
+
+Defina funções $\fmap_1, \fmap_2$ tais que para qualquer $f : \Nat \to \gamma$
+a $\fmap_1 \fa f$ será aplicável nos objetos da primeira linha
+do \ref[composing_functors_warmup_1] retornando
+$$
+\JustA {\list {\fA f 5,\fA f 6,\fA f 1}}, \quad
+\JustA {\list {\fA f 7}}, \quad \dots
+$$
+e a $\fmap_2 \fa f$ nos objetos da segunda retornando
+$$
+\list {\JustP {\fA f 3}, \JustP {\fA f 1}, \JustP {\fA f 3}}, \quad
+\list {\fA f 4}, \quad \dots
+$$
+
+\hint
 
 %%}}}
 
@@ -20244,15 +20315,70 @@ Considere tipos como os
 \ListP {\ListP {\Nat \to \Bool}} &\is \Type &
 \ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}} &\is \Type.
 \endmathcols
-Observe que todos são tipos mesmo, e que são construidos aplicando
-uns functors em outros tipos, que também foram construidos via functors.
-Uns habitantes desses tipos deves ter percebido nos exercícios
+e observe que, de fato, todos eles são tipos mesmo.
+Uns habitantes desses tipos encontrou nos exercícios
 \reftag[composing_functors_warmup_1] e \reftag[composing_functors_warmup_2].
-
+Mesmo que o \ref[composing_functors_warmup_1_map] não foi nada difícil pra
+ti---confio no teu potencial---e mesmo que tu gastou pouquíssimas linhas
+para definir essas $\fmap$'s que ele pediu, deves concordar que se
+conseguir a mesma funcionalidade com $0$ (zero) linhas, seria bem melhor.
+Isso que faremos agora, demonstrando apenas um teorema.
+Ainda mais, essa método é aplicável para todos os tipos \dq{desse tipo}:
+tipos como esses que escrevi acima.
+O primeiro passo é conseguir descrever esse tipo de tipo.
+O que eles têm em comum mesmo?
 
 %%}}}
 
-\TODO Composing functors.
+\spoiler
+
+%%{{{ A: compositions of functors 
+\blah Resposta.
+%%%{{{ meta 
+%%%}}}
+
+Todos eles são construidos aplicando uns functors em outros tipos, que também foram construidos via functors, e por aí vai.
+Ou seja: \emph{são composições de functors} aplicadas num tipo.
+Eu vou explicitar as duas primeiras, que são mais simples,
+e deixar as outras duas e ainda mais umas pra ti---acho justo:
+\mathcols 2
+\MaybeP {\ListA \Nat}  &= (\Maybe \of \List) \fa \Nat  &
+\ListP  {\MaybeA \Nat} &= (\List \of \Maybe) \fa \Nat.
+\endmathcols
+
+%%}}}
+
+%%{{{ x: composing_functors_explicit 
+\exercise.
+%%%{{{ meta 
+\label composing_functors_explicit
+%%%}}}
+
+Escreva os tipos seguintes como composições de functors aplicados num tipo só
+(tua escolha, se tiver), como eu acabei de fazer:
+\mathcols 2
+\ListP {\ListP {\Nat \to \Bool}}                    &\is \Type &
+\ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}}    &\is \Type \\
+\Nat \times \ListP {\MaybeA \Nat}                   &\is \Type &
+\EitherAP \Weekday {\Nat \times \Bool}       &\is \Type. \\
+\endmathcols
+
+\hint
+Não esqueça os functors que descubriu no \ref[type_ops_functor_check].
+
+\solution
+\mathcols 2
+\ListP {\ListP {\Nat \to \Bool}}
+&= \paren{\List \of \List \of {\fsec \to \Bool}} \fa \Nat \\
+\ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}}
+&= \paren{\List \of (\EitherA \Nat) \of \Maybe \of \List} \fa \Bool \\
+\Nat \times \ListP {\MaybeA \Nat}
+&= \paren{{\fsec \Nat \times} \of \List \of \Maybe} \fa \Nat \\
+\EitherAP \Weekday {\Nat \times \Bool}
+&= \paren{\EitherA \Weekday \of {\fsec \times \Bool}} \fa \Nat. \\
+\endmathcols
+
+%%}}}
 
 \endsection
 %%}}}
@@ -24715,8 +24841,6 @@ Veja o~\cite[nivencount].
 
 \endchapter
 %%}}}
-
-\endinput
 
 %%{{{ chapter: The_reals 
 \chapter Os reais.
