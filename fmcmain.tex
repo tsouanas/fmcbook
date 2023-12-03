@@ -18305,13 +18305,13 @@ $$
 &
 \PROOFmr {
 \I0------------ {IndZero$_\phi$}
-    {\phi(0)}
+    {\phi(\Ze)}
 }
 &&
 \PROOFmr {
 \A  {\phi(n)}
 \I1------------ {IndSucc$_\phi$}
-    {\phi(Sn)}
+    {\phi(\SuA n)}
 }
 \endxalignat
 $$
@@ -18345,33 +18345,31 @@ $$
 $$
 E por aí vai!
 Olhando para as duas regras 
-$$
-\xalignat2
+\mathcols 2
 &
 \PROOFmr {
 \I0------------ {IndZero$_\phi$}
-   {\phi(0)}
+   {\phi(\Ze)}
 }
 &&
 \PROOFmr {
 \A {\phi(n)}
 \I1------------ {IndSucc$_\phi$}
-   {\phi(Sn)}
+   {\phi(\SuA n)}
 }
-\intertext{observamos que são bem parecidas com as}
+\intertext {observamos que são bem parecidas com as}
 &
 \PROOFmr {
-\I0------------ {Zero}
-   {0 \is \Nat}
+\I0-------------- {Zero}
+   {\Ze \is \Nat}
 }
 &&
 \PROOFmr {
-\A  {n \is \Nat}
-\I1-------------- {Succ}
-   {Sn \is \Nat}
+\A    {n \is \Nat}
+\I1----------------- {Succ}
+   {\SuA n \is \Nat}
 }
-\endxalignat
-$$
+\endmathcols
 e logo dado qualquer natural $n$, o desafio de estabelecer que $n$ tem
 a propriedade $\phi$, acaba sendo o mesmo com o ``desafio'' de estabelecer
 que $n$ é um natural mesmo!
@@ -18423,31 +18421,39 @@ o princípio da boa ordem (\ref[WOP_iff_PFI]).
     ;;
 %%%}}}
 
-Definimos a relação de ordem $(\leq)$ nos naturais pela:
+Definimos a relação de ordem $(\leq)$ nos Nats pela:
 $$
 n \leq m \defiff \lexists {k \is \Nat} {n + k = m}.
 $$
 
 %%}}}
 
-%%{{{ x: natleq_lemma 
-\exercise.
+%%{{{ x: natleq_bottom 
+\exercise Bottom.
+%%%{{{ meta 
+\label natleq_bottom
+%%%}}}
+
+$\lforall x { \Ze \leq x }$.
+
+%%}}}
+
+%%{{{ lemma: natleq_lemma 
+\lemma.
 %%%{{{ meta 
 \label natleq_lemma
 %%%}}}
 
-Demonstre que
+Para quaisquer $n,m \is \Nat$,
 $$
-\pforall n \lforall m {n \leq S m  \iff  n \leq m  \mlor  n = S m}.
+n \leq \SuA m
+\iff
+n \leq m  \mlor  n = \SuA m.
 $$
 
-\hint
-Tente sem indução.
-
-\solution
+\proof.
 Sejam $n,m$ naturais.
-\eop
-\lrdir:
+\crproofpart {\lrdir:}
 Suponha $n \leq S m$.
 Logo seja $u$ tal que $n + u = Sm$.
 Separamos em casos.
@@ -18457,7 +18463,26 @@ Logo $Sm = n+u = n+0 = n$ e temos o que queremos demonstrar.
 Logo $Sm = n + Su' = S(n + u')$.
 Agora, como $Sm = S(n + u')$, logo $m = n + u'$.
 Ou seja, $n \leq m$.
-\eop
+\crproofpart {\rldir:}
+Tua: \ref[natleq_lemma_rldir].
+
+%%}}}
+
+%%{{{ x: natleq_lemma_rldir 
+\exercise.
+%%%{{{ meta 
+\label natleq_lemma_rldir
+%%%}}}
+
+Demonstre que
+$$
+\pforall n \lforall m {n \leq \SuA m  \iff  n \leq m  \mlor  n = \SuA m}.
+$$
+
+\hint
+Use a hipótese (que é uma disjunçaõ) para separar em casos.
+
+\solution
 \rldir:
 Suponha $n \leq m$ ou $n = Sm$.
 Vamos demonstrar que $n \leq Sm$.
@@ -18491,16 +18516,6 @@ $\lforall x { x \leq x }$.
 
 %%}}}
 
-%%{{{ x: natleq_antisym 
-\exercise Antissimétrica.
-%%%{{{ meta 
-\label natleq_antisym
-%%%}}}
-
-$\pforall x \lforall y {x \leq y  \mland  y \leq x  \implies  x = y}$.
-
-%%}}}
-
 %%{{{ x: natleq_trans 
 \exercise Transitiva.
 %%%{{{ meta 
@@ -18508,6 +18523,16 @@ $\pforall x \lforall y {x \leq y  \mland  y \leq x  \implies  x = y}$.
 %%%}}}
 
 $\pforall x \pforall y \lforall z {x \leq y  \mland  y \leq z  \implies  x \leq z}$.
+
+%%}}}
+
+%%{{{ x: natleq_antisym 
+\exercise Antissimétrica.
+%%%{{{ meta 
+\label natleq_antisym
+%%%}}}
+
+$\pforall x \lforall y {x \leq y  \mland  y \leq x  \implies  x = y}$.
 
 %%}}}
 
@@ -18534,6 +18559,59 @@ Na verdade, $(\leq)$ é ainda mais legal: olhe no~\ref[natleq_woset].
 
 %%}}}
 
+%%{{{ blah 
+\blah De uma ordem para outra.
+%%%{{{ meta 
+%%%}}}
+
+Simplesmente trocando a $(+)$ pela $(\ntimes)$ na definição (\reftag[natleq])
+de $(\leq)$ obtemos uma definição (\reftag[natdiv]) duma outra relação de ordem
+(parcial) nos Nats:
+
+%%}}}
+
+%%{{{ df: natdiv 
+\definition.
+%%%{{{ meta 
+\label natdiv
+\defines
+    * divide!nos naturais
+    ;;
+%%%}}}
+
+Definimos a relação de ordem $(\divides)$ nos Nats pela:
+$$
+n \leq m \defiff \lexists {k \is \Nat} {n + k = m}.
+$$
+que, naturalmente\foot
+pun intended
+\toof
+chamamos de \dterm{divide}.
+
+%%}}}
+
+%%{{{ x: natdiv_order 
+\exercise.
+%%%{{{ meta 
+\label natdiv_order
+%%%}}}
+
+Verifique que a relação $(\divides) : \Nat \times \Nat \to \Prop$ é uma relação de ordem parcial,
+ou seja, ela é: reflexiva, transitiva, antissimétrica.  Ela não é total.
+
+%%}}}
+
+%%{{{ x: natdiv_bottom_top 
+\exercise.
+%%%{{{ meta 
+\label natdiv_bottom_top
+%%%}}}
+
+O $\Nat$ possui bottom~(mínimo) \emph{e} top~(máximo) com a ordem $(\divides)$ (quais são?),
+enquanto ordenado pela $(\leq)$ só tem bottom (\ref[natleq_bottom]).
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -18557,29 +18635,37 @@ Descubra um ``padrão'' nas definições dessas operações, e defina a próxima
 %%}}}
 
 %%{{{ prob: ackermann_function 
-\problem.
+\problem Ackermann.
 %%%{{{ meta 
 \label ackermann_function
 \credits
     * Ackermann
     ;;
+\defines
+    * recursão!aninhada
+    ;;
+\indexes
+    * aninhada!recursão   see: recursão
+    ;;
 %%%}}}
 
-Considere a funcção recursiva $\alpha : \nats^2 \to \nats$ definida pelas equações:
-$$
-\align
-\alpha(0,x)     &= x+1                      \tag{K1}\\
-\alpha(n+1,0)   &= \alpha(n,1)              \tag{K2}\\
-\alpha(n+1,x+1) &= \alpha(n,\alpha(n+1, x)) \tag{K3}  
-\endalign
-$$
+Considere a funcção \dterm{aninhamente} recursiva:
+\fundef
+\ack : \Nat \to \Nat \to \Nat \\
+\ack &\Ze            &x                 &= \SuA x \\
+\ack &\paren{\SuA n} &\Ze               &= \ackAA n 1 \\
+\ack &\paren{\SuA n} &\paren{\SuA x}    &= \ackAP n {\ackPA {n+1} x}. \\
+\endfundef
 \tlist:
-\li (i):   Calcule o valor $\alpha(3,2)$, indicando para cada passo qual equação foi usada.
-\li (ii):  Demonstre que para todo $x\in\nats$, $\alpha(1,x) = x + 2$.
-\li (iii): Demonstre que para todo $x\in\nats$, $\alpha(2,x) = 2x + 3$.
+\li (i):   Calcule o valor $\ackAA 3 2$, indicando para cada passo qual equação foi usada.
+\li (ii):  Demonstre que $\ackA 1 = \fsec + 2$, ou seja, que para todo $x\in\nats$, $\ackAA 1 x = x + 2$.
+\li (iii): Demonstre que para todo $x\in\nats$, $\ackAA 2 x = 2x + 3$.
 \endtlist
-A funcção $\alpha$ é conhecida como funcção de Ackermann,
+A funcção $\ack$ é conhecida como funcção de Ackermann,
 e vamos encontrá-la novamente bem depois, no~\ref[Computability_theory].
+Aqui um pequeno tira-gosto: implemente a definição $\ack$ na tua linguagem de
+programação favorita e use teu programa para calcular uns valores dela.
+O que percebes?
 
 %%}}}
 
@@ -18927,6 +19013,22 @@ Definimos o tipo de dados {$\Unit$}:
 
 %%}}}
 
+%%{{{ x: unit_type_in_and_out 
+\exercise.
+%%%{{{ meta 
+\label unit_type_in_and_out
+%%%}}}
+
+Defina funções saindo do e entrando no tipo $\Unit$, ou seja, funções que tem tipos
+$$
+\Unit \to \beta
+\qqtext{e}
+\alpha \to \Unit.
+$$
+O que percebes?
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -18949,6 +19051,22 @@ Definimos o tipo de dados {$\Empty$}:
 \data \Empty \\
 \enddata
 Sim.  Não tem nenhum construtor, e logo não tem nenhum habitante!
+
+%%}}}
+
+%%{{{ x: empty_type_in_and_out 
+\exercise.
+%%%{{{ meta 
+\label empty_type_in_and_out
+%%%}}}
+
+Defina funções saindo do e entrando no tipo $\Empty$, ou seja, funções que tem tipos
+$$
+\Empty \to \beta
+\qqtext{e}
+\alpha \to \Empty.
+$$
+O que percebes?
 
 %%}}}
 
@@ -19078,10 +19196,10 @@ Defina as funções
 \endsection
 %%}}}
 
-%%{{{ ListNat_induction 
-\section Indução no ListNat.
+%%{{{ Structural_induction_principle 
+\section Princípio da indução estrutural.
 %%%{{{ meta 
-\label ListNat_induction
+\label Structural_induction_principle
 %%%}}}
 
 %%{{{ induction_on_ListNat 
@@ -19107,14 +19225,14 @@ Ou seja, podemos usar essas ferramentas em qualquer tipo que foi definido assim.
 Em forma de regra de inferência, o princípio da indução do $\ListNat$ é o seguinte:
 $$
 \PROOFmr {
-\A {\tobrace {\phi(\Nil)}
-             {\explanation {$\Nil$ preserva a $\phi$}}}
-                      \A {\tobrace {\lforall {\ks \is \ListNat}
-                                             {\phi(\ks) \implies
-                                                \lforall {k \is \Nat}
-                                                         {\phi(\ConsAA k \ks)}}}
-                                   {\explanation {$\Cons$ preserva a $\phi$}}}
-\I2--------------------------------------------------------------------------- {Ind$^{\ListNat}_\phi$}
+\A {\tobraceb {\phi(\Nil)}
+              {\explanation {$\Nil$ preserva a $\phi$}}}
+                      \A {\tobraceb {\lforall {\ks \is \ListNat}
+                                              {\phi(\ks)
+                                                 \implies \lforall {k \is \Nat}
+                                                                   {\phi(\ConsAA k \ks)}}}
+                                    {\explanation {$\Cons$ preserva a $\phi$}}}
+\I2---------------------------------------------------------------------------- {Ind$^{\ListNat}_\phi$}
                   {\lforall {\ns \is \ListNat} {\phi(\ns)}}
 }
 $$
@@ -19163,7 +19281,6 @@ Implemente o tipo de parzinhos-de-nats $\Nat\times\Nat$ como type synonym do $\N
 %%{{{ df: List 
 \definition List.
 %%%{{{ meta 
-\headerize
 \label List
 \defines
     * \ListA {~\alpha}  -- o tipo de dados $\ListA \alpha$
@@ -19191,11 +19308,11 @@ Note que $\List \is \Type \to \Type$.
 Em forma de regra de inferência, o princípio da indução do $\List \alpha$ é o seguinte:
 $$
 \PROOFmr {
-\A {\tobrace {\phi(\lnil)}
-        {\explanation{$\lnil$ preserva a $\phi$}}}
-                \A {\tobrace {\lforall {\xs \is \ListA \alpha} {\phi(\xs) \implies \lforall {x \is \alpha} {\phi(x \lcons \xs)}}}
-                                    {\explanation{$(\lcons)$ preserva a $\phi$}}}
-\I2------------------------------------------------------------------------------ {Ind$^{\ListA \alpha}_\phi$}
+\A {\tobraceb {\phi(\lnil)}
+              {\explanation {$\lnil$ preserva a $\phi$}}}
+                       \A {\tobraceb {\lforall {\xs \is \ListA \alpha} {\phi(\xs) \implies \lforall {x \is \alpha} {\phi(x \lcons \xs)}}}
+                                     {\explanation {$(\lcons)$ preserva a $\phi$}}}
+\I2-------------------------------------------------------------------------------- {Ind$^{\ListA \alpha}_\phi$}
                        {\lforall {\ns \is \Nat} {\phi(\ns)}}
 }
 $$
@@ -19260,6 +19377,53 @@ Definimos a função $(\concat)$:
 %%}}}
 
 \TODO Terminar.
+
+\endsection
+%%}}}
+
+%%{{{ Destructors 
+\section Destrutores.
+%%%{{{ meta 
+\label Destructors
+%%%}}}
+
+\TODO Gambiarra 1: $\safeHead_1 \is \ListNat \to \ListNat$.
+
+\TODO Gambiarra 2: $\safeHead_2 \is \ListNat \to \Bool \times \Nat$.
+
+\TODO Gambiarra 3: $\safeHead_3 \is \Nat \to \ListNat \to \Nat$.
+
+%%{{{ Whose is the destructor?
+\remark De quem é o destrutor?.
+%%%{{{ meta 
+%%%}}}
+
+Mesmo que às vezes dá para ver $\head$ e $\tail$ sendo referidos como
+\dq{destrutores do tipo $\ListA \alpha$}, isso é um abuso pesado de linguagem.
+Não são os tipos que têm destrutores, mas sim os seus construtores!
+E quantos destrutores tem, cada construtor?
+Tantos quantos argumenos ele precisa para construir um habitante do tipo!
+Olhando ao tipo $\ListA \alpha$ como exemplo, ele tem $2$ construtores:
+\mathcol
+\Nil  &\is \ListA \alpha \\
+\Cons &\is \alpha \to \ListA \alpha \to \ListA \alpha. \\
+\endmathcol
+Deles, o $\Nil$ tem aridade $0$ e logo $0$ destrutores também;
+mas o $\Cons$ tem aridade $2$ e voilá: $2$ destrutores.
+Considere uma lista $\ell \is \ListA \alpha$ que foi construida pelo $\Cons$.
+Isso significa que no processo de construí-la duas informações entraram nela:
+uma de tipo $\alpha$, e uma de tipo $\ListA \alpha$, já que esses são os tipos
+dos argumentos do seu construtor $\Cons$.
+Cada destruidor é responsável para extrair a correspondente inforação:
+aqui o $\head : \ListA \alpha \parto \alpha$ é responsável para extrair a primeira
+e o $\tail : \ListA \alpha \parto \ListA \alpha$ extrai a segunda.
+Os nomes que escolhemos para eles são indicativos sobre o que e como pensamos
+sobre os objetos construidos por tal construtor: o que acabam sendo essas informações
+que o construtor coloca dentro do objeto construido, para o próprio objeto?
+No exemplo atual, os visualizamos como cabeça e rabo da lista construida,
+e logo os nomes.
+
+%%}}}
 
 \endsection
 %%}}}
@@ -19739,21 +19903,6 @@ e logo $\Pd$ não é uma inversa esquerda da $\Su$.
 \endsection
 %%}}}
 
-%%{{{ Destructors 
-\section Destrutores.
-%%%{{{ meta 
-\label Destructors
-%%%}}}
-
-\TODO Gambiarra 1: $\safeHead_1 \is \ListNat \to \ListNat$.
-
-\TODO Gambiarra 2: $\safeHead_2 \is \ListNat \to \Bool \times \Nat$.
-
-\TODO Gambiarra 3: $\safeHead_3 \is \Nat \to \ListNat \to \Nat$.
-
-\endsection
-%%}}}
-
 %%{{{ Maybe_types 
 \section Tipos de Maybe.
 %%%{{{ meta 
@@ -19763,7 +19912,6 @@ e logo $\Pd$ não é uma inversa esquerda da $\Su$.
 %%{{{ df: Maybe 
 \definition Maybe.
 %%%{{{ meta 
-\headerize
 \label Maybe
 \defines
     * \MaybeA {~\alpha}  -- o tipo de dados $\MaybeA \alpha$
@@ -19793,7 +19941,6 @@ Podemos abreviar o $\MaybeA \alpha$ por $\fA {\type M} \alpha$ quando o contexto
 %%{{{ df: Either 
 \definition Either.
 %%%{{{ meta 
-\headerize
 \label Either
 \defines
     * \EitherAA {~\alpha} {~\beta}  -- o tipo de dados $\EitherAA \alpha \beta$
