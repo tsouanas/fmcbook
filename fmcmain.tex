@@ -19426,12 +19426,6 @@ Definimos a função $(\concat)$:
 \label Destructors
 %%%}}}
 
-\TODO Gambiarra 1: $\safeHead_1 \is \ListNat \to \ListNat$.
-
-\TODO Gambiarra 2: $\safeHead_2 \is \ListNat \to \Bool \times \Nat$.
-
-\TODO Gambiarra 3: $\safeHead_3 \is \Nat \to \ListNat \to \Nat$.
-
 %%{{{ Whose is the destructor?
 \remark De quem é o destrutor?.
 %%%{{{ meta 
@@ -19463,6 +19457,8 @@ No exemplo atual, os visualizamos como cabeça e rabo da lista construida,
 e logo os nomes.
 
 %%}}}
+
+\TODO Escrever.
 
 \endsection
 %%}}}
@@ -19967,6 +19963,12 @@ a seus construtores também, por $\cons N$ e $\cons J$ respectivamente.
 
 %%}}}
 
+\TODO Gambiarra (1): $\safeHead_1 \is \ListNat \to \ListNat$.
+
+\TODO Gambiarra (2): $\fpf {junkHead} \is \ListNat \to \Bool \times \Nat$.
+
+\TODO Gambiarra (3): $\fpf {defaultHead} \is \Nat \to \ListNat \to \Nat$.
+
 \TODO Terminar.
 
 \endsection
@@ -20391,28 +20393,44 @@ Não esqueça os functors que descubriu no \ref[type_ops_functor_check].
 
 \TODO Desenhar uns exemplos de arvores.
 
-%%{{{ df: BTree 
-\definition BTree.
+%%{{{ df: BinTree 
+\definition BinTree.
 %%%{{{ meta 
-\headerize
-\label BTree
+\label BinTree
 \defines
-    * \BTreeA {~\alpha}   -- o tipo de arvores binárias $\BTreeA \alpha$
+    * \BinTreeA {~\alpha}   -- o tipo de arvores binárias $\TreeA \alpha$
     ;;
 %%%}}}
 
 Para qualquer $\alpha \is \Type$, definimos o tipo
-\data \BTreeA \alpha \\
-\co \Tip    : \alpha \to \BTreeA \alpha \\
-\co \Fork   : \BTreeA \alpha \to \BTreeA \alpha \to \BTreeA \alpha \\
+\data \BinTreeA \alpha \\
+\co \Tip    : \alpha \to \BinTreeA \alpha \\
+\co \Fork   : \BinTreeA \alpha \to \BinTreeA \alpha \to \BinTreeA \alpha \\
 \enddata
+Chamamos o tipo de \dterm{binary tree}, por causa da quantidade de filhos que cada nó
+dele tem (exatamente $2$).
 
 %%}}}
 
-%%{{{ x: BTree_nodes_leaves_depth_def 
+%%{{{ remark: Tree 
+\remark Tree.
+%%%{{{ meta 
+\label Tree
+\defines
+    * {\Tree}    -- um construtor de tipos de árvores inferível pelo contexto
+    ;;
+%%%}}}
+
+Economizando minha tinta e teu cansaço visual, vou escrever $\TreeA \alpha$
+ou até $\fA {\type T} \alpha$, quando é implicito qual de todas as arvores
+está sendo considerada.
+
+%%}}}
+
+%%{{{ x: BinTree_nodes_leaves_depth_def 
 \exercise nodes, leaves, depth.
 %%%{{{ meta 
-\label BTree_nodes_leaves_depth_def
+\label BinTree_nodes_leaves_depth_def
 \defines
     * \nodesA  {~t}   -- a quantidade de nós na arvore $t$
     * \leavesA {~t}   -- a quantidade de folhas na arvore $t$
@@ -20422,9 +20440,9 @@ Para qualquer $\alpha \is \Type$, definimos o tipo
 
 Defina as funções
 \mathcols 3
-\nodes  &\is \BTreeA \alpha \to \Nat &
-\leaves &\is \BTreeA \alpha \to \Nat &
-\depth  &\is \BTreeA \alpha \to \Nat.
+\nodes  &\is \TreeA \alpha \to \Nat &
+\leaves &\is \TreeA \alpha \to \Nat &
+\depth  &\is \TreeA \alpha \to \Nat.
 \endmathcols
 que contam os nós, as folhas, e os andares duma arvore.
 
@@ -20433,12 +20451,12 @@ Recursão!
 
 \hint
 Cada uma dessas funções é definida por exatamente duas equações,
-uma para cada construtor de $\BTree alpha$.
+uma para cada construtor de $\Tree alpha$.
 
 \hint
 Por exemplo, a definição da $\nodes$ tem essa forma:
 \fundef
-\nodes : \BTreeA \alpha \to \Nat \\
+\nodes : \TreeA \alpha \to \Nat \\
 \nodesP {\TipA x}         &= \askhole \\
 \nodesP {\ForkAA \ell r}  &= \askhole.
 \endfundef
@@ -20446,47 +20464,47 @@ Por exemplo, a definição da $\nodes$ tem essa forma:
 \solution
 Definimos a $\nodes$ que conta os nós duma arvore
 \fundef
-\nodes : \BTreeA \alpha \to \Nat \\
+\nodes : \TreeA \alpha \to \Nat \\
 \nodesP {\TipA \phole}    &= 0 \\
 \nodesP {\ForkAA \ell r}  &= 1 + (\nodesA \ell) + (\nodesA r);
 \endfundef
 a $\leaves$ que conta as folhas
 \fundef
-\leaves : \BTreeA \alpha \to \Nat \\
+\leaves : \TreeA \alpha \to \Nat \\
 \leavesP {\TipA \phole}    &= 1 \\
 \leavesP {\ForkAA \ell r}  &= (\leavesA \ell) + (\leavesA r).
 \endfundef
 e a $\depth$ que conta a altura, ou a profundidade (ou os \dq{andares})
 \fundef
-\depth : \BTreeA \alpha \to \Nat \\
+\depth : \TreeA \alpha \to \Nat \\
 \depthP {\TipA \phole}    &= 0 \\
 \depthP {\ForkAA \ell r}  &= 1 + (\fmaxPP {\depthA \ell} {\depthA r}).
 \endfundef
 
 %%}}}
 
-%%{{{ thm: BTree_leaves_nodes_thm
+%%{{{ thm: BinTree_leaves_nodes_thm
 \theorem nodes-leaves.
 %%%{{{ meta 
-\label BTree_leaves_nodes_thm
+\label BinTree_leaves_nodes_thm
 %%%}}}
 
-Para toda arvore $t \is \BTreeA \alpha$,
+Para toda arvore $t \is \TreeA \alpha$,
 $$
 \leavesA t = 1 + \nodesA t.
 $$
 
-\proof Demonstrarás agora no~\ref[BTree_leaves_nodes_thm_proof].
+\proof Demonstrarás agora no~\ref[BinTree_leaves_nodes_thm_proof].
 
 %%}}}
 
-%%{{{ x: BTree_leaves_nodes_thm_proof 
+%%{{{ x: BinTree_leaves_nodes_thm_proof 
 \exercise.
 %%%{{{ meta 
-\label BTree_leaves_nodes_thm_proof
+\label BinTree_leaves_nodes_thm_proof
 %%%}}}
 
-Demonstre o \ref[BTree_leaves_nodes_thm].
+Demonstre o \ref[BinTree_leaves_nodes_thm].
 
 \hint
 Indução!
@@ -20499,19 +20517,19 @@ uma sobre $\ell$ e uma sobre $r$.
 
 %%}}}
 
-%%{{{ thm: BTree_leaves_depth_thm 
+%%{{{ thm: BinTree_leaves_depth_thm 
 \theorem leaves-depth.
 %%%{{{ meta 
-\label BTree_leaves_depth_thm
+\label BinTree_leaves_depth_thm
 %%%}}}
 
-Para toda arvore $t \is \BTreeA \alpha$,
+Para toda arvore $t \is \TreeA \alpha$,
 $$
 \leavesA t \leq 2 \expop \depthA t.
 $$
 
 \proof.
-Seja $t \is \BTreeA \alpha$.
+Seja $t \is \TreeA \alpha$.
 Por induçaõ no $t$.
 \crproofcase {Caso $(\TipA x)$}.
 Calculamos:
@@ -20527,56 +20545,56 @@ Calculamos:
   =    \leavesA \ell + \leavesA r                   \by {\funref[\leaves.2]} \\
   \leq 2 \expop \depthA \ell + \leavesA r           \by {hi-$\ell$} \\
   \leq 2 \expop \depthA \ell + 2 \expop \depthA r   \by {hi-$r$} \\
-  \eqvdots                                          \by {\ref[BTree_leaves_depth_thm_proof]} \\
+  \eqvdots                                          \by {\ref[BinTree_leaves_depth_thm_proof]} \\
   =    2 \expop \depthP {\ForkAA \ell r}.           \by {\funref[\depth.2]}
 \endpoemcompute
 
 %%}}}
 
-%%{{{ x: BTree_leaves_depth_thm_proof 
+%%{{{ x: BinTree_leaves_depth_thm_proof 
 \exercise.
 %%%{{{ meta 
-\label BTree_leaves_depth_thm_proof
+\label BinTree_leaves_depth_thm_proof
 %%%}}}
 
-Feche o que faltou para fechar na demonstração de \ref[BTree_leaves_depth_thm].
+Feche o que faltou para fechar na demonstração de \ref[BinTree_leaves_depth_thm].
 
 %%}}}
 
-%%{{{ x: BTree_subtrees_def 
+%%{{{ x: BinTree_subtrees_def 
 \exercise subtrees.
 %%%{{{ meta 
-\label BTree_subtrees_def
+\label BinTree_subtrees_def
 %%%}}}
 
-Defina a $\subtrees : \BTreeA \alpha \to \ListP {\BTreeA \alpha}$
+Defina a $\subtrees : \TreeA \alpha \to \ListP {\TreeA \alpha}$
 que retorna uma lista com todas as subarvores da sua entrada.
 
 %%}}}
 
-%%{{{ x: BTree_flatten_def 
+%%{{{ x: BinTree_flatten_def 
 \exercise flatten.
 %%%{{{ meta 
-\label BTree_flatten_def
+\label BinTree_flatten_def
 %%%}}}
 
-Defina a $\flatten : \BTreeA \alpha \to \ListP {\BTreeA \alpha}$
+Defina a $\flatten : \TreeA \alpha \to \ListP {\TreeA \alpha}$
 que retorna o \dterm{achatamento} da sua entrada:
 uma lista com todos os valores das folhas, na ordem que aparecem
 projetando a arvore a um piso horizontal.
 
 %%}}}
 
-%%{{{ x: BTree_search_fetch 
+%%{{{ x: BinTree_search_fetch 
 \exercise search, fetch.
 %%%{{{ meta 
-\label BTree_search_fetch
+\label BinTree_search_fetch
 %%%}}}
 
 Queremos definir funções
 \mathcols 2
-\search &\is \alpha \to \BTreeA \alpha \to \ListP {\Path} &
-\fetch  &\is \Path  \to \BTreeA \alpha \to \MaybeA \alpha
+\search &\is \alpha \to \TreeA \alpha \to \ListP {\Path} &
+\fetch  &\is \Path  \to \TreeA \alpha \to \MaybeA \alpha
 \endmathcols
 para arvores.
 No caso de listas, a busca da $\search$ retorna uma lista de Nats,
@@ -20600,7 +20618,7 @@ Agora defina as $\search$ e $\fetch$.
 \DefFpf rpaths
 Definimos a $\search$ pelas
 \fundef
-\search : \alpha \to \BTreeA \alpha \to \ListP {\Path} \\
+\search : \alpha \to \TreeA \alpha \to \ListP {\Path} \\
 \searchAP w {\TipA x}     &=  \IF w = x \THEN \list\lnil \ELSE \lnil \FI \\
 \searchAP w {\ForkAA l r} &=
     \LET (\lpaths,\rpaths) = (\searchAA w l, \searchAA w r)
@@ -20609,7 +20627,7 @@ Definimos a $\search$ pelas
 \endfundef
 e a $\fetch$ assim:
 \fundef
-\fetch : \Path \to \BTreeA \alpha \to \MaybeA \alpha \\
+\fetch : \Path \to \TreeA \alpha \to \MaybeA \alpha \\
 \fetch &\paren{\cons L \lcons \ds}  &\paren{\ForkAA l \phole} &= \fetchAA \ds \ell \\
 \fetch &\paren{\cons R \lcons \ds}  &\paren{\ForkAA \phole r} &= \fetchAA \ds r \\
 \fetch &\lnil   &\paren{\TipA x}    &= \JustA x \\
@@ -20618,13 +20636,28 @@ e a $\fetch$ assim:
 
 %%}}}
 
-%%{{{ x: BTree_functor 
-\exercise functor.
+%%{{{ x: BinTree_subtree_def 
+\exercise subtree.
 %%%{{{ meta 
-\label BTree_functor
+\label BinTree_subtree_def
 %%%}}}
 
-O $\BTree : \Type \to \Type$ pode ser um functor?
+Defina a $\subtree$ que, dado um caminho e uma arvore retorna
+a subarvore que começa a parir do ponto descrito pelo caminho.
+Faz parte deste exercício pensar num tipo legal para tal função.
+
+\hint
+$\subtree : \BinTreeA \alpha \to \Path \to \MaybeP {\BinTreeA \alpha}$.
+
+%%}}}
+
+%%{{{ x: BinTree_functor 
+\exercise functor.
+%%%{{{ meta 
+\label BinTree_functor
+%%%}}}
+
+O $\BinTree : \Type \to \Type$ pode ser um functor?
 Se sim, defina o que precisa ser definido e demonstre o que precisa ser demonstrado.
 Senão, por que não?
 
@@ -20646,7 +20679,7 @@ e demonstre por indução as duas leis:
 \endmathcol
 Note que, traduzindo essas igualdades, ambas são proposições da forma
 $$
-\lforall {t \is \BTreeA \alpha} {\dots}.
+\lforall {t \is \TreeA \alpha} {\dots}.
 $$
 
 %%}}}
