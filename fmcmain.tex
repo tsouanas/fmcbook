@@ -20042,8 +20042,8 @@ F       &\is \Type \to \Type \\
 Dizemos que o $F$ com a $\fmap_F$ é um \dterm{functor} sse
 as duas \dterm{leis de functor} são satisfeitas:
 \mathcol
-\fAA {\fmap_F} \fid        &= \fid \\
-\fAA {\fmap_F} {(f \of g)} &= \fA {\fmap_F} f \of \fA {\fmap_F} g.
+\fA {\fmap_F} \fid        &= \fid \stag[functor-id] \\
+\fA {\fmap_F} {(f \of g)} &= \fA {\fmap_F} f \of \fA {\fmap_F} g. \stag[functor-comp] \\
 \endmathcol
 Escrevemos apenas $\fmap$ quando o $F$ é inferível pelo contexto.
 
@@ -20175,7 +20175,7 @@ como possíveis functors.  Diga \wq{bem vindo} ao functor-constante:
     ;;
 %%%}}}
 
-Dado qualquer tipo $\kappa$, o $\KonstAA \kappa \is \Type \to \Type$ simplesmente ignora
+Dado qualquer tipo $\kappa$, o $\KonstA \kappa \is \Type \to \Type$ simplesmente ignora
 seu argumento e retorna o próprio $\kappa$:
 \fundef
 \Konst : \Type \to \Type \to \Type \\
@@ -20191,8 +20191,8 @@ seu argumento e retorna o próprio $\kappa$:
 
 Observe o tipo do próprio $\Konst \is \Type \to \Type \to \Type$; o aplicando
 (parcialmente) a um tipo $\kappa$, obtemos o $\KonstA \kappa \is \Type \to \Type$,
-e esse tem o tipo certo para ter chances de ser um functor!
-Será que ele é?
+e esse tem o tipo certo para ter chances de fazer parte dum functor!
+Será que ele faz?
 
 %%}}}
 
@@ -20202,7 +20202,7 @@ Será que ele é?
 \label Konst_is_a_functor
 %%%}}}
 
-É sim!
+Faz sim!
 
 %%}}}
 
@@ -20289,7 +20289,7 @@ $$
 
 Escreva uns habitantes dos tipos seguintes:
 \mathcol
-\dots \quad &\is \ListP {\ListP {\Nat \to \Bool}} \\
+\dots \quad &\is \ListP {\ListP {\Bool \to \Nat}} \\
 \dots \quad &\is \ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}}.
 \endmathcol
 
@@ -20304,7 +20304,7 @@ Considere tipos como os
 \mathcols 2
 \MaybeP {\ListA \Nat} &\is \Type &
 \ListP {\MaybeA \Nat} &\is \Type \\
-\ListP {\ListP {\Nat \to \Bool}} &\is \Type &
+\ListP {\ListP {\Bool \to \Nat}} &\is \Type &
 \ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}} &\is \Type.
 \endmathcols
 e observe que, de fato, todos eles são tipos mesmo.
@@ -20349,10 +20349,10 @@ e deixar as outras duas e ainda mais umas pra ti---acho justo:
 Escreva os tipos seguintes como composições de functors aplicados num tipo só
 (tua escolha, se tiver), como eu acabei de fazer:
 \mathcols 2
-\ListP {\ListP {\Nat \to \Bool}}                    &\is \Type &
+\ListP {\ListP {\Bool \to \Nat}}                    &\is \Type &
 \ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}}    &\is \Type \\
 \Nat \times \ListP {\MaybeA \Nat}                   &\is \Type &
-\EitherAP \Weekday {\Nat \times \Bool}       &\is \Type. \\
+\EitherAP \Weekday {\Nat \times \Bool}              &\is \Type. \\
 \endmathcols
 
 \hint
@@ -20360,8 +20360,8 @@ Não esqueça os functors que descubriu no \ref[type_ops_functor_check].
 
 \solution
 \mathcols 2
-\ListP {\ListP {\Nat \to \Bool}}
-&= \paren{\List \of \List \of {\fsec \to \Bool}} \fa \Nat \\
+\ListP {\ListP {\Bool \to \Nat}}
+&= \paren{\List \of \List \of {\fsec \Bool \to}} \fa \Nat \\
 \ListP {\EitherAP \Nat {\MaybeP {\ListA \Bool}}}
 &= \paren{\List \of (\EitherA \Nat) \of \Maybe \of \List} \fa \Bool \\
 \Nat \times \ListP {\MaybeA \Nat}
