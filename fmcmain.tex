@@ -27302,7 +27302,7 @@ Logo $x \in I$.  Como $I$ é indutivo, $x+1 \in I$, que é o que precisava mostr
 
 O conjunto $\natreals$ é o $(\subset)$-menor conjunto indutivo, i.e.,
 $$
-\ltforall {$I$ indutivo} {\natreals \subset I}
+\ltforall {$I$ indutivo} {\natreals \subset I}.
 $$
 
 \proof.
@@ -27864,7 +27864,7 @@ Com as unicidades estabelecidas podemos introduzir realmente os símbolos
 são muito comuns e vamos ficar os usando também:
 o infimum é chamado também de \dterm{greatest lower bound} e o supremum
 de \dterm{least upper bound}, e denotados por $\glb$ e $\lub$ respectivamente:}
-\glb A &\defeq \inf A & 
+\glb A &\defeq \inf A &
 \lub A &\defeq \sup A.
 \endmathcols
 E olha que no~\ref[Posets_Lattices] encontramos ainda mais nomes e notações!
@@ -28095,9 +28095,11 @@ $$
     * ~{\seqn a n} \tends ~\ell  -- a seqüência $\seqn a n$ tende ao $\ell$
     * limite!reais
     * seqüência!convergente
+    * seqüência!divergente
     ;;
 \indexes
-    * convergente   seealso: seqüência
+    * convergente   see: seqüência
+    * divergente    see: seqüência
     ;;
 %%%}}}
 
@@ -28151,6 +28153,7 @@ $$
 \defiff
 \lexists {\ell} {\seqn a n \tends \ell}.
 $$
+Senão, ela é \dterm{divergente}.
 \mistake
 
 %%}}}
@@ -28923,19 +28926,20 @@ Vamos exigir suprema para todos os outros então:
 
 %%}}}
 
-%%{{{ df: complete_ordered_field 
-\definition Corpo ordenado completo.
+%%{{{ spec: real_spec_3 
+\specification Os reais (3/3).
 %%%{{{ meta 
-\label complete_ordered_field
+\label real_spec_3
 \defines
-    * corpo!ordenado, completo
+    * reais
     ;;
 %%%}}}
 
-Um corpo ordenado $R$ é \dterm{completo} sse
-todos os seus subconjuntos bounded above possuem supremum no $R$
+Estipulamos um último axioma para os reais:
 \mathcol
-\cforall {A\subset R} {A\neq\emptyset \mland \text{$A$ bounded above} \implies \text{$A$ tem supremum no $R$}}. \tag{FC}
+\cforall {A \isubset \reals}
+         {\text{$A$ cotado por cima} \implies \text{$A$ tem supremum}}.
+\stag[R-Complete]
 \endmathcol
 
 %%}}}
@@ -28946,7 +28950,8 @@ todos os seus subconjuntos bounded above possuem supremum no $R$
 %%%}}}
 
 Terminamos com este axioma a lista de todos os axiomas que vamos estipular
-sobre os números reais.  As conseqüências desses axiomas é o que estudamos em
+sobre os números reais.  As conseqüências desses axiomas, ou seja, a
+\dterm{teoria dos números reais} é o que estudamos em
 \dterm{calculus} e \dterm{análise real}.
 O resto deste capítulo é um teaserzinho dessa teoria linda;
 e, como sempre, no fim tenho ponteiros na literatura para mergulhar mais.
@@ -28957,69 +28962,13 @@ uma função binária \emph{com valores reais}, satisfazendo certas leis.
 
 %%}}}
 
-%%{{{ eg: reals_is_a_complete_ordered_field 
-\example.
-%%%{{{ meta 
-\label reals_is_a_complete_ordered_field
-%%%}}}
-
-Os reais $\sset \reals {+, \,\ntimes\,, -, 0, 1, <}$.
-
-%%}}}
-
-%%{{{ x: can_we_prove_that_reals_is_a_complete_ordered_field 
-\exercise.
-%%%{{{ meta 
-\label can_we_prove_that_reals_is_a_complete_ordered_field
-%%%}}}
-
-Tem como demonstrar isso?
-Se sim, o que seria uma demonstração disso?
-Se não, por que não?
-
-%%}}}
-
-%%{{{ noneg: rats_is_not_a_complete_ordered_field 
-\nonexample.
-%%%{{{ meta 
-\label rats_is_not_a_complete_ordered_field
-%%%}}}
-
-Os racionais!
-
-%%}}}
-
-%%{{{ x: rats_is_not_a_complete_ordered_field_proof 
-\exercise.
-%%%{{{ meta 
-\label rats_is_not_a_complete_ordered_field_proof
-%%%}}}
-
-Demonstre!
-Ou seja, ache um $A$ bounded above sem supremum
-no $\rats$.
-
-%%}}}
-
-%%{{{ remark: now inf and sup are total operations on extended reals 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Assim as operações $\inf$ e $\sup$ viram totais nos reais estendidos:
-$$
-\inf,\sup \eqtype \SetA \Reals \to \reals\union\set{\minfty,\pinfty}.
-$$
-
-%%}}}
-
-%%{{{ thm: bounded_below_subsets_have_infima 
-\theorem.
+%%{{{ cor: bounded_below_subsets_have_infima 
+\corollary.
 %%%{{{ meta 
 \label bounded_below_subsets_have_infima
 %%%}}}
 
-Seja $A$ conjunto de reais, cotado por baixo.
+Seja $A$ conjunto habitado de reais, cotado por baixo.
 Logo $A$ possui infimum.
 
 \proof Demonstrarás agora no~\ref[bounded_below_subsets_have_infima_proof].
@@ -29041,6 +28990,35 @@ Tu vai precisar usar a lei de completude.
 Procure definir um subconjunto de $\reals$
 que será garantido ter um supremum, e use
 esse supremum para definir o infimum de $A$.
+
+%%}}}
+
+%%{{{ x: rats_is_not_a_complete_ordered_field 
+\exercise.
+%%%{{{ meta 
+\label rats_is_not_a_complete_ordered_field
+%%%}}}
+
+Os racionais não satisfazem a especificação dos reais.
+
+\hint
+Ache um $A$ bounded above sem supremum no $\rats$.
+
+\hint
+Tal $A$, visto como subconjunto de $\reals$, deve ter um supremum $s \in \reals$.
+Construa um $A$ cujo supremum é um número que já sabemos que é irracional.
+
+%%}}}
+
+%%{{{ remark: now inf and sup are total operations on extended reals 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Assim as operações $\inf$ e $\sup$ viram totais nos reais estendidos:
+$$
+\inf,\sup \is \SetA \ExtReal \to \ExtReal.
+$$
 
 %%}}}
 
@@ -69382,6 +69360,47 @@ O estudo de espações vetorias e seus morfismos
 
 \TODO Escrever.
 
+%%{{{ df: complete_ordered_field 
+\definition Corpo ordenado completo.
+%%%{{{ meta 
+\label complete_ordered_field
+\defines
+    * corpo!ordenado, completo
+    ;;
+%%%}}}
+
+Um corpo ordenado $F$ é \dterm{completo} sse
+todos os seus subconjuntos bounded above possuem supremum no $F$
+\mathcol
+\cforall {A \isubset \reals}
+         {\text{$l$ cotado por cima} \implies \text{$A$ tem supremum no $F$}}.
+\stag[FC]
+\endmathcol
+
+%%}}}
+
+%%{{{ eg: reals_is_a_complete_ordered_field 
+\example.
+%%%{{{ meta 
+\label reals_is_a_complete_ordered_field
+%%%}}}
+
+Os reais $\sset \reals {+, \,\ntimes\,, -, 0, 1, <}$.
+
+%%}}}
+
+%%{{{ x: can_we_prove_that_reals_is_a_complete_ordered_field 
+\exercise.
+%%%{{{ meta 
+\label can_we_prove_that_reals_is_a_complete_ordered_field
+%%%}}}
+
+Tem como demonstrar isso?
+Se sim, o que seria uma demonstração disso?
+Se não, por que não?
+
+%%}}}
+
 %%{{{ Enough! 
 \note Chega!.
 %%%{{{ meta 
@@ -69555,7 +69574,7 @@ que seguem pelos axiomas de anéis; etc.~etc.
 E a \emph{teoria dos corpos ordenados completos?}
 Ela não é muito famosa por esse nome, mas com certeza
 tu já ouviste falar dela por uns dos seus apelidos:
-\dterm{calculus}, ou \dterm{análise real}, etc.
+\dterm{calculus}, ou \dterm{análise real}, \ref[The_reals], etc.
 Na abordagem axiomática, não nos importa \emph{definir}\/ ou
 \emph{construir} os objetos que vamos chamar de \dterm{números reais}.
 Começamos aceitando a existência dum certo conjunto que denotamos
