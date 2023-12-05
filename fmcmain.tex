@@ -26308,16 +26308,16 @@ Fazemos isso na \ref[Distance_on_reals].
 \endsection
 %%}}}
 
-%%{{{ Sets_and_sequences_reals 
-\section Conjuntos e seqüências.
+%%{{{ Sets_reals 
+\section Conjuntos de reais.
 %%%{{{ meta 
-\label Sets_and_sequences_reals
+\label Sets_reals
 %%%}}}
 
 %%{{{ intro 
 \secintro
 Conjuntos e seqüências mesmo, em forma geral, vamos estudar no \ref[Collections].
-Aqui vamos só usar um pouco uns conjuntos e umas seqüências \emph{de reais}
+Aqui vamos só usar um pouco uns conjuntos e logo depois umas seqüências \emph{de reais}
 \mathcols 2
 \SetA \Real &\is \Type &
 \SeqA \Real &\is \Type
@@ -26481,6 +26481,216 @@ Por enquanto fazem parte de notação, e com certeza \emph{não} se trata de
 números reais.
 
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Minima_and_maxima_on_reals 
+\section Mínima e máxima.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ df: real_min_max_binary 
+\definition.
+%%%{{{ meta 
+\label real_min_max_binary
+%%%}}}
+
+Definimos as funções:
+\mathcols 2
+\min &\eqtype \Real \times \Real \to \Real &
+\max &\eqtype \Real \times \Real \to \Real \\
+\min (a,b) &\defeq \cases { a,  & se $a\leq b$; \\
+                            b,  & se não;  }; &
+\max (a,b) &\defeq \cases { b,  & se $a\leq b$ \\
+                            a,  & se não. pseudométricé }.
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_min_max_formulas 
+\exercise.
+%%%{{{ meta 
+\label real_min_max_formulas
+%%%}}}
+
+Sejam $a,b$ reais.
+Logo
+\mathcols 2
+\min(a,b) &= \frac {a + b - \abs {b-a}} 2 &
+\max(a,b) &= \frac {a + b + \abs {b-a}} 2.
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_max_addition 
+\exercise.
+%%%{{{ meta 
+\label real_max_addition
+%%%}}}
+
+Sejam $a,b,c,d$ reais.
+Logo
+$$
+\max(a+c, b+d) \leq \max(a,b) + \max(c,d).
+$$
+
+%%}}}
+
+%%{{{ x: real_min_addition 
+\exercise.
+%%%{{{ meta 
+\label real_min_addition
+%%%}}}
+
+Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
+
+%%}}}
+
+%%{{{ df: real_min_max_of_set 
+\definition.
+%%%{{{ meta 
+\label real_min_max_of_set
+%%%}}}
+
+Sejam $A$ um conjunto de reais e $x$ um real.
+Dizemos que:
+\mathcol
+\text{$m$ é um mínimo de $A$} &\defiff m \in A \mland m \leq A \\
+\text{$m$ é um máximo de $A$} &\defiff m \in A \mland m \geq A.
+\endmathcol
+
+%%}}}
+
+%%{{{ x: real_uniqueness_of_min_and_max 
+\exercise Unicidades de máxima e mínima.
+%%%{{{ meta 
+\label real_uniqueness_of_min_and_max
+%%%}}}
+
+Seja $A$ conjunto de reais.
+Se $A$ possui um mínimo membro $m$, então $m$ é o único mínimo membro de $A$.
+Similarmente sobre os máxima.
+
+%%}}}
+
+%%{{{ notation: real_min_max_of_set_notation 
+\notation.
+%%%{{{ meta 
+\label real_min_max_of_set_notation
+%%%}}}
+
+Quando um conjunto $A$ de reais possui mínimo, denotamos por
+$\min A$ o seu único membro mínimo.
+Similarmente, quando $A$ possui máximo, o denotamos por $\max A$.
+
+%%}}}
+
+%%{{{ x: real_is_unbounded 
+\exercise.
+%%%{{{ meta 
+\label real_is_unbounded
+%%%}}}
+
+O $\reals$ não tem nem mínimo, nem máximo.
+
+%%}}}
+
+%%{{{ x: every_finite_set_of_reals_has_min_and_max 
+\exercise.
+%%%{{{ meta 
+\label every_finite_set_of_reals_has_min_and_max
+%%%}}}
+
+Todo conjunto finito e habitado de reais possui membro mínimo e membro máximo.
+
+\solution
+Tudo que precisamos dos inteiros para demonstrar o
+\ref[every_finite_set_of_ints_has_min_and_max] temos aqui nos reais também.
+
+%%}}}
+
+%%{{{ df: real_ceil_and_floor 
+\definition pisos e tetos.
+%%%{{{ meta 
+\label real_ceil_and_floor
+%%%}}}
+
+Seja $a$ real.
+Associamos com $a$ dois reais inteiros, que chamamos de \dterm{piso} e
+\dterm{teto} de $a$ e denotamos por $\floor a$ e $\ceil a$ respectivamente.
+Suas definições:
+\mathcols 2
+\floor a &\defeq \max \setst {x\in\intreals} {x \leq a} &
+\ceil a  &\defeq \min \setst {x\in\intreals} {a \leq x}.
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_ceil_and_floor_dangerous_def 
+\exercise.
+%%%{{{ meta 
+\label real_ceil_and_floor_dangerous_def
+%%%}}}
+
+A definição \ref[real_ceil_and_floor] é potencialmente perigosa.
+Qual o perigo?
+Identifique e demonstre que não há tal perigo mesmo.
+
+%%}}}
+
+%%{{{ eg: ceil and floor examples 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Temos:
+\mathcols 5
+\ceil  4  &= 4 & \ceil  {1/2} &= 1 & \ceil  {-3/2} &= -1 & \ceil  {0.99} &= 1& \ceil  {0.999\dots} &= 1  \\
+\floor 4  &= 4 & \floor {1/2} &= 0 & \floor {-3/2} &= -2 & \floor {0.99} &= 0& \floor {0.999\dots} &= 1. \\
+\endmathcols
+As duas últimas colunas envolvem \emph{numerais de reais em notação decimal},
+algo que não temos discutido ainda, mas encontraremos logo depois, neste mesmo capítulo.
+Inclui essas duas colunas aqui para o leitor que já é acostumado com eles.
+
+%%}}}
+
+%%{{{ x: real_ceil_of_floor_and_floor_of_ceil 
+\exercise.
+%%%{{{ meta 
+\label real_ceil_of_floor_and_floor_of_ceil
+%%%}}}
+
+Adivinhe os \sq{$\askdots$} e demonstre:
+\mathcols 2
+\cforall {x\in\reals} {\floor {\ceil  x} = \askdots} &
+\cforall {x\in\reals} {\ceil  {\floor x} = \askdots}. \\
+\endmathcols
+
+%%}}}
+
+%%{{{ x: real_ceil_and_floor_of_plus_k 
+\exercise.
+%%%{{{ meta 
+\label real_ceil_of_floor_of_plus_k
+%%%}}}
+
+Adivinhe os \sq{$\askdots$} e demonstre:
+\mathcols 2
+\pforall {x\in\reals} \cforall {k\in\intreals} {\floor {x+k} = \askdots} &
+\pforall {x\in\reals} \cforall {k\in\intreals} {\ceil  {x+k} = \askdots}. \\
+\endmathcols
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Seq_reals 
+\section Seqüências.
+%%%{{{ meta 
+\label Seq_reals
+%%%}}}
 
 % SEQS OF REALS
 
@@ -26669,7 +26879,8 @@ ou seja, existe um real $M$, tal que todos os componentes da seqüência são me
 %%%{{{ meta 
 %%%}}}
 
-Ache um tal $M$ para essa seqüência, e demonstre que realmente serve.
+Ache um tal $M$ para essa mesma seqüência do \ref[a_recursively_defined_real_seq],
+e demonstre que realmente serve.
 
 %%}}}
 
@@ -26683,7 +26894,7 @@ Agora considere a seqüência $\seqn x n$ definida pelas
 x_0     &\defeq 1 \\
 x_{n+1} &\defeq (3x_n + 4)/4. \\
 \endmathcol
-Resolva sobre esta as mesmas duas questões que resolveu sobre a seqüência anterior.
+Resolva sobre esta as mesmas duas questões: ela é crescente? ela é cotada?
 
 %%}}}
 
@@ -26749,6 +26960,15 @@ t_{k+1} - t_k
 onde no último passo usamos a (HI) e que a $\seqn t n \leq 1$ (e logo $t_i + t_j \leq 2$ para quaisquer $i,j$).
 
 %%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Unions_and_intersections_reals 
+\section Uniões e interseções.
+%%%{{{ meta 
+\label Unions_and_intersections_reals
+%%%}}}
 
 % UNIONS AND INTERSECTIONS OF COLLECTIONS OF REALS
 
@@ -26907,6 +27127,8 @@ Calcule os conjuntos:
 
 %%}}}
 
+% OPERATIONS (AND OPS?) BETWEEN SEQS OF REALS
+
 % ORDER (AND OPS?) BETWEEN SEQS OF REALS
 
 %%{{{ df: leq_between_seqs 
@@ -26989,201 +27211,90 @@ $\seqset n n \nleq \seqset {n+1} n$.
 \endsection
 %%}}}
 
-%%{{{ Minima_and_maxima_on_reals 
-\section Mínima e máxima.
+%%{{{ Operations_and_relations_between_seqs 
+\section Operações e relações entre seqüências.
 %%%{{{ meta 
+\label Operations_and_relations_between_seqs
 %%%}}}
 
-%%{{{ df: real_min_max_binary 
-\definition.
+% OPERATIONS (AND OPS?) BETWEEN SEQS OF REALS
+
+% ORDER (AND OPS?) BETWEEN SEQS OF REALS
+
+%%{{{ df: leq_between_seqs 
+\definition ordem pointwise.
 %%%{{{ meta 
-\label real_min_max_binary
+\label leq_between_seqs
+\defines
+    * seqüência!ordem
+    ;;
+\indexes
+    * pointwise
+    ;;
 %%%}}}
 
-Definimos as funções:
-\mathcols 2
-\min &\eqtype \Real \times \Real \to \Real &
-\max &\eqtype \Real \times \Real \to \Real \\
-\min (a,b) &\defeq \cases { a,  & se $a\leq b$; \\
-                            b,  & se não;  }; &
-\max (a,b) &\defeq \cases { b,  & se $a\leq b$ \\
-                            a,  & se não. pseudométricé }.
-\endmathcols
-
-%%}}}
-
-%%{{{ x: real_min_max_formulas 
-\exercise.
-%%%{{{ meta 
-\label real_min_max_formulas
-%%%}}}
-
-Sejam $a,b$ reais.
-Logo
-\mathcols 2
-\min(a,b) &= \frac {a + b - \abs {b-a}} 2 &
-\max(a,b) &= \frac {a + b + \abs {b-a}} 2.
-\endmathcols
-
-%%}}}
-
-%%{{{ x: real_max_addition 
-\exercise.
-%%%{{{ meta 
-\label real_max_addition
-%%%}}}
-
-Sejam $a,b,c,d$ reais.
-Logo
+Aproveitando as ordens que já temos nos reais, as elevamos para definir
+correspondentes ordens entre seqüências de reais, em forma \dterm{pointwise:}
 $$
-\max(a+c, b+d) \leq \max(a,b) + \max(c,d).
+\seqn a n \leq \seqn b n
+\defiff
+\lforall n {a_n \leq b_n},
 $$
+e similarmente para as outras ordens que definimos: $(<)$, $(\geq)$, etc.
 
 %%}}}
 
-%%{{{ x: real_min_addition 
+%%{{{ beware: leq_between_seqs_vs_between_sets 
+\beware.
+%%%{{{ meta 
+\label leq_between_seqs_vs_between_sets 
+%%%}}}
+
+Antes da \ref[leq_between_seqs], a expressão
+$$
+\seqn a n \leq \seqn b n
+$$
+seria interpretada através de \emph{type coercion} como
+$$
+\seqnset a n \leq \seqnset b n
+$$
+pois temos estabelecido já o que $A \leq B$ significa para conjuntos de reais $A,B$:
+$$
+A \leq B
+\intiff \lforall {a \in A} {a \leq B}
+\intiff \pforall {a \in A} \lforall {b \in B} {a \leq b}.
+$$
+Mas a partir da \ref[leq_between_seqs] a expressão
+$$
+\seqn a n \leq \seqn b n
+$$
+já ganhou seu próprio significado, e logo não entra mais nenhum \emph{type coercion}
+nesse processo.
+Mas será que as duas interpretações acabam sendo equivalentes?
+
+%%}}}
+
+%%{{{ x: leq_between_seqs_vs_between_sets
 \exercise.
 %%%{{{ meta 
-\label real_min_addition
+\label leq_between_seqs_vs_between_sets_wa
 %%%}}}
 
-Qual a correspondente afirmação que podes demonstrar sobre a $\min$?
+Será?
 
-%%}}}
-
-%%{{{ df: real_min_max_of_set 
-\definition.
-%%%{{{ meta 
-\label real_min_max_of_set
-%%%}}}
-
-Sejam $A$ um conjunto de reais e $x$ um real.
-Dizemos que:
-\mathcol
-\text{$m$ é um mínimo de $A$} &\defiff m \in A \mland m \leq A \\
-\text{$m$ é um máximo de $A$} &\defiff m \in A \mland m \geq A.
-\endmathcol
-
-%%}}}
-
-%%{{{ x: real_uniqueness_of_min_and_max 
-\exercise Unicidades de máxima e mínima.
-%%%{{{ meta 
-\label real_uniqueness_of_min_and_max
-%%%}}}
-
-Seja $A$ conjunto de reais.
-Se $A$ possui um mínimo membro $m$, então $m$ é o único mínimo membro de $A$.
-Similarmente sobre os máxima.
-
-%%}}}
-
-%%{{{ notation: real_min_max_of_set_notation 
-\notation.
-%%%{{{ meta 
-\label real_min_max_of_set_notation
-%%%}}}
-
-Quando um conjunto $A$ de reais possui mínimo, denotamos por
-$\min A$ o seu único membro mínimo.
-Similarmente, quando $A$ possui máximo, o denotamos por $\max A$.
-
-%%}}}
-
-%%{{{ x: real_is_unbounded 
-\exercise.
-%%%{{{ meta 
-\label real_is_unbounded
-%%%}}}
-
-O $\reals$ não tem nem mínimo, nem máximo.
-
-%%}}}
-
-%%{{{ x: every_finite_set_of_reals_has_min_and_max 
-\exercise.
-%%%{{{ meta 
-\label every_finite_set_of_reals_has_min_and_max
-%%%}}}
-
-Todo conjunto finito e habitado de reais possui membro mínimo e membro máximo.
+\hint
+Não.
 
 \solution
-Tudo que precisamos dos inteiros para demonstrar o
-\ref[every_finite_set_of_ints_has_min_and_max] temos aqui nos reais também.
-
-%%}}}
-
-%%{{{ df: real_ceil_and_floor 
-\definition Pisos e tetos.
-%%%{{{ meta 
-\label real_ceil_and_floor
-%%%}}}
-
-Seja $a$ real.
-Associamos com $a$ dois reais inteiros, que chamamos de \dterm{piso} e
-\dterm{teto} de $a$ e denotamos por $\floor a$ e $\ceil a$ respectivamente.
-Suas definições:
+Não.  Considere como contraxemplo as seqüências
 \mathcols 2
-\floor a &\defeq \max \setst {x\in\intreals} {x \leq a} &
-\ceil a  &\defeq \min \setst {x\in\intreals} {a \leq x}.
+\seq n     n &= 0, 1, 2, \ldots &
+\seq {n+1} n &= 1, 2, 3, \ldots
 \endmathcols
-
-%%}}}
-
-%%{{{ x: real_ceil_and_floor_dangerous_def 
-\exercise.
-%%%{{{ meta 
-\label real_ceil_and_floor_dangerous_def
-%%%}}}
-
-A definição \ref[real_ceil_and_floor] é potencialmente perigosa.
-Qual o perigo?
-Identifique e demonstre que não há tal perigo mesmo.
-
-%%}}}
-
-%%{{{ eg: ceil and floor examples 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Temos:
-\mathcols 5
-\ceil  4  &= 4 & \ceil  {1/2} &= 1 & \ceil  {-3/2} &= -1 & \ceil  {0.99} &= 1& \ceil  {0.999\dots} &= 1  \\
-\floor 4  &= 4 & \floor {1/2} &= 0 & \floor {-3/2} &= -2 & \floor {0.99} &= 0& \floor {0.999\dots} &= 1. \\
-\endmathcols
-As duas últimas colunas envolvem \emph{numerais de reais em notação decimal},
-algo que não temos discutido ainda, mas encontraremos logo depois, neste mesmo capítulo.
-Inclui essas duas colunas aqui para o leitor que já é acostumado com eles.
-
-%%}}}
-
-%%{{{ x: real_ceil_of_floor_and_floor_of_ceil 
-\exercise.
-%%%{{{ meta 
-\label real_ceil_of_floor_and_floor_of_ceil
-%%%}}}
-
-Adivinhe os \sq{$\askdots$} e demonstre:
-\mathcols 2
-\cforall {x\in\reals} {\floor {\ceil  x} = \askdots} &
-\cforall {x\in\reals} {\ceil  {\floor x} = \askdots}. \\
-\endmathcols
-
-%%}}}
-
-%%{{{ x: real_ceil_and_floor_of_plus_k 
-\exercise.
-%%%{{{ meta 
-\label real_ceil_of_floor_of_plus_k
-%%%}}}
-
-Adivinhe os \sq{$\askdots$} e demonstre:
-\mathcols 2
-\pforall {x\in\reals} \cforall {k\in\intreals} {\floor {x+k} = \askdots} &
-\pforall {x\in\reals} \cforall {k\in\intreals} {\ceil  {x+k} = \askdots}. \\
-\endmathcols
+e veja que temos
+$\seq n n \leq \seq {n+1} n$
+mas
+$\seqset n n \nleq \seqset {n+1} n$.
 
 %%}}}
 
@@ -29111,13 +29222,11 @@ Toda seqüência de reais tem uma subseqüência monótona.
 %%%{{{ meta 
 %%%}}}
 
-Última chance 
-Será que podes pensar numa resposta para
+Última chance:
+será que podes pensar numa resposta para
 a~\ref[how_can_we_separate_reals_from_rats]?
 
 %%}}}
-
-\spoiler
 
 \endsection
 %%}}}
