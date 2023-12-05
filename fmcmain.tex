@@ -27639,9 +27639,7 @@ $$
 Demonstre que $(\sim_\epsilon)$ é reflexiva.
 
 \hint
-$$
-\abs{x - x} = 0
-$$
+$\abs{x - x} = 0$.
 
 %%}}}
 
@@ -28065,7 +28063,7 @@ mas este ponto é um ponto bom para formar uma tentativa boa de palpite.  Tente!
 %%%}}}
 
 %%{{{ df: for_sufficiently_large_values_of 
-\definition {p.v.s.g.d.}.
+\definition {pvsgd}.
 %%%{{{ meta 
 \label for_sufficiently_large_values_of
 %%%}}}
@@ -28080,6 +28078,18 @@ $$
 \lforall {n \geq N}
          {\phi(a_n)}.
 $$
+
+%%}}}
+
+%%{{{ eg: fslvo_eg_complexity_and_leap_years 
+\example.
+%%%{{{ meta 
+\label fslvo_eg_complexity_and_leap_years 
+%%%}}}
+
+Para valores suficientemente grandes de $n$, $2^n > n^4 > 8n$.
+Por outro lado, não é o caso que para valores suficientemente grandes de $n$,
+o ano $n$ é bissexto.
 
 %%}}}
 
@@ -28101,6 +28111,18 @@ $$
 
 %%}}}
 
+%%{{{ eg: eventually_eg_
+\example.
+%%%{{{ meta 
+%%%}}}
+
+A seqüência $\seq {\floor {2^8 / n}} n$ é eventualmente constante
+(ainda mais, ela é eventualmente $0$).
+Para qualquer $\epsilon > 0$, ela não está eventualmente contida no $(\epsilon, \pinfty)$;
+ainda mais, ela fica eventualmente fora dele!
+
+%%}}}
+
 %%{{{ cor: cool_implies_eventually_cool 
 \corollary.
 %%%{{{ meta 
@@ -28116,8 +28138,17 @@ já que a subseqüência $\seq {a_n} {n \geq 0}$ é a própria seqüência $\seq
 
 %%}}}
 
+%%{{{ remark: nothing special about Seq Real here 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Usamos as mesmas gírias sobre $\SeqA \alpha$; nada especial sobre o $\Real$ aqui.
+
+%%}}}
+
 %%{{{ df: limit_of_sequence_of_reals 
-\definition limite.
+\definition tende.
 %%%{{{ meta 
 \label limit_of_sequence_of_reals
 \defines
@@ -28127,6 +28158,7 @@ já que a subseqüência $\seq {a_n} {n \geq 0}$ é a própria seqüência $\seq
     * limite!reais
     * seqüência!convergente
     * seqüência!divergente
+    * tende
     ;;
 \indexes
     * convergente   see: seqüência
@@ -28134,8 +28166,8 @@ já que a subseqüência $\seq {a_n} {n \geq 0}$ é a própria seqüência $\seq
     ;;
 %%%}}}
 
-Seja $\seqn a n$ uma seqüência de reais e seja $\ell\in\reals$.
-Dizemos que $\seqn a n$ \dterm{tende ao limite} $\ell$
+Sejam $\seqn a n$ uma seqüência de reais e $\ell$ um real.
+Dizemos que $\seqn a n$ \dterm{tende ao} $\ell$
 (ou \dterm{converge ao} $\ell$)
 sse para qualquer bola de $\ell$,
 a seqüência $\seqn a n$ eventualmente fica dentro dela.
@@ -28174,7 +28206,7 @@ assim:
 \pforall  {\epsilon > 0}
 \pexists  {N}
 \lforall  {n \geq N}
-          {d(a_n, \ell) < \epsilon}.
+          {\dist d {a_n} \ell < \epsilon}.
 \endmathcol
 Escrevemos também
 $$
@@ -28182,7 +28214,8 @@ $$
 \qqtext{ou}
 \lim \seqn a n = \ell
 $$
-como sinônimo de $\seqn a n \tends \ell$.
+como sinônimo de $\seqn a n \tends \ell$, e caso que isso aconteça
+referimos a tal $\ell$ como um \dterm{limite} da $\seqn a n$.
 Dizemos que uma seqüência é \dterm{convergente} sse ela converge àlgum real:
 $$
 \text{$\seqn a n$ é convergente}
@@ -28191,8 +28224,9 @@ $$
 $$
 Senão, ela é \dterm{divergente}.
 \eop
-Dizemos que $\seqn a n$ \dterm{tende ao $\pinfty$} sse para qualquer $M > 0$
-ela eventualmente fica acima do $M$, ou seja definimos o
+Destacamos um especial de seqüência divergente:
+dizemos que $\seqn a n$ \dterm{diverge ao $\pinfty$} (ou até \dterm{tende ao $\pinfty$})
+sse para qualquer $M > 0$ ela eventualmente fica acima do $M$, ou seja definimos o
 $$
 \uhole \tends \pinfty \is \SeqA \Real \to \Prop
 $$
