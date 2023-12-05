@@ -26567,10 +26567,10 @@ Aqui umas seqüências e seus primeiros componentes:
 \seq    1                       {n\in\nats}  &=   1,   1,   1,   1, \dotsc &
 \seqnft {(-1)^n}                n 8 \infty   &=   1,  -1,   1,  -1, \dotsc \\
 \seq    {n (-1)^n}              {n \geq 3}   &=  -3,   4,  -5,   6, \dotsc &
-\seqnft {\frac {n + 1} n}       n 1 \infty   &=   2, 3/2, 4/3, 5/4, \dotsc \\
+\seqnft {\frac {n + 1} n}       n 1 \infty   &=   2, \frac 3 2, \frac 4 3, \frac 5 4, \dotsc \\
 \seqnft {x_{2n}}                n 0 \infty   &= x_0, x_2, x_4, x_6, \dotsc &
 \seqnft {y_n z_{n+1}^2}         n 1 \infty   &= y_1z_2^2, y_2z_3^2, y_3z_4^2, y_4z_5^2, \dotsc \\
-\seq    {a_{n_i}}               i            &=   a_{n_0}, a_{n_1}, a_{n_2}, \dotsc &
+\seq    {a_{n_i}}               i            &=   a_{n_0}, a_{n_1}, a_{n_2}, a_{n_3}, \dotsc &
 \seq    {a_{n^2}}               n            &= a_0, a_1, a_4, a_9, \dotsc \\
 \seq    {\Prod_{i=2}^{n-1} a_i} {n \geq 1}   &=   1,   1, a_2, a_2a_3, \dotsc &
 \seqnft {\Sum_{n=1}^3 n}        n 0 \infty   &=   6,   6,   6,   6, \dotsc \\
@@ -28065,30 +28065,31 @@ mas este ponto é um ponto bom para formar uma tentativa boa de palpite.  Tente!
 %%%}}}
 
 %%{{{ df: for_sufficiently_large_values_of 
-\definition <<para valores suficientemente grandes de>>.
+\definition {p.v.s.g.d.}.
 %%%{{{ meta 
 \label for_sufficiently_large_values_of
 %%%}}}
 
-Seja $\phi : \Real \to \Prop$ um predicado sobre reais.
-Dizemos que $\phi(n)$ \dterm{para valores suficientemente grandes de} $n$
-sse a partir de um natural $N$ todos os naturais satisfazem o $\phi$,
+Sejam $\phi : \Real \to \Prop$ um predicado sobre reais e $\seqn a n$ uma seqüência de reais.
+Dizemos que \dterm{para valores suficientemente grandes de} $n$,
+$\phi(a_n)$
+sse a partir de um natural $N$ \dq{todos os $a_\phole$'s} satisfazem a $\phi$,
 ou seja, sse
 $$
-\pexists {N\in\nats}
+\pexists N
 \lforall {n \geq N}
-         {\phi(i)}.
+         {\phi(a_n)}.
 $$
 
 %%}}}
 
 %%{{{ df: eventually 
-\definition <<eventualmente>>.
+\definition eventualmente.
 %%%{{{ meta 
 \label eventually
 %%%}}}
 
-Considere um predicado $\phi \is \SetA \Real \to \Real$,
+Seja um predicado $\phi \is \SeqA \Real \to \Prop$ sobre seqüências de reais,
 e seja $\seqn a n$ uma seqüência de reais.
 Dizemos que a $\seqn a n$ \dterm{eventualmente} satisfaz o $\phi$
 sse para algum $N$, a subseqüência $\seq {a_i} {i \geq N}$ satisfaz o $\phi$,
@@ -28100,12 +28101,29 @@ $$
 
 %%}}}
 
+%%{{{ cor: cool_implies_eventually_cool 
+\corollary.
+%%%{{{ meta 
+\label cool_implies_eventually_cool
+%%%}}}
+
+Seja $\seqn a n$ uma seqüência legal (qualquer coisa que isso significa).
+Logo $\seqn a n$ é eventualmente legal.
+
+\proof.
+Basta escolher $N \asseq 0$,
+já que a subseqüência $\seq {a_n} {n \geq 0}$ é a própria seqüência $\seqn a n$.
+
+%%}}}
+
 %%{{{ df: limit_of_sequence_of_reals 
 \definition limite.
 %%%{{{ meta 
 \label limit_of_sequence_of_reals
 \defines
-    * ~{\seqn a n} \tends ~\ell  -- a seqüência $\seqn a n$ tende ao $\ell$
+    * ~{\seqn a n} \tends ~\ell    -- a seqüência $\seqn a n$ tende ao $\ell$
+    * ~{\seqn a n} \tends \pinfty  -- a seqüência $\seqn a n$ tende ao $\pinfty$
+    * ~{\seqn a n} \tends \minfty  -- a seqüência $\seqn a n$ tende ao $\minfty$
     * limite!reais
     * seqüência!convergente
     * seqüência!divergente
@@ -28135,10 +28153,14 @@ assim:
           {$\seqn a n$ está eventualmente contida na $\ball \epsilon \ell$} \\
 &\intiff
 \lforallt {\epsilon > 0}
-          {os membros da $\seqn a n$ são eventualmente $\epsilon$-perto de $\ell$} \\
+          {$\seqn a n$ eventualmente fica $\epsilon$-perto de $\ell$} \\
 &\intiff
 \lforallt {\epsilon > 0}
           {para valores suficientemente grandes de~$n$, $a_n$ é $\epsilon$-perto de $\ell$} \\
+&\intiff
+\pforall  {\epsilon > 0}
+\lexists  {N}
+          {\seq {a_n} {n \geq N} \subset \ball \epsilon \ell} \\
 &\intiff
 \pforall  {\epsilon > 0}
 \lexistst {N}
@@ -28150,7 +28172,8 @@ assim:
           {$a_i$ é $\epsilon$-perto de $\ell$} \\
 &\intiff
 \pforall  {\epsilon > 0}
-\pexists  {N} \lforall  {i \geq N}
+\pexists  {N}
+\lforall  {i \geq N}
           {d(a_i, \ell) < \epsilon}.
 \endmathcol
 Escrevemos também
