@@ -28516,7 +28516,7 @@ duma partida.  Talvez eu perdi só porque fui burro enquanto se tivesse
 jogado melhor eu teria ganhado.  Mas também talvez ganhei só porquê meu inimigo
 foi burro, e jogando contra um jogador melhor eu ia perder.
 O que podemos de fato usar (para inferir em forma correta que uma tal proposição
-é válida) é \emph{a existência duma estratégia vencedora} para mim, ou seja,
+é válida) é a existência duma \dterm{estratégia vencedora} para mim, ou seja,
 uma estratégia que determina como eu preciso jogar contra qualquer
 possível movimento do meu inimigo e chegar numa vitória.
 
@@ -28531,7 +28531,7 @@ A seqüência $1, 1, 1, \dotsc$ tende a $1$.
 
 \solution.
 Seja $\epsilon>0$.
-O desafio é achar $N \in \nats$ tal que a partir de $N$,
+O desafio é achar um $N$ tal que a partir de $N$,
 todos os membros da seqüência são $\epsilon$-perto de $1$.
 Tome $N \asseq 0$, e seja $n \geq N$.
 Obviamente o $n$-ésimo termo da seqüência é $\epsilon$-perto do $1$,
@@ -28547,9 +28547,9 @@ Observe que qualquer escolha de $N$ aqui funcionaria para fechar a demonstraçã
 %%%}}}
 
 $
-\text{$\seqn a n$ é eventualmente convergente}
+\text{$\seqn a n$ eventualmente convergente}
 \iff
-\text{$\seqn a n$ é convergente}.
+\text{$\seqn a n$ convergente}.
 $
 
 %%}}}
@@ -28768,8 +28768,7 @@ e portanto $\ell_1 = \ell_2$ (pela \mref[D-ZeroEq]).
 \label seq_of_intreal_conv_implies_eventually_const
 %%%}}}
 
-Seja seqüência de reais $\seqn a n$ tal que eventualmente $\seqn a n \subset \intreals$.
-Ache algo interessante para o \wq{\askdots} e demonstre sua afirmação.
+Ache algo interessante para o \wq{\askdots} e demonstre sua afirmação:
 $$
 \text{$\seqn a n$ convergente}
 \mland
@@ -29071,9 +29070,12 @@ O que podemos inferir sobre a $\seqn b n$?
 \spoiler
 
 %%{{{ thm: sandwich_limit_theorem_reals 
-\theorem.
+\theorem sanduíche.
 %%%{{{ meta 
 \label sandwich_limit_theorem_reals
+\defines
+    * teorema : sanduíche
+    ;;
 %%%}}}
 
 Sejam $\seqn a n, \seqn b n, \seqn c n \is \SeqA \Real$ tais que:
@@ -29203,6 +29205,36 @@ tais que para todo $i$, temos $b_i = a_{n_i}$.
 
 %%}}}
 
+%%{{{ blah 
+\blah Autoconvergente \vs convergente.
+%%%{{{ meta 
+%%%}}}
+
+Demonstramos no \ref[convergent_implies_Cauchy_in_reals] que
+\mathcol
+\text{autoconvergente}
+&\impliedby \text{convergente}.
+\itext
+Por enquanto não conseguimos demonstrar a recíproca
+\enditext
+\text{autoconvergente}
+&\askimplies \text{convergente}
+\endmathcol
+mas também não conseguimos encontrar nenhum contraexemplo.
+Agora vamos investigar o que acontece se acrescentar a hipótese que
+a seqüência possui subseqüência convergente e vamos pelo menos
+conseguir a implicação
+$$
+\rightbrace
+{ \mathed {  \text{autoconvergente}
+             \\ +
+             \\ \text{subseqüência convergente} }
+}
+\implies \text{convergente}:
+$$
+
+%%}}}
+
 %%{{{ thm: Cauchy_with_conv_subseq_implies_convergent_in_reals 
 \theorem.
 %%%{{{ meta 
@@ -29210,6 +29242,30 @@ tais que para todo $i$, temos $b_i = a_{n_i}$.
 %%%}}}
 
 Toda seqüência autoconvergente que possui subseqüência convergente é convergente.
+
+\proof.
+Seja $\seqn a n$ autoconvergente e seja uma subseqüência convergente dela $\seq {a_{k_i}} i$,
+e logo seja $\ell$ seu limite.
+Vou demonstrar que $\seqn a n \tends \ell$.
+Seja $\epsilon > 0$.
+Como $\seqn a n$ autoconvergente, seja $N$ tal que
+\mathcol
+\cforall {m,n \geq N} {\dist d {a_m} {a_n} < \epsilon_1}.
+\intertext {Como $\seq {a_{k_i}} i \tends \ell$, seja $I$ tal que}
+\cforall {i \geq I} {\dist d {a_{k_i}} \ell < \epsilon_2}.
+\endmathcol
+Seja $J \geq I$ tal que $k_J \geq N$.  (Justifique!)
+Vou demonstrar que a partir do $k_J$-ésimo termo da $\seqn a n$,
+todos os seus termos ficam $\epsilon$-perto do $\ell$.
+Seja $n \geq k_J$ então, e logo $n \geq N$ também.
+Calculamos
+\compute
+\dist d {a_n} \ell
+&\leq \dist d {a_n} {a_{k_J}} + \dist d {a_{k_J}} \ell  \by {\mref[D-Tri]} \\
+&< \epsilon_1 + \dist d {a_{k_J}} \ell                  \by {pois $n,k_J \geq N$} \\
+&< \epsilon_1 + \epsilon_2                              \by {pois $J \geq I$} \\
+&= \epsilon.
+\endcompute
 
 %%}}}
 
