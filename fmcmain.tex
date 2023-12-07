@@ -26853,8 +26853,7 @@ $$
 %%%}}}
 
 Mesmo sabendo que cada termo duma seqüência é \emph{estritamente menor}
-que o próximo, não podemos inferir que a seqüência é ilimitada:
-pode ser que é cotada superiormente, ou seja,
+que o próximo, não podemos inferir que a seqüência não é cotada por cima:
 pode ser que existe um real $M$, tal que todos os termos dela são menores que $M$.
 
 %%}}}
@@ -27490,284 +27489,6 @@ Mas antes de tudo isso, vamos falar de distâncias.
 \endproblems
 %%}}}
 
-%%{{{ Distance_on_reals 
-\section Distância.
-%%%{{{ meta 
-\label Distance_on_reals
-%%%}}}
-
-%%{{{ spec: metric_reals 
-\specification distância.
-%%%{{{ meta 
-\label metric_reals
-\defines
-    * distância
-    * métrica
-    * pré-distância
-    * pré-métrica
-    ;;
-\indexes
-    * pseudométrica         see: pré-métrica
-    * métrica           seealso: distância
-    * distância         seealso: métrica
-    ;;
-%%%}}}
-
-Seja $d : \alpha \times \alpha \to \Real$.
-Dizemos que $d$ é uma \dterm{distância} (ou \dterm{métrica}) no $\alpha$
-sse todas as propriedades seguintes são satisfeitas:
-\mathcall
-& \dist d x y \geq 0                          \called {positividade (1)}  \stag[D-Range]  \\
-& \dist d x y = \dist d y x                   \called {simetria}          \stag[D-Sym]    \\
-& \dist d x y \leq \dist d x w + \dist d w y  \called {triangular}        \stag[D-Tri]    \\
-& \dist d x x = 0                             \called {positividade (2)}  \stag[D-EqZero] \\
-& \dist d x y = 0 \implies x = y.             \called {positividade (3)}  \stag[D-ZeroEq] \\
-\endmathcall
-Chamamos a $d$ de \dterm{pré-distância} (ou \dterm{pré-métrica}, ou \dterm{pseudométrica})
-sse ela satisfaz as primeiras quatro dessas propriedades.
-
-%%}}}
-
-%%{{{ remark: variations and observations on metric_reals 
-\remark.
-%%%{{{ meta 
-%%%}}}
-
-Qual propriedade exatamente está sendo referida pelo termo \wq{positividade} varia
-na literatura, mas costuma ser uma ou uma combinação das (1)--(3) anotadas acima;
-eu vou evitar esse termo aqui.
-A \mref[D-EqZero] é equivalente à recíproca da \mref[D-ZeroEq], e por isso às vezes são
-juntadas em uma proposição só:
-\mathcol
-& \dist d x y = 0 \iff x = y. \\
-\intertext {A contrapositiva da \mref[D-ZeroEq], graças à \mref[D-Range] acaba sendo equivalente à}
-& x \neq y \implies \dist d x y > 0. \\
-\endmathcol
-que deixa mais clara a escolha do seu rótulo; em muitos textos é apresentada assim---aqui não.
-A \mref[D-Tri] é conhecida como \dterm{desigualdade triangular}, um nome melhor justificado
-quando consideramos distâncias num plano, onde corresponde à idéia que o melhor (mais curto)
-caminho entre dois pointos é aquele que vai direto de um ($x$) para o outro ($y$);
-medindo via terceiros pontos ($w$), em geral, pode aumentar a distância.
-
-%%}}}
-
-%%{{{ df: euclidean_metric_reals 
-\definition distância euclideana.
-%%%{{{ meta 
-\label euclidean_metric_reals
-%%%}}}
-
-Chamamos a função
-\mathcol
-d &\eqtype \Real \times \Real \to \Real \\
-\dist d a b &\defeq \abs{a - b}.
-\endmathcol
-de \dterm{distância eulideana}.
-
-%%}}}
-
-%%{{{ df: discrete_metric_reals 
-\definition distância discreta.
-%%%{{{ meta 
-\label discrete_metric_reals
-%%%}}}
-
-Chamamos a função
-\mathcol
-d_0 &\eqtype \Real \times \Real \to \Real \\
-\dist {d_0} a b
-&\defeq \cased { 0,   & se $a = b$; \\
-                 1,   & se $a \neq b$. }
-\endmathcol
-de \dterm{distância discreta}.
-
-%%}}}
-
-%%{{{ blah 
-\blah.
-%%%{{{ meta 
-%%%}}}
-
-Decidir chamar uma função de \wq{distância} não signifia que, de fato é.
-Precisamos verificar que ela atende a \ref[metric_reals].
-\wq{Precisamos}?  Quis dizer, precisas.  Agora.
-
-%%}}}
-
-%%{{{ x: euclidean_metric_justify_reals 
-\exercise.
-%%%{{{ meta 
-\label euclidean_metric_justify_reals
-%%%}}}
-
-Justifique: a distância euclideana, de fato, é uma distância, ou seja, atende
-a \ref[metric_reals].
-
-%%}}}
-
-%%{{{ x: discrete_metric_justify_reals 
-\exercise.
-%%%{{{ meta 
-\label discrete_metric_justify_reals
-%%%}}}
-
-A distância discreta também.
-
-%%}}}
-
-%%{{{ Which metric? 
-\note Qual distância?.
-%%%{{{ meta 
-%%%}}}
-
-O estudo abstrato de distâncias, viz., a teoria dos espaços métricos, é o assunto
-do \ref[Metric_spaces].
-Para meus propósitos neste capítulo vamos concordar que quando é envolvida
-uma métrica ou mencionada a palavra distância na conversa, sempre será a distância euclideana
-(\reftag[euclidean_metric_reals]) exceto se especificamente mencionar outra.
-No que segue, $d$ denota uma métrica, ou seja, uma função que satisfaz a \ref[metric_reals].
-
-%%}}}
-
-%%{{{ df: epsilon_close_reals 
-\definition ε-perto.
-%%%{{{ meta 
-\label epsilon_close_reals
-\defines
-    * perto!$\epsilon$-, de um real
-    ;;
-%%%}}}
-
-Seja $x,y$ reais e $\epsilon > 0$.
-Dizemos que
-$$
-\text{o $x$ é $\epsilon$-perto do $y$}
-\defiff
-\dist d x y < \epsilon.
-$$
-Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
-e logo podemos escrever também:
-$$
-\text{os $x,y$ são $\epsilon$-perto (entre si)}.
-$$
-
-%%}}}
-
-%%{{{ eg 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-Os $1$ e $2/3$ são $1/2$-perto (com a distância euclideana, mas não com a distância discreta).
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_reflexive 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_reflexive
-%%%}}}
-
-Dado $\epsilon > 0$, seja $(\sim_\epsilon)$ a relação definida pela
-$$
-x \sim_\epsilon y
-\defiff
-\text{$x$ é $\epsilon$-perto do $y$}.
-$$
-Demonstre que $(\sim_\epsilon)$ é reflexiva.
-
-\hint
-$\abs{x - x} = 0$.
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_symmetric 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_symmetric
-%%%}}}
-
-Dado $\epsilon > 0$, a $(\sim_\epsilon)$
-do~\ref[epsilon_close_is_reflexive] é simétrica,
-e logo podemos escrever frases como
-$$
-\textwq{os $x,y$ são $\epsilon$-perto (entre si)}.
-$$
-
-\solution
-Precisamos demonstrar
-$$
-\dist d x y < \epsilon \iff
-\dist d y x < \epsilon
-$$
-que segue imediatamente pela simetria da distância $d$ (\mref[D-Sym]).
-
-%%}}}
-
-%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
-\exercise.
-%%%{{{ meta 
-\label epsilon_close_is_not_an_equivalence_relation
-%%%}}}
-
-Existe algum $\epsilon > 0$ para qual
-a $(\sim_\epsilon)$ do~\ref[epsilon_close_is_reflexive]
-é uma relação \dterm{transitiva}?
-$$
-\text{$(\sim_\epsilon)$ é transitiva} \intiff \lforall {a,b,c} {a \sim_\epsilon b \mland b \sim_\epsilon c \implies a \sim_\epsilon c}.
-$$
-
-\hint
-Não!
-Por quê?
-
-%%}}}
-
-%%{{{ df: epsilon_ball_reals 
-\definition ε-bola.
-%%%{{{ meta 
-\label epsilon_ball_reals
-\defines
-    * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
-    * bola!$\epsilon$-, de real
-    ;;
-%%%}}}
-
-Dado um ponto $c$, chamamos o conjunto de todos os pontos que
-são $\epsilon$-perto do $c$ de \dterm{$\epsilon$-bola do $c$}:
-$$
-\ball \epsilon c
-\defeq
-\setstt {x} {$x$ é $\epsilon$-perto de $c$}.
-$$
-Também chamamos de \dterm{bola com centro $c$ e raio $\epsilon$}.
-
-%%}}}
-
-%%{{{ eg: couple of balls 
-\example.
-%%%{{{ meta 
-%%%}}}
-
-A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e a $2$-bola do $0$ o $(-2,2)$.
-
-%%}}}
-
-%%{{{ x: same balls but now discrete 
-\exercise.
-%%%{{{ meta 
-%%%}}}
-
-Ache as mesmas bolas mas considerando como distância a discreta.
-
-\solution
-A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e a $2$-bola do $0$ o $(-2,2)$.
-
-%%}}}
-
-\endsection
-%%}}}
-
 %%{{{ Infimum_and_supremum_on_reals 
 \section Infimum e supremum.
 %%%{{{ meta 
@@ -27809,6 +27530,7 @@ Se um conjunto $A$ tem pelo menos uma cota inferior,
 dizemos que $A$ é \dterm{cotado inferiormente} (ou, \dterm{bounded below});
 e se tem pelo menos uma cota superior, ele é \dterm{cotado superiormente}
 (ou, \dterm{bounded above}).
+Chamamos um conjunto de \dterm{cotado} se é cotado inferiormente e superiormente.
 
 %%}}}
 
@@ -28094,10 +27816,354 @@ mas este ponto é um ponto bom para formar uma tentativa boa de palpite.  Tente!
 \endsection
 %%}}}
 
-%%{{{ Limits_of_real_seqs_before_completeness 
+%%{{{ Distance_on_reals 
+\section Distância.
+%%%{{{ meta 
+\label Distance_on_reals
+%%%}}}
+
+%%{{{ spec: metric_reals 
+\specification distância.
+%%%{{{ meta 
+\label metric_reals
+\defines
+    * distância
+    * métrica
+    * pré-distância
+    * pré-métrica
+    ;;
+\indexes
+    * pseudométrica         see: pré-métrica
+    * métrica           seealso: distância
+    * distância         seealso: métrica
+    ;;
+%%%}}}
+
+Seja $d : \alpha \times \alpha \to \Real$.
+Dizemos que $d$ é uma \dterm{distância} (ou \dterm{métrica}) no $\alpha$
+sse todas as propriedades seguintes são satisfeitas:
+\mathcall
+& \dist d x y \geq 0                          \called {positividade (1)}  \stag[D-Range]  \\
+& \dist d x y = \dist d y x                   \called {simetria}          \stag[D-Sym]    \\
+& \dist d x y \leq \dist d x w + \dist d w y  \called {triangular}        \stag[D-Tri]    \\
+& \dist d x x = 0                             \called {positividade (2)}  \stag[D-EqZero] \\
+& \dist d x y = 0 \implies x = y.             \called {positividade (3)}  \stag[D-ZeroEq] \\
+\endmathcall
+Chamamos a $d$ de \dterm{pré-distância} (ou \dterm{pré-métrica}, ou \dterm{pseudométrica})
+sse ela satisfaz as primeiras quatro dessas propriedades.
+
+%%}}}
+
+%%{{{ remark: variations and observations on metric_reals 
+\remark.
+%%%{{{ meta 
+%%%}}}
+
+Qual propriedade exatamente está sendo referida pelo termo \wq{positividade} varia
+na literatura, mas costuma ser uma ou uma combinação das (1)--(3) anotadas acima;
+eu vou evitar esse termo aqui.
+A \mref[D-EqZero] é equivalente à recíproca da \mref[D-ZeroEq], e por isso às vezes são
+juntadas em uma proposição só:
+\mathcol
+& \dist d x y = 0 \iff x = y. \\
+\intertext {A contrapositiva da \mref[D-ZeroEq], graças à \mref[D-Range] acaba sendo equivalente à}
+& x \neq y \implies \dist d x y > 0. \\
+\endmathcol
+que deixa mais clara a escolha do seu rótulo; em muitos textos é apresentada assim---aqui não.
+A \mref[D-Tri] é conhecida como \dterm{desigualdade triangular}, um nome melhor justificado
+quando consideramos distâncias num plano, onde corresponde à idéia que o melhor (mais curto)
+caminho entre dois pointos é aquele que vai direto de um ($x$) para o outro ($y$);
+medindo via terceiros pontos ($w$), em geral, pode aumentar a distância.
+
+%%}}}
+
+%%{{{ df: euclidean_metric_reals 
+\definition distância euclideana.
+%%%{{{ meta 
+\label euclidean_metric_reals
+%%%}}}
+
+Chamamos a função
+\mathcol
+d &\eqtype \Real \times \Real \to \Real \\
+\dist d a b &\defeq \abs{a - b}.
+\endmathcol
+de \dterm{distância eulideana}.
+
+%%}}}
+
+%%{{{ df: discrete_metric_reals 
+\definition distância discreta.
+%%%{{{ meta 
+\label discrete_metric_reals
+%%%}}}
+
+Chamamos a função
+\mathcol
+d_0 &\eqtype \Real \times \Real \to \Real \\
+\dist {d_0} a b
+&\defeq \cased { 0,   & se $a = b$; \\
+                 1,   & se $a \neq b$. }
+\endmathcol
+de \dterm{distância discreta}.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Decidir chamar uma função de \wq{distância} não signifia que, de fato é.
+Precisamos verificar que ela atende a \ref[metric_reals].
+\wq{Precisamos}?  Quis dizer, precisas.  Agora.
+
+%%}}}
+
+%%{{{ x: euclidean_metric_justify_reals 
+\exercise.
+%%%{{{ meta 
+\label euclidean_metric_justify_reals
+%%%}}}
+
+Justifique: a distância euclideana, de fato, é uma distância, ou seja, atende
+a \ref[metric_reals].
+
+%%}}}
+
+%%{{{ x: discrete_metric_justify_reals 
+\exercise.
+%%%{{{ meta 
+\label discrete_metric_justify_reals
+%%%}}}
+
+A distância discreta também.
+
+%%}}}
+
+%%{{{ Which metric? 
+\note Qual distância?.
+%%%{{{ meta 
+%%%}}}
+
+O estudo abstrato de distâncias, viz., a teoria dos espaços métricos, é o assunto
+do \ref[Metric_spaces].
+Para meus propósitos neste capítulo vamos concordar que quando é envolvida
+uma métrica ou mencionada a palavra distância na conversa, sempre será a distância euclideana
+(\reftag[euclidean_metric_reals]) exceto se especificamente mencionar outra.
+No que segue, $d$ denota uma métrica, ou seja, uma função que satisfaz a \ref[metric_reals].
+
+%%}}}
+
+%%{{{ df: epsilon_close_reals 
+\definition ε-perto.
+%%%{{{ meta 
+\label epsilon_close_reals
+\defines
+    * perto!$\epsilon$-, de um real
+    ;;
+%%%}}}
+
+Seja $x,y$ reais e $\epsilon > 0$.
+Dizemos que
+$$
+\text{o $x$ é $\epsilon$-perto do $y$}
+\defiff
+\dist d x y < \epsilon.
+$$
+Observe que a relação é simétrica (\ref[epsilon_close_is_symmetric])
+e logo podemos escrever também:
+$$
+\text{os $x,y$ são $\epsilon$-perto (entre si)}.
+$$
+
+%%}}}
+
+%%{{{ eg 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+Os $1$ e $2/3$ são $1/2$-perto (com a distância euclideana, mas não com a distância discreta).
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_reflexive 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_reflexive
+%%%}}}
+
+Dado $\epsilon > 0$, seja $(\sim_\epsilon)$ a relação definida pela
+$$
+x \sim_\epsilon y
+\defiff
+\text{$x$ é $\epsilon$-perto do $y$}.
+$$
+Demonstre que $(\sim_\epsilon)$ é reflexiva.
+
+\hint
+$\abs{x - x} = 0$.
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_symmetric 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_symmetric
+%%%}}}
+
+Dado $\epsilon > 0$, a $(\sim_\epsilon)$
+do~\ref[epsilon_close_is_reflexive] é simétrica,
+e logo podemos escrever frases como
+$$
+\textwq{os $x,y$ são $\epsilon$-perto (entre si)}.
+$$
+
+\solution
+Precisamos demonstrar
+$$
+\dist d x y < \epsilon \iff
+\dist d y x < \epsilon
+$$
+que segue imediatamente pela simetria da distância $d$ (\mref[D-Sym]).
+
+%%}}}
+
+%%{{{ x: epsilon_close_is_not_an_equivalence_relation 
+\exercise.
+%%%{{{ meta 
+\label epsilon_close_is_not_an_equivalence_relation
+%%%}}}
+
+Existe algum $\epsilon > 0$ para qual
+a $(\sim_\epsilon)$ do~\ref[epsilon_close_is_reflexive]
+é uma relação \dterm{transitiva}?
+$$
+\text{$(\sim_\epsilon)$ é transitiva} \intiff \lforall {a,b,c} {a \sim_\epsilon b \mland b \sim_\epsilon c \implies a \sim_\epsilon c}.
+$$
+
+\hint
+Não!
+Por quê?
+
+%%}}}
+
+%%{{{ df: epsilon_ball_reals 
+\definition ε-bola.
+%%%{{{ meta 
+\label epsilon_ball_reals
+\defines
+    * \ball {~\epsilon} {~{x_0}}  -- a $\epsilon$-bola do $x_0$
+    * bola!$\epsilon$-, de real
+    ;;
+%%%}}}
+
+Dado um ponto $c$, chamamos o conjunto de todos os pontos que
+são $\epsilon$-perto do $c$ de \dterm{$\epsilon$-bola do $c$}:
+$$
+\ball \epsilon c
+\defeq
+\setstt {x} {$x$ é $\epsilon$-perto de $c$}.
+$$
+Também chamamos de \dterm{bola com centro $c$ e raio $\epsilon$}.
+
+%%}}}
+
+%%{{{ eg: couple of balls 
+\example.
+%%%{{{ meta 
+%%%}}}
+
+A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e a $2$-bola do $0$ o $(-2,2)$.
+
+%%}}}
+
+%%{{{ x: same balls but now discrete 
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+Ache as mesmas bolas mas considerando como distância a discreta.
+
+\solution
+A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e a $2$-bola do $0$ o $(-2,2)$.
+
+%%}}}
+
+%%{{{ df: diam_in_reals 
+\definition diâmetro.
+%%%{{{ meta 
+\label diam_in_reals
+\defines
+    * \diam {~A}    -- a diâmetro do conjunto de reais $A$
+    * diâmetro
+    ;;
+%%%}}}
+
+Seja $A$ um conjunto de reais.
+Se o conjunto de todas as possíveis distâncias entre seus membros
+$$
+\setst {\dist d a b} {a, b \in A}
+$$
+possui supremum, o chamamos de \dterm{diâmetro} de $A$.
+Ou seja,
+$$
+s = \diamA A \defiff s = \sup \setst {\dist d a b} {a, b \in A}
+$$
+escrevendo também
+\mathcols 2
+\diamA A = \minfty &\defiff \sup A = \minfty; &
+\diamA A = \pinfty &\defiff \sup A = \pinfty.
+\endmathcols
+Aproveitando a ordem dos reais estendidos escrevemos
+$$
+\diamA A < \pinfty
+$$
+quando $\diamA A = \minfty$ ou quando para algum real $s$ temos $s = \diamA A$.
+
+%%}}}
+
+%%{{{ df: bounded_in_reals 
+\definition cercado.
+%%%{{{ meta 
+\label bounded_in_reals
+\defines
+    * cercado
+    ;;
+%%%}}}
+
+Chamamos um conjunto de reais de \dterm{cercado} sse ele está contido numa bola:
+$$
+\text{$A$ cercado}
+\defiff
+\pexists c
+\lexists M
+         {A \subset \ball M c}.
+$$
+
+%%}}}
+
+%%{{{ x: bounded_vs_bounded_in_reals
+\exercise.
+%%%{{{ meta 
+%%%}}}
+
+$
+\text{$A$ cotado}
+\askiff
+\text{$A$ cercado}.
+$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Limits_reals_before_completeness 
 \section Limites.
 %%%{{{ meta 
-\label Limits_of_real_seqs_before_completeness
+\label Limits_reals_before_completeness
 %%%}}}
 
 %%{{{ df: for_sufficiently_large_values_of 
@@ -28782,10 +28848,10 @@ $\max \set{ M , \ell + 1 }$.
 \endsection
 %%}}}
 
-%%{{{ Limits_of_real_seqs_before_completeness_structure 
+%%{{{ Limits_and_structure_of_reals_before_completeness 
 \section Limites e a estrutura atual.
 %%%{{{ meta 
-\label Limits_of_real_seqs_before_completeness_structure
+\label Limits_and_structure_of_reals_before_completeness
 %%%}}}
 
 %%{{{ lim_respect
@@ -29243,16 +29309,42 @@ Calculamos:
 
 Toda seqüência de reais tem subseqüência crescente ou decrescente.
 
-\sketch.
+\proof.
 Introduzimos o conceito de posição de pico de seqüência:
-dizemos que $p$ é uma \dterm{posição de pico} para a $\seqn a n$
-sse $a_p \geq \seq {a_n} {n \geq p}$.
+dizemos que $P$ é uma \dterm{posição de pico} para a $\seqn a n$
+sse $a_P \geq \seq {a_n} {n \geq P}$.
 Para achar uma subseqüência desejada, separamos em casos a partir
-da quantidade de posições de pico da $\seqn a n$:
-\proofcase {Caso que tem uma infinidade de p.p.:}
-aqui conseguimos definir uma subseqüência decrescente.
-\proofcase {Caso contrário:}
-aqui conseguimos definir uma subseqüência crescente.
+da quantidade de posições de pico da $\seqn a n$.
+\crproofcase {Caso finita:}
+teu (\ref[real_monotone_subseq_thm_proof_finitely_many_peaks]).
+\crproofcase {Caso contrário:}
+também teu (\ref[real_monotone_subseq_thm_proof_infinitely_many_peaks]).
+
+%%}}}
+
+%%{{{ x: real_monotone_subseq_thm_proof_finitely_many_peaks 
+\exercise.
+%%%{{{ meta 
+\label real_monotone_subseq_thm_proof_finitely_many_peaks
+%%%}}}
+
+Feche o primeiro caso.
+
+\hint
+Aqui dá para conseguir uma subseqüência crescente.
+
+%%}}}
+
+%%{{{ x: real_monotone_subseq_thm_proof_infinitely_many_peaks 
+\exercise.
+%%%{{{ meta 
+\label real_monotone_subseq_thm_proof_infinitely_many_peaks
+%%%}}}
+
+E o segundo.
+
+\hint
+Aqui dá para conseguir uma subseqüência decrescente.
 
 %%}}}
 
@@ -29650,10 +29742,10 @@ por quais números?
 \endsection
 %%}}}
 
-%%{{{ Limits_of_real_seqs 
+%%{{{ Limits_reals 
 \section Limites de novo.
 %%%{{{ meta 
-\label Limits_of_real_seqs
+\label Limits_reals
 %%%}}}
 
 %%{{{ thm: monotone_convergence_thm 
@@ -29750,10 +29842,10 @@ Toda seqüência bounded possui subseqüência Cauchy.
 \endsection
 %%}}}
 
-%%{{{ Liminf_and_limsup_in_reals 
+%%{{{ Liminf_and_limsup_reals 
 \section Liminf e limsup.
 %%%{{{ meta 
-\label Liminf_and_limsup_in_reals
+\label Liminf_and_limsup_reals
 %%%}}}
 
 %%{{{ df: liminf_and_limsup_in_reals 
