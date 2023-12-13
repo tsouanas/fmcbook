@@ -29160,8 +29160,10 @@ Observe que cada um desses caminhos determina uma função de tipo
 $$
 \cdopt{sep=2cm}
 \SeqA \Real \times \SeqA \Real
-\ar[dr, harpoon, out=east,  in=north, "\tobrace {{(+)} \of {(\lim \times \lim)}} {a soma dos limites}"]
-\ar[dr, harpoon, out=south, in=west,  "\tubrace {{\lim} \of {(\oplus)}}          {o limite da soma}"']
+\ar[dr, harpoon, out=east,  in=north,
+    "\tobrace {{(+)} \of {(\lim \times \lim)}} {a soma dos limites}"]
+\ar[dr, harpoon, out=south, in=west,
+    "\tubrace {{\lim} \of {(\oplus)}} {o limite das somas}"']
     \| \\
     \| \Real
 \endcd
@@ -29176,7 +29178,7 @@ enquanto descer corresponde em \dq{somar}.
 Note que não são exatamete as mesmas funções as correspondem no
 \wq{atravessar à direita}: tendo um par de seqüências, denotamos por
 \mathcol
-\lim \times \lim &\eqtype \SeqA \Real \times \SeqA \Real \to \Real \times \Real
+\lim \times \lim &\eqtype \SeqA \Real \times \SeqA \Real \parto \Real \times \Real
 \itext
 a função que aplica a $\lim$ em cada componente da sua entrada e retorna
 o par das saidas:
@@ -29188,7 +29190,7 @@ descer no lado direito é a soma $(+)$ entre reais,
 mas descer no lado esquerdo é a soma pointwise $(\oplus)$
 entre seqüências de reais:
 \enditext
-(\oplus) &\eqtype \SeqA \Real \times \SeqA \Real \\
+(\oplus) &\eqtype \SeqA \Real \times \SeqA \Real \to \SeqA \Real \\
 (\oplus) &\defeq \pwA {(+)}.
 \endmathcol
 
@@ -29844,27 +29846,70 @@ Logo $\ell = 0$, pois caso $\ell\neq0$ poderiamos aplicar o cancelamento multipl
 \endsection
 %%}}}
 
-%%{{{ Archimedean_property_of_reals 
-\section Propriedade arquimedeana dos reais.
+%%{{{ The_archimedean_property_reals 
+\section A propriedade arquimedeana.
 %%%{{{ meta 
-\label Archimedean_property_of_reals
+\label The_archimedean_property_reals
+\defines
+    * propriedade!archimedeana
+    ;;
+\credits
+    * Archimedes : propriedade
+    ;;
 %%%}}}
+
+%%{{{ 6 properties 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Considere as proposições seguintes sobre o conjunto dos reais positivos:
+\mathcols 3
+&\mathcoled { &\text {$\natreals$ não é cotado} \\
+              &\lforallt {\epsilon} {$\epsilon \natreals$ não é cotado} } &
+&\mathcoled { &\pforall  {\epsilon} \lexists {n\in\natreals} { 1/n < \epsilon } \\
+              &\pforall  {\epsilon} \lexists {n\in\natreals} { n \epsilon > 1 } } &
+&\mathcoled { &\pforall  {s} \pforall {b} \lexists {n\in\natreals} { b/n < s } \\
+              &\pforall  {b} \pforall {s} \lexists {n\in\natreals} { n s > b }. }
+\endmathcols
+Há diferença entra as duas da última coluna?
+Como chamarias cada uma no «nível coração»?
+
+%%}}}
+
+%%{{{ df: infinitely_small_or_big 
+\definition infinitamente pequeno ou grande.
+%%%{{{ meta 
+\label infinitely_small_or_big
+\defines
+    * infinitamente!pequeno
+    * infinitamente!grande
+    ;;
+\indexes
+    * grande     see: infinitamente
+    * pequeno    see: infinitamente
+    ;;
+%%%}}}
+
+Dizemos que um número $u$ \dterm{alcança} o $v$
+sse para algum $n\in\natreals$, $un > v$.
+Chame um número positivo $b$ de \dterm{infinitamente grande}
+sse existe positivo $s$ que não alcança $b$.
+Chame um número positivo $s$ de \dterm{infinitamente pequeno}
+sse existe positivo $b$ que não é alcançado por $s$.
+
+%%}}}
 
 %%{{{ blah: from algebraic to relational
 \blah.
 %%%{{{ meta 
 %%%}}}
 
-Considere as proposições seguintes sobre o conjunto dos reais positivos:
-\mathcol
-&\text {$\natreals$ não é cotado} \\
-&\pforall  {\epsilon} \lexists {n\in\natreals} { 1/n < \epsilon } \\
-&\pforall  {s}        \lexists {n\in\natreals} { ns > 1 } \\
-&\lforallt {\epsilon} {$\epsilon \natreals$ não é cotado por cima} \\
-&\pforall  {s} \pforall {b} \lexists {n\in\natreals} { b < ns } \\
-&\pforall  {b} \pforall {s} \lexists {n\in\natreals} { ns > b }.
-\endmathcol
-Há diferença entra as duas últimas? Como chamarias cada uma no «nível coração»?
+Com essa terminologia, as últimas duas proposições acima viram pronunciáveis assim:
+\mathcols 2
+&\pforall {s} \tobrace {\pforall {b} \lexists {n\in\natreals} { b < ns }} {$s$ não é infinitamente pequeno} &
+&\pforall {b} \tobrace {\pforall {s} \lexists {n\in\natreals} { ns > b }} {$b$ não é infinitamente grande}
+\endmathcols
 
 %%}}}
 
