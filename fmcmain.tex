@@ -27515,6 +27515,9 @@ Mas antes de tudo isso, vamos falar de distâncias.
     * cota!superior
     * cota!inferior
     ;;
+\indexes
+    * limitante     see: cota
+    ;;
 %%%}}}
 
 Seja $A\subset \reals$.
@@ -27534,7 +27537,12 @@ Se um conjunto $A$ tem pelo menos uma cota inferior,
 dizemos que $A$ é \dterm{cotado inferiormente} (ou, \dterm{bounded below});
 e se tem pelo menos uma cota superior, ele é \dterm{cotado superiormente}
 (ou, \dterm{bounded above}).
-Chamamos um conjunto de \dterm{cotado} se é cotado inferiormente e superiormente.
+Chamamos um conjunto de \dterm{cotado} se é cotado inferiormente e superiormente;
+senão, ele é um conjunto \dterm{ilimitado}.\foot
+O que chamamos aqui de \dterm{cota} e de \dterm{cotado} são também chamados
+\dterm{limitante} e \dterm{limitado}, mas vou evitar esses termos por causa
+da conexão etimológica que essas palavras têm com a palavra \wq{limite}.
+\toof
 
 %%}}}
 
@@ -27572,8 +27580,8 @@ a \dterm{melhor cota superior} é chamada \dterm{supremo} ou \dterm{supremum}:
 \endmathcol
 Escrevemos $c = \inf A$ e $c = \sup A$ respectivamente, mas, como o leito deve
 ter suspeitado, \emph{não se tratam literamente de igualdades,} pois suas partes direitas
-sequer foram definidas \dq{em isolação} mesmo (veja mais sobre essa possibilidade no
-\ref[inf_and_sup_are_partial_on_reals].)
+sequer foram definidas \dq{em isolação} mesmo---veja mais sobre essa possibilidade no
+\ref[inf_and_sup_are_partial_on_reals].
 As tipagens corretas aqui então são as:
 \mathcols 2
 \uhole = \inf \uhole &\is \Real \cross \SetA \Real \to \Prop &
@@ -28092,6 +28100,107 @@ Ache as mesmas bolas mas considerando como distância a discreta.
 
 \solution
 A $1/3$-bola do $7$ é o intervalo $(7 - 1/3, 7 + 1/3)$ e a $2$-bola do $0$ o $(-2,2)$.
+
+%%}}}
+
+%%{{{ lemma: balls_are_intervals_reals 
+\lemma bolas nos reais.
+%%%{{{ meta 
+\label balls_are_intervals_reals
+%%%}}}
+
+Nos reais, bolas são intervalos da forma $(u,v)$ (com $u,v$ reais) e vice-versa.
+
+\proof.
+Associamos cada bola com um intervalo e vice versa
+(quase isso: \ref[balls_are_intervals_reals_why_almost]).
+\crproofpart {De bola $\ball r c$ para intervalo $(\uhole,\uhole)$.}
+A bola $\ball r c$ é o intervalo $(c-r, c+r)$:
+\compute
+\ball r c
+&= \setst {x} {\dist d x c < r} \noby \\
+&= \setst {x} {\abs {x - c} < r}      \\
+&= \setst {x} {c - r < x < c + r}     \\
+&= (c - r, c + r).
+\endcompute
+\proofpart {De intervalo $(u,v)$ para bola $\ball \uhole \uhole$.}
+Essa parte é tua (\ref[balls_are_intervals_reals_proof]).
+
+%%}}}
+
+%%{{{ x: balls_are_intervals_reals_proof 
+\exercise.
+%%%{{{ meta 
+\label balls_are_intervals_reals_proof
+%%%}}}
+
+Termine a demonstração do \ref[balls_are_intervals_reals].
+
+\hint
+Precisa escolher qual será o centro $c$ e qual o raio $r$ da bola associada ao $(u,v)$,
+e verificar que $\ball r c = (u,v)$ com tua escolha.
+
+\solution
+O intervalo $(u,v)$ de reais é a bola com centro
+$c = (u + v) / 2$ e raio o $r = (v - u)/2$:
+\compute
+x \in \ball r c
+&\iff \dist d x c < r \noby \\
+&\iff \abs {x - c} < r      \\
+&\iff c - r < x < c + r     \\
+&\iff x \in (c - r, c + r)  \\
+&\iff x \in \paren{\tfrac 12 (u+v) - \tfrac 1 2 (v-u), \tfrac 12 (u+v) + \tfrac 12 (v-u)} \\
+&\iff x \in (u,v).
+\endcompute
+
+%%}}}
+
+%%{{{ remark: balls_are_intervals_reals_proof_detail 
+\remark.
+%%%{{{ meta 
+\label balls_are_intervals_reals_proof_detail
+%%%}}}
+
+Efetivamente definimos funções
+$$
+\cdopt{sep=2cm}
+\Real \times \Real \ar[r, bend left=30, "\fpf {toInterval}"] \|
+\Real \times \Real \ar[l, bend left=30, "\fpf {toBall}"]
+\endcd
+$$
+entre centros-raios (de bolas) e inícios-fins (de intervalos),
+e tais funções são inversas entre si (são?---\reftag[balls_are_intervals_reals_proof_detail_questions]).
+Note que esses nomes não são exatamente honestos:
+bolas e intervalos são conjuntos de reais, não parzinhos de reais.
+Cada um desses conjuntos (tanto bola quanto intervalo), se é habitado,
+tem uma única representação como parzinho de centro-raio, e uma única
+representação como parzinho de início-fim.
+Essas funções efetivamente traduzem entre tais representações.
+E uma bola vazia?  E um intervalo vazio?
+Ambos são o mesmo conjunto: o $\emptyset \is \SetA \Real$;
+só que, visto como bola, ele tem uma infinidade de representações
+(quais?---\reftag[balls_are_intervals_reals_proof_detail_questions])~e visto como intervalo,
+também (quais?---\reftag[balls_are_intervals_reals_proof_detail_questions]).
+As traduções estabelecidas mantêm a correspondência até entre tais representações,
+algo que nem seria necessário para o objetivo de demonstrar o \ref[balls_are_intervals_reals].
+
+%%}}}
+
+%%{{{ x: balls_are_intervals_reals_proof_detail_questions 
+\exercise.
+%%%{{{ meta 
+\label balls_are_intervals_reals_proof_detail_questions
+%%%}}}
+
+São?  Quais?  Quais?
+
+\solution
+A bola vazia e o intervalo vazio são representados pelos parzinhos dos conjuntos
+\mathcols 2
+&\setst {(c,r)} { r \leq 0 } &
+&\setst {(v,u)} { u \leq v }
+\endmathcols
+respectivamente.
 
 %%}}}
 
