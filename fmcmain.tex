@@ -29887,11 +29887,11 @@ $$
     * Cantor : intervalos aninhados
     ;;
 \defines
-    * teorema! de intervalos aninhados de Cantor
+    * teorema!de intervalos aninhados de Cantor
     ;;
 %%%}}}
 
-Seja $\seqn I n$ família aninhada de intervalos fechados, cotados, e habitados, ou seja,
+Seja $\seqn I n$ seqüência aninhada de intervalos fechados, cotados, e habitados, ou seja,
 tais que
 $$
 I_0 \supset I_1 \supset I_2 \supset I_3 \supset \dotsb
@@ -29911,66 +29911,6 @@ Ainda mais, se $\seq {\diam(I_n)} n \tends 0$, então a interseção é um singl
 
 Demonstre que as hipoteses do~\ref[nested_interval_theorem_reals] sobre os
 intervalos ser fechados e cotados são \emph{necessárias}.
-
-%%}}}
-
-%%{{{ x: powers_of_small_tends_to_zero 
-\exercise.
-%%%{{{ meta 
-\label powers_of_small_tends_to_zero
-%%%}}}
-
-Seja $0 < \theta < 1$.
-Demonstre que $\seq {\theta^n} n \tends 0$.
-
-\hint
-Mostre que $\seq {\theta^n} n$ é decrescente e inf-cotada (por quem mesmo?).
-
-\hint
-Pelo (MCT), seja $\ell$ o limite da $\seq {\theta^n} n$.
-
-\hint
-Calcule o $\ell$ para chegar no $\ell = \theta\ell$, e obtenha $\ell = 0$ a partir disso.
-
-\hint
-Em geral, $\lim_n a n = \lim_n {a_{n+1}}$, onde entendemos esta igualdade como:
-ou ambas as seqüências convergem no mesmo limite, ou ambas as seqüências divergem.
-
-\solution
-Primeiramente vou mostrar que $\seq {\theta^n} n$ é inf-cotada e decrescente,
-assim garantido que é convergente; depois vou garantir que tal limite só pode ser o $0$.
-\eop
-Vou mostrar por indução que $\seq {\theta^n} n \geq 0$.
-Temos $\theta^0 = 1 \geq 0$, estabelecendo a base da indução.
-Seja $k$ natural tal que $\theta^k \geq 0$.
-Temos:
-$$
-\theta^{k+1}
-  =    \theta^k\theta
-  \geq 0
-$$
-como produto de não-negativos.
-\eop
-Vou mostrar que $\seq {\theta^n} n$ é decrescente.
-Seja $k$ natural.
-Calculamos:
-$$
-\theta^{k+1}
-= \theta^k \theta
-< \theta^k.
-$$
-Pelo (MCT), seja $\ell = \lim_n {\theta^n}$.
-Basta mostrar $\ell = 0$.
-Usando o \ref[algebraic_limit_theorem_for_reals_map_mult_c], calculamos:
-$$
-\ell
-= \lim_n {\theta^n}
-= \lim_n {\theta^{n+1}}
-= \lim_n {\theta^n \theta}
-= \theta \lim_n {\theta^n}
-= \theta \ell.
-$$
-Logo $\ell = 0$, pois caso $\ell\neq0$ poderiamos aplicar o cancelamento multiplicativo para obter $\theta = 1$, contradizendo nossa hipótese sobre $\theta$.
 
 %%}}}
 
@@ -30022,12 +29962,17 @@ Como chamarias cada uma no «nível coração»?
     ;;
 %%%}}}
 
-Dizemos que um número $u$ \dterm{alcança} o $v$
-sse para algum $n\in\natreals$, $un > v$.
-Chame um número positivo $b$ de \dterm{infinitamente grande}
-sse existe positivo $s$ que não alcança $b$.
-Chame um número positivo $s$ de \dterm{infinitamente pequeno}
-sse existe positivo $b$ que não é alcançado por $s$.
+Sejam $u,v$ reais positivos.
+Dizemos que:
+\mathcol
+\text{$u$ alcança subindo o $v$}  &\defiff \lexists {n\in\natreals} {u n > v}; \\
+\text{$u$ alcança descendo o $v$} &\defiff \lexists {n\in\natreals} {u/n < v}.
+\endmathcol
+Sejam $b,s$ reais positivos.
+Chame $b$ de \dterm{infinitamente grande}
+sse existe positivo $u$ que não alcança subindo o $b$;
+Chame $s$ de \dterm{infinitamente pequeno}
+sse existe positivo $u$ que não alcança descendo o $s$.
 
 %%}}}
 
@@ -30038,8 +29983,12 @@ sse existe positivo $b$ que não é alcançado por $s$.
 
 Com essa terminologia, as últimas duas proposições acima viram pronunciáveis assim:
 \mathcols 2
-&\pforall {s} \tobrace {\pforall {b} \lexists {n\in\natreals} { b < ns }} {$s$ não é infinitamente pequeno} &
-&\pforall {b} \tobrace {\pforall {s} \lexists {n\in\natreals} { ns > b }} {$b$ não é infinitamente grande}
+&\pforall {s} \tobrace {\pforall {b} \tubrace {\lexists {n\in\natreals} { b/n < s }}
+                                              {$b$ alcança descendo o $s$} }
+                       {$s$ não é infinitamente pequeno} &
+&\pforall {b} \tobrace {\pforall {s} \tubrace {\lexists {n\in\natreals} { ns > b }}
+                                              {$s$ alcança subindo o $b$} }
+                       {$b$ não é infinitamente grande}.
 \endmathcols
 
 %%}}}
@@ -30210,6 +30159,66 @@ Logo $\seq {a_n} {n \geq N} \subset \ball \epsilon s$.
 
 %%}}}
 
+%%{{{ x: powers_of_small_tends_to_zero 
+\exercise.
+%%%{{{ meta 
+\label powers_of_small_tends_to_zero
+%%%}}}
+
+Seja $0 < \theta < 1$.
+Demonstre que $\seq {\theta^n} n \tends 0$.
+
+\hint
+Mostre que $\seq {\theta^n} n$ é decrescente e inf-cotada (por quem mesmo?).
+
+\hint
+Pelo (MCT), seja $\ell$ o limite da $\seq {\theta^n} n$.
+
+\hint
+Calcule o $\ell$ para chegar no $\ell = \theta\ell$, e obtenha $\ell = 0$ a partir disso.
+
+\hint
+Em geral, $\lim_n a n = \lim_n {a_{n+1}}$, onde entendemos esta igualdade como:
+ou ambas as seqüências convergem no mesmo limite, ou ambas as seqüências divergem.
+
+\solution
+Primeiramente vou mostrar que $\seq {\theta^n} n$ é inf-cotada e decrescente,
+assim garantido que é convergente; depois vou garantir que tal limite só pode ser o $0$.
+\eop
+Vou mostrar por indução que $\seq {\theta^n} n \geq 0$.
+Temos $\theta^0 = 1 \geq 0$, estabelecendo a base da indução.
+Seja $k$ natural tal que $\theta^k \geq 0$.
+Temos:
+$$
+\theta^{k+1}
+  =    \theta^k\theta
+  \geq 0
+$$
+como produto de não-negativos.
+\eop
+Vou mostrar que $\seq {\theta^n} n$ é decrescente.
+Seja $k$ natural.
+Calculamos:
+$$
+\theta^{k+1}
+= \theta^k \theta
+< \theta^k.
+$$
+Pelo (MCT), seja $\ell = \lim_n {\theta^n}$.
+Basta mostrar $\ell = 0$.
+Usando o \ref[algebraic_limit_theorem_for_reals_map_mult_c], calculamos:
+$$
+\ell
+= \lim_n {\theta^n}
+= \lim_n {\theta^{n+1}}
+= \lim_n {\theta^n \theta}
+= \theta \lim_n {\theta^n}
+= \theta \ell.
+$$
+Logo $\ell = 0$, pois caso $\ell\neq0$ poderiamos aplicar o cancelamento multiplicativo para obter $\theta = 1$, contradizendo nossa hipótese sobre $\theta$.
+
+%%}}}
+
 %%{{{ thm: Bolzano_Weierstrass_theorem 
 \theorem Bolzano--Weierstrass.
 %%%{{{ meta 
@@ -30226,10 +30235,10 @@ Toda seqüência cotada de reais tem subseqüência convergente.
 
 \TODO sketch.
 
-%%{{{ cor: Cauchy_implies_convergent_in_reals 
+%%{{{ cor: Cauchy_iff_convergent_in_reals 
 \corollary.
 %%%{{{ meta 
-\label Cauchy_implies_convergent_in_reals
+\label Cauchy_iff_convergent_in_reals
 %%%}}}
 
 Uma seqüência de reais é autoconvergente sse é convergente.
