@@ -28284,6 +28284,11 @@ dependendo de se foi \wq{sim} ou \wq{não}.
 Lembre-se que implicitamente munimos os reais com a métrica euclideana
 (\ref[euclidean_metric_reals]).
 
+\solution
+Considere a distância discreta e o conjunto $\reals$.
+Ele não é cotado; mas $\reals$ está contido na bola $\ball 2 0$;
+de fato: $\ball 2 0 = \reals$.
+
 %%}}}
 
 \endsection
@@ -28414,7 +28419,7 @@ $$
 assim:
 \mathcol
 \seqn a n \tends \ell
-&\defiff \text {a seqüência $\seqn a n$ está eventualmente contida em qualquer bola de $\ell$} \\
+&\defiff \text {qualquer bola de $\ell$ eventualmente contem a seqüência $\seqn a n$} \\
 &\intiff
 \lforallt {\epsilon > 0}
           {$\seqn a n$ está eventualmente contida na $\ball \epsilon \ell$} \\
@@ -29874,13 +29879,19 @@ $$
 
 %%}}}
 
-%%{{{ thm: nested_intervals_property_for_reals 
-\theorem.
+%%{{{ thm: nested_interval_theorem_reals 
+\theorem intervalos aninhados de Cantor.
 %%%{{{ meta 
-\label nested_intervals_property_for_reals
+\label nested_interval_theorem_reals
+\credits
+    * Cantor : intervalos aninhados
+    ;;
+\defines
+    * teorema! de intervalos aninhados de Cantor
+    ;;
 %%%}}}
 
-Seja $\seqn I n$ família aninhada de intervalos fechados e habitados, ou seja,
+Seja $\seqn I n$ família aninhada de intervalos fechados, cotados, e habitados, ou seja,
 tais que
 $$
 I_0 \supset I_1 \supset I_2 \supset I_3 \supset \dotsb
@@ -29891,6 +29902,17 @@ Ainda mais, se $\seq {\diam(I_n)} n \tends 0$, então a interseção é um singl
 %%}}}
 
 \TODO sketch.
+
+%%{{{ x: nested_interval_theorem_reals_necessary_hypotheses 
+\exercise.
+%%%{{{ meta 
+\label nested_interval_theorem_reals_necessary_hypotheses
+%%%}}}
+
+Demonstre que as hipoteses do~\ref[nested_interval_theorem_reals] sobre os
+intervalos ser fechados e cotados são \emph{necessárias}.
+
+%%}}}
 
 %%{{{ x: powers_of_small_tends_to_zero 
 \exercise.
@@ -30188,36 +30210,6 @@ Logo $\seq {a_n} {n \geq N} \subset \ball \epsilon s$.
 
 %%}}}
 
-%%{{{ thm: nested_interval_theorem 
-\theorem intervalos aninhados.
-%%%{{{ meta 
-\label nested_interval_theorem
-%%%}}}
-
-Seja $\seqn I n$ uma seqüência de intervalos não vazios, fechados, e cotados,
-que forma uma $(\supset)$-chain:
-$$
-I_0 \supset I_1 \supset I_2 \supset \dotsb.
-$$
-Logo $\Inter_n I_n \neq \emptyset$.
-E se $\len(I_n) \tends 0$, 
-então $\Inter_n I_n$ é um singleton.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ x: closed_and_bounded_important_in_nested_interval_theorem 
-\exercise.
-%%%{{{ meta 
-\label closed_and_bounded_important_in_nested_interval_theorem
-%%%}}}
-
-Demonstre que as hipoteses do~\ref[nested_interval_theorem] sobre os
-intervalos ser fechados e cotados são \emph{necessárias}.
-
-%%}}}
-
 %%{{{ thm: Bolzano_Weierstrass_theorem 
 \theorem Bolzano--Weierstrass.
 %%%{{{ meta 
@@ -30240,7 +30232,7 @@ Toda seqüência cotada de reais tem subseqüência convergente.
 \label Cauchy_implies_convergent_in_reals
 %%%}}}
 
-Uma seqüência de reais é Cauchy sse é convergente.
+Uma seqüência de reais é autoconvergente sse é convergente.
 
 %%}}}
 
@@ -30252,13 +30244,98 @@ Uma seqüência de reais é Cauchy sse é convergente.
 \label bounded_implies_Cauchy_subseq_in_reals
 %%%}}}
 
-Toda seqüência cotada possui subseqüência Cauchy.
+Toda seqüência cotada possui subseqüência autoconvergente.
 
 %%}}}
 
 \TODO sketch.
 
 \endsection
+%%}}}
+
+%%{{{ Roots_of_reals 
+\section Raizes de reais.
+%%%{{{ meta 
+\label Roots_of_reals
+%%%}}}
+
+%%{{{ thm: square_root_of_small_reals 
+\theorem.
+%%%{{{ meta 
+\label square_root_of_small_reals
+%%%}}}
+
+Seja $0 \leq a \leq 1$.
+Logo a seqüência de reais $\seqn a n$ definida pelas
+\mathcol
+a_0 &= 0 \\
+a_{n+1} &= a_n + \frac 1 2 {(a - a_n^2)}
+\endmathcol
+converge ao $\sqrt a$.
+
+%%}}}
+
+\TODO sketch.
+
+%%{{{ thm: square_root_of_two_is_real 
+\theorem.
+%%%{{{ meta 
+\label square_root_of_two_is_real
+%%%}}}
+
+Existe real $a$ tal que $a^2 = 2$.
+
+%%}}}
+
+\TODO sketch.
+
+\endsection
+%%}}}
+
+%%{{{ Geometric_representation_of_reals 
+\section Representação geométrica.
+%%%{{{ meta 
+\label Geometric_representation_of_reals
+%%%}}}
+
+\TODO Expansão como instruções.
+
+\endsection
+%%}}}
+
+%%{{{ PROBLEMS INTERMISSION 
+\problems Intervalo de problemas.
+%%%{{{ meta 
+%%%}}}
+
+%%{{{ thm: ramsey_for_real_monotone_subseq_theorem 
+\theorem Ramsey.
+%%%{{{ meta 
+\label ramsey_for_monotone_subseq_theorem
+\credits
+    * Ramsey
+    ;;
+%%%}}}
+
+Seja $\pset_n A \defeq \setst { S \subset A } {\card{A} = n}$.
+Sejam $A,B,N$ tais que $\pset_2 N = A \union B$.
+Logo existe $M \subset N$ tal que:
+(i) $M$ é infinito; e
+(ii) $M \subset A$ ou $M \subset B$.
+
+%%}}}
+
+%%{{{ prob: ramsey_implies_real_monotone_subseq_thm 
+\problem.
+%%%{{{ meta 
+\label ramsey_implies_real_monotone_subseq_thm
+%%%}}}
+
+Dado o teorema acima, demonstre o \ref[real_monotone_subseq_thm] como corolário.
+
+%%}}}
+
+\endproblems
 %%}}}
 
 %%{{{ Liminf_and_limsup_reals 
@@ -30340,91 +30417,6 @@ $$
 \TODO demonstrar.
 
 \TODO elaborar e conectar com os equivalentes operadores em conjuntos.
-
-\endsection
-%%}}}
-
-%%{{{ Roots_of_reals 
-\section Raizes de reais.
-%%%{{{ meta 
-\label Roots_of_reals
-%%%}}}
-
-%%{{{ thm: square_root_of_small_reals 
-\theorem.
-%%%{{{ meta 
-\label square_root_of_small_reals
-%%%}}}
-
-Seja $0 \leq a \leq 1$.
-Logo a seqüência de reais $\seqn a n$ definida pelas
-\mathcol
-a_0 &= 0 \\
-a_{n+1} &= a_n + \frac 1 2 {(a - a_n^2)}
-\endmathcol
-converge ao $\sqrt a$.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ thm: square_root_of_two_is_real 
-\theorem.
-%%%{{{ meta 
-\label square_root_of_two_is_real
-%%%}}}
-
-Existe real $a$ tal que $a^2 = 2$.
-
-%%}}}
-
-\TODO sketch.
-
-\endsection
-%%}}}
-
-%%{{{ PROBLEMS INTERMISSION 
-\problems Intervalo de problemas.
-%%%{{{ meta 
-%%%}}}
-
-%%{{{ thm: ramsey_for_real_monotone_subseq_theorem 
-\theorem Ramsey.
-%%%{{{ meta 
-\label ramsey_for_monotone_subseq_theorem
-\credits
-    * Ramsey
-    ;;
-%%%}}}
-
-Seja $\pset_n A \defeq \setst { S \subset A } {\card{A} = n}$.
-Sejam $A,B,N$ tais que $\pset_2 N = A \union B$.
-Logo existe $M \subset N$ tal que:
-(i) $M$ é infinito; e
-(ii) $M \subset A$ ou $M \subset B$.
-
-%%}}}
-
-%%{{{ prob: ramsey_implies_real_monotone_subseq_thm 
-\problem.
-%%%{{{ meta 
-\label ramsey_implies_real_monotone_subseq_thm
-%%%}}}
-
-Dado o teorema acima, demonstre o \ref[real_monotone_subseq_thm] como corolário.
-
-%%}}}
-
-\endproblems
-%%}}}
-
-%%{{{ Geometric_representation_of_reals 
-\section Representação geométrica.
-%%%{{{ meta 
-\label Geometric_representation_of_reals
-%%%}}}
-
-\TODO Expansão como instruções.
 
 \endsection
 %%}}}
