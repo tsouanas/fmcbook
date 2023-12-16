@@ -30388,10 +30388,10 @@ Toda seqüência cotada possui subseqüência autoconvergente.
 \endsection
 %%}}}
 
-%%{{{ Roots_of_reals 
-\section Raizes de reais.
+%%{{{ Roots_reals 
+\section Raizes.
 %%%{{{ meta 
-\label Roots_of_reals
+\label Roots_reals
 %%%}}}
 
 %%{{{ thm: square_root_of_small_reals 
@@ -30408,9 +30408,34 @@ a_{n+1} &= a_n + \frac 1 2 {(a - a_n^2)}
 \endmathcol
 converge ao $\sqrt a$.
 
+\proof.
+Primeiramente demonstramos que a $\seqn a n$ é crescente e sup-cotada (\ref[square_root_of_small_reals_proof]).
+Logo ela é convergente, e logo seja $\ell = \lim_n a_n$.
+Basta calcular que $\ell^2 = 2$:
+\compute
+\ell^2
+&= (\lim_n a_n)^2 \by {escolha de $\ell$} \\
+&\eqvdots \by {\ref[square_root_of_small_reals_proof]} \\
+&= 2.
+\endcompute
+
 %%}}}
 
-\TODO sketch.
+%%{{{ x: square_root_of_small_reals_proof 
+\exercise.
+%%%{{{ meta 
+\label square_root_of_small_reals_proof
+%%%}}}
+
+Feche a demonstração do \ref[square_root_of_small_reals]:
+(i) $\seqn a n$ é crescente;
+(ii) $\seqn a n$ é sup-cotada;
+(iii) $\ell^2 = 2$.
+
+\hint
+Para a parte (iii), lembre como demonstramos o \ref[powers_of_small_tends_to_zero].
+
+%%}}}
 
 %%{{{ thm: square_root_of_two_is_real 
 \theorem.
@@ -30418,11 +30443,60 @@ converge ao $\sqrt a$.
 \label square_root_of_two_is_real
 %%%}}}
 
-Existe real $a$ tal que $a^2 = 2$.
+Existe real $h$ tal que $h^2 = 2$.
+
+\proof.
+Seja $A = \setst x {x^2 < 2}$.
+Como $A$ é habitado e sup-cotado, logo seja $h = \sup A$.
+Para demonstrar que $h^2 = 2$, basta eliminar (tu, no \ref[square_root_of_two_is_real_proof])
+os outros dois casos: $h^2 < 2$; $h^2 > 2$.
 
 %%}}}
 
-\TODO sketch.
+%%{{{ x: square_root_of_two_is_real_proof 
+\exercise.
+%%%{{{ meta 
+\label square_root_of_two_is_real_proof
+%%%}}}
+
+Elimine os casos $h^2 < 2$ e $h^2 > 2$ para terminar a demonstração
+do \ref[square_root_of_two_is_real].
+
+\hint
+Pela escolha de $h$ (como supremum), obtemos dois dados.
+Um te ajudará eliminar um caso, e o outro, o outro.
+
+\solution
+\proofcase {Caso $h^2 < 2$.}
+Basta achar uma cota superior de $A$, maior que $h$,
+assim contradizendo sua escolha como a \emph{melhor} cota.
+A esperança é que vamos conseguir aumentar $h$ um tiquinho
+tão pequeno que seu quadrado vai continuar sendo menor que $2$.
+\compute
+\paren{h + \frac 1 n}^2
+= h^2 + 2h\frac 1 n + \frac 1 {n^2} \\
+< h^2 + 2h\frac 1 n + \frac 1 n \\
+= h^2 + \frac {2h + 1} n \\
+\endcompute
+Seja $0 < \epsilon < 1$ tal que $h^2 + \epsilon < 2$.
+Basta achar um $\epsilon'$ tal que $(h + \epsilon')^2 < 2$.
+Calculamos:
+\compute
+\paren{h + \epsilon}^2
+= h^2 + 2h\epsilon + \epsilon^2 \\
+< h^2 + 2h\epsilon + \epsilon  \\
+= h^2 + (2h + 1)\epsilon \\
+< h^2 + (2h + 1)\frac \epsilon {2h + 1} \\
+= h^2 + \epsilon \\
+< 2 \\
+\endcompute
+
+
+
+
+\crproofcase {Caso $h^2 > 2$.}
+
+%%}}}
 
 \endsection
 %%}}}
