@@ -30056,6 +30056,7 @@ $$
 %%{{{ thm: monotone_convergence_thm 
 \theorem Monotone Convergence Theorem.
 %%%{{{ meta 
+\aka MCT.
 \headerize
 \label monotone_convergence_thm
 %%%}}}
@@ -30138,9 +30139,42 @@ Logo $\ell = 0$, pois caso $\ell\neq0$ poderiamos aplicar o cancelamento multipl
 
 %%}}}
 
-%%{{{ thm: nested_interval_theorem_reals 
-\theorem intervalos aninhados de Cantor.
+%%{{{ thm: Bolzano_Weierstrass_theorem 
+\theorem Teorema Bolzano--Weierstrass.
 %%%{{{ meta 
+\aka B--W.
+\headerize
+\label Bolzano_Weierstrass_theorem
+\credits
+    * Bolzano : --Weierstrass, teorema
+    * Weierstrass : Bolzano--, teorema
+    ;;
+%%%}}}
+
+Toda seqüência cotada de reais tem subseqüência convergente:
+$$
+\text{cotada}
+\implies
+\text{subseqüênia~convergente}.
+\stag[B--W]
+$$
+
+\proof.
+\proofsteps
+\steptnb {Seja $\seqn a n$ cotada.}
+\steptby {Logo $\seqn a n$ possui subseqüência monótona (e cotada) $\seq {a_{n_i}} i$.}
+         {\ref[real_monotone_subseq_thm]}
+\steptby {Logo a subseqüência $\seq {a_{n_i}} i$ é convergente.}
+         {\ref[monotone_convergence_thm]}
+\endproofsteps
+
+%%}}}
+
+%%{{{ thm: nested_interval_theorem_reals 
+\theorem Nested Intervals Property (Cantor).
+%%%{{{ meta 
+\aka NIP.
+\headerize
 \label nested_interval_theorem_reals
 \credits
     * Cantor : intervalos aninhados
@@ -30173,30 +30207,10 @@ intervalos ser fechados e cotados são \emph{necessárias}.
 
 %%}}}
 
-%%{{{ thm: Bolzano_Weierstrass_theorem 
-\theorem Teorema Bolzano--Weierstrass.
-%%%{{{ meta 
-\headerize
-\label Bolzano_Weierstrass_theorem
-\credits
-    * Bolzano : --Weierstrass, teorema
-    * Weierstrass : Bolzano--, teorema
-    ;;
-%%%}}}
-
-Toda seqüência cotada de reais tem subseqüência convergente:
-$$
-\text{cotada}
-\implies
-\text{subseqüênia~convergente}.
-\stag[B--W]
-$$
-
-%%}}}
-
 %%{{{ thm: Cauchy_iff_convergent_in_reals 
 \theorem Cauchy Convergence Criterion.
 %%%{{{ meta 
+\aka CCC.
 \headerize
 \label Cauchy_iff_convergent_in_reals
 %%%}}}
@@ -30205,6 +30219,17 @@ Toda seqüência de reais autoconvergente é convergente:
 $$
 \text{autoconvergente} \implies \text{convergente}. \stag[CCC]
 $$
+
+\proof.
+\proofsteps
+\steptnb {Seja $\seqn a n$ autoconvergente.}
+\steptby {Logo $\seqn a n$ cotada.}
+         {\ref[Cauchy_implies_bounded_in_reals]}
+\steptby {Logo $\seqn a n$ possui subseqüência convergente.}
+         {\ref[Bolzano_Weierstrass_theorem]}
+\steptby {Logo $\seqn a n$ convergente.}
+         {\ref[Cauchy_with_conv_subseq_implies_convergent_in_reals]}
+\endproofsteps
 
 %%}}}
 
