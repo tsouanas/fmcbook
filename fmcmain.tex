@@ -30602,6 +30602,114 @@ Calculamos:
 \endsection
 %%}}}
 
+%%{{{ Infinite_cardinalities 
+\section Cardinalidades infinitas.
+%%%{{{ meta 
+\label Infinite_cardinalities
+\credits
+    * Cantor
+    ;;
+%%%}}}
+
+%%{{{ thm: rats_countable 
+\theorem Cantor.
+%%%{{{ meta 
+\label rats_countable
+\credits
+    * Cantor!primeira demonstração de incontabilidade
+    ;;
+%%%}}}
+
+Existe seqüência $\seqn q n$ tal que $\seqnset q n = [0,1]\inter\ratreals$.
+
+\proof.
+Seja
+$$
+\seqn q n
+\pseudodefeq
+\frac 0 1, \; \frac 1 1, \;
+\frac 0 2, \; \frac 1 2, \; \frac 2 2, \;
+\frac 0 3, \; \frac 1 3, \; \frac 2 3, \; \frac 3 3, \;
+\frac 0 4, \; \frac 1 4, \; \frac 2 4, \; \frac 3 4, \; \frac 4 4,
+\dots
+$$
+(Formalmente definir essa seqüência é o \ref[rats_countable_formal_def].)
+
+%%}}}
+
+%%{{{ thm: reals_uncountable_first_proof_of_Cantor 
+\theorem Cantor.
+%%%{{{ meta 
+\label reals_uncountable_first_proof_of_Cantor
+\credits
+    * Cantor!primeira demonstração de incontabilidade
+    ;;
+%%%}}}
+
+Não existe seqüência $\seqn t n$ tal que $\seqnset t n = [0,1]$.
+Equivalentemente:
+para qualquer seqüência $\seqn t n$, e quaisquer reais $a < b$,
+existe $w \in [a,b]$ tal que $w \notin \seqnset t n$.
+Ou seja, nenhuma seqüência consegue \dq{cobrir} um intervalo:
+tem habitates que nunca serão contados pela seqüência; conseguem escapar dela.
+
+\sketch.
+Sejam $a,b$ reais com $a < b$ e $\seqn t n$ seqüência de reais.
+Construimos um real $w \in [a,b]$ tal que
+$$
+\lforall n {t_n \neq w}.
+$$
+Caso que a seqüência $\seqn t n$ nunca entra no $[a,b]$,
+seja $w \in [a,b]$ e temos nosso testemunha e acabou.
+Caso que a seqüência só pega um valor $t \in [a,b]$, seja
+$w \in [a,b] \setminus \set t$, e acabou.
+Caso contrário, a seqüência pega pelo menos dois distintos valores no $[a,b]$.
+Chame $\ell_1$ o menor deles, e $r_1$ o maior.
+Como $\ell_1 < r_1$, seja $I_1 = [\ell_1, r_1]$.
+Repetimos a mesma idéia no $I_1$ para obter ou um testemunha $w$
+(nos dois primeiros casos), assim acabando com a demonstração;
+ou dois distintos reais $\ell_2 < r_2$ no $[\ell_1, r_1]$ definindo assim o $I_2 = [\ell_2, r_2]$.
+Continuando assim acabamos definindo ou $N$ intervalos chegando num último intervalo $I_N$
+pois não tem mais dois distintos membros nele contados pela seqüência para continuar,
+ou uma seqüência de intervalos $\seqn I n$;
+e note que são aninhados, fechados, e habitados, e logo sua interseção $\Inter_n I_n$
+é habitada.
+No primero caso acabamos com
+$$
+a = \ell_0 < \ell_1 < \ell_2 < \dotsb < \ell_N \quad < \quad r_N < \dotsb < r_2 < r_1 < r_0 = b;
+$$
+no segundo com
+$$
+a = \ell_0 < \ell_1 < \ell_2 < \dotsb \mathrel{\phantom<} \phantom{\ell_N} \quad \mathrel{\phantom<} \quad \phantom{r_N} \mathrel{\phantom<} \dotsb < r_2 < r_1 < r_0 = b;
+$$
+Note que a $\seqn I n$ é uma seqüência de intervalos aninhados, fechados, e habitados
+e logo $\Inter_n I_n$ é habitada também e qualquer habitante dela serve como testemunha.
+
+%%}}}
+
+%%{{{ remark 
+\remark.
+%%%{{{ meta 
+\defines
+    * conjunto!incontável
+    ;;
+%%%}}}
+
+A importância desse teorema é assustadora---algo comprovado pelos eventos históricos
+logo depois de tal descoberta de Cantor.  Dedicamos um capítulo inteiro (\ref[Cantors_paradise])
+no assunto---onde também encontramos uma outra demonstração (também de Cantor) muito mais
+elegante---mas por enquanto basta apreciar que temos um primeiro toque de \emph{cardinalidades
+infinitas distintas e comparáveis: uma estritamente maior que a outra!}
+Num lado, temos a cardinalidade do $\nats$, que é nosso conjunto de índices,
+e mesmo podendo ter um real para cada tal índice, o intervalo $[a,b]$ é tão populoso
+que não tem como \emph{contar} todos os seus membros usando nossa seqüência.
+Tais conjuntos chamamos de \dterm{incontáveis}.
+
+%%}}}
+
+\endsection
+%%}}}
+
 %%{{{ PROBLEMS INTERMISSION 
 \problems Intervalo de problemas.
 %%%{{{ meta 
@@ -30631,6 +30739,16 @@ Logo existe $M \subset N$ tal que:
 %%%}}}
 
 Dado o teorema acima, demonstre o \ref[real_monotone_subseq_thm] como corolário.
+
+%%}}}
+
+%%{{{ prob: rats_countable_formal_def 
+\problem.
+%%%{{{ meta 
+\label rats_countable_formal_def
+%%%}}}
+
+Defina mesmo a seqüência $\seqn q n$ que eu \dq{pseudodefini} no \ref[rats_countable].
 
 %%}}}
 
