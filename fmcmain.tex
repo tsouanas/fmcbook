@@ -30036,6 +30036,145 @@ intervalos ser fechados e cotados são \emph{necessárias}.
 \endsection
 %%}}}
 
+%%{{{ Five_equivalent_propositions_reals 
+\section MCT, NIP, CCC, B--W.
+%%%{{{ meta 
+\label Five_equivalent_propositions_reals
+%%%}}}
+
+%%{{{ thm: monotone_convergence_thm 
+\theorem Monotone Convergence Theorem (MCT).
+%%%{{{ meta 
+\headerize
+\label monotone_convergence_thm
+%%%}}}
+
+Toda seqüência monótona e cotada é convergente:
+$$
+\text{monótona} \mland \text{cotada} \implies \text{convergente}. \stag[MCT]
+$$
+
+\proof.
+Seja $\seqn a n$ seqüência crescente e supcotada.
+Logo $\seqnset a n$ supcatado e logo seja $s$ o seu supremum.
+Vou demonstrar que $\seqn a n \tends s$.
+Seja $\epsilon > 0$.
+Pela escolha de $s$, $s - \epsilon$ não pode ser supcota da $\seqn a n$,
+e logo seja $N$ tal que $a_N > s - \epsilon$.
+Temos então $s - \epsilon < a_N < s$.
+Como $\seqn a n$ crescente, temos $s - \epsilon < \seq {a_n} {n \geq N} < s$.
+Logo $\seq {a_n} {n \geq N} \subset \ball \epsilon s$.
+
+%%}}}
+
+%%{{{ x: powers_of_small_tends_to_zero 
+\exercise.
+%%%{{{ meta 
+\label powers_of_small_tends_to_zero
+%%%}}}
+
+Seja $0 < \theta < 1$.
+Demonstre que $\seq {\theta^n} n \tends 0$.
+
+\hint
+Mostre que $\seq {\theta^n} n$ é decrescente e inf-cotada (por quem mesmo?).
+
+\hint
+Pelo (MCT), seja $\ell$ o limite da $\seq {\theta^n} n$.
+
+\hint
+Calcule o $\ell$ para chegar no $\ell = \theta\ell$, e obtenha $\ell = 0$ a partir disso.
+
+\hint
+Em geral, $\lim_n a n = \lim_n {a_{n+1}}$, onde entendemos esta igualdade como:
+ou ambas as seqüências convergem no mesmo limite, ou ambas as seqüências divergem.
+
+\solution
+Primeiramente vou mostrar que $\seq {\theta^n} n$ é inf-cotada e decrescente,
+assim garantido que é convergente; depois vou garantir que tal limite só pode ser o $0$.
+\eop
+Vou mostrar por indução que $\seq {\theta^n} n \geq 0$.
+Temos $\theta^0 = 1 \geq 0$, estabelecendo a base da indução.
+Seja $k$ natural tal que $\theta^k \geq 0$.
+Temos:
+$$
+\theta^{k+1}
+  =    \theta^k\theta
+  \geq 0
+$$
+como produto de não-negativos.
+\eop
+Vou mostrar que $\seq {\theta^n} n$ é decrescente.
+Seja $k$ natural.
+Calculamos:
+$$
+\theta^{k+1}
+= \theta^k \theta
+< \theta^k.
+$$
+Pelo (MCT), seja $\ell = \lim_n {\theta^n}$.
+Basta mostrar $\ell = 0$.
+Usando o \ref[algebraic_limit_theorem_for_reals_map_mult_c], calculamos:
+$$
+\ell
+= \lim_n {\theta^n}
+= \lim_n {\theta^{n+1}}
+= \lim_n {\theta^n \theta}
+= \theta \lim_n {\theta^n}
+= \theta \ell.
+$$
+Logo $\ell = 0$, pois caso $\ell\neq0$ poderiamos aplicar o cancelamento multiplicativo para obter $\theta = 1$, contradizendo nossa hipótese sobre $\theta$.
+
+%%}}}
+
+%%{{{ thm: Bolzano_Weierstrass_theorem 
+\theorem Bolzano--Weierstrass.
+%%%{{{ meta 
+\label Bolzano_Weierstrass_theorem
+\credits
+    * Bolzano : --Weierstrass, teorema
+    * Weierstrass : Bolzano--, teorema
+    ;;
+%%%}}}
+
+Toda seqüência cotada de reais tem subseqüência convergente:
+$$
+\text{cotada}
+\implies
+\text{subseq~conv}.
+\stag[B-W]
+$$
+
+%%}}}
+
+%%{{{ thm: Cauchy_iff_convergent_in_reals 
+\theorem Cauchy convergence critérion (CCC).
+%%%{{{ meta 
+\label Cauchy_iff_convergent_in_reals
+%%%}}}
+
+Uma seqüência de reais é autoconvergente sse é convergente:
+$$
+\text{autoconvergente} \implies \text{convergente}. \stag[CCC]
+$$
+
+%%}}}
+
+%%{{{ cor: bounded_implies_Cauchy_subseq_in_reals.
+\corollary.
+%%%{{{ meta 
+\label bounded_implies_Cauchy_subseq_in_reals
+%%%}}}
+
+Toda seqüência cotada possui subseqüência autoconvergente:
+
+%%}}}
+
+\TODO finish.
+
+\endsection
+%%}}}
+
 %%{{{ The_archimedean_property_reals 
 \section A propriedade arquimedeana.
 %%%{{{ meta 
@@ -30275,136 +30414,6 @@ x < y
 $$
 
 %%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Limits_reals 
-\section Limites de novo.
-%%%{{{ meta 
-\label Limits_reals
-%%%}}}
-
-%%{{{ thm: monotone_convergence_thm 
-\theorem.
-%%%{{{ meta 
-\label monotone_convergence_thm
-%%%}}}
-
-Toda seqüência monótona e cotada é convergente.
-
-\proof.
-Seja $\seqn a n$ seqüência crescente e supcotada.
-Logo $\seqnset a n$ supcatado e logo seja $s$ o seu supremum.
-Vou demonstrar que $\seqn a n \tends s$.
-Seja $\epsilon > 0$.
-Pela escolha de $s$, $s - \epsilon$ não pode ser supcota da $\seqn a n$,
-e logo seja $N$ tal que $a_N > s - \epsilon$.
-Temos então $s - \epsilon < a_N < s$.
-Como $\seqn a n$ crescente, temos $s - \epsilon < \seq {a_n} {n \geq N} < s$.
-Logo $\seq {a_n} {n \geq N} \subset \ball \epsilon s$.
-
-%%}}}
-
-%%{{{ x: powers_of_small_tends_to_zero 
-\exercise.
-%%%{{{ meta 
-\label powers_of_small_tends_to_zero
-%%%}}}
-
-Seja $0 < \theta < 1$.
-Demonstre que $\seq {\theta^n} n \tends 0$.
-
-\hint
-Mostre que $\seq {\theta^n} n$ é decrescente e inf-cotada (por quem mesmo?).
-
-\hint
-Pelo (MCT), seja $\ell$ o limite da $\seq {\theta^n} n$.
-
-\hint
-Calcule o $\ell$ para chegar no $\ell = \theta\ell$, e obtenha $\ell = 0$ a partir disso.
-
-\hint
-Em geral, $\lim_n a n = \lim_n {a_{n+1}}$, onde entendemos esta igualdade como:
-ou ambas as seqüências convergem no mesmo limite, ou ambas as seqüências divergem.
-
-\solution
-Primeiramente vou mostrar que $\seq {\theta^n} n$ é inf-cotada e decrescente,
-assim garantido que é convergente; depois vou garantir que tal limite só pode ser o $0$.
-\eop
-Vou mostrar por indução que $\seq {\theta^n} n \geq 0$.
-Temos $\theta^0 = 1 \geq 0$, estabelecendo a base da indução.
-Seja $k$ natural tal que $\theta^k \geq 0$.
-Temos:
-$$
-\theta^{k+1}
-  =    \theta^k\theta
-  \geq 0
-$$
-como produto de não-negativos.
-\eop
-Vou mostrar que $\seq {\theta^n} n$ é decrescente.
-Seja $k$ natural.
-Calculamos:
-$$
-\theta^{k+1}
-= \theta^k \theta
-< \theta^k.
-$$
-Pelo (MCT), seja $\ell = \lim_n {\theta^n}$.
-Basta mostrar $\ell = 0$.
-Usando o \ref[algebraic_limit_theorem_for_reals_map_mult_c], calculamos:
-$$
-\ell
-= \lim_n {\theta^n}
-= \lim_n {\theta^{n+1}}
-= \lim_n {\theta^n \theta}
-= \theta \lim_n {\theta^n}
-= \theta \ell.
-$$
-Logo $\ell = 0$, pois caso $\ell\neq0$ poderiamos aplicar o cancelamento multiplicativo para obter $\theta = 1$, contradizendo nossa hipótese sobre $\theta$.
-
-%%}}}
-
-%%{{{ thm: Bolzano_Weierstrass_theorem 
-\theorem Bolzano--Weierstrass.
-%%%{{{ meta 
-\label Bolzano_Weierstrass_theorem
-\credits
-    * Bolzano : --Weierstrass, teorema
-    * Weierstrass : Bolzano--, teorema
-    ;;
-%%%}}}
-
-Toda seqüência cotada de reais tem subseqüência convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ cor: Cauchy_iff_convergent_in_reals 
-\corollary.
-%%%{{{ meta 
-\label Cauchy_iff_convergent_in_reals
-%%%}}}
-
-Uma seqüência de reais é autoconvergente sse é convergente.
-
-%%}}}
-
-\TODO sketch.
-
-%%{{{ cor: bounded_implies_Cauchy_subseq_in_reals.
-\corollary.
-%%%{{{ meta 
-\label bounded_implies_Cauchy_subseq_in_reals
-%%%}}}
-
-Toda seqüência cotada possui subseqüência autoconvergente.
-
-%%}}}
-
-\TODO sketch.
 
 \endsection
 %%}}}
