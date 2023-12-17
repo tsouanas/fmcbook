@@ -25949,10 +25949,10 @@ Se $a\neq 0$ então $a^2 > 0$.
 
 %%}}}
 
-%%{{{ x: real_square_of_subunit_is_smaller 
+%%{{{ x: real_square_of_small_is_smaller 
 \exercise.
 %%%{{{ meta 
-\label real_square_of_subunit_is_smaller
+\label real_square_of_small_is_smaller
 %%%}}}
 
 $\lforall a {0 < a < 1 \implies 0 < a^2 < a < 1}$.
@@ -26037,6 +26037,25 @@ Se $a < b$ então $-a > -b$.
 %%%}}}
 
 Se $ab > 0$ então $a,b$ são ou ambos positivos ou ambos negativos.
+
+%%}}}
+
+%%{{{ x: real_squaring_preserves_and_reflects_orders 
+\exercise.
+%%%{{{ meta 
+\label real_squaring_preserves_and_reflects_orders
+\defines
+    * ordem!preservar
+    * ordem!refletir
+    ;;
+%%%}}}
+
+A função $(\uhole^2)$ \dterm{preserve} e \dterm{reflete} a $(\leq)$ no $\nonnegs\reals$:
+\mathcall
+\cforall {a,b \geq 0} {a \leq b \implies a^2 \leq b^2}; \called {$(\uhole^2)$ preserve a $(\leq)$} \\
+\cforall {a,b \geq 0} {a \leq b \impliedby a^2 \leq b^2}. \called {$(\uhole^2)$ reflete a $(\leq)$}
+\endmathcall
+E a mesma coisa sobre as outras ordens que temos definido até agora: $(<), (\geq), (>)$.
 
 %%}}}
 
@@ -29896,7 +29915,7 @@ Estipulamos um último axioma para os reais:
 \mathcol
 \cforall {A \isubset \reals}
          {\text{$A$ cotado por cima} \implies \text{$A$ tem supremum}}.
-\stag[R-Complete]
+\stag[R-Complete-lub]
 \endmathcol
 
 %%}}}
@@ -30449,13 +30468,14 @@ Existe real $h$ tal que $h^2 = 2$.
 
 \proof.
 Seja $A = \setst x {x^2 < 2}$.
-Como $A$ é habitado e sup-cotado (demonstre:
-\ref[square_root_of_two_is_real_proof]), logo seja $h = \sup A$.
+Como $A$ é habitado (\reftag[square_root_of_two_is_real_proof_inhab])
+e sup-cotado (\reftag[square_root_of_two_is_real_proof_bounded_above]),
+logo seja $h = \sup A$, pelo \mref[R-Complete-lub].
 Para demonstrar que $h^2 = 2$, basta eliminar os outros dois casos:
 $h^2 < 2$; $h^2 > 2$.
 \crproofcase {Caso $h^2 < 2$.}
-Basta achar uma cota superior de $A$, maior que $h$,
-assim contradizendo a escolha de $h$ como a \emph{melhor} sup-cota.
+Para eliminar este caso, acharemos um membro de $A$, maior que $h$,
+assim contradizendo a escolha de $h$ como sup-cota ($h \geq A$).
 A esperança é que vamos conseguir aumentar $h$ um tiquinho
 tão pequeno que seu quadrado vai continuar sendo menor que $2$.
 Vamos apelar tal real de $h_+$.
@@ -30464,48 +30484,107 @@ e isso implicaria $h_+ \in A$ (pela definição de $A$):
 $$
 h < h_+ \in A
 $$
-e logo $h \ngeq A$, contradizendo a escolha de $h$ como
-Ou seja: procuramos $\epsilon > 0$ tal que:
+e logo $h \ngeq A$, e teremos nossa contradição.
+Como $h^2 < 2$, logo seja $\theta > 0$ tal que
 $$
-(h + \epsilon)^2 < 2,
+h^2 + \theta < 2.
 $$
-pois assim teriamos $h + \epsilon \in A$ (pela escolha de $A$),
-chegando numa contradição pois $h < h + \epsilon$.
-Seja $0 < \theta < 1$ tal que $h^2 + \theta < 2$.
-Basta achar um $\epsilon$ tal que $(h + \epsilon')^2 < 2$.
+Basta achar $\epsilon > 0$ pequeno o suficiente para que
+$h+\epsilon$ serve ser nosso desejado $h_+$:
+$$
+(\mubrace {h + \epsilon} {h_+})^2 \leq h^2 + \theta < 2.
+$$
+Seja $\epsilon = \frac {\theta} {2h + 1}$.
 Calculamos:
 \compute
 \paren{h + \epsilon}^2
-= h^2 + 2h\epsilon + \epsilon^2 \\
-< h^2 + 2h\epsilon + \epsilon  \\
-= h^2 + (2h + 1)\epsilon \\
-\leq h^2 + (2h + 1)\frac \theta {2h + 1} \\
-= h^2 + \theta \\
-< 2 \\
+&= h^2 + 2h\epsilon + \epsilon^2 \\
+&< h^2 + 2h\epsilon + \epsilon  \by {pelo \ref[real_square_of_small_is_smaller]} \\
+&= h^2 + (2h + 1)\epsilon \\
+&= h^2 + (2h + 1) \smash {\frac \theta {2h + 1}}  \by {pela escolha de $\epsilon$} \\
+&= h^2 + \theta \\
+&< 2.  \by {pela escolha de $\theta$} \\
 \endcompute
-Então basta escolher $\epsilon < \frac \theta {2h + 1}$.
-
-
- (tu, no \ref[square_root_of_two_is_real_proof])
+\crproofcase {Caso $h^2 > 2$.}
+Para eliminar este caso, vamos achar uma cota superior $h_-$ de $A$,
+melhor (menor) que $h$, assim contradizendo a escolha de $h$ como \emph{melhor} sup-cota.
+Essa parte é toda tua (\reftag[square_root_of_two_is_real_proof_ngt]).
 
 %%}}}
 
-%%{{{ x: square_root_of_two_is_real_proof 
+%%{{{ x: square_root_of_two_is_real_proof_inhab
 \exercise.
 %%%{{{ meta 
-\label square_root_of_two_is_real_proof
+\label square_root_of_two_is_real_proof_inhab
 %%%}}}
 
-Elimine os casos $h^2 < 2$ e $h^2 > 2$ para terminar a demonstração
-do \ref[square_root_of_two_is_real].
+Mostre que o $A$ da demonstração do \reftag[square_root_of_two_is_real] é habitado\dots
 
 \hint
-Pela escolha de $h$ (como supremum), obtemos dois dados.
-Um te ajudará eliminar um caso, e o outro, o outro.
+$1 \in A$.  Por quê?
 
 \solution
-\crproofcase {Caso $h^2 > 2$.}
-% TODO
+(i) $A$ é habitado, pois $1^2 < 2$, ou seja, $1 \in A$.
+
+%%}}}
+
+%%{{{ x: square_root_of_two_is_real_proof_bounded_above 
+\exercise.
+%%%{{{ meta 
+\label square_root_of_two_is_real_proof_bounded_above
+%%%}}}
+
+\dots e sup-cotado também\dots
+
+\hint
+Uma sup-cota é o $2$.  Por quê?
+
+\hint
+Lembre do \ref[real_squaring_preserves_and_reflects_orders].
+
+\solution
+Vou mostrar que $2$ é uma sup-cota de $A$.
+Seja $a \in A$, ou seja, $a^2 < 2$, e logo $a^2 < 4$,
+ou seja, $a^2 < 2^2$.
+Logo $a < 2$ pois $(\uhole^2)$ reflete a $(<)$ no $\nonnegs\reals$.
+
+%%}}}
+
+%%{{{ x: square_root_of_two_is_real_proof_ngt 
+\exercise.
+%%%{{{ meta 
+\label square_root_of_two_is_real_proof_ngt
+%%%}}}
+
+\dots e mostre que $h^2 \ngt 2$, para eliminar o caso que deixei pra tu,
+fechando assim tudo que ficou aberto na demonstração do \ref[square_root_of_two_is_real].
+
+\solution
+Aqui a idéia é diminuir o $h$ um tiquinho tão pequeno
+que ele continuaria sendo uma sup-cota do $A$.
+Ou seja: procuramos um $h_-$ tal que
+$$
+A \leq h_- < h
+$$
+Como $h^2 > 2$, logo seja $\theta > 0$ tal que
+$$
+h^2 - \theta > 2.
+$$
+Basta acha $\epsilon > 0$ pequeno o suficiente para que $h - \epsilon$
+serve ser nosso desejado $h_-$:
+$$
+(\mubrace {h - \epsilon} {h_-})^2 > h^2 - \theta > 2.
+$$
+Seja $\epsilon = \frac {\theta} {2h}$.
+Calculamos:
+\compute
+\paren{h - \epsilon}^2
+&= h^2 - 2h\epsilon + \epsilon^2 \\
+&> h^2 - 2h\epsilon \\
+&= h^2 - 2h \smash {\frac \theta {2h}}  \by {pela escolha de $\epsilon$} \\
+&= h^2 - \theta \\
+&> 2.  \by {pela escolha de $\theta$} \\
+\endcompute
 
 %%}}}
 
