@@ -3089,7 +3089,7 @@ Recursão.
 %%}}}
 
 %%{{{ Derivation_trees 
-\section Arvores de derivação.
+\section Árvores de derivação.
 %%%{{{ meta 
 \label Derivation_trees
 %%%}}}
@@ -3142,7 +3142,7 @@ Não vamos usar mais este tipo de árvore sintáctica nessas notas.
 %%}}}
 
 %%{{{ Derivation trees 
-\note Arvores de derivação.
+\note Árvores de derivação.
 %%%{{{ meta 
 \indexes
     * derivação    seealso: árvore
@@ -3322,8 +3322,8 @@ Considere a inferência seguinte, que quer convencer alguém sobre
 a tese que uma certa árvore é uma oliveira.
 \quote
 \flwq{Oliveiras têm azeitonas.\CR
-Essa arvore tem azeitonas.\CR
-Portanto, essa arvore é uma oliveira.}
+Essa árvore tem azeitonas.\CR
+Portanto, essa árvore é uma oliveira.}
 \endquote
 Aqui a partir das hipoteses nas duas primeiras linhas,
 inferimos a tese (terceira).
@@ -3356,7 +3356,7 @@ Portanto, esse homem é jogador de basquete.}
 \endquote
 Observe que a estrutura da inferência é exatamente
 \emph{a mesma} com a anterior.  Não parecida; mesma!
-Outra maneira: substitua a palavra \sq{arvore}
+Outra maneira: substitua a palavra \sq{árvore}
 pela palavra \sq{pizza} na argumentação original.
 
 %%}}}
@@ -20382,19 +20382,19 @@ Não esqueça os functors que descubriu no \ref[type_ops_functor_check].
 %%}}}
 
 %%{{{ Tree_types 
-\section Arvores.
+\section Árvores.
 %%%{{{ meta 
 \label Tree_types
 %%%}}}
 
-\TODO Desenhar uns exemplos de arvores.
+\TODO Desenhar uns exemplos de árvores.
 
 %%{{{ df: BinTree 
 \definition BinTree.
 %%%{{{ meta 
 \label BinTree
 \defines
-    * \BinTreeA {~\alpha}   -- o tipo de arvores binárias $\TreeA \alpha$
+    * \BinTreeA {~\alpha}   -- o tipo de árvores binárias $\TreeA \alpha$
     ;;
 %%%}}}
 
@@ -20418,7 +20418,7 @@ dele tem (exatamente $2$).
 %%%}}}
 
 Economizando minha tinta e teu cansaço visual, vou escrever $\TreeA \alpha$
-ou até $\fA {\type T} \alpha$, quando é implicito qual de todas as arvores
+ou até $\fA {\type T} \alpha$, quando é implicito qual de todas as árvores
 está sendo considerada.
 
 %%}}}
@@ -20428,9 +20428,9 @@ está sendo considerada.
 %%%{{{ meta 
 \label BinTree_nodes_leaves_depth_def
 \defines
-    * \nodesA  {~t}   -- a quantidade de nós na arvore $t$
-    * \leavesA {~t}   -- a quantidade de folhas na arvore $t$
-    * \depthA  {~t}   -- a quantidade de andares (a profundidade) da arvore $t$
+    * \nodesA  {~t}   -- a quantidade de nós na árvore $t$
+    * \leavesA {~t}   -- a quantidade de folhas na árvore $t$
+    * \depthA  {~t}   -- a quantidade de andares (a profundidade) da árvore $t$
     ;;
 %%%}}}
 
@@ -20440,7 +20440,7 @@ Defina as funções
 \leaves &\is \TreeA \alpha \to \Nat &
 \depth  &\is \TreeA \alpha \to \Nat.
 \endmathcols
-que contam os nós, as folhas, e os andares duma arvore.
+que contam os nós, as folhas, e os andares duma árvore.
 
 \hint
 Recursão!
@@ -20458,7 +20458,7 @@ Por exemplo, a definição da $\nodes$ tem essa forma:
 \endfundef
 
 \solution
-Definimos a $\nodes$ que conta os nós duma arvore
+Definimos a $\nodes$ que conta os nós duma árvore
 \fundef
 \nodes : \TreeA \alpha \to \Nat \\
 \nodesP {\TipA \phole}    &= 0 \\
@@ -20485,7 +20485,7 @@ e a $\depth$ que conta a altura, ou a profundidade (ou os \dq{andares})
 \label BinTree_leaves_nodes_thm
 %%%}}}
 
-Para toda arvore $t \is \TreeA \alpha$,
+Para toda árvore $t \is \TreeA \alpha$,
 $$
 \leavesA t = 1 + \nodesA t.
 $$
@@ -20519,7 +20519,7 @@ uma sobre $\ell$ e uma sobre $r$.
 \label BinTree_leaves_depth_thm
 %%%}}}
 
-Para toda arvore $t \is \TreeA \alpha$,
+Para toda árvore $t \is \TreeA \alpha$,
 $$
 \leavesA t \leq 2 \expop \depthA t.
 $$
@@ -20564,7 +20564,7 @@ Feche o que faltou para fechar na demonstração de \ref[BinTree_leaves_depth_th
 %%%}}}
 
 Defina a $\subtrees : \TreeA \alpha \to \ListP {\TreeA \alpha}$
-que retorna uma lista com todas as subarvores da sua entrada.
+que retorna uma lista com todas as subárvores da sua entrada.
 
 %%}}}
 
@@ -20577,7 +20577,7 @@ que retorna uma lista com todas as subarvores da sua entrada.
 Defina a $\flatten : \TreeA \alpha \to \ListP {\TreeA \alpha}$
 que retorna o \dterm{achatamento} da sua entrada:
 uma lista com todos os valores das folhas, na ordem que aparecem
-projetando a arvore a um piso horizontal.
+projetando a árvore a um piso horizontal.
 
 %%}}}
 
@@ -20592,10 +20592,10 @@ Queremos definir funções
 \search &\is \alpha \to \TreeA \alpha \to \ListP {\Path} &
 \fetch  &\is \Path  \to \TreeA \alpha \to \MaybeA \alpha
 \endmathcols
-para arvores.
+para árvores.
 No caso de listas, a busca da $\search$ retorna uma lista de Nats,
 já que cada tal Nat visto como índice é a informação que corresponde numa posição numa lista.
-Numa arvore não faz sentido perguntar \wq{quem está na posição $4$?}.
+Numa árvore não faz sentido perguntar \wq{quem está na posição $4$?}.
 Ou seja, o $\Nat$ não serve como tipo para descrever uma posição.
 Cada posição é descrita por um caminho, ou seja, uma lista de direções (esquerda--direita).
 Usamos o tipo $\Path$ de caminhos então, que é definido apenas como um sinônimo
@@ -20638,8 +20638,8 @@ e a $\fetch$ assim:
 \label BinTree_subtree_def
 %%%}}}
 
-Defina a $\subtree$ que, dado um caminho e uma arvore retorna
-a subarvore que começa a parir do ponto descrito pelo caminho.
+Defina a $\subtree$ que, dado um caminho e uma árvore retorna
+a subárvore que começa a parir do ponto descrito pelo caminho.
 Faz parte deste exercício pensar num tipo legal para tal função.
 
 \hint
@@ -42426,11 +42426,11 @@ $$
 %%}}}
 
 %%{{{ type_inference_tree_for_curry 
-\note Arvore de inferência de tipo.
+\note Árvore de inferência de tipo.
 %%%{{{ meta 
 %%%}}}
 
-A última parte da argumentação acima corresponde na arvore de inferência
+A última parte da argumentação acima corresponde na árvore de inferência
 seguinte:
 $$
 \PROOFm {
@@ -42451,7 +42451,7 @@ Verifique cada passo, e acostume-se com essa forma!
 \label type_inference_tree_for_uncurry
 %%%}}}
 
-Construa a arvore que corresponde na última parte da
+Construa a árvore que corresponde na última parte da
 tua resolução do~\ref[uncurry_using_lambdas] caso que
 tu não fez isso já enquanto o resolvendo.
 
@@ -45581,14 +45581,14 @@ A situação deve te lembrar algo (\ref[defining_sets]) por justa causa.
 \eop
 Agora olhe novamente na definição acima.
 Para entender \emph{quem é $f$} precisamos \emph{entrar na floresta do seu domínio},
-pegar uma arvore $n$, \emph{entrar na floresta do seu codomínio} e procurar passo
+pegar uma árvore $n$, \emph{entrar na floresta do seu codomínio} e procurar passo
 por passo o que aconteceu com ela.
 Lendo o início da definição, <<$2 \ntimes {\ldots}$>> sabemos que alguém foi multiplicado
-por $2$, talvez não tem algo a ver como nossa arvore, precisamos andar ainda mais,
+por $2$, talvez não tem algo a ver como nossa árvore, precisamos andar ainda mais,
 e depois de muitas trilhas descubrir o que aconteceu.
 \eop
 Compare com a definição seguinte, que defina a mesma função $f$ sem sequer mencionar
-\dq{arvores:}
+\dq{árvores:}
 $$
 f = \double \of \succ \of \square
 \qqqtext{ou}
@@ -47594,7 +47594,7 @@ da $\ast$ no conjunto $\funs A B$.
 
 Se tu realmente tentou responder na pergunta acima, provavelmente
 tu chegou nessa mesma definição.  Uma maneira de chegar nela é
-realmente ``entrar na floresta'', e começar brincar com as arvores,
+realmente ``entrar na floresta'', e começar brincar com as árvores,
 ate achar o que tu ta procurando.
 Uma outra abordagem seria observar a floresta de longe, por fora.
 Desenhar as setas que tu tens, e ver o que tu podes fazer
@@ -47617,7 +47617,7 @@ $$
 $$
 não tem o tipo desejado $A\to B$.
 Agora podemos desistir dessa abordagem e entrar na floresta mesmo
-para brincar com as arvores; \emph{ou podemos perceber que talvez
+para brincar com as árvores; \emph{ou podemos perceber que talvez
 falta apenas uma setinha para nos ajudar}.
 Se a gente tivesse uma setinha interessante assim:
 $$
@@ -61637,7 +61637,7 @@ Basta verificar a (G2), ou seja, que $e\in H$:
 %%%{{{ meta 
 %%%}}}
 
-Vamos lembrar o tema de arvores, escrevendo a demonstração
+Vamos lembrar o tema de árvores, escrevendo a demonstração
 do~\ref[nonempty_subgroup_criterion] assim:
 $$
 \PROOFm {
@@ -62743,7 +62743,7 @@ $$
         {x^2 \in A_{k+1}}
 }
 $$
-O resto da arvore é justificado numa maneira parecida.
+O resto da árvore é justificado numa maneira parecida.
 
 %%}}}
 
@@ -62753,7 +62753,7 @@ O resto da arvore é justificado numa maneira parecida.
 \label tree_for_a_member_of_generate_A_shorter
 %%%}}}
 
-Com uma arvore mais baixa demonstre que $a^3 b^{-8} \in A_5$.
+Com uma árvore mais baixa demonstre que $a^3 b^{-8} \in A_5$.
 
 \hint
 Tem como mostrar $b^{-8} \in A_4$.
@@ -78235,7 +78235,7 @@ $$
 %%}}}
 
 %%{{{ Construction trees 
-\section Arvores de construção.
+\section Árvores de construção.
 %%%{{{ meta 
 %%%}}}
 
