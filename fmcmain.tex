@@ -29575,6 +29575,44 @@ As setas pontilhadas entram no segundo tempo, completando a implicação assim:
 
 %%}}}
 
+%%{{{ thm: powers_of_small_tends_to_zero 
+\theorem.
+%%%{{{ meta 
+\label powers_of_small_tends_to_zero
+%%%}}}
+
+Seja $0 < \theta < 1$.
+Logo $\seq {\theta^n} n \tends 0$.
+
+\proof.
+Como $\theta < 1$, logo $1/\theta > 1$,
+e logo seja $\delta > 0$ tal que $1/\theta = \delta + 1$.
+Seja $n \in \nats$.
+Temos
+$$
+0
+\leq
+\theta^n
+=
+\frac 1 {(1+\delta)^n}
+\mathrel{\tobrace {\leq} {\clap{desigualdade Bernoulli \reftag[bernoulli_ineq_0]}}}
+\frac 1 {1 + n\delta}.
+$$
+Como $\seq {\frac 1 {1 + n\delta}} n \tends 0$, temos
+$$
+\cdopt{sep=0.333cm}
+\seq 0 n
+\ar[ddrr, bend right=15] \| \leq \| \seq {\theta^n} n
+                                    \ar[dd, dotted] \| \leq \| \seq {\frac 1 {1 + n\delta}} n
+                                                               \ar[ddll, bend left=15]  \\
+                         \|      \|                 \|      \|  \\
+                         \|      \| 0               \|      \|  \\
+\endcd
+$$
+e logo $\seq {\theta^n} n \tends 0$ pelo \ref[sandwich_limit_theorem_reals].
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -30144,14 +30182,17 @@ Logo $\seq {a_n} {n \geq N} \subset \ball \epsilon s$.
 
 %%}}}
 
-%%{{{ x: powers_of_small_tends_to_zero 
+%%{{{ x: powers_of_small_tends_to_zero_mct_proof 
 \exercise.
 %%%{{{ meta 
 \label powers_of_small_tends_to_zero
 %%%}}}
 
 Seja $0 < \theta < 1$.
-Demonstre que $\seq {\theta^n} n \tends 0$.
+Demonstre que $\seq {\theta^n} n \tends 0$
+(já demonstrado no~\ref[powers_of_small_tends_to_zero]),
+mas essa vez construa uma nova demonstração,
+para obtê-lo como corolário simples do \ref[monotone_convergence_thm].
 
 \hint
 Mostre que $\seq {\theta^n} n$ é decrescente e inf-cotada (por quem mesmo?).
@@ -31017,32 +31058,86 @@ $\Sum_{n=1}^{\infty} \frac 1 {2^n} = 1$.
 
 %%}}}
 
-%%{{{ x: series_one_over_n_squared_converges 
-\exercise.
-%%%{{{ meta 
-\label series_one_over_n_squared_converges
-%%%}}}
-
-$\Sum_{n=0}^{\infty} \frac 1 {n^2}$ converge.
-
-%%}}}
-
-\TODO add hints.
-
 %%{{{ x: harmonic_series_diverges 
-\exercise harmonic series.
+\exercise série harmônica.
 %%%{{{ meta 
 \label harmonic_series_diverges
 \defines
     * série!harmônica
     ;;
+\credits
+    * Mengoli : divergência da série harmônica
+    * Bernoulli : divergência da série harmônica
+    * Euler : divergência da série harmônica
+    ;;
 %%%}}}
 
-$\Sum_{n=1}^{\infty} \frac 1 n = \pinfty$.
+Oresme, Mengoli (uns 300 anos depois),
+e Bernoulli (uns 40 anos depois de Mengoli, no ano \yearof{1682}),
+independentemente demonstraram que
+a \dterm{série harmônica} ($\Sum_{n=1}^{\infty} \frac 1 n$) diverge.
+Entre no clube deles fazendo a mesma coisa (uns poucos séculos depois):
+$$
+\Sum_{n=1}^{\infty} \frac 1 n = \pinfty.
+$$
 
 %%}}}
 
 \TODO add hints.
+
+%%{{{ x: series_one_over_n_squared_converges 
+\exercise.
+%%%{{{ meta 
+\label series_one_over_n_squared_converges
+\credits
+    * Bernoulli : convergêcia de série
+    * Euler : resolução de Basel
+    ;;
+\indexes
+    * Basel!problema de
+    ;;
+%%%}}}
+
+Bernoulli demonstrou que $\Sum_{n=0}^{\infty} \frac 1 {n^2}$ converge.
+Faça a mesma coisa.
+
+%%}}}
+
+\TODO add hints.
+
+%%{{{ Basel_problem 
+\note Problema de Basel.
+%%%{{{ meta 
+\label Basel_problem
+\credits
+    * Mengoli : problema de Basel
+    * Euler : resolução de Basel
+    ;;
+\indexes
+    * coprimos
+    * probabilidade
+    * forma fechada
+    * Basel
+    * problema!de Basel
+    ;;
+%%%}}}
+
+Achar uma \dq{forma fechada} para o limite desta série era
+o famoso \dterm{problema de Basel}, enunciado pelo Mengoli no ano \yearof{1650}.
+Bernoulli não conseguiu resolver este problema, que acabou ganhando seu apelido
+pela cidade \emph{Basel}, na Suiça, em qual Bernoulli nasceu.
+E quem mais nasceu na mesma cidade?
+Euler, que conseguiu resolver o problema no ano \yearof{1734}, demonstrando que
+$$
+\Sum_{n=0}^{\infty} \frac 1 {n^2} = \frac {\pi^2} 6.
+$$
+Inesperadamente, essa resolução é relacionada à probabilidade que dois aleatórios números
+grandes são coprimos: escolhendo aleatoriamente inteiros no $\set {1, \dotsc, n}$
+a seqüência das correspondentes probabilidades tende ao reciproco do limite acima:
+$6/\pi^2$.
+Tudo isso é fora do nosso foco aqui, mas confio que tu achou, no mínimo, interessante.
+
+%%}}}
 
 \endsection
 %%}}}
@@ -31053,7 +31148,7 @@ $\Sum_{n=1}^{\infty} \frac 1 n = \pinfty$.
 %%%}}}
 
 %%{{{ prob: euler_constant 
-\problem constante (e) de Euler.
+\problem constante (e).
 %%%{{{ meta 
 \label dualize_and_prove_Inter_of_supsets_supset
 \defines
@@ -31061,16 +31156,18 @@ $\Sum_{n=1}^{\infty} \frac 1 n = \pinfty$.
     * constante!$e$, de Euler
     ;;
 \credits
+    * Bernoulli : constante $e$ \dq{de Euler}
     * Euler : constante $e$
     ;;
 %%%}}}
 
-Podemos definir o número $e$, conhecido como \dterm{constante de Euler} por
-qualquer uma das
+Podemos definir o número $e$, conhecido como \dterm{constante de Euler}
+mas introduzido por Bernolli por qualquer uma das
 \mathcols 2
 e &\defeq \Sum_{n=0}^\infty \frac 1 {k!} &
 e &\defeq \lim_n \paren{1 + \frac 1 n}^n.
 \endmathcols
+(Bernoulli escolheu a segunda.)
 (i) demonstre que a série acima converge;
 (ii) demonstre que a seqüência acima converge;
 (iii) mostre que $\Sum_{n=0}^\infty \frac 1 {k!} = \lim_n \paren{1 + \frac 1 n}^n$;
@@ -56936,7 +57033,7 @@ Depois estudamos mais teorias de outras estruturas algébricas.
     ;;
 %%%}}}
 
-A teoria dos grupos é principalmente atribuida no trabalho do gigante
+A teoria dos grupos é principalmente atribuída no trabalho do gigante
 Galois.  Ele morreu muito jovem (20 anos) baleado num duel.
 Sua biografia sendo bastante romântica e aventurosa,
 naturalmente atrai muita atenção, muitas lendas, umas exageradas, outras não.
