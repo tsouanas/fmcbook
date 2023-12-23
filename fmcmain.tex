@@ -19785,6 +19785,32 @@ Enuncie e demonstre o (ifthenelse-distr) citado acima.
 
 %%}}}
 
+%%{{{ df: folds_fundef 
+\definition folds.
+%%%{{{ meta 
+\label listfolds_fundef
+%%%}}}
+
+Definimos as funções $\foldl$ e $\foldr$:
+\fundefs 2
+\fundefed {
+\foldl : (\beta \to \alpha \to \beta) \to \beta \to (\ListA \alpha \to \beta) \\
+\foldlAAA f z \lnil         &= z \\
+\foldlAAP f z {x \lcons xs} &= \foldlAAA f {z'} xs \\
+\where
+z'  &= \fAA f z x \\
+\endwhere
+} &
+\fundefed {
+\foldr : (\alpha \to \beta \to \beta) \to \beta \to (\ListA \alpha \to \beta) \\
+\foldrAAA f z \lnil         &= z \\
+\foldrAAP f z {x \lcons xs} &= \fAP f x {\foldrAAA f z {xs}} \\
+\phantom{f'}
+}
+\endfundefs
+
+%%}}}
+
 \endsection
 %%}}}
 
