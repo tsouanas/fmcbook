@@ -19641,7 +19641,37 @@ Definimos a função $\ffilter$:
 \ffilterAA p \lnil &= \lnil \\
 \ffilterSS p (x\lcons\xs) &= \IF p\fa x
                              \THEN x \lcons \ffilterAA p \xs
-                             \ELSE \ffilterAA p \xs \FI \\
+                             \ELSE \ffilterAA p \xs \FI\\
+\endfundef
+Ou, usando \dterm{guards},
+\fundef
+\ffilter : (\alpha \to \Bool) \to (\ListA \alpha) \to (\ListA \alpha) \\
+\ffilterAA p \lnil &= \lnil \\
+\ffilterSS p (x\lcons\xs) \\
+\guards
+p \fa x    &= x \lcons \ffilterAA p \xs \\
+\otherwise &= \ffilterAA p \xs \\
+\endguards
+\endfundef
+
+%%}}}
+
+%%{{{ x: filter_fundef_DRY 
+\exercise DRY.
+%%%{{{ meta 
+\label filter_fundef_DRY
+%%%}}}
+
+Elimine a repetição na \ref[filter_fundef].
+
+\hint
+Nos dois branches a expressão retornada é algo aplicado ao $\ffilterAA p \xs$.
+
+\solution
+\fundef
+\ffilter : (\alpha \to \Bool) \to (\ListA \alpha) \to (\ListA \alpha) \\
+\ffilterAA p \lnil &= \lnil \\
+\ffilterSS p (x\lcons\xs) &= \PIF p\fa x \THEN (x \lcons) \ELSE \fid \FIP \fap {\ffilterAA p \xs}
 \endfundef
 
 %%}}}
@@ -19796,18 +19826,34 @@ Definimos as funções $\foldl$ e $\foldr$:
 \fundefed {
 \foldl : (\beta \to \alpha \to \beta) \to \beta \to (\ListA \alpha \to \beta) \\
 \foldlAAA f z \lnil         &= z \\
-\foldlAAP f z {x \lcons xs} &= \foldlAAA f {z'} xs \\
-\where
-z'  &= \fAA f z x \\
-\endwhere
+\foldlAAP f z {x \lcons xs} &= \foldlAPA f {\fAA f z x} xs \\
 } &
 \fundefed {
 \foldr : (\alpha \to \beta \to \beta) \to \beta \to (\ListA \alpha \to \beta) \\
 \foldrAAA f z \lnil         &= z \\
 \foldrAAP f z {x \lcons xs} &= \fAP f x {\foldrAAA f z {xs}} \\
-\nowhere
 }
 \endfundefs
+Ou, reescrevendo usando \emph{where}, e trocando uns nomes:
+\fundefs 2
+\fundefed {
+\foldl : (\beta \to \alpha \to \beta) \to \beta \to (\ListA \alpha \to \beta) \\
+\foldlAAA f v \lnil         &= v \\
+\foldlAAP f v {x \lcons xs} &= \foldlAAA f {v'} xs \\
+\where
+v'  &= \fAA f z x \\
+\endwhere
+} &
+\fundefed {
+\foldr : (\alpha \to \beta \to \beta) \to \beta \to (\ListA \alpha \to \beta) \\
+\foldrAAA c n \lnil         &= n \\
+\foldrAAP c n {x \lcons xs} &= \fAA c x t  \\
+\where
+t  &= \foldrAAA c n {xs} \\
+\endwhere
+}
+\endfundefs
+
 
 %%}}}
 
@@ -19892,11 +19938,11 @@ Dado isso,
 uma aluna tentou demonstrar a $\Su$-injetividade assim:
 \quote
 \proofpart{Injetividade de $\Su$.}
-Considere a $\Pd : \Nat \from \Nat$.
+Considere a $\pred : \Nat \from \Nat$.
 Basta mostrar que ela é uma $(\of)$-L-inversa da $\Su$:
 $
-(\Pd \of \Su) \fa n
-= \PdP {\SuA n}
+(\pred \of \Su) \fa n
+= \predP {\SuA n}
 = n
 = \id n
 $.
@@ -19917,18 +19963,18 @@ ou incompilável (não o tendo).
 O desafio é perceber onde que tal princípio foi usado nesta demonstração.
 
 \hint
-A demonstração usa a $\Pd$, mas como ela foi definida mesmo?
+A demonstração usa a $\pred$, mas como ela foi definida mesmo?
 
 \solution
-A demonstração usa a $\Pd$, mas para sua definição \emph{funcionar}
-já precisamos da injetividade de $\Su$; sem ela, a $\Pd$, recebendo seu argumento $n$,
-não teria como aproveitar o pattern-matching para obter acesso \emph{ao}
+A demonstração usa a $\pred$, mas para sua definição \emph{funcionar}
+já precisamos da injetividade de $\Su$; sem ela, a $\pred$, recebendo seu argumento $n$,
+não teria como aproveitar o pattern-matching para obter acesso \emph{àquele}
 $n'$ tal que $n = \SuA {n'}$, para conseguir retorná-lo.
 Se tivesse outro (distinto) $n''$ tal que $n = \SuA {n''}$, qual dos $n', n''$
-a $\Pd$ retornaria?
+a $\pred$ retornaria?
 \eop
 O que acontece se tentar resolver isso escolhendo um específico deles para retornar
-(por exemplo, o menor)?  Note que a $\Pd$ viraria, de fato, função.
+(por exemplo, o menor)?  Note que a $\pred$ viraria, de fato, função.
 E agora: com esse ajuste, a demonstração compila e pode ser usada
 para conseguir o princípio como teorema?
 
@@ -19947,14 +19993,14 @@ Responda na pergunta surgida no fim da minha resolução de \ref[injectivity_of_
 Não dá.  Agora a demonstração não compila por outro motivo.
 
 \solution
-A nova versão de $\Pd$ não é mais um $(\circ)$-L-inverso.
+A nova versão de $\pred$ não é mais um $(\circ)$-L-inverso.
 Considere tais $n' \neq n''$ com $\SuA {n'} = n = \SuA {n''}$,
-e com $n'$ o menor tal $\Nat$ (e logo o retornado pela $\Pd$ recebendo $n$).
+e com $n'$ o menor tal $\Nat$ (e logo o retornado pela $\pred$ recebendo $n$).
 Assim temos
 $$
-\PdP {\SuA {n''}} = \PdA n = n' \neq n''
+\predP {\SuA {n''}} = \predA n = n' \neq n''
 $$
-e logo $\Pd$ não é uma inversa esquerda da $\Su$.
+e logo $\pred$ não é uma inversa esquerda da $\Su$.
 
 %%}}}
 
