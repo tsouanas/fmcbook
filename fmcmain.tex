@@ -27899,7 +27899,7 @@ Demonstre que $(\leq A)$ é vazio ou infinito, e a mesma coisa sobre o $(A \leq)
 %%%}}}
 
 Demonstre ou refute:
-para quaisquer $A,B$ habitados e cotados,
+para quaisquer $A,B$ habitados e sup-cotados,
 $$
 A \subset B \implies \sup A \leq \sup B.
 $$
@@ -30286,10 +30286,10 @@ Sejam $A,B$ habitados e cotados.  Logo $A\union B$ também é, e
 \label sup_and_inf_commute_with_plus_reals
 %%%}}}
 
-Sejam $A,B$ habitados e cotados.  Demonstre:
+Sejam $A,B$ habitados e cotados.  Logo $A + B$ também é, e
 \mathcols 2
 \sup (A + B) &= \sup A + \sup B &
-\inf (A + B) &= \inf A + \inf B
+\inf (A + B) &= \inf A + \inf B.
 \endmathcols
 
 %%}}}
@@ -31508,14 +31508,19 @@ $$
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ pointwise_limit_in_real_functions 
-\definition.
+%%{{{ df: pointwise_conv_reals 
+\definition pointwise.
 %%%{{{ meta 
-\label pointwise_limit_in_real_functions
+\label pointwise_conv_reals
+\defines
+    * convergência!pointwise
+    ;;
+\indexes
+    * pointwise     seealso: convergência
+    ;;
 %%%}}}
 
-Seja $\seqn f n$ uma seqüência \emph{de funções}
-no $(A\to\reals)$.
+Seja $\seqn f n$ uma seqüência \emph{de funções} no $(A\to\reals)$.
 Observe que para cada $x \in A$, é determinada uma
 seqüência \emph{de reais} pelos valores das
 $f_n$'s nesse ponto: $\sequence {f_nx} n$.
@@ -31526,7 +31531,23 @@ $$
 f x = \liml_n {(f_n x)}.
 $$
 Dizemos que $\seqn f n$ \dterm{converge pointwise}
-(ou \dterm{ponto a ponto}) à $f$.
+(ou \dterm{ponto a ponto}) à $f$:
+\mathcol
+\seqn f n \tends f
+&\defiff \lforall x {\seq {f_n \fa x} n \tends f \fa x} \\
+&\intiff
+\pforall x
+\pforall {\epsilon > 0}
+\pexists N
+\lforall {n \geq N}
+         {\dist d {f_n \fa x} {f \fa x} < \epsilon} \\
+&\iff
+\pforall {\epsilon > 0}
+\pforall x
+\pexists N
+\lforall {n \geq N}
+         {\dist d {f_n \fa x} {f \fa x} < \epsilon}.
+\endmathcol
 
 %%}}}
 
@@ -31538,13 +31559,39 @@ Dizemos que $\seqn f n$ \dterm{converge pointwise}
 
 Seja $\seqn f n \subset ([0,1] \to \reals)$ a seqüência
 definida pelas
-$$
-\align
+\mathcol
 f_n   &\eqtype [0,1] \to \reals \\
 f_n x &= x^n.
-\endalign
-$$
+\endmathcol
 A $\seqn f n$ converge àlguma função pointwise?
+
+%%}}}
+
+%%{{{ uniform_conv_reals 
+\definition uniformemente.
+%%%{{{ meta 
+\label uniform_conv_reals
+\defines
+    * convergência!uniforme
+    * tende!uniformemente
+    ;;
+\indexes
+    * uniformemente     seealso: convergência
+    ;;
+%%%}}}
+
+Seja $\seqn f n \is \SeqP {\alpha \to \Real}$.
+Definimos
+\mathcol
+\seqn f n \unito f
+&\defiff
+\pforall {\epsilon > 0}
+\pexists N
+\pforall x
+\lforall {n \geq N}
+         {\dist d {f_n \fa x} {f \fa x} < \epsilon}.
+\endmathcol
+Dizemos que $\seqn f n$ \dterm{converge uniformemente} à $f$.
 
 %%}}}
 
