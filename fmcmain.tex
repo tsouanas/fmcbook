@@ -37893,7 +37893,76 @@ $$
 \label Coverings_and_partitions
 %%%}}}
 
-\TODO Escrever.
+\TODO Terminar and include figures.
+
+%%{{{ df: covering_sets 
+\definition.
+%%%{{{ meta 
+\label covering_sets
+\defines
+    * covering
+    ;;
+%%%}}}
+
+Seja $B$ conjunto e $\scr A$ uma família de conjuntos.
+Dizemos que $\scr A$ é uma \dterm{cobertura} de $B$ sse a união da família contem o $B$:
+$$
+\text{$\scr A$ cobre $B$}
+\defiff
+\Union \scr A \supset B.
+$$
+
+%%}}}
+
+%%{{{ df: partition_sets 
+\definition.
+%%%{{{ meta 
+\label partition_sets
+\defines
+    * partição
+    ;;
+%%%}}}
+
+Seja $B$ conjunto e $\scr A$ uma cobertura e $B$.
+Dizemos que $\scr A$ é uma \dterm{partição} de $B$ sse
+todos os membros da $\scr A$ são subconjuntos habitados de $B$ e disjuntos dois-a-dois.
+
+%%}}}
+
+%%{{{ x: partitions_of_seven 
+\exercise.
+%%%{{{ meta 
+\label partitions_of_seven
+%%%}}}
+
+Seja $A=\set{0,1,2,3,4,5,6}$.
+Quais das colecções seguintes são partições do $A$?:
+\mathcols 2
+\scr A_1 &= \big\{ \set{0,1,3}, \set 2, \set{4,5}, \set 6 \big\} &
+\scr A_5 &= \big\{ \set{0,1,2}, \set{2,3,4}, \set{4,5,6} \big\} \\
+\scr A_2 &= \big\{ \set{0,1,2,3}, \emptyset, \set{4,5,6} \big\} &
+\scr A_6 &= \big\{ \set{1,2}, \set{0,3}, \set 5, \set 6 \big\} \\
+\scr A_3 &= \big\{ \set{0,1,2,3,4,5,6} \big\} &
+\scr A_7 &= \big\{ \set{0,1,2}, \set 3, \set{4,5,6,7} \big\} \\
+\scr A_4 &= \big\{ \set 0, \set 1, \set 2, \set 3, \set 4, \set 5, \set 6 \big\} &
+\scr A_8 &= \big\{ \set 0, \set{1,2}, \set{6,5,4,3} \big\}.
+\endmathcols
+
+\hint
+Quatro delas são, as outras não.
+
+\solution
+As $\scr A_1, \scr A_3, \scr A_4, \scr A_8$ são.
+As outras não:
+\tlist:
+\li: a $\scr A_2$ não é: $\emptyset$ é seu membro;
+\li: a $\scr A_5$ não é: o $2$ que pertence a dois membros dela;
+\li: a $\scr A_6$ não é: $4 \in A$ mas não pertence a nenhum membro dela;
+\li: a $\scr A_7$ não é: $7 \nin A$ mas $7 \in \Union \scr A_7$.
+\endtlist
+
+
+%%}}}
 
 \endsection
 %%}}}
@@ -54898,6 +54967,112 @@ Logo $a\in\eqclassimp b$, e logo $a\sim b$ pela definição de $\eqclassimp b$.
 
 %%}}}
 
+%%{{{ idea_of_partition 
+\note Partição.
+%%%{{{ meta 
+\label idea_of_partition
+%%%}}}
+
+Voltamos de novo para nosso conjunto $A$ do~\reftag[idea_of_equivalence],
+mas esta vez sem uma predeterminada propriedade para focar.
+Esta vez vamos dividir os elementos do $A$ em \dterm{classes},
+tais que cada membro do $A$ pertencerá a \emph{exatamente uma delas},
+e cada uma delas terá pelo menos um membro do $A$.
+E nem vamos justificar essa separação, explicando o como ou o porquê.
+Esse tipo de colecção de classes já encontramos na \ref[Coverings_and_partitions]:
+é o que chamamos de \dterm{partição}; aqui uma reformulação da \ref[partition_sets]:
+
+%%}}}
+
+%%{{{ df: partition 
+\definition.
+%%%{{{ meta 
+\label partition
+\defines
+    * partição
+    ;;
+%%%}}}
+
+Seja $A$ conjunto e $\scr A \subset \pset A$ uma família de subconjuntos de $A$.
+$\scr A$ é uma \dterm{partição} de $A$, sse:
+% TODO: fix reflabs
+\tlist:
+\li (P1): $\Union \scr A = A$;
+\li (P2): os membros de $\scr A$ são disjuntos dois-a-dois;
+\li (P3): $\emptyset \nin \scr A$.
+\endtlist
+Chamamos de \dterm{classes} os membros da $\scr A$.
+
+%%}}}
+
+%%{{{ x: partition_equivalent_defs 
+\exercise.
+%%%{{{ meta 
+\label partition_equivalent_defs
+%%%}}}
+
+Verifique que as definições \reftag[partition_set] e \reftag[partition]
+são, de fato, equivalentes.
+
+%%}}}
+
+%%{{{ x: union_scr_A_subset_already_known 
+\exercise.
+%%%{{{ meta 
+\label union_scr_A_subset_already_known
+%%%}}}
+
+Podemos trocar o~(P1) da~\ref[partition] por
+$$
+\text{(P1$'$)}\quad\Union \scr A \supset A \ ?
+$$
+
+\hint
+Será que já sabemos a outra \dq{direção} da igualdade?
+
+\solution
+Sim!
+Pois como $\scr A$ é uma família de subconjuntos de $A$,
+já sabemos que $\Union \scr A \subset A$.
+Logo, afirmar $\Union \scr A = A$ ou afirmar $\Union \scr A \supset A$
+nesse caso é a mesma coisa.
+Escolhemos o (P1) pois fica mais natural (e porque se retirar a hipótese
+que $\scr A \subset \pset A$, o (P1) vira necessário).
+
+%%}}}
+
+%%{{{ x: pairwise_necessary_for_partition 
+\exercise.
+%%%{{{ meta 
+\label pairwise_necessary_for_partition
+%%%}}}
+
+Podemos trocar o~(P2) da~\ref[partition] por
+$$
+\text{(P2$'$)}\quad\Inter \scr A = \emptyset\  ?
+$$
+
+\hint
+Não: nossa definição vai permitir mais colecções ser chamadas ``partição'' do que deveriam.
+
+\hint
+Uma das colecções não-partições do~\ref[partitions_of_seven] vai
+acabar sendo partição.
+
+\solution
+A $\scr A_5\subset\powerset A$ do~\ref[partitions_of_seven] satisfaz as
+$$
+\Union \scr A_5 = A,
+\qqqquad
+\Inter \scr A_5 = \emptyset,
+$$
+mas não é uma partição: o $2\in A$ por exemplo, pertenceria em duas classes
+diferentes, algo contra da nossa idéia de ``partição''.
+
+%%}}}
+
+\TODO Check blending.
+
 \endsection
 %%}}}
 
@@ -55609,131 +55784,6 @@ ou ``não $R(w)$'' quando $R(w) = \False$.
 %%%{{{ meta 
 \label Partitions
 %%%}}}
-
-%%{{{ idea_of_partition 
-\note Partição.
-%%%{{{ meta 
-\label idea_of_partition
-%%%}}}
-
-Voltamos de novo para nosso conjunto $A$ do~\reftag[idea_of_equivalence],
-mas essa vez sem uma predeterminada propriedade para focar.
-Essa vez vamos dividir os elementos do $A$ em \dterm{classes},
-tais que cada membro do $A$ pertencerá a \emph{exatamente uma delas},
-e cada uma delas terá pelo menos um membro do $A$.
-E nem vamos justificar essa separação, explicando o como ou o porquê.
-Esse tipo de colecção de classes vamos definir agora:
-
-%%}}}
-
-%%{{{ df: partition 
-\definition.
-%%%{{{ meta 
-\label partition
-\defines
-    * partição
-    ;;
-%%%}}}
-
-Seja $A$ conjunto e $\scr A \subset \pset A$ uma família de subconjuntos de $A$.
-$\scr A$ é uma \dterm{partição} de $A$, sse:
-% TODO: fix reflabs
-\tlist:
-\li (P1): $\Union \scr A = A$;
-\li (P2): os membros de $\scr A$ são disjuntos dois-a-dois;
-\li (P3): $\emptyset \nin \scr A$.
-\endtlist
-Chamamos de \dterm{classes} os membros da $\scr A$.
-
-%%}}}
-
-%%{{{ x: partitions_of_seven 
-\exercise.
-%%%{{{ meta 
-\label partitions_of_seven
-%%%}}}
-
-Seja $A=\set{0,1,2,3,4,5,6}$.
-Quais das colecções seguintes são partições do $A$?:
-$$
-\xalignat 2
-\scr A_1 &= \big\{ \set{0,1,3}, \set 2, \set{4,5}, \set 6 \big\}                &\scr A_5 &= \big\{ \set{0,1,2}, \set{2,3,4}, \set{4,5,6} \big\} \\
-\scr A_2 &= \big\{ \set{0,1,2,3}, \emptyset, \set{4,5,6} \big\}                 &\scr A_6 &= \big\{ \set{1,2}, \set{0,3}, \set 5, \set 6 \big\}  \\
-\scr A_3 &= \big\{ \set{0,1,2,3,4,5,6} \big\}                                   &\scr A_7 &= \big\{ \set{0,1,2}, \set 3, \set{4,5,6,7} \big\}    \\
-\scr A_4 &= \big\{ \set 0, \set 1, \set 2, \set 3, \set 4, \set 5, \set 6 \big\}&\scr A_8 &= \big\{ \set 0, \set{1,2}, \set{6,5,4,3} \big\}
-\endxalignat
-$$
-
-\hint
-Quatro delas são, as outras não.
-
-\solution
-As $\scr A_1, \scr A_3, \scr A_4, \scr A_8$ são.
-As outras não:
-\tlist:
-\li: a $\scr A_2$ não é: $\emptyset$ é seu membro;
-\li: a $\scr A_5$ não é: o $2$ que pertence a dois membros dela;
-\li: a $\scr A_6$ não é: $4 \in A$ mas não pertence a nenhum membro dela;
-\li: a $\scr A_7$ não é: $7 \nin A$ mas $7 \in \Union \scr A_7$.
-\endtlist
-
-
-%%}}}
-
-%%{{{ x: union_scr_A_subset_already_known 
-\exercise.
-%%%{{{ meta 
-\label union_scr_A_subset_already_known
-%%%}}}
-
-Podemos trocar o~(P1) da~\ref[partition] por
-$$
-\text{(P1$'$)}\quad\Union \scr A \supset A \ ?
-$$
-
-\hint
-Será que já sabemos a outra ``direção'' da igualdade?
-
-\solution
-Sim!
-Pois como $\scr A$ é uma família de subconjuntos de $A$,
-já sabemos que $\Union \scr A \subset A$.
-Logo, afirmar $\Union \scr A = A$ ou afirmar $\Union \scr A \supset A$
-nesse caso é a mesma coisa.
-Escolhemos o (P1) pois fica mais natural (e porque se retirar a hipótese
-que $\scr A \subset \pset A$, o (P1) vira necessário).
-
-%%}}}
-
-%%{{{ x: pairwise_necessary_for_partition 
-\exercise.
-%%%{{{ meta 
-\label pairwise_necessary_for_partition
-%%%}}}
-
-Podemos trocar o~(P2) da~\ref[partition] por
-$$
-\text{(P2$'$)}\quad\Inter \scr A = \emptyset\  ?
-$$
-
-\hint
-Não: nossa definição vai permitir mais colecções ser chamadas ``partição'' do que deveriam.
-
-\hint
-Uma das colecções não-partições do~\ref[partitions_of_seven] vai
-acabar sendo partição.
-
-\solution
-A $\scr A_5\subset\powerset A$ do~\ref[partitions_of_seven] satisfaz as
-$$
-\Union \scr A_5 = A,
-\qqqquad
-\Inter \scr A_5 = \emptyset,
-$$
-mas não é uma partição: o $2\in A$ por exemplo, pertenceria em duas classes
-diferentes, algo contra da nossa idéia de ``partição''.
-
-%%}}}
 
 \endsection
 %%}}}
