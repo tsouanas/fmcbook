@@ -998,7 +998,7 @@ e \symq{$\intiffsymbol$} para equivalência intensional.
 
 %%}}}
 
-%%{{{ definition_and_intension 
+%%{{{ remark: definition_and_intension 
 \remark Definição e intensão.
 %%%{{{ meta 
 \label definition_and_intension
@@ -1028,7 +1028,7 @@ Mesma coisa sobre o \symq{$\defeq$}.
 
 %%}}}
 
-%%{{{ compare_the_algorithms_advice 
+%%{{{ advice: compare_the_algorithms_advice 
 \advice Compare os algoritmos.
 %%%{{{ meta 
 \label compare_the_algorithms_advice
@@ -19554,7 +19554,7 @@ Vários autores, dependendo da área que estão trabalhando adoptam um uso ou
 o outro, ou ambos, ou até diferenciando o que cada um significa.
 Tradicionalmente o slogan é:
 \standout
-\wq{define por recursão; demonstre por indução}.
+\wq{defina por recursão; demonstre por indução}.
 \endstandout
 
 %%}}}
@@ -76575,11 +76575,55 @@ onde $\join,\meet$ são operadores binários no $L$.
 Chamamos o $L$ um \dterm{lattice} (ou \dterm{reticulado}) sse
 as operações $\join,\meet$ são associativas, comutativas,
 e idempotentes, e satisfazem as leis seguintes \emph{de absorção}:
-$$
-\align
-a \join (b \meet a) &= a\\
+\mathcol
+a \join (b \meet a) &= a \\
 a \meet (b \join a) &= a
-\endalign
+\endmathcol
+
+%%}}}
+
+\TODO place the following somewhere.
+
+%%{{{ compare_the_algorithms_advice 
+\advice Compare os algoritmos.
+%%%{{{ meta 
+\label compare_the_algorithms_advice
+%%%}}}
+
+Vamos supor que tu tá tentando demonstrar
+$$
+(x \meet y) \join (x \meet z) \leq x \meet (y \join z).
+$$
+Os $(\meet)$ e $(\join)$ sendo glb e lub, fornecem duas
+maneiras de visualizar esse alvo.
+Primeiramente esqueça o $(\meet)$ à direita:
+considera toda a $x \meet (y \join z)$ como uma coisa só,
+e perceba qua a parte esquerda é um $(\join)$, um join, um l.u.b.:
+$$
+\alertR {(x \meet y)} \join \alertG {(x \meet z)} \leq \alertB {x \meet (y \join z)}.
+$$
+Ou seja precisamos demonstrar que o $\alertB {azul}$ é $(\geq)$ que um l.u.b.;
+basta então mostrar que é \emph{um} u.b.:
+$$
+\PROOFmn {
+\A {\alertB \bullet \geq \alertR \bullet}   \A {\alertB \bullet \geq \alertG \bullet}
+\I2----------------------------------------------------------------------------------
+          {\alertB \bullet \geq (\alertR \bullet \join \alertG \bullet)}
+}
+$$
+Alternativamente enxergue a parte esquerda como uma coisa só e perceba que a parte direita
+é um $(\meet)$, um meet, um g.l.b.:
+$$
+\alertB {(x \meet y) \join (x \meet z)} \leq \alertR {x} \meet \alertG {(y \join z)}.
+$$
+Assim precisamos demonstrar que o $\alertB {azul}$ é $(\leq)$ que um g.l.b.;
+basta então mostrar que é \emph{um} l.b.:
+$$
+\PROOFmn {
+\A {\alertB \bullet \leq \alertR \bullet}   \A {\alertB \bullet \leq \alertG \bullet}
+\I2----------------------------------------------------------------------------------
+          {\alertB \bullet \leq (\alertR \bullet \meet \alertG \bullet)}
+}
 $$
 
 %%}}}
