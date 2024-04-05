@@ -8237,7 +8237,7 @@ antes de continuar.
 
 %%}}}
 
-\spoiler.
+\spoiler
 
 %%{{{ df: iterative_product_of_ints_def 
 \definition Produtório iterativo.
@@ -31784,17 +31784,982 @@ complexos em tal forma que ele vira um corpo ordenado.
 \endchapter
 %%}}}
 
+%%{{{ chapter: Types 
+\chapter Tipos.
+%%%{{{ meta 
+\label Types
+%%%}}}
+
+%%{{{ Product_types 
+\section Tipos produto.
+%%%{{{ meta 
+\label Product_types
+%%%}}}
+
+%%{{{ spec: binary_product_type 
+\specification Produto binário.
+%%%{{{ meta 
+\label binary_product_type
+\defines
+    * produto!binário de tipos
+    ;;
+%%%}}}
+
+A partir de quaisquer tipos $\alpha$ e $\beta$ podemos formar
+o tipo do seu produto que denotamos por $\alpha\times\beta$:
+$$
+\PROOFmn {
+   \A {\alpha \is \Type}    \A {\beta \is \Type}
+\I2---------------------------------------------
+         {\alpha\times\beta \is \Type}
+}
+\mtag[product-form=($\times$)-Form]
+$$
+Há duas maneiras de utilizar um habitante $w \is \alpha\times\beta$,
+ou seja, duas perguntas que podemos fazer: «qual teu componente esquerdo?»
+e «qual teu componente direito?».  Assim:
+\mathcols 2
+&\PROOFmn {
+   \A {w \is \alpha\times\beta}
+\I1-----------------------------
+    {\project w.l \is \alpha}
+} &
+&\PROOFmn {
+   \A {w \is \alpha\times\beta}
+\I1-----------------------------
+    {\project w.r \is \beta}
+}
+\mtag[product-elim=($\times$)-Elim]
+\endmathcols
+Para construir um habitante do tipo $\alpha\times\beta$
+precisamos fornecer tais duas informações, sendo uma de tipo
+$\alpha$ e outra de tipo $\beta$:
+$$
+\PROOFmn {
+   \A {a \is \alpha}    \A {b \is \beta}
+\I2-------------------------------------
+    {\tup{a,b} \is \alpha\times\beta}
+}
+\mtag[product-intro=($\times$)-Intro]
+$$
+Aqui termina a descrição da parte \dterm{estática}.
+A parte \dterm{dinâmica} (computacional) é determinada
+pelas equações abaixo que governam os habitantes deste tipo.
+Separamos tais equações nas
+\mathcols 2
+\project \tup{a,b}.l &= a &
+\project \tup{a,b}.r &= b
+\mtag[product-beta=($\times$)-β]
+\endmathcols
+que estabelecem o que acontece se tentar introduzir (construir)
+e logo depois eliminar (usar);
+e na
+$$
+\tup {\project w.l, \project w.r} = w.
+\mtag[product-eta=($\times$)-η]
+$$
+que estabelecem o que acontece se construir algo a partir do
+que obtemos apenas usando uma tal tupla.
+
+%%}}}
+
+%%{{{ remark: meaning_of_beta_and_eta_equations 
+\remark.
+%%%{{{ meta 
+\label meaning_of_beta_and_eta_equations
+%%%}}}
+
+As equações (β) estão dando uma alma computacional aos habitantes
+de $\alpha\times\beta$, especialmente quando são lidas de forma direcionada
+onde as expressões mais complexas (à esquerda) são substituidas pelas
+expressões mais simples (à direita) durante um cálculo.
+As equações (η) também, e correspondem em garantias de unicidade e de
+\emph{ausência de lixo}.
+Como exemplo, considere a \mref[product-eta]:
+se o $w$ carregasse mais informação (lixo) além das duas que podemos obter
+a partir da interface que temos (eliminadores), formando o
+$\tup {\project w.l, \project w.r}$ não seria garantido de criar o próprio $w$.
+
+%%}}}
+
+%%{{{ Q: How would you generalize to n-ary products? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Tendo definido produtos $2$-ários, como generalizarias para
+definir produtos $n$-ários para qualquer $n \geq 0$?
+
+%%}}}
+
+\spoiler
+
+%%{{{ spec: finite_product_type 
+\specification Produto finito.
+%%%{{{ meta 
+\label finite_product_of_types
+\defines
+    * produto!finito de tipos
+    ;;
+%%%}}}
+
+Precisávamos $2$ tipos para formar o tipo de produto binário (deles),
+agora para o produto $n$-ário precisamos $n$ tipos:
+dados $\alpha_1, \dotsc, \alpha_n$
+podemos formar o tipo do seu produto que
+denotarei por $\FinProd(\alpha_1,\dotsc,\alpha_n)$:
+$$
+\PROOFmn {
+   \A {\alpha_1 \is \Type}    \A {\cdots}    \A {\alpha_n \is \Type}
+\I3-----------------------------------------------------------------
+            {\FinProd(\alpha_1,\dotsc,\alpha_n) \is \Type}
+}
+\mtag[finproduct-form=$\FinProd$-Form]
+$$
+Tivemos $2$ maneiras de utilizar habitantes do produto $2$-ário,
+logo temos $n$ maneiras de utilizar habitantes do produto $n$-ário:
+$$
+\PROOFmn {
+\A   {w \is \FinProd(\alpha_1,\dotsc,\alpha_n)}
+\I1----------------------------------------------
+           {\project w.1 \is \alpha_1}
+}
+\qquad\cdots\qquad
+\PROOFmn {
+\A   {w \is \FinProd(\alpha_1,\dotsc,\alpha_n)}
+\I1----------------------------------------------
+           {\project w.n \is \alpha_n}
+}
+\mtag[finproduct-elim=$\FinProd$-Elim]
+$$
+Precisavamos $2$ informações para construir habitantes do produto $2$-ário
+(uma de cada tipo envolvido), logo precisamos $n$ informações para construir
+habitantes do produto $n$-ário:
+$$
+\PROOFmn {
+   \A {a_1 \is \alpha_1}    \A {\cdots}    \A {a_n \is \alpha_n}
+\I3---------------------------------------------------------------
+    {\tup{a_1,\dotsc,a_n} \is \FinProd(\alpha_1,\dotsc,\alpha_n)}
+}
+\mtag[finproduct-intro=$\FinProd$-Intro]
+$$
+A parte computacional da $2$-ária tinha $2$ equações-(β), portanto temos $n$
+para a $n$-ária: para cada $i = 1,\dotsc,n$, a seguinte:
+$$
+\project \tup{a_1, \dotsc, a_n}.i = a_i.
+\mtag[finproduct-beta=$\FinProd$-β]
+$$
+E similarmente sobre (η):
+$$
+\tup {\project w.1, \dotsc, \project w.n} = w.
+\mtag[finproduct-eta=$\FinProd$-η]
+$$
+
+%%}}}
+
+%%{{{ Q: What do we get for n = 0 ? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Tendo definido produtos $n$-ários para qualquer $n \geq 0$,
+como parece o caso especial de produtos $0$-ários?
+
+%%}}}
+
+\spoiler
+
+%%{{{ nullary_product_type 
+\note Produto nulário.
+%%%{{{ meta 
+\label nullary_product_of_types
+\defines
+    * produto!nulário de tipos
+    ;;
+%%%}}}
+
+A partir do nada podemos formar o tipo do produto nulário que denotamos por $\One$:
+$$
+\PROOFmn {
+\I0--------------------
+     {\One \is \Type}
+}
+\mtag[nullproduct-form=$\One$-Form]
+$$
+Temos $0$ (nenhuma) pergunta que podemos fazer aos habitantes de $\One$:
+$$
+\mtag[nullproduct-elim=$\One$-Elim]
+$$
+Correspondentemente, precisamos $0$ informações para construir um habitante
+de produto $0$-ário:
+$$
+\PROOFmn {
+\I0------------------------
+      {\tup {} \is \One}
+}
+\mtag[nullproduct-intro=$\One$-Intro]
+$$
+(Nenhuma informação foi incluida nessa construção, e logo nenhuma informação pode ser extraida.)
+A parte computacional do $2$-ário tinha $2$ equações-(β), portanto temos $0$
+para o $0$-ário:
+$$
+\mtag[nullproduct-beta=$\One$-β]
+$$
+Mesmo assim temos algo interessantíssimo parte de (η):
+$$
+\tup {} = w
+\mtag[nullproduct-beta=$\One$-η]
+$$
+que garanta que este tipo tem um único habitante, o $\tup{}$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Sum_types 
+\section Tipos soma.
+%%%{{{ meta 
+\label Sum_types
+%%%}}}
+
+%%{{{ spec: binary_sum_type 
+\specification Soma binária.
+%%%{{{ meta 
+\label binary_sum_of_types
+\defines
+    * soma!binária de tipos
+    ;;
+%%%}}}
+
+A partir de quaisquer tipos $\alpha$ e $\beta$ podemos formar
+o tipo da sua soma que denotamos por $\alpha+\beta$:
+$$
+\PROOFmn {
+   \A {\alpha \is \Type}    \A {\beta \is \Type}
+\I2---------------------------------------------
+         {\alpha+\beta \is \Type}
+}
+\mtag[sum-form=($+$)-Form]
+$$
+Temos duas maneiras de construir um habitante do tipo $\alpha + \beta$:
+uma embute nele uma informação do tipo $\alpha$, e a outra uma do tipo $\beta$:
+\mathcols 2
+&\PROOFmn {
+\A         {a \is \alpha}
+\I1---------------------------------
+     {\sumin l.w \is \alpha+\beta}
+} &
+&\PROOFmn {
+\A          {b \is \beta}
+\I1---------------------------------
+     {\sumin r.w \is \alpha+\beta}
+}
+\mtag[product-intro=($\times$)-Intro]
+\endmathcols
+Tendo mais que um construtor, o uso de tais habitantes é por um
+case-analises, e necessita uma função-receita para cada possibilidade:
+$$
+\PROOFmn {
+   \A {w \is \alpha+\beta}
+   \A {f \is \alpha\to\gamma}
+   \A {g \is \beta\to\gamma}
+\I3-----------------------------
+    {\caseofed w {
+        \ca l.x -> f \fa x \\
+        \ca r.y -> g \fa y \\
+     } \is \gamma}
+}
+\mtag[sum-elim=($+$)-Elim]
+$$
+Aqui termina a parte estática.
+A parte computacional consiste das equações:
+\mathcols 2
+\caseofed {\sumin l.a} {
+    \ca l.x -> f \fa x \\
+    \ca r.y -> g \fa y \\
+} &= f \fa a &
+\caseofed {\sumin r.b} {
+    \ca l.x -> f \fa x \\
+    \ca r.y -> g \fa y \\
+} &= g \fa b.
+\mtag[sum-beta=($+$)-β]
+\endmathcols
+$$
+\caseofed w {
+    \ca l.x -> \sumin l.x \\
+    \ca r.y -> \sumin r.y \\
+} = w
+\mtag[sum-eta=($+$)-η]
+$$
+
+%%}}}
+
+%%{{{ spec: finite_sum_type 
+\specification Soma finita.
+%%%{{{ meta 
+\label finite_sum_of_types
+\defines
+    * soma!finita de tipos
+    ;;
+%%%}}}
+
+Precisávamos $2$ tipos para formar o tipo de soma binária (deles),
+agora para a soma $n$-ária precisamos $n$ tipos:
+dados $\alpha_1, \dotsc, \alpha_n$
+podemos formar o tipo do sua soma que
+denotarei por $\FinSum(\alpha_1,\dotsc,\alpha_n)$:
+$$
+\PROOFmn {
+   \A {\alpha_1 \is \Type} \A {\cdots} \A {\alpha_n \is \Type}
+\I3-----------------------------------------------------------
+          {\FinSum(\alpha_1,\dotsc,\alpha_n) \is \Type}
+}
+\mtag[finsum-form=$\FinSum$-Form]
+$$
+Tivemos $2$ maneiras de construir habitantes da soma $2$-ária,
+logo temos $n$ maneiras de construir habitantes da soma $n$-ária:
+$$
+\PROOFmn {
+\A       {a_1 \is \alpha_1}
+\I1--------------------------------
+    {\sumin 1.w \is \alpha+\beta}
+}
+\qquad \cdots \qquad
+\PROOFmn {
+\A        {a_n \is \alpha_n}
+\I1---------------------------------
+    {\sumin n.w \is \alpha+\beta}
+}
+\mtag[finsum-intro=$\FinSum$-Intro]
+$$
+Além do habitante $w$ que queríamos usar precisávamos $2$ funções-auxiliares
+com o mesmo codomínio $\gamma$ e nosso uso com o case-of teve $2$ linhas-casos;
+agora precisamos $n$ funções-auxiliares e o case-of tem $n$ linhas-casos:
+$$
+\PROOFmn {
+\A   {w \is \FinSum(\alpha_1,\dotsc,\alpha_n)}
+\A   {f_1 \is \alpha_1\to\gamma}
+\A   {\cdots}
+\A   {f_n \is \alpha_n\to\gamma}
+\I4-------------------------------------
+    {\caseofed w {
+        \ca 1.x_1 -> f_1 \fa x_1 \\
+        \vdots \\
+        \ca n.x_n -> f_n \fa x_n \\
+     } \is \gamma}
+}
+\mtag[finsum-elim=$\FinSum$-Elim]
+$$
+A parte computacional da $2$-ária tinha $2$ equações-(β), portanto temos $n$
+para a $n$-ária: para cada $i = 1,\dotsc,n$, a seguinte:
+$$
+\caseofed {\sumin i.a_1} {
+    \ca 1.x_1 -> f_1 \fa x_1 \\
+    \vdots \\
+    \ca n.x_n -> f_n \fa x_n \\
+} = f_i \fa a_i.
+\mtag[finsum-beta=$\FinSum$-β]
+$$
+E similarmente sobre (η):
+$$
+\caseofed w {
+    \ca 1.x_1 -> \sumin 1.x_1 \\
+    \vdots \\
+    \ca n.x_n -> \sumin n.x_n \\
+} = w.
+\mtag[finsum-eta=$\FinSum$-η]
+$$
+
+%%}}}
+
+%%{{{ Q: What do we get for n = 0 ? 
+\question.
+%%%{{{ meta 
+%%%}}}
+
+Tendo definido somatórios $n$-ários para qualquer $n \geq 0$,
+como parece o caso especial de produtos $0$-ários?
+Tendo definido o produtório $0$-ário, como deveria ser o somatório $0$-ário?
+
+%%}}}
+
+\spoiler
+
+%%{{{ nullary_sum_type 
+\note Soma nulária.
+%%%{{{ meta 
+\label nullary_sum_of_types
+\defines
+    * soma!nulária de tipos
+    ;;
+%%%}}}
+
+Precisávamos $2$ tipos para formar o tipo de soma binária (deles),
+agora para a soma $0$-ária precisamos $0$ tipos, ou seja nada:
+a partir do nada podemos formar
+o tipo da soma nulária que denotamos por $\Zero$:
+$$
+\PROOFmn {
+\I0-------------------
+      {\Zero \is \Type}
+}
+\mtag[nullsum-form=$\Zero$-Form]
+$$
+Tivemos $2$ maneiras de construir habitantes da soma $2$-ária,
+logo temos $0$ maneiras de construir habitantes da soma $0$-ária:
+$$
+\mtag[nullsum-intro=$\Zero$-Intro]
+$$
+Além do habitante $w$ que queríamos usar precisávamos $2$ funções-auxiliares
+com o mesmo codomínio $\gamma$ e nosso uso com o case-of teve $2$ linhas-casos;
+agora precisamos $0$ funções-auxiliares e o case-of tem $0$ linhas-casos:
+$$
+\PROOFmn {
+   \A      {w \is \Zero}
+\I1-----------------------------
+    {\caseofed w {} \is \gamma}
+}
+\mtag[nullsum-elim=$\Zero$-Elim]
+$$
+A parte computacional da $2$-ária tinha $2$ equações-(β), portanto temos $0$
+para a $0$-ária:
+$$
+\mtag[sum-beta=$\Zero$-β]
+$$
+Mesmo assim temos algo na parte de (η):
+$$
+\caseofed w {} = w
+\mtag[sum-eta=$\Zero$-η]
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Unit_type 
+\section O tipo Unit.
+%%%{{{ meta 
+\label Unit_type
+%%%}}}
+
+%%{{{ unit_type
+\specification Unit.
+%%%{{{ meta 
+\label unit_type
+\defines
+    * {\Unit}  -- o tipo $\Unit$
+    ;;
+%%%}}}
+
+A partir do nada podemos formar o tipo $\Unit$:
+$$
+\PROOFmn {
+\I0-------------------
+      {\Unit \is \Type}
+}
+\mtag[unit-form=$\Unit$-Form]
+$$
+Temos só uma maneira de construir habitantes do tipo $\Unit$:
+$$
+\PROOFmn {
+\I0---------------------
+     {\star \is \Unit}
+}
+\mtag[unit-intro=$\Unit$-Intro]
+$$
+Nenhuma informação entrou no processo de construção, e logo não
+temos nenhuma maneira de extrair informação:
+$$
+\mtag[unit-elim=$\Unit$-Elim]
+$$
+Sem maneiras de utilizar não temos também equações (β):
+$$
+\mtag[sum-beta=$\Unit$-β]
+$$
+Finalmente a (η) expressa que $\star$ é o único habitante do $\Unit$:
+$$
+\star = w.
+\mtag[sum-eta=$\Unit$-η]
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Empty_type 
+\section O tipo Empty.
+%%%{{{ meta 
+\label Empty_type
+%%%}}}
+
+%%{{{ empty_type
+\specification Empty.
+%%%{{{ meta 
+\label empty_type
+\defines
+    * {\Empty}  -- o tipo $\Empty$
+    ;;
+%%%}}}
+
+$\Empty$ é um tipo:
+$$
+\PROOFmn {
+\I0--------------------
+    {\Empty \is \Type}
+}
+\mtag[empty-form=$\Empty$-Form]
+$$
+Não há maneiras de construir habitantes do tipo $\Empty$:
+$$
+\mtag[empty-intro=$\Empty$-Intro]
+$$
+Assim, tendo um habitante de $\Empty$ podemos solicitar
+habitantes de qualquer tipo $\gamma$:
+$$
+\PROOFmn {
+\A           {w \is \Empty}
+\I1-----------------------------------
+    {\boom_{\gamma} \fa w \is \gamma}
+}
+\mtag[empty-elim=$\Empty$-Elim]
+$$
+Sem maneiras de utilizar não temos também equações (β):
+$$
+\mtag[sum-beta=$\Empty$-β]
+$$
+Finalmente a (η) do $\Empty$:
+$$
+\boom_{\Empty} \fa w = w.
+\mtag[sum-eta=$\Empty$-η]
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Function_types 
+\section Tipos função.
+%%%{{{ meta 
+\label Function_types
+%%%}}}
+
+%%{{{ spec: function_type
+\specification Função.
+%%%{{{ meta 
+\label function_type
+\defines
+    * função!tipo de
+    ;;
+%%%}}}
+
+A partir de quaisquer tipos $\alpha$ e $\beta$ podemos formar
+o tipo de funções de $\alpha$ para $\beta$ que denotamos por $\alpha\to\beta$:
+$$
+\PROOFmn {
+   \A {\alpha \is \Type}    \A {\beta \is \Type}
+\I2---------------------------------------------
+         {\alpha\to\beta \is \Type}
+}
+\mtag[fun-form=($\to$)-Form]
+$$
+Este tipo é caraterizado pela sua eliminação.
+Temos uma única maneira de usar uma função $f : \alpha \to \beta$
+para extrair uma informação dela: aplicá-la em algo de tipo $\alpha$;
+e o que obtemos é algo de tipo $\beta$:
+$$
+\PROOFmn {
+\A   {f \is \alpha\to\beta}
+\A   {a \is \alpha}
+\I2-----------------------
+     {f \fa a \is \beta}
+}
+\mtag[fun-elim=($\to$)-Elim]
+$$
+Chegamos no ponto onde precisamos explicitar a informação dos contextos:
+$$
+\PROOFmn {
+\A          {\Gamma, x \is \alpha \infers b \is \beta}
+\I1------------------------------------------------------------
+     {\Gamma \infers \lam x b \is \alpha\to\beta}
+}
+\mtag[fun-intro=($\to$)-Intro]
+$$
+Aqui termina a parte estática.
+A parte computacional consiste do passo computacional chamado (β)-redução:
+$$
+\plam x b \fa a \bstep \subst b[x := a]
+\mtag[fun-beta=($\to$)-β]
+$$
+e da (η)-conversão:
+$$
+\lam x {f \fa x} \estep f
+\mtag[fun-eta=($\to$)-η]
+$$
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Type_implementations 
+\section Implementações de tipos.
+%%%{{{ meta 
+\label Type_implementations
+%%%}}}
+
+%%{{{ note: what is this business with implementations 
+\note.
+%%%{{{ meta 
+%%%}}}
+
+Por enquanto aceitamos apenas que nosso sistema de tipos possui (nos permite formar)
+somas finitas e produtos finitos---note que isso inclui os $\Zero$ e $\One$ como
+casos especiais---e também tipos de funções.
+Nesta secção vamos ver como podemos \dterm{implementar} uns tipos desejados,
+como os booleanos e os $\MaybeA \alpha$ que conhecemos no \ref[Recursion_induction].
+Começamos com a especificação do tipo dos booleanos:
+
+%%}}}
+
+%%{{{ bool_type 
+\specification Bool.
+%%%{{{ meta 
+\label bool_type
+\defines
+    * {\Bool}  -- o tipo $\Bool$
+    ;;
+%%%}}}
+
+$\Bool$ é um tipo:
+$$
+\PROOFmn {
+\I0--------------------
+    {\Bool \is \Type}
+}
+\mtag[bool-form=$\Bool$-Form]
+$$
+Há duas maneiras de construir habitantes de $\Bool$, ambas sem precisar mais informação:
+\mathcols 2
+&\PROOFmn {
+\I0------------------
+    {\FF \is \Bool}
+} &
+&\PROOFmn {
+\I0------------------
+    {\TT \is \Bool}
+}
+\mtag[bool-intro=$\Bool$-Intro]
+\endmathcols
+Utilizamos booleans com o \emph{if-then-else}, para qual precisamos
+fornecer dois valores do mesmo tipo:
+$$
+\PROOFmn {
+    \A {b \is \Bool}  \A {u \is \gamma}  \A {v \is \gamma}
+\I3--------------------------------------------------------
+            {\ifthenelseed b u v \is \gamma}
+}
+\mtag[bool-elim=$\Bool$-Elim]
+$$
+Computamos com os booleanos assim:
+\mathcols 2
+\ifthenelseed \FF u v &= v &
+\ifthenelseed \TT u v &= u.
+\mtag[bool-beta=$\Bool$-β]
+\endmathcols
+E a (η) do $\Bool$:
+$$
+\ifthenelseed b \TT \FF = b.
+\mtag[bool-eta=$\Bool$-η]
+$$
+
+%%}}}
+
+%%{{{ imp: bools_as_sum 
+\implementation Bool.
+%%%{{{ meta 
+\label bools_as_sum
+%%%}}}
+
+Definimos:
+\mathcol
+\Bool &\defeq \One + \One
+\intertext {que significa que nossos booleanos serão representados por
+habitantes do tipo $\One + \One$, mas isso não é suficiente: precisamos
+definir os $\FF, \TT$, que definimos assim:}
+\FF  &\defeq \sumin l.\star \\
+\TT  &\defeq \sumin r.\star \\
+\intertext {
+mas ainda não terminamos.  Falta implementar o if-then-else:}
+\ifthenelseed b u v
+&\defeq \caseofed b {
+            \ca l.x -> v \\
+            \ca r.x -> u \\
+        }
+\endmathcol
+Ainda precisamos mostrar que todas essas construções são de fato factíveis
+com as mesmas premissas (nenhuma no caso da formação e da introdução,
+e três no caso da eliminação).
+Farás isso no \ref[bools_as_sum_verify_constructions].
+E ainda mais, falta verificar que as equações (β) e (η) são satisfeitas
+(\ref[bools_as_sum_verify_eqs]).
+
+%%}}}
+
+%%{{{ x: bools_as_sum_verify_constructions 
+\exercise.
+%%%{{{ meta 
+\label bools_as_sum_verify_constructions
+%%%}}}
+
+Verifique que as construções envolvidas na \ref[bools_as_sum] são de fato factíveis
+a partir das premissas de cada uma.
+
+%%}}}
+
+%%{{{ x: bools_as_sum_verify_eqs 
+\exercise.
+%%%{{{ meta 
+\label bools_as_sum_verify_eqs
+%%%}}}
+
+Verifique que a \ref[bools_as_sum] satisfaz as equações (β) e (η).
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Types_have_logic 
+\section Tipos têm lógica.
+%%%{{{ meta 
+\label Types_have_logic
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Type_arithmetic 
+\section Aritmética de tipos.
+%%%{{{ meta 
+\label Type_arithmetic
+%%%}}}
+
+%%{{{ df: isomorphic_types 
+\definition Tipos isomórficos.
+%%%{{{ meta 
+\label isomorphic_types
+%%%}}}
+
+Sejam $\alpha, \beta$ tipos.  Dizemos que $\alpha,\beta$ são \dterm{isômorfos}
+ou \dterm{isomórficos} sse existem funções
+$$
+\cd
+\alpha \ar[r, bend left=12, "f"] \|
+\beta  \ar[l, bend left=12, "g"]
+\endcd
+$$
+tais que
+\mathcols 2
+g \of f &= \idof \alpha &
+f \of g &= \idof \beta.
+\endmathcols
+Escrevemos $\alpha \iso \beta$.
+
+%%}}}
+
+%%{{{ x: type_arith_plus_com 
+\exercise.
+%%%{{{ meta 
+\label type_arith_plus_com
+%%%}}}
+
+$(+)$-comutatividade
+
+%%}}}
+
+%%{{{ x: type_arith_plus_identity 
+\exercise.
+%%%{{{ meta 
+\label type_arith_plus_identity
+%%%}}}
+
+$(+)$-identidade.
+
+%%}}}
+
+%%{{{ x: type_arith_plus_assoc 
+\exercise.
+%%%{{{ meta 
+\label type_arith_plus_assoc
+%%%}}}
+
+$(+)$-associatividade
+
+%%}}}
+
+%%{{{ x: type_arith_times_identity 
+\exercise.
+%%%{{{ meta 
+\label type_arith_times_identity
+%%%}}}
+
+$(\times)$-identidade.
+
+%%}}}
+
+%%{{{ x: type_arith_times_assoc 
+\exercise.
+%%%{{{ meta 
+\label type_arith_times_assoc
+%%%}}}
+
+$(\times)$-associatividade
+
+%%}}}
+
+%%{{{ x: type_arith_times_com 
+\exercise.
+%%%{{{ meta 
+\label type_arith_times_com
+%%%}}}
+
+$(\times)$-comutatividade
+
+%%}}}
+
+%%{{{ x: type_arith_distr 
+\exercise.
+%%%{{{ meta 
+\label type_arith_distr
+%%%}}}
+
+distributividade: $\delta(\alpha+\beta) \iso \delta\alpha + \delta\beta$
+
+%%}}}
+
+%%{{{ x: type_arith_anih 
+\exercise.
+%%%{{{ meta 
+\label type_arith_anih
+%%%}}}
+
+anulador: $\alpha \cdot \Zero \iso \Zero$
+
+%%}}}
+
+%%{{{ x: type_arith_square 
+\exercise.
+%%%{{{ meta 
+\label type_arith_square
+%%%}}}
+
+$\alpha^2 \iso \alpha\cdot\alpha$
+
+%%}}}
+
+%%{{{ x: type_arith_zero_exp_zero 
+\exercise.
+%%%{{{ meta 
+\label type_arith_zero_exp_zero
+%%%}}}
+
+$0^0 \iso {?}$
+
+%%}}}
+
+%%{{{ x: type_arith_zero_exp 
+\exercise.
+%%%{{{ meta 
+\label type_arith_zero_exp
+%%%}}}
+
+$0^\alpha \iso {?}$
+
+%%}}}
+
+%%{{{ x: type_arith_one_exp 
+\exercise.
+%%%{{{ meta 
+\label type_arith_one_exp
+%%%}}}
+
+$1^\alpha \iso 1$
+
+%%}}}
+
+%%{{{ x: type_arith_exp_one 
+\exercise.
+%%%{{{ meta 
+\label type_arith_exp_one
+%%%}}}
+
+$\alpha^1 \iso \alpha$
+
+%%}}}
+
+%%{{{ x: type_arith_exp_zero 
+\exercise.
+%%%{{{ meta 
+\label type_arith_exp_zero
+%%%}}}
+
+$\alpha^0 \iso 1$
+
+%%}}}
+
+%%{{{ x: type_arith_curry 
+\exercise.
+%%%{{{ meta 
+\label type_arith_curry
+%%%}}}
+
+$(\gamma^\beta)^\alpha \iso \gamma^{\beta\cdot\alpha}$
+
+%%}}}
+
+%%{{{ x: type_arith_exp_plus 
+\exercise.
+%%%{{{ meta 
+\label type_arith_exp_plus
+%%%}}}
+
+$\delta^{\alpha+\beta} \iso \delta^\alpha \cdot \delta^\beta$
+
+%%}}}
+
+%%{{{ x: type_arith_binomial 
+\exercise.
+%%%{{{ meta 
+\label type_arith_binomial
+%%%}}}
+
+$(\alpha+\beta)^2 \iso {?}$
+
+%%}}}
+
+\endsection
+%%}}}
+
+\endchapter
+%%}}}
+
 %%{{{ chapter: Collections 
-\chapter Colecções.
+\chapter Coleções.
 %%%{{{ meta 
 \label Collections
 %%%}}}
 
-%%{{{ intro: sets like assembly 
+%%{{{ intro 
 \chapintro
 Neste capítulo estudamos uns tipos de dados fundamentais para matemática.
 Começamos com o \emph{conjunto}, e logo depois encontramos seus tipos-amigos:
 \emph{tuplas}, \emph{seqüências}, e \emph{famílias indexadas}.
+Note que já temos encontrado esses tipos de dados, e até trabalhado com eles
+nos capítulos anteriores mas agora é a sua vez de virar o foco do nosso estudo.
 Como nós vamos apreciar no~\ref[Set_theory],
 a linguagem e teoria dos conjuntos oferecem (podem servir como)
 \emph{fundamentos de matemática},
@@ -31807,9 +32772,10 @@ seus habitantes, suas operações e relações; aprender usá-los e nada mais!
 %%%{{{ meta 
 %%%}}}
 
-%%{{{ Q: What does it mean to be a set? 
+%%{{{ Q: what_is_a_set 
 \question.
 %%%{{{ meta 
+\label what_is_a_set
 %%%}}}
 
 O que significa ser conjunto?
@@ -31838,7 +32804,8 @@ Cantor deu a seguinte resposta:
 %%%}}}
 
 Um \dterm{conjunto} $A$ é a colecção numa totalidade
-de certos objetos (definidos e separados) da nossa intuição ou mente, que chamamos de \dterm{elementos} de $A$.
+de certos objetos (definidos e separados) da nossa intuição ou mente,
+que chamamos de \dterm{elementos} de $A$.
 
 %%}}}
 
@@ -31850,12 +32817,56 @@ de certos objetos (definidos e separados) da nossa intuição ou mente, que cham
 Qual é o problema principal com a definição acima?
 
 \solution
-O que é uma ``colecção (numa totalidade)''?
+O que é significa \wq{colecção (numa totalidade)}?
 Cuidado: para responder nessa pergunta
-tu não podes usar a palavra ``conjunto'', pois assim teria uma
+tu não podes usar a palavra \wq{conjunto}, pois assim teria uma
 definição circular.
-Em outras palavras, definimos a palavra ``conjunto'' em termos da palavra
-``colecção'', que no final das contas, é algo sinónimo.
+Em outras palavras, definimos a palavra \wq{conjunto} em termos da palavra
+\wq{colecção}, que no final das contas, é algo sinónimo na nossa
+metalinguagem.  Não dá.
+
+%%}}}
+
+%%{{{ not_what_it_is_but_what_can_we_do_with_it 
+\note Mudar a pergunta.
+%%%{{{ meta 
+\label not_what_it_is_but_what_can_we_do_with_it
+%%%}}}
+
+A \reftag[what_is_a_set] é a pergunta errada para perguntar aqui---é uma pergunta
+para quem quer \emph{implementar} conjuntos responder.
+As perguntas certas são:
+(i) o que podemos fazer com um conjunto;
+(ii) o que precisamos fazer para construir um conjunto; e
+(iii) o que significa igualdade entre conjuntos.
+Ou seja, precisamos abordar, como sempre, atravez de uma \emph{especificação}.
+
+%%}}}
+
+%%{{{ collection_vs_set 
+\note Colleção vs conjunto.
+%%%{{{ meta 
+\label collection_vs_set
+%%%}}}
+
+O uso da palavra \dterm{conjunto} pode variar de contexto para contexto mas
+destacamos antes de tudo uma propriedade linguística que aplicará sempre
+estamos falando de um conjunto $S$: está propriamente referido usando
+o modo \emph{singular}.  A idéia é que ele existe como um (um!)~objeto
+de estudo na nossa mesa, visível no nosso mundo matemático.
+Tal $S$ da nossa mesa, costuma representar ou corresponder a uma coleção
+de outros objetos (também visíveis e existentes no nosso mundo).
+Usaremos aqui a palavra \dterm{coleção} sempre na metalinguagem para referir
+a uma pluraridade de objetos.  Nesse caso o uso do modo singular é
+apenas um modo de falar e sempre deve ser visto como uma abreviação
+de uma frase em modo plural, referindo aos membros de tal coleção.
+Mesmo quando damos um nome (como $C,D$) para uma coleção, falamos dos seus membros
+usando esse $C$ mesmo e no plural:
+\wq{todos os $C$ são legais, mas uns dos $D$ não são}.
+Cuidado pois podemos referir a uma coleção $C$ no singular como no
+\wq{os membros da $C$ são legais} mas isso não presuponha que existe um
+objeto $C$ na nossa mesa mesmo, acessível pelo nosso sistema de definições
+e demonstrações.  É apenas uma ferramenta (meta)linguística.
 
 %%}}}
 
@@ -31877,28 +32888,26 @@ Em outras palavras, definimos a palavra ``conjunto'' em termos da palavra
 %%%}}}
 
 A notação mais simples para denotar um conjunto é usar
-``chaves'' (os símbolos~\symq{$\{$}~e~\symq{$\}$}) e listar todos
+\dterm{chaves} (os símbolos~\symq{$\{$}~e~\symq{$\}$}) e listar todos
 os seus elementos dentro, os escrevendo numa ordem da nossa escolha.
 Por exemplo:
-$$
-\xalignat2
-A &=\set {0,1}                          &E &=\set {2,3,\set{5,7}, \set{\set{2}}}\\
-B &=\set {\nats, \ints, \rats, \reals}  &F &=\set {\Thanos}\\
-C &=\set {2}                            &G &=\set {1,2,4,8,16,31,A,B,\nats}\\
-D &=\set {2,3,5,7}                      &H &=\set {\Thanos, \Natal, \set{E,\set{F,G}}}
-\endxalignat
-$$
+\mathcols 2
+A &=\set {0,1}                         &  E &=\set {2,3,\set{5,7}, \set{\set{2}}} \\
+B &=\set {\nats, \ints, \rats, \reals} &  F &=\set {\Thanos} \\
+C &=\set {2}                           &  G &=\set {1,2,4,8,16,31,A,B,\nats} \\
+D &=\set {2,3,5,7}                     &  H &=\set {\Thanos, \Natal, \set{E,\set{F,G}}}
+\endmathcols
 
 %%}}}
 
-%%{{{ df: homogeneous_and_heterogeneous_sets 
-\definition.
+%%{{{ homogeneous_and_heterogeneous_sets 
+\note.
 %%%{{{ meta 
 \label homogeneous_and_heterogeneous_sets
 %%%}}}
 
-Chamamos os conjuntos cujos elementos são ``do mesmo tipo'' \dterm{homogêneos},
-e os outros \dterm{heterogêneos}.
+Em muitos textos os conjuntos cujos elementos são ``do mesmo tipo'' são chamados
+\dterm{homogêneos}, e os outros \dterm{heterogêneos}.
 Deixamos sem explicação o que significa ``do mesmo tipo'', mas, naturalmente,
 consideramos os $A, B, C, D, F$ da~\ref[set_notation] homogêneos
 e os $E, G, H$ heterogêneos.
@@ -31929,8 +32938,8 @@ $$
 
 %%}}}
 
-%%{{{ df: set_builder 
-\definition Set builder.
+%%{{{ notation: set_builder 
+\notation Set builder.
 %%%{{{ meta 
 \label set_builder
 \indexes
@@ -31938,7 +32947,7 @@ $$
     * definitiva               see: condição
     ;;
 \defines
-    * \setst {~x} {~{\phi(x)}}  -- o conjunto de todos os $x$ tais que $\phi(x)$
+    * \setst {~x : ~\alpha} {~{\phi(x)}}  -- o conjunto de todos os $x : \alpha$ tais que $\phi(x)$
     * condição definitiva
     * set builder
     * set comprehension
@@ -31949,31 +32958,40 @@ Uma notação diferente e bem útil é chamada
 notação \dterm{set builder} (ou \dterm{set comprehension}),
 onde escrevemos
 $$
-\setstt x {\thole$x$\thole}
+\setst {x \is \alpha} {\dotswith x} \is \SetA \alpha
 $$
-para denotar <<o conjunto de todos os objetos $x$ tais que \thole$x$\thole>>.\foot
+para denotar <<o conjunto de todos os habitantes $x$ do tipo $\alpha$ tais que $\phi(x)$>>.\foot
 Na literatura aparecem também os símbolos~\symq{$:$}~e~\symq{$;$}~em
 vez do~\symq{$\st$}~que usamos aqui.
 \toof
 Entendemos que no lado direito escrevemos o \dterm{filtro},
 uma \emph{condição definitiva},
-e não algo ambíguo ou algo subjectivo.  Por exemplo, não podemos escrever 
-algo do tipo
+e não algo ambíguo ou algo subjectivo.
+Por exemplo, não podemos escrever algo do tipo
 $$
-\setst p { \text{$p$ é uma pessoa linda} }.
+\setst {p \is \Person} { \text{$p$ é uma pessoa linda} }.
 $$
 Mas como podemos formalizar o que é uma \dterm{condição definitiva}?
 Bem, concordamos escrever apenas algo que podemos (se precisarmos e se quisermos)
-descrever usando uma fórmula de FOL $\phi(x)$ onde possivelmente aparece
-a variável $x$ livre e todos os símbolos da FOL tem interpretações bem-definidas.\foot
-Pouco mais sobre isso na~\ref[fol_filter_by_fraenkel_and_skolem].
+descrever na linguagem que temos usado para denotar proposições
+onde possivelmente aparece a variável $x$.\foot
+A situação fica pouco diferente no uso da teoria dos conjuntos como fundamentos
+de matemática: ela não é sozinha mas vem acompanhando uma lógica (muitas vezes
+lógica da primeira ordem (FOL)) e nesse caso o que permitimos como filtro varia
+de acordo com isso (\ref[fol_filter_by_fraenkel_and_skolem]).
 \toof
-Chegamos então na forma
+Tendo qualquer $\phi : \alpha \to \Prop$ então, podemos formar o conjunto
 $$
-\setst x {\phi(x)}.
+\setst {x \is \alpha} {\phi(x)}
+$$
+que é o conjunto definido pela
+$$
+a \in \setst {x \is \alpha} {\phi(x)}
+\defiff
+\phi(a).
 $$
 A notação set builder é bem mais poderosa do que acabamos de mostrar,
-pois nos permite utilizar \emph{termos} mais complexos na sua parte esquerda,
+pois nos permite utilizar expressões mais complexas na sua parte esquerda,
 e não apenas uma variável.
 Vamos investigar isso e mais variações logo na~\ref[full_setbuilder].
 
@@ -32173,8 +33191,9 @@ em matemática e estudamos sua linda teoria: a teoria dos grupos.
 Cada vez que introduzimos um novo tipo de objetos,
 devemos especificar:
 \elist i:
+\li: Como podemos formar (construir) habitantes desse tipo?
+\li: Como podemos usar (desconstruir) habitantes desse tipo?
 \li: Quando dois objetos desse tipo são \emph{iguais}?
-\li: Qual é o ``interface'' desses objetos?
 \endelist
 
 %%}}}
@@ -32268,6 +33287,7 @@ $$
 %%%}}}
 
 Para determinar então um conjunto $A$ precisamos dizer exatamente
+o que significa pertencer ao $A$, ou seja, dizer
 quando um objeto arbitrário $x$ pertence ao $A$.
 As notações que vimos até agora realmente deixam isso claro;
 mas um outro jeito muito útil para \emph{definir} um certo conjunto $A$,
@@ -32321,16 +33341,14 @@ o que $x \in A$ significa para todo $x$, sabemos \emph{quem é} o $A$.
 %%%}}}
 
 Considere os conjuntos seguintes:
-$$
-\xalignat3
-A&=\set{2,3},&
-B&=\set{3,2},&
-C&=\set{3,2,2,2,3}.
-\endxalignat
-$$
+\mathcols 3
+A &=\set{2,3}, &
+B &=\set{3,2}, &
+C &=\set{3,2,2,2,3}.
+\endmathcols
 Observe que $A = B = C$.
 Ou seja, esses não são três conjuntos, mas apenas \emph{um} conjunto
-denotado em três jeitos diferentes.
+denotado por três jeitos diferentes.
 O ``dispositivo'' conjunto não sabe nem de \dterm{ordem}
 nem de \dterm{multiplicidade} dos seus membros.
 Não podemos perguntar a um conjunto
@@ -38875,7 +39893,7 @@ Nosso objectivo aqui é familiarizar-nos com funções,
 entender como podemos defini-las, usá-las, combiná-las para criar novas,
 operar nelas, etc.
 \eop
-Vamos brincar com a poderosa \emph{notação lambda do $\lambda$-calculus}
+Vamos brincar com a poderosa \emph{notação lambda do λ-calculus}
 (\reftag[A_touch_of_lambda]), e com funções de \emph{ordem superior}
 (\reftag[Higher_order_functions])
 e apreciar que graças a \emph{currificação}~(\reftag[Currying]) nem
@@ -39076,7 +40094,7 @@ trabalhando assim.
 Entendemos então que é apenas um ``modo de falar'' usado em certos casos.
 Mas aqui nosso objectivo é estudar e \emph{fundamentar} bem a idéia e a ``alma''
 dos vários tipos matemáticos, e não podemos nos permitir nenhum abuso desse tipo!
-Essa distinção vai ficar ainda mais crucial, com a notação de $\lambda$-calculus
+Essa distinção vai ficar ainda mais crucial, com a notação de λ-calculus
 e com as funções de ordem superior.
 
 %%}}}
@@ -40566,11 +41584,11 @@ o \dterm{descritor definitivo} $\descrsym$:
 $$
 \textwq{aquele $b$ que {\xlthole}} \quad\leadsto\quad \descr b {{\xlthole}}.
 $$
-Essa notação parece bastante com a $\lambda$-notação que encontramos logo
+Essa notação parece bastante com a λ-notação que encontramos logo
 na~\ref[A_touch_of_lambda], mas é diferente pois na {\thole} aqui precisamos
 algo que denota uma afirmação; na notação lambda algo que denota um objeto.
 Aqui não vamos usar o descritor definitivo~$\descrsym$,
-mas a $\lambda$-notação é importantíssima e ficaremos a usando o tempo todo.
+mas a λ-notação é importantíssima e ficaremos a usando o tempo todo.
 Paciência até~\reftag[A_touch_of_lambda] então.
 
 %%}}}
@@ -41406,17 +42424,17 @@ escrevendo:
 \text{$f \defeq \text{aquela função que recebendo\dots}$>>}.
 \endmath
 Mas escrever tudo isso toda vez que queremos construir uma função anônima
-é muito chato.  Bem vindo $\lambda$ (lambda) da notação de
-$\lambda$-calculus!
+é muito chato.  Bem vindo $\lamsym$ (lambda) da notação de
+λ-calculus!
 Escrevemos apenas
 $$
 \lam x {2x+5}
 $$
 para a frase:
 $$
-\mobraceb {\procrustext {aquela função que recebendo como entrada um}} {\lambda} ~~
+\mobraceb {\procrustext {aquela função que recebendo como entrada um}} {\lamsym} ~~
 \mobraceb {\procrustext {$x$}}       {x} ~~
-\mobraceb {\procrustext {retorna o}} {.} ~~
+\mobraceb {\procrustext {retorna o}} {\binderdot} ~~
 \mobraceb {\procrustext {$2x + 5$}}  {2x + 5}.
 $$
 
@@ -41427,9 +42445,9 @@ $$
 %%%{{{ meta 
 \label lambda_abstraction
 \defines
-    * \lam {~x} {~{\thole}}  -- $\lambda$-abstracção
-    * $\lambda$-abstracção
-    * $\lambda$-abstracção!corpo
+    * \lam {~x} {~{\thole}}  -- λ-abstracção
+    * λ-abstracção
+    * λ-abstracção!corpo
     ;;
 %%%}}}
 
@@ -41437,9 +42455,9 @@ A expressão
 $$
 \lam x {\text{\thole$x$\thole}}
 $$
-é chamada \dterm{$\lambda$-abstracção} e \emph{denota uma função}:
+é chamada \dterm{$\lamsym$-abstracção} e \emph{denota uma função}:
 $$
-\text{``aquela função que recebendo como entrada um $x$,
+\text{``aquela função que recebendo $x$ como entrada,
 retorna o \thole$x$\thole''}
 $$
 Supomos aqui que o domínio e codomínio são claros pelo contexto.
@@ -41490,9 +42508,9 @@ Pois a notação $\lam x {\thole}$ serve bem melhor para a maioria dos nossos us
     ;;
 %%%}}}
 
-O $\lambda$ é um \emph{ligador de variável}.
+O $\lamsym$ é um \emph{ligador de variável}.
 Todos os $x$ que aparecem livres no {\thole$x$\thole}
-viram ligados com o $\alert x$ do $\lambda \alert x$.
+viram ligados com o $\alert x$ do $\lamhead x$.
 Naturalmente consideramos funções que são diferentes apenas nos
 nomes das variáveis ligadas como iguais.
 Por exemplo:
@@ -41513,7 +42531,7 @@ detalhes formais para o~\ref[Lambdas_and_combinators].
 
 Num certo sentido o papel de $\lam x {\thole}$ é parecido com o papel
 do $\setst x {\thole}$.  O set builder constrói conjuntos (anônimos),
-e o $\lambda$ parece então um ``function builder'' que constrói funções
+e o $\lamsym$ parece então um \dq{function builder} que constrói funções
 (anônimas).
 
 %%}}}
@@ -41538,7 +42556,7 @@ aí, o corpo duma ``função'' seria o código que
 determina o seu comportamento.
 \toof
 Se as informações de domínio (e codomínio dependendo da fé) não estão
-claras pelo contexto escrevemos o tipo logo após da $\lambda$-expressão
+claras pelo contexto escrevemos o tipo logo após da λ-expressão
 para realmente determinar uma função.
 Podemos ``tipar'' o termo $\lam x {x^2}$ então
 $$
@@ -41558,7 +42576,7 @@ etc., e agora sim cada uma dessas determina mesmo uma função.
 %%%}}}
 
 Então:
-o $\lambda$ nos permite criar funções anônimas numa maneira simples e útil.
+o $\lamsym$ nos permite criar funções anônimas numa maneira simples e útil.
 E o que podemos fazer com uma expressão dessas?
 \emph{Tudo} que podemos fazer com uma função!
 
@@ -41593,7 +42611,7 @@ algo que acontece com funções epônimas também
 %%%}}}
 
 Para evitar uso excessivo de parenteses, acordamos que o corpo duma
-$\lambda$-abstracção estende o maior possível, por exemplo:
+λ-abstracção estende o maior possível, por exemplo:
 $$
 \plam x {x + y + z}
 \qqtext{significa}
@@ -41608,8 +42626,8 @@ $$
 %%%}}}
 
 Assim que aparecer uma coisa $\heart$ no lado duma
-$\lambda$-abstracção $\plam x {\dotswithsome x}$
-temos uma expressão \dterm{reductível} (chamada \dterm{redex})
+λ-abstracção $\plam x {\dotswithsome x}$
+temos uma expressão \dterm{reductível} (chamada \dterm{β-redex})
 $$
 \plam x {\mubrace {\dotswithsome x} {\tau(x)}} \lapp \heart
 $$
@@ -41617,10 +42635,10 @@ ou seja, podemos fazer um passo computacional:
 \emph{substituir o redex inteiro por uma nova expressão
 criada substituindo todas as ocorrências livres de $x$ no $\tau(x)$
 por $\heart$, chegando assim no $\tau(\heart)$}.
-Denotando esse passo com um \symq{$\lamstep$}, temos então
+Denotando esse passo com um \symq{$\bstep$}, temos então
 $$
-\plam x {\mubrace {\dotswithsome x} {\tau(x)}} \lapp \heart
-\lamstep
+\plam x {\mubrace {\dotswithsome x} {\tau(x)}} \la \heart
+\bstep
 \mubrace {\dotswithsome \heart} {\tau(\heart)}.
 $$
 
@@ -41751,7 +42769,7 @@ Mais sobre isso no~\ref[first_class_citizens].
 \label find_expressions_with_given_types_abstract
 %%%}}}
 
-Quando puder, escreva $\lambda$-expressões que podem ser
+Quando puder, escreva λ-expressões que podem ser
 tipadas com os tipos seguintes:
 $$
 \xalignat2
@@ -41785,7 +42803,7 @@ Pode achar mais que uma resolução para algum desses desafios?
 \label find_expressions_with_given_types
 %%%}}}
 
-Escreva $\lambda$-expressões que podem ser tipadas com os tipos seguintes:
+Escreva λ-expressões que podem ser tipadas com os tipos seguintes:
 $$
 \align
 &: \nats \to \nats \\
@@ -41796,7 +42814,7 @@ $$
 &: \psetfin\nats \to \nats.
 \endalign
 $$
-Tente usar o argumento no corpo dos teus $\lambda$-termos se puder.
+Tente usar o argumento no corpo dos teus λ-termos se puder.
 
 %%}}}
 
@@ -41824,11 +42842,11 @@ $f$.
 %%%{{{ meta 
 %%%}}}
 
-O nome real desse passo computacional de $\lambda$-cálculo que encontramos
-aqui é \dterm{$\beta$-reducção}, e o redex é formalmente chamado um
-\dterm{$\beta$-redex}.
+O nome real desse passo computacional de λ-cálculo que encontramos
+aqui é \dterm{β-reducção}, e o redex é formalmente chamado um
+\dterm{β-redex}.
 Para enfatizar quando for necessário escrevemos \symq{$\betastep$} para denotar
-um passo de $\beta$-reducção.
+um passo de β-reducção.
 
 %%}}}
 
@@ -41837,8 +42855,8 @@ um passo de $\beta$-reducção.
 %%%{{{ meta 
 %%%}}}
 
-Tem mais duas regras de $\lambda$-computação:
-$\alpha$-renomeamento e $\eta$-conversão.
+Tem mais duas regras de λ-computação:
+α-renomeamento e η-conversão.
 
 %%}}}
 
@@ -41847,12 +42865,12 @@ $\alpha$-renomeamento e $\eta$-conversão.
 %%%{{{ meta 
 %%%}}}
 
-O princípio que nos permite identificar como equivalentes as $\lambda$-expressões
+O princípio que nos permite identificar como equivalentes as λ-expressões
 que diferem apenas nas escolhas das suas variáveis ligadas é chamado
-\dterm{$\alpha$-renomeamento} ou \dterm{$\alpha$-conversão} ou
-\dterm{$\alpha$-equivalência}.
-Podemos considerar cada $\lambda$-abstracção um \dterm{$\alpha$-redex};
-denotamos por \symq{$\alphastep$} um passo onde aconteceu um $\alpha$-renomeamento.
+\dterm{α-renomeamento} ou \dterm{α-conversão} ou
+\dterm{α-equivalência}.
+Podemos considerar cada λ-abstracção um \dterm{α-redex};
+denotamos por \symq{$\alphastep$} um passo onde aconteceu um α-renomeamento.
 
 %%}}}
 
@@ -41924,7 +42942,7 @@ pois assim aconteceria \emph{captura de variável}
 
 Essa é a idéia de \emph{extensionalidade} para o sistema:
 se duas expressões comportam na mesma maneira, as consideramos equivalentes.
-Qualquer expressão da forma $\lam x {f \app x}$ é um \dterm{$\eta$-redex},
+Qualquer expressão da forma $\lam x {f \app x}$ é um \dterm{η-redex},
 e denotamos por \symq{$\etastep$} o passo onde o substituimos por $f$.
 
 %%}}}
@@ -41954,7 +42972,7 @@ $$
 \endtikzpicture
 \endxalignat
 $$
-A $\eta$-conversão nos permite identificar as duas caixas acima.
+A η-conversão nos permite identificar as duas caixas acima.
 
 %%}}}
 
@@ -41977,7 +42995,7 @@ comporta na mesma maneira que a $\code{g}$.
 \label etawrap_sets
 %%%}}}
 
-Qual seria o equivalente de $\eta$-conversão para os conjuntos?
+Qual seria o equivalente de η-conversão para os conjuntos?
 
 \solution
 $A = \setst x {x \in A}$.
@@ -42008,7 +43026,7 @@ $$
 \endxalignat
 $$
 Observe que provavelmente nenhum humano sano escolheria esse
-$\alpha$-renomeamento no segundo caminho, pois a expressão
+α-renomeamento no segundo caminho, pois a expressão
 piorou para nossos olhos humanos; aqui escolhi proceder assim
 para enfatizar que não tem nada (literalmente) errado nisso.
 
@@ -42165,7 +43183,7 @@ nem variáveis (\ref[partial_application_and_currying])!
 
 Já encontramos a idéia de \emph{abstrair} certas partes de uma expressão,
 botando \emph{buracos}, criando assim funções de várias aridades.
-Além de buracos, trabalhamos com \emph{$\lambda$-abstracção} que nos
+Além de buracos, trabalhamos com \emph{λ-abstracção} que nos
 permitiu dar nomes para esses buracos, ligar (identificar) certos buracos, etc.
 Considere novamente uma expressão como a
 $$
@@ -42327,10 +43345,10 @@ Que tipo de objetos a função $F$ retorna?
 Funções!  Nesse caso determinamos exatamente para qualquer entrada
 dela, qual seria a função que vai ser retornada.
 Observe que na definição de $F(w)$, apareceu a frase
-``aquela função $g$\dots''.
+\wq{aquela função $g$\dots}.
 Assim baptizamos temporariamente essa função com um nome (``$g$'') à toa:
 apenas para referir a ela e retorná-la.
-Usando a $\lambda$-notação, essa definição fica mais direta, mais elegante,
+Usando a λ-notação, essa definição fica mais direta, mais elegante,
 e (logo) mais legível:
 }
 F(w) &= \lam x {w + x} \eqtype \nats \to \nats.
@@ -42352,7 +43370,7 @@ Em Python podemos (ainda bem\dots)~por exemplo escrever:
 \sourcecode higher.py;
 que corresponde na primeira maneira de definir a $F$, criando e nomeando
 a função para ser retornada.
-Podemos com $\lambda$ também:
+Podemos com $\lamsym$ também:
 \sourcecode higherlam.py;
 Não ficou melhor?
 
@@ -42417,7 +43435,7 @@ $25 + 3 = 28$.
 \label find_expressions_with_given_types_higher_order
 %%%}}}
 
-Escreva $\lambda$-expressões que podem ser consideradas como funções com os
+Escreva λ-expressões que podem ser consideradas como funções com os
 tipos seguintes:
 $$
 \align
@@ -42438,10 +43456,10 @@ $$
 \label find_expressions_with_given_types_higher_order_abstract
 %%%}}}
 
-Escreva $\lambda$-expressões que podem ser consideradas como funções com os
+Escreva λ-expressões que podem ser consideradas como funções com os
 tipos seguintes, onde $A,B,C$ são conjuntos sobre quais tu não podes supor
 absolutamente nada mais!
-Para cada um dos tipos, tente escrever as mais $\lambda$-expressões realmente
+Para cada um dos tipos, tente escrever as mais λ-expressões realmente
 diferentes que tu consegues.
 Cuidado: para uns deles não é possível achar nenhuma!
 $$
@@ -42804,7 +43822,7 @@ da $f$}, ou \emph{sua versão currificada}.
 %%%{{{ meta 
 %%%}}}
 
-Usando a $\lambda$-notação como podemos definir funções
+Usando a λ-notação como podemos definir funções
 $\curry, \uncurry$ para a situação mais genérica onde
 a função de dois argumentos é do tipo $(A \times B) \to C$?
 
@@ -42860,7 +43878,7 @@ seu argumento por $a$:
 \endlmath
 A mesma pergunta: o que eu ganhei e o que tipo de coisa preciso construir agora?
 Ganhei um $a : A$, e preciso construir
-algo do tipo $B\to C$, ou seja, uma função (então vou começar com um $\lambda$\dots)
+algo do tipo $B\to C$, ou seja, uma função (então vou começar com um $\lamsym$\dots)
 que recebe $B$'s (então $\lam b {\dots}$) e retorna $C$'s:
 \lmath
 \curry(f) = \lam a {\lam b {\alert{\dots?}}}
@@ -42932,7 +43950,7 @@ e preciso escolher como denotar a sua entrada.
 E aqui tenho duas abordagens razoáveis:
 ou escolher alguma variável como $w,t,\vec w, \vec t$, etc.,
 onde ela terá o tipo $A\times B$;
-ou usar a $\lambda$-notação de aridades maiores escrevendo
+ou usar a λ-notação de aridades maiores escrevendo
 $\tup{a,b}$ para a arbitrária entrada dessa função.
 Vamos escolher segunda opção (se quiser, pode escolher a primeira).
 Continue!
@@ -46355,7 +47373,7 @@ k &= {\mubrace {(\succ \of \double \of \plus)} h}
 %%%}}}
 
 Defina a função $f = \lam x {2x+1} : \nats\to\nats$ diretamente como
-composição de funções sem usar $\lambda$-notação.
+composição de funções sem usar λ-notação.
 Desenhe o diagrama externo da configuração e confirme tua resolução.
 
 \solution.
@@ -48211,11 +49229,11 @@ $$
 %%%}}}
 
 Dado conjunto $A$, define uma função interessante de $A$ para $A \cross A$.
-Começa descrevendo sua alma com um $\lambda$; consegue defini-la sem
+Começa descrevendo sua alma com um $\lamsym$; consegue defini-la sem
 descrever explicitamente o seu comportamento?
 
 \solution
-Usando $\lambda$, a função que procuramos é a seguinte:
+Usando $\lamsym$, a função que procuramos é a seguinte:
 $$
 A \longtoby {\lam x {\tup{x,x}}} A \cross A.
 $$
@@ -48277,7 +49295,7 @@ Quando o conjunto $A$ é implícito pelo contexto escrevemos apenas $\diag$.
 
 Com o que já temos na nossa disposição podemos definir umas funções
 interessantes apenas usando composições, e \emph{diretamente} definindo
-a função (sem utilizar um ponto do seu domínio nem a $\lambda$-notação).
+a função (sem utilizar um ponto do seu domínio nem a λ-notação).
 Vamos investigar isso agora no~\ref[Pointfree_style].
 
 %%}}}
@@ -75055,12 +76073,10 @@ $$
 \eop
 Se tua linguagem de programação suporta funções de ordem superior,
 considere que seu primeiro argumento deve ser a própria enumeração $q$:
-$$
-\align
-\namedfun{ratApprox} &\eqtype (\nats\to\rats) \to \reals \to \reals \to \nats\\
-\namedfun{ratApprox}\ q\ x\ \epsilon &= \min\setst{n\in\nats}{\abs{q_n-x}<\epsilon}
-\endalign
-$$
+\mathcol
+\namedfun{ratApprox} &\eqtype (\nats\to\rats) \to \reals \to \reals \to \nats \\
+\namedfun{ratApprox} \fa q \fa x \fa \epsilon &= \min \setst {n\in\nats} {\abs{q_n-x}<\epsilon}
+\endmathcol
 Alternativamente, pode representar uma enumeração de racionais
 como uma lista (infinita) de racionais.  Considere retornar o
 primeiro racional suficientemente próximo além de apenas seu
@@ -75073,7 +76089,7 @@ $\epsilon=1, 1/2, 1/4, \dotsc$.
 Assim, para qualquer real $x$, tu pode
 \emph{construir}---mesmo não muito ``eficientemente''---uma
 seqüência de racionais que converge em $x$, apenas aplicando a função
-$\lambda \epsilon. \namedfun{ratApprox}\ q\ x\ \epsilon$
+$\lam \epsilon {\namedfun{ratApprox} \fa q \fa x \fa \epsilon}$
 em argumentos que formam qualquer seqüência que convirja no zero!
 
 %%}}}
@@ -81076,13 +82092,13 @@ respeitar?
 %%%}}}
 
 Um \dterm{sistema Peano} é um conjunto estruturado
-$\cal N = \sset \Nats {\Zero,\Succ}$ que satisfaz as leis:
+$\cal N = \sset \Nats {\Ze,\Su}$ que satisfaz as leis:
 $$
 \alignat2
-&\text{Zero é um número natural:}                     &\qquad&  \Zero \in \Nats                  \tag{P1}\\
-&\text{O sucessor é uma operação unária nos naturais:}&&        \Succ \eqtype \Nats \to \Nats    \tag{P2}\\
-&\text{Naturais diferentes tem sucessores diferentes:}&&        \Succ \eqtype \Nats \injto \Nats \tag{P3}\\
-&\text{Zero não é o sucessor de nenhum natural:}      &&        \Zero \nin \img \Succ \Nats    \tag{P4}\\
+&\text{Zero é um número natural:}                     &\qquad&  \Ze \in \Nats                  \tag{P1}\\
+&\text{O sucessor é uma operação unária nos naturais:}&&        \Su \eqtype \Nats \to \Nats    \tag{P2}\\
+&\text{Naturais diferentes tem sucessores diferentes:}&&        \Su \eqtype \Nats \injto \Nats \tag{P3}\\
+&\text{Zero não é o sucessor de nenhum natural:}      &&        \Ze \nin \img \Su \Nats    \tag{P4}\\
 &\text{Os naturais satisfazem o princípio da indução:}                                           \tag{P5}
 \endalignat
 $$
@@ -81090,19 +82106,19 @@ $$
 \emph{para todo $X\subset \Nats$,}
 $$
 \bigparen{
-\Zero\in X
+\Ze\in X
 \land
 \forall n
 \paren{
-n \in X \limplies \Succ n \in X
+n \in X \limplies \Su n \in X
 }
 } \limplies X = \Nats.
 $$
 Observe que graças às (P3) e (P4) temos
 $$
 \gather
-\Succ n = \Succ m \implies n = m \\
-\Succ n \neq \Zero
+\Su n = \Su m \implies n = m \\
+\Su n \neq \Ze
 \endgather
 $$
 para todos os $n,m\in \Nats$.
@@ -81116,9 +82132,9 @@ Os axiomas (P1)--(P5) são conhecidos como \dterm{axiomas Dedekind--Peano}.
 %%%}}}
 
 Então o que precisamos implementar é um conjunto estruturado
-$\cal N = \sset \Nats {\Zero, \Succ}$.
-Isso é fácil: nosso $\cal N$ vai ser uma tripla $\tup {\Nats, \Zero, \Succ}$,
-onde seus membros $\Nats$, $\Zero$, e $\Succ$ são tais objetos que as leis
+$\cal N = \sset \Nats {\Ze, \Su}$.
+Isso é fácil: nosso $\cal N$ vai ser uma tripla $\tup {\Nats, \Ze, \Su}$,
+onde seus membros $\Nats$, $\Ze$, e $\Su$ são tais objetos que as leis
 (P1)--(P5) são satisfeitas.
 Sabemos que o $\Nats$ precisa ser infinito, então temos que o procurar
 entre os conjuntos infinitos da nossa teoria.
@@ -81128,19 +82144,19 @@ O que realmente queremos botar como $\Nats$ é o $I_*$
 (que não conseguimos ainda defini-lo).
 Mas vamos supor que o $I_*$ realmente é um conjunto;
 ele vai representar os números naturais,
-mas quais serão nossos $\Zero$ e $\Succ$?
-Pela especificação dos naturais, $\Zero$ tem que ser um dos membros do $I_*$,
+mas quais serão nossos $\Ze$ e $\Su$?
+Pela especificação dos naturais, $\Ze$ tem que ser um dos membros do $I_*$,
 e bem naturalmente escolhemos o $\emptyset$ como o zero.
-E o $\Succ$?  Obviamente queremos botar $\Succ = \lam x {\setsucc x}$,
-mas para realmente definir o $\Succ$ como função, lembramos que em nosso
+E o $\Su$?  Obviamente queremos botar $\Su = \lam x {\setsucc x}$,
+mas para realmente definir o $\Su$ como função, lembramos que em nosso
 dicionário ``função'' é um certo tipo de conjunto de pares.
 Botamos então
 $$
 \align
-\Succ &\pseudodefeq \classst {\tup{n,m}} { m = \setsucc n }
+\Su &\pseudodefeq \classst {\tup{n,m}} { m = \setsucc n }
 \intertext{e agora só basta achar um conjunto que tem todos esses pares
 como membros.  Fácil:}
-\Succ &\defeq \setst {\tup{n,m}\in \Nats\times \Nats} { m = \setsucc n }.
+\Su &\defeq \setst {\tup{n,m}\in \Nats\times \Nats} { m = \setsucc n }.
 \endalign
 $$
 Então falta só definir esse $I_*$.
@@ -81217,19 +82233,19 @@ Pois $I\in\scr I$.
 \label existence_of_nats
 %%%}}}
 
-Existe pelo menos um sistema Peano $\cal N = \sset \Nats {\Zero, \Succ}$.
+Existe pelo menos um sistema Peano $\cal N = \sset \Nats {\Ze, \Su}$.
 
 \sketch.
 Definimos
 $$
-\cal N \defeq \tup{\Nats, \Zero, \Succ},
+\cal N \defeq \tup{\Nats, \Ze, \Su},
 $$
 onde:
 $$
 \align
 \Nats &\defeq \Inter \setst {i \in \pset I} {\emptyset \in i \land \forall x \paren{x\in i \limplies \setsucc x \in i}}\\
-\Zero &\defeq \emptyset\\
-\Succ &\defeq \setst {\tup{m,n}\in \Nats\times\Nats} { n = \setsucc m }.
+\Ze &\defeq \emptyset\\
+\Su &\defeq \setst {\tup{m,n}\in \Nats\times\Nats} { n = \setsucc m }.
 \endalign
 $$
 Temos já justificado que cada objeto que aparece nessa definição
@@ -81249,7 +82265,7 @@ exercícios \reftag[zero_is_a_nat]--\reftag[nat_has_induction].
 \label zero_is_a_nat
 %%%}}}
 
-Demonstre que $\Zero\in\Nats$.
+Demonstre que $\Ze\in\Nats$.
 
 %%}}}
 
@@ -81259,7 +82275,7 @@ Demonstre que $\Zero\in\Nats$.
 \label succ_is_a_function
 %%%}}}
 
-Demonstre que $\Succ$ é uma função.
+Demonstre que $\Su$ é uma função.
 
 %%}}}
 
@@ -81269,7 +82285,7 @@ Demonstre que $\Succ$ é uma função.
 \label succ_is_injective
 %%%}}}
 
-Demonstre que $\Succ : \Nats \injto \Nats$.
+Demonstre que $\Su : \Nats \injto \Nats$.
 
 %%}}}
 
@@ -81279,7 +82295,7 @@ Demonstre que $\Succ : \Nats \injto \Nats$.
 \label zero_is_not_a_succ
 %%%}}}
 
-Demonstre que $\Zero\nin \img \Succ \Nats$.
+Demonstre que $\Ze\nin \img \Su \Nats$.
 
 %%}}}
 
@@ -81291,8 +82307,8 @@ Demonstre que $\Zero\nin \img \Succ \Nats$.
 
 Seja $X\subset \Nats$ tal que:
 \tlist:
-\li (1): $\Zero \in X$;
-\li (2): para todo $k\in \Nats$, se $k\in X$ então $\Succ k \in X$.
+\li (1): $\Ze \in X$;
+\li (2): para todo $k\in \Nats$, se $k\in X$ então $\Su k \in X$.
 \endtlist
 Demonstre que $X=\Nats$.
 
@@ -81310,8 +82326,8 @@ Demonstre que $X=\Nats$.
     ;;
 %%%}}}
 
-Se  $\cal N_1 = \sset {\Nats_1} {\Zero_1, \Succ_1}$
-e   $\cal N_2 = \sset {\Nats_2} {\Zero_2, \Succ_2}$
+Se  $\cal N_1 = \sset {\Nats_1} {\Ze_1, \Su_1}$
+e   $\cal N_2 = \sset {\Nats_2} {\Ze_2, \Su_2}$
 são sistemas Peano, então são isomorfos: $\cal N_1 \iso \cal N_2$.
 
 \wrongproof.
@@ -81320,8 +82336,8 @@ $\phi : \cal N_1 \iso \cal N_2$.
 Definimos a função $\phi : \Nats_1 \to \Nats_2$ usando recursão:
 $$
 \align
-\phi(\Zero_1) &= \Zero_2\\
-\phi(\Succ_1n) &= \Succ_2\phi(n).
+\phi(\Ze_1) &= \Ze_2\\
+\phi(\Su_1n) &= \Su_2\phi(n).
 \endalign
 $$
 Pela sua definição, a $\phi$ é um homomorfismo.
@@ -81363,27 +82379,27 @@ Para demonstrar a igualdade mesmo, use o princípio da indução.
 
 \hint
 Precisas demonstrar duas coisas então:
-(1) $\Zero_2 \in \img\phi{\Nats_1}$;
-(2) para todo $n \in \Nats_2$, se $n \in \img\phi{\Nats_1}$ então $\Succ_2 n \in \img\phi{\Nats_1}$.
+(1) $\Ze_2 \in \img\phi{\Nats_1}$;
+(2) para todo $n \in \Nats_2$, se $n \in \img\phi{\Nats_1}$ então $\Su_2 n \in \img\phi{\Nats_1}$.
 
 \solution
 Como $\img \phi {\Nats_1} \subset \Nats_2$,
 demonstramos a igualdade usando o princípio da indução~(P5).
 \proofpart {Base.}
-$\Zero_2 \in \img\phi{\Nats_1}$:
-Imediato pois $\phi(\Zero_1) = \Zero_2$.
+$\Ze_2 \in \img\phi{\Nats_1}$:
+Imediato pois $\phi(\Ze_1) = \Ze_2$.
 \proofpart {Passo indutivo.}
 Suponha $k \in \img\phi{\Nats_1}$.
-Precisamos mostrar que $\Succ_2 k \in \img\phi{\Nats_1}$.
+Precisamos mostrar que $\Su_2 k \in \img\phi{\Nats_1}$.
 Pela escolha de $k$, tome $k' \in \Nats_1$ tal que
 $\phi(k') = k$.
 Calculamos:
 \compute
-\phi(\Succ_1 k')
-&= \Succ_2 (\phi(k')) \by {pela def.~$\phi$} \\
-&= \Succ_2 k          \by {pela escolha de $k'$} \\
+\phi(\Su_1 k')
+&= \Su_2 (\phi(k')) \by {pela def.~$\phi$} \\
+&= \Su_2 k          \by {pela escolha de $k'$} \\
 \endcompute
-ou seja, $\Succ_2 k \in \phi[\Nats_1]$.
+ou seja, $\Su_2 k \in \phi[\Nats_1]$.
 
 %%}}}
 
@@ -81435,15 +82451,15 @@ realmente botando o $\qedsymbol$ no~\ref[uniqueness_of_nats].
     ;;
 %%%}}}
 
-Sejam $\cal N = \sset \Nats {\Zero, \Succ}$ um sistema Peano,
+Sejam $\cal N = \sset \Nats {\Ze, \Su}$ um sistema Peano,
 $A$ conjunto,
 $a \in A$,
 e $h: A \to A$.
 Então existe única função $F : \Nats \to A$ que satisfaz as equações:
 $$
 \align
-F(\Zero)    &= a \tag{1}\\
-F(\Succ n)  &= h(F(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
+F(\Ze)    &= a \tag{1}\\
+F(\Su n)  &= h(F(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
 \endalign
 $$
 
@@ -81607,8 +82623,8 @@ No contexto do~\ref[recursion_theorem] mostre que $F$ atende sua especificação
 ou seja:
 $$
 \align
-F(\Zero)    &= a \tag{1}\\
-F(\Succ n)  &= h(F(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
+F(\Ze)    &= a \tag{1}\\
+F(\Su n)  &= h(F(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
 \endalign
 $$
 
@@ -81624,8 +82640,8 @@ No contexto do~\ref[recursion_theorem] demonstre a unicidade da $F$, ou seja:
 se $G : \Nats \to A$ tal que
 $$
 \align
-G(\Zero)    &= a \tag{1}\\
-G(\Succ n)  &= h(G(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
+G(\Ze)    &= a \tag{1}\\
+G(\Su n)  &= h(G(n)), \quad\text{para todo $n\in\Nats$}.\tag{2}
 \endalign
 $$
 então $F = G$.
@@ -81664,12 +82680,12 @@ correspondentes!
 %%%{{{ meta 
 %%%}}}
 
-Para qualquer sistema Peano $\cal N = \sset \Nats {\Zero, \Succ}$,
+Para qualquer sistema Peano $\cal N = \sset \Nats {\Ze, \Su}$,
 definimos as operações de adição e de multiplicação
 $$
 \xxalignat5
-&\text{(a1)}  & n + \Zero   &= n          &&& n \ntimes \Zero   &= \Zero                &&\text{\funref[(\ntimes).1]}\\
-&\text{(a2)}  & n + \Succ m &= \Succ(n+m) &&& n \ntimes \Succ m &= (n \ntimes m) + n    &&\text{\funref[(\ntimes).2]}
+&\text{(a1)}  & n + \Ze   &= n          &&& n \ntimes \Ze   &= \Ze                &&\text{\funref[(\ntimes).1]}\\
+&\text{(a2)}  & n + \Su m &= \Su(n+m) &&& n \ntimes \Su m &= (n \ntimes m) + n    &&\text{\funref[(\ntimes).2]}
 \endxxalignat
 $$
 e a relação de ordem no $\Nats$
@@ -81677,14 +82693,14 @@ $$
     n \leq m \defiff (\exists k\in\Nats)[n + k = m].
 $$
 Sejam dois sistemas Peano
-$\cal N_1 = \sset {\Nats_1} {\Zero_1, \Succ_1}$ e 
-$\cal N_2 = \sset {\Nats_2} {\Zero_2, \Succ_2}$, e
+$\cal N_1 = \sset {\Nats_1} {\Ze_1, \Su_1}$ e 
+$\cal N_2 = \sset {\Nats_2} {\Ze_2, \Su_2}$, e
 suas operações de adição $+_1$ e $+_2$, e suas relações de ordem $\leq_1$ e $\leq_2$.
 Seja $\phi:\Nats_1\bijto\Nats_2$ o isomorfismo definido pelas
 $$
 \align
-    \phi(\Zero_1)   &= \Zero_2           \tag{$\phi$1}\\
-    \phi(\Succ_1 n) &= \Succ_2(\phi(n)). \tag{$\phi$2}
+    \phi(\Ze_1)   &= \Ze_2           \tag{$\phi$1}\\
+    \phi(\Su_1 n) &= \Su_2(\phi(n)). \tag{$\phi$2}
 \endalign
 $$
 
@@ -81704,15 +82720,15 @@ $$
 
 \proof.
 Por indução no $m\in\Nats_1$:
-\proofpart {Base ($m \asseq \Zero_1$):}
-{\proclaimstyle para todo $n\in\Nats_1$, $\phi(n +_1 \Zero_1) = \phi(n) +_1 \phi(\Zero_1)$.}
+\proofpart {Base ($m \asseq \Ze_1$):}
+{\proclaimstyle para todo $n\in\Nats_1$, $\phi(n +_1 \Ze_1) = \phi(n) +_1 \phi(\Ze_1)$.}
 Seja $n \in \Nats_1$.
 Calculamos:
 \compute
-\phi(n +_1 \Zero_1)
+\phi(n +_1 \Ze_1)
 &= \phi(n)                    \by {pela (a1)$_1$} \\
-&= \phi(n) +_2 \Zero_2        \by {pela (a1)$_2$} \\
-&= \phi(n) +_2 \phi(\Zero_1)  \by {pela ($\phi$1)} \\
+&= \phi(n) +_2 \Ze_2        \by {pela (a1)$_2$} \\
+&= \phi(n) +_2 \phi(\Ze_1)  \by {pela ($\phi$1)} \\
 \endcompute
 \proofpart {Passo indutivo:}
 Seja $k \in \Nats_1$ tal que
@@ -81721,17 +82737,17 @@ $$
 $$
 Vamos demonstrar que
 $$
-\text{\proclaimstylize{para todo $n \in \Nats_1$, $\phi(n +_1 \Succ_1 k) = \phi(n) +_1 \phi(\Succ_1 k)$.}}
+\text{\proclaimstylize{para todo $n \in \Nats_1$, $\phi(n +_1 \Su_1 k) = \phi(n) +_1 \phi(\Su_1 k)$.}}
 $$
 Seja $n \in \Nats_1$.
 Calculamos:
 \compute
-\phi(n +_1 \Succ_1 k)
-&= \phi(\Succ_1(n +_1 k))       \by {pela (a1)$_2$} \\
-&= \Succ_2(\phi(n +_1 k))       \by {pela ($\phi$2)} \\
-&= \Succ_2(\phi(n) +_2 \phi(k)) \by {pela (H.I.), com $n\asseq n$} \\
-&= \phi(n) +_2 \Succ_2\phi(k)   \by {pela (a2)$_2$} \\
-&= \phi(n) +_2 \phi(\Succ_1 k)  \by {pela ($\phi$2)} \\
+\phi(n +_1 \Su_1 k)
+&= \phi(\Su_1(n +_1 k))       \by {pela (a1)$_2$} \\
+&= \Su_2(\phi(n +_1 k))       \by {pela ($\phi$2)} \\
+&= \Su_2(\phi(n) +_2 \phi(k)) \by {pela (H.I.), com $n\asseq n$} \\
+&= \phi(n) +_2 \Su_2\phi(k)   \by {pela (a2)$_2$} \\
+&= \phi(n) +_2 \phi(\Su_1 k)  \by {pela ($\phi$2)} \\
 \endcompute
 
 %%}}}
@@ -84488,7 +85504,7 @@ $\setst{q \in \rats}{a \leq q\leq b}$ também é incontável?
 %%%}}}
 
 %%{{{ The untyped lambda calculus 
-\section O $\lambda$-calculus não-tipado.
+\section O λ-calculus não-tipado.
 %%%{{{ meta 
 %%%}}}
 
@@ -84620,7 +85636,7 @@ Defina o $\cV$ dos $\cI$, $\cK$, $\cM$, $\cB$, $\cBp$, $\cC$, $\cS$, $\cW$, $\cR
 \label what_does_this_lambda_term_with_minus_do
 %%%}}}
 
-Suponha que já temos definido um $\lambda$-term $\Lmac{minus}$,
+Suponha que já temos definido um λ-term $\Lmac{minus}$,
 que comporta corretamente, no sentido que:
 $$
 \align
