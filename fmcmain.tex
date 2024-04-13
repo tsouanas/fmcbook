@@ -58354,12 +58354,13 @@ e elaborar um estudo universal delas.
 \history.
 %%%{{{ meta 
 \credits
-    * Galois
     * Abel
-    * Ruffini
     * Cauchy
-    * Wantzel
+    * Galois
+    * Lagrange
     * Lambert
+    * Ruffini
+    * Wantzel
     * vonLindemann
     ;;
 %%%}}}
@@ -58446,13 +58447,16 @@ todos esses teoremas difíceis!
 %%%}}}
 
 Vamos começar considerando o conjunto $\sym n$ de todas as permutações
-dum conjunto com $n$ elementos.  Tomamos o $\set{1,2,\dotsc,n}$ como
-nosso conjunto mas sua escolha é inessencial.
-Logo, temos por exemplo
-$$
-\sym 3 \defeq (\set{1,2,3}\bijto\set{1,2,3}).
-$$
-Quantos elementos o $\sym 3$ tem?
+dum conjunto com $n$ elementos, i.e., todas as endofunções bijetivas.
+Escolhemos o $\set{1,2,\dotsc,n}$ como nosso conjunto mas esta escolha
+é inessencial.
+Logo temos
+\mathcols 2
+\sym n &\defeq (\set{1,\dotsc,n}\bijto\set{1,\dotsc,n})
+\intertext {e, em particular,}
+\sym 3 &= (\set{1,2,3}\bijto\set{1,2,3}).
+\endmathcols
+Quantos elementos tem o $\sym 3$?
 Lembramos\foot
 Se não lembramos, veja a~\ref[total_permutations]
 e a~\reftag[Permutations_and_combinations] em geral.
@@ -58464,7 +58468,7 @@ $$
 $$
 Nosso primeiro objectivo é achar todos esses $6$ membros de $\sym 3$.
 \eop
-Primeiramente, a identidade $\idof {\set{1,2,3}} \in \sym 3$ pois é bijetora.
+Primeiramente, a identidade $\idof {\set{1,2,3}} \in \sym 3$ pois é bijetiva.
 Para continuar, introduzimos aqui uma notação bem práctica para
 trabalhar com permutações:
 
@@ -58478,7 +58482,7 @@ trabalhar com permutações:
 
 Denotamos a bijecção $f \in \sym n$ assim:
 $$
-f = \permf{
+f \inteq \permf{
 1    & 2    & \dotsb & n\\
 f(1) & f(2) & \dotsb & f(n)
 }
@@ -58486,57 +58490,52 @@ $$
 Por exemplo, a identidade de $\sym 3$,
 e a permutação $\phi$ que troca apenas o primeiro com o segundo elemento
 são denotadas assim:
-$$
-\xalignat2
+\mathcols 2
 \id
-&= \permf{
-1 & 2 & 3\\
+&= \permf {
+1 & 2 & 3 \\
 1 & 2 & 3
-}
-&
+} &
 \phi
-&\asseq \permf{
-1 & 2 & 3\\
+&\asseq \permf {
+1 & 2 & 3 \\
 2 & 1 & 3
 }
-\endxalignat
-$$
-Considere agora uma permutação do $\sym 8$ e uma do $\sym {12}$ por exemplo as
-$$
-\align
-\permf{
-1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+\endmathcols
+Considere agora uma permutação do $\sym 8$ e uma do $\sym {12}$:
+\mathcols 2
+&\permf {
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
 2 & 3 & 1 & 4 & 6 & 5 & 7 & 8
-}
-\quad&\text{e}\quad
-\permf{
-1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\
-2 & 3 & 1 & 4 & 5 & 10 & 6 & 11 & 9 & 12 & 8 & 7
+}; &
+&\permf {
+1 & 2 & 3 & 4 & 5 & 6  & 7 & 8  & 9 & 10 & 11 & 12\\
+2 & 3 & 1 & 4 & 5 & 10 & 6 & 11 & 9 & 12 & 8  & 7
 }.
-\intertext{Podemos quebrá-las em ``ciclos'' escrevendo}
+\intertext{Podemos quebrá-las em \dterm{ciclos} escrevendo}
+&
 \permc{1 & 2 & 3}
-\permc{5 & 6}
-\quad&\text{e}\quad
+\permc{5 & 6} &
+&
 \permc{1 & 2 & 3}
 \permc{6 & 10 & 12 & 7}
 \permc{8 & 11}
-\endalign
-$$
+\endmathcols
 respectivamente.
 Entendemos o ciclo $\permc{1 & 2 & 3}$ como
 $1 \mapsto 2 \mapsto 3 \mapsto 1$:
 $$
 (
-\cdopt{sep=.666cm}
+\cdopt{sep=.333cm}
 1 \ar[r,maps to] \| 2 \ar[r,maps to] \| 3 \ar[ll,maps to,bend left=36]
 \endcd
 )
 $$
-Observe que, por exemplo,
+Observe que não há uma única maneira de denotar um cíclo com essa notação; por exemplo:
 $$
 \permc{1 & 3 & 2} = \permc{3 & 2 & 1} = \permc{2 & 1 & 3}
 =
-\gathered
+\mathed {
 \tikzpicture
 \node (a) at ( 0,.866) {$1$};
 \node (b) at (-.5,0)   {$2$};
@@ -58545,10 +58544,10 @@ $$
 \draw[|->] (c) to [bend left=30] (b);
 \draw[|->] (b) to [bend left=30] (a);
 \endtikzpicture
-\endgathered
+}
 $$
 mas mesmo assim preferimos botar o menor número na primeira posição na escrita;
-optariamos para o $\permc{1 & 3 & 2}$ nesse caso.
+optamos para o $\permc{1 & 3 & 2}$ neste caso.
 
 %%}}}
 
@@ -58587,11 +58586,11 @@ $$
 $$
 compartilham a mesma forma usando a notação com ciclos!
 Olhando para as formas acima, sabemos que a primeira
-é uma permutação do $\sym 5$, e a segunda do $\sym 7$.
+é um membro do $\sym 5$, e a segunda do $\sym 7$.
 \eop
 Mais um defeito dessa notação é que não temos como denotar
 a identidade numa forma consistente: podemos concordar
-denotá-la pelo $\permc {1}$ ou $\permc{}$, mas na práctica
+denotá-la pelo $\permc {1}$ ou $\permc {}$, mas na práctica
 optamos para o $\id$ mesmo.
 
 %%}}}
@@ -58602,22 +58601,20 @@ optamos para o $\id$ mesmo.
 %%%}}}
 
 Já achamos $2$ dos $6$ elementos de $\sym 3$:
-$$
-\xalignat2
+\mathcols 2
 \id
-&=\permf{
-1 & 2 & 3\\
+&= \permf {
+1 & 2 & 3 \\
 1 & 2 & 3
 }
 &
 \phi
-&\leteq\permf{
-1 & 2 & 3\\
+&\leteq \permf {
+1 & 2 & 3 \\
 2 & 1 & 3
 }
-=\permc{1 & 2}
-\endxalignat
-$$
+= \permc {1 & 2}
+\endmathcols
 Sabendo
 que a composição de bijecções é bijecção (\ref[fcom_respects_jections]),
 tentamos a
@@ -58697,12 +58694,10 @@ Veja~\ref[why_phipsi_neq_psiphi] por exemplo.
 \toof
 Mas $\card{\sym 3} = 6$, e logo achamos \emph{todos} os membros de
 $\sym 3 = \set{\id, \phi, \psi, \psi^2, \phi\psi,\psi\phi}$:
-$$
-\xalignat3
-\id  &= \permc {1}         &\psi         &= \permc {1 & 2 & 3}  & \phi\com\psi &= \permc {2 & 3}\\
-\phi &= \permc {1 & 2}     &\psi^2       &= \permc {1 & 3 & 2}  & \psi\com\phi &= \permc {1 & 3}.
-\endxalignat
-$$
+\mathcols 3
+\id  &= \permc {}      &\psi   &= \permc {1 & 2 & 3}  & \phi\com\psi &= \permc {2 & 3} \\
+\phi &= \permc {1 & 2} &\psi^2 &= \permc {1 & 3 & 2}  & \psi\com\phi &= \permc {1 & 3}.
+\endmathcols
 
 %%}}}
 
