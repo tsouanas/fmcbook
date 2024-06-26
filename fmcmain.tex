@@ -18707,6 +18707,44 @@ enquanto ordenado pela $(\leq)$ só tem bottom (\ref[natleq_bottom]).
 %%%{{{ meta 
 %%%}}}
 
+%%{{{ df: ackermann_function 
+\definition Ackermann.
+%%%{{{ meta 
+\label ackermann_function
+\credits
+    * Ackermann
+    ;;
+\defines
+    * recursão!aninhada
+    ;;
+\indexes
+    * aninhada!recursão   see: recursão
+    ;;
+%%%}}}
+
+Seja $\ack$ a função definida por \dterm{recursão aninhada} pelas:
+\fundef
+\ack : \Nat \to \Nat \to \Nat \\
+\ack &\Ze            &x                 &= \SuA x \\
+\ack &\paren{\SuA n} &\Ze               &= \ackAA n 1 \\
+\ack &\paren{\SuA n} &\paren{\SuA x}    &= \ackAP n {\ackPA {\SuA n} x}. \\
+\endfundef
+A função $\ack$ é conhecida como função de Ackermann,
+e vamos encontrá-la novamente bem depois, no~\ref[Computability_theory].
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Aqui um pequeno tira-gosto: implemente a definição $\ack$ na tua linguagem de
+programação favorita e use teu programa para calcular uns valores dela.
+O que percebes?
+
+%%}}}
+
 %%{{{ prob: ackermann_function 
 \problem Ackermann.
 %%%{{{ meta 
@@ -18722,23 +18760,17 @@ enquanto ordenado pela $(\leq)$ só tem bottom (\ref[natleq_bottom]).
     ;;
 %%%}}}
 
-Considere a função \dterm{aninhamente} recursiva:
-\fundef
-\ack : \Nat \to \Nat \to \Nat \\
-\ack &\Ze            &x                 &= \SuA x \\
-\ack &\paren{\SuA n} &\Ze               &= \ackAA n 1 \\
-\ack &\paren{\SuA n} &\paren{\SuA x}    &= \ackAP n {\ackPA {\Su n} x}. \\
-\endfundef
+Investigue a função $\ack$:
 \tlist:
-\li (i):   Calcule o valor $\ackAA 3 2$, indicando para cada passo qual equação foi usada.
-\li (ii):  Demonstre que $\ackA 1 = \fsec + 2$, ou seja, que para todo $x\is\Nat$, $\ackAA 1 x = x + 2$.
-\li (iii): Demonstre que para todo $x\is\Nat$, $\ackAA 2 x = 2x + 3$.
+\li (i):    Calcule o valor $\ackAA 3 2$, indicando para cada passo qual equação foi usada.
+\li (ii):   Demonstre que $\ackA 1 = \fsec + 2$, ou seja, que para todo $x\is\Nat$, $\ackAA 1 x = x + 2$.
+\li (iii):  Demonstre que para todo $x\is\Nat$, $\ackAA 2 x = 2x + 3$.
+\li (iv):   Demonstre que $\ack$, vista como função binária, é estritamente crescente no seu segundo argumento.
+\li (v):    Conclua que $\ackAA n x \geq x$,
+\li (vi):   Mostre que $\ack$ é estritamente crescente no seu primeiro argumento também.
+\li (vii):  Mostre que $(\ackA n)^2$ é pointwise-(<) que $\ackP {n+2}$.
+\li (viii): Demonstre que para todo $x\is\Nat$, $\ackAA 2 x = 2x + 3$.
 \endtlist
-A função $\ack$ é conhecida como função de Ackermann,
-e vamos encontrá-la novamente bem depois, no~\ref[Computability_theory].
-Aqui um pequeno tira-gosto: implemente a definição $\ack$ na tua linguagem de
-programação favorita e use teu programa para calcular uns valores dela.
-O que percebes?
 
 %%}}}
 
