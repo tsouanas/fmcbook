@@ -33257,7 +33257,7 @@ talvez alguma relação, e/ou operações, etc.:
 \wq{\dots mais que conjuntos: espaços!}
 Temos espaços:
 métricos (\ref[Metric_spaces]),
-topológicos (\reftag[General_topology]),
+topológicos (\reftag[Topology]),
 vetoriais (\reftag[Vector_spaces]),
 sóbrios(!),
 poloneses,
@@ -33269,7 +33269,7 @@ de Baire,
 de Borel,
 de Hibert,
 de Banach,
-de Hausdorff (\reftag[Hausdorff_and_separation_axioms]),
+de Hausdorff,
 de Fréchet,
 de Stone,
 e muitos mais de\dots muita gente boa!
@@ -75636,7 +75636,7 @@ e guiou para desenvolvemento de bem mais teorias interessantes, como:
 \emph{teoria de espaços métricos}, \emph{topologia geral},
 e \emph{teoria da medida}.
 Nesse texto vamos dedicar um capítulo para a primeira (\ref[Metric_spaces])
-e um para a segunda (\ref[General_topology]),
+e um para a segunda (\ref[Topology]),
 e apenas uma secção (esta!)~para a terceira.
 
 %%}}}
@@ -85545,10 +85545,10 @@ e completo.
 \endchapter
 %%}}}
 
-%%{{{ chapter: General_topology 
-\chapter Topologia geral.
+%%{{{ chapter: Topology 
+\chapter Topologia.
 %%%{{{ meta 
-\label General_topology
+\label Topology
 %%%}}}
 
 %%{{{ What is a topology? 
@@ -85620,6 +85620,7 @@ especificação especifica.
 %%{{{ spec: opens_space 
 \specification Espaço de opens.
 %%%{{{ meta 
+\label opens_space
 %%%}}}
 
 Chamamos o $\sset X \opens$ de \dterm{espaço de opens}
@@ -85636,13 +85637,14 @@ Chamamos os membros da $\opens$ de \dterm{opens} (abertos).
 
 %%}}}
 
-%%{{{ spec: nbhds_space 
-\specification Espaço de nbhds.
+%%{{{ spec: hoods_space 
+\specification Espaço de hoods.
 %%%{{{ meta 
+\label hoods_space
 %%%}}}
 
-Chamamos o $\sset X \hoods$ de \dterm{espaço de nbhds}
-(neighborhoods) onde $\hoods$ é uma coleção de
+Chamamos o $\sset X \hoods$ de \dterm{espaço de vizinhanças}
+(neighborhoods, ou hoods, ou nbhds) onde $\hoods$ é uma coleção de
 subconjuntos de $X$
 $$
 \hoods \is \pset\pset X
@@ -85659,9 +85661,10 @@ ou de \dterm{vizinhaças}.
 
 %%}}}
 
-%%{{{ spec: hoods_space 
-\specification Espaço de hood-systems.
+%%{{{ spec: hoodsys_space 
+\specification Espaço de hoodsystems.
 %%%{{{ meta 
+\label hoods_space
 %%%}}}
 
 Chamamos o $\sset X {\famst {\hoods_x} {x \in X}}$
@@ -85689,6 +85692,7 @@ e seus membros de \dterm{$x$-nbhds}.
 %%{{{ spec: closure_space 
 \specification Espaço de closure.
 %%%{{{ meta 
+\label closure_space
 %%%}}}
 
 Chamamos o $\sset X {\closure\uhole}$
@@ -85754,19 +85758,19 @@ primitiva a operação de \dterm{interior}.
 \endsection
 %%}}}
 
-%%{{{ Topology_constructions 
-\section Construções de topologias.
+%%{{{ Bases_and_subbases 
+\section Bases e subbases.
 %%%{{{ meta 
-\label Topology_constructions
+\label Bases_and_subbases
 %%%}}}
 
 \endsection
 %%}}}
 
-%%{{{ Bases_and_subbases 
-\section Bases e subbases.
+%%{{{ Topological_spaces 
+\section Uns espaços topológicos.
 %%%{{{ meta 
-\label Bases_and_subbases
+\label Topological_spaces
 %%%}}}
 
 \endsection
@@ -85778,13 +85782,72 @@ primitiva a operação de \dterm{interior}.
 \label Continuity
 %%%}}}
 
+%%{{{ df: continuous_at_point_in_topology
+\definition contínua.
+%%%{{{ meta 
+\defines
+    * função!contínua em ponto
+    ;;
+\label continuous_at_point_in_topology
+%%%}}}
+
+Sejam $p \in X \toby f Y$.
+Dizemos que $f$ é \dterm{contínua no $p$} sse
+para toda vizinhança $E$ de $f\fa p$,
+existe vizinhança $D$ de $p$ tal que $f \img D \subset E$.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Um imaginaria que tendo definido o que significa \emph{contínua
+num ponto do domínio} definiríamos \dterm{contínua} para significar
+\emph{contínua em cada ponto do seu domínio}.
+Conseguimos uma definição melhor que nem precisa olhar para
+os pontinhos dos espaços envolvidos:
+
+%%}}}
+
+%%{{{ df: continuous_in_topology
+\definition contínua.
+%%%{{{ meta 
+\defines
+    * função!contínua
+    ;;
+\label continuous_in_topology
+%%%}}}
+
+Sejam $X \toby f Y$.
+Dizemos que $f$ é \dterm{contínua no $t$} sse
+$f$ reflete os abertos, ou seja:
+para qualquer $Y$-aberto $U \ni t$, $\pre f U$
+é $X$-aberto.
+
+%%}}}
+
+%%{{{ x: continuous_iff_continuous_at_each_point 
+\exercise.
+%%%{{{ meta 
+\label continuous_iff_continuous_at_each_point
+%%%}}}
+
+Sejam $X \toby f Y$.
+$$
+\text{$f$ contínua} \iff \lforallt {x \in X} {$f$ contínua no $x$}.
+$$
+
+%%}}}
+
 \endsection
 %%}}}
 
-%%{{{ Connectedness 
-\section Conexidade.
+%%{{{ Topology_constructions 
+\section Construções.
 %%%{{{ meta 
-\label Connectedness
+\label Topology_constructions
 %%%}}}
 
 \endsection
@@ -85799,10 +85862,200 @@ primitiva a operação de \dterm{interior}.
 \endsection
 %%}}}
 
-%%{{{ Hausdorff_and_separation_axioms 
-\section Hausdorff e axiomas de separação.
+%%{{{ Connectedness 
+\section Conexidade.
 %%%{{{ meta 
-\label Hausdorff_and_separation_axioms
+\label Connectedness
+%%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Separation 
+\section Separação.
+%%%{{{ meta 
+\label Separation
+%%%}}}
+
+%%{{{ intro 
+\secintro
+Pelos olhos de um espaço topológico podemos
+enxergar conjuntos e pontos mas o quão bem podemos distingüi-los
+e separá-los varia.
+Considere o espaço indiscreto com $2$ pontos ${0,1}$.
+A topologia deste espaço não permite perceber nenhuma diferença
+(topológica) entre os dois: aqui só tem dois conjuntos abertos:
+o vazio, a qual nenhum dos dois pontos pertence, e o espaço inteiro,
+a qual ambos pertencem.  Por outro lado, no espaço de Sierpinski
+os dois pointos são distingüíveis, já que temos um aberto a
+qual $\top$ pertence e $\bot$ não.
+Há muitas maneiras de \emph{separar} coisas dum espaço topológico
+e, dependendo do nível e da maneira que estamos querendo separar,
+chegamos em conceitos diferentes.
+Nesta seção vamos conhecer uns deles.
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Os primeiros axiomas estão se referindo à separação
+entre dois pontos do espaço.
+
+%%}}}
+
+%%{{{ df: Kolmogorov_space 
+\definition Kolmogorov.
+%%%{{{ meta 
+\defines
+    * Espaço!de Kolmogorov
+    ;;
+%%%}}}
+
+Dizemos que $X$ é um espaço de \dterm{Kolmogorov},
+sse para quaisquer dois pontos distintos de $X$
+existe vizinhança de um a qual não pertence o outro.
+
+%%}}}
+
+%%{{{ df: Frechet_space 
+\definition Frechet.
+%%%{{{ meta 
+\defines
+    * Espaço!de Fréchet
+    ;;
+%%%}}}
+
+Dizemos que $X$ é um espaço de \dterm{Fréchet},
+sse para quaisquer dois pontos distintos de $X$
+existem vizinhanças de cada um a qual não pertence o outro.
+
+%%}}}
+
+%%{{{ x: Frechet_iff_closed_points 
+\exercise.
+%%%{{{ meta 
+\label Frechet_iff_closed_points
+%%%}}}
+
+Seja $X$ um espaço topológico.
+$$
+\text{$X$ Fréchet} \iff \text{todo $p \in X$ é fechado}.
+$$
+
+%%}}}
+
+%%{{{ df: Hausdorff_space 
+\definition Hausdorff.
+%%%{{{ meta 
+\defines
+    * Espaço!de Hausdorff
+    ;;
+%%%}}}
+
+Dizemos que $X$ é um espaço de \dterm{Hausdorff},
+sse para quaisquer pontos $p \neq q$ de $X$
+existem vizinhanças disjuntas: $P$ de $p$ e $Q$ de $q$.
+
+%%}}}
+
+%%{{{ x: Hausdorff_compact_separation 
+\exercise.
+%%%{{{ meta 
+\label Hausdorff_compact_separation
+%%%}}}
+
+Sejam $H$ um espaço Hausdorff, $K$ um subespaço compacto
+de $H$ e $p$ um ponto fora do $K$.
+Logo $K$ e $p$ podem ser separados por abertos assim:
+existem abertos disjuntos $U, P$ tais que $U \supset K$,
+$P \ni p$.
+
+%%}}}
+
+%%{{{ x: Hausdorff_compact_closed 
+\exercise.
+%%%{{{ meta 
+\label Hausdorff_compact_closed
+%%%}}}
+
+Seja $H$ um espaço Hausdorff.
+Todo subespaço compacto de $H$ é fechado.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+O próximo separa conjuntos de pontos fora deles:
+
+%%}}}
+
+%%{{{ df: regular_space 
+\definition regular.
+%%%{{{ meta 
+\defines
+    * Espaço!regular
+    ;;
+%%%}}}
+
+Dizemos que $X$ é um espaço \dterm{regular},
+sse para qualquer fechado $F$ e qualquer ponto $p \nin F$,
+existem conjuntos abertos e disjuntos $G,P$ com $G \supset F$ e $P \ni p$.
+
+%%}}}
+
+%%{{{ df: normal_space 
+\definition normal.
+%%%{{{ meta 
+\defines
+    * Espaço!normal
+    ;;
+%%%}}}
+
+Dizemos que $X$ é um espaço \dterm{normal},
+sse para quaisquer fechados disjuntos $F,F'$,
+existem abertos disjuntos $G,G'$ com $G \supset F$ e $G' \supset F'$.
+
+%%}}}
+
+%%{{{ thm: Urysohn_lemma 
+\theorem Lema de Urysohn.
+%%%{{{ meta 
+\headerize
+\label Urysohn_lemma
+\credits
+    * Urysohn : lema
+    ;;
+\indexes
+    * lema!de Urysohn
+    ;;
+%%%}}}
+
+Sejam $A,B$ disjuntos fechados de um espaço normal $X$.
+Seja $[\alpha,\beta]$ um intervalo de reais.
+Logo existe função continua
+$$
+f : X \to [\alpha,\beta]
+$$
+tal que $\img f A = \set {\alpha}$
+e $\img f B = \set {\beta}$.
+
+\sketch.
+TODO.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Convergences 
+\section Convergências.
+%%%{{{ meta 
+\label Convergences
 %%%}}}
 
 \endsection
