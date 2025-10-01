@@ -85758,11 +85758,341 @@ primitiva a operação de \dterm{interior}.
 \endsection
 %%}}}
 
-%%{{{ Bases_and_subbases 
-\section Bases e subbases.
+%%{{{ Topological_notions 
+\section Noções topológicas.
 %%%{{{ meta 
-\label Bases_and_subbases
 %%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Já temos acesso a todas as noções de:
+\dterm{aberto},
+\dterm{fechado},
+\dterm{vizinhança},
+\dterm{vizinhança de ponto},
+\dterm{topologia};
+foram estabelecidas na secção anterior
+ou como primitivas ou como definidas (dependendo da especificação).
+Aqui investigamos mais noções topológicas para introduzir, agora
+em termos do que já temos.
+\dterm{pontos de acumulação} de um conjunto,
+\dterm{fecho} de conjunto,
+\dterm{interior} de conjunto.
+Em tudo que segue, $X$ é um espaço topológico, $p$ um ponto dele,
+e $A$ um subconjunto dele.
+
+%%}}}
+
+%%{{{ df: accumulation_point 
+\definition ponto de acumulação.
+%%%{{{ meta 
+\defines
+    * ponto!de acumulação
+    * ponto!de cluster
+    ;;
+\indexes
+    * acumulação    seealso: ponto
+    * cluster       seealso: ponto
+    ;;
+%%%}}}
+
+Dizemos que $p$ é um \dterm{ponto de acumulação} de $A$ sse
+qualquer vizinhança $N_p \in \hoods(p)$ interseta o $A$
+em maneira essencial, ou seja, possui outros pontos de $A$.
+Sinônimos: \dterm{ponto de limite} de $A$, \dterm{ponto de cluster} de $A$.
+
+%%}}}
+
+%%{{{ df: closure 
+\definition fecho.
+%%%{{{ meta 
+\defines
+    * fecho
+    ;;
+\label closure
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ df: derived 
+\definition derivado.
+%%%{{{ meta 
+\defines
+    * derivado
+    ;;
+%%%}}}
+
+Denotamos por $\derived A$ o conjunto de todos os pontos de acumulação de $A$:
+$$
+\derived A \defeq \setstt {x} {$x$ é um ponto de acumulaçào de $A$}.
+$$
+
+%%}}}
+
+%%{{{ df: interior_point 
+\definition ponto interior.
+%%%{{{ meta 
+\defines
+    * interior!ponto
+    ;;
+%%%}}}
+
+Chamamos $p$ de \dterm{ponto interior} de $A$ sse
+$A$ é uma vizinhança de $p$.
+
+%%}}}
+
+%%{{{ df: interior 
+\definition interior.
+%%%{{{ meta 
+\defines
+    * interior
+    ;;
+%%%}}}
+
+O \dterm{interior de $A$}, denotado por $\inte A$,
+é o conjunto de todos os pontos de interior de $A$:
+$$
+\inte A \defeq \setstt {x} {$x$ é ponto interior de $A$}.
+$$
+
+%%}}}
+
+%%{{{ x: open_iff_interior_eq 
+\exercise.
+%%%{{{ meta 
+\label open_iff_interior_eq
+%%%}}}
+
+$\text{$A$ aberto} \iff A = \inte A$.
+
+%%}}}
+
+%%{{{ x: interior_best_open 
+\exercise.
+%%%{{{ meta 
+\label interior_open
+%%%}}}
+
+$\inte A$ é o \emph{melhor} aberto contido no $A$.
+
+%%}}}
+
+%%{{{ df: boundary 
+\definition boundary.
+%%%{{{ meta 
+\defines
+    * boundary
+    ;;
+%%%}}}
+
+Dizemos que $p$ é ponto de fronteira de $A$ sse toda $p$-vizinhança interseta
+ambos os $A$ e $\compl A$.
+Chamamos de \dterm{fronteira} (ou \dterm{boundary}) de $A$
+o conjunto de todos eles e denotamos por
+$$
+\bdry A \defeq \setstt {x} {$x$ é ponto de fronteira de $A$}.
+$$
+
+%%}}}
+
+%%{{{ x: boundary_points_characterization 
+\exercise.
+%%%{{{ meta 
+\label boundary_points_characterization
+%%%}}}
+
+Os pontos de fronteira de $A$ são exatamente os pontos que
+não são interiores nem de $A$ nem de $\compl A$.
+
+%%}}}
+
+%%{{{ x: boundary_eqs_guess 
+\exercise.
+%%%{{{ meta 
+\label boundary_eqs
+%%%}}}
+
+Complete as equações em forma interessante, e demonstre:
+\elist 1:
+\li: $\boundary (\compl A) = \alert?$;
+\li: $\bdry A = \clos A \inter \alert?$;
+\li: $\bdry A = \clos A \setminus \alert?$;
+\li: $\compl {\bdry A} = \alert?$;
+\li: $A \union \bdry A = \alert?$;
+\li: $A \setminus \bdry A = \alert?$.
+\endelist
+
+%%}}}
+
+\spoiler
+
+%%{{{ x: boundary_eqs 
+\exercise.
+%%%{{{ meta 
+\label boundary_eqs
+%%%}}}
+
+Demonstre:
+\elist 1:
+\li: $\boundary A = \boundaryP {\compl A}$;
+\li: $\bdry A = \clos A \inter \closureP {\compl A}$;
+\li: $\bdry A = \clos A \setminus \inte A$;
+\li: $\compl {\bdry A} = \inte A \union \inte {\compl A}$;
+\li: $\clos A = A \union \bdry A$;
+\li: $\inte A = A \setminus \bdry A$.
+\endelist
+
+\hint
+(1) A definição de $\bdry A$ é simétrica nos $A$ e $\compl A$.
+
+%%}}}
+
+\endsection
+%%}}}
+
+%%{{{ Bases 
+\section Bases.
+%%%{{{ meta 
+\label Bases
+%%%}}}
+
+%%{{{ df: local_base 
+\definition base local (de ponto).
+%%%{{{ meta 
+\defines
+    * base local
+    ;;
+\label local_base
+%%%}}}
+
+Sejam $X$ um espaço topológico e $p$ um ponto dele.
+Chamamos uma coleção $\cal B_p$ de $p$-vizinhanças
+de \dterm{base local no $p$} sse
+qualquer $p$-vizinhança contem um membro de $\cal B_p$:
+$$
+\text{$\cal B$ base local no $p$}
+\iff
+\pforall {N_p \in \hoods(p)}
+\lexists {B_p \in \cal B_p}
+{B_p \subset N_p}
+$$
+Também chamamos a $\cal B_p$ de uma \dterm{base para
+o sistema de vizinhanças de $p$}.
+
+%%}}}
+
+%%{{{ df: base 
+\definition base de espaço.
+%%%{{{ meta 
+\defines
+    * base
+    ;;
+\label base
+%%%}}}
+
+Seja $X$ um espaço topológico e $\cal B$ uma coleção
+de abertos.
+Chamamos a $\cal B$ de \dterm{base para a topologia de $X$}
+sse
+para qualquer ponto $p$ e qualquer $p$-vizinhança $N_p$,
+existe membro $B \in \cal B$ tal que
+$$
+\pforall {p \in X}
+\pforall {N_p \in \hoods(p)}
+\lexists {B \in \cal B}
+{p \in B \subset V_p}
+$$
+
+%%}}}
+
+%%{{{ criterion: base_criterion 
+\criterion.
+%%%{{{ meta 
+\label base_criterion
+%%%}}}
+
+Seja $X$ um espaço topológico e $\cal B$ uma coleção
+de abertos.
+$$
+\text{$\cal B$ base}
+\iff
+\text{todo $X$-aberto é união de membros de $\cal B$}.
+$$
+
+\proof Demonstrarás agora no~\ref[base_criterion_proof].
+
+%%}}}
+
+%%{{{ x: base_criterion_proof 
+\exercise.
+%%%{{{ meta 
+\label base_criterion_proof
+%%%}}}
+
+Demonstre o~\ref[base_criterion].
+
+%%}}}
+
+%%{{{ countability 
+\note Contabilidade.
+%%%{{{ meta 
+\label countability
+%%%}}}
+
+Olhando na cardinalidades de bases chegamos em duas propriedades
+destacáveis de certos espaços topológicos, com os nomes (infelizes)
+primeiro-contável e segundo-contável:
+
+%%}}}
+
+%%{{{ df: first_countable 
+\definition primeiro-.
+%%%{{{ meta 
+\defines
+    * primeiro-contável
+    ;;
+\label first_countable
+%%%}}}
+
+Um espaço topológico é \dterm{primeiro-contável}
+sse todo ponto possui uma base local contável.
+
+%%}}}
+
+%%{{{ df: second_countable 
+\definition segundo-.
+%%%{{{ meta 
+\defines
+    * segundo-contável
+    ;;
+\label second_countable
+%%%}}}
+
+Um espaço topológico é \dterm{segundo-contável}
+sse ele possui uma base contável.
+
+%%}}}
+
+%%{{{ x: snd_countable_implies_fst_countable 
+\exercise.
+%%%{{{ meta 
+\label snd_countable_implies_fst_countable
+%%%}}}
+
+Seja $X$ espaço topológico.
+$$
+\text{$X$ segundo-contável}
+\implies
+\text{$X$ primeiro-contável}.
+$$
+
+%%}}}
 
 \endsection
 %%}}}
@@ -85773,6 +86103,24 @@ primitiva a operação de \dterm{interior}.
 \label Topological_spaces
 %%%}}}
 
+%%{{{ Sierpinski_space 
+\note Sierpinski.
+%%%{{{ meta 
+\label arrows_topology
+\credits
+    * Sierpinski : espaço
+    ;;
+%%%}}}
+
+O espaço de Sierpiński possui só dois pontos: $\bottom, \top$, e sua topologia
+considera o $\set {\top}$ de aberto além dos $\emptyset$ e $\set{\bottom,\top}$,
+que é obrigada a considerar abertos também:
+$$
+\opens \defeq \set { \emptyset, \set {\top}, \set {\bottom, \top} }.
+$$
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -85782,10 +86130,10 @@ primitiva a operação de \dterm{interior}.
 \label Continuity
 %%%}}}
 
-%%{{{ Arrows_topology 
+%%{{{ arrows_topology 
 \note Cadê as setas?.
 %%%{{{ meta 
-\label Arrows_topology
+\label arrows_topology
 \indexes
     * setas : topologia
     ;;
@@ -85806,7 +86154,7 @@ concordar com a definição que já temos.
 %%}}}
 
 %%{{{ df: continuous_at_point_in_topology
-\definition contínua.
+\definition contínua em ponto.
 %%%{{{ meta 
 \defines
     * função!contínua em ponto
@@ -85817,7 +86165,7 @@ concordar com a definição que já temos.
 Sejam $p \in X \toby f Y$.
 Dizemos que $f$ é \dterm{contínua no $p$} sse
 para toda vizinhança $E$ de $f\fa p$,
-existe vizinhança $D$ de $p$ tal que $f \img D \subset E$.
+existe vizinhança $D$ de $p$ tal que $\img f D \subset E$.
 
 %%}}}
 
@@ -85846,7 +86194,7 @@ os pontinhos dos espaços envolvidos:
 Sejam $X \toby f Y$.
 Dizemos que $f$ é \dterm{contínua no $t$} sse
 $f$ reflete os abertos, ou seja:
-para qualquer $Y$-aberto $U \ni t$, $\pre f U$
+para qualquer $Y$-aberto $V \ni f\fa t$, $\pre f V$
 é $X$-aberto.
 
 %%}}}
@@ -85874,9 +86222,52 @@ Sejam $X \toby f Y$.
 Os seguintes são equivalentes:
 \tlist:
 \li (i):   $f$ contínua;
-\li (ii):  para todo $A\subset X$, $f \img {\clos A} \subset \closureP{f \img A}$;
+\li (ii):  para todo $A\subset X$, $\img f {\clos A} \subset \closureP{\img f A}$;
 \li (iii): $f$ reflete os fechados.
 \endtlist
+
+%%}}}
+
+%%{{{ x: continuous_are_arrows 
+\exercise.
+%%%{{{ meta 
+\label continuous_are_arrows
+%%%}}}
+
+Mostre que as funções continuas servem como setas.
+
+\hint
+Precisa demonstrar que as leis de categorias são satisfeitas
+considerando como objetos espaços topológicos e como setas
+funções contínuas.
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+O erro mais comum sobre a definição de continua é pensar
+que ela \emph{preserva} em vez de \emph{refletir} os opens.
+De fato, esse conceito tem seu próprio nome:
+
+%%}}}
+
+%%{{{ df: open_map 
+\definition mapa aberto.
+%%%{{{ meta 
+\defines
+    * aberto!mapa
+    ;;
+\label open_map
+%%%}}}
+
+Sejam $X \toby f Y$.
+Dizemos que $f$ é um \dterm{mapa aberto} sse
+$f$ preserva os abertos, ou seja:
+para qualquer $X$-aberto $U \ni t$, $\img f U$
+é $Y$-aberto.
 
 %%}}}
 
@@ -85889,6 +86280,114 @@ Os seguintes são equivalentes:
 \label Topology_constructions
 %%%}}}
 
+%%{{{ extreme_topologies 
+\note Dois extremos: discreta e indiscreta.
+%%%{{{ meta 
+\label extreme_topologies
+\defines
+    * topologia!discreta
+    * topologia!indiscreta
+    ;;
+\indexes
+    * discreta     seealso: topologia
+    * indiscreta   seealso: topologia
+    ;;
+%%%}}}
+
+Qualquer topologia num conjunto $X$ é obrigada considerar
+os $\emptyset$ e $X$ abertos.
+Quando esses são os únicos abertos, chamamos a topologia \dterm{indiscreta}:
+$$
+\set { \emptyset, X }.
+$$
+Por outro lado extremo, a topologia que considera \emph{todos} os conjuntos abertos é a \dterm{discreta}:
+$$
+\pset X.
+$$
+Ass
+
+%%}}}
+
+%%{{{ subbase_topology 
+\note Subbase.
+%%%{{{ meta 
+\label subbase_topology
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ sum_topology 
+\note Soma.
+%%%{{{ meta 
+\label sum_topology
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ product_topology 
+\note Produto.
+%%%{{{ meta 
+\label product_topology
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ box_topology 
+\exercise Box.
+%%%{{{ meta 
+\label box_topology
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ sum_topology 
+\note Soma.
+%%%{{{ meta 
+\label sum_topology
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ quotient_topology 
+\note Quociente.
+%%%{{{ meta 
+\label quotient_topology
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ poset_topology 
+\note Poset.
+%%%{{{ meta 
+\label poset_topology
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
+%%{{{ order_topology 
+\note Ordem.
+%%%{{{ meta 
+\label ordem_topology
+%%%}}}
+
+\TODO Escrever.
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -85898,6 +86397,79 @@ Os seguintes são equivalentes:
 \label Compactness
 %%%}}}
 
+%%{{{ df: compact_set 
+\definition compacto.
+%%%{{{ meta 
+\defines
+    * compacto
+    ;;
+\label compact_set
+%%%}}}
+
+Sejam $X$ espaço topológico e $K \subset X$.
+Dizemos que $K$ é \dterm{compacto} sse
+cada cobertura aberta de $K$ possui subcobertura aberta finita.
+
+%%}}}
+
+%%{{{ beware: compactness_is_not 
+\beware O que compacidade não é.
+%%%{{{ meta 
+\label compactness_is_not
+%%%}}}
+
+É comum pensar que o desafio é encontrar uma cobertura finita.
+Isso seria trivial: dá para achar cobertura não apenas finita,
+mas usando só um aberto até: a $\set {X}$ é de fato uma cobertura
+aberta de $K$ (qualquer que seja esse $K$), feita por um conjunto
+aberto só.
+O desafio é conseguir achar uma \emph{subcobertura finita}
+de uma dada \emph{cobertura} (escolhida por teu inimigo).
+O jogo então é o seguinte: eu escolho uma cobertura,
+e tu escolha uma subcobertura da minha.
+Para defender que um conjunto é compacto então, precisa achar
+uma estratégia vencedora para esse jogo.
+
+%%}}}
+
+%%{{{ eg: reals_is_compact 
+\example.
+%%%{{{ meta 
+\label reals_is_compact
+%%%}}}
+
+Considere a reta dos reais $\reals$, com sua topologia comum.
+Se eu escolher 
+
+%%}}}
+
+%%{{{ blah 
+\blah.
+%%%{{{ meta 
+%%%}}}
+
+Relaxando o finito para contável chegamos no conceito de espaço de Lindelöf:
+
+%%}}}
+
+%%{{{ df: Lindelof_space 
+\definition Lindelöf.
+%%%{{{ meta 
+\defines
+    * Lindelöf
+    ;;
+\credits
+    * Lindelof : space
+    ;;
+\label Lindelof_space
+%%%}}}
+
+Sejam $X$ espaço topológico e $L \subset X$.
+Dizemos que $L$ é \dterm{Lindelöf} sse
+cada cobertura aberta de $L$ possui subcobertura aberta contável.
+
+%%}}}
+
 \endsection
 %%}}}
 
@@ -85906,6 +86478,87 @@ Os seguintes são equivalentes:
 %%%{{{ meta 
 \label Connectedness
 %%%}}}
+
+%%{{{ df: connected_space 
+\definition conexo.
+%%%{{{ meta 
+\defines
+    * conexo
+    ;;
+\label connected_space
+%%%}}}
+
+Seja $X$ espaço topológico.
+Dizemos que $X$ é \dterm{conexo} sse
+$X$ não pode ser escrito como união
+de dois conjuntos disjuntos, abertos, e habitados.
+
+%%}}}
+
+%%{{{ x: connected_iff_clopens 
+\exercise.
+%%%{{{ meta 
+\label connected_iff_clopens
+%%%}}}
+
+Para qualquer espaço topológico $X$,
+$$
+\text{$X$ conexo} \iff \text{os únicos clopens de $X$ são os: $\emptyset, X$}.
+$$
+
+%%}}}
+
+%%{{{ df: path 
+\definition caminho.
+%%%{{{ meta 
+\defines
+    * caminho!em espaço topológico
+    ;;
+\label path
+%%%}}}
+
+Sejam $a,b$ pontos de um espaço topológico $X$.
+Chamamos de \dterm{caminho de $a$ para $b$} qualquer
+função continua $f : \Ival \to X$ que satisfaz:
+\mathcols 2
+f\fa 0 &= a; &
+f\fa 1 &= b.
+\endmathcols
+Costumamos visualizar tais caminhos como um ponto
+móvel num intervalo de tempo onde $f\fa t$ representa
+a posição do ponto no tempo $t$ e onde tal movimento
+começa no $a = f\fa 0$ e termina no $b = f\fa 1$.
+
+%%}}}
+
+%%{{{ df: path_connected 
+\definition conexo por caminho.
+%%%{{{ meta 
+\defines
+    * conexo!por caminho
+    ;;
+\label path_connected
+%%%}}}
+
+Seja $X$ espaço topológico.
+Dizemos que $X$ é \dterm{conexo por caminhos} sse
+para quaisquer $a,b \in X$, existe \dterm{caminho}
+de $a$ para $b$ no $X$.
+
+%%}}}
+
+%%{{{ x: path_connected_implies_connected 
+\exercise.
+%%%{{{ meta 
+\label path_connected_implies_connected
+%%%}}}
+
+Para qualquer espaço topológico $X$,
+$$
+\text{$X$ conexo por caminhos} \implies \text{$X$ conexo}.
+$$
+
+%%}}}
 
 \endsection
 %%}}}
@@ -86095,15 +86748,6 @@ TODO.
 \section Convergências.
 %%%{{{ meta 
 \label Convergences
-%%%}}}
-
-\endsection
-%%}}}
-
-%%{{{ Countability 
-\section Contabilidade.
-%%%{{{ meta 
-\label Countability
 %%%}}}
 
 \endsection
